@@ -44,8 +44,7 @@ const imageList =(userApp)=>{return [
 const internalImageListOf = (userApp) =>defaultImageListOf(userApp,imageList)
 
 const optionList =(userApp)=>{return [ 
-	  {"title":'完全访问',"value":userApp.fullAccess,"parameterName":"fullAccess"},
-]}
+	]}
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
@@ -126,6 +125,7 @@ const internalSummaryOf = (userApp,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="应用程序图标" style={{wordBreak: 'break-all'}}>{userApp.appIcon}</Description> 
+<Description term="完全访问" style={{wordBreak: 'break-all'}}>{userApp.fullAccess}</Description> 
 <Description term="许可" style={{wordBreak: 'break-all'}}>{userApp.permission}</Description> 
 <Description term="对象类型" style={{wordBreak: 'break-all'}}>{userApp.objectType}</Description> 
 <Description term="对象ID" style={{wordBreak: 'break-all'}}>{userApp.objectId}</Description> 
@@ -161,7 +161,7 @@ class UserAppDashboard extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, quickLinkListMetaInfo, listAccessListMetaInfo, objectAccessListMetaInfo, quickLinkCount, listAccessCount, objectAccessCount } = this.props.userApp
+    const { id,displayName, quickLinkListMetaInfo, listAccessListMetaInfo, quickLinkCount, listAccessCount } = this.props.userApp
     if(!this.props.userApp.class){
       return null
     }
@@ -172,7 +172,6 @@ class UserAppDashboard extends Component {
   		subItems: [
 {name: 'quickLinkList', displayName: window.mtrans('quick_link','user_app.quick_link_list',false) ,viewGroup:'__no_group', type:'quickLink',count:quickLinkCount,addFunction: true, role: 'quickLink', metaInfo: quickLinkListMetaInfo, renderItem: GlobalComponents.QuickLinkBase.renderItemOfList},
 {name: 'listAccessList', displayName: window.mtrans('list_access','user_app.list_access_list',false) ,viewGroup:'__no_group', type:'listAccess',count:listAccessCount,addFunction: true, role: 'listAccess', metaInfo: listAccessListMetaInfo, renderItem: GlobalComponents.ListAccessBase.renderItemOfList},
-{name: 'objectAccessList', displayName: window.mtrans('object_access','user_app.object_access_list',false) ,viewGroup:'__no_group', type:'objectAccess',count:objectAccessCount,addFunction: true, role: 'objectAccess', metaInfo: objectAccessListMetaInfo, renderItem: GlobalComponents.ObjectAccessBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './UserWhiteList.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import UserWhiteListBase from './UserWhiteList.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {UserWhiteListService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -222,19 +224,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {UserWhiteListService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -274,10 +279,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.domain}>
                   {getFieldDecorator('domain', {initialValue: tryinit('domain')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('domain')}
-                    targetType={"domain"} 
-                    requestFunction={UserWhiteListService.requestCandidateDomain} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('domain')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"user_white_list"} 
+		                 targetType={"user_domain"} 
+                 
+                    requestFunction={UserWhiteListService.queryCandidates} useForSearch />
                   	
                  
                   )}

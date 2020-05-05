@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}userDomainManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 
 
@@ -66,6 +74,28 @@ const removeSecUserList = (targetObjectId, parameters) => {
 
 
 
+const addPublicKeyType = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userDomainManager/addPublicKeyType/userDomainId/name/code/tokensExpr/`
+  const userDomainId = targetObjectId
+  const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const updatePublicKeyType = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userDomainManager/updatePublicKeyTypeProperties/userDomainId/id/name/code/tokensExpr/`
+  const userDomainId = targetObjectId
+  const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const removePublicKeyTypeList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userDomainManager/removePublicKeyTypeList/userDomainId/publicKeyTypeIds/tokensExpr/`
+  const requestParameters = { ...parameters, userDomainId: targetObjectId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+
+
 // Filter this out when no functions
 
 const  listFunctions = () => {
@@ -96,9 +126,12 @@ const UserDomainService = { view,
   load,
   addUserWhiteList,
   addSecUser,
+  addPublicKeyType,
   updateUserWhiteList,
   updateSecUser,
+  updatePublicKeyType,
   removeUserWhiteListList,
-  removeSecUserList, listFunctions, saveRequest, processRequest}
+  removeSecUserList,
+  removePublicKeyTypeList, listFunctions, saveRequest, processRequest, queryCandidates}
 export default UserDomainService
 

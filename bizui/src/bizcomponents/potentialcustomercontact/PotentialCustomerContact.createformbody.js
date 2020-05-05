@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './PotentialCustomerContact.createform.less'
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2018-02-10',
+  contactDate: '2019-05-22',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -78,7 +78,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {PotentialCustomerContactService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -89,7 +89,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -101,7 +101,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -185,12 +185,19 @@ class PotentialCustomerContactCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('potentialCustomer')}
-                    targetType={"potentialCustomer"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidatePotentialCustomer}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('potentialCustomer')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"potential_customer_contact"} 
+		                 targetType={"potential_customer"} 
                  
+                    requestFunction={PotentialCustomerContactService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -204,12 +211,19 @@ class PotentialCustomerContactCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('cityPartner')}
-                    targetType={"cityPartner"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidateCityPartner}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('cityPartner')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"potential_customer_contact"} 
+		                 targetType={"city_partner"} 
                  
+                    requestFunction={PotentialCustomerContactService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -223,12 +237,19 @@ class PotentialCustomerContactCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('contactTo')}
-                    targetType={"contactTo"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidateContactTo}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('contactTo')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"potential_customer_contact"} 
+		                 targetType={"potential_customer_contact_person"} 
                  
+                    requestFunction={PotentialCustomerContactService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

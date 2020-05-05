@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}companyTrainingManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
  
@@ -125,6 +133,6 @@ const CompanyTrainingService = { view,
   requestCandidateTrainingCourseType,
   transferToAnotherCompany,
   transferToAnotherInstructor,
-  transferToAnotherTrainingCourseType, listFunctions, saveRequest, processRequest}
+  transferToAnotherTrainingCourseType, listFunctions, saveRequest, processRequest, queryCandidates}
 export default CompanyTrainingService
 

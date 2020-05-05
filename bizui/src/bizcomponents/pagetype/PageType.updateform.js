@@ -296,25 +296,20 @@ class PageTypeUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-            
-        
-          
-            
-
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.footerTab} {...switchFormItemLayout}>
+                <Form.Item label={fieldLabels.footerTab} {...formItemLayout}>
                   {getFieldDecorator('footerTab', {
                     initialValue: selectedRow.footerTab,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.footerTab} />
+                    
                   )}
                 </Form.Item>
               </Col>
 
-                  
-        
+            
+       
         
         
         

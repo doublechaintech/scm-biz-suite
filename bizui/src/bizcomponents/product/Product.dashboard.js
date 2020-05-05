@@ -128,6 +128,7 @@ const internalSummaryOf = (product,targetComponent) =>{
 <Description term="产地" style={{wordBreak: 'break-all'}}>{product.origin}</Description> 
 <Description term="备注" style={{wordBreak: 'break-all'}}>{product.remark}</Description> 
 <Description term="品牌" style={{wordBreak: 'break-all'}}>{product.brand}</Description> 
+
 <Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(product,targetComponent)}

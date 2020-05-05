@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './ConsumerOrderLineItem.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import ConsumerOrderLineItemBase from './ConsumerOrderLineItem.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {ConsumerOrderLineItemService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -203,10 +205,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.bizOrder}>
                {getFieldDecorator('bizOrder', {initialValue: tryinit('bizOrder')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('bizOrder')}
-                 targetType={"bizOrder"} 
-                 requestFunction={ConsumerOrderLineItemService.requestCandidateBizOrder} useForSearch />
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"consumer_order_line_item"} 
+                 targetType={"consumer_order"} 
+                 
+                 
+                 requestFunction={ConsumerOrderLineItemService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -226,19 +234,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {ConsumerOrderLineItemService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -262,10 +273,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.bizOrder}>
                   {getFieldDecorator('bizOrder', {initialValue: tryinit('bizOrder')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={ConsumerOrderLineItemService.requestCandidateBizOrder} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('bizOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"consumer_order_line_item"} 
+		                 targetType={"consumer_order"} 
+                 
+                    requestFunction={ConsumerOrderLineItemService.queryCandidates} useForSearch />
                   	
                  
                   )}

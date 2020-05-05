@@ -17,20 +17,28 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}mobileAppManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 
 
 
 
 const addPage = (targetObjectId, parameters) => {
-  const url = `${PREFIX}mobileAppManager/addPage/mobileAppId/pageTitle/linkToUrl/pageTypeId/tokensExpr/`
+  const url = `${PREFIX}mobileAppManager/addPage/mobileAppId/pageTitle/linkToUrl/pageTypeId/displayOrder/tokensExpr/`
   const mobileAppId = targetObjectId
   const requestParameters = { ...parameters, mobileAppId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updatePage = (targetObjectId, parameters) => {
-  const url = `${PREFIX}mobileAppManager/updatePageProperties/mobileAppId/id/pageTitle/linkToUrl/tokensExpr/`
+  const url = `${PREFIX}mobileAppManager/updatePageProperties/mobileAppId/id/pageTitle/linkToUrl/displayOrder/tokensExpr/`
   const mobileAppId = targetObjectId
   const requestParameters = { ...parameters, mobileAppId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -99,6 +107,6 @@ const MobileAppService = { view,
   updatePage,
   updatePageType,
   removePageList,
-  removePageTypeList, listFunctions, saveRequest, processRequest}
+  removePageTypeList, listFunctions, saveRequest, processRequest, queryCandidates}
 export default MobileAppService
 

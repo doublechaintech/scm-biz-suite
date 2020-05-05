@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}accountingDocumentLineManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateBelongsTo = (ownerClass, id, filterKey, pageNo) => {
  
@@ -83,6 +91,6 @@ const AccountingDocumentLineService = { view,
   requestCandidateBelongsTo,
   requestCandidateAccountingSubject,
   transferToAnotherBelongsTo,
-  transferToAnotherAccountingSubject, listFunctions, saveRequest, processRequest}
+  transferToAnotherAccountingSubject, listFunctions, saveRequest, processRequest, queryCandidates}
 export default AccountingDocumentLineService
 

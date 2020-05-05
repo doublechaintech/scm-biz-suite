@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   title: '审车平台',
   appIcon: 'users',
+  fullAccess: '1',
   permission: 'MXWR',
   objectType: 'CarInspectionPlatform',
   objectId: 'CIP000001',
@@ -80,7 +81,6 @@ class UserAppAssociateForm extends Component {
     
  const {QuickLinkModalTable} = GlobalComponents;
  const {ListAccessModalTable} = GlobalComponents;
- const {ObjectAccessModalTable} = GlobalComponents;
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -162,6 +162,16 @@ class UserAppAssociateForm extends Component {
               </Col>
 
               <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.fullAccess} {...formItemLayout}>
+                  {getFieldDecorator('fullAccess', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.fullAccess} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.permission} {...formItemLayout}>
                   {getFieldDecorator('permission', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
@@ -204,26 +214,7 @@ class UserAppAssociateForm extends Component {
             </Row>
 
 
-        
-
-            <Row gutter={16}>
-            
-
-              <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.fullAccess}  {...switchFormItemLayout}>
-                  {getFieldDecorator('fullAccess', {
-                    initialValue: false,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
        
-        
         
 
 
@@ -265,7 +256,6 @@ class UserAppAssociateForm extends Component {
         
 	<QuickLinkModalTable data={data.quickLinkList} owner={owner} />
 	<ListAccessModalTable data={data.listAccessList} owner={owner} />
-	<ObjectAccessModalTable data={data.objectAccessList} owner={owner} />
         
         
         

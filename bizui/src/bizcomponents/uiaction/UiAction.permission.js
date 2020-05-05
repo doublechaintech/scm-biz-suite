@@ -35,7 +35,9 @@ const internalSummaryOf = (uiAction,targetComponent) =>{
 <Description term="代码">{uiAction.code}</Description> 
 <Description term="图标">{uiAction.icon}</Description> 
 <Description term="头衔">{uiAction.title}</Description> 
+<Description term="顺序">{uiAction.displayOrder}</Description> 
 <Description term="短暂的">{uiAction.brief}</Description> 
+<Description term="图片链接"><ImagePreview imageTitle="图片链接" imageLocation={uiAction.imageUrl}/></Description> 
 <Description term="链接网址">{uiAction.linkToUrl}</Description> 
 	
       </DescriptionList>

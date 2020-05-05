@@ -19,6 +19,7 @@ const { TextArea } = Input
 const imageURLPrefix = '//localhost:2090'
 
 const imageKeys = [
+  'icon',
 ]
 
 
@@ -297,12 +298,12 @@ class SectionUpdateForm extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.icon} {...formItemLayout}>
-                  {getFieldDecorator('icon', {
-                    initialValue: selectedRow.icon,
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    initialValue: selectedRow.displayOrder,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.icon} />
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
                     
                   )}
                 </Form.Item>
@@ -332,18 +333,6 @@ class SectionUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.page} {...formItemLayout}>
-                  {getFieldDecorator('page', {
-                    initialValue: selectedRow.page,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large"  placeHolder={fieldLabels.page} />
-                    
-                  )}
-                </Form.Item>
-              </Col>
-
             
        
         
@@ -360,6 +349,23 @@ class SectionUpdateForm extends Component {
 
 
 
+
+        <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
+          <Form >
+            <Row gutter={16}>
+
+              <Col lg={6} md={12} sm={24}>
+                <ImageComponent
+                  buttonTitle={window.trans('section')}
+                  handlePreview={this.handlePreview}
+                  handleChange={event => this.handleChange(event, 'icon')}
+                  fileList={convertedImagesValues.icon}
+                />
+              </Col>
+
+            </Row>
+          </Form>
+        </Card>
 
         <FooterToolbar>
           {getErrorInfo()}

@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}levelOneCategoryManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateCatalog = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const LevelOneCategoryService = { view,
   updateLevelTwoCategory,
   removeLevelTwoCategoryList,
   requestCandidateCatalog,
-  transferToAnotherCatalog, listFunctions, saveRequest, processRequest}
+  transferToAnotherCatalog, listFunctions, saveRequest, processRequest, queryCandidates}
 export default LevelOneCategoryService
 

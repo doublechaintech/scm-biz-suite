@@ -34,10 +34,10 @@ const internalSummaryOf = (section,targetComponent) =>{
 <Description term="序号">{section.id}</Description> 
 <Description term="头衔">{section.title}</Description> 
 <Description term="短暂的">{section.brief}</Description> 
-<Description term="图标">{section.icon}</Description> 
+<Description term="图标"><ImagePreview imageTitle="图标" imageLocation={section.icon}/></Description> 
+<Description term="顺序">{section.displayOrder}</Description> 
 <Description term="视图组">{section.viewGroup}</Description> 
 <Description term="链接网址">{section.linkToUrl}</Description> 
-<Description term="页面">{section.page}</Description> 
 	
       </DescriptionList>
 	)

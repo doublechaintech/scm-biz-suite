@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './GoodsAllocation.createform.less'
@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
-  latitude: '42.063175813453626',
-  longitude: '129.64456358782212',
+  latitude: '41.06675723753613',
+  longitude: '131.14564692262084',
   goodsShelfId: 'GS000001',
 }
 */
@@ -75,7 +75,7 @@ class GoodsAllocationCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {GoodsAllocationService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +86,7 @@ class GoodsAllocationCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +98,7 @@ class GoodsAllocationCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -172,12 +172,19 @@ class GoodsAllocationCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('goodsShelf')}
-                    targetType={"goodsShelf"} 
-                    requestFunction={GoodsAllocationService.requestCandidateGoodsShelf}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('goodsShelf')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods_allocation"} 
+		                 targetType={"goods_shelf"} 
                  
+                    requestFunction={GoodsAllocationService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

@@ -34,6 +34,7 @@ const internalSummaryOf = (candidateElement,targetComponent) =>{
 <Description term="序号">{candidateElement.id}</Description> 
 <Description term="名称">{candidateElement.name}</Description> 
 <Description term="类型">{candidateElement.type}</Description> 
+<Description term="图片"><ImagePreview imageTitle="图片" imageLocation={candidateElement.image}/></Description> 
 	
       </DescriptionList>
 	)

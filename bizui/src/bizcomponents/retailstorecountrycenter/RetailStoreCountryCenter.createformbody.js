@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStoreCountryCenter.createform.less'
@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
-  founded: '2019-09-22',
+  founded: '2019-06-29',
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',
@@ -79,7 +79,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {RetailStoreCountryCenterService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -90,7 +90,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -102,7 +102,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }

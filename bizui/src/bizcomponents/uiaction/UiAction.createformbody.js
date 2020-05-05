@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './UiAction.createform.less'
@@ -20,8 +20,9 @@ const testValues = {
   code: 'submit',
   icon: 'icon_edit',
   title: '提交',
+  displayOrder: '1',
   brief: 'Submit',
-  linkToUrl: '/section/article/',
+  linkToUrl: 'wxappService/section/article/',
   pageId: 'P000001',
   extraData: '    一段样例文字。    一段样例文字。\n可以分段。可以分段。\n\n可以空行。可以空行。\n\n',
 }
@@ -79,7 +80,7 @@ class UiActionCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {UiActionService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -90,7 +91,7 @@ class UiActionCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -102,7 +103,7 @@ class UiActionCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -167,6 +168,16 @@ class UiActionCreateFormBody extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.brief} {...formItemLayout}>
                   {getFieldDecorator('brief', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
@@ -196,12 +207,19 @@ class UiActionCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('page')}
-                    targetType={"page"} 
-                    requestFunction={UiActionService.requestCandidatePage}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('page')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"ui_action"} 
+		                 targetType={"page"} 
                  
+                    requestFunction={UiActionService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

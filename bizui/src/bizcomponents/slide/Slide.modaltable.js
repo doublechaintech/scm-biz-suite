@@ -38,7 +38,7 @@ class SlideModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 2700 }}
+          scroll={{ x: 2565 }}
         />
       </div>
     )

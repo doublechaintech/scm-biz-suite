@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './AccountingDocument.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import AccountingDocumentBase from './AccountingDocument.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {AccountingDocumentService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -222,19 +224,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {AccountingDocumentService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -266,10 +271,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.accountingPeriod}>
                   {getFieldDecorator('accountingPeriod', {initialValue: tryinit('accountingPeriod')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('accountingPeriod')}
-                    targetType={"accountingPeriod"} 
-                    requestFunction={AccountingDocumentService.requestCandidateAccountingPeriod} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('accountingPeriod')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"accounting_document"} 
+		                 targetType={"accounting_period"} 
+                 
+                    requestFunction={AccountingDocumentService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -278,10 +288,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.documentType}>
                   {getFieldDecorator('documentType', {initialValue: tryinit('documentType')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('documentType')}
-                    targetType={"documentType"} 
-                    requestFunction={AccountingDocumentService.requestCandidateDocumentType} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('documentType')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"accounting_document"} 
+		                 targetType={"accounting_document_type"} 
+                 
+                    requestFunction={AccountingDocumentService.queryCandidates} useForSearch />
                   	
                  
                   )}

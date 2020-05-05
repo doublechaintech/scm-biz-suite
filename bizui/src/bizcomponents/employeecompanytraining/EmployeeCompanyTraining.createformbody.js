@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './EmployeeCompanyTraining.createform.less'
@@ -74,7 +74,7 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {EmployeeCompanyTrainingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -85,7 +85,7 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -97,7 +97,7 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -141,12 +141,19 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeeCompanyTrainingService.requestCandidateEmployee}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('employee')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_company_training"} 
+		                 targetType={"employee"} 
                  
+                    requestFunction={EmployeeCompanyTrainingService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -160,12 +167,19 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('training')}
-                    targetType={"training"} 
-                    requestFunction={EmployeeCompanyTrainingService.requestCandidateTraining}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('training')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_company_training"} 
+		                 targetType={"company_training"} 
                  
+                    requestFunction={EmployeeCompanyTrainingService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -179,12 +193,19 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('scoring')}
-                    targetType={"scoring"} 
-                    requestFunction={EmployeeCompanyTrainingService.requestCandidateScoring}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('scoring')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_company_training"} 
+		                 targetType={"scoring"} 
                  
+                    requestFunction={EmployeeCompanyTrainingService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

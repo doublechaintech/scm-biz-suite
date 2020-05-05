@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}supplierSpaceManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateWarehouse = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const SupplierSpaceService = { view,
   updateGoodsShelf,
   removeGoodsShelfList,
   requestCandidateWarehouse,
-  transferToAnotherWarehouse, listFunctions, saveRequest, processRequest}
+  transferToAnotherWarehouse, listFunctions, saveRequest, processRequest, queryCandidates}
 export default SupplierSpaceService
 

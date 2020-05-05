@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   pageTitle: '首页',
   linkToUrl: '首页',
+  displayOrder: '1',
   pageTypeId: 'home',
   mobileAppId: 'MA000001',
 }

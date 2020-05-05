@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './AccountingPeriod.createform.less'
@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2019-11-30',
-  endDate: '2017-08-05',
+  startDate: '2018-06-16',
+  endDate: '2019-04-16',
   accountSetId: 'AS000001',
 }
 */
@@ -75,7 +75,7 @@ class AccountingPeriodCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {AccountingPeriodService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +86,7 @@ class AccountingPeriodCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +98,7 @@ class AccountingPeriodCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -172,12 +172,19 @@ class AccountingPeriodCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('accountSet')}
-                    targetType={"accountSet"} 
-                    requestFunction={AccountingPeriodService.requestCandidateAccountSet}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('accountSet')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"accounting_period"} 
+		                 targetType={"account_set"} 
                  
+                    requestFunction={AccountingPeriodService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

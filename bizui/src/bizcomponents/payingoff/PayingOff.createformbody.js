@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './PayingOff.createform.less'
@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-  paidTime: '2018-09-27',
-  amount: '4037.79',
+  paidTime: '2019-06-17',
+  amount: '4009.15',
   paidForId: 'E000001',
 }
 */
@@ -75,7 +75,7 @@ class PayingOffCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {PayingOffService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +86,7 @@ class PayingOffCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +98,7 @@ class PayingOffCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -172,12 +172,19 @@ class PayingOffCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('paidFor')}
-                    targetType={"paidFor"} 
-                    requestFunction={PayingOffService.requestCandidatePaidFor}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('paidFor')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"paying_off"} 
+		                 targetType={"employee"} 
                  
+                    requestFunction={PayingOffService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}retailStoreManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateRetailStoreCountryCenter = (ownerClass, id, filterKey, pageNo) => {
  
@@ -310,6 +318,6 @@ const RetailStoreService = { view,
   transferToAnotherFranchising,
   transferToAnotherDecoration,
   transferToAnotherOpening,
-  transferToAnotherClosing, listFunctions, saveRequest, processRequest}
+  transferToAnotherClosing, listFunctions, saveRequest, processRequest, queryCandidates}
 export default RetailStoreService
 

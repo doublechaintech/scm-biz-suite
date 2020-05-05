@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './ReceivingSpace.createform.less'
@@ -21,8 +21,8 @@ const testValues = {
   contactNumber: '028 87654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-  latitude: '41.585422447617816',
-  longitude: '130.29322651339237',
+  latitude: '41.41394936259771',
+  longitude: '129.8946939576282',
   warehouseId: 'W000001',
 }
 */
@@ -78,7 +78,7 @@ class ReceivingSpaceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {ReceivingSpaceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -89,7 +89,7 @@ class ReceivingSpaceCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -101,7 +101,7 @@ class ReceivingSpaceCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -205,12 +205,19 @@ class ReceivingSpaceCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('warehouse')}
-                    targetType={"warehouse"} 
-                    requestFunction={ReceivingSpaceService.requestCandidateWarehouse}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('warehouse')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"receiving_space"} 
+		                 targetType={"warehouse"} 
                  
+                    requestFunction={ReceivingSpaceService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

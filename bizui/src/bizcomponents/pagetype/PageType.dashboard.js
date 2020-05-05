@@ -44,8 +44,7 @@ const imageList =(pageType)=>{return [
 const internalImageListOf = (pageType) =>defaultImageListOf(pageType,imageList)
 
 const optionList =(pageType)=>{return [ 
-	  {"title":'页脚选项卡',"value":pageType.footerTab,"parameterName":"footerTab"},
-]}
+	]}
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
@@ -120,6 +119,7 @@ const internalSummaryOf = (pageType,targetComponent) =>{
 <Description term="序号" style={{wordBreak: 'break-all'}}>{pageType.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{pageType.name}</Description> 
 <Description term="代码" style={{wordBreak: 'break-all'}}>{pageType.code}</Description> 
+<Description term="页脚选项卡" style={{wordBreak: 'break-all'}}>{pageType.footerTab}</Description> 
 	
         {buildTransferModal(pageType,targetComponent)}
       </DescriptionList>

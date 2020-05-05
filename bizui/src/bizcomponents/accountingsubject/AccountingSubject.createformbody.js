@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './AccountingSubject.createform.less'
@@ -76,7 +76,7 @@ class AccountingSubjectCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {AccountingSubjectService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -87,7 +87,7 @@ class AccountingSubjectCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -99,7 +99,7 @@ class AccountingSubjectCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -183,12 +183,19 @@ class AccountingSubjectCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('accountSet')}
-                    targetType={"accountSet"} 
-                    requestFunction={AccountingSubjectService.requestCandidateAccountSet}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('accountSet')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"accounting_subject"} 
+		                 targetType={"account_set"} 
                  
+                    requestFunction={AccountingSubjectService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

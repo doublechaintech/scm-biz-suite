@@ -59,7 +59,7 @@ const fieldLabels = {
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'supplierProduct') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '6', render: (text, record)=>renderTextCell(text,record,'supplierProduct') , sorter: true },
   { title: fieldLabels.productName, debugtype: 'string', dataIndex: 'productName', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.productDescription, debugtype: 'string', dataIndex: 'productDescription', width: '17',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.productUnit, debugtype: 'string', dataIndex: 'productUnit', width: '6',render: (text, record)=>renderTextCell(text,record)},
@@ -87,7 +87,7 @@ const leftChars=(value, left)=>{
 	return value.substring(0,chars);
 }
 
-const renderReferenceItem=(value, targetComponent)=>{
+const renderTextItem=(value, label, targetComponent)=>{
 	const userContext = null
 	if(!value){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
@@ -99,13 +99,50 @@ const renderReferenceItem=(value, targetComponent)=>{
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
 	
-	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
-	
-	
-	
-	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
-const renderItemOfList=(supplierProduct, targetComponent, columCount)=>{
+const renderImageItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	
+	return <ImagePreview title={label} imageLocation={value}/>
+}
+
+const renderDateItem=(value, label,targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return moment(value).format('YYYY-MM-DD');
+}
+
+const renderDateTimeItem=(value,label, targetComponent)=>{
+	const userContext = window.userContext
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return  moment(value).format('YYYY-MM-DD HH:mm')
+}
+
+
+const renderReferenceItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
+}
+
+const renderItemOfList=(supplierProduct, targetComponent, columCount, listName)=>{
   
   if(!supplierProduct){
   	return null
@@ -118,7 +155,7 @@ const renderItemOfList=(supplierProduct, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`supplierProduct-${supplierProduct.id}`} style={{marginTop:"10px"}}>
+    <Card key={`${listName}-${supplierProduct.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>

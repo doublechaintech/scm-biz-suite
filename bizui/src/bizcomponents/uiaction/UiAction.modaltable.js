@@ -38,7 +38,7 @@ class UiActionModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1950 }}
+          scroll={{ x: 2145 }}
         />
       </div>
     )

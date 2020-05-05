@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './LevelOneDepartment.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import LevelOneDepartmentBase from './LevelOneDepartment.base'
 const FormItem = Form.Item
@@ -171,18 +171,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {LevelOneDepartmentService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -204,10 +206,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.belongsTo}>
                {getFieldDecorator('belongsTo', {initialValue: tryinit('belongsTo')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('belongsTo')}
-                 targetType={"belongsTo"} 
-                 requestFunction={LevelOneDepartmentService.requestCandidateBelongsTo} useForSearch />
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"level_one_department"} 
+                 targetType={"retail_store_country_center"} 
+                 
+                 
+                 requestFunction={LevelOneDepartmentService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -227,19 +235,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {LevelOneDepartmentService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -263,10 +274,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.belongsTo}>
                   {getFieldDecorator('belongsTo', {initialValue: tryinit('belongsTo')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('belongsTo')}
-                    targetType={"belongsTo"} 
-                    requestFunction={LevelOneDepartmentService.requestCandidateBelongsTo} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('belongsTo')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"level_one_department"} 
+		                 targetType={"retail_store_country_center"} 
+                 
+                    requestFunction={LevelOneDepartmentService.queryCandidates} useForSearch />
                   	
                  
                   )}

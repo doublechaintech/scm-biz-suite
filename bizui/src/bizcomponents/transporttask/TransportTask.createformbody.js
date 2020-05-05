@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './TransportTask.createform.less'
@@ -19,9 +19,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2018-09-29',
-  latitude: '42.27886648879816',
-  longitude: '131.82952079947313',
+  beginTime: '2019-10-24',
+  latitude: '41.97188020922795',
+  longitude: '130.71310933121308',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -80,7 +80,7 @@ class TransportTaskCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {TransportTaskService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -91,7 +91,7 @@ class TransportTaskCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -103,7 +103,7 @@ class TransportTaskCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -197,12 +197,19 @@ class TransportTaskCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('end')}
-                    targetType={"end"} 
-                    requestFunction={TransportTaskService.requestCandidateEnd}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('end')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"transport_task"} 
+		                 targetType={"retail_store"} 
                  
+                    requestFunction={TransportTaskService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -216,12 +223,19 @@ class TransportTaskCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('driver')}
-                    targetType={"driver"} 
-                    requestFunction={TransportTaskService.requestCandidateDriver}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('driver')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"transport_task"} 
+		                 targetType={"truck_driver"} 
                  
+                    requestFunction={TransportTaskService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -235,12 +249,19 @@ class TransportTaskCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('truck')}
-                    targetType={"truck"} 
-                    requestFunction={TransportTaskService.requestCandidateTruck}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('truck')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"transport_task"} 
+		                 targetType={"transport_truck"} 
                  
+                    requestFunction={TransportTaskService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -254,12 +275,19 @@ class TransportTaskCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('belongsTo')}
-                    targetType={"belongsTo"} 
-                    requestFunction={TransportTaskService.requestCandidateBelongsTo}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('belongsTo')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"transport_task"} 
+		                 targetType={"transport_fleet"} 
                  
+                    requestFunction={TransportTaskService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

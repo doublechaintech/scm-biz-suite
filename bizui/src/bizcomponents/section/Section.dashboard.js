@@ -39,7 +39,8 @@ const { Option } = Select
 
 
 const imageList =(section)=>{return [
-	 ]}
+	   {"title":'图标',"imageLocation":section.icon},
+]}
 
 const internalImageListOf = (section) =>defaultImageListOf(section,imageList)
 
@@ -119,10 +120,16 @@ const internalSummaryOf = (section,targetComponent) =>{
 <Description term="序号" style={{wordBreak: 'break-all'}}>{section.id}</Description> 
 <Description term="头衔" style={{wordBreak: 'break-all'}}>{section.title}</Description> 
 <Description term="短暂的" style={{wordBreak: 'break-all'}}>{section.brief}</Description> 
-<Description term="图标" style={{wordBreak: 'break-all'}}>{section.icon}</Description> 
+
+<Description term="顺序" style={{wordBreak: 'break-all'}}>{section.displayOrder}</Description> 
 <Description term="视图组" style={{wordBreak: 'break-all'}}>{section.viewGroup}</Description> 
 <Description term="链接网址" style={{wordBreak: 'break-all'}}>{section.linkToUrl}</Description> 
-<Description term="页面" style={{wordBreak: 'break-all'}}>{section.page}</Description> 
+<Description term="页面">{section.page==null?appLocaleName(userContext,"NotAssigned"):`${section.page.displayName}(${section.page.id})`}
+ <Icon type="swap" onClick={()=>
+  showTransferModel(targetComponent,"页面","page",SectionService.requestCandidatePage,
+	      SectionService.transferToAnotherPage,"anotherPageId",section.page?section.page.id:"")} 
+  style={{fontSize: 20,color:"red"}} />
+</Description>
 	
         {buildTransferModal(section,targetComponent)}
       </DescriptionList>

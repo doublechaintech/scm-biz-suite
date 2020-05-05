@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  subCount: '9',
-  amount: '7.78',
+  subCount: '10',
+  amount: '7.97',
   ownerId: 'RSCC000001',
 }
 */

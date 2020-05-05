@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './StorageSpace.createform.less'
@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区',
   contactNumber: '028 87654321',
   totalArea: '1876平方米',
-  latitude: '41.61992391262157',
-  longitude: '131.19404651490336',
+  latitude: '41.484070770669334',
+  longitude: '131.14186149239933',
   warehouseId: 'W000001',
 }
 */
@@ -77,7 +77,7 @@ class StorageSpaceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {StorageSpaceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -88,7 +88,7 @@ class StorageSpaceCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -100,7 +100,7 @@ class StorageSpaceCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -194,12 +194,19 @@ class StorageSpaceCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('warehouse')}
-                    targetType={"warehouse"} 
-                    requestFunction={StorageSpaceService.requestCandidateWarehouse}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('warehouse')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"storage_space"} 
+		                 targetType={"warehouse"} 
                  
+                    requestFunction={StorageSpaceService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

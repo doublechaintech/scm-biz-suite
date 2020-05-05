@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}goodsShelfStockCountManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateShelf = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const GoodsShelfStockCountService = { view,
   updateStockCountIssueTrack,
   removeStockCountIssueTrackList,
   requestCandidateShelf,
-  transferToAnotherShelf, listFunctions, saveRequest, processRequest}
+  transferToAnotherShelf, listFunctions, saveRequest, processRequest, queryCandidates}
 export default GoodsShelfStockCountService
 

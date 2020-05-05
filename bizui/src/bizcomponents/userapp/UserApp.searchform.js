@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './UserApp.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import UserAppBase from './UserApp.base'
 const FormItem = Form.Item
@@ -174,18 +174,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {UserAppService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -226,19 +228,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {UserAppService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -270,10 +275,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.secUser}>
                   {getFieldDecorator('secUser', {initialValue: tryinit('secUser')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('secUser')}
-                    targetType={"secUser"} 
-                    requestFunction={UserAppService.requestCandidateSecUser} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('secUser')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"user_app"} 
+		                 targetType={"sec_user"} 
+                 
+                    requestFunction={UserAppService.queryCandidates} useForSearch />
                   	
                  
                   )}

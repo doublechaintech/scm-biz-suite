@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './ProvinceCenterEmployee.createform.less'
@@ -20,7 +20,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2018-05-02',
+  founded: '2017-10-09',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -77,7 +77,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {ProvinceCenterEmployeeService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -88,7 +88,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -100,7 +100,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -184,12 +184,19 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('department')}
-                    targetType={"department"} 
-                    requestFunction={ProvinceCenterEmployeeService.requestCandidateDepartment}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('department')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"province_center_employee"} 
+		                 targetType={"province_center_department"} 
                  
+                    requestFunction={ProvinceCenterEmployeeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -203,12 +210,19 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('provinceCenter')}
-                    targetType={"provinceCenter"} 
-                    requestFunction={ProvinceCenterEmployeeService.requestCandidateProvinceCenter}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('provinceCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"province_center_employee"} 
+		                 targetType={"retail_store_province_center"} 
                  
+                    requestFunction={ProvinceCenterEmployeeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

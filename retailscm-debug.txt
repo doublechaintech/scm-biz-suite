@@ -836,6 +836,7 @@ Id|序号
 Page Title|页面标题
 Link To Url|链接网址
 Page Type|页面类型
+Display Order|顺序
 Mobile App|手机应用程序
 Version|版本
 Page Type|页面类型
@@ -847,8 +848,8 @@ Footer Tab|页脚选项卡
 Version|版本
 Slide|轮播内容
 Id|序号
-Display Order|顺序
 Name|名称
+Display Order|顺序
 Image Url|图片链接
 Video Url|视频网址
 Link To Url|链接网址
@@ -859,6 +860,7 @@ Id|序号
 Code|代码
 Icon|图标
 Title|头衔
+Display Order|顺序
 Brief|短暂的
 Image Url|图片链接
 Link To Url|链接网址
@@ -870,6 +872,7 @@ Id|序号
 Title|头衔
 Brief|短暂的
 Icon|图标
+Display Order|顺序
 View Group|视图组
 Link To Url|链接网址
 Page|页面
@@ -929,73 +932,12 @@ Update Permission|更新权限
 Execution Permission|执行权限
 App|应用程序
 Version|版本
-Object Access|对象访问
-Id|序号
-Name|名称
-Object Type|对象类型
-List1|表
-List2|清单
-List3|目录3
-List4|清单
-List5|列表6
-List6|list6
-List7|list7
-List8|list8
-List9|list9
-App|应用程序
-Version|版本
 Login History|登录历史
 Id|序号
 Login Time|登录时间
 From Ip|从IP
 Description|描述
 Sec User|SEC的用户
-Version|版本
-Generic Form|通用的形式
-Id|序号
-Title|头衔
-Description|描述
-Version|版本
-Form Message|表单信息
-Id|序号
-Title|头衔
-Form|形式
-Level|水平
-Version|版本
-Form Field Message|表单字段的信息
-Id|序号
-Title|头衔
-Parameter Name|参数名称
-Form|形式
-Level|水平
-Version|版本
-Form Field|表单字段
-Id|序号
-Label|标签
-Locale Key|语言环境的关键
-Parameter Name|参数名称
-Type|类型
-Form|形式
-Placeholder|占位符
-Default Value|默认值
-Description|描述
-Field Group|字段组
-Minimum Value|最小值
-Maximum Value|最大值
-Required|要求
-Disabled|禁用
-Custom Rendering|自定义渲染
-Candidate Values|候选人的价值观
-Suggest Values|建议值
-Version|版本
-Form Action|表单动作
-Id|序号
-Label|标签
-Locale Key|语言环境的关键
-Action Key|行动的关键
-Level|水平
-Url|url
-Form|形式
 Version|版本
 Candidate Container|候选人容器
 Id|序号
@@ -1023,6 +965,19 @@ App Id|应用程序Id
 Sec User|SEC的用户
 Create Time|创建时间
 Last Login Time|最后登录时间
+Version|版本
+Keypair Identify|密钥对识别
+Id|序号
+Public Key|公钥
+Key Type|密钥类型
+Sec User|SEC的用户
+Create Time|创建时间
+Version|版本
+Public Key Type|公共密钥类型
+Id|序号
+Name|名称
+Code|代码
+Domain|域
 Version|版本
 Tree Node|树节点
 Id|序号
@@ -1180,18 +1135,17 @@ Transfer to Another Mobile App|转移到移动App
 Transfer to Another Mobile App|转移到移动App
 Transfer to Another Page|转到页
 Transfer to Another Page|转到页
+Transfer to Another Page|转到页
 Transfer to Another Domain|转移到域
 Transfer to Another Domain|转移到域
 Transfer to Another Sec User|传输给Sec用户
 Transfer to Another App|转移到应用程序
 Transfer to Another App|转移到应用程序
-Transfer to Another App|转移到应用程序
 Transfer to Another Sec User|传输给Sec用户
-Transfer to Another Form|转移到形式
-Transfer to Another Form|转移到形式
-Transfer to Another Form|转移到形式
-Transfer to Another Form|转移到形式
 Transfer to Another Container|转移到容器
 Transfer to Another Sec User|传输给Sec用户
 Transfer to Another Sec User|传输给Sec用户
+Transfer to Another Key Type|转换为键类型
+Transfer to Another Sec User|传输给Sec用户
+Transfer to Another Domain|转移到域
 

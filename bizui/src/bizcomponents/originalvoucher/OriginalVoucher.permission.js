@@ -36,6 +36,7 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 <Description term="由">{originalVoucher.madeBy}</Description> 
 <Description term="受">{originalVoucher.receivedBy}</Description> 
 <Description term="凭证类型">{originalVoucher.voucherType}</Description> 
+<Description term="凭证图像"><ImagePreview imageTitle="凭证图像" imageLocation={originalVoucher.voucherImage}/></Description> 
 	
       </DescriptionList>
 	)

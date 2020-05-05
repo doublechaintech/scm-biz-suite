@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}employeeManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
  
@@ -434,6 +442,6 @@ const EmployeeService = { view,
   transferToAnotherDepartment,
   transferToAnotherOccupation,
   transferToAnotherResponsibleFor,
-  transferToAnotherCurrentSalaryGrade, listFunctions, saveRequest, processRequest}
+  transferToAnotherCurrentSalaryGrade, listFunctions, saveRequest, processRequest, queryCandidates}
 export default EmployeeService
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './Employee.createform.less'
@@ -84,7 +84,7 @@ class EmployeeCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {EmployeeService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -95,7 +95,7 @@ class EmployeeCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -107,7 +107,7 @@ class EmployeeCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -231,12 +231,19 @@ class EmployeeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('company')}
-                    targetType={"company"} 
-                    requestFunction={EmployeeService.requestCandidateCompany}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('company')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee"} 
+		                 targetType={"retail_store_country_center"} 
                  
+                    requestFunction={EmployeeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -250,12 +257,19 @@ class EmployeeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('department')}
-                    targetType={"department"} 
-                    requestFunction={EmployeeService.requestCandidateDepartment}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('department')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee"} 
+		                 targetType={"level_three_department"} 
                  
+                    requestFunction={EmployeeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -269,12 +283,19 @@ class EmployeeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('occupation')}
-                    targetType={"occupation"} 
-                    requestFunction={EmployeeService.requestCandidateOccupation}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('occupation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee"} 
+		                 targetType={"occupation_type"} 
                  
+                    requestFunction={EmployeeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -288,12 +309,19 @@ class EmployeeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('responsibleFor')}
-                    targetType={"responsibleFor"} 
-                    requestFunction={EmployeeService.requestCandidateResponsibleFor}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('responsibleFor')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee"} 
+		                 targetType={"responsibility_type"} 
                  
+                    requestFunction={EmployeeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -307,12 +335,19 @@ class EmployeeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('currentSalaryGrade')}
-                    targetType={"currentSalaryGrade"} 
-                    requestFunction={EmployeeService.requestCandidateCurrentSalaryGrade}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('currentSalaryGrade')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee"} 
+		                 targetType={"salary_grade"} 
                  
+                    requestFunction={EmployeeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

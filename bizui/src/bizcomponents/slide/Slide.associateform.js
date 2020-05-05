@@ -18,8 +18,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  displayOrder: '1',
   name: '首页Focus的内容',
+  displayOrder: '1',
   linkToUrl: '',
   pageId: 'P000001',
 }
@@ -138,21 +138,21 @@ class SlideAssociateForm extends Component {
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
-                  {getFieldDecorator('displayOrder', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large"  placeHolder={fieldLabels.name} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
                   )}
                 </Form.Item>
               </Col>

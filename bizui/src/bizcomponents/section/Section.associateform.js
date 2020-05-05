@@ -20,15 +20,16 @@ const testValues = {};
 const testValues = {
   title: '文章',
   brief: 'Article',
-  icon: 'icon_edit',
+  displayOrder: '1',
   viewGroup: 'icon_edit',
-  linkToUrl: '/section/article/',
-  page: '${page}',
+  linkToUrl: 'wxappService/section/article/',
+  pageId: 'P000001',
 }
 */
 
 
 const imageKeys = [
+  'icon',
 ]
 
 
@@ -158,11 +159,11 @@ class SectionAssociateForm extends Component {
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.icon} {...formItemLayout}>
-                  {getFieldDecorator('icon', {
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.icon} />
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
                   )}
                 </Form.Item>
               </Col>
@@ -187,16 +188,6 @@ class SectionAssociateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.page} {...formItemLayout}>
-                  {getFieldDecorator('page', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large"  placeHolder={fieldLabels.page} />
-                  )}
-                </Form.Item>
-              </Col>
-
             </Row>
 
 
@@ -209,7 +200,44 @@ class SectionAssociateForm extends Component {
 
 
 
+       
+            <Row gutter={16}>
 
+              <Col lg={6} md={12} sm={24}>
+                <ImageComponent
+                  buttonTitle="图标"
+                  handlePreview={this.handlePreview}
+                  handleChange={event => this.handleChange(event, 'icon')}
+                  fileList={convertedImagesValues.icon}
+                />
+              </Col>
+
+            </Row>
+         
+
+
+
+       
+            <Row gutter={16}>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.page} {...formItemLayout}>
+                  {getFieldDecorator('pageId', {
+                  	initialValue: tryinit('page'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('page')}
+                    targetType={"page"} 
+                    requestFunction={SectionService.requestCandidatePage}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+            </Row>
+         
+       
 
 			</Form>
 			

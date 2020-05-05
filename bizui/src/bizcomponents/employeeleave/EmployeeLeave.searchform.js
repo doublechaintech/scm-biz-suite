@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './EmployeeLeave.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import EmployeeLeaveBase from './EmployeeLeave.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {EmployeeLeaveService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -203,10 +205,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.who}>
                {getFieldDecorator('who', {initialValue: tryinit('who')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('who')}
-                 targetType={"who"} 
-                 requestFunction={EmployeeLeaveService.requestCandidateWho} useForSearch />
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"employee_leave"} 
+                 targetType={"employee"} 
+                 
+                 
+                 requestFunction={EmployeeLeaveService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -226,19 +234,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {EmployeeLeaveService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -262,10 +273,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.who}>
                   {getFieldDecorator('who', {initialValue: tryinit('who')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('who')}
-                    targetType={"who"} 
-                    requestFunction={EmployeeLeaveService.requestCandidateWho} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('who')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_leave"} 
+		                 targetType={"employee"} 
+                 
+                    requestFunction={EmployeeLeaveService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -274,10 +290,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.type}>
                   {getFieldDecorator('type', {initialValue: tryinit('type')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('type')}
-                    targetType={"type"} 
-                    requestFunction={EmployeeLeaveService.requestCandidateType} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('type')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_leave"} 
+		                 targetType={"leave_type"} 
+                 
+                    requestFunction={EmployeeLeaveService.queryCandidates} useForSearch />
                   	
                  
                   )}

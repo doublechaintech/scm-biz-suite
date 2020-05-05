@@ -75,7 +75,7 @@ const fieldLabels = {
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStore') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '6', render: (text, record)=>renderTextCell(text,record,'retailStore') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.telephone, debugtype: 'string', dataIndex: 'telephone', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, debugtype: 'string', dataIndex: 'owner', width: '6',render: (text, record)=>renderTextCell(text,record)},
@@ -115,7 +115,7 @@ const leftChars=(value, left)=>{
 	return value.substring(0,chars);
 }
 
-const renderReferenceItem=(value, targetComponent)=>{
+const renderTextItem=(value, label, targetComponent)=>{
 	const userContext = null
 	if(!value){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
@@ -127,13 +127,50 @@ const renderReferenceItem=(value, targetComponent)=>{
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
 	
-	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
-	
-	
-	
-	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
-const renderItemOfList=(retailStore, targetComponent, columCount)=>{
+const renderImageItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	
+	return <ImagePreview title={label} imageLocation={value}/>
+}
+
+const renderDateItem=(value, label,targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return moment(value).format('YYYY-MM-DD');
+}
+
+const renderDateTimeItem=(value,label, targetComponent)=>{
+	const userContext = window.userContext
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return  moment(value).format('YYYY-MM-DD HH:mm')
+}
+
+
+const renderReferenceItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
+}
+
+const renderItemOfList=(retailStore, targetComponent, columCount, listName)=>{
   
   if(!retailStore){
   	return null
@@ -146,7 +183,7 @@ const renderItemOfList=(retailStore, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`retailStore-${retailStore.id}`} style={{marginTop:"10px"}}>
+    <Card key={`${listName}-${retailStore.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>

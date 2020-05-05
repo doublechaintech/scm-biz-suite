@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './EmployeePerformance.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import EmployeePerformanceBase from './EmployeePerformance.base'
 const FormItem = Form.Item
@@ -169,18 +169,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {EmployeePerformanceService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -202,10 +204,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.employee}>
                {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('employee')}
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"employee_performance"} 
                  targetType={"employee"} 
-                 requestFunction={EmployeePerformanceService.requestCandidateEmployee} useForSearch />
+                 
+                 
+                 requestFunction={EmployeePerformanceService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -225,19 +233,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {EmployeePerformanceService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -261,10 +272,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.employee}>
                   {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeePerformanceService.requestCandidateEmployee} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('employee')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_performance"} 
+		                 targetType={"employee"} 
+                 
+                    requestFunction={EmployeePerformanceService.queryCandidates} useForSearch />
                   	
                  
                   )}

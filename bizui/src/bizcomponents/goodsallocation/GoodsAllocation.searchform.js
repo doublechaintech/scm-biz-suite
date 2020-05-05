@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './GoodsAllocation.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import GoodsAllocationBase from './GoodsAllocation.base'
 const FormItem = Form.Item
@@ -169,18 +169,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {GoodsAllocationService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -221,19 +223,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {GoodsAllocationService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -265,10 +270,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.goodsShelf}>
                   {getFieldDecorator('goodsShelf', {initialValue: tryinit('goodsShelf')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('goodsShelf')}
-                    targetType={"goodsShelf"} 
-                    requestFunction={GoodsAllocationService.requestCandidateGoodsShelf} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('goodsShelf')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods_allocation"} 
+		                 targetType={"goods_shelf"} 
+                 
+                    requestFunction={GoodsAllocationService.queryCandidates} useForSearch />
                   	
                  
                   )}

@@ -310,6 +310,18 @@ class UiActionUpdateForm extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    initialValue: selectedRow.displayOrder,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.brief} {...formItemLayout}>
                   {getFieldDecorator('brief', {
                     initialValue: selectedRow.brief,

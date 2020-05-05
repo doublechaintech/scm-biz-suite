@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}retailStoreOrderLineItemManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateBizOrder = (ownerClass, id, filterKey, pageNo) => {
  
@@ -66,6 +74,6 @@ const  processRequest = (data) => {
 const RetailStoreOrderLineItemService = { view,
   load,
   requestCandidateBizOrder,
-  transferToAnotherBizOrder, listFunctions, saveRequest, processRequest}
+  transferToAnotherBizOrder, listFunctions, saveRequest, processRequest, queryCandidates}
 export default RetailStoreOrderLineItemService
 

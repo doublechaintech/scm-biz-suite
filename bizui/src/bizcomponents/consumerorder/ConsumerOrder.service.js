@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}consumerOrderManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateConsumer = (ownerClass, id, filterKey, pageNo) => {
  
@@ -208,6 +216,6 @@ const ConsumerOrderService = { view,
   requestCandidateConsumer,
   requestCandidateStore,
   transferToAnotherConsumer,
-  transferToAnotherStore, listFunctions, saveRequest, processRequest}
+  transferToAnotherStore, listFunctions, saveRequest, processRequest, queryCandidates}
 export default ConsumerOrderService
 

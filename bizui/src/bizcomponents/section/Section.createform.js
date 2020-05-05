@@ -20,14 +20,15 @@ const testValues = {};
 const testValues = {
   title: '文章',
   brief: 'Article',
-  icon: 'icon_edit',
+  displayOrder: '1',
   viewGroup: 'icon_edit',
-  linkToUrl: '/section/article/',
-  page: '${page}',
+  linkToUrl: 'wxappService/section/article/',
+  pageId: 'P000001',
 }
 */
 
 const imageKeys = [
+  'icon',
 ]
 
 

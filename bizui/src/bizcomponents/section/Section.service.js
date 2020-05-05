@@ -17,6 +17,29 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}sectionManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
+
+const requestCandidatePage = (ownerClass, id, filterKey, pageNo) => {
+ 
+  const url = `${PREFIX}sectionManager/requestCandidatePage/ownerClass/id/filterKey/pageNo/`
+  const requestParameters = {id, ownerClass,filterKey, pageNo}
+  return postForm({url,requestParameters})
+}	
+
+const transferToAnotherPage = (id, parameters) => {
+  const url = `${PREFIX}sectionManager/transferToAnotherPage/id/anotherPageId/`
+  const requestParameters = {id, ...parameters}
+  return postForm({url,requestParameters})
+}
+
+
 
 
 
@@ -49,6 +72,8 @@ const  processRequest = (data) => {
 }
 
 const SectionService = { view,
-  load, listFunctions, saveRequest, processRequest}
+  load,
+  requestCandidatePage,
+  transferToAnotherPage, listFunctions, saveRequest, processRequest, queryCandidates}
 export default SectionService
 

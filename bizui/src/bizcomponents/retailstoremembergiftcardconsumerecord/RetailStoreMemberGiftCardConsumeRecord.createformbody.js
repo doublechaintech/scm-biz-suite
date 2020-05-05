@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStoreMemberGiftCardConsumeRecord.createform.less'
@@ -17,9 +17,9 @@ const {fieldLabels} = RetailStoreMemberGiftCardConsumeRecordBase
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2019-12-06',
+  occureTime: '2019-06-16',
   number: 'GF00001',
-  amount: '19.15',
+  amount: '18.13',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -76,7 +76,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {RetailStoreMemberGiftCardConsumeRecordService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -87,7 +87,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -99,7 +99,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -173,12 +173,19 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('owner')}
-                    targetType={"owner"} 
-                    requestFunction={RetailStoreMemberGiftCardConsumeRecordService.requestCandidateOwner}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('owner')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store_member_gift_card_consume_record"} 
+		                 targetType={"retail_store_member_gift_card"} 
                  
+                    requestFunction={RetailStoreMemberGiftCardConsumeRecordService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -192,12 +199,19 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={RetailStoreMemberGiftCardConsumeRecordService.requestCandidateBizOrder}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('bizOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store_member_gift_card_consume_record"} 
+		                 targetType={"consumer_order"} 
                  
+                    requestFunction={RetailStoreMemberGiftCardConsumeRecordService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

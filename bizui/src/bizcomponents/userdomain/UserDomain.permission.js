@@ -57,7 +57,7 @@ class UserDomainPermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  userDomain = this.props.userDomain
-    const { id,displayName, userWhiteListCount, secUserCount } = userDomain
+    const { id,displayName, userWhiteListCount, secUserCount, publicKeyTypeCount } = userDomain
     const  returnURL = `/userDomain/${id}/dashboard`
     const cardsData = {cardsName:"用户域",cardsFor: "userDomain",cardsSource: userDomain,displayName,returnURL,
   		subItems: [

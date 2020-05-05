@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './LevelOneCategory.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import LevelOneCategoryBase from './LevelOneCategory.base'
 const FormItem = Form.Item
@@ -169,18 +169,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {LevelOneCategoryService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -202,10 +204,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.catalog}>
                {getFieldDecorator('catalog', {initialValue: tryinit('catalog')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('catalog')}
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"level_one_category"} 
                  targetType={"catalog"} 
-                 requestFunction={LevelOneCategoryService.requestCandidateCatalog} useForSearch />
+                 
+                 
+                 requestFunction={LevelOneCategoryService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -225,19 +233,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {LevelOneCategoryService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -261,10 +272,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.catalog}>
                   {getFieldDecorator('catalog', {initialValue: tryinit('catalog')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('catalog')}
-                    targetType={"catalog"} 
-                    requestFunction={LevelOneCategoryService.requestCandidateCatalog} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('catalog')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"level_one_category"} 
+		                 targetType={"catalog"} 
+                 
+                    requestFunction={LevelOneCategoryService.queryCandidates} useForSearch />
                   	
                  
                   )}

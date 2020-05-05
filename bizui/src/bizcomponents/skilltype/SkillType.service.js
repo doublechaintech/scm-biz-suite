@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}skillTypeManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const SkillTypeService = { view,
   updateEmployeeSkill,
   removeEmployeeSkillList,
   requestCandidateCompany,
-  transferToAnotherCompany, listFunctions, saveRequest, processRequest}
+  transferToAnotherCompany, listFunctions, saveRequest, processRequest, queryCandidates}
 export default SkillTypeService
 

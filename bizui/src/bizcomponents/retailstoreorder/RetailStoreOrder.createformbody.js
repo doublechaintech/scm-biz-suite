@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStoreOrder.createform.less'
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
-  totalAmount: '2472912896.00',
+  totalAmount: '2128925056.00',
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
 }
@@ -75,7 +75,7 @@ class RetailStoreOrderCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {RetailStoreOrderService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +86,7 @@ class RetailStoreOrderCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +98,7 @@ class RetailStoreOrderCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -162,12 +162,19 @@ class RetailStoreOrderCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('buyer')}
-                    targetType={"buyer"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateBuyer}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('buyer')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store_order"} 
+		                 targetType={"retail_store"} 
                  
+                    requestFunction={RetailStoreOrderService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -181,12 +188,19 @@ class RetailStoreOrderCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('seller')}
-                    targetType={"seller"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateSeller}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('seller')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store_order"} 
+		                 targetType={"retail_store_country_center"} 
                  
+                    requestFunction={RetailStoreOrderService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

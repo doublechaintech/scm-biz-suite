@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}accountSetManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateCountryCenter = (ownerClass, id, filterKey, pageNo) => {
  
@@ -175,6 +183,6 @@ const AccountSetService = { view,
   requestCandidateGoodsSupplier,
   transferToAnotherCountryCenter,
   transferToAnotherRetailStore,
-  transferToAnotherGoodsSupplier, listFunctions, saveRequest, processRequest}
+  transferToAnotherGoodsSupplier, listFunctions, saveRequest, processRequest, queryCandidates}
 export default AccountSetService
 

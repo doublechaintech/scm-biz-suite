@@ -34,6 +34,7 @@ const internalSummaryOf = (pageType,targetComponent) =>{
 <Description term="序号">{pageType.id}</Description> 
 <Description term="名称">{pageType.name}</Description> 
 <Description term="代码">{pageType.code}</Description> 
+<Description term="页脚选项卡">{pageType.footerTab}</Description> 
 	
       </DescriptionList>
 	)

@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   pageTitle: '首页',
   linkToUrl: '首页',
+  displayOrder: '1',
   pageTypeId: 'home',
   mobileAppId: 'MA000001',
 }
@@ -77,6 +78,7 @@ class PageAssociateForm extends Component {
     
  const {SlideModalTable} = GlobalComponents;
  const {UiActionModalTable} = GlobalComponents;
+ const {SectionModalTable} = GlobalComponents;
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -157,6 +159,16 @@ class PageAssociateForm extends Component {
                 </Form.Item>
               </Col>
 
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
+                  )}
+                </Form.Item>
+              </Col>
+
             </Row>
 
 
@@ -217,6 +229,7 @@ class PageAssociateForm extends Component {
         
 	<SlideModalTable data={data.slideList} owner={owner} />
 	<UiActionModalTable data={data.uiActionList} owner={owner} />
+	<SectionModalTable data={data.sectionList} owner={owner} />
         
         
         

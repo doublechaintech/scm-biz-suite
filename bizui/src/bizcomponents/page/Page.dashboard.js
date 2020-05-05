@@ -125,6 +125,7 @@ const internalSummaryOf = (page,targetComponent) =>{
 	      PageService.transferToAnotherPageType,"anotherPageTypeId",page.pageType?page.pageType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="顺序" style={{wordBreak: 'break-all'}}>{page.displayOrder}</Description> 
 	
         {buildTransferModal(page,targetComponent)}
       </DescriptionList>
@@ -156,7 +157,7 @@ class PageDashboard extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, slideListMetaInfo, uiActionListMetaInfo, slideCount, uiActionCount } = this.props.page
+    const { id,displayName, slideListMetaInfo, uiActionListMetaInfo, sectionListMetaInfo, slideCount, uiActionCount, sectionCount } = this.props.page
     if(!this.props.page.class){
       return null
     }
@@ -167,6 +168,7 @@ class PageDashboard extends Component {
   		subItems: [
 {name: 'slideList', displayName: window.mtrans('slide','page.slide_list',false) ,viewGroup:'__no_group', type:'slide',count:slideCount,addFunction: true, role: 'slide', metaInfo: slideListMetaInfo, renderItem: GlobalComponents.SlideBase.renderItemOfList},
 {name: 'uiActionList', displayName: window.mtrans('ui_action','page.ui_action_list',false) ,viewGroup:'__no_group', type:'uiAction',count:uiActionCount,addFunction: true, role: 'uiAction', metaInfo: uiActionListMetaInfo, renderItem: GlobalComponents.UiActionBase.renderItemOfList},
+{name: 'sectionList', displayName: window.mtrans('section','page.section_list',false) ,viewGroup:'__no_group', type:'section',count:sectionCount,addFunction: true, role: 'section', metaInfo: sectionListMetaInfo, renderItem: GlobalComponents.SectionBase.renderItemOfList},
     
       	],
    		subSettingItems: [

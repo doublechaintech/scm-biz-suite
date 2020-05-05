@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './ConsumerOrder.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import ConsumerOrderBase from './ConsumerOrder.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {ConsumerOrderService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -222,19 +224,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {ConsumerOrderService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -266,10 +271,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.consumer}>
                   {getFieldDecorator('consumer', {initialValue: tryinit('consumer')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('consumer')}
-                    targetType={"consumer"} 
-                    requestFunction={ConsumerOrderService.requestCandidateConsumer} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('consumer')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"consumer_order"} 
+		                 targetType={"retail_store_member"} 
+                 
+                    requestFunction={ConsumerOrderService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -278,10 +288,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.store}>
                   {getFieldDecorator('store', {initialValue: tryinit('store')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('store')}
-                    targetType={"store"} 
-                    requestFunction={ConsumerOrderService.requestCandidateStore} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('store')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"consumer_order"} 
+		                 targetType={"retail_store"} 
+                 
+                    requestFunction={ConsumerOrderService.queryCandidates} useForSearch />
                   	
                  
                   )}

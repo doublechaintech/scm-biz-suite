@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './GoodsShelf.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import GoodsShelfBase from './GoodsShelf.base'
 const FormItem = Form.Item
@@ -171,18 +171,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {GoodsShelfService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -223,19 +225,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {GoodsShelfService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -267,10 +272,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.storageSpace}>
                   {getFieldDecorator('storageSpace', {initialValue: tryinit('storageSpace')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('storageSpace')}
-                    targetType={"storageSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateStorageSpace} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('storageSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods_shelf"} 
+		                 targetType={"storage_space"} 
+                 
+                    requestFunction={GoodsShelfService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -279,10 +289,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.supplierSpace}>
                   {getFieldDecorator('supplierSpace', {initialValue: tryinit('supplierSpace')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('supplierSpace')}
-                    targetType={"supplierSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateSupplierSpace} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('supplierSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods_shelf"} 
+		                 targetType={"supplier_space"} 
+                 
+                    requestFunction={GoodsShelfService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -291,10 +306,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.damageSpace}>
                   {getFieldDecorator('damageSpace', {initialValue: tryinit('damageSpace')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('damageSpace')}
-                    targetType={"damageSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateDamageSpace} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('damageSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods_shelf"} 
+		                 targetType={"damage_space"} 
+                 
+                    requestFunction={GoodsShelfService.queryCandidates} useForSearch />
                   	
                  
                   )}

@@ -21,8 +21,9 @@ const testValues = {
   code: 'submit',
   icon: 'icon_edit',
   title: '提交',
+  displayOrder: '1',
   brief: 'Submit',
-  linkToUrl: '/section/article/',
+  linkToUrl: 'wxappService/section/article/',
   pageId: 'P000001',
   extraData: '    一段样例文字。    一段样例文字。\n可以分段。可以分段。\n\n可以空行。可以空行。\n\n',
 }
@@ -165,6 +166,16 @@ class UiActionAssociateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large"  placeHolder={fieldLabels.title} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
                   )}
                 </Form.Item>
               </Col>

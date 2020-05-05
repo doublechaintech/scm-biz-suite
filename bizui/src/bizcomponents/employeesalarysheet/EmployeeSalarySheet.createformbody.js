@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './EmployeeSalarySheet.createform.less'
@@ -17,13 +17,13 @@ const {fieldLabels} = EmployeeSalarySheetBase
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2820.53',
-  bonus: '923.36',
-  reward: '985.22',
-  personalTax: '648.00',
-  socialSecurity: '950.23',
-  housingFound: '1003.36',
-  jobInsurance: '7.83',
+  baseSalary: '2679.69',
+  bonus: '898.84',
+  reward: '798.51',
+  personalTax: '714.38',
+  socialSecurity: '849.63',
+  housingFound: '905.35',
+  jobInsurance: '6.44',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
   payingOffId: 'PO000001',
@@ -81,7 +81,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {EmployeeSalarySheetService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -92,7 +92,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -104,7 +104,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -218,12 +218,19 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeeSalarySheetService.requestCandidateEmployee}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('employee')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_salary_sheet"} 
+		                 targetType={"employee"} 
                  
+                    requestFunction={EmployeeSalarySheetService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -237,12 +244,19 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('currentSalaryGrade')}
-                    targetType={"currentSalaryGrade"} 
-                    requestFunction={EmployeeSalarySheetService.requestCandidateCurrentSalaryGrade}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('currentSalaryGrade')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_salary_sheet"} 
+		                 targetType={"salary_grade"} 
                  
+                    requestFunction={EmployeeSalarySheetService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -256,12 +270,19 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('payingOff')}
-                    targetType={"payingOff"} 
-                    requestFunction={EmployeeSalarySheetService.requestCandidatePayingOff}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('payingOff')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_salary_sheet"} 
+		                 targetType={"paying_off"} 
                  
+                    requestFunction={EmployeeSalarySheetService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

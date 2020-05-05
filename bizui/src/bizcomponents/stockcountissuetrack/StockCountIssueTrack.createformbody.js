@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './StockCountIssueTrack.createform.less'
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2018-08-27',
+  countTime: '2019-01-15',
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }
@@ -75,7 +75,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {StockCountIssueTrackService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +86,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +98,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -172,12 +172,19 @@ class StockCountIssueTrackCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('stockCount')}
-                    targetType={"stockCount"} 
-                    requestFunction={StockCountIssueTrackService.requestCandidateStockCount}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('stockCount')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"stock_count_issue_track"} 
+		                 targetType={"goods_shelf_stock_count"} 
                  
+                    requestFunction={StockCountIssueTrackService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

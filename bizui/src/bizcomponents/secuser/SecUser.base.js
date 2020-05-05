@@ -41,6 +41,7 @@ const menuData = {menuName: window.trans('sec_user'), menuFor: "secUser",
   {name: 'loginHistoryList', displayName: window.mtrans('login_history','sec_user.login_history_list',false), type:'loginHistory',icon:'history',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'wechatWorkappIdentifyList', displayName: window.mtrans('wechat_workapp_identify','sec_user.wechat_workapp_identify_list',false), type:'wechatWorkappIdentify',icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'wechatMiniappIdentifyList', displayName: window.mtrans('wechat_miniapp_identify','sec_user.wechat_miniapp_identify_list',false), type:'wechatMiniappIdentify',icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'keypairIdentifyList', displayName: window.mtrans('keypair_identify','sec_user.keypair_identify_list',false), type:'keypairIdentify',icon:'key',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
@@ -69,7 +70,7 @@ const fieldLabels = {
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'secUser') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '6', render: (text, record)=>renderTextCell(text,record,'secUser') , sorter: true },
   { title: fieldLabels.login, debugtype: 'string', dataIndex: 'login', width: '9',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.mobile, debugtype: 'string_china_mobile_phone', dataIndex: 'mobile', width: '15',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.email, debugtype: 'string_email', dataIndex: 'email', width: '23',render: (text, record)=>renderTextCell(text,record)},
@@ -104,7 +105,7 @@ const leftChars=(value, left)=>{
 	return value.substring(0,chars);
 }
 
-const renderReferenceItem=(value, targetComponent)=>{
+const renderTextItem=(value, label, targetComponent)=>{
 	const userContext = null
 	if(!value){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
@@ -116,13 +117,50 @@ const renderReferenceItem=(value, targetComponent)=>{
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
 	
-	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
-	
-	
-	
-	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
-const renderItemOfList=(secUser, targetComponent, columCount)=>{
+const renderImageItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	
+	return <ImagePreview title={label} imageLocation={value}/>
+}
+
+const renderDateItem=(value, label,targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return moment(value).format('YYYY-MM-DD');
+}
+
+const renderDateTimeItem=(value,label, targetComponent)=>{
+	const userContext = window.userContext
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return  moment(value).format('YYYY-MM-DD HH:mm')
+}
+
+
+const renderReferenceItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
+}
+
+const renderItemOfList=(secUser, targetComponent, columCount, listName)=>{
   
   if(!secUser){
   	return null
@@ -135,7 +173,7 @@ const renderItemOfList=(secUser, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`secUser-${secUser.id}`} style={{marginTop:"10px"}}>
+    <Card key={`${listName}-${secUser.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>

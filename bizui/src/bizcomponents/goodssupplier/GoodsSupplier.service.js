@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}goodsSupplierManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateBelongTo = (ownerClass, id, filterKey, pageNo) => {
  
@@ -141,6 +149,6 @@ const GoodsSupplierService = { view,
   removeSupplyOrderList,
   removeAccountSetList,
   requestCandidateBelongTo,
-  transferToAnotherBelongTo, listFunctions, saveRequest, processRequest}
+  transferToAnotherBelongTo, listFunctions, saveRequest, processRequest, queryCandidates}
 export default GoodsSupplierService
 

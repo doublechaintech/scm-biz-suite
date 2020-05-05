@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './SecUser.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import SecUserBase from './SecUser.base'
 const FormItem = Form.Item
@@ -175,18 +175,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {SecUserService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -227,19 +229,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {SecUserService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -319,10 +324,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.domain}>
                   {getFieldDecorator('domain', {initialValue: tryinit('domain')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('domain')}
-                    targetType={"domain"} 
-                    requestFunction={SecUserService.requestCandidateDomain} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('domain')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"sec_user"} 
+		                 targetType={"user_domain"} 
+                 
+                    requestFunction={SecUserService.queryCandidates} useForSearch />
                   	
                  
                   )}

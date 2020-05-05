@@ -34,6 +34,7 @@ const internalSummaryOf = (page,targetComponent) =>{
 <Description term="序号">{page.id}</Description> 
 <Description term="页面标题">{page.pageTitle}</Description> 
 <Description term="链接网址">{page.linkToUrl}</Description> 
+<Description term="顺序">{page.displayOrder}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +59,7 @@ class PagePermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  page = this.props.page
-    const { id,displayName, slideCount, uiActionCount } = page
+    const { id,displayName, slideCount, uiActionCount, sectionCount } = page
     const  returnURL = `/page/${id}/dashboard`
     const cardsData = {cardsName:"页面",cardsFor: "page",cardsSource: page,displayName,returnURL,
   		subItems: [

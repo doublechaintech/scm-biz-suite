@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}employeeInterviewManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateEmployee = (ownerClass, id, filterKey, pageNo) => {
  
@@ -83,6 +91,6 @@ const EmployeeInterviewService = { view,
   requestCandidateEmployee,
   requestCandidateInterviewType,
   transferToAnotherEmployee,
-  transferToAnotherInterviewType, listFunctions, saveRequest, processRequest}
+  transferToAnotherInterviewType, listFunctions, saveRequest, processRequest, queryCandidates}
 export default EmployeeInterviewService
 

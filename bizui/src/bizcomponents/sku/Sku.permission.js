@@ -38,6 +38,7 @@ const internalSummaryOf = (sku,targetComponent) =>{
 <Description term="包装类型">{sku.packageType}</Description> 
 <Description term="净含量">{sku.netContent}</Description> 
 <Description term="价格">{sku.price}</Description> 
+<Description term="图片"><ImagePreview imageTitle="图片" imageLocation={sku.picture}/></Description> 
 	
       </DescriptionList>
 	)

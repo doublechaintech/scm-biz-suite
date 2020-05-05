@@ -59,11 +59,11 @@ const fieldLabels = {
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'pageType') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '6', render: (text, record)=>renderTextCell(text,record,'pageType') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.code, debugtype: 'string', dataIndex: 'code', width: '18',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.mobileApp, dataIndex: 'mobileApp', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.footerTab, dataIndex: 'footerTab', render: (text, record) =>renderBooleanCell(text, record), sorter:true },
+  { title: fieldLabels.footerTab, debugtype: 'bool', dataIndex: 'footerTab', width: '9',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 
@@ -87,7 +87,7 @@ const leftChars=(value, left)=>{
 	return value.substring(0,chars);
 }
 
-const renderReferenceItem=(value, targetComponent)=>{
+const renderTextItem=(value, label, targetComponent)=>{
 	const userContext = null
 	if(!value){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
@@ -99,13 +99,50 @@ const renderReferenceItem=(value, targetComponent)=>{
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
 	
-	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
-	
-	
-	
-	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
-const renderItemOfList=(pageType, targetComponent, columCount)=>{
+const renderImageItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	
+	return <ImagePreview title={label} imageLocation={value}/>
+}
+
+const renderDateItem=(value, label,targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return moment(value).format('YYYY-MM-DD');
+}
+
+const renderDateTimeItem=(value,label, targetComponent)=>{
+	const userContext = window.userContext
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return  moment(value).format('YYYY-MM-DD HH:mm')
+}
+
+
+const renderReferenceItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
+}
+
+const renderItemOfList=(pageType, targetComponent, columCount, listName)=>{
   
   if(!pageType){
   	return null
@@ -118,7 +155,7 @@ const renderItemOfList=(pageType, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`pageType-${pageType.id}`} style={{marginTop:"10px"}}>
+    <Card key={`${listName}-${pageType.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -134,6 +171,7 @@ const renderItemOfList=(pageType, targetComponent, columCount)=>{
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{pageType.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{pageType.name}</Description> 
         <Description term={fieldLabels.code} style={{wordBreak: 'break-all'}}>{pageType.code}</Description> 
+        <Description term={fieldLabels.footerTab} style={{wordBreak: 'break-all'}}>{pageType.footerTab}</Description> 
 	
         
       </DescriptionList>
@@ -144,15 +182,15 @@ const renderItemOfList=(pageType, targetComponent, columCount)=>{
 }
 	
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, code, mobileAppId} = formValuesToPack
+	const {name, code, footerTab, mobileAppId} = formValuesToPack
 	const mobileApp = {id: mobileAppId, version: 2^31}
-	const data = {name, code, mobileApp}
+	const data = {name, code, footerTab, mobileApp}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {name, code, mobileApp} = objectToUnpack
+	const {name, code, footerTab, mobileApp} = objectToUnpack
 	const mobileAppId = mobileApp ? mobileApp.id : null
-	const data = {name, code, mobileAppId}
+	const data = {name, code, footerTab, mobileAppId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

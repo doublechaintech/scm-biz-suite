@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}wechatWorkappIdentifyManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateSecUser = (ownerClass, id, filterKey, pageNo) => {
  
@@ -66,6 +74,6 @@ const  processRequest = (data) => {
 const WechatWorkappIdentifyService = { view,
   load,
   requestCandidateSecUser,
-  transferToAnotherSecUser, listFunctions, saveRequest, processRequest}
+  transferToAnotherSecUser, listFunctions, saveRequest, processRequest, queryCandidates}
 export default WechatWorkappIdentifyService
 

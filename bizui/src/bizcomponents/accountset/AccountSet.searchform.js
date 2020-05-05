@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './AccountSet.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import AccountSetBase from './AccountSet.base'
 const FormItem = Form.Item
@@ -177,18 +177,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {AccountSetService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -229,19 +231,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {AccountSetService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -321,10 +326,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.countryCenter}>
                   {getFieldDecorator('countryCenter', {initialValue: tryinit('countryCenter')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('countryCenter')}
-                    targetType={"countryCenter"} 
-                    requestFunction={AccountSetService.requestCandidateCountryCenter} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('countryCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"account_set"} 
+		                 targetType={"retail_store_country_center"} 
+                 
+                    requestFunction={AccountSetService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -333,10 +343,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.retailStore}>
                   {getFieldDecorator('retailStore', {initialValue: tryinit('retailStore')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStore')}
-                    targetType={"retailStore"} 
-                    requestFunction={AccountSetService.requestCandidateRetailStore} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStore')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"account_set"} 
+		                 targetType={"retail_store"} 
+                 
+                    requestFunction={AccountSetService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -345,10 +360,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.goodsSupplier}>
                   {getFieldDecorator('goodsSupplier', {initialValue: tryinit('goodsSupplier')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('goodsSupplier')}
-                    targetType={"goodsSupplier"} 
-                    requestFunction={AccountSetService.requestCandidateGoodsSupplier} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('goodsSupplier')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"account_set"} 
+		                 targetType={"goods_supplier"} 
+                 
+                    requestFunction={AccountSetService.queryCandidates} useForSearch />
                   	
                  
                   )}

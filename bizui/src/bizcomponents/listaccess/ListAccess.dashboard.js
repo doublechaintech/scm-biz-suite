@@ -44,12 +44,7 @@ const imageList =(listAccess)=>{return [
 const internalImageListOf = (listAccess) =>defaultImageListOf(listAccess,imageList)
 
 const optionList =(listAccess)=>{return [ 
-	  {"title":'读权限',"value":listAccess.readPermission,"parameterName":"readPermission"},
-  {"title":'创建权限',"value":listAccess.createPermission,"parameterName":"createPermission"},
-  {"title":'删除权限',"value":listAccess.deletePermission,"parameterName":"deletePermission"},
-  {"title":'更新权限',"value":listAccess.updatePermission,"parameterName":"updatePermission"},
-  {"title":'执行权限',"value":listAccess.executionPermission,"parameterName":"executionPermission"},
-]}
+	]}
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
@@ -124,6 +119,11 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
 <Description term="序号" style={{wordBreak: 'break-all'}}>{listAccess.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{listAccess.name}</Description> 
 <Description term="内部名称" style={{wordBreak: 'break-all'}}>{listAccess.internalName}</Description> 
+<Description term="读权限" style={{wordBreak: 'break-all'}}>{listAccess.readPermission}</Description> 
+<Description term="创建权限" style={{wordBreak: 'break-all'}}>{listAccess.createPermission}</Description> 
+<Description term="删除权限" style={{wordBreak: 'break-all'}}>{listAccess.deletePermission}</Description> 
+<Description term="更新权限" style={{wordBreak: 'break-all'}}>{listAccess.updatePermission}</Description> 
+<Description term="执行权限" style={{wordBreak: 'break-all'}}>{listAccess.executionPermission}</Description> 
 <Description term="应用程序">{listAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${listAccess.app.displayName}(${listAccess.app.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"应用程序","userApp",ListAccessService.requestCandidateApp,

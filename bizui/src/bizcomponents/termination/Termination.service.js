@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}terminationManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateReason = (ownerClass, id, filterKey, pageNo) => {
  
@@ -83,6 +91,6 @@ const TerminationService = { view,
   requestCandidateReason,
   requestCandidateType,
   transferToAnotherReason,
-  transferToAnotherType, listFunctions, saveRequest, processRequest}
+  transferToAnotherType, listFunctions, saveRequest, processRequest, queryCandidates}
 export default TerminationService
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './EmployeeInterview.createform.less'
@@ -74,7 +74,7 @@ class EmployeeInterviewCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {EmployeeInterviewService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -85,7 +85,7 @@ class EmployeeInterviewCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -97,7 +97,7 @@ class EmployeeInterviewCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -151,12 +151,19 @@ class EmployeeInterviewCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeeInterviewService.requestCandidateEmployee}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('employee')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_interview"} 
+		                 targetType={"employee"} 
                  
+                    requestFunction={EmployeeInterviewService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -170,12 +177,19 @@ class EmployeeInterviewCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('interviewType')}
-                    targetType={"interviewType"} 
-                    requestFunction={EmployeeInterviewService.requestCandidateInterviewType}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('interviewType')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_interview"} 
+		                 targetType={"interview_type"} 
                  
+                    requestFunction={EmployeeInterviewService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

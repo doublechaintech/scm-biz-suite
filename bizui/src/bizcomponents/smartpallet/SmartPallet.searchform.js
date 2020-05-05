@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './SmartPallet.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import SmartPalletBase from './SmartPallet.base'
 const FormItem = Form.Item
@@ -171,18 +171,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {SmartPalletService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -223,19 +225,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {SmartPalletService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -283,10 +288,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.warehouse}>
                   {getFieldDecorator('warehouse', {initialValue: tryinit('warehouse')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('warehouse')}
-                    targetType={"warehouse"} 
-                    requestFunction={SmartPalletService.requestCandidateWarehouse} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('warehouse')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"smart_pallet"} 
+		                 targetType={"warehouse"} 
+                 
+                    requestFunction={SmartPalletService.queryCandidates} useForSearch />
                   	
                  
                   )}

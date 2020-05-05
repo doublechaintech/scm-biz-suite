@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}levelThreeCategoryManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateParentCategory = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const LevelThreeCategoryService = { view,
   updateProduct,
   removeProductList,
   requestCandidateParentCategory,
-  transferToAnotherParentCategory, listFunctions, saveRequest, processRequest}
+  transferToAnotherParentCategory, listFunctions, saveRequest, processRequest, queryCandidates}
 export default LevelThreeCategoryService
 

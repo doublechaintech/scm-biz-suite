@@ -34,6 +34,7 @@ const internalSummaryOf = (userApp,targetComponent) =>{
 <Description term="序号">{userApp.id}</Description> 
 <Description term="头衔">{userApp.title}</Description> 
 <Description term="应用程序图标">{userApp.appIcon}</Description> 
+<Description term="完全访问">{userApp.fullAccess}</Description> 
 <Description term="许可">{userApp.permission}</Description> 
 <Description term="对象类型">{userApp.objectType}</Description> 
 <Description term="对象ID">{userApp.objectId}</Description> 
@@ -62,7 +63,7 @@ class UserAppPermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  userApp = this.props.userApp
-    const { id,displayName, quickLinkCount, listAccessCount, objectAccessCount } = userApp
+    const { id,displayName, quickLinkCount, listAccessCount } = userApp
     const  returnURL = `/userApp/${id}/dashboard`
     const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",cardsSource: userApp,displayName,returnURL,
   		subItems: [

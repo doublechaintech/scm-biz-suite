@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}pageTypeManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateMobileApp = (ownerClass, id, filterKey, pageNo) => {
  
@@ -38,14 +46,14 @@ const transferToAnotherMobileApp = (id, parameters) => {
 
 
 const addPage = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageTypeManager/addPage/pageTypeId/pageTitle/linkToUrl/mobileAppId/tokensExpr/`
+  const url = `${PREFIX}pageTypeManager/addPage/pageTypeId/pageTitle/linkToUrl/displayOrder/mobileAppId/tokensExpr/`
   const pageTypeId = targetObjectId
   const requestParameters = { ...parameters, pageTypeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updatePage = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageTypeManager/updatePageProperties/pageTypeId/id/pageTitle/linkToUrl/tokensExpr/`
+  const url = `${PREFIX}pageTypeManager/updatePageProperties/pageTypeId/id/pageTitle/linkToUrl/displayOrder/tokensExpr/`
   const pageTypeId = targetObjectId
   const requestParameters = { ...parameters, pageTypeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -91,6 +99,6 @@ const PageTypeService = { view,
   updatePage,
   removePageList,
   requestCandidateMobileApp,
-  transferToAnotherMobileApp, listFunctions, saveRequest, processRequest}
+  transferToAnotherMobileApp, listFunctions, saveRequest, processRequest, queryCandidates}
 export default PageTypeService
 

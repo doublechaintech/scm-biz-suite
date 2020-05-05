@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './EmployeeLeave.createform.less'
@@ -17,7 +17,7 @@ const {fieldLabels} = EmployeeLeaveBase
 const testValues = {};
 /*
 const testValues = {
-  leaveDurationHour: '7',
+  leaveDurationHour: '8',
   remark: '请年假，出去耍！！！！',
   whoId: 'E000001',
   typeId: 'LT000001',
@@ -75,7 +75,7 @@ class EmployeeLeaveCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {EmployeeLeaveService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +86,7 @@ class EmployeeLeaveCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +98,7 @@ class EmployeeLeaveCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -162,12 +162,19 @@ class EmployeeLeaveCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('who')}
-                    targetType={"who"} 
-                    requestFunction={EmployeeLeaveService.requestCandidateWho}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('who')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_leave"} 
+		                 targetType={"employee"} 
                  
+                    requestFunction={EmployeeLeaveService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -181,12 +188,19 @@ class EmployeeLeaveCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('type')}
-                    targetType={"type"} 
-                    requestFunction={EmployeeLeaveService.requestCandidateType}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('type')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_leave"} 
+		                 targetType={"leave_type"} 
                  
+                    requestFunction={EmployeeLeaveService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

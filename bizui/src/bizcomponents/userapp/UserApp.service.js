@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}userAppManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateSecUser = (ownerClass, id, filterKey, pageNo) => {
  
@@ -81,28 +89,6 @@ const removeListAccessList = (targetObjectId, parameters) => {
 
 
 
-const addObjectAccess = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userAppManager/addObjectAccess/userAppId/name/objectType/list1/list2/list3/list4/list5/list6/list7/list8/list9/tokensExpr/`
-  const userAppId = targetObjectId
-  const requestParameters = { ...parameters, userAppId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const updateObjectAccess = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userAppManager/updateObjectAccessProperties/userAppId/id/name/objectType/list1/list2/list3/list4/list5/list6/list7/list8/list9/tokensExpr/`
-  const userAppId = targetObjectId
-  const requestParameters = { ...parameters, userAppId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const removeObjectAccessList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userAppManager/removeObjectAccessList/userAppId/objectAccessIds/tokensExpr/`
-  const requestParameters = { ...parameters, userAppId: targetObjectId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-
-
 // Filter this out when no functions
 
 const  listFunctions = () => {
@@ -133,14 +119,11 @@ const UserAppService = { view,
   load,
   addQuickLink,
   addListAccess,
-  addObjectAccess,
   updateQuickLink,
   updateListAccess,
-  updateObjectAccess,
   removeQuickLinkList,
   removeListAccessList,
-  removeObjectAccessList,
   requestCandidateSecUser,
-  transferToAnotherSecUser, listFunctions, saveRequest, processRequest}
+  transferToAnotherSecUser, listFunctions, saveRequest, processRequest, queryCandidates}
 export default UserAppService
 

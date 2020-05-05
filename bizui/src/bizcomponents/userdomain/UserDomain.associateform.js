@@ -74,6 +74,7 @@ class UserDomainAssociateForm extends Component {
     
  const {UserWhiteListModalTable} = GlobalComponents;
  const {SecUserModalTable} = GlobalComponents;
+ const {PublicKeyTypeModalTable} = GlobalComponents;
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -167,6 +168,7 @@ class UserDomainAssociateForm extends Component {
         
 	<UserWhiteListModalTable data={data.userWhiteListList} owner={owner} />
 	<SecUserModalTable data={data.secUserList} owner={owner} />
+	<PublicKeyTypeModalTable data={data.publicKeyTypeList} owner={owner} />
         
         
         

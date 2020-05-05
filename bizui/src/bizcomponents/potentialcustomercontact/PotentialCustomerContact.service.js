@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}potentialCustomerContactManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidatePotentialCustomer = (ownerClass, id, filterKey, pageNo) => {
  
@@ -100,6 +108,6 @@ const PotentialCustomerContactService = { view,
   requestCandidateContactTo,
   transferToAnotherPotentialCustomer,
   transferToAnotherCityPartner,
-  transferToAnotherContactTo, listFunctions, saveRequest, processRequest}
+  transferToAnotherContactTo, listFunctions, saveRequest, processRequest, queryCandidates}
 export default PotentialCustomerContactService
 

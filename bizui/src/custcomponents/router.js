@@ -131,17 +131,13 @@ function RouterConfig({ history }) {
 	const {UserAppBizApp} = GlobalComponents
 	const {QuickLinkBizApp} = GlobalComponents
 	const {ListAccessBizApp} = GlobalComponents
-	const {ObjectAccessBizApp} = GlobalComponents
 	const {LoginHistoryBizApp} = GlobalComponents
-	const {GenericFormBizApp} = GlobalComponents
-	const {FormMessageBizApp} = GlobalComponents
-	const {FormFieldMessageBizApp} = GlobalComponents
-	const {FormFieldBizApp} = GlobalComponents
-	const {FormActionBizApp} = GlobalComponents
 	const {CandidateContainerBizApp} = GlobalComponents
 	const {CandidateElementBizApp} = GlobalComponents
 	const {WechatWorkappIdentifyBizApp} = GlobalComponents
 	const {WechatMiniappIdentifyBizApp} = GlobalComponents
+	const {KeypairIdentifyBizApp} = GlobalComponents
+	const {PublicKeyTypeBizApp} = GlobalComponents
 	const {TreeNodeBizApp} = GlobalComponents
 
 
@@ -270,17 +266,13 @@ function RouterConfig({ history }) {
           <Route path="/userApp/" component={UserAppBizApp} />
           <Route path="/quickLink/" component={QuickLinkBizApp} />
           <Route path="/listAccess/" component={ListAccessBizApp} />
-          <Route path="/objectAccess/" component={ObjectAccessBizApp} />
           <Route path="/loginHistory/" component={LoginHistoryBizApp} />
-          <Route path="/genericForm/" component={GenericFormBizApp} />
-          <Route path="/formMessage/" component={FormMessageBizApp} />
-          <Route path="/formFieldMessage/" component={FormFieldMessageBizApp} />
-          <Route path="/formField/" component={FormFieldBizApp} />
-          <Route path="/formAction/" component={FormActionBizApp} />
           <Route path="/candidateContainer/" component={CandidateContainerBizApp} />
           <Route path="/candidateElement/" component={CandidateElementBizApp} />
           <Route path="/wechatWorkappIdentify/" component={WechatWorkappIdentifyBizApp} />
           <Route path="/wechatMiniappIdentify/" component={WechatMiniappIdentifyBizApp} />
+          <Route path="/keypairIdentify/" component={KeypairIdentifyBizApp} />
+          <Route path="/publicKeyType/" component={PublicKeyTypeBizApp} />
           <Route path="/treeNode/" component={TreeNodeBizApp} />
           <Route path="/" component={Launcher} />
         </Switch>

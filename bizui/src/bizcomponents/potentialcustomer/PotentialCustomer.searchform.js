@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './PotentialCustomer.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import PotentialCustomerBase from './PotentialCustomer.base'
 const FormItem = Form.Item
@@ -172,18 +172,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {PotentialCustomerService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -224,19 +226,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {PotentialCustomerService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -276,10 +281,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.cityServiceCenter}>
                   {getFieldDecorator('cityServiceCenter', {initialValue: tryinit('cityServiceCenter')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('cityServiceCenter')}
-                    targetType={"cityServiceCenter"} 
-                    requestFunction={PotentialCustomerService.requestCandidateCityServiceCenter} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('cityServiceCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"potential_customer"} 
+		                 targetType={"retail_store_city_service_center"} 
+                 
+                    requestFunction={PotentialCustomerService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -288,10 +298,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.cityPartner}>
                   {getFieldDecorator('cityPartner', {initialValue: tryinit('cityPartner')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('cityPartner')}
-                    targetType={"cityPartner"} 
-                    requestFunction={PotentialCustomerService.requestCandidateCityPartner} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('cityPartner')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"potential_customer"} 
+		                 targetType={"city_partner"} 
+                 
+                    requestFunction={PotentialCustomerService.queryCandidates} useForSearch />
                   	
                  
                   )}

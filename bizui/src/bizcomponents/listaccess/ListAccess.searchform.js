@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './ListAccess.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import ListAccessBase from './ListAccess.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {ListAccessService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -222,19 +224,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {ListAccessService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -274,10 +279,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.app}>
                   {getFieldDecorator('app', {initialValue: tryinit('app')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('app')}
-                    targetType={"app"} 
-                    requestFunction={ListAccessService.requestCandidateApp} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('app')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"list_access"} 
+		                 targetType={"user_app"} 
+                 
+                    requestFunction={ListAccessService.queryCandidates} useForSearch />
                   	
                  
                   )}

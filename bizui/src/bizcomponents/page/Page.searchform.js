@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './Page.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import PageBase from './Page.base'
 const FormItem = Form.Item
@@ -171,18 +171,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {PageService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -196,10 +198,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.pageType}>
                {getFieldDecorator('pageType', {initialValue: tryinit('pageType')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('pageType')}
-                 targetType={"pageType"} 
-                 requestFunction={PageService.requestCandidatePageType} useForSearch />
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"page"} 
+                 targetType={"page_type"} 
+                 
+                 
+                 requestFunction={PageService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -227,19 +235,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {PageService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -279,10 +290,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.pageType}>
                   {getFieldDecorator('pageType', {initialValue: tryinit('pageType')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('pageType')}
-                    targetType={"pageType"} 
-                    requestFunction={PageService.requestCandidatePageType} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('pageType')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"page"} 
+		                 targetType={"page_type"} 
+                 
+                    requestFunction={PageService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -291,10 +307,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.mobileApp}>
                   {getFieldDecorator('mobileApp', {initialValue: tryinit('mobileApp')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('mobileApp')}
-                    targetType={"mobileApp"} 
-                    requestFunction={PageService.requestCandidateMobileApp} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('mobileApp')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"page"} 
+		                 targetType={"mobile_app"} 
+                 
+                    requestFunction={PageService.queryCandidates} useForSearch />
                   	
                  
                   )}

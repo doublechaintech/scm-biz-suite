@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './EventAttendance.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import EventAttendanceBase from './EventAttendance.base'
 const FormItem = Form.Item
@@ -171,18 +171,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {EventAttendanceService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -223,19 +225,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {EventAttendanceService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -267,10 +272,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.potentialCustomer}>
                   {getFieldDecorator('potentialCustomer', {initialValue: tryinit('potentialCustomer')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('potentialCustomer')}
-                    targetType={"potentialCustomer"} 
-                    requestFunction={EventAttendanceService.requestCandidatePotentialCustomer} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('potentialCustomer')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"event_attendance"} 
+		                 targetType={"potential_customer"} 
+                 
+                    requestFunction={EventAttendanceService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -279,10 +289,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.cityEvent}>
                   {getFieldDecorator('cityEvent', {initialValue: tryinit('cityEvent')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('cityEvent')}
-                    targetType={"cityEvent"} 
-                    requestFunction={EventAttendanceService.requestCandidateCityEvent} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('cityEvent')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"event_attendance"} 
+		                 targetType={"city_event"} 
+                 
+                    requestFunction={EventAttendanceService.queryCandidates} useForSearch />
                   	
                  
                   )}

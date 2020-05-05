@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './ProvinceCenterEmployee.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import ProvinceCenterEmployeeBase from './ProvinceCenterEmployee.base'
 const FormItem = Form.Item
@@ -172,18 +172,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {ProvinceCenterEmployeeService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -224,19 +226,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {ProvinceCenterEmployeeService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -284,10 +289,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.department}>
                   {getFieldDecorator('department', {initialValue: tryinit('department')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('department')}
-                    targetType={"department"} 
-                    requestFunction={ProvinceCenterEmployeeService.requestCandidateDepartment} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('department')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"province_center_employee"} 
+		                 targetType={"province_center_department"} 
+                 
+                    requestFunction={ProvinceCenterEmployeeService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -296,10 +306,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.provinceCenter}>
                   {getFieldDecorator('provinceCenter', {initialValue: tryinit('provinceCenter')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('provinceCenter')}
-                    targetType={"provinceCenter"} 
-                    requestFunction={ProvinceCenterEmployeeService.requestCandidateProvinceCenter} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('provinceCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"province_center_employee"} 
+		                 targetType={"retail_store_province_center"} 
+                 
+                    requestFunction={ProvinceCenterEmployeeService.queryCandidates} useForSearch />
                   	
                  
                   )}

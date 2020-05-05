@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './ConsumerOrderLineItem.createform.less'
@@ -19,9 +19,9 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  price: '4.69',
-  quantity: '888.77',
-  amount: '9500.03',
+  price: '4.50',
+  quantity: '961.88',
+  amount: '8287.61',
   bizOrderId: 'CO000001',
 }
 */
@@ -77,7 +77,7 @@ class ConsumerOrderLineItemCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {ConsumerOrderLineItemService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -88,7 +88,7 @@ class ConsumerOrderLineItemCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -100,7 +100,7 @@ class ConsumerOrderLineItemCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -194,12 +194,19 @@ class ConsumerOrderLineItemCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={ConsumerOrderLineItemService.requestCandidateBizOrder}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('bizOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"consumer_order_line_item"} 
+		                 targetType={"consumer_order"} 
                  
+                    requestFunction={ConsumerOrderLineItemService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

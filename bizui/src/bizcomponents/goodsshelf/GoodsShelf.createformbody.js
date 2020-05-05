@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './GoodsShelf.createform.less'
@@ -75,7 +75,7 @@ class GoodsShelfCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {GoodsShelfService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +86,7 @@ class GoodsShelfCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +98,7 @@ class GoodsShelfCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -152,12 +152,19 @@ class GoodsShelfCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('storageSpace')}
-                    targetType={"storageSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateStorageSpace}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('storageSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods_shelf"} 
+		                 targetType={"storage_space"} 
                  
+                    requestFunction={GoodsShelfService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -171,12 +178,19 @@ class GoodsShelfCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('supplierSpace')}
-                    targetType={"supplierSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateSupplierSpace}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('supplierSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods_shelf"} 
+		                 targetType={"supplier_space"} 
                  
+                    requestFunction={GoodsShelfService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -190,12 +204,19 @@ class GoodsShelfCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('damageSpace')}
-                    targetType={"damageSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateDamageSpace}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('damageSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods_shelf"} 
+		                 targetType={"damage_space"} 
                  
+                    requestFunction={GoodsShelfService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

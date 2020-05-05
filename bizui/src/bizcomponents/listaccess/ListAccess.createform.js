@@ -20,6 +20,11 @@ const testValues = {};
 const testValues = {
   name: '列表',
   internalName: 'levelOneCategoryList',
+  readPermission: '1',
+  createPermission: '1',
+  deletePermission: '1',
+  updatePermission: '1',
+  executionPermission: '1',
   appId: 'UA000001',
 }
 */

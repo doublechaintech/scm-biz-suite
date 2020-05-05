@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}cityPartnerManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateCityServiceCenter = (ownerClass, id, filterKey, pageNo) => {
  
@@ -116,6 +124,6 @@ const CityPartnerService = { view,
   removePotentialCustomerList,
   removePotentialCustomerContactList,
   requestCandidateCityServiceCenter,
-  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest}
+  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest, queryCandidates}
 export default CityPartnerService
 

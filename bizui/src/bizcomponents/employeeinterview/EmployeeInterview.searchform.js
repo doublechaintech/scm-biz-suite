@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './EmployeeInterview.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import EmployeeInterviewBase from './EmployeeInterview.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {EmployeeInterviewService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -203,10 +205,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.employee}>
                {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('employee')}
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"employee_interview"} 
                  targetType={"employee"} 
-                 requestFunction={EmployeeInterviewService.requestCandidateEmployee} useForSearch />
+                 
+                 
+                 requestFunction={EmployeeInterviewService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -226,19 +234,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {EmployeeInterviewService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -262,10 +273,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.employee}>
                   {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeeInterviewService.requestCandidateEmployee} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('employee')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_interview"} 
+		                 targetType={"employee"} 
+                 
+                    requestFunction={EmployeeInterviewService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -274,10 +290,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.interviewType}>
                   {getFieldDecorator('interviewType', {initialValue: tryinit('interviewType')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('interviewType')}
-                    targetType={"interviewType"} 
-                    requestFunction={EmployeeInterviewService.requestCandidateInterviewType} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('interviewType')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_interview"} 
+		                 targetType={"interview_type"} 
+                 
+                    requestFunction={EmployeeInterviewService.queryCandidates} useForSearch />
                   	
                  
                   )}

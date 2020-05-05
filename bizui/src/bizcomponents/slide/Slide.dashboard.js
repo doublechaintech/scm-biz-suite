@@ -119,8 +119,10 @@ const internalSummaryOf = (slide,targetComponent) =>{
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号" style={{wordBreak: 'break-all'}}>{slide.id}</Description> 
-<Description term="顺序" style={{wordBreak: 'break-all'}}>{slide.displayOrder}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{slide.name}</Description> 
+<Description term="顺序" style={{wordBreak: 'break-all'}}>{slide.displayOrder}</Description> 
+
+
 <Description term="链接网址" style={{wordBreak: 'break-all'}}>{slide.linkToUrl}</Description> 
 <Description term="页面">{slide.page==null?appLocaleName(userContext,"NotAssigned"):`${slide.page.displayName}(${slide.page.id})`}
  <Icon type="swap" onClick={()=>

@@ -149,7 +149,7 @@ class UserDomainDashboard extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, userWhiteListListMetaInfo, secUserListMetaInfo, userWhiteListCount, secUserCount } = this.props.userDomain
+    const { id,displayName, userWhiteListListMetaInfo, secUserListMetaInfo, publicKeyTypeListMetaInfo, userWhiteListCount, secUserCount, publicKeyTypeCount } = this.props.userDomain
     if(!this.props.userDomain.class){
       return null
     }
@@ -159,6 +159,7 @@ class UserDomainDashboard extends Component {
     	cardsSource: this.props.userDomain,returnURL,displayName,
   		subItems: [
 {name: 'secUserList', displayName: window.mtrans('sec_user','user_domain.sec_user_list',false) ,viewGroup:'__no_group', type:'secUser',count:secUserCount,addFunction: true, role: 'secUser', metaInfo: secUserListMetaInfo, renderItem: GlobalComponents.SecUserBase.renderItemOfList},
+{name: 'publicKeyTypeList', displayName: window.mtrans('public_key_type','user_domain.public_key_type_list',false) ,viewGroup:'__no_group', type:'publicKeyType',count:publicKeyTypeCount,addFunction: true, role: 'publicKeyType', metaInfo: publicKeyTypeListMetaInfo, renderItem: GlobalComponents.PublicKeyTypeBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './TransportTaskTrack.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import TransportTaskTrackBase from './TransportTaskTrack.base'
 const FormItem = Form.Item
@@ -168,18 +168,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {TransportTaskTrackService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -201,10 +203,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.movement}>
                {getFieldDecorator('movement', {initialValue: tryinit('movement')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('movement')}
-                 targetType={"movement"} 
-                 requestFunction={TransportTaskTrackService.requestCandidateMovement} useForSearch />
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"transport_task_track"} 
+                 targetType={"transport_task"} 
+                 
+                 
+                 requestFunction={TransportTaskTrackService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -224,19 +232,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {TransportTaskTrackService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -260,10 +271,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.movement}>
                   {getFieldDecorator('movement', {initialValue: tryinit('movement')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('movement')}
-                    targetType={"movement"} 
-                    requestFunction={TransportTaskTrackService.requestCandidateMovement} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('movement')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"transport_task_track"} 
+		                 targetType={"transport_task"} 
+                 
+                    requestFunction={TransportTaskTrackService.queryCandidates} useForSearch />
                   	
                  
                   )}

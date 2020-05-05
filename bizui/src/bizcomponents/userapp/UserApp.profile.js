@@ -53,7 +53,7 @@ class UserAppProfile extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  userApp = this.props.userApp;
-    const { id,displayName, quickLinkCount, listAccessCount, objectAccessCount } = userApp
+    const { id,displayName, quickLinkCount, listAccessCount } = userApp
     const  returnURL = `/userApp/${id}/dashboard`
     const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",cardsSource: userApp,displayName,returnURL,
   		subItems: [

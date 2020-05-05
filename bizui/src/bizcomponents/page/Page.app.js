@@ -11,9 +11,9 @@ import {
   Spin,
   Breadcrumb,
   AutoComplete,Row, Col,
-  Input,Button
+  Input,Button,Tooltip,
 } from 'antd'
-import TopMenu from '../../launcher/TopMenu'
+
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -27,7 +27,8 @@ import {sessionObject} from '../../utils/utils'
 import HeaderSearch from '../../components/HeaderSearch';
 import NoticeIcon from '../../components/NoticeIcon';
 import GlobalFooter from '../../components/GlobalFooter';
-
+import TopMenu from '../../launcher/TopMenu'
+import SwitchAppMenu from '../../launcher/SwitchAppMenu'
 
 import GlobalComponents from '../../custcomponents';
 
@@ -49,34 +50,36 @@ const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
 const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
 const renderMenuItem=defaultRenderMenuItem
 
-const userBarResponsiveStyle = {
-  xs: 8,
-  sm: 8,
-  md: 8,
-  lg: 6,
-  xl: 6,
+
+const naviBarResponsiveStyle = {
+  xs: 10,
+  sm: 10,
+  md: 10,
+  lg: 8,
+  xl: 8,
   
 };
+
 
 
 const searchBarResponsiveStyle = {
-  xs: 8,
-  sm: 8,
-  md: 8,
-  lg: 12,
-  xl: 12,
+  xs: 4,
+  sm: 4,
+  md: 4,
+  lg: 8,
+  xl: 8,
   
 };
 
-
-const naviBarResponsiveStyle = {
-  xs: 8,
-  sm: 8,
-  md: 8,
-  lg: 6,
-  xl: 6,
+const userBarResponsiveStyle = {
+  xs: 10,
+  sm: 10,
+  md: 10,
+  lg: 8,
+  xl: 8,
   
 };
+
 
 
 const query = {
@@ -101,6 +104,12 @@ const query = {
 }
 
 
+const currentAppName=()=>{
+
+  const targetApp = sessionObject('targetApp')
+  return targetApp.title
+
+}
 
 
 class PageBizApp extends React.PureComponent {
@@ -288,9 +297,70 @@ constructor(props) {
     }))(UiActionUpdateForm)
   }
 
-
+  getSectionSearch = () => {
+    const {SectionSearch} = GlobalComponents;
+    const userContext = null
+    return connect(state => ({
+      rule: state.rule,
+      name: window.mtrans('section','page.section_list',false),
+      role: "section",
+      data: state._page.sectionList,
+      metaInfo: state._page.sectionListMetaInfo,
+      count: state._page.sectionCount,
+      returnURL: `/page/${state._page.id}/dashboard`,
+      currentPage: state._page.sectionCurrentPageNumber,
+      searchFormParameters: state._page.sectionSearchFormParameters,
+      searchParameters: {...state._page.searchParameters},
+      expandForm: state._page.expandForm,
+      loading: state._page.loading,
+      partialList: state._page.partialList,
+      owner: { type: '_page', id: state._page.id, 
+      referenceName: 'page', 
+      listName: 'sectionList', ref:state._page, 
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+    }))(SectionSearch)
+  }
   
+  getSectionCreateForm = () => {
+   	const {SectionCreateForm} = GlobalComponents;
+   	const userContext = null
+    return connect(state => ({
+      rule: state.rule,
+      role: "section",
+      data: state._page.sectionList,
+      metaInfo: state._page.sectionListMetaInfo,
+      count: state._page.sectionCount,
+      returnURL: `/page/${state._page.id}/list`,
+      currentPage: state._page.sectionCurrentPageNumber,
+      searchFormParameters: state._page.sectionSearchFormParameters,
+      loading: state._page.loading,
+      owner: { type: '_page', id: state._page.id, referenceName: 'page', listName: 'sectionList', ref:state._page, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+    }))(SectionCreateForm)
+  }
+  
+  getSectionUpdateForm = () => {
+    const userContext = null
+  	const {SectionUpdateForm} = GlobalComponents;
+    return connect(state => ({
+      selectedRows: state._page.selectedRows,
+      role: "section",
+      currentUpdateIndex: state._page.currentUpdateIndex,
+      owner: { type: '_page', id: state._page.id, listName: 'sectionList', ref:state._page, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+    }))(SectionUpdateForm)
+  }
 
+
+  getRequestTypeStepForm = () => {
+    const userContext = null
+  	 const {ChangeRequestStepForm} = GlobalComponents
+    return connect(state => ({
+      selectedRows: state._page.selectedRows,
+      role: "cq",
+      currentUpdateIndex: state._page.currentUpdateIndex,
+      owner: { type: '_page', id: state._page.id, listName: 'nolist', ref:state._page, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+    }))(ChangeRequestStepForm)
+  }
+  
  
 
   getPageTitle = () => {
@@ -320,6 +390,10 @@ constructor(props) {
   	{path:"/page/:id/list/uiActionList", component: this.getUiActionSearch()},
   	{path:"/page/:id/list/uiActionCreateForm", component: this.getUiActionCreateForm()},
   	{path:"/page/:id/list/uiActionUpdateForm", component: this.getUiActionUpdateForm()},
+   	
+  	{path:"/page/:id/list/sectionList", component: this.getSectionSearch()},
+  	{path:"/page/:id/list/sectionCreateForm", component: this.getSectionCreateForm()},
+  	{path:"/page/:id/list/sectionUpdateForm", component: this.getSectionUpdateForm()},
      	
  	 
   	]
@@ -463,40 +537,59 @@ constructor(props) {
 
     const {searchLocalData}=GlobalComponents.PageBase
 	
-    
+    const renderMenuSwitch=()=>{
+      const  text = collapsed?"开启左侧菜单":"关闭左侧菜单"
+      const icon = collapsed?"pic-left":"pic-center"
+     
+      return (
+
+        <Tooltip placement="bottom" title={text}>
+       
+      
+      <a  className={styles.menuLink} onClick={()=>this.toggle()} style={{marginLeft:"20px",minHeight:"20px"}}>
+        <Icon type={icon} style={{marginRight:"10px"}}/> 
+      </a>  </Tooltip>)
+
+     }
      
      
-     const layout = (
+       const layout = (
      <Layout>
- <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+ 		<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
         <Col {...naviBarResponsiveStyle} >
-             <a  className={styles.menuLink} onClick={()=>this.toggle()}>
-                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 
-                {this.toggleSwitchText()}
-              </a>          
-            
+          <a className={styles.menuLink}  style={{fontSize:"20px"}}>{currentAppName()}</a>
+ 
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
-          
-          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
-           	
             style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
-            
-            
           </Col>
           <Col  {...userBarResponsiveStyle}  > 
+          <Row>
+          <Col  span={10}  > </Col>
+          <Col  span={2}  >  {renderMenuSwitch()}</Col>
+          <Col  span={6}  > 
+	          <Dropdown overlay={<SwitchAppMenu {...this.props} />} style={{marginRight:"100px"}} className={styles.right}>
+                <a  className={styles.menuLink} >
+                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用 
+                </a>
+              </Dropdown>
+          </Col>  
+
+          <Col  span={6}  >  
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
                 <a  className={styles.menuLink}>
-                  <Icon type="user" style={{fontSize:"20px",marginRight:"10px"}}/> 账户
+                <Icon type="user" style={{marginRight:"5px"}}/>账户
                 </a>
             </Dropdown>
-            
-           </Col>  
-         
+            </Col>
+
+          </Row>
+            </Col>  
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
@@ -519,7 +612,7 @@ constructor(props) {
           collapsed={collapsed}
           breakpoint="md"
           onCollapse={() => this.onCollapse(collapsed)}
-          collapsedWidth={40}
+          collapsedWidth={50}
           className={styles.sider}
         >
          

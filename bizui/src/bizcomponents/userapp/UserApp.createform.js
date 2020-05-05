@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   title: '审车平台',
   appIcon: 'users',
+  fullAccess: '1',
   permission: 'MXWR',
   objectType: 'CarInspectionPlatform',
   objectId: 'CIP000001',

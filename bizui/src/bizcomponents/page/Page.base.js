@@ -39,6 +39,7 @@ const menuData = {menuName: window.trans('page'), menuFor: "page",
   		subItems: [
   {name: 'slideList', displayName: window.mtrans('slide','page.slide_list',false), type:'slide',icon:'sliders-h',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'uiActionList', displayName: window.mtrans('ui_action','page.ui_action_list',false), type:'uiAction',icon:'building',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'sectionList', displayName: window.mtrans('section','page.section_list',false), type:'section',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
@@ -55,15 +56,17 @@ const fieldLabels = {
   pageTitle: window.trans('page.page_title'),
   linkToUrl: window.trans('page.link_to_url'),
   pageType: window.trans('page.page_type'),
+  displayOrder: window.trans('page.display_order'),
   mobileApp: window.trans('page.mobile_app'),
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'page') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '6', render: (text, record)=>renderTextCell(text,record,'page') , sorter: true },
   { title: fieldLabels.pageTitle, debugtype: 'string', dataIndex: 'pageTitle', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.linkToUrl, debugtype: 'string', dataIndex: 'linkToUrl', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.pageType, dataIndex: 'pageType', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.displayOrder, dataIndex: 'displayOrder', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
   { title: fieldLabels.mobileApp, dataIndex: 'mobileApp', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
@@ -88,7 +91,7 @@ const leftChars=(value, left)=>{
 	return value.substring(0,chars);
 }
 
-const renderReferenceItem=(value, targetComponent)=>{
+const renderTextItem=(value, label, targetComponent)=>{
 	const userContext = null
 	if(!value){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
@@ -100,13 +103,50 @@ const renderReferenceItem=(value, targetComponent)=>{
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
 	
-	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
-	
-	
-	
-	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
-const renderItemOfList=(page, targetComponent, columCount)=>{
+const renderImageItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	
+	return <ImagePreview title={label} imageLocation={value}/>
+}
+
+const renderDateItem=(value, label,targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return moment(value).format('YYYY-MM-DD');
+}
+
+const renderDateTimeItem=(value,label, targetComponent)=>{
+	const userContext = window.userContext
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return  moment(value).format('YYYY-MM-DD HH:mm')
+}
+
+
+const renderReferenceItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
+}
+
+const renderItemOfList=(page, targetComponent, columCount, listName)=>{
   
   if(!page){
   	return null
@@ -119,7 +159,7 @@ const renderItemOfList=(page, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`page-${page.id}`} style={{marginTop:"10px"}}>
+    <Card key={`${listName}-${page.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -139,6 +179,7 @@ const renderItemOfList=(page, targetComponent, columCount)=>{
         <Description term={fieldLabels.linkToUrl} style={{wordBreak: 'break-all'}}>{page.linkToUrl}</Description> 
         <Description term={fieldLabels.pageType}>{renderReferenceItem(page.pageType)}</Description>
 
+        <Description term={fieldLabels.displayOrder}><div style={{"color":"red"}}>{page.displayOrder}</div></Description> 
 	
         
       </DescriptionList>
@@ -149,17 +190,17 @@ const renderItemOfList=(page, targetComponent, columCount)=>{
 }
 	
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {pageTitle, linkToUrl, pageTypeId, mobileAppId} = formValuesToPack
+	const {pageTitle, linkToUrl, displayOrder, pageTypeId, mobileAppId} = formValuesToPack
 	const pageType = {id: pageTypeId, version: 2^31}
 	const mobileApp = {id: mobileAppId, version: 2^31}
-	const data = {pageTitle, linkToUrl, pageType, mobileApp}
+	const data = {pageTitle, linkToUrl, displayOrder, pageType, mobileApp}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {pageTitle, linkToUrl, pageType, mobileApp} = objectToUnpack
+	const {pageTitle, linkToUrl, displayOrder, pageType, mobileApp} = objectToUnpack
 	const pageTypeId = pageType ? pageType.id : null
 	const mobileAppId = mobileApp ? mobileApp.id : null
-	const data = {pageTitle, linkToUrl, pageTypeId, mobileAppId}
+	const data = {pageTitle, linkToUrl, displayOrder, pageTypeId, mobileAppId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

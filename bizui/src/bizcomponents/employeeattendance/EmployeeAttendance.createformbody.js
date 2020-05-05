@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './EmployeeAttendance.createform.less'
@@ -17,9 +17,9 @@ const {fieldLabels} = EmployeeAttendanceBase
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2018-06-13',
-  leaveTime: '2018-10-10',
-  durationHours: '7',
+  enterTime: '2020-02-14',
+  leaveTime: '2019-08-25',
+  durationHours: '8',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -76,7 +76,7 @@ class EmployeeAttendanceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {EmployeeAttendanceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -87,7 +87,7 @@ class EmployeeAttendanceCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -99,7 +99,7 @@ class EmployeeAttendanceCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -183,12 +183,19 @@ class EmployeeAttendanceCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeeAttendanceService.requestCandidateEmployee}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('employee')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"employee_attendance"} 
+		                 targetType={"employee"} 
                  
+                    requestFunction={EmployeeAttendanceService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

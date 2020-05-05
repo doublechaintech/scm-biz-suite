@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './PotentialCustomerContactPerson.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import PotentialCustomerContactPersonBase from './PotentialCustomerContactPerson.base'
 const FormItem = Form.Item
@@ -171,18 +171,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {PotentialCustomerContactPersonService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -223,19 +225,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {PotentialCustomerContactPersonService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -275,10 +280,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.potentialCustomer}>
                   {getFieldDecorator('potentialCustomer', {initialValue: tryinit('potentialCustomer')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('potentialCustomer')}
-                    targetType={"potentialCustomer"} 
-                    requestFunction={PotentialCustomerContactPersonService.requestCandidatePotentialCustomer} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('potentialCustomer')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"potential_customer_contact_person"} 
+		                 targetType={"potential_customer"} 
+                 
+                    requestFunction={PotentialCustomerContactPersonService.queryCandidates} useForSearch />
                   	
                  
                   )}

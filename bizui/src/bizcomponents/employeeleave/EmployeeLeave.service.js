@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}employeeLeaveManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateWho = (ownerClass, id, filterKey, pageNo) => {
  
@@ -83,6 +91,6 @@ const EmployeeLeaveService = { view,
   requestCandidateWho,
   requestCandidateType,
   transferToAnotherWho,
-  transferToAnotherType, listFunctions, saveRequest, processRequest}
+  transferToAnotherType, listFunctions, saveRequest, processRequest, queryCandidates}
 export default EmployeeLeaveService
 

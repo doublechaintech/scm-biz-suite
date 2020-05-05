@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   name: '首页',
   code: 'home',
+  footerTab: 'true',
   mobileAppId: 'MA000001',
 }
 */

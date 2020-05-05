@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   name: '首页',
   code: 'home',
+  footerTab: 'true',
   mobileAppId: 'MA000001',
 }
 */
@@ -155,29 +156,20 @@ class PageTypeAssociateForm extends Component {
                 </Form.Item>
               </Col>
 
-            </Row>
-
-
-        
-
-            <Row gutter={16}>
-            
-
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.footerTab}  {...switchFormItemLayout}>
+                <Form.Item label={fieldLabels.footerTab} {...formItemLayout}>
                   {getFieldDecorator('footerTab', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.footerTab} />
                   )}
                 </Form.Item>
               </Col>
 
             </Row>
+
+
        
-        
         
 
 

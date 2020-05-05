@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}pageManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidatePageType = (ownerClass, id, filterKey, pageNo) => {
  
@@ -53,14 +61,14 @@ const transferToAnotherMobileApp = (id, parameters) => {
 
 
 const addSlide = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageManager/addSlide/pageId/displayOrder/name/imageUrl/videoUrl/linkToUrl/tokensExpr/`
+  const url = `${PREFIX}pageManager/addSlide/pageId/name/displayOrder/imageUrl/videoUrl/linkToUrl/tokensExpr/`
   const pageId = targetObjectId
   const requestParameters = { ...parameters, pageId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateSlide = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageManager/updateSlideProperties/pageId/id/displayOrder/name/imageUrl/videoUrl/linkToUrl/tokensExpr/`
+  const url = `${PREFIX}pageManager/updateSlideProperties/pageId/id/name/displayOrder/imageUrl/videoUrl/linkToUrl/tokensExpr/`
   const pageId = targetObjectId
   const requestParameters = { ...parameters, pageId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -75,14 +83,14 @@ const removeSlideList = (targetObjectId, parameters) => {
 
 
 const addUiAction = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageManager/addUiAction/pageId/code/icon/title/brief/imageUrl/linkToUrl/extraData/tokensExpr/`
+  const url = `${PREFIX}pageManager/addUiAction/pageId/code/icon/title/displayOrder/brief/imageUrl/linkToUrl/extraData/tokensExpr/`
   const pageId = targetObjectId
   const requestParameters = { ...parameters, pageId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateUiAction = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageManager/updateUiActionProperties/pageId/id/code/icon/title/brief/imageUrl/linkToUrl/extraData/tokensExpr/`
+  const url = `${PREFIX}pageManager/updateUiActionProperties/pageId/id/code/icon/title/displayOrder/brief/imageUrl/linkToUrl/extraData/tokensExpr/`
   const pageId = targetObjectId
   const requestParameters = { ...parameters, pageId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -90,6 +98,28 @@ const updateUiAction = (targetObjectId, parameters) => {
 
 const removeUiActionList = (targetObjectId, parameters) => {
   const url = `${PREFIX}pageManager/removeUiActionList/pageId/uiActionIds/tokensExpr/`
+  const requestParameters = { ...parameters, pageId: targetObjectId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+
+
+const addSection = (targetObjectId, parameters) => {
+  const url = `${PREFIX}pageManager/addSection/pageId/title/brief/icon/displayOrder/viewGroup/linkToUrl/tokensExpr/`
+  const pageId = targetObjectId
+  const requestParameters = { ...parameters, pageId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const updateSection = (targetObjectId, parameters) => {
+  const url = `${PREFIX}pageManager/updateSectionProperties/pageId/id/title/brief/icon/displayOrder/viewGroup/linkToUrl/tokensExpr/`
+  const pageId = targetObjectId
+  const requestParameters = { ...parameters, pageId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const removeSectionList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}pageManager/removeSectionList/pageId/sectionIds/tokensExpr/`
   const requestParameters = { ...parameters, pageId: targetObjectId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
@@ -126,13 +156,16 @@ const PageService = { view,
   load,
   addSlide,
   addUiAction,
+  addSection,
   updateSlide,
   updateUiAction,
+  updateSection,
   removeSlideList,
   removeUiActionList,
+  removeSectionList,
   requestCandidatePageType,
   requestCandidateMobileApp,
   transferToAnotherPageType,
-  transferToAnotherMobileApp, listFunctions, saveRequest, processRequest}
+  transferToAnotherMobileApp, listFunctions, saveRequest, processRequest, queryCandidates}
 export default PageService
 

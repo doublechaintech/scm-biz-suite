@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './SupplyOrderShippingGroup.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import SupplyOrderShippingGroupBase from './SupplyOrderShippingGroup.base'
 const FormItem = Form.Item
@@ -169,18 +169,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {SupplyOrderShippingGroupService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -221,19 +223,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {SupplyOrderShippingGroupService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -265,10 +270,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.bizOrder}>
                   {getFieldDecorator('bizOrder', {initialValue: tryinit('bizOrder')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={SupplyOrderShippingGroupService.requestCandidateBizOrder} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('bizOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"supply_order_shipping_group"} 
+		                 targetType={"supply_order"} 
+                 
+                    requestFunction={SupplyOrderShippingGroupService.queryCandidates} useForSearch />
                   	
                  
                   )}

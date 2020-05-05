@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './CompanyTraining.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import CompanyTrainingBase from './CompanyTraining.base'
 const FormItem = Form.Item
@@ -171,18 +171,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {CompanyTrainingService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -223,19 +225,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {CompanyTrainingService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -267,10 +272,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.company}>
                   {getFieldDecorator('company', {initialValue: tryinit('company')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('company')}
-                    targetType={"company"} 
-                    requestFunction={CompanyTrainingService.requestCandidateCompany} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('company')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"company_training"} 
+		                 targetType={"retail_store_country_center"} 
+                 
+                    requestFunction={CompanyTrainingService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -279,10 +289,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.instructor}>
                   {getFieldDecorator('instructor', {initialValue: tryinit('instructor')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('instructor')}
-                    targetType={"instructor"} 
-                    requestFunction={CompanyTrainingService.requestCandidateInstructor} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('instructor')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"company_training"} 
+		                 targetType={"instructor"} 
+                 
+                    requestFunction={CompanyTrainingService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -291,10 +306,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.trainingCourseType}>
                   {getFieldDecorator('trainingCourseType', {initialValue: tryinit('trainingCourseType')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('trainingCourseType')}
-                    targetType={"trainingCourseType"} 
-                    requestFunction={CompanyTrainingService.requestCandidateTrainingCourseType} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('trainingCourseType')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"company_training"} 
+		                 targetType={"training_course_type"} 
+                 
+                    requestFunction={CompanyTrainingService.queryCandidates} useForSearch />
                   	
                  
                   )}

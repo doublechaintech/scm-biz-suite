@@ -38,7 +38,7 @@ class SectionModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 800 }}
+          scroll={{ x: 1110 }}
         />
       </div>
     )

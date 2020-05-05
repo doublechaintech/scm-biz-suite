@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}retailStoreMemberGiftCardManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const RetailStoreMemberGiftCardService = { view,
   updateRetailStoreMemberGiftCardConsumeRecord,
   removeRetailStoreMemberGiftCardConsumeRecordList,
   requestCandidateOwner,
-  transferToAnotherOwner, listFunctions, saveRequest, processRequest}
+  transferToAnotherOwner, listFunctions, saveRequest, processRequest, queryCandidates}
 export default RetailStoreMemberGiftCardService
 

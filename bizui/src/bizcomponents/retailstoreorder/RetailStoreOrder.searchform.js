@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './RetailStoreOrder.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import RetailStoreOrderBase from './RetailStoreOrder.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {RetailStoreOrderService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -203,10 +205,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.buyer}>
                {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('buyer')}
-                 targetType={"buyer"} 
-                 requestFunction={RetailStoreOrderService.requestCandidateBuyer} useForSearch />
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"retail_store_order"} 
+                 targetType={"retail_store"} 
+                 
+                 
+                 requestFunction={RetailStoreOrderService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -226,19 +234,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {RetailStoreOrderService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -262,10 +273,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.buyer}>
                   {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('buyer')}
-                    targetType={"buyer"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateBuyer} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('buyer')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store_order"} 
+		                 targetType={"retail_store"} 
+                 
+                    requestFunction={RetailStoreOrderService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -274,10 +290,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.seller}>
                   {getFieldDecorator('seller', {initialValue: tryinit('seller')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('seller')}
-                    targetType={"seller"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateSeller} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('seller')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store_order"} 
+		                 targetType={"retail_store_country_center"} 
+                 
+                    requestFunction={RetailStoreOrderService.queryCandidates} useForSearch />
                   	
                  
                   )}

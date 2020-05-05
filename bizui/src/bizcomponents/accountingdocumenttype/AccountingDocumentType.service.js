@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}accountingDocumentTypeManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateAccountingPeriod = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const AccountingDocumentTypeService = { view,
   updateAccountingDocument,
   removeAccountingDocumentList,
   requestCandidateAccountingPeriod,
-  transferToAnotherAccountingPeriod, listFunctions, saveRequest, processRequest}
+  transferToAnotherAccountingPeriod, listFunctions, saveRequest, processRequest, queryCandidates}
 export default AccountingDocumentTypeService
 

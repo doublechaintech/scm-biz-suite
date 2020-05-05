@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './Goods.createform.less'
@@ -21,7 +21,7 @@ const testValues = {
   rfid: 'RF99192',
   uom: '件',
   maxPackage: '9',
-  expireTime: '2017-05-24',
+  expireTime: '2018-07-23',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -85,7 +85,7 @@ class GoodsCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {GoodsService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -96,7 +96,7 @@ class GoodsCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -108,7 +108,7 @@ class GoodsCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -202,12 +202,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('sku')}
-                    targetType={"sku"} 
-                    requestFunction={GoodsService.requestCandidateSku}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('sku')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"sku"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -221,12 +228,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('receivingSpace')}
-                    targetType={"receivingSpace"} 
-                    requestFunction={GoodsService.requestCandidateReceivingSpace}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('receivingSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"receiving_space"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -240,12 +254,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('goodsAllocation')}
-                    targetType={"goodsAllocation"} 
-                    requestFunction={GoodsService.requestCandidateGoodsAllocation}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('goodsAllocation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"goods_allocation"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -259,12 +280,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('smartPallet')}
-                    targetType={"smartPallet"} 
-                    requestFunction={GoodsService.requestCandidateSmartPallet}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('smartPallet')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"smart_pallet"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -278,12 +306,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('shippingSpace')}
-                    targetType={"shippingSpace"} 
-                    requestFunction={GoodsService.requestCandidateShippingSpace}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('shippingSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"shipping_space"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -297,12 +332,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('transportTask')}
-                    targetType={"transportTask"} 
-                    requestFunction={GoodsService.requestCandidateTransportTask}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('transportTask')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"transport_task"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -316,12 +358,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStore')}
-                    targetType={"retailStore"} 
-                    requestFunction={GoodsService.requestCandidateRetailStore}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStore')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"retail_store"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -335,12 +384,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={GoodsService.requestCandidateBizOrder}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('bizOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"supply_order"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -354,12 +410,19 @@ class GoodsCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStoreOrder')}
-                    targetType={"retailStoreOrder"} 
-                    requestFunction={GoodsService.requestCandidateRetailStoreOrder}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStoreOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"goods"} 
+		                 targetType={"retail_store_order"} 
                  
+                    requestFunction={GoodsService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

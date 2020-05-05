@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}secUserManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateDomain = (ownerClass, id, filterKey, pageNo) => {
  
@@ -125,6 +133,28 @@ const removeWechatMiniappIdentifyList = (targetObjectId, parameters) => {
 
 
 
+const addKeypairIdentify = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/addKeypairIdentify/secUserId/publicKey/keyTypeId/tokensExpr/`
+  const secUserId = targetObjectId
+  const requestParameters = { ...parameters, secUserId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const updateKeypairIdentify = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/updateKeypairIdentifyProperties/secUserId/id/publicKey/tokensExpr/`
+  const secUserId = targetObjectId
+  const requestParameters = { ...parameters, secUserId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const removeKeypairIdentifyList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/removeKeypairIdentifyList/secUserId/keypairIdentifyIds/tokensExpr/`
+  const requestParameters = { ...parameters, secUserId: targetObjectId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+
+
 // Filter this out when no functions
 
 const  listFunctions = () => {
@@ -157,15 +187,18 @@ const SecUserService = { view,
   addLoginHistory,
   addWechatWorkappIdentify,
   addWechatMiniappIdentify,
+  addKeypairIdentify,
   updateUserApp,
   updateLoginHistory,
   updateWechatWorkappIdentify,
   updateWechatMiniappIdentify,
+  updateKeypairIdentify,
   removeUserAppList,
   removeLoginHistoryList,
   removeWechatWorkappIdentifyList,
   removeWechatMiniappIdentifyList,
+  removeKeypairIdentifyList,
   requestCandidateDomain,
-  transferToAnotherDomain, listFunctions, saveRequest, processRequest}
+  transferToAnotherDomain, listFunctions, saveRequest, processRequest, queryCandidates}
 export default SecUserService
 

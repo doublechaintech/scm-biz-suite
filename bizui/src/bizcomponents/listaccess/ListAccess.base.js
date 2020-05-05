@@ -62,14 +62,14 @@ const fieldLabels = {
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'listAccess') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '6', render: (text, record)=>renderTextCell(text,record,'listAccess') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.internalName, debugtype: 'string', dataIndex: 'internalName', width: '24',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.readPermission, dataIndex: 'readPermission', render: (text, record) =>renderBooleanCell(text, record), sorter:true },
-  { title: fieldLabels.createPermission, dataIndex: 'createPermission', render: (text, record) =>renderBooleanCell(text, record), sorter:true },
-  { title: fieldLabels.deletePermission, dataIndex: 'deletePermission', render: (text, record) =>renderBooleanCell(text, record), sorter:true },
-  { title: fieldLabels.updatePermission, dataIndex: 'updatePermission', render: (text, record) =>renderBooleanCell(text, record), sorter:true },
-  { title: fieldLabels.executionPermission, dataIndex: 'executionPermission', render: (text, record) =>renderBooleanCell(text, record), sorter:true },
+  { title: fieldLabels.readPermission, debugtype: 'bool', dataIndex: 'readPermission', width: '8',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.createPermission, debugtype: 'bool', dataIndex: 'createPermission', width: '8',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.deletePermission, debugtype: 'bool', dataIndex: 'deletePermission', width: '8',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.updatePermission, debugtype: 'bool', dataIndex: 'updatePermission', width: '8',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.executionPermission, debugtype: 'bool', dataIndex: 'executionPermission', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.app, dataIndex: 'app', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
@@ -94,7 +94,7 @@ const leftChars=(value, left)=>{
 	return value.substring(0,chars);
 }
 
-const renderReferenceItem=(value, targetComponent)=>{
+const renderTextItem=(value, label, targetComponent)=>{
 	const userContext = null
 	if(!value){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
@@ -106,13 +106,50 @@ const renderReferenceItem=(value, targetComponent)=>{
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
 	
-	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
-	
-	
-	
-	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
-const renderItemOfList=(listAccess, targetComponent, columCount)=>{
+const renderImageItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	
+	return <ImagePreview title={label} imageLocation={value}/>
+}
+
+const renderDateItem=(value, label,targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return moment(value).format('YYYY-MM-DD');
+}
+
+const renderDateTimeItem=(value,label, targetComponent)=>{
+	const userContext = window.userContext
+	if(!value){
+		return appLocaleName(userContext,"NotAssigned")
+	}
+	return  moment(value).format('YYYY-MM-DD HH:mm')
+}
+
+
+const renderReferenceItem=(value,label, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
+}
+
+const renderItemOfList=(listAccess, targetComponent, columCount, listName)=>{
   
   if(!listAccess){
   	return null
@@ -125,7 +162,7 @@ const renderItemOfList=(listAccess, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`listAccess-${listAccess.id}`} style={{marginTop:"10px"}}>
+    <Card key={`${listName}-${listAccess.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -141,6 +178,11 @@ const renderItemOfList=(listAccess, targetComponent, columCount)=>{
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{listAccess.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{listAccess.name}</Description> 
         <Description term={fieldLabels.internalName} style={{wordBreak: 'break-all'}}>{listAccess.internalName}</Description> 
+        <Description term={fieldLabels.readPermission} style={{wordBreak: 'break-all'}}>{listAccess.readPermission}</Description> 
+        <Description term={fieldLabels.createPermission} style={{wordBreak: 'break-all'}}>{listAccess.createPermission}</Description> 
+        <Description term={fieldLabels.deletePermission} style={{wordBreak: 'break-all'}}>{listAccess.deletePermission}</Description> 
+        <Description term={fieldLabels.updatePermission} style={{wordBreak: 'break-all'}}>{listAccess.updatePermission}</Description> 
+        <Description term={fieldLabels.executionPermission} style={{wordBreak: 'break-all'}}>{listAccess.executionPermission}</Description> 
         <Description term={fieldLabels.app}>{renderReferenceItem(listAccess.app)}</Description>
 
 	
@@ -153,15 +195,15 @@ const renderItemOfList=(listAccess, targetComponent, columCount)=>{
 }
 	
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, internalName, appId} = formValuesToPack
+	const {name, internalName, readPermission, createPermission, deletePermission, updatePermission, executionPermission, appId} = formValuesToPack
 	const app = {id: appId, version: 2^31}
-	const data = {name, internalName, app}
+	const data = {name, internalName, readPermission, createPermission, deletePermission, updatePermission, executionPermission, app}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {name, internalName, app} = objectToUnpack
+	const {name, internalName, readPermission, createPermission, deletePermission, updatePermission, executionPermission, app} = objectToUnpack
 	const appId = app ? app.id : null
-	const data = {name, internalName, appId}
+	const data = {name, internalName, readPermission, createPermission, deletePermission, updatePermission, executionPermission, appId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

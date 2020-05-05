@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './Slide.createform.less'
@@ -17,8 +17,8 @@ const {fieldLabels} = SlideBase
 const testValues = {};
 /*
 const testValues = {
-  displayOrder: '1',
   name: '首页Focus的内容',
+  displayOrder: '1',
   linkToUrl: '',
   pageId: 'P000001',
 }
@@ -77,7 +77,7 @@ class SlideCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {SlideService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -88,7 +88,7 @@ class SlideCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -100,7 +100,7 @@ class SlideCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -135,21 +135,21 @@ class SlideCreateFormBody extends Component {
            
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
-                  {getFieldDecorator('displayOrder', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large"  placeHolder={fieldLabels.name} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
                   )}
                 </Form.Item>
               </Col>
@@ -174,12 +174,19 @@ class SlideCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('page')}
-                    targetType={"page"} 
-                    requestFunction={SlideService.requestCandidatePage}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('page')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"slide"} 
+		                 targetType={"page"} 
                  
+                    requestFunction={SlideService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

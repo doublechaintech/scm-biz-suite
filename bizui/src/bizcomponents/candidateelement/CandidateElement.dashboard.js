@@ -120,6 +120,7 @@ const internalSummaryOf = (candidateElement,targetComponent) =>{
 <Description term="序号" style={{wordBreak: 'break-all'}}>{candidateElement.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{candidateElement.name}</Description> 
 <Description term="类型" style={{wordBreak: 'break-all'}}>{candidateElement.type}</Description> 
+
 	
         {buildTransferModal(candidateElement,targetComponent)}
       </DescriptionList>

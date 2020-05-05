@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}provinceCenterEmployeeManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateDepartment = (ownerClass, id, filterKey, pageNo) => {
  
@@ -83,6 +91,6 @@ const ProvinceCenterEmployeeService = { view,
   requestCandidateDepartment,
   requestCandidateProvinceCenter,
   transferToAnotherDepartment,
-  transferToAnotherProvinceCenter, listFunctions, saveRequest, processRequest}
+  transferToAnotherProvinceCenter, listFunctions, saveRequest, processRequest, queryCandidates}
 export default ProvinceCenterEmployeeService
 

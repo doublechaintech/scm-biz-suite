@@ -1770,21 +1770,6 @@ import ListAccessProfile from './listaccess/ListAccess.profile';
 import ListAccessCreateFormBody from './listaccess/ListAccess.createformbody';
 import ListAccessService from './listaccess/ListAccess.service';
 import ListAccessUpdateForm from './listaccess/ListAccess.updateform';
-import ObjectAccessBase from './objectaccess/ObjectAccess.base';
-import ObjectAccessBizApp from './objectaccess/ObjectAccess.app';
-import ObjectAccessModel from './objectaccess/ObjectAccess.model';
-import ObjectAccessDashboard from './objectaccess/ObjectAccess.dashboard';
-import ObjectAccessModalTable from './objectaccess/ObjectAccess.modaltable';
-import ObjectAccessSearch from './objectaccess/ObjectAccess.search';
-import ObjectAccessSearchForm from './objectaccess/ObjectAccess.searchform';
-import ObjectAccessCreateForm from './objectaccess/ObjectAccess.createform';
-import ObjectAccessAssociateForm from './objectaccess/ObjectAccess.associateform';
-import ObjectAccessTable from './objectaccess/ObjectAccess.table';
-import ObjectAccessPermission from './objectaccess/ObjectAccess.permission';
-import ObjectAccessProfile from './objectaccess/ObjectAccess.profile';
-import ObjectAccessCreateFormBody from './objectaccess/ObjectAccess.createformbody';
-import ObjectAccessService from './objectaccess/ObjectAccess.service';
-import ObjectAccessUpdateForm from './objectaccess/ObjectAccess.updateform';
 import LoginHistoryBase from './loginhistory/LoginHistory.base';
 import LoginHistoryBizApp from './loginhistory/LoginHistory.app';
 import LoginHistoryModel from './loginhistory/LoginHistory.model';
@@ -1800,81 +1785,6 @@ import LoginHistoryProfile from './loginhistory/LoginHistory.profile';
 import LoginHistoryCreateFormBody from './loginhistory/LoginHistory.createformbody';
 import LoginHistoryService from './loginhistory/LoginHistory.service';
 import LoginHistoryUpdateForm from './loginhistory/LoginHistory.updateform';
-import GenericFormBase from './genericform/GenericForm.base';
-import GenericFormBizApp from './genericform/GenericForm.app';
-import GenericFormModel from './genericform/GenericForm.model';
-import GenericFormDashboard from './genericform/GenericForm.dashboard';
-import GenericFormModalTable from './genericform/GenericForm.modaltable';
-import GenericFormSearch from './genericform/GenericForm.search';
-import GenericFormSearchForm from './genericform/GenericForm.searchform';
-import GenericFormCreateForm from './genericform/GenericForm.createform';
-import GenericFormAssociateForm from './genericform/GenericForm.associateform';
-import GenericFormTable from './genericform/GenericForm.table';
-import GenericFormPermission from './genericform/GenericForm.permission';
-import GenericFormProfile from './genericform/GenericForm.profile';
-import GenericFormCreateFormBody from './genericform/GenericForm.createformbody';
-import GenericFormService from './genericform/GenericForm.service';
-import GenericFormUpdateForm from './genericform/GenericForm.updateform';
-import FormMessageBase from './formmessage/FormMessage.base';
-import FormMessageBizApp from './formmessage/FormMessage.app';
-import FormMessageModel from './formmessage/FormMessage.model';
-import FormMessageDashboard from './formmessage/FormMessage.dashboard';
-import FormMessageModalTable from './formmessage/FormMessage.modaltable';
-import FormMessageSearch from './formmessage/FormMessage.search';
-import FormMessageSearchForm from './formmessage/FormMessage.searchform';
-import FormMessageCreateForm from './formmessage/FormMessage.createform';
-import FormMessageAssociateForm from './formmessage/FormMessage.associateform';
-import FormMessageTable from './formmessage/FormMessage.table';
-import FormMessagePermission from './formmessage/FormMessage.permission';
-import FormMessageProfile from './formmessage/FormMessage.profile';
-import FormMessageCreateFormBody from './formmessage/FormMessage.createformbody';
-import FormMessageService from './formmessage/FormMessage.service';
-import FormMessageUpdateForm from './formmessage/FormMessage.updateform';
-import FormFieldMessageBase from './formfieldmessage/FormFieldMessage.base';
-import FormFieldMessageBizApp from './formfieldmessage/FormFieldMessage.app';
-import FormFieldMessageModel from './formfieldmessage/FormFieldMessage.model';
-import FormFieldMessageDashboard from './formfieldmessage/FormFieldMessage.dashboard';
-import FormFieldMessageModalTable from './formfieldmessage/FormFieldMessage.modaltable';
-import FormFieldMessageSearch from './formfieldmessage/FormFieldMessage.search';
-import FormFieldMessageSearchForm from './formfieldmessage/FormFieldMessage.searchform';
-import FormFieldMessageCreateForm from './formfieldmessage/FormFieldMessage.createform';
-import FormFieldMessageAssociateForm from './formfieldmessage/FormFieldMessage.associateform';
-import FormFieldMessageTable from './formfieldmessage/FormFieldMessage.table';
-import FormFieldMessagePermission from './formfieldmessage/FormFieldMessage.permission';
-import FormFieldMessageProfile from './formfieldmessage/FormFieldMessage.profile';
-import FormFieldMessageCreateFormBody from './formfieldmessage/FormFieldMessage.createformbody';
-import FormFieldMessageService from './formfieldmessage/FormFieldMessage.service';
-import FormFieldMessageUpdateForm from './formfieldmessage/FormFieldMessage.updateform';
-import FormFieldBase from './formfield/FormField.base';
-import FormFieldBizApp from './formfield/FormField.app';
-import FormFieldModel from './formfield/FormField.model';
-import FormFieldDashboard from './formfield/FormField.dashboard';
-import FormFieldModalTable from './formfield/FormField.modaltable';
-import FormFieldSearch from './formfield/FormField.search';
-import FormFieldSearchForm from './formfield/FormField.searchform';
-import FormFieldCreateForm from './formfield/FormField.createform';
-import FormFieldAssociateForm from './formfield/FormField.associateform';
-import FormFieldTable from './formfield/FormField.table';
-import FormFieldPermission from './formfield/FormField.permission';
-import FormFieldProfile from './formfield/FormField.profile';
-import FormFieldCreateFormBody from './formfield/FormField.createformbody';
-import FormFieldService from './formfield/FormField.service';
-import FormFieldUpdateForm from './formfield/FormField.updateform';
-import FormActionBase from './formaction/FormAction.base';
-import FormActionBizApp from './formaction/FormAction.app';
-import FormActionModel from './formaction/FormAction.model';
-import FormActionDashboard from './formaction/FormAction.dashboard';
-import FormActionModalTable from './formaction/FormAction.modaltable';
-import FormActionSearch from './formaction/FormAction.search';
-import FormActionSearchForm from './formaction/FormAction.searchform';
-import FormActionCreateForm from './formaction/FormAction.createform';
-import FormActionAssociateForm from './formaction/FormAction.associateform';
-import FormActionTable from './formaction/FormAction.table';
-import FormActionPermission from './formaction/FormAction.permission';
-import FormActionProfile from './formaction/FormAction.profile';
-import FormActionCreateFormBody from './formaction/FormAction.createformbody';
-import FormActionService from './formaction/FormAction.service';
-import FormActionUpdateForm from './formaction/FormAction.updateform';
 import CandidateContainerBase from './candidatecontainer/CandidateContainer.base';
 import CandidateContainerBizApp from './candidatecontainer/CandidateContainer.app';
 import CandidateContainerModel from './candidatecontainer/CandidateContainer.model';
@@ -1935,6 +1845,36 @@ import WechatMiniappIdentifyProfile from './wechatminiappidentify/WechatMiniappI
 import WechatMiniappIdentifyCreateFormBody from './wechatminiappidentify/WechatMiniappIdentify.createformbody';
 import WechatMiniappIdentifyService from './wechatminiappidentify/WechatMiniappIdentify.service';
 import WechatMiniappIdentifyUpdateForm from './wechatminiappidentify/WechatMiniappIdentify.updateform';
+import KeypairIdentifyBase from './keypairidentify/KeypairIdentify.base';
+import KeypairIdentifyBizApp from './keypairidentify/KeypairIdentify.app';
+import KeypairIdentifyModel from './keypairidentify/KeypairIdentify.model';
+import KeypairIdentifyDashboard from './keypairidentify/KeypairIdentify.dashboard';
+import KeypairIdentifyModalTable from './keypairidentify/KeypairIdentify.modaltable';
+import KeypairIdentifySearch from './keypairidentify/KeypairIdentify.search';
+import KeypairIdentifySearchForm from './keypairidentify/KeypairIdentify.searchform';
+import KeypairIdentifyCreateForm from './keypairidentify/KeypairIdentify.createform';
+import KeypairIdentifyAssociateForm from './keypairidentify/KeypairIdentify.associateform';
+import KeypairIdentifyTable from './keypairidentify/KeypairIdentify.table';
+import KeypairIdentifyPermission from './keypairidentify/KeypairIdentify.permission';
+import KeypairIdentifyProfile from './keypairidentify/KeypairIdentify.profile';
+import KeypairIdentifyCreateFormBody from './keypairidentify/KeypairIdentify.createformbody';
+import KeypairIdentifyService from './keypairidentify/KeypairIdentify.service';
+import KeypairIdentifyUpdateForm from './keypairidentify/KeypairIdentify.updateform';
+import PublicKeyTypeBase from './publickeytype/PublicKeyType.base';
+import PublicKeyTypeBizApp from './publickeytype/PublicKeyType.app';
+import PublicKeyTypeModel from './publickeytype/PublicKeyType.model';
+import PublicKeyTypeDashboard from './publickeytype/PublicKeyType.dashboard';
+import PublicKeyTypeModalTable from './publickeytype/PublicKeyType.modaltable';
+import PublicKeyTypeSearch from './publickeytype/PublicKeyType.search';
+import PublicKeyTypeSearchForm from './publickeytype/PublicKeyType.searchform';
+import PublicKeyTypeCreateForm from './publickeytype/PublicKeyType.createform';
+import PublicKeyTypeAssociateForm from './publickeytype/PublicKeyType.associateform';
+import PublicKeyTypeTable from './publickeytype/PublicKeyType.table';
+import PublicKeyTypePermission from './publickeytype/PublicKeyType.permission';
+import PublicKeyTypeProfile from './publickeytype/PublicKeyType.profile';
+import PublicKeyTypeCreateFormBody from './publickeytype/PublicKeyType.createformbody';
+import PublicKeyTypeService from './publickeytype/PublicKeyType.service';
+import PublicKeyTypeUpdateForm from './publickeytype/PublicKeyType.updateform';
 import TreeNodeBase from './treenode/TreeNode.base';
 import TreeNodeBizApp from './treenode/TreeNode.app';
 import TreeNodeModel from './treenode/TreeNode.model';
@@ -2071,17 +2011,13 @@ const BizModels = [
 	UserAppModel,
 	QuickLinkModel,
 	ListAccessModel,
-	ObjectAccessModel,
 	LoginHistoryModel,
-	GenericFormModel,
-	FormMessageModel,
-	FormFieldMessageModel,
-	FormFieldModel,
-	FormActionModel,
 	CandidateContainerModel,
 	CandidateElementModel,
 	WechatWorkappIdentifyModel,
 	WechatMiniappIdentifyModel,
+	KeypairIdentifyModel,
+	PublicKeyTypeModel,
 	TreeNodeModel,
 
 ]
@@ -2218,17 +2154,13 @@ menuLibrary.secUser = SecUserBase.menuData
 menuLibrary.userApp = UserAppBase.menuData
 menuLibrary.quickLink = QuickLinkBase.menuData
 menuLibrary.listAccess = ListAccessBase.menuData
-menuLibrary.objectAccess = ObjectAccessBase.menuData
 menuLibrary.loginHistory = LoginHistoryBase.menuData
-menuLibrary.genericForm = GenericFormBase.menuData
-menuLibrary.formMessage = FormMessageBase.menuData
-menuLibrary.formFieldMessage = FormFieldMessageBase.menuData
-menuLibrary.formField = FormFieldBase.menuData
-menuLibrary.formAction = FormActionBase.menuData
 menuLibrary.candidateContainer = CandidateContainerBase.menuData
 menuLibrary.candidateElement = CandidateElementBase.menuData
 menuLibrary.wechatWorkappIdentify = WechatWorkappIdentifyBase.menuData
 menuLibrary.wechatMiniappIdentify = WechatMiniappIdentifyBase.menuData
+menuLibrary.keypairIdentify = KeypairIdentifyBase.menuData
+menuLibrary.publicKeyType = PublicKeyTypeBase.menuData
 menuLibrary.treeNode = TreeNodeBase.menuData
 
 
@@ -2368,17 +2300,13 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.userapp.UserApp': {name:'userApp'},
   'com.doublechaintech.retailscm.quicklink.QuickLink': {name:'quickLink'},
   'com.doublechaintech.retailscm.listaccess.ListAccess': {name:'listAccess'},
-  'com.doublechaintech.retailscm.objectaccess.ObjectAccess': {name:'objectAccess'},
   'com.doublechaintech.retailscm.loginhistory.LoginHistory': {name:'loginHistory'},
-  'com.doublechaintech.retailscm.genericform.GenericForm': {name:'genericForm'},
-  'com.doublechaintech.retailscm.formmessage.FormMessage': {name:'formMessage'},
-  'com.doublechaintech.retailscm.formfieldmessage.FormFieldMessage': {name:'formFieldMessage'},
-  'com.doublechaintech.retailscm.formfield.FormField': {name:'formField'},
-  'com.doublechaintech.retailscm.formaction.FormAction': {name:'formAction'},
   'com.doublechaintech.retailscm.candidatecontainer.CandidateContainer': {name:'candidateContainer'},
   'com.doublechaintech.retailscm.candidateelement.CandidateElement': {name:'candidateElement'},
   'com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify': {name:'wechatWorkappIdentify'},
   'com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify': {name:'wechatMiniappIdentify'},
+  'com.doublechaintech.retailscm.keypairidentify.KeypairIdentify': {name:'keypairIdentify'},
+  'com.doublechaintech.retailscm.publickeytype.PublicKeyType': {name:'publicKeyType'},
   'com.doublechaintech.retailscm.treenode.TreeNode': {name:'treeNode'},
 
 }
@@ -4195,21 +4123,6 @@ const OOTBComponents={
     ListAccessCreateFormBody,
     ListAccessService,
     ListAccessUpdateForm,
-    ObjectAccessBase,
-    ObjectAccessBizApp,
-    ObjectAccessModel,
-    ObjectAccessDashboard,
-    ObjectAccessModalTable,
-    ObjectAccessSearch,
-    ObjectAccessSearchForm,
-    ObjectAccessCreateForm,
-    ObjectAccessAssociateForm,
-    ObjectAccessTable,
-    ObjectAccessPermission,
-    ObjectAccessProfile,
-    ObjectAccessCreateFormBody,
-    ObjectAccessService,
-    ObjectAccessUpdateForm,
     LoginHistoryBase,
     LoginHistoryBizApp,
     LoginHistoryModel,
@@ -4225,81 +4138,6 @@ const OOTBComponents={
     LoginHistoryCreateFormBody,
     LoginHistoryService,
     LoginHistoryUpdateForm,
-    GenericFormBase,
-    GenericFormBizApp,
-    GenericFormModel,
-    GenericFormDashboard,
-    GenericFormModalTable,
-    GenericFormSearch,
-    GenericFormSearchForm,
-    GenericFormCreateForm,
-    GenericFormAssociateForm,
-    GenericFormTable,
-    GenericFormPermission,
-    GenericFormProfile,
-    GenericFormCreateFormBody,
-    GenericFormService,
-    GenericFormUpdateForm,
-    FormMessageBase,
-    FormMessageBizApp,
-    FormMessageModel,
-    FormMessageDashboard,
-    FormMessageModalTable,
-    FormMessageSearch,
-    FormMessageSearchForm,
-    FormMessageCreateForm,
-    FormMessageAssociateForm,
-    FormMessageTable,
-    FormMessagePermission,
-    FormMessageProfile,
-    FormMessageCreateFormBody,
-    FormMessageService,
-    FormMessageUpdateForm,
-    FormFieldMessageBase,
-    FormFieldMessageBizApp,
-    FormFieldMessageModel,
-    FormFieldMessageDashboard,
-    FormFieldMessageModalTable,
-    FormFieldMessageSearch,
-    FormFieldMessageSearchForm,
-    FormFieldMessageCreateForm,
-    FormFieldMessageAssociateForm,
-    FormFieldMessageTable,
-    FormFieldMessagePermission,
-    FormFieldMessageProfile,
-    FormFieldMessageCreateFormBody,
-    FormFieldMessageService,
-    FormFieldMessageUpdateForm,
-    FormFieldBase,
-    FormFieldBizApp,
-    FormFieldModel,
-    FormFieldDashboard,
-    FormFieldModalTable,
-    FormFieldSearch,
-    FormFieldSearchForm,
-    FormFieldCreateForm,
-    FormFieldAssociateForm,
-    FormFieldTable,
-    FormFieldPermission,
-    FormFieldProfile,
-    FormFieldCreateFormBody,
-    FormFieldService,
-    FormFieldUpdateForm,
-    FormActionBase,
-    FormActionBizApp,
-    FormActionModel,
-    FormActionDashboard,
-    FormActionModalTable,
-    FormActionSearch,
-    FormActionSearchForm,
-    FormActionCreateForm,
-    FormActionAssociateForm,
-    FormActionTable,
-    FormActionPermission,
-    FormActionProfile,
-    FormActionCreateFormBody,
-    FormActionService,
-    FormActionUpdateForm,
     CandidateContainerBase,
     CandidateContainerBizApp,
     CandidateContainerModel,
@@ -4360,6 +4198,36 @@ const OOTBComponents={
     WechatMiniappIdentifyCreateFormBody,
     WechatMiniappIdentifyService,
     WechatMiniappIdentifyUpdateForm,
+    KeypairIdentifyBase,
+    KeypairIdentifyBizApp,
+    KeypairIdentifyModel,
+    KeypairIdentifyDashboard,
+    KeypairIdentifyModalTable,
+    KeypairIdentifySearch,
+    KeypairIdentifySearchForm,
+    KeypairIdentifyCreateForm,
+    KeypairIdentifyAssociateForm,
+    KeypairIdentifyTable,
+    KeypairIdentifyPermission,
+    KeypairIdentifyProfile,
+    KeypairIdentifyCreateFormBody,
+    KeypairIdentifyService,
+    KeypairIdentifyUpdateForm,
+    PublicKeyTypeBase,
+    PublicKeyTypeBizApp,
+    PublicKeyTypeModel,
+    PublicKeyTypeDashboard,
+    PublicKeyTypeModalTable,
+    PublicKeyTypeSearch,
+    PublicKeyTypeSearchForm,
+    PublicKeyTypeCreateForm,
+    PublicKeyTypeAssociateForm,
+    PublicKeyTypeTable,
+    PublicKeyTypePermission,
+    PublicKeyTypeProfile,
+    PublicKeyTypeCreateFormBody,
+    PublicKeyTypeService,
+    PublicKeyTypeUpdateForm,
     TreeNodeBase,
     TreeNodeBizApp,
     TreeNodeModel,

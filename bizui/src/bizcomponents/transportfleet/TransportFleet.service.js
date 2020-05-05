@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}transportFleetManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
  
@@ -141,6 +149,6 @@ const TransportFleetService = { view,
   removeTruckDriverList,
   removeTransportTaskList,
   requestCandidateOwner,
-  transferToAnotherOwner, listFunctions, saveRequest, processRequest}
+  transferToAnotherOwner, listFunctions, saveRequest, processRequest, queryCandidates}
 export default TransportFleetService
 

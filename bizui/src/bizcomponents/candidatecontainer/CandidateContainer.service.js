@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}candidateContainerManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 
 
@@ -74,6 +82,6 @@ const CandidateContainerService = { view,
   load,
   addCandidateElement,
   updateCandidateElement,
-  removeCandidateElementList, listFunctions, saveRequest, processRequest}
+  removeCandidateElementList, listFunctions, saveRequest, processRequest, queryCandidates}
 export default CandidateContainerService
 

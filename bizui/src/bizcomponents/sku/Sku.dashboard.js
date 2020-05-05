@@ -130,6 +130,7 @@ const internalSummaryOf = (sku,targetComponent) =>{
 <Description term="包装类型" style={{wordBreak: 'break-all'}}>{sku.packageType}</Description> 
 <Description term="净含量" style={{wordBreak: 'break-all'}}>{sku.netContent}</Description> 
 <Description term="价格" style={{wordBreak: 'break-all'}}>{sku.price}</Description> 
+
 	
         {buildTransferModal(sku,targetComponent)}
       </DescriptionList>

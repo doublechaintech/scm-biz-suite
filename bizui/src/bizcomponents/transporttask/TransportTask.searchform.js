@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './TransportTask.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import TransportTaskBase from './TransportTask.base'
 const FormItem = Form.Item
@@ -173,18 +173,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {TransportTaskService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -225,19 +227,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {TransportTaskService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -277,10 +282,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.end}>
                   {getFieldDecorator('end', {initialValue: tryinit('end')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('end')}
-                    targetType={"end"} 
-                    requestFunction={TransportTaskService.requestCandidateEnd} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('end')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"transport_task"} 
+		                 targetType={"retail_store"} 
+                 
+                    requestFunction={TransportTaskService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -289,10 +299,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.driver}>
                   {getFieldDecorator('driver', {initialValue: tryinit('driver')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('driver')}
-                    targetType={"driver"} 
-                    requestFunction={TransportTaskService.requestCandidateDriver} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('driver')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"transport_task"} 
+		                 targetType={"truck_driver"} 
+                 
+                    requestFunction={TransportTaskService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -301,10 +316,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.truck}>
                   {getFieldDecorator('truck', {initialValue: tryinit('truck')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('truck')}
-                    targetType={"truck"} 
-                    requestFunction={TransportTaskService.requestCandidateTruck} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('truck')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"transport_task"} 
+		                 targetType={"transport_truck"} 
+                 
+                    requestFunction={TransportTaskService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -313,10 +333,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.belongsTo}>
                   {getFieldDecorator('belongsTo', {initialValue: tryinit('belongsTo')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('belongsTo')}
-                    targetType={"belongsTo"} 
-                    requestFunction={TransportTaskService.requestCandidateBelongsTo} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('belongsTo')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"transport_task"} 
+		                 targetType={"transport_fleet"} 
+                 
+                    requestFunction={TransportTaskService.queryCandidates} useForSearch />
                   	
                  
                   )}

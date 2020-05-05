@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './Goods.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import GoodsBase from './Goods.base'
 const FormItem = Form.Item
@@ -179,18 +179,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {GoodsService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -231,19 +233,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {GoodsService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -291,10 +296,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.sku}>
                   {getFieldDecorator('sku', {initialValue: tryinit('sku')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('sku')}
-                    targetType={"sku"} 
-                    requestFunction={GoodsService.requestCandidateSku} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('sku')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"sku"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -303,10 +313,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.receivingSpace}>
                   {getFieldDecorator('receivingSpace', {initialValue: tryinit('receivingSpace')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('receivingSpace')}
-                    targetType={"receivingSpace"} 
-                    requestFunction={GoodsService.requestCandidateReceivingSpace} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('receivingSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"receiving_space"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -315,10 +330,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.goodsAllocation}>
                   {getFieldDecorator('goodsAllocation', {initialValue: tryinit('goodsAllocation')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('goodsAllocation')}
-                    targetType={"goodsAllocation"} 
-                    requestFunction={GoodsService.requestCandidateGoodsAllocation} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('goodsAllocation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"goods_allocation"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -327,10 +347,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.smartPallet}>
                   {getFieldDecorator('smartPallet', {initialValue: tryinit('smartPallet')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('smartPallet')}
-                    targetType={"smartPallet"} 
-                    requestFunction={GoodsService.requestCandidateSmartPallet} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('smartPallet')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"smart_pallet"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -339,10 +364,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.shippingSpace}>
                   {getFieldDecorator('shippingSpace', {initialValue: tryinit('shippingSpace')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('shippingSpace')}
-                    targetType={"shippingSpace"} 
-                    requestFunction={GoodsService.requestCandidateShippingSpace} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('shippingSpace')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"shipping_space"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -351,10 +381,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.transportTask}>
                   {getFieldDecorator('transportTask', {initialValue: tryinit('transportTask')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('transportTask')}
-                    targetType={"transportTask"} 
-                    requestFunction={GoodsService.requestCandidateTransportTask} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('transportTask')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"transport_task"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -363,10 +398,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.retailStore}>
                   {getFieldDecorator('retailStore', {initialValue: tryinit('retailStore')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStore')}
-                    targetType={"retailStore"} 
-                    requestFunction={GoodsService.requestCandidateRetailStore} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStore')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"retail_store"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -375,10 +415,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.bizOrder}>
                   {getFieldDecorator('bizOrder', {initialValue: tryinit('bizOrder')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={GoodsService.requestCandidateBizOrder} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('bizOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"supply_order"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -387,10 +432,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.retailStoreOrder}>
                   {getFieldDecorator('retailStoreOrder', {initialValue: tryinit('retailStoreOrder')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStoreOrder')}
-                    targetType={"retailStoreOrder"} 
-                    requestFunction={GoodsService.requestCandidateRetailStoreOrder} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStoreOrder')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"goods"} 
+		                 targetType={"retail_store_order"} 
+                 
+                    requestFunction={GoodsService.queryCandidates} useForSearch />
                   	
                  
                   )}

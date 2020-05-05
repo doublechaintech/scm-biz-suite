@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}accountingPeriodManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateAccountSet = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const AccountingPeriodService = { view,
   updateAccountingDocument,
   removeAccountingDocumentList,
   requestCandidateAccountSet,
-  transferToAnotherAccountSet, listFunctions, saveRequest, processRequest}
+  transferToAnotherAccountSet, listFunctions, saveRequest, processRequest, queryCandidates}
 export default AccountingPeriodService
 

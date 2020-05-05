@@ -23,7 +23,7 @@ const testValues = {
   contactNumber: '028 87654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2020-02-12',
+  makeDate: '2017-09-15',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',

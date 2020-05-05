@@ -122,6 +122,7 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 <Description term="由" style={{wordBreak: 'break-all'}}>{originalVoucher.madeBy}</Description> 
 <Description term="受" style={{wordBreak: 'break-all'}}>{originalVoucher.receivedBy}</Description> 
 <Description term="凭证类型" style={{wordBreak: 'break-all'}}>{originalVoucher.voucherType}</Description> 
+
 <Description term="属于">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,

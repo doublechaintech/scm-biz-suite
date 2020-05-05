@@ -53,7 +53,7 @@ class PageProfile extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  page = this.props.page;
-    const { id,displayName, slideCount, uiActionCount } = page
+    const { id,displayName, slideCount, uiActionCount, sectionCount } = page
     const  returnURL = `/page/${id}/dashboard`
     const cardsData = {cardsName:"页面",cardsFor: "page",cardsSource: page,displayName,returnURL,
   		subItems: [

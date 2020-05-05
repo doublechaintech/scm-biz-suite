@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './RetailStore.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import RetailStoreBase from './RetailStore.base'
 const FormItem = Form.Item
@@ -179,18 +179,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {RetailStoreService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -231,19 +233,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {RetailStoreService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -291,10 +296,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.retailStoreCountryCenter}>
                   {getFieldDecorator('retailStoreCountryCenter', {initialValue: tryinit('retailStoreCountryCenter')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStoreCountryCenter')}
-                    targetType={"retailStoreCountryCenter"} 
-                    requestFunction={RetailStoreService.requestCandidateRetailStoreCountryCenter} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStoreCountryCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_country_center"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -303,10 +313,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.cityServiceCenter}>
                   {getFieldDecorator('cityServiceCenter', {initialValue: tryinit('cityServiceCenter')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('cityServiceCenter')}
-                    targetType={"cityServiceCenter"} 
-                    requestFunction={RetailStoreService.requestCandidateCityServiceCenter} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('cityServiceCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_city_service_center"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -315,10 +330,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.creation}>
                   {getFieldDecorator('creation', {initialValue: tryinit('creation')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={RetailStoreService.requestCandidateCreation} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('creation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_creation"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -327,10 +347,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.investmentInvitation}>
                   {getFieldDecorator('investmentInvitation', {initialValue: tryinit('investmentInvitation')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('investmentInvitation')}
-                    targetType={"investmentInvitation"} 
-                    requestFunction={RetailStoreService.requestCandidateInvestmentInvitation} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('investmentInvitation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_investment_invitation"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -339,10 +364,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.franchising}>
                   {getFieldDecorator('franchising', {initialValue: tryinit('franchising')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('franchising')}
-                    targetType={"franchising"} 
-                    requestFunction={RetailStoreService.requestCandidateFranchising} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('franchising')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_franchising"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -351,10 +381,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.decoration}>
                   {getFieldDecorator('decoration', {initialValue: tryinit('decoration')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('decoration')}
-                    targetType={"decoration"} 
-                    requestFunction={RetailStoreService.requestCandidateDecoration} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('decoration')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_decoration"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -363,10 +398,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.opening}>
                   {getFieldDecorator('opening', {initialValue: tryinit('opening')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('opening')}
-                    targetType={"opening"} 
-                    requestFunction={RetailStoreService.requestCandidateOpening} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('opening')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_opening"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -375,10 +415,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.closing}>
                   {getFieldDecorator('closing', {initialValue: tryinit('closing')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('closing')}
-                    targetType={"closing"} 
-                    requestFunction={RetailStoreService.requestCandidateClosing} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('closing')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_closing"} 
+                 
+                    requestFunction={RetailStoreService.queryCandidates} useForSearch />
                   	
                  
                   )}

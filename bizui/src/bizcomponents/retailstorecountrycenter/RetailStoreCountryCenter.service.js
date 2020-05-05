@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}retailStoreCountryCenterManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 
 
@@ -649,6 +657,6 @@ const RetailStoreCountryCenterService = { view,
   removePublicHolidayList,
   removeEmployeeList,
   removeInstructorList,
-  removeCompanyTrainingList, listFunctions, saveRequest, processRequest}
+  removeCompanyTrainingList, listFunctions, saveRequest, processRequest, queryCandidates}
 export default RetailStoreCountryCenterService
 

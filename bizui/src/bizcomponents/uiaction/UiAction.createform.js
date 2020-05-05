@@ -21,8 +21,9 @@ const testValues = {
   code: 'submit',
   icon: 'icon_edit',
   title: '提交',
+  displayOrder: '1',
   brief: 'Submit',
-  linkToUrl: '/section/article/',
+  linkToUrl: 'wxappService/section/article/',
   pageId: 'P000001',
   extraData: '    一段样例文字。    一段样例文字。\n可以分段。可以分段。\n\n可以空行。可以空行。\n\n',
 }

@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}viewManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 
 
@@ -49,6 +57,6 @@ const  processRequest = (data) => {
 }
 
 const ViewService = { view,
-  load, listFunctions, saveRequest, processRequest}
+  load, listFunctions, saveRequest, processRequest, queryCandidates}
 export default ViewService
 

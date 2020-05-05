@@ -297,6 +297,18 @@ class UserAppUpdateForm extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.fullAccess} {...formItemLayout}>
+                  {getFieldDecorator('fullAccess', {
+                    initialValue: selectedRow.fullAccess,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.fullAccess} />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.permission} {...formItemLayout}>
                   {getFieldDecorator('permission', {
                     initialValue: selectedRow.permission,
@@ -345,24 +357,7 @@ class UserAppUpdateForm extends Component {
               </Col>
 
             
-        
-          
-            
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.fullAccess} {...switchFormItemLayout}>
-                  {getFieldDecorator('fullAccess', {
-                    initialValue: selectedRow.fullAccess,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
-                  
-        
+       
         
         
         

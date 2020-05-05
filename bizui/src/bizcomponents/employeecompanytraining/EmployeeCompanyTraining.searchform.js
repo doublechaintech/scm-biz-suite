@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './EmployeeCompanyTraining.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import EmployeeCompanyTrainingBase from './EmployeeCompanyTraining.base'
 const FormItem = Form.Item
@@ -170,18 +170,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {EmployeeCompanyTrainingService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -203,10 +205,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.employee}>
                {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('employee')}
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"employee_company_training"} 
                  targetType={"employee"} 
-                 requestFunction={EmployeeCompanyTrainingService.requestCandidateEmployee} useForSearch />
+                 
+                 
+                 requestFunction={EmployeeCompanyTrainingService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -226,19 +234,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {EmployeeCompanyTrainingService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -262,10 +273,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.employee}>
                   {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeeCompanyTrainingService.requestCandidateEmployee} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('employee')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_company_training"} 
+		                 targetType={"employee"} 
+                 
+                    requestFunction={EmployeeCompanyTrainingService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -274,10 +290,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.training}>
                   {getFieldDecorator('training', {initialValue: tryinit('training')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('training')}
-                    targetType={"training"} 
-                    requestFunction={EmployeeCompanyTrainingService.requestCandidateTraining} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('training')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_company_training"} 
+		                 targetType={"company_training"} 
+                 
+                    requestFunction={EmployeeCompanyTrainingService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -286,10 +307,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.scoring}>
                   {getFieldDecorator('scoring', {initialValue: tryinit('scoring')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('scoring')}
-                    targetType={"scoring"} 
-                    requestFunction={EmployeeCompanyTrainingService.requestCandidateScoring} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('scoring')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee_company_training"} 
+		                 targetType={"scoring"} 
+                 
+                    requestFunction={EmployeeCompanyTrainingService.queryCandidates} useForSearch />
                   	
                  
                   )}

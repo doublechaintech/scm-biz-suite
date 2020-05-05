@@ -34,6 +34,7 @@ const internalSummaryOf = (quickLink,targetComponent) =>{
 <Description term="序号">{quickLink.id}</Description> 
 <Description term="名称">{quickLink.name}</Description> 
 <Description term="图标">{quickLink.icon}</Description> 
+<Description term="图片路径"><ImagePreview imageTitle="图片路径" imageLocation={quickLink.imagePath}/></Description> 
 <Description term="链接的目标">{quickLink.linkTarget}</Description> 
 <Description term="创建时间">{ moment(quickLink.createTime).format('YYYY-MM-DD')}</Description> 
 	

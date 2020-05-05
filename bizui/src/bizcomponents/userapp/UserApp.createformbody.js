@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './UserApp.createform.less'
@@ -19,6 +19,7 @@ const testValues = {};
 const testValues = {
   title: '审车平台',
   appIcon: 'users',
+  fullAccess: '1',
   permission: 'MXWR',
   objectType: 'CarInspectionPlatform',
   objectId: 'CIP000001',
@@ -78,7 +79,7 @@ class UserAppCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {UserAppService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -89,7 +90,7 @@ class UserAppCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -101,7 +102,7 @@ class UserAppCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -156,6 +157,16 @@ class UserAppCreateFormBody extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.fullAccess} {...formItemLayout}>
+                  {getFieldDecorator('fullAccess', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.fullAccess} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.permission} {...formItemLayout}>
                   {getFieldDecorator('permission', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
@@ -196,20 +207,6 @@ class UserAppCreateFormBody extends Component {
               </Col>
 
 
-        
-
-              <Col lg={24} md={12} sm={24}>
-                <Form.Item label={fieldLabels.fullAccess}  {...switchFormItemLayout}>
-                  {getFieldDecorator('fullAccess', {
-                    initialValue: false,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
        
  
               <Col lg={24} md={24} sm={24}>
@@ -219,12 +216,19 @@ class UserAppCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('secUser')}
-                    targetType={"secUser"} 
-                    requestFunction={UserAppService.requestCandidateSecUser}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('secUser')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"user_app"} 
+		                 targetType={"sec_user"} 
                  
+                    requestFunction={UserAppService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

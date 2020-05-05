@@ -26,8 +26,8 @@ const testValues = {
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2020-03-23 01:52:46',
-  lastLoginTime: '2020-03-14 16:19:16',
+  verificationCodeExpire: '2020-04-25 09:37:24',
+  lastLoginTime: '2020-04-21 23:09:27',
   domainId: 'UD000001',
 }
 */
@@ -86,6 +86,7 @@ class SecUserAssociateForm extends Component {
  const {LoginHistoryModalTable} = GlobalComponents;
  const {WechatWorkappIdentifyModalTable} = GlobalComponents;
  const {WechatMiniappIdentifyModalTable} = GlobalComponents;
+ const {KeypairIdentifyModalTable} = GlobalComponents;
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -293,6 +294,7 @@ class SecUserAssociateForm extends Component {
 	<LoginHistoryModalTable data={data.loginHistoryList} owner={owner} />
 	<WechatWorkappIdentifyModalTable data={data.wechatWorkappIdentifyList} owner={owner} />
 	<WechatMiniappIdentifyModalTable data={data.wechatMiniappIdentifyList} owner={owner} />
+	<KeypairIdentifyModalTable data={data.keypairIdentifyList} owner={owner} />
         
         
         

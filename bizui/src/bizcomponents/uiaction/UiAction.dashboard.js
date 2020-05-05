@@ -124,7 +124,9 @@ const internalSummaryOf = (uiAction,targetComponent) =>{
 <Description term="代码" style={{wordBreak: 'break-all'}}>{uiAction.code}</Description> 
 <Description term="图标" style={{wordBreak: 'break-all'}}>{uiAction.icon}</Description> 
 <Description term="头衔" style={{wordBreak: 'break-all'}}>{uiAction.title}</Description> 
+<Description term="顺序" style={{wordBreak: 'break-all'}}>{uiAction.displayOrder}</Description> 
 <Description term="短暂的" style={{wordBreak: 'break-all'}}>{uiAction.brief}</Description> 
+
 <Description term="链接网址" style={{wordBreak: 'break-all'}}>{uiAction.linkToUrl}</Description> 
 <Description term="页面">{uiAction.page==null?appLocaleName(userContext,"NotAssigned"):`${uiAction.page.displayName}(${uiAction.page.id})`}
  <Icon type="swap" onClick={()=>

@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './AccountingDocumentLine.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import AccountingDocumentLineBase from './AccountingDocumentLine.base'
 const FormItem = Form.Item
@@ -172,18 +172,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {AccountingDocumentLineService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -224,19 +226,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {AccountingDocumentLineService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -284,10 +289,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.belongsTo}>
                   {getFieldDecorator('belongsTo', {initialValue: tryinit('belongsTo')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('belongsTo')}
-                    targetType={"belongsTo"} 
-                    requestFunction={AccountingDocumentLineService.requestCandidateBelongsTo} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('belongsTo')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"accounting_document_line"} 
+		                 targetType={"accounting_document"} 
+                 
+                    requestFunction={AccountingDocumentLineService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -296,10 +306,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.accountingSubject}>
                   {getFieldDecorator('accountingSubject', {initialValue: tryinit('accountingSubject')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('accountingSubject')}
-                    targetType={"accountingSubject"} 
-                    requestFunction={AccountingDocumentLineService.requestCandidateAccountingSubject} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('accountingSubject')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"accounting_document_line"} 
+		                 targetType={"accounting_subject"} 
+                 
+                    requestFunction={AccountingDocumentLineService.queryCandidates} useForSearch />
                   	
                  
                   )}

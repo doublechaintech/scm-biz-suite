@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './ListAccess.createform.less'
@@ -19,6 +19,11 @@ const testValues = {};
 const testValues = {
   name: '列表',
   internalName: 'levelOneCategoryList',
+  readPermission: '1',
+  createPermission: '1',
+  deletePermission: '1',
+  updatePermission: '1',
+  executionPermission: '1',
   appId: 'UA000001',
 }
 */
@@ -74,7 +79,7 @@ class ListAccessCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {ListAccessService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -85,7 +90,7 @@ class ListAccessCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -97,7 +102,7 @@ class ListAccessCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -151,68 +156,56 @@ class ListAccessCreateFormBody extends Component {
                 </Form.Item>
               </Col>
 
-
-        
-
-              <Col lg={24} md={12} sm={24}>
-                <Form.Item label={fieldLabels.readPermission}  {...switchFormItemLayout}>
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.readPermission} {...formItemLayout}>
                   {getFieldDecorator('readPermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.readPermission} />
                   )}
                 </Form.Item>
               </Col>
 
-              <Col lg={24} md={12} sm={24}>
-                <Form.Item label={fieldLabels.createPermission}  {...switchFormItemLayout}>
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.createPermission} {...formItemLayout}>
                   {getFieldDecorator('createPermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.createPermission} />
                   )}
                 </Form.Item>
               </Col>
 
-              <Col lg={24} md={12} sm={24}>
-                <Form.Item label={fieldLabels.deletePermission}  {...switchFormItemLayout}>
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.deletePermission} {...formItemLayout}>
                   {getFieldDecorator('deletePermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.deletePermission} />
                   )}
                 </Form.Item>
               </Col>
 
-              <Col lg={24} md={12} sm={24}>
-                <Form.Item label={fieldLabels.updatePermission}  {...switchFormItemLayout}>
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.updatePermission} {...formItemLayout}>
                   {getFieldDecorator('updatePermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.updatePermission} />
                   )}
                 </Form.Item>
               </Col>
 
-              <Col lg={24} md={12} sm={24}>
-                <Form.Item label={fieldLabels.executionPermission}  {...switchFormItemLayout}>
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.executionPermission} {...formItemLayout}>
                   {getFieldDecorator('executionPermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.executionPermission} />
                   )}
                 </Form.Item>
               </Col>
+
 
        
  
@@ -223,12 +216,19 @@ class ListAccessCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('app')}
-                    targetType={"app"} 
-                    requestFunction={ListAccessService.requestCandidateApp}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('app')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"list_access"} 
+		                 targetType={"user_app"} 
                  
+                    requestFunction={ListAccessService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

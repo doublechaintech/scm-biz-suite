@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './RetailStoreProvinceCenter.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import RetailStoreProvinceCenterBase from './RetailStoreProvinceCenter.base'
 const FormItem = Form.Item
@@ -169,18 +169,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {RetailStoreProvinceCenterService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -221,19 +223,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {RetailStoreProvinceCenterService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -265,10 +270,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.country}>
                   {getFieldDecorator('country', {initialValue: tryinit('country')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('country')}
-                    targetType={"country"} 
-                    requestFunction={RetailStoreProvinceCenterService.requestCandidateCountry} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('country')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"retail_store_province_center"} 
+		                 targetType={"retail_store_country_center"} 
+                 
+                    requestFunction={RetailStoreProvinceCenterService.queryCandidates} useForSearch />
                   	
                  
                   )}

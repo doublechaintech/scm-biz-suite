@@ -20,6 +20,11 @@ const testValues = {};
 const testValues = {
   name: '列表',
   internalName: 'levelOneCategoryList',
+  readPermission: '1',
+  createPermission: '1',
+  deletePermission: '1',
+  updatePermission: '1',
+  executionPermission: '1',
   appId: 'UA000001',
 }
 */
@@ -154,77 +159,60 @@ class ListAccessAssociateForm extends Component {
                 </Form.Item>
               </Col>
 
-            </Row>
-
-
-        
-
-            <Row gutter={16}>
-            
-
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.readPermission}  {...switchFormItemLayout}>
+                <Form.Item label={fieldLabels.readPermission} {...formItemLayout}>
                   {getFieldDecorator('readPermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.readPermission} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.createPermission}  {...switchFormItemLayout}>
+                <Form.Item label={fieldLabels.createPermission} {...formItemLayout}>
                   {getFieldDecorator('createPermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.createPermission} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.deletePermission}  {...switchFormItemLayout}>
+                <Form.Item label={fieldLabels.deletePermission} {...formItemLayout}>
                   {getFieldDecorator('deletePermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.deletePermission} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.updatePermission}  {...switchFormItemLayout}>
+                <Form.Item label={fieldLabels.updatePermission} {...formItemLayout}>
                   {getFieldDecorator('updatePermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.updatePermission} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.executionPermission}  {...switchFormItemLayout}>
+                <Form.Item label={fieldLabels.executionPermission} {...formItemLayout}>
                   {getFieldDecorator('executionPermission', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.executionPermission} />
                   )}
                 </Form.Item>
               </Col>
 
             </Row>
+
+
        
-        
         
 
 

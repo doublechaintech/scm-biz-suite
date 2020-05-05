@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}retailStoreOrderManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateBuyer = (ownerClass, id, filterKey, pageNo) => {
  
@@ -183,6 +191,6 @@ const RetailStoreOrderService = { view,
   requestCandidateBuyer,
   requestCandidateSeller,
   transferToAnotherBuyer,
-  transferToAnotherSeller, listFunctions, saveRequest, processRequest}
+  transferToAnotherSeller, listFunctions, saveRequest, processRequest, queryCandidates}
 export default RetailStoreOrderService
 

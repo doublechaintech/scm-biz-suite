@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './Section.createform.less'
@@ -19,14 +19,15 @@ const testValues = {};
 const testValues = {
   title: '文章',
   brief: 'Article',
-  icon: 'icon_edit',
+  displayOrder: '1',
   viewGroup: 'icon_edit',
-  linkToUrl: '/section/article/',
-  page: '${page}',
+  linkToUrl: 'wxappService/section/article/',
+  pageId: 'P000001',
 }
 */
 
 const imageKeys = [
+  'icon',
 ]
 
 
@@ -77,7 +78,7 @@ class SectionCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {SectionService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -88,7 +89,7 @@ class SectionCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -100,7 +101,7 @@ class SectionCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -155,11 +156,11 @@ class SectionCreateFormBody extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.icon} {...formItemLayout}>
-                  {getFieldDecorator('icon', {
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.icon} />
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
                   )}
                 </Form.Item>
               </Col>
@@ -184,19 +185,35 @@ class SectionCreateFormBody extends Component {
                 </Form.Item>
               </Col>
 
+
+       
+ 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.page} {...formItemLayout}>
-                  {getFieldDecorator('page', {
+                  {getFieldDecorator('pageId', {
+                  	initialValue: tryinit('page'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.page} />
+                  
+                  
+                  <CandidateList 
+		                 disabled={!availableForEdit('page')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"section"} 
+		                 targetType={"page"} 
+                 
+                    requestFunction={SectionService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
 
+           
 
-       
- 
 
 
 			 </Row>
@@ -207,6 +224,25 @@ class SectionCreateFormBody extends Component {
 
 
 
+
+       <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
+          <Form >
+            <Row gutter={16}>     
+           
+
+              <Col lg={6} md={12} sm={24}>
+                <ImageComponent
+                  buttonTitle={fieldLabels.icon}
+                  handlePreview={this.handlePreview}
+                  handleChange={event => this.handleImageChange(event, 'icon')}
+                  fileList={convertedImagesValues.icon}
+                />
+              </Col>
+
+             </Row>
+          </Form>
+        </Card>
+         
 
 
 

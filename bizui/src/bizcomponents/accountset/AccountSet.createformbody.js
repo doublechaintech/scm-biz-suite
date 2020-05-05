@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './AccountSet.createform.less'
@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2019-05-09',
+  effectiveDate: '2018-09-26',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
@@ -82,7 +82,7 @@ class AccountSetCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {AccountSetService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -93,7 +93,7 @@ class AccountSetCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -105,7 +105,7 @@ class AccountSetCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -229,12 +229,19 @@ class AccountSetCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('countryCenter')}
-                    targetType={"countryCenter"} 
-                    requestFunction={AccountSetService.requestCandidateCountryCenter}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('countryCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"account_set"} 
+		                 targetType={"retail_store_country_center"} 
                  
+                    requestFunction={AccountSetService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -248,12 +255,19 @@ class AccountSetCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStore')}
-                    targetType={"retailStore"} 
-                    requestFunction={AccountSetService.requestCandidateRetailStore}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStore')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"account_set"} 
+		                 targetType={"retail_store"} 
                  
+                    requestFunction={AccountSetService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -267,12 +281,19 @@ class AccountSetCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('goodsSupplier')}
-                    targetType={"goodsSupplier"} 
-                    requestFunction={AccountSetService.requestCandidateGoodsSupplier}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('goodsSupplier')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"account_set"} 
+		                 targetType={"goods_supplier"} 
                  
+                    requestFunction={AccountSetService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

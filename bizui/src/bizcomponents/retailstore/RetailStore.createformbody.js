@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStore.createform.less'
@@ -20,9 +20,9 @@ const testValues = {
   name: '中和社区小超',
   telephone: '028 87654321',
   owner: '吕刚',
-  founded: '2018-04-16',
-  latitude: '40.872585048495736',
-  longitude: '129.7901156489763',
+  founded: '2018-02-21',
+  latitude: '41.90538949678164',
+  longitude: '131.2391164547974',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
@@ -86,7 +86,7 @@ class RetailStoreCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {RetailStoreService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -97,7 +97,7 @@ class RetailStoreCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -109,7 +109,7 @@ class RetailStoreCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -223,12 +223,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStoreCountryCenter')}
-                    targetType={"retailStoreCountryCenter"} 
-                    requestFunction={RetailStoreService.requestCandidateRetailStoreCountryCenter}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('retailStoreCountryCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_country_center"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -242,12 +249,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('cityServiceCenter')}
-                    targetType={"cityServiceCenter"} 
-                    requestFunction={RetailStoreService.requestCandidateCityServiceCenter}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('cityServiceCenter')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_city_service_center"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -261,12 +275,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={RetailStoreService.requestCandidateCreation}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('creation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_creation"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -280,12 +301,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('investmentInvitation')}
-                    targetType={"investmentInvitation"} 
-                    requestFunction={RetailStoreService.requestCandidateInvestmentInvitation}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('investmentInvitation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_investment_invitation"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -299,12 +327,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('franchising')}
-                    targetType={"franchising"} 
-                    requestFunction={RetailStoreService.requestCandidateFranchising}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('franchising')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_franchising"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -318,12 +353,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('decoration')}
-                    targetType={"decoration"} 
-                    requestFunction={RetailStoreService.requestCandidateDecoration}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('decoration')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_decoration"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -337,12 +379,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('opening')}
-                    targetType={"opening"} 
-                    requestFunction={RetailStoreService.requestCandidateOpening}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('opening')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_opening"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -356,12 +405,19 @@ class RetailStoreCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('closing')}
-                    targetType={"closing"} 
-                    requestFunction={RetailStoreService.requestCandidateClosing}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('closing')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store"} 
+		                 targetType={"retail_store_closing"} 
                  
+                    requestFunction={RetailStoreService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStoreProvinceCenter.createform.less'
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超四川省运营中心',
-  founded: '2019-01-17',
+  founded: '2018-05-17',
   countryId: 'RSCC000001',
 }
 */
@@ -74,7 +74,7 @@ class RetailStoreProvinceCenterCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {RetailStoreProvinceCenterService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -85,7 +85,7 @@ class RetailStoreProvinceCenterCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -97,7 +97,7 @@ class RetailStoreProvinceCenterCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -161,12 +161,19 @@ class RetailStoreProvinceCenterCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('country')}
-                    targetType={"country"} 
-                    requestFunction={RetailStoreProvinceCenterService.requestCandidateCountry}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('country')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"retail_store_province_center"} 
+		                 targetType={"retail_store_country_center"} 
                  
+                    requestFunction={RetailStoreProvinceCenterService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

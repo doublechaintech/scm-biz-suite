@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './Employee.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import EmployeeBase from './Employee.base'
 const FormItem = Form.Item
@@ -180,18 +180,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {EmployeeService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -213,10 +215,16 @@ componentDidMount() {
                  <Form.Item label={fieldLabels.company}>
                {getFieldDecorator('company', {initialValue: tryinit('company')})(
                
-               <SelectObject 
+               <CandidateList 
                  disabled={!availableForEdit('company')}
-                 targetType={"company"} 
-                 requestFunction={EmployeeService.requestCandidateCompany} useForSearch />
+                 ownerType={owner.type}
+                 ownerId={owner.id}
+                 scenarioCode={"search"}
+                 listType={"employee"} 
+                 targetType={"retail_store_country_center"} 
+                 
+                 
+                 requestFunction={EmployeeService.queryCandidates} useForSearch />
                	 
        
                )}
@@ -236,19 +244,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {EmployeeService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -272,10 +283,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.company}>
                   {getFieldDecorator('company', {initialValue: tryinit('company')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('company')}
-                    targetType={"company"} 
-                    requestFunction={EmployeeService.requestCandidateCompany} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('company')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee"} 
+		                 targetType={"retail_store_country_center"} 
+                 
+                    requestFunction={EmployeeService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -292,10 +308,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.department}>
                   {getFieldDecorator('department', {initialValue: tryinit('department')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('department')}
-                    targetType={"department"} 
-                    requestFunction={EmployeeService.requestCandidateDepartment} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('department')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee"} 
+		                 targetType={"level_three_department"} 
+                 
+                    requestFunction={EmployeeService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -352,10 +373,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.occupation}>
                   {getFieldDecorator('occupation', {initialValue: tryinit('occupation')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('occupation')}
-                    targetType={"occupation"} 
-                    requestFunction={EmployeeService.requestCandidateOccupation} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('occupation')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee"} 
+		                 targetType={"occupation_type"} 
+                 
+                    requestFunction={EmployeeService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -364,10 +390,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.responsibleFor}>
                   {getFieldDecorator('responsibleFor', {initialValue: tryinit('responsibleFor')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('responsibleFor')}
-                    targetType={"responsibleFor"} 
-                    requestFunction={EmployeeService.requestCandidateResponsibleFor} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('responsibleFor')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee"} 
+		                 targetType={"responsibility_type"} 
+                 
+                    requestFunction={EmployeeService.queryCandidates} useForSearch />
                   	
                  
                   )}
@@ -376,10 +407,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.currentSalaryGrade}>
                   {getFieldDecorator('currentSalaryGrade', {initialValue: tryinit('currentSalaryGrade')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('currentSalaryGrade')}
-                    targetType={"currentSalaryGrade"} 
-                    requestFunction={EmployeeService.requestCandidateCurrentSalaryGrade} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('currentSalaryGrade')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"employee"} 
+		                 targetType={"salary_grade"} 
+                 
+                    requestFunction={EmployeeService.queryCandidates} useForSearch />
                   	
                  
                   )}

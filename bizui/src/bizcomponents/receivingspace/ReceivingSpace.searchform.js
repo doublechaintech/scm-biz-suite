@@ -6,7 +6,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 
 import styles from './ReceivingSpace.search.less'
 import GlobalComponents from '../../custcomponents'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import appLocaleName from '../../common/Locale.tool'
 import ReceivingSpaceBase from './ReceivingSpace.base'
 const FormItem = Form.Item
@@ -172,18 +172,20 @@ componentDidMount() {
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
     const userContext = null
+     const { owner } = this.props
     const {ReceivingSpaceService} = GlobalComponents
+     const { referenceName } = owner
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     const availableForEdit = (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+     
+     
       if(referenceName!=fieldName){
         return true
       }
@@ -224,19 +226,22 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {ReceivingSpaceService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
+    const { owner } = this.props
     const userContext = null
+    const { referenceName } = owner
+ 
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
-      const { referenceName } = owner
+     
       if(referenceName!=fieldName){
         return null
       }
       return owner.id
     }
     
+    
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
-      const { referenceName } = owner
+      
+    
       if(referenceName!=fieldName){
         return true
       }
@@ -292,10 +297,15 @@ componentDidMount() {
                     <Form.Item label={fieldLabels.warehouse}>
                   {getFieldDecorator('warehouse', {initialValue: tryinit('warehouse')})(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('warehouse')}
-                    targetType={"warehouse"} 
-                    requestFunction={ReceivingSpaceService.requestCandidateWarehouse} useForSearch />
+                  <CandidateList 
+		                 disabled={!availableForEdit('warehouse')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"search"}
+		                 listType={"receiving_space"} 
+		                 targetType={"warehouse"} 
+                 
+                    requestFunction={ReceivingSpaceService.queryCandidates} useForSearch />
                   	
                  
                   )}

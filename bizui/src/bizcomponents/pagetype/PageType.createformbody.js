@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './PageType.createform.less'
@@ -19,6 +19,7 @@ const testValues = {};
 const testValues = {
   name: '首页',
   code: 'home',
+  footerTab: 'true',
   mobileAppId: 'MA000001',
 }
 */
@@ -74,7 +75,7 @@ class PageTypeCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {PageTypeService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -85,7 +86,7 @@ class PageTypeCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -97,7 +98,7 @@ class PageTypeCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -151,20 +152,16 @@ class PageTypeCreateFormBody extends Component {
                 </Form.Item>
               </Col>
 
-
-        
-
-              <Col lg={24} md={12} sm={24}>
-                <Form.Item label={fieldLabels.footerTab}  {...switchFormItemLayout}>
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.footerTab} {...formItemLayout}>
                   {getFieldDecorator('footerTab', {
-                    initialValue: false,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <Input size="large"  placeHolder={fieldLabels.footerTab} />
                   )}
                 </Form.Item>
               </Col>
+
 
        
  
@@ -175,12 +172,19 @@ class PageTypeCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('mobileApp')}
-                    targetType={"mobileApp"} 
-                    requestFunction={PageTypeService.requestCandidateMobileApp}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('mobileApp')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"page_type"} 
+		                 targetType={"mobile_app"} 
                  
+                    requestFunction={PageTypeService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

@@ -36,6 +36,7 @@ const internalSummaryOf = (product,targetComponent) =>{
 <Description term="产地">{product.origin}</Description> 
 <Description term="备注">{product.remark}</Description> 
 <Description term="品牌">{product.brand}</Description> 
+<Description term="图片"><ImagePreview imageTitle="图片" imageLocation={product.picture}/></Description> 
 <Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>

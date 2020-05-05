@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
 import { connect } from 'dva'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import SelectObject from '../../components/SelectObject'
+import CandidateList from '../../components/CandidateList'
 import {ImageComponent} from '../../axios/tools'
 import FooterToolbar from '../../components/FooterToolbar'
 import styles from './Page.createform.less'
@@ -19,6 +19,7 @@ const testValues = {};
 const testValues = {
   pageTitle: '首页',
   linkToUrl: '首页',
+  displayOrder: '1',
   pageTypeId: 'home',
   mobileAppId: 'MA000001',
 }
@@ -75,7 +76,7 @@ class PageCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    
+    const { owner } = this.props
     const {PageService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,7 +87,7 @@ class PageCreateFormBody extends Component {
     
     
     const tryinit  = (fieldName) => {
-      const { owner } = this.props
+      
       if(!owner){
       	return null
       }
@@ -98,7 +99,7 @@ class PageCreateFormBody extends Component {
     }
     
     const availableForEdit= (fieldName) =>{
-      const { owner } = this.props
+     
       if(!owner){
       	return true
       }
@@ -152,6 +153,16 @@ class PageCreateFormBody extends Component {
                 </Form.Item>
               </Col>
 
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.displayOrder} {...formItemLayout}>
+                  {getFieldDecorator('displayOrder', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
+                  )}
+                </Form.Item>
+              </Col>
+
 
        
  
@@ -162,12 +173,19 @@ class PageCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('pageType')}
-                    targetType={"pageType"} 
-                    requestFunction={PageService.requestCandidatePageType}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('pageType')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"page"} 
+		                 targetType={"page_type"} 
                  
+                    requestFunction={PageService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>
@@ -181,12 +199,19 @@ class PageCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
-                  <SelectObject 
-                    disabled={!availableForEdit('mobileApp')}
-                    targetType={"mobileApp"} 
-                    requestFunction={PageService.requestCandidateMobileApp}/>
                   
+                  <CandidateList 
+		                 disabled={!availableForEdit('mobileApp')}
+		                 ownerType={owner.type}
+		                 ownerId={owner.id}
+		                 scenarioCode={"assign"}
+		                 listType={"page"} 
+		                 targetType={"mobile_app"} 
                  
+                    requestFunction={PageService.queryCandidates}  />
+                  	
+                  
+                  
                   )}
                 </Form.Item>
               </Col>

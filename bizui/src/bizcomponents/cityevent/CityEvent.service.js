@@ -17,6 +17,14 @@ const load = (targetObjectId, parameters) => {
 }
 
 
+const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filterKey,targetType}) => {
+  
+  const url = `${PREFIX}cityEventManager/queryCandidates/`
+  const data = JSON.stringify({scenarioCode,ownerType,ownerId,listType,groupBy,targetType,filterKey})
+  console.log("requestParameters",data)
+  return put({url,data})
+} 
+
 
 const requestCandidateCityServiceCenter = (ownerClass, id, filterKey, pageNo) => {
  
@@ -91,6 +99,6 @@ const CityEventService = { view,
   updateEventAttendance,
   removeEventAttendanceList,
   requestCandidateCityServiceCenter,
-  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest}
+  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest, queryCandidates}
 export default CityEventService
 
