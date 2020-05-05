@@ -1,0 +1,171 @@
+
+.custom-header {
+	width: 100%;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	background-color: #222;
+	z-index: 1000;
+}
+.custom-header-content {
+	margin: 0 auto;
+	width: 1200px;
+	position: relative;
+	height: 43px;
+}
+
+.custome-header-left-bar {
+	position: absolute;
+	top:0;
+	bottom:0;
+	left:20px;
+	height:50%;
+	margin:auto;
+	color: #ececec;
+}
+.custome-header-left-bar > span{
+	padding-right: 10px;
+}
+.custome-header-left-bar > img{
+	padding-right: 10px;
+}
+
+.custome-header-right-bar {
+	position: absolute;
+	top:0;
+	bottom:0;
+	right:20px;
+	height:50%;
+	margin:auto;
+	
+}
+.custome-header-right-bar * {
+	color: #ececec;
+}
+.custome-header-right-bar > span{
+	padding-right: 10px;
+}
+.custome-header-right-bar > img{
+	padding-right: 10px;
+}
+
+.dropdown-menu div{
+	padding: 2px 10px;
+	margin: 3px;
+	color: #222;
+}
+.dropdown-menu a{
+	color: #222;
+}
+
+.custome-search-main-content {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	right: 0;
+	top: 43px;
+	bottom: 0px;
+	background-color: #ffffff;
+}
+
+.custome-main-content {
+	position: relative;
+	width: 100%;
+	top: 43px;
+}
+
+.custome-vertical-align-content{
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+	align-content: center;
+}
+
+.custome-with-border{
+	border: 1px solid gray;
+}
+
+/**
+搜索页上的ｔａｂ的背景色定义
+**/
+.search-type-tab{
+	height: 35px;
+	width: 82px;
+	text-align: center;
+	display: inline-block;
+	padding-top: 5px;
+	color: #4285f4;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+	-webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.search-type-tab.active{
+	background-color: #4285f4;
+	color: #fafafa;
+	border: 1px solid #3c78d8;
+	margin-bottom: -1px;
+	cursor: auto;
+}
+.search-input{
+	border: 1px solid rgb(66, 133, 244);
+	font-size: 16px;
+	border-radius: 0px;
+	padding: 16px 0px 16px 30px;
+	height: 52px;
+	position: relative;
+	vertical-align: top;
+	width: 750px;
+	margin-top: -1px;
+}
+.search-input-in-plp {
+	border: 1px solid rgb(66, 133, 244);
+	font-size: 16px;
+	border-radius: 0px;
+	padding: 5px 0px 5px 30px;
+	height: 44px;
+	position: relative;
+	vertical-align: top;
+	width: 900px;
+	margin-top: -1px;
+}
+.search_key_button{
+	border: 1px solid #3c78d8;
+	font-size:16px;
+	background-color: #4285f4;
+	border-radius:0px;
+	height:52px;width:100px;
+	color:#ffffff;
+	margin-top: -1px;
+}
+.search_key_button_in_plp{
+	border: 1px solid #3c78d8;
+	font-size:16px;
+	background-color: #4285f4;
+	border-radius:0px;
+	height:44px;width:100px;
+	color:#ffffff;
+	margin-top: -1px;
+}
+.suggest_text_div{
+	font-size: 100%;
+	width: 750px;
+	text-align: left;
+	padding: 3px 20px;
+	background-color: #ffffff;
+	color: #222;
+}
+.suggest_text_div:hover{
+	background-color: #4285f4;
+	font-size: 150%;
+	color: #ffffff;
+}
+.suggest_text_div.highlight{
+	background-color: #4285f4;
+	font-size: 150%;
+	color: #ffffff;
+}

@@ -1,0 +1,104 @@
+/* 
+    *Reset
+*/
+* {
+    margin: 0; 
+    padding: 0; 
+    list-style: none;
+    box-sizing: border-box;
+}
+html {
+    overflow-x: hidden;
+    height: 100%;
+}
+body {
+    height: 100%;
+    min-width: 320px; 
+    font-size: 13px;
+    line-height: 15.6px;
+    color: #4a4a4a;
+    overflow-x: hidden;
+    background-color: #fff;
+}
+
+p, ol, ul, dl, label {
+    font-weight: 400;
+}
+strong {
+    display: block;
+    font-weight: 600;
+}
+a:hover, a:active {
+    outline: 0;
+}
+a:focus, input:focus , select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+a:focus {
+    text-decoration: none;
+}
+
+table{width: 100%;}
+
+/* Clear Float */
+.clearfix:after, .clearfix:before {
+    content: '';
+    display: block;
+    clear: both;
+}
+.clearfix:after {
+    *zoom: 1;
+}
+
+/* botton */
+.btn {
+    font-size: 13px;
+    line-height: 15.6px;
+    display: block;
+    padding: 15px 25px;
+    color: #fff!important;
+    border: 0;
+    border-radius: 0;
+    text-decoration: none;
+}
+.btn.btn--full {
+    width: 100%;
+}
+.btn.btn--half {
+    width: 50%;
+}
+.btn.btn--auto {
+    display: inline-block;
+}
+.btn.btn--blue {
+    background-color: #1976d3;
+}
+.btn.btn--red {
+    background-color: #ef2929;
+}
+.btn.btn--origin {
+    background-color: #fba328;
+}
+.btn.btn--gray {
+    background-color: #e0e0e0; color: #4a4a4a!important;
+}
+.btn.btn--small {
+    padding: 7px 15px;
+}
+.btn.btn--transparent {
+    background-color: rgba(255, 255, 255, 0, 0.3);
+}
+/* 无内容 情况下的提示信息 */
+.empty_prompt {font-size: 120%;padding: 20px;margin: 40px 20px;display: block;}
+
+/* container */
+.main__container {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.btm__container {
+    position:fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+}

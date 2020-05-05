@@ -1,0 +1,136 @@
+package com.doublechaintech.retailscm.iamservice;
+
+import java.util.Map;
+
+import com.doublechaintech.retailscm.RetailscmUserContext;
+import com.doublechaintech.retailscm.MultipleAccessKey;
+import com.doublechaintech.retailscm.SmartList;
+import com.doublechaintech.retailscm.secuser.SecUser;
+import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify;
+import com.terapico.utils.*;
+
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+
+@SuppressWarnings("unchecked")
+public class WechatMiniprogramHandler extends BaseIdentificationHandler {
+
+	protected WxMaService wxService;
+	
+	public WxMaService getWxService() {
+		return wxService;
+	}
+	public void setWxService(WxMaService wxService) {
+		this.wxService = wxService;
+	}
+
+	@Override
+	public LoginResult authenticate(RetailscmUserContext userContext, LoginContext loginContext) {
+		LoginResult result = new LoginResult();
+		result.setLoginContext(loginContext);
+		// 校验输入
+		String code = loginContext.getLoginData().getCode();
+		if (TextUtil.isBlank(code)) {
+			return result.withError("请先通过微信小程序获取用户code,再进行登录");
+		}
+		// 进行认证
+		try {
+			if(!authenticateWithCode(userContext, code, result)) {
+				return result.withError(result.getMessage());
+			}
+			Map<String, String> additionalInfo = (Map<String, String>) result.getLoginContext().getLoginTarget().getAdditionalInfo();
+			String openId = additionalInfo.get("openId");
+			SmartList<WechatMiniappIdentify> rcdList = getIdentifyRecords(userContext, result.getLoginContext());
+			if (rcdList == null) {
+				result.setAuthenticated(true);
+				result.setSuccess(false);
+				result.setMessage("微信用户"+openId+"未注册");
+				return result;
+			}
+			
+			if (rcdList.size() > 1) {
+				result.setAuthenticated(false);	// 虽然知道你是个微信用户,但是我还是不知道你是哪位
+				result.setSuccess(false);
+				result.setMessage("微信用户"+openId+"关联了多个用户,无法确定唯一身份,请用其他方式登录或联系管理员处理账号.");
+				return result;
+			}
+			
+			SecUser secUser = userContext.getDAOGroup().getSecUserDAO().load(rcdList.first().getSecUser().getId(), EO);
+			result.getLoginContext().getLoginTarget().setSecUser(secUser);
+			result.setAuthenticated(true);
+			result.setSuccess(true);
+			return result.authenticated("微信用户验证成功");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result.withError("微信认证失败:"+e.getMessage());
+		}
+	}
+
+	protected boolean authenticateWithCode(RetailscmUserContext userContext, String code, LoginResult result) throws Exception{
+		WxMaJscode2SessionResult sessionInfo = wxService.jsCode2SessionInfo(code);
+		String openId = sessionInfo.getOpenid();
+        String userSessionKey = sessionInfo.getSessionKey();
+        String appId = wxService.getWxMaConfig().getAppid();
+        
+        String cacheKey = this.getWehatSessionKeyCacheKey(userContext, appId, openId);
+		userContext.putToCache(cacheKey, userSessionKey, (int) (1*DateTimeUtil.HOUR_IN_MS/DateTimeUtil.SECOND_IN_MS));
+		
+		Map<String, String> additionalInfo = MapUtil.put("openId", openId).put("sessionKey", userSessionKey)
+				.put("appId", appId).into_map(String.class);
+		result.getLoginContext().getLoginTarget().setAdditionalInfo(additionalInfo);
+		result.setAuthenticated(true);
+		return true;
+	}
+	
+	
+	@Override
+	public void bindWithSecUser(RetailscmUserContext userContext, LoginContext loginContext) throws Exception {
+		SecUser secUser = loginContext.getLoginTarget().getSecUser();
+		if (secUser == null) {
+			throw new Exception("please call this only after secUser was found");
+		}
+		Map<String, String> additionalInfo = (Map<String, String>) loginContext.getLoginTarget().getAdditionalInfo();
+		String openId = additionalInfo.get("openId");
+		// String userSessionKey = additionalInfo.get("sessionKey");
+		String appId = additionalInfo.get("appId");
+		SmartList<WechatMiniappIdentify> rcdList = getIdentifyRecords(userContext, loginContext);
+		if (rcdList != null && rcdList.stream().anyMatch(it -> it.getSecUser().getId().equals(secUser.getId()))) {
+			// 要提防有重复的
+			return;
+		}
+		userContext.getManagerGroup().getWechatMiniappIdentifyManager().createWechatMiniappIdentify(userContext, openId,
+				appId, secUser.getId(), userContext.now());
+	}
+
+	protected SmartList<WechatMiniappIdentify> getIdentifyRecords(RetailscmUserContext userContext,
+			LoginContext loginContext) {
+		Map<String, String> additionalInfo = (Map<String, String>) loginContext.getLoginTarget().getAdditionalInfo();
+		String openId = additionalInfo.get("openId");
+		// String userSessionKey = additionalInfo.get("sessionKey");
+		String appId = additionalInfo.get("appId");
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(WechatMiniappIdentify.APP_ID_PROPERTY, appId);
+		key.put(WechatMiniappIdentify.OPEN_ID_PROPERTY, openId);
+		SmartList<WechatMiniappIdentify> rcdList = userContext.getDAOGroup().getWechatMiniappIdentifyDAO()
+				.findWechatMiniappIdentifyWithKey(key, EO);
+		return rcdList;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

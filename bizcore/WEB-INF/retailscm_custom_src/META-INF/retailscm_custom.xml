@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<!--
+	加载它需要13秒时间，太长了，测试期间不需要
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>  -->
+
+
+	<import resource="classpath*:/META-INF/retailscm.xml" />
+	<import resource="classpath*:/META-INF/retailscm_manager.xml" />
+
+	<bean id="checker" class="com.doublechaintech.retailscm.CustomRetailscmChecker" scope="prototype"></bean>
+
+	<bean id="secUserManager" class="com.doublechaintech.retailscm.secuser.SecUserCustomManagerImpl">
+	 	<property name="cacheService" ref="cacheService" />
+	 	<property name="storageService" ref="storageService"/>
+	 	<property name="esClient" ref="elasticsearchClient" />
+	 	<property name="smtpService" ref="smtpService" />
+
+	 	<!--
+
+	 	默认情况下不开图服务和kafka消息服务
+
+	 	<property name="graphService" ref="graphService" />
+	 	<property name="eventService" ref="kafkaMessageEventService" />
+
+	 	<property name="graphService" ref="dummygraphService" />
+	 	<property name="eventService" ref="dummyEventService" />
+
+
+
+	 	-->
+
+
+	 	<property name="graphService" ref="dummygraphService" />
+	 	<property name="eventService" ref="dummyEventService" />
+
+	 	<property name="messageService" ref="messageService" />
+	 	<property name="daoGroup" ref="DAOGroup" />
+	 	<property name="managerGroup" ref="managerGroup" />
+	 	<property name="checkerBeanName" value="checker" />
+
+	</bean>
+
+
+
+
+
+</beans>
+
+

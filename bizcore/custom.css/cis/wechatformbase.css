@@ -1,0 +1,48 @@
+.form_container {
+    background-color: #fff;
+}
+.form_container hr{
+    height: 10px;
+    background-color: #ddd;
+    width: 100%;
+    text-align: center;
+    border-radius: 0;
+}
+
+.form_container .weui-cells__title {
+    font-size: 125%;
+    color: black;
+}
+
+
+.form-message-level-success{
+    color: green;
+    padding-left: 15px;
+}
+.form-message-level-info{
+    color: blue;
+    padding-left: 15px;
+}
+.form-message-level-warning{
+    color: yellow;
+    padding-left: 15px;
+}
+.form-message-level-danger{
+    color: red;
+    padding-left: 15px;
+}
+
+.form_container .action_container {
+    width: 100%;
+}
+.form_container .weui-select { padding-left: 0px !important;}
+.action_container a{
+    margin-top: 5px;
+}
+
+.form_container .weui-cells__title{background-color: #e3ebf3; font-weight: 600; padding: 15px; margin: 0; text-align: center;
+    border-bottom: 1px solid #cfd8dc;}
+.form_container .weui-cell{border-bottom: 1px solid #cfd8dc;}
+.form_container .weui-cell__hd .weui-label{font-weight: 400; width: 130px;}
+
+.action_container .btn{border-radius: 0; height: 50px; line-height: 50px; padding: 0; margin: 0;}

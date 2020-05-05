@@ -1,0 +1,35 @@
+<web-app character-encoding='UTF8'>
+
+	<display-name>New Application Framework and Spring Bean Manager</display-name>
+
+<!-- 
+
+
+	<servlet>
+		<servlet-name>caf</servlet-name>
+		<servlet-class>com.terapico.caf.SimpleInvocationServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>caf</servlet-name>
+		<url-pattern>/**/</url-pattern>
+	</servlet-mapping>
+
+ -->
+
+
+	<servlet>
+		<servlet-name>caf</servlet-name>
+		<servlet-class>com.terapico.uccaf.UCInvocationServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>caf</servlet-name>
+		<url-pattern>/**/</url-pattern>
+	</servlet-mapping>
+
+
+
+</web-app>
