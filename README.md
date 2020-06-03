@@ -73,7 +73,7 @@
 
 ## 二次开发
 * Java开发手册请参见：https://kdocs.cn/l/sUdwkkyZD?f=130
-* 数据库设计文档(共计100多页）: [数据库设计](/doc/retailscm-database-design.pdf)
+* 数据库设计文档(共计94多页）: [数据库设计](/doc/retailscm-database-design.pdf)
 * 包含顺序图的详细设计文档(共计200多页）：[详细设计](/doc/retailscm-detail-design.pdf)
 
 ## 部署
