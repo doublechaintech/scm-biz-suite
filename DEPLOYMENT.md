@@ -1,7 +1,7 @@
 
 
 
-# 零售供应链中台基础系统 运行指南
+# 供应链中台基础系统 运行指南
 
 系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS和ubuntu linux 18.04LTS，支持使用resin和SpringBoot来部署，不支持Tomcat服务器的war部署方式。
 
