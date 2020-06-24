@@ -214,9 +214,6 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 
 目前已经支持PGSQL9.5+和GBASE 8S
 
-* PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html, 密码为: admin123
-* GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
-
 ## 参与本项目
 <img src="/doc/philip-wechat-qr.jpeg" alt="WechatQRCode" title="WechatQRCode" width="150"  />
 
