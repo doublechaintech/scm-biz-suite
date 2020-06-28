@@ -46,14 +46,14 @@
 | Postgres  |  9.5+ , 可选|
 | Nginx  |  1.10+ |
 | Docker  |  18+ |
-| Browser  |  Chrome 65+/Safari 13+/Microsoft Edge 基于chrome的最新版 |
+| Browser  |  Chrome 65+/Safari 13+/Microsoft Edge 基于Chromium的最新版 |
 
 
 ### 编译时环境
 
 |  软件类型   | 版本  |
 |  ----  | ----  |
-| 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/Mac/Windows 7 |
+| 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/Mac/Windows 7+ |
 | gradle  | 5.3+ |
 | yarn  | 1.10.3+ |
 | node  |  8+, LTS |
