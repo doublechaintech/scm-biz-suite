@@ -41,11 +41,12 @@
 | JDK  | Open JDK 8, 可另选SpringBoot |
 | Resin  | 3.1.16, 可另选SpringBoot |
 | Redis  | 3.2+ |
-| MySQL  | 5.7+ |
-| Oracle  |  12.2+ |
+| MySQL  | 5.7+ , 可选|
+| Oracle  |  12.2+ , 可选|
+| Postgres  |  9.5+ , 可选|
 | Nginx  |  1.10+ |
 | Docker  |  18+ |
-| Browser  |  Chrome 65+/Safari 13+/Microsoft Edge 最新版 |
+| Browser  |  Chrome 65+/Safari 13+/Microsoft Edge 基于chrome的最新版 |
 
 
 ### 编译时环境
