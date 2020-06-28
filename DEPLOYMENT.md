@@ -41,7 +41,7 @@
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/ |
 | JDK  | Open JDK 8|
 | 应用服务器 | Resin3.1.16, 可另选SpringBoot |
-| 缓存怒服务器 | Redis3.2+ |
+| 缓存服务器 | Redis3.2+ |
 | 数据库  | MySQL 5.7+, Oracle 12.2+ , Postgres 9.5+, 南大通用GBASE 8|
 | WEB服务器  |  Nginx 1.10+ |
 | 容器 |  Docker18+ |
