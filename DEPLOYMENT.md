@@ -37,6 +37,7 @@
 
 |  软件类型   | 版本  |
 |  ----  | ----  |
+| 硬件架构  | x86_64/AMD64/华为鲲鹏/龙芯 |
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/ |
 | JDK  | Open JDK 8|
 | Resin  | 3.1.16, 可另选SpringBoot |
@@ -54,6 +55,7 @@
 |  软件类型   | 版本  |
 |  ----  | ----  |
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/Mac/Windows 7+ |
+| JDK  | Open JDK 8|
 | gradle  | 5.3+ |
 | yarn  | 1.10.3+ |
 | node  |  8+, LTS |
