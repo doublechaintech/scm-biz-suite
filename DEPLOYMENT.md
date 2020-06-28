@@ -42,9 +42,7 @@
 | JDK  | Open JDK 8|
 | Resin  | 3.1.16, 可另选SpringBoot |
 | Redis  | 3.2+ |
-| MySQL  | 5.7+ , 可选|
-| Oracle  |  12.2+ , 可选|
-| Postgres  |  9.5+ , 可选|
+| 数据库  | MySQL 5.7+, Oracle 12.2+ , Postgres 9.5+, 南大通用GBASE 8|
 | Nginx  |  1.10+ |
 | Docker  |  18+ |
 | Browser  |  Chrome 65+/Safari 13+/Microsoft Edge 基于Chromium的最新版 |
