@@ -43,9 +43,9 @@
 | 应用服务器 | Resin3.1.16, 可另选SpringBoot |
 | 缓存怒服务器 | Redis3.2+ |
 | 数据库  | MySQL 5.7+, Oracle 12.2+ , Postgres 9.5+, 南大通用GBASE 8|
-| Nginx  |  1.10+ |
-| Docker  |  18+ |
-| Browser  |  Chrome 65+/Safari 13+/Microsoft Edge 基于Chromium的最新版 |
+| WEB服务器  |  Nginx 1.10+ |
+| 容器 |  Docker18+ |
+| 浏览器  |  Chrome 65+/Safari 13+/Microsoft Edge 基于Chromium的最新版 |
 
 
 ### 编译时环境
