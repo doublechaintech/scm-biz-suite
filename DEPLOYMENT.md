@@ -38,7 +38,7 @@
 |  软件类型   | 版本  |
 |  ----  | ----  |
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/ |
-| JDK  | Open JDK 8, 可另选SpringBoot |
+| JDK  | Open JDK 8|
 | Resin  | 3.1.16, 可另选SpringBoot |
 | Redis  | 3.2+ |
 | MySQL  | 5.7+ , 可选|
