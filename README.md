@@ -9,7 +9,15 @@
 
 智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
-针对生鲜供应链, 请访问 https://demo.doublechaintech.com/admin/freshchain  13900000001/admin123, 13900000002/admin123, 13900000003/admin123.
+针对生鲜供应链, 请访问：
+https://demo.doublechaintech.com/admin/freshchain  13900000001/admin123, 13900000002/admin123, 13900000003/admin123.
+
+| 角色        | 用户名           | 密码         |
+| ------------- |:-------------:|:-------------------:|
+| 平台        | 13900000001           | admin123         |
+| 商户1        | 13900000002           | admin123         |
+| 商户2        | 13900000003           | admin123         |
+
 
 ## 目录
 
