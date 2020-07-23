@@ -59,7 +59,7 @@
 | node  |  8+, LTS |
 
 
-
+* 本系统不会提供maven构建方式，具体理由请参考: https://juejin.im/post/5ee6c3dc6fb9a047b75a26bc
 
 
 
