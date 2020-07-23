@@ -230,6 +230,8 @@ exit
 docker run -d -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
 docker run -d --name  demo_redis -p 6379:6379 redis
 ```
+使用docker的时候，可以进行安全性增强，如果仅仅在本机使用可以在端口前面加上 127.0.0.1, 比如127.0.0.1:6379:6379, 这样，仅仅从本机能访问这个端口
+
 
 另外，如果需要在鲲鹏服务器上，docker命令有所不同，跟我们常用服务器不同，鲲鹏服务器是ARM64架构
 
