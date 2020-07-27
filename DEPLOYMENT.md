@@ -289,10 +289,18 @@ cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
 
 gradle编译过程大约持续10秒到20秒这样得到编译后的classes，生成的位置在WEB-INF/classes目录下
 
-通过执行如下命令，把项目工程连接到Resin下，这样就可以以retailscm名字来启动webapp
+Linux上面，通过执行如下命令，把项目工程连接到Resin下，
 ```
 ln -s  ~/retailscm-biz-suite/bizcore  ~/resin-3.1.16/webapps/retailscm
 ```
+
+或者在Windows下，可以执行
+```
+mklink /D c:\resin-3.1.16\webapps\retailscm  c:\retailscm-biz-suite\bizcore
+```
+这样就可以以retailscm名字来启动webapp，该命令共享开发环境和运行环境，如果设置保存时候就编译java到classes下面，
+这样可以起到热加载效果方便调试。
+
 ### 启动Resin
 准备后了就可以启动后端
 ```
