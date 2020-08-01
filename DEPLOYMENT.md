@@ -38,7 +38,7 @@
 |  软硬件类型   | 版本  |
 |  ----  | ----  |
 | 硬件架构  | x86_64/AMD64/华为鲲鹏/龙芯 |
-| 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/CentOS/Redhat Enterprice |
+| 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/CentOS/Redhat Enterprise |
 | JDK  | Open JDK 8|
 | 应用服务器 | Resin3.1.16, 可另选SpringBoot |
 | 缓存服务器 | Redis3.2+ |
@@ -59,7 +59,7 @@
 | node  |  8+, LTS |
 
 
-
+* 本系统不会提供maven构建方式，具体理由请参考: https://juejin.im/post/5ee6c3dc6fb9a047b75a26bc
 
 
 
@@ -230,6 +230,8 @@ exit
 docker run -d -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
 docker run -d --name  demo_redis -p 6379:6379 redis
 ```
+使用docker的时候，可以进行安全性增强，如果仅仅在本机使用可以在端口前面加上 127.0.0.1, 比如127.0.0.1:6379:6379, 这样，仅仅从本机能访问这个端口
+
 
 另外，如果需要在鲲鹏服务器上，docker命令有所不同，跟我们常用服务器不同，鲲鹏服务器是ARM64架构
 
@@ -287,10 +289,18 @@ cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
 
 gradle编译过程大约持续10秒到20秒这样得到编译后的classes，生成的位置在WEB-INF/classes目录下
 
-通过执行如下命令，把项目工程连接到Resin下，这样就可以以retailscm名字来启动webapp
+Linux上面，通过执行如下命令，把项目工程连接到Resin下，
 ```
 ln -s  ~/retailscm-biz-suite/bizcore  ~/resin-3.1.16/webapps/retailscm
 ```
+
+或者在Windows下，可以执行
+```
+mklink /D c:\resin-3.1.16\webapps\retailscm  c:\retailscm-biz-suite\bizcore
+```
+这样就可以以retailscm名字来启动webapp，该命令共享开发环境和运行环境，如果设置保存时候就编译java到classes下面，
+这样可以起到热加载效果方便调试。
+
 ### 启动Resin
 准备后了就可以启动后端
 ```
@@ -307,7 +317,10 @@ http://localhost:8080/retailscm/secUserManager/home/
 ```
 输入用户名密码：13900000001/admin123登录
 
+注意，这是用于后端程序员调试用的界面，前后端分离的界面需要用yarn编译，请参考相关章节。
+
 云服务器记得打开端口8080, 此时没有文件启用压缩，使用1M的带宽装载速度会比较慢。
+
 
 
 ## 体验和优化
