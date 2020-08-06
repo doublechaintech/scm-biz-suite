@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements TrainingCourseTypeDAO{
 
@@ -71,50 +71,54 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	 	return this.companyTrainingDAO;
  	}	
 
-	
+
 	/*
 	protected TrainingCourseType load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalTrainingCourseType(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<TrainingCourseType> loadAll() {
 	    return this.loadAll(getTrainingCourseTypeMapper());
 	}
-	
-	
+
+  public Stream<TrainingCourseType> loadAllAsStream() {
+      return this.loadAllAsStream(getTrainingCourseTypeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public TrainingCourseType load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalTrainingCourseType(TrainingCourseTypeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public TrainingCourseType save(TrainingCourseType trainingCourseType,Map<String,Object> options){
-		
+
 		String methodName="save(TrainingCourseType trainingCourseType,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(trainingCourseType, methodName, "trainingCourseType");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalTrainingCourseType(trainingCourseType,options);
 	}
 	public TrainingCourseType clone(String trainingCourseTypeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(TrainingCourseTypeTable.withId(trainingCourseTypeId),options);
 	}
-	
+
 	protected TrainingCourseType clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String trainingCourseTypeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		TrainingCourseType newTrainingCourseType = loadInternalTrainingCourseType(accessKey, options);
 		newTrainingCourseType.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		}
 		
 
-		
+
 		saveInternalTrainingCourseType(newTrainingCourseType,options);
-		
+
 		return newTrainingCourseType;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String trainingCourseTypeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String trainingCourseTypeId, int version) throws Exception{
-	
+
 		String methodName="delete(String trainingCourseTypeId, int version)";
 		assertMethodArgumentNotNull(trainingCourseTypeId, methodName, "trainingCourseTypeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{trainingCourseTypeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(affectedNumber == 0){
 			handleDeleteOneError(trainingCourseTypeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public TrainingCourseType disconnectFromAll(String trainingCourseTypeId, int version) throws Exception{
-	
-		
+
+
 		TrainingCourseType trainingCourseType = loadInternalTrainingCourseType(TrainingCourseTypeTable.withId(trainingCourseTypeId), emptyOptions());
 		trainingCourseType.clearFromAll();
 		this.saveTrainingCourseType(trainingCourseType);
 		return trainingCourseType;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "training_course_type";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "trainingCourseType";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return trainingCourseType;
 		}
 		
-		
+
 		String SQL=this.getSaveTrainingCourseTypeSQL(trainingCourseType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTrainingCourseTypeParameters(trainingCourseType);
@@ -419,57 +423,57 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		trainingCourseType.incVersion();
 		return trainingCourseType;
-	
+
 	}
 	public SmartList<TrainingCourseType> saveTrainingCourseTypeList(SmartList<TrainingCourseType> trainingCourseTypeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitTrainingCourseTypeList(trainingCourseTypeList);
-		
+
 		batchTrainingCourseTypeCreate((List<TrainingCourseType>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchTrainingCourseTypeUpdate((List<TrainingCourseType>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(TrainingCourseType trainingCourseType:trainingCourseTypeList){
 			if(trainingCourseType.isChanged()){
 				trainingCourseType.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return trainingCourseTypeList;
 	}
 
 	public SmartList<TrainingCourseType> removeTrainingCourseTypeList(SmartList<TrainingCourseType> trainingCourseTypeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(trainingCourseTypeList, options);
-		
+
 		return trainingCourseTypeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareTrainingCourseTypeBatchCreateArgs(List<TrainingCourseType> trainingCourseTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(TrainingCourseType trainingCourseType:trainingCourseTypeList ){
 			Object [] parameters = prepareTrainingCourseTypeCreateParameters(trainingCourseType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareTrainingCourseTypeBatchUpdateArgs(List<TrainingCourseType> trainingCourseTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(TrainingCourseType trainingCourseType:trainingCourseTypeList ){
 			if(!trainingCourseType.isChanged()){
@@ -477,40 +481,40 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			}
 			Object [] parameters = prepareTrainingCourseTypeUpdateParameters(trainingCourseType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchTrainingCourseTypeCreate(List<TrainingCourseType> trainingCourseTypeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareTrainingCourseTypeBatchCreateArgs(trainingCourseTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchTrainingCourseTypeUpdate(List<TrainingCourseType> trainingCourseTypeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareTrainingCourseTypeBatchUpdateArgs(trainingCourseTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitTrainingCourseTypeList(List<TrainingCourseType> trainingCourseTypeList){
-		
+
 		List<TrainingCourseType> trainingCourseTypeCreateList=new ArrayList<TrainingCourseType>();
 		List<TrainingCourseType> trainingCourseTypeUpdateList=new ArrayList<TrainingCourseType>();
-		
+
 		for(TrainingCourseType trainingCourseType: trainingCourseTypeList){
 			if(isUpdateRequest(trainingCourseType)){
 				trainingCourseTypeUpdateList.add( trainingCourseType);
@@ -518,10 +522,10 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			}
 			trainingCourseTypeCreateList.add(trainingCourseType);
 		}
-		
+
 		return new Object[]{trainingCourseTypeCreateList,trainingCourseTypeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(TrainingCourseType trainingCourseType){
  		return trainingCourseType.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveTrainingCourseTypeParameters(TrainingCourseType trainingCourseType){
  		if(isUpdateRequest(trainingCourseType) ){
  			return prepareTrainingCourseTypeUpdateParameters(trainingCourseType);
@@ -543,7 +547,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  
  		
  		parameters[0] = trainingCourseType.getCode();
- 		 	
+ 		
  		if(trainingCourseType.getCompany() != null){
  			parameters[1] = trainingCourseType.getCompany().getId();
  		}
@@ -553,25 +557,27 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		
  		
  		parameters[3] = trainingCourseType.getDescription();
- 				
+ 		
  		parameters[4] = trainingCourseType.nextVersion();
  		parameters[5] = trainingCourseType.getId();
  		parameters[6] = trainingCourseType.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareTrainingCourseTypeCreateParameters(TrainingCourseType trainingCourseType){
 		Object[] parameters = new Object[5];
-		String newTrainingCourseTypeId=getNextId();
-		trainingCourseType.setId(newTrainingCourseTypeId);
+        if(trainingCourseType.getId() == null){
+          String newTrainingCourseTypeId=getNextId();
+          trainingCourseType.setId(newTrainingCourseTypeId);
+        }
 		parameters[0] =  trainingCourseType.getId();
  
  		
  		parameters[1] = trainingCourseType.getCode();
- 		 	
+ 		
  		if(trainingCourseType.getCompany() != null){
  			parameters[2] = trainingCourseType.getCompany().getId();
- 		
+
  		}
  		
  		
@@ -579,15 +585,15 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		
  		
  		parameters[4] = trainingCourseType.getDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected TrainingCourseType saveInternalTrainingCourseType(TrainingCourseType trainingCourseType, Map<String,Object> options){
-		
+
 		saveTrainingCourseType(trainingCourseType);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(trainingCourseType, options);
  		}
@@ -597,42 +603,42 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	 		saveCompanyTrainingList(trainingCourseType, options);
 	 		//removeCompanyTrainingList(trainingCourseType, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return trainingCourseType;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected TrainingCourseType saveCompany(TrainingCourseType trainingCourseType, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(trainingCourseType.getCompany() == null){
  			return trainingCourseType;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(trainingCourseType.getCompany(),options);
  		return trainingCourseType;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public TrainingCourseType planToRemoveCompanyTrainingList(TrainingCourseType trainingCourseType, String companyTrainingIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseType.getId());
 		key.put(CompanyTraining.ID_PROPERTY, companyTrainingIds);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -641,17 +647,17 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalCompanyTrainingList.isEmpty()){
 			return trainingCourseType;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 
 			companyTrainingItem.clearFromAll();
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
-		return trainingCourseType;	
-	
+		return trainingCourseType;
+
 	}
 
 
@@ -660,11 +666,11 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseType.getId());
 		key.put(CompanyTraining.COMPANY_PROPERTY, companyId);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -673,19 +679,19 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalCompanyTrainingList.isEmpty()){
 			return trainingCourseType;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 			companyTrainingItem.clearCompany();
 			companyTrainingItem.clearTrainingCourseType();
-			
+
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
 		return trainingCourseType;
 	}
-	
+
 	public int countCompanyTrainingListWithCompany(String trainingCourseTypeId, String companyId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseTypeId);
 		key.put(CompanyTraining.COMPANY_PROPERTY, companyId);
-		
+
 		int count = getCompanyTrainingDAO().countCompanyTrainingWithKey(key, options);
 		return count;
 	}
@@ -704,11 +710,11 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseType.getId());
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructorId);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -717,19 +723,19 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalCompanyTrainingList.isEmpty()){
 			return trainingCourseType;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 			companyTrainingItem.clearInstructor();
 			companyTrainingItem.clearTrainingCourseType();
-			
+
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
 		return trainingCourseType;
 	}
-	
+
 	public int countCompanyTrainingListWithInstructor(String trainingCourseTypeId, String instructorId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -738,7 +744,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseTypeId);
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructorId);
-		
+
 		int count = getCompanyTrainingDAO().countCompanyTrainingWithKey(key, options);
 		return count;
 	}
@@ -746,19 +752,19 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 		
 	protected TrainingCourseType saveCompanyTrainingList(TrainingCourseType trainingCourseType, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();
 		if(companyTrainingList == null){
 			//null list means nothing
 			return trainingCourseType;
 		}
 		SmartList<CompanyTraining> mergedUpdateCompanyTrainingList = new SmartList<CompanyTraining>();
-		
-		
-		mergedUpdateCompanyTrainingList.addAll(companyTrainingList); 
+
+
+		mergedUpdateCompanyTrainingList.addAll(companyTrainingList);
 		if(companyTrainingList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateCompanyTrainingList.addAll(companyTrainingList.getToRemoveList());
@@ -767,28 +773,28 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 
 		//adding new size can improve performance
-	
+
 		getCompanyTrainingDAO().saveCompanyTrainingList(mergedUpdateCompanyTrainingList,options);
-		
+
 		if(companyTrainingList.getToRemoveList() != null){
 			companyTrainingList.removeAll(companyTrainingList.getToRemoveList());
 		}
-		
-		
+
+
 		return trainingCourseType;
-	
+
 	}
-	
+
 	protected TrainingCourseType removeCompanyTrainingList(TrainingCourseType trainingCourseType, Map<String,Object> options){
-	
-	
+
+
 		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();
 		if(companyTrainingList == null){
 			return trainingCourseType;
-		}	
-	
+		}
+
 		SmartList<CompanyTraining> toRemoveCompanyTrainingList = companyTrainingList.getToRemoveList();
-		
+
 		if(toRemoveCompanyTrainingList == null){
 			return trainingCourseType;
 		}
@@ -796,20 +802,20 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return trainingCourseType;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getCompanyTrainingDAO().removeCompanyTrainingList(toRemoveCompanyTrainingList,options);
-		
-		return trainingCourseType;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getCompanyTrainingDAO().removeCompanyTrainingList(toRemoveCompanyTrainingList,options);
+
+		return trainingCourseType;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public TrainingCourseType present(TrainingCourseType trainingCourseType,Map<String, Object> options){
@@ -852,13 +858,13 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	protected String getTableName(){
 		return TrainingCourseTypeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<TrainingCourseType> trainingCourseTypeList) {		
+
+
+
+	public void enhanceList(List<TrainingCourseType> trainingCourseTypeList) {
 		this.enhanceListInternal(trainingCourseTypeList, this.getTrainingCourseTypeMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的trainingCourseType的CompanyTrainingList
 	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<TrainingCourseType> us, Map<String,Object> options) throws Exception{
@@ -883,39 +889,45 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TrainingCourseType> trainingCourseTypeList = ownerEntity.collectRefsWithType(TrainingCourseType.INTERNAL_TYPE);
 		this.enhanceList(trainingCourseTypeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<TrainingCourseType> findTrainingCourseTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getTrainingCourseTypeMapper());
 
 	}
 	@Override
 	public int countTrainingCourseTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countTrainingCourseTypeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<TrainingCourseType> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTrainingCourseTypeMapper());
 	}
+
+  @Override
+  public Stream<TrainingCourseType> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getTrainingCourseTypeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -944,7 +956,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 		return result;
 	}
-	
+
 	
 
 }

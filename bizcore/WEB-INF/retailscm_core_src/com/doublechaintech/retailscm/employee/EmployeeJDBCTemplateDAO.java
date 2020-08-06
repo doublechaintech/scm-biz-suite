@@ -65,7 +65,7 @@ import com.doublechaintech.retailscm.employeeeducation.EmployeeEducationDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeDAO{
 
@@ -341,50 +341,54 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	 	return this.payingOffDAO;
  	}	
 
-	
+
 	/*
 	protected Employee load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployee(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Employee> loadAll() {
 	    return this.loadAll(getEmployeeMapper());
 	}
-	
-	
+
+  public Stream<Employee> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Employee load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployee(EmployeeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Employee save(Employee employee,Map<String,Object> options){
-		
+
 		String methodName="save(Employee employee,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employee, methodName, "employee");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployee(employee,options);
 	}
 	public Employee clone(String employeeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeTable.withId(employeeId),options);
 	}
-	
+
 	protected Employee clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Employee newEmployee = loadInternalEmployee(accessKey, options);
 		newEmployee.setVersion(0);
 		
@@ -474,15 +478,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		}
 		
 
-		
+
 		saveInternalEmployee(newEmployee,options);
-		
+
 		return newEmployee;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -498,15 +502,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeId, int version)";
 		assertMethodArgumentNotNull(employeeId, methodName, "employeeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -516,26 +520,26 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Employee disconnectFromAll(String employeeId, int version) throws Exception{
-	
-		
+
+
 		Employee employee = loadInternalEmployee(EmployeeTable.withId(employeeId), emptyOptions());
 		employee.clearFromAll();
 		this.saveEmployee(employee);
 		return employee;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -543,15 +547,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employee";
 	}
-	
+
 	
 	
 	
@@ -1939,7 +1943,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeSQL(employee);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeParameters(employee);
@@ -1948,57 +1952,57 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employee.incVersion();
 		return employee;
-	
+
 	}
 	public SmartList<Employee> saveEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeList(employeeList);
-		
+
 		batchEmployeeCreate((List<Employee>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeUpdate((List<Employee>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Employee employee:employeeList){
 			if(employee.isChanged()){
 				employee.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeList;
 	}
 
 	public SmartList<Employee> removeEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeList, options);
-		
+
 		return employeeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeBatchCreateArgs(List<Employee> employeeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Employee employee:employeeList ){
 			Object [] parameters = prepareEmployeeCreateParameters(employee);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeBatchUpdateArgs(List<Employee> employeeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Employee employee:employeeList ){
 			if(!employee.isChanged()){
@@ -2006,40 +2010,40 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			}
 			Object [] parameters = prepareEmployeeUpdateParameters(employee);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeCreate(List<Employee> employeeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeBatchCreateArgs(employeeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeUpdate(List<Employee> employeeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeBatchUpdateArgs(employeeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeList(List<Employee> employeeList){
-		
+
 		List<Employee> employeeCreateList=new ArrayList<Employee>();
 		List<Employee> employeeUpdateList=new ArrayList<Employee>();
-		
+
 		for(Employee employee: employeeList){
 			if(isUpdateRequest(employee)){
 				employeeUpdateList.add( employee);
@@ -2047,10 +2051,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			}
 			employeeCreateList.add(employee);
 		}
-		
+
 		return new Object[]{employeeCreateList,employeeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Employee employee){
  		return employee.getVersion() > 0;
  	}
@@ -2060,7 +2064,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeParameters(Employee employee){
  		if(isUpdateRequest(employee) ){
  			return prepareEmployeeUpdateParameters(employee);
@@ -2069,14 +2073,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  	}
  	protected Object[] prepareEmployeeUpdateParameters(Employee employee){
  		Object[] parameters = new Object[17];
-  	
+ 
  		if(employee.getCompany() != null){
  			parameters[0] = employee.getCompany().getId();
  		}
  
  		
  		parameters[1] = employee.getTitle();
- 		 	
+ 		
  		if(employee.getDepartment() != null){
  			parameters[2] = employee.getDepartment().getId();
  		}
@@ -2098,15 +2102,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		
  		
  		parameters[8] = employee.getCellPhone();
- 		 	
+ 		
  		if(employee.getOccupation() != null){
  			parameters[9] = employee.getOccupation().getId();
  		}
-  	
+ 
  		if(employee.getResponsibleFor() != null){
  			parameters[10] = employee.getResponsibleFor().getId();
  		}
-  	
+ 
  		if(employee.getCurrentSalaryGrade() != null){
  			parameters[11] = employee.getCurrentSalaryGrade().getId();
  		}
@@ -2116,30 +2120,32 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		
  		
  		parameters[13] = employee.getLastUpdateTime();
- 				
+ 		
  		parameters[14] = employee.nextVersion();
  		parameters[15] = employee.getId();
  		parameters[16] = employee.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeCreateParameters(Employee employee){
 		Object[] parameters = new Object[15];
-		String newEmployeeId=getNextId();
-		employee.setId(newEmployeeId);
+        if(employee.getId() == null){
+          String newEmployeeId=getNextId();
+          employee.setId(newEmployeeId);
+        }
 		parameters[0] =  employee.getId();
-  	
+ 
  		if(employee.getCompany() != null){
  			parameters[1] = employee.getCompany().getId();
- 		
+
  		}
  		
  		
  		parameters[2] = employee.getTitle();
- 		 	
+ 		
  		if(employee.getDepartment() != null){
  			parameters[3] = employee.getDepartment().getId();
- 		
+
  		}
  		
  		
@@ -2159,20 +2165,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		
  		
  		parameters[9] = employee.getCellPhone();
- 		 	
+ 		
  		if(employee.getOccupation() != null){
  			parameters[10] = employee.getOccupation().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(employee.getResponsibleFor() != null){
  			parameters[11] = employee.getResponsibleFor().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(employee.getCurrentSalaryGrade() != null){
  			parameters[12] = employee.getCurrentSalaryGrade().getId();
- 		
+
  		}
  		
  		
@@ -2180,31 +2186,31 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		
  		
  		parameters[14] = employee.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Employee saveInternalEmployee(Employee employee, Map<String,Object> options){
-		
+
 		saveEmployee(employee);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(employee, options);
  		}
-  	
+ 
  		if(isSaveDepartmentEnabled(options)){
 	 		saveDepartment(employee, options);
  		}
-  	
+ 
  		if(isSaveOccupationEnabled(options)){
 	 		saveOccupation(employee, options);
  		}
-  	
+ 
  		if(isSaveResponsibleForEnabled(options)){
 	 		saveResponsibleFor(employee, options);
  		}
-  	
+ 
  		if(isSaveCurrentSalaryGradeEnabled(options)){
 	 		saveCurrentSalaryGrade(employee, options);
  		}
@@ -2214,187 +2220,187 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	 		saveEmployeeCompanyTrainingList(employee, options);
 	 		//removeEmployeeCompanyTrainingList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeSkillListEnabled(options)){
 	 		saveEmployeeSkillList(employee, options);
 	 		//removeEmployeeSkillList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeePerformanceListEnabled(options)){
 	 		saveEmployeePerformanceList(employee, options);
 	 		//removeEmployeePerformanceList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeWorkExperienceListEnabled(options)){
 	 		saveEmployeeWorkExperienceList(employee, options);
 	 		//removeEmployeeWorkExperienceList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeLeaveListEnabled(options)){
 	 		saveEmployeeLeaveList(employee, options);
 	 		//removeEmployeeLeaveList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeInterviewListEnabled(options)){
 	 		saveEmployeeInterviewList(employee, options);
 	 		//removeEmployeeInterviewList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeAttendanceListEnabled(options)){
 	 		saveEmployeeAttendanceList(employee, options);
 	 		//removeEmployeeAttendanceList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeQualifierListEnabled(options)){
 	 		saveEmployeeQualifierList(employee, options);
 	 		//removeEmployeeQualifierList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeEducationListEnabled(options)){
 	 		saveEmployeeEducationList(employee, options);
 	 		//removeEmployeeEducationList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeAwardListEnabled(options)){
 	 		saveEmployeeAwardList(employee, options);
 	 		//removeEmployeeAwardList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeSalarySheetListEnabled(options)){
 	 		saveEmployeeSalarySheetList(employee, options);
 	 		//removeEmployeeSalarySheetList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSavePayingOffListEnabled(options)){
 	 		savePayingOffList(employee, options);
 	 		//removePayingOffList(employee, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return employee;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Employee saveCompany(Employee employee, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employee.getCompany() == null){
  			return employee;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(employee.getCompany(),options);
  		return employee;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Employee saveDepartment(Employee employee, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employee.getDepartment() == null){
  			return employee;//do nothing when it is null
  		}
- 		
+
  		getLevelThreeDepartmentDAO().save(employee.getDepartment(),options);
  		return employee;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Employee saveOccupation(Employee employee, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employee.getOccupation() == null){
  			return employee;//do nothing when it is null
  		}
- 		
+
  		getOccupationTypeDAO().save(employee.getOccupation(),options);
  		return employee;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Employee saveResponsibleFor(Employee employee, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employee.getResponsibleFor() == null){
  			return employee;//do nothing when it is null
  		}
- 		
+
  		getResponsibilityTypeDAO().save(employee.getResponsibleFor(),options);
  		return employee;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Employee saveCurrentSalaryGrade(Employee employee, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employee.getCurrentSalaryGrade() == null){
  			return employee;//do nothing when it is null
  		}
- 		
+
  		getSalaryGradeDAO().save(employee.getCurrentSalaryGrade(),options);
  		return employee;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Employee planToRemoveEmployeeCompanyTrainingList(Employee employee, String employeeCompanyTrainingIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeCompanyTraining.ID_PROPERTY, employeeCompanyTrainingIds);
-		
+
 		SmartList<EmployeeCompanyTraining> externalEmployeeCompanyTrainingList = getEmployeeCompanyTrainingDAO().
 				findEmployeeCompanyTrainingWithKey(key, options);
 		if(externalEmployeeCompanyTrainingList == null){
@@ -2403,17 +2409,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeCompanyTrainingList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeCompanyTraining employeeCompanyTrainingItem: externalEmployeeCompanyTrainingList){
 
 			employeeCompanyTrainingItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();		
+
+
+		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
 		employeeCompanyTrainingList.addAllToRemoveList(externalEmployeeCompanyTrainingList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
@@ -2422,11 +2428,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeCompanyTraining.TRAINING_PROPERTY, trainingId);
-		
+
 		SmartList<EmployeeCompanyTraining> externalEmployeeCompanyTrainingList = getEmployeeCompanyTrainingDAO().
 				findEmployeeCompanyTrainingWithKey(key, options);
 		if(externalEmployeeCompanyTrainingList == null){
@@ -2435,19 +2441,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeCompanyTrainingList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeCompanyTraining employeeCompanyTrainingItem: externalEmployeeCompanyTrainingList){
 			employeeCompanyTrainingItem.clearTraining();
 			employeeCompanyTrainingItem.clearEmployee();
-			
+
 		}
-		
-		
-		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();		
+
+
+		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
 		employeeCompanyTrainingList.addAllToRemoveList(externalEmployeeCompanyTrainingList);
 		return employee;
 	}
-	
+
 	public int countEmployeeCompanyTrainingListWithTraining(String employeeId, String trainingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -2456,7 +2462,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, employeeId);
 		key.put(EmployeeCompanyTraining.TRAINING_PROPERTY, trainingId);
-		
+
 		int count = getEmployeeCompanyTrainingDAO().countEmployeeCompanyTrainingWithKey(key, options);
 		return count;
 	}
@@ -2466,11 +2472,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeCompanyTraining.SCORING_PROPERTY, scoringId);
-		
+
 		SmartList<EmployeeCompanyTraining> externalEmployeeCompanyTrainingList = getEmployeeCompanyTrainingDAO().
 				findEmployeeCompanyTrainingWithKey(key, options);
 		if(externalEmployeeCompanyTrainingList == null){
@@ -2479,19 +2485,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeCompanyTrainingList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeCompanyTraining employeeCompanyTrainingItem: externalEmployeeCompanyTrainingList){
 			employeeCompanyTrainingItem.clearScoring();
 			employeeCompanyTrainingItem.clearEmployee();
-			
+
 		}
-		
-		
-		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();		
+
+
+		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
 		employeeCompanyTrainingList.addAllToRemoveList(externalEmployeeCompanyTrainingList);
 		return employee;
 	}
-	
+
 	public int countEmployeeCompanyTrainingListWithScoring(String employeeId, String scoringId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -2500,17 +2506,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, employeeId);
 		key.put(EmployeeCompanyTraining.SCORING_PROPERTY, scoringId);
-		
+
 		int count = getEmployeeCompanyTrainingDAO().countEmployeeCompanyTrainingWithKey(key, options);
 		return count;
 	}
 	
 	public Employee planToRemoveEmployeeSkillList(Employee employee, String employeeSkillIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSkill.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeSkill.ID_PROPERTY, employeeSkillIds);
-		
+
 		SmartList<EmployeeSkill> externalEmployeeSkillList = getEmployeeSkillDAO().
 				findEmployeeSkillWithKey(key, options);
 		if(externalEmployeeSkillList == null){
@@ -2519,17 +2525,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeSkillList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeSkill employeeSkillItem: externalEmployeeSkillList){
 
 			employeeSkillItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();		
+
+
+		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();
 		employeeSkillList.addAllToRemoveList(externalEmployeeSkillList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
@@ -2538,11 +2544,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSkill.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeSkill.SKILL_TYPE_PROPERTY, skillTypeId);
-		
+
 		SmartList<EmployeeSkill> externalEmployeeSkillList = getEmployeeSkillDAO().
 				findEmployeeSkillWithKey(key, options);
 		if(externalEmployeeSkillList == null){
@@ -2551,19 +2557,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeSkillList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeSkill employeeSkillItem: externalEmployeeSkillList){
 			employeeSkillItem.clearSkillType();
 			employeeSkillItem.clearEmployee();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();		
+
+
+		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();
 		employeeSkillList.addAllToRemoveList(externalEmployeeSkillList);
 		return employee;
 	}
-	
+
 	public int countEmployeeSkillListWithSkillType(String employeeId, String skillTypeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -2572,17 +2578,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSkill.EMPLOYEE_PROPERTY, employeeId);
 		key.put(EmployeeSkill.SKILL_TYPE_PROPERTY, skillTypeId);
-		
+
 		int count = getEmployeeSkillDAO().countEmployeeSkillWithKey(key, options);
 		return count;
 	}
 	
 	public Employee planToRemoveEmployeePerformanceList(Employee employee, String employeePerformanceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeePerformance.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeePerformance.ID_PROPERTY, employeePerformanceIds);
-		
+
 		SmartList<EmployeePerformance> externalEmployeePerformanceList = getEmployeePerformanceDAO().
 				findEmployeePerformanceWithKey(key, options);
 		if(externalEmployeePerformanceList == null){
@@ -2591,26 +2597,26 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeePerformanceList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeePerformance employeePerformanceItem: externalEmployeePerformanceList){
 
 			employeePerformanceItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();		
+
+
+		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();
 		employeePerformanceList.addAllToRemoveList(externalEmployeePerformanceList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
 	public Employee planToRemoveEmployeeWorkExperienceList(Employee employee, String employeeWorkExperienceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeWorkExperience.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeWorkExperience.ID_PROPERTY, employeeWorkExperienceIds);
-		
+
 		SmartList<EmployeeWorkExperience> externalEmployeeWorkExperienceList = getEmployeeWorkExperienceDAO().
 				findEmployeeWorkExperienceWithKey(key, options);
 		if(externalEmployeeWorkExperienceList == null){
@@ -2619,26 +2625,26 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeWorkExperienceList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeWorkExperience employeeWorkExperienceItem: externalEmployeeWorkExperienceList){
 
 			employeeWorkExperienceItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();		
+
+
+		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();
 		employeeWorkExperienceList.addAllToRemoveList(externalEmployeeWorkExperienceList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
 	public Employee planToRemoveEmployeeLeaveList(Employee employee, String employeeLeaveIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeLeave.WHO_PROPERTY, employee.getId());
 		key.put(EmployeeLeave.ID_PROPERTY, employeeLeaveIds);
-		
+
 		SmartList<EmployeeLeave> externalEmployeeLeaveList = getEmployeeLeaveDAO().
 				findEmployeeLeaveWithKey(key, options);
 		if(externalEmployeeLeaveList == null){
@@ -2647,17 +2653,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeLeaveList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
 
 			employeeLeaveItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();		
+
+
+		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();
 		employeeLeaveList.addAllToRemoveList(externalEmployeeLeaveList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
@@ -2666,11 +2672,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeLeave.WHO_PROPERTY, employee.getId());
 		key.put(EmployeeLeave.TYPE_PROPERTY, typeId);
-		
+
 		SmartList<EmployeeLeave> externalEmployeeLeaveList = getEmployeeLeaveDAO().
 				findEmployeeLeaveWithKey(key, options);
 		if(externalEmployeeLeaveList == null){
@@ -2679,19 +2685,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeLeaveList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
 			employeeLeaveItem.clearType();
 			employeeLeaveItem.clearWho();
-			
+
 		}
-		
-		
-		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();		
+
+
+		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();
 		employeeLeaveList.addAllToRemoveList(externalEmployeeLeaveList);
 		return employee;
 	}
-	
+
 	public int countEmployeeLeaveListWithType(String employeeId, String typeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -2700,17 +2706,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeLeave.WHO_PROPERTY, employeeId);
 		key.put(EmployeeLeave.TYPE_PROPERTY, typeId);
-		
+
 		int count = getEmployeeLeaveDAO().countEmployeeLeaveWithKey(key, options);
 		return count;
 	}
 	
 	public Employee planToRemoveEmployeeInterviewList(Employee employee, String employeeInterviewIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeInterview.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeInterview.ID_PROPERTY, employeeInterviewIds);
-		
+
 		SmartList<EmployeeInterview> externalEmployeeInterviewList = getEmployeeInterviewDAO().
 				findEmployeeInterviewWithKey(key, options);
 		if(externalEmployeeInterviewList == null){
@@ -2719,17 +2725,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeInterviewList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeInterview employeeInterviewItem: externalEmployeeInterviewList){
 
 			employeeInterviewItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();		
+
+
+		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();
 		employeeInterviewList.addAllToRemoveList(externalEmployeeInterviewList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
@@ -2738,11 +2744,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeInterview.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeInterview.INTERVIEW_TYPE_PROPERTY, interviewTypeId);
-		
+
 		SmartList<EmployeeInterview> externalEmployeeInterviewList = getEmployeeInterviewDAO().
 				findEmployeeInterviewWithKey(key, options);
 		if(externalEmployeeInterviewList == null){
@@ -2751,19 +2757,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeInterviewList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeInterview employeeInterviewItem: externalEmployeeInterviewList){
 			employeeInterviewItem.clearInterviewType();
 			employeeInterviewItem.clearEmployee();
-			
+
 		}
-		
-		
-		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();		
+
+
+		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();
 		employeeInterviewList.addAllToRemoveList(externalEmployeeInterviewList);
 		return employee;
 	}
-	
+
 	public int countEmployeeInterviewListWithInterviewType(String employeeId, String interviewTypeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -2772,17 +2778,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeInterview.EMPLOYEE_PROPERTY, employeeId);
 		key.put(EmployeeInterview.INTERVIEW_TYPE_PROPERTY, interviewTypeId);
-		
+
 		int count = getEmployeeInterviewDAO().countEmployeeInterviewWithKey(key, options);
 		return count;
 	}
 	
 	public Employee planToRemoveEmployeeAttendanceList(Employee employee, String employeeAttendanceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeAttendance.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeAttendance.ID_PROPERTY, employeeAttendanceIds);
-		
+
 		SmartList<EmployeeAttendance> externalEmployeeAttendanceList = getEmployeeAttendanceDAO().
 				findEmployeeAttendanceWithKey(key, options);
 		if(externalEmployeeAttendanceList == null){
@@ -2791,26 +2797,26 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeAttendanceList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeAttendance employeeAttendanceItem: externalEmployeeAttendanceList){
 
 			employeeAttendanceItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();		
+
+
+		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();
 		employeeAttendanceList.addAllToRemoveList(externalEmployeeAttendanceList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
 	public Employee planToRemoveEmployeeQualifierList(Employee employee, String employeeQualifierIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeQualifier.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeQualifier.ID_PROPERTY, employeeQualifierIds);
-		
+
 		SmartList<EmployeeQualifier> externalEmployeeQualifierList = getEmployeeQualifierDAO().
 				findEmployeeQualifierWithKey(key, options);
 		if(externalEmployeeQualifierList == null){
@@ -2819,26 +2825,26 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeQualifierList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeQualifier employeeQualifierItem: externalEmployeeQualifierList){
 
 			employeeQualifierItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();		
+
+
+		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();
 		employeeQualifierList.addAllToRemoveList(externalEmployeeQualifierList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
 	public Employee planToRemoveEmployeeEducationList(Employee employee, String employeeEducationIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeEducation.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeEducation.ID_PROPERTY, employeeEducationIds);
-		
+
 		SmartList<EmployeeEducation> externalEmployeeEducationList = getEmployeeEducationDAO().
 				findEmployeeEducationWithKey(key, options);
 		if(externalEmployeeEducationList == null){
@@ -2847,26 +2853,26 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeEducationList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeEducation employeeEducationItem: externalEmployeeEducationList){
 
 			employeeEducationItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();		
+
+
+		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();
 		employeeEducationList.addAllToRemoveList(externalEmployeeEducationList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
 	public Employee planToRemoveEmployeeAwardList(Employee employee, String employeeAwardIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeAward.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeAward.ID_PROPERTY, employeeAwardIds);
-		
+
 		SmartList<EmployeeAward> externalEmployeeAwardList = getEmployeeAwardDAO().
 				findEmployeeAwardWithKey(key, options);
 		if(externalEmployeeAwardList == null){
@@ -2875,26 +2881,26 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeAwardList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeAward employeeAwardItem: externalEmployeeAwardList){
 
 			employeeAwardItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();		
+
+
+		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();
 		employeeAwardList.addAllToRemoveList(externalEmployeeAwardList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
 	public Employee planToRemoveEmployeeSalarySheetList(Employee employee, String employeeSalarySheetIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeSalarySheet.ID_PROPERTY, employeeSalarySheetIds);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -2903,17 +2909,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 
 			employeeSalarySheetItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
@@ -2922,11 +2928,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -2935,19 +2941,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 			employeeSalarySheetItem.clearCurrentSalaryGrade();
 			employeeSalarySheetItem.clearEmployee();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
 		return employee;
 	}
-	
+
 	public int countEmployeeSalarySheetListWithCurrentSalaryGrade(String employeeId, String currentSalaryGradeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -2956,7 +2962,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		int count = getEmployeeSalarySheetDAO().countEmployeeSalarySheetWithKey(key, options);
 		return count;
 	}
@@ -2966,11 +2972,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employee.getId());
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -2979,19 +2985,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 			employeeSalarySheetItem.clearPayingOff();
 			employeeSalarySheetItem.clearEmployee();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
 		return employee;
 	}
-	
+
 	public int countEmployeeSalarySheetListWithPayingOff(String employeeId, String payingOffId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3000,17 +3006,17 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);
-		
+
 		int count = getEmployeeSalarySheetDAO().countEmployeeSalarySheetWithKey(key, options);
 		return count;
 	}
 	
 	public Employee planToRemovePayingOffList(Employee employee, String payingOffIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(PayingOff.PAID_FOR_PROPERTY, employee.getId());
 		key.put(PayingOff.ID_PROPERTY, payingOffIds);
-		
+
 		SmartList<PayingOff> externalPayingOffList = getPayingOffDAO().
 				findPayingOffWithKey(key, options);
 		if(externalPayingOffList == null){
@@ -3019,36 +3025,36 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(externalPayingOffList.isEmpty()){
 			return employee;
 		}
-		
+
 		for(PayingOff payingOffItem: externalPayingOffList){
 
 			payingOffItem.clearFromAll();
 		}
-		
-		
-		SmartList<PayingOff> payingOffList = employee.getPayingOffList();		
+
+
+		SmartList<PayingOff> payingOffList = employee.getPayingOffList();
 		payingOffList.addAllToRemoveList(externalPayingOffList);
-		return employee;	
-	
+		return employee;
+
 	}
 
 
 
 		
 	protected Employee saveEmployeeCompanyTrainingList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
 		if(employeeCompanyTrainingList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeCompanyTraining> mergedUpdateEmployeeCompanyTrainingList = new SmartList<EmployeeCompanyTraining>();
-		
-		
-		mergedUpdateEmployeeCompanyTrainingList.addAll(employeeCompanyTrainingList); 
+
+
+		mergedUpdateEmployeeCompanyTrainingList.addAll(employeeCompanyTrainingList);
 		if(employeeCompanyTrainingList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeCompanyTrainingList.addAll(employeeCompanyTrainingList.getToRemoveList());
@@ -3057,28 +3063,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeCompanyTrainingDAO().saveEmployeeCompanyTrainingList(mergedUpdateEmployeeCompanyTrainingList,options);
-		
+
 		if(employeeCompanyTrainingList.getToRemoveList() != null){
 			employeeCompanyTrainingList.removeAll(employeeCompanyTrainingList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeCompanyTrainingList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
 		if(employeeCompanyTrainingList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeCompanyTraining> toRemoveEmployeeCompanyTrainingList = employeeCompanyTrainingList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeCompanyTrainingList == null){
 			return employee;
 		}
@@ -3086,35 +3092,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeCompanyTrainingDAO().removeEmployeeCompanyTrainingList(toRemoveEmployeeCompanyTrainingList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeCompanyTrainingDAO().removeEmployeeCompanyTrainingList(toRemoveEmployeeCompanyTrainingList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeSkillList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();
 		if(employeeSkillList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeSkill> mergedUpdateEmployeeSkillList = new SmartList<EmployeeSkill>();
-		
-		
-		mergedUpdateEmployeeSkillList.addAll(employeeSkillList); 
+
+
+		mergedUpdateEmployeeSkillList.addAll(employeeSkillList);
 		if(employeeSkillList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeSkillList.addAll(employeeSkillList.getToRemoveList());
@@ -3123,28 +3129,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeSkillDAO().saveEmployeeSkillList(mergedUpdateEmployeeSkillList,options);
-		
+
 		if(employeeSkillList.getToRemoveList() != null){
 			employeeSkillList.removeAll(employeeSkillList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeSkillList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();
 		if(employeeSkillList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeSkill> toRemoveEmployeeSkillList = employeeSkillList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeSkillList == null){
 			return employee;
 		}
@@ -3152,35 +3158,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeSkillDAO().removeEmployeeSkillList(toRemoveEmployeeSkillList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeSkillDAO().removeEmployeeSkillList(toRemoveEmployeeSkillList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeePerformanceList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();
 		if(employeePerformanceList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeePerformance> mergedUpdateEmployeePerformanceList = new SmartList<EmployeePerformance>();
-		
-		
-		mergedUpdateEmployeePerformanceList.addAll(employeePerformanceList); 
+
+
+		mergedUpdateEmployeePerformanceList.addAll(employeePerformanceList);
 		if(employeePerformanceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeePerformanceList.addAll(employeePerformanceList.getToRemoveList());
@@ -3189,28 +3195,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeePerformanceDAO().saveEmployeePerformanceList(mergedUpdateEmployeePerformanceList,options);
-		
+
 		if(employeePerformanceList.getToRemoveList() != null){
 			employeePerformanceList.removeAll(employeePerformanceList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeePerformanceList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();
 		if(employeePerformanceList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeePerformance> toRemoveEmployeePerformanceList = employeePerformanceList.getToRemoveList();
-		
+
 		if(toRemoveEmployeePerformanceList == null){
 			return employee;
 		}
@@ -3218,35 +3224,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeePerformanceDAO().removeEmployeePerformanceList(toRemoveEmployeePerformanceList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeePerformanceDAO().removeEmployeePerformanceList(toRemoveEmployeePerformanceList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeWorkExperienceList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();
 		if(employeeWorkExperienceList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeWorkExperience> mergedUpdateEmployeeWorkExperienceList = new SmartList<EmployeeWorkExperience>();
-		
-		
-		mergedUpdateEmployeeWorkExperienceList.addAll(employeeWorkExperienceList); 
+
+
+		mergedUpdateEmployeeWorkExperienceList.addAll(employeeWorkExperienceList);
 		if(employeeWorkExperienceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeWorkExperienceList.addAll(employeeWorkExperienceList.getToRemoveList());
@@ -3255,28 +3261,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeWorkExperienceDAO().saveEmployeeWorkExperienceList(mergedUpdateEmployeeWorkExperienceList,options);
-		
+
 		if(employeeWorkExperienceList.getToRemoveList() != null){
 			employeeWorkExperienceList.removeAll(employeeWorkExperienceList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeWorkExperienceList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();
 		if(employeeWorkExperienceList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeWorkExperience> toRemoveEmployeeWorkExperienceList = employeeWorkExperienceList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeWorkExperienceList == null){
 			return employee;
 		}
@@ -3284,35 +3290,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeWorkExperienceDAO().removeEmployeeWorkExperienceList(toRemoveEmployeeWorkExperienceList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeWorkExperienceDAO().removeEmployeeWorkExperienceList(toRemoveEmployeeWorkExperienceList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeLeaveList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();
 		if(employeeLeaveList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeLeave> mergedUpdateEmployeeLeaveList = new SmartList<EmployeeLeave>();
-		
-		
-		mergedUpdateEmployeeLeaveList.addAll(employeeLeaveList); 
+
+
+		mergedUpdateEmployeeLeaveList.addAll(employeeLeaveList);
 		if(employeeLeaveList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeLeaveList.addAll(employeeLeaveList.getToRemoveList());
@@ -3321,28 +3327,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeLeaveDAO().saveEmployeeLeaveList(mergedUpdateEmployeeLeaveList,options);
-		
+
 		if(employeeLeaveList.getToRemoveList() != null){
 			employeeLeaveList.removeAll(employeeLeaveList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeLeaveList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();
 		if(employeeLeaveList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeLeave> toRemoveEmployeeLeaveList = employeeLeaveList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeLeaveList == null){
 			return employee;
 		}
@@ -3350,35 +3356,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeLeaveDAO().removeEmployeeLeaveList(toRemoveEmployeeLeaveList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeLeaveDAO().removeEmployeeLeaveList(toRemoveEmployeeLeaveList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeInterviewList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();
 		if(employeeInterviewList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeInterview> mergedUpdateEmployeeInterviewList = new SmartList<EmployeeInterview>();
-		
-		
-		mergedUpdateEmployeeInterviewList.addAll(employeeInterviewList); 
+
+
+		mergedUpdateEmployeeInterviewList.addAll(employeeInterviewList);
 		if(employeeInterviewList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeInterviewList.addAll(employeeInterviewList.getToRemoveList());
@@ -3387,28 +3393,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeInterviewDAO().saveEmployeeInterviewList(mergedUpdateEmployeeInterviewList,options);
-		
+
 		if(employeeInterviewList.getToRemoveList() != null){
 			employeeInterviewList.removeAll(employeeInterviewList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeInterviewList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();
 		if(employeeInterviewList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeInterview> toRemoveEmployeeInterviewList = employeeInterviewList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeInterviewList == null){
 			return employee;
 		}
@@ -3416,35 +3422,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeInterviewDAO().removeEmployeeInterviewList(toRemoveEmployeeInterviewList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeInterviewDAO().removeEmployeeInterviewList(toRemoveEmployeeInterviewList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeAttendanceList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();
 		if(employeeAttendanceList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeAttendance> mergedUpdateEmployeeAttendanceList = new SmartList<EmployeeAttendance>();
-		
-		
-		mergedUpdateEmployeeAttendanceList.addAll(employeeAttendanceList); 
+
+
+		mergedUpdateEmployeeAttendanceList.addAll(employeeAttendanceList);
 		if(employeeAttendanceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeAttendanceList.addAll(employeeAttendanceList.getToRemoveList());
@@ -3453,28 +3459,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeAttendanceDAO().saveEmployeeAttendanceList(mergedUpdateEmployeeAttendanceList,options);
-		
+
 		if(employeeAttendanceList.getToRemoveList() != null){
 			employeeAttendanceList.removeAll(employeeAttendanceList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeAttendanceList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();
 		if(employeeAttendanceList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeAttendance> toRemoveEmployeeAttendanceList = employeeAttendanceList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeAttendanceList == null){
 			return employee;
 		}
@@ -3482,35 +3488,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeAttendanceDAO().removeEmployeeAttendanceList(toRemoveEmployeeAttendanceList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeAttendanceDAO().removeEmployeeAttendanceList(toRemoveEmployeeAttendanceList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeQualifierList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();
 		if(employeeQualifierList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeQualifier> mergedUpdateEmployeeQualifierList = new SmartList<EmployeeQualifier>();
-		
-		
-		mergedUpdateEmployeeQualifierList.addAll(employeeQualifierList); 
+
+
+		mergedUpdateEmployeeQualifierList.addAll(employeeQualifierList);
 		if(employeeQualifierList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeQualifierList.addAll(employeeQualifierList.getToRemoveList());
@@ -3519,28 +3525,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeQualifierDAO().saveEmployeeQualifierList(mergedUpdateEmployeeQualifierList,options);
-		
+
 		if(employeeQualifierList.getToRemoveList() != null){
 			employeeQualifierList.removeAll(employeeQualifierList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeQualifierList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();
 		if(employeeQualifierList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeQualifier> toRemoveEmployeeQualifierList = employeeQualifierList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeQualifierList == null){
 			return employee;
 		}
@@ -3548,35 +3554,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeQualifierDAO().removeEmployeeQualifierList(toRemoveEmployeeQualifierList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeQualifierDAO().removeEmployeeQualifierList(toRemoveEmployeeQualifierList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeEducationList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();
 		if(employeeEducationList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeEducation> mergedUpdateEmployeeEducationList = new SmartList<EmployeeEducation>();
-		
-		
-		mergedUpdateEmployeeEducationList.addAll(employeeEducationList); 
+
+
+		mergedUpdateEmployeeEducationList.addAll(employeeEducationList);
 		if(employeeEducationList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeEducationList.addAll(employeeEducationList.getToRemoveList());
@@ -3585,28 +3591,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeEducationDAO().saveEmployeeEducationList(mergedUpdateEmployeeEducationList,options);
-		
+
 		if(employeeEducationList.getToRemoveList() != null){
 			employeeEducationList.removeAll(employeeEducationList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeEducationList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();
 		if(employeeEducationList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeEducation> toRemoveEmployeeEducationList = employeeEducationList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeEducationList == null){
 			return employee;
 		}
@@ -3614,35 +3620,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeEducationDAO().removeEmployeeEducationList(toRemoveEmployeeEducationList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeEducationDAO().removeEmployeeEducationList(toRemoveEmployeeEducationList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeAwardList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();
 		if(employeeAwardList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeAward> mergedUpdateEmployeeAwardList = new SmartList<EmployeeAward>();
-		
-		
-		mergedUpdateEmployeeAwardList.addAll(employeeAwardList); 
+
+
+		mergedUpdateEmployeeAwardList.addAll(employeeAwardList);
 		if(employeeAwardList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeAwardList.addAll(employeeAwardList.getToRemoveList());
@@ -3651,28 +3657,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeAwardDAO().saveEmployeeAwardList(mergedUpdateEmployeeAwardList,options);
-		
+
 		if(employeeAwardList.getToRemoveList() != null){
 			employeeAwardList.removeAll(employeeAwardList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeAwardList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();
 		if(employeeAwardList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeAward> toRemoveEmployeeAwardList = employeeAwardList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeAwardList == null){
 			return employee;
 		}
@@ -3680,35 +3686,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeAwardDAO().removeEmployeeAwardList(toRemoveEmployeeAwardList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeAwardDAO().removeEmployeeAwardList(toRemoveEmployeeAwardList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee saveEmployeeSalarySheetList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
 		if(employeeSalarySheetList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<EmployeeSalarySheet> mergedUpdateEmployeeSalarySheetList = new SmartList<EmployeeSalarySheet>();
-		
-		
-		mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList); 
+
+
+		mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList);
 		if(employeeSalarySheetList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList.getToRemoveList());
@@ -3717,28 +3723,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeSalarySheetDAO().saveEmployeeSalarySheetList(mergedUpdateEmployeeSalarySheetList,options);
-		
+
 		if(employeeSalarySheetList.getToRemoveList() != null){
 			employeeSalarySheetList.removeAll(employeeSalarySheetList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removeEmployeeSalarySheetList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
 		if(employeeSalarySheetList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<EmployeeSalarySheet> toRemoveEmployeeSalarySheetList = employeeSalarySheetList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeSalarySheetList == null){
 			return employee;
 		}
@@ -3746,35 +3752,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeSalarySheetDAO().removeEmployeeSalarySheetList(toRemoveEmployeeSalarySheetList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeSalarySheetDAO().removeEmployeeSalarySheetList(toRemoveEmployeeSalarySheetList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Employee savePayingOffList(Employee employee, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<PayingOff> payingOffList = employee.getPayingOffList();
 		if(payingOffList == null){
 			//null list means nothing
 			return employee;
 		}
 		SmartList<PayingOff> mergedUpdatePayingOffList = new SmartList<PayingOff>();
-		
-		
-		mergedUpdatePayingOffList.addAll(payingOffList); 
+
+
+		mergedUpdatePayingOffList.addAll(payingOffList);
 		if(payingOffList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdatePayingOffList.addAll(payingOffList.getToRemoveList());
@@ -3783,28 +3789,28 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		//adding new size can improve performance
-	
+
 		getPayingOffDAO().savePayingOffList(mergedUpdatePayingOffList,options);
-		
+
 		if(payingOffList.getToRemoveList() != null){
 			payingOffList.removeAll(payingOffList.getToRemoveList());
 		}
-		
-		
+
+
 		return employee;
-	
+
 	}
-	
+
 	protected Employee removePayingOffList(Employee employee, Map<String,Object> options){
-	
-	
+
+
 		SmartList<PayingOff> payingOffList = employee.getPayingOffList();
 		if(payingOffList == null){
 			return employee;
-		}	
-	
+		}
+
 		SmartList<PayingOff> toRemovePayingOffList = payingOffList.getToRemoveList();
-		
+
 		if(toRemovePayingOffList == null){
 			return employee;
 		}
@@ -3812,20 +3818,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getPayingOffDAO().removePayingOffList(toRemovePayingOffList,options);
-		
-		return employee;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getPayingOffDAO().removePayingOffList(toRemovePayingOffList,options);
+
+		return employee;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Employee present(Employee employee,Map<String, Object> options){
@@ -4165,13 +4171,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	protected String getTableName(){
 		return EmployeeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Employee> employeeList) {		
+
+
+
+	public void enhanceList(List<Employee> employeeList) {
 		this.enhanceListInternal(employeeList, this.getEmployeeMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的employee的EmployeeCompanyTrainingList
 	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
@@ -4449,39 +4455,45 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Employee> employeeList = ownerEntity.collectRefsWithType(Employee.INTERNAL_TYPE);
 		this.enhanceList(employeeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Employee> findEmployeeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeMapper());
 
 	}
 	@Override
 	public int countEmployeeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Employee> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeMapper());
 	}
+
+  @Override
+  public Stream<Employee> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -4510,7 +4522,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 		return result;
 	}
-	
+
 	
 
 }

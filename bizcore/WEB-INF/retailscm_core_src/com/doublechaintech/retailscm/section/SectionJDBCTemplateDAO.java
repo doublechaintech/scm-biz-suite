@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.page.PageDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SectionDAO{
 
@@ -53,64 +53,68 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 	 	return this.pageDAO;
  	}	
 
-	
+
 	/*
 	protected Section load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalSection(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Section> loadAll() {
 	    return this.loadAll(getSectionMapper());
 	}
-	
-	
+
+  public Stream<Section> loadAllAsStream() {
+      return this.loadAllAsStream(getSectionMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Section load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalSection(SectionTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Section save(Section section,Map<String,Object> options){
-		
+
 		String methodName="save(Section section,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(section, methodName, "section");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalSection(section,options);
 	}
 	public Section clone(String sectionId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(SectionTable.withId(sectionId),options);
 	}
-	
+
 	protected Section clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String sectionId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Section newSection = loadInternalSection(accessKey, options);
 		newSection.setVersion(0);
 		
 		
 
-		
+
 		saveInternalSection(newSection,options);
-		
+
 		return newSection;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String sectionId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String sectionId, int version) throws Exception{
-	
+
 		String methodName="delete(String sectionId, int version)";
 		assertMethodArgumentNotNull(sectionId, methodName, "sectionId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{sectionId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 		if(affectedNumber == 0){
 			handleDeleteOneError(sectionId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Section disconnectFromAll(String sectionId, int version) throws Exception{
-	
-		
+
+
 		Section section = loadInternalSection(SectionTable.withId(sectionId), emptyOptions());
 		section.clearFromAll();
 		this.saveSection(section);
 		return section;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "section";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "section";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 			return section;
 		}
 		
-		
+
 		String SQL=this.getSaveSectionSQL(section);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSectionParameters(section);
@@ -320,57 +324,57 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		section.incVersion();
 		return section;
-	
+
 	}
 	public SmartList<Section> saveSectionList(SmartList<Section> sectionList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitSectionList(sectionList);
-		
+
 		batchSectionCreate((List<Section>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchSectionUpdate((List<Section>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Section section:sectionList){
 			if(section.isChanged()){
 				section.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return sectionList;
 	}
 
 	public SmartList<Section> removeSectionList(SmartList<Section> sectionList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(sectionList, options);
-		
+
 		return sectionList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareSectionBatchCreateArgs(List<Section> sectionList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Section section:sectionList ){
 			Object [] parameters = prepareSectionCreateParameters(section);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareSectionBatchUpdateArgs(List<Section> sectionList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Section section:sectionList ){
 			if(!section.isChanged()){
@@ -378,40 +382,40 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 			}
 			Object [] parameters = prepareSectionUpdateParameters(section);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchSectionCreate(List<Section> sectionList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareSectionBatchCreateArgs(sectionList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchSectionUpdate(List<Section> sectionList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareSectionBatchUpdateArgs(sectionList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitSectionList(List<Section> sectionList){
-		
+
 		List<Section> sectionCreateList=new ArrayList<Section>();
 		List<Section> sectionUpdateList=new ArrayList<Section>();
-		
+
 		for(Section section: sectionList){
 			if(isUpdateRequest(section)){
 				sectionUpdateList.add( section);
@@ -419,10 +423,10 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 			}
 			sectionCreateList.add(section);
 		}
-		
+
 		return new Object[]{sectionCreateList,sectionUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Section section){
  		return section.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveSectionParameters(Section section){
  		if(isUpdateRequest(section) ){
  			return prepareSectionUpdateParameters(section);
@@ -459,21 +463,23 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
  		
  		
  		parameters[5] = section.getLinkToUrl();
- 		 	
+ 		
  		if(section.getPage() != null){
  			parameters[6] = section.getPage().getId();
  		}
- 		
+ 
  		parameters[7] = section.nextVersion();
  		parameters[8] = section.getId();
  		parameters[9] = section.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareSectionCreateParameters(Section section){
 		Object[] parameters = new Object[8];
-		String newSectionId=getNextId();
-		section.setId(newSectionId);
+        if(section.getId() == null){
+          String newSectionId=getNextId();
+          section.setId(newSectionId);
+        }
 		parameters[0] =  section.getId();
  
  		
@@ -493,49 +499,49 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
  		
  		
  		parameters[6] = section.getLinkToUrl();
- 		 	
+ 		
  		if(section.getPage() != null){
  			parameters[7] = section.getPage().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Section saveInternalSection(Section section, Map<String,Object> options){
-		
+
 		saveSection(section);
- 	
+
  		if(isSavePageEnabled(options)){
 	 		savePage(section, options);
  		}
  
 		
 		return section;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Section savePage(Section section, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(section.getPage() == null){
  			return section;//do nothing when it is null
  		}
- 		
+
  		getPageDAO().save(section.getPage(),options);
  		return section;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -555,47 +561,53 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 	protected String getTableName(){
 		return SectionTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Section> sectionList) {		
+
+
+
+	public void enhanceList(List<Section> sectionList) {
 		this.enhanceListInternal(sectionList, this.getSectionMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Section> sectionList = ownerEntity.collectRefsWithType(Section.INTERNAL_TYPE);
 		this.enhanceList(sectionList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Section> findSectionWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getSectionMapper());
 
 	}
 	@Override
 	public int countSectionWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countSectionWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Section> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSectionMapper());
 	}
+
+  @Override
+  public Stream<Section> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getSectionMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -624,7 +636,7 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 		}
 		return result;
 	}
-	
+
 	
 
 }

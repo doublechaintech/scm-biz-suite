@@ -17,6 +17,7 @@ public interface LoginHistoryManager extends BaseManager{
 	public LoginHistory createLoginHistory(RetailscmUserContext userContext, String fromIp,String description,String secUserId) throws Exception;
 	public LoginHistory updateLoginHistory(RetailscmUserContext userContext,String loginHistoryId, int loginHistoryVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LoginHistory loadLoginHistory(RetailscmUserContext userContext, String loginHistoryId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public LoginHistory internalSaveLoginHistory(RetailscmUserContext userContext, LoginHistory loginHistory) throws Exception;
 	public LoginHistory internalSaveLoginHistory(RetailscmUserContext userContext, LoginHistory loginHistory,Map<String,Object>option) throws Exception;
 

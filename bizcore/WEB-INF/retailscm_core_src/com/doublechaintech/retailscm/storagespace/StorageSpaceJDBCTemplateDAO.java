@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.goodsshelf.GoodsShelfDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements StorageSpaceDAO{
 
@@ -71,50 +71,54 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	 	return this.goodsShelfDAO;
  	}	
 
-	
+
 	/*
 	protected StorageSpace load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalStorageSpace(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<StorageSpace> loadAll() {
 	    return this.loadAll(getStorageSpaceMapper());
 	}
-	
-	
+
+  public Stream<StorageSpace> loadAllAsStream() {
+      return this.loadAllAsStream(getStorageSpaceMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public StorageSpace load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalStorageSpace(StorageSpaceTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public StorageSpace save(StorageSpace storageSpace,Map<String,Object> options){
-		
+
 		String methodName="save(StorageSpace storageSpace,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(storageSpace, methodName, "storageSpace");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalStorageSpace(storageSpace,options);
 	}
 	public StorageSpace clone(String storageSpaceId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(StorageSpaceTable.withId(storageSpaceId),options);
 	}
-	
+
 	protected StorageSpace clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String storageSpaceId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		StorageSpace newStorageSpace = loadInternalStorageSpace(accessKey, options);
 		newStorageSpace.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		}
 		
 
-		
+
 		saveInternalStorageSpace(newStorageSpace,options);
-		
+
 		return newStorageSpace;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String storageSpaceId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String storageSpaceId, int version) throws Exception{
-	
+
 		String methodName="delete(String storageSpaceId, int version)";
 		assertMethodArgumentNotNull(storageSpaceId, methodName, "storageSpaceId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{storageSpaceId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		if(affectedNumber == 0){
 			handleDeleteOneError(storageSpaceId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public StorageSpace disconnectFromAll(String storageSpaceId, int version) throws Exception{
-	
-		
+
+
 		StorageSpace storageSpace = loadInternalStorageSpace(StorageSpaceTable.withId(storageSpaceId), emptyOptions());
 		storageSpace.clearFromAll();
 		this.saveStorageSpace(storageSpace);
 		return storageSpace;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "storage_space";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "storageSpace";
 	}
-	
+
 	
 	
 	
@@ -426,7 +430,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 			return storageSpace;
 		}
 		
-		
+
 		String SQL=this.getSaveStorageSpaceSQL(storageSpace);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveStorageSpaceParameters(storageSpace);
@@ -435,57 +439,57 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		storageSpace.incVersion();
 		return storageSpace;
-	
+
 	}
 	public SmartList<StorageSpace> saveStorageSpaceList(SmartList<StorageSpace> storageSpaceList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitStorageSpaceList(storageSpaceList);
-		
+
 		batchStorageSpaceCreate((List<StorageSpace>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchStorageSpaceUpdate((List<StorageSpace>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(StorageSpace storageSpace:storageSpaceList){
 			if(storageSpace.isChanged()){
 				storageSpace.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return storageSpaceList;
 	}
 
 	public SmartList<StorageSpace> removeStorageSpaceList(SmartList<StorageSpace> storageSpaceList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(storageSpaceList, options);
-		
+
 		return storageSpaceList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareStorageSpaceBatchCreateArgs(List<StorageSpace> storageSpaceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(StorageSpace storageSpace:storageSpaceList ){
 			Object [] parameters = prepareStorageSpaceCreateParameters(storageSpace);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareStorageSpaceBatchUpdateArgs(List<StorageSpace> storageSpaceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(StorageSpace storageSpace:storageSpaceList ){
 			if(!storageSpace.isChanged()){
@@ -493,40 +497,40 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 			}
 			Object [] parameters = prepareStorageSpaceUpdateParameters(storageSpace);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchStorageSpaceCreate(List<StorageSpace> storageSpaceList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareStorageSpaceBatchCreateArgs(storageSpaceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchStorageSpaceUpdate(List<StorageSpace> storageSpaceList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareStorageSpaceBatchUpdateArgs(storageSpaceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitStorageSpaceList(List<StorageSpace> storageSpaceList){
-		
+
 		List<StorageSpace> storageSpaceCreateList=new ArrayList<StorageSpace>();
 		List<StorageSpace> storageSpaceUpdateList=new ArrayList<StorageSpace>();
-		
+
 		for(StorageSpace storageSpace: storageSpaceList){
 			if(isUpdateRequest(storageSpace)){
 				storageSpaceUpdateList.add( storageSpace);
@@ -534,10 +538,10 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 			}
 			storageSpaceCreateList.add(storageSpace);
 		}
-		
+
 		return new Object[]{storageSpaceCreateList,storageSpaceUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(StorageSpace storageSpace){
  		return storageSpace.getVersion() > 0;
  	}
@@ -547,7 +551,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveStorageSpaceParameters(StorageSpace storageSpace){
  		if(isUpdateRequest(storageSpace) ){
  			return prepareStorageSpaceUpdateParameters(storageSpace);
@@ -565,7 +569,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		
  		
  		parameters[2] = storageSpace.getTotalArea();
- 		 	
+ 		
  		if(storageSpace.getWarehouse() != null){
  			parameters[3] = storageSpace.getWarehouse().getId();
  		}
@@ -578,17 +582,19 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		
  		
  		parameters[6] = storageSpace.getLastUpdateTime();
- 				
+ 		
  		parameters[7] = storageSpace.nextVersion();
  		parameters[8] = storageSpace.getId();
  		parameters[9] = storageSpace.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareStorageSpaceCreateParameters(StorageSpace storageSpace){
 		Object[] parameters = new Object[8];
-		String newStorageSpaceId=getNextId();
-		storageSpace.setId(newStorageSpaceId);
+        if(storageSpace.getId() == null){
+          String newStorageSpaceId=getNextId();
+          storageSpace.setId(newStorageSpaceId);
+        }
 		parameters[0] =  storageSpace.getId();
  
  		
@@ -599,10 +605,10 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		
  		
  		parameters[3] = storageSpace.getTotalArea();
- 		 	
+ 		
  		if(storageSpace.getWarehouse() != null){
  			parameters[4] = storageSpace.getWarehouse().getId();
- 		
+
  		}
  		
  		
@@ -613,15 +619,15 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		
  		
  		parameters[7] = storageSpace.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected StorageSpace saveInternalStorageSpace(StorageSpace storageSpace, Map<String,Object> options){
-		
+
 		saveStorageSpace(storageSpace);
- 	
+
  		if(isSaveWarehouseEnabled(options)){
 	 		saveWarehouse(storageSpace, options);
  		}
@@ -631,42 +637,42 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	 		saveGoodsShelfList(storageSpace, options);
 	 		//removeGoodsShelfList(storageSpace, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return storageSpace;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected StorageSpace saveWarehouse(StorageSpace storageSpace, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(storageSpace.getWarehouse() == null){
  			return storageSpace;//do nothing when it is null
  		}
- 		
+
  		getWarehouseDAO().save(storageSpace.getWarehouse(),options);
  		return storageSpace;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public StorageSpace planToRemoveGoodsShelfList(StorageSpace storageSpace, String goodsShelfIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpace.getId());
 		key.put(GoodsShelf.ID_PROPERTY, goodsShelfIds);
-		
+
 		SmartList<GoodsShelf> externalGoodsShelfList = getGoodsShelfDAO().
 				findGoodsShelfWithKey(key, options);
 		if(externalGoodsShelfList == null){
@@ -675,17 +681,17 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		if(externalGoodsShelfList.isEmpty()){
 			return storageSpace;
 		}
-		
+
 		for(GoodsShelf goodsShelfItem: externalGoodsShelfList){
 
 			goodsShelfItem.clearFromAll();
 		}
-		
-		
-		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();		
+
+
+		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();
 		goodsShelfList.addAllToRemoveList(externalGoodsShelfList);
-		return storageSpace;	
-	
+		return storageSpace;
+
 	}
 
 
@@ -694,11 +700,11 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpace.getId());
 		key.put(GoodsShelf.SUPPLIER_SPACE_PROPERTY, supplierSpaceId);
-		
+
 		SmartList<GoodsShelf> externalGoodsShelfList = getGoodsShelfDAO().
 				findGoodsShelfWithKey(key, options);
 		if(externalGoodsShelfList == null){
@@ -707,19 +713,19 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		if(externalGoodsShelfList.isEmpty()){
 			return storageSpace;
 		}
-		
+
 		for(GoodsShelf goodsShelfItem: externalGoodsShelfList){
 			goodsShelfItem.clearSupplierSpace();
 			goodsShelfItem.clearStorageSpace();
-			
+
 		}
-		
-		
-		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();		
+
+
+		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();
 		goodsShelfList.addAllToRemoveList(externalGoodsShelfList);
 		return storageSpace;
 	}
-	
+
 	public int countGoodsShelfListWithSupplierSpace(String storageSpaceId, String supplierSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -728,7 +734,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpaceId);
 		key.put(GoodsShelf.SUPPLIER_SPACE_PROPERTY, supplierSpaceId);
-		
+
 		int count = getGoodsShelfDAO().countGoodsShelfWithKey(key, options);
 		return count;
 	}
@@ -738,11 +744,11 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpace.getId());
 		key.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpaceId);
-		
+
 		SmartList<GoodsShelf> externalGoodsShelfList = getGoodsShelfDAO().
 				findGoodsShelfWithKey(key, options);
 		if(externalGoodsShelfList == null){
@@ -751,19 +757,19 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		if(externalGoodsShelfList.isEmpty()){
 			return storageSpace;
 		}
-		
+
 		for(GoodsShelf goodsShelfItem: externalGoodsShelfList){
 			goodsShelfItem.clearDamageSpace();
 			goodsShelfItem.clearStorageSpace();
-			
+
 		}
-		
-		
-		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();		
+
+
+		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();
 		goodsShelfList.addAllToRemoveList(externalGoodsShelfList);
 		return storageSpace;
 	}
-	
+
 	public int countGoodsShelfListWithDamageSpace(String storageSpaceId, String damageSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -772,7 +778,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpaceId);
 		key.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpaceId);
-		
+
 		int count = getGoodsShelfDAO().countGoodsShelfWithKey(key, options);
 		return count;
 	}
@@ -780,19 +786,19 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 
 		
 	protected StorageSpace saveGoodsShelfList(StorageSpace storageSpace, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();
 		if(goodsShelfList == null){
 			//null list means nothing
 			return storageSpace;
 		}
 		SmartList<GoodsShelf> mergedUpdateGoodsShelfList = new SmartList<GoodsShelf>();
-		
-		
-		mergedUpdateGoodsShelfList.addAll(goodsShelfList); 
+
+
+		mergedUpdateGoodsShelfList.addAll(goodsShelfList);
 		if(goodsShelfList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsShelfList.addAll(goodsShelfList.getToRemoveList());
@@ -801,28 +807,28 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsShelfDAO().saveGoodsShelfList(mergedUpdateGoodsShelfList,options);
-		
+
 		if(goodsShelfList.getToRemoveList() != null){
 			goodsShelfList.removeAll(goodsShelfList.getToRemoveList());
 		}
-		
-		
+
+
 		return storageSpace;
-	
+
 	}
-	
+
 	protected StorageSpace removeGoodsShelfList(StorageSpace storageSpace, Map<String,Object> options){
-	
-	
+
+
 		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();
 		if(goodsShelfList == null){
 			return storageSpace;
-		}	
-	
+		}
+
 		SmartList<GoodsShelf> toRemoveGoodsShelfList = goodsShelfList.getToRemoveList();
-		
+
 		if(toRemoveGoodsShelfList == null){
 			return storageSpace;
 		}
@@ -830,20 +836,20 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 			return storageSpace;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsShelfDAO().removeGoodsShelfList(toRemoveGoodsShelfList,options);
-		
-		return storageSpace;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsShelfDAO().removeGoodsShelfList(toRemoveGoodsShelfList,options);
+
+		return storageSpace;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public StorageSpace present(StorageSpace storageSpace,Map<String, Object> options){
@@ -886,13 +892,13 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	protected String getTableName(){
 		return StorageSpaceTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<StorageSpace> storageSpaceList) {		
+
+
+
+	public void enhanceList(List<StorageSpace> storageSpaceList) {
 		this.enhanceListInternal(storageSpaceList, this.getStorageSpaceMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:GoodsShelf的storageSpace的GoodsShelfList
 	public SmartList<GoodsShelf> loadOurGoodsShelfList(RetailscmUserContext userContext, List<StorageSpace> us, Map<String,Object> options) throws Exception{
@@ -917,39 +923,45 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<StorageSpace> storageSpaceList = ownerEntity.collectRefsWithType(StorageSpace.INTERNAL_TYPE);
 		this.enhanceList(storageSpaceList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<StorageSpace> findStorageSpaceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getStorageSpaceMapper());
 
 	}
 	@Override
 	public int countStorageSpaceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countStorageSpaceWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<StorageSpace> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getStorageSpaceMapper());
 	}
+
+  @Override
+  public Stream<StorageSpace> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getStorageSpaceMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -978,7 +990,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		}
 		return result;
 	}
-	
+
 	
 
 }

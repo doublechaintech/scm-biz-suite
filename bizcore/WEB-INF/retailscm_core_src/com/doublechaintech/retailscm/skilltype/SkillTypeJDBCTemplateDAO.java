@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.employeeskill.EmployeeSkillDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkillTypeDAO{
 
@@ -71,50 +71,54 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 	 	return this.employeeSkillDAO;
  	}	
 
-	
+
 	/*
 	protected SkillType load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalSkillType(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<SkillType> loadAll() {
 	    return this.loadAll(getSkillTypeMapper());
 	}
-	
-	
+
+  public Stream<SkillType> loadAllAsStream() {
+      return this.loadAllAsStream(getSkillTypeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public SkillType load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalSkillType(SkillTypeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public SkillType save(SkillType skillType,Map<String,Object> options){
-		
+
 		String methodName="save(SkillType skillType,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(skillType, methodName, "skillType");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalSkillType(skillType,options);
 	}
 	public SkillType clone(String skillTypeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(SkillTypeTable.withId(skillTypeId),options);
 	}
-	
+
 	protected SkillType clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String skillTypeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		SkillType newSkillType = loadInternalSkillType(accessKey, options);
 		newSkillType.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
  		}
 		
 
-		
+
 		saveInternalSkillType(newSkillType,options);
-		
+
 		return newSkillType;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String skillTypeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String skillTypeId, int version) throws Exception{
-	
+
 		String methodName="delete(String skillTypeId, int version)";
 		assertMethodArgumentNotNull(skillTypeId, methodName, "skillTypeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{skillTypeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 		if(affectedNumber == 0){
 			handleDeleteOneError(skillTypeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public SkillType disconnectFromAll(String skillTypeId, int version) throws Exception{
-	
-		
+
+
 		SkillType skillType = loadInternalSkillType(SkillTypeTable.withId(skillTypeId), emptyOptions());
 		skillType.clearFromAll();
 		this.saveSkillType(skillType);
 		return skillType;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "skill_type";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "skillType";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 			return skillType;
 		}
 		
-		
+
 		String SQL=this.getSaveSkillTypeSQL(skillType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSkillTypeParameters(skillType);
@@ -419,57 +423,57 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		skillType.incVersion();
 		return skillType;
-	
+
 	}
 	public SmartList<SkillType> saveSkillTypeList(SmartList<SkillType> skillTypeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitSkillTypeList(skillTypeList);
-		
+
 		batchSkillTypeCreate((List<SkillType>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchSkillTypeUpdate((List<SkillType>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(SkillType skillType:skillTypeList){
 			if(skillType.isChanged()){
 				skillType.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return skillTypeList;
 	}
 
 	public SmartList<SkillType> removeSkillTypeList(SmartList<SkillType> skillTypeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(skillTypeList, options);
-		
+
 		return skillTypeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareSkillTypeBatchCreateArgs(List<SkillType> skillTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SkillType skillType:skillTypeList ){
 			Object [] parameters = prepareSkillTypeCreateParameters(skillType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareSkillTypeBatchUpdateArgs(List<SkillType> skillTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SkillType skillType:skillTypeList ){
 			if(!skillType.isChanged()){
@@ -477,40 +481,40 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 			}
 			Object [] parameters = prepareSkillTypeUpdateParameters(skillType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchSkillTypeCreate(List<SkillType> skillTypeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareSkillTypeBatchCreateArgs(skillTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchSkillTypeUpdate(List<SkillType> skillTypeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareSkillTypeBatchUpdateArgs(skillTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitSkillTypeList(List<SkillType> skillTypeList){
-		
+
 		List<SkillType> skillTypeCreateList=new ArrayList<SkillType>();
 		List<SkillType> skillTypeUpdateList=new ArrayList<SkillType>();
-		
+
 		for(SkillType skillType: skillTypeList){
 			if(isUpdateRequest(skillType)){
 				skillTypeUpdateList.add( skillType);
@@ -518,10 +522,10 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 			}
 			skillTypeCreateList.add(skillType);
 		}
-		
+
 		return new Object[]{skillTypeCreateList,skillTypeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(SkillType skillType){
  		return skillType.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveSkillTypeParameters(SkillType skillType){
  		if(isUpdateRequest(skillType) ){
  			return prepareSkillTypeUpdateParameters(skillType);
@@ -543,45 +547,47 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
  
  		
  		parameters[0] = skillType.getCode();
- 		 	
+ 		
  		if(skillType.getCompany() != null){
  			parameters[1] = skillType.getCompany().getId();
  		}
  
  		
  		parameters[2] = skillType.getDescription();
- 				
+ 		
  		parameters[3] = skillType.nextVersion();
  		parameters[4] = skillType.getId();
  		parameters[5] = skillType.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareSkillTypeCreateParameters(SkillType skillType){
 		Object[] parameters = new Object[4];
-		String newSkillTypeId=getNextId();
-		skillType.setId(newSkillTypeId);
+        if(skillType.getId() == null){
+          String newSkillTypeId=getNextId();
+          skillType.setId(newSkillTypeId);
+        }
 		parameters[0] =  skillType.getId();
  
  		
  		parameters[1] = skillType.getCode();
- 		 	
+ 		
  		if(skillType.getCompany() != null){
  			parameters[2] = skillType.getCompany().getId();
- 		
+
  		}
  		
  		
  		parameters[3] = skillType.getDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected SkillType saveInternalSkillType(SkillType skillType, Map<String,Object> options){
-		
+
 		saveSkillType(skillType);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(skillType, options);
  		}
@@ -591,42 +597,42 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 	 		saveEmployeeSkillList(skillType, options);
 	 		//removeEmployeeSkillList(skillType, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return skillType;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected SkillType saveCompany(SkillType skillType, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(skillType.getCompany() == null){
  			return skillType;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(skillType.getCompany(),options);
  		return skillType;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public SkillType planToRemoveEmployeeSkillList(SkillType skillType, String employeeSkillIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSkill.SKILL_TYPE_PROPERTY, skillType.getId());
 		key.put(EmployeeSkill.ID_PROPERTY, employeeSkillIds);
-		
+
 		SmartList<EmployeeSkill> externalEmployeeSkillList = getEmployeeSkillDAO().
 				findEmployeeSkillWithKey(key, options);
 		if(externalEmployeeSkillList == null){
@@ -635,17 +641,17 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 		if(externalEmployeeSkillList.isEmpty()){
 			return skillType;
 		}
-		
+
 		for(EmployeeSkill employeeSkillItem: externalEmployeeSkillList){
 
 			employeeSkillItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeSkill> employeeSkillList = skillType.getEmployeeSkillList();		
+
+
+		SmartList<EmployeeSkill> employeeSkillList = skillType.getEmployeeSkillList();
 		employeeSkillList.addAllToRemoveList(externalEmployeeSkillList);
-		return skillType;	
-	
+		return skillType;
+
 	}
 
 
@@ -654,11 +660,11 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSkill.SKILL_TYPE_PROPERTY, skillType.getId());
 		key.put(EmployeeSkill.EMPLOYEE_PROPERTY, employeeId);
-		
+
 		SmartList<EmployeeSkill> externalEmployeeSkillList = getEmployeeSkillDAO().
 				findEmployeeSkillWithKey(key, options);
 		if(externalEmployeeSkillList == null){
@@ -667,19 +673,19 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 		if(externalEmployeeSkillList.isEmpty()){
 			return skillType;
 		}
-		
+
 		for(EmployeeSkill employeeSkillItem: externalEmployeeSkillList){
 			employeeSkillItem.clearEmployee();
 			employeeSkillItem.clearSkillType();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSkill> employeeSkillList = skillType.getEmployeeSkillList();		
+
+
+		SmartList<EmployeeSkill> employeeSkillList = skillType.getEmployeeSkillList();
 		employeeSkillList.addAllToRemoveList(externalEmployeeSkillList);
 		return skillType;
 	}
-	
+
 	public int countEmployeeSkillListWithEmployee(String skillTypeId, String employeeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -688,7 +694,7 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSkill.SKILL_TYPE_PROPERTY, skillTypeId);
 		key.put(EmployeeSkill.EMPLOYEE_PROPERTY, employeeId);
-		
+
 		int count = getEmployeeSkillDAO().countEmployeeSkillWithKey(key, options);
 		return count;
 	}
@@ -696,19 +702,19 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 
 		
 	protected SkillType saveEmployeeSkillList(SkillType skillType, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeSkill> employeeSkillList = skillType.getEmployeeSkillList();
 		if(employeeSkillList == null){
 			//null list means nothing
 			return skillType;
 		}
 		SmartList<EmployeeSkill> mergedUpdateEmployeeSkillList = new SmartList<EmployeeSkill>();
-		
-		
-		mergedUpdateEmployeeSkillList.addAll(employeeSkillList); 
+
+
+		mergedUpdateEmployeeSkillList.addAll(employeeSkillList);
 		if(employeeSkillList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeSkillList.addAll(employeeSkillList.getToRemoveList());
@@ -717,28 +723,28 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeSkillDAO().saveEmployeeSkillList(mergedUpdateEmployeeSkillList,options);
-		
+
 		if(employeeSkillList.getToRemoveList() != null){
 			employeeSkillList.removeAll(employeeSkillList.getToRemoveList());
 		}
-		
-		
+
+
 		return skillType;
-	
+
 	}
-	
+
 	protected SkillType removeEmployeeSkillList(SkillType skillType, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeSkill> employeeSkillList = skillType.getEmployeeSkillList();
 		if(employeeSkillList == null){
 			return skillType;
-		}	
-	
+		}
+
 		SmartList<EmployeeSkill> toRemoveEmployeeSkillList = employeeSkillList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeSkillList == null){
 			return skillType;
 		}
@@ -746,20 +752,20 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 			return skillType;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeSkillDAO().removeEmployeeSkillList(toRemoveEmployeeSkillList,options);
-		
-		return skillType;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeSkillDAO().removeEmployeeSkillList(toRemoveEmployeeSkillList,options);
+
+		return skillType;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public SkillType present(SkillType skillType,Map<String, Object> options){
@@ -802,13 +808,13 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 	protected String getTableName(){
 		return SkillTypeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<SkillType> skillTypeList) {		
+
+
+
+	public void enhanceList(List<SkillType> skillTypeList) {
 		this.enhanceListInternal(skillTypeList, this.getSkillTypeMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeSkill的skillType的EmployeeSkillList
 	public SmartList<EmployeeSkill> loadOurEmployeeSkillList(RetailscmUserContext userContext, List<SkillType> us, Map<String,Object> options) throws Exception{
@@ -833,39 +839,45 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SkillType> skillTypeList = ownerEntity.collectRefsWithType(SkillType.INTERNAL_TYPE);
 		this.enhanceList(skillTypeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<SkillType> findSkillTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getSkillTypeMapper());
 
 	}
 	@Override
 	public int countSkillTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countSkillTypeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<SkillType> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSkillTypeMapper());
 	}
+
+  @Override
+  public Stream<SkillType> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getSkillTypeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -894,7 +906,7 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sk
 		}
 		return result;
 	}
-	
+
 	
 
 }

@@ -17,6 +17,7 @@ public interface WarehouseManager extends BaseManager{
 	public Warehouse createWarehouse(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,String ownerId,BigDecimal latitude,BigDecimal longitude) throws Exception;
 	public Warehouse updateWarehouse(RetailscmUserContext userContext,String warehouseId, int warehouseVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Warehouse loadWarehouse(RetailscmUserContext userContext, String warehouseId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Warehouse internalSaveWarehouse(RetailscmUserContext userContext, Warehouse warehouse) throws Exception;
 	public Warehouse internalSaveWarehouse(RetailscmUserContext userContext, Warehouse warehouse,Map<String,Object>option) throws Exception;
 

@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstoreprovincecenter;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -24,20 +25,21 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 public interface RetailStoreProvinceCenterDAO extends BaseDAO{
 
 	public SmartList<RetailStoreProvinceCenter> loadAll();
+	public Stream<RetailStoreProvinceCenter> loadAllAsStream();
 	public RetailStoreProvinceCenter load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreProvinceCenter present(RetailStoreProvinceCenter retailStoreProvinceCenter,Map<String,Object> options) throws Exception;
 	public RetailStoreProvinceCenter clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreProvinceCenter save(RetailStoreProvinceCenter retailStoreProvinceCenter,Map<String,Object> options);
 	public SmartList<RetailStoreProvinceCenter> saveRetailStoreProvinceCenterList(SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList,Map<String,Object> options);
 	public SmartList<RetailStoreProvinceCenter> removeRetailStoreProvinceCenterList(SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList,Map<String,Object> options);
@@ -76,18 +78,19 @@ public interface RetailStoreProvinceCenterDAO extends BaseDAO{
 	public RetailStoreProvinceCenter planToRemoveRetailStoreCityServiceCenterList(RetailStoreProvinceCenter retailStoreProvinceCenter, String retailStoreCityServiceCenterIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<RetailStoreProvinceCenter> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreProvinceCenter> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreProvinceCenter executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<RetailStoreProvinceCenter> findRetailStoreProvinceCenterByCountry(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countRetailStoreProvinceCenterByCountry(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreProvinceCenterByCountryIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStoreProvinceCenter> findRetailStoreProvinceCenterByCountry(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreProvinceCenterByCountry(SmartList<RetailStoreProvinceCenter> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:ProvinceCenterDepartment的provinceCenter的ProvinceCenterDepartmentList
 	public SmartList<ProvinceCenterDepartment> loadOurProvinceCenterDepartmentList(RetailscmUserContext userContext, List<RetailStoreProvinceCenter> us, Map<String,Object> options) throws Exception;

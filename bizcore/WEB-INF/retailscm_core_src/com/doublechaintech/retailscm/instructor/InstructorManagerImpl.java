@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.instructor;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -47,24 +45,24 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = InstructorTokens.start().withTokenFromListName(listName).done();
 		Instructor  instructor = (Instructor) this.loadInstructor(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = instructor.collectRefercencesFromLists();
 		instructorDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, instructor, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new InstructorGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -127,7 +125,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).throwExceptionIfHasErrors( InstructorManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Instructor instructor = loadInstructor( userContext, instructorId, tokens);
  		//do some calc before sent to customer?
@@ -146,6 +144,9 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		
 		List<BaseEntity> entityListToNaming = instructorToPresent.collectRefercencesFromLists();
 		instructorDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,instructor,tokens);
 		
 		return  instructorToPresent;
 		
@@ -583,7 +584,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 			instructor.addCompanyTraining( companyTraining );
 			instructor = saveInstructor(userContext, instructor, tokens().withCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getCompanyTrainingManager().onNewInstanceCreated(userContext, companyTraining);
+			companyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, companyTraining);
 			return present(userContext,instructor, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -606,7 +607,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withCompanyTrainingListList()
-				.searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, "is", id).done();
+				.searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, tokens().is(), id).done();
 
 		Instructor instructorToUpdate = loadInstructor(userContext, instructorId, options);
 
@@ -615,7 +616,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		}
 
 		CompanyTraining item = instructorToUpdate.getCompanyTrainingList().first();
-
+		beforeUpdateCompanyTrainingProperties(userContext,item, instructorId,id,title,timeStart,durationHours,tokensExpr);
 		item.updateTitle( title );
 		item.updateTimeStart( timeStart );
 		item.updateDurationHours( durationHours );
@@ -628,6 +629,10 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		}
 	}
 
+	protected  void beforeUpdateCompanyTrainingProperties(RetailscmUserContext userContext, CompanyTraining item, String instructorId, String id,String title,Date timeStart,int durationHours, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected CompanyTraining createCompanyTraining(RetailscmUserContext userContext, String title, String companyId, String trainingCourseTypeId, Date timeStart, int durationHours) throws Exception{
 
@@ -740,7 +745,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 			instructor.copyCompanyTrainingFrom( companyTraining );
 			instructor = saveInstructor(userContext, instructor, tokens().withCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getCompanyTrainingManager().onNewInstanceCreated(userContext, (CompanyTraining)instructor.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			companyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, (CompanyTraining)instructor.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,instructor, mergedAllTokens(tokensExpr));
 		}
 
@@ -753,27 +758,21 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkIdOfInstructor(instructorId);
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 		checkerOf(userContext).checkVersionOfCompanyTraining(companyTrainingVersion);
-		
+
 
 		if(CompanyTraining.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfCompanyTraining(parseString(newValueExpr));
-		
 		}
 		
 		if(CompanyTraining.TIME_START_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTimeStartOfCompanyTraining(parseDate(newValueExpr));
-		
 		}
 		
 		if(CompanyTraining.DURATION_HOURS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDurationHoursOfCompanyTraining(parseInt(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(InstructorManagerException.class);
 
 	}
@@ -783,7 +782,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 
 		checkParamsForUpdatingCompanyTraining(userContext, instructorId, companyTrainingId, companyTrainingVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withCompanyTrainingList().searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, "eq", companyTrainingId).done();
+		Map<String,Object> loadTokens = this.tokens().withCompanyTrainingList().searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, tokens().equals(), companyTrainingId).done();
 
 
 
@@ -794,13 +793,14 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 			//Also good when there is a RAM based DAO implementation
 			//instructor.removeCompanyTraining( companyTraining );
 			//make changes to AcceleraterAccount.
-			CompanyTraining companyTrainingIndex = createIndexedCompanyTraining(companyTrainingId, companyTrainingVersion);
+			CompanyTraining companyTrainingIdVersionKey = createIndexedCompanyTraining(companyTrainingId, companyTrainingVersion);
 
-			CompanyTraining companyTraining = instructor.findTheCompanyTraining(companyTrainingIndex);
+			CompanyTraining companyTraining = instructor.findTheCompanyTraining(companyTrainingIdVersionKey);
 			if(companyTraining == null){
-				throw new InstructorManagerException(companyTraining+" is NOT FOUND" );
+				throw new InstructorManagerException(companyTrainingId+" is NOT FOUND" );
 			}
 
+			beforeUpdateCompanyTraining(userContext, companyTraining, instructorId, companyTrainingId, companyTrainingVersion, property, newValueExpr,  tokensExpr);
 			companyTraining.changeProperty(property, newValueExpr);
 			companyTraining.updateLastUpdateTime(userContext.now());
 			instructor = saveInstructor(userContext, instructor, tokens().withCompanyTrainingList().done());
@@ -808,6 +808,11 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateCompanyTraining(RetailscmUserContext userContext, CompanyTraining existed, String instructorId, String companyTrainingId, int companyTrainingVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -824,6 +829,12 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    instructorDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -915,6 +926,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1031,7 +1043,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1119,7 +1131,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		propList.add(
 				MapUtil.put("id", "9-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1157,6 +1169,8 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

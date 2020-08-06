@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.retailstore;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -77,24 +75,24 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = RetailStoreTokens.start().withTokenFromListName(listName).done();
 		RetailStore  retailStore = (RetailStore) this.loadRetailStore(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = retailStore.collectRefercencesFromLists();
 		retailStoreDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, retailStore, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new RetailStoreGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -157,7 +155,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		RetailStore retailStore = loadRetailStore( userContext, retailStoreId, tokens);
  		//do some calc before sent to customer?
@@ -176,6 +174,9 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		
 		List<BaseEntity> entityListToNaming = retailStoreToPresent.collectRefercencesFromLists();
 		retailStoreDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,retailStore,tokens);
 		
 		return  retailStoreToPresent;
 		
@@ -1338,7 +1339,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.addConsumerOrder( consumerOrder );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withConsumerOrderList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderManager().onNewInstanceCreated(userContext, consumerOrder);
+			consumerOrderManagerOf(userContext).onNewInstanceCreated(userContext, consumerOrder);
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1359,7 +1360,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withConsumerOrderListList()
-				.searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, "is", id).done();
+				.searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStore retailStoreToUpdate = loadRetailStore(userContext, retailStoreId, options);
 
@@ -1368,7 +1369,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 		ConsumerOrder item = retailStoreToUpdate.getConsumerOrderList().first();
-
+		beforeUpdateConsumerOrderProperties(userContext,item, retailStoreId,id,title,tokensExpr);
 		item.updateTitle( title );
 
 
@@ -1379,6 +1380,10 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 	}
 
+	protected  void beforeUpdateConsumerOrderProperties(RetailscmUserContext userContext, ConsumerOrder item, String retailStoreId, String id,String title, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ConsumerOrder createConsumerOrder(RetailscmUserContext userContext, String title, String consumerId) throws Exception{
 
@@ -1486,7 +1491,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.copyConsumerOrderFrom( consumerOrder );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withConsumerOrderList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderManager().onNewInstanceCreated(userContext, (ConsumerOrder)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			consumerOrderManagerOf(userContext).onNewInstanceCreated(userContext, (ConsumerOrder)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 
@@ -1499,15 +1504,13 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkVersionOfConsumerOrder(consumerOrderVersion);
-		
+
 
 		if(ConsumerOrder.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfConsumerOrder(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreManagerException.class);
 
 	}
@@ -1517,7 +1520,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 		checkParamsForUpdatingConsumerOrder(userContext, retailStoreId, consumerOrderId, consumerOrderVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withConsumerOrderList().searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, "eq", consumerOrderId).done();
+		Map<String,Object> loadTokens = this.tokens().withConsumerOrderList().searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, tokens().equals(), consumerOrderId).done();
 
 
 
@@ -1528,13 +1531,14 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			//Also good when there is a RAM based DAO implementation
 			//retailStore.removeConsumerOrder( consumerOrder );
 			//make changes to AcceleraterAccount.
-			ConsumerOrder consumerOrderIndex = createIndexedConsumerOrder(consumerOrderId, consumerOrderVersion);
+			ConsumerOrder consumerOrderIdVersionKey = createIndexedConsumerOrder(consumerOrderId, consumerOrderVersion);
 
-			ConsumerOrder consumerOrder = retailStore.findTheConsumerOrder(consumerOrderIndex);
+			ConsumerOrder consumerOrder = retailStore.findTheConsumerOrder(consumerOrderIdVersionKey);
 			if(consumerOrder == null){
-				throw new RetailStoreManagerException(consumerOrder+" is NOT FOUND" );
+				throw new RetailStoreManagerException(consumerOrderId+" is NOT FOUND" );
 			}
 
+			beforeUpdateConsumerOrder(userContext, consumerOrder, retailStoreId, consumerOrderId, consumerOrderVersion, property, newValueExpr,  tokensExpr);
 			consumerOrder.changeProperty(property, newValueExpr);
 			consumerOrder.updateLastUpdateTime(userContext.now());
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withConsumerOrderList().done());
@@ -1542,6 +1546,11 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateConsumerOrder(RetailscmUserContext userContext, ConsumerOrder existed, String retailStoreId, String consumerOrderId, int consumerOrderVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1578,7 +1587,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.addRetailStoreOrder( retailStoreOrder );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withRetailStoreOrderList().done());
 			
-			userContext.getManagerGroup().getRetailStoreOrderManager().onNewInstanceCreated(userContext, retailStoreOrder);
+			retailStoreOrderManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreOrder);
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1600,7 +1609,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreOrderListList()
-				.searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStore retailStoreToUpdate = loadRetailStore(userContext, retailStoreId, options);
 
@@ -1609,7 +1618,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 		RetailStoreOrder item = retailStoreToUpdate.getRetailStoreOrderList().first();
-
+		beforeUpdateRetailStoreOrderProperties(userContext,item, retailStoreId,id,title,totalAmount,tokensExpr);
 		item.updateTitle( title );
 		item.updateTotalAmount( totalAmount );
 
@@ -1621,6 +1630,10 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreOrderProperties(RetailscmUserContext userContext, RetailStoreOrder item, String retailStoreId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String sellerId, String title, BigDecimal totalAmount) throws Exception{
 
@@ -1729,7 +1742,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.copyRetailStoreOrderFrom( retailStoreOrder );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withRetailStoreOrderList().done());
 			
-			userContext.getManagerGroup().getRetailStoreOrderManager().onNewInstanceCreated(userContext, (RetailStoreOrder)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreOrderManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreOrder)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 
@@ -1742,21 +1755,17 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkIdOfRetailStoreOrder(retailStoreOrderId);
 		checkerOf(userContext).checkVersionOfRetailStoreOrder(retailStoreOrderVersion);
-		
+
 
 		if(RetailStoreOrder.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfRetailStoreOrder(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreManagerException.class);
 
 	}
@@ -1766,7 +1775,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 		checkParamsForUpdatingRetailStoreOrder(userContext, retailStoreId, retailStoreOrderId, retailStoreOrderVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreOrderList().searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, "eq", retailStoreOrderId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreOrderList().searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, tokens().equals(), retailStoreOrderId).done();
 
 
 
@@ -1777,13 +1786,14 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			//Also good when there is a RAM based DAO implementation
 			//retailStore.removeRetailStoreOrder( retailStoreOrder );
 			//make changes to AcceleraterAccount.
-			RetailStoreOrder retailStoreOrderIndex = createIndexedRetailStoreOrder(retailStoreOrderId, retailStoreOrderVersion);
+			RetailStoreOrder retailStoreOrderIdVersionKey = createIndexedRetailStoreOrder(retailStoreOrderId, retailStoreOrderVersion);
 
-			RetailStoreOrder retailStoreOrder = retailStore.findTheRetailStoreOrder(retailStoreOrderIndex);
+			RetailStoreOrder retailStoreOrder = retailStore.findTheRetailStoreOrder(retailStoreOrderIdVersionKey);
 			if(retailStoreOrder == null){
-				throw new RetailStoreManagerException(retailStoreOrder+" is NOT FOUND" );
+				throw new RetailStoreManagerException(retailStoreOrderId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreOrder(userContext, retailStoreOrder, retailStoreId, retailStoreOrderId, retailStoreOrderVersion, property, newValueExpr,  tokensExpr);
 			retailStoreOrder.changeProperty(property, newValueExpr);
 			retailStoreOrder.updateLastUpdateTime(userContext.now());
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withRetailStoreOrderList().done());
@@ -1791,6 +1801,11 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreOrder(RetailscmUserContext userContext, RetailStoreOrder existed, String retailStoreId, String retailStoreOrderId, int retailStoreOrderVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1847,7 +1862,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.addGoods( goods );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, goods);
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, goods);
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1872,7 +1887,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withGoodsListList()
-				.searchGoodsListWith(Goods.ID_PROPERTY, "is", id).done();
+				.searchGoodsListWith(Goods.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStore retailStoreToUpdate = loadRetailStore(userContext, retailStoreId, options);
 
@@ -1881,7 +1896,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 		Goods item = retailStoreToUpdate.getGoodsList().first();
-
+		beforeUpdateGoodsProperties(userContext,item, retailStoreId,id,name,rfid,uom,maxPackage,expireTime,tokensExpr);
 		item.updateName( name );
 		item.updateRfid( rfid );
 		item.updateUom( uom );
@@ -1896,6 +1911,10 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 	}
 
+	protected  void beforeUpdateGoodsProperties(RetailscmUserContext userContext, Goods item, String retailStoreId, String id,String name,String rfid,String uom,int maxPackage,Date expireTime, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Goods createGoods(RetailscmUserContext userContext, String name, String rfid, String uom, int maxPackage, Date expireTime, String skuId, String receivingSpaceId, String goodsAllocationId, String smartPalletId, String shippingSpaceId, String transportTaskId, String bizOrderId, String retailStoreOrderId) throws Exception{
 
@@ -2027,7 +2046,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.copyGoodsFrom( goods );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, (Goods)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, (Goods)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 
@@ -2040,39 +2059,29 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkVersionOfGoods(goodsVersion);
-		
+
 
 		if(Goods.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.RFID_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRfidOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.UOM_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkUomOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.MAX_PACKAGE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMaxPackageOfGoods(parseInt(newValueExpr));
-		
 		}
 		
 		if(Goods.EXPIRE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkExpireTimeOfGoods(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreManagerException.class);
 
 	}
@@ -2082,7 +2091,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 		checkParamsForUpdatingGoods(userContext, retailStoreId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, "eq", goodsId).done();
+		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, tokens().equals(), goodsId).done();
 
 
 
@@ -2093,13 +2102,14 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			//Also good when there is a RAM based DAO implementation
 			//retailStore.removeGoods( goods );
 			//make changes to AcceleraterAccount.
-			Goods goodsIndex = createIndexedGoods(goodsId, goodsVersion);
+			Goods goodsIdVersionKey = createIndexedGoods(goodsId, goodsVersion);
 
-			Goods goods = retailStore.findTheGoods(goodsIndex);
+			Goods goods = retailStore.findTheGoods(goodsIdVersionKey);
 			if(goods == null){
-				throw new RetailStoreManagerException(goods+" is NOT FOUND" );
+				throw new RetailStoreManagerException(goodsId+" is NOT FOUND" );
 			}
 
+			beforeUpdateGoods(userContext, goods, retailStoreId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 			goods.changeProperty(property, newValueExpr);
 			
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withGoodsList().done());
@@ -2107,6 +2117,11 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateGoods(RetailscmUserContext userContext, Goods existed, String retailStoreId, String goodsId, int goodsVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2153,7 +2168,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.addTransportTask( transportTask );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withTransportTaskList().done());
 			
-			userContext.getManagerGroup().getTransportTaskManager().onNewInstanceCreated(userContext, transportTask);
+			transportTaskManagerOf(userContext).onNewInstanceCreated(userContext, transportTask);
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2178,7 +2193,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withTransportTaskListList()
-				.searchTransportTaskListWith(TransportTask.ID_PROPERTY, "is", id).done();
+				.searchTransportTaskListWith(TransportTask.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStore retailStoreToUpdate = loadRetailStore(userContext, retailStoreId, options);
 
@@ -2187,7 +2202,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 		TransportTask item = retailStoreToUpdate.getTransportTaskList().first();
-
+		beforeUpdateTransportTaskProperties(userContext,item, retailStoreId,id,name,start,beginTime,latitude,longitude,tokensExpr);
 		item.updateName( name );
 		item.updateStart( start );
 		item.updateBeginTime( beginTime );
@@ -2202,6 +2217,10 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 	}
 
+	protected  void beforeUpdateTransportTaskProperties(RetailscmUserContext userContext, TransportTask item, String retailStoreId, String id,String name,String start,Date beginTime,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected TransportTask createTransportTask(RetailscmUserContext userContext, String name, String start, Date beginTime, String driverId, String truckId, String belongsToId, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -2318,7 +2337,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.copyTransportTaskFrom( transportTask );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withTransportTaskList().done());
 			
-			userContext.getManagerGroup().getTransportTaskManager().onNewInstanceCreated(userContext, (TransportTask)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			transportTaskManagerOf(userContext).onNewInstanceCreated(userContext, (TransportTask)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 
@@ -2331,39 +2350,29 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkIdOfTransportTask(transportTaskId);
 		checkerOf(userContext).checkVersionOfTransportTask(transportTaskVersion);
-		
+
 
 		if(TransportTask.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfTransportTask(parseString(newValueExpr));
-		
 		}
 		
 		if(TransportTask.START_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkStartOfTransportTask(parseString(newValueExpr));
-		
 		}
 		
 		if(TransportTask.BEGIN_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBeginTimeOfTransportTask(parseDate(newValueExpr));
-		
 		}
 		
 		if(TransportTask.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfTransportTask(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(TransportTask.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfTransportTask(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreManagerException.class);
 
 	}
@@ -2373,7 +2382,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 		checkParamsForUpdatingTransportTask(userContext, retailStoreId, transportTaskId, transportTaskVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withTransportTaskList().searchTransportTaskListWith(TransportTask.ID_PROPERTY, "eq", transportTaskId).done();
+		Map<String,Object> loadTokens = this.tokens().withTransportTaskList().searchTransportTaskListWith(TransportTask.ID_PROPERTY, tokens().equals(), transportTaskId).done();
 
 
 
@@ -2384,13 +2393,14 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			//Also good when there is a RAM based DAO implementation
 			//retailStore.removeTransportTask( transportTask );
 			//make changes to AcceleraterAccount.
-			TransportTask transportTaskIndex = createIndexedTransportTask(transportTaskId, transportTaskVersion);
+			TransportTask transportTaskIdVersionKey = createIndexedTransportTask(transportTaskId, transportTaskVersion);
 
-			TransportTask transportTask = retailStore.findTheTransportTask(transportTaskIndex);
+			TransportTask transportTask = retailStore.findTheTransportTask(transportTaskIdVersionKey);
 			if(transportTask == null){
-				throw new RetailStoreManagerException(transportTask+" is NOT FOUND" );
+				throw new RetailStoreManagerException(transportTaskId+" is NOT FOUND" );
 			}
 
+			beforeUpdateTransportTask(userContext, transportTask, retailStoreId, transportTaskId, transportTaskVersion, property, newValueExpr,  tokensExpr);
 			transportTask.changeProperty(property, newValueExpr);
 			
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withTransportTaskList().done());
@@ -2398,6 +2408,11 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateTransportTask(RetailscmUserContext userContext, TransportTask existed, String retailStoreId, String transportTaskId, int transportTaskVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2448,7 +2463,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.addAccountSet( accountSet );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withAccountSetList().done());
 			
-			userContext.getManagerGroup().getAccountSetManager().onNewInstanceCreated(userContext, accountSet);
+			accountSetManagerOf(userContext).onNewInstanceCreated(userContext, accountSet);
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2476,7 +2491,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withAccountSetListList()
-				.searchAccountSetListWith(AccountSet.ID_PROPERTY, "is", id).done();
+				.searchAccountSetListWith(AccountSet.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStore retailStoreToUpdate = loadRetailStore(userContext, retailStoreId, options);
 
@@ -2485,7 +2500,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 		AccountSet item = retailStoreToUpdate.getAccountSetList().first();
-
+		beforeUpdateAccountSetProperties(userContext,item, retailStoreId,id,name,yearSet,effectiveDate,accountingSystem,domesticCurrencyCode,domesticCurrencyName,openingBank,accountNumber,tokensExpr);
 		item.updateName( name );
 		item.updateYearSet( yearSet );
 		item.updateEffectiveDate( effectiveDate );
@@ -2503,6 +2518,10 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 	}
 
+	protected  void beforeUpdateAccountSetProperties(RetailscmUserContext userContext, AccountSet item, String retailStoreId, String id,String name,String yearSet,Date effectiveDate,String accountingSystem,String domesticCurrencyCode,String domesticCurrencyName,String openingBank,String accountNumber, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected AccountSet createAccountSet(RetailscmUserContext userContext, String name, String yearSet, Date effectiveDate, String accountingSystem, String domesticCurrencyCode, String domesticCurrencyName, String openingBank, String accountNumber, String countryCenterId, String goodsSupplierId) throws Exception{
 
@@ -2620,7 +2639,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			retailStore.copyAccountSetFrom( accountSet );
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withAccountSetList().done());
 			
-			userContext.getManagerGroup().getAccountSetManager().onNewInstanceCreated(userContext, (AccountSet)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			accountSetManagerOf(userContext).onNewInstanceCreated(userContext, (AccountSet)retailStore.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 
@@ -2633,57 +2652,41 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkIdOfAccountSet(accountSetId);
 		checkerOf(userContext).checkVersionOfAccountSet(accountSetVersion);
-		
+
 
 		if(AccountSet.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.YEAR_SET_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkYearSetOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.EFFECTIVE_DATE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEffectiveDateOfAccountSet(parseDate(newValueExpr));
-		
 		}
 		
 		if(AccountSet.ACCOUNTING_SYSTEM_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountingSystemOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.DOMESTIC_CURRENCY_CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDomesticCurrencyCodeOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.DOMESTIC_CURRENCY_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDomesticCurrencyNameOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.OPENING_BANK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkOpeningBankOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.ACCOUNT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountNumberOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreManagerException.class);
 
 	}
@@ -2693,7 +2696,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 		checkParamsForUpdatingAccountSet(userContext, retailStoreId, accountSetId, accountSetVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withAccountSetList().searchAccountSetListWith(AccountSet.ID_PROPERTY, "eq", accountSetId).done();
+		Map<String,Object> loadTokens = this.tokens().withAccountSetList().searchAccountSetListWith(AccountSet.ID_PROPERTY, tokens().equals(), accountSetId).done();
 
 
 
@@ -2704,13 +2707,14 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			//Also good when there is a RAM based DAO implementation
 			//retailStore.removeAccountSet( accountSet );
 			//make changes to AcceleraterAccount.
-			AccountSet accountSetIndex = createIndexedAccountSet(accountSetId, accountSetVersion);
+			AccountSet accountSetIdVersionKey = createIndexedAccountSet(accountSetId, accountSetVersion);
 
-			AccountSet accountSet = retailStore.findTheAccountSet(accountSetIndex);
+			AccountSet accountSet = retailStore.findTheAccountSet(accountSetIdVersionKey);
 			if(accountSet == null){
-				throw new RetailStoreManagerException(accountSet+" is NOT FOUND" );
+				throw new RetailStoreManagerException(accountSetId+" is NOT FOUND" );
 			}
 
+			beforeUpdateAccountSet(userContext, accountSet, retailStoreId, accountSetId, accountSetVersion, property, newValueExpr,  tokensExpr);
 			accountSet.changeProperty(property, newValueExpr);
 			accountSet.updateLastUpdateTime(userContext.now());
 			retailStore = saveRetailStore(userContext, retailStore, tokens().withAccountSetList().done());
@@ -2718,6 +2722,11 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateAccountSet(RetailscmUserContext userContext, AccountSet existed, String retailStoreId, String accountSetId, int accountSetVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2734,6 +2743,12 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    retailStoreDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -2825,6 +2840,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -3116,7 +3132,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -3292,7 +3308,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		propList.add(
 				MapUtil.put("id", "17-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -3394,6 +3410,8 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

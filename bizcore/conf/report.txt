@@ -1,17 +1,18 @@
 
+
 @warning sku.barcode: word 'barcode' seems not found in library
 @warning object definition: member_wishlist: word 'wishlist' seems not found in library
 @warning retail_store_member_gift_card_consume_record.occure_time: word 'occure' seems not found in library
 @warning goods.rfid: word 'rfid' seems not found in library
 @warning goods.uom: word 'uom' seems not found in library
-@warning object definition: wechat_workapp_identify: word 'workapp' seems not found in library
-@warning object definition: wechat_miniapp_identify: word 'miniapp' seems not found in library
-@warning object definition: keypair_identify: word 'keypair' seems not found in library
+@warning object definition: wechat_workapp_identity: word 'workapp' seems not found in library
+@warning object definition: wechat_miniapp_identity: word 'miniapp' seems not found in library
+@warning object definition: keypair_identity: word 'keypair' seems not found in library
 
 
 
-=================Execute Report (Model Time 191225T1901) @Tue May 05 14:21:39 CST 2020, 126 objects and 861 fields===========================
-
+=================Execute Report (Model Time 191225T1901) @Fri Jul 17 16:36:28 CST 2020, 126 objects and 861 fields===========================
+from file "/home/philip/resin-3.1.12/webapps/sky/modeling/retailscm.xml"
 
 
  processing: retail_store_country_center
@@ -1210,7 +1211,7 @@ retail_store_country_center{
 		string	operated_by('双链集团'), verb: false, required: true,type:string;
 		string	legal_representative('张喜来|张喜来'), verb: false, required: true,type:string;
 		string	description('中国中心正式成立，恭喜恭喜'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(24){
 		catalogList	owner(产品管理)--owner;
@@ -1248,7 +1249,7 @@ catalog{
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: catalogList,type:retail_store_country_center;
 		int	sub_count('10'), verb: false, required: true,type:int;
 		money	amount('$10.11'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelOneCategoryList	catalog(__no_group)--catalog;
@@ -1261,7 +1262,7 @@ level_one_category{
 		string	id('AB'), verb: false, required: true,type:id;
 		catalog	catalog('$(object)'), verb: false, required: true, referenceBy: levelOneCategoryList,type:catalog;
 		string	name('水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelTwoCategoryList	parent_category(__no_group)--parent_category;
@@ -1274,7 +1275,7 @@ level_two_category{
 		string	id('AB'), verb: false, required: true,type:id;
 		level_one_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelTwoCategoryList,type:level_one_category;
 		string	name('水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelThreeCategoryList	parent_category(__no_group)--parent_category;
@@ -1287,7 +1288,7 @@ level_three_category{
 		string	id('AB'), verb: false, required: true,type:id;
 		level_two_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelThreeCategoryList,type:level_two_category;
 		string	name('水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		productList	parent_category(__no_group)--parent_category;
@@ -1305,7 +1306,7 @@ product{
 		string	brand('品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品'), verb: false, required: true,type:string;
 		string_image	picture('this is a looooooooooog.jpg'), verb: false, required: true,type:string_image;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		skuList	product(__no_group)--product;
@@ -1324,7 +1325,7 @@ sku{
 		string	net_content('包装数量等信息,包装数量等信息,包装数量等信息'), verb: false, required: true,type:string;
 		money	price('$1323.33'), verb: false, required: true,type:money;
 		string_image	picture('coco.jpg'), verb: false, required: true,type:string_image;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	sku(__no_group)--sku;
@@ -1339,7 +1340,7 @@ retail_store_province_center{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		retail_store_country_center	country('$(object)'), verb: false, required: true, referenceBy: retailStoreProvinceCenterList,type:retail_store_country_center;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		provinceCenterDepartmentList	province_center(__no_group)--province_center;
@@ -1356,7 +1357,7 @@ province_center_department{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		retail_store_province_center	province_center('$(object)'), verb: false, required: true, referenceBy: provinceCenterDepartmentList,type:retail_store_province_center;
 		string	manager('刘强|王德宏'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		provinceCenterEmployeeList	department(__no_group)--department;
@@ -1373,7 +1374,7 @@ province_center_employee{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		province_center_department	department('$(object)'), verb: false, required: true, referenceBy: provinceCenterEmployeeList,type:province_center_department;
 		retail_store_province_center	province_center('$(object)'), verb: false, required: true, referenceBy: provinceCenterEmployeeList,type:retail_store_province_center;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1387,7 +1388,7 @@ retail_store_city_service_center{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		retail_store_province_center	belongs_to('$(object)'), verb: false, required: true, referenceBy: retailStoreCityServiceCenterList,type:retail_store_province_center;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(4){
 		cityPartnerList	city_service_center(__no_group)--city_service_center;
@@ -1406,7 +1407,7 @@ city_partner{
 		retail_store_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: cityPartnerList,type:retail_store_city_service_center;
 		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		potentialCustomerList	city_partner(__no_group)--city_partner;
@@ -1424,7 +1425,7 @@ potential_customer{
 		city_partner	city_partner('$(object)'), verb: false, required: true, referenceBy: potentialCustomerList,type:city_partner;
 		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		potentialCustomerContactPersonList	potential_customer(__no_group)--potential_customer;
@@ -1441,7 +1442,7 @@ potential_customer_contact_person{
 		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
 		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactPersonList,type:potential_customer;
 		string	description('这人在决策中战友较大的权重，密切观察中.....'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		potentialCustomerContactList	contact_to(__no_group)--contact_to;
@@ -1460,7 +1461,7 @@ potential_customer_contact{
 		potential_customer_contact_person	contact_to('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:potential_customer_contact_person;
 		string	description('转化希望很大'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1475,7 +1476,7 @@ city_event{
 		retail_store_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: cityEventList,type:retail_store_city_service_center;
 		string	description('给大家讲解小超的发展蓝图'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		eventAttendanceList	city_event(__no_group)--city_event;
@@ -1490,7 +1491,7 @@ event_attendance{
 		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:potential_customer;
 		city_event	city_event('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:city_event;
 		string	description('体会不错，考虑加盟'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1516,7 +1517,7 @@ retail_store{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		string	description('啤酒饮料矿泉水，香肠瓜子方便面, 请让一让'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(5){
 		consumerOrderList	store(__no_group)--store;
@@ -1532,7 +1533,7 @@ retail_store_creation{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('已经建好了'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	creation(__no_group)--creation;
@@ -1544,7 +1545,7 @@ retail_store_investment_invitation{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('欢迎前来咨询'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	investment_invitation(__no_group)--investment_invitation;
@@ -1556,7 +1557,7 @@ retail_store_franchising{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('谢谢加盟'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	franchising(__no_group)--franchising;
@@ -1568,7 +1569,7 @@ retail_store_decoration{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('装修'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	decoration(__no_group)--decoration;
@@ -1580,7 +1581,7 @@ retail_store_opening{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('装修'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	opening(__no_group)--opening;
@@ -1592,7 +1593,7 @@ retail_store_closing{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('关闭'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	closing(__no_group)--closing;
@@ -1606,7 +1607,7 @@ retail_store_member{
 		string	name('李亚青'), verb: false, required: true,type:string;
 		string_china_mobile_phone	mobile_phone('18099887766'), verb: false, required: true,type:string_china_mobile_phone;
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberList,type:retail_store_country_center;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(7){
 		consumerOrderList	consumer(__no_group)--consumer;
@@ -1627,7 +1628,7 @@ consumer_order{
 		retail_store_member	consumer('$(object)'), verb: false, required: true, referenceBy: consumerOrderList,type:retail_store_member;
 		retail_store	store('$(object)'), verb: false, required: true, referenceBy: consumerOrderList,type:retail_store;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(5){
 		consumerOrderLineItemList	biz_order(__no_group)--biz_order;
@@ -1649,7 +1650,7 @@ consumer_order_line_item{
 		double	quantity('1000.00'), verb: false, required: true,type:double;
 		money	amount('$9999.99'), verb: false, required: true,type:money;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1662,7 +1663,7 @@ consumer_order_shipping_group{
 		string	name('送货到刘强家'), verb: false, required: true,type:string;
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderShippingGroupList,type:consumer_order;
 		money	amount('$599.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1675,7 +1676,7 @@ consumer_order_payment_group{
 		string	name('信用卡|支付宝|微信支付'), verb: false, required: true,type:string;
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderPaymentGroupList,type:consumer_order;
 		string	card_number('4111 1111 1111 - '), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1689,7 +1690,7 @@ consumer_order_price_adjustment{
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderPriceAdjustmentList,type:consumer_order;
 		money	amount('$599.99'), verb: false, required: true,type:money;
 		string	provider('供货商|小超老板|广告赞助'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1703,7 +1704,7 @@ retail_store_member_coupon{
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberCouponList,type:retail_store_member;
 		string	number('CP00001'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1715,7 +1716,7 @@ member_wishlist{
 		string	id('AB'), verb: false, required: true,type:id;
 		string	name('每周购买清单|每月购买清单'), verb: false, required: true,type:string;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: memberWishlistList,type:retail_store_member;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		memberWishlistProductList	owner(__no_group)--owner;
@@ -1729,7 +1730,7 @@ member_reward_point{
 		string	name('购买积分|每月购买清单'), verb: false, required: true,type:string;
 		int	point('20'), verb: false, required: true,type:int;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: memberRewardPointList,type:retail_store_member;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1742,7 +1743,7 @@ member_reward_point_redemption{
 		string	name('积分换锅|积分换刀'), verb: false, required: true,type:string;
 		int	point('20'), verb: false, required: true,type:int;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: memberRewardPointRedemptionList,type:retail_store_member;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1754,7 +1755,7 @@ member_wishlist_product{
 		string	id('AB'), verb: false, required: true,type:id;
 		string	name('农夫山泉|利箭口香糖'), verb: false, required: true,type:string;
 		member_wishlist	owner('$(object)'), verb: false, required: true, referenceBy: memberWishlistProductList,type:member_wishlist;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1768,7 +1769,7 @@ retail_store_member_address{
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberAddressList,type:retail_store_member;
 		string_china_mobile_phone	mobile_phone('18099887766'), verb: false, required: true,type:string_china_mobile_phone;
 		string	address('四川省成都市科学城北路33号'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1782,7 +1783,7 @@ retail_store_member_gift_card{
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberGiftCardList,type:retail_store_member;
 		string	number('CP00001'), verb: false, required: true,type:string;
 		money	remain('$213.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreMemberGiftCardConsumeRecordList	owner(__no_group)--owner;
@@ -1798,7 +1799,7 @@ retail_store_member_gift_card_consume_record{
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberGiftCardConsumeRecordList,type:consumer_order;
 		string	number('GF00001'), verb: false, required: true,type:string;
 		money	amount('$20.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1814,7 +1815,7 @@ goods_supplier{
 		string_china_mobile_phone	contact_number('18677889999'), verb: false, required: true,type:string_china_mobile_phone;
 		string	description('啤酒饮料矿泉水，香肠瓜子方便面都提供'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		supplierProductList	supplier(__no_group)--supplier;
@@ -1831,7 +1832,7 @@ supplier_product{
 		string	product_description('最好的黑人牙膏，只卖3块喽'), verb: false, required: true,type:string;
 		string	product_unit('件|公斤|米'), verb: false, required: true,type:string;
 		goods_supplier	supplier('$(object)'), verb: false, required: true, referenceBy: supplierProductList,type:goods_supplier;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		productSupplyDurationList	product(__no_group)--product;
@@ -1846,7 +1847,7 @@ product_supply_duration{
 		string	duration('现货|两天|三天|一周'), verb: false, required: true,type:string;
 		money	price('$9999.99'), verb: false, required: true,type:money;
 		supplier_product	product('$(object)'), verb: false, required: true, referenceBy: productSupplyDurationList,type:supplier_product;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1861,7 +1862,7 @@ supply_order{
 		string	title('双链给供货商下的订单'), verb: false, required: true,type:string;
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(4){
 		supplyOrderLineItemList	biz_order(__no_group)--biz_order;
@@ -1881,7 +1882,7 @@ supply_order_line_item{
 		money	amount('$5.97'), verb: false, required: true,type:money;
 		int	quantity('10000'), verb: false, required: true,type:int;
 		string	unit_of_measurement('件|公斤|米'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1894,7 +1895,7 @@ supply_order_shipping_group{
 		string	name('送货到双链成都2号仓'), verb: false, required: true,type:string;
 		supply_order	biz_order('$(object)'), verb: false, required: true, referenceBy: supplyOrderShippingGroupList,type:supply_order;
 		money	amount('$5.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1907,7 +1908,7 @@ supply_order_payment_group{
 		string	name('付款办法'), verb: false, required: true,type:string;
 		supply_order	biz_order('$(object)'), verb: false, required: true, referenceBy: supplyOrderPaymentGroupList,type:supply_order;
 		string	card_number('4111 1111 1111 - '), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1922,7 +1923,7 @@ retail_store_order{
 		string	title('双链小超给双链供应链下的订单'), verb: false, required: true,type:string;
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(4){
 		retailStoreOrderLineItemList	biz_order(__no_group)--biz_order;
@@ -1942,7 +1943,7 @@ retail_store_order_line_item{
 		money	amount('$3.97'), verb: false, required: true,type:money;
 		int	quantity('10000'), verb: false, required: true,type:int;
 		string	unit_of_measurement('件|公斤|米'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1955,7 +1956,7 @@ retail_store_order_shipping_group{
 		string	name('送货到双链中和社区店'), verb: false, required: true,type:string;
 		retail_store_order	biz_order('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderShippingGroupList,type:retail_store_order;
 		money	amount('$5.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1968,7 +1969,7 @@ retail_store_order_payment_group{
 		string	name('付款办法'), verb: false, required: true,type:string;
 		retail_store_order	biz_order('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderPaymentGroupList,type:retail_store_order;
 		string	card_number('4111 1111 1111 - '), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -1985,7 +1986,7 @@ warehouse{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(7){
 		storageSpaceList	warehouse(__no_group)--warehouse;
@@ -2009,7 +2010,7 @@ storage_space{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsShelfList	storage_space(__no_group)--storage_space;
@@ -2027,7 +2028,7 @@ smart_pallet{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: smartPalletList,type:warehouse;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	smart_pallet(__no_group)--smart_pallet;
@@ -2043,7 +2044,7 @@ goods_shelf{
 		supplier_space	supplier_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList,type:supplier_space;
 		damage_space	damage_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList,type:damage_space;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		goodsShelfStockCountList	shelf(__no_group)--shelf;
@@ -2059,7 +2060,7 @@ goods_shelf_stock_count{
 		date	count_time('2017-04-01'), verb: false, required: true,type:date;
 		string	summary('使用先进的rfid技术，没有任何错误'), verb: false, required: true,type:string;
 		goods_shelf	shelf('$(object)'), verb: false, required: true, referenceBy: goodsShelfStockCountList,type:goods_shelf;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		stockCountIssueTrackList	stock_count(__no_group)--stock_count;
@@ -2074,7 +2075,7 @@ stock_count_issue_track{
 		date	count_time('2017-04-01'), verb: false, required: true,type:date;
 		string	summary('发现错误已经修正完成'), verb: false, required: true,type:string;
 		goods_shelf_stock_count	stock_count('$(object)'), verb: false, required: true, referenceBy: stockCountIssueTrackList,type:goods_shelf_stock_count;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2088,7 +2089,7 @@ goods_allocation{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		goods_shelf	goods_shelf('$(object)'), verb: false, required: true, referenceBy: goodsAllocationList,type:goods_shelf;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	goods_allocation(__no_group)--goods_allocation;
@@ -2113,7 +2114,7 @@ goods{
 		retail_store	retail_store('$(object)'), verb: false, required: true, referenceBy: goodsList,type:retail_store;
 		supply_order	biz_order('$(object)'), verb: false, required: true, referenceBy: goodsList,type:supply_order;
 		retail_store_order	retail_store_order('$(object)'), verb: false, required: true, referenceBy: goodsList,type:retail_store_order;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsMovementList	goods(__no_group)--goods;
@@ -2133,7 +2134,7 @@ goods_movement{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		goods	goods('$(object)'), verb: false, required: true, referenceBy: goodsMovementList,type:goods;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2150,7 +2151,7 @@ supplier_space{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsShelfList	supplier_space(__no_group)--supplier_space;
@@ -2169,7 +2170,7 @@ receiving_space{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	receiving_space(__no_group)--receiving_space;
@@ -2188,7 +2189,7 @@ shipping_space{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		string	description('每个收货区可以供一辆车装货'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	shipping_space(__no_group)--shipping_space;
@@ -2206,7 +2207,7 @@ damage_space{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: damageSpaceList,type:warehouse;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsShelfList	damage_space(__no_group)--damage_space;
@@ -2221,7 +2222,7 @@ warehouse_asset{
 		string	position('备用件存放区设备库房'), verb: false, required: true,type:string;
 		warehouse	owner('$(object)'), verb: false, required: true, referenceBy: warehouseAssetList,type:warehouse;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2235,7 +2236,7 @@ transport_fleet{
 		string	contact_number('028 87654321'), verb: false, required: true,type:string;
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: transportFleetList,type:retail_store_country_center;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		transportTruckList	owner(__no_group)--owner;
@@ -2257,7 +2258,7 @@ transport_truck{
 		string	mileage('100万公里'), verb: false, required: true,type:string;
 		string	body_color('红色|蓝色|白色|灰色|银色|黑色'), verb: false, required: true,type:string;
 		transport_fleet	owner('$(object)'), verb: false, required: true, referenceBy: transportTruckList,type:transport_fleet;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		transportTaskList	truck(__no_group)--truck;
@@ -2272,7 +2273,7 @@ truck_driver{
 		string	driver_license_number('5109 9887 733'), verb: false, required: true,type:string;
 		string_china_mobile_phone	contact_number('18777778888'), verb: false, required: true,type:string_china_mobile_phone;
 		transport_fleet	belongs_to('$(object)'), verb: false, required: true, referenceBy: truckDriverList,type:transport_fleet;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		transportTaskList	driver(__no_group)--driver;
@@ -2292,7 +2293,7 @@ transport_task{
 		transport_fleet	belongs_to('$(object)'), verb: false, required: true, referenceBy: transportTaskList,type:transport_fleet;
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		goodsList	transport_task(__no_group)--transport_task;
@@ -2308,7 +2309,7 @@ transport_task_track{
 		double	latitude('30.912929'), verb: false, required: true,type:double;
 		double	longitude('104.121232'), verb: false, required: true,type:double;
 		transport_task	movement('$(object)'), verb: false, required: true, referenceBy: transportTaskTrackList,type:transport_task;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2330,7 +2331,7 @@ account_set{
 		retail_store	retail_store('$(object)'), verb: false, required: true, referenceBy: accountSetList,type:retail_store;
 		goods_supplier	goods_supplier('$(object)'), verb: false, required: true, referenceBy: accountSetList,type:goods_supplier;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		accountingSubjectList	account_set(__no_group)--account_set;
@@ -2348,7 +2349,7 @@ accounting_subject{
 		int	accounting_subject_class_code('1|2|3|4|5|6'), verb: false, required: true,type:int;
 		string	accounting_subject_class_name('资产类|负债类|共同类|所有者权益类|成本类|损益类'), verb: false, required: true,type:string;
 		account_set	account_set('$(object)'), verb: false, required: true, referenceBy: accountingSubjectList,type:account_set;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		accountingDocumentLineList	accounting_subject(__no_group)--accounting_subject;
@@ -2363,7 +2364,7 @@ accounting_period{
 		date	start_date('2017-01-09'), verb: false, required: true,type:date;
 		date	end_date('2017-01-09'), verb: false, required: true,type:date;
 		account_set	account_set('$(object)'), verb: false, required: true, referenceBy: accountingPeriodList,type:account_set;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		accountingDocumentList	accounting_period(__no_group)--accounting_period;
@@ -2377,7 +2378,7 @@ accounting_document_type{
 		string	name('记账凭证|收款凭证|付款凭证'), verb: false, required: true,type:string;
 		string	description('又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。'), verb: false, required: true,type:string;
 		account_set	accounting_period('$(object)'), verb: false, required: true, referenceBy: accountingDocumentTypeList,type:account_set;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		accountingDocumentList	document_type(__no_group)--document_type;
@@ -2392,7 +2393,7 @@ accounting_document{
 		date	accounting_document_date('2018-09-09'), verb: false, required: true,type:date;
 		accounting_period	accounting_period('$(object)'), verb: false, required: true, referenceBy: accountingDocumentList,type:accounting_period;
 		accounting_document_type	document_type('$(object)'), verb: false, required: true, referenceBy: accountingDocumentList,type:accounting_document_type;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		originalVoucherList	belongs_to(__no_group)--belongs_to;
@@ -2410,7 +2411,7 @@ original_voucher{
 		string	voucher_type('原始凭证|发票|出库单|入库单|存款回执|验收证明|借款凭证'), verb: false, required: true,type:string;
 		string_image	voucher_image('goodthing.jpg'), verb: false, required: true,type:string_image;
 		accounting_document	belongs_to('$(object)'), verb: false, required: true, referenceBy: originalVoucherList,type:accounting_document;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2426,7 +2427,7 @@ accounting_document_line{
 		money	amount('$989127.99'), verb: false, required: true,type:money;
 		accounting_document	belongs_to('$(object)'), verb: false, required: true, referenceBy: accountingDocumentLineList,type:accounting_document;
 		accounting_subject	accounting_subject('$(object)'), verb: false, required: true, referenceBy: accountingDocumentLineList,type:accounting_subject;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2441,7 +2442,7 @@ level_one_department{
 		string	description('主要执行集团信息系统建设，维护，规划'), verb: false, required: true,type:string;
 		string	manager('刘强|王德宏'), verb: false, required: true,type:string;
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelTwoDepartmentList	belongs_to(__no_group)--belongs_to;
@@ -2456,7 +2457,7 @@ level_two_department{
 		string	name('信息系统部大数据部门'), verb: false, required: true,type:string;
 		string	description('主要执行集团信息系统建设，维护，规划'), verb: false, required: true,type:string;
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelThreeDepartmentList	belongs_to(__no_group)--belongs_to;
@@ -2471,7 +2472,7 @@ level_three_department{
 		string	name('信息系统部大数据清洗组|信息系统部大数据运算组|信息系统部大数据解决方案组'), verb: false, required: true,type:string;
 		string	description('主要执行集团信息系统建设，维护，规划'), verb: false, required: true,type:string;
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeList	department(__no_group)--department;
@@ -2485,7 +2486,7 @@ skill_type{
 		string	code('S0000'), verb: false, required: true,type:string;
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: skillTypeList,type:retail_store_country_center;
 		string	description('JAVA编程|大数据|并行计算|操作系统|数据库'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeSkillList	skill_type(__no_group)--skill_type;
@@ -2500,7 +2501,7 @@ responsibility_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: responsibilityTypeList,type:retail_store_country_center;
 		string	base_description('合规管理|财务管理|总务管理|信息管理|库存管理|市场管理|产品管理|采购管理|资产管理|销售管理|安全管理'), verb: false, required: true,type:string;
 		string	detail_description('负责集团及其他分公司信息系统有效运作，并使集团在技术上领先'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeList	responsible_for(__no_group)--responsible_for;
@@ -2514,7 +2515,7 @@ termination_reason{
 		string	code('ETR0000'), verb: false, required: true,type:string;
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: terminationReasonList,type:retail_store_country_center;
 		string	description('业务发展，公司转型|战略调整|业务优化'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		terminationList	reason(__no_group)--reason;
@@ -2529,7 +2530,7 @@ termination_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: terminationTypeList,type:retail_store_country_center;
 		string	base_description('合同解除|辞职|退休'), verb: false, required: true,type:string;
 		string	detail_description('这个终止原因的描述是这样的.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		terminationList	type(__no_group)--type;
@@ -2544,7 +2545,7 @@ occupation_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: occupationTypeList,type:retail_store_country_center;
 		string	description('需求分析员|软件工程师|高级软件工程师|财务分析师|财务主管|出纳|总经理|副总经历|大数据架构师|销售经理|销售总监|技术总监|区域销售经理'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeList	occupation(__no_group)--occupation;
@@ -2559,7 +2560,7 @@ leave_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: leaveTypeList,type:retail_store_country_center;
 		string	description('带薪年假|病假|事假|婚假|产假|陪产假|丧假|探亲假|哺乳假|待产假|陪待产假'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeLeaveList	type(__no_group)--type;
@@ -2574,7 +2575,7 @@ salary_grade{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: salaryGradeList,type:retail_store_country_center;
 		string	name('一级薪资|二级薪资|三级薪资|四级薪资|五级薪资|六级薪资|七级薪资'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		employeeList	current_salary_grade(__no_group)--current_salary_grade;
@@ -2590,7 +2591,7 @@ interview_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: interviewTypeList,type:retail_store_country_center;
 		string	description('特别情况面试|离职面试|信息面试|入职面试'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeInterviewList	interview_type(__no_group)--interview_type;
@@ -2605,7 +2606,7 @@ training_course_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: trainingCourseTypeList,type:retail_store_country_center;
 		string	name('入职培训|售前培训|技术培训|管理培训|外训'), verb: false, required: true,type:string;
 		string	description('培训是提升个人和企业竞争力的法宝'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		companyTrainingList	training_course_type(__no_group)--training_course_type;
@@ -2620,7 +2621,7 @@ public_holiday{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: publicHolidayList,type:retail_store_country_center;
 		string	name('元旦节|春节|妇女节|清明节|端午节|暑假|国庆节|中秋节'), verb: false, required: true,type:string;
 		string	description('节日快乐，万事如意！'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2633,7 +2634,7 @@ termination{
 		termination_reason	reason('$(object)'), verb: false, required: true, referenceBy: terminationList,type:termination_reason;
 		termination_type	type('$(object)'), verb: false, required: true, referenceBy: terminationList,type:termination_type;
 		string	comment('员工离职'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2646,7 +2647,7 @@ view{
 		string	who('面试官'), verb: false, required: true,type:string;
 		string	assessment('小伙子不错，值得培养'), verb: false, required: true,type:string;
 		date	interview_time('2017-03-03'), verb: false, required: true,type:date;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2670,7 +2671,7 @@ employee{
 		salary_grade	current_salary_grade('$(object)'), verb: false, required: true, referenceBy: employeeList,type:salary_grade;
 		string	salary_account('6226 7788 9908 '), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(12){
 		employeeCompanyTrainingList	employee(__no_group)--employee;
@@ -2700,7 +2701,7 @@ instructor{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: instructorList,type:retail_store_country_center;
 		string	introduction('这是一个长长长长长长长长的介绍'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		companyTrainingList	instructor(__no_group)--instructor;
@@ -2718,7 +2719,7 @@ company_training{
 		date_past	time_start('past()'), verb: false, required: true,type:date_past;
 		int	duration_hours('3'), verb: false, required: true,type:int;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeCompanyTrainingList	training(__no_group)--training;
@@ -2732,7 +2733,7 @@ scoring{
 		string	scored_by('王志文'), verb: false, required: true,type:string;
 		int	score('100'), verb: false, required: true,type:int;
 		string	comment('这个题做的真不错啊'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeCompanyTrainingList	scoring(__no_group)--scoring;
@@ -2746,7 +2747,7 @@ employee_company_training{
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeeCompanyTrainingList,type:employee;
 		company_training	training('$(object)'), verb: false, required: true, referenceBy: employeeCompanyTrainingList,type:company_training;
 		scoring	scoring('$(object)'), verb: false, required: true, referenceBy: employeeCompanyTrainingList,type:scoring;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2759,7 +2760,7 @@ employee_skill{
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeeSkillList,type:employee;
 		skill_type	skill_type('$(object)'), verb: false, required: true, referenceBy: employeeSkillList,type:skill_type;
 		string	description('高手高手高高手'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2771,7 +2772,7 @@ employee_performance{
 		string	id('AB'), verb: false, required: true,type:id;
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeePerformanceList,type:employee;
 		string	performance_comment('绩效大大的不错'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2786,7 +2787,7 @@ employee_work_experience{
 		date	end('2018-01-10'), verb: false, required: true,type:date;
 		string	company('丝芙兰化妆品公司'), verb: false, required: true,type:string;
 		string	description('在此期间取得非常好的绩效，赢得了客户的信赖'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2800,7 +2801,7 @@ employee_leave{
 		leave_type	type('$(object)'), verb: false, required: true, referenceBy: employeeLeaveList,type:leave_type;
 		int	leave_duration_hour('8'), verb: false, required: true,type:int;
 		string	remark('请年假，出去耍！！！！'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2813,7 +2814,7 @@ employee_interview{
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeeInterviewList,type:employee;
 		interview_type	interview_type('$(object)'), verb: false, required: true, referenceBy: employeeInterviewList,type:interview_type;
 		string	remark('结果不错，面试通过！'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2828,7 +2829,7 @@ employee_attendance{
 		date	leave_time('2017-03-01'), verb: false, required: true,type:date;
 		int	duration_hours('8'), verb: false, required: true,type:int;
 		string	remark('今天状态不错啊'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2843,7 +2844,7 @@ employee_qualifier{
 		string	type('认证药剂师|认证架构师|认证会计师|认证经济师|OCP|CCNA|CCNP'), verb: false, required: true,type:string;
 		string	level('高级|中级|初级'), verb: false, required: true,type:string;
 		string	remark('考试成绩当年第一名'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2857,7 +2858,7 @@ employee_education{
 		date	complete_time('2017-01-01'), verb: false, required: true,type:date;
 		string	type('小学|初中|高中|大学|硕士|博士|职业教育'), verb: false, required: true,type:string;
 		string	remark('考试成绩当年第一名'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2871,7 +2872,7 @@ employee_award{
 		date	complete_time('2017-01-01'), verb: false, required: true,type:date;
 		string	type('明星员工|销售之星|技术之星|管理之星|终身成就奖'), verb: false, required: true,type:string;
 		string	remark('考试成绩当年第一名'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2891,7 +2892,7 @@ employee_salary_sheet{
 		money	housing_found('$1222.99'), verb: false, required: true,type:money;
 		money	job_insurance('$8.88'), verb: false, required: true,type:money;
 		paying_off	paying_off('$(object)'), verb: false, required: true, referenceBy: employeeSalarySheetList,type:paying_off;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -2905,7 +2906,7 @@ paying_off{
 		employee	paid_for('$(object)'), verb: false, required: true, referenceBy: payingOffList,type:employee;
 		date	paid_time('2018-01-19'), verb: false, required: true,type:date;
 		money	amount('$5223.88'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeSalarySheetList	paying_off(__no_group)--paying_off;
@@ -2924,7 +2925,7 @@ retail_store_country_center{
 		string	operated_by('双链集团'), verb: false, required: true,type:string;
 		string	legal_representative('张喜来|张喜来'), verb: false, required: true,type:string;
 		string	description('中国中心正式成立，恭喜恭喜'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(24){
 		catalogList	owner(产品管理)--owner;
@@ -2962,7 +2963,7 @@ catalog{
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: catalogList,type:retail_store_country_center;
 		int	sub_count('10'), verb: false, required: true,type:int;
 		money	amount('$10.11'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelOneCategoryList	catalog(__no_group)--catalog;
@@ -2975,7 +2976,7 @@ level_one_category{
 		string	id('AB'), verb: false, required: true,type:id;
 		catalog	catalog('$(object)'), verb: false, required: true, referenceBy: levelOneCategoryList,type:catalog;
 		string	name('水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelTwoCategoryList	parent_category(__no_group)--parent_category;
@@ -2988,7 +2989,7 @@ level_two_category{
 		string	id('AB'), verb: false, required: true,type:id;
 		level_one_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelTwoCategoryList,type:level_one_category;
 		string	name('水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelThreeCategoryList	parent_category(__no_group)--parent_category;
@@ -3001,7 +3002,7 @@ level_three_category{
 		string	id('AB'), verb: false, required: true,type:id;
 		level_two_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelThreeCategoryList,type:level_two_category;
 		string	name('水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		productList	parent_category(__no_group)--parent_category;
@@ -3019,7 +3020,7 @@ product{
 		string	brand('品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品'), verb: false, required: true,type:string;
 		string_image	picture('this is a looooooooooog.jpg'), verb: false, required: true,type:string_image;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		skuList	product(__no_group)--product;
@@ -3038,7 +3039,7 @@ sku{
 		string	net_content('包装数量等信息,包装数量等信息,包装数量等信息'), verb: false, required: true,type:string;
 		money	price('$1323.33'), verb: false, required: true,type:money;
 		string_image	picture('coco.jpg'), verb: false, required: true,type:string_image;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	sku(__no_group)--sku;
@@ -3053,7 +3054,7 @@ retail_store_province_center{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		retail_store_country_center	country('$(object)'), verb: false, required: true, referenceBy: retailStoreProvinceCenterList,type:retail_store_country_center;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		provinceCenterDepartmentList	province_center(__no_group)--province_center;
@@ -3070,7 +3071,7 @@ province_center_department{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		retail_store_province_center	province_center('$(object)'), verb: false, required: true, referenceBy: provinceCenterDepartmentList,type:retail_store_province_center;
 		string	manager('刘强|王德宏'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		provinceCenterEmployeeList	department(__no_group)--department;
@@ -3087,7 +3088,7 @@ province_center_employee{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		province_center_department	department('$(object)'), verb: false, required: true, referenceBy: provinceCenterEmployeeList,type:province_center_department;
 		retail_store_province_center	province_center('$(object)'), verb: false, required: true, referenceBy: provinceCenterEmployeeList,type:retail_store_province_center;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3101,7 +3102,7 @@ retail_store_city_service_center{
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
 		retail_store_province_center	belongs_to('$(object)'), verb: false, required: true, referenceBy: retailStoreCityServiceCenterList,type:retail_store_province_center;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(4){
 		cityPartnerList	city_service_center(__no_group)--city_service_center;
@@ -3120,7 +3121,7 @@ city_partner{
 		retail_store_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: cityPartnerList,type:retail_store_city_service_center;
 		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		potentialCustomerList	city_partner(__no_group)--city_partner;
@@ -3138,7 +3139,7 @@ potential_customer{
 		city_partner	city_partner('$(object)'), verb: false, required: true, referenceBy: potentialCustomerList,type:city_partner;
 		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		potentialCustomerContactPersonList	potential_customer(__no_group)--potential_customer;
@@ -3155,7 +3156,7 @@ potential_customer_contact_person{
 		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
 		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactPersonList,type:potential_customer;
 		string	description('这人在决策中战友较大的权重，密切观察中.....'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		potentialCustomerContactList	contact_to(__no_group)--contact_to;
@@ -3174,7 +3175,7 @@ potential_customer_contact{
 		potential_customer_contact_person	contact_to('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:potential_customer_contact_person;
 		string	description('转化希望很大'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3189,7 +3190,7 @@ city_event{
 		retail_store_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: cityEventList,type:retail_store_city_service_center;
 		string	description('给大家讲解小超的发展蓝图'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		eventAttendanceList	city_event(__no_group)--city_event;
@@ -3204,7 +3205,7 @@ event_attendance{
 		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:potential_customer;
 		city_event	city_event('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:city_event;
 		string	description('体会不错，考虑加盟'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3230,7 +3231,7 @@ retail_store{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		string	description('啤酒饮料矿泉水，香肠瓜子方便面, 请让一让'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(5){
 		consumerOrderList	store(__no_group)--store;
@@ -3246,7 +3247,7 @@ retail_store_creation{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('已经建好了'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	creation(__no_group)--creation;
@@ -3258,7 +3259,7 @@ retail_store_investment_invitation{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('欢迎前来咨询'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	investment_invitation(__no_group)--investment_invitation;
@@ -3270,7 +3271,7 @@ retail_store_franchising{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('谢谢加盟'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	franchising(__no_group)--franchising;
@@ -3282,7 +3283,7 @@ retail_store_decoration{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('装修'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	decoration(__no_group)--decoration;
@@ -3294,7 +3295,7 @@ retail_store_opening{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('装修'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	opening(__no_group)--opening;
@@ -3306,7 +3307,7 @@ retail_store_closing{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	comment('关闭'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreList	closing(__no_group)--closing;
@@ -3320,7 +3321,7 @@ retail_store_member{
 		string	name('李亚青'), verb: false, required: true,type:string;
 		string_china_mobile_phone	mobile_phone('18099887766'), verb: false, required: true,type:string_china_mobile_phone;
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberList,type:retail_store_country_center;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(7){
 		consumerOrderList	consumer(__no_group)--consumer;
@@ -3341,7 +3342,7 @@ consumer_order{
 		retail_store_member	consumer('$(object)'), verb: false, required: true, referenceBy: consumerOrderList,type:retail_store_member;
 		retail_store	store('$(object)'), verb: false, required: true, referenceBy: consumerOrderList,type:retail_store;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(5){
 		consumerOrderLineItemList	biz_order(__no_group)--biz_order;
@@ -3363,7 +3364,7 @@ consumer_order_line_item{
 		double	quantity('1000.00'), verb: false, required: true,type:double;
 		money	amount('$9999.99'), verb: false, required: true,type:money;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3376,7 +3377,7 @@ consumer_order_shipping_group{
 		string	name('送货到刘强家'), verb: false, required: true,type:string;
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderShippingGroupList,type:consumer_order;
 		money	amount('$599.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3389,7 +3390,7 @@ consumer_order_payment_group{
 		string	name('信用卡|支付宝|微信支付'), verb: false, required: true,type:string;
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderPaymentGroupList,type:consumer_order;
 		string	card_number('4111 1111 1111 - '), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3403,7 +3404,7 @@ consumer_order_price_adjustment{
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderPriceAdjustmentList,type:consumer_order;
 		money	amount('$599.99'), verb: false, required: true,type:money;
 		string	provider('供货商|小超老板|广告赞助'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3417,7 +3418,7 @@ retail_store_member_coupon{
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberCouponList,type:retail_store_member;
 		string	number('CP00001'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3429,7 +3430,7 @@ member_wishlist{
 		string	id('AB'), verb: false, required: true,type:id;
 		string	name('每周购买清单|每月购买清单'), verb: false, required: true,type:string;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: memberWishlistList,type:retail_store_member;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		memberWishlistProductList	owner(__no_group)--owner;
@@ -3443,7 +3444,7 @@ member_reward_point{
 		string	name('购买积分|每月购买清单'), verb: false, required: true,type:string;
 		int	point('20'), verb: false, required: true,type:int;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: memberRewardPointList,type:retail_store_member;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3456,7 +3457,7 @@ member_reward_point_redemption{
 		string	name('积分换锅|积分换刀'), verb: false, required: true,type:string;
 		int	point('20'), verb: false, required: true,type:int;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: memberRewardPointRedemptionList,type:retail_store_member;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3468,7 +3469,7 @@ member_wishlist_product{
 		string	id('AB'), verb: false, required: true,type:id;
 		string	name('农夫山泉|利箭口香糖'), verb: false, required: true,type:string;
 		member_wishlist	owner('$(object)'), verb: false, required: true, referenceBy: memberWishlistProductList,type:member_wishlist;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3482,7 +3483,7 @@ retail_store_member_address{
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberAddressList,type:retail_store_member;
 		string_china_mobile_phone	mobile_phone('18099887766'), verb: false, required: true,type:string_china_mobile_phone;
 		string	address('四川省成都市科学城北路33号'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3496,7 +3497,7 @@ retail_store_member_gift_card{
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberGiftCardList,type:retail_store_member;
 		string	number('CP00001'), verb: false, required: true,type:string;
 		money	remain('$213.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		retailStoreMemberGiftCardConsumeRecordList	owner(__no_group)--owner;
@@ -3512,7 +3513,7 @@ retail_store_member_gift_card_consume_record{
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberGiftCardConsumeRecordList,type:consumer_order;
 		string	number('GF00001'), verb: false, required: true,type:string;
 		money	amount('$20.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3528,7 +3529,7 @@ goods_supplier{
 		string_china_mobile_phone	contact_number('18677889999'), verb: false, required: true,type:string_china_mobile_phone;
 		string	description('啤酒饮料矿泉水，香肠瓜子方便面都提供'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		supplierProductList	supplier(__no_group)--supplier;
@@ -3545,7 +3546,7 @@ supplier_product{
 		string	product_description('最好的黑人牙膏，只卖3块喽'), verb: false, required: true,type:string;
 		string	product_unit('件|公斤|米'), verb: false, required: true,type:string;
 		goods_supplier	supplier('$(object)'), verb: false, required: true, referenceBy: supplierProductList,type:goods_supplier;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		productSupplyDurationList	product(__no_group)--product;
@@ -3560,7 +3561,7 @@ product_supply_duration{
 		string	duration('现货|两天|三天|一周'), verb: false, required: true,type:string;
 		money	price('$9999.99'), verb: false, required: true,type:money;
 		supplier_product	product('$(object)'), verb: false, required: true, referenceBy: productSupplyDurationList,type:supplier_product;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3575,7 +3576,7 @@ supply_order{
 		string	title('双链给供货商下的订单'), verb: false, required: true,type:string;
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(4){
 		supplyOrderLineItemList	biz_order(__no_group)--biz_order;
@@ -3595,7 +3596,7 @@ supply_order_line_item{
 		money	amount('$5.97'), verb: false, required: true,type:money;
 		int	quantity('10000'), verb: false, required: true,type:int;
 		string	unit_of_measurement('件|公斤|米'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3608,7 +3609,7 @@ supply_order_shipping_group{
 		string	name('送货到双链成都2号仓'), verb: false, required: true,type:string;
 		supply_order	biz_order('$(object)'), verb: false, required: true, referenceBy: supplyOrderShippingGroupList,type:supply_order;
 		money	amount('$5.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3621,7 +3622,7 @@ supply_order_payment_group{
 		string	name('付款办法'), verb: false, required: true,type:string;
 		supply_order	biz_order('$(object)'), verb: false, required: true, referenceBy: supplyOrderPaymentGroupList,type:supply_order;
 		string	card_number('4111 1111 1111 - '), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3636,7 +3637,7 @@ retail_store_order{
 		string	title('双链小超给双链供应链下的订单'), verb: false, required: true,type:string;
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(4){
 		retailStoreOrderLineItemList	biz_order(__no_group)--biz_order;
@@ -3656,7 +3657,7 @@ retail_store_order_line_item{
 		money	amount('$3.97'), verb: false, required: true,type:money;
 		int	quantity('10000'), verb: false, required: true,type:int;
 		string	unit_of_measurement('件|公斤|米'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3669,7 +3670,7 @@ retail_store_order_shipping_group{
 		string	name('送货到双链中和社区店'), verb: false, required: true,type:string;
 		retail_store_order	biz_order('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderShippingGroupList,type:retail_store_order;
 		money	amount('$5.99'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3682,7 +3683,7 @@ retail_store_order_payment_group{
 		string	name('付款办法'), verb: false, required: true,type:string;
 		retail_store_order	biz_order('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderPaymentGroupList,type:retail_store_order;
 		string	card_number('4111 1111 1111 - '), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3699,7 +3700,7 @@ warehouse{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(7){
 		storageSpaceList	warehouse(__no_group)--warehouse;
@@ -3723,7 +3724,7 @@ storage_space{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsShelfList	storage_space(__no_group)--storage_space;
@@ -3741,7 +3742,7 @@ smart_pallet{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: smartPalletList,type:warehouse;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	smart_pallet(__no_group)--smart_pallet;
@@ -3757,7 +3758,7 @@ goods_shelf{
 		supplier_space	supplier_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList,type:supplier_space;
 		damage_space	damage_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList,type:damage_space;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		goodsShelfStockCountList	shelf(__no_group)--shelf;
@@ -3773,7 +3774,7 @@ goods_shelf_stock_count{
 		date	count_time('2017-04-01'), verb: false, required: true,type:date;
 		string	summary('使用先进的rfid技术，没有任何错误'), verb: false, required: true,type:string;
 		goods_shelf	shelf('$(object)'), verb: false, required: true, referenceBy: goodsShelfStockCountList,type:goods_shelf;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		stockCountIssueTrackList	stock_count(__no_group)--stock_count;
@@ -3788,7 +3789,7 @@ stock_count_issue_track{
 		date	count_time('2017-04-01'), verb: false, required: true,type:date;
 		string	summary('发现错误已经修正完成'), verb: false, required: true,type:string;
 		goods_shelf_stock_count	stock_count('$(object)'), verb: false, required: true, referenceBy: stockCountIssueTrackList,type:goods_shelf_stock_count;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3802,7 +3803,7 @@ goods_allocation{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		goods_shelf	goods_shelf('$(object)'), verb: false, required: true, referenceBy: goodsAllocationList,type:goods_shelf;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	goods_allocation(__no_group)--goods_allocation;
@@ -3827,7 +3828,7 @@ goods{
 		retail_store	retail_store('$(object)'), verb: false, required: true, referenceBy: goodsList,type:retail_store;
 		supply_order	biz_order('$(object)'), verb: false, required: true, referenceBy: goodsList,type:supply_order;
 		retail_store_order	retail_store_order('$(object)'), verb: false, required: true, referenceBy: goodsList,type:retail_store_order;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsMovementList	goods(__no_group)--goods;
@@ -3847,7 +3848,7 @@ goods_movement{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		goods	goods('$(object)'), verb: false, required: true, referenceBy: goodsMovementList,type:goods;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3864,7 +3865,7 @@ supplier_space{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsShelfList	supplier_space(__no_group)--supplier_space;
@@ -3883,7 +3884,7 @@ receiving_space{
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	receiving_space(__no_group)--receiving_space;
@@ -3902,7 +3903,7 @@ shipping_space{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		string	description('每个收货区可以供一辆车装货'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsList	shipping_space(__no_group)--shipping_space;
@@ -3920,7 +3921,7 @@ damage_space{
 		double	longitude('130.273647'), verb: false, required: true,type:double;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: damageSpaceList,type:warehouse;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		goodsShelfList	damage_space(__no_group)--damage_space;
@@ -3935,7 +3936,7 @@ warehouse_asset{
 		string	position('备用件存放区设备库房'), verb: false, required: true,type:string;
 		warehouse	owner('$(object)'), verb: false, required: true, referenceBy: warehouseAssetList,type:warehouse;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -3949,7 +3950,7 @@ transport_fleet{
 		string	contact_number('028 87654321'), verb: false, required: true,type:string;
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: transportFleetList,type:retail_store_country_center;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		transportTruckList	owner(__no_group)--owner;
@@ -3971,7 +3972,7 @@ transport_truck{
 		string	mileage('100万公里'), verb: false, required: true,type:string;
 		string	body_color('红色|蓝色|白色|灰色|银色|黑色'), verb: false, required: true,type:string;
 		transport_fleet	owner('$(object)'), verb: false, required: true, referenceBy: transportTruckList,type:transport_fleet;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		transportTaskList	truck(__no_group)--truck;
@@ -3986,7 +3987,7 @@ truck_driver{
 		string	driver_license_number('5109 9887 733'), verb: false, required: true,type:string;
 		string_china_mobile_phone	contact_number('18777778888'), verb: false, required: true,type:string_china_mobile_phone;
 		transport_fleet	belongs_to('$(object)'), verb: false, required: true, referenceBy: truckDriverList,type:transport_fleet;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		transportTaskList	driver(__no_group)--driver;
@@ -4006,7 +4007,7 @@ transport_task{
 		transport_fleet	belongs_to('$(object)'), verb: false, required: true, referenceBy: transportTaskList,type:transport_fleet;
 		double	latitude('40.776877'), verb: false, required: true,type:double;
 		double	longitude('130.273647'), verb: false, required: true,type:double;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		goodsList	transport_task(__no_group)--transport_task;
@@ -4022,7 +4023,7 @@ transport_task_track{
 		double	latitude('30.912929'), verb: false, required: true,type:double;
 		double	longitude('104.121232'), verb: false, required: true,type:double;
 		transport_task	movement('$(object)'), verb: false, required: true, referenceBy: transportTaskTrackList,type:transport_task;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4044,7 +4045,7 @@ account_set{
 		retail_store	retail_store('$(object)'), verb: false, required: true, referenceBy: accountSetList,type:retail_store;
 		goods_supplier	goods_supplier('$(object)'), verb: false, required: true, referenceBy: accountSetList,type:goods_supplier;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		accountingSubjectList	account_set(__no_group)--account_set;
@@ -4062,7 +4063,7 @@ accounting_subject{
 		int	accounting_subject_class_code('1|2|3|4|5|6'), verb: false, required: true,type:int;
 		string	accounting_subject_class_name('资产类|负债类|共同类|所有者权益类|成本类|损益类'), verb: false, required: true,type:string;
 		account_set	account_set('$(object)'), verb: false, required: true, referenceBy: accountingSubjectList,type:account_set;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		accountingDocumentLineList	accounting_subject(__no_group)--accounting_subject;
@@ -4077,7 +4078,7 @@ accounting_period{
 		date	start_date('2017-01-09'), verb: false, required: true,type:date;
 		date	end_date('2017-01-09'), verb: false, required: true,type:date;
 		account_set	account_set('$(object)'), verb: false, required: true, referenceBy: accountingPeriodList,type:account_set;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		accountingDocumentList	accounting_period(__no_group)--accounting_period;
@@ -4091,7 +4092,7 @@ accounting_document_type{
 		string	name('记账凭证|收款凭证|付款凭证'), verb: false, required: true,type:string;
 		string	description('又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。'), verb: false, required: true,type:string;
 		account_set	accounting_period('$(object)'), verb: false, required: true, referenceBy: accountingDocumentTypeList,type:account_set;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		accountingDocumentList	document_type(__no_group)--document_type;
@@ -4106,7 +4107,7 @@ accounting_document{
 		date	accounting_document_date('2018-09-09'), verb: false, required: true,type:date;
 		accounting_period	accounting_period('$(object)'), verb: false, required: true, referenceBy: accountingDocumentList,type:accounting_period;
 		accounting_document_type	document_type('$(object)'), verb: false, required: true, referenceBy: accountingDocumentList,type:accounting_document_type;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		originalVoucherList	belongs_to(__no_group)--belongs_to;
@@ -4124,7 +4125,7 @@ original_voucher{
 		string	voucher_type('原始凭证|发票|出库单|入库单|存款回执|验收证明|借款凭证'), verb: false, required: true,type:string;
 		string_image	voucher_image('goodthing.jpg'), verb: false, required: true,type:string_image;
 		accounting_document	belongs_to('$(object)'), verb: false, required: true, referenceBy: originalVoucherList,type:accounting_document;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4140,7 +4141,7 @@ accounting_document_line{
 		money	amount('$989127.99'), verb: false, required: true,type:money;
 		accounting_document	belongs_to('$(object)'), verb: false, required: true, referenceBy: accountingDocumentLineList,type:accounting_document;
 		accounting_subject	accounting_subject('$(object)'), verb: false, required: true, referenceBy: accountingDocumentLineList,type:accounting_subject;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4155,7 +4156,7 @@ level_one_department{
 		string	description('主要执行集团信息系统建设，维护，规划'), verb: false, required: true,type:string;
 		string	manager('刘强|王德宏'), verb: false, required: true,type:string;
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelTwoDepartmentList	belongs_to(__no_group)--belongs_to;
@@ -4170,7 +4171,7 @@ level_two_department{
 		string	name('信息系统部大数据部门'), verb: false, required: true,type:string;
 		string	description('主要执行集团信息系统建设，维护，规划'), verb: false, required: true,type:string;
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		levelThreeDepartmentList	belongs_to(__no_group)--belongs_to;
@@ -4185,7 +4186,7 @@ level_three_department{
 		string	name('信息系统部大数据清洗组|信息系统部大数据运算组|信息系统部大数据解决方案组'), verb: false, required: true,type:string;
 		string	description('主要执行集团信息系统建设，维护，规划'), verb: false, required: true,type:string;
 		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeList	department(__no_group)--department;
@@ -4199,7 +4200,7 @@ skill_type{
 		string	code('S0000'), verb: false, required: true,type:string;
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: skillTypeList,type:retail_store_country_center;
 		string	description('JAVA编程|大数据|并行计算|操作系统|数据库'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeSkillList	skill_type(__no_group)--skill_type;
@@ -4214,7 +4215,7 @@ responsibility_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: responsibilityTypeList,type:retail_store_country_center;
 		string	base_description('合规管理|财务管理|总务管理|信息管理|库存管理|市场管理|产品管理|采购管理|资产管理|销售管理|安全管理'), verb: false, required: true,type:string;
 		string	detail_description('负责集团及其他分公司信息系统有效运作，并使集团在技术上领先'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeList	responsible_for(__no_group)--responsible_for;
@@ -4228,7 +4229,7 @@ termination_reason{
 		string	code('ETR0000'), verb: false, required: true,type:string;
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: terminationReasonList,type:retail_store_country_center;
 		string	description('业务发展，公司转型|战略调整|业务优化'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		terminationList	reason(__no_group)--reason;
@@ -4243,7 +4244,7 @@ termination_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: terminationTypeList,type:retail_store_country_center;
 		string	base_description('合同解除|辞职|退休'), verb: false, required: true,type:string;
 		string	detail_description('这个终止原因的描述是这样的.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		terminationList	type(__no_group)--type;
@@ -4258,7 +4259,7 @@ occupation_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: occupationTypeList,type:retail_store_country_center;
 		string	description('需求分析员|软件工程师|高级软件工程师|财务分析师|财务主管|出纳|总经理|副总经历|大数据架构师|销售经理|销售总监|技术总监|区域销售经理'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeList	occupation(__no_group)--occupation;
@@ -4273,7 +4274,7 @@ leave_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: leaveTypeList,type:retail_store_country_center;
 		string	description('带薪年假|病假|事假|婚假|产假|陪产假|丧假|探亲假|哺乳假|待产假|陪待产假'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeLeaveList	type(__no_group)--type;
@@ -4288,7 +4289,7 @@ salary_grade{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: salaryGradeList,type:retail_store_country_center;
 		string	name('一级薪资|二级薪资|三级薪资|四级薪资|五级薪资|六级薪资|七级薪资'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		employeeList	current_salary_grade(__no_group)--current_salary_grade;
@@ -4304,7 +4305,7 @@ interview_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: interviewTypeList,type:retail_store_country_center;
 		string	description('特别情况面试|离职面试|信息面试|入职面试'), verb: false, required: true,type:string;
 		string	detail_description('故事还得从遥远的古代开始.................................................'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeInterviewList	interview_type(__no_group)--interview_type;
@@ -4319,7 +4320,7 @@ training_course_type{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: trainingCourseTypeList,type:retail_store_country_center;
 		string	name('入职培训|售前培训|技术培训|管理培训|外训'), verb: false, required: true,type:string;
 		string	description('培训是提升个人和企业竞争力的法宝'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		companyTrainingList	training_course_type(__no_group)--training_course_type;
@@ -4334,7 +4335,7 @@ public_holiday{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: publicHolidayList,type:retail_store_country_center;
 		string	name('元旦节|春节|妇女节|清明节|端午节|暑假|国庆节|中秋节'), verb: false, required: true,type:string;
 		string	description('节日快乐，万事如意！'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4347,7 +4348,7 @@ termination{
 		termination_reason	reason('$(object)'), verb: false, required: true, referenceBy: terminationList,type:termination_reason;
 		termination_type	type('$(object)'), verb: false, required: true, referenceBy: terminationList,type:termination_type;
 		string	comment('员工离职'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4360,7 +4361,7 @@ view{
 		string	who('面试官'), verb: false, required: true,type:string;
 		string	assessment('小伙子不错，值得培养'), verb: false, required: true,type:string;
 		date	interview_time('2017-03-03'), verb: false, required: true,type:date;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4384,7 +4385,7 @@ employee{
 		salary_grade	current_salary_grade('$(object)'), verb: false, required: true, referenceBy: employeeList,type:salary_grade;
 		string	salary_account('6226 7788 9908 '), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(12){
 		employeeCompanyTrainingList	employee(__no_group)--employee;
@@ -4414,7 +4415,7 @@ instructor{
 		retail_store_country_center	company('$(object)'), verb: false, required: true, referenceBy: instructorList,type:retail_store_country_center;
 		string	introduction('这是一个长长长长长长长长的介绍'), verb: false, required: true,type:string;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		companyTrainingList	instructor(__no_group)--instructor;
@@ -4432,7 +4433,7 @@ company_training{
 		date_past	time_start('past()'), verb: false, required: true,type:date_past;
 		int	duration_hours('3'), verb: false, required: true,type:int;
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeCompanyTrainingList	training(__no_group)--training;
@@ -4446,7 +4447,7 @@ scoring{
 		string	scored_by('王志文'), verb: false, required: true,type:string;
 		int	score('100'), verb: false, required: true,type:int;
 		string	comment('这个题做的真不错啊'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeCompanyTrainingList	scoring(__no_group)--scoring;
@@ -4460,7 +4461,7 @@ employee_company_training{
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeeCompanyTrainingList,type:employee;
 		company_training	training('$(object)'), verb: false, required: true, referenceBy: employeeCompanyTrainingList,type:company_training;
 		scoring	scoring('$(object)'), verb: false, required: true, referenceBy: employeeCompanyTrainingList,type:scoring;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4473,7 +4474,7 @@ employee_skill{
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeeSkillList,type:employee;
 		skill_type	skill_type('$(object)'), verb: false, required: true, referenceBy: employeeSkillList,type:skill_type;
 		string	description('高手高手高高手'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4485,7 +4486,7 @@ employee_performance{
 		string	id('AB'), verb: false, required: true,type:id;
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeePerformanceList,type:employee;
 		string	performance_comment('绩效大大的不错'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4500,7 +4501,7 @@ employee_work_experience{
 		date	end('2018-01-10'), verb: false, required: true,type:date;
 		string	company('丝芙兰化妆品公司'), verb: false, required: true,type:string;
 		string	description('在此期间取得非常好的绩效，赢得了客户的信赖'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4514,7 +4515,7 @@ employee_leave{
 		leave_type	type('$(object)'), verb: false, required: true, referenceBy: employeeLeaveList,type:leave_type;
 		int	leave_duration_hour('8'), verb: false, required: true,type:int;
 		string	remark('请年假，出去耍！！！！'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4527,7 +4528,7 @@ employee_interview{
 		employee	employee('$(object)'), verb: false, required: true, referenceBy: employeeInterviewList,type:employee;
 		interview_type	interview_type('$(object)'), verb: false, required: true, referenceBy: employeeInterviewList,type:interview_type;
 		string	remark('结果不错，面试通过！'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4542,7 +4543,7 @@ employee_attendance{
 		date	leave_time('2017-03-01'), verb: false, required: true,type:date;
 		int	duration_hours('8'), verb: false, required: true,type:int;
 		string	remark('今天状态不错啊'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4557,7 +4558,7 @@ employee_qualifier{
 		string	type('认证药剂师|认证架构师|认证会计师|认证经济师|OCP|CCNA|CCNP'), verb: false, required: true,type:string;
 		string	level('高级|中级|初级'), verb: false, required: true,type:string;
 		string	remark('考试成绩当年第一名'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4571,7 +4572,7 @@ employee_education{
 		date	complete_time('2017-01-01'), verb: false, required: true,type:date;
 		string	type('小学|初中|高中|大学|硕士|博士|职业教育'), verb: false, required: true,type:string;
 		string	remark('考试成绩当年第一名'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4585,7 +4586,7 @@ employee_award{
 		date	complete_time('2017-01-01'), verb: false, required: true,type:date;
 		string	type('明星员工|销售之星|技术之星|管理之星|终身成就奖'), verb: false, required: true,type:string;
 		string	remark('考试成绩当年第一名'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4605,7 +4606,7 @@ employee_salary_sheet{
 		money	housing_found('$1222.99'), verb: false, required: true,type:money;
 		money	job_insurance('$8.88'), verb: false, required: true,type:money;
 		paying_off	paying_off('$(object)'), verb: false, required: true, referenceBy: employeeSalarySheetList,type:paying_off;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4619,7 +4620,7 @@ paying_off{
 		employee	paid_for('$(object)'), verb: false, required: true, referenceBy: payingOffList,type:employee;
 		date	paid_time('2018-01-19'), verb: false, required: true,type:date;
 		money	amount('$5223.88'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		employeeSalarySheetList	paying_off(__no_group)--paying_off;
@@ -4631,15 +4632,15 @@ mobile_app{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	name('移动端配置'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
-		pageList	mobile_app(__no_group)--mobile_app;
+		pageList	mobile_app(页面管理)--mobile_app;
 		pageTypeList	mobile_app(__no_group)--mobile_app;
 	}
 } depth=0; isRoot = true
 
-meta{name=page}
+meta{name=page, vg4mobile_app=页面管理}
 page{
 	fields(7){
 		string	id('AB'), verb: false, required: true,type:id;
@@ -4648,7 +4649,7 @@ page{
 		page_type	page_type('$(object)'), verb: false, required: true, referenceBy: pageList,type:page_type;
 		int	display_order('1|2|3'), verb: false, required: true,type:int;
 		mobile_app	mobile_app('$(object)'), verb: false, required: true, referenceBy: pageList,type:mobile_app;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
 		slideList	page(__no_group)--page;
@@ -4665,7 +4666,7 @@ page_type{
 		string	code('home|me|generic-page|listof-page|service-center|simple'), verb: false, required: true,type:string;
 		mobile_app	mobile_app('$(object)'), verb: false, required: true, referenceBy: pageTypeList,type:mobile_app;
 		bool	footer_tab('true|false'), verb: false, required: true,type:bool;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		pageList	page_type(__no_group)--page_type;
@@ -4682,7 +4683,7 @@ slide{
 		string_image	video_url('https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_1.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_2.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_3.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_4.jpg'), verb: false, required: true,type:string_image;
 		string	link_to_url('|/section/article/'), verb: false, required: false,type:string;
 		page	page('$(object)'), verb: false, required: true, referenceBy: slideList,type:page;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4699,9 +4700,9 @@ ui_action{
 		string	brief('Submit|Share|View|View More'), verb: false, required: true,type:string;
 		string_image	image_url('https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_1.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_2.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_3.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_4.jpg'), verb: false, required: true,type:string_image;
 		string	link_to_url('wxappService/section/article/'), verb: false, required: true,type:string;
-		string_longtext	extra_data('text()'), verb: false, required: true,type:string_longtext;
+		string_longtext	extra_data('text()'), verb: false, required: true,type:text;
 		page	page('$(object)'), verb: false, required: true, referenceBy: uiActionList,type:page;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4718,7 +4719,7 @@ section{
 		string	view_group('icon_edit|icon_share|icon_eye|icon_more'), verb: false, required: true,type:string;
 		string	link_to_url('wxappService/section/article/'), verb: false, required: true,type:string;
 		page	page('$(object)'), verb: false, required: true, referenceBy: sectionList,type:page;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4729,23 +4730,23 @@ user_domain{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	name('用户区域'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(3){
-		userWhiteListList	domain(__no_group)--domain;
+		userAllowListList	domain(__no_group)--domain;
 		secUserList	domain(__no_group)--domain;
 		publicKeyTypeList	domain(__no_group)--domain;
 	}
 } depth=0; isRoot = true
 
-meta{name=user_white_list, features=syssetting}
-user_white_list{
+meta{name=user_allow_list, features=syssetting}
+user_allow_list{
 	fields(5){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	user_identity('clariones|13808188512'), verb: false, required: true,type:string;
 		string	user_special_functions('tester;ios-spokesperson'), verb: false, required: true,type:string;
-		user_domain	domain('$(object)'), verb: false, required: true, referenceBy: userWhiteListList,type:user_domain;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		user_domain	domain('$(object)'), verb: false, required: true, referenceBy: userAllowListList,type:user_domain;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4766,14 +4767,14 @@ sec_user{
 		date_time	verification_code_expire('2099-12-31T09:09:09'), verb: false, required: true,type:date_time;
 		date_time	last_login_time('2099-12-31T09:09:09'), verb: false, required: false,type:date_time;
 		user_domain	domain('$(object)'), verb: false, required: true, referenceBy: secUserList,type:user_domain;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(5){
 		userAppList	sec_user(__no_group)--sec_user;
 		loginHistoryList	sec_user(__no_group)--sec_user;
-		wechatWorkappIdentifyList	sec_user(__no_group)--sec_user;
-		wechatMiniappIdentifyList	sec_user(__no_group)--sec_user;
-		keypairIdentifyList	sec_user(__no_group)--sec_user;
+		wechatWorkappIdentityList	sec_user(__no_group)--sec_user;
+		wechatMiniappIdentityList	sec_user(__no_group)--sec_user;
+		keypairIdentityList	sec_user(__no_group)--sec_user;
 	}
 } depth=1; isRoot = false
 
@@ -4789,7 +4790,7 @@ user_app{
 		string	object_type('CarInspectionPlatform|UserDomain|CarReceivingServiceCompany|CarInspectionServiceCompany|CarRepairingServiceCompany|CustomerInfo'), verb: false, required: true,type:string;
 		string	object_id('CIP000001|UD000001|CRSC000001|CISC000001|CRSC000001|CI000001'), verb: false, required: true,type:string;
 		string	location('/link/to/app'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(2){
 		quickLinkList	app(__no_group)--app;
@@ -4807,7 +4808,7 @@ quick_link{
 		string	link_target('列表'), verb: false, required: true,type:string;
 		date_time_create	create_time('createTime()'), verb: false, required: true,type:date_time_create;
 		user_app	app('$(object)'), verb: false, required: true, referenceBy: quickLinkList,type:user_app;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4825,7 +4826,7 @@ list_access{
 		bool	update_permission('true'), verb: false, required: true,type:bool;
 		bool	execution_permission('true'), verb: false, required: true,type:bool;
 		user_app	app('$(object)'), verb: false, required: true, referenceBy: listAccessList,type:user_app;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4839,7 +4840,7 @@ login_history{
 		string	from_ip('192.168.1.1|192.168.1.2'), verb: false, required: true,type:string;
 		string	description('登陆成功'), verb: false, required: true,type:string;
 		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: loginHistoryList,type:sec_user;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4850,7 +4851,7 @@ candidate_container{
 	fields(3){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	name('我只是一个容器'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
 		candidateElementList	container(__no_group)--container;
@@ -4865,51 +4866,51 @@ candidate_element{
 		string	type('类型描述'), verb: false, required: true,type:string;
 		string_image	image('1.jpg'), verb: false, required: true,type:string_image;
 		candidate_container	container('$(object)'), verb: false, required: true, referenceBy: candidateElementList,type:candidate_container;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
 } depth=1; isRoot = false
 
-meta{name=wechat_workapp_identify}
-wechat_workapp_identify{
+meta{name=wechat_workapp_identity}
+wechat_workapp_identity{
 	fields(7){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	corp_id('corporation123'), verb: false, required: true,type:string;
 		string	user_id('user123'), verb: false, required: true,type:string;
-		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: wechatWorkappIdentifyList,type:sec_user;
+		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: wechatWorkappIdentityList,type:sec_user;
 		date_time_create	create_time('createTime()'), verb: false, required: true,type:date_time_create;
 		date_time	last_login_time('2100-01-01T00:00:00'), verb: false, required: false,type:date_time;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
 } depth=2; isRoot = false
 
-meta{name=wechat_miniapp_identify}
-wechat_miniapp_identify{
+meta{name=wechat_miniapp_identity}
+wechat_miniapp_identity{
 	fields(7){
 		string	id('AB'), verb: false, required: true,type:id;
 		string	open_id('wechat_open_id_1234567890'), verb: false, required: true,type:string;
 		string	app_id('wechat_miniapp_id_1234567890'), verb: false, required: true,type:string;
-		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: wechatMiniappIdentifyList,type:sec_user;
+		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: wechatMiniappIdentityList,type:sec_user;
 		date_time_create	create_time('createTime()'), verb: false, required: true,type:date_time_create;
 		date_time	last_login_time('2100-01-01T00:00:00'), verb: false, required: false,type:date_time;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
 } depth=2; isRoot = false
 
-meta{name=keypair_identify}
-keypair_identify{
+meta{name=keypair_identity}
+keypair_identity{
 	fields(6){
 		string	id('AB'), verb: false, required: true,type:id;
-		string_longtext	public_key('text()'), verb: false, required: true,type:string_longtext;
-		public_key_type	key_type('$(object)'), verb: false, required: true, referenceBy: keypairIdentifyList,type:public_key_type;
-		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: keypairIdentifyList,type:sec_user;
+		string_longtext	public_key('text()'), verb: false, required: true,type:text;
+		public_key_type	key_type('$(object)'), verb: false, required: true, referenceBy: keypairIdentityList,type:public_key_type;
+		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: keypairIdentityList,type:sec_user;
 		date_time_create	create_time('createTime()'), verb: false, required: true,type:date_time_create;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}
@@ -4922,10 +4923,10 @@ public_key_type{
 		string	name('rsa|ecc'), verb: false, required: true,type:string;
 		string	code('rsa|ecc'), verb: false, required: true,type:string;
 		user_domain	domain('$(object)'), verb: false, required: true, referenceBy: publicKeyTypeList,type:user_domain;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(1){
-		keypairIdentifyList	key_type(__no_group)--key_type;
+		keypairIdentityList	key_type(__no_group)--key_type;
 	}
 } depth=1; isRoot = false
 
@@ -4937,7 +4938,7 @@ tree_node{
 		string	node_type('nodetype'), verb: false, required: true,type:string;
 		int	left_value('1'), verb: false, required: true,type:int;
 		int	right_value('10'), verb: false, required: true,type:int;
-		int	version('2147483647'), verb: false, required: true,type:int;
+		int	version('2147483647'), verb: false, required: true,type:version;
 	}
 	references field(0){
 	}

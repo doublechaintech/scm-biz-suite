@@ -17,6 +17,7 @@ public interface SupplierSpaceManager extends BaseManager{
 	public SupplierSpace createSupplierSpace(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,String warehouseId,BigDecimal latitude,BigDecimal longitude) throws Exception;
 	public SupplierSpace updateSupplierSpace(RetailscmUserContext userContext,String supplierSpaceId, int supplierSpaceVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SupplierSpace loadSupplierSpace(RetailscmUserContext userContext, String supplierSpaceId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SupplierSpace internalSaveSupplierSpace(RetailscmUserContext userContext, SupplierSpace supplierSpace) throws Exception;
 	public SupplierSpace internalSaveSupplierSpace(RetailscmUserContext userContext, SupplierSpace supplierSpace,Map<String,Object>option) throws Exception;
 

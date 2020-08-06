@@ -41,7 +41,7 @@ import com.doublechaintech.retailscm.section.SectionDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO{
 
@@ -125,50 +125,54 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 	 	return this.sectionDAO;
  	}	
 
-	
+
 	/*
 	protected Page load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalPage(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Page> loadAll() {
 	    return this.loadAll(getPageMapper());
 	}
-	
-	
+
+  public Stream<Page> loadAllAsStream() {
+      return this.loadAllAsStream(getPageMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Page load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalPage(PageTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Page save(Page page,Map<String,Object> options){
-		
+
 		String methodName="save(Page page,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(page, methodName, "page");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalPage(page,options);
 	}
 	public Page clone(String pageId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(PageTable.withId(pageId),options);
 	}
-	
+
 	protected Page clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String pageId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Page newPage = loadInternalPage(accessKey, options);
 		newPage.setVersion(0);
 		
@@ -195,15 +199,15 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
  		}
 		
 
-		
+
 		saveInternalPage(newPage,options);
-		
+
 		return newPage;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String pageId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -219,15 +223,15 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String pageId, int version) throws Exception{
-	
+
 		String methodName="delete(String pageId, int version)";
 		assertMethodArgumentNotNull(pageId, methodName, "pageId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{pageId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -237,26 +241,26 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		if(affectedNumber == 0){
 			handleDeleteOneError(pageId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Page disconnectFromAll(String pageId, int version) throws Exception{
-	
-		
+
+
 		Page page = loadInternalPage(PageTable.withId(pageId), emptyOptions());
 		page.clearFromAll();
 		this.savePage(page);
 		return page;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -264,15 +268,15 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "page";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "page";
 	}
-	
+
 	
 	
 	
@@ -716,7 +720,7 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 			return page;
 		}
 		
-		
+
 		String SQL=this.getSavePageSQL(page);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSavePageParameters(page);
@@ -725,57 +729,57 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		page.incVersion();
 		return page;
-	
+
 	}
 	public SmartList<Page> savePageList(SmartList<Page> pageList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitPageList(pageList);
-		
+
 		batchPageCreate((List<Page>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchPageUpdate((List<Page>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Page page:pageList){
 			if(page.isChanged()){
 				page.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return pageList;
 	}
 
 	public SmartList<Page> removePageList(SmartList<Page> pageList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(pageList, options);
-		
+
 		return pageList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> preparePageBatchCreateArgs(List<Page> pageList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Page page:pageList ){
 			Object [] parameters = preparePageCreateParameters(page);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> preparePageBatchUpdateArgs(List<Page> pageList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Page page:pageList ){
 			if(!page.isChanged()){
@@ -783,40 +787,40 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 			}
 			Object [] parameters = preparePageUpdateParameters(page);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchPageCreate(List<Page> pageList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=preparePageBatchCreateArgs(pageList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchPageUpdate(List<Page> pageList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=preparePageBatchUpdateArgs(pageList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitPageList(List<Page> pageList){
-		
+
 		List<Page> pageCreateList=new ArrayList<Page>();
 		List<Page> pageUpdateList=new ArrayList<Page>();
-		
+
 		for(Page page: pageList){
 			if(isUpdateRequest(page)){
 				pageUpdateList.add( page);
@@ -824,10 +828,10 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 			}
 			pageCreateList.add(page);
 		}
-		
+
 		return new Object[]{pageCreateList,pageUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Page page){
  		return page.getVersion() > 0;
  	}
@@ -837,7 +841,7 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSavePageParameters(Page page){
  		if(isUpdateRequest(page) ){
  			return preparePageUpdateParameters(page);
@@ -852,28 +856,30 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
  		
  		
  		parameters[1] = page.getLinkToUrl();
- 		 	
+ 		
  		if(page.getPageType() != null){
  			parameters[2] = page.getPageType().getId();
  		}
  
  		
  		parameters[3] = page.getDisplayOrder();
- 		 	
+ 		
  		if(page.getMobileApp() != null){
  			parameters[4] = page.getMobileApp().getId();
  		}
- 		
+ 
  		parameters[5] = page.nextVersion();
  		parameters[6] = page.getId();
  		parameters[7] = page.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] preparePageCreateParameters(Page page){
 		Object[] parameters = new Object[6];
-		String newPageId=getNextId();
-		page.setId(newPageId);
+        if(page.getId() == null){
+          String newPageId=getNextId();
+          page.setId(newPageId);
+        }
 		parameters[0] =  page.getId();
  
  		
@@ -881,32 +887,32 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
  		
  		
  		parameters[2] = page.getLinkToUrl();
- 		 	
+ 		
  		if(page.getPageType() != null){
  			parameters[3] = page.getPageType().getId();
- 		
+
  		}
  		
  		
  		parameters[4] = page.getDisplayOrder();
- 		 	
+ 		
  		if(page.getMobileApp() != null){
  			parameters[5] = page.getMobileApp().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Page saveInternalPage(Page page, Map<String,Object> options){
-		
+
 		savePage(page);
- 	
+
  		if(isSavePageTypeEnabled(options)){
 	 		savePageType(page, options);
  		}
-  	
+ 
  		if(isSaveMobileAppEnabled(options)){
 	 		saveMobileApp(page, options);
  		}
@@ -916,73 +922,73 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 	 		saveSlideList(page, options);
 	 		//removeSlideList(page, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveUiActionListEnabled(options)){
 	 		saveUiActionList(page, options);
 	 		//removeUiActionList(page, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveSectionListEnabled(options)){
 	 		saveSectionList(page, options);
 	 		//removeSectionList(page, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return page;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Page savePageType(Page page, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(page.getPageType() == null){
  			return page;//do nothing when it is null
  		}
- 		
+
  		getPageTypeDAO().save(page.getPageType(),options);
  		return page;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Page saveMobileApp(Page page, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(page.getMobileApp() == null){
  			return page;//do nothing when it is null
  		}
- 		
+
  		getMobileAppDAO().save(page.getMobileApp(),options);
  		return page;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Page planToRemoveSlideList(Page page, String slideIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Slide.PAGE_PROPERTY, page.getId());
 		key.put(Slide.ID_PROPERTY, slideIds);
-		
+
 		SmartList<Slide> externalSlideList = getSlideDAO().
 				findSlideWithKey(key, options);
 		if(externalSlideList == null){
@@ -991,26 +997,26 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		if(externalSlideList.isEmpty()){
 			return page;
 		}
-		
+
 		for(Slide slideItem: externalSlideList){
 
 			slideItem.clearFromAll();
 		}
-		
-		
-		SmartList<Slide> slideList = page.getSlideList();		
+
+
+		SmartList<Slide> slideList = page.getSlideList();
 		slideList.addAllToRemoveList(externalSlideList);
-		return page;	
-	
+		return page;
+
 	}
 
 
 	public Page planToRemoveUiActionList(Page page, String uiActionIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(UiAction.PAGE_PROPERTY, page.getId());
 		key.put(UiAction.ID_PROPERTY, uiActionIds);
-		
+
 		SmartList<UiAction> externalUiActionList = getUiActionDAO().
 				findUiActionWithKey(key, options);
 		if(externalUiActionList == null){
@@ -1019,26 +1025,26 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		if(externalUiActionList.isEmpty()){
 			return page;
 		}
-		
+
 		for(UiAction uiActionItem: externalUiActionList){
 
 			uiActionItem.clearFromAll();
 		}
-		
-		
-		SmartList<UiAction> uiActionList = page.getUiActionList();		
+
+
+		SmartList<UiAction> uiActionList = page.getUiActionList();
 		uiActionList.addAllToRemoveList(externalUiActionList);
-		return page;	
-	
+		return page;
+
 	}
 
 
 	public Page planToRemoveSectionList(Page page, String sectionIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Section.PAGE_PROPERTY, page.getId());
 		key.put(Section.ID_PROPERTY, sectionIds);
-		
+
 		SmartList<Section> externalSectionList = getSectionDAO().
 				findSectionWithKey(key, options);
 		if(externalSectionList == null){
@@ -1047,36 +1053,36 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		if(externalSectionList.isEmpty()){
 			return page;
 		}
-		
+
 		for(Section sectionItem: externalSectionList){
 
 			sectionItem.clearFromAll();
 		}
-		
-		
-		SmartList<Section> sectionList = page.getSectionList();		
+
+
+		SmartList<Section> sectionList = page.getSectionList();
 		sectionList.addAllToRemoveList(externalSectionList);
-		return page;	
-	
+		return page;
+
 	}
 
 
 
 		
 	protected Page saveSlideList(Page page, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Slide> slideList = page.getSlideList();
 		if(slideList == null){
 			//null list means nothing
 			return page;
 		}
 		SmartList<Slide> mergedUpdateSlideList = new SmartList<Slide>();
-		
-		
-		mergedUpdateSlideList.addAll(slideList); 
+
+
+		mergedUpdateSlideList.addAll(slideList);
 		if(slideList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSlideList.addAll(slideList.getToRemoveList());
@@ -1085,28 +1091,28 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		}
 
 		//adding new size can improve performance
-	
+
 		getSlideDAO().saveSlideList(mergedUpdateSlideList,options);
-		
+
 		if(slideList.getToRemoveList() != null){
 			slideList.removeAll(slideList.getToRemoveList());
 		}
-		
-		
+
+
 		return page;
-	
+
 	}
-	
+
 	protected Page removeSlideList(Page page, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Slide> slideList = page.getSlideList();
 		if(slideList == null){
 			return page;
-		}	
-	
+		}
+
 		SmartList<Slide> toRemoveSlideList = slideList.getToRemoveList();
-		
+
 		if(toRemoveSlideList == null){
 			return page;
 		}
@@ -1114,35 +1120,35 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 			return page;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSlideDAO().removeSlideList(toRemoveSlideList,options);
-		
-		return page;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSlideDAO().removeSlideList(toRemoveSlideList,options);
+
+		return page;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Page saveUiActionList(Page page, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<UiAction> uiActionList = page.getUiActionList();
 		if(uiActionList == null){
 			//null list means nothing
 			return page;
 		}
 		SmartList<UiAction> mergedUpdateUiActionList = new SmartList<UiAction>();
-		
-		
-		mergedUpdateUiActionList.addAll(uiActionList); 
+
+
+		mergedUpdateUiActionList.addAll(uiActionList);
 		if(uiActionList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateUiActionList.addAll(uiActionList.getToRemoveList());
@@ -1151,28 +1157,28 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		}
 
 		//adding new size can improve performance
-	
+
 		getUiActionDAO().saveUiActionList(mergedUpdateUiActionList,options);
-		
+
 		if(uiActionList.getToRemoveList() != null){
 			uiActionList.removeAll(uiActionList.getToRemoveList());
 		}
-		
-		
+
+
 		return page;
-	
+
 	}
-	
+
 	protected Page removeUiActionList(Page page, Map<String,Object> options){
-	
-	
+
+
 		SmartList<UiAction> uiActionList = page.getUiActionList();
 		if(uiActionList == null){
 			return page;
-		}	
-	
+		}
+
 		SmartList<UiAction> toRemoveUiActionList = uiActionList.getToRemoveList();
-		
+
 		if(toRemoveUiActionList == null){
 			return page;
 		}
@@ -1180,35 +1186,35 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 			return page;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getUiActionDAO().removeUiActionList(toRemoveUiActionList,options);
-		
-		return page;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getUiActionDAO().removeUiActionList(toRemoveUiActionList,options);
+
+		return page;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Page saveSectionList(Page page, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Section> sectionList = page.getSectionList();
 		if(sectionList == null){
 			//null list means nothing
 			return page;
 		}
 		SmartList<Section> mergedUpdateSectionList = new SmartList<Section>();
-		
-		
-		mergedUpdateSectionList.addAll(sectionList); 
+
+
+		mergedUpdateSectionList.addAll(sectionList);
 		if(sectionList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSectionList.addAll(sectionList.getToRemoveList());
@@ -1217,28 +1223,28 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		}
 
 		//adding new size can improve performance
-	
+
 		getSectionDAO().saveSectionList(mergedUpdateSectionList,options);
-		
+
 		if(sectionList.getToRemoveList() != null){
 			sectionList.removeAll(sectionList.getToRemoveList());
 		}
-		
-		
+
+
 		return page;
-	
+
 	}
-	
+
 	protected Page removeSectionList(Page page, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Section> sectionList = page.getSectionList();
 		if(sectionList == null){
 			return page;
-		}	
-	
+		}
+
 		SmartList<Section> toRemoveSectionList = sectionList.getToRemoveList();
-		
+
 		if(toRemoveSectionList == null){
 			return page;
 		}
@@ -1246,20 +1252,20 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 			return page;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSectionDAO().removeSectionList(toRemoveSectionList,options);
-		
-		return page;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSectionDAO().removeSectionList(toRemoveSectionList,options);
+
+		return page;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Page present(Page page,Map<String, Object> options){
@@ -1356,13 +1362,13 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 	protected String getTableName(){
 		return PageTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Page> pageList) {		
+
+
+
+	public void enhanceList(List<Page> pageList) {
 		this.enhanceListInternal(pageList, this.getPageMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Slide的page的SlideList
 	public SmartList<Slide> loadOurSlideList(RetailscmUserContext userContext, List<Page> us, Map<String,Object> options) throws Exception{
@@ -1433,39 +1439,45 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Page> pageList = ownerEntity.collectRefsWithType(Page.INTERNAL_TYPE);
 		this.enhanceList(pageList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Page> findPageWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getPageMapper());
 
 	}
 	@Override
 	public int countPageWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countPageWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Page> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getPageMapper());
 	}
+
+  @Override
+  public Stream<Page> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getPageMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1494,7 +1506,7 @@ public class PageJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PageDAO
 		}
 		return result;
 	}
-	
+
 	
 
 }

@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.retailstoredecoration;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstore.RetailStore;
@@ -50,24 +48,24 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = RetailStoreDecorationTokens.start().withTokenFromListName(listName).done();
 		RetailStoreDecoration  retailStoreDecoration = (RetailStoreDecoration) this.loadRetailStoreDecoration(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = retailStoreDecoration.collectRefercencesFromLists();
 		retailStoreDecorationDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, retailStoreDecoration, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new RetailStoreDecorationGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -130,7 +128,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreDecorationManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		RetailStoreDecoration retailStoreDecoration = loadRetailStoreDecoration( userContext, retailStoreDecorationId, tokens);
  		//do some calc before sent to customer?
@@ -149,6 +147,9 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		
 		List<BaseEntity> entityListToNaming = retailStoreDecorationToPresent.collectRefercencesFromLists();
 		retailStoreDecorationDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,retailStoreDecoration,tokens);
 		
 		return  retailStoreDecorationToPresent;
 		
@@ -586,7 +587,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 			retailStoreDecoration.addRetailStore( retailStore );
 			retailStoreDecoration = saveRetailStoreDecoration(userContext, retailStoreDecoration, tokens().withRetailStoreList().done());
 			
-			userContext.getManagerGroup().getRetailStoreManager().onNewInstanceCreated(userContext, retailStore);
+			retailStoreManagerOf(userContext).onNewInstanceCreated(userContext, retailStore);
 			return present(userContext,retailStoreDecoration, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -613,7 +614,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreListList()
-				.searchRetailStoreListWith(RetailStore.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreListWith(RetailStore.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreDecoration retailStoreDecorationToUpdate = loadRetailStoreDecoration(userContext, retailStoreDecorationId, options);
 
@@ -622,7 +623,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		}
 
 		RetailStore item = retailStoreDecorationToUpdate.getRetailStoreList().first();
-
+		beforeUpdateRetailStoreProperties(userContext,item, retailStoreDecorationId,id,name,telephone,owner,founded,latitude,longitude,description,tokensExpr);
 		item.updateName( name );
 		item.updateTelephone( telephone );
 		item.updateOwner( owner );
@@ -639,6 +640,10 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreProperties(RetailscmUserContext userContext, RetailStore item, String retailStoreDecorationId, String id,String name,String telephone,String owner,Date founded,BigDecimal latitude,BigDecimal longitude,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStore createRetailStore(RetailscmUserContext userContext, String name, String telephone, String owner, String retailStoreCountryCenterId, String cityServiceCenterId, String creationId, String investmentInvitationId, String franchisingId, String openingId, String closingId, Date founded, BigDecimal latitude, BigDecimal longitude, String description) throws Exception{
 
@@ -770,7 +775,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 			retailStoreDecoration.copyRetailStoreFrom( retailStore );
 			retailStoreDecoration = saveRetailStoreDecoration(userContext, retailStoreDecoration, tokens().withRetailStoreList().done());
 			
-			userContext.getManagerGroup().getRetailStoreManager().onNewInstanceCreated(userContext, (RetailStore)retailStoreDecoration.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStore)retailStoreDecoration.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreDecoration, mergedAllTokens(tokensExpr));
 		}
 
@@ -783,51 +788,37 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		checkerOf(userContext).checkIdOfRetailStoreDecoration(retailStoreDecorationId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
-		
+
 
 		if(RetailStore.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStore.TELEPHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTelephoneOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStore.OWNER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkOwnerOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStore.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfRetailStore(parseDate(newValueExpr));
-		
 		}
 		
 		if(RetailStore.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfRetailStore(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(RetailStore.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfRetailStore(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(RetailStore.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreDecorationManagerException.class);
 
 	}
@@ -837,7 +828,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 
 		checkParamsForUpdatingRetailStore(userContext, retailStoreDecorationId, retailStoreId, retailStoreVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreList().searchRetailStoreListWith(RetailStore.ID_PROPERTY, "eq", retailStoreId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreList().searchRetailStoreListWith(RetailStore.ID_PROPERTY, tokens().equals(), retailStoreId).done();
 
 
 
@@ -848,13 +839,14 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreDecoration.removeRetailStore( retailStore );
 			//make changes to AcceleraterAccount.
-			RetailStore retailStoreIndex = createIndexedRetailStore(retailStoreId, retailStoreVersion);
+			RetailStore retailStoreIdVersionKey = createIndexedRetailStore(retailStoreId, retailStoreVersion);
 
-			RetailStore retailStore = retailStoreDecoration.findTheRetailStore(retailStoreIndex);
+			RetailStore retailStore = retailStoreDecoration.findTheRetailStore(retailStoreIdVersionKey);
 			if(retailStore == null){
-				throw new RetailStoreDecorationManagerException(retailStore+" is NOT FOUND" );
+				throw new RetailStoreDecorationManagerException(retailStoreId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStore(userContext, retailStore, retailStoreDecorationId, retailStoreId, retailStoreVersion, property, newValueExpr,  tokensExpr);
 			retailStore.changeProperty(property, newValueExpr);
 			retailStore.updateLastUpdateTime(userContext.now());
 			retailStoreDecoration = saveRetailStoreDecoration(userContext, retailStoreDecoration, tokens().withRetailStoreList().done());
@@ -862,6 +854,11 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStore(RetailscmUserContext userContext, RetailStore existed, String retailStoreDecorationId, String retailStoreId, int retailStoreVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -878,6 +875,12 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    retailStoreDecorationDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -969,6 +972,11 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
+    if (methodName.equals("ensureModelInDB")){
+      return false;
+    }
+
 		return true;
 	}
 
@@ -1060,7 +1068,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1109,6 +1117,8 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

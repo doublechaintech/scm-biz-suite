@@ -17,6 +17,7 @@ public interface LevelOneDepartmentManager extends BaseManager{
 	public LevelOneDepartment createLevelOneDepartment(RetailscmUserContext userContext, String belongsToId,String name,String description,String manager,Date founded) throws Exception;
 	public LevelOneDepartment updateLevelOneDepartment(RetailscmUserContext userContext,String levelOneDepartmentId, int levelOneDepartmentVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LevelOneDepartment loadLevelOneDepartment(RetailscmUserContext userContext, String levelOneDepartmentId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public LevelOneDepartment internalSaveLevelOneDepartment(RetailscmUserContext userContext, LevelOneDepartment levelOneDepartment) throws Exception;
 	public LevelOneDepartment internalSaveLevelOneDepartment(RetailscmUserContext userContext, LevelOneDepartment levelOneDepartment,Map<String,Object>option) throws Exception;
 

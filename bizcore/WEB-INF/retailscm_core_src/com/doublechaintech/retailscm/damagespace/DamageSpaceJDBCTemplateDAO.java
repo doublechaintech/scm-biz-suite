@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.goodsshelf.GoodsShelfDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements DamageSpaceDAO{
 
@@ -71,50 +71,54 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 	return this.goodsShelfDAO;
  	}	
 
-	
+
 	/*
 	protected DamageSpace load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalDamageSpace(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<DamageSpace> loadAll() {
 	    return this.loadAll(getDamageSpaceMapper());
 	}
-	
-	
+
+  public Stream<DamageSpace> loadAllAsStream() {
+      return this.loadAllAsStream(getDamageSpaceMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public DamageSpace load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalDamageSpace(DamageSpaceTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public DamageSpace save(DamageSpace damageSpace,Map<String,Object> options){
-		
+
 		String methodName="save(DamageSpace damageSpace,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(damageSpace, methodName, "damageSpace");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalDamageSpace(damageSpace,options);
 	}
 	public DamageSpace clone(String damageSpaceId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(DamageSpaceTable.withId(damageSpaceId),options);
 	}
-	
+
 	protected DamageSpace clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String damageSpaceId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		DamageSpace newDamageSpace = loadInternalDamageSpace(accessKey, options);
 		newDamageSpace.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		}
 		
 
-		
+
 		saveInternalDamageSpace(newDamageSpace,options);
-		
+
 		return newDamageSpace;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String damageSpaceId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String damageSpaceId, int version) throws Exception{
-	
+
 		String methodName="delete(String damageSpaceId, int version)";
 		assertMethodArgumentNotNull(damageSpaceId, methodName, "damageSpaceId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{damageSpaceId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(affectedNumber == 0){
 			handleDeleteOneError(damageSpaceId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public DamageSpace disconnectFromAll(String damageSpaceId, int version) throws Exception{
-	
-		
+
+
 		DamageSpace damageSpace = loadInternalDamageSpace(DamageSpaceTable.withId(damageSpaceId), emptyOptions());
 		damageSpace.clearFromAll();
 		this.saveDamageSpace(damageSpace);
 		return damageSpace;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "damage_space";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "damageSpace";
 	}
-	
+
 	
 	
 	
@@ -426,7 +430,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return damageSpace;
 		}
 		
-		
+
 		String SQL=this.getSaveDamageSpaceSQL(damageSpace);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveDamageSpaceParameters(damageSpace);
@@ -435,57 +439,57 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		damageSpace.incVersion();
 		return damageSpace;
-	
+
 	}
 	public SmartList<DamageSpace> saveDamageSpaceList(SmartList<DamageSpace> damageSpaceList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitDamageSpaceList(damageSpaceList);
-		
+
 		batchDamageSpaceCreate((List<DamageSpace>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchDamageSpaceUpdate((List<DamageSpace>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(DamageSpace damageSpace:damageSpaceList){
 			if(damageSpace.isChanged()){
 				damageSpace.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return damageSpaceList;
 	}
 
 	public SmartList<DamageSpace> removeDamageSpaceList(SmartList<DamageSpace> damageSpaceList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(damageSpaceList, options);
-		
+
 		return damageSpaceList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareDamageSpaceBatchCreateArgs(List<DamageSpace> damageSpaceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(DamageSpace damageSpace:damageSpaceList ){
 			Object [] parameters = prepareDamageSpaceCreateParameters(damageSpace);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareDamageSpaceBatchUpdateArgs(List<DamageSpace> damageSpaceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(DamageSpace damageSpace:damageSpaceList ){
 			if(!damageSpace.isChanged()){
@@ -493,40 +497,40 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			Object [] parameters = prepareDamageSpaceUpdateParameters(damageSpace);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchDamageSpaceCreate(List<DamageSpace> damageSpaceList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareDamageSpaceBatchCreateArgs(damageSpaceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchDamageSpaceUpdate(List<DamageSpace> damageSpaceList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareDamageSpaceBatchUpdateArgs(damageSpaceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitDamageSpaceList(List<DamageSpace> damageSpaceList){
-		
+
 		List<DamageSpace> damageSpaceCreateList=new ArrayList<DamageSpace>();
 		List<DamageSpace> damageSpaceUpdateList=new ArrayList<DamageSpace>();
-		
+
 		for(DamageSpace damageSpace: damageSpaceList){
 			if(isUpdateRequest(damageSpace)){
 				damageSpaceUpdateList.add( damageSpace);
@@ -534,10 +538,10 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			damageSpaceCreateList.add(damageSpace);
 		}
-		
+
 		return new Object[]{damageSpaceCreateList,damageSpaceUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(DamageSpace damageSpace){
  		return damageSpace.getVersion() > 0;
  	}
@@ -547,7 +551,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveDamageSpaceParameters(DamageSpace damageSpace){
  		if(isUpdateRequest(damageSpace) ){
  			return prepareDamageSpaceUpdateParameters(damageSpace);
@@ -571,24 +575,26 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
  		
  		parameters[4] = damageSpace.getLongitude();
- 		 	
+ 		
  		if(damageSpace.getWarehouse() != null){
  			parameters[5] = damageSpace.getWarehouse().getId();
  		}
  
  		
  		parameters[6] = damageSpace.getLastUpdateTime();
- 				
+ 		
  		parameters[7] = damageSpace.nextVersion();
  		parameters[8] = damageSpace.getId();
  		parameters[9] = damageSpace.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareDamageSpaceCreateParameters(DamageSpace damageSpace){
 		Object[] parameters = new Object[8];
-		String newDamageSpaceId=getNextId();
-		damageSpace.setId(newDamageSpaceId);
+        if(damageSpace.getId() == null){
+          String newDamageSpaceId=getNextId();
+          damageSpace.setId(newDamageSpaceId);
+        }
 		parameters[0] =  damageSpace.getId();
  
  		
@@ -605,23 +611,23 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
  		
  		parameters[5] = damageSpace.getLongitude();
- 		 	
+ 		
  		if(damageSpace.getWarehouse() != null){
  			parameters[6] = damageSpace.getWarehouse().getId();
- 		
+
  		}
  		
  		
  		parameters[7] = damageSpace.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected DamageSpace saveInternalDamageSpace(DamageSpace damageSpace, Map<String,Object> options){
-		
+
 		saveDamageSpace(damageSpace);
- 	
+
  		if(isSaveWarehouseEnabled(options)){
 	 		saveWarehouse(damageSpace, options);
  		}
@@ -631,42 +637,42 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 		saveGoodsShelfList(damageSpace, options);
 	 		//removeGoodsShelfList(damageSpace, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return damageSpace;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected DamageSpace saveWarehouse(DamageSpace damageSpace, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(damageSpace.getWarehouse() == null){
  			return damageSpace;//do nothing when it is null
  		}
- 		
+
  		getWarehouseDAO().save(damageSpace.getWarehouse(),options);
  		return damageSpace;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public DamageSpace planToRemoveGoodsShelfList(DamageSpace damageSpace, String goodsShelfIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpace.getId());
 		key.put(GoodsShelf.ID_PROPERTY, goodsShelfIds);
-		
+
 		SmartList<GoodsShelf> externalGoodsShelfList = getGoodsShelfDAO().
 				findGoodsShelfWithKey(key, options);
 		if(externalGoodsShelfList == null){
@@ -675,17 +681,17 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsShelfList.isEmpty()){
 			return damageSpace;
 		}
-		
+
 		for(GoodsShelf goodsShelfItem: externalGoodsShelfList){
 
 			goodsShelfItem.clearFromAll();
 		}
-		
-		
-		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();		
+
+
+		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();
 		goodsShelfList.addAllToRemoveList(externalGoodsShelfList);
-		return damageSpace;	
-	
+		return damageSpace;
+
 	}
 
 
@@ -694,11 +700,11 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpace.getId());
 		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpaceId);
-		
+
 		SmartList<GoodsShelf> externalGoodsShelfList = getGoodsShelfDAO().
 				findGoodsShelfWithKey(key, options);
 		if(externalGoodsShelfList == null){
@@ -707,19 +713,19 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsShelfList.isEmpty()){
 			return damageSpace;
 		}
-		
+
 		for(GoodsShelf goodsShelfItem: externalGoodsShelfList){
 			goodsShelfItem.clearStorageSpace();
 			goodsShelfItem.clearDamageSpace();
-			
+
 		}
-		
-		
-		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();		
+
+
+		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();
 		goodsShelfList.addAllToRemoveList(externalGoodsShelfList);
 		return damageSpace;
 	}
-	
+
 	public int countGoodsShelfListWithStorageSpace(String damageSpaceId, String storageSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -728,7 +734,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpaceId);
 		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpaceId);
-		
+
 		int count = getGoodsShelfDAO().countGoodsShelfWithKey(key, options);
 		return count;
 	}
@@ -738,11 +744,11 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpace.getId());
 		key.put(GoodsShelf.SUPPLIER_SPACE_PROPERTY, supplierSpaceId);
-		
+
 		SmartList<GoodsShelf> externalGoodsShelfList = getGoodsShelfDAO().
 				findGoodsShelfWithKey(key, options);
 		if(externalGoodsShelfList == null){
@@ -751,19 +757,19 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsShelfList.isEmpty()){
 			return damageSpace;
 		}
-		
+
 		for(GoodsShelf goodsShelfItem: externalGoodsShelfList){
 			goodsShelfItem.clearSupplierSpace();
 			goodsShelfItem.clearDamageSpace();
-			
+
 		}
-		
-		
-		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();		
+
+
+		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();
 		goodsShelfList.addAllToRemoveList(externalGoodsShelfList);
 		return damageSpace;
 	}
-	
+
 	public int countGoodsShelfListWithSupplierSpace(String damageSpaceId, String supplierSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -772,7 +778,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpaceId);
 		key.put(GoodsShelf.SUPPLIER_SPACE_PROPERTY, supplierSpaceId);
-		
+
 		int count = getGoodsShelfDAO().countGoodsShelfWithKey(key, options);
 		return count;
 	}
@@ -780,19 +786,19 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected DamageSpace saveGoodsShelfList(DamageSpace damageSpace, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();
 		if(goodsShelfList == null){
 			//null list means nothing
 			return damageSpace;
 		}
 		SmartList<GoodsShelf> mergedUpdateGoodsShelfList = new SmartList<GoodsShelf>();
-		
-		
-		mergedUpdateGoodsShelfList.addAll(goodsShelfList); 
+
+
+		mergedUpdateGoodsShelfList.addAll(goodsShelfList);
 		if(goodsShelfList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsShelfList.addAll(goodsShelfList.getToRemoveList());
@@ -801,28 +807,28 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsShelfDAO().saveGoodsShelfList(mergedUpdateGoodsShelfList,options);
-		
+
 		if(goodsShelfList.getToRemoveList() != null){
 			goodsShelfList.removeAll(goodsShelfList.getToRemoveList());
 		}
-		
-		
+
+
 		return damageSpace;
-	
+
 	}
-	
+
 	protected DamageSpace removeGoodsShelfList(DamageSpace damageSpace, Map<String,Object> options){
-	
-	
+
+
 		SmartList<GoodsShelf> goodsShelfList = damageSpace.getGoodsShelfList();
 		if(goodsShelfList == null){
 			return damageSpace;
-		}	
-	
+		}
+
 		SmartList<GoodsShelf> toRemoveGoodsShelfList = goodsShelfList.getToRemoveList();
-		
+
 		if(toRemoveGoodsShelfList == null){
 			return damageSpace;
 		}
@@ -830,20 +836,20 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return damageSpace;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsShelfDAO().removeGoodsShelfList(toRemoveGoodsShelfList,options);
-		
-		return damageSpace;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsShelfDAO().removeGoodsShelfList(toRemoveGoodsShelfList,options);
+
+		return damageSpace;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public DamageSpace present(DamageSpace damageSpace,Map<String, Object> options){
@@ -886,13 +892,13 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	protected String getTableName(){
 		return DamageSpaceTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<DamageSpace> damageSpaceList) {		
+
+
+
+	public void enhanceList(List<DamageSpace> damageSpaceList) {
 		this.enhanceListInternal(damageSpaceList, this.getDamageSpaceMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:GoodsShelf的damageSpace的GoodsShelfList
 	public SmartList<GoodsShelf> loadOurGoodsShelfList(RetailscmUserContext userContext, List<DamageSpace> us, Map<String,Object> options) throws Exception{
@@ -917,39 +923,45 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<DamageSpace> damageSpaceList = ownerEntity.collectRefsWithType(DamageSpace.INTERNAL_TYPE);
 		this.enhanceList(damageSpaceList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<DamageSpace> findDamageSpaceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getDamageSpaceMapper());
 
 	}
 	@Override
 	public int countDamageSpaceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countDamageSpaceWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<DamageSpace> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getDamageSpaceMapper());
 	}
+
+  @Override
+  public Stream<DamageSpace> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getDamageSpaceMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -978,7 +990,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 		return result;
 	}
-	
+
 	
 
 }

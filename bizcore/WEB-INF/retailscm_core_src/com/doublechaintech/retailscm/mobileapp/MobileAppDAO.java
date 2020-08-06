@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.mobileapp;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.pagetype.PageTypeDAO;
 public interface MobileAppDAO extends BaseDAO{
 
 	public SmartList<MobileApp> loadAll();
+	public Stream<MobileApp> loadAllAsStream();
 	public MobileApp load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<MobileApp> mobileAppList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public MobileApp present(MobileApp mobileApp,Map<String,Object> options) throws Exception;
 	public MobileApp clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public MobileApp save(MobileApp mobileApp,Map<String,Object> options);
 	public SmartList<MobileApp> saveMobileAppList(SmartList<MobileApp> mobileAppList,Map<String,Object> options);
 	public SmartList<MobileApp> removeMobileAppList(SmartList<MobileApp> mobileAppList,Map<String,Object> options);
@@ -65,8 +67,9 @@ public interface MobileAppDAO extends BaseDAO{
 	public MobileApp planToRemovePageTypeList(MobileApp mobileApp, String pageTypeIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<MobileApp> queryList(String sql, Object ... parmeters);
+	public Stream<MobileApp> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateMobileApp executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

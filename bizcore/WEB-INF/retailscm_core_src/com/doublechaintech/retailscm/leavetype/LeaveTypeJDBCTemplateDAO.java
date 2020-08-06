@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements LeaveTypeDAO{
 
@@ -71,50 +71,54 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 	 	return this.employeeLeaveDAO;
  	}	
 
-	
+
 	/*
 	protected LeaveType load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalLeaveType(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<LeaveType> loadAll() {
 	    return this.loadAll(getLeaveTypeMapper());
 	}
-	
-	
+
+  public Stream<LeaveType> loadAllAsStream() {
+      return this.loadAllAsStream(getLeaveTypeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public LeaveType load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalLeaveType(LeaveTypeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public LeaveType save(LeaveType leaveType,Map<String,Object> options){
-		
+
 		String methodName="save(LeaveType leaveType,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(leaveType, methodName, "leaveType");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalLeaveType(leaveType,options);
 	}
 	public LeaveType clone(String leaveTypeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(LeaveTypeTable.withId(leaveTypeId),options);
 	}
-	
+
 	protected LeaveType clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String leaveTypeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		LeaveType newLeaveType = loadInternalLeaveType(accessKey, options);
 		newLeaveType.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
  		}
 		
 
-		
+
 		saveInternalLeaveType(newLeaveType,options);
-		
+
 		return newLeaveType;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String leaveTypeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String leaveTypeId, int version) throws Exception{
-	
+
 		String methodName="delete(String leaveTypeId, int version)";
 		assertMethodArgumentNotNull(leaveTypeId, methodName, "leaveTypeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{leaveTypeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 		if(affectedNumber == 0){
 			handleDeleteOneError(leaveTypeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public LeaveType disconnectFromAll(String leaveTypeId, int version) throws Exception{
-	
-		
+
+
 		LeaveType leaveType = loadInternalLeaveType(LeaveTypeTable.withId(leaveTypeId), emptyOptions());
 		leaveType.clearFromAll();
 		this.saveLeaveType(leaveType);
 		return leaveType;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "leave_type";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "leaveType";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 			return leaveType;
 		}
 		
-		
+
 		String SQL=this.getSaveLeaveTypeSQL(leaveType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveLeaveTypeParameters(leaveType);
@@ -419,57 +423,57 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		leaveType.incVersion();
 		return leaveType;
-	
+
 	}
 	public SmartList<LeaveType> saveLeaveTypeList(SmartList<LeaveType> leaveTypeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitLeaveTypeList(leaveTypeList);
-		
+
 		batchLeaveTypeCreate((List<LeaveType>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchLeaveTypeUpdate((List<LeaveType>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(LeaveType leaveType:leaveTypeList){
 			if(leaveType.isChanged()){
 				leaveType.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return leaveTypeList;
 	}
 
 	public SmartList<LeaveType> removeLeaveTypeList(SmartList<LeaveType> leaveTypeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(leaveTypeList, options);
-		
+
 		return leaveTypeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareLeaveTypeBatchCreateArgs(List<LeaveType> leaveTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(LeaveType leaveType:leaveTypeList ){
 			Object [] parameters = prepareLeaveTypeCreateParameters(leaveType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareLeaveTypeBatchUpdateArgs(List<LeaveType> leaveTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(LeaveType leaveType:leaveTypeList ){
 			if(!leaveType.isChanged()){
@@ -477,40 +481,40 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 			}
 			Object [] parameters = prepareLeaveTypeUpdateParameters(leaveType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchLeaveTypeCreate(List<LeaveType> leaveTypeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareLeaveTypeBatchCreateArgs(leaveTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchLeaveTypeUpdate(List<LeaveType> leaveTypeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareLeaveTypeBatchUpdateArgs(leaveTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitLeaveTypeList(List<LeaveType> leaveTypeList){
-		
+
 		List<LeaveType> leaveTypeCreateList=new ArrayList<LeaveType>();
 		List<LeaveType> leaveTypeUpdateList=new ArrayList<LeaveType>();
-		
+
 		for(LeaveType leaveType: leaveTypeList){
 			if(isUpdateRequest(leaveType)){
 				leaveTypeUpdateList.add( leaveType);
@@ -518,10 +522,10 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 			}
 			leaveTypeCreateList.add(leaveType);
 		}
-		
+
 		return new Object[]{leaveTypeCreateList,leaveTypeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(LeaveType leaveType){
  		return leaveType.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveLeaveTypeParameters(LeaveType leaveType){
  		if(isUpdateRequest(leaveType) ){
  			return prepareLeaveTypeUpdateParameters(leaveType);
@@ -543,7 +547,7 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
  
  		
  		parameters[0] = leaveType.getCode();
- 		 	
+ 		
  		if(leaveType.getCompany() != null){
  			parameters[1] = leaveType.getCompany().getId();
  		}
@@ -553,25 +557,27 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
  		
  		
  		parameters[3] = leaveType.getDetailDescription();
- 				
+ 		
  		parameters[4] = leaveType.nextVersion();
  		parameters[5] = leaveType.getId();
  		parameters[6] = leaveType.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareLeaveTypeCreateParameters(LeaveType leaveType){
 		Object[] parameters = new Object[5];
-		String newLeaveTypeId=getNextId();
-		leaveType.setId(newLeaveTypeId);
+        if(leaveType.getId() == null){
+          String newLeaveTypeId=getNextId();
+          leaveType.setId(newLeaveTypeId);
+        }
 		parameters[0] =  leaveType.getId();
  
  		
  		parameters[1] = leaveType.getCode();
- 		 	
+ 		
  		if(leaveType.getCompany() != null){
  			parameters[2] = leaveType.getCompany().getId();
- 		
+
  		}
  		
  		
@@ -579,15 +585,15 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
  		
  		
  		parameters[4] = leaveType.getDetailDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected LeaveType saveInternalLeaveType(LeaveType leaveType, Map<String,Object> options){
-		
+
 		saveLeaveType(leaveType);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(leaveType, options);
  		}
@@ -597,42 +603,42 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 	 		saveEmployeeLeaveList(leaveType, options);
 	 		//removeEmployeeLeaveList(leaveType, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return leaveType;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected LeaveType saveCompany(LeaveType leaveType, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(leaveType.getCompany() == null){
  			return leaveType;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(leaveType.getCompany(),options);
  		return leaveType;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public LeaveType planToRemoveEmployeeLeaveList(LeaveType leaveType, String employeeLeaveIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeLeave.TYPE_PROPERTY, leaveType.getId());
 		key.put(EmployeeLeave.ID_PROPERTY, employeeLeaveIds);
-		
+
 		SmartList<EmployeeLeave> externalEmployeeLeaveList = getEmployeeLeaveDAO().
 				findEmployeeLeaveWithKey(key, options);
 		if(externalEmployeeLeaveList == null){
@@ -641,17 +647,17 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 		if(externalEmployeeLeaveList.isEmpty()){
 			return leaveType;
 		}
-		
+
 		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
 
 			employeeLeaveItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeLeave> employeeLeaveList = leaveType.getEmployeeLeaveList();		
+
+
+		SmartList<EmployeeLeave> employeeLeaveList = leaveType.getEmployeeLeaveList();
 		employeeLeaveList.addAllToRemoveList(externalEmployeeLeaveList);
-		return leaveType;	
-	
+		return leaveType;
+
 	}
 
 
@@ -660,11 +666,11 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeLeave.TYPE_PROPERTY, leaveType.getId());
 		key.put(EmployeeLeave.WHO_PROPERTY, whoId);
-		
+
 		SmartList<EmployeeLeave> externalEmployeeLeaveList = getEmployeeLeaveDAO().
 				findEmployeeLeaveWithKey(key, options);
 		if(externalEmployeeLeaveList == null){
@@ -673,19 +679,19 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 		if(externalEmployeeLeaveList.isEmpty()){
 			return leaveType;
 		}
-		
+
 		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
 			employeeLeaveItem.clearWho();
 			employeeLeaveItem.clearType();
-			
+
 		}
-		
-		
-		SmartList<EmployeeLeave> employeeLeaveList = leaveType.getEmployeeLeaveList();		
+
+
+		SmartList<EmployeeLeave> employeeLeaveList = leaveType.getEmployeeLeaveList();
 		employeeLeaveList.addAllToRemoveList(externalEmployeeLeaveList);
 		return leaveType;
 	}
-	
+
 	public int countEmployeeLeaveListWithWho(String leaveTypeId, String whoId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeLeave.TYPE_PROPERTY, leaveTypeId);
 		key.put(EmployeeLeave.WHO_PROPERTY, whoId);
-		
+
 		int count = getEmployeeLeaveDAO().countEmployeeLeaveWithKey(key, options);
 		return count;
 	}
@@ -702,19 +708,19 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 
 		
 	protected LeaveType saveEmployeeLeaveList(LeaveType leaveType, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeLeave> employeeLeaveList = leaveType.getEmployeeLeaveList();
 		if(employeeLeaveList == null){
 			//null list means nothing
 			return leaveType;
 		}
 		SmartList<EmployeeLeave> mergedUpdateEmployeeLeaveList = new SmartList<EmployeeLeave>();
-		
-		
-		mergedUpdateEmployeeLeaveList.addAll(employeeLeaveList); 
+
+
+		mergedUpdateEmployeeLeaveList.addAll(employeeLeaveList);
 		if(employeeLeaveList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeLeaveList.addAll(employeeLeaveList.getToRemoveList());
@@ -723,28 +729,28 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeLeaveDAO().saveEmployeeLeaveList(mergedUpdateEmployeeLeaveList,options);
-		
+
 		if(employeeLeaveList.getToRemoveList() != null){
 			employeeLeaveList.removeAll(employeeLeaveList.getToRemoveList());
 		}
-		
-		
+
+
 		return leaveType;
-	
+
 	}
-	
+
 	protected LeaveType removeEmployeeLeaveList(LeaveType leaveType, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeLeave> employeeLeaveList = leaveType.getEmployeeLeaveList();
 		if(employeeLeaveList == null){
 			return leaveType;
-		}	
-	
+		}
+
 		SmartList<EmployeeLeave> toRemoveEmployeeLeaveList = employeeLeaveList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeLeaveList == null){
 			return leaveType;
 		}
@@ -752,20 +758,20 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 			return leaveType;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeLeaveDAO().removeEmployeeLeaveList(toRemoveEmployeeLeaveList,options);
-		
-		return leaveType;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeLeaveDAO().removeEmployeeLeaveList(toRemoveEmployeeLeaveList,options);
+
+		return leaveType;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public LeaveType present(LeaveType leaveType,Map<String, Object> options){
@@ -808,13 +814,13 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 	protected String getTableName(){
 		return LeaveTypeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<LeaveType> leaveTypeList) {		
+
+
+
+	public void enhanceList(List<LeaveType> leaveTypeList) {
 		this.enhanceListInternal(leaveTypeList, this.getLeaveTypeMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeLeave的type的EmployeeLeaveList
 	public SmartList<EmployeeLeave> loadOurEmployeeLeaveList(RetailscmUserContext userContext, List<LeaveType> us, Map<String,Object> options) throws Exception{
@@ -839,39 +845,45 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LeaveType> leaveTypeList = ownerEntity.collectRefsWithType(LeaveType.INTERNAL_TYPE);
 		this.enhanceList(leaveTypeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<LeaveType> findLeaveTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getLeaveTypeMapper());
 
 	}
 	@Override
 	public int countLeaveTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countLeaveTypeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<LeaveType> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getLeaveTypeMapper());
 	}
+
+  @Override
+  public Stream<LeaveType> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getLeaveTypeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -900,7 +912,7 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Le
 		}
 		return result;
 	}
-	
+
 	
 
 }

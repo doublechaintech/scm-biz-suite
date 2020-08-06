@@ -82,9 +82,9 @@ public class SecUserTokens extends CommonTokens{
 			.withDomain()
 			.withUserAppList()
 			.withLoginHistoryList()
-			.withWechatWorkappIdentifyList()
-			.withWechatMiniappIdentifyList()
-			.withKeypairIdentifyList();
+			.withWechatWorkappIdentityList()
+			.withWechatMiniappIdentityList()
+			.withKeypairIdentityList();
 	
 	}
 	public static SecUserTokens withoutListsTokens(){
@@ -259,211 +259,211 @@ public class SecUserTokens extends CommonTokens{
 	
 	
 		
-	protected static final String WECHAT_WORKAPP_IDENTIFY_LIST = "wechatWorkappIdentifyList";
-	public String getWechatWorkappIdentifyList(){
-		return WECHAT_WORKAPP_IDENTIFY_LIST;
+	protected static final String WECHAT_WORKAPP_IDENTITY_LIST = "wechatWorkappIdentityList";
+	public String getWechatWorkappIdentityList(){
+		return WECHAT_WORKAPP_IDENTITY_LIST;
 	}
-	public SecUserTokens withWechatWorkappIdentifyList(){		
-		addSimpleOptions(WECHAT_WORKAPP_IDENTIFY_LIST);
+	public SecUserTokens withWechatWorkappIdentityList(){		
+		addSimpleOptions(WECHAT_WORKAPP_IDENTITY_LIST);
 		return this;
 	}
-	public SecUserTokens analyzeWechatWorkappIdentifyList(){		
-		addSimpleOptions(WECHAT_WORKAPP_IDENTIFY_LIST+".anaylze");
+	public SecUserTokens analyzeWechatWorkappIdentityList(){		
+		addSimpleOptions(WECHAT_WORKAPP_IDENTITY_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeWechatWorkappIdentifyListEnabled(){		
+	public boolean analyzeWechatWorkappIdentityListEnabled(){		
 		
-		if(checkOptions(this.options(), WECHAT_WORKAPP_IDENTIFY_LIST+".anaylze")){
+		if(checkOptions(this.options(), WECHAT_WORKAPP_IDENTITY_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public SecUserTokens extractMoreFromWechatWorkappIdentifyList(String idsSeperatedWithComma){		
-		addSimpleOptions(WECHAT_WORKAPP_IDENTIFY_LIST+".extractIds", idsSeperatedWithComma);
+	public SecUserTokens extractMoreFromWechatWorkappIdentityList(String idsSeperatedWithComma){		
+		addSimpleOptions(WECHAT_WORKAPP_IDENTITY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
 	
 	
 	
 	
-	private int wechatWorkappIdentifyListSortCounter = 0;
-	public SecUserTokens sortWechatWorkappIdentifyListWith(String field, String descOrAsc){		
-		addSortMoreOptions(WECHAT_WORKAPP_IDENTIFY_LIST,wechatWorkappIdentifyListSortCounter++, field, descOrAsc);
+	private int wechatWorkappIdentityListSortCounter = 0;
+	public SecUserTokens sortWechatWorkappIdentityListWith(String field, String descOrAsc){		
+		addSortMoreOptions(WECHAT_WORKAPP_IDENTITY_LIST,wechatWorkappIdentityListSortCounter++, field, descOrAsc);
 		return this;
 	}
-	private int wechatWorkappIdentifyListSearchCounter = 0;
-	public SecUserTokens searchWechatWorkappIdentifyListWith(String field, String verb, String value){		
+	private int wechatWorkappIdentityListSearchCounter = 0;
+	public SecUserTokens searchWechatWorkappIdentityListWith(String field, String verb, String value){		
 		
-		withWechatWorkappIdentifyList();
-		addSearchMoreOptions(WECHAT_WORKAPP_IDENTIFY_LIST,wechatWorkappIdentifyListSearchCounter++, field, verb, value);
+		withWechatWorkappIdentityList();
+		addSearchMoreOptions(WECHAT_WORKAPP_IDENTITY_LIST,wechatWorkappIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public SecUserTokens searchAllTextOfWechatWorkappIdentifyList(String verb, String value){	
+	public SecUserTokens searchAllTextOfWechatWorkappIdentityList(String verb, String value){	
 		String field = "id|corpId|userId";
-		addSearchMoreOptions(WECHAT_WORKAPP_IDENTIFY_LIST,wechatWorkappIdentifyListSearchCounter++, field, verb, value);
+		addSearchMoreOptions(WECHAT_WORKAPP_IDENTITY_LIST,wechatWorkappIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public SecUserTokens rowsPerPageOfWechatWorkappIdentifyList(int rowsPerPage){		
-		addSimpleOptions(WECHAT_WORKAPP_IDENTIFY_LIST+"RowsPerPage",rowsPerPage);
+	public SecUserTokens rowsPerPageOfWechatWorkappIdentityList(int rowsPerPage){		
+		addSimpleOptions(WECHAT_WORKAPP_IDENTITY_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public SecUserTokens currentPageNumberOfWechatWorkappIdentifyList(int currentPageNumber){		
-		addSimpleOptions(WECHAT_WORKAPP_IDENTIFY_LIST+"CurrentPage",currentPageNumber);
+	public SecUserTokens currentPageNumberOfWechatWorkappIdentityList(int currentPageNumber){		
+		addSimpleOptions(WECHAT_WORKAPP_IDENTITY_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public SecUserTokens retainColumnsOfWechatWorkappIdentifyList(String[] columns){		
-		addSimpleOptions(WECHAT_WORKAPP_IDENTIFY_LIST+"RetainColumns",columns);
+	public SecUserTokens retainColumnsOfWechatWorkappIdentityList(String[] columns){		
+		addSimpleOptions(WECHAT_WORKAPP_IDENTITY_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public SecUserTokens excludeColumnsOfWechatWorkappIdentifyList(String[] columns){		
-		addSimpleOptions(WECHAT_WORKAPP_IDENTIFY_LIST+"ExcludeColumns",columns);
+	public SecUserTokens excludeColumnsOfWechatWorkappIdentityList(String[] columns){		
+		addSimpleOptions(WECHAT_WORKAPP_IDENTITY_LIST+"ExcludeColumns",columns);
 		return this;
 	}
 	
 	
 		
-	protected static final String WECHAT_MINIAPP_IDENTIFY_LIST = "wechatMiniappIdentifyList";
-	public String getWechatMiniappIdentifyList(){
-		return WECHAT_MINIAPP_IDENTIFY_LIST;
+	protected static final String WECHAT_MINIAPP_IDENTITY_LIST = "wechatMiniappIdentityList";
+	public String getWechatMiniappIdentityList(){
+		return WECHAT_MINIAPP_IDENTITY_LIST;
 	}
-	public SecUserTokens withWechatMiniappIdentifyList(){		
-		addSimpleOptions(WECHAT_MINIAPP_IDENTIFY_LIST);
+	public SecUserTokens withWechatMiniappIdentityList(){		
+		addSimpleOptions(WECHAT_MINIAPP_IDENTITY_LIST);
 		return this;
 	}
-	public SecUserTokens analyzeWechatMiniappIdentifyList(){		
-		addSimpleOptions(WECHAT_MINIAPP_IDENTIFY_LIST+".anaylze");
+	public SecUserTokens analyzeWechatMiniappIdentityList(){		
+		addSimpleOptions(WECHAT_MINIAPP_IDENTITY_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeWechatMiniappIdentifyListEnabled(){		
+	public boolean analyzeWechatMiniappIdentityListEnabled(){		
 		
-		if(checkOptions(this.options(), WECHAT_MINIAPP_IDENTIFY_LIST+".anaylze")){
+		if(checkOptions(this.options(), WECHAT_MINIAPP_IDENTITY_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public SecUserTokens extractMoreFromWechatMiniappIdentifyList(String idsSeperatedWithComma){		
-		addSimpleOptions(WECHAT_MINIAPP_IDENTIFY_LIST+".extractIds", idsSeperatedWithComma);
+	public SecUserTokens extractMoreFromWechatMiniappIdentityList(String idsSeperatedWithComma){		
+		addSimpleOptions(WECHAT_MINIAPP_IDENTITY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
 	
 	
 	
 	
-	private int wechatMiniappIdentifyListSortCounter = 0;
-	public SecUserTokens sortWechatMiniappIdentifyListWith(String field, String descOrAsc){		
-		addSortMoreOptions(WECHAT_MINIAPP_IDENTIFY_LIST,wechatMiniappIdentifyListSortCounter++, field, descOrAsc);
+	private int wechatMiniappIdentityListSortCounter = 0;
+	public SecUserTokens sortWechatMiniappIdentityListWith(String field, String descOrAsc){		
+		addSortMoreOptions(WECHAT_MINIAPP_IDENTITY_LIST,wechatMiniappIdentityListSortCounter++, field, descOrAsc);
 		return this;
 	}
-	private int wechatMiniappIdentifyListSearchCounter = 0;
-	public SecUserTokens searchWechatMiniappIdentifyListWith(String field, String verb, String value){		
+	private int wechatMiniappIdentityListSearchCounter = 0;
+	public SecUserTokens searchWechatMiniappIdentityListWith(String field, String verb, String value){		
 		
-		withWechatMiniappIdentifyList();
-		addSearchMoreOptions(WECHAT_MINIAPP_IDENTIFY_LIST,wechatMiniappIdentifyListSearchCounter++, field, verb, value);
+		withWechatMiniappIdentityList();
+		addSearchMoreOptions(WECHAT_MINIAPP_IDENTITY_LIST,wechatMiniappIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public SecUserTokens searchAllTextOfWechatMiniappIdentifyList(String verb, String value){	
+	public SecUserTokens searchAllTextOfWechatMiniappIdentityList(String verb, String value){	
 		String field = "id|openId|appId";
-		addSearchMoreOptions(WECHAT_MINIAPP_IDENTIFY_LIST,wechatMiniappIdentifyListSearchCounter++, field, verb, value);
+		addSearchMoreOptions(WECHAT_MINIAPP_IDENTITY_LIST,wechatMiniappIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public SecUserTokens rowsPerPageOfWechatMiniappIdentifyList(int rowsPerPage){		
-		addSimpleOptions(WECHAT_MINIAPP_IDENTIFY_LIST+"RowsPerPage",rowsPerPage);
+	public SecUserTokens rowsPerPageOfWechatMiniappIdentityList(int rowsPerPage){		
+		addSimpleOptions(WECHAT_MINIAPP_IDENTITY_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public SecUserTokens currentPageNumberOfWechatMiniappIdentifyList(int currentPageNumber){		
-		addSimpleOptions(WECHAT_MINIAPP_IDENTIFY_LIST+"CurrentPage",currentPageNumber);
+	public SecUserTokens currentPageNumberOfWechatMiniappIdentityList(int currentPageNumber){		
+		addSimpleOptions(WECHAT_MINIAPP_IDENTITY_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public SecUserTokens retainColumnsOfWechatMiniappIdentifyList(String[] columns){		
-		addSimpleOptions(WECHAT_MINIAPP_IDENTIFY_LIST+"RetainColumns",columns);
+	public SecUserTokens retainColumnsOfWechatMiniappIdentityList(String[] columns){		
+		addSimpleOptions(WECHAT_MINIAPP_IDENTITY_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public SecUserTokens excludeColumnsOfWechatMiniappIdentifyList(String[] columns){		
-		addSimpleOptions(WECHAT_MINIAPP_IDENTIFY_LIST+"ExcludeColumns",columns);
+	public SecUserTokens excludeColumnsOfWechatMiniappIdentityList(String[] columns){		
+		addSimpleOptions(WECHAT_MINIAPP_IDENTITY_LIST+"ExcludeColumns",columns);
 		return this;
 	}
 	
 	
 		
-	protected static final String KEYPAIR_IDENTIFY_LIST = "keypairIdentifyList";
-	public String getKeypairIdentifyList(){
-		return KEYPAIR_IDENTIFY_LIST;
+	protected static final String KEYPAIR_IDENTITY_LIST = "keypairIdentityList";
+	public String getKeypairIdentityList(){
+		return KEYPAIR_IDENTITY_LIST;
 	}
-	public SecUserTokens withKeypairIdentifyList(){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST);
+	public SecUserTokens withKeypairIdentityList(){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST);
 		return this;
 	}
-	public SecUserTokens analyzeKeypairIdentifyList(){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+".anaylze");
+	public SecUserTokens analyzeKeypairIdentityList(){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeKeypairIdentifyListEnabled(){		
+	public boolean analyzeKeypairIdentityListEnabled(){		
 		
-		if(checkOptions(this.options(), KEYPAIR_IDENTIFY_LIST+".anaylze")){
+		if(checkOptions(this.options(), KEYPAIR_IDENTITY_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public SecUserTokens extractMoreFromKeypairIdentifyList(String idsSeperatedWithComma){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+".extractIds", idsSeperatedWithComma);
+	public SecUserTokens extractMoreFromKeypairIdentityList(String idsSeperatedWithComma){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
 	
 	
 	
 	
-	private int keypairIdentifyListSortCounter = 0;
-	public SecUserTokens sortKeypairIdentifyListWith(String field, String descOrAsc){		
-		addSortMoreOptions(KEYPAIR_IDENTIFY_LIST,keypairIdentifyListSortCounter++, field, descOrAsc);
+	private int keypairIdentityListSortCounter = 0;
+	public SecUserTokens sortKeypairIdentityListWith(String field, String descOrAsc){		
+		addSortMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSortCounter++, field, descOrAsc);
 		return this;
 	}
-	private int keypairIdentifyListSearchCounter = 0;
-	public SecUserTokens searchKeypairIdentifyListWith(String field, String verb, String value){		
+	private int keypairIdentityListSearchCounter = 0;
+	public SecUserTokens searchKeypairIdentityListWith(String field, String verb, String value){		
 		
-		withKeypairIdentifyList();
-		addSearchMoreOptions(KEYPAIR_IDENTIFY_LIST,keypairIdentifyListSearchCounter++, field, verb, value);
+		withKeypairIdentityList();
+		addSearchMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public SecUserTokens searchAllTextOfKeypairIdentifyList(String verb, String value){	
+	public SecUserTokens searchAllTextOfKeypairIdentityList(String verb, String value){	
 		String field = "id|publicKey";
-		addSearchMoreOptions(KEYPAIR_IDENTIFY_LIST,keypairIdentifyListSearchCounter++, field, verb, value);
+		addSearchMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public SecUserTokens rowsPerPageOfKeypairIdentifyList(int rowsPerPage){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"RowsPerPage",rowsPerPage);
+	public SecUserTokens rowsPerPageOfKeypairIdentityList(int rowsPerPage){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public SecUserTokens currentPageNumberOfKeypairIdentifyList(int currentPageNumber){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"CurrentPage",currentPageNumber);
+	public SecUserTokens currentPageNumberOfKeypairIdentityList(int currentPageNumber){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public SecUserTokens retainColumnsOfKeypairIdentifyList(String[] columns){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"RetainColumns",columns);
+	public SecUserTokens retainColumnsOfKeypairIdentityList(String[] columns){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public SecUserTokens excludeColumnsOfKeypairIdentifyList(String[] columns){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"ExcludeColumns",columns);
+	public SecUserTokens excludeColumnsOfKeypairIdentityList(String[] columns){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"ExcludeColumns",columns);
 		return this;
 	}
 	
@@ -474,9 +474,9 @@ public class SecUserTokens extends CommonTokens{
 		
 		searchAllTextOfUserAppList(verb, value);	
 		searchAllTextOfLoginHistoryList(verb, value);	
-		searchAllTextOfWechatWorkappIdentifyList(verb, value);	
-		searchAllTextOfWechatMiniappIdentifyList(verb, value);	
-		searchAllTextOfKeypairIdentifyList(verb, value);	
+		searchAllTextOfWechatWorkappIdentityList(verb, value);	
+		searchAllTextOfWechatMiniappIdentityList(verb, value);	
+		searchAllTextOfKeypairIdentityList(verb, value);	
 		return this;
 	}
 }

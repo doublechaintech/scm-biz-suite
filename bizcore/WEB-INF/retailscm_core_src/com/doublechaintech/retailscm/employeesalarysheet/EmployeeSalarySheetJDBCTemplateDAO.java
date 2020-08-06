@@ -37,7 +37,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeSalarySheetDAO{
 
@@ -89,64 +89,68 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	 	return this.payingOffDAO;
  	}	
 
-	
+
 	/*
 	protected EmployeeSalarySheet load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeSalarySheet(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<EmployeeSalarySheet> loadAll() {
 	    return this.loadAll(getEmployeeSalarySheetMapper());
 	}
-	
-	
+
+  public Stream<EmployeeSalarySheet> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeSalarySheetMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public EmployeeSalarySheet load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeSalarySheet(EmployeeSalarySheetTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public EmployeeSalarySheet save(EmployeeSalarySheet employeeSalarySheet,Map<String,Object> options){
-		
+
 		String methodName="save(EmployeeSalarySheet employeeSalarySheet,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employeeSalarySheet, methodName, "employeeSalarySheet");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployeeSalarySheet(employeeSalarySheet,options);
 	}
 	public EmployeeSalarySheet clone(String employeeSalarySheetId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeSalarySheetTable.withId(employeeSalarySheetId),options);
 	}
-	
+
 	protected EmployeeSalarySheet clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeSalarySheetId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		EmployeeSalarySheet newEmployeeSalarySheet = loadInternalEmployeeSalarySheet(accessKey, options);
 		newEmployeeSalarySheet.setVersion(0);
 		
 		
 
-		
+
 		saveInternalEmployeeSalarySheet(newEmployeeSalarySheet,options);
-		
+
 		return newEmployeeSalarySheet;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeSalarySheetId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -162,15 +166,15 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeSalarySheetId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeSalarySheetId, int version)";
 		assertMethodArgumentNotNull(employeeSalarySheetId, methodName, "employeeSalarySheetId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeSalarySheetId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -180,26 +184,26 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeSalarySheetId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public EmployeeSalarySheet disconnectFromAll(String employeeSalarySheetId, int version) throws Exception{
-	
-		
+
+
 		EmployeeSalarySheet employeeSalarySheet = loadInternalEmployeeSalarySheet(EmployeeSalarySheetTable.withId(employeeSalarySheetId), emptyOptions());
 		employeeSalarySheet.clearFromAll();
 		this.saveEmployeeSalarySheet(employeeSalarySheet);
 		return employeeSalarySheet;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -207,15 +211,15 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee_salary_sheet";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employeeSalarySheet";
 	}
-	
+
 	
 	
 	
@@ -518,7 +522,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 			return employeeSalarySheet;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeSalarySheetSQL(employeeSalarySheet);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeSalarySheetParameters(employeeSalarySheet);
@@ -527,57 +531,57 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employeeSalarySheet.incVersion();
 		return employeeSalarySheet;
-	
+
 	}
 	public SmartList<EmployeeSalarySheet> saveEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeSalarySheetList(employeeSalarySheetList);
-		
+
 		batchEmployeeSalarySheetCreate((List<EmployeeSalarySheet>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeSalarySheetUpdate((List<EmployeeSalarySheet>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(EmployeeSalarySheet employeeSalarySheet:employeeSalarySheetList){
 			if(employeeSalarySheet.isChanged()){
 				employeeSalarySheet.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeSalarySheetList;
 	}
 
 	public SmartList<EmployeeSalarySheet> removeEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeSalarySheetList, options);
-		
+
 		return employeeSalarySheetList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeSalarySheetBatchCreateArgs(List<EmployeeSalarySheet> employeeSalarySheetList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeSalarySheet employeeSalarySheet:employeeSalarySheetList ){
 			Object [] parameters = prepareEmployeeSalarySheetCreateParameters(employeeSalarySheet);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeSalarySheetBatchUpdateArgs(List<EmployeeSalarySheet> employeeSalarySheetList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeSalarySheet employeeSalarySheet:employeeSalarySheetList ){
 			if(!employeeSalarySheet.isChanged()){
@@ -585,40 +589,40 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 			}
 			Object [] parameters = prepareEmployeeSalarySheetUpdateParameters(employeeSalarySheet);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeSalarySheetCreate(List<EmployeeSalarySheet> employeeSalarySheetList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeSalarySheetBatchCreateArgs(employeeSalarySheetList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeSalarySheetUpdate(List<EmployeeSalarySheet> employeeSalarySheetList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeSalarySheetBatchUpdateArgs(employeeSalarySheetList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeSalarySheetList(List<EmployeeSalarySheet> employeeSalarySheetList){
-		
+
 		List<EmployeeSalarySheet> employeeSalarySheetCreateList=new ArrayList<EmployeeSalarySheet>();
 		List<EmployeeSalarySheet> employeeSalarySheetUpdateList=new ArrayList<EmployeeSalarySheet>();
-		
+
 		for(EmployeeSalarySheet employeeSalarySheet: employeeSalarySheetList){
 			if(isUpdateRequest(employeeSalarySheet)){
 				employeeSalarySheetUpdateList.add( employeeSalarySheet);
@@ -626,10 +630,10 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 			}
 			employeeSalarySheetCreateList.add(employeeSalarySheet);
 		}
-		
+
 		return new Object[]{employeeSalarySheetCreateList,employeeSalarySheetUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(EmployeeSalarySheet employeeSalarySheet){
  		return employeeSalarySheet.getVersion() > 0;
  	}
@@ -639,7 +643,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeSalarySheetParameters(EmployeeSalarySheet employeeSalarySheet){
  		if(isUpdateRequest(employeeSalarySheet) ){
  			return prepareEmployeeSalarySheetUpdateParameters(employeeSalarySheet);
@@ -648,11 +652,11 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  	}
  	protected Object[] prepareEmployeeSalarySheetUpdateParameters(EmployeeSalarySheet employeeSalarySheet){
  		Object[] parameters = new Object[13];
-  	
+ 
  		if(employeeSalarySheet.getEmployee() != null){
  			parameters[0] = employeeSalarySheet.getEmployee().getId();
  		}
-  	
+ 
  		if(employeeSalarySheet.getCurrentSalaryGrade() != null){
  			parameters[1] = employeeSalarySheet.getCurrentSalaryGrade().getId();
  		}
@@ -677,31 +681,33 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		
  		
  		parameters[8] = employeeSalarySheet.getJobInsurance();
- 		 	
+ 		
  		if(employeeSalarySheet.getPayingOff() != null){
  			parameters[9] = employeeSalarySheet.getPayingOff().getId();
  		}
- 		
+ 
  		parameters[10] = employeeSalarySheet.nextVersion();
  		parameters[11] = employeeSalarySheet.getId();
  		parameters[12] = employeeSalarySheet.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeSalarySheetCreateParameters(EmployeeSalarySheet employeeSalarySheet){
 		Object[] parameters = new Object[11];
-		String newEmployeeSalarySheetId=getNextId();
-		employeeSalarySheet.setId(newEmployeeSalarySheetId);
+        if(employeeSalarySheet.getId() == null){
+          String newEmployeeSalarySheetId=getNextId();
+          employeeSalarySheet.setId(newEmployeeSalarySheetId);
+        }
 		parameters[0] =  employeeSalarySheet.getId();
-  	
+ 
  		if(employeeSalarySheet.getEmployee() != null){
  			parameters[1] = employeeSalarySheet.getEmployee().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(employeeSalarySheet.getCurrentSalaryGrade() != null){
  			parameters[2] = employeeSalarySheet.getCurrentSalaryGrade().getId();
- 		
+
  		}
  		
  		
@@ -724,91 +730,91 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		
  		
  		parameters[9] = employeeSalarySheet.getJobInsurance();
- 		 	
+ 		
  		if(employeeSalarySheet.getPayingOff() != null){
  			parameters[10] = employeeSalarySheet.getPayingOff().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected EmployeeSalarySheet saveInternalEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
-		
+
 		saveEmployeeSalarySheet(employeeSalarySheet);
- 	
+
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeSalarySheet, options);
  		}
-  	
+ 
  		if(isSaveCurrentSalaryGradeEnabled(options)){
 	 		saveCurrentSalaryGrade(employeeSalarySheet, options);
  		}
-  	
+ 
  		if(isSavePayingOffEnabled(options)){
 	 		savePayingOff(employeeSalarySheet, options);
  		}
  
 		
 		return employeeSalarySheet;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected EmployeeSalarySheet saveEmployee(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeSalarySheet.getEmployee() == null){
  			return employeeSalarySheet;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(employeeSalarySheet.getEmployee(),options);
  		return employeeSalarySheet;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected EmployeeSalarySheet saveCurrentSalaryGrade(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeSalarySheet.getCurrentSalaryGrade() == null){
  			return employeeSalarySheet;//do nothing when it is null
  		}
- 		
+
  		getSalaryGradeDAO().save(employeeSalarySheet.getCurrentSalaryGrade(),options);
  		return employeeSalarySheet;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected EmployeeSalarySheet savePayingOff(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeSalarySheet.getPayingOff() == null){
  			return employeeSalarySheet;//do nothing when it is null
  		}
- 		
+
  		getPayingOffDAO().save(employeeSalarySheet.getPayingOff(),options);
  		return employeeSalarySheet;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -828,47 +834,53 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	protected String getTableName(){
 		return EmployeeSalarySheetTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<EmployeeSalarySheet> employeeSalarySheetList) {		
+
+
+
+	public void enhanceList(List<EmployeeSalarySheet> employeeSalarySheetList) {
 		this.enhanceListInternal(employeeSalarySheetList, this.getEmployeeSalarySheetMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeSalarySheet> employeeSalarySheetList = ownerEntity.collectRefsWithType(EmployeeSalarySheet.INTERNAL_TYPE);
 		this.enhanceList(employeeSalarySheetList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeSalarySheetMapper());
 
 	}
 	@Override
 	public int countEmployeeSalarySheetWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeSalarySheetWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<EmployeeSalarySheet> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeSalarySheetMapper());
 	}
+
+  @Override
+  public Stream<EmployeeSalarySheet> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeSalarySheetMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -897,7 +909,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		}
 		return result;
 	}
-	
+
 	
 
 }

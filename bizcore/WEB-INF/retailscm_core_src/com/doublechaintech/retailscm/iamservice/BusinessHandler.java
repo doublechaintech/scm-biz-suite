@@ -13,6 +13,9 @@ public interface BusinessHandler {
 	void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext, LoginResult loginResult,
 			IdentificationHandler idHandler, BusinessHandler bizHandler) throws Exception;
 
+  default Object onLogout(RetailscmUserContext userContext, BusinessHandler bizHandler) throws Exception {
+		return null;
+	}
 }
 
 

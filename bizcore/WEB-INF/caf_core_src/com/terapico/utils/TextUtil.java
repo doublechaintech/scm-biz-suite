@@ -256,15 +256,7 @@ public class TextUtil {
     }
 
     public static String getExtVariable(String key, String defaultValue) {
-        String val = System.getProperty(key);
-        if (val != null) {
-            return val;
-        }
-        val = System.getenv(key);
-        if (val != null) {
-            return val;
-        }
-        return defaultValue;
+        return EnvUtil.getEnvVariable(key, defaultValue);
     }
 
     public static String concatUrl(String prefix, String uri) {
@@ -346,6 +338,16 @@ public class TextUtil {
 		}
 		return str1.equals(str2);
 	}
+
+    public static boolean isEqualsWhenMayNull(String str1, String str2) {
+        if (str1 == null && str2 == null) {
+            return true;
+        }
+        if (str1 == null || str2 == null) {
+            return false;
+        }
+        return str1.equals(str2);
+    }
 	
 	public static String repeat(String repeatedStr, int times, String seperator) {
 		return repeat(repeatedStr, times, seperator, true);

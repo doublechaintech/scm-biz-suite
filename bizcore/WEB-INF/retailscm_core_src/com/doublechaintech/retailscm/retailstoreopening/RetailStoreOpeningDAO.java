@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstoreopening;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 public interface RetailStoreOpeningDAO extends BaseDAO{
 
 	public SmartList<RetailStoreOpening> loadAll();
+	public Stream<RetailStoreOpening> loadAllAsStream();
 	public RetailStoreOpening load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreOpening> retailStoreOpeningList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreOpening present(RetailStoreOpening retailStoreOpening,Map<String,Object> options) throws Exception;
 	public RetailStoreOpening clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreOpening save(RetailStoreOpening retailStoreOpening,Map<String,Object> options);
 	public SmartList<RetailStoreOpening> saveRetailStoreOpeningList(SmartList<RetailStoreOpening> retailStoreOpeningList,Map<String,Object> options);
 	public SmartList<RetailStoreOpening> removeRetailStoreOpeningList(SmartList<RetailStoreOpening> retailStoreOpeningList,Map<String,Object> options);
@@ -80,8 +82,9 @@ public interface RetailStoreOpeningDAO extends BaseDAO{
 	public RetailStoreOpening planToRemoveRetailStoreListWithClosing(RetailStoreOpening retailStoreOpening, String closingId, Map<String,Object> options)throws Exception;
 	public int countRetailStoreListWithClosing(String retailStoreOpeningId, String closingId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStoreOpening> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreOpening> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreOpening executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

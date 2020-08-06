@@ -17,6 +17,7 @@ public interface EmployeeQualifierManager extends BaseManager{
 	public EmployeeQualifier createEmployeeQualifier(RetailscmUserContext userContext, String employeeId,Date qualifiedTime,String type,String level,String remark) throws Exception;
 	public EmployeeQualifier updateEmployeeQualifier(RetailscmUserContext userContext,String employeeQualifierId, int employeeQualifierVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public EmployeeQualifier loadEmployeeQualifier(RetailscmUserContext userContext, String employeeQualifierId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public EmployeeQualifier internalSaveEmployeeQualifier(RetailscmUserContext userContext, EmployeeQualifier employeeQualifier) throws Exception;
 	public EmployeeQualifier internalSaveEmployeeQualifier(RetailscmUserContext userContext, EmployeeQualifier employeeQualifier,Map<String,Object>option) throws Exception;
 

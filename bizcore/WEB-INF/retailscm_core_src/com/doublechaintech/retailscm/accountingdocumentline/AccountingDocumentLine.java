@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.accountingdocumentline;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
 import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = AccountingDocumentLineSerializer.class)
 public class AccountingDocumentLine extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

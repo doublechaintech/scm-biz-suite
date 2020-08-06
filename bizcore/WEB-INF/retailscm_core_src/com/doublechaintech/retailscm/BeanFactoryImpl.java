@@ -115,7 +115,7 @@ import com.doublechaintech.retailscm.slide.Slide;
 import com.doublechaintech.retailscm.uiaction.UiAction;
 import com.doublechaintech.retailscm.section.Section;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteList;
+import com.doublechaintech.retailscm.userallowlist.UserAllowList;
 import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.quicklink.QuickLink;
@@ -123,9 +123,9 @@ import com.doublechaintech.retailscm.listaccess.ListAccess;
 import com.doublechaintech.retailscm.loginhistory.LoginHistory;
 import com.doublechaintech.retailscm.candidatecontainer.CandidateContainer;
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentify;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
 import com.doublechaintech.retailscm.treenode.TreeNode;
 
@@ -697,8 +697,8 @@ public class BeanFactoryImpl{
 	}
 
 
-	public UserWhiteList createUserWhiteList(Map<String,Object> options){
-		return new UserWhiteList();
+	public UserAllowList createUserAllowList(Map<String,Object> options){
+		return new UserAllowList();
 	}
 
 
@@ -737,18 +737,18 @@ public class BeanFactoryImpl{
 	}
 
 
-	public WechatWorkappIdentify createWechatWorkappIdentify(Map<String,Object> options){
-		return new WechatWorkappIdentify();
+	public WechatWorkappIdentity createWechatWorkappIdentity(Map<String,Object> options){
+		return new WechatWorkappIdentity();
 	}
 
 
-	public WechatMiniappIdentify createWechatMiniappIdentify(Map<String,Object> options){
-		return new WechatMiniappIdentify();
+	public WechatMiniappIdentity createWechatMiniappIdentity(Map<String,Object> options){
+		return new WechatMiniappIdentity();
 	}
 
 
-	public KeypairIdentify createKeypairIdentify(Map<String,Object> options){
-		return new KeypairIdentify();
+	public KeypairIdentity createKeypairIdentity(Map<String,Object> options){
+		return new KeypairIdentity();
 	}
 
 

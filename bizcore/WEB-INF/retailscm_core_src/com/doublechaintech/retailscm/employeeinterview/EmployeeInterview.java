@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.employeeinterview;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.employee.Employee;
 import com.doublechaintech.retailscm.interviewtype.InterviewType;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = EmployeeInterviewSerializer.class)
 public class EmployeeInterview extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

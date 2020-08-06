@@ -43,7 +43,7 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implements TransportTaskDAO{
 
@@ -143,50 +143,54 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 	return this.transportTaskTrackDAO;
  	}	
 
-	
+
 	/*
 	protected TransportTask load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalTransportTask(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<TransportTask> loadAll() {
 	    return this.loadAll(getTransportTaskMapper());
 	}
-	
-	
+
+  public Stream<TransportTask> loadAllAsStream() {
+      return this.loadAllAsStream(getTransportTaskMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public TransportTask load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalTransportTask(TransportTaskTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public TransportTask save(TransportTask transportTask,Map<String,Object> options){
-		
+
 		String methodName="save(TransportTask transportTask,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(transportTask, methodName, "transportTask");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalTransportTask(transportTask,options);
 	}
 	public TransportTask clone(String transportTaskId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(TransportTaskTable.withId(transportTaskId),options);
 	}
-	
+
 	protected TransportTask clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String transportTaskId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		TransportTask newTransportTask = loadInternalTransportTask(accessKey, options);
 		newTransportTask.setVersion(0);
 		
@@ -206,15 +210,15 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
 		
 
-		
+
 		saveInternalTransportTask(newTransportTask,options);
-		
+
 		return newTransportTask;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String transportTaskId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -230,15 +234,15 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String transportTaskId, int version) throws Exception{
-	
+
 		String methodName="delete(String transportTaskId, int version)";
 		assertMethodArgumentNotNull(transportTaskId, methodName, "transportTaskId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{transportTaskId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -248,26 +252,26 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(affectedNumber == 0){
 			handleDeleteOneError(transportTaskId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public TransportTask disconnectFromAll(String transportTaskId, int version) throws Exception{
-	
-		
+
+
 		TransportTask transportTask = loadInternalTransportTask(TransportTaskTable.withId(transportTaskId), emptyOptions());
 		transportTask.clearFromAll();
 		this.saveTransportTask(transportTask);
 		return transportTask;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -275,15 +279,15 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "transport_task";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "transportTask";
 	}
-	
+
 	
 	
 	
@@ -815,7 +819,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return transportTask;
 		}
 		
-		
+
 		String SQL=this.getSaveTransportTaskSQL(transportTask);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTransportTaskParameters(transportTask);
@@ -824,57 +828,57 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		transportTask.incVersion();
 		return transportTask;
-	
+
 	}
 	public SmartList<TransportTask> saveTransportTaskList(SmartList<TransportTask> transportTaskList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitTransportTaskList(transportTaskList);
-		
+
 		batchTransportTaskCreate((List<TransportTask>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchTransportTaskUpdate((List<TransportTask>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(TransportTask transportTask:transportTaskList){
 			if(transportTask.isChanged()){
 				transportTask.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return transportTaskList;
 	}
 
 	public SmartList<TransportTask> removeTransportTaskList(SmartList<TransportTask> transportTaskList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(transportTaskList, options);
-		
+
 		return transportTaskList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareTransportTaskBatchCreateArgs(List<TransportTask> transportTaskList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(TransportTask transportTask:transportTaskList ){
 			Object [] parameters = prepareTransportTaskCreateParameters(transportTask);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareTransportTaskBatchUpdateArgs(List<TransportTask> transportTaskList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(TransportTask transportTask:transportTaskList ){
 			if(!transportTask.isChanged()){
@@ -882,40 +886,40 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			Object [] parameters = prepareTransportTaskUpdateParameters(transportTask);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchTransportTaskCreate(List<TransportTask> transportTaskList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareTransportTaskBatchCreateArgs(transportTaskList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchTransportTaskUpdate(List<TransportTask> transportTaskList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareTransportTaskBatchUpdateArgs(transportTaskList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitTransportTaskList(List<TransportTask> transportTaskList){
-		
+
 		List<TransportTask> transportTaskCreateList=new ArrayList<TransportTask>();
 		List<TransportTask> transportTaskUpdateList=new ArrayList<TransportTask>();
-		
+
 		for(TransportTask transportTask: transportTaskList){
 			if(isUpdateRequest(transportTask)){
 				transportTaskUpdateList.add( transportTask);
@@ -923,10 +927,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			transportTaskCreateList.add(transportTask);
 		}
-		
+
 		return new Object[]{transportTaskCreateList,transportTaskUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(TransportTask transportTask){
  		return transportTask.getVersion() > 0;
  	}
@@ -936,7 +940,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveTransportTaskParameters(TransportTask transportTask){
  		if(isUpdateRequest(transportTask) ){
  			return prepareTransportTaskUpdateParameters(transportTask);
@@ -954,19 +958,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[2] = transportTask.getBeginTime();
- 		 	
+ 		
  		if(transportTask.getEnd() != null){
  			parameters[3] = transportTask.getEnd().getId();
  		}
-  	
+ 
  		if(transportTask.getDriver() != null){
  			parameters[4] = transportTask.getDriver().getId();
  		}
-  	
+ 
  		if(transportTask.getTruck() != null){
  			parameters[5] = transportTask.getTruck().getId();
  		}
-  	
+ 
  		if(transportTask.getBelongsTo() != null){
  			parameters[6] = transportTask.getBelongsTo().getId();
  		}
@@ -976,17 +980,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[8] = transportTask.getLongitude();
- 				
+ 		
  		parameters[9] = transportTask.nextVersion();
  		parameters[10] = transportTask.getId();
  		parameters[11] = transportTask.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareTransportTaskCreateParameters(TransportTask transportTask){
 		Object[] parameters = new Object[10];
-		String newTransportTaskId=getNextId();
-		transportTask.setId(newTransportTaskId);
+        if(transportTask.getId() == null){
+          String newTransportTaskId=getNextId();
+          transportTask.setId(newTransportTaskId);
+        }
 		parameters[0] =  transportTask.getId();
  
  		
@@ -997,25 +1003,25 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[3] = transportTask.getBeginTime();
- 		 	
+ 		
  		if(transportTask.getEnd() != null){
  			parameters[4] = transportTask.getEnd().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(transportTask.getDriver() != null){
  			parameters[5] = transportTask.getDriver().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(transportTask.getTruck() != null){
  			parameters[6] = transportTask.getTruck().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(transportTask.getBelongsTo() != null){
  			parameters[7] = transportTask.getBelongsTo().getId();
- 		
+
  		}
  		
  		
@@ -1023,27 +1029,27 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[9] = transportTask.getLongitude();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected TransportTask saveInternalTransportTask(TransportTask transportTask, Map<String,Object> options){
-		
+
 		saveTransportTask(transportTask);
- 	
+
  		if(isSaveEndEnabled(options)){
 	 		saveEnd(transportTask, options);
  		}
-  	
+ 
  		if(isSaveDriverEnabled(options)){
 	 		saveDriver(transportTask, options);
  		}
-  	
+ 
  		if(isSaveTruckEnabled(options)){
 	 		saveTruck(transportTask, options);
  		}
-  	
+ 
  		if(isSaveBelongsToEnabled(options)){
 	 		saveBelongsTo(transportTask, options);
  		}
@@ -1053,100 +1059,100 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 		saveGoodsList(transportTask, options);
 	 		//removeGoodsList(transportTask, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveTransportTaskTrackListEnabled(options)){
 	 		saveTransportTaskTrackList(transportTask, options);
 	 		//removeTransportTaskTrackList(transportTask, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return transportTask;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected TransportTask saveEnd(TransportTask transportTask, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(transportTask.getEnd() == null){
  			return transportTask;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreDAO().save(transportTask.getEnd(),options);
  		return transportTask;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected TransportTask saveDriver(TransportTask transportTask, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(transportTask.getDriver() == null){
  			return transportTask;//do nothing when it is null
  		}
- 		
+
  		getTruckDriverDAO().save(transportTask.getDriver(),options);
  		return transportTask;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected TransportTask saveTruck(TransportTask transportTask, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(transportTask.getTruck() == null){
  			return transportTask;//do nothing when it is null
  		}
- 		
+
  		getTransportTruckDAO().save(transportTask.getTruck(),options);
  		return transportTask;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected TransportTask saveBelongsTo(TransportTask transportTask, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(transportTask.getBelongsTo() == null){
  			return transportTask;//do nothing when it is null
  		}
- 		
+
  		getTransportFleetDAO().save(transportTask.getBelongsTo(),options);
  		return transportTask;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public TransportTask planToRemoveGoodsList(TransportTask transportTask, String goodsIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.ID_PROPERTY, goodsIds);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1155,17 +1161,17 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 
 			goodsItem.clearFromAll();
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
-		return transportTask;	
-	
+		return transportTask;
+
 	}
 
 
@@ -1174,11 +1180,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1187,19 +1193,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSku();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithSku(String transportTaskId, String skuId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1208,7 +1214,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1218,11 +1224,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1231,19 +1237,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearReceivingSpace();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithReceivingSpace(String transportTaskId, String receivingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1252,7 +1258,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1262,11 +1268,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1275,19 +1281,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearGoodsAllocation();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithGoodsAllocation(String transportTaskId, String goodsAllocationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1296,7 +1302,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1306,11 +1312,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1319,19 +1325,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSmartPallet();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithSmartPallet(String transportTaskId, String smartPalletId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1340,7 +1346,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1350,11 +1356,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1363,19 +1369,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearShippingSpace();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithShippingSpace(String transportTaskId, String shippingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1384,7 +1390,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1394,11 +1400,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1407,19 +1413,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStore();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithRetailStore(String transportTaskId, String retailStoreId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1428,7 +1434,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1438,11 +1444,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1451,19 +1457,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearBizOrder();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithBizOrder(String transportTaskId, String bizOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1472,7 +1478,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1482,11 +1488,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTask.getId());
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1495,19 +1501,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStoreOrder();
 			goodsItem.clearTransportTask();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return transportTask;
 	}
-	
+
 	public int countGoodsListWithRetailStoreOrder(String transportTaskId, String retailStoreOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1516,17 +1522,17 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
 	
 	public TransportTask planToRemoveTransportTaskTrackList(TransportTask transportTask, String transportTaskTrackIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(TransportTaskTrack.MOVEMENT_PROPERTY, transportTask.getId());
 		key.put(TransportTaskTrack.ID_PROPERTY, transportTaskTrackIds);
-		
+
 		SmartList<TransportTaskTrack> externalTransportTaskTrackList = getTransportTaskTrackDAO().
 				findTransportTaskTrackWithKey(key, options);
 		if(externalTransportTaskTrackList == null){
@@ -1535,36 +1541,36 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalTransportTaskTrackList.isEmpty()){
 			return transportTask;
 		}
-		
+
 		for(TransportTaskTrack transportTaskTrackItem: externalTransportTaskTrackList){
 
 			transportTaskTrackItem.clearFromAll();
 		}
-		
-		
-		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();		
+
+
+		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();
 		transportTaskTrackList.addAllToRemoveList(externalTransportTaskTrackList);
-		return transportTask;	
-	
+		return transportTask;
+
 	}
 
 
 
 		
 	protected TransportTask saveGoodsList(TransportTask transportTask, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		if(goodsList == null){
 			//null list means nothing
 			return transportTask;
 		}
 		SmartList<Goods> mergedUpdateGoodsList = new SmartList<Goods>();
-		
-		
-		mergedUpdateGoodsList.addAll(goodsList); 
+
+
+		mergedUpdateGoodsList.addAll(goodsList);
 		if(goodsList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsList.addAll(goodsList.getToRemoveList());
@@ -1573,28 +1579,28 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsDAO().saveGoodsList(mergedUpdateGoodsList,options);
-		
+
 		if(goodsList.getToRemoveList() != null){
 			goodsList.removeAll(goodsList.getToRemoveList());
 		}
-		
-		
+
+
 		return transportTask;
-	
+
 	}
-	
+
 	protected TransportTask removeGoodsList(TransportTask transportTask, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		if(goodsList == null){
 			return transportTask;
-		}	
-	
+		}
+
 		SmartList<Goods> toRemoveGoodsList = goodsList.getToRemoveList();
-		
+
 		if(toRemoveGoodsList == null){
 			return transportTask;
 		}
@@ -1602,35 +1608,35 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return transportTask;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
-		
-		return transportTask;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
+
+		return transportTask;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected TransportTask saveTransportTaskTrackList(TransportTask transportTask, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();
 		if(transportTaskTrackList == null){
 			//null list means nothing
 			return transportTask;
 		}
 		SmartList<TransportTaskTrack> mergedUpdateTransportTaskTrackList = new SmartList<TransportTaskTrack>();
-		
-		
-		mergedUpdateTransportTaskTrackList.addAll(transportTaskTrackList); 
+
+
+		mergedUpdateTransportTaskTrackList.addAll(transportTaskTrackList);
 		if(transportTaskTrackList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateTransportTaskTrackList.addAll(transportTaskTrackList.getToRemoveList());
@@ -1639,28 +1645,28 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getTransportTaskTrackDAO().saveTransportTaskTrackList(mergedUpdateTransportTaskTrackList,options);
-		
+
 		if(transportTaskTrackList.getToRemoveList() != null){
 			transportTaskTrackList.removeAll(transportTaskTrackList.getToRemoveList());
 		}
-		
-		
+
+
 		return transportTask;
-	
+
 	}
-	
+
 	protected TransportTask removeTransportTaskTrackList(TransportTask transportTask, Map<String,Object> options){
-	
-	
+
+
 		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();
 		if(transportTaskTrackList == null){
 			return transportTask;
-		}	
-	
+		}
+
 		SmartList<TransportTaskTrack> toRemoveTransportTaskTrackList = transportTaskTrackList.getToRemoveList();
-		
+
 		if(toRemoveTransportTaskTrackList == null){
 			return transportTask;
 		}
@@ -1668,20 +1674,20 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return transportTask;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getTransportTaskTrackDAO().removeTransportTaskTrackList(toRemoveTransportTaskTrackList,options);
-		
-		return transportTask;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getTransportTaskTrackDAO().removeTransportTaskTrackList(toRemoveTransportTaskTrackList,options);
+
+		return transportTask;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public TransportTask present(TransportTask transportTask,Map<String, Object> options){
@@ -1751,13 +1757,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	protected String getTableName(){
 		return TransportTaskTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<TransportTask> transportTaskList) {		
+
+
+
+	public void enhanceList(List<TransportTask> transportTaskList) {
 		this.enhanceListInternal(transportTaskList, this.getTransportTaskMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的transportTask的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception{
@@ -1805,39 +1811,45 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TransportTask> transportTaskList = ownerEntity.collectRefsWithType(TransportTask.INTERNAL_TYPE);
 		this.enhanceList(transportTaskList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<TransportTask> findTransportTaskWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getTransportTaskMapper());
 
 	}
 	@Override
 	public int countTransportTaskWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countTransportTaskWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<TransportTask> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTransportTaskMapper());
 	}
+
+  @Override
+  public Stream<TransportTask> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getTransportTaskMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1866,7 +1878,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 		return result;
 	}
-	
+
 	
 
 }

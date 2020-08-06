@@ -31,68 +31,72 @@ import com.doublechaintech.retailscm.RetailscmUserContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO{
 
-	
+
 	/*
 	protected View load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalView(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<View> loadAll() {
 	    return this.loadAll(getViewMapper());
 	}
-	
-	
+
+  public Stream<View> loadAllAsStream() {
+      return this.loadAllAsStream(getViewMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public View load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalView(ViewTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public View save(View view,Map<String,Object> options){
-		
+
 		String methodName="save(View view,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(view, methodName, "view");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalView(view,options);
 	}
 	public View clone(String viewId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(ViewTable.withId(viewId),options);
 	}
-	
+
 	protected View clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String viewId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		View newView = loadInternalView(accessKey, options);
 		newView.setVersion(0);
 		
 		
 
-		
+
 		saveInternalView(newView,options);
-		
+
 		return newView;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String viewId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -108,15 +112,15 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String viewId, int version) throws Exception{
-	
+
 		String methodName="delete(String viewId, int version)";
 		assertMethodArgumentNotNull(viewId, methodName, "viewId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{viewId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -126,26 +130,26 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 		if(affectedNumber == 0){
 			handleDeleteOneError(viewId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public View disconnectFromAll(String viewId, int version) throws Exception{
-	
-		
+
+
 		View view = loadInternalView(ViewTable.withId(viewId), emptyOptions());
 		view.clearFromAll();
 		this.saveView(view);
 		return view;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -153,15 +157,15 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "view";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "view";
 	}
-	
+
 	
 	
 	
@@ -221,7 +225,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 			return view;
 		}
 		
-		
+
 		String SQL=this.getSaveViewSQL(view);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveViewParameters(view);
@@ -230,57 +234,57 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		view.incVersion();
 		return view;
-	
+
 	}
 	public SmartList<View> saveViewList(SmartList<View> viewList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitViewList(viewList);
-		
+
 		batchViewCreate((List<View>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchViewUpdate((List<View>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(View view:viewList){
 			if(view.isChanged()){
 				view.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return viewList;
 	}
 
 	public SmartList<View> removeViewList(SmartList<View> viewList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(viewList, options);
-		
+
 		return viewList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareViewBatchCreateArgs(List<View> viewList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(View view:viewList ){
 			Object [] parameters = prepareViewCreateParameters(view);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareViewBatchUpdateArgs(List<View> viewList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(View view:viewList ){
 			if(!view.isChanged()){
@@ -288,40 +292,40 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 			}
 			Object [] parameters = prepareViewUpdateParameters(view);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchViewCreate(List<View> viewList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareViewBatchCreateArgs(viewList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchViewUpdate(List<View> viewList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareViewBatchUpdateArgs(viewList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitViewList(List<View> viewList){
-		
+
 		List<View> viewCreateList=new ArrayList<View>();
 		List<View> viewUpdateList=new ArrayList<View>();
-		
+
 		for(View view: viewList){
 			if(isUpdateRequest(view)){
 				viewUpdateList.add( view);
@@ -329,10 +333,10 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 			}
 			viewCreateList.add(view);
 		}
-		
+
 		return new Object[]{viewCreateList,viewUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(View view){
  		return view.getVersion() > 0;
  	}
@@ -342,7 +346,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveViewParameters(View view){
  		if(isUpdateRequest(view) ){
  			return prepareViewUpdateParameters(view);
@@ -360,17 +364,19 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
  		
  		
  		parameters[2] = view.getInterviewTime();
- 				
+ 		
  		parameters[3] = view.nextVersion();
  		parameters[4] = view.getId();
  		parameters[5] = view.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareViewCreateParameters(View view){
 		Object[] parameters = new Object[4];
-		String newViewId=getNextId();
-		view.setId(newViewId);
+        if(view.getId() == null){
+          String newViewId=getNextId();
+          view.setId(newViewId);
+        }
 		parameters[0] =  view.getId();
  
  		
@@ -381,22 +387,22 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
  		
  		
  		parameters[3] = view.getInterviewTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected View saveInternalView(View view, Map<String,Object> options){
-		
+
 		saveView(view);
 
 		
 		return view;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
 	
 
@@ -417,47 +423,53 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	protected String getTableName(){
 		return ViewTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<View> viewList) {		
+
+
+
+	public void enhanceList(List<View> viewList) {
 		this.enhanceListInternal(viewList, this.getViewMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<View> viewList = ownerEntity.collectRefsWithType(View.INTERNAL_TYPE);
 		this.enhanceList(viewList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<View> findViewWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getViewMapper());
 
 	}
 	@Override
 	public int countViewWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countViewWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<View> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getViewMapper());
 	}
+
+  @Override
+  public Stream<View> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getViewMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -486,7 +498,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 		}
 		return result;
 	}
-	
+
 	
     
 	public Map<String, Integer> countBySql(String sql, Object[] params) {

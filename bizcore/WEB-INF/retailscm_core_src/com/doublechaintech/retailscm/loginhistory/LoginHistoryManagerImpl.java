@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.loginhistory;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.secuser.SecUser;
@@ -43,7 +41,7 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
 
 	// Only some of ods have such function
 	
-	
+
 
 
 
@@ -106,7 +104,7 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
 		checkerOf(userContext).throwExceptionIfHasErrors( LoginHistoryManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		LoginHistory loginHistory = loadLoginHistory( userContext, loginHistoryId, tokens);
  		//do some calc before sent to customer?
@@ -125,6 +123,9 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
 		
 		List<BaseEntity> entityListToNaming = loginHistoryToPresent.collectRefercencesFromLists();
 		loginHistoryDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,loginHistory,tokens);
 		
 		return  loginHistoryToPresent;
 		
@@ -568,6 +569,12 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
   
   
 
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    loginHistoryDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
 	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
@@ -658,6 +665,7 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -774,7 +782,7 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -818,7 +826,7 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
 		propList.add(
 				MapUtil.put("id", "5-secUser")
 				    .put("fieldName", "secUser")
-				    .put("label", "SEC的用户")
+				    .put("label", "安全用户")
 				    .put("type", "auto")
 				    .put("linkToUrl", "secUserManager/wxappview/:id/")
 				    .put("displayMode", "{\"brief\":\"verification_code\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"login\",\"imageList\":\"\"}")
@@ -840,6 +848,8 @@ public class LoginHistoryManagerImpl extends CustomRetailscmCheckerManager imple
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

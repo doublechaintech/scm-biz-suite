@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.sku;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.goods.Goods;
@@ -53,24 +51,24 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = SkuTokens.start().withTokenFromListName(listName).done();
 		Sku  sku = (Sku) this.loadSku(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = sku.collectRefercencesFromLists();
 		skuDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, sku, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new SkuGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -133,7 +131,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		checkerOf(userContext).throwExceptionIfHasErrors( SkuManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Sku sku = loadSku( userContext, skuId, tokens);
  		//do some calc before sent to customer?
@@ -152,6 +150,9 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		
 		List<BaseEntity> entityListToNaming = skuToPresent.collectRefercencesFromLists();
 		skuDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,sku,tokens);
 		
 		return  skuToPresent;
 		
@@ -720,7 +721,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 			sku.addGoods( goods );
 			sku = saveSku(userContext, sku, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, goods);
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, goods);
 			return present(userContext,sku, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -745,7 +746,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withGoodsListList()
-				.searchGoodsListWith(Goods.ID_PROPERTY, "is", id).done();
+				.searchGoodsListWith(Goods.ID_PROPERTY, tokens().is(), id).done();
 
 		Sku skuToUpdate = loadSku(userContext, skuId, options);
 
@@ -754,7 +755,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		}
 
 		Goods item = skuToUpdate.getGoodsList().first();
-
+		beforeUpdateGoodsProperties(userContext,item, skuId,id,name,rfid,uom,maxPackage,expireTime,tokensExpr);
 		item.updateName( name );
 		item.updateRfid( rfid );
 		item.updateUom( uom );
@@ -769,6 +770,10 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		}
 	}
 
+	protected  void beforeUpdateGoodsProperties(RetailscmUserContext userContext, Goods item, String skuId, String id,String name,String rfid,String uom,int maxPackage,Date expireTime, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Goods createGoods(RetailscmUserContext userContext, String name, String rfid, String uom, int maxPackage, Date expireTime, String receivingSpaceId, String goodsAllocationId, String smartPalletId, String shippingSpaceId, String transportTaskId, String retailStoreId, String bizOrderId, String retailStoreOrderId) throws Exception{
 
@@ -900,7 +905,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 			sku.copyGoodsFrom( goods );
 			sku = saveSku(userContext, sku, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, (Goods)sku.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, (Goods)sku.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,sku, mergedAllTokens(tokensExpr));
 		}
 
@@ -913,39 +918,29 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		checkerOf(userContext).checkIdOfSku(skuId);
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkVersionOfGoods(goodsVersion);
-		
+
 
 		if(Goods.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.RFID_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRfidOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.UOM_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkUomOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.MAX_PACKAGE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMaxPackageOfGoods(parseInt(newValueExpr));
-		
 		}
 		
 		if(Goods.EXPIRE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkExpireTimeOfGoods(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkuManagerException.class);
 
 	}
@@ -955,7 +950,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 
 		checkParamsForUpdatingGoods(userContext, skuId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, "eq", goodsId).done();
+		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, tokens().equals(), goodsId).done();
 
 
 
@@ -966,13 +961,14 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 			//Also good when there is a RAM based DAO implementation
 			//sku.removeGoods( goods );
 			//make changes to AcceleraterAccount.
-			Goods goodsIndex = createIndexedGoods(goodsId, goodsVersion);
+			Goods goodsIdVersionKey = createIndexedGoods(goodsId, goodsVersion);
 
-			Goods goods = sku.findTheGoods(goodsIndex);
+			Goods goods = sku.findTheGoods(goodsIdVersionKey);
 			if(goods == null){
-				throw new SkuManagerException(goods+" is NOT FOUND" );
+				throw new SkuManagerException(goodsId+" is NOT FOUND" );
 			}
 
+			beforeUpdateGoods(userContext, goods, skuId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 			goods.changeProperty(property, newValueExpr);
 			
 			sku = saveSku(userContext, sku, tokens().withGoodsList().done());
@@ -980,6 +976,11 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateGoods(RetailscmUserContext userContext, Goods existed, String skuId, String goodsId, int goodsVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -996,6 +997,12 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    skuDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1087,6 +1094,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1203,7 +1211,7 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1329,6 +1337,8 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

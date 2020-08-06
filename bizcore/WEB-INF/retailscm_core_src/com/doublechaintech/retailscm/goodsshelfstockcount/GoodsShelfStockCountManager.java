@@ -17,6 +17,7 @@ public interface GoodsShelfStockCountManager extends BaseManager{
 	public GoodsShelfStockCount createGoodsShelfStockCount(RetailscmUserContext userContext, String title,Date countTime,String summary,String shelfId) throws Exception;
 	public GoodsShelfStockCount updateGoodsShelfStockCount(RetailscmUserContext userContext,String goodsShelfStockCountId, int goodsShelfStockCountVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public GoodsShelfStockCount loadGoodsShelfStockCount(RetailscmUserContext userContext, String goodsShelfStockCountId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public GoodsShelfStockCount internalSaveGoodsShelfStockCount(RetailscmUserContext userContext, GoodsShelfStockCount goodsShelfStockCount) throws Exception;
 	public GoodsShelfStockCount internalSaveGoodsShelfStockCount(RetailscmUserContext userContext, GoodsShelfStockCount goodsShelfStockCount,Map<String,Object>option) throws Exception;
 

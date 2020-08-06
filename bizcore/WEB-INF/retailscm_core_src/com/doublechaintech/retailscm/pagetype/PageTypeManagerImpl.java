@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.pagetype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
@@ -46,24 +44,24 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = PageTypeTokens.start().withTokenFromListName(listName).done();
 		PageType  pageType = (PageType) this.loadPageType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = pageType.collectRefercencesFromLists();
 		pageTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, pageType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new PageTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).throwExceptionIfHasErrors( PageTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		PageType pageType = loadPageType( userContext, pageTypeId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		
 		List<BaseEntity> entityListToNaming = pageTypeToPresent.collectRefercencesFromLists();
 		pageTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,pageType,tokens);
 		
 		return  pageTypeToPresent;
 		
@@ -544,7 +545,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 			pageType.addPage( page );
 			pageType = savePageType(userContext, pageType, tokens().withPageList().done());
 			
-			userContext.getManagerGroup().getPageManager().onNewInstanceCreated(userContext, page);
+			pageManagerOf(userContext).onNewInstanceCreated(userContext, page);
 			return present(userContext,pageType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -567,7 +568,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withPageListList()
-				.searchPageListWith(Page.ID_PROPERTY, "is", id).done();
+				.searchPageListWith(Page.ID_PROPERTY, tokens().is(), id).done();
 
 		PageType pageTypeToUpdate = loadPageType(userContext, pageTypeId, options);
 
@@ -576,7 +577,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		Page item = pageTypeToUpdate.getPageList().first();
-
+		beforeUpdatePageProperties(userContext,item, pageTypeId,id,pageTitle,linkToUrl,displayOrder,tokensExpr);
 		item.updatePageTitle( pageTitle );
 		item.updateLinkToUrl( linkToUrl );
 		item.updateDisplayOrder( displayOrder );
@@ -589,6 +590,10 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdatePageProperties(RetailscmUserContext userContext, Page item, String pageTypeId, String id,String pageTitle,String linkToUrl,int displayOrder, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Page createPage(RetailscmUserContext userContext, String pageTitle, String linkToUrl, int displayOrder, String mobileAppId) throws Exception{
 
@@ -697,7 +702,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 			pageType.copyPageFrom( page );
 			pageType = savePageType(userContext, pageType, tokens().withPageList().done());
 			
-			userContext.getManagerGroup().getPageManager().onNewInstanceCreated(userContext, (Page)pageType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			pageManagerOf(userContext).onNewInstanceCreated(userContext, (Page)pageType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,pageType, mergedAllTokens(tokensExpr));
 		}
 
@@ -710,27 +715,21 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfPageType(pageTypeId);
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkVersionOfPage(pageVersion);
-		
+
 
 		if(Page.PAGE_TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPageTitleOfPage(parseString(newValueExpr));
-		
 		}
 		
 		if(Page.LINK_TO_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLinkToUrlOfPage(parseString(newValueExpr));
-		
 		}
 		
 		if(Page.DISPLAY_ORDER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDisplayOrderOfPage(parseInt(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
 
 	}
@@ -740,7 +739,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingPage(userContext, pageTypeId, pageId, pageVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withPageList().searchPageListWith(Page.ID_PROPERTY, "eq", pageId).done();
+		Map<String,Object> loadTokens = this.tokens().withPageList().searchPageListWith(Page.ID_PROPERTY, tokens().equals(), pageId).done();
 
 
 
@@ -751,13 +750,14 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//pageType.removePage( page );
 			//make changes to AcceleraterAccount.
-			Page pageIndex = createIndexedPage(pageId, pageVersion);
+			Page pageIdVersionKey = createIndexedPage(pageId, pageVersion);
 
-			Page page = pageType.findThePage(pageIndex);
+			Page page = pageType.findThePage(pageIdVersionKey);
 			if(page == null){
-				throw new PageTypeManagerException(page+" is NOT FOUND" );
+				throw new PageTypeManagerException(pageId+" is NOT FOUND" );
 			}
 
+			beforeUpdatePage(userContext, page, pageTypeId, pageId, pageVersion, property, newValueExpr,  tokensExpr);
 			page.changeProperty(property, newValueExpr);
 			
 			pageType = savePageType(userContext, pageType, tokens().withPageList().done());
@@ -765,6 +765,11 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdatePage(RetailscmUserContext userContext, Page existed, String pageTypeId, String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -781,6 +786,12 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    pageTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -872,6 +883,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -988,7 +1000,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1070,6 +1082,8 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

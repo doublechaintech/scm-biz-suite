@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.slide;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.page.PageDAO;
 public interface SlideDAO extends BaseDAO{
 
 	public SmartList<Slide> loadAll();
+	public Stream<Slide> loadAllAsStream();
 	public Slide load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<Slide> slideList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public Slide present(Slide slide,Map<String,Object> options) throws Exception;
 	public Slide clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public Slide save(Slide slide,Map<String,Object> options);
 	public SmartList<Slide> saveSlideList(SmartList<Slide> slideList,Map<String,Object> options);
 	public SmartList<Slide> removeSlideList(SmartList<Slide> slideList,Map<String,Object> options);
@@ -45,18 +47,19 @@ public interface SlideDAO extends BaseDAO{
 
 	
 	
-	
+
 	public SmartList<Slide> queryList(String sql, Object ... parmeters);
+	public Stream<Slide> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateSlide executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<Slide> findSlideByPage(String pageId, Map<String,Object> options);
  	public int countSlideByPage(String pageId, Map<String,Object> options);
  	public Map<String, Integer> countSlideByPageIds(String[] ids, Map<String,Object> options);
  	public SmartList<Slide> findSlideByPage(String pageId, int start, int count, Map<String,Object> options);
  	public void analyzeSlideByPage(SmartList<Slide> resultList, String pageId, Map<String,Object> options);
 
- 
+
  
 }
 

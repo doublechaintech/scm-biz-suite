@@ -17,6 +17,7 @@ public interface RetailStoreMemberAddressManager extends BaseManager{
 	public RetailStoreMemberAddress createRetailStoreMemberAddress(RetailscmUserContext userContext, String name,String ownerId,String mobilePhone,String address) throws Exception;
 	public RetailStoreMemberAddress updateRetailStoreMemberAddress(RetailscmUserContext userContext,String retailStoreMemberAddressId, int retailStoreMemberAddressVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreMemberAddress loadRetailStoreMemberAddress(RetailscmUserContext userContext, String retailStoreMemberAddressId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public RetailStoreMemberAddress internalSaveRetailStoreMemberAddress(RetailscmUserContext userContext, RetailStoreMemberAddress retailStoreMemberAddress) throws Exception;
 	public RetailStoreMemberAddress internalSaveRetailStoreMemberAddress(RetailscmUserContext userContext, RetailStoreMemberAddress retailStoreMemberAddress,Map<String,Object>option) throws Exception;
 

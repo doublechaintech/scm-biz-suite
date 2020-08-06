@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.product;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategory;
 import com.doublechaintech.retailscm.sku.Sku;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = ProductSerializer.class)
 public class Product extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

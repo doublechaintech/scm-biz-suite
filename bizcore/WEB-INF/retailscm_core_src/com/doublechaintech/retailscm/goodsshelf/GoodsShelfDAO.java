@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.goodsshelf;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -26,20 +27,21 @@ import com.doublechaintech.retailscm.storagespace.StorageSpaceDAO;
 public interface GoodsShelfDAO extends BaseDAO{
 
 	public SmartList<GoodsShelf> loadAll();
+	public Stream<GoodsShelf> loadAllAsStream();
 	public GoodsShelf load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<GoodsShelf> goodsShelfList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public GoodsShelf present(GoodsShelf goodsShelf,Map<String,Object> options) throws Exception;
 	public GoodsShelf clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public GoodsShelf save(GoodsShelf goodsShelf,Map<String,Object> options);
 	public SmartList<GoodsShelf> saveGoodsShelfList(SmartList<GoodsShelf> goodsShelfList,Map<String,Object> options);
 	public SmartList<GoodsShelf> removeGoodsShelfList(SmartList<GoodsShelf> goodsShelfList,Map<String,Object> options);
@@ -67,34 +69,35 @@ public interface GoodsShelfDAO extends BaseDAO{
 	public GoodsShelf planToRemoveGoodsAllocationList(GoodsShelf goodsShelf, String goodsAllocationIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<GoodsShelf> queryList(String sql, Object ... parmeters);
+	public Stream<GoodsShelf> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateGoodsShelf executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<GoodsShelf> findGoodsShelfByStorageSpace(String storageSpaceId, Map<String,Object> options);
  	public int countGoodsShelfByStorageSpace(String storageSpaceId, Map<String,Object> options);
  	public Map<String, Integer> countGoodsShelfByStorageSpaceIds(String[] ids, Map<String,Object> options);
  	public SmartList<GoodsShelf> findGoodsShelfByStorageSpace(String storageSpaceId, int start, int count, Map<String,Object> options);
  	public void analyzeGoodsShelfByStorageSpace(SmartList<GoodsShelf> resultList, String storageSpaceId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<GoodsShelf> findGoodsShelfBySupplierSpace(String supplierSpaceId, Map<String,Object> options);
  	public int countGoodsShelfBySupplierSpace(String supplierSpaceId, Map<String,Object> options);
  	public Map<String, Integer> countGoodsShelfBySupplierSpaceIds(String[] ids, Map<String,Object> options);
  	public SmartList<GoodsShelf> findGoodsShelfBySupplierSpace(String supplierSpaceId, int start, int count, Map<String,Object> options);
  	public void analyzeGoodsShelfBySupplierSpace(SmartList<GoodsShelf> resultList, String supplierSpaceId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<GoodsShelf> findGoodsShelfByDamageSpace(String damageSpaceId, Map<String,Object> options);
  	public int countGoodsShelfByDamageSpace(String damageSpaceId, Map<String,Object> options);
  	public Map<String, Integer> countGoodsShelfByDamageSpaceIds(String[] ids, Map<String,Object> options);
  	public SmartList<GoodsShelf> findGoodsShelfByDamageSpace(String damageSpaceId, int start, int count, Map<String,Object> options);
  	public void analyzeGoodsShelfByDamageSpace(SmartList<GoodsShelf> resultList, String damageSpaceId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:GoodsShelfStockCount的shelf的GoodsShelfStockCountList
 	public SmartList<GoodsShelfStockCount> loadOurGoodsShelfStockCountList(RetailscmUserContext userContext, List<GoodsShelf> us, Map<String,Object> options) throws Exception;

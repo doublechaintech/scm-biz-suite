@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeEducationDAO{
 
@@ -53,64 +53,68 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	 	return this.employeeDAO;
  	}	
 
-	
+
 	/*
 	protected EmployeeEducation load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeEducation(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<EmployeeEducation> loadAll() {
 	    return this.loadAll(getEmployeeEducationMapper());
 	}
-	
-	
+
+  public Stream<EmployeeEducation> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeEducationMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public EmployeeEducation load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeEducation(EmployeeEducationTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public EmployeeEducation save(EmployeeEducation employeeEducation,Map<String,Object> options){
-		
+
 		String methodName="save(EmployeeEducation employeeEducation,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employeeEducation, methodName, "employeeEducation");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployeeEducation(employeeEducation,options);
 	}
 	public EmployeeEducation clone(String employeeEducationId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeEducationTable.withId(employeeEducationId),options);
 	}
-	
+
 	protected EmployeeEducation clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeEducationId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		EmployeeEducation newEmployeeEducation = loadInternalEmployeeEducation(accessKey, options);
 		newEmployeeEducation.setVersion(0);
 		
 		
 
-		
+
 		saveInternalEmployeeEducation(newEmployeeEducation,options);
-		
+
 		return newEmployeeEducation;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeEducationId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeEducationId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeEducationId, int version)";
 		assertMethodArgumentNotNull(employeeEducationId, methodName, "employeeEducationId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeEducationId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeEducationId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public EmployeeEducation disconnectFromAll(String employeeEducationId, int version) throws Exception{
-	
-		
+
+
 		EmployeeEducation employeeEducation = loadInternalEmployeeEducation(EmployeeEducationTable.withId(employeeEducationId), emptyOptions());
 		employeeEducation.clearFromAll();
 		this.saveEmployeeEducation(employeeEducation);
 		return employeeEducation;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee_education";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employeeEducation";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return employeeEducation;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeEducationSQL(employeeEducation);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeEducationParameters(employeeEducation);
@@ -320,57 +324,57 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employeeEducation.incVersion();
 		return employeeEducation;
-	
+
 	}
 	public SmartList<EmployeeEducation> saveEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeEducationList(employeeEducationList);
-		
+
 		batchEmployeeEducationCreate((List<EmployeeEducation>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeEducationUpdate((List<EmployeeEducation>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(EmployeeEducation employeeEducation:employeeEducationList){
 			if(employeeEducation.isChanged()){
 				employeeEducation.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeEducationList;
 	}
 
 	public SmartList<EmployeeEducation> removeEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeEducationList, options);
-		
+
 		return employeeEducationList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeEducationBatchCreateArgs(List<EmployeeEducation> employeeEducationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeEducation employeeEducation:employeeEducationList ){
 			Object [] parameters = prepareEmployeeEducationCreateParameters(employeeEducation);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeEducationBatchUpdateArgs(List<EmployeeEducation> employeeEducationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeEducation employeeEducation:employeeEducationList ){
 			if(!employeeEducation.isChanged()){
@@ -378,40 +382,40 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			}
 			Object [] parameters = prepareEmployeeEducationUpdateParameters(employeeEducation);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeEducationCreate(List<EmployeeEducation> employeeEducationList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeEducationBatchCreateArgs(employeeEducationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeEducationUpdate(List<EmployeeEducation> employeeEducationList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeEducationBatchUpdateArgs(employeeEducationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeEducationList(List<EmployeeEducation> employeeEducationList){
-		
+
 		List<EmployeeEducation> employeeEducationCreateList=new ArrayList<EmployeeEducation>();
 		List<EmployeeEducation> employeeEducationUpdateList=new ArrayList<EmployeeEducation>();
-		
+
 		for(EmployeeEducation employeeEducation: employeeEducationList){
 			if(isUpdateRequest(employeeEducation)){
 				employeeEducationUpdateList.add( employeeEducation);
@@ -419,10 +423,10 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			}
 			employeeEducationCreateList.add(employeeEducation);
 		}
-		
+
 		return new Object[]{employeeEducationCreateList,employeeEducationUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(EmployeeEducation employeeEducation){
  		return employeeEducation.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeEducationParameters(EmployeeEducation employeeEducation){
  		if(isUpdateRequest(employeeEducation) ){
  			return prepareEmployeeEducationUpdateParameters(employeeEducation);
@@ -441,7 +445,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  	}
  	protected Object[] prepareEmployeeEducationUpdateParameters(EmployeeEducation employeeEducation){
  		Object[] parameters = new Object[7];
-  	
+ 
  		if(employeeEducation.getEmployee() != null){
  			parameters[0] = employeeEducation.getEmployee().getId();
  		}
@@ -454,22 +458,24 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		
  		
  		parameters[3] = employeeEducation.getRemark();
- 				
+ 		
  		parameters[4] = employeeEducation.nextVersion();
  		parameters[5] = employeeEducation.getId();
  		parameters[6] = employeeEducation.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeEducationCreateParameters(EmployeeEducation employeeEducation){
 		Object[] parameters = new Object[5];
-		String newEmployeeEducationId=getNextId();
-		employeeEducation.setId(newEmployeeEducationId);
+        if(employeeEducation.getId() == null){
+          String newEmployeeEducationId=getNextId();
+          employeeEducation.setId(newEmployeeEducationId);
+        }
 		parameters[0] =  employeeEducation.getId();
-  	
+ 
  		if(employeeEducation.getEmployee() != null){
  			parameters[1] = employeeEducation.getEmployee().getId();
- 		
+
  		}
  		
  		
@@ -480,44 +486,44 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		
  		
  		parameters[4] = employeeEducation.getRemark();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected EmployeeEducation saveInternalEmployeeEducation(EmployeeEducation employeeEducation, Map<String,Object> options){
-		
+
 		saveEmployeeEducation(employeeEducation);
- 	
+
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeEducation, options);
  		}
  
 		
 		return employeeEducation;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected EmployeeEducation saveEmployee(EmployeeEducation employeeEducation, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeEducation.getEmployee() == null){
  			return employeeEducation;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(employeeEducation.getEmployee(),options);
  		return employeeEducation;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -537,47 +543,53 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	protected String getTableName(){
 		return EmployeeEducationTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<EmployeeEducation> employeeEducationList) {		
+
+
+
+	public void enhanceList(List<EmployeeEducation> employeeEducationList) {
 		this.enhanceListInternal(employeeEducationList, this.getEmployeeEducationMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeEducation> employeeEducationList = ownerEntity.collectRefsWithType(EmployeeEducation.INTERNAL_TYPE);
 		this.enhanceList(employeeEducationList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<EmployeeEducation> findEmployeeEducationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeEducationMapper());
 
 	}
 	@Override
 	public int countEmployeeEducationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeEducationWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<EmployeeEducation> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeEducationMapper());
 	}
+
+  @Override
+  public Stream<EmployeeEducation> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeEducationMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -606,7 +618,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 		return result;
 	}
-	
+
 	
 
 }

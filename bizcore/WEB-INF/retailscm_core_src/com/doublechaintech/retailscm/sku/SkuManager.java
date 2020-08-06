@@ -17,6 +17,7 @@ public interface SkuManager extends BaseManager{
 	public Sku createSku(RetailscmUserContext userContext, String name,String size,String productId,String barcode,String packageType,String netContent,BigDecimal price,String picture) throws Exception;
 	public Sku updateSku(RetailscmUserContext userContext,String skuId, int skuVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Sku loadSku(RetailscmUserContext userContext, String skuId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Sku internalSaveSku(RetailscmUserContext userContext, Sku sku) throws Exception;
 	public Sku internalSaveSku(RetailscmUserContext userContext, Sku sku,Map<String,Object>option) throws Exception;
 

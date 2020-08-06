@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.leveltwodepartment;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartmentDA
 public interface LevelTwoDepartmentDAO extends BaseDAO{
 
 	public SmartList<LevelTwoDepartment> loadAll();
+	public Stream<LevelTwoDepartment> loadAllAsStream();
 	public LevelTwoDepartment load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<LevelTwoDepartment> levelTwoDepartmentList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public LevelTwoDepartment present(LevelTwoDepartment levelTwoDepartment,Map<String,Object> options) throws Exception;
 	public LevelTwoDepartment clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public LevelTwoDepartment save(LevelTwoDepartment levelTwoDepartment,Map<String,Object> options);
 	public SmartList<LevelTwoDepartment> saveLevelTwoDepartmentList(SmartList<LevelTwoDepartment> levelTwoDepartmentList,Map<String,Object> options);
 	public SmartList<LevelTwoDepartment> removeLevelTwoDepartmentList(SmartList<LevelTwoDepartment> levelTwoDepartmentList,Map<String,Object> options);
@@ -54,18 +56,19 @@ public interface LevelTwoDepartmentDAO extends BaseDAO{
 	public LevelTwoDepartment planToRemoveLevelThreeDepartmentList(LevelTwoDepartment levelTwoDepartment, String levelThreeDepartmentIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<LevelTwoDepartment> queryList(String sql, Object ... parmeters);
+	public Stream<LevelTwoDepartment> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateLevelTwoDepartment executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<LevelTwoDepartment> findLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId, Map<String,Object> options);
  	public int countLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId, Map<String,Object> options);
  	public Map<String, Integer> countLevelTwoDepartmentByBelongsToIds(String[] ids, Map<String,Object> options);
  	public SmartList<LevelTwoDepartment> findLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId, int start, int count, Map<String,Object> options);
  	public void analyzeLevelTwoDepartmentByBelongsTo(SmartList<LevelTwoDepartment> resultList, String levelOneDepartmentId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:LevelThreeDepartment的belongsTo的LevelThreeDepartmentList
 	public SmartList<LevelThreeDepartment> loadOurLevelThreeDepartmentList(RetailscmUserContext userContext, List<LevelTwoDepartment> us, Map<String,Object> options) throws Exception;

@@ -31,68 +31,72 @@ import com.doublechaintech.retailscm.RetailscmUserContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements TreeNodeDAO{
 
-	
+
 	/*
 	protected TreeNode load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalTreeNode(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<TreeNode> loadAll() {
 	    return this.loadAll(getTreeNodeMapper());
 	}
-	
-	
+
+  public Stream<TreeNode> loadAllAsStream() {
+      return this.loadAllAsStream(getTreeNodeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public TreeNode load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalTreeNode(TreeNodeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public TreeNode save(TreeNode treeNode,Map<String,Object> options){
-		
+
 		String methodName="save(TreeNode treeNode,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(treeNode, methodName, "treeNode");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalTreeNode(treeNode,options);
 	}
 	public TreeNode clone(String treeNodeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(TreeNodeTable.withId(treeNodeId),options);
 	}
-	
+
 	protected TreeNode clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String treeNodeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		TreeNode newTreeNode = loadInternalTreeNode(accessKey, options);
 		newTreeNode.setVersion(0);
 		
 		
 
-		
+
 		saveInternalTreeNode(newTreeNode,options);
-		
+
 		return newTreeNode;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String treeNodeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -108,15 +112,15 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String treeNodeId, int version) throws Exception{
-	
+
 		String methodName="delete(String treeNodeId, int version)";
 		assertMethodArgumentNotNull(treeNodeId, methodName, "treeNodeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{treeNodeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -126,26 +130,26 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 		if(affectedNumber == 0){
 			handleDeleteOneError(treeNodeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public TreeNode disconnectFromAll(String treeNodeId, int version) throws Exception{
-	
-		
+
+
 		TreeNode treeNode = loadInternalTreeNode(TreeNodeTable.withId(treeNodeId), emptyOptions());
 		treeNode.clearFromAll();
 		this.saveTreeNode(treeNode);
 		return treeNode;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -153,15 +157,15 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "tree_node";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "treeNode";
 	}
-	
+
 	
 	
 	
@@ -221,7 +225,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 			return treeNode;
 		}
 		
-		
+
 		String SQL=this.getSaveTreeNodeSQL(treeNode);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTreeNodeParameters(treeNode);
@@ -230,57 +234,57 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		treeNode.incVersion();
 		return treeNode;
-	
+
 	}
 	public SmartList<TreeNode> saveTreeNodeList(SmartList<TreeNode> treeNodeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitTreeNodeList(treeNodeList);
-		
+
 		batchTreeNodeCreate((List<TreeNode>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchTreeNodeUpdate((List<TreeNode>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(TreeNode treeNode:treeNodeList){
 			if(treeNode.isChanged()){
 				treeNode.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return treeNodeList;
 	}
 
 	public SmartList<TreeNode> removeTreeNodeList(SmartList<TreeNode> treeNodeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(treeNodeList, options);
-		
+
 		return treeNodeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareTreeNodeBatchCreateArgs(List<TreeNode> treeNodeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(TreeNode treeNode:treeNodeList ){
 			Object [] parameters = prepareTreeNodeCreateParameters(treeNode);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareTreeNodeBatchUpdateArgs(List<TreeNode> treeNodeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(TreeNode treeNode:treeNodeList ){
 			if(!treeNode.isChanged()){
@@ -288,40 +292,40 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 			}
 			Object [] parameters = prepareTreeNodeUpdateParameters(treeNode);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchTreeNodeCreate(List<TreeNode> treeNodeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareTreeNodeBatchCreateArgs(treeNodeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchTreeNodeUpdate(List<TreeNode> treeNodeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareTreeNodeBatchUpdateArgs(treeNodeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitTreeNodeList(List<TreeNode> treeNodeList){
-		
+
 		List<TreeNode> treeNodeCreateList=new ArrayList<TreeNode>();
 		List<TreeNode> treeNodeUpdateList=new ArrayList<TreeNode>();
-		
+
 		for(TreeNode treeNode: treeNodeList){
 			if(isUpdateRequest(treeNode)){
 				treeNodeUpdateList.add( treeNode);
@@ -329,10 +333,10 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 			}
 			treeNodeCreateList.add(treeNode);
 		}
-		
+
 		return new Object[]{treeNodeCreateList,treeNodeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(TreeNode treeNode){
  		return treeNode.getVersion() > 0;
  	}
@@ -342,7 +346,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveTreeNodeParameters(TreeNode treeNode){
  		if(isUpdateRequest(treeNode) ){
  			return prepareTreeNodeUpdateParameters(treeNode);
@@ -363,17 +367,19 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
  		
  		
  		parameters[3] = treeNode.getRightValue();
- 				
+ 		
  		parameters[4] = treeNode.nextVersion();
  		parameters[5] = treeNode.getId();
  		parameters[6] = treeNode.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareTreeNodeCreateParameters(TreeNode treeNode){
 		Object[] parameters = new Object[5];
-		String newTreeNodeId=getNextId();
-		treeNode.setId(newTreeNodeId);
+        if(treeNode.getId() == null){
+          String newTreeNodeId=getNextId();
+          treeNode.setId(newTreeNodeId);
+        }
 		parameters[0] =  treeNode.getId();
  
  		
@@ -387,22 +393,22 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
  		
  		
  		parameters[4] = treeNode.getRightValue();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected TreeNode saveInternalTreeNode(TreeNode treeNode, Map<String,Object> options){
-		
+
 		saveTreeNode(treeNode);
 
 		
 		return treeNode;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
 	
 
@@ -423,47 +429,53 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	protected String getTableName(){
 		return TreeNodeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<TreeNode> treeNodeList) {		
+
+
+
+	public void enhanceList(List<TreeNode> treeNodeList) {
 		this.enhanceListInternal(treeNodeList, this.getTreeNodeMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TreeNode> treeNodeList = ownerEntity.collectRefsWithType(TreeNode.INTERNAL_TYPE);
 		this.enhanceList(treeNodeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<TreeNode> findTreeNodeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getTreeNodeMapper());
 
 	}
 	@Override
 	public int countTreeNodeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countTreeNodeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<TreeNode> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTreeNodeMapper());
 	}
+
+  @Override
+  public Stream<TreeNode> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getTreeNodeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -492,7 +504,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 		}
 		return result;
 	}
-	
+
 	
     
 	public Map<String, Integer> countBySql(String sql, Object[] params) {

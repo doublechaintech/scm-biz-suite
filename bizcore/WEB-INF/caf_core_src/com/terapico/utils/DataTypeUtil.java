@@ -2,6 +2,7 @@ package com.terapico.utils;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Function;
 
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
@@ -9,6 +10,24 @@ import com.terapico.caf.form.ImageInfo;
 
 
 public class DataTypeUtil {
+	protected static Map<String, Function<Object, Object>> dimensionalHandler = new HashMap<>();
+	static {
+		dimensionalHandler.put("百分比", DataTypeUtil::getBigDecimal);
+		dimensionalHandler.put("天", DataTypeUtil::getBigDecimal);
+		dimensionalHandler.put("小时", DataTypeUtil::getBigDecimal);
+		dimensionalHandler.put("分钟", DataTypeUtil::getBigDecimal);
+		dimensionalHandler.put("秒", DataTypeUtil::getInt);
+		dimensionalHandler.put("元", DataTypeUtil::getBigDecimal);
+	}
+
+	public static <T> T getValueWithUnit(String unit, Object value) {
+		Function<Object, Object> func = dimensionalHandler.get(unit);
+		if (func == null){
+			System.out.println("[  DataTypeUtil]:不支持的计量单位\"" + unit+"\"");
+			return (T)value;
+		}
+		return (T) func.apply(value);
+	}
 	public static boolean isMonoType(Object value) {
 		if (value == null) {
 			return false;

@@ -17,6 +17,7 @@ public interface ScoringManager extends BaseManager{
 	public Scoring createScoring(RetailscmUserContext userContext, String scoredBy,int score,String comment) throws Exception;
 	public Scoring updateScoring(RetailscmUserContext userContext,String scoringId, int scoringVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Scoring loadScoring(RetailscmUserContext userContext, String scoringId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Scoring internalSaveScoring(RetailscmUserContext userContext, Scoring scoring) throws Exception;
 	public Scoring internalSaveScoring(RetailscmUserContext userContext, Scoring scoring,Map<String,Object>option) throws Exception;
 

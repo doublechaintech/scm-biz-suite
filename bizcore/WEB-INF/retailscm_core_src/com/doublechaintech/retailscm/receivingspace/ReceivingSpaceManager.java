@@ -17,6 +17,7 @@ public interface ReceivingSpaceManager extends BaseManager{
 	public ReceivingSpace createReceivingSpace(RetailscmUserContext userContext, String location,String contactNumber,String description,String totalArea,String warehouseId,BigDecimal latitude,BigDecimal longitude) throws Exception;
 	public ReceivingSpace updateReceivingSpace(RetailscmUserContext userContext,String receivingSpaceId, int receivingSpaceVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ReceivingSpace loadReceivingSpace(RetailscmUserContext userContext, String receivingSpaceId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public ReceivingSpace internalSaveReceivingSpace(RetailscmUserContext userContext, ReceivingSpace receivingSpace) throws Exception;
 	public ReceivingSpace internalSaveReceivingSpace(RetailscmUserContext userContext, ReceivingSpace receivingSpace,Map<String,Object>option) throws Exception;
 

@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeAwardDAO{
 
@@ -53,64 +53,68 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 	return this.employeeDAO;
  	}	
 
-	
+
 	/*
 	protected EmployeeAward load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeAward(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<EmployeeAward> loadAll() {
 	    return this.loadAll(getEmployeeAwardMapper());
 	}
-	
-	
+
+  public Stream<EmployeeAward> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeAwardMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public EmployeeAward load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeAward(EmployeeAwardTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public EmployeeAward save(EmployeeAward employeeAward,Map<String,Object> options){
-		
+
 		String methodName="save(EmployeeAward employeeAward,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employeeAward, methodName, "employeeAward");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployeeAward(employeeAward,options);
 	}
 	public EmployeeAward clone(String employeeAwardId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeAwardTable.withId(employeeAwardId),options);
 	}
-	
+
 	protected EmployeeAward clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeAwardId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		EmployeeAward newEmployeeAward = loadInternalEmployeeAward(accessKey, options);
 		newEmployeeAward.setVersion(0);
 		
 		
 
-		
+
 		saveInternalEmployeeAward(newEmployeeAward,options);
-		
+
 		return newEmployeeAward;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeAwardId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeAwardId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeAwardId, int version)";
 		assertMethodArgumentNotNull(employeeAwardId, methodName, "employeeAwardId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeAwardId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeAwardId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public EmployeeAward disconnectFromAll(String employeeAwardId, int version) throws Exception{
-	
-		
+
+
 		EmployeeAward employeeAward = loadInternalEmployeeAward(EmployeeAwardTable.withId(employeeAwardId), emptyOptions());
 		employeeAward.clearFromAll();
 		this.saveEmployeeAward(employeeAward);
 		return employeeAward;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee_award";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employeeAward";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return employeeAward;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeAwardSQL(employeeAward);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeAwardParameters(employeeAward);
@@ -320,57 +324,57 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employeeAward.incVersion();
 		return employeeAward;
-	
+
 	}
 	public SmartList<EmployeeAward> saveEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeAwardList(employeeAwardList);
-		
+
 		batchEmployeeAwardCreate((List<EmployeeAward>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeAwardUpdate((List<EmployeeAward>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(EmployeeAward employeeAward:employeeAwardList){
 			if(employeeAward.isChanged()){
 				employeeAward.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeAwardList;
 	}
 
 	public SmartList<EmployeeAward> removeEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeAwardList, options);
-		
+
 		return employeeAwardList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeAwardBatchCreateArgs(List<EmployeeAward> employeeAwardList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeAward employeeAward:employeeAwardList ){
 			Object [] parameters = prepareEmployeeAwardCreateParameters(employeeAward);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeAwardBatchUpdateArgs(List<EmployeeAward> employeeAwardList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeAward employeeAward:employeeAwardList ){
 			if(!employeeAward.isChanged()){
@@ -378,40 +382,40 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			Object [] parameters = prepareEmployeeAwardUpdateParameters(employeeAward);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeAwardCreate(List<EmployeeAward> employeeAwardList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeAwardBatchCreateArgs(employeeAwardList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeAwardUpdate(List<EmployeeAward> employeeAwardList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeAwardBatchUpdateArgs(employeeAwardList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeAwardList(List<EmployeeAward> employeeAwardList){
-		
+
 		List<EmployeeAward> employeeAwardCreateList=new ArrayList<EmployeeAward>();
 		List<EmployeeAward> employeeAwardUpdateList=new ArrayList<EmployeeAward>();
-		
+
 		for(EmployeeAward employeeAward: employeeAwardList){
 			if(isUpdateRequest(employeeAward)){
 				employeeAwardUpdateList.add( employeeAward);
@@ -419,10 +423,10 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			employeeAwardCreateList.add(employeeAward);
 		}
-		
+
 		return new Object[]{employeeAwardCreateList,employeeAwardUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(EmployeeAward employeeAward){
  		return employeeAward.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeAwardParameters(EmployeeAward employeeAward){
  		if(isUpdateRequest(employeeAward) ){
  			return prepareEmployeeAwardUpdateParameters(employeeAward);
@@ -441,7 +445,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	}
  	protected Object[] prepareEmployeeAwardUpdateParameters(EmployeeAward employeeAward){
  		Object[] parameters = new Object[7];
-  	
+ 
  		if(employeeAward.getEmployee() != null){
  			parameters[0] = employeeAward.getEmployee().getId();
  		}
@@ -454,22 +458,24 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[3] = employeeAward.getRemark();
- 				
+ 		
  		parameters[4] = employeeAward.nextVersion();
  		parameters[5] = employeeAward.getId();
  		parameters[6] = employeeAward.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeAwardCreateParameters(EmployeeAward employeeAward){
 		Object[] parameters = new Object[5];
-		String newEmployeeAwardId=getNextId();
-		employeeAward.setId(newEmployeeAwardId);
+        if(employeeAward.getId() == null){
+          String newEmployeeAwardId=getNextId();
+          employeeAward.setId(newEmployeeAwardId);
+        }
 		parameters[0] =  employeeAward.getId();
-  	
+ 
  		if(employeeAward.getEmployee() != null){
  			parameters[1] = employeeAward.getEmployee().getId();
- 		
+
  		}
  		
  		
@@ -480,44 +486,44 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[4] = employeeAward.getRemark();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected EmployeeAward saveInternalEmployeeAward(EmployeeAward employeeAward, Map<String,Object> options){
-		
+
 		saveEmployeeAward(employeeAward);
- 	
+
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeAward, options);
  		}
  
 		
 		return employeeAward;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected EmployeeAward saveEmployee(EmployeeAward employeeAward, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeAward.getEmployee() == null){
  			return employeeAward;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(employeeAward.getEmployee(),options);
  		return employeeAward;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -537,47 +543,53 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	protected String getTableName(){
 		return EmployeeAwardTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<EmployeeAward> employeeAwardList) {		
+
+
+
+	public void enhanceList(List<EmployeeAward> employeeAwardList) {
 		this.enhanceListInternal(employeeAwardList, this.getEmployeeAwardMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeAward> employeeAwardList = ownerEntity.collectRefsWithType(EmployeeAward.INTERNAL_TYPE);
 		this.enhanceList(employeeAwardList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<EmployeeAward> findEmployeeAwardWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeAwardMapper());
 
 	}
 	@Override
 	public int countEmployeeAwardWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeAwardWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<EmployeeAward> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeAwardMapper());
 	}
+
+  @Override
+  public Stream<EmployeeAward> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeAwardMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -606,7 +618,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 		return result;
 	}
-	
+
 	
 
 }

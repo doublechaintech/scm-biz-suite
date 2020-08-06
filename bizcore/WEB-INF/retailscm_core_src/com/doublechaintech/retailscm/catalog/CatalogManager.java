@@ -17,6 +17,7 @@ public interface CatalogManager extends BaseManager{
 	public Catalog createCatalog(RetailscmUserContext userContext, String name,String ownerId,int subCount,BigDecimal amount) throws Exception;
 	public Catalog updateCatalog(RetailscmUserContext userContext,String catalogId, int catalogVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Catalog loadCatalog(RetailscmUserContext userContext, String catalogId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Catalog internalSaveCatalog(RetailscmUserContext userContext, Catalog catalog) throws Exception;
 	public Catalog internalSaveCatalog(RetailscmUserContext userContext, Catalog catalog,Map<String,Object>option) throws Exception;
 

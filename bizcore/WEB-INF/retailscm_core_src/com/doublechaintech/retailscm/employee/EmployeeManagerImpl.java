@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.employee;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -71,24 +69,24 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = EmployeeTokens.start().withTokenFromListName(listName).done();
 		Employee  employee = (Employee) this.loadEmployee(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = employee.collectRefercencesFromLists();
 		employeeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, employee, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new EmployeeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -151,7 +149,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).throwExceptionIfHasErrors( EmployeeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Employee employee = loadEmployee( userContext, employeeId, tokens);
  		//do some calc before sent to customer?
@@ -170,6 +168,9 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		
 		List<BaseEntity> entityListToNaming = employeeToPresent.collectRefercencesFromLists();
 		employeeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,employee,tokens);
 		
 		return  employeeToPresent;
 		
@@ -1030,7 +1031,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeCompanyTraining( employeeCompanyTraining );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getEmployeeCompanyTrainingManager().onNewInstanceCreated(userContext, employeeCompanyTraining);
+			employeeCompanyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, employeeCompanyTraining);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1050,7 +1051,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeCompanyTrainingListList()
-				.searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, "is", id).done();
+				.searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -1059,7 +1060,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeCompanyTraining item = employeeToUpdate.getEmployeeCompanyTrainingList().first();
-
+		beforeUpdateEmployeeCompanyTrainingProperties(userContext,item, employeeId,id,tokensExpr);
 
 
 		//checkParamsForAddingEmployeeCompanyTraining(userContext,employeeId,name, code, used,tokensExpr);
@@ -1069,6 +1070,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeCompanyTrainingProperties(RetailscmUserContext userContext, EmployeeCompanyTraining item, String employeeId, String id, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeCompanyTraining createEmployeeCompanyTraining(RetailscmUserContext userContext, String trainingId, String scoringId) throws Exception{
 
@@ -1177,7 +1182,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeCompanyTrainingFrom( employeeCompanyTraining );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getEmployeeCompanyTrainingManager().onNewInstanceCreated(userContext, (EmployeeCompanyTraining)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeCompanyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeCompanyTraining)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -1190,9 +1195,9 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
 		checkerOf(userContext).checkVersionOfEmployeeCompanyTraining(employeeCompanyTrainingVersion);
-		
 
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -1202,7 +1207,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeCompanyTraining(userContext, employeeId, employeeCompanyTrainingId, employeeCompanyTrainingVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeCompanyTrainingList().searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, "eq", employeeCompanyTrainingId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeCompanyTrainingList().searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, tokens().equals(), employeeCompanyTrainingId).done();
 
 
 
@@ -1213,13 +1218,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeCompanyTraining( employeeCompanyTraining );
 			//make changes to AcceleraterAccount.
-			EmployeeCompanyTraining employeeCompanyTrainingIndex = createIndexedEmployeeCompanyTraining(employeeCompanyTrainingId, employeeCompanyTrainingVersion);
+			EmployeeCompanyTraining employeeCompanyTrainingIdVersionKey = createIndexedEmployeeCompanyTraining(employeeCompanyTrainingId, employeeCompanyTrainingVersion);
 
-			EmployeeCompanyTraining employeeCompanyTraining = employee.findTheEmployeeCompanyTraining(employeeCompanyTrainingIndex);
+			EmployeeCompanyTraining employeeCompanyTraining = employee.findTheEmployeeCompanyTraining(employeeCompanyTrainingIdVersionKey);
 			if(employeeCompanyTraining == null){
-				throw new EmployeeManagerException(employeeCompanyTraining+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeCompanyTrainingId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeCompanyTraining(userContext, employeeCompanyTraining, employeeId, employeeCompanyTrainingId, employeeCompanyTrainingVersion, property, newValueExpr,  tokensExpr);
 			employeeCompanyTraining.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeCompanyTrainingList().done());
@@ -1227,6 +1233,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeCompanyTraining(RetailscmUserContext userContext, EmployeeCompanyTraining existed, String employeeId, String employeeCompanyTrainingId, int employeeCompanyTrainingVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1261,7 +1272,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeSkill( employeeSkill );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeSkillList().done());
 			
-			userContext.getManagerGroup().getEmployeeSkillManager().onNewInstanceCreated(userContext, employeeSkill);
+			employeeSkillManagerOf(userContext).onNewInstanceCreated(userContext, employeeSkill);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1282,7 +1293,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeSkillListList()
-				.searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, "is", id).done();
+				.searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -1291,7 +1302,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeSkill item = employeeToUpdate.getEmployeeSkillList().first();
-
+		beforeUpdateEmployeeSkillProperties(userContext,item, employeeId,id,description,tokensExpr);
 		item.updateDescription( description );
 
 
@@ -1302,6 +1313,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeSkillProperties(RetailscmUserContext userContext, EmployeeSkill item, String employeeId, String id,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeSkill createEmployeeSkill(RetailscmUserContext userContext, String skillTypeId, String description) throws Exception{
 
@@ -1408,7 +1423,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeSkillFrom( employeeSkill );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeSkillList().done());
 			
-			userContext.getManagerGroup().getEmployeeSkillManager().onNewInstanceCreated(userContext, (EmployeeSkill)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeSkillManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeSkill)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -1421,15 +1436,13 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeSkill(employeeSkillId);
 		checkerOf(userContext).checkVersionOfEmployeeSkill(employeeSkillVersion);
-		
+
 
 		if(EmployeeSkill.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfEmployeeSkill(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -1439,7 +1452,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeSkill(userContext, employeeId, employeeSkillId, employeeSkillVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeSkillList().searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, "eq", employeeSkillId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeSkillList().searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, tokens().equals(), employeeSkillId).done();
 
 
 
@@ -1450,13 +1463,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeSkill( employeeSkill );
 			//make changes to AcceleraterAccount.
-			EmployeeSkill employeeSkillIndex = createIndexedEmployeeSkill(employeeSkillId, employeeSkillVersion);
+			EmployeeSkill employeeSkillIdVersionKey = createIndexedEmployeeSkill(employeeSkillId, employeeSkillVersion);
 
-			EmployeeSkill employeeSkill = employee.findTheEmployeeSkill(employeeSkillIndex);
+			EmployeeSkill employeeSkill = employee.findTheEmployeeSkill(employeeSkillIdVersionKey);
 			if(employeeSkill == null){
-				throw new EmployeeManagerException(employeeSkill+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeSkillId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeSkill(userContext, employeeSkill, employeeId, employeeSkillId, employeeSkillVersion, property, newValueExpr,  tokensExpr);
 			employeeSkill.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeSkillList().done());
@@ -1464,6 +1478,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeSkill(RetailscmUserContext userContext, EmployeeSkill existed, String employeeId, String employeeSkillId, int employeeSkillVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1496,7 +1515,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeePerformance( employeePerformance );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeePerformanceList().done());
 			
-			userContext.getManagerGroup().getEmployeePerformanceManager().onNewInstanceCreated(userContext, employeePerformance);
+			employeePerformanceManagerOf(userContext).onNewInstanceCreated(userContext, employeePerformance);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1517,7 +1536,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeePerformanceListList()
-				.searchEmployeePerformanceListWith(EmployeePerformance.ID_PROPERTY, "is", id).done();
+				.searchEmployeePerformanceListWith(EmployeePerformance.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -1526,7 +1545,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeePerformance item = employeeToUpdate.getEmployeePerformanceList().first();
-
+		beforeUpdateEmployeePerformanceProperties(userContext,item, employeeId,id,performanceComment,tokensExpr);
 		item.updatePerformanceComment( performanceComment );
 
 
@@ -1537,6 +1556,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeePerformanceProperties(RetailscmUserContext userContext, EmployeePerformance item, String employeeId, String id,String performanceComment, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeePerformance createEmployeePerformance(RetailscmUserContext userContext, String performanceComment) throws Exception{
 
@@ -1640,7 +1663,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeePerformanceFrom( employeePerformance );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeePerformanceList().done());
 			
-			userContext.getManagerGroup().getEmployeePerformanceManager().onNewInstanceCreated(userContext, (EmployeePerformance)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeePerformanceManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeePerformance)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -1653,15 +1676,13 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeePerformance(employeePerformanceId);
 		checkerOf(userContext).checkVersionOfEmployeePerformance(employeePerformanceVersion);
-		
+
 
 		if(EmployeePerformance.PERFORMANCE_COMMENT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPerformanceCommentOfEmployeePerformance(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -1671,7 +1692,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeePerformance(userContext, employeeId, employeePerformanceId, employeePerformanceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeePerformanceList().searchEmployeePerformanceListWith(EmployeePerformance.ID_PROPERTY, "eq", employeePerformanceId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeePerformanceList().searchEmployeePerformanceListWith(EmployeePerformance.ID_PROPERTY, tokens().equals(), employeePerformanceId).done();
 
 
 
@@ -1682,13 +1703,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeePerformance( employeePerformance );
 			//make changes to AcceleraterAccount.
-			EmployeePerformance employeePerformanceIndex = createIndexedEmployeePerformance(employeePerformanceId, employeePerformanceVersion);
+			EmployeePerformance employeePerformanceIdVersionKey = createIndexedEmployeePerformance(employeePerformanceId, employeePerformanceVersion);
 
-			EmployeePerformance employeePerformance = employee.findTheEmployeePerformance(employeePerformanceIndex);
+			EmployeePerformance employeePerformance = employee.findTheEmployeePerformance(employeePerformanceIdVersionKey);
 			if(employeePerformance == null){
-				throw new EmployeeManagerException(employeePerformance+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeePerformanceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeePerformance(userContext, employeePerformance, employeeId, employeePerformanceId, employeePerformanceVersion, property, newValueExpr,  tokensExpr);
 			employeePerformance.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeePerformanceList().done());
@@ -1696,6 +1718,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeePerformance(RetailscmUserContext userContext, EmployeePerformance existed, String employeeId, String employeePerformanceId, int employeePerformanceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1734,7 +1761,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeWorkExperience( employeeWorkExperience );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeWorkExperienceList().done());
 			
-			userContext.getManagerGroup().getEmployeeWorkExperienceManager().onNewInstanceCreated(userContext, employeeWorkExperience);
+			employeeWorkExperienceManagerOf(userContext).onNewInstanceCreated(userContext, employeeWorkExperience);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1758,7 +1785,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeWorkExperienceListList()
-				.searchEmployeeWorkExperienceListWith(EmployeeWorkExperience.ID_PROPERTY, "is", id).done();
+				.searchEmployeeWorkExperienceListWith(EmployeeWorkExperience.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -1767,7 +1794,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeWorkExperience item = employeeToUpdate.getEmployeeWorkExperienceList().first();
-
+		beforeUpdateEmployeeWorkExperienceProperties(userContext,item, employeeId,id,start,end,company,description,tokensExpr);
 		item.updateStart( start );
 		item.updateEnd( end );
 		item.updateCompany( company );
@@ -1781,6 +1808,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeWorkExperienceProperties(RetailscmUserContext userContext, EmployeeWorkExperience item, String employeeId, String id,Date start,Date end,String company,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeWorkExperience createEmployeeWorkExperience(RetailscmUserContext userContext, Date start, Date end, String company, String description) throws Exception{
 
@@ -1887,7 +1918,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeWorkExperienceFrom( employeeWorkExperience );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeWorkExperienceList().done());
 			
-			userContext.getManagerGroup().getEmployeeWorkExperienceManager().onNewInstanceCreated(userContext, (EmployeeWorkExperience)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeWorkExperienceManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeWorkExperience)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -1900,33 +1931,25 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeWorkExperience(employeeWorkExperienceId);
 		checkerOf(userContext).checkVersionOfEmployeeWorkExperience(employeeWorkExperienceVersion);
-		
+
 
 		if(EmployeeWorkExperience.START_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkStartOfEmployeeWorkExperience(parseDate(newValueExpr));
-		
 		}
 		
 		if(EmployeeWorkExperience.END_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEndOfEmployeeWorkExperience(parseDate(newValueExpr));
-		
 		}
 		
 		if(EmployeeWorkExperience.COMPANY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCompanyOfEmployeeWorkExperience(parseString(newValueExpr));
-		
 		}
 		
 		if(EmployeeWorkExperience.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfEmployeeWorkExperience(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -1936,7 +1959,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeWorkExperience(userContext, employeeId, employeeWorkExperienceId, employeeWorkExperienceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeWorkExperienceList().searchEmployeeWorkExperienceListWith(EmployeeWorkExperience.ID_PROPERTY, "eq", employeeWorkExperienceId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeWorkExperienceList().searchEmployeeWorkExperienceListWith(EmployeeWorkExperience.ID_PROPERTY, tokens().equals(), employeeWorkExperienceId).done();
 
 
 
@@ -1947,13 +1970,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeWorkExperience( employeeWorkExperience );
 			//make changes to AcceleraterAccount.
-			EmployeeWorkExperience employeeWorkExperienceIndex = createIndexedEmployeeWorkExperience(employeeWorkExperienceId, employeeWorkExperienceVersion);
+			EmployeeWorkExperience employeeWorkExperienceIdVersionKey = createIndexedEmployeeWorkExperience(employeeWorkExperienceId, employeeWorkExperienceVersion);
 
-			EmployeeWorkExperience employeeWorkExperience = employee.findTheEmployeeWorkExperience(employeeWorkExperienceIndex);
+			EmployeeWorkExperience employeeWorkExperience = employee.findTheEmployeeWorkExperience(employeeWorkExperienceIdVersionKey);
 			if(employeeWorkExperience == null){
-				throw new EmployeeManagerException(employeeWorkExperience+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeWorkExperienceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeWorkExperience(userContext, employeeWorkExperience, employeeId, employeeWorkExperienceId, employeeWorkExperienceVersion, property, newValueExpr,  tokensExpr);
 			employeeWorkExperience.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeWorkExperienceList().done());
@@ -1961,6 +1985,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeWorkExperience(RetailscmUserContext userContext, EmployeeWorkExperience existed, String employeeId, String employeeWorkExperienceId, int employeeWorkExperienceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1997,7 +2026,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeLeave( employeeLeave );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeLeaveList().done());
 			
-			userContext.getManagerGroup().getEmployeeLeaveManager().onNewInstanceCreated(userContext, employeeLeave);
+			employeeLeaveManagerOf(userContext).onNewInstanceCreated(userContext, employeeLeave);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2019,7 +2048,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeLeaveListList()
-				.searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, "is", id).done();
+				.searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -2028,7 +2057,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeLeave item = employeeToUpdate.getEmployeeLeaveList().first();
-
+		beforeUpdateEmployeeLeaveProperties(userContext,item, employeeId,id,leaveDurationHour,remark,tokensExpr);
 		item.updateLeaveDurationHour( leaveDurationHour );
 		item.updateRemark( remark );
 
@@ -2040,6 +2069,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeLeaveProperties(RetailscmUserContext userContext, EmployeeLeave item, String employeeId, String id,int leaveDurationHour,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeLeave createEmployeeLeave(RetailscmUserContext userContext, String typeId, int leaveDurationHour, String remark) throws Exception{
 
@@ -2147,7 +2180,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeLeaveFrom( employeeLeave );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeLeaveList().done());
 			
-			userContext.getManagerGroup().getEmployeeLeaveManager().onNewInstanceCreated(userContext, (EmployeeLeave)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeLeaveManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeLeave)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -2160,21 +2193,17 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeLeave(employeeLeaveId);
 		checkerOf(userContext).checkVersionOfEmployeeLeave(employeeLeaveVersion);
-		
+
 
 		if(EmployeeLeave.LEAVE_DURATION_HOUR_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLeaveDurationHourOfEmployeeLeave(parseInt(newValueExpr));
-		
 		}
 		
 		if(EmployeeLeave.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeLeave(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -2184,7 +2213,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeLeave(userContext, employeeId, employeeLeaveId, employeeLeaveVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeLeaveList().searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, "eq", employeeLeaveId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeLeaveList().searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, tokens().equals(), employeeLeaveId).done();
 
 
 
@@ -2195,13 +2224,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeLeave( employeeLeave );
 			//make changes to AcceleraterAccount.
-			EmployeeLeave employeeLeaveIndex = createIndexedEmployeeLeave(employeeLeaveId, employeeLeaveVersion);
+			EmployeeLeave employeeLeaveIdVersionKey = createIndexedEmployeeLeave(employeeLeaveId, employeeLeaveVersion);
 
-			EmployeeLeave employeeLeave = employee.findTheEmployeeLeave(employeeLeaveIndex);
+			EmployeeLeave employeeLeave = employee.findTheEmployeeLeave(employeeLeaveIdVersionKey);
 			if(employeeLeave == null){
-				throw new EmployeeManagerException(employeeLeave+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeLeaveId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeLeave(userContext, employeeLeave, employeeId, employeeLeaveId, employeeLeaveVersion, property, newValueExpr,  tokensExpr);
 			employeeLeave.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeLeaveList().done());
@@ -2209,6 +2239,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeLeave(RetailscmUserContext userContext, EmployeeLeave existed, String employeeId, String employeeLeaveId, int employeeLeaveVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2243,7 +2278,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeInterview( employeeInterview );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeInterviewList().done());
 			
-			userContext.getManagerGroup().getEmployeeInterviewManager().onNewInstanceCreated(userContext, employeeInterview);
+			employeeInterviewManagerOf(userContext).onNewInstanceCreated(userContext, employeeInterview);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2264,7 +2299,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeInterviewListList()
-				.searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, "is", id).done();
+				.searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -2273,7 +2308,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeInterview item = employeeToUpdate.getEmployeeInterviewList().first();
-
+		beforeUpdateEmployeeInterviewProperties(userContext,item, employeeId,id,remark,tokensExpr);
 		item.updateRemark( remark );
 
 
@@ -2284,6 +2319,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeInterviewProperties(RetailscmUserContext userContext, EmployeeInterview item, String employeeId, String id,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeInterview createEmployeeInterview(RetailscmUserContext userContext, String interviewTypeId, String remark) throws Exception{
 
@@ -2390,7 +2429,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeInterviewFrom( employeeInterview );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeInterviewList().done());
 			
-			userContext.getManagerGroup().getEmployeeInterviewManager().onNewInstanceCreated(userContext, (EmployeeInterview)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeInterviewManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeInterview)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -2403,15 +2442,13 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeInterview(employeeInterviewId);
 		checkerOf(userContext).checkVersionOfEmployeeInterview(employeeInterviewVersion);
-		
+
 
 		if(EmployeeInterview.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeInterview(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -2421,7 +2458,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeInterview(userContext, employeeId, employeeInterviewId, employeeInterviewVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeInterviewList().searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, "eq", employeeInterviewId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeInterviewList().searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, tokens().equals(), employeeInterviewId).done();
 
 
 
@@ -2432,13 +2469,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeInterview( employeeInterview );
 			//make changes to AcceleraterAccount.
-			EmployeeInterview employeeInterviewIndex = createIndexedEmployeeInterview(employeeInterviewId, employeeInterviewVersion);
+			EmployeeInterview employeeInterviewIdVersionKey = createIndexedEmployeeInterview(employeeInterviewId, employeeInterviewVersion);
 
-			EmployeeInterview employeeInterview = employee.findTheEmployeeInterview(employeeInterviewIndex);
+			EmployeeInterview employeeInterview = employee.findTheEmployeeInterview(employeeInterviewIdVersionKey);
 			if(employeeInterview == null){
-				throw new EmployeeManagerException(employeeInterview+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeInterviewId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeInterview(userContext, employeeInterview, employeeId, employeeInterviewId, employeeInterviewVersion, property, newValueExpr,  tokensExpr);
 			employeeInterview.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeInterviewList().done());
@@ -2446,6 +2484,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeInterview(RetailscmUserContext userContext, EmployeeInterview existed, String employeeId, String employeeInterviewId, int employeeInterviewVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2484,7 +2527,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeAttendance( employeeAttendance );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeAttendanceList().done());
 			
-			userContext.getManagerGroup().getEmployeeAttendanceManager().onNewInstanceCreated(userContext, employeeAttendance);
+			employeeAttendanceManagerOf(userContext).onNewInstanceCreated(userContext, employeeAttendance);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2508,7 +2551,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeAttendanceListList()
-				.searchEmployeeAttendanceListWith(EmployeeAttendance.ID_PROPERTY, "is", id).done();
+				.searchEmployeeAttendanceListWith(EmployeeAttendance.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -2517,7 +2560,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeAttendance item = employeeToUpdate.getEmployeeAttendanceList().first();
-
+		beforeUpdateEmployeeAttendanceProperties(userContext,item, employeeId,id,enterTime,leaveTime,durationHours,remark,tokensExpr);
 		item.updateEnterTime( enterTime );
 		item.updateLeaveTime( leaveTime );
 		item.updateDurationHours( durationHours );
@@ -2531,6 +2574,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeAttendanceProperties(RetailscmUserContext userContext, EmployeeAttendance item, String employeeId, String id,Date enterTime,Date leaveTime,int durationHours,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeAttendance createEmployeeAttendance(RetailscmUserContext userContext, Date enterTime, Date leaveTime, int durationHours, String remark) throws Exception{
 
@@ -2637,7 +2684,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeAttendanceFrom( employeeAttendance );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeAttendanceList().done());
 			
-			userContext.getManagerGroup().getEmployeeAttendanceManager().onNewInstanceCreated(userContext, (EmployeeAttendance)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeAttendanceManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeAttendance)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -2650,33 +2697,25 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeAttendance(employeeAttendanceId);
 		checkerOf(userContext).checkVersionOfEmployeeAttendance(employeeAttendanceVersion);
-		
+
 
 		if(EmployeeAttendance.ENTER_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEnterTimeOfEmployeeAttendance(parseDate(newValueExpr));
-		
 		}
 		
 		if(EmployeeAttendance.LEAVE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLeaveTimeOfEmployeeAttendance(parseDate(newValueExpr));
-		
 		}
 		
 		if(EmployeeAttendance.DURATION_HOURS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDurationHoursOfEmployeeAttendance(parseInt(newValueExpr));
-		
 		}
 		
 		if(EmployeeAttendance.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeAttendance(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -2686,7 +2725,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeAttendance(userContext, employeeId, employeeAttendanceId, employeeAttendanceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeAttendanceList().searchEmployeeAttendanceListWith(EmployeeAttendance.ID_PROPERTY, "eq", employeeAttendanceId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeAttendanceList().searchEmployeeAttendanceListWith(EmployeeAttendance.ID_PROPERTY, tokens().equals(), employeeAttendanceId).done();
 
 
 
@@ -2697,13 +2736,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeAttendance( employeeAttendance );
 			//make changes to AcceleraterAccount.
-			EmployeeAttendance employeeAttendanceIndex = createIndexedEmployeeAttendance(employeeAttendanceId, employeeAttendanceVersion);
+			EmployeeAttendance employeeAttendanceIdVersionKey = createIndexedEmployeeAttendance(employeeAttendanceId, employeeAttendanceVersion);
 
-			EmployeeAttendance employeeAttendance = employee.findTheEmployeeAttendance(employeeAttendanceIndex);
+			EmployeeAttendance employeeAttendance = employee.findTheEmployeeAttendance(employeeAttendanceIdVersionKey);
 			if(employeeAttendance == null){
-				throw new EmployeeManagerException(employeeAttendance+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeAttendanceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeAttendance(userContext, employeeAttendance, employeeId, employeeAttendanceId, employeeAttendanceVersion, property, newValueExpr,  tokensExpr);
 			employeeAttendance.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeAttendanceList().done());
@@ -2711,6 +2751,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeAttendance(RetailscmUserContext userContext, EmployeeAttendance existed, String employeeId, String employeeAttendanceId, int employeeAttendanceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2749,7 +2794,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeQualifier( employeeQualifier );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeQualifierList().done());
 			
-			userContext.getManagerGroup().getEmployeeQualifierManager().onNewInstanceCreated(userContext, employeeQualifier);
+			employeeQualifierManagerOf(userContext).onNewInstanceCreated(userContext, employeeQualifier);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2773,7 +2818,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeQualifierListList()
-				.searchEmployeeQualifierListWith(EmployeeQualifier.ID_PROPERTY, "is", id).done();
+				.searchEmployeeQualifierListWith(EmployeeQualifier.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -2782,7 +2827,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeQualifier item = employeeToUpdate.getEmployeeQualifierList().first();
-
+		beforeUpdateEmployeeQualifierProperties(userContext,item, employeeId,id,qualifiedTime,type,level,remark,tokensExpr);
 		item.updateQualifiedTime( qualifiedTime );
 		item.updateType( type );
 		item.updateLevel( level );
@@ -2796,6 +2841,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeQualifierProperties(RetailscmUserContext userContext, EmployeeQualifier item, String employeeId, String id,Date qualifiedTime,String type,String level,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeQualifier createEmployeeQualifier(RetailscmUserContext userContext, Date qualifiedTime, String type, String level, String remark) throws Exception{
 
@@ -2902,7 +2951,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeQualifierFrom( employeeQualifier );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeQualifierList().done());
 			
-			userContext.getManagerGroup().getEmployeeQualifierManager().onNewInstanceCreated(userContext, (EmployeeQualifier)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeQualifierManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeQualifier)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -2915,33 +2964,25 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeQualifier(employeeQualifierId);
 		checkerOf(userContext).checkVersionOfEmployeeQualifier(employeeQualifierVersion);
-		
+
 
 		if(EmployeeQualifier.QUALIFIED_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkQualifiedTimeOfEmployeeQualifier(parseDate(newValueExpr));
-		
 		}
 		
 		if(EmployeeQualifier.TYPE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTypeOfEmployeeQualifier(parseString(newValueExpr));
-		
 		}
 		
 		if(EmployeeQualifier.LEVEL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLevelOfEmployeeQualifier(parseString(newValueExpr));
-		
 		}
 		
 		if(EmployeeQualifier.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeQualifier(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -2951,7 +2992,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeQualifier(userContext, employeeId, employeeQualifierId, employeeQualifierVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeQualifierList().searchEmployeeQualifierListWith(EmployeeQualifier.ID_PROPERTY, "eq", employeeQualifierId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeQualifierList().searchEmployeeQualifierListWith(EmployeeQualifier.ID_PROPERTY, tokens().equals(), employeeQualifierId).done();
 
 
 
@@ -2962,13 +3003,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeQualifier( employeeQualifier );
 			//make changes to AcceleraterAccount.
-			EmployeeQualifier employeeQualifierIndex = createIndexedEmployeeQualifier(employeeQualifierId, employeeQualifierVersion);
+			EmployeeQualifier employeeQualifierIdVersionKey = createIndexedEmployeeQualifier(employeeQualifierId, employeeQualifierVersion);
 
-			EmployeeQualifier employeeQualifier = employee.findTheEmployeeQualifier(employeeQualifierIndex);
+			EmployeeQualifier employeeQualifier = employee.findTheEmployeeQualifier(employeeQualifierIdVersionKey);
 			if(employeeQualifier == null){
-				throw new EmployeeManagerException(employeeQualifier+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeQualifierId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeQualifier(userContext, employeeQualifier, employeeId, employeeQualifierId, employeeQualifierVersion, property, newValueExpr,  tokensExpr);
 			employeeQualifier.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeQualifierList().done());
@@ -2976,6 +3018,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeQualifier(RetailscmUserContext userContext, EmployeeQualifier existed, String employeeId, String employeeQualifierId, int employeeQualifierVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3012,7 +3059,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeEducation( employeeEducation );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeEducationList().done());
 			
-			userContext.getManagerGroup().getEmployeeEducationManager().onNewInstanceCreated(userContext, employeeEducation);
+			employeeEducationManagerOf(userContext).onNewInstanceCreated(userContext, employeeEducation);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3035,7 +3082,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeEducationListList()
-				.searchEmployeeEducationListWith(EmployeeEducation.ID_PROPERTY, "is", id).done();
+				.searchEmployeeEducationListWith(EmployeeEducation.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -3044,7 +3091,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeEducation item = employeeToUpdate.getEmployeeEducationList().first();
-
+		beforeUpdateEmployeeEducationProperties(userContext,item, employeeId,id,completeTime,type,remark,tokensExpr);
 		item.updateCompleteTime( completeTime );
 		item.updateType( type );
 		item.updateRemark( remark );
@@ -3057,6 +3104,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeEducationProperties(RetailscmUserContext userContext, EmployeeEducation item, String employeeId, String id,Date completeTime,String type,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeEducation createEmployeeEducation(RetailscmUserContext userContext, Date completeTime, String type, String remark) throws Exception{
 
@@ -3162,7 +3213,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeEducationFrom( employeeEducation );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeEducationList().done());
 			
-			userContext.getManagerGroup().getEmployeeEducationManager().onNewInstanceCreated(userContext, (EmployeeEducation)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeEducationManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeEducation)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -3175,27 +3226,21 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeEducation(employeeEducationId);
 		checkerOf(userContext).checkVersionOfEmployeeEducation(employeeEducationVersion);
-		
+
 
 		if(EmployeeEducation.COMPLETE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCompleteTimeOfEmployeeEducation(parseDate(newValueExpr));
-		
 		}
 		
 		if(EmployeeEducation.TYPE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTypeOfEmployeeEducation(parseString(newValueExpr));
-		
 		}
 		
 		if(EmployeeEducation.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeEducation(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -3205,7 +3250,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeEducation(userContext, employeeId, employeeEducationId, employeeEducationVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeEducationList().searchEmployeeEducationListWith(EmployeeEducation.ID_PROPERTY, "eq", employeeEducationId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeEducationList().searchEmployeeEducationListWith(EmployeeEducation.ID_PROPERTY, tokens().equals(), employeeEducationId).done();
 
 
 
@@ -3216,13 +3261,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeEducation( employeeEducation );
 			//make changes to AcceleraterAccount.
-			EmployeeEducation employeeEducationIndex = createIndexedEmployeeEducation(employeeEducationId, employeeEducationVersion);
+			EmployeeEducation employeeEducationIdVersionKey = createIndexedEmployeeEducation(employeeEducationId, employeeEducationVersion);
 
-			EmployeeEducation employeeEducation = employee.findTheEmployeeEducation(employeeEducationIndex);
+			EmployeeEducation employeeEducation = employee.findTheEmployeeEducation(employeeEducationIdVersionKey);
 			if(employeeEducation == null){
-				throw new EmployeeManagerException(employeeEducation+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeEducationId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeEducation(userContext, employeeEducation, employeeId, employeeEducationId, employeeEducationVersion, property, newValueExpr,  tokensExpr);
 			employeeEducation.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeEducationList().done());
@@ -3230,6 +3276,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeEducation(RetailscmUserContext userContext, EmployeeEducation existed, String employeeId, String employeeEducationId, int employeeEducationVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3266,7 +3317,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeAward( employeeAward );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeAwardList().done());
 			
-			userContext.getManagerGroup().getEmployeeAwardManager().onNewInstanceCreated(userContext, employeeAward);
+			employeeAwardManagerOf(userContext).onNewInstanceCreated(userContext, employeeAward);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3289,7 +3340,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeAwardListList()
-				.searchEmployeeAwardListWith(EmployeeAward.ID_PROPERTY, "is", id).done();
+				.searchEmployeeAwardListWith(EmployeeAward.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -3298,7 +3349,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeAward item = employeeToUpdate.getEmployeeAwardList().first();
-
+		beforeUpdateEmployeeAwardProperties(userContext,item, employeeId,id,completeTime,type,remark,tokensExpr);
 		item.updateCompleteTime( completeTime );
 		item.updateType( type );
 		item.updateRemark( remark );
@@ -3311,6 +3362,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeAwardProperties(RetailscmUserContext userContext, EmployeeAward item, String employeeId, String id,Date completeTime,String type,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeAward createEmployeeAward(RetailscmUserContext userContext, Date completeTime, String type, String remark) throws Exception{
 
@@ -3416,7 +3471,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeAwardFrom( employeeAward );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeAwardList().done());
 			
-			userContext.getManagerGroup().getEmployeeAwardManager().onNewInstanceCreated(userContext, (EmployeeAward)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeAwardManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeAward)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -3429,27 +3484,21 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeAward(employeeAwardId);
 		checkerOf(userContext).checkVersionOfEmployeeAward(employeeAwardVersion);
-		
+
 
 		if(EmployeeAward.COMPLETE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCompleteTimeOfEmployeeAward(parseDate(newValueExpr));
-		
 		}
 		
 		if(EmployeeAward.TYPE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTypeOfEmployeeAward(parseString(newValueExpr));
-		
 		}
 		
 		if(EmployeeAward.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeAward(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -3459,7 +3508,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeAward(userContext, employeeId, employeeAwardId, employeeAwardVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeAwardList().searchEmployeeAwardListWith(EmployeeAward.ID_PROPERTY, "eq", employeeAwardId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeAwardList().searchEmployeeAwardListWith(EmployeeAward.ID_PROPERTY, tokens().equals(), employeeAwardId).done();
 
 
 
@@ -3470,13 +3519,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeAward( employeeAward );
 			//make changes to AcceleraterAccount.
-			EmployeeAward employeeAwardIndex = createIndexedEmployeeAward(employeeAwardId, employeeAwardVersion);
+			EmployeeAward employeeAwardIdVersionKey = createIndexedEmployeeAward(employeeAwardId, employeeAwardVersion);
 
-			EmployeeAward employeeAward = employee.findTheEmployeeAward(employeeAwardIndex);
+			EmployeeAward employeeAward = employee.findTheEmployeeAward(employeeAwardIdVersionKey);
 			if(employeeAward == null){
-				throw new EmployeeManagerException(employeeAward+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeAwardId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeAward(userContext, employeeAward, employeeId, employeeAwardId, employeeAwardVersion, property, newValueExpr,  tokensExpr);
 			employeeAward.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeAwardList().done());
@@ -3484,6 +3534,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeAward(RetailscmUserContext userContext, EmployeeAward existed, String employeeId, String employeeAwardId, int employeeAwardVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3532,7 +3587,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addEmployeeSalarySheet( employeeSalarySheet );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeSalarySheetList().done());
 			
-			userContext.getManagerGroup().getEmployeeSalarySheetManager().onNewInstanceCreated(userContext, employeeSalarySheet);
+			employeeSalarySheetManagerOf(userContext).onNewInstanceCreated(userContext, employeeSalarySheet);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3559,7 +3614,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeSalarySheetListList()
-				.searchEmployeeSalarySheetListWith(EmployeeSalarySheet.ID_PROPERTY, "is", id).done();
+				.searchEmployeeSalarySheetListWith(EmployeeSalarySheet.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -3568,7 +3623,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		EmployeeSalarySheet item = employeeToUpdate.getEmployeeSalarySheetList().first();
-
+		beforeUpdateEmployeeSalarySheetProperties(userContext,item, employeeId,id,baseSalary,bonus,reward,personalTax,socialSecurity,housingFound,jobInsurance,tokensExpr);
 		item.updateBaseSalary( baseSalary );
 		item.updateBonus( bonus );
 		item.updateReward( reward );
@@ -3585,6 +3640,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdateEmployeeSalarySheetProperties(RetailscmUserContext userContext, EmployeeSalarySheet item, String employeeId, String id,BigDecimal baseSalary,BigDecimal bonus,BigDecimal reward,BigDecimal personalTax,BigDecimal socialSecurity,BigDecimal housingFound,BigDecimal jobInsurance, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeSalarySheet createEmployeeSalarySheet(RetailscmUserContext userContext, String currentSalaryGradeId, BigDecimal baseSalary, BigDecimal bonus, BigDecimal reward, BigDecimal personalTax, BigDecimal socialSecurity, BigDecimal housingFound, BigDecimal jobInsurance, String payingOffId) throws Exception{
 
@@ -3700,7 +3759,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyEmployeeSalarySheetFrom( employeeSalarySheet );
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeSalarySheetList().done());
 			
-			userContext.getManagerGroup().getEmployeeSalarySheetManager().onNewInstanceCreated(userContext, (EmployeeSalarySheet)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeSalarySheetManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeSalarySheet)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -3713,51 +3772,37 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfEmployeeSalarySheet(employeeSalarySheetId);
 		checkerOf(userContext).checkVersionOfEmployeeSalarySheet(employeeSalarySheetVersion);
-		
+
 
 		if(EmployeeSalarySheet.BASE_SALARY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBaseSalaryOfEmployeeSalarySheet(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(EmployeeSalarySheet.BONUS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBonusOfEmployeeSalarySheet(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(EmployeeSalarySheet.REWARD_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRewardOfEmployeeSalarySheet(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(EmployeeSalarySheet.PERSONAL_TAX_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPersonalTaxOfEmployeeSalarySheet(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(EmployeeSalarySheet.SOCIAL_SECURITY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSocialSecurityOfEmployeeSalarySheet(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(EmployeeSalarySheet.HOUSING_FOUND_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkHousingFoundOfEmployeeSalarySheet(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(EmployeeSalarySheet.JOB_INSURANCE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkJobInsuranceOfEmployeeSalarySheet(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -3767,7 +3812,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingEmployeeSalarySheet(userContext, employeeId, employeeSalarySheetId, employeeSalarySheetVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeSalarySheetList().searchEmployeeSalarySheetListWith(EmployeeSalarySheet.ID_PROPERTY, "eq", employeeSalarySheetId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeSalarySheetList().searchEmployeeSalarySheetListWith(EmployeeSalarySheet.ID_PROPERTY, tokens().equals(), employeeSalarySheetId).done();
 
 
 
@@ -3778,13 +3823,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removeEmployeeSalarySheet( employeeSalarySheet );
 			//make changes to AcceleraterAccount.
-			EmployeeSalarySheet employeeSalarySheetIndex = createIndexedEmployeeSalarySheet(employeeSalarySheetId, employeeSalarySheetVersion);
+			EmployeeSalarySheet employeeSalarySheetIdVersionKey = createIndexedEmployeeSalarySheet(employeeSalarySheetId, employeeSalarySheetVersion);
 
-			EmployeeSalarySheet employeeSalarySheet = employee.findTheEmployeeSalarySheet(employeeSalarySheetIndex);
+			EmployeeSalarySheet employeeSalarySheet = employee.findTheEmployeeSalarySheet(employeeSalarySheetIdVersionKey);
 			if(employeeSalarySheet == null){
-				throw new EmployeeManagerException(employeeSalarySheet+" is NOT FOUND" );
+				throw new EmployeeManagerException(employeeSalarySheetId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeSalarySheet(userContext, employeeSalarySheet, employeeId, employeeSalarySheetId, employeeSalarySheetVersion, property, newValueExpr,  tokensExpr);
 			employeeSalarySheet.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withEmployeeSalarySheetList().done());
@@ -3792,6 +3838,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeSalarySheet(RetailscmUserContext userContext, EmployeeSalarySheet existed, String employeeId, String employeeSalarySheetId, int employeeSalarySheetVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3828,7 +3879,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.addPayingOff( payingOff );
 			employee = saveEmployee(userContext, employee, tokens().withPayingOffList().done());
 			
-			userContext.getManagerGroup().getPayingOffManager().onNewInstanceCreated(userContext, payingOff);
+			payingOffManagerOf(userContext).onNewInstanceCreated(userContext, payingOff);
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3851,7 +3902,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withPayingOffListList()
-				.searchPayingOffListWith(PayingOff.ID_PROPERTY, "is", id).done();
+				.searchPayingOffListWith(PayingOff.ID_PROPERTY, tokens().is(), id).done();
 
 		Employee employeeToUpdate = loadEmployee(userContext, employeeId, options);
 
@@ -3860,7 +3911,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 		PayingOff item = employeeToUpdate.getPayingOffList().first();
-
+		beforeUpdatePayingOffProperties(userContext,item, employeeId,id,who,paidTime,amount,tokensExpr);
 		item.updateWho( who );
 		item.updatePaidTime( paidTime );
 		item.updateAmount( amount );
@@ -3873,6 +3924,10 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 	}
 
+	protected  void beforeUpdatePayingOffProperties(RetailscmUserContext userContext, PayingOff item, String employeeId, String id,String who,Date paidTime,BigDecimal amount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected PayingOff createPayingOff(RetailscmUserContext userContext, String who, Date paidTime, BigDecimal amount) throws Exception{
 
@@ -3978,7 +4033,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			employee.copyPayingOffFrom( payingOff );
 			employee = saveEmployee(userContext, employee, tokens().withPayingOffList().done());
 			
-			userContext.getManagerGroup().getPayingOffManager().onNewInstanceCreated(userContext, (PayingOff)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			payingOffManagerOf(userContext).onNewInstanceCreated(userContext, (PayingOff)employee.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,employee, mergedAllTokens(tokensExpr));
 		}
 
@@ -3991,27 +4046,21 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkIdOfPayingOff(payingOffId);
 		checkerOf(userContext).checkVersionOfPayingOff(payingOffVersion);
-		
+
 
 		if(PayingOff.WHO_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkWhoOfPayingOff(parseString(newValueExpr));
-		
 		}
 		
 		if(PayingOff.PAID_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPaidTimeOfPayingOff(parseDate(newValueExpr));
-		
 		}
 		
 		if(PayingOff.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfPayingOff(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeManagerException.class);
 
 	}
@@ -4021,7 +4070,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		checkParamsForUpdatingPayingOff(userContext, employeeId, payingOffId, payingOffVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withPayingOffList().searchPayingOffListWith(PayingOff.ID_PROPERTY, "eq", payingOffId).done();
+		Map<String,Object> loadTokens = this.tokens().withPayingOffList().searchPayingOffListWith(PayingOff.ID_PROPERTY, tokens().equals(), payingOffId).done();
 
 
 
@@ -4032,13 +4081,14 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//Also good when there is a RAM based DAO implementation
 			//employee.removePayingOff( payingOff );
 			//make changes to AcceleraterAccount.
-			PayingOff payingOffIndex = createIndexedPayingOff(payingOffId, payingOffVersion);
+			PayingOff payingOffIdVersionKey = createIndexedPayingOff(payingOffId, payingOffVersion);
 
-			PayingOff payingOff = employee.findThePayingOff(payingOffIndex);
+			PayingOff payingOff = employee.findThePayingOff(payingOffIdVersionKey);
 			if(payingOff == null){
-				throw new EmployeeManagerException(payingOff+" is NOT FOUND" );
+				throw new EmployeeManagerException(payingOffId+" is NOT FOUND" );
 			}
 
+			beforeUpdatePayingOff(userContext, payingOff, employeeId, payingOffId, payingOffVersion, property, newValueExpr,  tokensExpr);
 			payingOff.changeProperty(property, newValueExpr);
 			
 			employee = saveEmployee(userContext, employee, tokens().withPayingOffList().done());
@@ -4046,6 +4096,11 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdatePayingOff(RetailscmUserContext userContext, PayingOff existed, String employeeId, String payingOffId, int payingOffVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -4062,6 +4117,12 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    employeeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -4153,6 +4214,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -4369,7 +4431,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -4523,7 +4585,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		propList.add(
 				MapUtil.put("id", "15-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -4737,6 +4799,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

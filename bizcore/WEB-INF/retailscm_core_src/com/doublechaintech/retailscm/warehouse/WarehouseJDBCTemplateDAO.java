@@ -47,7 +47,7 @@ import com.doublechaintech.retailscm.receivingspace.ReceivingSpaceDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements WarehouseDAO{
 
@@ -179,50 +179,54 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	 	return this.warehouseAssetDAO;
  	}	
 
-	
+
 	/*
 	protected Warehouse load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalWarehouse(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Warehouse> loadAll() {
 	    return this.loadAll(getWarehouseMapper());
 	}
-	
-	
+
+  public Stream<Warehouse> loadAllAsStream() {
+      return this.loadAllAsStream(getWarehouseMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Warehouse load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalWarehouse(WarehouseTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Warehouse save(Warehouse warehouse,Map<String,Object> options){
-		
+
 		String methodName="save(Warehouse warehouse,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(warehouse, methodName, "warehouse");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalWarehouse(warehouse,options);
 	}
 	public Warehouse clone(String warehouseId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(WarehouseTable.withId(warehouseId),options);
 	}
-	
+
 	protected Warehouse clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String warehouseId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Warehouse newWarehouse = loadInternalWarehouse(accessKey, options);
 		newWarehouse.setVersion(0);
 		
@@ -277,15 +281,15 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		}
 		
 
-		
+
 		saveInternalWarehouse(newWarehouse,options);
-		
+
 		return newWarehouse;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String warehouseId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -301,15 +305,15 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String warehouseId, int version) throws Exception{
-	
+
 		String methodName="delete(String warehouseId, int version)";
 		assertMethodArgumentNotNull(warehouseId, methodName, "warehouseId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{warehouseId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -319,26 +323,26 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(affectedNumber == 0){
 			handleDeleteOneError(warehouseId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Warehouse disconnectFromAll(String warehouseId, int version) throws Exception{
-	
-		
+
+
 		Warehouse warehouse = loadInternalWarehouse(WarehouseTable.withId(warehouseId), emptyOptions());
 		warehouse.clearFromAll();
 		this.saveWarehouse(warehouse);
 		return warehouse;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -346,15 +350,15 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "warehouse";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "warehouse";
 	}
-	
+
 	
 	
 	
@@ -1020,7 +1024,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 		
-		
+
 		String SQL=this.getSaveWarehouseSQL(warehouse);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveWarehouseParameters(warehouse);
@@ -1029,57 +1033,57 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		warehouse.incVersion();
 		return warehouse;
-	
+
 	}
 	public SmartList<Warehouse> saveWarehouseList(SmartList<Warehouse> warehouseList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitWarehouseList(warehouseList);
-		
+
 		batchWarehouseCreate((List<Warehouse>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchWarehouseUpdate((List<Warehouse>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Warehouse warehouse:warehouseList){
 			if(warehouse.isChanged()){
 				warehouse.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return warehouseList;
 	}
 
 	public SmartList<Warehouse> removeWarehouseList(SmartList<Warehouse> warehouseList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(warehouseList, options);
-		
+
 		return warehouseList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareWarehouseBatchCreateArgs(List<Warehouse> warehouseList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Warehouse warehouse:warehouseList ){
 			Object [] parameters = prepareWarehouseCreateParameters(warehouse);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareWarehouseBatchUpdateArgs(List<Warehouse> warehouseList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Warehouse warehouse:warehouseList ){
 			if(!warehouse.isChanged()){
@@ -1087,40 +1091,40 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			}
 			Object [] parameters = prepareWarehouseUpdateParameters(warehouse);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchWarehouseCreate(List<Warehouse> warehouseList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareWarehouseBatchCreateArgs(warehouseList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchWarehouseUpdate(List<Warehouse> warehouseList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareWarehouseBatchUpdateArgs(warehouseList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitWarehouseList(List<Warehouse> warehouseList){
-		
+
 		List<Warehouse> warehouseCreateList=new ArrayList<Warehouse>();
 		List<Warehouse> warehouseUpdateList=new ArrayList<Warehouse>();
-		
+
 		for(Warehouse warehouse: warehouseList){
 			if(isUpdateRequest(warehouse)){
 				warehouseUpdateList.add( warehouse);
@@ -1128,10 +1132,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			}
 			warehouseCreateList.add(warehouse);
 		}
-		
+
 		return new Object[]{warehouseCreateList,warehouseUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Warehouse warehouse){
  		return warehouse.getVersion() > 0;
  	}
@@ -1141,7 +1145,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveWarehouseParameters(Warehouse warehouse){
  		if(isUpdateRequest(warehouse) ){
  			return prepareWarehouseUpdateParameters(warehouse);
@@ -1159,7 +1163,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		
  		
  		parameters[2] = warehouse.getTotalArea();
- 		 	
+ 		
  		if(warehouse.getOwner() != null){
  			parameters[3] = warehouse.getOwner().getId();
  		}
@@ -1172,17 +1176,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		
  		
  		parameters[6] = warehouse.getLastUpdateTime();
- 				
+ 		
  		parameters[7] = warehouse.nextVersion();
  		parameters[8] = warehouse.getId();
  		parameters[9] = warehouse.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareWarehouseCreateParameters(Warehouse warehouse){
 		Object[] parameters = new Object[8];
-		String newWarehouseId=getNextId();
-		warehouse.setId(newWarehouseId);
+        if(warehouse.getId() == null){
+          String newWarehouseId=getNextId();
+          warehouse.setId(newWarehouseId);
+        }
 		parameters[0] =  warehouse.getId();
  
  		
@@ -1193,10 +1199,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		
  		
  		parameters[3] = warehouse.getTotalArea();
- 		 	
+ 		
  		if(warehouse.getOwner() != null){
  			parameters[4] = warehouse.getOwner().getId();
- 		
+
  		}
  		
  		
@@ -1207,15 +1213,15 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		
  		
  		parameters[7] = warehouse.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Warehouse saveInternalWarehouse(Warehouse warehouse, Map<String,Object> options){
-		
+
 		saveWarehouse(warehouse);
- 	
+
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(warehouse, options);
  		}
@@ -1225,84 +1231,84 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	 		saveStorageSpaceList(warehouse, options);
 	 		//removeStorageSpaceList(warehouse, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveSmartPalletListEnabled(options)){
 	 		saveSmartPalletList(warehouse, options);
 	 		//removeSmartPalletList(warehouse, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveSupplierSpaceListEnabled(options)){
 	 		saveSupplierSpaceList(warehouse, options);
 	 		//removeSupplierSpaceList(warehouse, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveReceivingSpaceListEnabled(options)){
 	 		saveReceivingSpaceList(warehouse, options);
 	 		//removeReceivingSpaceList(warehouse, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveShippingSpaceListEnabled(options)){
 	 		saveShippingSpaceList(warehouse, options);
 	 		//removeShippingSpaceList(warehouse, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveDamageSpaceListEnabled(options)){
 	 		saveDamageSpaceList(warehouse, options);
 	 		//removeDamageSpaceList(warehouse, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveWarehouseAssetListEnabled(options)){
 	 		saveWarehouseAssetList(warehouse, options);
 	 		//removeWarehouseAssetList(warehouse, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return warehouse;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Warehouse saveOwner(Warehouse warehouse, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(warehouse.getOwner() == null){
  			return warehouse;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(warehouse.getOwner(),options);
  		return warehouse;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Warehouse planToRemoveStorageSpaceList(Warehouse warehouse, String storageSpaceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(StorageSpace.WAREHOUSE_PROPERTY, warehouse.getId());
 		key.put(StorageSpace.ID_PROPERTY, storageSpaceIds);
-		
+
 		SmartList<StorageSpace> externalStorageSpaceList = getStorageSpaceDAO().
 				findStorageSpaceWithKey(key, options);
 		if(externalStorageSpaceList == null){
@@ -1311,26 +1317,26 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(externalStorageSpaceList.isEmpty()){
 			return warehouse;
 		}
-		
+
 		for(StorageSpace storageSpaceItem: externalStorageSpaceList){
 
 			storageSpaceItem.clearFromAll();
 		}
-		
-		
-		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();		
+
+
+		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();
 		storageSpaceList.addAllToRemoveList(externalStorageSpaceList);
-		return warehouse;	
-	
+		return warehouse;
+
 	}
 
 
 	public Warehouse planToRemoveSmartPalletList(Warehouse warehouse, String smartPalletIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(SmartPallet.WAREHOUSE_PROPERTY, warehouse.getId());
 		key.put(SmartPallet.ID_PROPERTY, smartPalletIds);
-		
+
 		SmartList<SmartPallet> externalSmartPalletList = getSmartPalletDAO().
 				findSmartPalletWithKey(key, options);
 		if(externalSmartPalletList == null){
@@ -1339,26 +1345,26 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(externalSmartPalletList.isEmpty()){
 			return warehouse;
 		}
-		
+
 		for(SmartPallet smartPalletItem: externalSmartPalletList){
 
 			smartPalletItem.clearFromAll();
 		}
-		
-		
-		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();		
+
+
+		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();
 		smartPalletList.addAllToRemoveList(externalSmartPalletList);
-		return warehouse;	
-	
+		return warehouse;
+
 	}
 
 
 	public Warehouse planToRemoveSupplierSpaceList(Warehouse warehouse, String supplierSpaceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(SupplierSpace.WAREHOUSE_PROPERTY, warehouse.getId());
 		key.put(SupplierSpace.ID_PROPERTY, supplierSpaceIds);
-		
+
 		SmartList<SupplierSpace> externalSupplierSpaceList = getSupplierSpaceDAO().
 				findSupplierSpaceWithKey(key, options);
 		if(externalSupplierSpaceList == null){
@@ -1367,26 +1373,26 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(externalSupplierSpaceList.isEmpty()){
 			return warehouse;
 		}
-		
+
 		for(SupplierSpace supplierSpaceItem: externalSupplierSpaceList){
 
 			supplierSpaceItem.clearFromAll();
 		}
-		
-		
-		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();		
+
+
+		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();
 		supplierSpaceList.addAllToRemoveList(externalSupplierSpaceList);
-		return warehouse;	
-	
+		return warehouse;
+
 	}
 
 
 	public Warehouse planToRemoveReceivingSpaceList(Warehouse warehouse, String receivingSpaceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ReceivingSpace.WAREHOUSE_PROPERTY, warehouse.getId());
 		key.put(ReceivingSpace.ID_PROPERTY, receivingSpaceIds);
-		
+
 		SmartList<ReceivingSpace> externalReceivingSpaceList = getReceivingSpaceDAO().
 				findReceivingSpaceWithKey(key, options);
 		if(externalReceivingSpaceList == null){
@@ -1395,26 +1401,26 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(externalReceivingSpaceList.isEmpty()){
 			return warehouse;
 		}
-		
+
 		for(ReceivingSpace receivingSpaceItem: externalReceivingSpaceList){
 
 			receivingSpaceItem.clearFromAll();
 		}
-		
-		
-		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();		
+
+
+		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();
 		receivingSpaceList.addAllToRemoveList(externalReceivingSpaceList);
-		return warehouse;	
-	
+		return warehouse;
+
 	}
 
 
 	public Warehouse planToRemoveShippingSpaceList(Warehouse warehouse, String shippingSpaceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ShippingSpace.WAREHOUSE_PROPERTY, warehouse.getId());
 		key.put(ShippingSpace.ID_PROPERTY, shippingSpaceIds);
-		
+
 		SmartList<ShippingSpace> externalShippingSpaceList = getShippingSpaceDAO().
 				findShippingSpaceWithKey(key, options);
 		if(externalShippingSpaceList == null){
@@ -1423,26 +1429,26 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(externalShippingSpaceList.isEmpty()){
 			return warehouse;
 		}
-		
+
 		for(ShippingSpace shippingSpaceItem: externalShippingSpaceList){
 
 			shippingSpaceItem.clearFromAll();
 		}
-		
-		
-		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();		
+
+
+		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();
 		shippingSpaceList.addAllToRemoveList(externalShippingSpaceList);
-		return warehouse;	
-	
+		return warehouse;
+
 	}
 
 
 	public Warehouse planToRemoveDamageSpaceList(Warehouse warehouse, String damageSpaceIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(DamageSpace.WAREHOUSE_PROPERTY, warehouse.getId());
 		key.put(DamageSpace.ID_PROPERTY, damageSpaceIds);
-		
+
 		SmartList<DamageSpace> externalDamageSpaceList = getDamageSpaceDAO().
 				findDamageSpaceWithKey(key, options);
 		if(externalDamageSpaceList == null){
@@ -1451,26 +1457,26 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(externalDamageSpaceList.isEmpty()){
 			return warehouse;
 		}
-		
+
 		for(DamageSpace damageSpaceItem: externalDamageSpaceList){
 
 			damageSpaceItem.clearFromAll();
 		}
-		
-		
-		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();		
+
+
+		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();
 		damageSpaceList.addAllToRemoveList(externalDamageSpaceList);
-		return warehouse;	
-	
+		return warehouse;
+
 	}
 
 
 	public Warehouse planToRemoveWarehouseAssetList(Warehouse warehouse, String warehouseAssetIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(WarehouseAsset.OWNER_PROPERTY, warehouse.getId());
 		key.put(WarehouseAsset.ID_PROPERTY, warehouseAssetIds);
-		
+
 		SmartList<WarehouseAsset> externalWarehouseAssetList = getWarehouseAssetDAO().
 				findWarehouseAssetWithKey(key, options);
 		if(externalWarehouseAssetList == null){
@@ -1479,36 +1485,36 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(externalWarehouseAssetList.isEmpty()){
 			return warehouse;
 		}
-		
+
 		for(WarehouseAsset warehouseAssetItem: externalWarehouseAssetList){
 
 			warehouseAssetItem.clearFromAll();
 		}
-		
-		
-		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();		
+
+
+		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();
 		warehouseAssetList.addAllToRemoveList(externalWarehouseAssetList);
-		return warehouse;	
-	
+		return warehouse;
+
 	}
 
 
 
 		
 	protected Warehouse saveStorageSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();
 		if(storageSpaceList == null){
 			//null list means nothing
 			return warehouse;
 		}
 		SmartList<StorageSpace> mergedUpdateStorageSpaceList = new SmartList<StorageSpace>();
-		
-		
-		mergedUpdateStorageSpaceList.addAll(storageSpaceList); 
+
+
+		mergedUpdateStorageSpaceList.addAll(storageSpaceList);
 		if(storageSpaceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateStorageSpaceList.addAll(storageSpaceList.getToRemoveList());
@@ -1517,28 +1523,28 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		//adding new size can improve performance
-	
+
 		getStorageSpaceDAO().saveStorageSpaceList(mergedUpdateStorageSpaceList,options);
-		
+
 		if(storageSpaceList.getToRemoveList() != null){
 			storageSpaceList.removeAll(storageSpaceList.getToRemoveList());
 		}
-		
-		
+
+
 		return warehouse;
-	
+
 	}
-	
+
 	protected Warehouse removeStorageSpaceList(Warehouse warehouse, Map<String,Object> options){
-	
-	
+
+
 		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();
 		if(storageSpaceList == null){
 			return warehouse;
-		}	
-	
+		}
+
 		SmartList<StorageSpace> toRemoveStorageSpaceList = storageSpaceList.getToRemoveList();
-		
+
 		if(toRemoveStorageSpaceList == null){
 			return warehouse;
 		}
@@ -1546,35 +1552,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getStorageSpaceDAO().removeStorageSpaceList(toRemoveStorageSpaceList,options);
-		
-		return warehouse;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getStorageSpaceDAO().removeStorageSpaceList(toRemoveStorageSpaceList,options);
+
+		return warehouse;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Warehouse saveSmartPalletList(Warehouse warehouse, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();
 		if(smartPalletList == null){
 			//null list means nothing
 			return warehouse;
 		}
 		SmartList<SmartPallet> mergedUpdateSmartPalletList = new SmartList<SmartPallet>();
-		
-		
-		mergedUpdateSmartPalletList.addAll(smartPalletList); 
+
+
+		mergedUpdateSmartPalletList.addAll(smartPalletList);
 		if(smartPalletList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSmartPalletList.addAll(smartPalletList.getToRemoveList());
@@ -1583,28 +1589,28 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		//adding new size can improve performance
-	
+
 		getSmartPalletDAO().saveSmartPalletList(mergedUpdateSmartPalletList,options);
-		
+
 		if(smartPalletList.getToRemoveList() != null){
 			smartPalletList.removeAll(smartPalletList.getToRemoveList());
 		}
-		
-		
+
+
 		return warehouse;
-	
+
 	}
-	
+
 	protected Warehouse removeSmartPalletList(Warehouse warehouse, Map<String,Object> options){
-	
-	
+
+
 		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();
 		if(smartPalletList == null){
 			return warehouse;
-		}	
-	
+		}
+
 		SmartList<SmartPallet> toRemoveSmartPalletList = smartPalletList.getToRemoveList();
-		
+
 		if(toRemoveSmartPalletList == null){
 			return warehouse;
 		}
@@ -1612,35 +1618,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSmartPalletDAO().removeSmartPalletList(toRemoveSmartPalletList,options);
-		
-		return warehouse;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSmartPalletDAO().removeSmartPalletList(toRemoveSmartPalletList,options);
+
+		return warehouse;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Warehouse saveSupplierSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();
 		if(supplierSpaceList == null){
 			//null list means nothing
 			return warehouse;
 		}
 		SmartList<SupplierSpace> mergedUpdateSupplierSpaceList = new SmartList<SupplierSpace>();
-		
-		
-		mergedUpdateSupplierSpaceList.addAll(supplierSpaceList); 
+
+
+		mergedUpdateSupplierSpaceList.addAll(supplierSpaceList);
 		if(supplierSpaceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSupplierSpaceList.addAll(supplierSpaceList.getToRemoveList());
@@ -1649,28 +1655,28 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		//adding new size can improve performance
-	
+
 		getSupplierSpaceDAO().saveSupplierSpaceList(mergedUpdateSupplierSpaceList,options);
-		
+
 		if(supplierSpaceList.getToRemoveList() != null){
 			supplierSpaceList.removeAll(supplierSpaceList.getToRemoveList());
 		}
-		
-		
+
+
 		return warehouse;
-	
+
 	}
-	
+
 	protected Warehouse removeSupplierSpaceList(Warehouse warehouse, Map<String,Object> options){
-	
-	
+
+
 		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();
 		if(supplierSpaceList == null){
 			return warehouse;
-		}	
-	
+		}
+
 		SmartList<SupplierSpace> toRemoveSupplierSpaceList = supplierSpaceList.getToRemoveList();
-		
+
 		if(toRemoveSupplierSpaceList == null){
 			return warehouse;
 		}
@@ -1678,35 +1684,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSupplierSpaceDAO().removeSupplierSpaceList(toRemoveSupplierSpaceList,options);
-		
-		return warehouse;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSupplierSpaceDAO().removeSupplierSpaceList(toRemoveSupplierSpaceList,options);
+
+		return warehouse;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Warehouse saveReceivingSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();
 		if(receivingSpaceList == null){
 			//null list means nothing
 			return warehouse;
 		}
 		SmartList<ReceivingSpace> mergedUpdateReceivingSpaceList = new SmartList<ReceivingSpace>();
-		
-		
-		mergedUpdateReceivingSpaceList.addAll(receivingSpaceList); 
+
+
+		mergedUpdateReceivingSpaceList.addAll(receivingSpaceList);
 		if(receivingSpaceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateReceivingSpaceList.addAll(receivingSpaceList.getToRemoveList());
@@ -1715,28 +1721,28 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		//adding new size can improve performance
-	
+
 		getReceivingSpaceDAO().saveReceivingSpaceList(mergedUpdateReceivingSpaceList,options);
-		
+
 		if(receivingSpaceList.getToRemoveList() != null){
 			receivingSpaceList.removeAll(receivingSpaceList.getToRemoveList());
 		}
-		
-		
+
+
 		return warehouse;
-	
+
 	}
-	
+
 	protected Warehouse removeReceivingSpaceList(Warehouse warehouse, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();
 		if(receivingSpaceList == null){
 			return warehouse;
-		}	
-	
+		}
+
 		SmartList<ReceivingSpace> toRemoveReceivingSpaceList = receivingSpaceList.getToRemoveList();
-		
+
 		if(toRemoveReceivingSpaceList == null){
 			return warehouse;
 		}
@@ -1744,35 +1750,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getReceivingSpaceDAO().removeReceivingSpaceList(toRemoveReceivingSpaceList,options);
-		
-		return warehouse;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getReceivingSpaceDAO().removeReceivingSpaceList(toRemoveReceivingSpaceList,options);
+
+		return warehouse;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Warehouse saveShippingSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();
 		if(shippingSpaceList == null){
 			//null list means nothing
 			return warehouse;
 		}
 		SmartList<ShippingSpace> mergedUpdateShippingSpaceList = new SmartList<ShippingSpace>();
-		
-		
-		mergedUpdateShippingSpaceList.addAll(shippingSpaceList); 
+
+
+		mergedUpdateShippingSpaceList.addAll(shippingSpaceList);
 		if(shippingSpaceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateShippingSpaceList.addAll(shippingSpaceList.getToRemoveList());
@@ -1781,28 +1787,28 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		//adding new size can improve performance
-	
+
 		getShippingSpaceDAO().saveShippingSpaceList(mergedUpdateShippingSpaceList,options);
-		
+
 		if(shippingSpaceList.getToRemoveList() != null){
 			shippingSpaceList.removeAll(shippingSpaceList.getToRemoveList());
 		}
-		
-		
+
+
 		return warehouse;
-	
+
 	}
-	
+
 	protected Warehouse removeShippingSpaceList(Warehouse warehouse, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();
 		if(shippingSpaceList == null){
 			return warehouse;
-		}	
-	
+		}
+
 		SmartList<ShippingSpace> toRemoveShippingSpaceList = shippingSpaceList.getToRemoveList();
-		
+
 		if(toRemoveShippingSpaceList == null){
 			return warehouse;
 		}
@@ -1810,35 +1816,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getShippingSpaceDAO().removeShippingSpaceList(toRemoveShippingSpaceList,options);
-		
-		return warehouse;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getShippingSpaceDAO().removeShippingSpaceList(toRemoveShippingSpaceList,options);
+
+		return warehouse;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Warehouse saveDamageSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();
 		if(damageSpaceList == null){
 			//null list means nothing
 			return warehouse;
 		}
 		SmartList<DamageSpace> mergedUpdateDamageSpaceList = new SmartList<DamageSpace>();
-		
-		
-		mergedUpdateDamageSpaceList.addAll(damageSpaceList); 
+
+
+		mergedUpdateDamageSpaceList.addAll(damageSpaceList);
 		if(damageSpaceList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateDamageSpaceList.addAll(damageSpaceList.getToRemoveList());
@@ -1847,28 +1853,28 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		//adding new size can improve performance
-	
+
 		getDamageSpaceDAO().saveDamageSpaceList(mergedUpdateDamageSpaceList,options);
-		
+
 		if(damageSpaceList.getToRemoveList() != null){
 			damageSpaceList.removeAll(damageSpaceList.getToRemoveList());
 		}
-		
-		
+
+
 		return warehouse;
-	
+
 	}
-	
+
 	protected Warehouse removeDamageSpaceList(Warehouse warehouse, Map<String,Object> options){
-	
-	
+
+
 		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();
 		if(damageSpaceList == null){
 			return warehouse;
-		}	
-	
+		}
+
 		SmartList<DamageSpace> toRemoveDamageSpaceList = damageSpaceList.getToRemoveList();
-		
+
 		if(toRemoveDamageSpaceList == null){
 			return warehouse;
 		}
@@ -1876,35 +1882,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getDamageSpaceDAO().removeDamageSpaceList(toRemoveDamageSpaceList,options);
-		
-		return warehouse;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getDamageSpaceDAO().removeDamageSpaceList(toRemoveDamageSpaceList,options);
+
+		return warehouse;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected Warehouse saveWarehouseAssetList(Warehouse warehouse, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();
 		if(warehouseAssetList == null){
 			//null list means nothing
 			return warehouse;
 		}
 		SmartList<WarehouseAsset> mergedUpdateWarehouseAssetList = new SmartList<WarehouseAsset>();
-		
-		
-		mergedUpdateWarehouseAssetList.addAll(warehouseAssetList); 
+
+
+		mergedUpdateWarehouseAssetList.addAll(warehouseAssetList);
 		if(warehouseAssetList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateWarehouseAssetList.addAll(warehouseAssetList.getToRemoveList());
@@ -1913,28 +1919,28 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		//adding new size can improve performance
-	
+
 		getWarehouseAssetDAO().saveWarehouseAssetList(mergedUpdateWarehouseAssetList,options);
-		
+
 		if(warehouseAssetList.getToRemoveList() != null){
 			warehouseAssetList.removeAll(warehouseAssetList.getToRemoveList());
 		}
-		
-		
+
+
 		return warehouse;
-	
+
 	}
-	
+
 	protected Warehouse removeWarehouseAssetList(Warehouse warehouse, Map<String,Object> options){
-	
-	
+
+
 		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();
 		if(warehouseAssetList == null){
 			return warehouse;
-		}	
-	
+		}
+
 		SmartList<WarehouseAsset> toRemoveWarehouseAssetList = warehouseAssetList.getToRemoveList();
-		
+
 		if(toRemoveWarehouseAssetList == null){
 			return warehouse;
 		}
@@ -1942,20 +1948,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getWarehouseAssetDAO().removeWarehouseAssetList(toRemoveWarehouseAssetList,options);
-		
-		return warehouse;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getWarehouseAssetDAO().removeWarehouseAssetList(toRemoveWarehouseAssetList,options);
+
+		return warehouse;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Warehouse present(Warehouse warehouse,Map<String, Object> options){
@@ -2160,13 +2166,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	protected String getTableName(){
 		return WarehouseTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Warehouse> warehouseList) {		
+
+
+
+	public void enhanceList(List<Warehouse> warehouseList) {
 		this.enhanceListInternal(warehouseList, this.getWarehouseMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:StorageSpace的warehouse的StorageSpaceList
 	public SmartList<StorageSpace> loadOurStorageSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
@@ -2329,39 +2335,45 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Warehouse> warehouseList = ownerEntity.collectRefsWithType(Warehouse.INTERNAL_TYPE);
 		this.enhanceList(warehouseList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Warehouse> findWarehouseWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getWarehouseMapper());
 
 	}
 	@Override
 	public int countWarehouseWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countWarehouseWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Warehouse> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getWarehouseMapper());
 	}
+
+  @Override
+  public Stream<Warehouse> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getWarehouseMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -2390,7 +2402,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 		return result;
 	}
-	
+
 	
 
 }

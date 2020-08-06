@@ -17,6 +17,7 @@ public interface SlideManager extends BaseManager{
 	public Slide createSlide(RetailscmUserContext userContext, String name,int displayOrder,String imageUrl,String videoUrl,String linkToUrl,String pageId) throws Exception;
 	public Slide updateSlide(RetailscmUserContext userContext,String slideId, int slideVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Slide loadSlide(RetailscmUserContext userContext, String slideId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Slide internalSaveSlide(RetailscmUserContext userContext, Slide slide) throws Exception;
 	public Slide internalSaveSlide(RetailscmUserContext userContext, Slide slide,Map<String,Object>option) throws Exception;
 

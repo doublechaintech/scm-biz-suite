@@ -17,6 +17,7 @@ public interface ConsumerOrderManager extends BaseManager{
 	public ConsumerOrder createConsumerOrder(RetailscmUserContext userContext, String title,String consumerId,String storeId) throws Exception;
 	public ConsumerOrder updateConsumerOrder(RetailscmUserContext userContext,String consumerOrderId, int consumerOrderVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ConsumerOrder loadConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public ConsumerOrder internalSaveConsumerOrder(RetailscmUserContext userContext, ConsumerOrder consumerOrder) throws Exception;
 	public ConsumerOrder internalSaveConsumerOrder(RetailscmUserContext userContext, ConsumerOrder consumerOrder,Map<String,Object>option) throws Exception;
 

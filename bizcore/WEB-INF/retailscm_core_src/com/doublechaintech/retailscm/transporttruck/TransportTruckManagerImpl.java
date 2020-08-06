@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.transporttruck;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.transportfleet.TransportFleet;
@@ -48,24 +46,24 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = TransportTruckTokens.start().withTokenFromListName(listName).done();
 		TransportTruck  transportTruck = (TransportTruck) this.loadTransportTruck(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = transportTruck.collectRefercencesFromLists();
 		transportTruckDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, transportTruck, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new TransportTruckGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -128,7 +126,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).throwExceptionIfHasErrors( TransportTruckManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		TransportTruck transportTruck = loadTransportTruck( userContext, transportTruckId, tokens);
  		//do some calc before sent to customer?
@@ -147,6 +145,9 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		
 		List<BaseEntity> entityListToNaming = transportTruckToPresent.collectRefercencesFromLists();
 		transportTruckDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,transportTruck,tokens);
 		
 		return  transportTruckToPresent;
 		
@@ -623,7 +624,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 			transportTruck.addTransportTask( transportTask );
 			transportTruck = saveTransportTruck(userContext, transportTruck, tokens().withTransportTaskList().done());
 			
-			userContext.getManagerGroup().getTransportTaskManager().onNewInstanceCreated(userContext, transportTask);
+			transportTaskManagerOf(userContext).onNewInstanceCreated(userContext, transportTask);
 			return present(userContext,transportTruck, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -648,7 +649,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withTransportTaskListList()
-				.searchTransportTaskListWith(TransportTask.ID_PROPERTY, "is", id).done();
+				.searchTransportTaskListWith(TransportTask.ID_PROPERTY, tokens().is(), id).done();
 
 		TransportTruck transportTruckToUpdate = loadTransportTruck(userContext, transportTruckId, options);
 
@@ -657,7 +658,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 
 		TransportTask item = transportTruckToUpdate.getTransportTaskList().first();
-
+		beforeUpdateTransportTaskProperties(userContext,item, transportTruckId,id,name,start,beginTime,latitude,longitude,tokensExpr);
 		item.updateName( name );
 		item.updateStart( start );
 		item.updateBeginTime( beginTime );
@@ -672,6 +673,10 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 	}
 
+	protected  void beforeUpdateTransportTaskProperties(RetailscmUserContext userContext, TransportTask item, String transportTruckId, String id,String name,String start,Date beginTime,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected TransportTask createTransportTask(RetailscmUserContext userContext, String name, String start, Date beginTime, String endId, String driverId, String belongsToId, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -788,7 +793,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 			transportTruck.copyTransportTaskFrom( transportTask );
 			transportTruck = saveTransportTruck(userContext, transportTruck, tokens().withTransportTaskList().done());
 			
-			userContext.getManagerGroup().getTransportTaskManager().onNewInstanceCreated(userContext, (TransportTask)transportTruck.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			transportTaskManagerOf(userContext).onNewInstanceCreated(userContext, (TransportTask)transportTruck.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,transportTruck, mergedAllTokens(tokensExpr));
 		}
 
@@ -801,39 +806,29 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
 		checkerOf(userContext).checkIdOfTransportTask(transportTaskId);
 		checkerOf(userContext).checkVersionOfTransportTask(transportTaskVersion);
-		
+
 
 		if(TransportTask.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfTransportTask(parseString(newValueExpr));
-		
 		}
 		
 		if(TransportTask.START_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkStartOfTransportTask(parseString(newValueExpr));
-		
 		}
 		
 		if(TransportTask.BEGIN_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBeginTimeOfTransportTask(parseDate(newValueExpr));
-		
 		}
 		
 		if(TransportTask.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfTransportTask(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(TransportTask.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfTransportTask(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
 
 	}
@@ -843,7 +838,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 
 		checkParamsForUpdatingTransportTask(userContext, transportTruckId, transportTaskId, transportTaskVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withTransportTaskList().searchTransportTaskListWith(TransportTask.ID_PROPERTY, "eq", transportTaskId).done();
+		Map<String,Object> loadTokens = this.tokens().withTransportTaskList().searchTransportTaskListWith(TransportTask.ID_PROPERTY, tokens().equals(), transportTaskId).done();
 
 
 
@@ -854,13 +849,14 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 			//Also good when there is a RAM based DAO implementation
 			//transportTruck.removeTransportTask( transportTask );
 			//make changes to AcceleraterAccount.
-			TransportTask transportTaskIndex = createIndexedTransportTask(transportTaskId, transportTaskVersion);
+			TransportTask transportTaskIdVersionKey = createIndexedTransportTask(transportTaskId, transportTaskVersion);
 
-			TransportTask transportTask = transportTruck.findTheTransportTask(transportTaskIndex);
+			TransportTask transportTask = transportTruck.findTheTransportTask(transportTaskIdVersionKey);
 			if(transportTask == null){
-				throw new TransportTruckManagerException(transportTask+" is NOT FOUND" );
+				throw new TransportTruckManagerException(transportTaskId+" is NOT FOUND" );
 			}
 
+			beforeUpdateTransportTask(userContext, transportTask, transportTruckId, transportTaskId, transportTaskVersion, property, newValueExpr,  tokensExpr);
 			transportTask.changeProperty(property, newValueExpr);
 			
 			transportTruck = saveTransportTruck(userContext, transportTruck, tokens().withTransportTaskList().done());
@@ -868,6 +864,11 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateTransportTask(RetailscmUserContext userContext, TransportTask existed, String transportTruckId, String transportTaskId, int transportTaskVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -884,6 +885,12 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    transportTruckDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -975,6 +982,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1091,7 +1099,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1228,6 +1236,8 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

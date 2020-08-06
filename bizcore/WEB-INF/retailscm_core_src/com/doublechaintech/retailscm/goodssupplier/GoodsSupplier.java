@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.goodssupplier;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -18,8 +19,21 @@ import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
 import com.doublechaintech.retailscm.supplierproduct.SupplierProduct;
 import com.doublechaintech.retailscm.accountset.AccountSet;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = GoodsSupplierSerializer.class)
 public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

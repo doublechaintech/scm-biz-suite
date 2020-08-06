@@ -17,6 +17,7 @@ public interface GoodsSupplierManager extends BaseManager{
 	public GoodsSupplier createGoodsSupplier(RetailscmUserContext userContext, String name,String supplyProduct,String belongToId,String contactNumber,String description) throws Exception;
 	public GoodsSupplier updateGoodsSupplier(RetailscmUserContext userContext,String goodsSupplierId, int goodsSupplierVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public GoodsSupplier loadGoodsSupplier(RetailscmUserContext userContext, String goodsSupplierId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public GoodsSupplier internalSaveGoodsSupplier(RetailscmUserContext userContext, GoodsSupplier goodsSupplier) throws Exception;
 	public GoodsSupplier internalSaveGoodsSupplier(RetailscmUserContext userContext, GoodsSupplier goodsSupplier,Map<String,Object>option) throws Exception;
 

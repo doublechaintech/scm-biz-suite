@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.levelonecategory.LevelOneCategoryDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements LevelTwoCategoryDAO{
 
@@ -71,50 +71,54 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	 	return this.levelThreeCategoryDAO;
  	}	
 
-	
+
 	/*
 	protected LevelTwoCategory load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalLevelTwoCategory(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<LevelTwoCategory> loadAll() {
 	    return this.loadAll(getLevelTwoCategoryMapper());
 	}
-	
-	
+
+  public Stream<LevelTwoCategory> loadAllAsStream() {
+      return this.loadAllAsStream(getLevelTwoCategoryMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public LevelTwoCategory load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalLevelTwoCategory(LevelTwoCategoryTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public LevelTwoCategory save(LevelTwoCategory levelTwoCategory,Map<String,Object> options){
-		
+
 		String methodName="save(LevelTwoCategory levelTwoCategory,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(levelTwoCategory, methodName, "levelTwoCategory");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalLevelTwoCategory(levelTwoCategory,options);
 	}
 	public LevelTwoCategory clone(String levelTwoCategoryId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(LevelTwoCategoryTable.withId(levelTwoCategoryId),options);
 	}
-	
+
 	protected LevelTwoCategory clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String levelTwoCategoryId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		LevelTwoCategory newLevelTwoCategory = loadInternalLevelTwoCategory(accessKey, options);
 		newLevelTwoCategory.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		}
 		
 
-		
+
 		saveInternalLevelTwoCategory(newLevelTwoCategory,options);
-		
+
 		return newLevelTwoCategory;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String levelTwoCategoryId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String levelTwoCategoryId, int version) throws Exception{
-	
+
 		String methodName="delete(String levelTwoCategoryId, int version)";
 		assertMethodArgumentNotNull(levelTwoCategoryId, methodName, "levelTwoCategoryId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{levelTwoCategoryId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(affectedNumber == 0){
 			handleDeleteOneError(levelTwoCategoryId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public LevelTwoCategory disconnectFromAll(String levelTwoCategoryId, int version) throws Exception{
-	
-		
+
+
 		LevelTwoCategory levelTwoCategory = loadInternalLevelTwoCategory(LevelTwoCategoryTable.withId(levelTwoCategoryId), emptyOptions());
 		levelTwoCategory.clearFromAll();
 		this.saveLevelTwoCategory(levelTwoCategory);
 		return levelTwoCategory;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "level_two_category";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "levelTwoCategory";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return levelTwoCategory;
 		}
 		
-		
+
 		String SQL=this.getSaveLevelTwoCategorySQL(levelTwoCategory);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveLevelTwoCategoryParameters(levelTwoCategory);
@@ -419,57 +423,57 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		levelTwoCategory.incVersion();
 		return levelTwoCategory;
-	
+
 	}
 	public SmartList<LevelTwoCategory> saveLevelTwoCategoryList(SmartList<LevelTwoCategory> levelTwoCategoryList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitLevelTwoCategoryList(levelTwoCategoryList);
-		
+
 		batchLevelTwoCategoryCreate((List<LevelTwoCategory>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchLevelTwoCategoryUpdate((List<LevelTwoCategory>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(LevelTwoCategory levelTwoCategory:levelTwoCategoryList){
 			if(levelTwoCategory.isChanged()){
 				levelTwoCategory.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return levelTwoCategoryList;
 	}
 
 	public SmartList<LevelTwoCategory> removeLevelTwoCategoryList(SmartList<LevelTwoCategory> levelTwoCategoryList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(levelTwoCategoryList, options);
-		
+
 		return levelTwoCategoryList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareLevelTwoCategoryBatchCreateArgs(List<LevelTwoCategory> levelTwoCategoryList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(LevelTwoCategory levelTwoCategory:levelTwoCategoryList ){
 			Object [] parameters = prepareLevelTwoCategoryCreateParameters(levelTwoCategory);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareLevelTwoCategoryBatchUpdateArgs(List<LevelTwoCategory> levelTwoCategoryList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(LevelTwoCategory levelTwoCategory:levelTwoCategoryList ){
 			if(!levelTwoCategory.isChanged()){
@@ -477,40 +481,40 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			}
 			Object [] parameters = prepareLevelTwoCategoryUpdateParameters(levelTwoCategory);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchLevelTwoCategoryCreate(List<LevelTwoCategory> levelTwoCategoryList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareLevelTwoCategoryBatchCreateArgs(levelTwoCategoryList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchLevelTwoCategoryUpdate(List<LevelTwoCategory> levelTwoCategoryList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareLevelTwoCategoryBatchUpdateArgs(levelTwoCategoryList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitLevelTwoCategoryList(List<LevelTwoCategory> levelTwoCategoryList){
-		
+
 		List<LevelTwoCategory> levelTwoCategoryCreateList=new ArrayList<LevelTwoCategory>();
 		List<LevelTwoCategory> levelTwoCategoryUpdateList=new ArrayList<LevelTwoCategory>();
-		
+
 		for(LevelTwoCategory levelTwoCategory: levelTwoCategoryList){
 			if(isUpdateRequest(levelTwoCategory)){
 				levelTwoCategoryUpdateList.add( levelTwoCategory);
@@ -518,10 +522,10 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			}
 			levelTwoCategoryCreateList.add(levelTwoCategory);
 		}
-		
+
 		return new Object[]{levelTwoCategoryCreateList,levelTwoCategoryUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(LevelTwoCategory levelTwoCategory){
  		return levelTwoCategory.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveLevelTwoCategoryParameters(LevelTwoCategory levelTwoCategory){
  		if(isUpdateRequest(levelTwoCategory) ){
  			return prepareLevelTwoCategoryUpdateParameters(levelTwoCategory);
@@ -540,42 +544,44 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  	}
  	protected Object[] prepareLevelTwoCategoryUpdateParameters(LevelTwoCategory levelTwoCategory){
  		Object[] parameters = new Object[5];
-  	
+ 
  		if(levelTwoCategory.getParentCategory() != null){
  			parameters[0] = levelTwoCategory.getParentCategory().getId();
  		}
  
  		
  		parameters[1] = levelTwoCategory.getName();
- 				
+ 		
  		parameters[2] = levelTwoCategory.nextVersion();
  		parameters[3] = levelTwoCategory.getId();
  		parameters[4] = levelTwoCategory.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareLevelTwoCategoryCreateParameters(LevelTwoCategory levelTwoCategory){
 		Object[] parameters = new Object[3];
-		String newLevelTwoCategoryId=getNextId();
-		levelTwoCategory.setId(newLevelTwoCategoryId);
+        if(levelTwoCategory.getId() == null){
+          String newLevelTwoCategoryId=getNextId();
+          levelTwoCategory.setId(newLevelTwoCategoryId);
+        }
 		parameters[0] =  levelTwoCategory.getId();
-  	
+ 
  		if(levelTwoCategory.getParentCategory() != null){
  			parameters[1] = levelTwoCategory.getParentCategory().getId();
- 		
+
  		}
  		
  		
  		parameters[2] = levelTwoCategory.getName();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected LevelTwoCategory saveInternalLevelTwoCategory(LevelTwoCategory levelTwoCategory, Map<String,Object> options){
-		
+
 		saveLevelTwoCategory(levelTwoCategory);
- 	
+
  		if(isSaveParentCategoryEnabled(options)){
 	 		saveParentCategory(levelTwoCategory, options);
  		}
@@ -585,42 +591,42 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	 		saveLevelThreeCategoryList(levelTwoCategory, options);
 	 		//removeLevelThreeCategoryList(levelTwoCategory, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return levelTwoCategory;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected LevelTwoCategory saveParentCategory(LevelTwoCategory levelTwoCategory, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(levelTwoCategory.getParentCategory() == null){
  			return levelTwoCategory;//do nothing when it is null
  		}
- 		
+
  		getLevelOneCategoryDAO().save(levelTwoCategory.getParentCategory(),options);
  		return levelTwoCategory;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public LevelTwoCategory planToRemoveLevelThreeCategoryList(LevelTwoCategory levelTwoCategory, String levelThreeCategoryIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(LevelThreeCategory.PARENT_CATEGORY_PROPERTY, levelTwoCategory.getId());
 		key.put(LevelThreeCategory.ID_PROPERTY, levelThreeCategoryIds);
-		
+
 		SmartList<LevelThreeCategory> externalLevelThreeCategoryList = getLevelThreeCategoryDAO().
 				findLevelThreeCategoryWithKey(key, options);
 		if(externalLevelThreeCategoryList == null){
@@ -629,36 +635,36 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(externalLevelThreeCategoryList.isEmpty()){
 			return levelTwoCategory;
 		}
-		
+
 		for(LevelThreeCategory levelThreeCategoryItem: externalLevelThreeCategoryList){
 
 			levelThreeCategoryItem.clearFromAll();
 		}
-		
-		
-		SmartList<LevelThreeCategory> levelThreeCategoryList = levelTwoCategory.getLevelThreeCategoryList();		
+
+
+		SmartList<LevelThreeCategory> levelThreeCategoryList = levelTwoCategory.getLevelThreeCategoryList();
 		levelThreeCategoryList.addAllToRemoveList(externalLevelThreeCategoryList);
-		return levelTwoCategory;	
-	
+		return levelTwoCategory;
+
 	}
 
 
 
 		
 	protected LevelTwoCategory saveLevelThreeCategoryList(LevelTwoCategory levelTwoCategory, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<LevelThreeCategory> levelThreeCategoryList = levelTwoCategory.getLevelThreeCategoryList();
 		if(levelThreeCategoryList == null){
 			//null list means nothing
 			return levelTwoCategory;
 		}
 		SmartList<LevelThreeCategory> mergedUpdateLevelThreeCategoryList = new SmartList<LevelThreeCategory>();
-		
-		
-		mergedUpdateLevelThreeCategoryList.addAll(levelThreeCategoryList); 
+
+
+		mergedUpdateLevelThreeCategoryList.addAll(levelThreeCategoryList);
 		if(levelThreeCategoryList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateLevelThreeCategoryList.addAll(levelThreeCategoryList.getToRemoveList());
@@ -667,28 +673,28 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		}
 
 		//adding new size can improve performance
-	
+
 		getLevelThreeCategoryDAO().saveLevelThreeCategoryList(mergedUpdateLevelThreeCategoryList,options);
-		
+
 		if(levelThreeCategoryList.getToRemoveList() != null){
 			levelThreeCategoryList.removeAll(levelThreeCategoryList.getToRemoveList());
 		}
-		
-		
+
+
 		return levelTwoCategory;
-	
+
 	}
-	
+
 	protected LevelTwoCategory removeLevelThreeCategoryList(LevelTwoCategory levelTwoCategory, Map<String,Object> options){
-	
-	
+
+
 		SmartList<LevelThreeCategory> levelThreeCategoryList = levelTwoCategory.getLevelThreeCategoryList();
 		if(levelThreeCategoryList == null){
 			return levelTwoCategory;
-		}	
-	
+		}
+
 		SmartList<LevelThreeCategory> toRemoveLevelThreeCategoryList = levelThreeCategoryList.getToRemoveList();
-		
+
 		if(toRemoveLevelThreeCategoryList == null){
 			return levelTwoCategory;
 		}
@@ -696,20 +702,20 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return levelTwoCategory;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getLevelThreeCategoryDAO().removeLevelThreeCategoryList(toRemoveLevelThreeCategoryList,options);
-		
-		return levelTwoCategory;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getLevelThreeCategoryDAO().removeLevelThreeCategoryList(toRemoveLevelThreeCategoryList,options);
+
+		return levelTwoCategory;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public LevelTwoCategory present(LevelTwoCategory levelTwoCategory,Map<String, Object> options){
@@ -752,13 +758,13 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	protected String getTableName(){
 		return LevelTwoCategoryTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<LevelTwoCategory> levelTwoCategoryList) {		
+
+
+
+	public void enhanceList(List<LevelTwoCategory> levelTwoCategoryList) {
 		this.enhanceListInternal(levelTwoCategoryList, this.getLevelTwoCategoryMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:LevelThreeCategory的parentCategory的LevelThreeCategoryList
 	public SmartList<LevelThreeCategory> loadOurLevelThreeCategoryList(RetailscmUserContext userContext, List<LevelTwoCategory> us, Map<String,Object> options) throws Exception{
@@ -783,39 +789,45 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LevelTwoCategory> levelTwoCategoryList = ownerEntity.collectRefsWithType(LevelTwoCategory.INTERNAL_TYPE);
 		this.enhanceList(levelTwoCategoryList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<LevelTwoCategory> findLevelTwoCategoryWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getLevelTwoCategoryMapper());
 
 	}
 	@Override
 	public int countLevelTwoCategoryWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countLevelTwoCategoryWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<LevelTwoCategory> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getLevelTwoCategoryMapper());
 	}
+
+  @Override
+  public Stream<LevelTwoCategory> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getLevelTwoCategoryMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -844,7 +856,7 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		}
 		return result;
 	}
-	
+
 	
 
 }

@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.employee;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -50,20 +51,21 @@ import com.doublechaintech.retailscm.employeeeducation.EmployeeEducationDAO;
 public interface EmployeeDAO extends BaseDAO{
 
 	public SmartList<Employee> loadAll();
+	public Stream<Employee> loadAllAsStream();
 	public Employee load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<Employee> employeeList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public Employee present(Employee employee,Map<String,Object> options) throws Exception;
 	public Employee clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public Employee save(Employee employee,Map<String,Object> options);
 	public SmartList<Employee> saveEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options);
 	public SmartList<Employee> removeEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options);
@@ -189,50 +191,51 @@ public interface EmployeeDAO extends BaseDAO{
 	public Employee planToRemovePayingOffList(Employee employee, String payingOffIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<Employee> queryList(String sql, Object ... parmeters);
+	public Stream<Employee> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateEmployee executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<Employee> findEmployeeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countEmployeeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countEmployeeByCompanyIds(String[] ids, Map<String,Object> options);
  	public SmartList<Employee> findEmployeeByCompany(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeEmployeeByCompany(SmartList<Employee> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<Employee> findEmployeeByDepartment(String levelThreeDepartmentId, Map<String,Object> options);
  	public int countEmployeeByDepartment(String levelThreeDepartmentId, Map<String,Object> options);
  	public Map<String, Integer> countEmployeeByDepartmentIds(String[] ids, Map<String,Object> options);
  	public SmartList<Employee> findEmployeeByDepartment(String levelThreeDepartmentId, int start, int count, Map<String,Object> options);
  	public void analyzeEmployeeByDepartment(SmartList<Employee> resultList, String levelThreeDepartmentId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<Employee> findEmployeeByOccupation(String occupationTypeId, Map<String,Object> options);
  	public int countEmployeeByOccupation(String occupationTypeId, Map<String,Object> options);
  	public Map<String, Integer> countEmployeeByOccupationIds(String[] ids, Map<String,Object> options);
  	public SmartList<Employee> findEmployeeByOccupation(String occupationTypeId, int start, int count, Map<String,Object> options);
  	public void analyzeEmployeeByOccupation(SmartList<Employee> resultList, String occupationTypeId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<Employee> findEmployeeByResponsibleFor(String responsibilityTypeId, Map<String,Object> options);
  	public int countEmployeeByResponsibleFor(String responsibilityTypeId, Map<String,Object> options);
  	public Map<String, Integer> countEmployeeByResponsibleForIds(String[] ids, Map<String,Object> options);
  	public SmartList<Employee> findEmployeeByResponsibleFor(String responsibilityTypeId, int start, int count, Map<String,Object> options);
  	public void analyzeEmployeeByResponsibleFor(SmartList<Employee> resultList, String responsibilityTypeId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<Employee> findEmployeeByCurrentSalaryGrade(String salaryGradeId, Map<String,Object> options);
  	public int countEmployeeByCurrentSalaryGrade(String salaryGradeId, Map<String,Object> options);
  	public Map<String, Integer> countEmployeeByCurrentSalaryGradeIds(String[] ids, Map<String,Object> options);
  	public SmartList<Employee> findEmployeeByCurrentSalaryGrade(String salaryGradeId, int start, int count, Map<String,Object> options);
  	public void analyzeEmployeeByCurrentSalaryGrade(SmartList<Employee> resultList, String salaryGradeId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的employee的EmployeeCompanyTrainingList
 	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;

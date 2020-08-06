@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstoremember;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -32,20 +33,21 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 public interface RetailStoreMemberDAO extends BaseDAO{
 
 	public SmartList<RetailStoreMember> loadAll();
+	public Stream<RetailStoreMember> loadAllAsStream();
 	public RetailStoreMember load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreMember> retailStoreMemberList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreMember present(RetailStoreMember retailStoreMember,Map<String,Object> options) throws Exception;
 	public RetailStoreMember clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreMember save(RetailStoreMember retailStoreMember,Map<String,Object> options);
 	public SmartList<RetailStoreMember> saveRetailStoreMemberList(SmartList<RetailStoreMember> retailStoreMemberList,Map<String,Object> options);
 	public SmartList<RetailStoreMember> removeRetailStoreMemberList(SmartList<RetailStoreMember> retailStoreMemberList,Map<String,Object> options);
@@ -112,18 +114,19 @@ public interface RetailStoreMemberDAO extends BaseDAO{
 	public RetailStoreMember planToRemoveRetailStoreMemberGiftCardList(RetailStoreMember retailStoreMember, String retailStoreMemberGiftCardIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<RetailStoreMember> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreMember> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreMember executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<RetailStoreMember> findRetailStoreMemberByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countRetailStoreMemberByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreMemberByOwnerIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStoreMember> findRetailStoreMemberByOwner(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreMemberByOwner(SmartList<RetailStoreMember> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:ConsumerOrder的consumer的ConsumerOrderList
 	public SmartList<ConsumerOrder> loadOurConsumerOrderList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception;

@@ -22,6 +22,7 @@ public interface PageTypeManager extends BaseManager{
 	public PageType createPageType(RetailscmUserContext userContext, String name,String code,String mobileAppId,boolean footerTab) throws Exception;
 	public PageType updatePageType(RetailscmUserContext userContext,String pageTypeId, int pageTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public PageType loadPageType(RetailscmUserContext userContext, String pageTypeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public PageType internalSavePageType(RetailscmUserContext userContext, PageType pageType) throws Exception;
 	public PageType internalSavePageType(RetailscmUserContext userContext, PageType pageType,Map<String,Object>option) throws Exception;
 

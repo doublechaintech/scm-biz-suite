@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.employeeskill;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.skilltype.SkillType;
 import com.doublechaintech.retailscm.employee.Employee;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = EmployeeSkillSerializer.class)
 public class EmployeeSkill extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

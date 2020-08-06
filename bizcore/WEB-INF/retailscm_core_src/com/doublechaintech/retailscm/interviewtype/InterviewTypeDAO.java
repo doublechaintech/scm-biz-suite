@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.interviewtype;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.employeeinterview.EmployeeInterviewDAO;
 public interface InterviewTypeDAO extends BaseDAO{
 
 	public SmartList<InterviewType> loadAll();
+	public Stream<InterviewType> loadAllAsStream();
 	public InterviewType load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<InterviewType> interviewTypeList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public InterviewType present(InterviewType interviewType,Map<String,Object> options) throws Exception;
 	public InterviewType clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public InterviewType save(InterviewType interviewType,Map<String,Object> options);
 	public SmartList<InterviewType> saveInterviewTypeList(SmartList<InterviewType> interviewTypeList,Map<String,Object> options);
 	public SmartList<InterviewType> removeInterviewTypeList(SmartList<InterviewType> interviewTypeList,Map<String,Object> options);
@@ -58,18 +60,19 @@ public interface InterviewTypeDAO extends BaseDAO{
 	public InterviewType planToRemoveEmployeeInterviewListWithEmployee(InterviewType interviewType, String employeeId, Map<String,Object> options)throws Exception;
 	public int countEmployeeInterviewListWithEmployee(String interviewTypeId, String employeeId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<InterviewType> queryList(String sql, Object ... parmeters);
+	public Stream<InterviewType> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateInterviewType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<InterviewType> findInterviewTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countInterviewTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countInterviewTypeByCompanyIds(String[] ids, Map<String,Object> options);
  	public SmartList<InterviewType> findInterviewTypeByCompany(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeInterviewTypeByCompany(SmartList<InterviewType> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:EmployeeInterview的interviewType的EmployeeInterviewList
 	public SmartList<EmployeeInterview> loadOurEmployeeInterviewList(RetailscmUserContext userContext, List<InterviewType> us, Map<String,Object> options) throws Exception;

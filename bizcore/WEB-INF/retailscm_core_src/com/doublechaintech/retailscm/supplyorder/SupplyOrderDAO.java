@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.supplyorder;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -28,20 +29,21 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 public interface SupplyOrderDAO extends BaseDAO{
 
 	public SmartList<SupplyOrder> loadAll();
+	public Stream<SupplyOrder> loadAllAsStream();
 	public SupplyOrder load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<SupplyOrder> supplyOrderList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public SupplyOrder present(SupplyOrder supplyOrder,Map<String,Object> options) throws Exception;
 	public SupplyOrder clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public SupplyOrder save(SupplyOrder supplyOrder,Map<String,Object> options);
 	public SmartList<SupplyOrder> saveSupplyOrderList(SmartList<SupplyOrder> supplyOrderList,Map<String,Object> options);
 	public SmartList<SupplyOrder> removeSupplyOrderList(SmartList<SupplyOrder> supplyOrderList,Map<String,Object> options);
@@ -74,10 +76,6 @@ public interface SupplyOrderDAO extends BaseDAO{
 	public SupplyOrder planToRemoveSupplyOrderLineItemList(SupplyOrder supplyOrder, String supplyOrderLineItemIds[], Map<String,Object> options)throws Exception;
 
 
-	//disconnect SupplyOrder with sku_id in SupplyOrderLineItem
-	public SupplyOrder planToRemoveSupplyOrderLineItemListWithSkuId(SupplyOrder supplyOrder, String skuIdId, Map<String,Object> options)throws Exception;
-	public int countSupplyOrderLineItemListWithSkuId(String supplyOrderId, String skuIdId, Map<String,Object> options)throws Exception;
-	
 	public SupplyOrder planToRemoveSupplyOrderShippingGroupList(SupplyOrder supplyOrder, String supplyOrderShippingGroupIds[], Map<String,Object> options)throws Exception;
 
 
@@ -119,26 +117,27 @@ public interface SupplyOrderDAO extends BaseDAO{
 	public SupplyOrder planToRemoveGoodsListWithRetailStoreOrder(SupplyOrder supplyOrder, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	public int countGoodsListWithRetailStoreOrder(String supplyOrderId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<SupplyOrder> queryList(String sql, Object ... parmeters);
+	public Stream<SupplyOrder> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateSupplyOrder executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<SupplyOrder> findSupplyOrderByBuyer(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countSupplyOrderByBuyer(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countSupplyOrderByBuyerIds(String[] ids, Map<String,Object> options);
  	public SmartList<SupplyOrder> findSupplyOrderByBuyer(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeSupplyOrderByBuyer(SmartList<SupplyOrder> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<SupplyOrder> findSupplyOrderBySeller(String goodsSupplierId, Map<String,Object> options);
  	public int countSupplyOrderBySeller(String goodsSupplierId, Map<String,Object> options);
  	public Map<String, Integer> countSupplyOrderBySellerIds(String[] ids, Map<String,Object> options);
  	public SmartList<SupplyOrder> findSupplyOrderBySeller(String goodsSupplierId, int start, int count, Map<String,Object> options);
  	public void analyzeSupplyOrderBySeller(SmartList<SupplyOrder> resultList, String goodsSupplierId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:SupplyOrderLineItem的bizOrder的SupplyOrderLineItemList
 	public SmartList<SupplyOrderLineItem> loadOurSupplyOrderLineItemList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception;

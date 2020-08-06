@@ -17,6 +17,7 @@ public interface TransportFleetManager extends BaseManager{
 	public TransportFleet createTransportFleet(RetailscmUserContext userContext, String name,String contactNumber,String ownerId) throws Exception;
 	public TransportFleet updateTransportFleet(RetailscmUserContext userContext,String transportFleetId, int transportFleetVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public TransportFleet loadTransportFleet(RetailscmUserContext userContext, String transportFleetId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public TransportFleet internalSaveTransportFleet(RetailscmUserContext userContext, TransportFleet transportFleet) throws Exception;
 	public TransportFleet internalSaveTransportFleet(RetailscmUserContext userContext, TransportFleet transportFleet,Map<String,Object>option) throws Exception;
 

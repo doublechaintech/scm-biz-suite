@@ -116,7 +116,7 @@ import com.doublechaintech.retailscm.slide.Slide;
 import com.doublechaintech.retailscm.uiaction.UiAction;
 import com.doublechaintech.retailscm.section.Section;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteList;
+import com.doublechaintech.retailscm.userallowlist.UserAllowList;
 import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.quicklink.QuickLink;
@@ -124,9 +124,9 @@ import com.doublechaintech.retailscm.listaccess.ListAccess;
 import com.doublechaintech.retailscm.loginhistory.LoginHistory;
 import com.doublechaintech.retailscm.candidatecontainer.CandidateContainer;
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentify;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
 import com.doublechaintech.retailscm.treenode.TreeNode;
 
@@ -1543,15 +1543,15 @@ public class RetailscmBaseViewScope {
 		return UserDomainBaseSummaryScope;
 	}
 
-	protected static SerializeScope UserWhiteListBaseSummaryScope = SerializeScope.INCLUDE()
+	protected static SerializeScope UserAllowListBaseSummaryScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(UserWhiteList.ID_PROPERTY)
-		.field(UserWhiteList.USER_IDENTITY_PROPERTY)
-		.field(UserWhiteList.USER_SPECIAL_FUNCTIONS_PROPERTY)
+		.field(UserAllowList.ID_PROPERTY)
+		.field(UserAllowList.USER_IDENTITY_PROPERTY)
+		.field(UserAllowList.USER_SPECIAL_FUNCTIONS_PROPERTY)
 		;
-	/** 用于UserWhiteList的子对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getUserWhiteListSummaryScope() {
-		return UserWhiteListBaseSummaryScope;
+	/** 用于UserAllowList的子对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getUserAllowListSummaryScope() {
+		return UserAllowListBaseSummaryScope;
 	}
 
 	protected static SerializeScope SecUserBaseSummaryScope = SerializeScope.INCLUDE()
@@ -1653,41 +1653,41 @@ public class RetailscmBaseViewScope {
 		return CandidateElementBaseSummaryScope;
 	}
 
-	protected static SerializeScope WechatWorkappIdentifyBaseSummaryScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatWorkappIdentityBaseSummaryScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatWorkappIdentify.ID_PROPERTY)
-		.field(WechatWorkappIdentify.CORP_ID_PROPERTY)
-		.field(WechatWorkappIdentify.USER_ID_PROPERTY)
-		.field(WechatWorkappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatWorkappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.ID_PROPERTY)
+		.field(WechatWorkappIdentity.CORP_ID_PROPERTY)
+		.field(WechatWorkappIdentity.USER_ID_PROPERTY)
+		.field(WechatWorkappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatWorkappIdentify的子对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getWechatWorkappIdentifySummaryScope() {
-		return WechatWorkappIdentifyBaseSummaryScope;
+	/** 用于WechatWorkappIdentity的子对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getWechatWorkappIdentitySummaryScope() {
+		return WechatWorkappIdentityBaseSummaryScope;
 	}
 
-	protected static SerializeScope WechatMiniappIdentifyBaseSummaryScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatMiniappIdentityBaseSummaryScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatMiniappIdentify.ID_PROPERTY)
-		.field(WechatMiniappIdentify.OPEN_ID_PROPERTY)
-		.field(WechatMiniappIdentify.APP_ID_PROPERTY)
-		.field(WechatMiniappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatMiniappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.ID_PROPERTY)
+		.field(WechatMiniappIdentity.OPEN_ID_PROPERTY)
+		.field(WechatMiniappIdentity.APP_ID_PROPERTY)
+		.field(WechatMiniappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatMiniappIdentify的子对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getWechatMiniappIdentifySummaryScope() {
-		return WechatMiniappIdentifyBaseSummaryScope;
+	/** 用于WechatMiniappIdentity的子对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getWechatMiniappIdentitySummaryScope() {
+		return WechatMiniappIdentityBaseSummaryScope;
 	}
 
-	protected static SerializeScope KeypairIdentifyBaseSummaryScope = SerializeScope.INCLUDE()
+	protected static SerializeScope KeypairIdentityBaseSummaryScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(KeypairIdentify.ID_PROPERTY)
-		.field(KeypairIdentify.PUBLIC_KEY_PROPERTY)
-		.field(KeypairIdentify.CREATE_TIME_PROPERTY)
+		.field(KeypairIdentity.ID_PROPERTY)
+		.field(KeypairIdentity.PUBLIC_KEY_PROPERTY)
+		.field(KeypairIdentity.CREATE_TIME_PROPERTY)
 		;
-	/** 用于KeypairIdentify的子对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getKeypairIdentifySummaryScope() {
-		return KeypairIdentifyBaseSummaryScope;
+	/** 用于KeypairIdentity的子对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getKeypairIdentitySummaryScope() {
+		return KeypairIdentityBaseSummaryScope;
 	}
 
 	protected static SerializeScope PublicKeyTypeBaseSummaryScope = SerializeScope.INCLUDE()
@@ -3124,15 +3124,15 @@ public class RetailscmBaseViewScope {
 		return UserDomainBaseSecondaryListItemScope;
 	}
 
-	protected static SerializeScope UserWhiteListBaseSecondaryListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope UserAllowListBaseSecondaryListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(UserWhiteList.ID_PROPERTY)
-		.field(UserWhiteList.USER_IDENTITY_PROPERTY)
-		.field(UserWhiteList.USER_SPECIAL_FUNCTIONS_PROPERTY)
+		.field(UserAllowList.ID_PROPERTY)
+		.field(UserAllowList.USER_IDENTITY_PROPERTY)
+		.field(UserAllowList.USER_SPECIAL_FUNCTIONS_PROPERTY)
 		;
-	/** 用于UserWhiteList的父对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getUserWhiteListSecondaryListItemScope() {
-		return UserWhiteListBaseSecondaryListItemScope;
+	/** 用于UserAllowList的父对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getUserAllowListSecondaryListItemScope() {
+		return UserAllowListBaseSecondaryListItemScope;
 	}
 
 	protected static SerializeScope SecUserBaseSecondaryListItemScope = SerializeScope.INCLUDE()
@@ -3234,41 +3234,41 @@ public class RetailscmBaseViewScope {
 		return CandidateElementBaseSecondaryListItemScope;
 	}
 
-	protected static SerializeScope WechatWorkappIdentifyBaseSecondaryListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatWorkappIdentityBaseSecondaryListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatWorkappIdentify.ID_PROPERTY)
-		.field(WechatWorkappIdentify.CORP_ID_PROPERTY)
-		.field(WechatWorkappIdentify.USER_ID_PROPERTY)
-		.field(WechatWorkappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatWorkappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.ID_PROPERTY)
+		.field(WechatWorkappIdentity.CORP_ID_PROPERTY)
+		.field(WechatWorkappIdentity.USER_ID_PROPERTY)
+		.field(WechatWorkappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatWorkappIdentify的父对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getWechatWorkappIdentifySecondaryListItemScope() {
-		return WechatWorkappIdentifyBaseSecondaryListItemScope;
+	/** 用于WechatWorkappIdentity的父对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getWechatWorkappIdentitySecondaryListItemScope() {
+		return WechatWorkappIdentityBaseSecondaryListItemScope;
 	}
 
-	protected static SerializeScope WechatMiniappIdentifyBaseSecondaryListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatMiniappIdentityBaseSecondaryListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatMiniappIdentify.ID_PROPERTY)
-		.field(WechatMiniappIdentify.OPEN_ID_PROPERTY)
-		.field(WechatMiniappIdentify.APP_ID_PROPERTY)
-		.field(WechatMiniappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatMiniappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.ID_PROPERTY)
+		.field(WechatMiniappIdentity.OPEN_ID_PROPERTY)
+		.field(WechatMiniappIdentity.APP_ID_PROPERTY)
+		.field(WechatMiniappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatMiniappIdentify的父对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getWechatMiniappIdentifySecondaryListItemScope() {
-		return WechatMiniappIdentifyBaseSecondaryListItemScope;
+	/** 用于WechatMiniappIdentity的父对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getWechatMiniappIdentitySecondaryListItemScope() {
+		return WechatMiniappIdentityBaseSecondaryListItemScope;
 	}
 
-	protected static SerializeScope KeypairIdentifyBaseSecondaryListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope KeypairIdentityBaseSecondaryListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(KeypairIdentify.ID_PROPERTY)
-		.field(KeypairIdentify.PUBLIC_KEY_PROPERTY)
-		.field(KeypairIdentify.CREATE_TIME_PROPERTY)
+		.field(KeypairIdentity.ID_PROPERTY)
+		.field(KeypairIdentity.PUBLIC_KEY_PROPERTY)
+		.field(KeypairIdentity.CREATE_TIME_PROPERTY)
 		;
-	/** 用于KeypairIdentify的父对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getKeypairIdentifySecondaryListItemScope() {
-		return KeypairIdentifyBaseSecondaryListItemScope;
+	/** 用于KeypairIdentity的父对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getKeypairIdentitySecondaryListItemScope() {
+		return KeypairIdentityBaseSecondaryListItemScope;
 	}
 
 	protected static SerializeScope PublicKeyTypeBaseSecondaryListItemScope = SerializeScope.INCLUDE()
@@ -4999,7 +4999,7 @@ public class RetailscmBaseViewScope {
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
 		.field(UserDomain.ID_PROPERTY)
 		.field(UserDomain.NAME_PROPERTY)
-		.field(UserDomain.USER_WHITE_LIST_LIST, getUserWhiteListSecondaryListItemScope())
+		.field(UserDomain.USER_ALLOW_LIST_LIST, getUserAllowListSecondaryListItemScope())
 		.field(UserDomain.SEC_USER_LIST, getSecUserSecondaryListItemScope())
 		.field(UserDomain.PUBLIC_KEY_TYPE_LIST, getPublicKeyTypeSecondaryListItemScope())
 		;
@@ -5008,16 +5008,16 @@ public class RetailscmBaseViewScope {
 		return UserDomainBaseListItemScope;
 	}
 
-	protected static SerializeScope UserWhiteListBaseListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope UserAllowListBaseListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(UserWhiteList.ID_PROPERTY)
-		.field(UserWhiteList.USER_IDENTITY_PROPERTY)
-		.field(UserWhiteList.USER_SPECIAL_FUNCTIONS_PROPERTY)
-		.field(UserWhiteList.DOMAIN_PROPERTY, getUserDomainSummaryScope())
+		.field(UserAllowList.ID_PROPERTY)
+		.field(UserAllowList.USER_IDENTITY_PROPERTY)
+		.field(UserAllowList.USER_SPECIAL_FUNCTIONS_PROPERTY)
+		.field(UserAllowList.DOMAIN_PROPERTY, getUserDomainSummaryScope())
 		;
-	/** 用于UserWhiteList对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getUserWhiteListListItemScope() {
-		return UserWhiteListBaseListItemScope;
+	/** 用于UserAllowList对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getUserAllowListListItemScope() {
+		return UserAllowListBaseListItemScope;
 	}
 
 	protected static SerializeScope SecUserBaseListItemScope = SerializeScope.INCLUDE()
@@ -5036,9 +5036,9 @@ public class RetailscmBaseViewScope {
 		.field(SecUser.DOMAIN_PROPERTY, getUserDomainSummaryScope())
 		.field(SecUser.USER_APP_LIST, getUserAppSecondaryListItemScope())
 		.field(SecUser.LOGIN_HISTORY_LIST, getLoginHistorySecondaryListItemScope())
-		.field(SecUser.WECHAT_WORKAPP_IDENTIFY_LIST, getWechatWorkappIdentifySecondaryListItemScope())
-		.field(SecUser.WECHAT_MINIAPP_IDENTIFY_LIST, getWechatMiniappIdentifySecondaryListItemScope())
-		.field(SecUser.KEYPAIR_IDENTIFY_LIST, getKeypairIdentifySecondaryListItemScope())
+		.field(SecUser.WECHAT_WORKAPP_IDENTITY_LIST, getWechatWorkappIdentitySecondaryListItemScope())
+		.field(SecUser.WECHAT_MINIAPP_IDENTITY_LIST, getWechatMiniappIdentitySecondaryListItemScope())
+		.field(SecUser.KEYPAIR_IDENTITY_LIST, getKeypairIdentitySecondaryListItemScope())
 		;
 	/** 用于SecUser对象的列表时需要序列化的属性列表 */
 	public static SerializeScope getSecUserListItemScope() {
@@ -5133,45 +5133,45 @@ public class RetailscmBaseViewScope {
 		return CandidateElementBaseListItemScope;
 	}
 
-	protected static SerializeScope WechatWorkappIdentifyBaseListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatWorkappIdentityBaseListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatWorkappIdentify.ID_PROPERTY)
-		.field(WechatWorkappIdentify.CORP_ID_PROPERTY)
-		.field(WechatWorkappIdentify.USER_ID_PROPERTY)
-		.field(WechatWorkappIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-		.field(WechatWorkappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatWorkappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.ID_PROPERTY)
+		.field(WechatWorkappIdentity.CORP_ID_PROPERTY)
+		.field(WechatWorkappIdentity.USER_ID_PROPERTY)
+		.field(WechatWorkappIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+		.field(WechatWorkappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatWorkappIdentify对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getWechatWorkappIdentifyListItemScope() {
-		return WechatWorkappIdentifyBaseListItemScope;
+	/** 用于WechatWorkappIdentity对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getWechatWorkappIdentityListItemScope() {
+		return WechatWorkappIdentityBaseListItemScope;
 	}
 
-	protected static SerializeScope WechatMiniappIdentifyBaseListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatMiniappIdentityBaseListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatMiniappIdentify.ID_PROPERTY)
-		.field(WechatMiniappIdentify.OPEN_ID_PROPERTY)
-		.field(WechatMiniappIdentify.APP_ID_PROPERTY)
-		.field(WechatMiniappIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-		.field(WechatMiniappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatMiniappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.ID_PROPERTY)
+		.field(WechatMiniappIdentity.OPEN_ID_PROPERTY)
+		.field(WechatMiniappIdentity.APP_ID_PROPERTY)
+		.field(WechatMiniappIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+		.field(WechatMiniappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatMiniappIdentify对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getWechatMiniappIdentifyListItemScope() {
-		return WechatMiniappIdentifyBaseListItemScope;
+	/** 用于WechatMiniappIdentity对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getWechatMiniappIdentityListItemScope() {
+		return WechatMiniappIdentityBaseListItemScope;
 	}
 
-	protected static SerializeScope KeypairIdentifyBaseListItemScope = SerializeScope.INCLUDE()
+	protected static SerializeScope KeypairIdentityBaseListItemScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(KeypairIdentify.ID_PROPERTY)
-		.field(KeypairIdentify.PUBLIC_KEY_PROPERTY)
-		.field(KeypairIdentify.KEY_TYPE_PROPERTY, getPublicKeyTypeSummaryScope())
-		.field(KeypairIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-		.field(KeypairIdentify.CREATE_TIME_PROPERTY)
+		.field(KeypairIdentity.ID_PROPERTY)
+		.field(KeypairIdentity.PUBLIC_KEY_PROPERTY)
+		.field(KeypairIdentity.KEY_TYPE_PROPERTY, getPublicKeyTypeSummaryScope())
+		.field(KeypairIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+		.field(KeypairIdentity.CREATE_TIME_PROPERTY)
 		;
-	/** 用于KeypairIdentify对象的列表时需要序列化的属性列表 */
-	public static SerializeScope getKeypairIdentifyListItemScope() {
-		return KeypairIdentifyBaseListItemScope;
+	/** 用于KeypairIdentity对象的列表时需要序列化的属性列表 */
+	public static SerializeScope getKeypairIdentityListItemScope() {
+		return KeypairIdentityBaseListItemScope;
 	}
 
 	protected static SerializeScope PublicKeyTypeBaseListItemScope = SerializeScope.INCLUDE()
@@ -5180,7 +5180,7 @@ public class RetailscmBaseViewScope {
 		.field(PublicKeyType.NAME_PROPERTY)
 		.field(PublicKeyType.CODE_PROPERTY)
 		.field(PublicKeyType.DOMAIN_PROPERTY, getUserDomainSummaryScope())
-		.field(PublicKeyType.KEYPAIR_IDENTIFY_LIST, getKeypairIdentifySecondaryListItemScope())
+		.field(PublicKeyType.KEYPAIR_IDENTITY_LIST, getKeypairIdentitySecondaryListItemScope())
 		;
 	/** 用于PublicKeyType对象的列表时需要序列化的属性列表 */
 	public static SerializeScope getPublicKeyTypeListItemScope() {
@@ -6904,7 +6904,7 @@ public class RetailscmBaseViewScope {
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
 		.field(UserDomain.ID_PROPERTY)
 		.field(UserDomain.NAME_PROPERTY)
-		.field(UserDomain.USER_WHITE_LIST_LIST, getUserWhiteListListItemScope())
+		.field(UserDomain.USER_ALLOW_LIST_LIST, getUserAllowListListItemScope())
 		.field(UserDomain.SEC_USER_LIST, getSecUserListItemScope())
 		.field(UserDomain.PUBLIC_KEY_TYPE_LIST, getPublicKeyTypeListItemScope())
 		;
@@ -6913,16 +6913,16 @@ public class RetailscmBaseViewScope {
 		return UserDomainBaseDetailScope;
 	}
 
-	protected static SerializeScope UserWhiteListBaseDetailScope = SerializeScope.INCLUDE()
+	protected static SerializeScope UserAllowListBaseDetailScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(UserWhiteList.ID_PROPERTY)
-		.field(UserWhiteList.USER_IDENTITY_PROPERTY)
-		.field(UserWhiteList.USER_SPECIAL_FUNCTIONS_PROPERTY)
-		.field(UserWhiteList.DOMAIN_PROPERTY, getUserDomainSummaryScope())
+		.field(UserAllowList.ID_PROPERTY)
+		.field(UserAllowList.USER_IDENTITY_PROPERTY)
+		.field(UserAllowList.USER_SPECIAL_FUNCTIONS_PROPERTY)
+		.field(UserAllowList.DOMAIN_PROPERTY, getUserDomainSummaryScope())
 		;
-	/** 用于UserWhiteList对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getUserWhiteListDetailScope() {
-		return UserWhiteListBaseDetailScope;
+	/** 用于UserAllowList对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getUserAllowListDetailScope() {
+		return UserAllowListBaseDetailScope;
 	}
 
 	protected static SerializeScope SecUserBaseDetailScope = SerializeScope.INCLUDE()
@@ -6941,9 +6941,9 @@ public class RetailscmBaseViewScope {
 		.field(SecUser.DOMAIN_PROPERTY, getUserDomainSummaryScope())
 		.field(SecUser.USER_APP_LIST, getUserAppListItemScope())
 		.field(SecUser.LOGIN_HISTORY_LIST, getLoginHistoryListItemScope())
-		.field(SecUser.WECHAT_WORKAPP_IDENTIFY_LIST, getWechatWorkappIdentifyListItemScope())
-		.field(SecUser.WECHAT_MINIAPP_IDENTIFY_LIST, getWechatMiniappIdentifyListItemScope())
-		.field(SecUser.KEYPAIR_IDENTIFY_LIST, getKeypairIdentifyListItemScope())
+		.field(SecUser.WECHAT_WORKAPP_IDENTITY_LIST, getWechatWorkappIdentityListItemScope())
+		.field(SecUser.WECHAT_MINIAPP_IDENTITY_LIST, getWechatMiniappIdentityListItemScope())
+		.field(SecUser.KEYPAIR_IDENTITY_LIST, getKeypairIdentityListItemScope())
 		;
 	/** 用于SecUser对象的详情页时需要序列化的属性列表 */
 	public static SerializeScope getSecUserDetailScope() {
@@ -7038,45 +7038,45 @@ public class RetailscmBaseViewScope {
 		return CandidateElementBaseDetailScope;
 	}
 
-	protected static SerializeScope WechatWorkappIdentifyBaseDetailScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatWorkappIdentityBaseDetailScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatWorkappIdentify.ID_PROPERTY)
-		.field(WechatWorkappIdentify.CORP_ID_PROPERTY)
-		.field(WechatWorkappIdentify.USER_ID_PROPERTY)
-		.field(WechatWorkappIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-		.field(WechatWorkappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatWorkappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.ID_PROPERTY)
+		.field(WechatWorkappIdentity.CORP_ID_PROPERTY)
+		.field(WechatWorkappIdentity.USER_ID_PROPERTY)
+		.field(WechatWorkappIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+		.field(WechatWorkappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatWorkappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatWorkappIdentify对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getWechatWorkappIdentifyDetailScope() {
-		return WechatWorkappIdentifyBaseDetailScope;
+	/** 用于WechatWorkappIdentity对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getWechatWorkappIdentityDetailScope() {
+		return WechatWorkappIdentityBaseDetailScope;
 	}
 
-	protected static SerializeScope WechatMiniappIdentifyBaseDetailScope = SerializeScope.INCLUDE()
+	protected static SerializeScope WechatMiniappIdentityBaseDetailScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(WechatMiniappIdentify.ID_PROPERTY)
-		.field(WechatMiniappIdentify.OPEN_ID_PROPERTY)
-		.field(WechatMiniappIdentify.APP_ID_PROPERTY)
-		.field(WechatMiniappIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-		.field(WechatMiniappIdentify.CREATE_TIME_PROPERTY)
-		.field(WechatMiniappIdentify.LAST_LOGIN_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.ID_PROPERTY)
+		.field(WechatMiniappIdentity.OPEN_ID_PROPERTY)
+		.field(WechatMiniappIdentity.APP_ID_PROPERTY)
+		.field(WechatMiniappIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+		.field(WechatMiniappIdentity.CREATE_TIME_PROPERTY)
+		.field(WechatMiniappIdentity.LAST_LOGIN_TIME_PROPERTY)
 		;
-	/** 用于WechatMiniappIdentify对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getWechatMiniappIdentifyDetailScope() {
-		return WechatMiniappIdentifyBaseDetailScope;
+	/** 用于WechatMiniappIdentity对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getWechatMiniappIdentityDetailScope() {
+		return WechatMiniappIdentityBaseDetailScope;
 	}
 
-	protected static SerializeScope KeypairIdentifyBaseDetailScope = SerializeScope.INCLUDE()
+	protected static SerializeScope KeypairIdentityBaseDetailScope = SerializeScope.INCLUDE()
 		.field(RetailscmBaseConstants.X_LINK_TO_URL)
-		.field(KeypairIdentify.ID_PROPERTY)
-		.field(KeypairIdentify.PUBLIC_KEY_PROPERTY)
-		.field(KeypairIdentify.KEY_TYPE_PROPERTY, getPublicKeyTypeSummaryScope())
-		.field(KeypairIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-		.field(KeypairIdentify.CREATE_TIME_PROPERTY)
+		.field(KeypairIdentity.ID_PROPERTY)
+		.field(KeypairIdentity.PUBLIC_KEY_PROPERTY)
+		.field(KeypairIdentity.KEY_TYPE_PROPERTY, getPublicKeyTypeSummaryScope())
+		.field(KeypairIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+		.field(KeypairIdentity.CREATE_TIME_PROPERTY)
 		;
-	/** 用于KeypairIdentify对象的详情页时需要序列化的属性列表 */
-	public static SerializeScope getKeypairIdentifyDetailScope() {
-		return KeypairIdentifyBaseDetailScope;
+	/** 用于KeypairIdentity对象的详情页时需要序列化的属性列表 */
+	public static SerializeScope getKeypairIdentityDetailScope() {
+		return KeypairIdentityBaseDetailScope;
 	}
 
 	protected static SerializeScope PublicKeyTypeBaseDetailScope = SerializeScope.INCLUDE()
@@ -7085,7 +7085,7 @@ public class RetailscmBaseViewScope {
 		.field(PublicKeyType.NAME_PROPERTY)
 		.field(PublicKeyType.CODE_PROPERTY)
 		.field(PublicKeyType.DOMAIN_PROPERTY, getUserDomainSummaryScope())
-		.field(PublicKeyType.KEYPAIR_IDENTIFY_LIST, getKeypairIdentifyListItemScope())
+		.field(PublicKeyType.KEYPAIR_IDENTITY_LIST, getKeypairIdentityListItemScope())
 		;
 	/** 用于PublicKeyType对象的详情页时需要序列化的属性列表 */
 	public static SerializeScope getPublicKeyTypeDetailScope() {

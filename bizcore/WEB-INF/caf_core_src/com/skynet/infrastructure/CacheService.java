@@ -13,4 +13,11 @@ public interface CacheService {
 	default void ltrime(String key, int start, int end){};
 	default <T> List<T> lget(String key, Class<T> clazz){return  null;};
 	default <T> T lpop(String key, Class<T> clazz) {return null;}
+	default String getAsString(String key){
+		return (String) get(key, String.class);
+	}
+
+	default void putString(String key, String value){
+		put(key, value, -1);
+	}
 }

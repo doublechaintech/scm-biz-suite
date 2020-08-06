@@ -1,7 +1,10 @@
 
 package com.doublechaintech.retailscm.receivingspace;
 import com.doublechaintech.retailscm.AccessKey;
+import com.doublechaintech.retailscm.RetailscmBaseUtils;
+import com.doublechaintech.retailscm.RetailscmUserContext;
 
+import java.util.Map;
 
 public class ReceivingSpaceTable{
 
@@ -27,11 +30,35 @@ public class ReceivingSpaceTable{
 	static final String COLUMN_LONGITUDE = "longitude";
 	static final String COLUMN_LAST_UPDATE_TIME = "last_update_time";
 	static final String COLUMN_VERSION = "version";
- 
+
 	public static final String []ALL_CLOUMNS = {COLUMN_ID,COLUMN_LOCATION,COLUMN_CONTACT_NUMBER,COLUMN_DESCRIPTION,COLUMN_TOTAL_AREA,COLUMN_WAREHOUSE,COLUMN_LATITUDE,COLUMN_LONGITUDE,COLUMN_LAST_UPDATE_TIME,COLUMN_VERSION};
 	public static final String []NORMAL_CLOUMNS = {COLUMN_LOCATION,COLUMN_CONTACT_NUMBER,COLUMN_DESCRIPTION,COLUMN_TOTAL_AREA,COLUMN_WAREHOUSE,COLUMN_LATITUDE,COLUMN_LONGITUDE,COLUMN_LAST_UPDATE_TIME};
-	
-	
+
+	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
+        RetailscmBaseUtils.ensureTable(userContext, result, "receiving_space_data", new String[][]{
+                new String[]{"id","varchar(48)"," not null","ID","",""},
+                new String[]{"location","varchar(64)","","位置","",""},
+                new String[]{"contact_number","varchar(48)","","联系电话","",""},
+                new String[]{"description","varchar(52)","","描述","",""},
+                new String[]{"total_area","varchar(28)","","总面积","",""},
+                new String[]{"warehouse","varchar(48)","","仓库","warehouse_data","id"},
+                new String[]{"latitude","numeric(9,6)","","纬度","",""},
+                new String[]{"longitude","numeric(10,6)","","经度","",""},
+                new String[]{"last_update_time","datetime","","更新于","",""},
+                new String[]{"version","int","","版本","",""}
+            }, "收货区", new String[]{
+                "create unique index idx4id_ver_of_receiving_space on receiving_space_data (id, version);",
+                "create  index idx4latitude_of_receiving_space on receiving_space_data (latitude);",
+                "create  index idx4longitude_of_receiving_space on receiving_space_data (longitude);",
+                "create  index idx4last_update_time_of_receiving_space on receiving_space_data (last_update_time);"
+         }, new String[]{
+                "alter table receiving_space_data add constraint pk4id_of_receiving_space_data primary key (id);",
+                "alter table receiving_space_data add constraint fk4warehouse_of_receiving_space_data foreign key (warehouse) references warehouse_data(id) ON DELETE CASCADE ON UPDATE CASCADE;",
+                ""
+         });
+  }
+
+
 }
 
 

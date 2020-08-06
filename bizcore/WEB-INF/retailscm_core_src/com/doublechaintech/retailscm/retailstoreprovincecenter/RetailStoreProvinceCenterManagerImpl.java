@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.retailstoreprovincecenter;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -48,24 +46,24 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = RetailStoreProvinceCenterTokens.start().withTokenFromListName(listName).done();
 		RetailStoreProvinceCenter  retailStoreProvinceCenter = (RetailStoreProvinceCenter) this.loadRetailStoreProvinceCenter(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = retailStoreProvinceCenter.collectRefercencesFromLists();
 		retailStoreProvinceCenterDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, retailStoreProvinceCenter, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new RetailStoreProvinceCenterGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -128,7 +126,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreProvinceCenterManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		RetailStoreProvinceCenter retailStoreProvinceCenter = loadRetailStoreProvinceCenter( userContext, retailStoreProvinceCenterId, tokens);
  		//do some calc before sent to customer?
@@ -147,6 +145,9 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		
 		List<BaseEntity> entityListToNaming = retailStoreProvinceCenterToPresent.collectRefercencesFromLists();
 		retailStoreProvinceCenterDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,retailStoreProvinceCenter,tokens);
 		
 		return  retailStoreProvinceCenterToPresent;
 		
@@ -540,7 +541,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			retailStoreProvinceCenter.addProvinceCenterDepartment( provinceCenterDepartment );
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withProvinceCenterDepartmentList().done());
 			
-			userContext.getManagerGroup().getProvinceCenterDepartmentManager().onNewInstanceCreated(userContext, provinceCenterDepartment);
+			provinceCenterDepartmentManagerOf(userContext).onNewInstanceCreated(userContext, provinceCenterDepartment);
 			return present(userContext,retailStoreProvinceCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -563,7 +564,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withProvinceCenterDepartmentListList()
-				.searchProvinceCenterDepartmentListWith(ProvinceCenterDepartment.ID_PROPERTY, "is", id).done();
+				.searchProvinceCenterDepartmentListWith(ProvinceCenterDepartment.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreProvinceCenter retailStoreProvinceCenterToUpdate = loadRetailStoreProvinceCenter(userContext, retailStoreProvinceCenterId, options);
 
@@ -572,7 +573,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 
 		ProvinceCenterDepartment item = retailStoreProvinceCenterToUpdate.getProvinceCenterDepartmentList().first();
-
+		beforeUpdateProvinceCenterDepartmentProperties(userContext,item, retailStoreProvinceCenterId,id,name,founded,manager,tokensExpr);
 		item.updateName( name );
 		item.updateFounded( founded );
 		item.updateManager( manager );
@@ -585,6 +586,10 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 	}
 
+	protected  void beforeUpdateProvinceCenterDepartmentProperties(RetailscmUserContext userContext, ProvinceCenterDepartment item, String retailStoreProvinceCenterId, String id,String name,Date founded,String manager, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ProvinceCenterDepartment createProvinceCenterDepartment(RetailscmUserContext userContext, String name, Date founded, String manager) throws Exception{
 
@@ -690,7 +695,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			retailStoreProvinceCenter.copyProvinceCenterDepartmentFrom( provinceCenterDepartment );
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withProvinceCenterDepartmentList().done());
 			
-			userContext.getManagerGroup().getProvinceCenterDepartmentManager().onNewInstanceCreated(userContext, (ProvinceCenterDepartment)retailStoreProvinceCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			provinceCenterDepartmentManagerOf(userContext).onNewInstanceCreated(userContext, (ProvinceCenterDepartment)retailStoreProvinceCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreProvinceCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -703,27 +708,21 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		checkerOf(userContext).checkIdOfRetailStoreProvinceCenter(retailStoreProvinceCenterId);
 		checkerOf(userContext).checkIdOfProvinceCenterDepartment(provinceCenterDepartmentId);
 		checkerOf(userContext).checkVersionOfProvinceCenterDepartment(provinceCenterDepartmentVersion);
-		
+
 
 		if(ProvinceCenterDepartment.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfProvinceCenterDepartment(parseString(newValueExpr));
-		
 		}
 		
 		if(ProvinceCenterDepartment.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfProvinceCenterDepartment(parseDate(newValueExpr));
-		
 		}
 		
 		if(ProvinceCenterDepartment.MANAGER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkManagerOfProvinceCenterDepartment(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreProvinceCenterManagerException.class);
 
 	}
@@ -733,7 +732,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 
 		checkParamsForUpdatingProvinceCenterDepartment(userContext, retailStoreProvinceCenterId, provinceCenterDepartmentId, provinceCenterDepartmentVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withProvinceCenterDepartmentList().searchProvinceCenterDepartmentListWith(ProvinceCenterDepartment.ID_PROPERTY, "eq", provinceCenterDepartmentId).done();
+		Map<String,Object> loadTokens = this.tokens().withProvinceCenterDepartmentList().searchProvinceCenterDepartmentListWith(ProvinceCenterDepartment.ID_PROPERTY, tokens().equals(), provinceCenterDepartmentId).done();
 
 
 
@@ -744,13 +743,14 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreProvinceCenter.removeProvinceCenterDepartment( provinceCenterDepartment );
 			//make changes to AcceleraterAccount.
-			ProvinceCenterDepartment provinceCenterDepartmentIndex = createIndexedProvinceCenterDepartment(provinceCenterDepartmentId, provinceCenterDepartmentVersion);
+			ProvinceCenterDepartment provinceCenterDepartmentIdVersionKey = createIndexedProvinceCenterDepartment(provinceCenterDepartmentId, provinceCenterDepartmentVersion);
 
-			ProvinceCenterDepartment provinceCenterDepartment = retailStoreProvinceCenter.findTheProvinceCenterDepartment(provinceCenterDepartmentIndex);
+			ProvinceCenterDepartment provinceCenterDepartment = retailStoreProvinceCenter.findTheProvinceCenterDepartment(provinceCenterDepartmentIdVersionKey);
 			if(provinceCenterDepartment == null){
-				throw new RetailStoreProvinceCenterManagerException(provinceCenterDepartment+" is NOT FOUND" );
+				throw new RetailStoreProvinceCenterManagerException(provinceCenterDepartmentId+" is NOT FOUND" );
 			}
 
+			beforeUpdateProvinceCenterDepartment(userContext, provinceCenterDepartment, retailStoreProvinceCenterId, provinceCenterDepartmentId, provinceCenterDepartmentVersion, property, newValueExpr,  tokensExpr);
 			provinceCenterDepartment.changeProperty(property, newValueExpr);
 			
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withProvinceCenterDepartmentList().done());
@@ -758,6 +758,11 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateProvinceCenterDepartment(RetailscmUserContext userContext, ProvinceCenterDepartment existed, String retailStoreProvinceCenterId, String provinceCenterDepartmentId, int provinceCenterDepartmentVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -798,7 +803,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			retailStoreProvinceCenter.addProvinceCenterEmployee( provinceCenterEmployee );
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withProvinceCenterEmployeeList().done());
 			
-			userContext.getManagerGroup().getProvinceCenterEmployeeManager().onNewInstanceCreated(userContext, provinceCenterEmployee);
+			provinceCenterEmployeeManagerOf(userContext).onNewInstanceCreated(userContext, provinceCenterEmployee);
 			return present(userContext,retailStoreProvinceCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -822,7 +827,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withProvinceCenterEmployeeListList()
-				.searchProvinceCenterEmployeeListWith(ProvinceCenterEmployee.ID_PROPERTY, "is", id).done();
+				.searchProvinceCenterEmployeeListWith(ProvinceCenterEmployee.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreProvinceCenter retailStoreProvinceCenterToUpdate = loadRetailStoreProvinceCenter(userContext, retailStoreProvinceCenterId, options);
 
@@ -831,7 +836,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 
 		ProvinceCenterEmployee item = retailStoreProvinceCenterToUpdate.getProvinceCenterEmployeeList().first();
-
+		beforeUpdateProvinceCenterEmployeeProperties(userContext,item, retailStoreProvinceCenterId,id,name,mobile,email,founded,tokensExpr);
 		item.updateName( name );
 		item.updateMobile( mobile );
 		item.updateEmail( email );
@@ -845,6 +850,10 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 	}
 
+	protected  void beforeUpdateProvinceCenterEmployeeProperties(RetailscmUserContext userContext, ProvinceCenterEmployee item, String retailStoreProvinceCenterId, String id,String name,String mobile,String email,Date founded, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ProvinceCenterEmployee createProvinceCenterEmployee(RetailscmUserContext userContext, String name, String mobile, String email, Date founded, String departmentId) throws Exception{
 
@@ -954,7 +963,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			retailStoreProvinceCenter.copyProvinceCenterEmployeeFrom( provinceCenterEmployee );
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withProvinceCenterEmployeeList().done());
 			
-			userContext.getManagerGroup().getProvinceCenterEmployeeManager().onNewInstanceCreated(userContext, (ProvinceCenterEmployee)retailStoreProvinceCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			provinceCenterEmployeeManagerOf(userContext).onNewInstanceCreated(userContext, (ProvinceCenterEmployee)retailStoreProvinceCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreProvinceCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -967,33 +976,25 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		checkerOf(userContext).checkIdOfRetailStoreProvinceCenter(retailStoreProvinceCenterId);
 		checkerOf(userContext).checkIdOfProvinceCenterEmployee(provinceCenterEmployeeId);
 		checkerOf(userContext).checkVersionOfProvinceCenterEmployee(provinceCenterEmployeeVersion);
-		
+
 
 		if(ProvinceCenterEmployee.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfProvinceCenterEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(ProvinceCenterEmployee.MOBILE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMobileOfProvinceCenterEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(ProvinceCenterEmployee.EMAIL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEmailOfProvinceCenterEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(ProvinceCenterEmployee.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfProvinceCenterEmployee(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreProvinceCenterManagerException.class);
 
 	}
@@ -1003,7 +1004,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 
 		checkParamsForUpdatingProvinceCenterEmployee(userContext, retailStoreProvinceCenterId, provinceCenterEmployeeId, provinceCenterEmployeeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withProvinceCenterEmployeeList().searchProvinceCenterEmployeeListWith(ProvinceCenterEmployee.ID_PROPERTY, "eq", provinceCenterEmployeeId).done();
+		Map<String,Object> loadTokens = this.tokens().withProvinceCenterEmployeeList().searchProvinceCenterEmployeeListWith(ProvinceCenterEmployee.ID_PROPERTY, tokens().equals(), provinceCenterEmployeeId).done();
 
 
 
@@ -1014,13 +1015,14 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreProvinceCenter.removeProvinceCenterEmployee( provinceCenterEmployee );
 			//make changes to AcceleraterAccount.
-			ProvinceCenterEmployee provinceCenterEmployeeIndex = createIndexedProvinceCenterEmployee(provinceCenterEmployeeId, provinceCenterEmployeeVersion);
+			ProvinceCenterEmployee provinceCenterEmployeeIdVersionKey = createIndexedProvinceCenterEmployee(provinceCenterEmployeeId, provinceCenterEmployeeVersion);
 
-			ProvinceCenterEmployee provinceCenterEmployee = retailStoreProvinceCenter.findTheProvinceCenterEmployee(provinceCenterEmployeeIndex);
+			ProvinceCenterEmployee provinceCenterEmployee = retailStoreProvinceCenter.findTheProvinceCenterEmployee(provinceCenterEmployeeIdVersionKey);
 			if(provinceCenterEmployee == null){
-				throw new RetailStoreProvinceCenterManagerException(provinceCenterEmployee+" is NOT FOUND" );
+				throw new RetailStoreProvinceCenterManagerException(provinceCenterEmployeeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateProvinceCenterEmployee(userContext, provinceCenterEmployee, retailStoreProvinceCenterId, provinceCenterEmployeeId, provinceCenterEmployeeVersion, property, newValueExpr,  tokensExpr);
 			provinceCenterEmployee.changeProperty(property, newValueExpr);
 			
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withProvinceCenterEmployeeList().done());
@@ -1028,6 +1030,11 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateProvinceCenterEmployee(RetailscmUserContext userContext, ProvinceCenterEmployee existed, String retailStoreProvinceCenterId, String provinceCenterEmployeeId, int provinceCenterEmployeeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1062,7 +1069,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			retailStoreProvinceCenter.addRetailStoreCityServiceCenter( retailStoreCityServiceCenter );
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withRetailStoreCityServiceCenterList().done());
 			
-			userContext.getManagerGroup().getRetailStoreCityServiceCenterManager().onNewInstanceCreated(userContext, retailStoreCityServiceCenter);
+			retailStoreCityServiceCenterManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreCityServiceCenter);
 			return present(userContext,retailStoreProvinceCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1084,7 +1091,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreCityServiceCenterListList()
-				.searchRetailStoreCityServiceCenterListWith(RetailStoreCityServiceCenter.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreCityServiceCenterListWith(RetailStoreCityServiceCenter.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreProvinceCenter retailStoreProvinceCenterToUpdate = loadRetailStoreProvinceCenter(userContext, retailStoreProvinceCenterId, options);
 
@@ -1093,7 +1100,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 
 		RetailStoreCityServiceCenter item = retailStoreProvinceCenterToUpdate.getRetailStoreCityServiceCenterList().first();
-
+		beforeUpdateRetailStoreCityServiceCenterProperties(userContext,item, retailStoreProvinceCenterId,id,name,founded,tokensExpr);
 		item.updateName( name );
 		item.updateFounded( founded );
 
@@ -1105,6 +1112,10 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreCityServiceCenterProperties(RetailscmUserContext userContext, RetailStoreCityServiceCenter item, String retailStoreProvinceCenterId, String id,String name,Date founded, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreCityServiceCenter createRetailStoreCityServiceCenter(RetailscmUserContext userContext, String name, Date founded) throws Exception{
 
@@ -1210,7 +1221,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			retailStoreProvinceCenter.copyRetailStoreCityServiceCenterFrom( retailStoreCityServiceCenter );
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withRetailStoreCityServiceCenterList().done());
 			
-			userContext.getManagerGroup().getRetailStoreCityServiceCenterManager().onNewInstanceCreated(userContext, (RetailStoreCityServiceCenter)retailStoreProvinceCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreCityServiceCenterManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreCityServiceCenter)retailStoreProvinceCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreProvinceCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1223,21 +1234,17 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		checkerOf(userContext).checkIdOfRetailStoreProvinceCenter(retailStoreProvinceCenterId);
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkVersionOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterVersion);
-		
+
 
 		if(RetailStoreCityServiceCenter.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStoreCityServiceCenter(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreCityServiceCenter.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfRetailStoreCityServiceCenter(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreProvinceCenterManagerException.class);
 
 	}
@@ -1247,7 +1254,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 
 		checkParamsForUpdatingRetailStoreCityServiceCenter(userContext, retailStoreProvinceCenterId, retailStoreCityServiceCenterId, retailStoreCityServiceCenterVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreCityServiceCenterList().searchRetailStoreCityServiceCenterListWith(RetailStoreCityServiceCenter.ID_PROPERTY, "eq", retailStoreCityServiceCenterId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreCityServiceCenterList().searchRetailStoreCityServiceCenterListWith(RetailStoreCityServiceCenter.ID_PROPERTY, tokens().equals(), retailStoreCityServiceCenterId).done();
 
 
 
@@ -1258,13 +1265,14 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreProvinceCenter.removeRetailStoreCityServiceCenter( retailStoreCityServiceCenter );
 			//make changes to AcceleraterAccount.
-			RetailStoreCityServiceCenter retailStoreCityServiceCenterIndex = createIndexedRetailStoreCityServiceCenter(retailStoreCityServiceCenterId, retailStoreCityServiceCenterVersion);
+			RetailStoreCityServiceCenter retailStoreCityServiceCenterIdVersionKey = createIndexedRetailStoreCityServiceCenter(retailStoreCityServiceCenterId, retailStoreCityServiceCenterVersion);
 
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = retailStoreProvinceCenter.findTheRetailStoreCityServiceCenter(retailStoreCityServiceCenterIndex);
+			RetailStoreCityServiceCenter retailStoreCityServiceCenter = retailStoreProvinceCenter.findTheRetailStoreCityServiceCenter(retailStoreCityServiceCenterIdVersionKey);
 			if(retailStoreCityServiceCenter == null){
-				throw new RetailStoreProvinceCenterManagerException(retailStoreCityServiceCenter+" is NOT FOUND" );
+				throw new RetailStoreProvinceCenterManagerException(retailStoreCityServiceCenterId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, retailStoreProvinceCenterId, retailStoreCityServiceCenterId, retailStoreCityServiceCenterVersion, property, newValueExpr,  tokensExpr);
 			retailStoreCityServiceCenter.changeProperty(property, newValueExpr);
 			retailStoreCityServiceCenter.updateLastUpdateTime(userContext.now());
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, tokens().withRetailStoreCityServiceCenterList().done());
@@ -1272,6 +1280,11 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreCityServiceCenter(RetailscmUserContext userContext, RetailStoreCityServiceCenter existed, String retailStoreProvinceCenterId, String retailStoreCityServiceCenterId, int retailStoreCityServiceCenterVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1288,6 +1301,12 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    retailStoreProvinceCenterDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1379,6 +1398,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1495,7 +1515,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1539,7 +1559,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		propList.add(
 				MapUtil.put("id", "5-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1593,6 +1613,8 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

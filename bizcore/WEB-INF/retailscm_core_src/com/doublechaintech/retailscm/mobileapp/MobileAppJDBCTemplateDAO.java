@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.pagetype.PageTypeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements MobileAppDAO{
 
@@ -71,50 +71,54 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	 	return this.pageTypeDAO;
  	}	
 
-	
+
 	/*
 	protected MobileApp load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalMobileApp(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<MobileApp> loadAll() {
 	    return this.loadAll(getMobileAppMapper());
 	}
-	
-	
+
+  public Stream<MobileApp> loadAllAsStream() {
+      return this.loadAllAsStream(getMobileAppMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public MobileApp load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalMobileApp(MobileAppTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public MobileApp save(MobileApp mobileApp,Map<String,Object> options){
-		
+
 		String methodName="save(MobileApp mobileApp,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(mobileApp, methodName, "mobileApp");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalMobileApp(mobileApp,options);
 	}
 	public MobileApp clone(String mobileAppId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(MobileAppTable.withId(mobileAppId),options);
 	}
-	
+
 	protected MobileApp clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String mobileAppId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		MobileApp newMobileApp = loadInternalMobileApp(accessKey, options);
 		newMobileApp.setVersion(0);
 		
@@ -134,15 +138,15 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
  		}
 		
 
-		
+
 		saveInternalMobileApp(newMobileApp,options);
-		
+
 		return newMobileApp;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String mobileAppId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -158,15 +162,15 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String mobileAppId, int version) throws Exception{
-	
+
 		String methodName="delete(String mobileAppId, int version)";
 		assertMethodArgumentNotNull(mobileAppId, methodName, "mobileAppId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{mobileAppId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -176,26 +180,26 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		if(affectedNumber == 0){
 			handleDeleteOneError(mobileAppId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public MobileApp disconnectFromAll(String mobileAppId, int version) throws Exception{
-	
-		
+
+
 		MobileApp mobileApp = loadInternalMobileApp(MobileAppTable.withId(mobileAppId), emptyOptions());
 		mobileApp.clearFromAll();
 		this.saveMobileApp(mobileApp);
 		return mobileApp;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -203,15 +207,15 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "mobile_app";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "mobileApp";
 	}
-	
+
 	
 	
 	
@@ -415,7 +419,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			return mobileApp;
 		}
 		
-		
+
 		String SQL=this.getSaveMobileAppSQL(mobileApp);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveMobileAppParameters(mobileApp);
@@ -424,57 +428,57 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		mobileApp.incVersion();
 		return mobileApp;
-	
+
 	}
 	public SmartList<MobileApp> saveMobileAppList(SmartList<MobileApp> mobileAppList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitMobileAppList(mobileAppList);
-		
+
 		batchMobileAppCreate((List<MobileApp>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchMobileAppUpdate((List<MobileApp>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(MobileApp mobileApp:mobileAppList){
 			if(mobileApp.isChanged()){
 				mobileApp.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return mobileAppList;
 	}
 
 	public SmartList<MobileApp> removeMobileAppList(SmartList<MobileApp> mobileAppList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(mobileAppList, options);
-		
+
 		return mobileAppList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareMobileAppBatchCreateArgs(List<MobileApp> mobileAppList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(MobileApp mobileApp:mobileAppList ){
 			Object [] parameters = prepareMobileAppCreateParameters(mobileApp);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareMobileAppBatchUpdateArgs(List<MobileApp> mobileAppList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(MobileApp mobileApp:mobileAppList ){
 			if(!mobileApp.isChanged()){
@@ -482,40 +486,40 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			}
 			Object [] parameters = prepareMobileAppUpdateParameters(mobileApp);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchMobileAppCreate(List<MobileApp> mobileAppList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareMobileAppBatchCreateArgs(mobileAppList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchMobileAppUpdate(List<MobileApp> mobileAppList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareMobileAppBatchUpdateArgs(mobileAppList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitMobileAppList(List<MobileApp> mobileAppList){
-		
+
 		List<MobileApp> mobileAppCreateList=new ArrayList<MobileApp>();
 		List<MobileApp> mobileAppUpdateList=new ArrayList<MobileApp>();
-		
+
 		for(MobileApp mobileApp: mobileAppList){
 			if(isUpdateRequest(mobileApp)){
 				mobileAppUpdateList.add( mobileApp);
@@ -523,10 +527,10 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			}
 			mobileAppCreateList.add(mobileApp);
 		}
-		
+
 		return new Object[]{mobileAppCreateList,mobileAppUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(MobileApp mobileApp){
  		return mobileApp.getVersion() > 0;
  	}
@@ -536,7 +540,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveMobileAppParameters(MobileApp mobileApp){
  		if(isUpdateRequest(mobileApp) ){
  			return prepareMobileAppUpdateParameters(mobileApp);
@@ -548,28 +552,30 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
  
  		
  		parameters[0] = mobileApp.getName();
- 				
+ 		
  		parameters[1] = mobileApp.nextVersion();
  		parameters[2] = mobileApp.getId();
  		parameters[3] = mobileApp.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareMobileAppCreateParameters(MobileApp mobileApp){
 		Object[] parameters = new Object[2];
-		String newMobileAppId=getNextId();
-		mobileApp.setId(newMobileAppId);
+        if(mobileApp.getId() == null){
+          String newMobileAppId=getNextId();
+          mobileApp.setId(newMobileAppId);
+        }
 		parameters[0] =  mobileApp.getId();
  
  		
  		parameters[1] = mobileApp.getName();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected MobileApp saveInternalMobileApp(MobileApp mobileApp, Map<String,Object> options){
-		
+
 		saveMobileApp(mobileApp);
 
 		
@@ -577,32 +583,32 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	 		savePageList(mobileApp, options);
 	 		//removePageList(mobileApp, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSavePageTypeListEnabled(options)){
 	 		savePageTypeList(mobileApp, options);
 	 		//removePageTypeList(mobileApp, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return mobileApp;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
 	
 
 	
 	public MobileApp planToRemovePageList(MobileApp mobileApp, String pageIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Page.MOBILE_APP_PROPERTY, mobileApp.getId());
 		key.put(Page.ID_PROPERTY, pageIds);
-		
+
 		SmartList<Page> externalPageList = getPageDAO().
 				findPageWithKey(key, options);
 		if(externalPageList == null){
@@ -611,17 +617,17 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		if(externalPageList.isEmpty()){
 			return mobileApp;
 		}
-		
+
 		for(Page pageItem: externalPageList){
 
 			pageItem.clearFromAll();
 		}
-		
-		
-		SmartList<Page> pageList = mobileApp.getPageList();		
+
+
+		SmartList<Page> pageList = mobileApp.getPageList();
 		pageList.addAllToRemoveList(externalPageList);
-		return mobileApp;	
-	
+		return mobileApp;
+
 	}
 
 
@@ -630,11 +636,11 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Page.MOBILE_APP_PROPERTY, mobileApp.getId());
 		key.put(Page.PAGE_TYPE_PROPERTY, pageTypeId);
-		
+
 		SmartList<Page> externalPageList = getPageDAO().
 				findPageWithKey(key, options);
 		if(externalPageList == null){
@@ -643,19 +649,19 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		if(externalPageList.isEmpty()){
 			return mobileApp;
 		}
-		
+
 		for(Page pageItem: externalPageList){
 			pageItem.clearPageType();
 			pageItem.clearMobileApp();
-			
+
 		}
-		
-		
-		SmartList<Page> pageList = mobileApp.getPageList();		
+
+
+		SmartList<Page> pageList = mobileApp.getPageList();
 		pageList.addAllToRemoveList(externalPageList);
 		return mobileApp;
 	}
-	
+
 	public int countPageListWithPageType(String mobileAppId, String pageTypeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -664,17 +670,17 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Page.MOBILE_APP_PROPERTY, mobileAppId);
 		key.put(Page.PAGE_TYPE_PROPERTY, pageTypeId);
-		
+
 		int count = getPageDAO().countPageWithKey(key, options);
 		return count;
 	}
 	
 	public MobileApp planToRemovePageTypeList(MobileApp mobileApp, String pageTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(PageType.MOBILE_APP_PROPERTY, mobileApp.getId());
 		key.put(PageType.ID_PROPERTY, pageTypeIds);
-		
+
 		SmartList<PageType> externalPageTypeList = getPageTypeDAO().
 				findPageTypeWithKey(key, options);
 		if(externalPageTypeList == null){
@@ -683,36 +689,36 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		if(externalPageTypeList.isEmpty()){
 			return mobileApp;
 		}
-		
+
 		for(PageType pageTypeItem: externalPageTypeList){
 
 			pageTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<PageType> pageTypeList = mobileApp.getPageTypeList();		
+
+
+		SmartList<PageType> pageTypeList = mobileApp.getPageTypeList();
 		pageTypeList.addAllToRemoveList(externalPageTypeList);
-		return mobileApp;	
-	
+		return mobileApp;
+
 	}
 
 
 
 		
 	protected MobileApp savePageList(MobileApp mobileApp, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Page> pageList = mobileApp.getPageList();
 		if(pageList == null){
 			//null list means nothing
 			return mobileApp;
 		}
 		SmartList<Page> mergedUpdatePageList = new SmartList<Page>();
-		
-		
-		mergedUpdatePageList.addAll(pageList); 
+
+
+		mergedUpdatePageList.addAll(pageList);
 		if(pageList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdatePageList.addAll(pageList.getToRemoveList());
@@ -721,28 +727,28 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		}
 
 		//adding new size can improve performance
-	
+
 		getPageDAO().savePageList(mergedUpdatePageList,options);
-		
+
 		if(pageList.getToRemoveList() != null){
 			pageList.removeAll(pageList.getToRemoveList());
 		}
-		
-		
+
+
 		return mobileApp;
-	
+
 	}
-	
+
 	protected MobileApp removePageList(MobileApp mobileApp, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Page> pageList = mobileApp.getPageList();
 		if(pageList == null){
 			return mobileApp;
-		}	
-	
+		}
+
 		SmartList<Page> toRemovePageList = pageList.getToRemoveList();
-		
+
 		if(toRemovePageList == null){
 			return mobileApp;
 		}
@@ -750,35 +756,35 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			return mobileApp;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getPageDAO().removePageList(toRemovePageList,options);
-		
-		return mobileApp;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getPageDAO().removePageList(toRemovePageList,options);
+
+		return mobileApp;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected MobileApp savePageTypeList(MobileApp mobileApp, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<PageType> pageTypeList = mobileApp.getPageTypeList();
 		if(pageTypeList == null){
 			//null list means nothing
 			return mobileApp;
 		}
 		SmartList<PageType> mergedUpdatePageTypeList = new SmartList<PageType>();
-		
-		
-		mergedUpdatePageTypeList.addAll(pageTypeList); 
+
+
+		mergedUpdatePageTypeList.addAll(pageTypeList);
 		if(pageTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdatePageTypeList.addAll(pageTypeList.getToRemoveList());
@@ -787,28 +793,28 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		}
 
 		//adding new size can improve performance
-	
+
 		getPageTypeDAO().savePageTypeList(mergedUpdatePageTypeList,options);
-		
+
 		if(pageTypeList.getToRemoveList() != null){
 			pageTypeList.removeAll(pageTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return mobileApp;
-	
+
 	}
-	
+
 	protected MobileApp removePageTypeList(MobileApp mobileApp, Map<String,Object> options){
-	
-	
+
+
 		SmartList<PageType> pageTypeList = mobileApp.getPageTypeList();
 		if(pageTypeList == null){
 			return mobileApp;
-		}	
-	
+		}
+
 		SmartList<PageType> toRemovePageTypeList = pageTypeList.getToRemoveList();
-		
+
 		if(toRemovePageTypeList == null){
 			return mobileApp;
 		}
@@ -816,20 +822,20 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			return mobileApp;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getPageTypeDAO().removePageTypeList(toRemovePageTypeList,options);
-		
-		return mobileApp;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getPageTypeDAO().removePageTypeList(toRemovePageTypeList,options);
+
+		return mobileApp;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public MobileApp present(MobileApp mobileApp,Map<String, Object> options){
@@ -899,13 +905,13 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	protected String getTableName(){
 		return MobileAppTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<MobileApp> mobileAppList) {		
+
+
+
+	public void enhanceList(List<MobileApp> mobileAppList) {
 		this.enhanceListInternal(mobileAppList, this.getMobileAppMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Page的mobileApp的PageList
 	public SmartList<Page> loadOurPageList(RetailscmUserContext userContext, List<MobileApp> us, Map<String,Object> options) throws Exception{
@@ -953,39 +959,45 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<MobileApp> mobileAppList = ownerEntity.collectRefsWithType(MobileApp.INTERNAL_TYPE);
 		this.enhanceList(mobileAppList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<MobileApp> findMobileAppWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getMobileAppMapper());
 
 	}
 	@Override
 	public int countMobileAppWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countMobileAppWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<MobileApp> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getMobileAppMapper());
 	}
+
+  @Override
+  public Stream<MobileApp> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getMobileAppMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1014,7 +1026,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		}
 		return result;
 	}
-	
+
 	
     
 	public Map<String, Integer> countBySql(String sql, Object[] params) {

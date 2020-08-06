@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstorefranchising;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 public interface RetailStoreFranchisingDAO extends BaseDAO{
 
 	public SmartList<RetailStoreFranchising> loadAll();
+	public Stream<RetailStoreFranchising> loadAllAsStream();
 	public RetailStoreFranchising load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreFranchising> retailStoreFranchisingList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreFranchising present(RetailStoreFranchising retailStoreFranchising,Map<String,Object> options) throws Exception;
 	public RetailStoreFranchising clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreFranchising save(RetailStoreFranchising retailStoreFranchising,Map<String,Object> options);
 	public SmartList<RetailStoreFranchising> saveRetailStoreFranchisingList(SmartList<RetailStoreFranchising> retailStoreFranchisingList,Map<String,Object> options);
 	public SmartList<RetailStoreFranchising> removeRetailStoreFranchisingList(SmartList<RetailStoreFranchising> retailStoreFranchisingList,Map<String,Object> options);
@@ -80,8 +82,9 @@ public interface RetailStoreFranchisingDAO extends BaseDAO{
 	public RetailStoreFranchising planToRemoveRetailStoreListWithClosing(RetailStoreFranchising retailStoreFranchising, String closingId, Map<String,Object> options)throws Exception;
 	public int countRetailStoreListWithClosing(String retailStoreFranchisingId, String closingId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStoreFranchising> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreFranchising> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreFranchising executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

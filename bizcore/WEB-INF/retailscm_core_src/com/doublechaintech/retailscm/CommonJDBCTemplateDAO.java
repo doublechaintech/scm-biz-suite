@@ -1,31 +1,26 @@
 package com.doublechaintech.retailscm;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import javax.sql.DataSource;
+
+import com.terapico.caf.DateTime;
+import com.terapico.utils.TextUtil;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.ArgumentPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.utils.TextUtil;
-import java.util.Arrays;
-
-
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 
 
@@ -43,6 +38,10 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 		return this.queryForList(getSelectAllSQL(), new Object[] {}, mapper);
 
 	}
+
+  protected <T extends BaseEntity> Stream<T> loadAllAsStream(RowMapper<T> mapper) {
+    return this.queryForStream(getSelectAllSQL(), new Object[] {}, mapper);
+  }
 
 	/**
 	 *
@@ -274,16 +273,16 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 
 		if(getDatabaseProductName().equals(DATABASE_PRODUCT_ORACLE)) {
 			//not tested yet, more issue is here
-			return this.join("select * from (",
-					"select a.*, rownum rowno from (",
-					"select ",body,
-					") _external where_external.rownum<=? ",
-					") _internal where _internal.rownum>=? ");
+			return this.join(
+					"select * from (",
+						"select a.*, rownum rowno from (",
+							"select ",body,
+						") _internal where _internal.rownum<=? ",
+					") _external where _external.rownum>=? ");
 		}
 		return this.join("select ",body," offset ? limit ?");
 
 	}
-
 
 
 
@@ -540,6 +539,38 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 		return smartList;
 	}
 
+	protected <T extends BaseEntity> Stream<T> queryForStream(
+              String sql, Object[] parameters, RowMapper<T> mapper) {
+         Connection connection = null;
+          PreparedStatement preparedStatement = null;
+          ResultSet rs = null;
+          try {
+              connection = dataSource.getConnection();
+              preparedStatement = connection.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+              ArgumentPreparedStatementSetter argumentPreparedStatementSetter = new ArgumentPreparedStatementSetter(parameters);
+              argumentPreparedStatementSetter.setValues(preparedStatement);
+              preparedStatement.setFetchSize(Integer.MIN_VALUE);
+              rs = preparedStatement.executeQuery();
+              return new ResultSetIterable(connection, preparedStatement, rs, mapper).stream();
+          }catch (Exception e){
+              e.printStackTrace();
+              try {
+                  if(connection != null) {
+                      connection.close();
+                  }
+                  if (rs != null) {
+                      rs.close();
+                  }
+                  if (preparedStatement != null) {
+                      preparedStatement.close();
+                  }
+              }catch (Exception ex){
+
+              }
+          }
+          return Stream.empty();
+   }
+
 	protected Integer queryInt(String sql,Object [] parameters) {
 		//return getJdbcTemplateObject().batchUpdate(sql, args);
 
@@ -606,7 +637,7 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 	//When running under a cluster environment, we need a global unique id to ensure
 	//The id will not be repeated
 
-	private AtomicLong currentMax = new AtomicLong(-1L);
+	protected AtomicLong currentMax = new AtomicLong(-1L);
 
 	protected String getNextId() {
 		synchronized(currentMax){
@@ -1167,8 +1198,8 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 	}
 
 	protected Object[] constructFindAllWithoutFilterKey(String fieldName, String notNullColName, int pageNo, int pageSize) {
-		String querySQL = wrapRangeQuery("* from " + this.getTableName() 
-			+ (notNullColName==null?"":" where "+ notNullColName +" is not null ") 
+		String querySQL = wrapRangeQuery("* from " + this.getTableName()
+			+ (notNullColName==null?"":" where "+ notNullColName +" is not null ")
 			+ " order by " + fieldName + " asc ");
 		String countSQL = "select count(*) from " + this.getTableName() + (notNullColName==null?"":" where "+ notNullColName +" is not null ") ;
 		Object[] params = new Object[] { (pageNo - 1) * pageSize, pageSize };

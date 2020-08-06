@@ -132,7 +132,7 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		namingTableMap.put("UiAction", new String[]{"ui_action_data","code"});
 		namingTableMap.put("Section", new String[]{"section_data","title"});
 		namingTableMap.put("UserDomain", new String[]{"user_domain_data","name"});
-		namingTableMap.put("UserWhiteList", new String[]{"user_white_list_data","user_identity"});
+		namingTableMap.put("UserAllowList", new String[]{"user_allow_list_data","user_identity"});
 		namingTableMap.put("SecUser", new String[]{"sec_user_data","login"});
 		namingTableMap.put("UserApp", new String[]{"user_app_data","title"});
 		namingTableMap.put("QuickLink", new String[]{"quick_link_data","name"});
@@ -140,9 +140,9 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		namingTableMap.put("LoginHistory", new String[]{"login_history_data","from_ip"});
 		namingTableMap.put("CandidateContainer", new String[]{"candidate_container_data","name"});
 		namingTableMap.put("CandidateElement", new String[]{"candidate_element_data","name"});
-		namingTableMap.put("WechatWorkappIdentify", new String[]{"wechat_workapp_identify_data","corp_id"});
-		namingTableMap.put("WechatMiniappIdentify", new String[]{"wechat_miniapp_identify_data","open_id"});
-		namingTableMap.put("KeypairIdentify", new String[]{"keypair_identify_data","public_key"});
+		namingTableMap.put("WechatWorkappIdentity", new String[]{"wechat_workapp_identity_data","corp_id"});
+		namingTableMap.put("WechatMiniappIdentity", new String[]{"wechat_miniapp_identity_data","open_id"});
+		namingTableMap.put("KeypairIdentity", new String[]{"keypair_identity_data","public_key"});
 		namingTableMap.put("PublicKeyType", new String[]{"public_key_type_data","name"});
 		namingTableMap.put("TreeNode", new String[]{"tree_node_data","node_id"});
 		

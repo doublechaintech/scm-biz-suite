@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.potentialcustomer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -19,8 +20,21 @@ import com.doublechaintech.retailscm.citypartner.CityPartner;
 import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
 import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPerson;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = PotentialCustomerSerializer.class)
 public class PotentialCustomer extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

@@ -17,6 +17,7 @@ public interface SkillTypeManager extends BaseManager{
 	public SkillType createSkillType(RetailscmUserContext userContext, String code,String companyId,String description) throws Exception;
 	public SkillType updateSkillType(RetailscmUserContext userContext,String skillTypeId, int skillTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SkillType loadSkillType(RetailscmUserContext userContext, String skillTypeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SkillType internalSaveSkillType(RetailscmUserContext userContext, SkillType skillType) throws Exception;
 	public SkillType internalSaveSkillType(RetailscmUserContext userContext, SkillType skillType,Map<String,Object>option) throws Exception;
 

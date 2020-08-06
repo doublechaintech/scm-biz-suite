@@ -17,6 +17,7 @@ public interface EmployeeEducationManager extends BaseManager{
 	public EmployeeEducation createEmployeeEducation(RetailscmUserContext userContext, String employeeId,Date completeTime,String type,String remark) throws Exception;
 	public EmployeeEducation updateEmployeeEducation(RetailscmUserContext userContext,String employeeEducationId, int employeeEducationVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public EmployeeEducation loadEmployeeEducation(RetailscmUserContext userContext, String employeeEducationId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public EmployeeEducation internalSaveEmployeeEducation(RetailscmUserContext userContext, EmployeeEducation employeeEducation) throws Exception;
 	public EmployeeEducation internalSaveEmployeeEducation(RetailscmUserContext userContext, EmployeeEducation employeeEducation,Map<String,Object>option) throws Exception;
 

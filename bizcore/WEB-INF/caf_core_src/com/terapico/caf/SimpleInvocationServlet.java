@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.skynet.bootstrap.MultiReadHttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +37,14 @@ public class SimpleInvocationServlet extends HttpServlet {
 	{
 		this.doTheJob(request, response);
 	}
-	protected void doTheJob(HttpServletRequest request, HttpServletResponse response) 
+	protected void doTheJob(HttpServletRequest inputRequest, HttpServletResponse response)
 			throws ServletException, IOException{
+		MultiReadHttpServletRequest request = null;
+		if (inputRequest instanceof MultiReadHttpServletRequest){
+			request = (MultiReadHttpServletRequest)inputRequest;
+		}else{
+			request = new MultiReadHttpServletRequest(inputRequest);
+		}
 		long start = System.currentTimeMillis();
 		InvocationResult result = getResult(request, response);
 		long javaCallInterval = System.currentTimeMillis();

@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.potentialcustomercontactperson;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContact;
@@ -47,24 +45,24 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = PotentialCustomerContactPersonTokens.start().withTokenFromListName(listName).done();
 		PotentialCustomerContactPerson  potentialCustomerContactPerson = (PotentialCustomerContactPerson) this.loadPotentialCustomerContactPerson(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = potentialCustomerContactPerson.collectRefercencesFromLists();
 		potentialCustomerContactPersonDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, potentialCustomerContactPerson, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new PotentialCustomerContactPersonGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -127,7 +125,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		checkerOf(userContext).throwExceptionIfHasErrors( PotentialCustomerContactPersonManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		PotentialCustomerContactPerson potentialCustomerContactPerson = loadPotentialCustomerContactPerson( userContext, potentialCustomerContactPersonId, tokens);
  		//do some calc before sent to customer?
@@ -146,6 +144,9 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		
 		List<BaseEntity> entityListToNaming = potentialCustomerContactPersonToPresent.collectRefercencesFromLists();
 		potentialCustomerContactPersonDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,potentialCustomerContactPerson,tokens);
 		
 		return  potentialCustomerContactPersonToPresent;
 		
@@ -560,7 +561,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 			potentialCustomerContactPerson.addPotentialCustomerContact( potentialCustomerContact );
 			potentialCustomerContactPerson = savePotentialCustomerContactPerson(userContext, potentialCustomerContactPerson, tokens().withPotentialCustomerContactList().done());
 			
-			userContext.getManagerGroup().getPotentialCustomerContactManager().onNewInstanceCreated(userContext, potentialCustomerContact);
+			potentialCustomerContactManagerOf(userContext).onNewInstanceCreated(userContext, potentialCustomerContact);
 			return present(userContext,potentialCustomerContactPerson, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -584,7 +585,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withPotentialCustomerContactListList()
-				.searchPotentialCustomerContactListWith(PotentialCustomerContact.ID_PROPERTY, "is", id).done();
+				.searchPotentialCustomerContactListWith(PotentialCustomerContact.ID_PROPERTY, tokens().is(), id).done();
 
 		PotentialCustomerContactPerson potentialCustomerContactPersonToUpdate = loadPotentialCustomerContactPerson(userContext, potentialCustomerContactPersonId, options);
 
@@ -593,7 +594,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		}
 
 		PotentialCustomerContact item = potentialCustomerContactPersonToUpdate.getPotentialCustomerContactList().first();
-
+		beforeUpdatePotentialCustomerContactProperties(userContext,item, potentialCustomerContactPersonId,id,name,contactDate,contactMethod,description,tokensExpr);
 		item.updateName( name );
 		item.updateContactDate( contactDate );
 		item.updateContactMethod( contactMethod );
@@ -607,6 +608,10 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		}
 	}
 
+	protected  void beforeUpdatePotentialCustomerContactProperties(RetailscmUserContext userContext, PotentialCustomerContact item, String potentialCustomerContactPersonId, String id,String name,Date contactDate,String contactMethod,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected PotentialCustomerContact createPotentialCustomerContact(RetailscmUserContext userContext, String name, Date contactDate, String contactMethod, String potentialCustomerId, String cityPartnerId, String description) throws Exception{
 
@@ -720,7 +725,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 			potentialCustomerContactPerson.copyPotentialCustomerContactFrom( potentialCustomerContact );
 			potentialCustomerContactPerson = savePotentialCustomerContactPerson(userContext, potentialCustomerContactPerson, tokens().withPotentialCustomerContactList().done());
 			
-			userContext.getManagerGroup().getPotentialCustomerContactManager().onNewInstanceCreated(userContext, (PotentialCustomerContact)potentialCustomerContactPerson.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			potentialCustomerContactManagerOf(userContext).onNewInstanceCreated(userContext, (PotentialCustomerContact)potentialCustomerContactPerson.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,potentialCustomerContactPerson, mergedAllTokens(tokensExpr));
 		}
 
@@ -733,33 +738,25 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		checkerOf(userContext).checkIdOfPotentialCustomerContactPerson(potentialCustomerContactPersonId);
 		checkerOf(userContext).checkIdOfPotentialCustomerContact(potentialCustomerContactId);
 		checkerOf(userContext).checkVersionOfPotentialCustomerContact(potentialCustomerContactVersion);
-		
+
 
 		if(PotentialCustomerContact.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfPotentialCustomerContact(parseString(newValueExpr));
-		
 		}
 		
 		if(PotentialCustomerContact.CONTACT_DATE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactDateOfPotentialCustomerContact(parseDate(newValueExpr));
-		
 		}
 		
 		if(PotentialCustomerContact.CONTACT_METHOD_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactMethodOfPotentialCustomerContact(parseString(newValueExpr));
-		
 		}
 		
 		if(PotentialCustomerContact.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfPotentialCustomerContact(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PotentialCustomerContactPersonManagerException.class);
 
 	}
@@ -769,7 +766,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 
 		checkParamsForUpdatingPotentialCustomerContact(userContext, potentialCustomerContactPersonId, potentialCustomerContactId, potentialCustomerContactVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withPotentialCustomerContactList().searchPotentialCustomerContactListWith(PotentialCustomerContact.ID_PROPERTY, "eq", potentialCustomerContactId).done();
+		Map<String,Object> loadTokens = this.tokens().withPotentialCustomerContactList().searchPotentialCustomerContactListWith(PotentialCustomerContact.ID_PROPERTY, tokens().equals(), potentialCustomerContactId).done();
 
 
 
@@ -780,13 +777,14 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 			//Also good when there is a RAM based DAO implementation
 			//potentialCustomerContactPerson.removePotentialCustomerContact( potentialCustomerContact );
 			//make changes to AcceleraterAccount.
-			PotentialCustomerContact potentialCustomerContactIndex = createIndexedPotentialCustomerContact(potentialCustomerContactId, potentialCustomerContactVersion);
+			PotentialCustomerContact potentialCustomerContactIdVersionKey = createIndexedPotentialCustomerContact(potentialCustomerContactId, potentialCustomerContactVersion);
 
-			PotentialCustomerContact potentialCustomerContact = potentialCustomerContactPerson.findThePotentialCustomerContact(potentialCustomerContactIndex);
+			PotentialCustomerContact potentialCustomerContact = potentialCustomerContactPerson.findThePotentialCustomerContact(potentialCustomerContactIdVersionKey);
 			if(potentialCustomerContact == null){
-				throw new PotentialCustomerContactPersonManagerException(potentialCustomerContact+" is NOT FOUND" );
+				throw new PotentialCustomerContactPersonManagerException(potentialCustomerContactId+" is NOT FOUND" );
 			}
 
+			beforeUpdatePotentialCustomerContact(userContext, potentialCustomerContact, potentialCustomerContactPersonId, potentialCustomerContactId, potentialCustomerContactVersion, property, newValueExpr,  tokensExpr);
 			potentialCustomerContact.changeProperty(property, newValueExpr);
 			potentialCustomerContact.updateLastUpdateTime(userContext.now());
 			potentialCustomerContactPerson = savePotentialCustomerContactPerson(userContext, potentialCustomerContactPerson, tokens().withPotentialCustomerContactList().done());
@@ -794,6 +792,11 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdatePotentialCustomerContact(RetailscmUserContext userContext, PotentialCustomerContact existed, String potentialCustomerContactPersonId, String potentialCustomerContactId, int potentialCustomerContactVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -810,6 +813,12 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    potentialCustomerContactPersonDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -901,6 +910,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1017,7 +1027,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1099,6 +1109,8 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

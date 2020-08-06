@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements InstructorDAO{
 
@@ -71,50 +71,54 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	 	return this.companyTrainingDAO;
  	}	
 
-	
+
 	/*
 	protected Instructor load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalInstructor(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Instructor> loadAll() {
 	    return this.loadAll(getInstructorMapper());
 	}
-	
-	
+
+  public Stream<Instructor> loadAllAsStream() {
+      return this.loadAllAsStream(getInstructorMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Instructor load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalInstructor(InstructorTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Instructor save(Instructor instructor,Map<String,Object> options){
-		
+
 		String methodName="save(Instructor instructor,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(instructor, methodName, "instructor");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalInstructor(instructor,options);
 	}
 	public Instructor clone(String instructorId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(InstructorTable.withId(instructorId),options);
 	}
-	
+
 	protected Instructor clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String instructorId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Instructor newInstructor = loadInternalInstructor(accessKey, options);
 		newInstructor.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		}
 		
 
-		
+
 		saveInternalInstructor(newInstructor,options);
-		
+
 		return newInstructor;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String instructorId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String instructorId, int version) throws Exception{
-	
+
 		String methodName="delete(String instructorId, int version)";
 		assertMethodArgumentNotNull(instructorId, methodName, "instructorId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{instructorId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		if(affectedNumber == 0){
 			handleDeleteOneError(instructorId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Instructor disconnectFromAll(String instructorId, int version) throws Exception{
-	
-		
+
+
 		Instructor instructor = loadInternalInstructor(InstructorTable.withId(instructorId), emptyOptions());
 		instructor.clearFromAll();
 		this.saveInstructor(instructor);
 		return instructor;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "instructor";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "instructor";
 	}
-	
+
 	
 	
 	
@@ -426,7 +430,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 			return instructor;
 		}
 		
-		
+
 		String SQL=this.getSaveInstructorSQL(instructor);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveInstructorParameters(instructor);
@@ -435,57 +439,57 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		instructor.incVersion();
 		return instructor;
-	
+
 	}
 	public SmartList<Instructor> saveInstructorList(SmartList<Instructor> instructorList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitInstructorList(instructorList);
-		
+
 		batchInstructorCreate((List<Instructor>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchInstructorUpdate((List<Instructor>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Instructor instructor:instructorList){
 			if(instructor.isChanged()){
 				instructor.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return instructorList;
 	}
 
 	public SmartList<Instructor> removeInstructorList(SmartList<Instructor> instructorList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(instructorList, options);
-		
+
 		return instructorList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareInstructorBatchCreateArgs(List<Instructor> instructorList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Instructor instructor:instructorList ){
 			Object [] parameters = prepareInstructorCreateParameters(instructor);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareInstructorBatchUpdateArgs(List<Instructor> instructorList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Instructor instructor:instructorList ){
 			if(!instructor.isChanged()){
@@ -493,40 +497,40 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 			}
 			Object [] parameters = prepareInstructorUpdateParameters(instructor);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchInstructorCreate(List<Instructor> instructorList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareInstructorBatchCreateArgs(instructorList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchInstructorUpdate(List<Instructor> instructorList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareInstructorBatchUpdateArgs(instructorList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitInstructorList(List<Instructor> instructorList){
-		
+
 		List<Instructor> instructorCreateList=new ArrayList<Instructor>();
 		List<Instructor> instructorUpdateList=new ArrayList<Instructor>();
-		
+
 		for(Instructor instructor: instructorList){
 			if(isUpdateRequest(instructor)){
 				instructorUpdateList.add( instructor);
@@ -534,10 +538,10 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 			}
 			instructorCreateList.add(instructor);
 		}
-		
+
 		return new Object[]{instructorCreateList,instructorUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Instructor instructor){
  		return instructor.getVersion() > 0;
  	}
@@ -547,7 +551,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveInstructorParameters(Instructor instructor){
  		if(isUpdateRequest(instructor) ){
  			return prepareInstructorUpdateParameters(instructor);
@@ -571,7 +575,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		
  		
  		parameters[4] = instructor.getEmail();
- 		 	
+ 		
  		if(instructor.getCompany() != null){
  			parameters[5] = instructor.getCompany().getId();
  		}
@@ -581,17 +585,19 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		
  		
  		parameters[7] = instructor.getLastUpdateTime();
- 				
+ 		
  		parameters[8] = instructor.nextVersion();
  		parameters[9] = instructor.getId();
  		parameters[10] = instructor.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareInstructorCreateParameters(Instructor instructor){
 		Object[] parameters = new Object[9];
-		String newInstructorId=getNextId();
-		instructor.setId(newInstructorId);
+        if(instructor.getId() == null){
+          String newInstructorId=getNextId();
+          instructor.setId(newInstructorId);
+        }
 		parameters[0] =  instructor.getId();
  
  		
@@ -608,10 +614,10 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		
  		
  		parameters[5] = instructor.getEmail();
- 		 	
+ 		
  		if(instructor.getCompany() != null){
  			parameters[6] = instructor.getCompany().getId();
- 		
+
  		}
  		
  		
@@ -619,15 +625,15 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		
  		
  		parameters[8] = instructor.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Instructor saveInternalInstructor(Instructor instructor, Map<String,Object> options){
-		
+
 		saveInstructor(instructor);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(instructor, options);
  		}
@@ -637,42 +643,42 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	 		saveCompanyTrainingList(instructor, options);
 	 		//removeCompanyTrainingList(instructor, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return instructor;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Instructor saveCompany(Instructor instructor, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(instructor.getCompany() == null){
  			return instructor;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(instructor.getCompany(),options);
  		return instructor;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Instructor planToRemoveCompanyTrainingList(Instructor instructor, String companyTrainingIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructor.getId());
 		key.put(CompanyTraining.ID_PROPERTY, companyTrainingIds);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -681,17 +687,17 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		if(externalCompanyTrainingList.isEmpty()){
 			return instructor;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 
 			companyTrainingItem.clearFromAll();
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
-		return instructor;	
-	
+		return instructor;
+
 	}
 
 
@@ -700,11 +706,11 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructor.getId());
 		key.put(CompanyTraining.COMPANY_PROPERTY, companyId);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -713,19 +719,19 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		if(externalCompanyTrainingList.isEmpty()){
 			return instructor;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 			companyTrainingItem.clearCompany();
 			companyTrainingItem.clearInstructor();
-			
+
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
 		return instructor;
 	}
-	
+
 	public int countCompanyTrainingListWithCompany(String instructorId, String companyId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -734,7 +740,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructorId);
 		key.put(CompanyTraining.COMPANY_PROPERTY, companyId);
-		
+
 		int count = getCompanyTrainingDAO().countCompanyTrainingWithKey(key, options);
 		return count;
 	}
@@ -744,11 +750,11 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructor.getId());
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseTypeId);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -757,19 +763,19 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		if(externalCompanyTrainingList.isEmpty()){
 			return instructor;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 			companyTrainingItem.clearTrainingCourseType();
 			companyTrainingItem.clearInstructor();
-			
+
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
 		return instructor;
 	}
-	
+
 	public int countCompanyTrainingListWithTrainingCourseType(String instructorId, String trainingCourseTypeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -778,7 +784,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructorId);
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseTypeId);
-		
+
 		int count = getCompanyTrainingDAO().countCompanyTrainingWithKey(key, options);
 		return count;
 	}
@@ -786,19 +792,19 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 
 		
 	protected Instructor saveCompanyTrainingList(Instructor instructor, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
 		if(companyTrainingList == null){
 			//null list means nothing
 			return instructor;
 		}
 		SmartList<CompanyTraining> mergedUpdateCompanyTrainingList = new SmartList<CompanyTraining>();
-		
-		
-		mergedUpdateCompanyTrainingList.addAll(companyTrainingList); 
+
+
+		mergedUpdateCompanyTrainingList.addAll(companyTrainingList);
 		if(companyTrainingList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateCompanyTrainingList.addAll(companyTrainingList.getToRemoveList());
@@ -807,28 +813,28 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		}
 
 		//adding new size can improve performance
-	
+
 		getCompanyTrainingDAO().saveCompanyTrainingList(mergedUpdateCompanyTrainingList,options);
-		
+
 		if(companyTrainingList.getToRemoveList() != null){
 			companyTrainingList.removeAll(companyTrainingList.getToRemoveList());
 		}
-		
-		
+
+
 		return instructor;
-	
+
 	}
-	
+
 	protected Instructor removeCompanyTrainingList(Instructor instructor, Map<String,Object> options){
-	
-	
+
+
 		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
 		if(companyTrainingList == null){
 			return instructor;
-		}	
-	
+		}
+
 		SmartList<CompanyTraining> toRemoveCompanyTrainingList = companyTrainingList.getToRemoveList();
-		
+
 		if(toRemoveCompanyTrainingList == null){
 			return instructor;
 		}
@@ -836,20 +842,20 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 			return instructor;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getCompanyTrainingDAO().removeCompanyTrainingList(toRemoveCompanyTrainingList,options);
-		
-		return instructor;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getCompanyTrainingDAO().removeCompanyTrainingList(toRemoveCompanyTrainingList,options);
+
+		return instructor;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Instructor present(Instructor instructor,Map<String, Object> options){
@@ -892,13 +898,13 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	protected String getTableName(){
 		return InstructorTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Instructor> instructorList) {		
+
+
+
+	public void enhanceList(List<Instructor> instructorList) {
 		this.enhanceListInternal(instructorList, this.getInstructorMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的instructor的CompanyTrainingList
 	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<Instructor> us, Map<String,Object> options) throws Exception{
@@ -923,39 +929,45 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Instructor> instructorList = ownerEntity.collectRefsWithType(Instructor.INTERNAL_TYPE);
 		this.enhanceList(instructorList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Instructor> findInstructorWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getInstructorMapper());
 
 	}
 	@Override
 	public int countInstructorWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countInstructorWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Instructor> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getInstructorMapper());
 	}
+
+  @Override
+  public Stream<Instructor> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getInstructorMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -984,7 +996,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		}
 		return result;
 	}
-	
+
 	
 
 }

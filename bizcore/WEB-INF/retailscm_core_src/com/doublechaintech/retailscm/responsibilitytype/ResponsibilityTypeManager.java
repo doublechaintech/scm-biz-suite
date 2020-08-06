@@ -17,6 +17,7 @@ public interface ResponsibilityTypeManager extends BaseManager{
 	public ResponsibilityType createResponsibilityType(RetailscmUserContext userContext, String code,String companyId,String baseDescription,String detailDescription) throws Exception;
 	public ResponsibilityType updateResponsibilityType(RetailscmUserContext userContext,String responsibilityTypeId, int responsibilityTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ResponsibilityType loadResponsibilityType(RetailscmUserContext userContext, String responsibilityTypeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public ResponsibilityType internalSaveResponsibilityType(RetailscmUserContext userContext, ResponsibilityType responsibilityType) throws Exception;
 	public ResponsibilityType internalSaveResponsibilityType(RetailscmUserContext userContext, ResponsibilityType responsibilityType,Map<String,Object>option) throws Exception;
 

@@ -7,14 +7,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
-import com.skynet.infrastructure.CacheService;
-import com.skynet.infrastructure.ESClient;
-import com.skynet.infrastructure.StorageService;
-import com.skynet.infrastructure.BlockChainAdvancer;
-import com.skynet.infrastructure.EventService;
-import com.skynet.infrastructure.GraphService;
-import com.skynet.infrastructure.SMTPService;
-import com.skynet.infrastructure.MessageService;
+import com.skynet.infrastructure.*;
 
 
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -50,6 +43,14 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         UserContextProvider {
+    protected LocationService locationService;
+    public LocationService getLocationService() {
+        return locationService;
+    }
+    public void setLocationService(LocationService locationService) {
+        this.locationService = locationService;
+    }
+
     protected StorageService storageService;
     protected BlockChainAdvancer blockChainAdvancer;
     protected TreeServiceImpl mTreeService;
@@ -250,8 +251,8 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         if(methodName == null){
             return error("methodName is null");
         }
-		
-        
+
+
         //String
         try {
 
@@ -574,6 +575,7 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         userContext.setBeanFactory(beanFactory);
         userContext.setRemoteIP(getRemoteIP(request));
         userContext.setCacheService(cacheService);
+        userContext.setLocationService(this.getLocationService());
         userContext.setChecker((RetailscmObjectChecker)beanFactory.getBean(getCheckerBeanName()));
         userContext.setEsClient(esClient);
         userContext.setSmtpService(smtpService);
@@ -773,8 +775,8 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	protected SecUserTokens buildLoadTokens(String objectType, String objectId) {
 		SecUserTokens tokens = SecUserTokens.start().withUserAppList()
-				.searchUserAppListWith(UserApp.OBJECT_TYPE_PROPERTY, "eq", objectType)
-				.searchUserAppListWith(UserApp.OBJECT_ID_PROPERTY, "eq", objectId);
+				.searchUserAppListWith(UserApp.OBJECT_TYPE_PROPERTY, tokens().equals(), objectType)
+				.searchUserAppListWith(UserApp.OBJECT_ID_PROPERTY, tokens().equals(), objectId);
 
 		return tokens;
 	}

@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -30,14 +31,22 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	public static final String X_EMPTY_MESSAGE = "emptyMessage";
 	public static final String X_NEXT_PAGE_URL = "nextPageUrl";
 	private static final boolean OBJECT_HASHCODE = false;
-	
+	protected static final AtomicInteger listSeq = new AtomicInteger(0);
+  protected static int getListSeq(){
+    int x = listSeq.getAndAdd(1);
+    if (x > 10000000){
+      listSeq.set(1);
+    }
+    return x;
+  }
+
 	public static Map<String, Object> makeToast(String content, int duration, String type) {
 		return MapUtil.put("text", content)
 				.put("duration", duration * 1000)
 				.put("icon", type)
 				.put("position", "center").into_map();
 	}
-	
+
 	public void addHashCode(Map<String, Object> resultMap) {
 		if (resultMap == null || resultMap.isEmpty()) {
 			return;
@@ -45,7 +54,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		String hashCode = calcResultMapHashCode(resultMap);
 		resultMap.put("hashCode", hashCode);
 	}
-	
+
 	protected String calcResultMapHashCode(Map<String, Object> resultMap) {
 		String str = "";
 		try {
@@ -78,7 +87,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	protected String linkToUrl;
 	@JsonIgnore
 	protected HashMap<String, Object> dataContainer;
-	
+
 	public String getLinkToUrl() {
 		return linkToUrl;
 	}
@@ -91,7 +100,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	public void setPageTitle(String pageTitle) {
 		this.pageTitle = pageTitle;
 	}
-	
+
 	public void set(String name, Object value) {
 		ensureDataPool();
 		dataPool.put(name, value);
@@ -112,6 +121,16 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		userContext.setResponseHeader("x-actor-class", this.getClass().getName());
 		addFieldToOwner(this, null, "pageTitle", this.getPageTitle());
 		addFieldToOwner(this, null, "linkToUrl", this.getLinkToUrl());
+	}
+
+  protected boolean hasDisplayMode() {
+	if (this.containsKey("displayMode")) {
+      return true;
+    }
+    if (dataPool == null) {
+      return false;
+    }
+    return dataPool.containsKey("displayMode");
 	}
 
 	protected void afterDoRendering() {
@@ -194,8 +213,8 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		}
 		return false;
 	}
-	
-	
+
+
 	protected void doRendering() {
 		SerializeScope srlScope = getSerializeScope();
 		ensureDataPool();
@@ -353,12 +372,16 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			Object convertResult) {
 		if (convertResult != null) {
 			if (fieldScope.isPutInDataContainer()) {
+			  int n = getListSeq();
+			  if (convertResult instanceof Map){
+          ((Map) convertResult).put("seq", n);
+        }
 				if (item instanceof BaseEntity) {
-					String skey = ((BaseEntity) item).getInternalType()+"_"+((BaseEntity) item).getId();
+					String skey = ((BaseEntity) item).getInternalType()+"_"+((BaseEntity) item).getId()+"_"+n;
 					resultList.add(MapUtil.put("id", skey).into_map());
 					addToDataContainer(skey, convertResult);
 				} else {
-					String skey = item.getClass().getSimpleName()+"_"+item.hashCode();
+					String skey = item.getClass().getSimpleName()+"_"+item.hashCode()+"_"+n;
 					resultList.add(MapUtil.put("id", skey).into_map());
 					addToDataContainer(skey, convertResult);
 				}
@@ -414,9 +437,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		if (object instanceof FilterTabsViewComponent) {
 			return new FilterTabsSerializer();
 		}
-		if (object instanceof BaseRetailscmFormProcessor) {
-			return new FormProcessorSerializer();
-		}
+
 		if (object instanceof ButtonViewComponent) {
 			// action 是特别定制的序列化
 			return new ButtonViewComponentSerializer();
@@ -431,7 +452,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	protected void markAsAjaxResponse() {
 		this.userContext.setResponseHeader("x-redirect", "false");
 	}
-	
+
 	protected class FilterTabsSerializer implements CustomSerializer {
 		@Override
 		public Object serialize(SerializeScope serializeScope, Object value, String path) {
@@ -459,17 +480,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		}
 	}
 
-	protected class FormProcessorSerializer implements CustomSerializer {
-		@Override
-		public Object serialize(SerializeScope serializeScope, Object value, String path) {
-			BaseRetailscmFormProcessor form = (BaseRetailscmFormProcessor) value;
-			if (form == null) {
-				return null;
-			}
-			return form.mapToUiForm(userContext);
-		}
-	}
-	
+
 	protected class ButtonViewComponentSerializer implements CustomSerializer {
 		@Override
 		public Object serialize(SerializeScope serializeScope, Object value, String path) {
@@ -493,7 +504,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			return resultData;
 		}
 	}
-	
+
 	protected class PopupViewComponentSerializer implements CustomSerializer {
 		@Override
 		public Object serialize(SerializeScope serializeScope, Object value, String path) {
@@ -516,7 +527,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			return resultData;
 		}
 	}
-	
+
 	public Map<String, Object> serializeObject(Object object, SerializeScope serializeScope) {
 		Map<String, Object> resultMap = new HashMap<>();
 		SerializeScope ssWrapper = SerializeScope.INCLUDE().field("data", serializeScope).noListMeta();
@@ -530,12 +541,12 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		}
 		return (Map<String, Object>) resultMap.get("data");
 	}
-	
+
 	public static Map<String, Object> serialize(Object object, SerializeScope serializeScope) {
 		BaseViewPage tmpPage = new BaseViewPage() {	protected SerializeScope getSerializeScope() { return null;	} };
 		return tmpPage.serializeObject(object, serializeScope);
 	}
-	
+
 	public static Map<String, Object> serializeObjectNow(Object object, SerializeScope serializeScope) {
         return serialize(object, serializeScope);
     }
@@ -551,9 +562,18 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
         }
         return serializeObjectNow(object, scope);
     }
-    
+
 	protected void forceResponseAsListOfPage() {
 		userContext.forceResponseXClassHeader("com.terapico.appview.ListOfPage");
+	}
+
+	protected FilterTabsViewComponent createTabs(List<KeyValuePair> codeNameList, String filter, String baseUrl) {
+		FilterTabsViewComponent tabs = new FilterTabsViewComponent();
+		for(KeyValuePair kvp : codeNameList) {
+			tabs.addTab(kvp.getKey(), (String)(kvp.getValue()), baseUrl.replace(":filter", kvp.getKey()));
+		}
+		tabs.setActiveTab(filter);
+		return tabs;
 	}
 }
 

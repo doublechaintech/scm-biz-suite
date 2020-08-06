@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.goodsshelfstockcount;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
@@ -45,24 +43,24 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = GoodsShelfStockCountTokens.start().withTokenFromListName(listName).done();
 		GoodsShelfStockCount  goodsShelfStockCount = (GoodsShelfStockCount) this.loadGoodsShelfStockCount(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = goodsShelfStockCount.collectRefercencesFromLists();
 		goodsShelfStockCountDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, goodsShelfStockCount, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new GoodsShelfStockCountGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -125,7 +123,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		checkerOf(userContext).throwExceptionIfHasErrors( GoodsShelfStockCountManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		GoodsShelfStockCount goodsShelfStockCount = loadGoodsShelfStockCount( userContext, goodsShelfStockCountId, tokens);
  		//do some calc before sent to customer?
@@ -144,6 +142,9 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		
 		List<BaseEntity> entityListToNaming = goodsShelfStockCountToPresent.collectRefercencesFromLists();
 		goodsShelfStockCountDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,goodsShelfStockCount,tokens);
 		
 		return  goodsShelfStockCountToPresent;
 		
@@ -516,7 +517,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 			goodsShelfStockCount.addStockCountIssueTrack( stockCountIssueTrack );
 			goodsShelfStockCount = saveGoodsShelfStockCount(userContext, goodsShelfStockCount, tokens().withStockCountIssueTrackList().done());
 			
-			userContext.getManagerGroup().getStockCountIssueTrackManager().onNewInstanceCreated(userContext, stockCountIssueTrack);
+			stockCountIssueTrackManagerOf(userContext).onNewInstanceCreated(userContext, stockCountIssueTrack);
 			return present(userContext,goodsShelfStockCount, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -539,7 +540,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withStockCountIssueTrackListList()
-				.searchStockCountIssueTrackListWith(StockCountIssueTrack.ID_PROPERTY, "is", id).done();
+				.searchStockCountIssueTrackListWith(StockCountIssueTrack.ID_PROPERTY, tokens().is(), id).done();
 
 		GoodsShelfStockCount goodsShelfStockCountToUpdate = loadGoodsShelfStockCount(userContext, goodsShelfStockCountId, options);
 
@@ -548,7 +549,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		}
 
 		StockCountIssueTrack item = goodsShelfStockCountToUpdate.getStockCountIssueTrackList().first();
-
+		beforeUpdateStockCountIssueTrackProperties(userContext,item, goodsShelfStockCountId,id,title,countTime,summary,tokensExpr);
 		item.updateTitle( title );
 		item.updateCountTime( countTime );
 		item.updateSummary( summary );
@@ -561,6 +562,10 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		}
 	}
 
+	protected  void beforeUpdateStockCountIssueTrackProperties(RetailscmUserContext userContext, StockCountIssueTrack item, String goodsShelfStockCountId, String id,String title,Date countTime,String summary, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected StockCountIssueTrack createStockCountIssueTrack(RetailscmUserContext userContext, String title, Date countTime, String summary) throws Exception{
 
@@ -666,7 +671,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 			goodsShelfStockCount.copyStockCountIssueTrackFrom( stockCountIssueTrack );
 			goodsShelfStockCount = saveGoodsShelfStockCount(userContext, goodsShelfStockCount, tokens().withStockCountIssueTrackList().done());
 			
-			userContext.getManagerGroup().getStockCountIssueTrackManager().onNewInstanceCreated(userContext, (StockCountIssueTrack)goodsShelfStockCount.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			stockCountIssueTrackManagerOf(userContext).onNewInstanceCreated(userContext, (StockCountIssueTrack)goodsShelfStockCount.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,goodsShelfStockCount, mergedAllTokens(tokensExpr));
 		}
 
@@ -679,27 +684,21 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		checkerOf(userContext).checkIdOfGoodsShelfStockCount(goodsShelfStockCountId);
 		checkerOf(userContext).checkIdOfStockCountIssueTrack(stockCountIssueTrackId);
 		checkerOf(userContext).checkVersionOfStockCountIssueTrack(stockCountIssueTrackVersion);
-		
+
 
 		if(StockCountIssueTrack.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfStockCountIssueTrack(parseString(newValueExpr));
-		
 		}
 		
 		if(StockCountIssueTrack.COUNT_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCountTimeOfStockCountIssueTrack(parseDate(newValueExpr));
-		
 		}
 		
 		if(StockCountIssueTrack.SUMMARY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSummaryOfStockCountIssueTrack(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(GoodsShelfStockCountManagerException.class);
 
 	}
@@ -709,7 +708,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 
 		checkParamsForUpdatingStockCountIssueTrack(userContext, goodsShelfStockCountId, stockCountIssueTrackId, stockCountIssueTrackVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withStockCountIssueTrackList().searchStockCountIssueTrackListWith(StockCountIssueTrack.ID_PROPERTY, "eq", stockCountIssueTrackId).done();
+		Map<String,Object> loadTokens = this.tokens().withStockCountIssueTrackList().searchStockCountIssueTrackListWith(StockCountIssueTrack.ID_PROPERTY, tokens().equals(), stockCountIssueTrackId).done();
 
 
 
@@ -720,13 +719,14 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 			//Also good when there is a RAM based DAO implementation
 			//goodsShelfStockCount.removeStockCountIssueTrack( stockCountIssueTrack );
 			//make changes to AcceleraterAccount.
-			StockCountIssueTrack stockCountIssueTrackIndex = createIndexedStockCountIssueTrack(stockCountIssueTrackId, stockCountIssueTrackVersion);
+			StockCountIssueTrack stockCountIssueTrackIdVersionKey = createIndexedStockCountIssueTrack(stockCountIssueTrackId, stockCountIssueTrackVersion);
 
-			StockCountIssueTrack stockCountIssueTrack = goodsShelfStockCount.findTheStockCountIssueTrack(stockCountIssueTrackIndex);
+			StockCountIssueTrack stockCountIssueTrack = goodsShelfStockCount.findTheStockCountIssueTrack(stockCountIssueTrackIdVersionKey);
 			if(stockCountIssueTrack == null){
-				throw new GoodsShelfStockCountManagerException(stockCountIssueTrack+" is NOT FOUND" );
+				throw new GoodsShelfStockCountManagerException(stockCountIssueTrackId+" is NOT FOUND" );
 			}
 
+			beforeUpdateStockCountIssueTrack(userContext, stockCountIssueTrack, goodsShelfStockCountId, stockCountIssueTrackId, stockCountIssueTrackVersion, property, newValueExpr,  tokensExpr);
 			stockCountIssueTrack.changeProperty(property, newValueExpr);
 			
 			goodsShelfStockCount = saveGoodsShelfStockCount(userContext, goodsShelfStockCount, tokens().withStockCountIssueTrackList().done());
@@ -734,6 +734,11 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateStockCountIssueTrack(RetailscmUserContext userContext, StockCountIssueTrack existed, String goodsShelfStockCountId, String stockCountIssueTrackId, int stockCountIssueTrackVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -750,6 +755,12 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    goodsShelfStockCountDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -841,6 +852,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -957,7 +969,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1039,6 +1051,8 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

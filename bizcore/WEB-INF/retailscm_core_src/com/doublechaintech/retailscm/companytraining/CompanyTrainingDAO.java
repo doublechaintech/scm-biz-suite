@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.companytraining;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -24,20 +25,21 @@ import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrai
 public interface CompanyTrainingDAO extends BaseDAO{
 
 	public SmartList<CompanyTraining> loadAll();
+	public Stream<CompanyTraining> loadAllAsStream();
 	public CompanyTraining load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<CompanyTraining> companyTrainingList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public CompanyTraining present(CompanyTraining companyTraining,Map<String,Object> options) throws Exception;
 	public CompanyTraining clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public CompanyTraining save(CompanyTraining companyTraining,Map<String,Object> options);
 	public SmartList<CompanyTraining> saveCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList,Map<String,Object> options);
 	public SmartList<CompanyTraining> removeCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList,Map<String,Object> options);
@@ -66,34 +68,35 @@ public interface CompanyTrainingDAO extends BaseDAO{
 	public CompanyTraining planToRemoveEmployeeCompanyTrainingListWithScoring(CompanyTraining companyTraining, String scoringId, Map<String,Object> options)throws Exception;
 	public int countEmployeeCompanyTrainingListWithScoring(String companyTrainingId, String scoringId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<CompanyTraining> queryList(String sql, Object ... parmeters);
+	public Stream<CompanyTraining> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateCompanyTraining executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<CompanyTraining> findCompanyTrainingByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countCompanyTrainingByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countCompanyTrainingByCompanyIds(String[] ids, Map<String,Object> options);
  	public SmartList<CompanyTraining> findCompanyTrainingByCompany(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeCompanyTrainingByCompany(SmartList<CompanyTraining> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<CompanyTraining> findCompanyTrainingByInstructor(String instructorId, Map<String,Object> options);
  	public int countCompanyTrainingByInstructor(String instructorId, Map<String,Object> options);
  	public Map<String, Integer> countCompanyTrainingByInstructorIds(String[] ids, Map<String,Object> options);
  	public SmartList<CompanyTraining> findCompanyTrainingByInstructor(String instructorId, int start, int count, Map<String,Object> options);
  	public void analyzeCompanyTrainingByInstructor(SmartList<CompanyTraining> resultList, String instructorId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<CompanyTraining> findCompanyTrainingByTrainingCourseType(String trainingCourseTypeId, Map<String,Object> options);
  	public int countCompanyTrainingByTrainingCourseType(String trainingCourseTypeId, Map<String,Object> options);
  	public Map<String, Integer> countCompanyTrainingByTrainingCourseTypeIds(String[] ids, Map<String,Object> options);
  	public SmartList<CompanyTraining> findCompanyTrainingByTrainingCourseType(String trainingCourseTypeId, int start, int count, Map<String,Object> options);
  	public void analyzeCompanyTrainingByTrainingCourseType(SmartList<CompanyTraining> resultList, String trainingCourseTypeId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的training的EmployeeCompanyTrainingList
 	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<CompanyTraining> us, Map<String,Object> options) throws Exception;

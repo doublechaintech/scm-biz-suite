@@ -78,10 +78,36 @@ public class ServletResultRenderer {
 			renderJavascript(servlet, result, request, response);
 			return;
 		}
+		
+		if(ReflectionTool.isPrimaryType(result.getActualResult().getClass())) {
+			renderAsString(result, request, response);
+			return;
+		}
 		// Otherwise use JSON as the default return format
 		renderJson(result, request, response);
 		return;
 
+	}
+
+	private void renderAsString(InvocationResult result, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/plain");
+		
+		String renderClass = result.getActualResult().getClass().getName();
+		if (result.getResponseHeader() != null && result.getResponseHeader().containsKey("X-Class")) {
+			renderClass = result.getResponseHeader().get("X-Class");
+		}
+		byte [] value = result.getActualResult().toString().getBytes();
+		int length = value.length;
+		response.addHeader("X-Class", renderClass);
+		response.addHeader("X-Env-Type", result.getEnvType());
+		response.addHeader("X-Env-Name", result.getEnvName());
+		response.addHeader("Content-Length", Long.valueOf(length).toString());
+		response.addHeader("Access-Control-Expose-Headers", "X-Class, X-Redirect, X-Env-Type, X-Env-Name");
+		
+		response.getOutputStream().write(value);;
+		
+		
 	}
 
 	protected String getHost(HttpServletRequest request) {
@@ -592,3 +618,5 @@ public class ServletResultRenderer {
 	}
 
 }
+
+

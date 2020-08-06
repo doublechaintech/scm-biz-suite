@@ -2,8 +2,6 @@
 buildscript {
     repositories {
         mavenLocal()
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -48,8 +46,6 @@ sourceSets {
 
 repositories {
     mavenLocal()
-    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-    jcenter()
     mavenCentral()
 }
 
@@ -75,6 +71,7 @@ dependencies {
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.4'
     compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
   	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.1'
+  	compile group: 'com.github.jarod', name: 'qqwry-java', version: '0.7.+'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

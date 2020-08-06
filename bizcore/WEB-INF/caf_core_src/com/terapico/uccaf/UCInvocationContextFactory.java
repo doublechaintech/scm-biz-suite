@@ -54,6 +54,11 @@ public class UCInvocationContextFactory extends ServletInvocationContextFactory 
 
 		Type ignoredUCTypes [] =removeIfFirstUCTypeFromTypeList(types, parameters);
 		Object[] params = super.getParameters(ignoredUCTypes, parameters);
+
+		Type firstParameterType = types[0];
+		if(!UCTypeTool.isBaseUCType(firstParameterType)){
+			return params;// keep the original types
+		}
 		return wrapFinalParameters(params,request);
 
 	}

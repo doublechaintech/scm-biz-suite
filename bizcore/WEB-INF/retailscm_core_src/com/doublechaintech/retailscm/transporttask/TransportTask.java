@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.transporttask;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -20,8 +21,21 @@ import com.doublechaintech.retailscm.transporttruck.TransportTruck;
 import com.doublechaintech.retailscm.truckdriver.TruckDriver;
 import com.doublechaintech.retailscm.transportfleet.TransportFleet;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = TransportTaskSerializer.class)
 public class TransportTask extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

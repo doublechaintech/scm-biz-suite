@@ -43,7 +43,7 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements AccountSetDAO{
 
@@ -143,50 +143,54 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 	 	return this.accountingDocumentTypeDAO;
  	}	
 
-	
+
 	/*
 	protected AccountSet load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalAccountSet(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<AccountSet> loadAll() {
 	    return this.loadAll(getAccountSetMapper());
 	}
-	
-	
+
+  public Stream<AccountSet> loadAllAsStream() {
+      return this.loadAllAsStream(getAccountSetMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public AccountSet load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalAccountSet(AccountSetTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public AccountSet save(AccountSet accountSet,Map<String,Object> options){
-		
+
 		String methodName="save(AccountSet accountSet,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accountSet, methodName, "accountSet");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalAccountSet(accountSet,options);
 	}
 	public AccountSet clone(String accountSetId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(AccountSetTable.withId(accountSetId),options);
 	}
-	
+
 	protected AccountSet clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String accountSetId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		AccountSet newAccountSet = loadInternalAccountSet(accessKey, options);
 		newAccountSet.setVersion(0);
 		
@@ -213,15 +217,15 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
  		}
 		
 
-		
+
 		saveInternalAccountSet(newAccountSet,options);
-		
+
 		return newAccountSet;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String accountSetId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -237,15 +241,15 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String accountSetId, int version) throws Exception{
-	
+
 		String methodName="delete(String accountSetId, int version)";
 		assertMethodArgumentNotNull(accountSetId, methodName, "accountSetId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{accountSetId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -255,26 +259,26 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		if(affectedNumber == 0){
 			handleDeleteOneError(accountSetId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public AccountSet disconnectFromAll(String accountSetId, int version) throws Exception{
-	
-		
+
+
 		AccountSet accountSet = loadInternalAccountSet(AccountSetTable.withId(accountSetId), emptyOptions());
 		accountSet.clearFromAll();
 		this.saveAccountSet(accountSet);
 		return accountSet;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -282,15 +286,15 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "account_set";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "accountSet";
 	}
-	
+
 	
 	
 	
@@ -836,7 +840,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 			return accountSet;
 		}
 		
-		
+
 		String SQL=this.getSaveAccountSetSQL(accountSet);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveAccountSetParameters(accountSet);
@@ -845,57 +849,57 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		accountSet.incVersion();
 		return accountSet;
-	
+
 	}
 	public SmartList<AccountSet> saveAccountSetList(SmartList<AccountSet> accountSetList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitAccountSetList(accountSetList);
-		
+
 		batchAccountSetCreate((List<AccountSet>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchAccountSetUpdate((List<AccountSet>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(AccountSet accountSet:accountSetList){
 			if(accountSet.isChanged()){
 				accountSet.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return accountSetList;
 	}
 
 	public SmartList<AccountSet> removeAccountSetList(SmartList<AccountSet> accountSetList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(accountSetList, options);
-		
+
 		return accountSetList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareAccountSetBatchCreateArgs(List<AccountSet> accountSetList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(AccountSet accountSet:accountSetList ){
 			Object [] parameters = prepareAccountSetCreateParameters(accountSet);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareAccountSetBatchUpdateArgs(List<AccountSet> accountSetList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(AccountSet accountSet:accountSetList ){
 			if(!accountSet.isChanged()){
@@ -903,40 +907,40 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 			}
 			Object [] parameters = prepareAccountSetUpdateParameters(accountSet);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchAccountSetCreate(List<AccountSet> accountSetList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareAccountSetBatchCreateArgs(accountSetList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchAccountSetUpdate(List<AccountSet> accountSetList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareAccountSetBatchUpdateArgs(accountSetList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitAccountSetList(List<AccountSet> accountSetList){
-		
+
 		List<AccountSet> accountSetCreateList=new ArrayList<AccountSet>();
 		List<AccountSet> accountSetUpdateList=new ArrayList<AccountSet>();
-		
+
 		for(AccountSet accountSet: accountSetList){
 			if(isUpdateRequest(accountSet)){
 				accountSetUpdateList.add( accountSet);
@@ -944,10 +948,10 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 			}
 			accountSetCreateList.add(accountSet);
 		}
-		
+
 		return new Object[]{accountSetCreateList,accountSetUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(AccountSet accountSet){
  		return accountSet.getVersion() > 0;
  	}
@@ -957,7 +961,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveAccountSetParameters(AccountSet accountSet){
  		if(isUpdateRequest(accountSet) ){
  			return prepareAccountSetUpdateParameters(accountSet);
@@ -990,32 +994,34 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
  		
  		
  		parameters[7] = accountSet.getAccountNumber();
- 		 	
+ 		
  		if(accountSet.getCountryCenter() != null){
  			parameters[8] = accountSet.getCountryCenter().getId();
  		}
-  	
+ 
  		if(accountSet.getRetailStore() != null){
  			parameters[9] = accountSet.getRetailStore().getId();
  		}
-  	
+ 
  		if(accountSet.getGoodsSupplier() != null){
  			parameters[10] = accountSet.getGoodsSupplier().getId();
  		}
  
  		
  		parameters[11] = accountSet.getLastUpdateTime();
- 				
+ 		
  		parameters[12] = accountSet.nextVersion();
  		parameters[13] = accountSet.getId();
  		parameters[14] = accountSet.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareAccountSetCreateParameters(AccountSet accountSet){
 		Object[] parameters = new Object[13];
-		String newAccountSetId=getNextId();
-		accountSet.setId(newAccountSetId);
+        if(accountSet.getId() == null){
+          String newAccountSetId=getNextId();
+          accountSet.setId(newAccountSetId);
+        }
 		parameters[0] =  accountSet.getId();
  
  		
@@ -1041,41 +1047,41 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
  		
  		
  		parameters[8] = accountSet.getAccountNumber();
- 		 	
+ 		
  		if(accountSet.getCountryCenter() != null){
  			parameters[9] = accountSet.getCountryCenter().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(accountSet.getRetailStore() != null){
  			parameters[10] = accountSet.getRetailStore().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(accountSet.getGoodsSupplier() != null){
  			parameters[11] = accountSet.getGoodsSupplier().getId();
- 		
+
  		}
  		
  		
  		parameters[12] = accountSet.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected AccountSet saveInternalAccountSet(AccountSet accountSet, Map<String,Object> options){
-		
+
 		saveAccountSet(accountSet);
- 	
+
  		if(isSaveCountryCenterEnabled(options)){
 	 		saveCountryCenter(accountSet, options);
  		}
-  	
+ 
  		if(isSaveRetailStoreEnabled(options)){
 	 		saveRetailStore(accountSet, options);
  		}
-  	
+ 
  		if(isSaveGoodsSupplierEnabled(options)){
 	 		saveGoodsSupplier(accountSet, options);
  		}
@@ -1085,90 +1091,90 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 	 		saveAccountingSubjectList(accountSet, options);
 	 		//removeAccountingSubjectList(accountSet, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveAccountingPeriodListEnabled(options)){
 	 		saveAccountingPeriodList(accountSet, options);
 	 		//removeAccountingPeriodList(accountSet, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveAccountingDocumentTypeListEnabled(options)){
 	 		saveAccountingDocumentTypeList(accountSet, options);
 	 		//removeAccountingDocumentTypeList(accountSet, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return accountSet;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected AccountSet saveCountryCenter(AccountSet accountSet, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(accountSet.getCountryCenter() == null){
  			return accountSet;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(accountSet.getCountryCenter(),options);
  		return accountSet;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected AccountSet saveRetailStore(AccountSet accountSet, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(accountSet.getRetailStore() == null){
  			return accountSet;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreDAO().save(accountSet.getRetailStore(),options);
  		return accountSet;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected AccountSet saveGoodsSupplier(AccountSet accountSet, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(accountSet.getGoodsSupplier() == null){
  			return accountSet;//do nothing when it is null
  		}
- 		
+
  		getGoodsSupplierDAO().save(accountSet.getGoodsSupplier(),options);
  		return accountSet;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public AccountSet planToRemoveAccountingSubjectList(AccountSet accountSet, String accountingSubjectIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountingSubject.ACCOUNT_SET_PROPERTY, accountSet.getId());
 		key.put(AccountingSubject.ID_PROPERTY, accountingSubjectIds);
-		
+
 		SmartList<AccountingSubject> externalAccountingSubjectList = getAccountingSubjectDAO().
 				findAccountingSubjectWithKey(key, options);
 		if(externalAccountingSubjectList == null){
@@ -1177,26 +1183,26 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		if(externalAccountingSubjectList.isEmpty()){
 			return accountSet;
 		}
-		
+
 		for(AccountingSubject accountingSubjectItem: externalAccountingSubjectList){
 
 			accountingSubjectItem.clearFromAll();
 		}
-		
-		
-		SmartList<AccountingSubject> accountingSubjectList = accountSet.getAccountingSubjectList();		
+
+
+		SmartList<AccountingSubject> accountingSubjectList = accountSet.getAccountingSubjectList();
 		accountingSubjectList.addAllToRemoveList(externalAccountingSubjectList);
-		return accountSet;	
-	
+		return accountSet;
+
 	}
 
 
 	public AccountSet planToRemoveAccountingPeriodList(AccountSet accountSet, String accountingPeriodIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountingPeriod.ACCOUNT_SET_PROPERTY, accountSet.getId());
 		key.put(AccountingPeriod.ID_PROPERTY, accountingPeriodIds);
-		
+
 		SmartList<AccountingPeriod> externalAccountingPeriodList = getAccountingPeriodDAO().
 				findAccountingPeriodWithKey(key, options);
 		if(externalAccountingPeriodList == null){
@@ -1205,26 +1211,26 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		if(externalAccountingPeriodList.isEmpty()){
 			return accountSet;
 		}
-		
+
 		for(AccountingPeriod accountingPeriodItem: externalAccountingPeriodList){
 
 			accountingPeriodItem.clearFromAll();
 		}
-		
-		
-		SmartList<AccountingPeriod> accountingPeriodList = accountSet.getAccountingPeriodList();		
+
+
+		SmartList<AccountingPeriod> accountingPeriodList = accountSet.getAccountingPeriodList();
 		accountingPeriodList.addAllToRemoveList(externalAccountingPeriodList);
-		return accountSet;	
-	
+		return accountSet;
+
 	}
 
 
 	public AccountSet planToRemoveAccountingDocumentTypeList(AccountSet accountSet, String accountingDocumentTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountingDocumentType.ACCOUNTING_PERIOD_PROPERTY, accountSet.getId());
 		key.put(AccountingDocumentType.ID_PROPERTY, accountingDocumentTypeIds);
-		
+
 		SmartList<AccountingDocumentType> externalAccountingDocumentTypeList = getAccountingDocumentTypeDAO().
 				findAccountingDocumentTypeWithKey(key, options);
 		if(externalAccountingDocumentTypeList == null){
@@ -1233,36 +1239,36 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		if(externalAccountingDocumentTypeList.isEmpty()){
 			return accountSet;
 		}
-		
+
 		for(AccountingDocumentType accountingDocumentTypeItem: externalAccountingDocumentTypeList){
 
 			accountingDocumentTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<AccountingDocumentType> accountingDocumentTypeList = accountSet.getAccountingDocumentTypeList();		
+
+
+		SmartList<AccountingDocumentType> accountingDocumentTypeList = accountSet.getAccountingDocumentTypeList();
 		accountingDocumentTypeList.addAllToRemoveList(externalAccountingDocumentTypeList);
-		return accountSet;	
-	
+		return accountSet;
+
 	}
 
 
 
 		
 	protected AccountSet saveAccountingSubjectList(AccountSet accountSet, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<AccountingSubject> accountingSubjectList = accountSet.getAccountingSubjectList();
 		if(accountingSubjectList == null){
 			//null list means nothing
 			return accountSet;
 		}
 		SmartList<AccountingSubject> mergedUpdateAccountingSubjectList = new SmartList<AccountingSubject>();
-		
-		
-		mergedUpdateAccountingSubjectList.addAll(accountingSubjectList); 
+
+
+		mergedUpdateAccountingSubjectList.addAll(accountingSubjectList);
 		if(accountingSubjectList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateAccountingSubjectList.addAll(accountingSubjectList.getToRemoveList());
@@ -1271,28 +1277,28 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		}
 
 		//adding new size can improve performance
-	
+
 		getAccountingSubjectDAO().saveAccountingSubjectList(mergedUpdateAccountingSubjectList,options);
-		
+
 		if(accountingSubjectList.getToRemoveList() != null){
 			accountingSubjectList.removeAll(accountingSubjectList.getToRemoveList());
 		}
-		
-		
+
+
 		return accountSet;
-	
+
 	}
-	
+
 	protected AccountSet removeAccountingSubjectList(AccountSet accountSet, Map<String,Object> options){
-	
-	
+
+
 		SmartList<AccountingSubject> accountingSubjectList = accountSet.getAccountingSubjectList();
 		if(accountingSubjectList == null){
 			return accountSet;
-		}	
-	
+		}
+
 		SmartList<AccountingSubject> toRemoveAccountingSubjectList = accountingSubjectList.getToRemoveList();
-		
+
 		if(toRemoveAccountingSubjectList == null){
 			return accountSet;
 		}
@@ -1300,35 +1306,35 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 			return accountSet;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getAccountingSubjectDAO().removeAccountingSubjectList(toRemoveAccountingSubjectList,options);
-		
-		return accountSet;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getAccountingSubjectDAO().removeAccountingSubjectList(toRemoveAccountingSubjectList,options);
+
+		return accountSet;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected AccountSet saveAccountingPeriodList(AccountSet accountSet, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<AccountingPeriod> accountingPeriodList = accountSet.getAccountingPeriodList();
 		if(accountingPeriodList == null){
 			//null list means nothing
 			return accountSet;
 		}
 		SmartList<AccountingPeriod> mergedUpdateAccountingPeriodList = new SmartList<AccountingPeriod>();
-		
-		
-		mergedUpdateAccountingPeriodList.addAll(accountingPeriodList); 
+
+
+		mergedUpdateAccountingPeriodList.addAll(accountingPeriodList);
 		if(accountingPeriodList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateAccountingPeriodList.addAll(accountingPeriodList.getToRemoveList());
@@ -1337,28 +1343,28 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		}
 
 		//adding new size can improve performance
-	
+
 		getAccountingPeriodDAO().saveAccountingPeriodList(mergedUpdateAccountingPeriodList,options);
-		
+
 		if(accountingPeriodList.getToRemoveList() != null){
 			accountingPeriodList.removeAll(accountingPeriodList.getToRemoveList());
 		}
-		
-		
+
+
 		return accountSet;
-	
+
 	}
-	
+
 	protected AccountSet removeAccountingPeriodList(AccountSet accountSet, Map<String,Object> options){
-	
-	
+
+
 		SmartList<AccountingPeriod> accountingPeriodList = accountSet.getAccountingPeriodList();
 		if(accountingPeriodList == null){
 			return accountSet;
-		}	
-	
+		}
+
 		SmartList<AccountingPeriod> toRemoveAccountingPeriodList = accountingPeriodList.getToRemoveList();
-		
+
 		if(toRemoveAccountingPeriodList == null){
 			return accountSet;
 		}
@@ -1366,35 +1372,35 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 			return accountSet;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getAccountingPeriodDAO().removeAccountingPeriodList(toRemoveAccountingPeriodList,options);
-		
-		return accountSet;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getAccountingPeriodDAO().removeAccountingPeriodList(toRemoveAccountingPeriodList,options);
+
+		return accountSet;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected AccountSet saveAccountingDocumentTypeList(AccountSet accountSet, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<AccountingDocumentType> accountingDocumentTypeList = accountSet.getAccountingDocumentTypeList();
 		if(accountingDocumentTypeList == null){
 			//null list means nothing
 			return accountSet;
 		}
 		SmartList<AccountingDocumentType> mergedUpdateAccountingDocumentTypeList = new SmartList<AccountingDocumentType>();
-		
-		
-		mergedUpdateAccountingDocumentTypeList.addAll(accountingDocumentTypeList); 
+
+
+		mergedUpdateAccountingDocumentTypeList.addAll(accountingDocumentTypeList);
 		if(accountingDocumentTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateAccountingDocumentTypeList.addAll(accountingDocumentTypeList.getToRemoveList());
@@ -1403,28 +1409,28 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		}
 
 		//adding new size can improve performance
-	
+
 		getAccountingDocumentTypeDAO().saveAccountingDocumentTypeList(mergedUpdateAccountingDocumentTypeList,options);
-		
+
 		if(accountingDocumentTypeList.getToRemoveList() != null){
 			accountingDocumentTypeList.removeAll(accountingDocumentTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return accountSet;
-	
+
 	}
-	
+
 	protected AccountSet removeAccountingDocumentTypeList(AccountSet accountSet, Map<String,Object> options){
-	
-	
+
+
 		SmartList<AccountingDocumentType> accountingDocumentTypeList = accountSet.getAccountingDocumentTypeList();
 		if(accountingDocumentTypeList == null){
 			return accountSet;
-		}	
-	
+		}
+
 		SmartList<AccountingDocumentType> toRemoveAccountingDocumentTypeList = accountingDocumentTypeList.getToRemoveList();
-		
+
 		if(toRemoveAccountingDocumentTypeList == null){
 			return accountSet;
 		}
@@ -1432,20 +1438,20 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 			return accountSet;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getAccountingDocumentTypeDAO().removeAccountingDocumentTypeList(toRemoveAccountingDocumentTypeList,options);
-		
-		return accountSet;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getAccountingDocumentTypeDAO().removeAccountingDocumentTypeList(toRemoveAccountingDocumentTypeList,options);
+
+		return accountSet;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public AccountSet present(AccountSet accountSet,Map<String, Object> options){
@@ -1542,13 +1548,13 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 	protected String getTableName(){
 		return AccountSetTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<AccountSet> accountSetList) {		
+
+
+
+	public void enhanceList(List<AccountSet> accountSetList) {
 		this.enhanceListInternal(accountSetList, this.getAccountSetMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:AccountingSubject的accountSet的AccountingSubjectList
 	public SmartList<AccountingSubject> loadOurAccountingSubjectList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception{
@@ -1619,39 +1625,45 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountSet> accountSetList = ownerEntity.collectRefsWithType(AccountSet.INTERNAL_TYPE);
 		this.enhanceList(accountSetList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<AccountSet> findAccountSetWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getAccountSetMapper());
 
 	}
 	@Override
 	public int countAccountSetWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countAccountSetWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<AccountSet> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getAccountSetMapper());
 	}
+
+  @Override
+  public Stream<AccountSet> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getAccountSetMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1680,7 +1692,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmBaseDAOImpl implements A
 		}
 		return result;
 	}
-	
+
 	
 
 }

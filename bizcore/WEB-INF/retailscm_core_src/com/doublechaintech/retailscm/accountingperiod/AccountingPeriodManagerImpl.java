@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.accountingperiod;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
@@ -46,24 +44,24 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = AccountingPeriodTokens.start().withTokenFromListName(listName).done();
 		AccountingPeriod  accountingPeriod = (AccountingPeriod) this.loadAccountingPeriod(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = accountingPeriod.collectRefercencesFromLists();
 		accountingPeriodDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, accountingPeriod, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new AccountingPeriodGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		checkerOf(userContext).throwExceptionIfHasErrors( AccountingPeriodManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		AccountingPeriod accountingPeriod = loadAccountingPeriod( userContext, accountingPeriodId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		
 		List<BaseEntity> entityListToNaming = accountingPeriodToPresent.collectRefercencesFromLists();
 		accountingPeriodDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,accountingPeriod,tokens);
 		
 		return  accountingPeriodToPresent;
 		
@@ -535,7 +536,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 			accountingPeriod.addAccountingDocument( accountingDocument );
 			accountingPeriod = saveAccountingPeriod(userContext, accountingPeriod, tokens().withAccountingDocumentList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentManager().onNewInstanceCreated(userContext, accountingDocument);
+			accountingDocumentManagerOf(userContext).onNewInstanceCreated(userContext, accountingDocument);
 			return present(userContext,accountingPeriod, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -557,7 +558,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withAccountingDocumentListList()
-				.searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, "is", id).done();
+				.searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, tokens().is(), id).done();
 
 		AccountingPeriod accountingPeriodToUpdate = loadAccountingPeriod(userContext, accountingPeriodId, options);
 
@@ -566,7 +567,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		}
 
 		AccountingDocument item = accountingPeriodToUpdate.getAccountingDocumentList().first();
-
+		beforeUpdateAccountingDocumentProperties(userContext,item, accountingPeriodId,id,name,accountingDocumentDate,tokensExpr);
 		item.updateName( name );
 		item.updateAccountingDocumentDate( accountingDocumentDate );
 
@@ -578,6 +579,10 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		}
 	}
 
+	protected  void beforeUpdateAccountingDocumentProperties(RetailscmUserContext userContext, AccountingDocument item, String accountingPeriodId, String id,String name,Date accountingDocumentDate, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected AccountingDocument createAccountingDocument(RetailscmUserContext userContext, String name, Date accountingDocumentDate, String documentTypeId) throws Exception{
 
@@ -685,7 +690,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 			accountingPeriod.copyAccountingDocumentFrom( accountingDocument );
 			accountingPeriod = saveAccountingPeriod(userContext, accountingPeriod, tokens().withAccountingDocumentList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentManager().onNewInstanceCreated(userContext, (AccountingDocument)accountingPeriod.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			accountingDocumentManagerOf(userContext).onNewInstanceCreated(userContext, (AccountingDocument)accountingPeriod.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,accountingPeriod, mergedAllTokens(tokensExpr));
 		}
 
@@ -698,21 +703,17 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		checkerOf(userContext).checkIdOfAccountingPeriod(accountingPeriodId);
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 		checkerOf(userContext).checkVersionOfAccountingDocument(accountingDocumentVersion);
-		
+
 
 		if(AccountingDocument.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfAccountingDocument(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocument.ACCOUNTING_DOCUMENT_DATE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountingDocumentDateOfAccountingDocument(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingPeriodManagerException.class);
 
 	}
@@ -722,7 +723,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 
 		checkParamsForUpdatingAccountingDocument(userContext, accountingPeriodId, accountingDocumentId, accountingDocumentVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentList().searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, "eq", accountingDocumentId).done();
+		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentList().searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, tokens().equals(), accountingDocumentId).done();
 
 
 
@@ -733,13 +734,14 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 			//Also good when there is a RAM based DAO implementation
 			//accountingPeriod.removeAccountingDocument( accountingDocument );
 			//make changes to AcceleraterAccount.
-			AccountingDocument accountingDocumentIndex = createIndexedAccountingDocument(accountingDocumentId, accountingDocumentVersion);
+			AccountingDocument accountingDocumentIdVersionKey = createIndexedAccountingDocument(accountingDocumentId, accountingDocumentVersion);
 
-			AccountingDocument accountingDocument = accountingPeriod.findTheAccountingDocument(accountingDocumentIndex);
+			AccountingDocument accountingDocument = accountingPeriod.findTheAccountingDocument(accountingDocumentIdVersionKey);
 			if(accountingDocument == null){
-				throw new AccountingPeriodManagerException(accountingDocument+" is NOT FOUND" );
+				throw new AccountingPeriodManagerException(accountingDocumentId+" is NOT FOUND" );
 			}
 
+			beforeUpdateAccountingDocument(userContext, accountingDocument, accountingPeriodId, accountingDocumentId, accountingDocumentVersion, property, newValueExpr,  tokensExpr);
 			accountingDocument.changeProperty(property, newValueExpr);
 			
 			accountingPeriod = saveAccountingPeriod(userContext, accountingPeriod, tokens().withAccountingDocumentList().done());
@@ -747,6 +749,11 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateAccountingDocument(RetailscmUserContext userContext, AccountingDocument existed, String accountingPeriodId, String accountingDocumentId, int accountingDocumentVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -763,6 +770,12 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    accountingPeriodDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -854,6 +867,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -970,7 +984,7 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1052,6 +1066,8 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

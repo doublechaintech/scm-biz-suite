@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.page;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.slide.Slide;
@@ -49,24 +47,24 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = PageTokens.start().withTokenFromListName(listName).done();
 		Page  page = (Page) this.loadPage(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = page.collectRefercencesFromLists();
 		pageDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, page, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new PageGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -129,7 +127,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).throwExceptionIfHasErrors( PageManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Page page = loadPage( userContext, pageId, tokens);
  		//do some calc before sent to customer?
@@ -148,6 +146,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		
 		List<BaseEntity> entityListToNaming = pageToPresent.collectRefercencesFromLists();
 		pageDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,page,tokens);
 		
 		return  pageToPresent;
 		
@@ -635,7 +636,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			page.addSlide( slide );
 			page = savePage(userContext, page, tokens().withSlideList().done());
 			
-			userContext.getManagerGroup().getSlideManager().onNewInstanceCreated(userContext, slide);
+			slideManagerOf(userContext).onNewInstanceCreated(userContext, slide);
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -660,7 +661,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSlideListList()
-				.searchSlideListWith(Slide.ID_PROPERTY, "is", id).done();
+				.searchSlideListWith(Slide.ID_PROPERTY, tokens().is(), id).done();
 
 		Page pageToUpdate = loadPage(userContext, pageId, options);
 
@@ -669,7 +670,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 
 		Slide item = pageToUpdate.getSlideList().first();
-
+		beforeUpdateSlideProperties(userContext,item, pageId,id,name,displayOrder,imageUrl,videoUrl,linkToUrl,tokensExpr);
 		item.updateName( name );
 		item.updateDisplayOrder( displayOrder );
 		item.updateImageUrl( imageUrl );
@@ -684,6 +685,10 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 	}
 
+	protected  void beforeUpdateSlideProperties(RetailscmUserContext userContext, Slide item, String pageId, String id,String name,int displayOrder,String imageUrl,String videoUrl,String linkToUrl, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Slide createSlide(RetailscmUserContext userContext, String name, int displayOrder, String imageUrl, String videoUrl, String linkToUrl) throws Exception{
 
@@ -791,7 +796,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			page.copySlideFrom( slide );
 			page = savePage(userContext, page, tokens().withSlideList().done());
 			
-			userContext.getManagerGroup().getSlideManager().onNewInstanceCreated(userContext, (Slide)page.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			slideManagerOf(userContext).onNewInstanceCreated(userContext, (Slide)page.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 
@@ -804,39 +809,29 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkIdOfSlide(slideId);
 		checkerOf(userContext).checkVersionOfSlide(slideVersion);
-		
+
 
 		if(Slide.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfSlide(parseString(newValueExpr));
-		
 		}
 		
 		if(Slide.DISPLAY_ORDER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDisplayOrderOfSlide(parseInt(newValueExpr));
-		
 		}
 		
 		if(Slide.IMAGE_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkImageUrlOfSlide(parseString(newValueExpr));
-		
 		}
 		
 		if(Slide.VIDEO_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkVideoUrlOfSlide(parseString(newValueExpr));
-		
 		}
 		
 		if(Slide.LINK_TO_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLinkToUrlOfSlide(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
 	}
@@ -846,7 +841,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 		checkParamsForUpdatingSlide(userContext, pageId, slideId, slideVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSlideList().searchSlideListWith(Slide.ID_PROPERTY, "eq", slideId).done();
+		Map<String,Object> loadTokens = this.tokens().withSlideList().searchSlideListWith(Slide.ID_PROPERTY, tokens().equals(), slideId).done();
 
 
 
@@ -857,13 +852,14 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			//Also good when there is a RAM based DAO implementation
 			//page.removeSlide( slide );
 			//make changes to AcceleraterAccount.
-			Slide slideIndex = createIndexedSlide(slideId, slideVersion);
+			Slide slideIdVersionKey = createIndexedSlide(slideId, slideVersion);
 
-			Slide slide = page.findTheSlide(slideIndex);
+			Slide slide = page.findTheSlide(slideIdVersionKey);
 			if(slide == null){
-				throw new PageManagerException(slide+" is NOT FOUND" );
+				throw new PageManagerException(slideId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSlide(userContext, slide, pageId, slideId, slideVersion, property, newValueExpr,  tokensExpr);
 			slide.changeProperty(property, newValueExpr);
 			
 			page = savePage(userContext, page, tokens().withSlideList().done());
@@ -871,6 +867,11 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSlide(RetailscmUserContext userContext, Slide existed, String pageId, String slideId, int slideVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -917,7 +918,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			page.addUiAction( uiAction );
 			page = savePage(userContext, page, tokens().withUiActionList().done());
 			
-			userContext.getManagerGroup().getUiActionManager().onNewInstanceCreated(userContext, uiAction);
+			uiActionManagerOf(userContext).onNewInstanceCreated(userContext, uiAction);
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -945,7 +946,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withUiActionListList()
-				.searchUiActionListWith(UiAction.ID_PROPERTY, "is", id).done();
+				.searchUiActionListWith(UiAction.ID_PROPERTY, tokens().is(), id).done();
 
 		Page pageToUpdate = loadPage(userContext, pageId, options);
 
@@ -954,7 +955,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 
 		UiAction item = pageToUpdate.getUiActionList().first();
-
+		beforeUpdateUiActionProperties(userContext,item, pageId,id,code,icon,title,displayOrder,brief,imageUrl,linkToUrl,extraData,tokensExpr);
 		item.updateCode( code );
 		item.updateIcon( icon );
 		item.updateTitle( title );
@@ -972,6 +973,10 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 	}
 
+	protected  void beforeUpdateUiActionProperties(RetailscmUserContext userContext, UiAction item, String pageId, String id,String code,String icon,String title,int displayOrder,String brief,String imageUrl,String linkToUrl,String extraData, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected UiAction createUiAction(RetailscmUserContext userContext, String code, String icon, String title, int displayOrder, String brief, String imageUrl, String linkToUrl, String extraData) throws Exception{
 
@@ -1082,7 +1087,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			page.copyUiActionFrom( uiAction );
 			page = savePage(userContext, page, tokens().withUiActionList().done());
 			
-			userContext.getManagerGroup().getUiActionManager().onNewInstanceCreated(userContext, (UiAction)page.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			uiActionManagerOf(userContext).onNewInstanceCreated(userContext, (UiAction)page.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 
@@ -1095,57 +1100,41 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkIdOfUiAction(uiActionId);
 		checkerOf(userContext).checkVersionOfUiAction(uiActionVersion);
-		
+
 
 		if(UiAction.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfUiAction(parseString(newValueExpr));
-		
 		}
 		
 		if(UiAction.ICON_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkIconOfUiAction(parseString(newValueExpr));
-		
 		}
 		
 		if(UiAction.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfUiAction(parseString(newValueExpr));
-		
 		}
 		
 		if(UiAction.DISPLAY_ORDER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDisplayOrderOfUiAction(parseInt(newValueExpr));
-		
 		}
 		
 		if(UiAction.BRIEF_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBriefOfUiAction(parseString(newValueExpr));
-		
 		}
 		
 		if(UiAction.IMAGE_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkImageUrlOfUiAction(parseString(newValueExpr));
-		
 		}
 		
 		if(UiAction.LINK_TO_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLinkToUrlOfUiAction(parseString(newValueExpr));
-		
 		}
 		
 		if(UiAction.EXTRA_DATA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkExtraDataOfUiAction(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
 	}
@@ -1155,7 +1144,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 		checkParamsForUpdatingUiAction(userContext, pageId, uiActionId, uiActionVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withUiActionList().searchUiActionListWith(UiAction.ID_PROPERTY, "eq", uiActionId).done();
+		Map<String,Object> loadTokens = this.tokens().withUiActionList().searchUiActionListWith(UiAction.ID_PROPERTY, tokens().equals(), uiActionId).done();
 
 
 
@@ -1166,13 +1155,14 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			//Also good when there is a RAM based DAO implementation
 			//page.removeUiAction( uiAction );
 			//make changes to AcceleraterAccount.
-			UiAction uiActionIndex = createIndexedUiAction(uiActionId, uiActionVersion);
+			UiAction uiActionIdVersionKey = createIndexedUiAction(uiActionId, uiActionVersion);
 
-			UiAction uiAction = page.findTheUiAction(uiActionIndex);
+			UiAction uiAction = page.findTheUiAction(uiActionIdVersionKey);
 			if(uiAction == null){
-				throw new PageManagerException(uiAction+" is NOT FOUND" );
+				throw new PageManagerException(uiActionId+" is NOT FOUND" );
 			}
 
+			beforeUpdateUiAction(userContext, uiAction, pageId, uiActionId, uiActionVersion, property, newValueExpr,  tokensExpr);
 			uiAction.changeProperty(property, newValueExpr);
 			
 			page = savePage(userContext, page, tokens().withUiActionList().done());
@@ -1180,6 +1170,11 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateUiAction(RetailscmUserContext userContext, UiAction existed, String pageId, String uiActionId, int uiActionVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1222,7 +1217,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			page.addSection( section );
 			page = savePage(userContext, page, tokens().withSectionList().done());
 			
-			userContext.getManagerGroup().getSectionManager().onNewInstanceCreated(userContext, section);
+			sectionManagerOf(userContext).onNewInstanceCreated(userContext, section);
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1248,7 +1243,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSectionListList()
-				.searchSectionListWith(Section.ID_PROPERTY, "is", id).done();
+				.searchSectionListWith(Section.ID_PROPERTY, tokens().is(), id).done();
 
 		Page pageToUpdate = loadPage(userContext, pageId, options);
 
@@ -1257,7 +1252,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 
 		Section item = pageToUpdate.getSectionList().first();
-
+		beforeUpdateSectionProperties(userContext,item, pageId,id,title,brief,icon,displayOrder,viewGroup,linkToUrl,tokensExpr);
 		item.updateTitle( title );
 		item.updateBrief( brief );
 		item.updateIcon( icon );
@@ -1273,6 +1268,10 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 	}
 
+	protected  void beforeUpdateSectionProperties(RetailscmUserContext userContext, Section item, String pageId, String id,String title,String brief,String icon,int displayOrder,String viewGroup,String linkToUrl, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Section createSection(RetailscmUserContext userContext, String title, String brief, String icon, int displayOrder, String viewGroup, String linkToUrl) throws Exception{
 
@@ -1381,7 +1380,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			page.copySectionFrom( section );
 			page = savePage(userContext, page, tokens().withSectionList().done());
 			
-			userContext.getManagerGroup().getSectionManager().onNewInstanceCreated(userContext, (Section)page.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			sectionManagerOf(userContext).onNewInstanceCreated(userContext, (Section)page.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 
@@ -1394,45 +1393,33 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkIdOfSection(sectionId);
 		checkerOf(userContext).checkVersionOfSection(sectionVersion);
-		
+
 
 		if(Section.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfSection(parseString(newValueExpr));
-		
 		}
 		
 		if(Section.BRIEF_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBriefOfSection(parseString(newValueExpr));
-		
 		}
 		
 		if(Section.ICON_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkIconOfSection(parseString(newValueExpr));
-		
 		}
 		
 		if(Section.DISPLAY_ORDER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDisplayOrderOfSection(parseInt(newValueExpr));
-		
 		}
 		
 		if(Section.VIEW_GROUP_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkViewGroupOfSection(parseString(newValueExpr));
-		
 		}
 		
 		if(Section.LINK_TO_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLinkToUrlOfSection(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
 	}
@@ -1442,7 +1429,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 		checkParamsForUpdatingSection(userContext, pageId, sectionId, sectionVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSectionList().searchSectionListWith(Section.ID_PROPERTY, "eq", sectionId).done();
+		Map<String,Object> loadTokens = this.tokens().withSectionList().searchSectionListWith(Section.ID_PROPERTY, tokens().equals(), sectionId).done();
 
 
 
@@ -1453,13 +1440,14 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			//Also good when there is a RAM based DAO implementation
 			//page.removeSection( section );
 			//make changes to AcceleraterAccount.
-			Section sectionIndex = createIndexedSection(sectionId, sectionVersion);
+			Section sectionIdVersionKey = createIndexedSection(sectionId, sectionVersion);
 
-			Section section = page.findTheSection(sectionIndex);
+			Section section = page.findTheSection(sectionIdVersionKey);
 			if(section == null){
-				throw new PageManagerException(section+" is NOT FOUND" );
+				throw new PageManagerException(sectionId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSection(userContext, section, pageId, sectionId, sectionVersion, property, newValueExpr,  tokensExpr);
 			section.changeProperty(property, newValueExpr);
 			
 			page = savePage(userContext, page, tokens().withSectionList().done());
@@ -1467,6 +1455,11 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSection(RetailscmUserContext userContext, Section existed, String pageId, String sectionId, int sectionVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1483,6 +1476,12 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    pageDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1574,6 +1573,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1715,7 +1715,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1840,6 +1840,8 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.consumerorderlineitem;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
@@ -43,7 +41,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 
 	// Only some of ods have such function
 	
-	
+
 
 
 
@@ -106,7 +104,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 		checkerOf(userContext).throwExceptionIfHasErrors( ConsumerOrderLineItemManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		ConsumerOrderLineItem consumerOrderLineItem = loadConsumerOrderLineItem( userContext, consumerOrderLineItemId, tokens);
  		//do some calc before sent to customer?
@@ -125,6 +123,9 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 		
 		List<BaseEntity> entityListToNaming = consumerOrderLineItemToPresent.collectRefercencesFromLists();
 		consumerOrderLineItemDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,consumerOrderLineItem,tokens);
 		
 		return  consumerOrderLineItemToPresent;
 		
@@ -490,6 +491,12 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
   
   
 
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    consumerOrderLineItemDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
 	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
@@ -580,6 +587,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -696,7 +704,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -773,7 +781,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 		propList.add(
 				MapUtil.put("id", "8-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -795,6 +803,8 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

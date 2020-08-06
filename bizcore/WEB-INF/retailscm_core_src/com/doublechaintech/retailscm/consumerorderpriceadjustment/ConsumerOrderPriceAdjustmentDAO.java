@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.consumerorderpriceadjustment;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
 public interface ConsumerOrderPriceAdjustmentDAO extends BaseDAO{
 
 	public SmartList<ConsumerOrderPriceAdjustment> loadAll();
+	public Stream<ConsumerOrderPriceAdjustment> loadAllAsStream();
 	public ConsumerOrderPriceAdjustment load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public ConsumerOrderPriceAdjustment present(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment,Map<String,Object> options) throws Exception;
 	public ConsumerOrderPriceAdjustment clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public ConsumerOrderPriceAdjustment save(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment,Map<String,Object> options);
 	public SmartList<ConsumerOrderPriceAdjustment> saveConsumerOrderPriceAdjustmentList(SmartList<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList,Map<String,Object> options);
 	public SmartList<ConsumerOrderPriceAdjustment> removeConsumerOrderPriceAdjustmentList(SmartList<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList,Map<String,Object> options);
@@ -45,18 +47,19 @@ public interface ConsumerOrderPriceAdjustmentDAO extends BaseDAO{
 
 	
 	
-	
+
 	public SmartList<ConsumerOrderPriceAdjustment> queryList(String sql, Object ... parmeters);
+	public Stream<ConsumerOrderPriceAdjustment> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateConsumerOrderPriceAdjustment executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<ConsumerOrderPriceAdjustment> findConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId, Map<String,Object> options);
  	public int countConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId, Map<String,Object> options);
  	public Map<String, Integer> countConsumerOrderPriceAdjustmentByBizOrderIds(String[] ids, Map<String,Object> options);
  	public SmartList<ConsumerOrderPriceAdjustment> findConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId, int start, int count, Map<String,Object> options);
  	public void analyzeConsumerOrderPriceAdjustmentByBizOrder(SmartList<ConsumerOrderPriceAdjustment> resultList, String consumerOrderId, Map<String,Object> options);
 
- 
+
  
 }
 

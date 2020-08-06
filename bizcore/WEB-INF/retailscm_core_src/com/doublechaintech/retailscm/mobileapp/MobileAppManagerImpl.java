@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.mobileapp;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.pagetype.PageType;
@@ -45,24 +43,24 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = MobileAppTokens.start().withTokenFromListName(listName).done();
 		MobileApp  mobileApp = (MobileApp) this.loadMobileApp(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = mobileApp.collectRefercencesFromLists();
 		mobileAppDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, mobileApp, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new MobileAppGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -125,7 +123,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).throwExceptionIfHasErrors( MobileAppManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		MobileApp mobileApp = loadMobileApp( userContext, mobileAppId, tokens);
  		//do some calc before sent to customer?
@@ -144,6 +142,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		
 		List<BaseEntity> entityListToNaming = mobileAppToPresent.collectRefercencesFromLists();
 		mobileAppDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,mobileApp,tokens);
 		
 		return  mobileAppToPresent;
 		
@@ -458,7 +459,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			mobileApp.addPage( page );
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageList().done());
 			
-			userContext.getManagerGroup().getPageManager().onNewInstanceCreated(userContext, page);
+			pageManagerOf(userContext).onNewInstanceCreated(userContext, page);
 			return present(userContext,mobileApp, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -481,7 +482,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withPageListList()
-				.searchPageListWith(Page.ID_PROPERTY, "is", id).done();
+				.searchPageListWith(Page.ID_PROPERTY, tokens().is(), id).done();
 
 		MobileApp mobileAppToUpdate = loadMobileApp(userContext, mobileAppId, options);
 
@@ -490,7 +491,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		Page item = mobileAppToUpdate.getPageList().first();
-
+		beforeUpdatePageProperties(userContext,item, mobileAppId,id,pageTitle,linkToUrl,displayOrder,tokensExpr);
 		item.updatePageTitle( pageTitle );
 		item.updateLinkToUrl( linkToUrl );
 		item.updateDisplayOrder( displayOrder );
@@ -503,6 +504,10 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdatePageProperties(RetailscmUserContext userContext, Page item, String mobileAppId, String id,String pageTitle,String linkToUrl,int displayOrder, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Page createPage(RetailscmUserContext userContext, String pageTitle, String linkToUrl, String pageTypeId, int displayOrder) throws Exception{
 
@@ -611,7 +616,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			mobileApp.copyPageFrom( page );
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageList().done());
 			
-			userContext.getManagerGroup().getPageManager().onNewInstanceCreated(userContext, (Page)mobileApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			pageManagerOf(userContext).onNewInstanceCreated(userContext, (Page)mobileApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,mobileApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -624,27 +629,21 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkVersionOfPage(pageVersion);
-		
+
 
 		if(Page.PAGE_TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPageTitleOfPage(parseString(newValueExpr));
-		
 		}
 		
 		if(Page.LINK_TO_URL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLinkToUrlOfPage(parseString(newValueExpr));
-		
 		}
 		
 		if(Page.DISPLAY_ORDER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDisplayOrderOfPage(parseInt(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
 
 	}
@@ -654,7 +653,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingPage(userContext, mobileAppId, pageId, pageVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withPageList().searchPageListWith(Page.ID_PROPERTY, "eq", pageId).done();
+		Map<String,Object> loadTokens = this.tokens().withPageList().searchPageListWith(Page.ID_PROPERTY, tokens().equals(), pageId).done();
 
 
 
@@ -665,13 +664,14 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//mobileApp.removePage( page );
 			//make changes to AcceleraterAccount.
-			Page pageIndex = createIndexedPage(pageId, pageVersion);
+			Page pageIdVersionKey = createIndexedPage(pageId, pageVersion);
 
-			Page page = mobileApp.findThePage(pageIndex);
+			Page page = mobileApp.findThePage(pageIdVersionKey);
 			if(page == null){
-				throw new MobileAppManagerException(page+" is NOT FOUND" );
+				throw new MobileAppManagerException(pageId+" is NOT FOUND" );
 			}
 
+			beforeUpdatePage(userContext, page, mobileAppId, pageId, pageVersion, property, newValueExpr,  tokensExpr);
 			page.changeProperty(property, newValueExpr);
 			
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageList().done());
@@ -679,6 +679,11 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdatePage(RetailscmUserContext userContext, Page existed, String mobileAppId, String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -715,7 +720,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			mobileApp.addPageType( pageType );
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageTypeList().done());
 			
-			userContext.getManagerGroup().getPageTypeManager().onNewInstanceCreated(userContext, pageType);
+			pageTypeManagerOf(userContext).onNewInstanceCreated(userContext, pageType);
 			return present(userContext,mobileApp, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -738,7 +743,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withPageTypeListList()
-				.searchPageTypeListWith(PageType.ID_PROPERTY, "is", id).done();
+				.searchPageTypeListWith(PageType.ID_PROPERTY, tokens().is(), id).done();
 
 		MobileApp mobileAppToUpdate = loadMobileApp(userContext, mobileAppId, options);
 
@@ -747,7 +752,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		PageType item = mobileAppToUpdate.getPageTypeList().first();
-
+		beforeUpdatePageTypeProperties(userContext,item, mobileAppId,id,name,code,footerTab,tokensExpr);
 		item.updateName( name );
 		item.updateCode( code );
 		item.updateFooterTab( footerTab );
@@ -760,6 +765,10 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdatePageTypeProperties(RetailscmUserContext userContext, PageType item, String mobileAppId, String id,String name,String code,boolean footerTab, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected PageType createPageType(RetailscmUserContext userContext, String name, String code, boolean footerTab) throws Exception{
 
@@ -865,7 +874,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			mobileApp.copyPageTypeFrom( pageType );
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageTypeList().done());
 			
-			userContext.getManagerGroup().getPageTypeManager().onNewInstanceCreated(userContext, (PageType)mobileApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			pageTypeManagerOf(userContext).onNewInstanceCreated(userContext, (PageType)mobileApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,mobileApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -878,27 +887,21 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
 		checkerOf(userContext).checkIdOfPageType(pageTypeId);
 		checkerOf(userContext).checkVersionOfPageType(pageTypeVersion);
-		
+
 
 		if(PageType.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfPageType(parseString(newValueExpr));
-		
 		}
 		
 		if(PageType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfPageType(parseString(newValueExpr));
-		
 		}
 		
 		if(PageType.FOOTER_TAB_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFooterTabOfPageType(parseBoolean(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
 
 	}
@@ -908,7 +911,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingPageType(userContext, mobileAppId, pageTypeId, pageTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withPageTypeList().searchPageTypeListWith(PageType.ID_PROPERTY, "eq", pageTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withPageTypeList().searchPageTypeListWith(PageType.ID_PROPERTY, tokens().equals(), pageTypeId).done();
 
 
 
@@ -919,13 +922,14 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//mobileApp.removePageType( pageType );
 			//make changes to AcceleraterAccount.
-			PageType pageTypeIndex = createIndexedPageType(pageTypeId, pageTypeVersion);
+			PageType pageTypeIdVersionKey = createIndexedPageType(pageTypeId, pageTypeVersion);
 
-			PageType pageType = mobileApp.findThePageType(pageTypeIndex);
+			PageType pageType = mobileApp.findThePageType(pageTypeIdVersionKey);
 			if(pageType == null){
-				throw new MobileAppManagerException(pageType+" is NOT FOUND" );
+				throw new MobileAppManagerException(pageTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdatePageType(userContext, pageType, mobileAppId, pageTypeId, pageTypeVersion, property, newValueExpr,  tokensExpr);
 			pageType.changeProperty(property, newValueExpr);
 			
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageTypeList().done());
@@ -933,6 +937,11 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdatePageType(RetailscmUserContext userContext, PageType existed, String mobileAppId, String pageTypeId, int pageTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -949,6 +958,12 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    mobileAppDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1040,6 +1055,11 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
+    if (methodName.equals("ensureModelInDB")){
+      return false;
+    }
+
 		return true;
 	}
 
@@ -1131,7 +1151,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1158,7 +1178,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		    "页面列表",
 		    null,
 		    "",
-		    "__no_group",
+		    "页面管理",
 		    "pageManager/listByMobileApp/"+merchantObjId+"/",
 		    "auto"
 		);
@@ -1180,6 +1200,8 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

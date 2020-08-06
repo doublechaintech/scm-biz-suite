@@ -17,6 +17,7 @@ public interface SectionManager extends BaseManager{
 	public Section createSection(RetailscmUserContext userContext, String title,String brief,String icon,int displayOrder,String viewGroup,String linkToUrl,String pageId) throws Exception;
 	public Section updateSection(RetailscmUserContext userContext,String sectionId, int sectionVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Section loadSection(RetailscmUserContext userContext, String sectionId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Section internalSaveSection(RetailscmUserContext userContext, Section section) throws Exception;
 	public Section internalSaveSection(RetailscmUserContext userContext, Section section,Map<String,Object>option) throws Exception;
 

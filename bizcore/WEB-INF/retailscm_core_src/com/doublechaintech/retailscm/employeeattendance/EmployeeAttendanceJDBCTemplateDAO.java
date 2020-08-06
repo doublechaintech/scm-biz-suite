@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeAttendanceDAO{
 
@@ -53,64 +53,68 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	 	return this.employeeDAO;
  	}	
 
-	
+
 	/*
 	protected EmployeeAttendance load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeAttendance(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<EmployeeAttendance> loadAll() {
 	    return this.loadAll(getEmployeeAttendanceMapper());
 	}
-	
-	
+
+  public Stream<EmployeeAttendance> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeAttendanceMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public EmployeeAttendance load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeAttendance(EmployeeAttendanceTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public EmployeeAttendance save(EmployeeAttendance employeeAttendance,Map<String,Object> options){
-		
+
 		String methodName="save(EmployeeAttendance employeeAttendance,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employeeAttendance, methodName, "employeeAttendance");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployeeAttendance(employeeAttendance,options);
 	}
 	public EmployeeAttendance clone(String employeeAttendanceId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeAttendanceTable.withId(employeeAttendanceId),options);
 	}
-	
+
 	protected EmployeeAttendance clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeAttendanceId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		EmployeeAttendance newEmployeeAttendance = loadInternalEmployeeAttendance(accessKey, options);
 		newEmployeeAttendance.setVersion(0);
 		
 		
 
-		
+
 		saveInternalEmployeeAttendance(newEmployeeAttendance,options);
-		
+
 		return newEmployeeAttendance;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeAttendanceId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeAttendanceId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeAttendanceId, int version)";
 		assertMethodArgumentNotNull(employeeAttendanceId, methodName, "employeeAttendanceId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeAttendanceId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeAttendanceId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public EmployeeAttendance disconnectFromAll(String employeeAttendanceId, int version) throws Exception{
-	
-		
+
+
 		EmployeeAttendance employeeAttendance = loadInternalEmployeeAttendance(EmployeeAttendanceTable.withId(employeeAttendanceId), emptyOptions());
 		employeeAttendance.clearFromAll();
 		this.saveEmployeeAttendance(employeeAttendance);
 		return employeeAttendance;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee_attendance";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employeeAttendance";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return employeeAttendance;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeAttendanceSQL(employeeAttendance);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeAttendanceParameters(employeeAttendance);
@@ -320,57 +324,57 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employeeAttendance.incVersion();
 		return employeeAttendance;
-	
+
 	}
 	public SmartList<EmployeeAttendance> saveEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeAttendanceList(employeeAttendanceList);
-		
+
 		batchEmployeeAttendanceCreate((List<EmployeeAttendance>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeAttendanceUpdate((List<EmployeeAttendance>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(EmployeeAttendance employeeAttendance:employeeAttendanceList){
 			if(employeeAttendance.isChanged()){
 				employeeAttendance.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeAttendanceList;
 	}
 
 	public SmartList<EmployeeAttendance> removeEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeAttendanceList, options);
-		
+
 		return employeeAttendanceList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeAttendanceBatchCreateArgs(List<EmployeeAttendance> employeeAttendanceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeAttendance employeeAttendance:employeeAttendanceList ){
 			Object [] parameters = prepareEmployeeAttendanceCreateParameters(employeeAttendance);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeAttendanceBatchUpdateArgs(List<EmployeeAttendance> employeeAttendanceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeAttendance employeeAttendance:employeeAttendanceList ){
 			if(!employeeAttendance.isChanged()){
@@ -378,40 +382,40 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			}
 			Object [] parameters = prepareEmployeeAttendanceUpdateParameters(employeeAttendance);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeAttendanceCreate(List<EmployeeAttendance> employeeAttendanceList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeAttendanceBatchCreateArgs(employeeAttendanceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeAttendanceUpdate(List<EmployeeAttendance> employeeAttendanceList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeAttendanceBatchUpdateArgs(employeeAttendanceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeAttendanceList(List<EmployeeAttendance> employeeAttendanceList){
-		
+
 		List<EmployeeAttendance> employeeAttendanceCreateList=new ArrayList<EmployeeAttendance>();
 		List<EmployeeAttendance> employeeAttendanceUpdateList=new ArrayList<EmployeeAttendance>();
-		
+
 		for(EmployeeAttendance employeeAttendance: employeeAttendanceList){
 			if(isUpdateRequest(employeeAttendance)){
 				employeeAttendanceUpdateList.add( employeeAttendance);
@@ -419,10 +423,10 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			}
 			employeeAttendanceCreateList.add(employeeAttendance);
 		}
-		
+
 		return new Object[]{employeeAttendanceCreateList,employeeAttendanceUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(EmployeeAttendance employeeAttendance){
  		return employeeAttendance.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeAttendanceParameters(EmployeeAttendance employeeAttendance){
  		if(isUpdateRequest(employeeAttendance) ){
  			return prepareEmployeeAttendanceUpdateParameters(employeeAttendance);
@@ -441,7 +445,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  	}
  	protected Object[] prepareEmployeeAttendanceUpdateParameters(EmployeeAttendance employeeAttendance){
  		Object[] parameters = new Object[8];
-  	
+ 
  		if(employeeAttendance.getEmployee() != null){
  			parameters[0] = employeeAttendance.getEmployee().getId();
  		}
@@ -457,22 +461,24 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		
  		
  		parameters[4] = employeeAttendance.getRemark();
- 				
+ 		
  		parameters[5] = employeeAttendance.nextVersion();
  		parameters[6] = employeeAttendance.getId();
  		parameters[7] = employeeAttendance.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeAttendanceCreateParameters(EmployeeAttendance employeeAttendance){
 		Object[] parameters = new Object[6];
-		String newEmployeeAttendanceId=getNextId();
-		employeeAttendance.setId(newEmployeeAttendanceId);
+        if(employeeAttendance.getId() == null){
+          String newEmployeeAttendanceId=getNextId();
+          employeeAttendance.setId(newEmployeeAttendanceId);
+        }
 		parameters[0] =  employeeAttendance.getId();
-  	
+ 
  		if(employeeAttendance.getEmployee() != null){
  			parameters[1] = employeeAttendance.getEmployee().getId();
- 		
+
  		}
  		
  		
@@ -486,44 +492,44 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		
  		
  		parameters[5] = employeeAttendance.getRemark();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected EmployeeAttendance saveInternalEmployeeAttendance(EmployeeAttendance employeeAttendance, Map<String,Object> options){
-		
+
 		saveEmployeeAttendance(employeeAttendance);
- 	
+
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeAttendance, options);
  		}
  
 		
 		return employeeAttendance;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected EmployeeAttendance saveEmployee(EmployeeAttendance employeeAttendance, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeAttendance.getEmployee() == null){
  			return employeeAttendance;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(employeeAttendance.getEmployee(),options);
  		return employeeAttendance;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -543,47 +549,53 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	protected String getTableName(){
 		return EmployeeAttendanceTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<EmployeeAttendance> employeeAttendanceList) {		
+
+
+
+	public void enhanceList(List<EmployeeAttendance> employeeAttendanceList) {
 		this.enhanceListInternal(employeeAttendanceList, this.getEmployeeAttendanceMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeAttendance> employeeAttendanceList = ownerEntity.collectRefsWithType(EmployeeAttendance.INTERNAL_TYPE);
 		this.enhanceList(employeeAttendanceList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<EmployeeAttendance> findEmployeeAttendanceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeAttendanceMapper());
 
 	}
 	@Override
 	public int countEmployeeAttendanceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeAttendanceWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<EmployeeAttendance> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeAttendanceMapper());
 	}
+
+  @Override
+  public Stream<EmployeeAttendance> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeAttendanceMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -612,7 +624,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 		return result;
 	}
-	
+
 	
 
 }

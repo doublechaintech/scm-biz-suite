@@ -45,7 +45,7 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ConsumerOrderDAO{
 
@@ -161,50 +161,54 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 	return this.retailStoreMemberGiftCardConsumeRecordDAO;
  	}	
 
-	
+
 	/*
 	protected ConsumerOrder load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalConsumerOrder(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<ConsumerOrder> loadAll() {
 	    return this.loadAll(getConsumerOrderMapper());
 	}
-	
-	
+
+  public Stream<ConsumerOrder> loadAllAsStream() {
+      return this.loadAllAsStream(getConsumerOrderMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public ConsumerOrder load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalConsumerOrder(ConsumerOrderTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public ConsumerOrder save(ConsumerOrder consumerOrder,Map<String,Object> options){
-		
+
 		String methodName="save(ConsumerOrder consumerOrder,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(consumerOrder, methodName, "consumerOrder");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalConsumerOrder(consumerOrder,options);
 	}
 	public ConsumerOrder clone(String consumerOrderId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(ConsumerOrderTable.withId(consumerOrderId),options);
 	}
-	
+
 	protected ConsumerOrder clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String consumerOrderId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		ConsumerOrder newConsumerOrder = loadInternalConsumerOrder(accessKey, options);
 		newConsumerOrder.setVersion(0);
 		
@@ -245,15 +249,15 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
 		
 
-		
+
 		saveInternalConsumerOrder(newConsumerOrder,options);
-		
+
 		return newConsumerOrder;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String consumerOrderId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -269,15 +273,15 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String consumerOrderId, int version) throws Exception{
-	
+
 		String methodName="delete(String consumerOrderId, int version)";
 		assertMethodArgumentNotNull(consumerOrderId, methodName, "consumerOrderId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{consumerOrderId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -287,26 +291,26 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(affectedNumber == 0){
 			handleDeleteOneError(consumerOrderId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public ConsumerOrder disconnectFromAll(String consumerOrderId, int version) throws Exception{
-	
-		
+
+
 		ConsumerOrder consumerOrder = loadInternalConsumerOrder(ConsumerOrderTable.withId(consumerOrderId), emptyOptions());
 		consumerOrder.clearFromAll();
 		this.saveConsumerOrder(consumerOrder);
 		return consumerOrder;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -314,15 +318,15 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "consumer_order";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "consumerOrder";
 	}
-	
+
 	
 	
 	
@@ -928,7 +932,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return consumerOrder;
 		}
 		
-		
+
 		String SQL=this.getSaveConsumerOrderSQL(consumerOrder);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveConsumerOrderParameters(consumerOrder);
@@ -937,57 +941,57 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		consumerOrder.incVersion();
 		return consumerOrder;
-	
+
 	}
 	public SmartList<ConsumerOrder> saveConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitConsumerOrderList(consumerOrderList);
-		
+
 		batchConsumerOrderCreate((List<ConsumerOrder>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchConsumerOrderUpdate((List<ConsumerOrder>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(ConsumerOrder consumerOrder:consumerOrderList){
 			if(consumerOrder.isChanged()){
 				consumerOrder.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return consumerOrderList;
 	}
 
 	public SmartList<ConsumerOrder> removeConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(consumerOrderList, options);
-		
+
 		return consumerOrderList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareConsumerOrderBatchCreateArgs(List<ConsumerOrder> consumerOrderList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ConsumerOrder consumerOrder:consumerOrderList ){
 			Object [] parameters = prepareConsumerOrderCreateParameters(consumerOrder);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareConsumerOrderBatchUpdateArgs(List<ConsumerOrder> consumerOrderList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ConsumerOrder consumerOrder:consumerOrderList ){
 			if(!consumerOrder.isChanged()){
@@ -995,40 +999,40 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			Object [] parameters = prepareConsumerOrderUpdateParameters(consumerOrder);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchConsumerOrderCreate(List<ConsumerOrder> consumerOrderList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareConsumerOrderBatchCreateArgs(consumerOrderList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchConsumerOrderUpdate(List<ConsumerOrder> consumerOrderList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareConsumerOrderBatchUpdateArgs(consumerOrderList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitConsumerOrderList(List<ConsumerOrder> consumerOrderList){
-		
+
 		List<ConsumerOrder> consumerOrderCreateList=new ArrayList<ConsumerOrder>();
 		List<ConsumerOrder> consumerOrderUpdateList=new ArrayList<ConsumerOrder>();
-		
+
 		for(ConsumerOrder consumerOrder: consumerOrderList){
 			if(isUpdateRequest(consumerOrder)){
 				consumerOrderUpdateList.add( consumerOrder);
@@ -1036,10 +1040,10 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			consumerOrderCreateList.add(consumerOrder);
 		}
-		
+
 		return new Object[]{consumerOrderCreateList,consumerOrderUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(ConsumerOrder consumerOrder){
  		return consumerOrder.getVersion() > 0;
  	}
@@ -1049,7 +1053,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveConsumerOrderParameters(ConsumerOrder consumerOrder){
  		if(isUpdateRequest(consumerOrder) ){
  			return prepareConsumerOrderUpdateParameters(consumerOrder);
@@ -1061,58 +1065,60 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  
  		
  		parameters[0] = consumerOrder.getTitle();
- 		 	
+ 		
  		if(consumerOrder.getConsumer() != null){
  			parameters[1] = consumerOrder.getConsumer().getId();
  		}
-  	
+ 
  		if(consumerOrder.getStore() != null){
  			parameters[2] = consumerOrder.getStore().getId();
  		}
  
  		
  		parameters[3] = consumerOrder.getLastUpdateTime();
- 				
+ 		
  		parameters[4] = consumerOrder.nextVersion();
  		parameters[5] = consumerOrder.getId();
  		parameters[6] = consumerOrder.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareConsumerOrderCreateParameters(ConsumerOrder consumerOrder){
 		Object[] parameters = new Object[5];
-		String newConsumerOrderId=getNextId();
-		consumerOrder.setId(newConsumerOrderId);
+        if(consumerOrder.getId() == null){
+          String newConsumerOrderId=getNextId();
+          consumerOrder.setId(newConsumerOrderId);
+        }
 		parameters[0] =  consumerOrder.getId();
  
  		
  		parameters[1] = consumerOrder.getTitle();
- 		 	
+ 		
  		if(consumerOrder.getConsumer() != null){
  			parameters[2] = consumerOrder.getConsumer().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(consumerOrder.getStore() != null){
  			parameters[3] = consumerOrder.getStore().getId();
- 		
+
  		}
  		
  		
  		parameters[4] = consumerOrder.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected ConsumerOrder saveInternalConsumerOrder(ConsumerOrder consumerOrder, Map<String,Object> options){
-		
+
 		saveConsumerOrder(consumerOrder);
- 	
+
  		if(isSaveConsumerEnabled(options)){
 	 		saveConsumer(consumerOrder, options);
  		}
-  	
+ 
  		if(isSaveStoreEnabled(options)){
 	 		saveStore(consumerOrder, options);
  		}
@@ -1122,87 +1128,87 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 		saveConsumerOrderLineItemList(consumerOrder, options);
 	 		//removeConsumerOrderLineItemList(consumerOrder, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveConsumerOrderShippingGroupListEnabled(options)){
 	 		saveConsumerOrderShippingGroupList(consumerOrder, options);
 	 		//removeConsumerOrderShippingGroupList(consumerOrder, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveConsumerOrderPaymentGroupListEnabled(options)){
 	 		saveConsumerOrderPaymentGroupList(consumerOrder, options);
 	 		//removeConsumerOrderPaymentGroupList(consumerOrder, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveConsumerOrderPriceAdjustmentListEnabled(options)){
 	 		saveConsumerOrderPriceAdjustmentList(consumerOrder, options);
 	 		//removeConsumerOrderPriceAdjustmentList(consumerOrder, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveRetailStoreMemberGiftCardConsumeRecordListEnabled(options)){
 	 		saveRetailStoreMemberGiftCardConsumeRecordList(consumerOrder, options);
 	 		//removeRetailStoreMemberGiftCardConsumeRecordList(consumerOrder, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return consumerOrder;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected ConsumerOrder saveConsumer(ConsumerOrder consumerOrder, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(consumerOrder.getConsumer() == null){
  			return consumerOrder;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreMemberDAO().save(consumerOrder.getConsumer(),options);
  		return consumerOrder;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected ConsumerOrder saveStore(ConsumerOrder consumerOrder, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(consumerOrder.getStore() == null){
  			return consumerOrder;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreDAO().save(consumerOrder.getStore(),options);
  		return consumerOrder;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public ConsumerOrder planToRemoveConsumerOrderLineItemList(ConsumerOrder consumerOrder, String consumerOrderLineItemIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ConsumerOrderLineItem.BIZ_ORDER_PROPERTY, consumerOrder.getId());
 		key.put(ConsumerOrderLineItem.ID_PROPERTY, consumerOrderLineItemIds);
-		
+
 		SmartList<ConsumerOrderLineItem> externalConsumerOrderLineItemList = getConsumerOrderLineItemDAO().
 				findConsumerOrderLineItemWithKey(key, options);
 		if(externalConsumerOrderLineItemList == null){
@@ -1211,70 +1217,26 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalConsumerOrderLineItemList.isEmpty()){
 			return consumerOrder;
 		}
-		
+
 		for(ConsumerOrderLineItem consumerOrderLineItemItem: externalConsumerOrderLineItemList){
 
 			consumerOrderLineItemItem.clearFromAll();
 		}
-		
-		
-		SmartList<ConsumerOrderLineItem> consumerOrderLineItemList = consumerOrder.getConsumerOrderLineItemList();		
-		consumerOrderLineItemList.addAllToRemoveList(externalConsumerOrderLineItemList);
-		return consumerOrder;	
-	
-	}
 
 
-	//disconnect ConsumerOrder with sku_id in ConsumerOrderLineItem
-	public ConsumerOrder planToRemoveConsumerOrderLineItemListWithSkuId(ConsumerOrder consumerOrder, String skuIdId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(ConsumerOrderLineItem.BIZ_ORDER_PROPERTY, consumerOrder.getId());
-		key.put(ConsumerOrderLineItem.SKU_ID_PROPERTY, skuIdId);
-		
-		SmartList<ConsumerOrderLineItem> externalConsumerOrderLineItemList = getConsumerOrderLineItemDAO().
-				findConsumerOrderLineItemWithKey(key, options);
-		if(externalConsumerOrderLineItemList == null){
-			return consumerOrder;
-		}
-		if(externalConsumerOrderLineItemList.isEmpty()){
-			return consumerOrder;
-		}
-		
-		for(ConsumerOrderLineItem consumerOrderLineItemItem: externalConsumerOrderLineItemList){
-			consumerOrderLineItemItem.clearSkuId();
-			consumerOrderLineItemItem.clearBizOrder();
-			
-		}
-		
-		
-		SmartList<ConsumerOrderLineItem> consumerOrderLineItemList = consumerOrder.getConsumerOrderLineItemList();		
+		SmartList<ConsumerOrderLineItem> consumerOrderLineItemList = consumerOrder.getConsumerOrderLineItemList();
 		consumerOrderLineItemList.addAllToRemoveList(externalConsumerOrderLineItemList);
 		return consumerOrder;
-	}
-	
-	public int countConsumerOrderLineItemListWithSkuId(String consumerOrderId, String skuIdId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
 
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(ConsumerOrderLineItem.BIZ_ORDER_PROPERTY, consumerOrderId);
-		key.put(ConsumerOrderLineItem.SKU_ID_PROPERTY, skuIdId);
-		
-		int count = getConsumerOrderLineItemDAO().countConsumerOrderLineItemWithKey(key, options);
-		return count;
 	}
-	
+
+
 	public ConsumerOrder planToRemoveConsumerOrderShippingGroupList(ConsumerOrder consumerOrder, String consumerOrderShippingGroupIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ConsumerOrderShippingGroup.BIZ_ORDER_PROPERTY, consumerOrder.getId());
 		key.put(ConsumerOrderShippingGroup.ID_PROPERTY, consumerOrderShippingGroupIds);
-		
+
 		SmartList<ConsumerOrderShippingGroup> externalConsumerOrderShippingGroupList = getConsumerOrderShippingGroupDAO().
 				findConsumerOrderShippingGroupWithKey(key, options);
 		if(externalConsumerOrderShippingGroupList == null){
@@ -1283,26 +1245,26 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalConsumerOrderShippingGroupList.isEmpty()){
 			return consumerOrder;
 		}
-		
+
 		for(ConsumerOrderShippingGroup consumerOrderShippingGroupItem: externalConsumerOrderShippingGroupList){
 
 			consumerOrderShippingGroupItem.clearFromAll();
 		}
-		
-		
-		SmartList<ConsumerOrderShippingGroup> consumerOrderShippingGroupList = consumerOrder.getConsumerOrderShippingGroupList();		
+
+
+		SmartList<ConsumerOrderShippingGroup> consumerOrderShippingGroupList = consumerOrder.getConsumerOrderShippingGroupList();
 		consumerOrderShippingGroupList.addAllToRemoveList(externalConsumerOrderShippingGroupList);
-		return consumerOrder;	
-	
+		return consumerOrder;
+
 	}
 
 
 	public ConsumerOrder planToRemoveConsumerOrderPaymentGroupList(ConsumerOrder consumerOrder, String consumerOrderPaymentGroupIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ConsumerOrderPaymentGroup.BIZ_ORDER_PROPERTY, consumerOrder.getId());
 		key.put(ConsumerOrderPaymentGroup.ID_PROPERTY, consumerOrderPaymentGroupIds);
-		
+
 		SmartList<ConsumerOrderPaymentGroup> externalConsumerOrderPaymentGroupList = getConsumerOrderPaymentGroupDAO().
 				findConsumerOrderPaymentGroupWithKey(key, options);
 		if(externalConsumerOrderPaymentGroupList == null){
@@ -1311,26 +1273,26 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalConsumerOrderPaymentGroupList.isEmpty()){
 			return consumerOrder;
 		}
-		
+
 		for(ConsumerOrderPaymentGroup consumerOrderPaymentGroupItem: externalConsumerOrderPaymentGroupList){
 
 			consumerOrderPaymentGroupItem.clearFromAll();
 		}
-		
-		
-		SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList = consumerOrder.getConsumerOrderPaymentGroupList();		
+
+
+		SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList = consumerOrder.getConsumerOrderPaymentGroupList();
 		consumerOrderPaymentGroupList.addAllToRemoveList(externalConsumerOrderPaymentGroupList);
-		return consumerOrder;	
-	
+		return consumerOrder;
+
 	}
 
 
 	public ConsumerOrder planToRemoveConsumerOrderPriceAdjustmentList(ConsumerOrder consumerOrder, String consumerOrderPriceAdjustmentIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ConsumerOrderPriceAdjustment.BIZ_ORDER_PROPERTY, consumerOrder.getId());
 		key.put(ConsumerOrderPriceAdjustment.ID_PROPERTY, consumerOrderPriceAdjustmentIds);
-		
+
 		SmartList<ConsumerOrderPriceAdjustment> externalConsumerOrderPriceAdjustmentList = getConsumerOrderPriceAdjustmentDAO().
 				findConsumerOrderPriceAdjustmentWithKey(key, options);
 		if(externalConsumerOrderPriceAdjustmentList == null){
@@ -1339,26 +1301,26 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalConsumerOrderPriceAdjustmentList.isEmpty()){
 			return consumerOrder;
 		}
-		
+
 		for(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustmentItem: externalConsumerOrderPriceAdjustmentList){
 
 			consumerOrderPriceAdjustmentItem.clearFromAll();
 		}
-		
-		
-		SmartList<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList = consumerOrder.getConsumerOrderPriceAdjustmentList();		
+
+
+		SmartList<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList = consumerOrder.getConsumerOrderPriceAdjustmentList();
 		consumerOrderPriceAdjustmentList.addAllToRemoveList(externalConsumerOrderPriceAdjustmentList);
-		return consumerOrder;	
-	
+		return consumerOrder;
+
 	}
 
 
 	public ConsumerOrder planToRemoveRetailStoreMemberGiftCardConsumeRecordList(ConsumerOrder consumerOrder, String retailStoreMemberGiftCardConsumeRecordIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreMemberGiftCardConsumeRecord.BIZ_ORDER_PROPERTY, consumerOrder.getId());
 		key.put(RetailStoreMemberGiftCardConsumeRecord.ID_PROPERTY, retailStoreMemberGiftCardConsumeRecordIds);
-		
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> externalRetailStoreMemberGiftCardConsumeRecordList = getRetailStoreMemberGiftCardConsumeRecordDAO().
 				findRetailStoreMemberGiftCardConsumeRecordWithKey(key, options);
 		if(externalRetailStoreMemberGiftCardConsumeRecordList == null){
@@ -1367,17 +1329,17 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalRetailStoreMemberGiftCardConsumeRecordList.isEmpty()){
 			return consumerOrder;
 		}
-		
+
 		for(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordItem: externalRetailStoreMemberGiftCardConsumeRecordList){
 
 			retailStoreMemberGiftCardConsumeRecordItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = consumerOrder.getRetailStoreMemberGiftCardConsumeRecordList();		
+
+
+		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = consumerOrder.getRetailStoreMemberGiftCardConsumeRecordList();
 		retailStoreMemberGiftCardConsumeRecordList.addAllToRemoveList(externalRetailStoreMemberGiftCardConsumeRecordList);
-		return consumerOrder;	
-	
+		return consumerOrder;
+
 	}
 
 
@@ -1386,11 +1348,11 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreMemberGiftCardConsumeRecord.BIZ_ORDER_PROPERTY, consumerOrder.getId());
 		key.put(RetailStoreMemberGiftCardConsumeRecord.OWNER_PROPERTY, ownerId);
-		
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> externalRetailStoreMemberGiftCardConsumeRecordList = getRetailStoreMemberGiftCardConsumeRecordDAO().
 				findRetailStoreMemberGiftCardConsumeRecordWithKey(key, options);
 		if(externalRetailStoreMemberGiftCardConsumeRecordList == null){
@@ -1399,19 +1361,19 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalRetailStoreMemberGiftCardConsumeRecordList.isEmpty()){
 			return consumerOrder;
 		}
-		
+
 		for(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordItem: externalRetailStoreMemberGiftCardConsumeRecordList){
 			retailStoreMemberGiftCardConsumeRecordItem.clearOwner();
 			retailStoreMemberGiftCardConsumeRecordItem.clearBizOrder();
-			
+
 		}
-		
-		
-		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = consumerOrder.getRetailStoreMemberGiftCardConsumeRecordList();		
+
+
+		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = consumerOrder.getRetailStoreMemberGiftCardConsumeRecordList();
 		retailStoreMemberGiftCardConsumeRecordList.addAllToRemoveList(externalRetailStoreMemberGiftCardConsumeRecordList);
 		return consumerOrder;
 	}
-	
+
 	public int countRetailStoreMemberGiftCardConsumeRecordListWithOwner(String consumerOrderId, String ownerId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1420,7 +1382,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreMemberGiftCardConsumeRecord.BIZ_ORDER_PROPERTY, consumerOrderId);
 		key.put(RetailStoreMemberGiftCardConsumeRecord.OWNER_PROPERTY, ownerId);
-		
+
 		int count = getRetailStoreMemberGiftCardConsumeRecordDAO().countRetailStoreMemberGiftCardConsumeRecordWithKey(key, options);
 		return count;
 	}
@@ -1428,19 +1390,19 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected ConsumerOrder saveConsumerOrderLineItemList(ConsumerOrder consumerOrder, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ConsumerOrderLineItem> consumerOrderLineItemList = consumerOrder.getConsumerOrderLineItemList();
 		if(consumerOrderLineItemList == null){
 			//null list means nothing
 			return consumerOrder;
 		}
 		SmartList<ConsumerOrderLineItem> mergedUpdateConsumerOrderLineItemList = new SmartList<ConsumerOrderLineItem>();
-		
-		
-		mergedUpdateConsumerOrderLineItemList.addAll(consumerOrderLineItemList); 
+
+
+		mergedUpdateConsumerOrderLineItemList.addAll(consumerOrderLineItemList);
 		if(consumerOrderLineItemList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateConsumerOrderLineItemList.addAll(consumerOrderLineItemList.getToRemoveList());
@@ -1449,28 +1411,28 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getConsumerOrderLineItemDAO().saveConsumerOrderLineItemList(mergedUpdateConsumerOrderLineItemList,options);
-		
+
 		if(consumerOrderLineItemList.getToRemoveList() != null){
 			consumerOrderLineItemList.removeAll(consumerOrderLineItemList.getToRemoveList());
 		}
-		
-		
+
+
 		return consumerOrder;
-	
+
 	}
-	
+
 	protected ConsumerOrder removeConsumerOrderLineItemList(ConsumerOrder consumerOrder, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ConsumerOrderLineItem> consumerOrderLineItemList = consumerOrder.getConsumerOrderLineItemList();
 		if(consumerOrderLineItemList == null){
 			return consumerOrder;
-		}	
-	
+		}
+
 		SmartList<ConsumerOrderLineItem> toRemoveConsumerOrderLineItemList = consumerOrderLineItemList.getToRemoveList();
-		
+
 		if(toRemoveConsumerOrderLineItemList == null){
 			return consumerOrder;
 		}
@@ -1478,35 +1440,35 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return consumerOrder;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getConsumerOrderLineItemDAO().removeConsumerOrderLineItemList(toRemoveConsumerOrderLineItemList,options);
-		
-		return consumerOrder;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getConsumerOrderLineItemDAO().removeConsumerOrderLineItemList(toRemoveConsumerOrderLineItemList,options);
+
+		return consumerOrder;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected ConsumerOrder saveConsumerOrderShippingGroupList(ConsumerOrder consumerOrder, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ConsumerOrderShippingGroup> consumerOrderShippingGroupList = consumerOrder.getConsumerOrderShippingGroupList();
 		if(consumerOrderShippingGroupList == null){
 			//null list means nothing
 			return consumerOrder;
 		}
 		SmartList<ConsumerOrderShippingGroup> mergedUpdateConsumerOrderShippingGroupList = new SmartList<ConsumerOrderShippingGroup>();
-		
-		
-		mergedUpdateConsumerOrderShippingGroupList.addAll(consumerOrderShippingGroupList); 
+
+
+		mergedUpdateConsumerOrderShippingGroupList.addAll(consumerOrderShippingGroupList);
 		if(consumerOrderShippingGroupList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateConsumerOrderShippingGroupList.addAll(consumerOrderShippingGroupList.getToRemoveList());
@@ -1515,28 +1477,28 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getConsumerOrderShippingGroupDAO().saveConsumerOrderShippingGroupList(mergedUpdateConsumerOrderShippingGroupList,options);
-		
+
 		if(consumerOrderShippingGroupList.getToRemoveList() != null){
 			consumerOrderShippingGroupList.removeAll(consumerOrderShippingGroupList.getToRemoveList());
 		}
-		
-		
+
+
 		return consumerOrder;
-	
+
 	}
-	
+
 	protected ConsumerOrder removeConsumerOrderShippingGroupList(ConsumerOrder consumerOrder, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ConsumerOrderShippingGroup> consumerOrderShippingGroupList = consumerOrder.getConsumerOrderShippingGroupList();
 		if(consumerOrderShippingGroupList == null){
 			return consumerOrder;
-		}	
-	
+		}
+
 		SmartList<ConsumerOrderShippingGroup> toRemoveConsumerOrderShippingGroupList = consumerOrderShippingGroupList.getToRemoveList();
-		
+
 		if(toRemoveConsumerOrderShippingGroupList == null){
 			return consumerOrder;
 		}
@@ -1544,35 +1506,35 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return consumerOrder;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getConsumerOrderShippingGroupDAO().removeConsumerOrderShippingGroupList(toRemoveConsumerOrderShippingGroupList,options);
-		
-		return consumerOrder;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getConsumerOrderShippingGroupDAO().removeConsumerOrderShippingGroupList(toRemoveConsumerOrderShippingGroupList,options);
+
+		return consumerOrder;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected ConsumerOrder saveConsumerOrderPaymentGroupList(ConsumerOrder consumerOrder, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList = consumerOrder.getConsumerOrderPaymentGroupList();
 		if(consumerOrderPaymentGroupList == null){
 			//null list means nothing
 			return consumerOrder;
 		}
 		SmartList<ConsumerOrderPaymentGroup> mergedUpdateConsumerOrderPaymentGroupList = new SmartList<ConsumerOrderPaymentGroup>();
-		
-		
-		mergedUpdateConsumerOrderPaymentGroupList.addAll(consumerOrderPaymentGroupList); 
+
+
+		mergedUpdateConsumerOrderPaymentGroupList.addAll(consumerOrderPaymentGroupList);
 		if(consumerOrderPaymentGroupList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateConsumerOrderPaymentGroupList.addAll(consumerOrderPaymentGroupList.getToRemoveList());
@@ -1581,28 +1543,28 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getConsumerOrderPaymentGroupDAO().saveConsumerOrderPaymentGroupList(mergedUpdateConsumerOrderPaymentGroupList,options);
-		
+
 		if(consumerOrderPaymentGroupList.getToRemoveList() != null){
 			consumerOrderPaymentGroupList.removeAll(consumerOrderPaymentGroupList.getToRemoveList());
 		}
-		
-		
+
+
 		return consumerOrder;
-	
+
 	}
-	
+
 	protected ConsumerOrder removeConsumerOrderPaymentGroupList(ConsumerOrder consumerOrder, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList = consumerOrder.getConsumerOrderPaymentGroupList();
 		if(consumerOrderPaymentGroupList == null){
 			return consumerOrder;
-		}	
-	
+		}
+
 		SmartList<ConsumerOrderPaymentGroup> toRemoveConsumerOrderPaymentGroupList = consumerOrderPaymentGroupList.getToRemoveList();
-		
+
 		if(toRemoveConsumerOrderPaymentGroupList == null){
 			return consumerOrder;
 		}
@@ -1610,35 +1572,35 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return consumerOrder;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getConsumerOrderPaymentGroupDAO().removeConsumerOrderPaymentGroupList(toRemoveConsumerOrderPaymentGroupList,options);
-		
-		return consumerOrder;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getConsumerOrderPaymentGroupDAO().removeConsumerOrderPaymentGroupList(toRemoveConsumerOrderPaymentGroupList,options);
+
+		return consumerOrder;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected ConsumerOrder saveConsumerOrderPriceAdjustmentList(ConsumerOrder consumerOrder, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList = consumerOrder.getConsumerOrderPriceAdjustmentList();
 		if(consumerOrderPriceAdjustmentList == null){
 			//null list means nothing
 			return consumerOrder;
 		}
 		SmartList<ConsumerOrderPriceAdjustment> mergedUpdateConsumerOrderPriceAdjustmentList = new SmartList<ConsumerOrderPriceAdjustment>();
-		
-		
-		mergedUpdateConsumerOrderPriceAdjustmentList.addAll(consumerOrderPriceAdjustmentList); 
+
+
+		mergedUpdateConsumerOrderPriceAdjustmentList.addAll(consumerOrderPriceAdjustmentList);
 		if(consumerOrderPriceAdjustmentList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateConsumerOrderPriceAdjustmentList.addAll(consumerOrderPriceAdjustmentList.getToRemoveList());
@@ -1647,28 +1609,28 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getConsumerOrderPriceAdjustmentDAO().saveConsumerOrderPriceAdjustmentList(mergedUpdateConsumerOrderPriceAdjustmentList,options);
-		
+
 		if(consumerOrderPriceAdjustmentList.getToRemoveList() != null){
 			consumerOrderPriceAdjustmentList.removeAll(consumerOrderPriceAdjustmentList.getToRemoveList());
 		}
-		
-		
+
+
 		return consumerOrder;
-	
+
 	}
-	
+
 	protected ConsumerOrder removeConsumerOrderPriceAdjustmentList(ConsumerOrder consumerOrder, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList = consumerOrder.getConsumerOrderPriceAdjustmentList();
 		if(consumerOrderPriceAdjustmentList == null){
 			return consumerOrder;
-		}	
-	
+		}
+
 		SmartList<ConsumerOrderPriceAdjustment> toRemoveConsumerOrderPriceAdjustmentList = consumerOrderPriceAdjustmentList.getToRemoveList();
-		
+
 		if(toRemoveConsumerOrderPriceAdjustmentList == null){
 			return consumerOrder;
 		}
@@ -1676,35 +1638,35 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return consumerOrder;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getConsumerOrderPriceAdjustmentDAO().removeConsumerOrderPriceAdjustmentList(toRemoveConsumerOrderPriceAdjustmentList,options);
-		
-		return consumerOrder;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getConsumerOrderPriceAdjustmentDAO().removeConsumerOrderPriceAdjustmentList(toRemoveConsumerOrderPriceAdjustmentList,options);
+
+		return consumerOrder;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected ConsumerOrder saveRetailStoreMemberGiftCardConsumeRecordList(ConsumerOrder consumerOrder, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = consumerOrder.getRetailStoreMemberGiftCardConsumeRecordList();
 		if(retailStoreMemberGiftCardConsumeRecordList == null){
 			//null list means nothing
 			return consumerOrder;
 		}
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> mergedUpdateRetailStoreMemberGiftCardConsumeRecordList = new SmartList<RetailStoreMemberGiftCardConsumeRecord>();
-		
-		
-		mergedUpdateRetailStoreMemberGiftCardConsumeRecordList.addAll(retailStoreMemberGiftCardConsumeRecordList); 
+
+
+		mergedUpdateRetailStoreMemberGiftCardConsumeRecordList.addAll(retailStoreMemberGiftCardConsumeRecordList);
 		if(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreMemberGiftCardConsumeRecordList.addAll(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList());
@@ -1713,28 +1675,28 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreMemberGiftCardConsumeRecordDAO().saveRetailStoreMemberGiftCardConsumeRecordList(mergedUpdateRetailStoreMemberGiftCardConsumeRecordList,options);
-		
+
 		if(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList() != null){
 			retailStoreMemberGiftCardConsumeRecordList.removeAll(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList());
 		}
-		
-		
+
+
 		return consumerOrder;
-	
+
 	}
-	
+
 	protected ConsumerOrder removeRetailStoreMemberGiftCardConsumeRecordList(ConsumerOrder consumerOrder, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = consumerOrder.getRetailStoreMemberGiftCardConsumeRecordList();
 		if(retailStoreMemberGiftCardConsumeRecordList == null){
 			return consumerOrder;
-		}	
-	
+		}
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> toRemoveRetailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCardConsumeRecordList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreMemberGiftCardConsumeRecordList == null){
 			return consumerOrder;
 		}
@@ -1742,20 +1704,20 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return consumerOrder;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreMemberGiftCardConsumeRecordDAO().removeRetailStoreMemberGiftCardConsumeRecordList(toRemoveRetailStoreMemberGiftCardConsumeRecordList,options);
-		
-		return consumerOrder;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreMemberGiftCardConsumeRecordDAO().removeRetailStoreMemberGiftCardConsumeRecordList(toRemoveRetailStoreMemberGiftCardConsumeRecordList,options);
+
+		return consumerOrder;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public ConsumerOrder present(ConsumerOrder consumerOrder,Map<String, Object> options){
@@ -1906,13 +1868,13 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	protected String getTableName(){
 		return ConsumerOrderTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<ConsumerOrder> consumerOrderList) {		
+
+
+
+	public void enhanceList(List<ConsumerOrder> consumerOrderList) {
 		this.enhanceListInternal(consumerOrderList, this.getConsumerOrderMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:ConsumerOrderLineItem的bizOrder的ConsumerOrderLineItemList
 	public SmartList<ConsumerOrderLineItem> loadOurConsumerOrderLineItemList(RetailscmUserContext userContext, List<ConsumerOrder> us, Map<String,Object> options) throws Exception{
@@ -2029,39 +1991,45 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrder> consumerOrderList = ownerEntity.collectRefsWithType(ConsumerOrder.INTERNAL_TYPE);
 		this.enhanceList(consumerOrderList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<ConsumerOrder> findConsumerOrderWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getConsumerOrderMapper());
 
 	}
 	@Override
 	public int countConsumerOrderWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countConsumerOrderWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<ConsumerOrder> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getConsumerOrderMapper());
 	}
+
+  @Override
+  public Stream<ConsumerOrder> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getConsumerOrderMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -2090,7 +2058,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 		return result;
 	}
-	
+
 	
 
 }

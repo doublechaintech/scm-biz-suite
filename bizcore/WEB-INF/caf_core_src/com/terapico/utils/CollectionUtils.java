@@ -1,16 +1,8 @@
 package com.terapico.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.terapico.caf.viewcomponent.ButtonViewComponent;
@@ -148,5 +140,37 @@ public class CollectionUtils {
 			return null;
 		}
 		return collection.iterator().next();
+	}
+
+	public static <K,V extends Comparable<V>> List<K> sortWithValue(Map<K, V> keyValueMap, boolean asc) {
+		if (keyValueMap == null || keyValueMap.isEmpty()) {
+			return new ArrayList<>();
+		}
+		List<Entry<K, V>> list = keyValueMap.entrySet().stream().collect(Collectors.toList());
+		Collections.sort(list, new Comparator<Entry<K, V>>() {
+			public int compare(Entry<K, V> o1, Entry<K, V> o2) {
+				if (o1.getValue() == o2.getValue()) {
+					return 0;
+				}
+				if (asc) {
+					if (o1.getValue() == null) {
+						return -1;
+					}
+					if (o2.getValue() == null) {
+						return 1;
+					}
+					return o1.getValue().compareTo(o2.getValue());
+				}else {
+					if (o1.getValue() == null) {
+						return 1;
+					}
+					if (o2.getValue() == null) {
+						return -1;
+					}
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			}
+		});
+		return list.stream().map(it->it.getKey()).collect(Collectors.toList());
 	}
 }

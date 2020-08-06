@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.consumerorder;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroup;
@@ -52,24 +50,24 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = ConsumerOrderTokens.start().withTokenFromListName(listName).done();
 		ConsumerOrder  consumerOrder = (ConsumerOrder) this.loadConsumerOrder(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = consumerOrder.collectRefercencesFromLists();
 		consumerOrderDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, consumerOrder, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new ConsumerOrderGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -132,7 +130,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).throwExceptionIfHasErrors( ConsumerOrderManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		ConsumerOrder consumerOrder = loadConsumerOrder( userContext, consumerOrderId, tokens);
  		//do some calc before sent to customer?
@@ -151,6 +149,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		
 		List<BaseEntity> entityListToNaming = consumerOrderToPresent.collectRefercencesFromLists();
 		consumerOrderDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,consumerOrder,tokens);
 		
 		return  consumerOrderToPresent;
 		
@@ -560,24 +561,6 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 
 
-	//disconnect ConsumerOrder with sku_id in ConsumerOrderLineItem
-	protected ConsumerOrder breakWithConsumerOrderLineItemBySkuId(RetailscmUserContext userContext, String consumerOrderId, String skuIdId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ConsumerOrder consumerOrder = loadConsumerOrder(userContext, consumerOrderId, allTokens());
-
-			synchronized(consumerOrder){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				consumerOrderDaoOf(userContext).planToRemoveConsumerOrderLineItemListWithSkuId(consumerOrder, skuIdId, this.emptyOptions());
-
-				consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderLineItemList().done());
-				return consumerOrder;
-			}
-	}
 	//disconnect ConsumerOrder with owner in RetailStoreMemberGiftCardConsumeRecord
 	protected ConsumerOrder breakWithRetailStoreMemberGiftCardConsumeRecordByOwner(RetailscmUserContext userContext, String consumerOrderId, String ownerId,  String [] tokensExpr)
 		 throws Exception{
@@ -635,7 +618,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.addConsumerOrderLineItem( consumerOrderLineItem );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderLineItemList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderLineItemManager().onNewInstanceCreated(userContext, consumerOrderLineItem);
+			consumerOrderLineItemManagerOf(userContext).onNewInstanceCreated(userContext, consumerOrderLineItem);
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -660,7 +643,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withConsumerOrderLineItemListList()
-				.searchConsumerOrderLineItemListWith(ConsumerOrderLineItem.ID_PROPERTY, "is", id).done();
+				.searchConsumerOrderLineItemListWith(ConsumerOrderLineItem.ID_PROPERTY, tokens().is(), id).done();
 
 		ConsumerOrder consumerOrderToUpdate = loadConsumerOrder(userContext, consumerOrderId, options);
 
@@ -669,7 +652,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		ConsumerOrderLineItem item = consumerOrderToUpdate.getConsumerOrderLineItemList().first();
-
+		beforeUpdateConsumerOrderLineItemProperties(userContext,item, consumerOrderId,id,skuId,skuName,price,quantity,amount,tokensExpr);
 		item.updateSkuId( skuId );
 		item.updateSkuName( skuName );
 		item.updatePrice( price );
@@ -684,6 +667,10 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateConsumerOrderLineItemProperties(RetailscmUserContext userContext, ConsumerOrderLineItem item, String consumerOrderId, String id,String skuId,String skuName,BigDecimal price,BigDecimal quantity,BigDecimal amount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ConsumerOrderLineItem createConsumerOrderLineItem(RetailscmUserContext userContext, String skuId, String skuName, BigDecimal price, BigDecimal quantity, BigDecimal amount) throws Exception{
 
@@ -792,7 +779,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.copyConsumerOrderLineItemFrom( consumerOrderLineItem );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderLineItemList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderLineItemManager().onNewInstanceCreated(userContext, (ConsumerOrderLineItem)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			consumerOrderLineItemManagerOf(userContext).onNewInstanceCreated(userContext, (ConsumerOrderLineItem)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -805,39 +792,29 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderLineItem(consumerOrderLineItemId);
 		checkerOf(userContext).checkVersionOfConsumerOrderLineItem(consumerOrderLineItemVersion);
-		
+
 
 		if(ConsumerOrderLineItem.SKU_ID_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSkuIdOfConsumerOrderLineItem(parseString(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderLineItem.SKU_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSkuNameOfConsumerOrderLineItem(parseString(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderLineItem.PRICE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPriceOfConsumerOrderLineItem(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderLineItem.QUANTITY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkQuantityOfConsumerOrderLineItem(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderLineItem.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfConsumerOrderLineItem(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -847,7 +824,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingConsumerOrderLineItem(userContext, consumerOrderId, consumerOrderLineItemId, consumerOrderLineItemVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withConsumerOrderLineItemList().searchConsumerOrderLineItemListWith(ConsumerOrderLineItem.ID_PROPERTY, "eq", consumerOrderLineItemId).done();
+		Map<String,Object> loadTokens = this.tokens().withConsumerOrderLineItemList().searchConsumerOrderLineItemListWith(ConsumerOrderLineItem.ID_PROPERTY, tokens().equals(), consumerOrderLineItemId).done();
 
 
 
@@ -858,13 +835,14 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//consumerOrder.removeConsumerOrderLineItem( consumerOrderLineItem );
 			//make changes to AcceleraterAccount.
-			ConsumerOrderLineItem consumerOrderLineItemIndex = createIndexedConsumerOrderLineItem(consumerOrderLineItemId, consumerOrderLineItemVersion);
+			ConsumerOrderLineItem consumerOrderLineItemIdVersionKey = createIndexedConsumerOrderLineItem(consumerOrderLineItemId, consumerOrderLineItemVersion);
 
-			ConsumerOrderLineItem consumerOrderLineItem = consumerOrder.findTheConsumerOrderLineItem(consumerOrderLineItemIndex);
+			ConsumerOrderLineItem consumerOrderLineItem = consumerOrder.findTheConsumerOrderLineItem(consumerOrderLineItemIdVersionKey);
 			if(consumerOrderLineItem == null){
-				throw new ConsumerOrderManagerException(consumerOrderLineItem+" is NOT FOUND" );
+				throw new ConsumerOrderManagerException(consumerOrderLineItemId+" is NOT FOUND" );
 			}
 
+			beforeUpdateConsumerOrderLineItem(userContext, consumerOrderLineItem, consumerOrderId, consumerOrderLineItemId, consumerOrderLineItemVersion, property, newValueExpr,  tokensExpr);
 			consumerOrderLineItem.changeProperty(property, newValueExpr);
 			consumerOrderLineItem.updateLastUpdateTime(userContext.now());
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderLineItemList().done());
@@ -872,6 +850,11 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateConsumerOrderLineItem(RetailscmUserContext userContext, ConsumerOrderLineItem existed, String consumerOrderId, String consumerOrderLineItemId, int consumerOrderLineItemVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -906,7 +889,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.addConsumerOrderShippingGroup( consumerOrderShippingGroup );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderShippingGroupList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderShippingGroupManager().onNewInstanceCreated(userContext, consumerOrderShippingGroup);
+			consumerOrderShippingGroupManagerOf(userContext).onNewInstanceCreated(userContext, consumerOrderShippingGroup);
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -928,7 +911,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withConsumerOrderShippingGroupListList()
-				.searchConsumerOrderShippingGroupListWith(ConsumerOrderShippingGroup.ID_PROPERTY, "is", id).done();
+				.searchConsumerOrderShippingGroupListWith(ConsumerOrderShippingGroup.ID_PROPERTY, tokens().is(), id).done();
 
 		ConsumerOrder consumerOrderToUpdate = loadConsumerOrder(userContext, consumerOrderId, options);
 
@@ -937,7 +920,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		ConsumerOrderShippingGroup item = consumerOrderToUpdate.getConsumerOrderShippingGroupList().first();
-
+		beforeUpdateConsumerOrderShippingGroupProperties(userContext,item, consumerOrderId,id,name,amount,tokensExpr);
 		item.updateName( name );
 		item.updateAmount( amount );
 
@@ -949,6 +932,10 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateConsumerOrderShippingGroupProperties(RetailscmUserContext userContext, ConsumerOrderShippingGroup item, String consumerOrderId, String id,String name,BigDecimal amount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ConsumerOrderShippingGroup createConsumerOrderShippingGroup(RetailscmUserContext userContext, String name, BigDecimal amount) throws Exception{
 
@@ -1053,7 +1040,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.copyConsumerOrderShippingGroupFrom( consumerOrderShippingGroup );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderShippingGroupList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderShippingGroupManager().onNewInstanceCreated(userContext, (ConsumerOrderShippingGroup)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			consumerOrderShippingGroupManagerOf(userContext).onNewInstanceCreated(userContext, (ConsumerOrderShippingGroup)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1066,21 +1053,17 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderShippingGroup(consumerOrderShippingGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderShippingGroup(consumerOrderShippingGroupVersion);
-		
+
 
 		if(ConsumerOrderShippingGroup.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfConsumerOrderShippingGroup(parseString(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderShippingGroup.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfConsumerOrderShippingGroup(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -1090,7 +1073,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingConsumerOrderShippingGroup(userContext, consumerOrderId, consumerOrderShippingGroupId, consumerOrderShippingGroupVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withConsumerOrderShippingGroupList().searchConsumerOrderShippingGroupListWith(ConsumerOrderShippingGroup.ID_PROPERTY, "eq", consumerOrderShippingGroupId).done();
+		Map<String,Object> loadTokens = this.tokens().withConsumerOrderShippingGroupList().searchConsumerOrderShippingGroupListWith(ConsumerOrderShippingGroup.ID_PROPERTY, tokens().equals(), consumerOrderShippingGroupId).done();
 
 
 
@@ -1101,13 +1084,14 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//consumerOrder.removeConsumerOrderShippingGroup( consumerOrderShippingGroup );
 			//make changes to AcceleraterAccount.
-			ConsumerOrderShippingGroup consumerOrderShippingGroupIndex = createIndexedConsumerOrderShippingGroup(consumerOrderShippingGroupId, consumerOrderShippingGroupVersion);
+			ConsumerOrderShippingGroup consumerOrderShippingGroupIdVersionKey = createIndexedConsumerOrderShippingGroup(consumerOrderShippingGroupId, consumerOrderShippingGroupVersion);
 
-			ConsumerOrderShippingGroup consumerOrderShippingGroup = consumerOrder.findTheConsumerOrderShippingGroup(consumerOrderShippingGroupIndex);
+			ConsumerOrderShippingGroup consumerOrderShippingGroup = consumerOrder.findTheConsumerOrderShippingGroup(consumerOrderShippingGroupIdVersionKey);
 			if(consumerOrderShippingGroup == null){
-				throw new ConsumerOrderManagerException(consumerOrderShippingGroup+" is NOT FOUND" );
+				throw new ConsumerOrderManagerException(consumerOrderShippingGroupId+" is NOT FOUND" );
 			}
 
+			beforeUpdateConsumerOrderShippingGroup(userContext, consumerOrderShippingGroup, consumerOrderId, consumerOrderShippingGroupId, consumerOrderShippingGroupVersion, property, newValueExpr,  tokensExpr);
 			consumerOrderShippingGroup.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderShippingGroupList().done());
@@ -1115,6 +1099,11 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateConsumerOrderShippingGroup(RetailscmUserContext userContext, ConsumerOrderShippingGroup existed, String consumerOrderId, String consumerOrderShippingGroupId, int consumerOrderShippingGroupVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1149,7 +1138,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.addConsumerOrderPaymentGroup( consumerOrderPaymentGroup );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPaymentGroupList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderPaymentGroupManager().onNewInstanceCreated(userContext, consumerOrderPaymentGroup);
+			consumerOrderPaymentGroupManagerOf(userContext).onNewInstanceCreated(userContext, consumerOrderPaymentGroup);
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1171,7 +1160,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withConsumerOrderPaymentGroupListList()
-				.searchConsumerOrderPaymentGroupListWith(ConsumerOrderPaymentGroup.ID_PROPERTY, "is", id).done();
+				.searchConsumerOrderPaymentGroupListWith(ConsumerOrderPaymentGroup.ID_PROPERTY, tokens().is(), id).done();
 
 		ConsumerOrder consumerOrderToUpdate = loadConsumerOrder(userContext, consumerOrderId, options);
 
@@ -1180,7 +1169,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		ConsumerOrderPaymentGroup item = consumerOrderToUpdate.getConsumerOrderPaymentGroupList().first();
-
+		beforeUpdateConsumerOrderPaymentGroupProperties(userContext,item, consumerOrderId,id,name,cardNumber,tokensExpr);
 		item.updateName( name );
 		item.updateCardNumber( cardNumber );
 
@@ -1192,6 +1181,10 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateConsumerOrderPaymentGroupProperties(RetailscmUserContext userContext, ConsumerOrderPaymentGroup item, String consumerOrderId, String id,String name,String cardNumber, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ConsumerOrderPaymentGroup createConsumerOrderPaymentGroup(RetailscmUserContext userContext, String name, String cardNumber) throws Exception{
 
@@ -1296,7 +1289,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.copyConsumerOrderPaymentGroupFrom( consumerOrderPaymentGroup );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPaymentGroupList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderPaymentGroupManager().onNewInstanceCreated(userContext, (ConsumerOrderPaymentGroup)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			consumerOrderPaymentGroupManagerOf(userContext).onNewInstanceCreated(userContext, (ConsumerOrderPaymentGroup)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1309,21 +1302,17 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupVersion);
-		
+
 
 		if(ConsumerOrderPaymentGroup.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfConsumerOrderPaymentGroup(parseString(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderPaymentGroup.CARD_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCardNumberOfConsumerOrderPaymentGroup(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -1333,7 +1322,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingConsumerOrderPaymentGroup(userContext, consumerOrderId, consumerOrderPaymentGroupId, consumerOrderPaymentGroupVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withConsumerOrderPaymentGroupList().searchConsumerOrderPaymentGroupListWith(ConsumerOrderPaymentGroup.ID_PROPERTY, "eq", consumerOrderPaymentGroupId).done();
+		Map<String,Object> loadTokens = this.tokens().withConsumerOrderPaymentGroupList().searchConsumerOrderPaymentGroupListWith(ConsumerOrderPaymentGroup.ID_PROPERTY, tokens().equals(), consumerOrderPaymentGroupId).done();
 
 
 
@@ -1344,13 +1333,14 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//consumerOrder.removeConsumerOrderPaymentGroup( consumerOrderPaymentGroup );
 			//make changes to AcceleraterAccount.
-			ConsumerOrderPaymentGroup consumerOrderPaymentGroupIndex = createIndexedConsumerOrderPaymentGroup(consumerOrderPaymentGroupId, consumerOrderPaymentGroupVersion);
+			ConsumerOrderPaymentGroup consumerOrderPaymentGroupIdVersionKey = createIndexedConsumerOrderPaymentGroup(consumerOrderPaymentGroupId, consumerOrderPaymentGroupVersion);
 
-			ConsumerOrderPaymentGroup consumerOrderPaymentGroup = consumerOrder.findTheConsumerOrderPaymentGroup(consumerOrderPaymentGroupIndex);
+			ConsumerOrderPaymentGroup consumerOrderPaymentGroup = consumerOrder.findTheConsumerOrderPaymentGroup(consumerOrderPaymentGroupIdVersionKey);
 			if(consumerOrderPaymentGroup == null){
-				throw new ConsumerOrderManagerException(consumerOrderPaymentGroup+" is NOT FOUND" );
+				throw new ConsumerOrderManagerException(consumerOrderPaymentGroupId+" is NOT FOUND" );
 			}
 
+			beforeUpdateConsumerOrderPaymentGroup(userContext, consumerOrderPaymentGroup, consumerOrderId, consumerOrderPaymentGroupId, consumerOrderPaymentGroupVersion, property, newValueExpr,  tokensExpr);
 			consumerOrderPaymentGroup.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPaymentGroupList().done());
@@ -1358,6 +1348,11 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateConsumerOrderPaymentGroup(RetailscmUserContext userContext, ConsumerOrderPaymentGroup existed, String consumerOrderId, String consumerOrderPaymentGroupId, int consumerOrderPaymentGroupVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1394,7 +1389,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.addConsumerOrderPriceAdjustment( consumerOrderPriceAdjustment );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPriceAdjustmentList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderPriceAdjustmentManager().onNewInstanceCreated(userContext, consumerOrderPriceAdjustment);
+			consumerOrderPriceAdjustmentManagerOf(userContext).onNewInstanceCreated(userContext, consumerOrderPriceAdjustment);
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1417,7 +1412,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withConsumerOrderPriceAdjustmentListList()
-				.searchConsumerOrderPriceAdjustmentListWith(ConsumerOrderPriceAdjustment.ID_PROPERTY, "is", id).done();
+				.searchConsumerOrderPriceAdjustmentListWith(ConsumerOrderPriceAdjustment.ID_PROPERTY, tokens().is(), id).done();
 
 		ConsumerOrder consumerOrderToUpdate = loadConsumerOrder(userContext, consumerOrderId, options);
 
@@ -1426,7 +1421,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		ConsumerOrderPriceAdjustment item = consumerOrderToUpdate.getConsumerOrderPriceAdjustmentList().first();
-
+		beforeUpdateConsumerOrderPriceAdjustmentProperties(userContext,item, consumerOrderId,id,name,amount,provider,tokensExpr);
 		item.updateName( name );
 		item.updateAmount( amount );
 		item.updateProvider( provider );
@@ -1439,6 +1434,10 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateConsumerOrderPriceAdjustmentProperties(RetailscmUserContext userContext, ConsumerOrderPriceAdjustment item, String consumerOrderId, String id,String name,BigDecimal amount,String provider, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ConsumerOrderPriceAdjustment createConsumerOrderPriceAdjustment(RetailscmUserContext userContext, String name, BigDecimal amount, String provider) throws Exception{
 
@@ -1544,7 +1543,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.copyConsumerOrderPriceAdjustmentFrom( consumerOrderPriceAdjustment );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPriceAdjustmentList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderPriceAdjustmentManager().onNewInstanceCreated(userContext, (ConsumerOrderPriceAdjustment)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			consumerOrderPriceAdjustmentManagerOf(userContext).onNewInstanceCreated(userContext, (ConsumerOrderPriceAdjustment)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1557,27 +1556,21 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentVersion);
-		
+
 
 		if(ConsumerOrderPriceAdjustment.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfConsumerOrderPriceAdjustment(parseString(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderPriceAdjustment.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfConsumerOrderPriceAdjustment(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(ConsumerOrderPriceAdjustment.PROVIDER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkProviderOfConsumerOrderPriceAdjustment(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -1587,7 +1580,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingConsumerOrderPriceAdjustment(userContext, consumerOrderId, consumerOrderPriceAdjustmentId, consumerOrderPriceAdjustmentVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withConsumerOrderPriceAdjustmentList().searchConsumerOrderPriceAdjustmentListWith(ConsumerOrderPriceAdjustment.ID_PROPERTY, "eq", consumerOrderPriceAdjustmentId).done();
+		Map<String,Object> loadTokens = this.tokens().withConsumerOrderPriceAdjustmentList().searchConsumerOrderPriceAdjustmentListWith(ConsumerOrderPriceAdjustment.ID_PROPERTY, tokens().equals(), consumerOrderPriceAdjustmentId).done();
 
 
 
@@ -1598,13 +1591,14 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//consumerOrder.removeConsumerOrderPriceAdjustment( consumerOrderPriceAdjustment );
 			//make changes to AcceleraterAccount.
-			ConsumerOrderPriceAdjustment consumerOrderPriceAdjustmentIndex = createIndexedConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentId, consumerOrderPriceAdjustmentVersion);
+			ConsumerOrderPriceAdjustment consumerOrderPriceAdjustmentIdVersionKey = createIndexedConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentId, consumerOrderPriceAdjustmentVersion);
 
-			ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment = consumerOrder.findTheConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentIndex);
+			ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment = consumerOrder.findTheConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentIdVersionKey);
 			if(consumerOrderPriceAdjustment == null){
-				throw new ConsumerOrderManagerException(consumerOrderPriceAdjustment+" is NOT FOUND" );
+				throw new ConsumerOrderManagerException(consumerOrderPriceAdjustmentId+" is NOT FOUND" );
 			}
 
+			beforeUpdateConsumerOrderPriceAdjustment(userContext, consumerOrderPriceAdjustment, consumerOrderId, consumerOrderPriceAdjustmentId, consumerOrderPriceAdjustmentVersion, property, newValueExpr,  tokensExpr);
 			consumerOrderPriceAdjustment.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPriceAdjustmentList().done());
@@ -1612,6 +1606,11 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateConsumerOrderPriceAdjustment(RetailscmUserContext userContext, ConsumerOrderPriceAdjustment existed, String consumerOrderId, String consumerOrderPriceAdjustmentId, int consumerOrderPriceAdjustmentVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1650,7 +1649,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.addRetailStoreMemberGiftCardConsumeRecord( retailStoreMemberGiftCardConsumeRecord );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withRetailStoreMemberGiftCardConsumeRecordList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberGiftCardConsumeRecordManager().onNewInstanceCreated(userContext, retailStoreMemberGiftCardConsumeRecord);
+			retailStoreMemberGiftCardConsumeRecordManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreMemberGiftCardConsumeRecord);
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1673,7 +1672,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreMemberGiftCardConsumeRecordListList()
-				.searchRetailStoreMemberGiftCardConsumeRecordListWith(RetailStoreMemberGiftCardConsumeRecord.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreMemberGiftCardConsumeRecordListWith(RetailStoreMemberGiftCardConsumeRecord.ID_PROPERTY, tokens().is(), id).done();
 
 		ConsumerOrder consumerOrderToUpdate = loadConsumerOrder(userContext, consumerOrderId, options);
 
@@ -1682,7 +1681,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		RetailStoreMemberGiftCardConsumeRecord item = consumerOrderToUpdate.getRetailStoreMemberGiftCardConsumeRecordList().first();
-
+		beforeUpdateRetailStoreMemberGiftCardConsumeRecordProperties(userContext,item, consumerOrderId,id,occureTime,number,amount,tokensExpr);
 		item.updateOccureTime( occureTime );
 		item.updateNumber( number );
 		item.updateAmount( amount );
@@ -1695,6 +1694,10 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreMemberGiftCardConsumeRecordProperties(RetailscmUserContext userContext, RetailStoreMemberGiftCardConsumeRecord item, String consumerOrderId, String id,Date occureTime,String number,BigDecimal amount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreMemberGiftCardConsumeRecord createRetailStoreMemberGiftCardConsumeRecord(RetailscmUserContext userContext, Date occureTime, String ownerId, String number, BigDecimal amount) throws Exception{
 
@@ -1803,7 +1806,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrder.copyRetailStoreMemberGiftCardConsumeRecordFrom( retailStoreMemberGiftCardConsumeRecord );
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withRetailStoreMemberGiftCardConsumeRecordList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberGiftCardConsumeRecordManager().onNewInstanceCreated(userContext, (RetailStoreMemberGiftCardConsumeRecord)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreMemberGiftCardConsumeRecordManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreMemberGiftCardConsumeRecord)consumerOrder.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1816,27 +1819,21 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordVersion);
-		
+
 
 		if(RetailStoreMemberGiftCardConsumeRecord.OCCURE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkOccureTimeOfRetailStoreMemberGiftCardConsumeRecord(parseDate(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMemberGiftCardConsumeRecord.NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNumberOfRetailStoreMemberGiftCardConsumeRecord(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMemberGiftCardConsumeRecord.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfRetailStoreMemberGiftCardConsumeRecord(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -1846,7 +1843,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingRetailStoreMemberGiftCardConsumeRecord(userContext, consumerOrderId, retailStoreMemberGiftCardConsumeRecordId, retailStoreMemberGiftCardConsumeRecordVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberGiftCardConsumeRecordList().searchRetailStoreMemberGiftCardConsumeRecordListWith(RetailStoreMemberGiftCardConsumeRecord.ID_PROPERTY, "eq", retailStoreMemberGiftCardConsumeRecordId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberGiftCardConsumeRecordList().searchRetailStoreMemberGiftCardConsumeRecordListWith(RetailStoreMemberGiftCardConsumeRecord.ID_PROPERTY, tokens().equals(), retailStoreMemberGiftCardConsumeRecordId).done();
 
 
 
@@ -1857,13 +1854,14 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//consumerOrder.removeRetailStoreMemberGiftCardConsumeRecord( retailStoreMemberGiftCardConsumeRecord );
 			//make changes to AcceleraterAccount.
-			RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordIndex = createIndexedRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordId, retailStoreMemberGiftCardConsumeRecordVersion);
+			RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordIdVersionKey = createIndexedRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordId, retailStoreMemberGiftCardConsumeRecordVersion);
 
-			RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord = consumerOrder.findTheRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordIndex);
+			RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord = consumerOrder.findTheRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordIdVersionKey);
 			if(retailStoreMemberGiftCardConsumeRecord == null){
-				throw new ConsumerOrderManagerException(retailStoreMemberGiftCardConsumeRecord+" is NOT FOUND" );
+				throw new ConsumerOrderManagerException(retailStoreMemberGiftCardConsumeRecordId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreMemberGiftCardConsumeRecord(userContext, retailStoreMemberGiftCardConsumeRecord, consumerOrderId, retailStoreMemberGiftCardConsumeRecordId, retailStoreMemberGiftCardConsumeRecordVersion, property, newValueExpr,  tokensExpr);
 			retailStoreMemberGiftCardConsumeRecord.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withRetailStoreMemberGiftCardConsumeRecordList().done());
@@ -1871,6 +1869,11 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreMemberGiftCardConsumeRecord(RetailscmUserContext userContext, RetailStoreMemberGiftCardConsumeRecord existed, String consumerOrderId, String retailStoreMemberGiftCardConsumeRecordId, int retailStoreMemberGiftCardConsumeRecordVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1887,6 +1890,12 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    consumerOrderDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1978,6 +1987,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -2119,7 +2129,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -2163,7 +2173,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "5-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -2265,6 +2275,8 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

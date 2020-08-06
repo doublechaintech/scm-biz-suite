@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl implements OriginalVoucherDAO{
 
@@ -53,64 +53,68 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	 	return this.accountingDocumentDAO;
  	}	
 
-	
+
 	/*
 	protected OriginalVoucher load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalOriginalVoucher(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<OriginalVoucher> loadAll() {
 	    return this.loadAll(getOriginalVoucherMapper());
 	}
-	
-	
+
+  public Stream<OriginalVoucher> loadAllAsStream() {
+      return this.loadAllAsStream(getOriginalVoucherMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public OriginalVoucher load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalOriginalVoucher(OriginalVoucherTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public OriginalVoucher save(OriginalVoucher originalVoucher,Map<String,Object> options){
-		
+
 		String methodName="save(OriginalVoucher originalVoucher,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(originalVoucher, methodName, "originalVoucher");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalOriginalVoucher(originalVoucher,options);
 	}
 	public OriginalVoucher clone(String originalVoucherId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(OriginalVoucherTable.withId(originalVoucherId),options);
 	}
-	
+
 	protected OriginalVoucher clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String originalVoucherId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		OriginalVoucher newOriginalVoucher = loadInternalOriginalVoucher(accessKey, options);
 		newOriginalVoucher.setVersion(0);
 		
 		
 
-		
+
 		saveInternalOriginalVoucher(newOriginalVoucher,options);
-		
+
 		return newOriginalVoucher;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String originalVoucherId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String originalVoucherId, int version) throws Exception{
-	
+
 		String methodName="delete(String originalVoucherId, int version)";
 		assertMethodArgumentNotNull(originalVoucherId, methodName, "originalVoucherId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{originalVoucherId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(affectedNumber == 0){
 			handleDeleteOneError(originalVoucherId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public OriginalVoucher disconnectFromAll(String originalVoucherId, int version) throws Exception{
-	
-		
+
+
 		OriginalVoucher originalVoucher = loadInternalOriginalVoucher(OriginalVoucherTable.withId(originalVoucherId), emptyOptions());
 		originalVoucher.clearFromAll();
 		this.saveOriginalVoucher(originalVoucher);
 		return originalVoucher;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "original_voucher";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "originalVoucher";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return originalVoucher;
 		}
 		
-		
+
 		String SQL=this.getSaveOriginalVoucherSQL(originalVoucher);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveOriginalVoucherParameters(originalVoucher);
@@ -320,57 +324,57 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		originalVoucher.incVersion();
 		return originalVoucher;
-	
+
 	}
 	public SmartList<OriginalVoucher> saveOriginalVoucherList(SmartList<OriginalVoucher> originalVoucherList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitOriginalVoucherList(originalVoucherList);
-		
+
 		batchOriginalVoucherCreate((List<OriginalVoucher>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchOriginalVoucherUpdate((List<OriginalVoucher>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(OriginalVoucher originalVoucher:originalVoucherList){
 			if(originalVoucher.isChanged()){
 				originalVoucher.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return originalVoucherList;
 	}
 
 	public SmartList<OriginalVoucher> removeOriginalVoucherList(SmartList<OriginalVoucher> originalVoucherList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(originalVoucherList, options);
-		
+
 		return originalVoucherList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareOriginalVoucherBatchCreateArgs(List<OriginalVoucher> originalVoucherList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(OriginalVoucher originalVoucher:originalVoucherList ){
 			Object [] parameters = prepareOriginalVoucherCreateParameters(originalVoucher);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareOriginalVoucherBatchUpdateArgs(List<OriginalVoucher> originalVoucherList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(OriginalVoucher originalVoucher:originalVoucherList ){
 			if(!originalVoucher.isChanged()){
@@ -378,40 +382,40 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			}
 			Object [] parameters = prepareOriginalVoucherUpdateParameters(originalVoucher);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchOriginalVoucherCreate(List<OriginalVoucher> originalVoucherList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareOriginalVoucherBatchCreateArgs(originalVoucherList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchOriginalVoucherUpdate(List<OriginalVoucher> originalVoucherList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareOriginalVoucherBatchUpdateArgs(originalVoucherList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitOriginalVoucherList(List<OriginalVoucher> originalVoucherList){
-		
+
 		List<OriginalVoucher> originalVoucherCreateList=new ArrayList<OriginalVoucher>();
 		List<OriginalVoucher> originalVoucherUpdateList=new ArrayList<OriginalVoucher>();
-		
+
 		for(OriginalVoucher originalVoucher: originalVoucherList){
 			if(isUpdateRequest(originalVoucher)){
 				originalVoucherUpdateList.add( originalVoucher);
@@ -419,10 +423,10 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			}
 			originalVoucherCreateList.add(originalVoucher);
 		}
-		
+
 		return new Object[]{originalVoucherCreateList,originalVoucherUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(OriginalVoucher originalVoucher){
  		return originalVoucher.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveOriginalVoucherParameters(OriginalVoucher originalVoucher){
  		if(isUpdateRequest(originalVoucher) ){
  			return prepareOriginalVoucherUpdateParameters(originalVoucher);
@@ -456,21 +460,23 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
  		
  		parameters[4] = originalVoucher.getVoucherImage();
- 		 	
+ 		
  		if(originalVoucher.getBelongsTo() != null){
  			parameters[5] = originalVoucher.getBelongsTo().getId();
  		}
- 		
+ 
  		parameters[6] = originalVoucher.nextVersion();
  		parameters[7] = originalVoucher.getId();
  		parameters[8] = originalVoucher.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareOriginalVoucherCreateParameters(OriginalVoucher originalVoucher){
 		Object[] parameters = new Object[7];
-		String newOriginalVoucherId=getNextId();
-		originalVoucher.setId(newOriginalVoucherId);
+        if(originalVoucher.getId() == null){
+          String newOriginalVoucherId=getNextId();
+          originalVoucher.setId(newOriginalVoucherId);
+        }
 		parameters[0] =  originalVoucher.getId();
  
  		
@@ -487,49 +493,49 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
  		
  		parameters[5] = originalVoucher.getVoucherImage();
- 		 	
+ 		
  		if(originalVoucher.getBelongsTo() != null){
  			parameters[6] = originalVoucher.getBelongsTo().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected OriginalVoucher saveInternalOriginalVoucher(OriginalVoucher originalVoucher, Map<String,Object> options){
-		
+
 		saveOriginalVoucher(originalVoucher);
- 	
+
  		if(isSaveBelongsToEnabled(options)){
 	 		saveBelongsTo(originalVoucher, options);
  		}
  
 		
 		return originalVoucher;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected OriginalVoucher saveBelongsTo(OriginalVoucher originalVoucher, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(originalVoucher.getBelongsTo() == null){
  			return originalVoucher;//do nothing when it is null
  		}
- 		
+
  		getAccountingDocumentDAO().save(originalVoucher.getBelongsTo(),options);
  		return originalVoucher;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -549,47 +555,53 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	protected String getTableName(){
 		return OriginalVoucherTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<OriginalVoucher> originalVoucherList) {		
+
+
+
+	public void enhanceList(List<OriginalVoucher> originalVoucherList) {
 		this.enhanceListInternal(originalVoucherList, this.getOriginalVoucherMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<OriginalVoucher> originalVoucherList = ownerEntity.collectRefsWithType(OriginalVoucher.INTERNAL_TYPE);
 		this.enhanceList(originalVoucherList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<OriginalVoucher> findOriginalVoucherWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getOriginalVoucherMapper());
 
 	}
 	@Override
 	public int countOriginalVoucherWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countOriginalVoucherWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<OriginalVoucher> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getOriginalVoucherMapper());
 	}
+
+  @Override
+  public Stream<OriginalVoucher> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getOriginalVoucherMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -618,7 +630,7 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 		return result;
 	}
-	
+
 	
 
 }

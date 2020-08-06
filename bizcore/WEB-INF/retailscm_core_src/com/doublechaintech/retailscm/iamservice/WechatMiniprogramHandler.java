@@ -6,7 +6,7 @@ import com.doublechaintech.retailscm.RetailscmUserContext;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
 import com.terapico.utils.*;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
@@ -40,7 +40,7 @@ public class WechatMiniprogramHandler extends BaseIdentificationHandler {
 			}
 			Map<String, String> additionalInfo = (Map<String, String>) result.getLoginContext().getLoginTarget().getAdditionalInfo();
 			String openId = additionalInfo.get("openId");
-			SmartList<WechatMiniappIdentify> rcdList = getIdentifyRecords(userContext, result.getLoginContext());
+			SmartList<WechatMiniappIdentity> rcdList = getIdentifyRecords(userContext, result.getLoginContext());
 			if (rcdList == null) {
 				result.setAuthenticated(true);
 				result.setSuccess(false);
@@ -94,26 +94,26 @@ public class WechatMiniprogramHandler extends BaseIdentificationHandler {
 		String openId = additionalInfo.get("openId");
 		// String userSessionKey = additionalInfo.get("sessionKey");
 		String appId = additionalInfo.get("appId");
-		SmartList<WechatMiniappIdentify> rcdList = getIdentifyRecords(userContext, loginContext);
+		SmartList<WechatMiniappIdentity> rcdList = getIdentifyRecords(userContext, loginContext);
 		if (rcdList != null && rcdList.stream().anyMatch(it -> it.getSecUser().getId().equals(secUser.getId()))) {
 			// 要提防有重复的
 			return;
 		}
-		userContext.getManagerGroup().getWechatMiniappIdentifyManager().createWechatMiniappIdentify(userContext, openId,
+		userContext.getManagerGroup().getWechatMiniappIdentityManager().createWechatMiniappIdentity(userContext, openId,
 				appId, secUser.getId(), userContext.now());
 	}
 
-	protected SmartList<WechatMiniappIdentify> getIdentifyRecords(RetailscmUserContext userContext,
+	protected SmartList<WechatMiniappIdentity> getIdentifyRecords(RetailscmUserContext userContext,
 			LoginContext loginContext) {
 		Map<String, String> additionalInfo = (Map<String, String>) loginContext.getLoginTarget().getAdditionalInfo();
 		String openId = additionalInfo.get("openId");
 		// String userSessionKey = additionalInfo.get("sessionKey");
 		String appId = additionalInfo.get("appId");
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(WechatMiniappIdentify.APP_ID_PROPERTY, appId);
-		key.put(WechatMiniappIdentify.OPEN_ID_PROPERTY, openId);
-		SmartList<WechatMiniappIdentify> rcdList = userContext.getDAOGroup().getWechatMiniappIdentifyDAO()
-				.findWechatMiniappIdentifyWithKey(key, EO);
+		key.put(WechatMiniappIdentity.APP_ID_PROPERTY, appId);
+		key.put(WechatMiniappIdentity.OPEN_ID_PROPERTY, openId);
+		SmartList<WechatMiniappIdentity> rcdList = userContext.getDAOGroup().getWechatMiniappIdentityDAO()
+				.findWechatMiniappIdentityWithKey(key, EO);
 		return rcdList;
 	}
 

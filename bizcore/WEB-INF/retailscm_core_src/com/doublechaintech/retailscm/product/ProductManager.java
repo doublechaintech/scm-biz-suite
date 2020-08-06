@@ -17,6 +17,7 @@ public interface ProductManager extends BaseManager{
 	public Product createProduct(RetailscmUserContext userContext, String name,String parentCategoryId,String origin,String remark,String brand,String picture) throws Exception;
 	public Product updateProduct(RetailscmUserContext userContext,String productId, int productVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Product loadProduct(RetailscmUserContext userContext, String productId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Product internalSaveProduct(RetailscmUserContext userContext, Product product) throws Exception;
 	public Product internalSaveProduct(RetailscmUserContext userContext, Product product,Map<String,Object>option) throws Exception;
 

@@ -51,7 +51,7 @@ import com.doublechaintech.retailscm.receivingspace.ReceivingSpaceDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsDAO{
 
@@ -215,50 +215,54 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 	 	return this.goodsMovementDAO;
  	}	
 
-	
+
 	/*
 	protected Goods load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalGoods(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Goods> loadAll() {
 	    return this.loadAll(getGoodsMapper());
 	}
-	
-	
+
+  public Stream<Goods> loadAllAsStream() {
+      return this.loadAllAsStream(getGoodsMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Goods load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalGoods(GoodsTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Goods save(Goods goods,Map<String,Object> options){
-		
+
 		String methodName="save(Goods goods,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(goods, methodName, "goods");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalGoods(goods,options);
 	}
 	public Goods clone(String goodsId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(GoodsTable.withId(goodsId),options);
 	}
-	
+
 	protected Goods clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String goodsId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Goods newGoods = loadInternalGoods(accessKey, options);
 		newGoods.setVersion(0);
 		
@@ -271,15 +275,15 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
  		}
 		
 
-		
+
 		saveInternalGoods(newGoods,options);
-		
+
 		return newGoods;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String goodsId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -295,15 +299,15 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String goodsId, int version) throws Exception{
-	
+
 		String methodName="delete(String goodsId, int version)";
 		assertMethodArgumentNotNull(goodsId, methodName, "goodsId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{goodsId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -313,26 +317,26 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 		if(affectedNumber == 0){
 			handleDeleteOneError(goodsId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Goods disconnectFromAll(String goodsId, int version) throws Exception{
-	
-		
+
+
 		Goods goods = loadInternalGoods(GoodsTable.withId(goodsId), emptyOptions());
 		goods.clearFromAll();
 		this.saveGoods(goods);
 		return goods;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -340,15 +344,15 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "goods";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "goods";
 	}
-	
+
 	
 	
 	
@@ -1211,7 +1215,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 			return goods;
 		}
 		
-		
+
 		String SQL=this.getSaveGoodsSQL(goods);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsParameters(goods);
@@ -1220,57 +1224,57 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		goods.incVersion();
 		return goods;
-	
+
 	}
 	public SmartList<Goods> saveGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitGoodsList(goodsList);
-		
+
 		batchGoodsCreate((List<Goods>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchGoodsUpdate((List<Goods>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Goods goods:goodsList){
 			if(goods.isChanged()){
 				goods.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return goodsList;
 	}
 
 	public SmartList<Goods> removeGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(goodsList, options);
-		
+
 		return goodsList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareGoodsBatchCreateArgs(List<Goods> goodsList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Goods goods:goodsList ){
 			Object [] parameters = prepareGoodsCreateParameters(goods);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareGoodsBatchUpdateArgs(List<Goods> goodsList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Goods goods:goodsList ){
 			if(!goods.isChanged()){
@@ -1278,40 +1282,40 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 			}
 			Object [] parameters = prepareGoodsUpdateParameters(goods);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchGoodsCreate(List<Goods> goodsList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareGoodsBatchCreateArgs(goodsList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchGoodsUpdate(List<Goods> goodsList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareGoodsBatchUpdateArgs(goodsList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitGoodsList(List<Goods> goodsList){
-		
+
 		List<Goods> goodsCreateList=new ArrayList<Goods>();
 		List<Goods> goodsUpdateList=new ArrayList<Goods>();
-		
+
 		for(Goods goods: goodsList){
 			if(isUpdateRequest(goods)){
 				goodsUpdateList.add( goods);
@@ -1319,10 +1323,10 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 			}
 			goodsCreateList.add(goods);
 		}
-		
+
 		return new Object[]{goodsCreateList,goodsUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Goods goods){
  		return goods.getVersion() > 0;
  	}
@@ -1332,7 +1336,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveGoodsParameters(Goods goods){
  		if(isUpdateRequest(goods) ){
  			return prepareGoodsUpdateParameters(goods);
@@ -1356,53 +1360,55 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
  		
  		
  		parameters[4] = goods.getExpireTime();
- 		 	
+ 		
  		if(goods.getSku() != null){
  			parameters[5] = goods.getSku().getId();
  		}
-  	
+ 
  		if(goods.getReceivingSpace() != null){
  			parameters[6] = goods.getReceivingSpace().getId();
  		}
-  	
+ 
  		if(goods.getGoodsAllocation() != null){
  			parameters[7] = goods.getGoodsAllocation().getId();
  		}
-  	
+ 
  		if(goods.getSmartPallet() != null){
  			parameters[8] = goods.getSmartPallet().getId();
  		}
-  	
+ 
  		if(goods.getShippingSpace() != null){
  			parameters[9] = goods.getShippingSpace().getId();
  		}
-  	
+ 
  		if(goods.getTransportTask() != null){
  			parameters[10] = goods.getTransportTask().getId();
  		}
-  	
+ 
  		if(goods.getRetailStore() != null){
  			parameters[11] = goods.getRetailStore().getId();
  		}
-  	
+ 
  		if(goods.getBizOrder() != null){
  			parameters[12] = goods.getBizOrder().getId();
  		}
-  	
+ 
  		if(goods.getRetailStoreOrder() != null){
  			parameters[13] = goods.getRetailStoreOrder().getId();
  		}
- 		
+ 
  		parameters[14] = goods.nextVersion();
  		parameters[15] = goods.getId();
  		parameters[16] = goods.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareGoodsCreateParameters(Goods goods){
 		Object[] parameters = new Object[15];
-		String newGoodsId=getNextId();
-		goods.setId(newGoodsId);
+        if(goods.getId() == null){
+          String newGoodsId=getNextId();
+          goods.setId(newGoodsId);
+        }
 		parameters[0] =  goods.getId();
  
  		
@@ -1419,92 +1425,92 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
  		
  		
  		parameters[5] = goods.getExpireTime();
- 		 	
+ 		
  		if(goods.getSku() != null){
  			parameters[6] = goods.getSku().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getReceivingSpace() != null){
  			parameters[7] = goods.getReceivingSpace().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getGoodsAllocation() != null){
  			parameters[8] = goods.getGoodsAllocation().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getSmartPallet() != null){
  			parameters[9] = goods.getSmartPallet().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getShippingSpace() != null){
  			parameters[10] = goods.getShippingSpace().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getTransportTask() != null){
  			parameters[11] = goods.getTransportTask().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getRetailStore() != null){
  			parameters[12] = goods.getRetailStore().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getBizOrder() != null){
  			parameters[13] = goods.getBizOrder().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(goods.getRetailStoreOrder() != null){
  			parameters[14] = goods.getRetailStoreOrder().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Goods saveInternalGoods(Goods goods, Map<String,Object> options){
-		
+
 		saveGoods(goods);
- 	
+
  		if(isSaveSkuEnabled(options)){
 	 		saveSku(goods, options);
  		}
-  	
+ 
  		if(isSaveReceivingSpaceEnabled(options)){
 	 		saveReceivingSpace(goods, options);
  		}
-  	
+ 
  		if(isSaveGoodsAllocationEnabled(options)){
 	 		saveGoodsAllocation(goods, options);
  		}
-  	
+ 
  		if(isSaveSmartPalletEnabled(options)){
 	 		saveSmartPallet(goods, options);
  		}
-  	
+ 
  		if(isSaveShippingSpaceEnabled(options)){
 	 		saveShippingSpace(goods, options);
  		}
-  	
+ 
  		if(isSaveTransportTaskEnabled(options)){
 	 		saveTransportTask(goods, options);
  		}
-  	
+ 
  		if(isSaveRetailStoreEnabled(options)){
 	 		saveRetailStore(goods, options);
  		}
-  	
+ 
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(goods, options);
  		}
-  	
+ 
  		if(isSaveRetailStoreOrderEnabled(options)){
 	 		saveRetailStoreOrder(goods, options);
  		}
@@ -1514,178 +1520,178 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 	 		saveGoodsMovementList(goods, options);
 	 		//removeGoodsMovementList(goods, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return goods;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Goods saveSku(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getSku() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getSkuDAO().save(goods.getSku(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveReceivingSpace(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getReceivingSpace() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getReceivingSpaceDAO().save(goods.getReceivingSpace(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveGoodsAllocation(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getGoodsAllocation() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getGoodsAllocationDAO().save(goods.getGoodsAllocation(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveSmartPallet(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getSmartPallet() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getSmartPalletDAO().save(goods.getSmartPallet(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveShippingSpace(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getShippingSpace() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getShippingSpaceDAO().save(goods.getShippingSpace(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveTransportTask(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getTransportTask() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getTransportTaskDAO().save(goods.getTransportTask(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveRetailStore(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getRetailStore() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreDAO().save(goods.getRetailStore(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveBizOrder(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getBizOrder() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getSupplyOrderDAO().save(goods.getBizOrder(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Goods saveRetailStoreOrder(Goods goods, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goods.getRetailStoreOrder() == null){
  			return goods;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreOrderDAO().save(goods.getRetailStoreOrder(),options);
  		return goods;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Goods planToRemoveGoodsMovementList(Goods goods, String goodsMovementIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsMovement.GOODS_PROPERTY, goods.getId());
 		key.put(GoodsMovement.ID_PROPERTY, goodsMovementIds);
-		
+
 		SmartList<GoodsMovement> externalGoodsMovementList = getGoodsMovementDAO().
 				findGoodsMovementWithKey(key, options);
 		if(externalGoodsMovementList == null){
@@ -1694,124 +1700,36 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 		if(externalGoodsMovementList.isEmpty()){
 			return goods;
 		}
-		
+
 		for(GoodsMovement goodsMovementItem: externalGoodsMovementList){
 
 			goodsMovementItem.clearFromAll();
 		}
-		
-		
-		SmartList<GoodsMovement> goodsMovementList = goods.getGoodsMovementList();		
-		goodsMovementList.addAllToRemoveList(externalGoodsMovementList);
-		return goods;	
-	
-	}
 
 
-	//disconnect Goods with facility_id in GoodsMovement
-	public Goods planToRemoveGoodsMovementListWithFacilityId(Goods goods, String facilityIdId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(GoodsMovement.GOODS_PROPERTY, goods.getId());
-		key.put(GoodsMovement.FACILITY_ID_PROPERTY, facilityIdId);
-		
-		SmartList<GoodsMovement> externalGoodsMovementList = getGoodsMovementDAO().
-				findGoodsMovementWithKey(key, options);
-		if(externalGoodsMovementList == null){
-			return goods;
-		}
-		if(externalGoodsMovementList.isEmpty()){
-			return goods;
-		}
-		
-		for(GoodsMovement goodsMovementItem: externalGoodsMovementList){
-			goodsMovementItem.clearFacilityId();
-			goodsMovementItem.clearGoods();
-			
-		}
-		
-		
-		SmartList<GoodsMovement> goodsMovementList = goods.getGoodsMovementList();		
+		SmartList<GoodsMovement> goodsMovementList = goods.getGoodsMovementList();
 		goodsMovementList.addAllToRemoveList(externalGoodsMovementList);
 		return goods;
-	}
-	
-	public int countGoodsMovementListWithFacilityId(String goodsId, String facilityIdId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
 
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(GoodsMovement.GOODS_PROPERTY, goodsId);
-		key.put(GoodsMovement.FACILITY_ID_PROPERTY, facilityIdId);
-		
-		int count = getGoodsMovementDAO().countGoodsMovementWithKey(key, options);
-		return count;
 	}
-	
-	//disconnect Goods with session_id in GoodsMovement
-	public Goods planToRemoveGoodsMovementListWithSessionId(Goods goods, String sessionIdId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(GoodsMovement.GOODS_PROPERTY, goods.getId());
-		key.put(GoodsMovement.SESSION_ID_PROPERTY, sessionIdId);
-		
-		SmartList<GoodsMovement> externalGoodsMovementList = getGoodsMovementDAO().
-				findGoodsMovementWithKey(key, options);
-		if(externalGoodsMovementList == null){
-			return goods;
-		}
-		if(externalGoodsMovementList.isEmpty()){
-			return goods;
-		}
-		
-		for(GoodsMovement goodsMovementItem: externalGoodsMovementList){
-			goodsMovementItem.clearSessionId();
-			goodsMovementItem.clearGoods();
-			
-		}
-		
-		
-		SmartList<GoodsMovement> goodsMovementList = goods.getGoodsMovementList();		
-		goodsMovementList.addAllToRemoveList(externalGoodsMovementList);
-		return goods;
-	}
-	
-	public int countGoodsMovementListWithSessionId(String goodsId, String sessionIdId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
 
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(GoodsMovement.GOODS_PROPERTY, goodsId);
-		key.put(GoodsMovement.SESSION_ID_PROPERTY, sessionIdId);
-		
-		int count = getGoodsMovementDAO().countGoodsMovementWithKey(key, options);
-		return count;
-	}
-	
+
 
 		
 	protected Goods saveGoodsMovementList(Goods goods, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<GoodsMovement> goodsMovementList = goods.getGoodsMovementList();
 		if(goodsMovementList == null){
 			//null list means nothing
 			return goods;
 		}
 		SmartList<GoodsMovement> mergedUpdateGoodsMovementList = new SmartList<GoodsMovement>();
-		
-		
-		mergedUpdateGoodsMovementList.addAll(goodsMovementList); 
+
+
+		mergedUpdateGoodsMovementList.addAll(goodsMovementList);
 		if(goodsMovementList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsMovementList.addAll(goodsMovementList.getToRemoveList());
@@ -1820,28 +1738,28 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsMovementDAO().saveGoodsMovementList(mergedUpdateGoodsMovementList,options);
-		
+
 		if(goodsMovementList.getToRemoveList() != null){
 			goodsMovementList.removeAll(goodsMovementList.getToRemoveList());
 		}
-		
-		
+
+
 		return goods;
-	
+
 	}
-	
+
 	protected Goods removeGoodsMovementList(Goods goods, Map<String,Object> options){
-	
-	
+
+
 		SmartList<GoodsMovement> goodsMovementList = goods.getGoodsMovementList();
 		if(goodsMovementList == null){
 			return goods;
-		}	
-	
+		}
+
 		SmartList<GoodsMovement> toRemoveGoodsMovementList = goodsMovementList.getToRemoveList();
-		
+
 		if(toRemoveGoodsMovementList == null){
 			return goods;
 		}
@@ -1849,20 +1767,20 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 			return goods;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsMovementDAO().removeGoodsMovementList(toRemoveGoodsMovementList,options);
-		
-		return goods;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsMovementDAO().removeGoodsMovementList(toRemoveGoodsMovementList,options);
+
+		return goods;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Goods present(Goods goods,Map<String, Object> options){
@@ -1905,13 +1823,13 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 	protected String getTableName(){
 		return GoodsTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Goods> goodsList) {		
+
+
+
+	public void enhanceList(List<Goods> goodsList) {
 		this.enhanceListInternal(goodsList, this.getGoodsMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:GoodsMovement的goods的GoodsMovementList
 	public SmartList<GoodsMovement> loadOurGoodsMovementList(RetailscmUserContext userContext, List<Goods> us, Map<String,Object> options) throws Exception{
@@ -1936,39 +1854,45 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Goods> goodsList = ownerEntity.collectRefsWithType(Goods.INTERNAL_TYPE);
 		this.enhanceList(goodsList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Goods> findGoodsWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getGoodsMapper());
 
 	}
 	@Override
 	public int countGoodsWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countGoodsWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Goods> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getGoodsMapper());
 	}
+
+  @Override
+  public Stream<Goods> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getGoodsMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1997,7 +1921,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsD
 		}
 		return result;
 	}
-	
+
 	
 
 }

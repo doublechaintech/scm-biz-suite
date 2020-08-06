@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.accountingdocument;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;
@@ -49,24 +47,24 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = AccountingDocumentTokens.start().withTokenFromListName(listName).done();
 		AccountingDocument  accountingDocument = (AccountingDocument) this.loadAccountingDocument(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = accountingDocument.collectRefercencesFromLists();
 		accountingDocumentDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, accountingDocument, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new AccountingDocumentGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -129,7 +127,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).throwExceptionIfHasErrors( AccountingDocumentManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		AccountingDocument accountingDocument = loadAccountingDocument( userContext, accountingDocumentId, tokens);
  		//do some calc before sent to customer?
@@ -148,6 +146,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		
 		List<BaseEntity> entityListToNaming = accountingDocumentToPresent.collectRefercencesFromLists();
 		accountingDocumentDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,accountingDocument,tokens);
 		
 		return  accountingDocumentToPresent;
 		
@@ -606,7 +607,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			accountingDocument.addOriginalVoucher( originalVoucher );
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withOriginalVoucherList().done());
 			
-			userContext.getManagerGroup().getOriginalVoucherManager().onNewInstanceCreated(userContext, originalVoucher);
+			originalVoucherManagerOf(userContext).onNewInstanceCreated(userContext, originalVoucher);
 			return present(userContext,accountingDocument, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -631,7 +632,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withOriginalVoucherListList()
-				.searchOriginalVoucherListWith(OriginalVoucher.ID_PROPERTY, "is", id).done();
+				.searchOriginalVoucherListWith(OriginalVoucher.ID_PROPERTY, tokens().is(), id).done();
 
 		AccountingDocument accountingDocumentToUpdate = loadAccountingDocument(userContext, accountingDocumentId, options);
 
@@ -640,7 +641,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 		OriginalVoucher item = accountingDocumentToUpdate.getOriginalVoucherList().first();
-
+		beforeUpdateOriginalVoucherProperties(userContext,item, accountingDocumentId,id,title,madeBy,receivedBy,voucherType,voucherImage,tokensExpr);
 		item.updateTitle( title );
 		item.updateMadeBy( madeBy );
 		item.updateReceivedBy( receivedBy );
@@ -655,6 +656,10 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 	}
 
+	protected  void beforeUpdateOriginalVoucherProperties(RetailscmUserContext userContext, OriginalVoucher item, String accountingDocumentId, String id,String title,String madeBy,String receivedBy,String voucherType,String voucherImage, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected OriginalVoucher createOriginalVoucher(RetailscmUserContext userContext, String title, String madeBy, String receivedBy, String voucherType, String voucherImage) throws Exception{
 
@@ -762,7 +767,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			accountingDocument.copyOriginalVoucherFrom( originalVoucher );
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withOriginalVoucherList().done());
 			
-			userContext.getManagerGroup().getOriginalVoucherManager().onNewInstanceCreated(userContext, (OriginalVoucher)accountingDocument.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			originalVoucherManagerOf(userContext).onNewInstanceCreated(userContext, (OriginalVoucher)accountingDocument.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,accountingDocument, mergedAllTokens(tokensExpr));
 		}
 
@@ -775,39 +780,29 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 		checkerOf(userContext).checkIdOfOriginalVoucher(originalVoucherId);
 		checkerOf(userContext).checkVersionOfOriginalVoucher(originalVoucherVersion);
-		
+
 
 		if(OriginalVoucher.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfOriginalVoucher(parseString(newValueExpr));
-		
 		}
 		
 		if(OriginalVoucher.MADE_BY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMadeByOfOriginalVoucher(parseString(newValueExpr));
-		
 		}
 		
 		if(OriginalVoucher.RECEIVED_BY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkReceivedByOfOriginalVoucher(parseString(newValueExpr));
-		
 		}
 		
 		if(OriginalVoucher.VOUCHER_TYPE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkVoucherTypeOfOriginalVoucher(parseString(newValueExpr));
-		
 		}
 		
 		if(OriginalVoucher.VOUCHER_IMAGE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkVoucherImageOfOriginalVoucher(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
 
 	}
@@ -817,7 +812,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
 		checkParamsForUpdatingOriginalVoucher(userContext, accountingDocumentId, originalVoucherId, originalVoucherVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withOriginalVoucherList().searchOriginalVoucherListWith(OriginalVoucher.ID_PROPERTY, "eq", originalVoucherId).done();
+		Map<String,Object> loadTokens = this.tokens().withOriginalVoucherList().searchOriginalVoucherListWith(OriginalVoucher.ID_PROPERTY, tokens().equals(), originalVoucherId).done();
 
 
 
@@ -828,13 +823,14 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			//Also good when there is a RAM based DAO implementation
 			//accountingDocument.removeOriginalVoucher( originalVoucher );
 			//make changes to AcceleraterAccount.
-			OriginalVoucher originalVoucherIndex = createIndexedOriginalVoucher(originalVoucherId, originalVoucherVersion);
+			OriginalVoucher originalVoucherIdVersionKey = createIndexedOriginalVoucher(originalVoucherId, originalVoucherVersion);
 
-			OriginalVoucher originalVoucher = accountingDocument.findTheOriginalVoucher(originalVoucherIndex);
+			OriginalVoucher originalVoucher = accountingDocument.findTheOriginalVoucher(originalVoucherIdVersionKey);
 			if(originalVoucher == null){
-				throw new AccountingDocumentManagerException(originalVoucher+" is NOT FOUND" );
+				throw new AccountingDocumentManagerException(originalVoucherId+" is NOT FOUND" );
 			}
 
+			beforeUpdateOriginalVoucher(userContext, originalVoucher, accountingDocumentId, originalVoucherId, originalVoucherVersion, property, newValueExpr,  tokensExpr);
 			originalVoucher.changeProperty(property, newValueExpr);
 			
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withOriginalVoucherList().done());
@@ -842,6 +838,11 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateOriginalVoucher(RetailscmUserContext userContext, OriginalVoucher existed, String accountingDocumentId, String originalVoucherId, int originalVoucherVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -882,7 +883,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			accountingDocument.addAccountingDocumentLine( accountingDocumentLine );
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withAccountingDocumentLineList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentLineManager().onNewInstanceCreated(userContext, accountingDocumentLine);
+			accountingDocumentLineManagerOf(userContext).onNewInstanceCreated(userContext, accountingDocumentLine);
 			return present(userContext,accountingDocument, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -906,7 +907,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withAccountingDocumentLineListList()
-				.searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, "is", id).done();
+				.searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, tokens().is(), id).done();
 
 		AccountingDocument accountingDocumentToUpdate = loadAccountingDocument(userContext, accountingDocumentId, options);
 
@@ -915,7 +916,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 		AccountingDocumentLine item = accountingDocumentToUpdate.getAccountingDocumentLineList().first();
-
+		beforeUpdateAccountingDocumentLineProperties(userContext,item, accountingDocumentId,id,name,code,direct,amount,tokensExpr);
 		item.updateName( name );
 		item.updateCode( code );
 		item.updateDirect( direct );
@@ -929,6 +930,10 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 	}
 
+	protected  void beforeUpdateAccountingDocumentLineProperties(RetailscmUserContext userContext, AccountingDocumentLine item, String accountingDocumentId, String id,String name,String code,String direct,BigDecimal amount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected AccountingDocumentLine createAccountingDocumentLine(RetailscmUserContext userContext, String name, String code, String direct, BigDecimal amount, String accountingSubjectId) throws Exception{
 
@@ -1038,7 +1043,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			accountingDocument.copyAccountingDocumentLineFrom( accountingDocumentLine );
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withAccountingDocumentLineList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentLineManager().onNewInstanceCreated(userContext, (AccountingDocumentLine)accountingDocument.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			accountingDocumentLineManagerOf(userContext).onNewInstanceCreated(userContext, (AccountingDocumentLine)accountingDocument.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,accountingDocument, mergedAllTokens(tokensExpr));
 		}
 
@@ -1051,33 +1056,25 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 		checkerOf(userContext).checkIdOfAccountingDocumentLine(accountingDocumentLineId);
 		checkerOf(userContext).checkVersionOfAccountingDocumentLine(accountingDocumentLineVersion);
-		
+
 
 		if(AccountingDocumentLine.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfAccountingDocumentLine(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocumentLine.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfAccountingDocumentLine(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocumentLine.DIRECT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDirectOfAccountingDocumentLine(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocumentLine.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfAccountingDocumentLine(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
 
 	}
@@ -1087,7 +1084,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
 		checkParamsForUpdatingAccountingDocumentLine(userContext, accountingDocumentId, accountingDocumentLineId, accountingDocumentLineVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentLineList().searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, "eq", accountingDocumentLineId).done();
+		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentLineList().searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, tokens().equals(), accountingDocumentLineId).done();
 
 
 
@@ -1098,13 +1095,14 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			//Also good when there is a RAM based DAO implementation
 			//accountingDocument.removeAccountingDocumentLine( accountingDocumentLine );
 			//make changes to AcceleraterAccount.
-			AccountingDocumentLine accountingDocumentLineIndex = createIndexedAccountingDocumentLine(accountingDocumentLineId, accountingDocumentLineVersion);
+			AccountingDocumentLine accountingDocumentLineIdVersionKey = createIndexedAccountingDocumentLine(accountingDocumentLineId, accountingDocumentLineVersion);
 
-			AccountingDocumentLine accountingDocumentLine = accountingDocument.findTheAccountingDocumentLine(accountingDocumentLineIndex);
+			AccountingDocumentLine accountingDocumentLine = accountingDocument.findTheAccountingDocumentLine(accountingDocumentLineIdVersionKey);
 			if(accountingDocumentLine == null){
-				throw new AccountingDocumentManagerException(accountingDocumentLine+" is NOT FOUND" );
+				throw new AccountingDocumentManagerException(accountingDocumentLineId+" is NOT FOUND" );
 			}
 
+			beforeUpdateAccountingDocumentLine(userContext, accountingDocumentLine, accountingDocumentId, accountingDocumentLineId, accountingDocumentLineVersion, property, newValueExpr,  tokensExpr);
 			accountingDocumentLine.changeProperty(property, newValueExpr);
 			
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withAccountingDocumentLineList().done());
@@ -1112,6 +1110,11 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateAccountingDocumentLine(RetailscmUserContext userContext, AccountingDocumentLine existed, String accountingDocumentId, String accountingDocumentLineId, int accountingDocumentLineVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1128,6 +1131,12 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    accountingDocumentDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1219,6 +1228,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1360,7 +1370,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1458,6 +1468,8 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

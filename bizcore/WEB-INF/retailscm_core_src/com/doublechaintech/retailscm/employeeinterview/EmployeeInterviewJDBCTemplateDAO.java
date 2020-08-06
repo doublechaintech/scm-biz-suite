@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeInterviewDAO{
 
@@ -71,64 +71,68 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	 	return this.interviewTypeDAO;
  	}	
 
-	
+
 	/*
 	protected EmployeeInterview load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeInterview(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<EmployeeInterview> loadAll() {
 	    return this.loadAll(getEmployeeInterviewMapper());
 	}
-	
-	
+
+  public Stream<EmployeeInterview> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeInterviewMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public EmployeeInterview load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeInterview(EmployeeInterviewTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public EmployeeInterview save(EmployeeInterview employeeInterview,Map<String,Object> options){
-		
+
 		String methodName="save(EmployeeInterview employeeInterview,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employeeInterview, methodName, "employeeInterview");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployeeInterview(employeeInterview,options);
 	}
 	public EmployeeInterview clone(String employeeInterviewId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeInterviewTable.withId(employeeInterviewId),options);
 	}
-	
+
 	protected EmployeeInterview clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeInterviewId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		EmployeeInterview newEmployeeInterview = loadInternalEmployeeInterview(accessKey, options);
 		newEmployeeInterview.setVersion(0);
 		
 		
 
-		
+
 		saveInternalEmployeeInterview(newEmployeeInterview,options);
-		
+
 		return newEmployeeInterview;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeInterviewId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -144,15 +148,15 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeInterviewId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeInterviewId, int version)";
 		assertMethodArgumentNotNull(employeeInterviewId, methodName, "employeeInterviewId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeInterviewId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -162,26 +166,26 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeInterviewId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public EmployeeInterview disconnectFromAll(String employeeInterviewId, int version) throws Exception{
-	
-		
+
+
 		EmployeeInterview employeeInterview = loadInternalEmployeeInterview(EmployeeInterviewTable.withId(employeeInterviewId), emptyOptions());
 		employeeInterview.clearFromAll();
 		this.saveEmployeeInterview(employeeInterview);
 		return employeeInterview;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -189,15 +193,15 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee_interview";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employeeInterview";
 	}
-	
+
 	
 	
 	
@@ -419,7 +423,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return employeeInterview;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeInterviewSQL(employeeInterview);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeInterviewParameters(employeeInterview);
@@ -428,57 +432,57 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employeeInterview.incVersion();
 		return employeeInterview;
-	
+
 	}
 	public SmartList<EmployeeInterview> saveEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeInterviewList(employeeInterviewList);
-		
+
 		batchEmployeeInterviewCreate((List<EmployeeInterview>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeInterviewUpdate((List<EmployeeInterview>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(EmployeeInterview employeeInterview:employeeInterviewList){
 			if(employeeInterview.isChanged()){
 				employeeInterview.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeInterviewList;
 	}
 
 	public SmartList<EmployeeInterview> removeEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeInterviewList, options);
-		
+
 		return employeeInterviewList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeInterviewBatchCreateArgs(List<EmployeeInterview> employeeInterviewList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeInterview employeeInterview:employeeInterviewList ){
 			Object [] parameters = prepareEmployeeInterviewCreateParameters(employeeInterview);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeInterviewBatchUpdateArgs(List<EmployeeInterview> employeeInterviewList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeInterview employeeInterview:employeeInterviewList ){
 			if(!employeeInterview.isChanged()){
@@ -486,40 +490,40 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			}
 			Object [] parameters = prepareEmployeeInterviewUpdateParameters(employeeInterview);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeInterviewCreate(List<EmployeeInterview> employeeInterviewList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeInterviewBatchCreateArgs(employeeInterviewList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeInterviewUpdate(List<EmployeeInterview> employeeInterviewList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeInterviewBatchUpdateArgs(employeeInterviewList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeInterviewList(List<EmployeeInterview> employeeInterviewList){
-		
+
 		List<EmployeeInterview> employeeInterviewCreateList=new ArrayList<EmployeeInterview>();
 		List<EmployeeInterview> employeeInterviewUpdateList=new ArrayList<EmployeeInterview>();
-		
+
 		for(EmployeeInterview employeeInterview: employeeInterviewList){
 			if(isUpdateRequest(employeeInterview)){
 				employeeInterviewUpdateList.add( employeeInterview);
@@ -527,10 +531,10 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			}
 			employeeInterviewCreateList.add(employeeInterview);
 		}
-		
+
 		return new Object[]{employeeInterviewCreateList,employeeInterviewUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(EmployeeInterview employeeInterview){
  		return employeeInterview.getVersion() > 0;
  	}
@@ -540,7 +544,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeInterviewParameters(EmployeeInterview employeeInterview){
  		if(isUpdateRequest(employeeInterview) ){
  			return prepareEmployeeInterviewUpdateParameters(employeeInterview);
@@ -549,101 +553,103 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  	}
  	protected Object[] prepareEmployeeInterviewUpdateParameters(EmployeeInterview employeeInterview){
  		Object[] parameters = new Object[6];
-  	
+ 
  		if(employeeInterview.getEmployee() != null){
  			parameters[0] = employeeInterview.getEmployee().getId();
  		}
-  	
+ 
  		if(employeeInterview.getInterviewType() != null){
  			parameters[1] = employeeInterview.getInterviewType().getId();
  		}
  
  		
  		parameters[2] = employeeInterview.getRemark();
- 				
+ 		
  		parameters[3] = employeeInterview.nextVersion();
  		parameters[4] = employeeInterview.getId();
  		parameters[5] = employeeInterview.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeInterviewCreateParameters(EmployeeInterview employeeInterview){
 		Object[] parameters = new Object[4];
-		String newEmployeeInterviewId=getNextId();
-		employeeInterview.setId(newEmployeeInterviewId);
+        if(employeeInterview.getId() == null){
+          String newEmployeeInterviewId=getNextId();
+          employeeInterview.setId(newEmployeeInterviewId);
+        }
 		parameters[0] =  employeeInterview.getId();
-  	
+ 
  		if(employeeInterview.getEmployee() != null){
  			parameters[1] = employeeInterview.getEmployee().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(employeeInterview.getInterviewType() != null){
  			parameters[2] = employeeInterview.getInterviewType().getId();
- 		
+
  		}
  		
  		
  		parameters[3] = employeeInterview.getRemark();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected EmployeeInterview saveInternalEmployeeInterview(EmployeeInterview employeeInterview, Map<String,Object> options){
-		
+
 		saveEmployeeInterview(employeeInterview);
- 	
+
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeInterview, options);
  		}
-  	
+ 
  		if(isSaveInterviewTypeEnabled(options)){
 	 		saveInterviewType(employeeInterview, options);
  		}
  
 		
 		return employeeInterview;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected EmployeeInterview saveEmployee(EmployeeInterview employeeInterview, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeInterview.getEmployee() == null){
  			return employeeInterview;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(employeeInterview.getEmployee(),options);
  		return employeeInterview;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected EmployeeInterview saveInterviewType(EmployeeInterview employeeInterview, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeInterview.getInterviewType() == null){
  			return employeeInterview;//do nothing when it is null
  		}
- 		
+
  		getInterviewTypeDAO().save(employeeInterview.getInterviewType(),options);
  		return employeeInterview;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -663,47 +669,53 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	protected String getTableName(){
 		return EmployeeInterviewTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<EmployeeInterview> employeeInterviewList) {		
+
+
+
+	public void enhanceList(List<EmployeeInterview> employeeInterviewList) {
 		this.enhanceListInternal(employeeInterviewList, this.getEmployeeInterviewMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeInterview> employeeInterviewList = ownerEntity.collectRefsWithType(EmployeeInterview.INTERNAL_TYPE);
 		this.enhanceList(employeeInterviewList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<EmployeeInterview> findEmployeeInterviewWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeInterviewMapper());
 
 	}
 	@Override
 	public int countEmployeeInterviewWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeInterviewWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<EmployeeInterview> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeInterviewMapper());
 	}
+
+  @Override
+  public Stream<EmployeeInterview> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeInterviewMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -732,7 +744,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 		return result;
 	}
-	
+
 	
 
 }

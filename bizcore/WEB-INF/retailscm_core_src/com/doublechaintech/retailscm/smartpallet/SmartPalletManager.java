@@ -17,6 +17,7 @@ public interface SmartPalletManager extends BaseManager{
 	public SmartPallet createSmartPallet(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String warehouseId) throws Exception;
 	public SmartPallet updateSmartPallet(RetailscmUserContext userContext,String smartPalletId, int smartPalletVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SmartPallet loadSmartPallet(RetailscmUserContext userContext, String smartPalletId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SmartPallet internalSaveSmartPallet(RetailscmUserContext userContext, SmartPallet smartPallet) throws Exception;
 	public SmartPallet internalSaveSmartPallet(RetailscmUserContext userContext, SmartPallet smartPallet,Map<String,Object>option) throws Exception;
 

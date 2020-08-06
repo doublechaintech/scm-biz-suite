@@ -17,6 +17,7 @@ public interface ViewManager extends BaseManager{
 	public View createView(RetailscmUserContext userContext, String who,String assessment,Date interviewTime) throws Exception;
 	public View updateView(RetailscmUserContext userContext,String viewId, int viewVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public View loadView(RetailscmUserContext userContext, String viewId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public View internalSaveView(RetailscmUserContext userContext, View view) throws Exception;
 	public View internalSaveView(RetailscmUserContext userContext, View view,Map<String,Object>option) throws Exception;
 

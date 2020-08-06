@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.consumerorder;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -30,20 +31,21 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 public interface ConsumerOrderDAO extends BaseDAO{
 
 	public SmartList<ConsumerOrder> loadAll();
+	public Stream<ConsumerOrder> loadAllAsStream();
 	public ConsumerOrder load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<ConsumerOrder> consumerOrderList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public ConsumerOrder present(ConsumerOrder consumerOrder,Map<String,Object> options) throws Exception;
 	public ConsumerOrder clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public ConsumerOrder save(ConsumerOrder consumerOrder,Map<String,Object> options);
 	public SmartList<ConsumerOrder> saveConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList,Map<String,Object> options);
 	public SmartList<ConsumerOrder> removeConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList,Map<String,Object> options);
@@ -80,10 +82,6 @@ public interface ConsumerOrderDAO extends BaseDAO{
 	public ConsumerOrder planToRemoveConsumerOrderLineItemList(ConsumerOrder consumerOrder, String consumerOrderLineItemIds[], Map<String,Object> options)throws Exception;
 
 
-	//disconnect ConsumerOrder with sku_id in ConsumerOrderLineItem
-	public ConsumerOrder planToRemoveConsumerOrderLineItemListWithSkuId(ConsumerOrder consumerOrder, String skuIdId, Map<String,Object> options)throws Exception;
-	public int countConsumerOrderLineItemListWithSkuId(String consumerOrderId, String skuIdId, Map<String,Object> options)throws Exception;
-	
 	public ConsumerOrder planToRemoveConsumerOrderShippingGroupList(ConsumerOrder consumerOrder, String consumerOrderShippingGroupIds[], Map<String,Object> options)throws Exception;
 
 
@@ -100,26 +98,27 @@ public interface ConsumerOrderDAO extends BaseDAO{
 	public ConsumerOrder planToRemoveRetailStoreMemberGiftCardConsumeRecordListWithOwner(ConsumerOrder consumerOrder, String ownerId, Map<String,Object> options)throws Exception;
 	public int countRetailStoreMemberGiftCardConsumeRecordListWithOwner(String consumerOrderId, String ownerId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<ConsumerOrder> queryList(String sql, Object ... parmeters);
+	public Stream<ConsumerOrder> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateConsumerOrder executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<ConsumerOrder> findConsumerOrderByConsumer(String retailStoreMemberId, Map<String,Object> options);
  	public int countConsumerOrderByConsumer(String retailStoreMemberId, Map<String,Object> options);
  	public Map<String, Integer> countConsumerOrderByConsumerIds(String[] ids, Map<String,Object> options);
  	public SmartList<ConsumerOrder> findConsumerOrderByConsumer(String retailStoreMemberId, int start, int count, Map<String,Object> options);
  	public void analyzeConsumerOrderByConsumer(SmartList<ConsumerOrder> resultList, String retailStoreMemberId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<ConsumerOrder> findConsumerOrderByStore(String retailStoreId, Map<String,Object> options);
  	public int countConsumerOrderByStore(String retailStoreId, Map<String,Object> options);
  	public Map<String, Integer> countConsumerOrderByStoreIds(String[] ids, Map<String,Object> options);
  	public SmartList<ConsumerOrder> findConsumerOrderByStore(String retailStoreId, int start, int count, Map<String,Object> options);
  	public void analyzeConsumerOrderByStore(SmartList<ConsumerOrder> resultList, String retailStoreId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:ConsumerOrderLineItem的bizOrder的ConsumerOrderLineItemList
 	public SmartList<ConsumerOrderLineItem> loadOurConsumerOrderLineItemList(RetailscmUserContext userContext, List<ConsumerOrder> us, Map<String,Object> options) throws Exception;

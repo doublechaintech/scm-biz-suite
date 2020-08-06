@@ -17,6 +17,7 @@ public interface SalaryGradeManager extends BaseManager{
 	public SalaryGrade createSalaryGrade(RetailscmUserContext userContext, String code,String companyId,String name,String detailDescription) throws Exception;
 	public SalaryGrade updateSalaryGrade(RetailscmUserContext userContext,String salaryGradeId, int salaryGradeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SalaryGrade loadSalaryGrade(RetailscmUserContext userContext, String salaryGradeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SalaryGrade internalSaveSalaryGrade(RetailscmUserContext userContext, SalaryGrade salaryGrade) throws Exception;
 	public SalaryGrade internalSaveSalaryGrade(RetailscmUserContext userContext, SalaryGrade salaryGrade,Map<String,Object>option) throws Exception;
 

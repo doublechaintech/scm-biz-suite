@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstoreorder;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -28,20 +29,21 @@ import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOr
 public interface RetailStoreOrderDAO extends BaseDAO{
 
 	public SmartList<RetailStoreOrder> loadAll();
+	public Stream<RetailStoreOrder> loadAllAsStream();
 	public RetailStoreOrder load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreOrder> retailStoreOrderList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreOrder present(RetailStoreOrder retailStoreOrder,Map<String,Object> options) throws Exception;
 	public RetailStoreOrder clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreOrder save(RetailStoreOrder retailStoreOrder,Map<String,Object> options);
 	public SmartList<RetailStoreOrder> saveRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options);
 	public SmartList<RetailStoreOrder> removeRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options);
@@ -74,10 +76,6 @@ public interface RetailStoreOrderDAO extends BaseDAO{
 	public RetailStoreOrder planToRemoveRetailStoreOrderLineItemList(RetailStoreOrder retailStoreOrder, String retailStoreOrderLineItemIds[], Map<String,Object> options)throws Exception;
 
 
-	//disconnect RetailStoreOrder with sku_id in RetailStoreOrderLineItem
-	public RetailStoreOrder planToRemoveRetailStoreOrderLineItemListWithSkuId(RetailStoreOrder retailStoreOrder, String skuIdId, Map<String,Object> options)throws Exception;
-	public int countRetailStoreOrderLineItemListWithSkuId(String retailStoreOrderId, String skuIdId, Map<String,Object> options)throws Exception;
-	
 	public RetailStoreOrder planToRemoveRetailStoreOrderShippingGroupList(RetailStoreOrder retailStoreOrder, String retailStoreOrderShippingGroupIds[], Map<String,Object> options)throws Exception;
 
 
@@ -119,26 +117,27 @@ public interface RetailStoreOrderDAO extends BaseDAO{
 	public RetailStoreOrder planToRemoveGoodsListWithBizOrder(RetailStoreOrder retailStoreOrder, String bizOrderId, Map<String,Object> options)throws Exception;
 	public int countGoodsListWithBizOrder(String retailStoreOrderId, String bizOrderId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStoreOrder> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreOrder> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreOrder executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByBuyer(String retailStoreId, Map<String,Object> options);
  	public int countRetailStoreOrderByBuyer(String retailStoreId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreOrderByBuyerIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByBuyer(String retailStoreId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreOrderByBuyer(SmartList<RetailStoreOrder> resultList, String retailStoreId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStoreOrder> findRetailStoreOrderBySeller(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countRetailStoreOrderBySeller(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreOrderBySellerIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStoreOrder> findRetailStoreOrderBySeller(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreOrderBySeller(SmartList<RetailStoreOrder> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrderLineItem的bizOrder的RetailStoreOrderLineItemList
 	public SmartList<RetailStoreOrderLineItem> loadOurRetailStoreOrderLineItemList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception;

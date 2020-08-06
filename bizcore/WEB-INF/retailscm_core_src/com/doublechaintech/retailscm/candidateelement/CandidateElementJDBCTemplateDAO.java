@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.candidatecontainer.CandidateContainerDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implements CandidateElementDAO{
 
@@ -53,64 +53,68 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	 	return this.candidateContainerDAO;
  	}	
 
-	
+
 	/*
 	protected CandidateElement load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalCandidateElement(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<CandidateElement> loadAll() {
 	    return this.loadAll(getCandidateElementMapper());
 	}
-	
-	
+
+  public Stream<CandidateElement> loadAllAsStream() {
+      return this.loadAllAsStream(getCandidateElementMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public CandidateElement load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalCandidateElement(CandidateElementTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public CandidateElement save(CandidateElement candidateElement,Map<String,Object> options){
-		
+
 		String methodName="save(CandidateElement candidateElement,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(candidateElement, methodName, "candidateElement");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalCandidateElement(candidateElement,options);
 	}
 	public CandidateElement clone(String candidateElementId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(CandidateElementTable.withId(candidateElementId),options);
 	}
-	
+
 	protected CandidateElement clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String candidateElementId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		CandidateElement newCandidateElement = loadInternalCandidateElement(accessKey, options);
 		newCandidateElement.setVersion(0);
 		
 		
 
-		
+
 		saveInternalCandidateElement(newCandidateElement,options);
-		
+
 		return newCandidateElement;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String candidateElementId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String candidateElementId, int version) throws Exception{
-	
+
 		String methodName="delete(String candidateElementId, int version)";
 		assertMethodArgumentNotNull(candidateElementId, methodName, "candidateElementId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{candidateElementId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(affectedNumber == 0){
 			handleDeleteOneError(candidateElementId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public CandidateElement disconnectFromAll(String candidateElementId, int version) throws Exception{
-	
-		
+
+
 		CandidateElement candidateElement = loadInternalCandidateElement(CandidateElementTable.withId(candidateElementId), emptyOptions());
 		candidateElement.clearFromAll();
 		this.saveCandidateElement(candidateElement);
 		return candidateElement;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "candidate_element";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "candidateElement";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return candidateElement;
 		}
 		
-		
+
 		String SQL=this.getSaveCandidateElementSQL(candidateElement);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveCandidateElementParameters(candidateElement);
@@ -320,57 +324,57 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		candidateElement.incVersion();
 		return candidateElement;
-	
+
 	}
 	public SmartList<CandidateElement> saveCandidateElementList(SmartList<CandidateElement> candidateElementList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitCandidateElementList(candidateElementList);
-		
+
 		batchCandidateElementCreate((List<CandidateElement>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchCandidateElementUpdate((List<CandidateElement>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(CandidateElement candidateElement:candidateElementList){
 			if(candidateElement.isChanged()){
 				candidateElement.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return candidateElementList;
 	}
 
 	public SmartList<CandidateElement> removeCandidateElementList(SmartList<CandidateElement> candidateElementList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(candidateElementList, options);
-		
+
 		return candidateElementList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareCandidateElementBatchCreateArgs(List<CandidateElement> candidateElementList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(CandidateElement candidateElement:candidateElementList ){
 			Object [] parameters = prepareCandidateElementCreateParameters(candidateElement);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareCandidateElementBatchUpdateArgs(List<CandidateElement> candidateElementList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(CandidateElement candidateElement:candidateElementList ){
 			if(!candidateElement.isChanged()){
@@ -378,40 +382,40 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			}
 			Object [] parameters = prepareCandidateElementUpdateParameters(candidateElement);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchCandidateElementCreate(List<CandidateElement> candidateElementList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareCandidateElementBatchCreateArgs(candidateElementList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchCandidateElementUpdate(List<CandidateElement> candidateElementList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareCandidateElementBatchUpdateArgs(candidateElementList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitCandidateElementList(List<CandidateElement> candidateElementList){
-		
+
 		List<CandidateElement> candidateElementCreateList=new ArrayList<CandidateElement>();
 		List<CandidateElement> candidateElementUpdateList=new ArrayList<CandidateElement>();
-		
+
 		for(CandidateElement candidateElement: candidateElementList){
 			if(isUpdateRequest(candidateElement)){
 				candidateElementUpdateList.add( candidateElement);
@@ -419,10 +423,10 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			}
 			candidateElementCreateList.add(candidateElement);
 		}
-		
+
 		return new Object[]{candidateElementCreateList,candidateElementUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(CandidateElement candidateElement){
  		return candidateElement.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveCandidateElementParameters(CandidateElement candidateElement){
  		if(isUpdateRequest(candidateElement) ){
  			return prepareCandidateElementUpdateParameters(candidateElement);
@@ -450,21 +454,23 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		
  		
  		parameters[2] = candidateElement.getImage();
- 		 	
+ 		
  		if(candidateElement.getContainer() != null){
  			parameters[3] = candidateElement.getContainer().getId();
  		}
- 		
+ 
  		parameters[4] = candidateElement.nextVersion();
  		parameters[5] = candidateElement.getId();
  		parameters[6] = candidateElement.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareCandidateElementCreateParameters(CandidateElement candidateElement){
 		Object[] parameters = new Object[5];
-		String newCandidateElementId=getNextId();
-		candidateElement.setId(newCandidateElementId);
+        if(candidateElement.getId() == null){
+          String newCandidateElementId=getNextId();
+          candidateElement.setId(newCandidateElementId);
+        }
 		parameters[0] =  candidateElement.getId();
  
  		
@@ -475,49 +481,49 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		
  		
  		parameters[3] = candidateElement.getImage();
- 		 	
+ 		
  		if(candidateElement.getContainer() != null){
  			parameters[4] = candidateElement.getContainer().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected CandidateElement saveInternalCandidateElement(CandidateElement candidateElement, Map<String,Object> options){
-		
+
 		saveCandidateElement(candidateElement);
- 	
+
  		if(isSaveContainerEnabled(options)){
 	 		saveContainer(candidateElement, options);
  		}
  
 		
 		return candidateElement;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected CandidateElement saveContainer(CandidateElement candidateElement, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(candidateElement.getContainer() == null){
  			return candidateElement;//do nothing when it is null
  		}
- 		
+
  		getCandidateContainerDAO().save(candidateElement.getContainer(),options);
  		return candidateElement;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -537,47 +543,53 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	protected String getTableName(){
 		return CandidateElementTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<CandidateElement> candidateElementList) {		
+
+
+
+	public void enhanceList(List<CandidateElement> candidateElementList) {
 		this.enhanceListInternal(candidateElementList, this.getCandidateElementMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<CandidateElement> candidateElementList = ownerEntity.collectRefsWithType(CandidateElement.INTERNAL_TYPE);
 		this.enhanceList(candidateElementList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<CandidateElement> findCandidateElementWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getCandidateElementMapper());
 
 	}
 	@Override
 	public int countCandidateElementWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countCandidateElementWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<CandidateElement> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getCandidateElementMapper());
 	}
+
+  @Override
+  public Stream<CandidateElement> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getCandidateElementMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -606,7 +618,7 @@ public class CandidateElementJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		}
 		return result;
 	}
-	
+
 	
 
 }

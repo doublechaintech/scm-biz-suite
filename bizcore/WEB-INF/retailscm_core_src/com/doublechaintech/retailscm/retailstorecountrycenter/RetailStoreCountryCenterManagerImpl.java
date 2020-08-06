@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.retailstorecountrycenter;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
@@ -81,24 +79,24 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = RetailStoreCountryCenterTokens.start().withTokenFromListName(listName).done();
 		RetailStoreCountryCenter  retailStoreCountryCenter = (RetailStoreCountryCenter) this.loadRetailStoreCountryCenter(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = retailStoreCountryCenter.collectRefercencesFromLists();
 		retailStoreCountryCenterDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, retailStoreCountryCenter, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new RetailStoreCountryCenterGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -161,7 +159,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreCountryCenterManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		RetailStoreCountryCenter retailStoreCountryCenter = loadRetailStoreCountryCenter( userContext, retailStoreCountryCenterId, tokens);
  		//do some calc before sent to customer?
@@ -180,6 +178,9 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		
 		List<BaseEntity> entityListToNaming = retailStoreCountryCenterToPresent.collectRefercencesFromLists();
 		retailStoreCountryCenterDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,retailStoreCountryCenter,tokens);
 		
 		return  retailStoreCountryCenterToPresent;
 		
@@ -946,7 +947,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addCatalog( catalog );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withCatalogList().done());
 			
-			userContext.getManagerGroup().getCatalogManager().onNewInstanceCreated(userContext, catalog);
+			catalogManagerOf(userContext).onNewInstanceCreated(userContext, catalog);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -969,7 +970,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withCatalogListList()
-				.searchCatalogListWith(Catalog.ID_PROPERTY, "is", id).done();
+				.searchCatalogListWith(Catalog.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -978,7 +979,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		Catalog item = retailStoreCountryCenterToUpdate.getCatalogList().first();
-
+		beforeUpdateCatalogProperties(userContext,item, retailStoreCountryCenterId,id,name,subCount,amount,tokensExpr);
 		item.updateName( name );
 		item.updateSubCount( subCount );
 		item.updateAmount( amount );
@@ -991,6 +992,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateCatalogProperties(RetailscmUserContext userContext, Catalog item, String retailStoreCountryCenterId, String id,String name,int subCount,BigDecimal amount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Catalog createCatalog(RetailscmUserContext userContext, String name, int subCount, BigDecimal amount) throws Exception{
 
@@ -1096,7 +1101,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyCatalogFrom( catalog );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withCatalogList().done());
 			
-			userContext.getManagerGroup().getCatalogManager().onNewInstanceCreated(userContext, (Catalog)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			catalogManagerOf(userContext).onNewInstanceCreated(userContext, (Catalog)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1109,27 +1114,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfCatalog(catalogId);
 		checkerOf(userContext).checkVersionOfCatalog(catalogVersion);
-		
+
 
 		if(Catalog.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfCatalog(parseString(newValueExpr));
-		
 		}
 		
 		if(Catalog.SUB_COUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSubCountOfCatalog(parseInt(newValueExpr));
-		
 		}
 		
 		if(Catalog.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfCatalog(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -1139,7 +1138,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingCatalog(userContext, retailStoreCountryCenterId, catalogId, catalogVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withCatalogList().searchCatalogListWith(Catalog.ID_PROPERTY, "eq", catalogId).done();
+		Map<String,Object> loadTokens = this.tokens().withCatalogList().searchCatalogListWith(Catalog.ID_PROPERTY, tokens().equals(), catalogId).done();
 
 
 
@@ -1150,13 +1149,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeCatalog( catalog );
 			//make changes to AcceleraterAccount.
-			Catalog catalogIndex = createIndexedCatalog(catalogId, catalogVersion);
+			Catalog catalogIdVersionKey = createIndexedCatalog(catalogId, catalogVersion);
 
-			Catalog catalog = retailStoreCountryCenter.findTheCatalog(catalogIndex);
+			Catalog catalog = retailStoreCountryCenter.findTheCatalog(catalogIdVersionKey);
 			if(catalog == null){
-				throw new RetailStoreCountryCenterManagerException(catalog+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(catalogId+" is NOT FOUND" );
 			}
 
+			beforeUpdateCatalog(userContext, catalog, retailStoreCountryCenterId, catalogId, catalogVersion, property, newValueExpr,  tokensExpr);
 			catalog.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withCatalogList().done());
@@ -1164,6 +1164,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateCatalog(RetailscmUserContext userContext, Catalog existed, String retailStoreCountryCenterId, String catalogId, int catalogVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1198,7 +1203,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addRetailStoreProvinceCenter( retailStoreProvinceCenter );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreProvinceCenterList().done());
 			
-			userContext.getManagerGroup().getRetailStoreProvinceCenterManager().onNewInstanceCreated(userContext, retailStoreProvinceCenter);
+			retailStoreProvinceCenterManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreProvinceCenter);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1220,7 +1225,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreProvinceCenterListList()
-				.searchRetailStoreProvinceCenterListWith(RetailStoreProvinceCenter.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreProvinceCenterListWith(RetailStoreProvinceCenter.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -1229,7 +1234,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		RetailStoreProvinceCenter item = retailStoreCountryCenterToUpdate.getRetailStoreProvinceCenterList().first();
-
+		beforeUpdateRetailStoreProvinceCenterProperties(userContext,item, retailStoreCountryCenterId,id,name,founded,tokensExpr);
 		item.updateName( name );
 		item.updateFounded( founded );
 
@@ -1241,6 +1246,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreProvinceCenterProperties(RetailscmUserContext userContext, RetailStoreProvinceCenter item, String retailStoreCountryCenterId, String id,String name,Date founded, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreProvinceCenter createRetailStoreProvinceCenter(RetailscmUserContext userContext, String name, Date founded) throws Exception{
 
@@ -1346,7 +1355,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyRetailStoreProvinceCenterFrom( retailStoreProvinceCenter );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreProvinceCenterList().done());
 			
-			userContext.getManagerGroup().getRetailStoreProvinceCenterManager().onNewInstanceCreated(userContext, (RetailStoreProvinceCenter)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreProvinceCenterManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreProvinceCenter)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1359,21 +1368,17 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfRetailStoreProvinceCenter(retailStoreProvinceCenterId);
 		checkerOf(userContext).checkVersionOfRetailStoreProvinceCenter(retailStoreProvinceCenterVersion);
-		
+
 
 		if(RetailStoreProvinceCenter.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStoreProvinceCenter(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreProvinceCenter.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfRetailStoreProvinceCenter(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -1383,7 +1388,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingRetailStoreProvinceCenter(userContext, retailStoreCountryCenterId, retailStoreProvinceCenterId, retailStoreProvinceCenterVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreProvinceCenterList().searchRetailStoreProvinceCenterListWith(RetailStoreProvinceCenter.ID_PROPERTY, "eq", retailStoreProvinceCenterId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreProvinceCenterList().searchRetailStoreProvinceCenterListWith(RetailStoreProvinceCenter.ID_PROPERTY, tokens().equals(), retailStoreProvinceCenterId).done();
 
 
 
@@ -1394,13 +1399,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeRetailStoreProvinceCenter( retailStoreProvinceCenter );
 			//make changes to AcceleraterAccount.
-			RetailStoreProvinceCenter retailStoreProvinceCenterIndex = createIndexedRetailStoreProvinceCenter(retailStoreProvinceCenterId, retailStoreProvinceCenterVersion);
+			RetailStoreProvinceCenter retailStoreProvinceCenterIdVersionKey = createIndexedRetailStoreProvinceCenter(retailStoreProvinceCenterId, retailStoreProvinceCenterVersion);
 
-			RetailStoreProvinceCenter retailStoreProvinceCenter = retailStoreCountryCenter.findTheRetailStoreProvinceCenter(retailStoreProvinceCenterIndex);
+			RetailStoreProvinceCenter retailStoreProvinceCenter = retailStoreCountryCenter.findTheRetailStoreProvinceCenter(retailStoreProvinceCenterIdVersionKey);
 			if(retailStoreProvinceCenter == null){
-				throw new RetailStoreCountryCenterManagerException(retailStoreProvinceCenter+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(retailStoreProvinceCenterId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, retailStoreCountryCenterId, retailStoreProvinceCenterId, retailStoreProvinceCenterVersion, property, newValueExpr,  tokensExpr);
 			retailStoreProvinceCenter.changeProperty(property, newValueExpr);
 			retailStoreProvinceCenter.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreProvinceCenterList().done());
@@ -1408,6 +1414,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreProvinceCenter(RetailscmUserContext userContext, RetailStoreProvinceCenter existed, String retailStoreCountryCenterId, String retailStoreProvinceCenterId, int retailStoreProvinceCenterVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1466,7 +1477,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addRetailStore( retailStore );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreList().done());
 			
-			userContext.getManagerGroup().getRetailStoreManager().onNewInstanceCreated(userContext, retailStore);
+			retailStoreManagerOf(userContext).onNewInstanceCreated(userContext, retailStore);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1493,7 +1504,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreListList()
-				.searchRetailStoreListWith(RetailStore.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreListWith(RetailStore.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -1502,7 +1513,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		RetailStore item = retailStoreCountryCenterToUpdate.getRetailStoreList().first();
-
+		beforeUpdateRetailStoreProperties(userContext,item, retailStoreCountryCenterId,id,name,telephone,owner,founded,latitude,longitude,description,tokensExpr);
 		item.updateName( name );
 		item.updateTelephone( telephone );
 		item.updateOwner( owner );
@@ -1519,6 +1530,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreProperties(RetailscmUserContext userContext, RetailStore item, String retailStoreCountryCenterId, String id,String name,String telephone,String owner,Date founded,BigDecimal latitude,BigDecimal longitude,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStore createRetailStore(RetailscmUserContext userContext, String name, String telephone, String owner, String cityServiceCenterId, String creationId, String investmentInvitationId, String franchisingId, String decorationId, String openingId, String closingId, Date founded, BigDecimal latitude, BigDecimal longitude, String description) throws Exception{
 
@@ -1650,7 +1665,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyRetailStoreFrom( retailStore );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreList().done());
 			
-			userContext.getManagerGroup().getRetailStoreManager().onNewInstanceCreated(userContext, (RetailStore)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStore)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1663,51 +1678,37 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
-		
+
 
 		if(RetailStore.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStore.TELEPHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTelephoneOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStore.OWNER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkOwnerOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStore.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfRetailStore(parseDate(newValueExpr));
-		
 		}
 		
 		if(RetailStore.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfRetailStore(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(RetailStore.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfRetailStore(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(RetailStore.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfRetailStore(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -1717,7 +1718,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingRetailStore(userContext, retailStoreCountryCenterId, retailStoreId, retailStoreVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreList().searchRetailStoreListWith(RetailStore.ID_PROPERTY, "eq", retailStoreId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreList().searchRetailStoreListWith(RetailStore.ID_PROPERTY, tokens().equals(), retailStoreId).done();
 
 
 
@@ -1728,13 +1729,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeRetailStore( retailStore );
 			//make changes to AcceleraterAccount.
-			RetailStore retailStoreIndex = createIndexedRetailStore(retailStoreId, retailStoreVersion);
+			RetailStore retailStoreIdVersionKey = createIndexedRetailStore(retailStoreId, retailStoreVersion);
 
-			RetailStore retailStore = retailStoreCountryCenter.findTheRetailStore(retailStoreIndex);
+			RetailStore retailStore = retailStoreCountryCenter.findTheRetailStore(retailStoreIdVersionKey);
 			if(retailStore == null){
-				throw new RetailStoreCountryCenterManagerException(retailStore+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(retailStoreId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStore(userContext, retailStore, retailStoreCountryCenterId, retailStoreId, retailStoreVersion, property, newValueExpr,  tokensExpr);
 			retailStore.changeProperty(property, newValueExpr);
 			retailStore.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreList().done());
@@ -1742,6 +1744,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStore(RetailscmUserContext userContext, RetailStore existed, String retailStoreCountryCenterId, String retailStoreId, int retailStoreVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1776,7 +1783,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addRetailStoreMember( retailStoreMember );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreMemberList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberManager().onNewInstanceCreated(userContext, retailStoreMember);
+			retailStoreMemberManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreMember);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1798,7 +1805,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreMemberListList()
-				.searchRetailStoreMemberListWith(RetailStoreMember.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreMemberListWith(RetailStoreMember.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -1807,7 +1814,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		RetailStoreMember item = retailStoreCountryCenterToUpdate.getRetailStoreMemberList().first();
-
+		beforeUpdateRetailStoreMemberProperties(userContext,item, retailStoreCountryCenterId,id,name,mobilePhone,tokensExpr);
 		item.updateName( name );
 		item.updateMobilePhone( mobilePhone );
 
@@ -1819,6 +1826,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreMemberProperties(RetailscmUserContext userContext, RetailStoreMember item, String retailStoreCountryCenterId, String id,String name,String mobilePhone, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreMember createRetailStoreMember(RetailscmUserContext userContext, String name, String mobilePhone) throws Exception{
 
@@ -1923,7 +1934,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyRetailStoreMemberFrom( retailStoreMember );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreMemberList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberManager().onNewInstanceCreated(userContext, (RetailStoreMember)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreMemberManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreMember)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1936,21 +1947,17 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkVersionOfRetailStoreMember(retailStoreMemberVersion);
-		
+
 
 		if(RetailStoreMember.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStoreMember(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMember.MOBILE_PHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMobilePhoneOfRetailStoreMember(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -1960,7 +1967,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingRetailStoreMember(userContext, retailStoreCountryCenterId, retailStoreMemberId, retailStoreMemberVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberList().searchRetailStoreMemberListWith(RetailStoreMember.ID_PROPERTY, "eq", retailStoreMemberId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberList().searchRetailStoreMemberListWith(RetailStoreMember.ID_PROPERTY, tokens().equals(), retailStoreMemberId).done();
 
 
 
@@ -1971,13 +1978,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeRetailStoreMember( retailStoreMember );
 			//make changes to AcceleraterAccount.
-			RetailStoreMember retailStoreMemberIndex = createIndexedRetailStoreMember(retailStoreMemberId, retailStoreMemberVersion);
+			RetailStoreMember retailStoreMemberIdVersionKey = createIndexedRetailStoreMember(retailStoreMemberId, retailStoreMemberVersion);
 
-			RetailStoreMember retailStoreMember = retailStoreCountryCenter.findTheRetailStoreMember(retailStoreMemberIndex);
+			RetailStoreMember retailStoreMember = retailStoreCountryCenter.findTheRetailStoreMember(retailStoreMemberIdVersionKey);
 			if(retailStoreMember == null){
-				throw new RetailStoreCountryCenterManagerException(retailStoreMember+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(retailStoreMemberId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreMember(userContext, retailStoreMember, retailStoreCountryCenterId, retailStoreMemberId, retailStoreMemberVersion, property, newValueExpr,  tokensExpr);
 			retailStoreMember.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreMemberList().done());
@@ -1985,6 +1993,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreMember(RetailscmUserContext userContext, RetailStoreMember existed, String retailStoreCountryCenterId, String retailStoreMemberId, int retailStoreMemberVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2023,7 +2036,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addGoodsSupplier( goodsSupplier );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withGoodsSupplierList().done());
 			
-			userContext.getManagerGroup().getGoodsSupplierManager().onNewInstanceCreated(userContext, goodsSupplier);
+			goodsSupplierManagerOf(userContext).onNewInstanceCreated(userContext, goodsSupplier);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2047,7 +2060,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withGoodsSupplierListList()
-				.searchGoodsSupplierListWith(GoodsSupplier.ID_PROPERTY, "is", id).done();
+				.searchGoodsSupplierListWith(GoodsSupplier.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -2056,7 +2069,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		GoodsSupplier item = retailStoreCountryCenterToUpdate.getGoodsSupplierList().first();
-
+		beforeUpdateGoodsSupplierProperties(userContext,item, retailStoreCountryCenterId,id,name,supplyProduct,contactNumber,description,tokensExpr);
 		item.updateName( name );
 		item.updateSupplyProduct( supplyProduct );
 		item.updateContactNumber( contactNumber );
@@ -2070,6 +2083,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateGoodsSupplierProperties(RetailscmUserContext userContext, GoodsSupplier item, String retailStoreCountryCenterId, String id,String name,String supplyProduct,String contactNumber,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected GoodsSupplier createGoodsSupplier(RetailscmUserContext userContext, String name, String supplyProduct, String contactNumber, String description) throws Exception{
 
@@ -2177,7 +2194,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyGoodsSupplierFrom( goodsSupplier );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withGoodsSupplierList().done());
 			
-			userContext.getManagerGroup().getGoodsSupplierManager().onNewInstanceCreated(userContext, (GoodsSupplier)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			goodsSupplierManagerOf(userContext).onNewInstanceCreated(userContext, (GoodsSupplier)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -2190,33 +2207,25 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfGoodsSupplier(goodsSupplierId);
 		checkerOf(userContext).checkVersionOfGoodsSupplier(goodsSupplierVersion);
-		
+
 
 		if(GoodsSupplier.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfGoodsSupplier(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsSupplier.SUPPLY_PRODUCT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSupplyProductOfGoodsSupplier(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsSupplier.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfGoodsSupplier(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsSupplier.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfGoodsSupplier(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -2226,7 +2235,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingGoodsSupplier(userContext, retailStoreCountryCenterId, goodsSupplierId, goodsSupplierVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withGoodsSupplierList().searchGoodsSupplierListWith(GoodsSupplier.ID_PROPERTY, "eq", goodsSupplierId).done();
+		Map<String,Object> loadTokens = this.tokens().withGoodsSupplierList().searchGoodsSupplierListWith(GoodsSupplier.ID_PROPERTY, tokens().equals(), goodsSupplierId).done();
 
 
 
@@ -2237,13 +2246,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeGoodsSupplier( goodsSupplier );
 			//make changes to AcceleraterAccount.
-			GoodsSupplier goodsSupplierIndex = createIndexedGoodsSupplier(goodsSupplierId, goodsSupplierVersion);
+			GoodsSupplier goodsSupplierIdVersionKey = createIndexedGoodsSupplier(goodsSupplierId, goodsSupplierVersion);
 
-			GoodsSupplier goodsSupplier = retailStoreCountryCenter.findTheGoodsSupplier(goodsSupplierIndex);
+			GoodsSupplier goodsSupplier = retailStoreCountryCenter.findTheGoodsSupplier(goodsSupplierIdVersionKey);
 			if(goodsSupplier == null){
-				throw new RetailStoreCountryCenterManagerException(goodsSupplier+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(goodsSupplierId+" is NOT FOUND" );
 			}
 
+			beforeUpdateGoodsSupplier(userContext, goodsSupplier, retailStoreCountryCenterId, goodsSupplierId, goodsSupplierVersion, property, newValueExpr,  tokensExpr);
 			goodsSupplier.changeProperty(property, newValueExpr);
 			goodsSupplier.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withGoodsSupplierList().done());
@@ -2251,6 +2261,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateGoodsSupplier(RetailscmUserContext userContext, GoodsSupplier existed, String retailStoreCountryCenterId, String goodsSupplierId, int goodsSupplierVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2287,7 +2302,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addSupplyOrder( supplyOrder );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSupplyOrderList().done());
 			
-			userContext.getManagerGroup().getSupplyOrderManager().onNewInstanceCreated(userContext, supplyOrder);
+			supplyOrderManagerOf(userContext).onNewInstanceCreated(userContext, supplyOrder);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2309,7 +2324,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSupplyOrderListList()
-				.searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, "is", id).done();
+				.searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -2318,7 +2333,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		SupplyOrder item = retailStoreCountryCenterToUpdate.getSupplyOrderList().first();
-
+		beforeUpdateSupplyOrderProperties(userContext,item, retailStoreCountryCenterId,id,title,totalAmount,tokensExpr);
 		item.updateTitle( title );
 		item.updateTotalAmount( totalAmount );
 
@@ -2330,6 +2345,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateSupplyOrderProperties(RetailscmUserContext userContext, SupplyOrder item, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String sellerId, String title, BigDecimal totalAmount) throws Exception{
 
@@ -2438,7 +2457,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copySupplyOrderFrom( supplyOrder );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSupplyOrderList().done());
 			
-			userContext.getManagerGroup().getSupplyOrderManager().onNewInstanceCreated(userContext, (SupplyOrder)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			supplyOrderManagerOf(userContext).onNewInstanceCreated(userContext, (SupplyOrder)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -2451,21 +2470,17 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfSupplyOrder(supplyOrderId);
 		checkerOf(userContext).checkVersionOfSupplyOrder(supplyOrderVersion);
-		
+
 
 		if(SupplyOrder.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfSupplyOrder(parseString(newValueExpr));
-		
 		}
 		
 		if(SupplyOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAmountOfSupplyOrder(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -2475,7 +2490,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingSupplyOrder(userContext, retailStoreCountryCenterId, supplyOrderId, supplyOrderVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSupplyOrderList().searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, "eq", supplyOrderId).done();
+		Map<String,Object> loadTokens = this.tokens().withSupplyOrderList().searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, tokens().equals(), supplyOrderId).done();
 
 
 
@@ -2486,13 +2501,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeSupplyOrder( supplyOrder );
 			//make changes to AcceleraterAccount.
-			SupplyOrder supplyOrderIndex = createIndexedSupplyOrder(supplyOrderId, supplyOrderVersion);
+			SupplyOrder supplyOrderIdVersionKey = createIndexedSupplyOrder(supplyOrderId, supplyOrderVersion);
 
-			SupplyOrder supplyOrder = retailStoreCountryCenter.findTheSupplyOrder(supplyOrderIndex);
+			SupplyOrder supplyOrder = retailStoreCountryCenter.findTheSupplyOrder(supplyOrderIdVersionKey);
 			if(supplyOrder == null){
-				throw new RetailStoreCountryCenterManagerException(supplyOrder+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(supplyOrderId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSupplyOrder(userContext, supplyOrder, retailStoreCountryCenterId, supplyOrderId, supplyOrderVersion, property, newValueExpr,  tokensExpr);
 			supplyOrder.changeProperty(property, newValueExpr);
 			supplyOrder.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSupplyOrderList().done());
@@ -2500,6 +2516,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSupplyOrder(RetailscmUserContext userContext, SupplyOrder existed, String retailStoreCountryCenterId, String supplyOrderId, int supplyOrderVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2536,7 +2557,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addRetailStoreOrder( retailStoreOrder );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreOrderList().done());
 			
-			userContext.getManagerGroup().getRetailStoreOrderManager().onNewInstanceCreated(userContext, retailStoreOrder);
+			retailStoreOrderManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreOrder);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2558,7 +2579,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreOrderListList()
-				.searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -2567,7 +2588,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		RetailStoreOrder item = retailStoreCountryCenterToUpdate.getRetailStoreOrderList().first();
-
+		beforeUpdateRetailStoreOrderProperties(userContext,item, retailStoreCountryCenterId,id,title,totalAmount,tokensExpr);
 		item.updateTitle( title );
 		item.updateTotalAmount( totalAmount );
 
@@ -2579,6 +2600,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreOrderProperties(RetailscmUserContext userContext, RetailStoreOrder item, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId, String title, BigDecimal totalAmount) throws Exception{
 
@@ -2687,7 +2712,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyRetailStoreOrderFrom( retailStoreOrder );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreOrderList().done());
 			
-			userContext.getManagerGroup().getRetailStoreOrderManager().onNewInstanceCreated(userContext, (RetailStoreOrder)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreOrderManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreOrder)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -2700,21 +2725,17 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfRetailStoreOrder(retailStoreOrderId);
 		checkerOf(userContext).checkVersionOfRetailStoreOrder(retailStoreOrderVersion);
-		
+
 
 		if(RetailStoreOrder.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfRetailStoreOrder(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -2724,7 +2745,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingRetailStoreOrder(userContext, retailStoreCountryCenterId, retailStoreOrderId, retailStoreOrderVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreOrderList().searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, "eq", retailStoreOrderId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreOrderList().searchRetailStoreOrderListWith(RetailStoreOrder.ID_PROPERTY, tokens().equals(), retailStoreOrderId).done();
 
 
 
@@ -2735,13 +2756,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeRetailStoreOrder( retailStoreOrder );
 			//make changes to AcceleraterAccount.
-			RetailStoreOrder retailStoreOrderIndex = createIndexedRetailStoreOrder(retailStoreOrderId, retailStoreOrderVersion);
+			RetailStoreOrder retailStoreOrderIdVersionKey = createIndexedRetailStoreOrder(retailStoreOrderId, retailStoreOrderVersion);
 
-			RetailStoreOrder retailStoreOrder = retailStoreCountryCenter.findTheRetailStoreOrder(retailStoreOrderIndex);
+			RetailStoreOrder retailStoreOrder = retailStoreCountryCenter.findTheRetailStoreOrder(retailStoreOrderIdVersionKey);
 			if(retailStoreOrder == null){
-				throw new RetailStoreCountryCenterManagerException(retailStoreOrder+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(retailStoreOrderId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreOrder(userContext, retailStoreOrder, retailStoreCountryCenterId, retailStoreOrderId, retailStoreOrderVersion, property, newValueExpr,  tokensExpr);
 			retailStoreOrder.changeProperty(property, newValueExpr);
 			retailStoreOrder.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withRetailStoreOrderList().done());
@@ -2749,6 +2771,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreOrder(RetailscmUserContext userContext, RetailStoreOrder existed, String retailStoreCountryCenterId, String retailStoreOrderId, int retailStoreOrderVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2789,7 +2816,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addWarehouse( warehouse );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withWarehouseList().done());
 			
-			userContext.getManagerGroup().getWarehouseManager().onNewInstanceCreated(userContext, warehouse);
+			warehouseManagerOf(userContext).onNewInstanceCreated(userContext, warehouse);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2814,7 +2841,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withWarehouseListList()
-				.searchWarehouseListWith(Warehouse.ID_PROPERTY, "is", id).done();
+				.searchWarehouseListWith(Warehouse.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -2823,7 +2850,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		Warehouse item = retailStoreCountryCenterToUpdate.getWarehouseList().first();
-
+		beforeUpdateWarehouseProperties(userContext,item, retailStoreCountryCenterId,id,location,contactNumber,totalArea,latitude,longitude,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateTotalArea( totalArea );
@@ -2838,6 +2865,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateWarehouseProperties(RetailscmUserContext userContext, Warehouse item, String retailStoreCountryCenterId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Warehouse createWarehouse(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -2946,7 +2977,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyWarehouseFrom( warehouse );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withWarehouseList().done());
 			
-			userContext.getManagerGroup().getWarehouseManager().onNewInstanceCreated(userContext, (Warehouse)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			warehouseManagerOf(userContext).onNewInstanceCreated(userContext, (Warehouse)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -2959,39 +2990,29 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkVersionOfWarehouse(warehouseVersion);
-		
+
 
 		if(Warehouse.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfWarehouse(parseString(newValueExpr));
-		
 		}
 		
 		if(Warehouse.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfWarehouse(parseString(newValueExpr));
-		
 		}
 		
 		if(Warehouse.TOTAL_AREA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAreaOfWarehouse(parseString(newValueExpr));
-		
 		}
 		
 		if(Warehouse.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfWarehouse(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(Warehouse.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfWarehouse(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -3001,7 +3022,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingWarehouse(userContext, retailStoreCountryCenterId, warehouseId, warehouseVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withWarehouseList().searchWarehouseListWith(Warehouse.ID_PROPERTY, "eq", warehouseId).done();
+		Map<String,Object> loadTokens = this.tokens().withWarehouseList().searchWarehouseListWith(Warehouse.ID_PROPERTY, tokens().equals(), warehouseId).done();
 
 
 
@@ -3012,13 +3033,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeWarehouse( warehouse );
 			//make changes to AcceleraterAccount.
-			Warehouse warehouseIndex = createIndexedWarehouse(warehouseId, warehouseVersion);
+			Warehouse warehouseIdVersionKey = createIndexedWarehouse(warehouseId, warehouseVersion);
 
-			Warehouse warehouse = retailStoreCountryCenter.findTheWarehouse(warehouseIndex);
+			Warehouse warehouse = retailStoreCountryCenter.findTheWarehouse(warehouseIdVersionKey);
 			if(warehouse == null){
-				throw new RetailStoreCountryCenterManagerException(warehouse+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(warehouseId+" is NOT FOUND" );
 			}
 
+			beforeUpdateWarehouse(userContext, warehouse, retailStoreCountryCenterId, warehouseId, warehouseVersion, property, newValueExpr,  tokensExpr);
 			warehouse.changeProperty(property, newValueExpr);
 			warehouse.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withWarehouseList().done());
@@ -3026,6 +3048,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateWarehouse(RetailscmUserContext userContext, Warehouse existed, String retailStoreCountryCenterId, String warehouseId, int warehouseVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3060,7 +3087,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addTransportFleet( transportFleet );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTransportFleetList().done());
 			
-			userContext.getManagerGroup().getTransportFleetManager().onNewInstanceCreated(userContext, transportFleet);
+			transportFleetManagerOf(userContext).onNewInstanceCreated(userContext, transportFleet);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3082,7 +3109,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withTransportFleetListList()
-				.searchTransportFleetListWith(TransportFleet.ID_PROPERTY, "is", id).done();
+				.searchTransportFleetListWith(TransportFleet.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -3091,7 +3118,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		TransportFleet item = retailStoreCountryCenterToUpdate.getTransportFleetList().first();
-
+		beforeUpdateTransportFleetProperties(userContext,item, retailStoreCountryCenterId,id,name,contactNumber,tokensExpr);
 		item.updateName( name );
 		item.updateContactNumber( contactNumber );
 
@@ -3103,6 +3130,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateTransportFleetProperties(RetailscmUserContext userContext, TransportFleet item, String retailStoreCountryCenterId, String id,String name,String contactNumber, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected TransportFleet createTransportFleet(RetailscmUserContext userContext, String name, String contactNumber) throws Exception{
 
@@ -3208,7 +3239,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyTransportFleetFrom( transportFleet );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTransportFleetList().done());
 			
-			userContext.getManagerGroup().getTransportFleetManager().onNewInstanceCreated(userContext, (TransportFleet)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			transportFleetManagerOf(userContext).onNewInstanceCreated(userContext, (TransportFleet)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -3221,21 +3252,17 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfTransportFleet(transportFleetId);
 		checkerOf(userContext).checkVersionOfTransportFleet(transportFleetVersion);
-		
+
 
 		if(TransportFleet.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfTransportFleet(parseString(newValueExpr));
-		
 		}
 		
 		if(TransportFleet.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfTransportFleet(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -3245,7 +3272,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingTransportFleet(userContext, retailStoreCountryCenterId, transportFleetId, transportFleetVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withTransportFleetList().searchTransportFleetListWith(TransportFleet.ID_PROPERTY, "eq", transportFleetId).done();
+		Map<String,Object> loadTokens = this.tokens().withTransportFleetList().searchTransportFleetListWith(TransportFleet.ID_PROPERTY, tokens().equals(), transportFleetId).done();
 
 
 
@@ -3256,13 +3283,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeTransportFleet( transportFleet );
 			//make changes to AcceleraterAccount.
-			TransportFleet transportFleetIndex = createIndexedTransportFleet(transportFleetId, transportFleetVersion);
+			TransportFleet transportFleetIdVersionKey = createIndexedTransportFleet(transportFleetId, transportFleetVersion);
 
-			TransportFleet transportFleet = retailStoreCountryCenter.findTheTransportFleet(transportFleetIndex);
+			TransportFleet transportFleet = retailStoreCountryCenter.findTheTransportFleet(transportFleetIdVersionKey);
 			if(transportFleet == null){
-				throw new RetailStoreCountryCenterManagerException(transportFleet+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(transportFleetId+" is NOT FOUND" );
 			}
 
+			beforeUpdateTransportFleet(userContext, transportFleet, retailStoreCountryCenterId, transportFleetId, transportFleetVersion, property, newValueExpr,  tokensExpr);
 			transportFleet.changeProperty(property, newValueExpr);
 			transportFleet.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTransportFleetList().done());
@@ -3270,6 +3298,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateTransportFleet(RetailscmUserContext userContext, TransportFleet existed, String retailStoreCountryCenterId, String transportFleetId, int transportFleetVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3320,7 +3353,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addAccountSet( accountSet );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withAccountSetList().done());
 			
-			userContext.getManagerGroup().getAccountSetManager().onNewInstanceCreated(userContext, accountSet);
+			accountSetManagerOf(userContext).onNewInstanceCreated(userContext, accountSet);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3348,7 +3381,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withAccountSetListList()
-				.searchAccountSetListWith(AccountSet.ID_PROPERTY, "is", id).done();
+				.searchAccountSetListWith(AccountSet.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -3357,7 +3390,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		AccountSet item = retailStoreCountryCenterToUpdate.getAccountSetList().first();
-
+		beforeUpdateAccountSetProperties(userContext,item, retailStoreCountryCenterId,id,name,yearSet,effectiveDate,accountingSystem,domesticCurrencyCode,domesticCurrencyName,openingBank,accountNumber,tokensExpr);
 		item.updateName( name );
 		item.updateYearSet( yearSet );
 		item.updateEffectiveDate( effectiveDate );
@@ -3375,6 +3408,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateAccountSetProperties(RetailscmUserContext userContext, AccountSet item, String retailStoreCountryCenterId, String id,String name,String yearSet,Date effectiveDate,String accountingSystem,String domesticCurrencyCode,String domesticCurrencyName,String openingBank,String accountNumber, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected AccountSet createAccountSet(RetailscmUserContext userContext, String name, String yearSet, Date effectiveDate, String accountingSystem, String domesticCurrencyCode, String domesticCurrencyName, String openingBank, String accountNumber, String retailStoreId, String goodsSupplierId) throws Exception{
 
@@ -3492,7 +3529,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyAccountSetFrom( accountSet );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withAccountSetList().done());
 			
-			userContext.getManagerGroup().getAccountSetManager().onNewInstanceCreated(userContext, (AccountSet)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			accountSetManagerOf(userContext).onNewInstanceCreated(userContext, (AccountSet)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -3505,57 +3542,41 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfAccountSet(accountSetId);
 		checkerOf(userContext).checkVersionOfAccountSet(accountSetVersion);
-		
+
 
 		if(AccountSet.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.YEAR_SET_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkYearSetOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.EFFECTIVE_DATE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEffectiveDateOfAccountSet(parseDate(newValueExpr));
-		
 		}
 		
 		if(AccountSet.ACCOUNTING_SYSTEM_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountingSystemOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.DOMESTIC_CURRENCY_CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDomesticCurrencyCodeOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.DOMESTIC_CURRENCY_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDomesticCurrencyNameOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.OPENING_BANK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkOpeningBankOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.ACCOUNT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountNumberOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -3565,7 +3586,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingAccountSet(userContext, retailStoreCountryCenterId, accountSetId, accountSetVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withAccountSetList().searchAccountSetListWith(AccountSet.ID_PROPERTY, "eq", accountSetId).done();
+		Map<String,Object> loadTokens = this.tokens().withAccountSetList().searchAccountSetListWith(AccountSet.ID_PROPERTY, tokens().equals(), accountSetId).done();
 
 
 
@@ -3576,13 +3597,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeAccountSet( accountSet );
 			//make changes to AcceleraterAccount.
-			AccountSet accountSetIndex = createIndexedAccountSet(accountSetId, accountSetVersion);
+			AccountSet accountSetIdVersionKey = createIndexedAccountSet(accountSetId, accountSetVersion);
 
-			AccountSet accountSet = retailStoreCountryCenter.findTheAccountSet(accountSetIndex);
+			AccountSet accountSet = retailStoreCountryCenter.findTheAccountSet(accountSetIdVersionKey);
 			if(accountSet == null){
-				throw new RetailStoreCountryCenterManagerException(accountSet+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(accountSetId+" is NOT FOUND" );
 			}
 
+			beforeUpdateAccountSet(userContext, accountSet, retailStoreCountryCenterId, accountSetId, accountSetVersion, property, newValueExpr,  tokensExpr);
 			accountSet.changeProperty(property, newValueExpr);
 			accountSet.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withAccountSetList().done());
@@ -3590,6 +3612,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateAccountSet(RetailscmUserContext userContext, AccountSet existed, String retailStoreCountryCenterId, String accountSetId, int accountSetVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3628,7 +3655,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addLevelOneDepartment( levelOneDepartment );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withLevelOneDepartmentList().done());
 			
-			userContext.getManagerGroup().getLevelOneDepartmentManager().onNewInstanceCreated(userContext, levelOneDepartment);
+			levelOneDepartmentManagerOf(userContext).onNewInstanceCreated(userContext, levelOneDepartment);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3652,7 +3679,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withLevelOneDepartmentListList()
-				.searchLevelOneDepartmentListWith(LevelOneDepartment.ID_PROPERTY, "is", id).done();
+				.searchLevelOneDepartmentListWith(LevelOneDepartment.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -3661,7 +3688,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		LevelOneDepartment item = retailStoreCountryCenterToUpdate.getLevelOneDepartmentList().first();
-
+		beforeUpdateLevelOneDepartmentProperties(userContext,item, retailStoreCountryCenterId,id,name,description,manager,founded,tokensExpr);
 		item.updateName( name );
 		item.updateDescription( description );
 		item.updateManager( manager );
@@ -3675,6 +3702,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateLevelOneDepartmentProperties(RetailscmUserContext userContext, LevelOneDepartment item, String retailStoreCountryCenterId, String id,String name,String description,String manager,Date founded, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected LevelOneDepartment createLevelOneDepartment(RetailscmUserContext userContext, String name, String description, String manager, Date founded) throws Exception{
 
@@ -3781,7 +3812,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyLevelOneDepartmentFrom( levelOneDepartment );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withLevelOneDepartmentList().done());
 			
-			userContext.getManagerGroup().getLevelOneDepartmentManager().onNewInstanceCreated(userContext, (LevelOneDepartment)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			levelOneDepartmentManagerOf(userContext).onNewInstanceCreated(userContext, (LevelOneDepartment)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -3794,33 +3825,25 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfLevelOneDepartment(levelOneDepartmentId);
 		checkerOf(userContext).checkVersionOfLevelOneDepartment(levelOneDepartmentVersion);
-		
+
 
 		if(LevelOneDepartment.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfLevelOneDepartment(parseString(newValueExpr));
-		
 		}
 		
 		if(LevelOneDepartment.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfLevelOneDepartment(parseString(newValueExpr));
-		
 		}
 		
 		if(LevelOneDepartment.MANAGER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkManagerOfLevelOneDepartment(parseString(newValueExpr));
-		
 		}
 		
 		if(LevelOneDepartment.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfLevelOneDepartment(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -3830,7 +3853,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingLevelOneDepartment(userContext, retailStoreCountryCenterId, levelOneDepartmentId, levelOneDepartmentVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withLevelOneDepartmentList().searchLevelOneDepartmentListWith(LevelOneDepartment.ID_PROPERTY, "eq", levelOneDepartmentId).done();
+		Map<String,Object> loadTokens = this.tokens().withLevelOneDepartmentList().searchLevelOneDepartmentListWith(LevelOneDepartment.ID_PROPERTY, tokens().equals(), levelOneDepartmentId).done();
 
 
 
@@ -3841,13 +3864,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeLevelOneDepartment( levelOneDepartment );
 			//make changes to AcceleraterAccount.
-			LevelOneDepartment levelOneDepartmentIndex = createIndexedLevelOneDepartment(levelOneDepartmentId, levelOneDepartmentVersion);
+			LevelOneDepartment levelOneDepartmentIdVersionKey = createIndexedLevelOneDepartment(levelOneDepartmentId, levelOneDepartmentVersion);
 
-			LevelOneDepartment levelOneDepartment = retailStoreCountryCenter.findTheLevelOneDepartment(levelOneDepartmentIndex);
+			LevelOneDepartment levelOneDepartment = retailStoreCountryCenter.findTheLevelOneDepartment(levelOneDepartmentIdVersionKey);
 			if(levelOneDepartment == null){
-				throw new RetailStoreCountryCenterManagerException(levelOneDepartment+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(levelOneDepartmentId+" is NOT FOUND" );
 			}
 
+			beforeUpdateLevelOneDepartment(userContext, levelOneDepartment, retailStoreCountryCenterId, levelOneDepartmentId, levelOneDepartmentVersion, property, newValueExpr,  tokensExpr);
 			levelOneDepartment.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withLevelOneDepartmentList().done());
@@ -3855,6 +3879,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateLevelOneDepartment(RetailscmUserContext userContext, LevelOneDepartment existed, String retailStoreCountryCenterId, String levelOneDepartmentId, int levelOneDepartmentVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -3889,7 +3918,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addSkillType( skillType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSkillTypeList().done());
 			
-			userContext.getManagerGroup().getSkillTypeManager().onNewInstanceCreated(userContext, skillType);
+			skillTypeManagerOf(userContext).onNewInstanceCreated(userContext, skillType);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -3911,7 +3940,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSkillTypeListList()
-				.searchSkillTypeListWith(SkillType.ID_PROPERTY, "is", id).done();
+				.searchSkillTypeListWith(SkillType.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -3920,7 +3949,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		SkillType item = retailStoreCountryCenterToUpdate.getSkillTypeList().first();
-
+		beforeUpdateSkillTypeProperties(userContext,item, retailStoreCountryCenterId,id,code,description,tokensExpr);
 		item.updateCode( code );
 		item.updateDescription( description );
 
@@ -3932,6 +3961,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateSkillTypeProperties(RetailscmUserContext userContext, SkillType item, String retailStoreCountryCenterId, String id,String code,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected SkillType createSkillType(RetailscmUserContext userContext, String code, String description) throws Exception{
 
@@ -4036,7 +4069,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copySkillTypeFrom( skillType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSkillTypeList().done());
 			
-			userContext.getManagerGroup().getSkillTypeManager().onNewInstanceCreated(userContext, (SkillType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			skillTypeManagerOf(userContext).onNewInstanceCreated(userContext, (SkillType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -4049,21 +4082,17 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
 		checkerOf(userContext).checkVersionOfSkillType(skillTypeVersion);
-		
+
 
 		if(SkillType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfSkillType(parseString(newValueExpr));
-		
 		}
 		
 		if(SkillType.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfSkillType(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -4073,7 +4102,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingSkillType(userContext, retailStoreCountryCenterId, skillTypeId, skillTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSkillTypeList().searchSkillTypeListWith(SkillType.ID_PROPERTY, "eq", skillTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withSkillTypeList().searchSkillTypeListWith(SkillType.ID_PROPERTY, tokens().equals(), skillTypeId).done();
 
 
 
@@ -4084,13 +4113,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeSkillType( skillType );
 			//make changes to AcceleraterAccount.
-			SkillType skillTypeIndex = createIndexedSkillType(skillTypeId, skillTypeVersion);
+			SkillType skillTypeIdVersionKey = createIndexedSkillType(skillTypeId, skillTypeVersion);
 
-			SkillType skillType = retailStoreCountryCenter.findTheSkillType(skillTypeIndex);
+			SkillType skillType = retailStoreCountryCenter.findTheSkillType(skillTypeIdVersionKey);
 			if(skillType == null){
-				throw new RetailStoreCountryCenterManagerException(skillType+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(skillTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSkillType(userContext, skillType, retailStoreCountryCenterId, skillTypeId, skillTypeVersion, property, newValueExpr,  tokensExpr);
 			skillType.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSkillTypeList().done());
@@ -4098,6 +4128,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSkillType(RetailscmUserContext userContext, SkillType existed, String retailStoreCountryCenterId, String skillTypeId, int skillTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -4134,7 +4169,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addResponsibilityType( responsibilityType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withResponsibilityTypeList().done());
 			
-			userContext.getManagerGroup().getResponsibilityTypeManager().onNewInstanceCreated(userContext, responsibilityType);
+			responsibilityTypeManagerOf(userContext).onNewInstanceCreated(userContext, responsibilityType);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -4157,7 +4192,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withResponsibilityTypeListList()
-				.searchResponsibilityTypeListWith(ResponsibilityType.ID_PROPERTY, "is", id).done();
+				.searchResponsibilityTypeListWith(ResponsibilityType.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -4166,7 +4201,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		ResponsibilityType item = retailStoreCountryCenterToUpdate.getResponsibilityTypeList().first();
-
+		beforeUpdateResponsibilityTypeProperties(userContext,item, retailStoreCountryCenterId,id,code,baseDescription,detailDescription,tokensExpr);
 		item.updateCode( code );
 		item.updateBaseDescription( baseDescription );
 		item.updateDetailDescription( detailDescription );
@@ -4179,6 +4214,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateResponsibilityTypeProperties(RetailscmUserContext userContext, ResponsibilityType item, String retailStoreCountryCenterId, String id,String code,String baseDescription,String detailDescription, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ResponsibilityType createResponsibilityType(RetailscmUserContext userContext, String code, String baseDescription, String detailDescription) throws Exception{
 
@@ -4284,7 +4323,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyResponsibilityTypeFrom( responsibilityType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withResponsibilityTypeList().done());
 			
-			userContext.getManagerGroup().getResponsibilityTypeManager().onNewInstanceCreated(userContext, (ResponsibilityType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			responsibilityTypeManagerOf(userContext).onNewInstanceCreated(userContext, (ResponsibilityType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -4297,27 +4336,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfResponsibilityType(responsibilityTypeId);
 		checkerOf(userContext).checkVersionOfResponsibilityType(responsibilityTypeVersion);
-		
+
 
 		if(ResponsibilityType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfResponsibilityType(parseString(newValueExpr));
-		
 		}
 		
 		if(ResponsibilityType.BASE_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBaseDescriptionOfResponsibilityType(parseString(newValueExpr));
-		
 		}
 		
 		if(ResponsibilityType.DETAIL_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDetailDescriptionOfResponsibilityType(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -4327,7 +4360,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingResponsibilityType(userContext, retailStoreCountryCenterId, responsibilityTypeId, responsibilityTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withResponsibilityTypeList().searchResponsibilityTypeListWith(ResponsibilityType.ID_PROPERTY, "eq", responsibilityTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withResponsibilityTypeList().searchResponsibilityTypeListWith(ResponsibilityType.ID_PROPERTY, tokens().equals(), responsibilityTypeId).done();
 
 
 
@@ -4338,13 +4371,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeResponsibilityType( responsibilityType );
 			//make changes to AcceleraterAccount.
-			ResponsibilityType responsibilityTypeIndex = createIndexedResponsibilityType(responsibilityTypeId, responsibilityTypeVersion);
+			ResponsibilityType responsibilityTypeIdVersionKey = createIndexedResponsibilityType(responsibilityTypeId, responsibilityTypeVersion);
 
-			ResponsibilityType responsibilityType = retailStoreCountryCenter.findTheResponsibilityType(responsibilityTypeIndex);
+			ResponsibilityType responsibilityType = retailStoreCountryCenter.findTheResponsibilityType(responsibilityTypeIdVersionKey);
 			if(responsibilityType == null){
-				throw new RetailStoreCountryCenterManagerException(responsibilityType+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(responsibilityTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateResponsibilityType(userContext, responsibilityType, retailStoreCountryCenterId, responsibilityTypeId, responsibilityTypeVersion, property, newValueExpr,  tokensExpr);
 			responsibilityType.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withResponsibilityTypeList().done());
@@ -4352,6 +4386,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateResponsibilityType(RetailscmUserContext userContext, ResponsibilityType existed, String retailStoreCountryCenterId, String responsibilityTypeId, int responsibilityTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -4386,7 +4425,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addTerminationReason( terminationReason );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTerminationReasonList().done());
 			
-			userContext.getManagerGroup().getTerminationReasonManager().onNewInstanceCreated(userContext, terminationReason);
+			terminationReasonManagerOf(userContext).onNewInstanceCreated(userContext, terminationReason);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -4408,7 +4447,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withTerminationReasonListList()
-				.searchTerminationReasonListWith(TerminationReason.ID_PROPERTY, "is", id).done();
+				.searchTerminationReasonListWith(TerminationReason.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -4417,7 +4456,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		TerminationReason item = retailStoreCountryCenterToUpdate.getTerminationReasonList().first();
-
+		beforeUpdateTerminationReasonProperties(userContext,item, retailStoreCountryCenterId,id,code,description,tokensExpr);
 		item.updateCode( code );
 		item.updateDescription( description );
 
@@ -4429,6 +4468,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateTerminationReasonProperties(RetailscmUserContext userContext, TerminationReason item, String retailStoreCountryCenterId, String id,String code,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected TerminationReason createTerminationReason(RetailscmUserContext userContext, String code, String description) throws Exception{
 
@@ -4533,7 +4576,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyTerminationReasonFrom( terminationReason );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTerminationReasonList().done());
 			
-			userContext.getManagerGroup().getTerminationReasonManager().onNewInstanceCreated(userContext, (TerminationReason)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			terminationReasonManagerOf(userContext).onNewInstanceCreated(userContext, (TerminationReason)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -4546,21 +4589,17 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfTerminationReason(terminationReasonId);
 		checkerOf(userContext).checkVersionOfTerminationReason(terminationReasonVersion);
-		
+
 
 		if(TerminationReason.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfTerminationReason(parseString(newValueExpr));
-		
 		}
 		
 		if(TerminationReason.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfTerminationReason(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -4570,7 +4609,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingTerminationReason(userContext, retailStoreCountryCenterId, terminationReasonId, terminationReasonVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withTerminationReasonList().searchTerminationReasonListWith(TerminationReason.ID_PROPERTY, "eq", terminationReasonId).done();
+		Map<String,Object> loadTokens = this.tokens().withTerminationReasonList().searchTerminationReasonListWith(TerminationReason.ID_PROPERTY, tokens().equals(), terminationReasonId).done();
 
 
 
@@ -4581,13 +4620,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeTerminationReason( terminationReason );
 			//make changes to AcceleraterAccount.
-			TerminationReason terminationReasonIndex = createIndexedTerminationReason(terminationReasonId, terminationReasonVersion);
+			TerminationReason terminationReasonIdVersionKey = createIndexedTerminationReason(terminationReasonId, terminationReasonVersion);
 
-			TerminationReason terminationReason = retailStoreCountryCenter.findTheTerminationReason(terminationReasonIndex);
+			TerminationReason terminationReason = retailStoreCountryCenter.findTheTerminationReason(terminationReasonIdVersionKey);
 			if(terminationReason == null){
-				throw new RetailStoreCountryCenterManagerException(terminationReason+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(terminationReasonId+" is NOT FOUND" );
 			}
 
+			beforeUpdateTerminationReason(userContext, terminationReason, retailStoreCountryCenterId, terminationReasonId, terminationReasonVersion, property, newValueExpr,  tokensExpr);
 			terminationReason.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTerminationReasonList().done());
@@ -4595,6 +4635,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateTerminationReason(RetailscmUserContext userContext, TerminationReason existed, String retailStoreCountryCenterId, String terminationReasonId, int terminationReasonVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -4631,7 +4676,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addTerminationType( terminationType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTerminationTypeList().done());
 			
-			userContext.getManagerGroup().getTerminationTypeManager().onNewInstanceCreated(userContext, terminationType);
+			terminationTypeManagerOf(userContext).onNewInstanceCreated(userContext, terminationType);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -4654,7 +4699,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withTerminationTypeListList()
-				.searchTerminationTypeListWith(TerminationType.ID_PROPERTY, "is", id).done();
+				.searchTerminationTypeListWith(TerminationType.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -4663,7 +4708,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		TerminationType item = retailStoreCountryCenterToUpdate.getTerminationTypeList().first();
-
+		beforeUpdateTerminationTypeProperties(userContext,item, retailStoreCountryCenterId,id,code,baseDescription,detailDescription,tokensExpr);
 		item.updateCode( code );
 		item.updateBaseDescription( baseDescription );
 		item.updateDetailDescription( detailDescription );
@@ -4676,6 +4721,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateTerminationTypeProperties(RetailscmUserContext userContext, TerminationType item, String retailStoreCountryCenterId, String id,String code,String baseDescription,String detailDescription, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected TerminationType createTerminationType(RetailscmUserContext userContext, String code, String baseDescription, String detailDescription) throws Exception{
 
@@ -4781,7 +4830,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyTerminationTypeFrom( terminationType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTerminationTypeList().done());
 			
-			userContext.getManagerGroup().getTerminationTypeManager().onNewInstanceCreated(userContext, (TerminationType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			terminationTypeManagerOf(userContext).onNewInstanceCreated(userContext, (TerminationType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -4794,27 +4843,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfTerminationType(terminationTypeId);
 		checkerOf(userContext).checkVersionOfTerminationType(terminationTypeVersion);
-		
+
 
 		if(TerminationType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfTerminationType(parseString(newValueExpr));
-		
 		}
 		
 		if(TerminationType.BASE_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkBaseDescriptionOfTerminationType(parseString(newValueExpr));
-		
 		}
 		
 		if(TerminationType.DETAIL_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDetailDescriptionOfTerminationType(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -4824,7 +4867,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingTerminationType(userContext, retailStoreCountryCenterId, terminationTypeId, terminationTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withTerminationTypeList().searchTerminationTypeListWith(TerminationType.ID_PROPERTY, "eq", terminationTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withTerminationTypeList().searchTerminationTypeListWith(TerminationType.ID_PROPERTY, tokens().equals(), terminationTypeId).done();
 
 
 
@@ -4835,13 +4878,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeTerminationType( terminationType );
 			//make changes to AcceleraterAccount.
-			TerminationType terminationTypeIndex = createIndexedTerminationType(terminationTypeId, terminationTypeVersion);
+			TerminationType terminationTypeIdVersionKey = createIndexedTerminationType(terminationTypeId, terminationTypeVersion);
 
-			TerminationType terminationType = retailStoreCountryCenter.findTheTerminationType(terminationTypeIndex);
+			TerminationType terminationType = retailStoreCountryCenter.findTheTerminationType(terminationTypeIdVersionKey);
 			if(terminationType == null){
-				throw new RetailStoreCountryCenterManagerException(terminationType+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(terminationTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateTerminationType(userContext, terminationType, retailStoreCountryCenterId, terminationTypeId, terminationTypeVersion, property, newValueExpr,  tokensExpr);
 			terminationType.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTerminationTypeList().done());
@@ -4849,6 +4893,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateTerminationType(RetailscmUserContext userContext, TerminationType existed, String retailStoreCountryCenterId, String terminationTypeId, int terminationTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -4885,7 +4934,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addOccupationType( occupationType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withOccupationTypeList().done());
 			
-			userContext.getManagerGroup().getOccupationTypeManager().onNewInstanceCreated(userContext, occupationType);
+			occupationTypeManagerOf(userContext).onNewInstanceCreated(userContext, occupationType);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -4908,7 +4957,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withOccupationTypeListList()
-				.searchOccupationTypeListWith(OccupationType.ID_PROPERTY, "is", id).done();
+				.searchOccupationTypeListWith(OccupationType.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -4917,7 +4966,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		OccupationType item = retailStoreCountryCenterToUpdate.getOccupationTypeList().first();
-
+		beforeUpdateOccupationTypeProperties(userContext,item, retailStoreCountryCenterId,id,code,description,detailDescription,tokensExpr);
 		item.updateCode( code );
 		item.updateDescription( description );
 		item.updateDetailDescription( detailDescription );
@@ -4930,6 +4979,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateOccupationTypeProperties(RetailscmUserContext userContext, OccupationType item, String retailStoreCountryCenterId, String id,String code,String description,String detailDescription, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected OccupationType createOccupationType(RetailscmUserContext userContext, String code, String description, String detailDescription) throws Exception{
 
@@ -5035,7 +5088,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyOccupationTypeFrom( occupationType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withOccupationTypeList().done());
 			
-			userContext.getManagerGroup().getOccupationTypeManager().onNewInstanceCreated(userContext, (OccupationType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			occupationTypeManagerOf(userContext).onNewInstanceCreated(userContext, (OccupationType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -5048,27 +5101,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfOccupationType(occupationTypeId);
 		checkerOf(userContext).checkVersionOfOccupationType(occupationTypeVersion);
-		
+
 
 		if(OccupationType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfOccupationType(parseString(newValueExpr));
-		
 		}
 		
 		if(OccupationType.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfOccupationType(parseString(newValueExpr));
-		
 		}
 		
 		if(OccupationType.DETAIL_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDetailDescriptionOfOccupationType(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -5078,7 +5125,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingOccupationType(userContext, retailStoreCountryCenterId, occupationTypeId, occupationTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withOccupationTypeList().searchOccupationTypeListWith(OccupationType.ID_PROPERTY, "eq", occupationTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withOccupationTypeList().searchOccupationTypeListWith(OccupationType.ID_PROPERTY, tokens().equals(), occupationTypeId).done();
 
 
 
@@ -5089,13 +5136,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeOccupationType( occupationType );
 			//make changes to AcceleraterAccount.
-			OccupationType occupationTypeIndex = createIndexedOccupationType(occupationTypeId, occupationTypeVersion);
+			OccupationType occupationTypeIdVersionKey = createIndexedOccupationType(occupationTypeId, occupationTypeVersion);
 
-			OccupationType occupationType = retailStoreCountryCenter.findTheOccupationType(occupationTypeIndex);
+			OccupationType occupationType = retailStoreCountryCenter.findTheOccupationType(occupationTypeIdVersionKey);
 			if(occupationType == null){
-				throw new RetailStoreCountryCenterManagerException(occupationType+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(occupationTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateOccupationType(userContext, occupationType, retailStoreCountryCenterId, occupationTypeId, occupationTypeVersion, property, newValueExpr,  tokensExpr);
 			occupationType.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withOccupationTypeList().done());
@@ -5103,6 +5151,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateOccupationType(RetailscmUserContext userContext, OccupationType existed, String retailStoreCountryCenterId, String occupationTypeId, int occupationTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -5139,7 +5192,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addLeaveType( leaveType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withLeaveTypeList().done());
 			
-			userContext.getManagerGroup().getLeaveTypeManager().onNewInstanceCreated(userContext, leaveType);
+			leaveTypeManagerOf(userContext).onNewInstanceCreated(userContext, leaveType);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -5162,7 +5215,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withLeaveTypeListList()
-				.searchLeaveTypeListWith(LeaveType.ID_PROPERTY, "is", id).done();
+				.searchLeaveTypeListWith(LeaveType.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -5171,7 +5224,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		LeaveType item = retailStoreCountryCenterToUpdate.getLeaveTypeList().first();
-
+		beforeUpdateLeaveTypeProperties(userContext,item, retailStoreCountryCenterId,id,code,description,detailDescription,tokensExpr);
 		item.updateCode( code );
 		item.updateDescription( description );
 		item.updateDetailDescription( detailDescription );
@@ -5184,6 +5237,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateLeaveTypeProperties(RetailscmUserContext userContext, LeaveType item, String retailStoreCountryCenterId, String id,String code,String description,String detailDescription, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected LeaveType createLeaveType(RetailscmUserContext userContext, String code, String description, String detailDescription) throws Exception{
 
@@ -5289,7 +5346,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyLeaveTypeFrom( leaveType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withLeaveTypeList().done());
 			
-			userContext.getManagerGroup().getLeaveTypeManager().onNewInstanceCreated(userContext, (LeaveType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			leaveTypeManagerOf(userContext).onNewInstanceCreated(userContext, (LeaveType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -5302,27 +5359,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfLeaveType(leaveTypeId);
 		checkerOf(userContext).checkVersionOfLeaveType(leaveTypeVersion);
-		
+
 
 		if(LeaveType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfLeaveType(parseString(newValueExpr));
-		
 		}
 		
 		if(LeaveType.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfLeaveType(parseString(newValueExpr));
-		
 		}
 		
 		if(LeaveType.DETAIL_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDetailDescriptionOfLeaveType(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -5332,7 +5383,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingLeaveType(userContext, retailStoreCountryCenterId, leaveTypeId, leaveTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withLeaveTypeList().searchLeaveTypeListWith(LeaveType.ID_PROPERTY, "eq", leaveTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withLeaveTypeList().searchLeaveTypeListWith(LeaveType.ID_PROPERTY, tokens().equals(), leaveTypeId).done();
 
 
 
@@ -5343,13 +5394,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeLeaveType( leaveType );
 			//make changes to AcceleraterAccount.
-			LeaveType leaveTypeIndex = createIndexedLeaveType(leaveTypeId, leaveTypeVersion);
+			LeaveType leaveTypeIdVersionKey = createIndexedLeaveType(leaveTypeId, leaveTypeVersion);
 
-			LeaveType leaveType = retailStoreCountryCenter.findTheLeaveType(leaveTypeIndex);
+			LeaveType leaveType = retailStoreCountryCenter.findTheLeaveType(leaveTypeIdVersionKey);
 			if(leaveType == null){
-				throw new RetailStoreCountryCenterManagerException(leaveType+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(leaveTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateLeaveType(userContext, leaveType, retailStoreCountryCenterId, leaveTypeId, leaveTypeVersion, property, newValueExpr,  tokensExpr);
 			leaveType.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withLeaveTypeList().done());
@@ -5357,6 +5409,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateLeaveType(RetailscmUserContext userContext, LeaveType existed, String retailStoreCountryCenterId, String leaveTypeId, int leaveTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -5393,7 +5450,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addSalaryGrade( salaryGrade );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSalaryGradeList().done());
 			
-			userContext.getManagerGroup().getSalaryGradeManager().onNewInstanceCreated(userContext, salaryGrade);
+			salaryGradeManagerOf(userContext).onNewInstanceCreated(userContext, salaryGrade);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -5416,7 +5473,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSalaryGradeListList()
-				.searchSalaryGradeListWith(SalaryGrade.ID_PROPERTY, "is", id).done();
+				.searchSalaryGradeListWith(SalaryGrade.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -5425,7 +5482,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		SalaryGrade item = retailStoreCountryCenterToUpdate.getSalaryGradeList().first();
-
+		beforeUpdateSalaryGradeProperties(userContext,item, retailStoreCountryCenterId,id,code,name,detailDescription,tokensExpr);
 		item.updateCode( code );
 		item.updateName( name );
 		item.updateDetailDescription( detailDescription );
@@ -5438,6 +5495,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateSalaryGradeProperties(RetailscmUserContext userContext, SalaryGrade item, String retailStoreCountryCenterId, String id,String code,String name,String detailDescription, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected SalaryGrade createSalaryGrade(RetailscmUserContext userContext, String code, String name, String detailDescription) throws Exception{
 
@@ -5543,7 +5604,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copySalaryGradeFrom( salaryGrade );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSalaryGradeList().done());
 			
-			userContext.getManagerGroup().getSalaryGradeManager().onNewInstanceCreated(userContext, (SalaryGrade)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			salaryGradeManagerOf(userContext).onNewInstanceCreated(userContext, (SalaryGrade)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -5556,27 +5617,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfSalaryGrade(salaryGradeId);
 		checkerOf(userContext).checkVersionOfSalaryGrade(salaryGradeVersion);
-		
+
 
 		if(SalaryGrade.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfSalaryGrade(parseString(newValueExpr));
-		
 		}
 		
 		if(SalaryGrade.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfSalaryGrade(parseString(newValueExpr));
-		
 		}
 		
 		if(SalaryGrade.DETAIL_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDetailDescriptionOfSalaryGrade(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -5586,7 +5641,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingSalaryGrade(userContext, retailStoreCountryCenterId, salaryGradeId, salaryGradeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSalaryGradeList().searchSalaryGradeListWith(SalaryGrade.ID_PROPERTY, "eq", salaryGradeId).done();
+		Map<String,Object> loadTokens = this.tokens().withSalaryGradeList().searchSalaryGradeListWith(SalaryGrade.ID_PROPERTY, tokens().equals(), salaryGradeId).done();
 
 
 
@@ -5597,13 +5652,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeSalaryGrade( salaryGrade );
 			//make changes to AcceleraterAccount.
-			SalaryGrade salaryGradeIndex = createIndexedSalaryGrade(salaryGradeId, salaryGradeVersion);
+			SalaryGrade salaryGradeIdVersionKey = createIndexedSalaryGrade(salaryGradeId, salaryGradeVersion);
 
-			SalaryGrade salaryGrade = retailStoreCountryCenter.findTheSalaryGrade(salaryGradeIndex);
+			SalaryGrade salaryGrade = retailStoreCountryCenter.findTheSalaryGrade(salaryGradeIdVersionKey);
 			if(salaryGrade == null){
-				throw new RetailStoreCountryCenterManagerException(salaryGrade+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(salaryGradeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSalaryGrade(userContext, salaryGrade, retailStoreCountryCenterId, salaryGradeId, salaryGradeVersion, property, newValueExpr,  tokensExpr);
 			salaryGrade.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withSalaryGradeList().done());
@@ -5611,6 +5667,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSalaryGrade(RetailscmUserContext userContext, SalaryGrade existed, String retailStoreCountryCenterId, String salaryGradeId, int salaryGradeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -5647,7 +5708,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addInterviewType( interviewType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withInterviewTypeList().done());
 			
-			userContext.getManagerGroup().getInterviewTypeManager().onNewInstanceCreated(userContext, interviewType);
+			interviewTypeManagerOf(userContext).onNewInstanceCreated(userContext, interviewType);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -5670,7 +5731,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withInterviewTypeListList()
-				.searchInterviewTypeListWith(InterviewType.ID_PROPERTY, "is", id).done();
+				.searchInterviewTypeListWith(InterviewType.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -5679,7 +5740,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		InterviewType item = retailStoreCountryCenterToUpdate.getInterviewTypeList().first();
-
+		beforeUpdateInterviewTypeProperties(userContext,item, retailStoreCountryCenterId,id,code,description,detailDescription,tokensExpr);
 		item.updateCode( code );
 		item.updateDescription( description );
 		item.updateDetailDescription( detailDescription );
@@ -5692,6 +5753,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateInterviewTypeProperties(RetailscmUserContext userContext, InterviewType item, String retailStoreCountryCenterId, String id,String code,String description,String detailDescription, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected InterviewType createInterviewType(RetailscmUserContext userContext, String code, String description, String detailDescription) throws Exception{
 
@@ -5797,7 +5862,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyInterviewTypeFrom( interviewType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withInterviewTypeList().done());
 			
-			userContext.getManagerGroup().getInterviewTypeManager().onNewInstanceCreated(userContext, (InterviewType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			interviewTypeManagerOf(userContext).onNewInstanceCreated(userContext, (InterviewType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -5810,27 +5875,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfInterviewType(interviewTypeId);
 		checkerOf(userContext).checkVersionOfInterviewType(interviewTypeVersion);
-		
+
 
 		if(InterviewType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfInterviewType(parseString(newValueExpr));
-		
 		}
 		
 		if(InterviewType.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfInterviewType(parseString(newValueExpr));
-		
 		}
 		
 		if(InterviewType.DETAIL_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDetailDescriptionOfInterviewType(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -5840,7 +5899,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingInterviewType(userContext, retailStoreCountryCenterId, interviewTypeId, interviewTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withInterviewTypeList().searchInterviewTypeListWith(InterviewType.ID_PROPERTY, "eq", interviewTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withInterviewTypeList().searchInterviewTypeListWith(InterviewType.ID_PROPERTY, tokens().equals(), interviewTypeId).done();
 
 
 
@@ -5851,13 +5910,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeInterviewType( interviewType );
 			//make changes to AcceleraterAccount.
-			InterviewType interviewTypeIndex = createIndexedInterviewType(interviewTypeId, interviewTypeVersion);
+			InterviewType interviewTypeIdVersionKey = createIndexedInterviewType(interviewTypeId, interviewTypeVersion);
 
-			InterviewType interviewType = retailStoreCountryCenter.findTheInterviewType(interviewTypeIndex);
+			InterviewType interviewType = retailStoreCountryCenter.findTheInterviewType(interviewTypeIdVersionKey);
 			if(interviewType == null){
-				throw new RetailStoreCountryCenterManagerException(interviewType+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(interviewTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateInterviewType(userContext, interviewType, retailStoreCountryCenterId, interviewTypeId, interviewTypeVersion, property, newValueExpr,  tokensExpr);
 			interviewType.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withInterviewTypeList().done());
@@ -5865,6 +5925,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateInterviewType(RetailscmUserContext userContext, InterviewType existed, String retailStoreCountryCenterId, String interviewTypeId, int interviewTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -5901,7 +5966,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addTrainingCourseType( trainingCourseType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTrainingCourseTypeList().done());
 			
-			userContext.getManagerGroup().getTrainingCourseTypeManager().onNewInstanceCreated(userContext, trainingCourseType);
+			trainingCourseTypeManagerOf(userContext).onNewInstanceCreated(userContext, trainingCourseType);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -5924,7 +5989,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withTrainingCourseTypeListList()
-				.searchTrainingCourseTypeListWith(TrainingCourseType.ID_PROPERTY, "is", id).done();
+				.searchTrainingCourseTypeListWith(TrainingCourseType.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -5933,7 +5998,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		TrainingCourseType item = retailStoreCountryCenterToUpdate.getTrainingCourseTypeList().first();
-
+		beforeUpdateTrainingCourseTypeProperties(userContext,item, retailStoreCountryCenterId,id,code,name,description,tokensExpr);
 		item.updateCode( code );
 		item.updateName( name );
 		item.updateDescription( description );
@@ -5946,6 +6011,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateTrainingCourseTypeProperties(RetailscmUserContext userContext, TrainingCourseType item, String retailStoreCountryCenterId, String id,String code,String name,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected TrainingCourseType createTrainingCourseType(RetailscmUserContext userContext, String code, String name, String description) throws Exception{
 
@@ -6051,7 +6120,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyTrainingCourseTypeFrom( trainingCourseType );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTrainingCourseTypeList().done());
 			
-			userContext.getManagerGroup().getTrainingCourseTypeManager().onNewInstanceCreated(userContext, (TrainingCourseType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			trainingCourseTypeManagerOf(userContext).onNewInstanceCreated(userContext, (TrainingCourseType)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -6064,27 +6133,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
 		checkerOf(userContext).checkVersionOfTrainingCourseType(trainingCourseTypeVersion);
-		
+
 
 		if(TrainingCourseType.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfTrainingCourseType(parseString(newValueExpr));
-		
 		}
 		
 		if(TrainingCourseType.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfTrainingCourseType(parseString(newValueExpr));
-		
 		}
 		
 		if(TrainingCourseType.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfTrainingCourseType(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -6094,7 +6157,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingTrainingCourseType(userContext, retailStoreCountryCenterId, trainingCourseTypeId, trainingCourseTypeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withTrainingCourseTypeList().searchTrainingCourseTypeListWith(TrainingCourseType.ID_PROPERTY, "eq", trainingCourseTypeId).done();
+		Map<String,Object> loadTokens = this.tokens().withTrainingCourseTypeList().searchTrainingCourseTypeListWith(TrainingCourseType.ID_PROPERTY, tokens().equals(), trainingCourseTypeId).done();
 
 
 
@@ -6105,13 +6168,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeTrainingCourseType( trainingCourseType );
 			//make changes to AcceleraterAccount.
-			TrainingCourseType trainingCourseTypeIndex = createIndexedTrainingCourseType(trainingCourseTypeId, trainingCourseTypeVersion);
+			TrainingCourseType trainingCourseTypeIdVersionKey = createIndexedTrainingCourseType(trainingCourseTypeId, trainingCourseTypeVersion);
 
-			TrainingCourseType trainingCourseType = retailStoreCountryCenter.findTheTrainingCourseType(trainingCourseTypeIndex);
+			TrainingCourseType trainingCourseType = retailStoreCountryCenter.findTheTrainingCourseType(trainingCourseTypeIdVersionKey);
 			if(trainingCourseType == null){
-				throw new RetailStoreCountryCenterManagerException(trainingCourseType+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(trainingCourseTypeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateTrainingCourseType(userContext, trainingCourseType, retailStoreCountryCenterId, trainingCourseTypeId, trainingCourseTypeVersion, property, newValueExpr,  tokensExpr);
 			trainingCourseType.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withTrainingCourseTypeList().done());
@@ -6119,6 +6183,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateTrainingCourseType(RetailscmUserContext userContext, TrainingCourseType existed, String retailStoreCountryCenterId, String trainingCourseTypeId, int trainingCourseTypeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -6155,7 +6224,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addPublicHoliday( publicHoliday );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withPublicHolidayList().done());
 			
-			userContext.getManagerGroup().getPublicHolidayManager().onNewInstanceCreated(userContext, publicHoliday);
+			publicHolidayManagerOf(userContext).onNewInstanceCreated(userContext, publicHoliday);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -6178,7 +6247,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withPublicHolidayListList()
-				.searchPublicHolidayListWith(PublicHoliday.ID_PROPERTY, "is", id).done();
+				.searchPublicHolidayListWith(PublicHoliday.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -6187,7 +6256,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		PublicHoliday item = retailStoreCountryCenterToUpdate.getPublicHolidayList().first();
-
+		beforeUpdatePublicHolidayProperties(userContext,item, retailStoreCountryCenterId,id,code,name,description,tokensExpr);
 		item.updateCode( code );
 		item.updateName( name );
 		item.updateDescription( description );
@@ -6200,6 +6269,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdatePublicHolidayProperties(RetailscmUserContext userContext, PublicHoliday item, String retailStoreCountryCenterId, String id,String code,String name,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected PublicHoliday createPublicHoliday(RetailscmUserContext userContext, String code, String name, String description) throws Exception{
 
@@ -6305,7 +6378,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyPublicHolidayFrom( publicHoliday );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withPublicHolidayList().done());
 			
-			userContext.getManagerGroup().getPublicHolidayManager().onNewInstanceCreated(userContext, (PublicHoliday)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			publicHolidayManagerOf(userContext).onNewInstanceCreated(userContext, (PublicHoliday)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -6318,27 +6391,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfPublicHoliday(publicHolidayId);
 		checkerOf(userContext).checkVersionOfPublicHoliday(publicHolidayVersion);
-		
+
 
 		if(PublicHoliday.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfPublicHoliday(parseString(newValueExpr));
-		
 		}
 		
 		if(PublicHoliday.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfPublicHoliday(parseString(newValueExpr));
-		
 		}
 		
 		if(PublicHoliday.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfPublicHoliday(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -6348,7 +6415,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingPublicHoliday(userContext, retailStoreCountryCenterId, publicHolidayId, publicHolidayVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withPublicHolidayList().searchPublicHolidayListWith(PublicHoliday.ID_PROPERTY, "eq", publicHolidayId).done();
+		Map<String,Object> loadTokens = this.tokens().withPublicHolidayList().searchPublicHolidayListWith(PublicHoliday.ID_PROPERTY, tokens().equals(), publicHolidayId).done();
 
 
 
@@ -6359,13 +6426,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removePublicHoliday( publicHoliday );
 			//make changes to AcceleraterAccount.
-			PublicHoliday publicHolidayIndex = createIndexedPublicHoliday(publicHolidayId, publicHolidayVersion);
+			PublicHoliday publicHolidayIdVersionKey = createIndexedPublicHoliday(publicHolidayId, publicHolidayVersion);
 
-			PublicHoliday publicHoliday = retailStoreCountryCenter.findThePublicHoliday(publicHolidayIndex);
+			PublicHoliday publicHoliday = retailStoreCountryCenter.findThePublicHoliday(publicHolidayIdVersionKey);
 			if(publicHoliday == null){
-				throw new RetailStoreCountryCenterManagerException(publicHoliday+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(publicHolidayId+" is NOT FOUND" );
 			}
 
+			beforeUpdatePublicHoliday(userContext, publicHoliday, retailStoreCountryCenterId, publicHolidayId, publicHolidayVersion, property, newValueExpr,  tokensExpr);
 			publicHoliday.changeProperty(property, newValueExpr);
 			
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withPublicHolidayList().done());
@@ -6373,6 +6441,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdatePublicHoliday(RetailscmUserContext userContext, PublicHoliday existed, String retailStoreCountryCenterId, String publicHolidayId, int publicHolidayVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -6427,7 +6500,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addEmployee( employee );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withEmployeeList().done());
 			
-			userContext.getManagerGroup().getEmployeeManager().onNewInstanceCreated(userContext, employee);
+			employeeManagerOf(userContext).onNewInstanceCreated(userContext, employee);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -6455,7 +6528,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeListList()
-				.searchEmployeeListWith(Employee.ID_PROPERTY, "is", id).done();
+				.searchEmployeeListWith(Employee.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -6464,7 +6537,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		Employee item = retailStoreCountryCenterToUpdate.getEmployeeList().first();
-
+		beforeUpdateEmployeeProperties(userContext,item, retailStoreCountryCenterId,id,title,familyName,givenName,email,city,address,cellPhone,salaryAccount,tokensExpr);
 		item.updateTitle( title );
 		item.updateFamilyName( familyName );
 		item.updateGivenName( givenName );
@@ -6482,6 +6555,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateEmployeeProperties(RetailscmUserContext userContext, Employee item, String retailStoreCountryCenterId, String id,String title,String familyName,String givenName,String email,String city,String address,String cellPhone,String salaryAccount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Employee createEmployee(RetailscmUserContext userContext, String title, String departmentId, String familyName, String givenName, String email, String city, String address, String cellPhone, String occupationId, String responsibleForId, String currentSalaryGradeId, String salaryAccount) throws Exception{
 
@@ -6605,7 +6682,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyEmployeeFrom( employee );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withEmployeeList().done());
 			
-			userContext.getManagerGroup().getEmployeeManager().onNewInstanceCreated(userContext, (Employee)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeManagerOf(userContext).onNewInstanceCreated(userContext, (Employee)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -6618,57 +6695,41 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkVersionOfEmployee(employeeVersion);
-		
+
 
 		if(Employee.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.FAMILY_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFamilyNameOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.GIVEN_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkGivenNameOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.EMAIL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEmailOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.CITY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCityOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.ADDRESS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAddressOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.CELL_PHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCellPhoneOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.SALARY_ACCOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSalaryAccountOfEmployee(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -6678,7 +6739,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingEmployee(userContext, retailStoreCountryCenterId, employeeId, employeeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeList().searchEmployeeListWith(Employee.ID_PROPERTY, "eq", employeeId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeList().searchEmployeeListWith(Employee.ID_PROPERTY, tokens().equals(), employeeId).done();
 
 
 
@@ -6689,13 +6750,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeEmployee( employee );
 			//make changes to AcceleraterAccount.
-			Employee employeeIndex = createIndexedEmployee(employeeId, employeeVersion);
+			Employee employeeIdVersionKey = createIndexedEmployee(employeeId, employeeVersion);
 
-			Employee employee = retailStoreCountryCenter.findTheEmployee(employeeIndex);
+			Employee employee = retailStoreCountryCenter.findTheEmployee(employeeIdVersionKey);
 			if(employee == null){
-				throw new RetailStoreCountryCenterManagerException(employee+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(employeeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployee(userContext, employee, retailStoreCountryCenterId, employeeId, employeeVersion, property, newValueExpr,  tokensExpr);
 			employee.changeProperty(property, newValueExpr);
 			employee.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withEmployeeList().done());
@@ -6703,6 +6765,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployee(RetailscmUserContext userContext, Employee existed, String retailStoreCountryCenterId, String employeeId, int employeeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -6745,7 +6812,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addInstructor( instructor );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withInstructorList().done());
 			
-			userContext.getManagerGroup().getInstructorManager().onNewInstanceCreated(userContext, instructor);
+			instructorManagerOf(userContext).onNewInstanceCreated(userContext, instructor);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -6771,7 +6838,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withInstructorListList()
-				.searchInstructorListWith(Instructor.ID_PROPERTY, "is", id).done();
+				.searchInstructorListWith(Instructor.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -6780,7 +6847,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		Instructor item = retailStoreCountryCenterToUpdate.getInstructorList().first();
-
+		beforeUpdateInstructorProperties(userContext,item, retailStoreCountryCenterId,id,title,familyName,givenName,cellPhone,email,introduction,tokensExpr);
 		item.updateTitle( title );
 		item.updateFamilyName( familyName );
 		item.updateGivenName( givenName );
@@ -6796,6 +6863,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateInstructorProperties(RetailscmUserContext userContext, Instructor item, String retailStoreCountryCenterId, String id,String title,String familyName,String givenName,String cellPhone,String email,String introduction, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Instructor createInstructor(RetailscmUserContext userContext, String title, String familyName, String givenName, String cellPhone, String email, String introduction) throws Exception{
 
@@ -6905,7 +6976,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyInstructorFrom( instructor );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withInstructorList().done());
 			
-			userContext.getManagerGroup().getInstructorManager().onNewInstanceCreated(userContext, (Instructor)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			instructorManagerOf(userContext).onNewInstanceCreated(userContext, (Instructor)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -6918,45 +6989,33 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfInstructor(instructorId);
 		checkerOf(userContext).checkVersionOfInstructor(instructorVersion);
-		
+
 
 		if(Instructor.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfInstructor(parseString(newValueExpr));
-		
 		}
 		
 		if(Instructor.FAMILY_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFamilyNameOfInstructor(parseString(newValueExpr));
-		
 		}
 		
 		if(Instructor.GIVEN_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkGivenNameOfInstructor(parseString(newValueExpr));
-		
 		}
 		
 		if(Instructor.CELL_PHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCellPhoneOfInstructor(parseString(newValueExpr));
-		
 		}
 		
 		if(Instructor.EMAIL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEmailOfInstructor(parseString(newValueExpr));
-		
 		}
 		
 		if(Instructor.INTRODUCTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkIntroductionOfInstructor(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -6966,7 +7025,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingInstructor(userContext, retailStoreCountryCenterId, instructorId, instructorVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withInstructorList().searchInstructorListWith(Instructor.ID_PROPERTY, "eq", instructorId).done();
+		Map<String,Object> loadTokens = this.tokens().withInstructorList().searchInstructorListWith(Instructor.ID_PROPERTY, tokens().equals(), instructorId).done();
 
 
 
@@ -6977,13 +7036,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeInstructor( instructor );
 			//make changes to AcceleraterAccount.
-			Instructor instructorIndex = createIndexedInstructor(instructorId, instructorVersion);
+			Instructor instructorIdVersionKey = createIndexedInstructor(instructorId, instructorVersion);
 
-			Instructor instructor = retailStoreCountryCenter.findTheInstructor(instructorIndex);
+			Instructor instructor = retailStoreCountryCenter.findTheInstructor(instructorIdVersionKey);
 			if(instructor == null){
-				throw new RetailStoreCountryCenterManagerException(instructor+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(instructorId+" is NOT FOUND" );
 			}
 
+			beforeUpdateInstructor(userContext, instructor, retailStoreCountryCenterId, instructorId, instructorVersion, property, newValueExpr,  tokensExpr);
 			instructor.changeProperty(property, newValueExpr);
 			instructor.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withInstructorList().done());
@@ -6991,6 +7051,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateInstructor(RetailscmUserContext userContext, Instructor existed, String retailStoreCountryCenterId, String instructorId, int instructorVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -7031,7 +7096,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.addCompanyTraining( companyTraining );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getCompanyTrainingManager().onNewInstanceCreated(userContext, companyTraining);
+			companyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, companyTraining);
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -7054,7 +7119,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withCompanyTrainingListList()
-				.searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, "is", id).done();
+				.searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreCountryCenter retailStoreCountryCenterToUpdate = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, options);
 
@@ -7063,7 +7128,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		CompanyTraining item = retailStoreCountryCenterToUpdate.getCompanyTrainingList().first();
-
+		beforeUpdateCompanyTrainingProperties(userContext,item, retailStoreCountryCenterId,id,title,timeStart,durationHours,tokensExpr);
 		item.updateTitle( title );
 		item.updateTimeStart( timeStart );
 		item.updateDurationHours( durationHours );
@@ -7076,6 +7141,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
+	protected  void beforeUpdateCompanyTrainingProperties(RetailscmUserContext userContext, CompanyTraining item, String retailStoreCountryCenterId, String id,String title,Date timeStart,int durationHours, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected CompanyTraining createCompanyTraining(RetailscmUserContext userContext, String title, String instructorId, String trainingCourseTypeId, Date timeStart, int durationHours) throws Exception{
 
@@ -7188,7 +7257,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			retailStoreCountryCenter.copyCompanyTrainingFrom( companyTraining );
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getCompanyTrainingManager().onNewInstanceCreated(userContext, (CompanyTraining)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			companyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, (CompanyTraining)retailStoreCountryCenter.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -7201,27 +7270,21 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 		checkerOf(userContext).checkVersionOfCompanyTraining(companyTrainingVersion);
-		
+
 
 		if(CompanyTraining.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfCompanyTraining(parseString(newValueExpr));
-		
 		}
 		
 		if(CompanyTraining.TIME_START_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTimeStartOfCompanyTraining(parseDate(newValueExpr));
-		
 		}
 		
 		if(CompanyTraining.DURATION_HOURS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDurationHoursOfCompanyTraining(parseInt(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 	}
@@ -7231,7 +7294,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkParamsForUpdatingCompanyTraining(userContext, retailStoreCountryCenterId, companyTrainingId, companyTrainingVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withCompanyTrainingList().searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, "eq", companyTrainingId).done();
+		Map<String,Object> loadTokens = this.tokens().withCompanyTrainingList().searchCompanyTrainingListWith(CompanyTraining.ID_PROPERTY, tokens().equals(), companyTrainingId).done();
 
 
 
@@ -7242,13 +7305,14 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreCountryCenter.removeCompanyTraining( companyTraining );
 			//make changes to AcceleraterAccount.
-			CompanyTraining companyTrainingIndex = createIndexedCompanyTraining(companyTrainingId, companyTrainingVersion);
+			CompanyTraining companyTrainingIdVersionKey = createIndexedCompanyTraining(companyTrainingId, companyTrainingVersion);
 
-			CompanyTraining companyTraining = retailStoreCountryCenter.findTheCompanyTraining(companyTrainingIndex);
+			CompanyTraining companyTraining = retailStoreCountryCenter.findTheCompanyTraining(companyTrainingIdVersionKey);
 			if(companyTraining == null){
-				throw new RetailStoreCountryCenterManagerException(companyTraining+" is NOT FOUND" );
+				throw new RetailStoreCountryCenterManagerException(companyTrainingId+" is NOT FOUND" );
 			}
 
+			beforeUpdateCompanyTraining(userContext, companyTraining, retailStoreCountryCenterId, companyTrainingId, companyTrainingVersion, property, newValueExpr,  tokensExpr);
 			companyTraining.changeProperty(property, newValueExpr);
 			companyTraining.updateLastUpdateTime(userContext.now());
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, tokens().withCompanyTrainingList().done());
@@ -7256,6 +7320,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateCompanyTraining(RetailscmUserContext userContext, CompanyTraining existed, String retailStoreCountryCenterId, String companyTrainingId, int companyTrainingVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -7272,6 +7341,12 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    retailStoreCountryCenterDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -7363,6 +7438,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
+    if (methodName.equals("ensureModelInDB")){
+      return false;
+    }
+
 		return true;
 	}
 
@@ -7454,7 +7534,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -7788,6 +7868,55 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
+
+  public Object ensureModelInDB(RetailscmUserContext userContext,String workMode) throws Exception {
+    CustomRetailscmUserContextImpl ctx = (CustomRetailscmUserContextImpl) userContext;
+    if (ctx.isProductEnvironment()) {
+      workMode = "report";
+    }
+
+    Map<String, Object> result = ModelAssurance.ensureModelsInDB(ctx);
+    List<String> ensureTableReport = (List<String>) result.get("ensureTableReport");
+    List<String> ensureDataReport = (List<String>) result.get("ensureDataReport");
+    List<String> finalReport = new ArrayList<>();
+    if (ensureTableReport != null && ensureTableReport.size()>0) {
+      finalReport.addAll(ensureTableReport);
+    }
+    if (ensureDataReport != null && ensureDataReport.size()>0) {
+      finalReport.addAll(ensureDataReport);
+    }
+
+    if ("review".equalsIgnoreCase(workMode) || "run".equalsIgnoreCase(workMode)) {
+      Iterator<String> it = finalReport.iterator();
+      while(it.hasNext()){
+        String cnt = it.next();
+        if (TextUtil.isBlank(cnt)){
+          it.remove();
+          continue;
+        }
+        if (cnt.trim().startsWith("##")){
+          it.remove();
+          continue;
+        }
+      }
+    }
+    String rstStr = String.join("\r\n", finalReport);
+    if ("run".equalsIgnoreCase(workMode)){
+      String[] sqls = rstStr.replace("\r\n", " ").split(";");
+      for (String sql : sqls) {
+        if (TextUtil.isBlank(sql)){
+          continue;
+        }
+        ctx.dao().executeSql(sql);
+      }
+    }
+
+    PlainText rst = new PlainText();
+    rst.append(rstStr.replace("\r\n", "<br/>"));
+    return rst.getValue();
+  }
 
 }
 

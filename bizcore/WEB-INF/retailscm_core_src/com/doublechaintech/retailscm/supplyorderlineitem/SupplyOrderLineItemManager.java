@@ -17,6 +17,7 @@ public interface SupplyOrderLineItemManager extends BaseManager{
 	public SupplyOrderLineItem createSupplyOrderLineItem(RetailscmUserContext userContext, String bizOrderId,String skuId,String skuName,BigDecimal amount,int quantity,String unitOfMeasurement) throws Exception;
 	public SupplyOrderLineItem updateSupplyOrderLineItem(RetailscmUserContext userContext,String supplyOrderLineItemId, int supplyOrderLineItemVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SupplyOrderLineItem loadSupplyOrderLineItem(RetailscmUserContext userContext, String supplyOrderLineItemId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SupplyOrderLineItem internalSaveSupplyOrderLineItem(RetailscmUserContext userContext, SupplyOrderLineItem supplyOrderLineItem) throws Exception;
 	public SupplyOrderLineItem internalSaveSupplyOrderLineItem(RetailscmUserContext userContext, SupplyOrderLineItem supplyOrderLineItem,Map<String,Object>option) throws Exception;
 

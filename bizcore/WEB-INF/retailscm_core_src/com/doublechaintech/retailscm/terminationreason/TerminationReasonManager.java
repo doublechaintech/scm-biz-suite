@@ -17,6 +17,7 @@ public interface TerminationReasonManager extends BaseManager{
 	public TerminationReason createTerminationReason(RetailscmUserContext userContext, String code,String companyId,String description) throws Exception;
 	public TerminationReason updateTerminationReason(RetailscmUserContext userContext,String terminationReasonId, int terminationReasonVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public TerminationReason loadTerminationReason(RetailscmUserContext userContext, String terminationReasonId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public TerminationReason internalSaveTerminationReason(RetailscmUserContext userContext, TerminationReason terminationReason) throws Exception;
 	public TerminationReason internalSaveTerminationReason(RetailscmUserContext userContext, TerminationReason terminationReason,Map<String,Object>option) throws Exception;
 

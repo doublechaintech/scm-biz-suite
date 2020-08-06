@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.memberwishlist;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProduct;
@@ -45,24 +43,24 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = MemberWishlistTokens.start().withTokenFromListName(listName).done();
 		MemberWishlist  memberWishlist = (MemberWishlist) this.loadMemberWishlist(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = memberWishlist.collectRefercencesFromLists();
 		memberWishlistDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, memberWishlist, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new MemberWishlistGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -125,7 +123,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).throwExceptionIfHasErrors( MemberWishlistManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		MemberWishlist memberWishlist = loadMemberWishlist( userContext, memberWishlistId, tokens);
  		//do some calc before sent to customer?
@@ -144,6 +142,9 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		
 		List<BaseEntity> entityListToNaming = memberWishlistToPresent.collectRefercencesFromLists();
 		memberWishlistDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,memberWishlist,tokens);
 		
 		return  memberWishlistToPresent;
 		
@@ -496,7 +497,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 			memberWishlist.addMemberWishlistProduct( memberWishlistProduct );
 			memberWishlist = saveMemberWishlist(userContext, memberWishlist, tokens().withMemberWishlistProductList().done());
 			
-			userContext.getManagerGroup().getMemberWishlistProductManager().onNewInstanceCreated(userContext, memberWishlistProduct);
+			memberWishlistProductManagerOf(userContext).onNewInstanceCreated(userContext, memberWishlistProduct);
 			return present(userContext,memberWishlist, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -517,7 +518,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withMemberWishlistProductListList()
-				.searchMemberWishlistProductListWith(MemberWishlistProduct.ID_PROPERTY, "is", id).done();
+				.searchMemberWishlistProductListWith(MemberWishlistProduct.ID_PROPERTY, tokens().is(), id).done();
 
 		MemberWishlist memberWishlistToUpdate = loadMemberWishlist(userContext, memberWishlistId, options);
 
@@ -526,7 +527,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 
 		MemberWishlistProduct item = memberWishlistToUpdate.getMemberWishlistProductList().first();
-
+		beforeUpdateMemberWishlistProductProperties(userContext,item, memberWishlistId,id,name,tokensExpr);
 		item.updateName( name );
 
 
@@ -537,6 +538,10 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 	}
 
+	protected  void beforeUpdateMemberWishlistProductProperties(RetailscmUserContext userContext, MemberWishlistProduct item, String memberWishlistId, String id,String name, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected MemberWishlistProduct createMemberWishlistProduct(RetailscmUserContext userContext, String name) throws Exception{
 
@@ -640,7 +645,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 			memberWishlist.copyMemberWishlistProductFrom( memberWishlistProduct );
 			memberWishlist = saveMemberWishlist(userContext, memberWishlist, tokens().withMemberWishlistProductList().done());
 			
-			userContext.getManagerGroup().getMemberWishlistProductManager().onNewInstanceCreated(userContext, (MemberWishlistProduct)memberWishlist.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			memberWishlistProductManagerOf(userContext).onNewInstanceCreated(userContext, (MemberWishlistProduct)memberWishlist.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,memberWishlist, mergedAllTokens(tokensExpr));
 		}
 
@@ -653,15 +658,13 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 		checkerOf(userContext).checkIdOfMemberWishlistProduct(memberWishlistProductId);
 		checkerOf(userContext).checkVersionOfMemberWishlistProduct(memberWishlistProductVersion);
-		
+
 
 		if(MemberWishlistProduct.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfMemberWishlistProduct(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
 
 	}
@@ -671,7 +674,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
 		checkParamsForUpdatingMemberWishlistProduct(userContext, memberWishlistId, memberWishlistProductId, memberWishlistProductVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withMemberWishlistProductList().searchMemberWishlistProductListWith(MemberWishlistProduct.ID_PROPERTY, "eq", memberWishlistProductId).done();
+		Map<String,Object> loadTokens = this.tokens().withMemberWishlistProductList().searchMemberWishlistProductListWith(MemberWishlistProduct.ID_PROPERTY, tokens().equals(), memberWishlistProductId).done();
 
 
 
@@ -682,13 +685,14 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 			//Also good when there is a RAM based DAO implementation
 			//memberWishlist.removeMemberWishlistProduct( memberWishlistProduct );
 			//make changes to AcceleraterAccount.
-			MemberWishlistProduct memberWishlistProductIndex = createIndexedMemberWishlistProduct(memberWishlistProductId, memberWishlistProductVersion);
+			MemberWishlistProduct memberWishlistProductIdVersionKey = createIndexedMemberWishlistProduct(memberWishlistProductId, memberWishlistProductVersion);
 
-			MemberWishlistProduct memberWishlistProduct = memberWishlist.findTheMemberWishlistProduct(memberWishlistProductIndex);
+			MemberWishlistProduct memberWishlistProduct = memberWishlist.findTheMemberWishlistProduct(memberWishlistProductIdVersionKey);
 			if(memberWishlistProduct == null){
-				throw new MemberWishlistManagerException(memberWishlistProduct+" is NOT FOUND" );
+				throw new MemberWishlistManagerException(memberWishlistProductId+" is NOT FOUND" );
 			}
 
+			beforeUpdateMemberWishlistProduct(userContext, memberWishlistProduct, memberWishlistId, memberWishlistProductId, memberWishlistProductVersion, property, newValueExpr,  tokensExpr);
 			memberWishlistProduct.changeProperty(property, newValueExpr);
 			
 			memberWishlist = saveMemberWishlist(userContext, memberWishlist, tokens().withMemberWishlistProductList().done());
@@ -696,6 +700,11 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateMemberWishlistProduct(RetailscmUserContext userContext, MemberWishlistProduct existed, String memberWishlistId, String memberWishlistProductId, int memberWishlistProductVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -712,6 +721,12 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    memberWishlistDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -803,6 +818,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -919,7 +935,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -979,6 +995,8 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

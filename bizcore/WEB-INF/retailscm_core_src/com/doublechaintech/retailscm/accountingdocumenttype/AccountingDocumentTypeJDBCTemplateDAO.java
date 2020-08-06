@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements AccountingDocumentTypeDAO{
 
@@ -71,50 +71,54 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	 	return this.accountingDocumentDAO;
  	}	
 
-	
+
 	/*
 	protected AccountingDocumentType load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalAccountingDocumentType(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<AccountingDocumentType> loadAll() {
 	    return this.loadAll(getAccountingDocumentTypeMapper());
 	}
-	
-	
+
+  public Stream<AccountingDocumentType> loadAllAsStream() {
+      return this.loadAllAsStream(getAccountingDocumentTypeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public AccountingDocumentType load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalAccountingDocumentType(AccountingDocumentTypeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public AccountingDocumentType save(AccountingDocumentType accountingDocumentType,Map<String,Object> options){
-		
+
 		String methodName="save(AccountingDocumentType accountingDocumentType,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accountingDocumentType, methodName, "accountingDocumentType");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalAccountingDocumentType(accountingDocumentType,options);
 	}
 	public AccountingDocumentType clone(String accountingDocumentTypeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(AccountingDocumentTypeTable.withId(accountingDocumentTypeId),options);
 	}
-	
+
 	protected AccountingDocumentType clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String accountingDocumentTypeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		AccountingDocumentType newAccountingDocumentType = loadInternalAccountingDocumentType(accessKey, options);
 		newAccountingDocumentType.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		}
 		
 
-		
+
 		saveInternalAccountingDocumentType(newAccountingDocumentType,options);
-		
+
 		return newAccountingDocumentType;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String accountingDocumentTypeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String accountingDocumentTypeId, int version) throws Exception{
-	
+
 		String methodName="delete(String accountingDocumentTypeId, int version)";
 		assertMethodArgumentNotNull(accountingDocumentTypeId, methodName, "accountingDocumentTypeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{accountingDocumentTypeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(affectedNumber == 0){
 			handleDeleteOneError(accountingDocumentTypeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public AccountingDocumentType disconnectFromAll(String accountingDocumentTypeId, int version) throws Exception{
-	
-		
+
+
 		AccountingDocumentType accountingDocumentType = loadInternalAccountingDocumentType(AccountingDocumentTypeTable.withId(accountingDocumentTypeId), emptyOptions());
 		accountingDocumentType.clearFromAll();
 		this.saveAccountingDocumentType(accountingDocumentType);
 		return accountingDocumentType;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "accounting_document_type";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "accountingDocumentType";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			return accountingDocumentType;
 		}
 		
-		
+
 		String SQL=this.getSaveAccountingDocumentTypeSQL(accountingDocumentType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveAccountingDocumentTypeParameters(accountingDocumentType);
@@ -419,57 +423,57 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		accountingDocumentType.incVersion();
 		return accountingDocumentType;
-	
+
 	}
 	public SmartList<AccountingDocumentType> saveAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitAccountingDocumentTypeList(accountingDocumentTypeList);
-		
+
 		batchAccountingDocumentTypeCreate((List<AccountingDocumentType>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchAccountingDocumentTypeUpdate((List<AccountingDocumentType>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(AccountingDocumentType accountingDocumentType:accountingDocumentTypeList){
 			if(accountingDocumentType.isChanged()){
 				accountingDocumentType.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return accountingDocumentTypeList;
 	}
 
 	public SmartList<AccountingDocumentType> removeAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(accountingDocumentTypeList, options);
-		
+
 		return accountingDocumentTypeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareAccountingDocumentTypeBatchCreateArgs(List<AccountingDocumentType> accountingDocumentTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(AccountingDocumentType accountingDocumentType:accountingDocumentTypeList ){
 			Object [] parameters = prepareAccountingDocumentTypeCreateParameters(accountingDocumentType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareAccountingDocumentTypeBatchUpdateArgs(List<AccountingDocumentType> accountingDocumentTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(AccountingDocumentType accountingDocumentType:accountingDocumentTypeList ){
 			if(!accountingDocumentType.isChanged()){
@@ -477,40 +481,40 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			}
 			Object [] parameters = prepareAccountingDocumentTypeUpdateParameters(accountingDocumentType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchAccountingDocumentTypeCreate(List<AccountingDocumentType> accountingDocumentTypeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareAccountingDocumentTypeBatchCreateArgs(accountingDocumentTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchAccountingDocumentTypeUpdate(List<AccountingDocumentType> accountingDocumentTypeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareAccountingDocumentTypeBatchUpdateArgs(accountingDocumentTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitAccountingDocumentTypeList(List<AccountingDocumentType> accountingDocumentTypeList){
-		
+
 		List<AccountingDocumentType> accountingDocumentTypeCreateList=new ArrayList<AccountingDocumentType>();
 		List<AccountingDocumentType> accountingDocumentTypeUpdateList=new ArrayList<AccountingDocumentType>();
-		
+
 		for(AccountingDocumentType accountingDocumentType: accountingDocumentTypeList){
 			if(isUpdateRequest(accountingDocumentType)){
 				accountingDocumentTypeUpdateList.add( accountingDocumentType);
@@ -518,10 +522,10 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			}
 			accountingDocumentTypeCreateList.add(accountingDocumentType);
 		}
-		
+
 		return new Object[]{accountingDocumentTypeCreateList,accountingDocumentTypeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(AccountingDocumentType accountingDocumentType){
  		return accountingDocumentType.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveAccountingDocumentTypeParameters(AccountingDocumentType accountingDocumentType){
  		if(isUpdateRequest(accountingDocumentType) ){
  			return prepareAccountingDocumentTypeUpdateParameters(accountingDocumentType);
@@ -546,21 +550,23 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		
  		
  		parameters[1] = accountingDocumentType.getDescription();
- 		 	
+ 		
  		if(accountingDocumentType.getAccountingPeriod() != null){
  			parameters[2] = accountingDocumentType.getAccountingPeriod().getId();
  		}
- 		
+ 
  		parameters[3] = accountingDocumentType.nextVersion();
  		parameters[4] = accountingDocumentType.getId();
  		parameters[5] = accountingDocumentType.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareAccountingDocumentTypeCreateParameters(AccountingDocumentType accountingDocumentType){
 		Object[] parameters = new Object[4];
-		String newAccountingDocumentTypeId=getNextId();
-		accountingDocumentType.setId(newAccountingDocumentTypeId);
+        if(accountingDocumentType.getId() == null){
+          String newAccountingDocumentTypeId=getNextId();
+          accountingDocumentType.setId(newAccountingDocumentTypeId);
+        }
 		parameters[0] =  accountingDocumentType.getId();
  
  		
@@ -568,20 +574,20 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		
  		
  		parameters[2] = accountingDocumentType.getDescription();
- 		 	
+ 		
  		if(accountingDocumentType.getAccountingPeriod() != null){
  			parameters[3] = accountingDocumentType.getAccountingPeriod().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected AccountingDocumentType saveInternalAccountingDocumentType(AccountingDocumentType accountingDocumentType, Map<String,Object> options){
-		
+
 		saveAccountingDocumentType(accountingDocumentType);
- 	
+
  		if(isSaveAccountingPeriodEnabled(options)){
 	 		saveAccountingPeriod(accountingDocumentType, options);
  		}
@@ -591,42 +597,42 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	 		saveAccountingDocumentList(accountingDocumentType, options);
 	 		//removeAccountingDocumentList(accountingDocumentType, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return accountingDocumentType;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected AccountingDocumentType saveAccountingPeriod(AccountingDocumentType accountingDocumentType, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(accountingDocumentType.getAccountingPeriod() == null){
  			return accountingDocumentType;//do nothing when it is null
  		}
- 		
+
  		getAccountSetDAO().save(accountingDocumentType.getAccountingPeriod(),options);
  		return accountingDocumentType;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public AccountingDocumentType planToRemoveAccountingDocumentList(AccountingDocumentType accountingDocumentType, String accountingDocumentIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountingDocument.DOCUMENT_TYPE_PROPERTY, accountingDocumentType.getId());
 		key.put(AccountingDocument.ID_PROPERTY, accountingDocumentIds);
-		
+
 		SmartList<AccountingDocument> externalAccountingDocumentList = getAccountingDocumentDAO().
 				findAccountingDocumentWithKey(key, options);
 		if(externalAccountingDocumentList == null){
@@ -635,17 +641,17 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(externalAccountingDocumentList.isEmpty()){
 			return accountingDocumentType;
 		}
-		
+
 		for(AccountingDocument accountingDocumentItem: externalAccountingDocumentList){
 
 			accountingDocumentItem.clearFromAll();
 		}
-		
-		
-		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentType.getAccountingDocumentList();		
+
+
+		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentType.getAccountingDocumentList();
 		accountingDocumentList.addAllToRemoveList(externalAccountingDocumentList);
-		return accountingDocumentType;	
-	
+		return accountingDocumentType;
+
 	}
 
 
@@ -654,11 +660,11 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountingDocument.DOCUMENT_TYPE_PROPERTY, accountingDocumentType.getId());
 		key.put(AccountingDocument.ACCOUNTING_PERIOD_PROPERTY, accountingPeriodId);
-		
+
 		SmartList<AccountingDocument> externalAccountingDocumentList = getAccountingDocumentDAO().
 				findAccountingDocumentWithKey(key, options);
 		if(externalAccountingDocumentList == null){
@@ -667,19 +673,19 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(externalAccountingDocumentList.isEmpty()){
 			return accountingDocumentType;
 		}
-		
+
 		for(AccountingDocument accountingDocumentItem: externalAccountingDocumentList){
 			accountingDocumentItem.clearAccountingPeriod();
 			accountingDocumentItem.clearDocumentType();
-			
+
 		}
-		
-		
-		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentType.getAccountingDocumentList();		
+
+
+		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentType.getAccountingDocumentList();
 		accountingDocumentList.addAllToRemoveList(externalAccountingDocumentList);
 		return accountingDocumentType;
 	}
-	
+
 	public int countAccountingDocumentListWithAccountingPeriod(String accountingDocumentTypeId, String accountingPeriodId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -688,7 +694,7 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountingDocument.DOCUMENT_TYPE_PROPERTY, accountingDocumentTypeId);
 		key.put(AccountingDocument.ACCOUNTING_PERIOD_PROPERTY, accountingPeriodId);
-		
+
 		int count = getAccountingDocumentDAO().countAccountingDocumentWithKey(key, options);
 		return count;
 	}
@@ -696,19 +702,19 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 		
 	protected AccountingDocumentType saveAccountingDocumentList(AccountingDocumentType accountingDocumentType, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentType.getAccountingDocumentList();
 		if(accountingDocumentList == null){
 			//null list means nothing
 			return accountingDocumentType;
 		}
 		SmartList<AccountingDocument> mergedUpdateAccountingDocumentList = new SmartList<AccountingDocument>();
-		
-		
-		mergedUpdateAccountingDocumentList.addAll(accountingDocumentList); 
+
+
+		mergedUpdateAccountingDocumentList.addAll(accountingDocumentList);
 		if(accountingDocumentList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateAccountingDocumentList.addAll(accountingDocumentList.getToRemoveList());
@@ -717,28 +723,28 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 
 		//adding new size can improve performance
-	
+
 		getAccountingDocumentDAO().saveAccountingDocumentList(mergedUpdateAccountingDocumentList,options);
-		
+
 		if(accountingDocumentList.getToRemoveList() != null){
 			accountingDocumentList.removeAll(accountingDocumentList.getToRemoveList());
 		}
-		
-		
+
+
 		return accountingDocumentType;
-	
+
 	}
-	
+
 	protected AccountingDocumentType removeAccountingDocumentList(AccountingDocumentType accountingDocumentType, Map<String,Object> options){
-	
-	
+
+
 		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentType.getAccountingDocumentList();
 		if(accountingDocumentList == null){
 			return accountingDocumentType;
-		}	
-	
+		}
+
 		SmartList<AccountingDocument> toRemoveAccountingDocumentList = accountingDocumentList.getToRemoveList();
-		
+
 		if(toRemoveAccountingDocumentList == null){
 			return accountingDocumentType;
 		}
@@ -746,20 +752,20 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			return accountingDocumentType;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getAccountingDocumentDAO().removeAccountingDocumentList(toRemoveAccountingDocumentList,options);
-		
-		return accountingDocumentType;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getAccountingDocumentDAO().removeAccountingDocumentList(toRemoveAccountingDocumentList,options);
+
+		return accountingDocumentType;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public AccountingDocumentType present(AccountingDocumentType accountingDocumentType,Map<String, Object> options){
@@ -802,13 +808,13 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	protected String getTableName(){
 		return AccountingDocumentTypeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<AccountingDocumentType> accountingDocumentTypeList) {		
+
+
+
+	public void enhanceList(List<AccountingDocumentType> accountingDocumentTypeList) {
 		this.enhanceListInternal(accountingDocumentTypeList, this.getAccountingDocumentTypeMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:AccountingDocument的documentType的AccountingDocumentList
 	public SmartList<AccountingDocument> loadOurAccountingDocumentList(RetailscmUserContext userContext, List<AccountingDocumentType> us, Map<String,Object> options) throws Exception{
@@ -833,39 +839,45 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountingDocumentType> accountingDocumentTypeList = ownerEntity.collectRefsWithType(AccountingDocumentType.INTERNAL_TYPE);
 		this.enhanceList(accountingDocumentTypeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<AccountingDocumentType> findAccountingDocumentTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getAccountingDocumentTypeMapper());
 
 	}
 	@Override
 	public int countAccountingDocumentTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countAccountingDocumentTypeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<AccountingDocumentType> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getAccountingDocumentTypeMapper());
 	}
+
+  @Override
+  public Stream<AccountingDocumentType> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getAccountingDocumentTypeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -894,7 +906,7 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 		return result;
 	}
-	
+
 	
 
 }

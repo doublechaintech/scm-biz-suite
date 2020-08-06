@@ -17,6 +17,7 @@ public interface SupplyOrderShippingGroupManager extends BaseManager{
 	public SupplyOrderShippingGroup createSupplyOrderShippingGroup(RetailscmUserContext userContext, String name,String bizOrderId,BigDecimal amount) throws Exception;
 	public SupplyOrderShippingGroup updateSupplyOrderShippingGroup(RetailscmUserContext userContext,String supplyOrderShippingGroupId, int supplyOrderShippingGroupVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SupplyOrderShippingGroup loadSupplyOrderShippingGroup(RetailscmUserContext userContext, String supplyOrderShippingGroupId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SupplyOrderShippingGroup internalSaveSupplyOrderShippingGroup(RetailscmUserContext userContext, SupplyOrderShippingGroup supplyOrderShippingGroup) throws Exception;
 	public SupplyOrderShippingGroup internalSaveSupplyOrderShippingGroup(RetailscmUserContext userContext, SupplyOrderShippingGroup supplyOrderShippingGroup,Map<String,Object>option) throws Exception;
 

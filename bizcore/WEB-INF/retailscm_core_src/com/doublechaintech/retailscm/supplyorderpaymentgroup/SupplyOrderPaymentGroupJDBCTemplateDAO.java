@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SupplyOrderPaymentGroupDAO{
 
@@ -53,64 +53,68 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	 	return this.supplyOrderDAO;
  	}	
 
-	
+
 	/*
 	protected SupplyOrderPaymentGroup load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalSupplyOrderPaymentGroup(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<SupplyOrderPaymentGroup> loadAll() {
 	    return this.loadAll(getSupplyOrderPaymentGroupMapper());
 	}
-	
-	
+
+  public Stream<SupplyOrderPaymentGroup> loadAllAsStream() {
+      return this.loadAllAsStream(getSupplyOrderPaymentGroupMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public SupplyOrderPaymentGroup load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalSupplyOrderPaymentGroup(SupplyOrderPaymentGroupTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public SupplyOrderPaymentGroup save(SupplyOrderPaymentGroup supplyOrderPaymentGroup,Map<String,Object> options){
-		
+
 		String methodName="save(SupplyOrderPaymentGroup supplyOrderPaymentGroup,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(supplyOrderPaymentGroup, methodName, "supplyOrderPaymentGroup");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalSupplyOrderPaymentGroup(supplyOrderPaymentGroup,options);
 	}
 	public SupplyOrderPaymentGroup clone(String supplyOrderPaymentGroupId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(SupplyOrderPaymentGroupTable.withId(supplyOrderPaymentGroupId),options);
 	}
-	
+
 	protected SupplyOrderPaymentGroup clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String supplyOrderPaymentGroupId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		SupplyOrderPaymentGroup newSupplyOrderPaymentGroup = loadInternalSupplyOrderPaymentGroup(accessKey, options);
 		newSupplyOrderPaymentGroup.setVersion(0);
 		
 		
 
-		
+
 		saveInternalSupplyOrderPaymentGroup(newSupplyOrderPaymentGroup,options);
-		
+
 		return newSupplyOrderPaymentGroup;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String supplyOrderPaymentGroupId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String supplyOrderPaymentGroupId, int version) throws Exception{
-	
+
 		String methodName="delete(String supplyOrderPaymentGroupId, int version)";
 		assertMethodArgumentNotNull(supplyOrderPaymentGroupId, methodName, "supplyOrderPaymentGroupId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{supplyOrderPaymentGroupId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		if(affectedNumber == 0){
 			handleDeleteOneError(supplyOrderPaymentGroupId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public SupplyOrderPaymentGroup disconnectFromAll(String supplyOrderPaymentGroupId, int version) throws Exception{
-	
-		
+
+
 		SupplyOrderPaymentGroup supplyOrderPaymentGroup = loadInternalSupplyOrderPaymentGroup(SupplyOrderPaymentGroupTable.withId(supplyOrderPaymentGroupId), emptyOptions());
 		supplyOrderPaymentGroup.clearFromAll();
 		this.saveSupplyOrderPaymentGroup(supplyOrderPaymentGroup);
 		return supplyOrderPaymentGroup;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "supply_order_payment_group";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "supplyOrderPaymentGroup";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			return supplyOrderPaymentGroup;
 		}
 		
-		
+
 		String SQL=this.getSaveSupplyOrderPaymentGroupSQL(supplyOrderPaymentGroup);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSupplyOrderPaymentGroupParameters(supplyOrderPaymentGroup);
@@ -320,57 +324,57 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		supplyOrderPaymentGroup.incVersion();
 		return supplyOrderPaymentGroup;
-	
+
 	}
 	public SmartList<SupplyOrderPaymentGroup> saveSupplyOrderPaymentGroupList(SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitSupplyOrderPaymentGroupList(supplyOrderPaymentGroupList);
-		
+
 		batchSupplyOrderPaymentGroupCreate((List<SupplyOrderPaymentGroup>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchSupplyOrderPaymentGroupUpdate((List<SupplyOrderPaymentGroup>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(SupplyOrderPaymentGroup supplyOrderPaymentGroup:supplyOrderPaymentGroupList){
 			if(supplyOrderPaymentGroup.isChanged()){
 				supplyOrderPaymentGroup.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return supplyOrderPaymentGroupList;
 	}
 
 	public SmartList<SupplyOrderPaymentGroup> removeSupplyOrderPaymentGroupList(SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(supplyOrderPaymentGroupList, options);
-		
+
 		return supplyOrderPaymentGroupList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareSupplyOrderPaymentGroupBatchCreateArgs(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SupplyOrderPaymentGroup supplyOrderPaymentGroup:supplyOrderPaymentGroupList ){
 			Object [] parameters = prepareSupplyOrderPaymentGroupCreateParameters(supplyOrderPaymentGroup);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareSupplyOrderPaymentGroupBatchUpdateArgs(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SupplyOrderPaymentGroup supplyOrderPaymentGroup:supplyOrderPaymentGroupList ){
 			if(!supplyOrderPaymentGroup.isChanged()){
@@ -378,40 +382,40 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			}
 			Object [] parameters = prepareSupplyOrderPaymentGroupUpdateParameters(supplyOrderPaymentGroup);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchSupplyOrderPaymentGroupCreate(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareSupplyOrderPaymentGroupBatchCreateArgs(supplyOrderPaymentGroupList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchSupplyOrderPaymentGroupUpdate(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareSupplyOrderPaymentGroupBatchUpdateArgs(supplyOrderPaymentGroupList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitSupplyOrderPaymentGroupList(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList){
-		
+
 		List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupCreateList=new ArrayList<SupplyOrderPaymentGroup>();
 		List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupUpdateList=new ArrayList<SupplyOrderPaymentGroup>();
-		
+
 		for(SupplyOrderPaymentGroup supplyOrderPaymentGroup: supplyOrderPaymentGroupList){
 			if(isUpdateRequest(supplyOrderPaymentGroup)){
 				supplyOrderPaymentGroupUpdateList.add( supplyOrderPaymentGroup);
@@ -419,10 +423,10 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			}
 			supplyOrderPaymentGroupCreateList.add(supplyOrderPaymentGroup);
 		}
-		
+
 		return new Object[]{supplyOrderPaymentGroupCreateList,supplyOrderPaymentGroupUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(SupplyOrderPaymentGroup supplyOrderPaymentGroup){
  		return supplyOrderPaymentGroup.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveSupplyOrderPaymentGroupParameters(SupplyOrderPaymentGroup supplyOrderPaymentGroup){
  		if(isUpdateRequest(supplyOrderPaymentGroup) ){
  			return prepareSupplyOrderPaymentGroupUpdateParameters(supplyOrderPaymentGroup);
@@ -444,74 +448,76 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
  
  		
  		parameters[0] = supplyOrderPaymentGroup.getName();
- 		 	
+ 		
  		if(supplyOrderPaymentGroup.getBizOrder() != null){
  			parameters[1] = supplyOrderPaymentGroup.getBizOrder().getId();
  		}
  
  		
  		parameters[2] = supplyOrderPaymentGroup.getCardNumber();
- 				
+ 		
  		parameters[3] = supplyOrderPaymentGroup.nextVersion();
  		parameters[4] = supplyOrderPaymentGroup.getId();
  		parameters[5] = supplyOrderPaymentGroup.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareSupplyOrderPaymentGroupCreateParameters(SupplyOrderPaymentGroup supplyOrderPaymentGroup){
 		Object[] parameters = new Object[4];
-		String newSupplyOrderPaymentGroupId=getNextId();
-		supplyOrderPaymentGroup.setId(newSupplyOrderPaymentGroupId);
+        if(supplyOrderPaymentGroup.getId() == null){
+          String newSupplyOrderPaymentGroupId=getNextId();
+          supplyOrderPaymentGroup.setId(newSupplyOrderPaymentGroupId);
+        }
 		parameters[0] =  supplyOrderPaymentGroup.getId();
  
  		
  		parameters[1] = supplyOrderPaymentGroup.getName();
- 		 	
+ 		
  		if(supplyOrderPaymentGroup.getBizOrder() != null){
  			parameters[2] = supplyOrderPaymentGroup.getBizOrder().getId();
- 		
+
  		}
  		
  		
  		parameters[3] = supplyOrderPaymentGroup.getCardNumber();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected SupplyOrderPaymentGroup saveInternalSupplyOrderPaymentGroup(SupplyOrderPaymentGroup supplyOrderPaymentGroup, Map<String,Object> options){
-		
+
 		saveSupplyOrderPaymentGroup(supplyOrderPaymentGroup);
- 	
+
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(supplyOrderPaymentGroup, options);
  		}
  
 		
 		return supplyOrderPaymentGroup;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected SupplyOrderPaymentGroup saveBizOrder(SupplyOrderPaymentGroup supplyOrderPaymentGroup, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(supplyOrderPaymentGroup.getBizOrder() == null){
  			return supplyOrderPaymentGroup;//do nothing when it is null
  		}
- 		
+
  		getSupplyOrderDAO().save(supplyOrderPaymentGroup.getBizOrder(),options);
  		return supplyOrderPaymentGroup;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -531,47 +537,53 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	protected String getTableName(){
 		return SupplyOrderPaymentGroupTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList) {		
+
+
+
+	public void enhanceList(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList) {
 		this.enhanceListInternal(supplyOrderPaymentGroupList, this.getSupplyOrderPaymentGroupMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList = ownerEntity.collectRefsWithType(SupplyOrderPaymentGroup.INTERNAL_TYPE);
 		this.enhanceList(supplyOrderPaymentGroupList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<SupplyOrderPaymentGroup> findSupplyOrderPaymentGroupWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getSupplyOrderPaymentGroupMapper());
 
 	}
 	@Override
 	public int countSupplyOrderPaymentGroupWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countSupplyOrderPaymentGroupWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<SupplyOrderPaymentGroup> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSupplyOrderPaymentGroupMapper());
 	}
+
+  @Override
+  public Stream<SupplyOrderPaymentGroup> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getSupplyOrderPaymentGroupMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -600,7 +612,7 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		}
 		return result;
 	}
-	
+
 	
 
 }

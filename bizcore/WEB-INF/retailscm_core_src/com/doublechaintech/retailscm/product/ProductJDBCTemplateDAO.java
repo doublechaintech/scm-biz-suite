@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.sku.SkuDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ProductDAO{
 
@@ -71,50 +71,54 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	 	return this.skuDAO;
  	}	
 
-	
+
 	/*
 	protected Product load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalProduct(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Product> loadAll() {
 	    return this.loadAll(getProductMapper());
 	}
-	
-	
+
+  public Stream<Product> loadAllAsStream() {
+      return this.loadAllAsStream(getProductMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Product load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalProduct(ProductTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Product save(Product product,Map<String,Object> options){
-		
+
 		String methodName="save(Product product,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(product, methodName, "product");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalProduct(product,options);
 	}
 	public Product clone(String productId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(ProductTable.withId(productId),options);
 	}
-	
+
 	protected Product clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String productId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Product newProduct = loadInternalProduct(accessKey, options);
 		newProduct.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		}
 		
 
-		
+
 		saveInternalProduct(newProduct,options);
-		
+
 		return newProduct;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String productId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String productId, int version) throws Exception{
-	
+
 		String methodName="delete(String productId, int version)";
 		assertMethodArgumentNotNull(productId, methodName, "productId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{productId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		if(affectedNumber == 0){
 			handleDeleteOneError(productId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Product disconnectFromAll(String productId, int version) throws Exception{
-	
-		
+
+
 		Product product = loadInternalProduct(ProductTable.withId(productId), emptyOptions());
 		product.clearFromAll();
 		this.saveProduct(product);
 		return product;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "product";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "product";
 	}
-	
+
 	
 	
 	
@@ -426,7 +430,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 			return product;
 		}
 		
-		
+
 		String SQL=this.getSaveProductSQL(product);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveProductParameters(product);
@@ -435,57 +439,57 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		product.incVersion();
 		return product;
-	
+
 	}
 	public SmartList<Product> saveProductList(SmartList<Product> productList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitProductList(productList);
-		
+
 		batchProductCreate((List<Product>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchProductUpdate((List<Product>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Product product:productList){
 			if(product.isChanged()){
 				product.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return productList;
 	}
 
 	public SmartList<Product> removeProductList(SmartList<Product> productList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(productList, options);
-		
+
 		return productList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareProductBatchCreateArgs(List<Product> productList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Product product:productList ){
 			Object [] parameters = prepareProductCreateParameters(product);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareProductBatchUpdateArgs(List<Product> productList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Product product:productList ){
 			if(!product.isChanged()){
@@ -493,40 +497,40 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 			}
 			Object [] parameters = prepareProductUpdateParameters(product);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchProductCreate(List<Product> productList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareProductBatchCreateArgs(productList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchProductUpdate(List<Product> productList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareProductBatchUpdateArgs(productList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitProductList(List<Product> productList){
-		
+
 		List<Product> productCreateList=new ArrayList<Product>();
 		List<Product> productUpdateList=new ArrayList<Product>();
-		
+
 		for(Product product: productList){
 			if(isUpdateRequest(product)){
 				productUpdateList.add( product);
@@ -534,10 +538,10 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 			}
 			productCreateList.add(product);
 		}
-		
+
 		return new Object[]{productCreateList,productUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Product product){
  		return product.getVersion() > 0;
  	}
@@ -547,7 +551,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveProductParameters(Product product){
  		if(isUpdateRequest(product) ){
  			return prepareProductUpdateParameters(product);
@@ -559,7 +563,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  
  		
  		parameters[0] = product.getName();
- 		 	
+ 		
  		if(product.getParentCategory() != null){
  			parameters[1] = product.getParentCategory().getId();
  		}
@@ -578,25 +582,27 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		
  		
  		parameters[6] = product.getLastUpdateTime();
- 				
+ 		
  		parameters[7] = product.nextVersion();
  		parameters[8] = product.getId();
  		parameters[9] = product.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareProductCreateParameters(Product product){
 		Object[] parameters = new Object[8];
-		String newProductId=getNextId();
-		product.setId(newProductId);
+        if(product.getId() == null){
+          String newProductId=getNextId();
+          product.setId(newProductId);
+        }
 		parameters[0] =  product.getId();
  
  		
  		parameters[1] = product.getName();
- 		 	
+ 		
  		if(product.getParentCategory() != null){
  			parameters[2] = product.getParentCategory().getId();
- 		
+
  		}
  		
  		
@@ -613,15 +619,15 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		
  		
  		parameters[7] = product.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Product saveInternalProduct(Product product, Map<String,Object> options){
-		
+
 		saveProduct(product);
- 	
+
  		if(isSaveParentCategoryEnabled(options)){
 	 		saveParentCategory(product, options);
  		}
@@ -631,42 +637,42 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	 		saveSkuList(product, options);
 	 		//removeSkuList(product, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return product;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Product saveParentCategory(Product product, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(product.getParentCategory() == null){
  			return product;//do nothing when it is null
  		}
- 		
+
  		getLevelThreeCategoryDAO().save(product.getParentCategory(),options);
  		return product;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Product planToRemoveSkuList(Product product, String skuIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Sku.PRODUCT_PROPERTY, product.getId());
 		key.put(Sku.ID_PROPERTY, skuIds);
-		
+
 		SmartList<Sku> externalSkuList = getSkuDAO().
 				findSkuWithKey(key, options);
 		if(externalSkuList == null){
@@ -675,36 +681,36 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		if(externalSkuList.isEmpty()){
 			return product;
 		}
-		
+
 		for(Sku skuItem: externalSkuList){
 
 			skuItem.clearFromAll();
 		}
-		
-		
-		SmartList<Sku> skuList = product.getSkuList();		
+
+
+		SmartList<Sku> skuList = product.getSkuList();
 		skuList.addAllToRemoveList(externalSkuList);
-		return product;	
-	
+		return product;
+
 	}
 
 
 
 		
 	protected Product saveSkuList(Product product, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Sku> skuList = product.getSkuList();
 		if(skuList == null){
 			//null list means nothing
 			return product;
 		}
 		SmartList<Sku> mergedUpdateSkuList = new SmartList<Sku>();
-		
-		
-		mergedUpdateSkuList.addAll(skuList); 
+
+
+		mergedUpdateSkuList.addAll(skuList);
 		if(skuList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSkuList.addAll(skuList.getToRemoveList());
@@ -713,28 +719,28 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		}
 
 		//adding new size can improve performance
-	
+
 		getSkuDAO().saveSkuList(mergedUpdateSkuList,options);
-		
+
 		if(skuList.getToRemoveList() != null){
 			skuList.removeAll(skuList.getToRemoveList());
 		}
-		
-		
+
+
 		return product;
-	
+
 	}
-	
+
 	protected Product removeSkuList(Product product, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Sku> skuList = product.getSkuList();
 		if(skuList == null){
 			return product;
-		}	
-	
+		}
+
 		SmartList<Sku> toRemoveSkuList = skuList.getToRemoveList();
-		
+
 		if(toRemoveSkuList == null){
 			return product;
 		}
@@ -742,20 +748,20 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 			return product;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSkuDAO().removeSkuList(toRemoveSkuList,options);
-		
-		return product;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSkuDAO().removeSkuList(toRemoveSkuList,options);
+
+		return product;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Product present(Product product,Map<String, Object> options){
@@ -798,13 +804,13 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	protected String getTableName(){
 		return ProductTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Product> productList) {		
+
+
+
+	public void enhanceList(List<Product> productList) {
 		this.enhanceListInternal(productList, this.getProductMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Sku的product的SkuList
 	public SmartList<Sku> loadOurSkuList(RetailscmUserContext userContext, List<Product> us, Map<String,Object> options) throws Exception{
@@ -829,39 +835,45 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Product> productList = ownerEntity.collectRefsWithType(Product.INTERNAL_TYPE);
 		this.enhanceList(productList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Product> findProductWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getProductMapper());
 
 	}
 	@Override
 	public int countProductWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countProductWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Product> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getProductMapper());
 	}
+
+  @Override
+  public Stream<Product> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getProductMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -890,7 +902,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		}
 		return result;
 	}
-	
+
 	
 
 }

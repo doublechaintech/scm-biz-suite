@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.function.Consumer;
 
@@ -21,9 +22,9 @@ SmartList实现List接口，继承BaseEntity。
 
 actionList - 构造界面上可以操作的按钮更容易了。
 message - 有什么要告诉前台，更容易
-count，对列表条数进行统计
-toRemoveList，保存将要删除的元素
-facetList，动态过滤器列表
+count - 对列表条数进行统计
+toRemoveList - 保存将要删除的元素
+facetList - 动态过滤器列表
  * 
  * */
 public class SmartList<E  extends BaseEntity> extends BaseEntity implements List<E> {
@@ -185,6 +186,15 @@ public class SmartList<E  extends BaseEntity> extends BaseEntity implements List
 		o.clearFromAll();
 		this.addToRemoveList(o);
 		return smartList.remove(o);
+	}
+	public boolean planToRemove(String id, int version) {
+		ensureSmartList();
+		Optional<E> optionalElement= smartList.stream().filter(ele->ele.getId().equals(id)&&ele.getVersion()==version).findFirst();
+		if(!optionalElement.isPresent()) {
+			return false;
+		}
+		this.planToRemove(optionalElement.get());
+		return true;
 	}
 	public boolean containsAll(Collection<?> c) {
 		ensureSmartList();

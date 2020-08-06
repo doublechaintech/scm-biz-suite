@@ -101,7 +101,7 @@
 	  <li class="active"><a data-toggle="tab" href="#summary" class="disabled"><i class="fa  fa-home"></i> ${userContext.localeMap['@summary']}</a></li>
 	 
 	<% UserDomain result = (UserDomain)request.getAttribute("result");  %>
-			<li><a data-toggle="tab" href="#userWhiteListList" class="disabled"> ${userContext.localeMap['user_white_list']}</a></li>
+			<li><a data-toggle="tab" href="#userAllowListList" class="disabled"> ${userContext.localeMap['user_allow_list']}</a></li>
 			<li><a data-toggle="tab" href="#secUserList" class="disabled"> ${userContext.localeMap['sec_user']}</a></li>
 			<li><a data-toggle="tab" href="#publicKeyTypeList" class="disabled"> ${userContext.localeMap['public_key_type']}</a></li>
  
@@ -147,11 +147,11 @@
 
 	
 
-		<c:if test='${not empty userContext.accessTokens["userWhiteListList"] or ignoreListAccessControl}'>
-		<c:set var="userWhiteListList" value="${result.userWhiteListList}" scope="request"/>
-		<c:set var="userWhiteListListName" value="userWhiteListList" scope="request"/>
-		<div id="userWhiteListList" class="tab-pane fade sublist" refer-name="domain">
-			<sky:include page="com/doublechaintech/retailscm/userwhitelist/UserWhiteList$List.jsp"
+		<c:if test='${not empty userContext.accessTokens["userAllowListList"] or ignoreListAccessControl}'>
+		<c:set var="userAllowListList" value="${result.userAllowListList}" scope="request"/>
+		<c:set var="userAllowListListName" value="userAllowListList" scope="request"/>
+		<div id="userAllowListList" class="tab-pane fade sublist" refer-name="domain">
+			<sky:include page="com/doublechaintech/retailscm/userallowlist/UserAllowList$List.jsp"
 					referName="domain"/>
 		</div>
 	</c:if>

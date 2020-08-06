@@ -17,6 +17,7 @@ public interface GoodsManager extends BaseManager{
 	public Goods createGoods(RetailscmUserContext userContext, String name,String rfid,String uom,int maxPackage,Date expireTime,String skuId,String receivingSpaceId,String goodsAllocationId,String smartPalletId,String shippingSpaceId,String transportTaskId,String retailStoreId,String bizOrderId,String retailStoreOrderId) throws Exception;
 	public Goods updateGoods(RetailscmUserContext userContext,String goodsId, int goodsVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Goods loadGoods(RetailscmUserContext userContext, String goodsId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Goods internalSaveGoods(RetailscmUserContext userContext, Goods goods) throws Exception;
 	public Goods internalSaveGoods(RetailscmUserContext userContext, Goods goods,Map<String,Object>option) throws Exception;
 

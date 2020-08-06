@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.terminationtype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.termination.Termination;
@@ -46,24 +44,24 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = TerminationTypeTokens.start().withTokenFromListName(listName).done();
 		TerminationType  terminationType = (TerminationType) this.loadTerminationType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = terminationType.collectRefercencesFromLists();
 		terminationTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, terminationType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new TerminationTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).throwExceptionIfHasErrors( TerminationTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		TerminationType terminationType = loadTerminationType( userContext, terminationTypeId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		
 		List<BaseEntity> entityListToNaming = terminationTypeToPresent.collectRefercencesFromLists();
 		terminationTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,terminationType,tokens);
 		
 		return  terminationTypeToPresent;
 		
@@ -533,7 +534,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 			terminationType.addTermination( termination );
 			terminationType = saveTerminationType(userContext, terminationType, tokens().withTerminationList().done());
 			
-			userContext.getManagerGroup().getTerminationManager().onNewInstanceCreated(userContext, termination);
+			terminationManagerOf(userContext).onNewInstanceCreated(userContext, termination);
 			return present(userContext,terminationType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -554,7 +555,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withTerminationListList()
-				.searchTerminationListWith(Termination.ID_PROPERTY, "is", id).done();
+				.searchTerminationListWith(Termination.ID_PROPERTY, tokens().is(), id).done();
 
 		TerminationType terminationTypeToUpdate = loadTerminationType(userContext, terminationTypeId, options);
 
@@ -563,7 +564,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		}
 
 		Termination item = terminationTypeToUpdate.getTerminationList().first();
-
+		beforeUpdateTerminationProperties(userContext,item, terminationTypeId,id,comment,tokensExpr);
 		item.updateComment( comment );
 
 
@@ -574,6 +575,10 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		}
 	}
 
+	protected  void beforeUpdateTerminationProperties(RetailscmUserContext userContext, Termination item, String terminationTypeId, String id,String comment, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Termination createTermination(RetailscmUserContext userContext, String reasonId, String comment) throws Exception{
 
@@ -680,7 +685,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 			terminationType.copyTerminationFrom( termination );
 			terminationType = saveTerminationType(userContext, terminationType, tokens().withTerminationList().done());
 			
-			userContext.getManagerGroup().getTerminationManager().onNewInstanceCreated(userContext, (Termination)terminationType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			terminationManagerOf(userContext).onNewInstanceCreated(userContext, (Termination)terminationType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,terminationType, mergedAllTokens(tokensExpr));
 		}
 
@@ -693,15 +698,13 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).checkIdOfTerminationType(terminationTypeId);
 		checkerOf(userContext).checkIdOfTermination(terminationId);
 		checkerOf(userContext).checkVersionOfTermination(terminationVersion);
-		
+
 
 		if(Termination.COMMENT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCommentOfTermination(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TerminationTypeManagerException.class);
 
 	}
@@ -711,7 +714,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 
 		checkParamsForUpdatingTermination(userContext, terminationTypeId, terminationId, terminationVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withTerminationList().searchTerminationListWith(Termination.ID_PROPERTY, "eq", terminationId).done();
+		Map<String,Object> loadTokens = this.tokens().withTerminationList().searchTerminationListWith(Termination.ID_PROPERTY, tokens().equals(), terminationId).done();
 
 
 
@@ -722,13 +725,14 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 			//Also good when there is a RAM based DAO implementation
 			//terminationType.removeTermination( termination );
 			//make changes to AcceleraterAccount.
-			Termination terminationIndex = createIndexedTermination(terminationId, terminationVersion);
+			Termination terminationIdVersionKey = createIndexedTermination(terminationId, terminationVersion);
 
-			Termination termination = terminationType.findTheTermination(terminationIndex);
+			Termination termination = terminationType.findTheTermination(terminationIdVersionKey);
 			if(termination == null){
-				throw new TerminationTypeManagerException(termination+" is NOT FOUND" );
+				throw new TerminationTypeManagerException(terminationId+" is NOT FOUND" );
 			}
 
+			beforeUpdateTermination(userContext, termination, terminationTypeId, terminationId, terminationVersion, property, newValueExpr,  tokensExpr);
 			termination.changeProperty(property, newValueExpr);
 			
 			terminationType = saveTerminationType(userContext, terminationType, tokens().withTerminationList().done());
@@ -736,6 +740,11 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateTermination(RetailscmUserContext userContext, Termination existed, String terminationTypeId, String terminationId, int terminationVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -752,6 +761,12 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    terminationTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -843,6 +858,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -959,7 +975,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1041,6 +1057,8 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

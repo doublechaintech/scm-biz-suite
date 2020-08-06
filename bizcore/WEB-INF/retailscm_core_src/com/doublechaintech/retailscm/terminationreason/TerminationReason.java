@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.terminationreason;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.termination.Termination;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = TerminationReasonSerializer.class)
 public class TerminationReason extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

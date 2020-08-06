@@ -37,7 +37,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeCompanyTrainingDAO{
 
@@ -89,64 +89,68 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	 	return this.scoringDAO;
  	}	
 
-	
+
 	/*
 	protected EmployeeCompanyTraining load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeCompanyTraining(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<EmployeeCompanyTraining> loadAll() {
 	    return this.loadAll(getEmployeeCompanyTrainingMapper());
 	}
-	
-	
+
+  public Stream<EmployeeCompanyTraining> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeCompanyTrainingMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public EmployeeCompanyTraining load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeCompanyTraining(EmployeeCompanyTrainingTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public EmployeeCompanyTraining save(EmployeeCompanyTraining employeeCompanyTraining,Map<String,Object> options){
-		
+
 		String methodName="save(EmployeeCompanyTraining employeeCompanyTraining,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employeeCompanyTraining, methodName, "employeeCompanyTraining");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployeeCompanyTraining(employeeCompanyTraining,options);
 	}
 	public EmployeeCompanyTraining clone(String employeeCompanyTrainingId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeCompanyTrainingTable.withId(employeeCompanyTrainingId),options);
 	}
-	
+
 	protected EmployeeCompanyTraining clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeCompanyTrainingId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		EmployeeCompanyTraining newEmployeeCompanyTraining = loadInternalEmployeeCompanyTraining(accessKey, options);
 		newEmployeeCompanyTraining.setVersion(0);
 		
 		
 
-		
+
 		saveInternalEmployeeCompanyTraining(newEmployeeCompanyTraining,options);
-		
+
 		return newEmployeeCompanyTraining;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeCompanyTrainingId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -162,15 +166,15 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeCompanyTrainingId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeCompanyTrainingId, int version)";
 		assertMethodArgumentNotNull(employeeCompanyTrainingId, methodName, "employeeCompanyTrainingId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeCompanyTrainingId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -180,26 +184,26 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeCompanyTrainingId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public EmployeeCompanyTraining disconnectFromAll(String employeeCompanyTrainingId, int version) throws Exception{
-	
-		
+
+
 		EmployeeCompanyTraining employeeCompanyTraining = loadInternalEmployeeCompanyTraining(EmployeeCompanyTrainingTable.withId(employeeCompanyTrainingId), emptyOptions());
 		employeeCompanyTraining.clearFromAll();
 		this.saveEmployeeCompanyTraining(employeeCompanyTraining);
 		return employeeCompanyTraining;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -207,15 +211,15 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee_company_training";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employeeCompanyTraining";
 	}
-	
+
 	
 	
 	
@@ -518,7 +522,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			return employeeCompanyTraining;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeCompanyTrainingSQL(employeeCompanyTraining);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeCompanyTrainingParameters(employeeCompanyTraining);
@@ -527,57 +531,57 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employeeCompanyTraining.incVersion();
 		return employeeCompanyTraining;
-	
+
 	}
 	public SmartList<EmployeeCompanyTraining> saveEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeCompanyTrainingList(employeeCompanyTrainingList);
-		
+
 		batchEmployeeCompanyTrainingCreate((List<EmployeeCompanyTraining>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeCompanyTrainingUpdate((List<EmployeeCompanyTraining>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(EmployeeCompanyTraining employeeCompanyTraining:employeeCompanyTrainingList){
 			if(employeeCompanyTraining.isChanged()){
 				employeeCompanyTraining.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeCompanyTrainingList;
 	}
 
 	public SmartList<EmployeeCompanyTraining> removeEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeCompanyTrainingList, options);
-		
+
 		return employeeCompanyTrainingList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeCompanyTrainingBatchCreateArgs(List<EmployeeCompanyTraining> employeeCompanyTrainingList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeCompanyTraining employeeCompanyTraining:employeeCompanyTrainingList ){
 			Object [] parameters = prepareEmployeeCompanyTrainingCreateParameters(employeeCompanyTraining);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeCompanyTrainingBatchUpdateArgs(List<EmployeeCompanyTraining> employeeCompanyTrainingList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeCompanyTraining employeeCompanyTraining:employeeCompanyTrainingList ){
 			if(!employeeCompanyTraining.isChanged()){
@@ -585,40 +589,40 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			}
 			Object [] parameters = prepareEmployeeCompanyTrainingUpdateParameters(employeeCompanyTraining);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeCompanyTrainingCreate(List<EmployeeCompanyTraining> employeeCompanyTrainingList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeCompanyTrainingBatchCreateArgs(employeeCompanyTrainingList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeCompanyTrainingUpdate(List<EmployeeCompanyTraining> employeeCompanyTrainingList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeCompanyTrainingBatchUpdateArgs(employeeCompanyTrainingList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeCompanyTrainingList(List<EmployeeCompanyTraining> employeeCompanyTrainingList){
-		
+
 		List<EmployeeCompanyTraining> employeeCompanyTrainingCreateList=new ArrayList<EmployeeCompanyTraining>();
 		List<EmployeeCompanyTraining> employeeCompanyTrainingUpdateList=new ArrayList<EmployeeCompanyTraining>();
-		
+
 		for(EmployeeCompanyTraining employeeCompanyTraining: employeeCompanyTrainingList){
 			if(isUpdateRequest(employeeCompanyTraining)){
 				employeeCompanyTrainingUpdateList.add( employeeCompanyTraining);
@@ -626,10 +630,10 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 			}
 			employeeCompanyTrainingCreateList.add(employeeCompanyTraining);
 		}
-		
+
 		return new Object[]{employeeCompanyTrainingCreateList,employeeCompanyTrainingUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(EmployeeCompanyTraining employeeCompanyTraining){
  		return employeeCompanyTraining.getVersion() > 0;
  	}
@@ -639,7 +643,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeCompanyTrainingParameters(EmployeeCompanyTraining employeeCompanyTraining){
  		if(isUpdateRequest(employeeCompanyTraining) ){
  			return prepareEmployeeCompanyTrainingUpdateParameters(employeeCompanyTraining);
@@ -648,125 +652,127 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  	}
  	protected Object[] prepareEmployeeCompanyTrainingUpdateParameters(EmployeeCompanyTraining employeeCompanyTraining){
  		Object[] parameters = new Object[6];
-  	
+ 
  		if(employeeCompanyTraining.getEmployee() != null){
  			parameters[0] = employeeCompanyTraining.getEmployee().getId();
  		}
-  	
+ 
  		if(employeeCompanyTraining.getTraining() != null){
  			parameters[1] = employeeCompanyTraining.getTraining().getId();
  		}
-  	
+ 
  		if(employeeCompanyTraining.getScoring() != null){
  			parameters[2] = employeeCompanyTraining.getScoring().getId();
  		}
- 		
+ 
  		parameters[3] = employeeCompanyTraining.nextVersion();
  		parameters[4] = employeeCompanyTraining.getId();
  		parameters[5] = employeeCompanyTraining.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeCompanyTrainingCreateParameters(EmployeeCompanyTraining employeeCompanyTraining){
 		Object[] parameters = new Object[4];
-		String newEmployeeCompanyTrainingId=getNextId();
-		employeeCompanyTraining.setId(newEmployeeCompanyTrainingId);
+        if(employeeCompanyTraining.getId() == null){
+          String newEmployeeCompanyTrainingId=getNextId();
+          employeeCompanyTraining.setId(newEmployeeCompanyTrainingId);
+        }
 		parameters[0] =  employeeCompanyTraining.getId();
-  	
+ 
  		if(employeeCompanyTraining.getEmployee() != null){
  			parameters[1] = employeeCompanyTraining.getEmployee().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(employeeCompanyTraining.getTraining() != null){
  			parameters[2] = employeeCompanyTraining.getTraining().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(employeeCompanyTraining.getScoring() != null){
  			parameters[3] = employeeCompanyTraining.getScoring().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected EmployeeCompanyTraining saveInternalEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
-		
+
 		saveEmployeeCompanyTraining(employeeCompanyTraining);
- 	
+
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeCompanyTraining, options);
  		}
-  	
+ 
  		if(isSaveTrainingEnabled(options)){
 	 		saveTraining(employeeCompanyTraining, options);
  		}
-  	
+ 
  		if(isSaveScoringEnabled(options)){
 	 		saveScoring(employeeCompanyTraining, options);
  		}
  
 		
 		return employeeCompanyTraining;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected EmployeeCompanyTraining saveEmployee(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeCompanyTraining.getEmployee() == null){
  			return employeeCompanyTraining;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(employeeCompanyTraining.getEmployee(),options);
  		return employeeCompanyTraining;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected EmployeeCompanyTraining saveTraining(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeCompanyTraining.getTraining() == null){
  			return employeeCompanyTraining;//do nothing when it is null
  		}
- 		
+
  		getCompanyTrainingDAO().save(employeeCompanyTraining.getTraining(),options);
  		return employeeCompanyTraining;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected EmployeeCompanyTraining saveScoring(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeCompanyTraining.getScoring() == null){
  			return employeeCompanyTraining;//do nothing when it is null
  		}
- 		
+
  		getScoringDAO().save(employeeCompanyTraining.getScoring(),options);
  		return employeeCompanyTraining;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -786,47 +792,53 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	protected String getTableName(){
 		return EmployeeCompanyTrainingTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<EmployeeCompanyTraining> employeeCompanyTrainingList) {		
+
+
+
+	public void enhanceList(List<EmployeeCompanyTraining> employeeCompanyTrainingList) {
 		this.enhanceListInternal(employeeCompanyTrainingList, this.getEmployeeCompanyTrainingMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeCompanyTraining> employeeCompanyTrainingList = ownerEntity.collectRefsWithType(EmployeeCompanyTraining.INTERNAL_TYPE);
 		this.enhanceList(employeeCompanyTrainingList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeCompanyTrainingMapper());
 
 	}
 	@Override
 	public int countEmployeeCompanyTrainingWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeCompanyTrainingWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<EmployeeCompanyTraining> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeCompanyTrainingMapper());
 	}
+
+  @Override
+  public Stream<EmployeeCompanyTraining> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeCompanyTrainingMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -855,7 +867,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		}
 		return result;
 	}
-	
+
 	
 
 }

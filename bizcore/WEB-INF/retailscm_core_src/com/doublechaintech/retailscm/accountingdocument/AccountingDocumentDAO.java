@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.accountingdocument;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -24,20 +25,21 @@ import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTy
 public interface AccountingDocumentDAO extends BaseDAO{
 
 	public SmartList<AccountingDocument> loadAll();
+	public Stream<AccountingDocument> loadAllAsStream();
 	public AccountingDocument load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<AccountingDocument> accountingDocumentList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public AccountingDocument present(AccountingDocument accountingDocument,Map<String,Object> options) throws Exception;
 	public AccountingDocument clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public AccountingDocument save(AccountingDocument accountingDocument,Map<String,Object> options);
 	public SmartList<AccountingDocument> saveAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options);
 	public SmartList<AccountingDocument> removeAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options);
@@ -69,26 +71,27 @@ public interface AccountingDocumentDAO extends BaseDAO{
 	public AccountingDocument planToRemoveAccountingDocumentLineListWithAccountingSubject(AccountingDocument accountingDocument, String accountingSubjectId, Map<String,Object> options)throws Exception;
 	public int countAccountingDocumentLineListWithAccountingSubject(String accountingDocumentId, String accountingSubjectId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<AccountingDocument> queryList(String sql, Object ... parmeters);
+	public Stream<AccountingDocument> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateAccountingDocument executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<AccountingDocument> findAccountingDocumentByAccountingPeriod(String accountingPeriodId, Map<String,Object> options);
  	public int countAccountingDocumentByAccountingPeriod(String accountingPeriodId, Map<String,Object> options);
  	public Map<String, Integer> countAccountingDocumentByAccountingPeriodIds(String[] ids, Map<String,Object> options);
  	public SmartList<AccountingDocument> findAccountingDocumentByAccountingPeriod(String accountingPeriodId, int start, int count, Map<String,Object> options);
  	public void analyzeAccountingDocumentByAccountingPeriod(SmartList<AccountingDocument> resultList, String accountingPeriodId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<AccountingDocument> findAccountingDocumentByDocumentType(String accountingDocumentTypeId, Map<String,Object> options);
  	public int countAccountingDocumentByDocumentType(String accountingDocumentTypeId, Map<String,Object> options);
  	public Map<String, Integer> countAccountingDocumentByDocumentTypeIds(String[] ids, Map<String,Object> options);
  	public SmartList<AccountingDocument> findAccountingDocumentByDocumentType(String accountingDocumentTypeId, int start, int count, Map<String,Object> options);
  	public void analyzeAccountingDocumentByDocumentType(SmartList<AccountingDocument> resultList, String accountingDocumentTypeId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:OriginalVoucher的belongsTo的OriginalVoucherList
 	public SmartList<OriginalVoucher> loadOurOriginalVoucherList(RetailscmUserContext userContext, List<AccountingDocument> us, Map<String,Object> options) throws Exception;

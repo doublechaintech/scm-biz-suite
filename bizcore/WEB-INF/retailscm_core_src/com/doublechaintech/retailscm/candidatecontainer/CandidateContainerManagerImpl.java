@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.candidatecontainer;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
@@ -43,7 +41,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 
 	// Only some of ods have such function
 	
-	
+
 
 
 
@@ -106,7 +104,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).throwExceptionIfHasErrors( CandidateContainerManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		CandidateContainer candidateContainer = loadCandidateContainer( userContext, candidateContainerId, tokens);
  		//do some calc before sent to customer?
@@ -125,6 +123,9 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		
 		List<BaseEntity> entityListToNaming = candidateContainerToPresent.collectRefercencesFromLists();
 		candidateContainerDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,candidateContainer,tokens);
 		
 		return  candidateContainerToPresent;
 		
@@ -414,7 +415,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 			candidateContainer.addCandidateElement( candidateElement );
 			candidateContainer = saveCandidateContainer(userContext, candidateContainer, tokens().withCandidateElementList().done());
 			
-			userContext.getManagerGroup().getCandidateElementManager().onNewInstanceCreated(userContext, candidateElement);
+			candidateElementManagerOf(userContext).onNewInstanceCreated(userContext, candidateElement);
 			return present(userContext,candidateContainer, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -437,7 +438,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withCandidateElementListList()
-				.searchCandidateElementListWith(CandidateElement.ID_PROPERTY, "is", id).done();
+				.searchCandidateElementListWith(CandidateElement.ID_PROPERTY, tokens().is(), id).done();
 
 		CandidateContainer candidateContainerToUpdate = loadCandidateContainer(userContext, candidateContainerId, options);
 
@@ -446,7 +447,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 		CandidateElement item = candidateContainerToUpdate.getCandidateElementList().first();
-
+		beforeUpdateCandidateElementProperties(userContext,item, candidateContainerId,id,name,type,image,tokensExpr);
 		item.updateName( name );
 		item.updateType( type );
 		item.updateImage( image );
@@ -459,6 +460,10 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		}
 	}
 
+	protected  void beforeUpdateCandidateElementProperties(RetailscmUserContext userContext, CandidateElement item, String candidateContainerId, String id,String name,String type,String image, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected CandidateElement createCandidateElement(RetailscmUserContext userContext, String name, String type, String image) throws Exception{
 
@@ -564,7 +569,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 			candidateContainer.copyCandidateElementFrom( candidateElement );
 			candidateContainer = saveCandidateContainer(userContext, candidateContainer, tokens().withCandidateElementList().done());
 			
-			userContext.getManagerGroup().getCandidateElementManager().onNewInstanceCreated(userContext, (CandidateElement)candidateContainer.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			candidateElementManagerOf(userContext).onNewInstanceCreated(userContext, (CandidateElement)candidateContainer.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,candidateContainer, mergedAllTokens(tokensExpr));
 		}
 
@@ -577,27 +582,21 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfCandidateContainer(candidateContainerId);
 		checkerOf(userContext).checkIdOfCandidateElement(candidateElementId);
 		checkerOf(userContext).checkVersionOfCandidateElement(candidateElementVersion);
-		
+
 
 		if(CandidateElement.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfCandidateElement(parseString(newValueExpr));
-		
 		}
 		
 		if(CandidateElement.TYPE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTypeOfCandidateElement(parseString(newValueExpr));
-		
 		}
 		
 		if(CandidateElement.IMAGE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkImageOfCandidateElement(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
 
 	}
@@ -607,7 +606,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 
 		checkParamsForUpdatingCandidateElement(userContext, candidateContainerId, candidateElementId, candidateElementVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withCandidateElementList().searchCandidateElementListWith(CandidateElement.ID_PROPERTY, "eq", candidateElementId).done();
+		Map<String,Object> loadTokens = this.tokens().withCandidateElementList().searchCandidateElementListWith(CandidateElement.ID_PROPERTY, tokens().equals(), candidateElementId).done();
 
 
 
@@ -618,13 +617,14 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 			//Also good when there is a RAM based DAO implementation
 			//candidateContainer.removeCandidateElement( candidateElement );
 			//make changes to AcceleraterAccount.
-			CandidateElement candidateElementIndex = createIndexedCandidateElement(candidateElementId, candidateElementVersion);
+			CandidateElement candidateElementIdVersionKey = createIndexedCandidateElement(candidateElementId, candidateElementVersion);
 
-			CandidateElement candidateElement = candidateContainer.findTheCandidateElement(candidateElementIndex);
+			CandidateElement candidateElement = candidateContainer.findTheCandidateElement(candidateElementIdVersionKey);
 			if(candidateElement == null){
-				throw new CandidateContainerManagerException(candidateElement+" is NOT FOUND" );
+				throw new CandidateContainerManagerException(candidateElementId+" is NOT FOUND" );
 			}
 
+			beforeUpdateCandidateElement(userContext, candidateElement, candidateContainerId, candidateElementId, candidateElementVersion, property, newValueExpr,  tokensExpr);
 			candidateElement.changeProperty(property, newValueExpr);
 			
 			candidateContainer = saveCandidateContainer(userContext, candidateContainer, tokens().withCandidateElementList().done());
@@ -632,6 +632,11 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateCandidateElement(RetailscmUserContext userContext, CandidateElement existed, String candidateContainerId, String candidateElementId, int candidateElementVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -648,6 +653,12 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    candidateContainerDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -739,6 +750,11 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
+    if (methodName.equals("ensureModelInDB")){
+      return false;
+    }
+
 		return true;
 	}
 
@@ -830,7 +846,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -879,6 +895,8 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

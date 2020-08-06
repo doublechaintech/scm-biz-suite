@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl implements RetailStoreOpeningDAO{
 
@@ -53,50 +53,54 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	 	return this.retailStoreDAO;
  	}	
 
-	
+
 	/*
 	protected RetailStoreOpening load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreOpening(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<RetailStoreOpening> loadAll() {
 	    return this.loadAll(getRetailStoreOpeningMapper());
 	}
-	
-	
+
+  public Stream<RetailStoreOpening> loadAllAsStream() {
+      return this.loadAllAsStream(getRetailStoreOpeningMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public RetailStoreOpening load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreOpening(RetailStoreOpeningTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public RetailStoreOpening save(RetailStoreOpening retailStoreOpening,Map<String,Object> options){
-		
+
 		String methodName="save(RetailStoreOpening retailStoreOpening,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(retailStoreOpening, methodName, "retailStoreOpening");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalRetailStoreOpening(retailStoreOpening,options);
 	}
 	public RetailStoreOpening clone(String retailStoreOpeningId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(RetailStoreOpeningTable.withId(retailStoreOpeningId),options);
 	}
-	
+
 	protected RetailStoreOpening clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String retailStoreOpeningId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		RetailStoreOpening newRetailStoreOpening = loadInternalRetailStoreOpening(accessKey, options);
 		newRetailStoreOpening.setVersion(0);
 		
@@ -109,15 +113,15 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		}
 		
 
-		
+
 		saveInternalRetailStoreOpening(newRetailStoreOpening,options);
-		
+
 		return newRetailStoreOpening;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String retailStoreOpeningId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -133,15 +137,15 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String retailStoreOpeningId, int version) throws Exception{
-	
+
 		String methodName="delete(String retailStoreOpeningId, int version)";
 		assertMethodArgumentNotNull(retailStoreOpeningId, methodName, "retailStoreOpeningId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{retailStoreOpeningId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -151,26 +155,26 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(affectedNumber == 0){
 			handleDeleteOneError(retailStoreOpeningId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public RetailStoreOpening disconnectFromAll(String retailStoreOpeningId, int version) throws Exception{
-	
-		
+
+
 		RetailStoreOpening retailStoreOpening = loadInternalRetailStoreOpening(RetailStoreOpeningTable.withId(retailStoreOpeningId), emptyOptions());
 		retailStoreOpening.clearFromAll();
 		this.saveRetailStoreOpening(retailStoreOpening);
 		return retailStoreOpening;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -178,15 +182,15 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "retail_store_opening";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "retailStoreOpening";
 	}
-	
+
 	
 	
 	
@@ -320,7 +324,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return retailStoreOpening;
 		}
 		
-		
+
 		String SQL=this.getSaveRetailStoreOpeningSQL(retailStoreOpening);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreOpeningParameters(retailStoreOpening);
@@ -329,57 +333,57 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		retailStoreOpening.incVersion();
 		return retailStoreOpening;
-	
+
 	}
 	public SmartList<RetailStoreOpening> saveRetailStoreOpeningList(SmartList<RetailStoreOpening> retailStoreOpeningList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitRetailStoreOpeningList(retailStoreOpeningList);
-		
+
 		batchRetailStoreOpeningCreate((List<RetailStoreOpening>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchRetailStoreOpeningUpdate((List<RetailStoreOpening>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(RetailStoreOpening retailStoreOpening:retailStoreOpeningList){
 			if(retailStoreOpening.isChanged()){
 				retailStoreOpening.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return retailStoreOpeningList;
 	}
 
 	public SmartList<RetailStoreOpening> removeRetailStoreOpeningList(SmartList<RetailStoreOpening> retailStoreOpeningList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(retailStoreOpeningList, options);
-		
+
 		return retailStoreOpeningList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareRetailStoreOpeningBatchCreateArgs(List<RetailStoreOpening> retailStoreOpeningList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreOpening retailStoreOpening:retailStoreOpeningList ){
 			Object [] parameters = prepareRetailStoreOpeningCreateParameters(retailStoreOpening);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareRetailStoreOpeningBatchUpdateArgs(List<RetailStoreOpening> retailStoreOpeningList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreOpening retailStoreOpening:retailStoreOpeningList ){
 			if(!retailStoreOpening.isChanged()){
@@ -387,40 +391,40 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			}
 			Object [] parameters = prepareRetailStoreOpeningUpdateParameters(retailStoreOpening);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchRetailStoreOpeningCreate(List<RetailStoreOpening> retailStoreOpeningList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareRetailStoreOpeningBatchCreateArgs(retailStoreOpeningList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchRetailStoreOpeningUpdate(List<RetailStoreOpening> retailStoreOpeningList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareRetailStoreOpeningBatchUpdateArgs(retailStoreOpeningList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitRetailStoreOpeningList(List<RetailStoreOpening> retailStoreOpeningList){
-		
+
 		List<RetailStoreOpening> retailStoreOpeningCreateList=new ArrayList<RetailStoreOpening>();
 		List<RetailStoreOpening> retailStoreOpeningUpdateList=new ArrayList<RetailStoreOpening>();
-		
+
 		for(RetailStoreOpening retailStoreOpening: retailStoreOpeningList){
 			if(isUpdateRequest(retailStoreOpening)){
 				retailStoreOpeningUpdateList.add( retailStoreOpening);
@@ -428,10 +432,10 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			}
 			retailStoreOpeningCreateList.add(retailStoreOpening);
 		}
-		
+
 		return new Object[]{retailStoreOpeningCreateList,retailStoreOpeningUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(RetailStoreOpening retailStoreOpening){
  		return retailStoreOpening.getVersion() > 0;
  	}
@@ -441,7 +445,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveRetailStoreOpeningParameters(RetailStoreOpening retailStoreOpening){
  		if(isUpdateRequest(retailStoreOpening) ){
  			return prepareRetailStoreOpeningUpdateParameters(retailStoreOpening);
@@ -453,28 +457,30 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  
  		
  		parameters[0] = retailStoreOpening.getComment();
- 				
+ 		
  		parameters[1] = retailStoreOpening.nextVersion();
  		parameters[2] = retailStoreOpening.getId();
  		parameters[3] = retailStoreOpening.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreOpeningCreateParameters(RetailStoreOpening retailStoreOpening){
 		Object[] parameters = new Object[2];
-		String newRetailStoreOpeningId=getNextId();
-		retailStoreOpening.setId(newRetailStoreOpeningId);
+        if(retailStoreOpening.getId() == null){
+          String newRetailStoreOpeningId=getNextId();
+          retailStoreOpening.setId(newRetailStoreOpeningId);
+        }
 		parameters[0] =  retailStoreOpening.getId();
  
  		
  		parameters[1] = retailStoreOpening.getComment();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected RetailStoreOpening saveInternalRetailStoreOpening(RetailStoreOpening retailStoreOpening, Map<String,Object> options){
-		
+
 		saveRetailStoreOpening(retailStoreOpening);
 
 		
@@ -482,25 +488,25 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	 		saveRetailStoreList(retailStoreOpening, options);
 	 		//removeRetailStoreList(retailStoreOpening, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return retailStoreOpening;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
 	
 
 	
 	public RetailStoreOpening planToRemoveRetailStoreList(RetailStoreOpening retailStoreOpening, String retailStoreIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.ID_PROPERTY, retailStoreIds);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -509,17 +515,17 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 
 			retailStoreItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
-		return retailStoreOpening;	
-	
+		return retailStoreOpening;
+
 	}
 
 
@@ -528,11 +534,11 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -541,19 +547,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearRetailStoreCountryCenter();
 			retailStoreItem.clearOpening();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreOpening;
 	}
-	
+
 	public int countRetailStoreListWithRetailStoreCountryCenter(String retailStoreOpeningId, String retailStoreCountryCenterId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -562,7 +568,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpeningId);
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -572,11 +578,11 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.CITY_SERVICE_CENTER_PROPERTY, cityServiceCenterId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -585,19 +591,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearCityServiceCenter();
 			retailStoreItem.clearOpening();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreOpening;
 	}
-	
+
 	public int countRetailStoreListWithCityServiceCenter(String retailStoreOpeningId, String cityServiceCenterId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -606,7 +612,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpeningId);
 		key.put(RetailStore.CITY_SERVICE_CENTER_PROPERTY, cityServiceCenterId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -616,11 +622,11 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.CREATION_PROPERTY, creationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -629,19 +635,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearCreation();
 			retailStoreItem.clearOpening();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreOpening;
 	}
-	
+
 	public int countRetailStoreListWithCreation(String retailStoreOpeningId, String creationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -650,7 +656,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpeningId);
 		key.put(RetailStore.CREATION_PROPERTY, creationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -660,11 +666,11 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, investmentInvitationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -673,19 +679,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearInvestmentInvitation();
 			retailStoreItem.clearOpening();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreOpening;
 	}
-	
+
 	public int countRetailStoreListWithInvestmentInvitation(String retailStoreOpeningId, String investmentInvitationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpeningId);
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, investmentInvitationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -704,11 +710,11 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.FRANCHISING_PROPERTY, franchisingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -717,19 +723,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearFranchising();
 			retailStoreItem.clearOpening();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreOpening;
 	}
-	
+
 	public int countRetailStoreListWithFranchising(String retailStoreOpeningId, String franchisingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -738,7 +744,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpeningId);
 		key.put(RetailStore.FRANCHISING_PROPERTY, franchisingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -748,11 +754,11 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.DECORATION_PROPERTY, decorationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -761,19 +767,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearDecoration();
 			retailStoreItem.clearOpening();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreOpening;
 	}
-	
+
 	public int countRetailStoreListWithDecoration(String retailStoreOpeningId, String decorationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -782,7 +788,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpeningId);
 		key.put(RetailStore.DECORATION_PROPERTY, decorationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -792,11 +798,11 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpening.getId());
 		key.put(RetailStore.CLOSING_PROPERTY, closingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -805,19 +811,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreOpening;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearClosing();
 			retailStoreItem.clearOpening();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreOpening;
 	}
-	
+
 	public int countRetailStoreListWithClosing(String retailStoreOpeningId, String closingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -826,7 +832,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.OPENING_PROPERTY, retailStoreOpeningId);
 		key.put(RetailStore.CLOSING_PROPERTY, closingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -834,19 +840,19 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 		
 	protected RetailStoreOpening saveRetailStoreList(RetailStoreOpening retailStoreOpening, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		if(retailStoreList == null){
 			//null list means nothing
 			return retailStoreOpening;
 		}
 		SmartList<RetailStore> mergedUpdateRetailStoreList = new SmartList<RetailStore>();
-		
-		
-		mergedUpdateRetailStoreList.addAll(retailStoreList); 
+
+
+		mergedUpdateRetailStoreList.addAll(retailStoreList);
 		if(retailStoreList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreList.addAll(retailStoreList.getToRemoveList());
@@ -855,28 +861,28 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreDAO().saveRetailStoreList(mergedUpdateRetailStoreList,options);
-		
+
 		if(retailStoreList.getToRemoveList() != null){
 			retailStoreList.removeAll(retailStoreList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreOpening;
-	
+
 	}
-	
+
 	protected RetailStoreOpening removeRetailStoreList(RetailStoreOpening retailStoreOpening, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreOpening.getRetailStoreList();
 		if(retailStoreList == null){
 			return retailStoreOpening;
-		}	
-	
+		}
+
 		SmartList<RetailStore> toRemoveRetailStoreList = retailStoreList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreList == null){
 			return retailStoreOpening;
 		}
@@ -884,20 +890,20 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return retailStoreOpening;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreDAO().removeRetailStoreList(toRemoveRetailStoreList,options);
-		
-		return retailStoreOpening;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreDAO().removeRetailStoreList(toRemoveRetailStoreList,options);
+
+		return retailStoreOpening;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public RetailStoreOpening present(RetailStoreOpening retailStoreOpening,Map<String, Object> options){
@@ -940,13 +946,13 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	protected String getTableName(){
 		return RetailStoreOpeningTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<RetailStoreOpening> retailStoreOpeningList) {		
+
+
+
+	public void enhanceList(List<RetailStoreOpening> retailStoreOpeningList) {
 		this.enhanceListInternal(retailStoreOpeningList, this.getRetailStoreOpeningMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的opening的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreOpening> us, Map<String,Object> options) throws Exception{
@@ -971,39 +977,45 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreOpening> retailStoreOpeningList = ownerEntity.collectRefsWithType(RetailStoreOpening.INTERNAL_TYPE);
 		this.enhanceList(retailStoreOpeningList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreOpening> findRetailStoreOpeningWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getRetailStoreOpeningMapper());
 
 	}
 	@Override
 	public int countRetailStoreOpeningWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countRetailStoreOpeningWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreOpening> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreOpeningMapper());
 	}
+
+  @Override
+  public Stream<RetailStoreOpening> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getRetailStoreOpeningMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1032,7 +1044,7 @@ public class RetailStoreOpeningJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 		return result;
 	}
-	
+
 	
     
 	public Map<String, Integer> countBySql(String sql, Object[] params) {

@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.catalog;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -45,24 +43,24 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = CatalogTokens.start().withTokenFromListName(listName).done();
 		Catalog  catalog = (Catalog) this.loadCatalog(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = catalog.collectRefercencesFromLists();
 		catalogDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, catalog, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new CatalogGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -125,7 +123,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).throwExceptionIfHasErrors( CatalogManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Catalog catalog = loadCatalog( userContext, catalogId, tokens);
  		//do some calc before sent to customer?
@@ -144,6 +142,9 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		
 		List<BaseEntity> entityListToNaming = catalogToPresent.collectRefercencesFromLists();
 		catalogDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,catalog,tokens);
 		
 		return  catalogToPresent;
 		
@@ -512,7 +513,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 			catalog.addLevelOneCategory( levelOneCategory );
 			catalog = saveCatalog(userContext, catalog, tokens().withLevelOneCategoryList().done());
 			
-			userContext.getManagerGroup().getLevelOneCategoryManager().onNewInstanceCreated(userContext, levelOneCategory);
+			levelOneCategoryManagerOf(userContext).onNewInstanceCreated(userContext, levelOneCategory);
 			return present(userContext,catalog, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -533,7 +534,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withLevelOneCategoryListList()
-				.searchLevelOneCategoryListWith(LevelOneCategory.ID_PROPERTY, "is", id).done();
+				.searchLevelOneCategoryListWith(LevelOneCategory.ID_PROPERTY, tokens().is(), id).done();
 
 		Catalog catalogToUpdate = loadCatalog(userContext, catalogId, options);
 
@@ -542,7 +543,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 		LevelOneCategory item = catalogToUpdate.getLevelOneCategoryList().first();
-
+		beforeUpdateLevelOneCategoryProperties(userContext,item, catalogId,id,name,tokensExpr);
 		item.updateName( name );
 
 
@@ -553,6 +554,10 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 	}
 
+	protected  void beforeUpdateLevelOneCategoryProperties(RetailscmUserContext userContext, LevelOneCategory item, String catalogId, String id,String name, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected LevelOneCategory createLevelOneCategory(RetailscmUserContext userContext, String name) throws Exception{
 
@@ -656,7 +661,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 			catalog.copyLevelOneCategoryFrom( levelOneCategory );
 			catalog = saveCatalog(userContext, catalog, tokens().withLevelOneCategoryList().done());
 			
-			userContext.getManagerGroup().getLevelOneCategoryManager().onNewInstanceCreated(userContext, (LevelOneCategory)catalog.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			levelOneCategoryManagerOf(userContext).onNewInstanceCreated(userContext, (LevelOneCategory)catalog.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,catalog, mergedAllTokens(tokensExpr));
 		}
 
@@ -669,15 +674,13 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfCatalog(catalogId);
 		checkerOf(userContext).checkIdOfLevelOneCategory(levelOneCategoryId);
 		checkerOf(userContext).checkVersionOfLevelOneCategory(levelOneCategoryVersion);
-		
+
 
 		if(LevelOneCategory.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfLevelOneCategory(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CatalogManagerException.class);
 
 	}
@@ -687,7 +690,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 
 		checkParamsForUpdatingLevelOneCategory(userContext, catalogId, levelOneCategoryId, levelOneCategoryVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withLevelOneCategoryList().searchLevelOneCategoryListWith(LevelOneCategory.ID_PROPERTY, "eq", levelOneCategoryId).done();
+		Map<String,Object> loadTokens = this.tokens().withLevelOneCategoryList().searchLevelOneCategoryListWith(LevelOneCategory.ID_PROPERTY, tokens().equals(), levelOneCategoryId).done();
 
 
 
@@ -698,13 +701,14 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 			//Also good when there is a RAM based DAO implementation
 			//catalog.removeLevelOneCategory( levelOneCategory );
 			//make changes to AcceleraterAccount.
-			LevelOneCategory levelOneCategoryIndex = createIndexedLevelOneCategory(levelOneCategoryId, levelOneCategoryVersion);
+			LevelOneCategory levelOneCategoryIdVersionKey = createIndexedLevelOneCategory(levelOneCategoryId, levelOneCategoryVersion);
 
-			LevelOneCategory levelOneCategory = catalog.findTheLevelOneCategory(levelOneCategoryIndex);
+			LevelOneCategory levelOneCategory = catalog.findTheLevelOneCategory(levelOneCategoryIdVersionKey);
 			if(levelOneCategory == null){
-				throw new CatalogManagerException(levelOneCategory+" is NOT FOUND" );
+				throw new CatalogManagerException(levelOneCategoryId+" is NOT FOUND" );
 			}
 
+			beforeUpdateLevelOneCategory(userContext, levelOneCategory, catalogId, levelOneCategoryId, levelOneCategoryVersion, property, newValueExpr,  tokensExpr);
 			levelOneCategory.changeProperty(property, newValueExpr);
 			
 			catalog = saveCatalog(userContext, catalog, tokens().withLevelOneCategoryList().done());
@@ -712,6 +716,11 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateLevelOneCategory(RetailscmUserContext userContext, LevelOneCategory existed, String catalogId, String levelOneCategoryId, int levelOneCategoryVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -728,6 +737,12 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    catalogDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -819,6 +834,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -935,7 +951,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1017,6 +1033,8 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

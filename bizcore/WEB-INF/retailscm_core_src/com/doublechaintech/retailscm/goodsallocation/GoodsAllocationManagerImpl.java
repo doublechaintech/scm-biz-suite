@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.goodsallocation;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.goods.Goods;
@@ -53,24 +51,24 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = GoodsAllocationTokens.start().withTokenFromListName(listName).done();
 		GoodsAllocation  goodsAllocation = (GoodsAllocation) this.loadGoodsAllocation(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = goodsAllocation.collectRefercencesFromLists();
 		goodsAllocationDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, goodsAllocation, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new GoodsAllocationGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -133,7 +131,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).throwExceptionIfHasErrors( GoodsAllocationManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		GoodsAllocation goodsAllocation = loadGoodsAllocation( userContext, goodsAllocationId, tokens);
  		//do some calc before sent to customer?
@@ -152,6 +150,9 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		
 		List<BaseEntity> entityListToNaming = goodsAllocationToPresent.collectRefercencesFromLists();
 		goodsAllocationDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,goodsAllocation,tokens);
 		
 		return  goodsAllocationToPresent;
 		
@@ -688,7 +689,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 			goodsAllocation.addGoods( goods );
 			goodsAllocation = saveGoodsAllocation(userContext, goodsAllocation, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, goods);
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, goods);
 			return present(userContext,goodsAllocation, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -713,7 +714,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withGoodsListList()
-				.searchGoodsListWith(Goods.ID_PROPERTY, "is", id).done();
+				.searchGoodsListWith(Goods.ID_PROPERTY, tokens().is(), id).done();
 
 		GoodsAllocation goodsAllocationToUpdate = loadGoodsAllocation(userContext, goodsAllocationId, options);
 
@@ -722,7 +723,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		}
 
 		Goods item = goodsAllocationToUpdate.getGoodsList().first();
-
+		beforeUpdateGoodsProperties(userContext,item, goodsAllocationId,id,name,rfid,uom,maxPackage,expireTime,tokensExpr);
 		item.updateName( name );
 		item.updateRfid( rfid );
 		item.updateUom( uom );
@@ -737,6 +738,10 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		}
 	}
 
+	protected  void beforeUpdateGoodsProperties(RetailscmUserContext userContext, Goods item, String goodsAllocationId, String id,String name,String rfid,String uom,int maxPackage,Date expireTime, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Goods createGoods(RetailscmUserContext userContext, String name, String rfid, String uom, int maxPackage, Date expireTime, String skuId, String receivingSpaceId, String smartPalletId, String shippingSpaceId, String transportTaskId, String retailStoreId, String bizOrderId, String retailStoreOrderId) throws Exception{
 
@@ -868,7 +873,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 			goodsAllocation.copyGoodsFrom( goods );
 			goodsAllocation = saveGoodsAllocation(userContext, goodsAllocation, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, (Goods)goodsAllocation.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, (Goods)goodsAllocation.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,goodsAllocation, mergedAllTokens(tokensExpr));
 		}
 
@@ -881,39 +886,29 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).checkIdOfGoodsAllocation(goodsAllocationId);
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkVersionOfGoods(goodsVersion);
-		
+
 
 		if(Goods.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.RFID_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRfidOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.UOM_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkUomOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.MAX_PACKAGE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMaxPackageOfGoods(parseInt(newValueExpr));
-		
 		}
 		
 		if(Goods.EXPIRE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkExpireTimeOfGoods(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(GoodsAllocationManagerException.class);
 
 	}
@@ -923,7 +918,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 
 		checkParamsForUpdatingGoods(userContext, goodsAllocationId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, "eq", goodsId).done();
+		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, tokens().equals(), goodsId).done();
 
 
 
@@ -934,13 +929,14 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 			//Also good when there is a RAM based DAO implementation
 			//goodsAllocation.removeGoods( goods );
 			//make changes to AcceleraterAccount.
-			Goods goodsIndex = createIndexedGoods(goodsId, goodsVersion);
+			Goods goodsIdVersionKey = createIndexedGoods(goodsId, goodsVersion);
 
-			Goods goods = goodsAllocation.findTheGoods(goodsIndex);
+			Goods goods = goodsAllocation.findTheGoods(goodsIdVersionKey);
 			if(goods == null){
-				throw new GoodsAllocationManagerException(goods+" is NOT FOUND" );
+				throw new GoodsAllocationManagerException(goodsId+" is NOT FOUND" );
 			}
 
+			beforeUpdateGoods(userContext, goods, goodsAllocationId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 			goods.changeProperty(property, newValueExpr);
 			
 			goodsAllocation = saveGoodsAllocation(userContext, goodsAllocation, tokens().withGoodsList().done());
@@ -948,6 +944,11 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateGoods(RetailscmUserContext userContext, Goods existed, String goodsAllocationId, String goodsId, int goodsVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -964,6 +965,12 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    goodsAllocationDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1055,6 +1062,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1171,7 +1179,7 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1253,6 +1261,8 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

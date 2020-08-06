@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.employee;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -31,8 +32,21 @@ import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityType;
 import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperience;
 import com.doublechaintech.retailscm.employeeaward.EmployeeAward;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = EmployeeSerializer.class)
 public class Employee extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

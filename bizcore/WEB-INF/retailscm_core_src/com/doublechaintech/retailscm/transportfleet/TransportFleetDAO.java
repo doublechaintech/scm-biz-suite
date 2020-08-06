@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.transportfleet;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -24,20 +25,21 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 public interface TransportFleetDAO extends BaseDAO{
 
 	public SmartList<TransportFleet> loadAll();
+	public Stream<TransportFleet> loadAllAsStream();
 	public TransportFleet load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<TransportFleet> transportFleetList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public TransportFleet present(TransportFleet transportFleet,Map<String,Object> options) throws Exception;
 	public TransportFleet clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public TransportFleet save(TransportFleet transportFleet,Map<String,Object> options);
 	public SmartList<TransportFleet> saveTransportFleetList(SmartList<TransportFleet> transportFleetList,Map<String,Object> options);
 	public SmartList<TransportFleet> removeTransportFleetList(SmartList<TransportFleet> transportFleetList,Map<String,Object> options);
@@ -84,18 +86,19 @@ public interface TransportFleetDAO extends BaseDAO{
 	public TransportFleet planToRemoveTransportTaskListWithTruck(TransportFleet transportFleet, String truckId, Map<String,Object> options)throws Exception;
 	public int countTransportTaskListWithTruck(String transportFleetId, String truckId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<TransportFleet> queryList(String sql, Object ... parmeters);
+	public Stream<TransportFleet> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateTransportFleet executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<TransportFleet> findTransportFleetByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countTransportFleetByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countTransportFleetByOwnerIds(String[] ids, Map<String,Object> options);
  	public SmartList<TransportFleet> findTransportFleetByOwner(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeTransportFleetByOwner(SmartList<TransportFleet> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:TransportTruck的owner的TransportTruckList
 	public SmartList<TransportTruck> loadOurTransportTruckList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception;

@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.goodsallocation;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 public interface GoodsAllocationDAO extends BaseDAO{
 
 	public SmartList<GoodsAllocation> loadAll();
+	public Stream<GoodsAllocation> loadAllAsStream();
 	public GoodsAllocation load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<GoodsAllocation> goodsAllocationList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public GoodsAllocation present(GoodsAllocation goodsAllocation,Map<String,Object> options) throws Exception;
 	public GoodsAllocation clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public GoodsAllocation save(GoodsAllocation goodsAllocation,Map<String,Object> options);
 	public SmartList<GoodsAllocation> saveGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList,Map<String,Object> options);
 	public SmartList<GoodsAllocation> removeGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList,Map<String,Object> options);
@@ -86,18 +88,19 @@ public interface GoodsAllocationDAO extends BaseDAO{
 	public GoodsAllocation planToRemoveGoodsListWithRetailStoreOrder(GoodsAllocation goodsAllocation, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	public int countGoodsListWithRetailStoreOrder(String goodsAllocationId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<GoodsAllocation> queryList(String sql, Object ... parmeters);
+	public Stream<GoodsAllocation> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateGoodsAllocation executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<GoodsAllocation> findGoodsAllocationByGoodsShelf(String goodsShelfId, Map<String,Object> options);
  	public int countGoodsAllocationByGoodsShelf(String goodsShelfId, Map<String,Object> options);
  	public Map<String, Integer> countGoodsAllocationByGoodsShelfIds(String[] ids, Map<String,Object> options);
  	public SmartList<GoodsAllocation> findGoodsAllocationByGoodsShelf(String goodsShelfId, int start, int count, Map<String,Object> options);
  	public void analyzeGoodsAllocationByGoodsShelf(SmartList<GoodsAllocation> resultList, String goodsShelfId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Goods的goodsAllocation的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<GoodsAllocation> us, Map<String,Object> options) throws Exception;

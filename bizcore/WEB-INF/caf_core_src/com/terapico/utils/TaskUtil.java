@@ -12,11 +12,40 @@ import java.util.function.Supplier;
 import com.terapico.uccaf.BaseUserContext;
 
 public class TaskUtil {
+	protected static class ScheduleTask extends Thread{
+		boolean runningFlag;
+		Runnable task;
+		long intervalInMs;
+		String name;
+
+		@Override
+		public void run() {
+			while(executeTaskAndContinue());
+		}
+
+		protected boolean executeTaskAndContinue() {
+			long targetTs = System.currentTimeMillis() + intervalInMs;
+			task.run();
+			long waitMs = Math.max(100L, targetTs - System.currentTimeMillis());
+			synchronized (this) {
+				try {
+					this.wait(waitMs);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if (!runningFlag) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
 	protected static Map<String, Boolean> runningFlags = new HashMap<>();
 	protected static Map<String, AtomicLong> jvmLocks = new HashMap<>();
 	protected static Thread jvmLockCleanupThread = null;
 	protected static final long IDLE_PERIOD_IN_MS = 10*DateTimeUtil.MINUTE_IN_MS;
 	protected static ExecutorService executor = Executors.newCachedThreadPool();
+	protected static Map<String, ScheduleTask> runningScheduleTask = new HashMap<>();
 	
 	public static Object getLockByKey(BaseUserContext ctx, String key) {
 		synchronized (jvmLocks) {
@@ -65,7 +94,7 @@ public class TaskUtil {
 	}
 
 	public static Object runSingletonTask(String taskName, Supplier<?> task) throws Exception {
-		if (checkTaskRunning(taskName)) {
+		if (checkTaskRunning(taskName, true)) {
 			throw new Exception("Task \"" + taskName + "\" is running now");
 		}
 		try {
@@ -76,7 +105,7 @@ public class TaskUtil {
 	}
 	
 	public static void runSingletonTask(String taskName, Runnable task) throws Exception {
-		if (checkTaskRunning(taskName)) {
+		if (checkTaskRunning(taskName, true)) {
 			throw new Exception("Task \"" + taskName + "\" is already running");
 		}
 		try {
@@ -96,26 +125,63 @@ public class TaskUtil {
 			}
 		});
 	}
+
 	
 	protected static void markTaskFinished(String taskName) {
 		synchronized(TaskUtil.class) {
 			runningFlags.put(taskName, false);
 		}
 	}
-	
-	protected synchronized static boolean checkTaskRunning(String taskName) {
+
+	protected static void markTaskRunning(String taskName) {
 		synchronized(TaskUtil.class) {
-			Boolean flag = runningFlags.get(taskName);
 			runningFlags.put(taskName, true);
-			if (flag == null) {
-				return false;
-			}
-			return flag;
 		}
+	}
+	
+	public synchronized static boolean checkTaskRunning(String taskName) {
+		return checkTaskRunning(taskName, false);
+	}
+
+	public synchronized static boolean checkTaskRunning(String taskName, boolean setRunning) {
+		Boolean flag = runningFlags.get(taskName);
+		if (setRunning) {
+			runningFlags.put(taskName, true);
+		}
+		if (flag == null) {
+			return false;
+		}
+		return flag;
 	}
 
 	public static void runAsync(Runnable runnable) {
 		executor.execute(runnable);
 	}
-	
+
+    public synchronized static String addScheduleTask(String taskName, long intervalInMs, Runnable runnable) {
+		if (runningScheduleTask.containsKey(taskName)){
+			return "already_running";
+		}
+		ScheduleTask sTask = new ScheduleTask();
+		sTask.intervalInMs = intervalInMs;
+		sTask.task = runnable;
+		sTask.name = taskName;
+		sTask.runningFlag = true;
+		runningScheduleTask.put(taskName, sTask);
+		sTask.start();
+		return "started";
+    }
+
+    public synchronized static String removeScheduleTask(String taskName) {
+		ScheduleTask task = runningScheduleTask.get(taskName);
+		if (task == null) {
+			return "not_found";
+		}
+		task.runningFlag = false;
+		synchronized (task) {
+			task.notifyAll();
+		}
+		runningScheduleTask.remove(taskName);
+		return "removed";
+	}
 }

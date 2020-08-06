@@ -17,6 +17,7 @@ public interface PageManager extends BaseManager{
 	public Page createPage(RetailscmUserContext userContext, String pageTitle,String linkToUrl,String pageTypeId,int displayOrder,String mobileAppId) throws Exception;
 	public Page updatePage(RetailscmUserContext userContext,String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Page loadPage(RetailscmUserContext userContext, String pageId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Page internalSavePage(RetailscmUserContext userContext, Page page) throws Exception;
 	public Page internalSavePage(RetailscmUserContext userContext, Page page,Map<String,Object>option) throws Exception;
 

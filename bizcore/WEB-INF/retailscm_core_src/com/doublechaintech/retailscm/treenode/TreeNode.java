@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.treenode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -14,8 +15,21 @@ import com.doublechaintech.retailscm.KeyValuePair;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = TreeNodeSerializer.class)
 public class TreeNode extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;
@@ -220,11 +234,6 @@ public class TreeNode extends BaseEntity implements  java.io.Serializable{
 		if(nodeId != null) { setNodeId(nodeId);}
 	}
 	
-	
-	public void clearNodeId(){
-		setNodeId ( null );
-		this.changed = true;
-	}
 	
 	public void setNodeType(String nodeType){
 		this.mNodeType = trimString(nodeType);;

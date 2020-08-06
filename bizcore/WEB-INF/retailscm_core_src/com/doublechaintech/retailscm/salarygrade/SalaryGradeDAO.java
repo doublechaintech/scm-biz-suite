@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.salarygrade;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -22,20 +23,21 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 public interface SalaryGradeDAO extends BaseDAO{
 
 	public SmartList<SalaryGrade> loadAll();
+	public Stream<SalaryGrade> loadAllAsStream();
 	public SalaryGrade load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<SalaryGrade> salaryGradeList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public SalaryGrade present(SalaryGrade salaryGrade,Map<String,Object> options) throws Exception;
 	public SalaryGrade clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public SalaryGrade save(SalaryGrade salaryGrade,Map<String,Object> options);
 	public SmartList<SalaryGrade> saveSalaryGradeList(SmartList<SalaryGrade> salaryGradeList,Map<String,Object> options);
 	public SmartList<SalaryGrade> removeSalaryGradeList(SmartList<SalaryGrade> salaryGradeList,Map<String,Object> options);
@@ -87,18 +89,19 @@ public interface SalaryGradeDAO extends BaseDAO{
 	public SalaryGrade planToRemoveEmployeeSalarySheetListWithPayingOff(SalaryGrade salaryGrade, String payingOffId, Map<String,Object> options)throws Exception;
 	public int countEmployeeSalarySheetListWithPayingOff(String salaryGradeId, String payingOffId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<SalaryGrade> queryList(String sql, Object ... parmeters);
+	public Stream<SalaryGrade> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateSalaryGrade executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<SalaryGrade> findSalaryGradeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countSalaryGradeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countSalaryGradeByCompanyIds(String[] ids, Map<String,Object> options);
  	public SmartList<SalaryGrade> findSalaryGradeByCompany(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeSalaryGradeByCompany(SmartList<SalaryGrade> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Employee的currentSalaryGrade的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<SalaryGrade> us, Map<String,Object> options) throws Exception;

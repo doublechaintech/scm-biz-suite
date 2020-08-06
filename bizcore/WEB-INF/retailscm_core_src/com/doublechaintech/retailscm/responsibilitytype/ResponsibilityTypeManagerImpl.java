@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.responsibilitytype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -49,24 +47,24 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = ResponsibilityTypeTokens.start().withTokenFromListName(listName).done();
 		ResponsibilityType  responsibilityType = (ResponsibilityType) this.loadResponsibilityType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = responsibilityType.collectRefercencesFromLists();
 		responsibilityTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, responsibilityType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new ResponsibilityTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -129,7 +127,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).throwExceptionIfHasErrors( ResponsibilityTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		ResponsibilityType responsibilityType = loadResponsibilityType( userContext, responsibilityTypeId, tokens);
  		//do some calc before sent to customer?
@@ -148,6 +146,9 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		
 		List<BaseEntity> entityListToNaming = responsibilityTypeToPresent.collectRefercencesFromLists();
 		responsibilityTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,responsibilityType,tokens);
 		
 		return  responsibilityTypeToPresent;
 		
@@ -610,7 +611,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 			responsibilityType.addEmployee( employee );
 			responsibilityType = saveResponsibilityType(userContext, responsibilityType, tokens().withEmployeeList().done());
 			
-			userContext.getManagerGroup().getEmployeeManager().onNewInstanceCreated(userContext, employee);
+			employeeManagerOf(userContext).onNewInstanceCreated(userContext, employee);
 			return present(userContext,responsibilityType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -638,7 +639,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeListList()
-				.searchEmployeeListWith(Employee.ID_PROPERTY, "is", id).done();
+				.searchEmployeeListWith(Employee.ID_PROPERTY, tokens().is(), id).done();
 
 		ResponsibilityType responsibilityTypeToUpdate = loadResponsibilityType(userContext, responsibilityTypeId, options);
 
@@ -647,7 +648,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 		Employee item = responsibilityTypeToUpdate.getEmployeeList().first();
-
+		beforeUpdateEmployeeProperties(userContext,item, responsibilityTypeId,id,title,familyName,givenName,email,city,address,cellPhone,salaryAccount,tokensExpr);
 		item.updateTitle( title );
 		item.updateFamilyName( familyName );
 		item.updateGivenName( givenName );
@@ -665,6 +666,10 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		}
 	}
 
+	protected  void beforeUpdateEmployeeProperties(RetailscmUserContext userContext, Employee item, String responsibilityTypeId, String id,String title,String familyName,String givenName,String email,String city,String address,String cellPhone,String salaryAccount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Employee createEmployee(RetailscmUserContext userContext, String companyId, String title, String departmentId, String familyName, String givenName, String email, String city, String address, String cellPhone, String occupationId, String currentSalaryGradeId, String salaryAccount) throws Exception{
 
@@ -788,7 +793,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 			responsibilityType.copyEmployeeFrom( employee );
 			responsibilityType = saveResponsibilityType(userContext, responsibilityType, tokens().withEmployeeList().done());
 			
-			userContext.getManagerGroup().getEmployeeManager().onNewInstanceCreated(userContext, (Employee)responsibilityType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeManagerOf(userContext).onNewInstanceCreated(userContext, (Employee)responsibilityType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,responsibilityType, mergedAllTokens(tokensExpr));
 		}
 
@@ -801,57 +806,41 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfResponsibilityType(responsibilityTypeId);
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkVersionOfEmployee(employeeVersion);
-		
+
 
 		if(Employee.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.FAMILY_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFamilyNameOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.GIVEN_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkGivenNameOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.EMAIL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEmailOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.CITY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCityOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.ADDRESS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAddressOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.CELL_PHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCellPhoneOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.SALARY_ACCOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSalaryAccountOfEmployee(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ResponsibilityTypeManagerException.class);
 
 	}
@@ -861,7 +850,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 
 		checkParamsForUpdatingEmployee(userContext, responsibilityTypeId, employeeId, employeeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeList().searchEmployeeListWith(Employee.ID_PROPERTY, "eq", employeeId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeList().searchEmployeeListWith(Employee.ID_PROPERTY, tokens().equals(), employeeId).done();
 
 
 
@@ -872,13 +861,14 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 			//Also good when there is a RAM based DAO implementation
 			//responsibilityType.removeEmployee( employee );
 			//make changes to AcceleraterAccount.
-			Employee employeeIndex = createIndexedEmployee(employeeId, employeeVersion);
+			Employee employeeIdVersionKey = createIndexedEmployee(employeeId, employeeVersion);
 
-			Employee employee = responsibilityType.findTheEmployee(employeeIndex);
+			Employee employee = responsibilityType.findTheEmployee(employeeIdVersionKey);
 			if(employee == null){
-				throw new ResponsibilityTypeManagerException(employee+" is NOT FOUND" );
+				throw new ResponsibilityTypeManagerException(employeeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployee(userContext, employee, responsibilityTypeId, employeeId, employeeVersion, property, newValueExpr,  tokensExpr);
 			employee.changeProperty(property, newValueExpr);
 			employee.updateLastUpdateTime(userContext.now());
 			responsibilityType = saveResponsibilityType(userContext, responsibilityType, tokens().withEmployeeList().done());
@@ -886,6 +876,11 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployee(RetailscmUserContext userContext, Employee existed, String responsibilityTypeId, String employeeId, int employeeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -902,6 +897,12 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    responsibilityTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -993,6 +994,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1109,7 +1111,7 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1191,6 +1193,8 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

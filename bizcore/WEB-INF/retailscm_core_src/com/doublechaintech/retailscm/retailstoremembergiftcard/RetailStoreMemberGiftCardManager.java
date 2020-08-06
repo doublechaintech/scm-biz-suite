@@ -17,6 +17,7 @@ public interface RetailStoreMemberGiftCardManager extends BaseManager{
 	public RetailStoreMemberGiftCard createRetailStoreMemberGiftCard(RetailscmUserContext userContext, String name,String ownerId,String number,BigDecimal remain) throws Exception;
 	public RetailStoreMemberGiftCard updateRetailStoreMemberGiftCard(RetailscmUserContext userContext,String retailStoreMemberGiftCardId, int retailStoreMemberGiftCardVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreMemberGiftCard loadRetailStoreMemberGiftCard(RetailscmUserContext userContext, String retailStoreMemberGiftCardId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public RetailStoreMemberGiftCard internalSaveRetailStoreMemberGiftCard(RetailscmUserContext userContext, RetailStoreMemberGiftCard retailStoreMemberGiftCard) throws Exception;
 	public RetailStoreMemberGiftCard internalSaveRetailStoreMemberGiftCard(RetailscmUserContext userContext, RetailStoreMemberGiftCard retailStoreMemberGiftCard,Map<String,Object>option) throws Exception;
 

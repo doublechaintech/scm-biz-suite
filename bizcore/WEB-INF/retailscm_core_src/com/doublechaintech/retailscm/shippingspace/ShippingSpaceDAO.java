@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.shippingspace;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 public interface ShippingSpaceDAO extends BaseDAO{
 
 	public SmartList<ShippingSpace> loadAll();
+	public Stream<ShippingSpace> loadAllAsStream();
 	public ShippingSpace load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<ShippingSpace> shippingSpaceList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public ShippingSpace present(ShippingSpace shippingSpace,Map<String,Object> options) throws Exception;
 	public ShippingSpace clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public ShippingSpace save(ShippingSpace shippingSpace,Map<String,Object> options);
 	public SmartList<ShippingSpace> saveShippingSpaceList(SmartList<ShippingSpace> shippingSpaceList,Map<String,Object> options);
 	public SmartList<ShippingSpace> removeShippingSpaceList(SmartList<ShippingSpace> shippingSpaceList,Map<String,Object> options);
@@ -86,18 +88,19 @@ public interface ShippingSpaceDAO extends BaseDAO{
 	public ShippingSpace planToRemoveGoodsListWithRetailStoreOrder(ShippingSpace shippingSpace, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	public int countGoodsListWithRetailStoreOrder(String shippingSpaceId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<ShippingSpace> queryList(String sql, Object ... parmeters);
+	public Stream<ShippingSpace> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateShippingSpace executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<ShippingSpace> findShippingSpaceByWarehouse(String warehouseId, Map<String,Object> options);
  	public int countShippingSpaceByWarehouse(String warehouseId, Map<String,Object> options);
  	public Map<String, Integer> countShippingSpaceByWarehouseIds(String[] ids, Map<String,Object> options);
  	public SmartList<ShippingSpace> findShippingSpaceByWarehouse(String warehouseId, int start, int count, Map<String,Object> options);
  	public void analyzeShippingSpaceByWarehouse(SmartList<ShippingSpace> resultList, String warehouseId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Goods的shippingSpace的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<ShippingSpace> us, Map<String,Object> options) throws Exception;

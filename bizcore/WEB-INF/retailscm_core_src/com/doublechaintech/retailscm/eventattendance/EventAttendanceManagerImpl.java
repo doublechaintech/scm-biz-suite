@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.eventattendance;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;
@@ -45,7 +43,7 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
 
 	// Only some of ods have such function
 	
-	
+
 
 
 
@@ -108,7 +106,7 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).throwExceptionIfHasErrors( EventAttendanceManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		EventAttendance eventAttendance = loadEventAttendance( userContext, eventAttendanceId, tokens);
  		//do some calc before sent to customer?
@@ -127,6 +125,9 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
 		
 		List<BaseEntity> entityListToNaming = eventAttendanceToPresent.collectRefercencesFromLists();
 		eventAttendanceDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,eventAttendance,tokens);
 		
 		return  eventAttendanceToPresent;
 		
@@ -534,6 +535,12 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
   
   
 
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    eventAttendanceDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
 	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
@@ -624,6 +631,7 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -765,7 +773,7 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -831,6 +839,8 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

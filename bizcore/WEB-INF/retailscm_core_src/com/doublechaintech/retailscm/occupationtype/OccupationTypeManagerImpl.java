@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.occupationtype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -49,24 +47,24 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = OccupationTypeTokens.start().withTokenFromListName(listName).done();
 		OccupationType  occupationType = (OccupationType) this.loadOccupationType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = occupationType.collectRefercencesFromLists();
 		occupationTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, occupationType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new OccupationTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -129,7 +127,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).throwExceptionIfHasErrors( OccupationTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		OccupationType occupationType = loadOccupationType( userContext, occupationTypeId, tokens);
  		//do some calc before sent to customer?
@@ -148,6 +146,9 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		
 		List<BaseEntity> entityListToNaming = occupationTypeToPresent.collectRefercencesFromLists();
 		occupationTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,occupationType,tokens);
 		
 		return  occupationTypeToPresent;
 		
@@ -610,7 +611,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 			occupationType.addEmployee( employee );
 			occupationType = saveOccupationType(userContext, occupationType, tokens().withEmployeeList().done());
 			
-			userContext.getManagerGroup().getEmployeeManager().onNewInstanceCreated(userContext, employee);
+			employeeManagerOf(userContext).onNewInstanceCreated(userContext, employee);
 			return present(userContext,occupationType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -638,7 +639,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeListList()
-				.searchEmployeeListWith(Employee.ID_PROPERTY, "is", id).done();
+				.searchEmployeeListWith(Employee.ID_PROPERTY, tokens().is(), id).done();
 
 		OccupationType occupationTypeToUpdate = loadOccupationType(userContext, occupationTypeId, options);
 
@@ -647,7 +648,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 
 		Employee item = occupationTypeToUpdate.getEmployeeList().first();
-
+		beforeUpdateEmployeeProperties(userContext,item, occupationTypeId,id,title,familyName,givenName,email,city,address,cellPhone,salaryAccount,tokensExpr);
 		item.updateTitle( title );
 		item.updateFamilyName( familyName );
 		item.updateGivenName( givenName );
@@ -665,6 +666,10 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 	}
 
+	protected  void beforeUpdateEmployeeProperties(RetailscmUserContext userContext, Employee item, String occupationTypeId, String id,String title,String familyName,String givenName,String email,String city,String address,String cellPhone,String salaryAccount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Employee createEmployee(RetailscmUserContext userContext, String companyId, String title, String departmentId, String familyName, String givenName, String email, String city, String address, String cellPhone, String responsibleForId, String currentSalaryGradeId, String salaryAccount) throws Exception{
 
@@ -788,7 +793,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 			occupationType.copyEmployeeFrom( employee );
 			occupationType = saveOccupationType(userContext, occupationType, tokens().withEmployeeList().done());
 			
-			userContext.getManagerGroup().getEmployeeManager().onNewInstanceCreated(userContext, (Employee)occupationType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeManagerOf(userContext).onNewInstanceCreated(userContext, (Employee)occupationType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,occupationType, mergedAllTokens(tokensExpr));
 		}
 
@@ -801,57 +806,41 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfOccupationType(occupationTypeId);
 		checkerOf(userContext).checkIdOfEmployee(employeeId);
 		checkerOf(userContext).checkVersionOfEmployee(employeeVersion);
-		
+
 
 		if(Employee.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.FAMILY_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFamilyNameOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.GIVEN_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkGivenNameOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.EMAIL_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEmailOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.CITY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCityOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.ADDRESS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAddressOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.CELL_PHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCellPhoneOfEmployee(parseString(newValueExpr));
-		
 		}
 		
 		if(Employee.SALARY_ACCOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSalaryAccountOfEmployee(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(OccupationTypeManagerException.class);
 
 	}
@@ -861,7 +850,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 
 		checkParamsForUpdatingEmployee(userContext, occupationTypeId, employeeId, employeeVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeList().searchEmployeeListWith(Employee.ID_PROPERTY, "eq", employeeId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeList().searchEmployeeListWith(Employee.ID_PROPERTY, tokens().equals(), employeeId).done();
 
 
 
@@ -872,13 +861,14 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 			//Also good when there is a RAM based DAO implementation
 			//occupationType.removeEmployee( employee );
 			//make changes to AcceleraterAccount.
-			Employee employeeIndex = createIndexedEmployee(employeeId, employeeVersion);
+			Employee employeeIdVersionKey = createIndexedEmployee(employeeId, employeeVersion);
 
-			Employee employee = occupationType.findTheEmployee(employeeIndex);
+			Employee employee = occupationType.findTheEmployee(employeeIdVersionKey);
 			if(employee == null){
-				throw new OccupationTypeManagerException(employee+" is NOT FOUND" );
+				throw new OccupationTypeManagerException(employeeId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployee(userContext, employee, occupationTypeId, employeeId, employeeVersion, property, newValueExpr,  tokensExpr);
 			employee.changeProperty(property, newValueExpr);
 			employee.updateLastUpdateTime(userContext.now());
 			occupationType = saveOccupationType(userContext, occupationType, tokens().withEmployeeList().done());
@@ -886,6 +876,11 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployee(RetailscmUserContext userContext, Employee existed, String occupationTypeId, String employeeId, int employeeVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -902,6 +897,12 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    occupationTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -993,6 +994,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1109,7 +1111,7 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1191,6 +1193,8 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

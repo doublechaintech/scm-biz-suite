@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.terminationreason.TerminationReasonDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements TerminationDAO{
 
@@ -71,64 +71,68 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 	return this.terminationTypeDAO;
  	}	
 
-	
+
 	/*
 	protected Termination load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalTermination(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Termination> loadAll() {
 	    return this.loadAll(getTerminationMapper());
 	}
-	
-	
+
+  public Stream<Termination> loadAllAsStream() {
+      return this.loadAllAsStream(getTerminationMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Termination load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalTermination(TerminationTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Termination save(Termination termination,Map<String,Object> options){
-		
+
 		String methodName="save(Termination termination,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(termination, methodName, "termination");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalTermination(termination,options);
 	}
 	public Termination clone(String terminationId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(TerminationTable.withId(terminationId),options);
 	}
-	
+
 	protected Termination clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String terminationId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Termination newTermination = loadInternalTermination(accessKey, options);
 		newTermination.setVersion(0);
 		
 		
 
-		
+
 		saveInternalTermination(newTermination,options);
-		
+
 		return newTermination;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String terminationId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -144,15 +148,15 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String terminationId, int version) throws Exception{
-	
+
 		String methodName="delete(String terminationId, int version)";
 		assertMethodArgumentNotNull(terminationId, methodName, "terminationId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{terminationId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -162,26 +166,26 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(affectedNumber == 0){
 			handleDeleteOneError(terminationId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Termination disconnectFromAll(String terminationId, int version) throws Exception{
-	
-		
+
+
 		Termination termination = loadInternalTermination(TerminationTable.withId(terminationId), emptyOptions());
 		termination.clearFromAll();
 		this.saveTermination(termination);
 		return termination;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -189,15 +193,15 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "termination";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "termination";
 	}
-	
+
 	
 	
 	
@@ -419,7 +423,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return termination;
 		}
 		
-		
+
 		String SQL=this.getSaveTerminationSQL(termination);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTerminationParameters(termination);
@@ -428,57 +432,57 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		termination.incVersion();
 		return termination;
-	
+
 	}
 	public SmartList<Termination> saveTerminationList(SmartList<Termination> terminationList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitTerminationList(terminationList);
-		
+
 		batchTerminationCreate((List<Termination>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchTerminationUpdate((List<Termination>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Termination termination:terminationList){
 			if(termination.isChanged()){
 				termination.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return terminationList;
 	}
 
 	public SmartList<Termination> removeTerminationList(SmartList<Termination> terminationList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(terminationList, options);
-		
+
 		return terminationList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareTerminationBatchCreateArgs(List<Termination> terminationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Termination termination:terminationList ){
 			Object [] parameters = prepareTerminationCreateParameters(termination);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareTerminationBatchUpdateArgs(List<Termination> terminationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Termination termination:terminationList ){
 			if(!termination.isChanged()){
@@ -486,40 +490,40 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			Object [] parameters = prepareTerminationUpdateParameters(termination);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchTerminationCreate(List<Termination> terminationList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareTerminationBatchCreateArgs(terminationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchTerminationUpdate(List<Termination> terminationList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareTerminationBatchUpdateArgs(terminationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitTerminationList(List<Termination> terminationList){
-		
+
 		List<Termination> terminationCreateList=new ArrayList<Termination>();
 		List<Termination> terminationUpdateList=new ArrayList<Termination>();
-		
+
 		for(Termination termination: terminationList){
 			if(isUpdateRequest(termination)){
 				terminationUpdateList.add( termination);
@@ -527,10 +531,10 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			terminationCreateList.add(termination);
 		}
-		
+
 		return new Object[]{terminationCreateList,terminationUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Termination termination){
  		return termination.getVersion() > 0;
  	}
@@ -540,7 +544,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveTerminationParameters(Termination termination){
  		if(isUpdateRequest(termination) ){
  			return prepareTerminationUpdateParameters(termination);
@@ -549,101 +553,103 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  	}
  	protected Object[] prepareTerminationUpdateParameters(Termination termination){
  		Object[] parameters = new Object[6];
-  	
+ 
  		if(termination.getReason() != null){
  			parameters[0] = termination.getReason().getId();
  		}
-  	
+ 
  		if(termination.getType() != null){
  			parameters[1] = termination.getType().getId();
  		}
  
  		
  		parameters[2] = termination.getComment();
- 				
+ 		
  		parameters[3] = termination.nextVersion();
  		parameters[4] = termination.getId();
  		parameters[5] = termination.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareTerminationCreateParameters(Termination termination){
 		Object[] parameters = new Object[4];
-		String newTerminationId=getNextId();
-		termination.setId(newTerminationId);
+        if(termination.getId() == null){
+          String newTerminationId=getNextId();
+          termination.setId(newTerminationId);
+        }
 		parameters[0] =  termination.getId();
-  	
+ 
  		if(termination.getReason() != null){
  			parameters[1] = termination.getReason().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(termination.getType() != null){
  			parameters[2] = termination.getType().getId();
- 		
+
  		}
  		
  		
  		parameters[3] = termination.getComment();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Termination saveInternalTermination(Termination termination, Map<String,Object> options){
-		
+
 		saveTermination(termination);
- 	
+
  		if(isSaveReasonEnabled(options)){
 	 		saveReason(termination, options);
  		}
-  	
+ 
  		if(isSaveTypeEnabled(options)){
 	 		saveType(termination, options);
  		}
  
 		
 		return termination;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Termination saveReason(Termination termination, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(termination.getReason() == null){
  			return termination;//do nothing when it is null
  		}
- 		
+
  		getTerminationReasonDAO().save(termination.getReason(),options);
  		return termination;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected Termination saveType(Termination termination, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(termination.getType() == null){
  			return termination;//do nothing when it is null
  		}
- 		
+
  		getTerminationTypeDAO().save(termination.getType(),options);
  		return termination;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -663,47 +669,53 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	protected String getTableName(){
 		return TerminationTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Termination> terminationList) {		
+
+
+
+	public void enhanceList(List<Termination> terminationList) {
 		this.enhanceListInternal(terminationList, this.getTerminationMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Termination> terminationList = ownerEntity.collectRefsWithType(Termination.INTERNAL_TYPE);
 		this.enhanceList(terminationList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Termination> findTerminationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getTerminationMapper());
 
 	}
 	@Override
 	public int countTerminationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countTerminationWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Termination> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTerminationMapper());
 	}
+
+  @Override
+  public Stream<Termination> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getTerminationMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -732,7 +744,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 		return result;
 	}
-	
+
 	
 
 }

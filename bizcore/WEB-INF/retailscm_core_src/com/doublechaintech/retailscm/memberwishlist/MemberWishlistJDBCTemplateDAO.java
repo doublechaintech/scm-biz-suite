@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implements MemberWishlistDAO{
 
@@ -71,50 +71,54 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	 	return this.memberWishlistProductDAO;
  	}	
 
-	
+
 	/*
 	protected MemberWishlist load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalMemberWishlist(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<MemberWishlist> loadAll() {
 	    return this.loadAll(getMemberWishlistMapper());
 	}
-	
-	
+
+  public Stream<MemberWishlist> loadAllAsStream() {
+      return this.loadAllAsStream(getMemberWishlistMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public MemberWishlist load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalMemberWishlist(MemberWishlistTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public MemberWishlist save(MemberWishlist memberWishlist,Map<String,Object> options){
-		
+
 		String methodName="save(MemberWishlist memberWishlist,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(memberWishlist, methodName, "memberWishlist");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalMemberWishlist(memberWishlist,options);
 	}
 	public MemberWishlist clone(String memberWishlistId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(MemberWishlistTable.withId(memberWishlistId),options);
 	}
-	
+
 	protected MemberWishlist clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String memberWishlistId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		MemberWishlist newMemberWishlist = loadInternalMemberWishlist(accessKey, options);
 		newMemberWishlist.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		}
 		
 
-		
+
 		saveInternalMemberWishlist(newMemberWishlist,options);
-		
+
 		return newMemberWishlist;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String memberWishlistId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String memberWishlistId, int version) throws Exception{
-	
+
 		String methodName="delete(String memberWishlistId, int version)";
 		assertMethodArgumentNotNull(memberWishlistId, methodName, "memberWishlistId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{memberWishlistId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(affectedNumber == 0){
 			handleDeleteOneError(memberWishlistId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public MemberWishlist disconnectFromAll(String memberWishlistId, int version) throws Exception{
-	
-		
+
+
 		MemberWishlist memberWishlist = loadInternalMemberWishlist(MemberWishlistTable.withId(memberWishlistId), emptyOptions());
 		memberWishlist.clearFromAll();
 		this.saveMemberWishlist(memberWishlist);
 		return memberWishlist;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "member_wishlist";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "memberWishlist";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return memberWishlist;
 		}
 		
-		
+
 		String SQL=this.getSaveMemberWishlistSQL(memberWishlist);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveMemberWishlistParameters(memberWishlist);
@@ -419,57 +423,57 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		memberWishlist.incVersion();
 		return memberWishlist;
-	
+
 	}
 	public SmartList<MemberWishlist> saveMemberWishlistList(SmartList<MemberWishlist> memberWishlistList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitMemberWishlistList(memberWishlistList);
-		
+
 		batchMemberWishlistCreate((List<MemberWishlist>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchMemberWishlistUpdate((List<MemberWishlist>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(MemberWishlist memberWishlist:memberWishlistList){
 			if(memberWishlist.isChanged()){
 				memberWishlist.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return memberWishlistList;
 	}
 
 	public SmartList<MemberWishlist> removeMemberWishlistList(SmartList<MemberWishlist> memberWishlistList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(memberWishlistList, options);
-		
+
 		return memberWishlistList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareMemberWishlistBatchCreateArgs(List<MemberWishlist> memberWishlistList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(MemberWishlist memberWishlist:memberWishlistList ){
 			Object [] parameters = prepareMemberWishlistCreateParameters(memberWishlist);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareMemberWishlistBatchUpdateArgs(List<MemberWishlist> memberWishlistList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(MemberWishlist memberWishlist:memberWishlistList ){
 			if(!memberWishlist.isChanged()){
@@ -477,40 +481,40 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			}
 			Object [] parameters = prepareMemberWishlistUpdateParameters(memberWishlist);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchMemberWishlistCreate(List<MemberWishlist> memberWishlistList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareMemberWishlistBatchCreateArgs(memberWishlistList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchMemberWishlistUpdate(List<MemberWishlist> memberWishlistList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareMemberWishlistBatchUpdateArgs(memberWishlistList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitMemberWishlistList(List<MemberWishlist> memberWishlistList){
-		
+
 		List<MemberWishlist> memberWishlistCreateList=new ArrayList<MemberWishlist>();
 		List<MemberWishlist> memberWishlistUpdateList=new ArrayList<MemberWishlist>();
-		
+
 		for(MemberWishlist memberWishlist: memberWishlistList){
 			if(isUpdateRequest(memberWishlist)){
 				memberWishlistUpdateList.add( memberWishlist);
@@ -518,10 +522,10 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			}
 			memberWishlistCreateList.add(memberWishlist);
 		}
-		
+
 		return new Object[]{memberWishlistCreateList,memberWishlistUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(MemberWishlist memberWishlist){
  		return memberWishlist.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveMemberWishlistParameters(MemberWishlist memberWishlist){
  		if(isUpdateRequest(memberWishlist) ){
  			return prepareMemberWishlistUpdateParameters(memberWishlist);
@@ -543,39 +547,41 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  
  		
  		parameters[0] = memberWishlist.getName();
- 		 	
+ 		
  		if(memberWishlist.getOwner() != null){
  			parameters[1] = memberWishlist.getOwner().getId();
  		}
- 		
+ 
  		parameters[2] = memberWishlist.nextVersion();
  		parameters[3] = memberWishlist.getId();
  		parameters[4] = memberWishlist.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareMemberWishlistCreateParameters(MemberWishlist memberWishlist){
 		Object[] parameters = new Object[3];
-		String newMemberWishlistId=getNextId();
-		memberWishlist.setId(newMemberWishlistId);
+        if(memberWishlist.getId() == null){
+          String newMemberWishlistId=getNextId();
+          memberWishlist.setId(newMemberWishlistId);
+        }
 		parameters[0] =  memberWishlist.getId();
  
  		
  		parameters[1] = memberWishlist.getName();
- 		 	
+ 		
  		if(memberWishlist.getOwner() != null){
  			parameters[2] = memberWishlist.getOwner().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected MemberWishlist saveInternalMemberWishlist(MemberWishlist memberWishlist, Map<String,Object> options){
-		
+
 		saveMemberWishlist(memberWishlist);
- 	
+
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(memberWishlist, options);
  		}
@@ -585,42 +591,42 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	 		saveMemberWishlistProductList(memberWishlist, options);
 	 		//removeMemberWishlistProductList(memberWishlist, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return memberWishlist;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected MemberWishlist saveOwner(MemberWishlist memberWishlist, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(memberWishlist.getOwner() == null){
  			return memberWishlist;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreMemberDAO().save(memberWishlist.getOwner(),options);
  		return memberWishlist;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public MemberWishlist planToRemoveMemberWishlistProductList(MemberWishlist memberWishlist, String memberWishlistProductIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(MemberWishlistProduct.OWNER_PROPERTY, memberWishlist.getId());
 		key.put(MemberWishlistProduct.ID_PROPERTY, memberWishlistProductIds);
-		
+
 		SmartList<MemberWishlistProduct> externalMemberWishlistProductList = getMemberWishlistProductDAO().
 				findMemberWishlistProductWithKey(key, options);
 		if(externalMemberWishlistProductList == null){
@@ -629,36 +635,36 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(externalMemberWishlistProductList.isEmpty()){
 			return memberWishlist;
 		}
-		
+
 		for(MemberWishlistProduct memberWishlistProductItem: externalMemberWishlistProductList){
 
 			memberWishlistProductItem.clearFromAll();
 		}
-		
-		
-		SmartList<MemberWishlistProduct> memberWishlistProductList = memberWishlist.getMemberWishlistProductList();		
+
+
+		SmartList<MemberWishlistProduct> memberWishlistProductList = memberWishlist.getMemberWishlistProductList();
 		memberWishlistProductList.addAllToRemoveList(externalMemberWishlistProductList);
-		return memberWishlist;	
-	
+		return memberWishlist;
+
 	}
 
 
 
 		
 	protected MemberWishlist saveMemberWishlistProductList(MemberWishlist memberWishlist, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<MemberWishlistProduct> memberWishlistProductList = memberWishlist.getMemberWishlistProductList();
 		if(memberWishlistProductList == null){
 			//null list means nothing
 			return memberWishlist;
 		}
 		SmartList<MemberWishlistProduct> mergedUpdateMemberWishlistProductList = new SmartList<MemberWishlistProduct>();
-		
-		
-		mergedUpdateMemberWishlistProductList.addAll(memberWishlistProductList); 
+
+
+		mergedUpdateMemberWishlistProductList.addAll(memberWishlistProductList);
 		if(memberWishlistProductList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateMemberWishlistProductList.addAll(memberWishlistProductList.getToRemoveList());
@@ -667,28 +673,28 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 
 		//adding new size can improve performance
-	
+
 		getMemberWishlistProductDAO().saveMemberWishlistProductList(mergedUpdateMemberWishlistProductList,options);
-		
+
 		if(memberWishlistProductList.getToRemoveList() != null){
 			memberWishlistProductList.removeAll(memberWishlistProductList.getToRemoveList());
 		}
-		
-		
+
+
 		return memberWishlist;
-	
+
 	}
-	
+
 	protected MemberWishlist removeMemberWishlistProductList(MemberWishlist memberWishlist, Map<String,Object> options){
-	
-	
+
+
 		SmartList<MemberWishlistProduct> memberWishlistProductList = memberWishlist.getMemberWishlistProductList();
 		if(memberWishlistProductList == null){
 			return memberWishlist;
-		}	
-	
+		}
+
 		SmartList<MemberWishlistProduct> toRemoveMemberWishlistProductList = memberWishlistProductList.getToRemoveList();
-		
+
 		if(toRemoveMemberWishlistProductList == null){
 			return memberWishlist;
 		}
@@ -696,20 +702,20 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return memberWishlist;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getMemberWishlistProductDAO().removeMemberWishlistProductList(toRemoveMemberWishlistProductList,options);
-		
-		return memberWishlist;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getMemberWishlistProductDAO().removeMemberWishlistProductList(toRemoveMemberWishlistProductList,options);
+
+		return memberWishlist;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public MemberWishlist present(MemberWishlist memberWishlist,Map<String, Object> options){
@@ -752,13 +758,13 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	protected String getTableName(){
 		return MemberWishlistTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<MemberWishlist> memberWishlistList) {		
+
+
+
+	public void enhanceList(List<MemberWishlist> memberWishlistList) {
 		this.enhanceListInternal(memberWishlistList, this.getMemberWishlistMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:MemberWishlistProduct的owner的MemberWishlistProductList
 	public SmartList<MemberWishlistProduct> loadOurMemberWishlistProductList(RetailscmUserContext userContext, List<MemberWishlist> us, Map<String,Object> options) throws Exception{
@@ -783,39 +789,45 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<MemberWishlist> memberWishlistList = ownerEntity.collectRefsWithType(MemberWishlist.INTERNAL_TYPE);
 		this.enhanceList(memberWishlistList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<MemberWishlist> findMemberWishlistWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getMemberWishlistMapper());
 
 	}
 	@Override
 	public int countMemberWishlistWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countMemberWishlistWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<MemberWishlist> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getMemberWishlistMapper());
 	}
+
+  @Override
+  public Stream<MemberWishlist> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getMemberWishlistMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -844,7 +856,7 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 		return result;
 	}
-	
+
 	
 
 }

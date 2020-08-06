@@ -159,17 +159,17 @@ public class CustomRelation extends BaseRelation{
 		//replaceGenericRelation("Slide"                                 , BaseRelation.TRUST_CHAIN_ALL, "page");
 		//replaceGenericRelation("UiAction"                              , BaseRelation.TRUST_CHAIN_ALL, "page");
 		//replaceGenericRelation("Section"                               , BaseRelation.TRUST_CHAIN_ALL, "page");
-		//replaceGenericRelation("UserWhiteList"                         , BaseRelation.TRUST_CHAIN_ALL, "domain");
+		//replaceGenericRelation("UserAllowList"                         , BaseRelation.TRUST_CHAIN_ALL, "domain");
 		//replaceGenericRelation("SecUser"                               , BaseRelation.TRUST_CHAIN_ALL, "domain");
 		//replaceGenericRelation("UserApp"                               , BaseRelation.TRUST_CHAIN_ALL, "secUser");
 		//replaceGenericRelation("QuickLink"                             , BaseRelation.TRUST_CHAIN_ALL, "app");
 		//replaceGenericRelation("ListAccess"                            , BaseRelation.TRUST_CHAIN_ALL, "app");
 		//replaceGenericRelation("LoginHistory"                          , BaseRelation.TRUST_CHAIN_ALL, "secUser");
 		//replaceGenericRelation("CandidateElement"                      , BaseRelation.TRUST_CHAIN_ALL, "container");
-		//replaceGenericRelation("WechatWorkappIdentify"                 , BaseRelation.TRUST_CHAIN_ALL, "secUser");
-		//replaceGenericRelation("WechatMiniappIdentify"                 , BaseRelation.TRUST_CHAIN_ALL, "secUser");
-		//replaceGenericRelation("KeypairIdentify"                       , BaseRelation.TRUST_CHAIN_ALL, "keyType");
-		//replaceGenericRelation("KeypairIdentify"                       , BaseRelation.TRUST_CHAIN_ALL, "secUser");
+		//replaceGenericRelation("WechatWorkappIdentity"                 , BaseRelation.TRUST_CHAIN_ALL, "secUser");
+		//replaceGenericRelation("WechatMiniappIdentity"                 , BaseRelation.TRUST_CHAIN_ALL, "secUser");
+		//replaceGenericRelation("KeypairIdentity"                       , BaseRelation.TRUST_CHAIN_ALL, "keyType");
+		//replaceGenericRelation("KeypairIdentity"                       , BaseRelation.TRUST_CHAIN_ALL, "secUser");
 		//replaceGenericRelation("PublicKeyType"                         , BaseRelation.TRUST_CHAIN_ALL, "domain");
 
 	}
@@ -489,8 +489,8 @@ public class CustomRelation extends BaseRelation{
 		//String [] sectionRelatedObjectNames = {"page:Page"};
 		//replaceRelationIndex("Section",sectionRelatedObjectNames);
 
-		//String [] userWhiteListRelatedObjectNames = {"domain:UserDomain"};
-		//replaceRelationIndex("UserWhiteList",userWhiteListRelatedObjectNames);
+		//String [] userAllowListRelatedObjectNames = {"domain:UserDomain"};
+		//replaceRelationIndex("UserAllowList",userAllowListRelatedObjectNames);
 
 		//String [] secUserRelatedObjectNames = {"domain:UserDomain"};
 		//replaceRelationIndex("SecUser",secUserRelatedObjectNames);
@@ -510,14 +510,14 @@ public class CustomRelation extends BaseRelation{
 		//String [] candidateElementRelatedObjectNames = {"container:CandidateContainer"};
 		//replaceRelationIndex("CandidateElement",candidateElementRelatedObjectNames);
 
-		//String [] wechatWorkappIdentifyRelatedObjectNames = {"sec_user:SecUser"};
-		//replaceRelationIndex("WechatWorkappIdentify",wechatWorkappIdentifyRelatedObjectNames);
+		//String [] wechatWorkappIdentityRelatedObjectNames = {"sec_user:SecUser"};
+		//replaceRelationIndex("WechatWorkappIdentity",wechatWorkappIdentityRelatedObjectNames);
 
-		//String [] wechatMiniappIdentifyRelatedObjectNames = {"sec_user:SecUser"};
-		//replaceRelationIndex("WechatMiniappIdentify",wechatMiniappIdentifyRelatedObjectNames);
+		//String [] wechatMiniappIdentityRelatedObjectNames = {"sec_user:SecUser"};
+		//replaceRelationIndex("WechatMiniappIdentity",wechatMiniappIdentityRelatedObjectNames);
 
-		//String [] keypairIdentifyRelatedObjectNames = {"key_type:PublicKeyType","sec_user:SecUser"};
-		//replaceRelationIndex("KeypairIdentify",keypairIdentifyRelatedObjectNames);
+		//String [] keypairIdentityRelatedObjectNames = {"key_type:PublicKeyType","sec_user:SecUser"};
+		//replaceRelationIndex("KeypairIdentity",keypairIdentityRelatedObjectNames);
 
 		//String [] publicKeyTypeRelatedObjectNames = {"domain:UserDomain"};
 		//replaceRelationIndex("PublicKeyType",publicKeyTypeRelatedObjectNames);

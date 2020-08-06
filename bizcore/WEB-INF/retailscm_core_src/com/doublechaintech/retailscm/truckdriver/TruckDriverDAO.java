@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.truckdriver;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.transporttask.TransportTaskDAO;
 public interface TruckDriverDAO extends BaseDAO{
 
 	public SmartList<TruckDriver> loadAll();
+	public Stream<TruckDriver> loadAllAsStream();
 	public TruckDriver load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<TruckDriver> truckDriverList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public TruckDriver present(TruckDriver truckDriver,Map<String,Object> options) throws Exception;
 	public TruckDriver clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public TruckDriver save(TruckDriver truckDriver,Map<String,Object> options);
 	public SmartList<TruckDriver> saveTruckDriverList(SmartList<TruckDriver> truckDriverList,Map<String,Object> options);
 	public SmartList<TruckDriver> removeTruckDriverList(SmartList<TruckDriver> truckDriverList,Map<String,Object> options);
@@ -66,18 +68,19 @@ public interface TruckDriverDAO extends BaseDAO{
 	public TruckDriver planToRemoveTransportTaskListWithBelongsTo(TruckDriver truckDriver, String belongsToId, Map<String,Object> options)throws Exception;
 	public int countTransportTaskListWithBelongsTo(String truckDriverId, String belongsToId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<TruckDriver> queryList(String sql, Object ... parmeters);
+	public Stream<TruckDriver> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateTruckDriver executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<TruckDriver> findTruckDriverByBelongsTo(String transportFleetId, Map<String,Object> options);
  	public int countTruckDriverByBelongsTo(String transportFleetId, Map<String,Object> options);
  	public Map<String, Integer> countTruckDriverByBelongsToIds(String[] ids, Map<String,Object> options);
  	public SmartList<TruckDriver> findTruckDriverByBelongsTo(String transportFleetId, int start, int count, Map<String,Object> options);
  	public void analyzeTruckDriverByBelongsTo(SmartList<TruckDriver> resultList, String transportFleetId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:TransportTask的driver的TransportTaskList
 	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<TruckDriver> us, Map<String,Object> options) throws Exception;

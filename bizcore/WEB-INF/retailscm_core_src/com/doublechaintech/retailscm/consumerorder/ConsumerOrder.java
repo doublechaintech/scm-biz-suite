@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.consumerorder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -21,8 +22,21 @@ import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaym
 import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItem;
 import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecord;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = ConsumerOrderSerializer.class)
 public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

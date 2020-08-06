@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstore;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -42,20 +43,21 @@ import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchisi
 public interface RetailStoreDAO extends BaseDAO{
 
 	public SmartList<RetailStore> loadAll();
+	public Stream<RetailStore> loadAllAsStream();
 	public RetailStore load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStore> retailStoreList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStore present(RetailStore retailStore,Map<String,Object> options) throws Exception;
 	public RetailStore clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStore save(RetailStore retailStore,Map<String,Object> options);
 	public SmartList<RetailStore> saveRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options);
 	public SmartList<RetailStore> removeRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options);
@@ -164,74 +166,75 @@ public interface RetailStoreDAO extends BaseDAO{
 	public RetailStore planToRemoveAccountSetListWithGoodsSupplier(RetailStore retailStore, String goodsSupplierId, Map<String,Object> options)throws Exception;
 	public int countAccountSetListWithGoodsSupplier(String retailStoreId, String goodsSupplierId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStore> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStore> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStore executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<RetailStore> findRetailStoreByRetailStoreCountryCenter(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countRetailStoreByRetailStoreCountryCenter(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByRetailStoreCountryCenterIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByRetailStoreCountryCenter(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByRetailStoreCountryCenter(SmartList<RetailStore> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStore> findRetailStoreByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
  	public int countRetailStoreByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByCityServiceCenterIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByCityServiceCenter(SmartList<RetailStore> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStore> findRetailStoreByCreation(String retailStoreCreationId, Map<String,Object> options);
  	public int countRetailStoreByCreation(String retailStoreCreationId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByCreationIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByCreation(String retailStoreCreationId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByCreation(SmartList<RetailStore> resultList, String retailStoreCreationId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStore> findRetailStoreByInvestmentInvitation(String retailStoreInvestmentInvitationId, Map<String,Object> options);
  	public int countRetailStoreByInvestmentInvitation(String retailStoreInvestmentInvitationId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByInvestmentInvitationIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByInvestmentInvitation(String retailStoreInvestmentInvitationId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByInvestmentInvitation(SmartList<RetailStore> resultList, String retailStoreInvestmentInvitationId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStore> findRetailStoreByFranchising(String retailStoreFranchisingId, Map<String,Object> options);
  	public int countRetailStoreByFranchising(String retailStoreFranchisingId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByFranchisingIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByFranchising(String retailStoreFranchisingId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByFranchising(SmartList<RetailStore> resultList, String retailStoreFranchisingId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStore> findRetailStoreByDecoration(String retailStoreDecorationId, Map<String,Object> options);
  	public int countRetailStoreByDecoration(String retailStoreDecorationId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByDecorationIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByDecoration(String retailStoreDecorationId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByDecoration(SmartList<RetailStore> resultList, String retailStoreDecorationId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStore> findRetailStoreByOpening(String retailStoreOpeningId, Map<String,Object> options);
  	public int countRetailStoreByOpening(String retailStoreOpeningId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByOpeningIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByOpening(String retailStoreOpeningId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByOpening(SmartList<RetailStore> resultList, String retailStoreOpeningId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<RetailStore> findRetailStoreByClosing(String retailStoreClosingId, Map<String,Object> options);
  	public int countRetailStoreByClosing(String retailStoreClosingId, Map<String,Object> options);
  	public Map<String, Integer> countRetailStoreByClosingIds(String[] ids, Map<String,Object> options);
  	public SmartList<RetailStore> findRetailStoreByClosing(String retailStoreClosingId, int start, int count, Map<String,Object> options);
  	public void analyzeRetailStoreByClosing(SmartList<RetailStore> resultList, String retailStoreClosingId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:ConsumerOrder的store的ConsumerOrderList
 	public SmartList<ConsumerOrder> loadOurConsumerOrderList(RetailscmUserContext userContext, List<RetailStore> us, Map<String,Object> options) throws Exception;

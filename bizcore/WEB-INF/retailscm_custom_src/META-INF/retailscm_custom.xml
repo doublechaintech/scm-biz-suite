@@ -17,14 +17,19 @@
 	<import resource="classpath*:/META-INF/retailscm.xml" />
 	<import resource="classpath*:/META-INF/retailscm_manager.xml" />
 
+
 	<bean id="checker" class="com.doublechaintech.retailscm.CustomRetailscmChecker" scope="prototype"></bean>
 
-	<bean id="secUserManager" class="com.doublechaintech.retailscm.secuser.SecUserCustomManagerImpl">
+  <bean id="treeService" class="com.doublechaintech.retailscm.tree.TreeServiceImpl"/>
+
+	<bean id="secUserManager" class="com.doublechaintech.retailscm.secuser.SecUserCustomManagerImpl" parent="secUserManagerBase">
 	 	<property name="cacheService" ref="cacheService" />
 	 	<property name="storageService" ref="storageService"/>
+	 	<property name="blockChainAdvancer" ref="blockChainAdvancer"/>
 	 	<property name="esClient" ref="elasticsearchClient" />
 	 	<property name="smtpService" ref="smtpService" />
-
+	 	<property name="locationService" ref="locationService"/>
+    <property name="treeService" ref="treeService" />
 	 	<!--
 
 	 	默认情况下不开图服务和kafka消息服务
@@ -49,6 +54,35 @@
 	 	<property name="checkerBeanName" value="checker" />
 
 	</bean>
+
+	<!-- 微信小程序
+	<bean id="wxMaService"	class="cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl">
+		<property name="wxMaConfig">
+			<bean class="cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl">
+				<property name="appid" value="${app.wx.appId}" />
+				<property name="secret" value="${app.wx.secret}" />
+				<property name="token" value="${app.wx.token}" />
+				<property name="aesKey" value="${app.wx.aesKey}" />
+			</bean>
+		</property>
+	</bean>
+	-->
+
+	<!--  企业微信
+	<bean id="wxCpService"	class="me.chanjar.weixin.cp.api.impl.WxCpServiceImpl">
+		<property name="wxCpConfigStorage">
+			<bean id="wxworkConfig" class="me.chanjar.weixin.cp.config.impl.WxCpDefaultConfigImpl">
+				<property name="corpId" value="${app.wxwork.corpId}" />
+				<property name="corpSecret" value="${app.wxwork.corpSecret}" />
+				<property name="agentId" value="${app.wxwork.agentId}" />
+				<property name="token" value="${app.wxwork.token}" />
+				<property name="aesKey" value="${app.wxwork.aesKey}" />
+			</bean>
+		</property>
+	</bean>
+	-->
+
+
 
 	<!-- 手机号+验证码 认证 -->
 	<bean id="mobileVCodeIdentifier" class="com.doublechaintech.retailscm.iamservice.MobileVCodeHandler"/>
@@ -77,6 +111,11 @@
 			</map>
 		</property>
 	</bean>
+
+
+
+
+
 
 
 

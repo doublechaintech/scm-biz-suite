@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.cityevent;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.eventattendance.EventAttendance;
@@ -46,24 +44,24 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = CityEventTokens.start().withTokenFromListName(listName).done();
 		CityEvent  cityEvent = (CityEvent) this.loadCityEvent(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = cityEvent.collectRefercencesFromLists();
 		cityEventDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, cityEvent, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new CityEventGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).throwExceptionIfHasErrors( CityEventManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		CityEvent cityEvent = loadCityEvent( userContext, cityEventId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		
 		List<BaseEntity> entityListToNaming = cityEventToPresent.collectRefercencesFromLists();
 		cityEventDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,cityEvent,tokens);
 		
 		return  cityEventToPresent;
 		
@@ -536,7 +537,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 			cityEvent.addEventAttendance( eventAttendance );
 			cityEvent = saveCityEvent(userContext, cityEvent, tokens().withEventAttendanceList().done());
 			
-			userContext.getManagerGroup().getEventAttendanceManager().onNewInstanceCreated(userContext, eventAttendance);
+			eventAttendanceManagerOf(userContext).onNewInstanceCreated(userContext, eventAttendance);
 			return present(userContext,cityEvent, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -558,7 +559,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEventAttendanceListList()
-				.searchEventAttendanceListWith(EventAttendance.ID_PROPERTY, "is", id).done();
+				.searchEventAttendanceListWith(EventAttendance.ID_PROPERTY, tokens().is(), id).done();
 
 		CityEvent cityEventToUpdate = loadCityEvent(userContext, cityEventId, options);
 
@@ -567,7 +568,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		EventAttendance item = cityEventToUpdate.getEventAttendanceList().first();
-
+		beforeUpdateEventAttendanceProperties(userContext,item, cityEventId,id,name,description,tokensExpr);
 		item.updateName( name );
 		item.updateDescription( description );
 
@@ -579,6 +580,10 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateEventAttendanceProperties(RetailscmUserContext userContext, EventAttendance item, String cityEventId, String id,String name,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EventAttendance createEventAttendance(RetailscmUserContext userContext, String name, String potentialCustomerId, String description) throws Exception{
 
@@ -686,7 +691,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 			cityEvent.copyEventAttendanceFrom( eventAttendance );
 			cityEvent = saveCityEvent(userContext, cityEvent, tokens().withEventAttendanceList().done());
 			
-			userContext.getManagerGroup().getEventAttendanceManager().onNewInstanceCreated(userContext, (EventAttendance)cityEvent.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			eventAttendanceManagerOf(userContext).onNewInstanceCreated(userContext, (EventAttendance)cityEvent.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,cityEvent, mergedAllTokens(tokensExpr));
 		}
 
@@ -699,21 +704,17 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfCityEvent(cityEventId);
 		checkerOf(userContext).checkIdOfEventAttendance(eventAttendanceId);
 		checkerOf(userContext).checkVersionOfEventAttendance(eventAttendanceVersion);
-		
+
 
 		if(EventAttendance.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfEventAttendance(parseString(newValueExpr));
-		
 		}
 		
 		if(EventAttendance.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfEventAttendance(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CityEventManagerException.class);
 
 	}
@@ -723,7 +724,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingEventAttendance(userContext, cityEventId, eventAttendanceId, eventAttendanceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEventAttendanceList().searchEventAttendanceListWith(EventAttendance.ID_PROPERTY, "eq", eventAttendanceId).done();
+		Map<String,Object> loadTokens = this.tokens().withEventAttendanceList().searchEventAttendanceListWith(EventAttendance.ID_PROPERTY, tokens().equals(), eventAttendanceId).done();
 
 
 
@@ -734,13 +735,14 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//cityEvent.removeEventAttendance( eventAttendance );
 			//make changes to AcceleraterAccount.
-			EventAttendance eventAttendanceIndex = createIndexedEventAttendance(eventAttendanceId, eventAttendanceVersion);
+			EventAttendance eventAttendanceIdVersionKey = createIndexedEventAttendance(eventAttendanceId, eventAttendanceVersion);
 
-			EventAttendance eventAttendance = cityEvent.findTheEventAttendance(eventAttendanceIndex);
+			EventAttendance eventAttendance = cityEvent.findTheEventAttendance(eventAttendanceIdVersionKey);
 			if(eventAttendance == null){
-				throw new CityEventManagerException(eventAttendance+" is NOT FOUND" );
+				throw new CityEventManagerException(eventAttendanceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEventAttendance(userContext, eventAttendance, cityEventId, eventAttendanceId, eventAttendanceVersion, property, newValueExpr,  tokensExpr);
 			eventAttendance.changeProperty(property, newValueExpr);
 			
 			cityEvent = saveCityEvent(userContext, cityEvent, tokens().withEventAttendanceList().done());
@@ -748,6 +750,11 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEventAttendance(RetailscmUserContext userContext, EventAttendance existed, String cityEventId, String eventAttendanceId, int eventAttendanceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -764,6 +771,12 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    cityEventDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -855,6 +868,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -971,7 +985,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1026,7 +1040,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		propList.add(
 				MapUtil.put("id", "6-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1064,6 +1078,8 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

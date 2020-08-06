@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.retailstoremembergiftcard;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
 import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecord;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = RetailStoreMemberGiftCardSerializer.class)
 public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

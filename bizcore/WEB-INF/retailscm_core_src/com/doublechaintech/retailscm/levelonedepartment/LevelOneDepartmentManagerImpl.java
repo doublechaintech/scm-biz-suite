@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.levelonedepartment;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -45,24 +43,24 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = LevelOneDepartmentTokens.start().withTokenFromListName(listName).done();
 		LevelOneDepartment  levelOneDepartment = (LevelOneDepartment) this.loadLevelOneDepartment(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = levelOneDepartment.collectRefercencesFromLists();
 		levelOneDepartmentDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, levelOneDepartment, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new LevelOneDepartmentGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -125,7 +123,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).throwExceptionIfHasErrors( LevelOneDepartmentManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		LevelOneDepartment levelOneDepartment = loadLevelOneDepartment( userContext, levelOneDepartmentId, tokens);
  		//do some calc before sent to customer?
@@ -144,6 +142,9 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		
 		List<BaseEntity> entityListToNaming = levelOneDepartmentToPresent.collectRefercencesFromLists();
 		levelOneDepartmentDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,levelOneDepartment,tokens);
 		
 		return  levelOneDepartmentToPresent;
 		
@@ -524,7 +525,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 			levelOneDepartment.addLevelTwoDepartment( levelTwoDepartment );
 			levelOneDepartment = saveLevelOneDepartment(userContext, levelOneDepartment, tokens().withLevelTwoDepartmentList().done());
 			
-			userContext.getManagerGroup().getLevelTwoDepartmentManager().onNewInstanceCreated(userContext, levelTwoDepartment);
+			levelTwoDepartmentManagerOf(userContext).onNewInstanceCreated(userContext, levelTwoDepartment);
 			return present(userContext,levelOneDepartment, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -547,7 +548,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withLevelTwoDepartmentListList()
-				.searchLevelTwoDepartmentListWith(LevelTwoDepartment.ID_PROPERTY, "is", id).done();
+				.searchLevelTwoDepartmentListWith(LevelTwoDepartment.ID_PROPERTY, tokens().is(), id).done();
 
 		LevelOneDepartment levelOneDepartmentToUpdate = loadLevelOneDepartment(userContext, levelOneDepartmentId, options);
 
@@ -556,7 +557,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 		LevelTwoDepartment item = levelOneDepartmentToUpdate.getLevelTwoDepartmentList().first();
-
+		beforeUpdateLevelTwoDepartmentProperties(userContext,item, levelOneDepartmentId,id,name,description,founded,tokensExpr);
 		item.updateName( name );
 		item.updateDescription( description );
 		item.updateFounded( founded );
@@ -569,6 +570,10 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		}
 	}
 
+	protected  void beforeUpdateLevelTwoDepartmentProperties(RetailscmUserContext userContext, LevelTwoDepartment item, String levelOneDepartmentId, String id,String name,String description,Date founded, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected LevelTwoDepartment createLevelTwoDepartment(RetailscmUserContext userContext, String name, String description, Date founded) throws Exception{
 
@@ -674,7 +679,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 			levelOneDepartment.copyLevelTwoDepartmentFrom( levelTwoDepartment );
 			levelOneDepartment = saveLevelOneDepartment(userContext, levelOneDepartment, tokens().withLevelTwoDepartmentList().done());
 			
-			userContext.getManagerGroup().getLevelTwoDepartmentManager().onNewInstanceCreated(userContext, (LevelTwoDepartment)levelOneDepartment.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			levelTwoDepartmentManagerOf(userContext).onNewInstanceCreated(userContext, (LevelTwoDepartment)levelOneDepartment.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,levelOneDepartment, mergedAllTokens(tokensExpr));
 		}
 
@@ -687,27 +692,21 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfLevelOneDepartment(levelOneDepartmentId);
 		checkerOf(userContext).checkIdOfLevelTwoDepartment(levelTwoDepartmentId);
 		checkerOf(userContext).checkVersionOfLevelTwoDepartment(levelTwoDepartmentVersion);
-		
+
 
 		if(LevelTwoDepartment.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfLevelTwoDepartment(parseString(newValueExpr));
-		
 		}
 		
 		if(LevelTwoDepartment.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfLevelTwoDepartment(parseString(newValueExpr));
-		
 		}
 		
 		if(LevelTwoDepartment.FOUNDED_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFoundedOfLevelTwoDepartment(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelOneDepartmentManagerException.class);
 
 	}
@@ -717,7 +716,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 
 		checkParamsForUpdatingLevelTwoDepartment(userContext, levelOneDepartmentId, levelTwoDepartmentId, levelTwoDepartmentVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withLevelTwoDepartmentList().searchLevelTwoDepartmentListWith(LevelTwoDepartment.ID_PROPERTY, "eq", levelTwoDepartmentId).done();
+		Map<String,Object> loadTokens = this.tokens().withLevelTwoDepartmentList().searchLevelTwoDepartmentListWith(LevelTwoDepartment.ID_PROPERTY, tokens().equals(), levelTwoDepartmentId).done();
 
 
 
@@ -728,13 +727,14 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 			//Also good when there is a RAM based DAO implementation
 			//levelOneDepartment.removeLevelTwoDepartment( levelTwoDepartment );
 			//make changes to AcceleraterAccount.
-			LevelTwoDepartment levelTwoDepartmentIndex = createIndexedLevelTwoDepartment(levelTwoDepartmentId, levelTwoDepartmentVersion);
+			LevelTwoDepartment levelTwoDepartmentIdVersionKey = createIndexedLevelTwoDepartment(levelTwoDepartmentId, levelTwoDepartmentVersion);
 
-			LevelTwoDepartment levelTwoDepartment = levelOneDepartment.findTheLevelTwoDepartment(levelTwoDepartmentIndex);
+			LevelTwoDepartment levelTwoDepartment = levelOneDepartment.findTheLevelTwoDepartment(levelTwoDepartmentIdVersionKey);
 			if(levelTwoDepartment == null){
-				throw new LevelOneDepartmentManagerException(levelTwoDepartment+" is NOT FOUND" );
+				throw new LevelOneDepartmentManagerException(levelTwoDepartmentId+" is NOT FOUND" );
 			}
 
+			beforeUpdateLevelTwoDepartment(userContext, levelTwoDepartment, levelOneDepartmentId, levelTwoDepartmentId, levelTwoDepartmentVersion, property, newValueExpr,  tokensExpr);
 			levelTwoDepartment.changeProperty(property, newValueExpr);
 			
 			levelOneDepartment = saveLevelOneDepartment(userContext, levelOneDepartment, tokens().withLevelTwoDepartmentList().done());
@@ -742,6 +742,11 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateLevelTwoDepartment(RetailscmUserContext userContext, LevelTwoDepartment existed, String levelOneDepartmentId, String levelTwoDepartmentId, int levelTwoDepartmentVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -758,6 +763,12 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    levelOneDepartmentDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -849,6 +860,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -965,7 +977,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1058,6 +1070,8 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

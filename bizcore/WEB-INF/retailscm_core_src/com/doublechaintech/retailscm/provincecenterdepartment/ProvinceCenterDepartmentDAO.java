@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.provincecenterdepartment;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmploy
 public interface ProvinceCenterDepartmentDAO extends BaseDAO{
 
 	public SmartList<ProvinceCenterDepartment> loadAll();
+	public Stream<ProvinceCenterDepartment> loadAllAsStream();
 	public ProvinceCenterDepartment load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<ProvinceCenterDepartment> provinceCenterDepartmentList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public ProvinceCenterDepartment present(ProvinceCenterDepartment provinceCenterDepartment,Map<String,Object> options) throws Exception;
 	public ProvinceCenterDepartment clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public ProvinceCenterDepartment save(ProvinceCenterDepartment provinceCenterDepartment,Map<String,Object> options);
 	public SmartList<ProvinceCenterDepartment> saveProvinceCenterDepartmentList(SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList,Map<String,Object> options);
 	public SmartList<ProvinceCenterDepartment> removeProvinceCenterDepartmentList(SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList,Map<String,Object> options);
@@ -58,18 +60,19 @@ public interface ProvinceCenterDepartmentDAO extends BaseDAO{
 	public ProvinceCenterDepartment planToRemoveProvinceCenterEmployeeListWithProvinceCenter(ProvinceCenterDepartment provinceCenterDepartment, String provinceCenterId, Map<String,Object> options)throws Exception;
 	public int countProvinceCenterEmployeeListWithProvinceCenter(String provinceCenterDepartmentId, String provinceCenterId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<ProvinceCenterDepartment> queryList(String sql, Object ... parmeters);
+	public Stream<ProvinceCenterDepartment> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateProvinceCenterDepartment executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<ProvinceCenterDepartment> findProvinceCenterDepartmentByProvinceCenter(String retailStoreProvinceCenterId, Map<String,Object> options);
  	public int countProvinceCenterDepartmentByProvinceCenter(String retailStoreProvinceCenterId, Map<String,Object> options);
  	public Map<String, Integer> countProvinceCenterDepartmentByProvinceCenterIds(String[] ids, Map<String,Object> options);
  	public SmartList<ProvinceCenterDepartment> findProvinceCenterDepartmentByProvinceCenter(String retailStoreProvinceCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeProvinceCenterDepartmentByProvinceCenter(SmartList<ProvinceCenterDepartment> resultList, String retailStoreProvinceCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:ProvinceCenterEmployee的department的ProvinceCenterEmployeeList
 	public SmartList<ProvinceCenterEmployee> loadOurProvinceCenterEmployeeList(RetailscmUserContext userContext, List<ProvinceCenterDepartment> us, Map<String,Object> options) throws Exception;

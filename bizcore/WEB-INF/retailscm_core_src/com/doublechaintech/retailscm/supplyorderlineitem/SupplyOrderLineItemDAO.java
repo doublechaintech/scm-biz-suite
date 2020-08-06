@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.supplyorderlineitem;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
 public interface SupplyOrderLineItemDAO extends BaseDAO{
 
 	public SmartList<SupplyOrderLineItem> loadAll();
+	public Stream<SupplyOrderLineItem> loadAllAsStream();
 	public SupplyOrderLineItem load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<SupplyOrderLineItem> supplyOrderLineItemList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public SupplyOrderLineItem present(SupplyOrderLineItem supplyOrderLineItem,Map<String,Object> options) throws Exception;
 	public SupplyOrderLineItem clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public SupplyOrderLineItem save(SupplyOrderLineItem supplyOrderLineItem,Map<String,Object> options);
 	public SmartList<SupplyOrderLineItem> saveSupplyOrderLineItemList(SmartList<SupplyOrderLineItem> supplyOrderLineItemList,Map<String,Object> options);
 	public SmartList<SupplyOrderLineItem> removeSupplyOrderLineItemList(SmartList<SupplyOrderLineItem> supplyOrderLineItemList,Map<String,Object> options);
@@ -45,18 +47,19 @@ public interface SupplyOrderLineItemDAO extends BaseDAO{
 
 	
 	
-	
+
 	public SmartList<SupplyOrderLineItem> queryList(String sql, Object ... parmeters);
+	public Stream<SupplyOrderLineItem> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateSupplyOrderLineItem executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<SupplyOrderLineItem> findSupplyOrderLineItemByBizOrder(String supplyOrderId, Map<String,Object> options);
  	public int countSupplyOrderLineItemByBizOrder(String supplyOrderId, Map<String,Object> options);
  	public Map<String, Integer> countSupplyOrderLineItemByBizOrderIds(String[] ids, Map<String,Object> options);
  	public SmartList<SupplyOrderLineItem> findSupplyOrderLineItemByBizOrder(String supplyOrderId, int start, int count, Map<String,Object> options);
  	public void analyzeSupplyOrderLineItemByBizOrder(SmartList<SupplyOrderLineItem> resultList, String supplyOrderId, Map<String,Object> options);
 
- 
+
  
 }
 

@@ -17,6 +17,7 @@ public interface EmployeeSkillManager extends BaseManager{
 	public EmployeeSkill createEmployeeSkill(RetailscmUserContext userContext, String employeeId,String skillTypeId,String description) throws Exception;
 	public EmployeeSkill updateEmployeeSkill(RetailscmUserContext userContext,String employeeSkillId, int employeeSkillVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public EmployeeSkill loadEmployeeSkill(RetailscmUserContext userContext, String employeeSkillId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public EmployeeSkill internalSaveEmployeeSkill(RetailscmUserContext userContext, EmployeeSkill employeeSkill) throws Exception;
 	public EmployeeSkill internalSaveEmployeeSkill(RetailscmUserContext userContext, EmployeeSkill employeeSkill,Map<String,Object>option) throws Exception;
 

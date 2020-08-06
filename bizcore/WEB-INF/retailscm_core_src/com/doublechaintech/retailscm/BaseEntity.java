@@ -27,6 +27,19 @@ import com.terapico.utils.TextUtil;
 
 public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	
+	
+	public String getPresentType(){
+		String internalType = getInternalType();
+		if(internalType.isEmpty()) {
+			return "__missingType"; // should not happen
+		}
+		StringBuilder presentTypeBuffer = new StringBuilder()
+				.append(internalType.substring(0, 1)
+						.toLowerCase()).append(internalType.substring(1));
+		return presentTypeBuffer.toString();
+		
+	}
+	
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getVersion()};
 	}

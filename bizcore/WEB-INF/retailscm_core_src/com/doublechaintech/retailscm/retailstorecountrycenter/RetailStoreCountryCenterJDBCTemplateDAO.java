@@ -79,7 +79,7 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImpl implements RetailStoreCountryCenterDAO{
 
@@ -467,50 +467,54 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	 	return this.companyTrainingDAO;
  	}	
 
-	
+
 	/*
 	protected RetailStoreCountryCenter load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreCountryCenter(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<RetailStoreCountryCenter> loadAll() {
 	    return this.loadAll(getRetailStoreCountryCenterMapper());
 	}
-	
-	
+
+  public Stream<RetailStoreCountryCenter> loadAllAsStream() {
+      return this.loadAllAsStream(getRetailStoreCountryCenterMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public RetailStoreCountryCenter load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreCountryCenter(RetailStoreCountryCenterTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public RetailStoreCountryCenter save(RetailStoreCountryCenter retailStoreCountryCenter,Map<String,Object> options){
-		
+
 		String methodName="save(RetailStoreCountryCenter retailStoreCountryCenter,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(retailStoreCountryCenter, methodName, "retailStoreCountryCenter");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalRetailStoreCountryCenter(retailStoreCountryCenter,options);
 	}
 	public RetailStoreCountryCenter clone(String retailStoreCountryCenterId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(RetailStoreCountryCenterTable.withId(retailStoreCountryCenterId),options);
 	}
-	
+
 	protected RetailStoreCountryCenter clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String retailStoreCountryCenterId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		RetailStoreCountryCenter newRetailStoreCountryCenter = loadInternalRetailStoreCountryCenter(accessKey, options);
 		newRetailStoreCountryCenter.setVersion(0);
 		
@@ -684,15 +688,15 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		}
 		
 
-		
+
 		saveInternalRetailStoreCountryCenter(newRetailStoreCountryCenter,options);
-		
+
 		return newRetailStoreCountryCenter;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String retailStoreCountryCenterId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -708,15 +712,15 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String retailStoreCountryCenterId, int version) throws Exception{
-	
+
 		String methodName="delete(String retailStoreCountryCenterId, int version)";
 		assertMethodArgumentNotNull(retailStoreCountryCenterId, methodName, "retailStoreCountryCenterId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{retailStoreCountryCenterId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -726,26 +730,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(affectedNumber == 0){
 			handleDeleteOneError(retailStoreCountryCenterId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public RetailStoreCountryCenter disconnectFromAll(String retailStoreCountryCenterId, int version) throws Exception{
-	
-		
+
+
 		RetailStoreCountryCenter retailStoreCountryCenter = loadInternalRetailStoreCountryCenter(RetailStoreCountryCenterTable.withId(retailStoreCountryCenterId), emptyOptions());
 		retailStoreCountryCenter.clearFromAll();
 		this.saveRetailStoreCountryCenter(retailStoreCountryCenter);
 		return retailStoreCountryCenter;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -753,15 +757,15 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "retail_store_country_center";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "retailStoreCountryCenter";
 	}
-	
+
 	
 	
 	
@@ -2557,7 +2561,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 		
-		
+
 		String SQL=this.getSaveRetailStoreCountryCenterSQL(retailStoreCountryCenter);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreCountryCenterParameters(retailStoreCountryCenter);
@@ -2566,57 +2570,57 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		retailStoreCountryCenter.incVersion();
 		return retailStoreCountryCenter;
-	
+
 	}
 	public SmartList<RetailStoreCountryCenter> saveRetailStoreCountryCenterList(SmartList<RetailStoreCountryCenter> retailStoreCountryCenterList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitRetailStoreCountryCenterList(retailStoreCountryCenterList);
-		
+
 		batchRetailStoreCountryCenterCreate((List<RetailStoreCountryCenter>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchRetailStoreCountryCenterUpdate((List<RetailStoreCountryCenter>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(RetailStoreCountryCenter retailStoreCountryCenter:retailStoreCountryCenterList){
 			if(retailStoreCountryCenter.isChanged()){
 				retailStoreCountryCenter.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return retailStoreCountryCenterList;
 	}
 
 	public SmartList<RetailStoreCountryCenter> removeRetailStoreCountryCenterList(SmartList<RetailStoreCountryCenter> retailStoreCountryCenterList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(retailStoreCountryCenterList, options);
-		
+
 		return retailStoreCountryCenterList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareRetailStoreCountryCenterBatchCreateArgs(List<RetailStoreCountryCenter> retailStoreCountryCenterList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreCountryCenter retailStoreCountryCenter:retailStoreCountryCenterList ){
 			Object [] parameters = prepareRetailStoreCountryCenterCreateParameters(retailStoreCountryCenter);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareRetailStoreCountryCenterBatchUpdateArgs(List<RetailStoreCountryCenter> retailStoreCountryCenterList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreCountryCenter retailStoreCountryCenter:retailStoreCountryCenterList ){
 			if(!retailStoreCountryCenter.isChanged()){
@@ -2624,40 +2628,40 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			}
 			Object [] parameters = prepareRetailStoreCountryCenterUpdateParameters(retailStoreCountryCenter);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchRetailStoreCountryCenterCreate(List<RetailStoreCountryCenter> retailStoreCountryCenterList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareRetailStoreCountryCenterBatchCreateArgs(retailStoreCountryCenterList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchRetailStoreCountryCenterUpdate(List<RetailStoreCountryCenter> retailStoreCountryCenterList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareRetailStoreCountryCenterBatchUpdateArgs(retailStoreCountryCenterList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitRetailStoreCountryCenterList(List<RetailStoreCountryCenter> retailStoreCountryCenterList){
-		
+
 		List<RetailStoreCountryCenter> retailStoreCountryCenterCreateList=new ArrayList<RetailStoreCountryCenter>();
 		List<RetailStoreCountryCenter> retailStoreCountryCenterUpdateList=new ArrayList<RetailStoreCountryCenter>();
-		
+
 		for(RetailStoreCountryCenter retailStoreCountryCenter: retailStoreCountryCenterList){
 			if(isUpdateRequest(retailStoreCountryCenter)){
 				retailStoreCountryCenterUpdateList.add( retailStoreCountryCenter);
@@ -2665,10 +2669,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			}
 			retailStoreCountryCenterCreateList.add(retailStoreCountryCenter);
 		}
-		
+
 		return new Object[]{retailStoreCountryCenterCreateList,retailStoreCountryCenterUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(RetailStoreCountryCenter retailStoreCountryCenter){
  		return retailStoreCountryCenter.getVersion() > 0;
  	}
@@ -2678,7 +2682,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveRetailStoreCountryCenterParameters(RetailStoreCountryCenter retailStoreCountryCenter){
  		if(isUpdateRequest(retailStoreCountryCenter) ){
  			return prepareRetailStoreCountryCenterUpdateParameters(retailStoreCountryCenter);
@@ -2711,17 +2715,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		
  		
  		parameters[7] = retailStoreCountryCenter.getDescription();
- 				
+ 		
  		parameters[8] = retailStoreCountryCenter.nextVersion();
  		parameters[9] = retailStoreCountryCenter.getId();
  		parameters[10] = retailStoreCountryCenter.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreCountryCenterCreateParameters(RetailStoreCountryCenter retailStoreCountryCenter){
 		Object[] parameters = new Object[9];
-		String newRetailStoreCountryCenterId=getNextId();
-		retailStoreCountryCenter.setId(newRetailStoreCountryCenterId);
+        if(retailStoreCountryCenter.getId() == null){
+          String newRetailStoreCountryCenterId=getNextId();
+          retailStoreCountryCenter.setId(newRetailStoreCountryCenterId);
+        }
 		parameters[0] =  retailStoreCountryCenter.getId();
  
  		
@@ -2747,13 +2753,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		
  		
  		parameters[8] = retailStoreCountryCenter.getDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected RetailStoreCountryCenter saveInternalRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
+
 		saveRetailStoreCountryCenter(retailStoreCountryCenter);
 
 		
@@ -2761,186 +2767,186 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	 		saveCatalogList(retailStoreCountryCenter, options);
 	 		//removeCatalogList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveRetailStoreProvinceCenterListEnabled(options)){
 	 		saveRetailStoreProvinceCenterList(retailStoreCountryCenter, options);
 	 		//removeRetailStoreProvinceCenterList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveRetailStoreListEnabled(options)){
 	 		saveRetailStoreList(retailStoreCountryCenter, options);
 	 		//removeRetailStoreList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveRetailStoreMemberListEnabled(options)){
 	 		saveRetailStoreMemberList(retailStoreCountryCenter, options);
 	 		//removeRetailStoreMemberList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveGoodsSupplierListEnabled(options)){
 	 		saveGoodsSupplierList(retailStoreCountryCenter, options);
 	 		//removeGoodsSupplierList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveSupplyOrderListEnabled(options)){
 	 		saveSupplyOrderList(retailStoreCountryCenter, options);
 	 		//removeSupplyOrderList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveRetailStoreOrderListEnabled(options)){
 	 		saveRetailStoreOrderList(retailStoreCountryCenter, options);
 	 		//removeRetailStoreOrderList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveWarehouseListEnabled(options)){
 	 		saveWarehouseList(retailStoreCountryCenter, options);
 	 		//removeWarehouseList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveTransportFleetListEnabled(options)){
 	 		saveTransportFleetList(retailStoreCountryCenter, options);
 	 		//removeTransportFleetList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveAccountSetListEnabled(options)){
 	 		saveAccountSetList(retailStoreCountryCenter, options);
 	 		//removeAccountSetList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveLevelOneDepartmentListEnabled(options)){
 	 		saveLevelOneDepartmentList(retailStoreCountryCenter, options);
 	 		//removeLevelOneDepartmentList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveSkillTypeListEnabled(options)){
 	 		saveSkillTypeList(retailStoreCountryCenter, options);
 	 		//removeSkillTypeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveResponsibilityTypeListEnabled(options)){
 	 		saveResponsibilityTypeList(retailStoreCountryCenter, options);
 	 		//removeResponsibilityTypeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveTerminationReasonListEnabled(options)){
 	 		saveTerminationReasonList(retailStoreCountryCenter, options);
 	 		//removeTerminationReasonList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveTerminationTypeListEnabled(options)){
 	 		saveTerminationTypeList(retailStoreCountryCenter, options);
 	 		//removeTerminationTypeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveOccupationTypeListEnabled(options)){
 	 		saveOccupationTypeList(retailStoreCountryCenter, options);
 	 		//removeOccupationTypeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveLeaveTypeListEnabled(options)){
 	 		saveLeaveTypeList(retailStoreCountryCenter, options);
 	 		//removeLeaveTypeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveSalaryGradeListEnabled(options)){
 	 		saveSalaryGradeList(retailStoreCountryCenter, options);
 	 		//removeSalaryGradeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveInterviewTypeListEnabled(options)){
 	 		saveInterviewTypeList(retailStoreCountryCenter, options);
 	 		//removeInterviewTypeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveTrainingCourseTypeListEnabled(options)){
 	 		saveTrainingCourseTypeList(retailStoreCountryCenter, options);
 	 		//removeTrainingCourseTypeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSavePublicHolidayListEnabled(options)){
 	 		savePublicHolidayList(retailStoreCountryCenter, options);
 	 		//removePublicHolidayList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeListEnabled(options)){
 	 		saveEmployeeList(retailStoreCountryCenter, options);
 	 		//removeEmployeeList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveInstructorListEnabled(options)){
 	 		saveInstructorList(retailStoreCountryCenter, options);
 	 		//removeInstructorList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveCompanyTrainingListEnabled(options)){
 	 		saveCompanyTrainingList(retailStoreCountryCenter, options);
 	 		//removeCompanyTrainingList(retailStoreCountryCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return retailStoreCountryCenter;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
 	
 
 	
 	public RetailStoreCountryCenter planToRemoveCatalogList(RetailStoreCountryCenter retailStoreCountryCenter, String catalogIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Catalog.OWNER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Catalog.ID_PROPERTY, catalogIds);
-		
+
 		SmartList<Catalog> externalCatalogList = getCatalogDAO().
 				findCatalogWithKey(key, options);
 		if(externalCatalogList == null){
@@ -2949,26 +2955,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalCatalogList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Catalog catalogItem: externalCatalogList){
 
 			catalogItem.clearFromAll();
 		}
-		
-		
-		SmartList<Catalog> catalogList = retailStoreCountryCenter.getCatalogList();		
+
+
+		SmartList<Catalog> catalogList = retailStoreCountryCenter.getCatalogList();
 		catalogList.addAllToRemoveList(externalCatalogList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveRetailStoreProvinceCenterList(RetailStoreCountryCenter retailStoreCountryCenter, String retailStoreProvinceCenterIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreProvinceCenter.COUNTRY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStoreProvinceCenter.ID_PROPERTY, retailStoreProvinceCenterIds);
-		
+
 		SmartList<RetailStoreProvinceCenter> externalRetailStoreProvinceCenterList = getRetailStoreProvinceCenterDAO().
 				findRetailStoreProvinceCenterWithKey(key, options);
 		if(externalRetailStoreProvinceCenterList == null){
@@ -2977,26 +2983,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreProvinceCenterList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStoreProvinceCenter retailStoreProvinceCenterItem: externalRetailStoreProvinceCenterList){
 
 			retailStoreProvinceCenterItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = retailStoreCountryCenter.getRetailStoreProvinceCenterList();		
+
+
+		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = retailStoreCountryCenter.getRetailStoreProvinceCenterList();
 		retailStoreProvinceCenterList.addAllToRemoveList(externalRetailStoreProvinceCenterList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveRetailStoreList(RetailStoreCountryCenter retailStoreCountryCenter, String retailStoreIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.ID_PROPERTY, retailStoreIds);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3005,17 +3011,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 
 			retailStoreItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
@@ -3024,11 +3030,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.CITY_SERVICE_CENTER_PROPERTY, cityServiceCenterId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3037,19 +3043,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearCityServiceCenter();
 			retailStoreItem.clearRetailStoreCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreListWithCityServiceCenter(String retailStoreCountryCenterId, String cityServiceCenterId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3058,7 +3064,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStore.CITY_SERVICE_CENTER_PROPERTY, cityServiceCenterId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -3068,11 +3074,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.CREATION_PROPERTY, creationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3081,19 +3087,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearCreation();
 			retailStoreItem.clearRetailStoreCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreListWithCreation(String retailStoreCountryCenterId, String creationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3102,7 +3108,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStore.CREATION_PROPERTY, creationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -3112,11 +3118,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, investmentInvitationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3125,19 +3131,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearInvestmentInvitation();
 			retailStoreItem.clearRetailStoreCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreListWithInvestmentInvitation(String retailStoreCountryCenterId, String investmentInvitationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3146,7 +3152,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, investmentInvitationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -3156,11 +3162,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.FRANCHISING_PROPERTY, franchisingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3169,19 +3175,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearFranchising();
 			retailStoreItem.clearRetailStoreCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreListWithFranchising(String retailStoreCountryCenterId, String franchisingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3190,7 +3196,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStore.FRANCHISING_PROPERTY, franchisingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -3200,11 +3206,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.DECORATION_PROPERTY, decorationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3213,19 +3219,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearDecoration();
 			retailStoreItem.clearRetailStoreCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreListWithDecoration(String retailStoreCountryCenterId, String decorationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3234,7 +3240,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStore.DECORATION_PROPERTY, decorationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -3244,11 +3250,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.OPENING_PROPERTY, openingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3257,19 +3263,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearOpening();
 			retailStoreItem.clearRetailStoreCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreListWithOpening(String retailStoreCountryCenterId, String openingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3278,7 +3284,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStore.OPENING_PROPERTY, openingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -3288,11 +3294,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStore.CLOSING_PROPERTY, closingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -3301,19 +3307,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearClosing();
 			retailStoreItem.clearRetailStoreCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreListWithClosing(String retailStoreCountryCenterId, String closingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3322,17 +3328,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStore.CLOSING_PROPERTY, closingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
 	
 	public RetailStoreCountryCenter planToRemoveRetailStoreMemberList(RetailStoreCountryCenter retailStoreCountryCenter, String retailStoreMemberIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreMember.OWNER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStoreMember.ID_PROPERTY, retailStoreMemberIds);
-		
+
 		SmartList<RetailStoreMember> externalRetailStoreMemberList = getRetailStoreMemberDAO().
 				findRetailStoreMemberWithKey(key, options);
 		if(externalRetailStoreMemberList == null){
@@ -3341,26 +3347,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreMemberList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStoreMember retailStoreMemberItem: externalRetailStoreMemberList){
 
 			retailStoreMemberItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStoreMember> retailStoreMemberList = retailStoreCountryCenter.getRetailStoreMemberList();		
+
+
+		SmartList<RetailStoreMember> retailStoreMemberList = retailStoreCountryCenter.getRetailStoreMemberList();
 		retailStoreMemberList.addAllToRemoveList(externalRetailStoreMemberList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveGoodsSupplierList(RetailStoreCountryCenter retailStoreCountryCenter, String goodsSupplierIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(GoodsSupplier.BELONG_TO_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(GoodsSupplier.ID_PROPERTY, goodsSupplierIds);
-		
+
 		SmartList<GoodsSupplier> externalGoodsSupplierList = getGoodsSupplierDAO().
 				findGoodsSupplierWithKey(key, options);
 		if(externalGoodsSupplierList == null){
@@ -3369,26 +3375,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalGoodsSupplierList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(GoodsSupplier goodsSupplierItem: externalGoodsSupplierList){
 
 			goodsSupplierItem.clearFromAll();
 		}
-		
-		
-		SmartList<GoodsSupplier> goodsSupplierList = retailStoreCountryCenter.getGoodsSupplierList();		
+
+
+		SmartList<GoodsSupplier> goodsSupplierList = retailStoreCountryCenter.getGoodsSupplierList();
 		goodsSupplierList.addAllToRemoveList(externalGoodsSupplierList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveSupplyOrderList(RetailStoreCountryCenter retailStoreCountryCenter, String supplyOrderIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(SupplyOrder.BUYER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(SupplyOrder.ID_PROPERTY, supplyOrderIds);
-		
+
 		SmartList<SupplyOrder> externalSupplyOrderList = getSupplyOrderDAO().
 				findSupplyOrderWithKey(key, options);
 		if(externalSupplyOrderList == null){
@@ -3397,17 +3403,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalSupplyOrderList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(SupplyOrder supplyOrderItem: externalSupplyOrderList){
 
 			supplyOrderItem.clearFromAll();
 		}
-		
-		
-		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();		
+
+
+		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();
 		supplyOrderList.addAllToRemoveList(externalSupplyOrderList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
@@ -3416,11 +3422,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(SupplyOrder.BUYER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(SupplyOrder.SELLER_PROPERTY, sellerId);
-		
+
 		SmartList<SupplyOrder> externalSupplyOrderList = getSupplyOrderDAO().
 				findSupplyOrderWithKey(key, options);
 		if(externalSupplyOrderList == null){
@@ -3429,19 +3435,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalSupplyOrderList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(SupplyOrder supplyOrderItem: externalSupplyOrderList){
 			supplyOrderItem.clearSeller();
 			supplyOrderItem.clearBuyer();
-			
+
 		}
-		
-		
-		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();		
+
+
+		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();
 		supplyOrderList.addAllToRemoveList(externalSupplyOrderList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countSupplyOrderListWithSeller(String retailStoreCountryCenterId, String sellerId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3450,17 +3456,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(SupplyOrder.BUYER_PROPERTY, retailStoreCountryCenterId);
 		key.put(SupplyOrder.SELLER_PROPERTY, sellerId);
-		
+
 		int count = getSupplyOrderDAO().countSupplyOrderWithKey(key, options);
 		return count;
 	}
 	
 	public RetailStoreCountryCenter planToRemoveRetailStoreOrderList(RetailStoreCountryCenter retailStoreCountryCenter, String retailStoreOrderIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreOrder.SELLER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStoreOrder.ID_PROPERTY, retailStoreOrderIds);
-		
+
 		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
 				findRetailStoreOrderWithKey(key, options);
 		if(externalRetailStoreOrderList == null){
@@ -3469,17 +3475,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreOrderList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
 
 			retailStoreOrderItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();		
+
+
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();
 		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
@@ -3488,11 +3494,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreOrder.SELLER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(RetailStoreOrder.BUYER_PROPERTY, buyerId);
-		
+
 		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
 				findRetailStoreOrderWithKey(key, options);
 		if(externalRetailStoreOrderList == null){
@@ -3501,19 +3507,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalRetailStoreOrderList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
 			retailStoreOrderItem.clearBuyer();
 			retailStoreOrderItem.clearSeller();
-			
+
 		}
-		
-		
-		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();		
+
+
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();
 		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countRetailStoreOrderListWithBuyer(String retailStoreCountryCenterId, String buyerId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3522,17 +3528,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreOrder.SELLER_PROPERTY, retailStoreCountryCenterId);
 		key.put(RetailStoreOrder.BUYER_PROPERTY, buyerId);
-		
+
 		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
 		return count;
 	}
 	
 	public RetailStoreCountryCenter planToRemoveWarehouseList(RetailStoreCountryCenter retailStoreCountryCenter, String warehouseIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Warehouse.OWNER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Warehouse.ID_PROPERTY, warehouseIds);
-		
+
 		SmartList<Warehouse> externalWarehouseList = getWarehouseDAO().
 				findWarehouseWithKey(key, options);
 		if(externalWarehouseList == null){
@@ -3541,26 +3547,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalWarehouseList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Warehouse warehouseItem: externalWarehouseList){
 
 			warehouseItem.clearFromAll();
 		}
-		
-		
-		SmartList<Warehouse> warehouseList = retailStoreCountryCenter.getWarehouseList();		
+
+
+		SmartList<Warehouse> warehouseList = retailStoreCountryCenter.getWarehouseList();
 		warehouseList.addAllToRemoveList(externalWarehouseList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveTransportFleetList(RetailStoreCountryCenter retailStoreCountryCenter, String transportFleetIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(TransportFleet.OWNER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(TransportFleet.ID_PROPERTY, transportFleetIds);
-		
+
 		SmartList<TransportFleet> externalTransportFleetList = getTransportFleetDAO().
 				findTransportFleetWithKey(key, options);
 		if(externalTransportFleetList == null){
@@ -3569,26 +3575,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalTransportFleetList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(TransportFleet transportFleetItem: externalTransportFleetList){
 
 			transportFleetItem.clearFromAll();
 		}
-		
-		
-		SmartList<TransportFleet> transportFleetList = retailStoreCountryCenter.getTransportFleetList();		
+
+
+		SmartList<TransportFleet> transportFleetList = retailStoreCountryCenter.getTransportFleetList();
 		transportFleetList.addAllToRemoveList(externalTransportFleetList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveAccountSetList(RetailStoreCountryCenter retailStoreCountryCenter, String accountSetIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountSet.COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(AccountSet.ID_PROPERTY, accountSetIds);
-		
+
 		SmartList<AccountSet> externalAccountSetList = getAccountSetDAO().
 				findAccountSetWithKey(key, options);
 		if(externalAccountSetList == null){
@@ -3597,17 +3603,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalAccountSetList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(AccountSet accountSetItem: externalAccountSetList){
 
 			accountSetItem.clearFromAll();
 		}
-		
-		
-		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();		
+
+
+		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();
 		accountSetList.addAllToRemoveList(externalAccountSetList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
@@ -3616,11 +3622,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountSet.COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(AccountSet.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		SmartList<AccountSet> externalAccountSetList = getAccountSetDAO().
 				findAccountSetWithKey(key, options);
 		if(externalAccountSetList == null){
@@ -3629,19 +3635,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalAccountSetList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(AccountSet accountSetItem: externalAccountSetList){
 			accountSetItem.clearRetailStore();
 			accountSetItem.clearCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();		
+
+
+		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();
 		accountSetList.addAllToRemoveList(externalAccountSetList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countAccountSetListWithRetailStore(String retailStoreCountryCenterId, String retailStoreId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3650,7 +3656,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountSet.COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(AccountSet.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		int count = getAccountSetDAO().countAccountSetWithKey(key, options);
 		return count;
 	}
@@ -3660,11 +3666,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountSet.COUNTRY_CENTER_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(AccountSet.GOODS_SUPPLIER_PROPERTY, goodsSupplierId);
-		
+
 		SmartList<AccountSet> externalAccountSetList = getAccountSetDAO().
 				findAccountSetWithKey(key, options);
 		if(externalAccountSetList == null){
@@ -3673,19 +3679,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalAccountSetList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(AccountSet accountSetItem: externalAccountSetList){
 			accountSetItem.clearGoodsSupplier();
 			accountSetItem.clearCountryCenter();
-			
+
 		}
-		
-		
-		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();		
+
+
+		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();
 		accountSetList.addAllToRemoveList(externalAccountSetList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countAccountSetListWithGoodsSupplier(String retailStoreCountryCenterId, String goodsSupplierId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -3694,17 +3700,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(AccountSet.COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
 		key.put(AccountSet.GOODS_SUPPLIER_PROPERTY, goodsSupplierId);
-		
+
 		int count = getAccountSetDAO().countAccountSetWithKey(key, options);
 		return count;
 	}
 	
 	public RetailStoreCountryCenter planToRemoveLevelOneDepartmentList(RetailStoreCountryCenter retailStoreCountryCenter, String levelOneDepartmentIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(LevelOneDepartment.BELONGS_TO_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(LevelOneDepartment.ID_PROPERTY, levelOneDepartmentIds);
-		
+
 		SmartList<LevelOneDepartment> externalLevelOneDepartmentList = getLevelOneDepartmentDAO().
 				findLevelOneDepartmentWithKey(key, options);
 		if(externalLevelOneDepartmentList == null){
@@ -3713,26 +3719,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalLevelOneDepartmentList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(LevelOneDepartment levelOneDepartmentItem: externalLevelOneDepartmentList){
 
 			levelOneDepartmentItem.clearFromAll();
 		}
-		
-		
-		SmartList<LevelOneDepartment> levelOneDepartmentList = retailStoreCountryCenter.getLevelOneDepartmentList();		
+
+
+		SmartList<LevelOneDepartment> levelOneDepartmentList = retailStoreCountryCenter.getLevelOneDepartmentList();
 		levelOneDepartmentList.addAllToRemoveList(externalLevelOneDepartmentList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveSkillTypeList(RetailStoreCountryCenter retailStoreCountryCenter, String skillTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(SkillType.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(SkillType.ID_PROPERTY, skillTypeIds);
-		
+
 		SmartList<SkillType> externalSkillTypeList = getSkillTypeDAO().
 				findSkillTypeWithKey(key, options);
 		if(externalSkillTypeList == null){
@@ -3741,26 +3747,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalSkillTypeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(SkillType skillTypeItem: externalSkillTypeList){
 
 			skillTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<SkillType> skillTypeList = retailStoreCountryCenter.getSkillTypeList();		
+
+
+		SmartList<SkillType> skillTypeList = retailStoreCountryCenter.getSkillTypeList();
 		skillTypeList.addAllToRemoveList(externalSkillTypeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveResponsibilityTypeList(RetailStoreCountryCenter retailStoreCountryCenter, String responsibilityTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ResponsibilityType.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(ResponsibilityType.ID_PROPERTY, responsibilityTypeIds);
-		
+
 		SmartList<ResponsibilityType> externalResponsibilityTypeList = getResponsibilityTypeDAO().
 				findResponsibilityTypeWithKey(key, options);
 		if(externalResponsibilityTypeList == null){
@@ -3769,26 +3775,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalResponsibilityTypeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(ResponsibilityType responsibilityTypeItem: externalResponsibilityTypeList){
 
 			responsibilityTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<ResponsibilityType> responsibilityTypeList = retailStoreCountryCenter.getResponsibilityTypeList();		
+
+
+		SmartList<ResponsibilityType> responsibilityTypeList = retailStoreCountryCenter.getResponsibilityTypeList();
 		responsibilityTypeList.addAllToRemoveList(externalResponsibilityTypeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveTerminationReasonList(RetailStoreCountryCenter retailStoreCountryCenter, String terminationReasonIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(TerminationReason.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(TerminationReason.ID_PROPERTY, terminationReasonIds);
-		
+
 		SmartList<TerminationReason> externalTerminationReasonList = getTerminationReasonDAO().
 				findTerminationReasonWithKey(key, options);
 		if(externalTerminationReasonList == null){
@@ -3797,26 +3803,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalTerminationReasonList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(TerminationReason terminationReasonItem: externalTerminationReasonList){
 
 			terminationReasonItem.clearFromAll();
 		}
-		
-		
-		SmartList<TerminationReason> terminationReasonList = retailStoreCountryCenter.getTerminationReasonList();		
+
+
+		SmartList<TerminationReason> terminationReasonList = retailStoreCountryCenter.getTerminationReasonList();
 		terminationReasonList.addAllToRemoveList(externalTerminationReasonList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveTerminationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, String terminationTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(TerminationType.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(TerminationType.ID_PROPERTY, terminationTypeIds);
-		
+
 		SmartList<TerminationType> externalTerminationTypeList = getTerminationTypeDAO().
 				findTerminationTypeWithKey(key, options);
 		if(externalTerminationTypeList == null){
@@ -3825,26 +3831,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalTerminationTypeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(TerminationType terminationTypeItem: externalTerminationTypeList){
 
 			terminationTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<TerminationType> terminationTypeList = retailStoreCountryCenter.getTerminationTypeList();		
+
+
+		SmartList<TerminationType> terminationTypeList = retailStoreCountryCenter.getTerminationTypeList();
 		terminationTypeList.addAllToRemoveList(externalTerminationTypeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveOccupationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, String occupationTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(OccupationType.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(OccupationType.ID_PROPERTY, occupationTypeIds);
-		
+
 		SmartList<OccupationType> externalOccupationTypeList = getOccupationTypeDAO().
 				findOccupationTypeWithKey(key, options);
 		if(externalOccupationTypeList == null){
@@ -3853,26 +3859,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalOccupationTypeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(OccupationType occupationTypeItem: externalOccupationTypeList){
 
 			occupationTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<OccupationType> occupationTypeList = retailStoreCountryCenter.getOccupationTypeList();		
+
+
+		SmartList<OccupationType> occupationTypeList = retailStoreCountryCenter.getOccupationTypeList();
 		occupationTypeList.addAllToRemoveList(externalOccupationTypeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveLeaveTypeList(RetailStoreCountryCenter retailStoreCountryCenter, String leaveTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(LeaveType.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(LeaveType.ID_PROPERTY, leaveTypeIds);
-		
+
 		SmartList<LeaveType> externalLeaveTypeList = getLeaveTypeDAO().
 				findLeaveTypeWithKey(key, options);
 		if(externalLeaveTypeList == null){
@@ -3881,26 +3887,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalLeaveTypeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(LeaveType leaveTypeItem: externalLeaveTypeList){
 
 			leaveTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<LeaveType> leaveTypeList = retailStoreCountryCenter.getLeaveTypeList();		
+
+
+		SmartList<LeaveType> leaveTypeList = retailStoreCountryCenter.getLeaveTypeList();
 		leaveTypeList.addAllToRemoveList(externalLeaveTypeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveSalaryGradeList(RetailStoreCountryCenter retailStoreCountryCenter, String salaryGradeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(SalaryGrade.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(SalaryGrade.ID_PROPERTY, salaryGradeIds);
-		
+
 		SmartList<SalaryGrade> externalSalaryGradeList = getSalaryGradeDAO().
 				findSalaryGradeWithKey(key, options);
 		if(externalSalaryGradeList == null){
@@ -3909,26 +3915,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalSalaryGradeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(SalaryGrade salaryGradeItem: externalSalaryGradeList){
 
 			salaryGradeItem.clearFromAll();
 		}
-		
-		
-		SmartList<SalaryGrade> salaryGradeList = retailStoreCountryCenter.getSalaryGradeList();		
+
+
+		SmartList<SalaryGrade> salaryGradeList = retailStoreCountryCenter.getSalaryGradeList();
 		salaryGradeList.addAllToRemoveList(externalSalaryGradeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveInterviewTypeList(RetailStoreCountryCenter retailStoreCountryCenter, String interviewTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(InterviewType.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(InterviewType.ID_PROPERTY, interviewTypeIds);
-		
+
 		SmartList<InterviewType> externalInterviewTypeList = getInterviewTypeDAO().
 				findInterviewTypeWithKey(key, options);
 		if(externalInterviewTypeList == null){
@@ -3937,26 +3943,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalInterviewTypeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(InterviewType interviewTypeItem: externalInterviewTypeList){
 
 			interviewTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<InterviewType> interviewTypeList = retailStoreCountryCenter.getInterviewTypeList();		
+
+
+		SmartList<InterviewType> interviewTypeList = retailStoreCountryCenter.getInterviewTypeList();
 		interviewTypeList.addAllToRemoveList(externalInterviewTypeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveTrainingCourseTypeList(RetailStoreCountryCenter retailStoreCountryCenter, String trainingCourseTypeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(TrainingCourseType.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(TrainingCourseType.ID_PROPERTY, trainingCourseTypeIds);
-		
+
 		SmartList<TrainingCourseType> externalTrainingCourseTypeList = getTrainingCourseTypeDAO().
 				findTrainingCourseTypeWithKey(key, options);
 		if(externalTrainingCourseTypeList == null){
@@ -3965,26 +3971,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalTrainingCourseTypeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(TrainingCourseType trainingCourseTypeItem: externalTrainingCourseTypeList){
 
 			trainingCourseTypeItem.clearFromAll();
 		}
-		
-		
-		SmartList<TrainingCourseType> trainingCourseTypeList = retailStoreCountryCenter.getTrainingCourseTypeList();		
+
+
+		SmartList<TrainingCourseType> trainingCourseTypeList = retailStoreCountryCenter.getTrainingCourseTypeList();
 		trainingCourseTypeList.addAllToRemoveList(externalTrainingCourseTypeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemovePublicHolidayList(RetailStoreCountryCenter retailStoreCountryCenter, String publicHolidayIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(PublicHoliday.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(PublicHoliday.ID_PROPERTY, publicHolidayIds);
-		
+
 		SmartList<PublicHoliday> externalPublicHolidayList = getPublicHolidayDAO().
 				findPublicHolidayWithKey(key, options);
 		if(externalPublicHolidayList == null){
@@ -3993,26 +3999,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalPublicHolidayList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(PublicHoliday publicHolidayItem: externalPublicHolidayList){
 
 			publicHolidayItem.clearFromAll();
 		}
-		
-		
-		SmartList<PublicHoliday> publicHolidayList = retailStoreCountryCenter.getPublicHolidayList();		
+
+
+		SmartList<PublicHoliday> publicHolidayList = retailStoreCountryCenter.getPublicHolidayList();
 		publicHolidayList.addAllToRemoveList(externalPublicHolidayList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveEmployeeList(RetailStoreCountryCenter retailStoreCountryCenter, String employeeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Employee.ID_PROPERTY, employeeIds);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -4021,17 +4027,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalEmployeeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 
 			employeeItem.clearFromAll();
 		}
-		
-		
-		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
@@ -4040,11 +4046,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Employee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -4053,19 +4059,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalEmployeeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearDepartment();
 			employeeItem.clearCompany();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countEmployeeListWithDepartment(String retailStoreCountryCenterId, String departmentId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -4074,7 +4080,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenterId);
 		key.put(Employee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -4084,11 +4090,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Employee.OCCUPATION_PROPERTY, occupationId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -4097,19 +4103,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalEmployeeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearOccupation();
 			employeeItem.clearCompany();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countEmployeeListWithOccupation(String retailStoreCountryCenterId, String occupationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -4118,7 +4124,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenterId);
 		key.put(Employee.OCCUPATION_PROPERTY, occupationId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -4128,11 +4134,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibleForId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -4141,19 +4147,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalEmployeeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearResponsibleFor();
 			employeeItem.clearCompany();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countEmployeeListWithResponsibleFor(String retailStoreCountryCenterId, String responsibleForId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -4162,7 +4168,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenterId);
 		key.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibleForId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -4172,11 +4178,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -4185,19 +4191,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalEmployeeList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearCurrentSalaryGrade();
 			employeeItem.clearCompany();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countEmployeeListWithCurrentSalaryGrade(String retailStoreCountryCenterId, String currentSalaryGradeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -4206,17 +4212,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenterId);
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
 	
 	public RetailStoreCountryCenter planToRemoveInstructorList(RetailStoreCountryCenter retailStoreCountryCenter, String instructorIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Instructor.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(Instructor.ID_PROPERTY, instructorIds);
-		
+
 		SmartList<Instructor> externalInstructorList = getInstructorDAO().
 				findInstructorWithKey(key, options);
 		if(externalInstructorList == null){
@@ -4225,26 +4231,26 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalInstructorList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(Instructor instructorItem: externalInstructorList){
 
 			instructorItem.clearFromAll();
 		}
-		
-		
-		SmartList<Instructor> instructorList = retailStoreCountryCenter.getInstructorList();		
+
+
+		SmartList<Instructor> instructorList = retailStoreCountryCenter.getInstructorList();
 		instructorList.addAllToRemoveList(externalInstructorList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
 	public RetailStoreCountryCenter planToRemoveCompanyTrainingList(RetailStoreCountryCenter retailStoreCountryCenter, String companyTrainingIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(CompanyTraining.ID_PROPERTY, companyTrainingIds);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -4253,17 +4259,17 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalCompanyTrainingList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 
 			companyTrainingItem.clearFromAll();
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
-		return retailStoreCountryCenter;	
-	
+		return retailStoreCountryCenter;
+
 	}
 
 
@@ -4272,11 +4278,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructorId);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -4285,19 +4291,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalCompanyTrainingList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 			companyTrainingItem.clearInstructor();
 			companyTrainingItem.clearCompany();
-			
+
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countCompanyTrainingListWithInstructor(String retailStoreCountryCenterId, String instructorId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -4306,7 +4312,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.COMPANY_PROPERTY, retailStoreCountryCenterId);
 		key.put(CompanyTraining.INSTRUCTOR_PROPERTY, instructorId);
-		
+
 		int count = getCompanyTrainingDAO().countCompanyTrainingWithKey(key, options);
 		return count;
 	}
@@ -4316,11 +4322,11 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.COMPANY_PROPERTY, retailStoreCountryCenter.getId());
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseTypeId);
-		
+
 		SmartList<CompanyTraining> externalCompanyTrainingList = getCompanyTrainingDAO().
 				findCompanyTrainingWithKey(key, options);
 		if(externalCompanyTrainingList == null){
@@ -4329,19 +4335,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(externalCompanyTrainingList.isEmpty()){
 			return retailStoreCountryCenter;
 		}
-		
+
 		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 			companyTrainingItem.clearTrainingCourseType();
 			companyTrainingItem.clearCompany();
-			
+
 		}
-		
-		
-		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();		
+
+
+		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();
 		companyTrainingList.addAllToRemoveList(externalCompanyTrainingList);
 		return retailStoreCountryCenter;
 	}
-	
+
 	public int countCompanyTrainingListWithTrainingCourseType(String retailStoreCountryCenterId, String trainingCourseTypeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -4350,7 +4356,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(CompanyTraining.COMPANY_PROPERTY, retailStoreCountryCenterId);
 		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, trainingCourseTypeId);
-		
+
 		int count = getCompanyTrainingDAO().countCompanyTrainingWithKey(key, options);
 		return count;
 	}
@@ -4358,19 +4364,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveCatalogList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Catalog> catalogList = retailStoreCountryCenter.getCatalogList();
 		if(catalogList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<Catalog> mergedUpdateCatalogList = new SmartList<Catalog>();
-		
-		
-		mergedUpdateCatalogList.addAll(catalogList); 
+
+
+		mergedUpdateCatalogList.addAll(catalogList);
 		if(catalogList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateCatalogList.addAll(catalogList.getToRemoveList());
@@ -4379,28 +4385,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getCatalogDAO().saveCatalogList(mergedUpdateCatalogList,options);
-		
+
 		if(catalogList.getToRemoveList() != null){
 			catalogList.removeAll(catalogList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeCatalogList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Catalog> catalogList = retailStoreCountryCenter.getCatalogList();
 		if(catalogList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<Catalog> toRemoveCatalogList = catalogList.getToRemoveList();
-		
+
 		if(toRemoveCatalogList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4408,35 +4414,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getCatalogDAO().removeCatalogList(toRemoveCatalogList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getCatalogDAO().removeCatalogList(toRemoveCatalogList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveRetailStoreProvinceCenterList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = retailStoreCountryCenter.getRetailStoreProvinceCenterList();
 		if(retailStoreProvinceCenterList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<RetailStoreProvinceCenter> mergedUpdateRetailStoreProvinceCenterList = new SmartList<RetailStoreProvinceCenter>();
-		
-		
-		mergedUpdateRetailStoreProvinceCenterList.addAll(retailStoreProvinceCenterList); 
+
+
+		mergedUpdateRetailStoreProvinceCenterList.addAll(retailStoreProvinceCenterList);
 		if(retailStoreProvinceCenterList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreProvinceCenterList.addAll(retailStoreProvinceCenterList.getToRemoveList());
@@ -4445,28 +4451,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreProvinceCenterDAO().saveRetailStoreProvinceCenterList(mergedUpdateRetailStoreProvinceCenterList,options);
-		
+
 		if(retailStoreProvinceCenterList.getToRemoveList() != null){
 			retailStoreProvinceCenterList.removeAll(retailStoreProvinceCenterList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeRetailStoreProvinceCenterList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = retailStoreCountryCenter.getRetailStoreProvinceCenterList();
 		if(retailStoreProvinceCenterList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<RetailStoreProvinceCenter> toRemoveRetailStoreProvinceCenterList = retailStoreProvinceCenterList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreProvinceCenterList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4474,35 +4480,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreProvinceCenterDAO().removeRetailStoreProvinceCenterList(toRemoveRetailStoreProvinceCenterList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreProvinceCenterDAO().removeRetailStoreProvinceCenterList(toRemoveRetailStoreProvinceCenterList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveRetailStoreList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		if(retailStoreList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<RetailStore> mergedUpdateRetailStoreList = new SmartList<RetailStore>();
-		
-		
-		mergedUpdateRetailStoreList.addAll(retailStoreList); 
+
+
+		mergedUpdateRetailStoreList.addAll(retailStoreList);
 		if(retailStoreList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreList.addAll(retailStoreList.getToRemoveList());
@@ -4511,28 +4517,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreDAO().saveRetailStoreList(mergedUpdateRetailStoreList,options);
-		
+
 		if(retailStoreList.getToRemoveList() != null){
 			retailStoreList.removeAll(retailStoreList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeRetailStoreList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		if(retailStoreList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<RetailStore> toRemoveRetailStoreList = retailStoreList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4540,35 +4546,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreDAO().removeRetailStoreList(toRemoveRetailStoreList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreDAO().removeRetailStoreList(toRemoveRetailStoreList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveRetailStoreMemberList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStoreMember> retailStoreMemberList = retailStoreCountryCenter.getRetailStoreMemberList();
 		if(retailStoreMemberList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<RetailStoreMember> mergedUpdateRetailStoreMemberList = new SmartList<RetailStoreMember>();
-		
-		
-		mergedUpdateRetailStoreMemberList.addAll(retailStoreMemberList); 
+
+
+		mergedUpdateRetailStoreMemberList.addAll(retailStoreMemberList);
 		if(retailStoreMemberList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreMemberList.addAll(retailStoreMemberList.getToRemoveList());
@@ -4577,28 +4583,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreMemberDAO().saveRetailStoreMemberList(mergedUpdateRetailStoreMemberList,options);
-		
+
 		if(retailStoreMemberList.getToRemoveList() != null){
 			retailStoreMemberList.removeAll(retailStoreMemberList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeRetailStoreMemberList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStoreMember> retailStoreMemberList = retailStoreCountryCenter.getRetailStoreMemberList();
 		if(retailStoreMemberList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<RetailStoreMember> toRemoveRetailStoreMemberList = retailStoreMemberList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreMemberList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4606,35 +4612,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreMemberDAO().removeRetailStoreMemberList(toRemoveRetailStoreMemberList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreMemberDAO().removeRetailStoreMemberList(toRemoveRetailStoreMemberList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveGoodsSupplierList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<GoodsSupplier> goodsSupplierList = retailStoreCountryCenter.getGoodsSupplierList();
 		if(goodsSupplierList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<GoodsSupplier> mergedUpdateGoodsSupplierList = new SmartList<GoodsSupplier>();
-		
-		
-		mergedUpdateGoodsSupplierList.addAll(goodsSupplierList); 
+
+
+		mergedUpdateGoodsSupplierList.addAll(goodsSupplierList);
 		if(goodsSupplierList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsSupplierList.addAll(goodsSupplierList.getToRemoveList());
@@ -4643,28 +4649,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsSupplierDAO().saveGoodsSupplierList(mergedUpdateGoodsSupplierList,options);
-		
+
 		if(goodsSupplierList.getToRemoveList() != null){
 			goodsSupplierList.removeAll(goodsSupplierList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeGoodsSupplierList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<GoodsSupplier> goodsSupplierList = retailStoreCountryCenter.getGoodsSupplierList();
 		if(goodsSupplierList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<GoodsSupplier> toRemoveGoodsSupplierList = goodsSupplierList.getToRemoveList();
-		
+
 		if(toRemoveGoodsSupplierList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4672,35 +4678,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsSupplierDAO().removeGoodsSupplierList(toRemoveGoodsSupplierList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsSupplierDAO().removeGoodsSupplierList(toRemoveGoodsSupplierList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveSupplyOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();
 		if(supplyOrderList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<SupplyOrder> mergedUpdateSupplyOrderList = new SmartList<SupplyOrder>();
-		
-		
-		mergedUpdateSupplyOrderList.addAll(supplyOrderList); 
+
+
+		mergedUpdateSupplyOrderList.addAll(supplyOrderList);
 		if(supplyOrderList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSupplyOrderList.addAll(supplyOrderList.getToRemoveList());
@@ -4709,28 +4715,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getSupplyOrderDAO().saveSupplyOrderList(mergedUpdateSupplyOrderList,options);
-		
+
 		if(supplyOrderList.getToRemoveList() != null){
 			supplyOrderList.removeAll(supplyOrderList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeSupplyOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();
 		if(supplyOrderList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<SupplyOrder> toRemoveSupplyOrderList = supplyOrderList.getToRemoveList();
-		
+
 		if(toRemoveSupplyOrderList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4738,35 +4744,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSupplyOrderDAO().removeSupplyOrderList(toRemoveSupplyOrderList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSupplyOrderDAO().removeSupplyOrderList(toRemoveSupplyOrderList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveRetailStoreOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();
 		if(retailStoreOrderList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<RetailStoreOrder> mergedUpdateRetailStoreOrderList = new SmartList<RetailStoreOrder>();
-		
-		
-		mergedUpdateRetailStoreOrderList.addAll(retailStoreOrderList); 
+
+
+		mergedUpdateRetailStoreOrderList.addAll(retailStoreOrderList);
 		if(retailStoreOrderList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreOrderList.addAll(retailStoreOrderList.getToRemoveList());
@@ -4775,28 +4781,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreOrderDAO().saveRetailStoreOrderList(mergedUpdateRetailStoreOrderList,options);
-		
+
 		if(retailStoreOrderList.getToRemoveList() != null){
 			retailStoreOrderList.removeAll(retailStoreOrderList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeRetailStoreOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();
 		if(retailStoreOrderList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<RetailStoreOrder> toRemoveRetailStoreOrderList = retailStoreOrderList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreOrderList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4804,35 +4810,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreOrderDAO().removeRetailStoreOrderList(toRemoveRetailStoreOrderList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreOrderDAO().removeRetailStoreOrderList(toRemoveRetailStoreOrderList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveWarehouseList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Warehouse> warehouseList = retailStoreCountryCenter.getWarehouseList();
 		if(warehouseList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<Warehouse> mergedUpdateWarehouseList = new SmartList<Warehouse>();
-		
-		
-		mergedUpdateWarehouseList.addAll(warehouseList); 
+
+
+		mergedUpdateWarehouseList.addAll(warehouseList);
 		if(warehouseList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateWarehouseList.addAll(warehouseList.getToRemoveList());
@@ -4841,28 +4847,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getWarehouseDAO().saveWarehouseList(mergedUpdateWarehouseList,options);
-		
+
 		if(warehouseList.getToRemoveList() != null){
 			warehouseList.removeAll(warehouseList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeWarehouseList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Warehouse> warehouseList = retailStoreCountryCenter.getWarehouseList();
 		if(warehouseList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<Warehouse> toRemoveWarehouseList = warehouseList.getToRemoveList();
-		
+
 		if(toRemoveWarehouseList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4870,35 +4876,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getWarehouseDAO().removeWarehouseList(toRemoveWarehouseList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getWarehouseDAO().removeWarehouseList(toRemoveWarehouseList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveTransportFleetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<TransportFleet> transportFleetList = retailStoreCountryCenter.getTransportFleetList();
 		if(transportFleetList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<TransportFleet> mergedUpdateTransportFleetList = new SmartList<TransportFleet>();
-		
-		
-		mergedUpdateTransportFleetList.addAll(transportFleetList); 
+
+
+		mergedUpdateTransportFleetList.addAll(transportFleetList);
 		if(transportFleetList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateTransportFleetList.addAll(transportFleetList.getToRemoveList());
@@ -4907,28 +4913,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getTransportFleetDAO().saveTransportFleetList(mergedUpdateTransportFleetList,options);
-		
+
 		if(transportFleetList.getToRemoveList() != null){
 			transportFleetList.removeAll(transportFleetList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeTransportFleetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<TransportFleet> transportFleetList = retailStoreCountryCenter.getTransportFleetList();
 		if(transportFleetList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<TransportFleet> toRemoveTransportFleetList = transportFleetList.getToRemoveList();
-		
+
 		if(toRemoveTransportFleetList == null){
 			return retailStoreCountryCenter;
 		}
@@ -4936,35 +4942,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getTransportFleetDAO().removeTransportFleetList(toRemoveTransportFleetList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getTransportFleetDAO().removeTransportFleetList(toRemoveTransportFleetList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveAccountSetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();
 		if(accountSetList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<AccountSet> mergedUpdateAccountSetList = new SmartList<AccountSet>();
-		
-		
-		mergedUpdateAccountSetList.addAll(accountSetList); 
+
+
+		mergedUpdateAccountSetList.addAll(accountSetList);
 		if(accountSetList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateAccountSetList.addAll(accountSetList.getToRemoveList());
@@ -4973,28 +4979,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getAccountSetDAO().saveAccountSetList(mergedUpdateAccountSetList,options);
-		
+
 		if(accountSetList.getToRemoveList() != null){
 			accountSetList.removeAll(accountSetList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeAccountSetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();
 		if(accountSetList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<AccountSet> toRemoveAccountSetList = accountSetList.getToRemoveList();
-		
+
 		if(toRemoveAccountSetList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5002,35 +5008,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getAccountSetDAO().removeAccountSetList(toRemoveAccountSetList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getAccountSetDAO().removeAccountSetList(toRemoveAccountSetList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveLevelOneDepartmentList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<LevelOneDepartment> levelOneDepartmentList = retailStoreCountryCenter.getLevelOneDepartmentList();
 		if(levelOneDepartmentList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<LevelOneDepartment> mergedUpdateLevelOneDepartmentList = new SmartList<LevelOneDepartment>();
-		
-		
-		mergedUpdateLevelOneDepartmentList.addAll(levelOneDepartmentList); 
+
+
+		mergedUpdateLevelOneDepartmentList.addAll(levelOneDepartmentList);
 		if(levelOneDepartmentList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateLevelOneDepartmentList.addAll(levelOneDepartmentList.getToRemoveList());
@@ -5039,28 +5045,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getLevelOneDepartmentDAO().saveLevelOneDepartmentList(mergedUpdateLevelOneDepartmentList,options);
-		
+
 		if(levelOneDepartmentList.getToRemoveList() != null){
 			levelOneDepartmentList.removeAll(levelOneDepartmentList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeLevelOneDepartmentList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<LevelOneDepartment> levelOneDepartmentList = retailStoreCountryCenter.getLevelOneDepartmentList();
 		if(levelOneDepartmentList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<LevelOneDepartment> toRemoveLevelOneDepartmentList = levelOneDepartmentList.getToRemoveList();
-		
+
 		if(toRemoveLevelOneDepartmentList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5068,35 +5074,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getLevelOneDepartmentDAO().removeLevelOneDepartmentList(toRemoveLevelOneDepartmentList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getLevelOneDepartmentDAO().removeLevelOneDepartmentList(toRemoveLevelOneDepartmentList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveSkillTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<SkillType> skillTypeList = retailStoreCountryCenter.getSkillTypeList();
 		if(skillTypeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<SkillType> mergedUpdateSkillTypeList = new SmartList<SkillType>();
-		
-		
-		mergedUpdateSkillTypeList.addAll(skillTypeList); 
+
+
+		mergedUpdateSkillTypeList.addAll(skillTypeList);
 		if(skillTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSkillTypeList.addAll(skillTypeList.getToRemoveList());
@@ -5105,28 +5111,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getSkillTypeDAO().saveSkillTypeList(mergedUpdateSkillTypeList,options);
-		
+
 		if(skillTypeList.getToRemoveList() != null){
 			skillTypeList.removeAll(skillTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeSkillTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<SkillType> skillTypeList = retailStoreCountryCenter.getSkillTypeList();
 		if(skillTypeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<SkillType> toRemoveSkillTypeList = skillTypeList.getToRemoveList();
-		
+
 		if(toRemoveSkillTypeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5134,35 +5140,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSkillTypeDAO().removeSkillTypeList(toRemoveSkillTypeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSkillTypeDAO().removeSkillTypeList(toRemoveSkillTypeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveResponsibilityTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ResponsibilityType> responsibilityTypeList = retailStoreCountryCenter.getResponsibilityTypeList();
 		if(responsibilityTypeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<ResponsibilityType> mergedUpdateResponsibilityTypeList = new SmartList<ResponsibilityType>();
-		
-		
-		mergedUpdateResponsibilityTypeList.addAll(responsibilityTypeList); 
+
+
+		mergedUpdateResponsibilityTypeList.addAll(responsibilityTypeList);
 		if(responsibilityTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateResponsibilityTypeList.addAll(responsibilityTypeList.getToRemoveList());
@@ -5171,28 +5177,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getResponsibilityTypeDAO().saveResponsibilityTypeList(mergedUpdateResponsibilityTypeList,options);
-		
+
 		if(responsibilityTypeList.getToRemoveList() != null){
 			responsibilityTypeList.removeAll(responsibilityTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeResponsibilityTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ResponsibilityType> responsibilityTypeList = retailStoreCountryCenter.getResponsibilityTypeList();
 		if(responsibilityTypeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<ResponsibilityType> toRemoveResponsibilityTypeList = responsibilityTypeList.getToRemoveList();
-		
+
 		if(toRemoveResponsibilityTypeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5200,35 +5206,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getResponsibilityTypeDAO().removeResponsibilityTypeList(toRemoveResponsibilityTypeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getResponsibilityTypeDAO().removeResponsibilityTypeList(toRemoveResponsibilityTypeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveTerminationReasonList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<TerminationReason> terminationReasonList = retailStoreCountryCenter.getTerminationReasonList();
 		if(terminationReasonList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<TerminationReason> mergedUpdateTerminationReasonList = new SmartList<TerminationReason>();
-		
-		
-		mergedUpdateTerminationReasonList.addAll(terminationReasonList); 
+
+
+		mergedUpdateTerminationReasonList.addAll(terminationReasonList);
 		if(terminationReasonList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateTerminationReasonList.addAll(terminationReasonList.getToRemoveList());
@@ -5237,28 +5243,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getTerminationReasonDAO().saveTerminationReasonList(mergedUpdateTerminationReasonList,options);
-		
+
 		if(terminationReasonList.getToRemoveList() != null){
 			terminationReasonList.removeAll(terminationReasonList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeTerminationReasonList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<TerminationReason> terminationReasonList = retailStoreCountryCenter.getTerminationReasonList();
 		if(terminationReasonList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<TerminationReason> toRemoveTerminationReasonList = terminationReasonList.getToRemoveList();
-		
+
 		if(toRemoveTerminationReasonList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5266,35 +5272,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getTerminationReasonDAO().removeTerminationReasonList(toRemoveTerminationReasonList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getTerminationReasonDAO().removeTerminationReasonList(toRemoveTerminationReasonList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveTerminationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<TerminationType> terminationTypeList = retailStoreCountryCenter.getTerminationTypeList();
 		if(terminationTypeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<TerminationType> mergedUpdateTerminationTypeList = new SmartList<TerminationType>();
-		
-		
-		mergedUpdateTerminationTypeList.addAll(terminationTypeList); 
+
+
+		mergedUpdateTerminationTypeList.addAll(terminationTypeList);
 		if(terminationTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateTerminationTypeList.addAll(terminationTypeList.getToRemoveList());
@@ -5303,28 +5309,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getTerminationTypeDAO().saveTerminationTypeList(mergedUpdateTerminationTypeList,options);
-		
+
 		if(terminationTypeList.getToRemoveList() != null){
 			terminationTypeList.removeAll(terminationTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeTerminationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<TerminationType> terminationTypeList = retailStoreCountryCenter.getTerminationTypeList();
 		if(terminationTypeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<TerminationType> toRemoveTerminationTypeList = terminationTypeList.getToRemoveList();
-		
+
 		if(toRemoveTerminationTypeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5332,35 +5338,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getTerminationTypeDAO().removeTerminationTypeList(toRemoveTerminationTypeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getTerminationTypeDAO().removeTerminationTypeList(toRemoveTerminationTypeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveOccupationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<OccupationType> occupationTypeList = retailStoreCountryCenter.getOccupationTypeList();
 		if(occupationTypeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<OccupationType> mergedUpdateOccupationTypeList = new SmartList<OccupationType>();
-		
-		
-		mergedUpdateOccupationTypeList.addAll(occupationTypeList); 
+
+
+		mergedUpdateOccupationTypeList.addAll(occupationTypeList);
 		if(occupationTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateOccupationTypeList.addAll(occupationTypeList.getToRemoveList());
@@ -5369,28 +5375,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getOccupationTypeDAO().saveOccupationTypeList(mergedUpdateOccupationTypeList,options);
-		
+
 		if(occupationTypeList.getToRemoveList() != null){
 			occupationTypeList.removeAll(occupationTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeOccupationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<OccupationType> occupationTypeList = retailStoreCountryCenter.getOccupationTypeList();
 		if(occupationTypeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<OccupationType> toRemoveOccupationTypeList = occupationTypeList.getToRemoveList();
-		
+
 		if(toRemoveOccupationTypeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5398,35 +5404,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getOccupationTypeDAO().removeOccupationTypeList(toRemoveOccupationTypeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getOccupationTypeDAO().removeOccupationTypeList(toRemoveOccupationTypeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveLeaveTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<LeaveType> leaveTypeList = retailStoreCountryCenter.getLeaveTypeList();
 		if(leaveTypeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<LeaveType> mergedUpdateLeaveTypeList = new SmartList<LeaveType>();
-		
-		
-		mergedUpdateLeaveTypeList.addAll(leaveTypeList); 
+
+
+		mergedUpdateLeaveTypeList.addAll(leaveTypeList);
 		if(leaveTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateLeaveTypeList.addAll(leaveTypeList.getToRemoveList());
@@ -5435,28 +5441,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getLeaveTypeDAO().saveLeaveTypeList(mergedUpdateLeaveTypeList,options);
-		
+
 		if(leaveTypeList.getToRemoveList() != null){
 			leaveTypeList.removeAll(leaveTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeLeaveTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<LeaveType> leaveTypeList = retailStoreCountryCenter.getLeaveTypeList();
 		if(leaveTypeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<LeaveType> toRemoveLeaveTypeList = leaveTypeList.getToRemoveList();
-		
+
 		if(toRemoveLeaveTypeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5464,35 +5470,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getLeaveTypeDAO().removeLeaveTypeList(toRemoveLeaveTypeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getLeaveTypeDAO().removeLeaveTypeList(toRemoveLeaveTypeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveSalaryGradeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<SalaryGrade> salaryGradeList = retailStoreCountryCenter.getSalaryGradeList();
 		if(salaryGradeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<SalaryGrade> mergedUpdateSalaryGradeList = new SmartList<SalaryGrade>();
-		
-		
-		mergedUpdateSalaryGradeList.addAll(salaryGradeList); 
+
+
+		mergedUpdateSalaryGradeList.addAll(salaryGradeList);
 		if(salaryGradeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateSalaryGradeList.addAll(salaryGradeList.getToRemoveList());
@@ -5501,28 +5507,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getSalaryGradeDAO().saveSalaryGradeList(mergedUpdateSalaryGradeList,options);
-		
+
 		if(salaryGradeList.getToRemoveList() != null){
 			salaryGradeList.removeAll(salaryGradeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeSalaryGradeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<SalaryGrade> salaryGradeList = retailStoreCountryCenter.getSalaryGradeList();
 		if(salaryGradeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<SalaryGrade> toRemoveSalaryGradeList = salaryGradeList.getToRemoveList();
-		
+
 		if(toRemoveSalaryGradeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5530,35 +5536,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getSalaryGradeDAO().removeSalaryGradeList(toRemoveSalaryGradeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getSalaryGradeDAO().removeSalaryGradeList(toRemoveSalaryGradeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveInterviewTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<InterviewType> interviewTypeList = retailStoreCountryCenter.getInterviewTypeList();
 		if(interviewTypeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<InterviewType> mergedUpdateInterviewTypeList = new SmartList<InterviewType>();
-		
-		
-		mergedUpdateInterviewTypeList.addAll(interviewTypeList); 
+
+
+		mergedUpdateInterviewTypeList.addAll(interviewTypeList);
 		if(interviewTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateInterviewTypeList.addAll(interviewTypeList.getToRemoveList());
@@ -5567,28 +5573,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getInterviewTypeDAO().saveInterviewTypeList(mergedUpdateInterviewTypeList,options);
-		
+
 		if(interviewTypeList.getToRemoveList() != null){
 			interviewTypeList.removeAll(interviewTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeInterviewTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<InterviewType> interviewTypeList = retailStoreCountryCenter.getInterviewTypeList();
 		if(interviewTypeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<InterviewType> toRemoveInterviewTypeList = interviewTypeList.getToRemoveList();
-		
+
 		if(toRemoveInterviewTypeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5596,35 +5602,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getInterviewTypeDAO().removeInterviewTypeList(toRemoveInterviewTypeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getInterviewTypeDAO().removeInterviewTypeList(toRemoveInterviewTypeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveTrainingCourseTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<TrainingCourseType> trainingCourseTypeList = retailStoreCountryCenter.getTrainingCourseTypeList();
 		if(trainingCourseTypeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<TrainingCourseType> mergedUpdateTrainingCourseTypeList = new SmartList<TrainingCourseType>();
-		
-		
-		mergedUpdateTrainingCourseTypeList.addAll(trainingCourseTypeList); 
+
+
+		mergedUpdateTrainingCourseTypeList.addAll(trainingCourseTypeList);
 		if(trainingCourseTypeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateTrainingCourseTypeList.addAll(trainingCourseTypeList.getToRemoveList());
@@ -5633,28 +5639,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getTrainingCourseTypeDAO().saveTrainingCourseTypeList(mergedUpdateTrainingCourseTypeList,options);
-		
+
 		if(trainingCourseTypeList.getToRemoveList() != null){
 			trainingCourseTypeList.removeAll(trainingCourseTypeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeTrainingCourseTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<TrainingCourseType> trainingCourseTypeList = retailStoreCountryCenter.getTrainingCourseTypeList();
 		if(trainingCourseTypeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<TrainingCourseType> toRemoveTrainingCourseTypeList = trainingCourseTypeList.getToRemoveList();
-		
+
 		if(toRemoveTrainingCourseTypeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5662,35 +5668,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getTrainingCourseTypeDAO().removeTrainingCourseTypeList(toRemoveTrainingCourseTypeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getTrainingCourseTypeDAO().removeTrainingCourseTypeList(toRemoveTrainingCourseTypeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter savePublicHolidayList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<PublicHoliday> publicHolidayList = retailStoreCountryCenter.getPublicHolidayList();
 		if(publicHolidayList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<PublicHoliday> mergedUpdatePublicHolidayList = new SmartList<PublicHoliday>();
-		
-		
-		mergedUpdatePublicHolidayList.addAll(publicHolidayList); 
+
+
+		mergedUpdatePublicHolidayList.addAll(publicHolidayList);
 		if(publicHolidayList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdatePublicHolidayList.addAll(publicHolidayList.getToRemoveList());
@@ -5699,28 +5705,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getPublicHolidayDAO().savePublicHolidayList(mergedUpdatePublicHolidayList,options);
-		
+
 		if(publicHolidayList.getToRemoveList() != null){
 			publicHolidayList.removeAll(publicHolidayList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removePublicHolidayList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<PublicHoliday> publicHolidayList = retailStoreCountryCenter.getPublicHolidayList();
 		if(publicHolidayList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<PublicHoliday> toRemovePublicHolidayList = publicHolidayList.getToRemoveList();
-		
+
 		if(toRemovePublicHolidayList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5728,35 +5734,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getPublicHolidayDAO().removePublicHolidayList(toRemovePublicHolidayList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getPublicHolidayDAO().removePublicHolidayList(toRemovePublicHolidayList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveEmployeeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		if(employeeList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<Employee> mergedUpdateEmployeeList = new SmartList<Employee>();
-		
-		
-		mergedUpdateEmployeeList.addAll(employeeList); 
+
+
+		mergedUpdateEmployeeList.addAll(employeeList);
 		if(employeeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeList.addAll(employeeList.getToRemoveList());
@@ -5765,28 +5771,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeDAO().saveEmployeeList(mergedUpdateEmployeeList,options);
-		
+
 		if(employeeList.getToRemoveList() != null){
 			employeeList.removeAll(employeeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeEmployeeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		if(employeeList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<Employee> toRemoveEmployeeList = employeeList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5794,35 +5800,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeDAO().removeEmployeeList(toRemoveEmployeeList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeDAO().removeEmployeeList(toRemoveEmployeeList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveInstructorList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Instructor> instructorList = retailStoreCountryCenter.getInstructorList();
 		if(instructorList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<Instructor> mergedUpdateInstructorList = new SmartList<Instructor>();
-		
-		
-		mergedUpdateInstructorList.addAll(instructorList); 
+
+
+		mergedUpdateInstructorList.addAll(instructorList);
 		if(instructorList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateInstructorList.addAll(instructorList.getToRemoveList());
@@ -5831,28 +5837,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getInstructorDAO().saveInstructorList(mergedUpdateInstructorList,options);
-		
+
 		if(instructorList.getToRemoveList() != null){
 			instructorList.removeAll(instructorList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeInstructorList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Instructor> instructorList = retailStoreCountryCenter.getInstructorList();
 		if(instructorList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<Instructor> toRemoveInstructorList = instructorList.getToRemoveList();
-		
+
 		if(toRemoveInstructorList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5860,35 +5866,35 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getInstructorDAO().removeInstructorList(toRemoveInstructorList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getInstructorDAO().removeInstructorList(toRemoveInstructorList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreCountryCenter saveCompanyTrainingList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();
 		if(companyTrainingList == null){
 			//null list means nothing
 			return retailStoreCountryCenter;
 		}
 		SmartList<CompanyTraining> mergedUpdateCompanyTrainingList = new SmartList<CompanyTraining>();
-		
-		
-		mergedUpdateCompanyTrainingList.addAll(companyTrainingList); 
+
+
+		mergedUpdateCompanyTrainingList.addAll(companyTrainingList);
 		if(companyTrainingList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateCompanyTrainingList.addAll(companyTrainingList.getToRemoveList());
@@ -5897,28 +5903,28 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		//adding new size can improve performance
-	
+
 		getCompanyTrainingDAO().saveCompanyTrainingList(mergedUpdateCompanyTrainingList,options);
-		
+
 		if(companyTrainingList.getToRemoveList() != null){
 			companyTrainingList.removeAll(companyTrainingList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreCountryCenter;
-	
+
 	}
-	
+
 	protected RetailStoreCountryCenter removeCompanyTrainingList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();
 		if(companyTrainingList == null){
 			return retailStoreCountryCenter;
-		}	
-	
+		}
+
 		SmartList<CompanyTraining> toRemoveCompanyTrainingList = companyTrainingList.getToRemoveList();
-		
+
 		if(toRemoveCompanyTrainingList == null){
 			return retailStoreCountryCenter;
 		}
@@ -5926,20 +5932,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getCompanyTrainingDAO().removeCompanyTrainingList(toRemoveCompanyTrainingList,options);
-		
-		return retailStoreCountryCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getCompanyTrainingDAO().removeCompanyTrainingList(toRemoveCompanyTrainingList,options);
+
+		return retailStoreCountryCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public RetailStoreCountryCenter present(RetailStoreCountryCenter retailStoreCountryCenter,Map<String, Object> options){
@@ -6603,13 +6609,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	protected String getTableName(){
 		return RetailStoreCountryCenterTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<RetailStoreCountryCenter> retailStoreCountryCenterList) {		
+
+
+
+	public void enhanceList(List<RetailStoreCountryCenter> retailStoreCountryCenterList) {
 		this.enhanceListInternal(retailStoreCountryCenterList, this.getRetailStoreCountryCenterMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Catalog的owner的CatalogList
 	public SmartList<Catalog> loadOurCatalogList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
@@ -7163,39 +7169,45 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreCountryCenter> retailStoreCountryCenterList = ownerEntity.collectRefsWithType(RetailStoreCountryCenter.INTERNAL_TYPE);
 		this.enhanceList(retailStoreCountryCenterList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreCountryCenter> findRetailStoreCountryCenterWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getRetailStoreCountryCenterMapper());
 
 	}
 	@Override
 	public int countRetailStoreCountryCenterWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countRetailStoreCountryCenterWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreCountryCenter> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreCountryCenterMapper());
 	}
+
+  @Override
+  public Stream<RetailStoreCountryCenter> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getRetailStoreCountryCenterMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -7224,7 +7236,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 		return result;
 	}
-	
+
 	
     
 	public Map<String, Integer> countBySql(String sql, Object[] params) {

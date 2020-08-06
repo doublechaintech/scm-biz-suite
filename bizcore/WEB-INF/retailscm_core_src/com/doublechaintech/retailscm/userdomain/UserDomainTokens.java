@@ -79,7 +79,7 @@ public class UserDomainTokens extends CommonTokens{
 	protected static UserDomainTokens allTokens(){
 		
 		return start()
-			.withUserWhiteListList()
+			.withUserAllowListList()
 			.withSecUserList()
 			.withPublicKeyTypeList();
 	
@@ -105,71 +105,71 @@ public class UserDomainTokens extends CommonTokens{
 		return this;
 	}
 
-	protected static final String USER_WHITE_LIST_LIST = "userWhiteListList";
-	public String getUserWhiteListList(){
-		return USER_WHITE_LIST_LIST;
+	protected static final String USER_ALLOW_LIST_LIST = "userAllowListList";
+	public String getUserAllowListList(){
+		return USER_ALLOW_LIST_LIST;
 	}
-	public UserDomainTokens withUserWhiteListList(){		
-		addSimpleOptions(USER_WHITE_LIST_LIST);
+	public UserDomainTokens withUserAllowListList(){		
+		addSimpleOptions(USER_ALLOW_LIST_LIST);
 		return this;
 	}
-	public UserDomainTokens analyzeUserWhiteListList(){		
-		addSimpleOptions(USER_WHITE_LIST_LIST+".anaylze");
+	public UserDomainTokens analyzeUserAllowListList(){		
+		addSimpleOptions(USER_ALLOW_LIST_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeUserWhiteListListEnabled(){		
+	public boolean analyzeUserAllowListListEnabled(){		
 		
-		if(checkOptions(this.options(), USER_WHITE_LIST_LIST+".anaylze")){
+		if(checkOptions(this.options(), USER_ALLOW_LIST_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public UserDomainTokens extractMoreFromUserWhiteListList(String idsSeperatedWithComma){		
-		addSimpleOptions(USER_WHITE_LIST_LIST+".extractIds", idsSeperatedWithComma);
+	public UserDomainTokens extractMoreFromUserAllowListList(String idsSeperatedWithComma){		
+		addSimpleOptions(USER_ALLOW_LIST_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
 	
 	
 	
 	
-	private int userWhiteListListSortCounter = 0;
-	public UserDomainTokens sortUserWhiteListListWith(String field, String descOrAsc){		
-		addSortMoreOptions(USER_WHITE_LIST_LIST,userWhiteListListSortCounter++, field, descOrAsc);
+	private int userAllowListListSortCounter = 0;
+	public UserDomainTokens sortUserAllowListListWith(String field, String descOrAsc){		
+		addSortMoreOptions(USER_ALLOW_LIST_LIST,userAllowListListSortCounter++, field, descOrAsc);
 		return this;
 	}
-	private int userWhiteListListSearchCounter = 0;
-	public UserDomainTokens searchUserWhiteListListWith(String field, String verb, String value){		
+	private int userAllowListListSearchCounter = 0;
+	public UserDomainTokens searchUserAllowListListWith(String field, String verb, String value){		
 		
-		withUserWhiteListList();
-		addSearchMoreOptions(USER_WHITE_LIST_LIST,userWhiteListListSearchCounter++, field, verb, value);
+		withUserAllowListList();
+		addSearchMoreOptions(USER_ALLOW_LIST_LIST,userAllowListListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public UserDomainTokens searchAllTextOfUserWhiteListList(String verb, String value){	
+	public UserDomainTokens searchAllTextOfUserAllowListList(String verb, String value){	
 		String field = "id|userIdentity|userSpecialFunctions";
-		addSearchMoreOptions(USER_WHITE_LIST_LIST,userWhiteListListSearchCounter++, field, verb, value);
+		addSearchMoreOptions(USER_ALLOW_LIST_LIST,userAllowListListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public UserDomainTokens rowsPerPageOfUserWhiteListList(int rowsPerPage){		
-		addSimpleOptions(USER_WHITE_LIST_LIST+"RowsPerPage",rowsPerPage);
+	public UserDomainTokens rowsPerPageOfUserAllowListList(int rowsPerPage){		
+		addSimpleOptions(USER_ALLOW_LIST_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public UserDomainTokens currentPageNumberOfUserWhiteListList(int currentPageNumber){		
-		addSimpleOptions(USER_WHITE_LIST_LIST+"CurrentPage",currentPageNumber);
+	public UserDomainTokens currentPageNumberOfUserAllowListList(int currentPageNumber){		
+		addSimpleOptions(USER_ALLOW_LIST_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public UserDomainTokens retainColumnsOfUserWhiteListList(String[] columns){		
-		addSimpleOptions(USER_WHITE_LIST_LIST+"RetainColumns",columns);
+	public UserDomainTokens retainColumnsOfUserAllowListList(String[] columns){		
+		addSimpleOptions(USER_ALLOW_LIST_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public UserDomainTokens excludeColumnsOfUserWhiteListList(String[] columns){		
-		addSimpleOptions(USER_WHITE_LIST_LIST+"ExcludeColumns",columns);
+	public UserDomainTokens excludeColumnsOfUserAllowListList(String[] columns){		
+		addSimpleOptions(USER_ALLOW_LIST_LIST+"ExcludeColumns",columns);
 		return this;
 	}
 	
@@ -318,7 +318,7 @@ public class UserDomainTokens extends CommonTokens{
 	
 	public  UserDomainTokens searchEntireObjectText(String verb, String value){
 		
-		searchAllTextOfUserWhiteListList(verb, value);	
+		searchAllTextOfUserAllowListList(verb, value);	
 		searchAllTextOfSecUserList(verb, value);	
 		searchAllTextOfPublicKeyTypeList(verb, value);	
 		return this;

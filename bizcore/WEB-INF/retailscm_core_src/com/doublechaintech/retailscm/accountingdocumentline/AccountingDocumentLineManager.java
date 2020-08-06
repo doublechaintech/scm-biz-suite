@@ -17,6 +17,7 @@ public interface AccountingDocumentLineManager extends BaseManager{
 	public AccountingDocumentLine createAccountingDocumentLine(RetailscmUserContext userContext, String name,String code,String direct,BigDecimal amount,String belongsToId,String accountingSubjectId) throws Exception;
 	public AccountingDocumentLine updateAccountingDocumentLine(RetailscmUserContext userContext,String accountingDocumentLineId, int accountingDocumentLineVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public AccountingDocumentLine loadAccountingDocumentLine(RetailscmUserContext userContext, String accountingDocumentLineId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public AccountingDocumentLine internalSaveAccountingDocumentLine(RetailscmUserContext userContext, AccountingDocumentLine accountingDocumentLine) throws Exception;
 	public AccountingDocumentLine internalSaveAccountingDocumentLine(RetailscmUserContext userContext, AccountingDocumentLine accountingDocumentLine,Map<String,Object>option) throws Exception;
 

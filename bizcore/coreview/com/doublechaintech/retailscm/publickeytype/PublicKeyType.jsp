@@ -101,7 +101,7 @@
 	  <li class="active"><a data-toggle="tab" href="#summary" class="disabled"><i class="fa  fa-home"></i> ${userContext.localeMap['@summary']}</a></li>
 	 
 	<% PublicKeyType result = (PublicKeyType)request.getAttribute("result");  %>
-			<li><a data-toggle="tab" href="#keypairIdentifyList" class="disabled"> ${userContext.localeMap['keypair_identify']}</a></li>
+			<li><a data-toggle="tab" href="#keypairIdentityList" class="disabled"> ${userContext.localeMap['keypair_identity']}</a></li>
  
 	</ul>
 	</div>
@@ -151,11 +151,11 @@
 
 	
 
-		<c:if test='${not empty userContext.accessTokens["keypairIdentifyList"] or ignoreListAccessControl}'>
-		<c:set var="keypairIdentifyList" value="${result.keypairIdentifyList}" scope="request"/>
-		<c:set var="keypairIdentifyListName" value="keypairIdentifyList" scope="request"/>
-		<div id="keypairIdentifyList" class="tab-pane fade sublist" refer-name="key_type">
-			<sky:include page="com/doublechaintech/retailscm/keypairidentify/KeypairIdentify$List.jsp"
+		<c:if test='${not empty userContext.accessTokens["keypairIdentityList"] or ignoreListAccessControl}'>
+		<c:set var="keypairIdentityList" value="${result.keypairIdentityList}" scope="request"/>
+		<c:set var="keypairIdentityListName" value="keypairIdentityList" scope="request"/>
+		<div id="keypairIdentityList" class="tab-pane fade sublist" refer-name="key_type">
+			<sky:include page="com/doublechaintech/retailscm/keypairidentity/KeypairIdentity$List.jsp"
 					referName="keyType"/>
 		</div>
 	</c:if>

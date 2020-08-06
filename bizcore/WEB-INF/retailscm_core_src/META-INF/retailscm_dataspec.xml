@@ -3,7 +3,7 @@
 
 	<table name="retail_store_country_center_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="5" max="44" description="名称" />
 			<field name="service_number" type="string" checkType="StringLengthRange" min="3" max="36" description="服务号码" />
 			<field name="founded" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="成立" />
@@ -18,7 +18,7 @@
 
 	<table name="catalog_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="10" max="201" description="名称" />
 			<field name="owner" type="reference" checkType="exist(retail_store_country_center)" description="业主" />
 			<field name="sub_count" type="int" checkType="IntegerRange" min="0" max="10" description="子数" />
@@ -29,7 +29,7 @@
 
 	<table name="level_one_category_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="catalog" type="reference" checkType="exist(catalog)" description="目录" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -38,7 +38,7 @@
 
 	<table name="level_two_category_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="parent_category" type="reference" checkType="exist(level_one_category)" description="父类" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -47,7 +47,7 @@
 
 	<table name="level_three_category_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="parent_category" type="reference" checkType="exist(level_two_category)" description="父类" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -56,21 +56,21 @@
 
 	<table name="product_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="parent_category" type="reference" checkType="exist(level_three_category)" description="父类" />
 			<field name="origin" type="string" checkType="StringLengthRange" min="1" max="8" description="产地" />
 			<field name="remark" type="string" checkType="StringLengthRange" min="6" max="88" description="备注" />
 			<field name="brand" type="string" checkType="StringLengthRange" min="6" max="92" description="品牌" />
 			<field name="picture" type="string_image" checkType="Image" min="0" max="512" description="图片" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="sku_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="24" description="名称" />
 			<field name="size" type="string" checkType="StringLengthRange" min="0" max="4" description="大小" />
 			<field name="product" type="reference" checkType="exist(product)" description="产品" />
@@ -85,18 +85,18 @@
 
 	<table name="retail_store_province_center_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="5" max="44" description="名称" />
 			<field name="founded" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="成立" />
 			<field name="country" type="reference" checkType="exist(retail_store_country_center)" description="国" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="province_center_department_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="20" description="名称" />
 			<field name="founded" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="成立" />
 			<field name="province_center" type="reference" checkType="exist(retail_store_province_center)" description="省中心" />
@@ -107,7 +107,7 @@
 
 	<table name="province_center_employee_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="mobile" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="手机" />
 			<field name="email" type="string_email" checkType="Email" min="9" max="80" description="电子邮件" />
@@ -120,43 +120,43 @@
 
 	<table name="retail_store_city_service_center_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="4" max="36" description="名称" />
 			<field name="founded" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="成立" />
 			<field name="belongs_to" type="reference" checkType="exist(retail_store_province_center)" description="属于" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="city_partner_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="mobile" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="手机" />
 			<field name="city_service_center" type="reference" checkType="exist(retail_store_city_service_center)" description="城市服务中心" />
 			<field name="description" type="string" checkType="StringLengthRange" min="5" max="64" description="描述" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="potential_customer_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="mobile" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="手机" />
 			<field name="city_service_center" type="reference" checkType="exist(retail_store_city_service_center)" description="城市服务中心" />
 			<field name="city_partner" type="reference" checkType="exist(city_partner)" description="城市合伙人" />
 			<field name="description" type="string" checkType="StringLengthRange" min="5" max="64" description="描述" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="potential_customer_contact_person_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="mobile" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="手机" />
 			<field name="potential_customer" type="reference" checkType="exist(potential_customer)" description="潜在的客户" />
@@ -167,7 +167,7 @@
 
 	<table name="potential_customer_contact_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="40" description="名称" />
 			<field name="contact_date" type="date" checkType="DateRange" min="1900-01-01" max="2016-09-09" description="接触日期" />
 			<field name="contact_method" type="string" checkType="StringLengthRange" min="1" max="16" description="接触法" />
@@ -175,26 +175,26 @@
 			<field name="city_partner" type="reference" checkType="exist(city_partner)" description="城市合伙人" />
 			<field name="contact_to" type="reference" checkType="exist(potential_customer_contact_person)" description="接触" />
 			<field name="description" type="string" checkType="StringLengthRange" min="2" max="24" description="描述" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="city_event_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="28" description="名称" />
 			<field name="mobile" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="手机" />
 			<field name="city_service_center" type="reference" checkType="exist(retail_store_city_service_center)" description="城市服务中心" />
 			<field name="description" type="string" checkType="StringLengthRange" min="4" max="48" description="描述" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="event_attendance_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="36" description="名称" />
 			<field name="potential_customer" type="reference" checkType="exist(potential_customer)" description="潜在的客户" />
 			<field name="city_event" type="reference" checkType="exist(city_event)" description="城市活动" />
@@ -205,7 +205,7 @@
 
 	<table name="retail_store_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="24" description="名称" />
 			<field name="telephone" type="string" checkType="StringLengthRange" min="4" max="48" description="电话" />
 			<field name="owner" type="string" checkType="StringLengthRange" min="1" max="8" description="业主" />
@@ -221,14 +221,14 @@
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
 			<field name="description" type="string" checkType="StringLengthRange" min="6" max="84" description="描述" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="retail_store_creation_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="2" max="20" description="评论" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -236,7 +236,7 @@
 
 	<table name="retail_store_investment_invitation_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="2" max="24" description="评论" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -244,7 +244,7 @@
 
 	<table name="retail_store_franchising_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="2" max="16" description="评论" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -252,7 +252,7 @@
 
 	<table name="retail_store_decoration_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="1" max="8" description="评论" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -260,7 +260,7 @@
 
 	<table name="retail_store_opening_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="1" max="8" description="评论" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -268,7 +268,7 @@
 
 	<table name="retail_store_closing_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="1" max="8" description="评论" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -276,7 +276,7 @@
 
 	<table name="retail_store_member_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="mobile_phone" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="移动电话" />
 			<field name="owner" type="reference" checkType="exist(retail_store_country_center)" description="业主" />
@@ -286,32 +286,32 @@
 
 	<table name="consumer_order_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="2" max="16" description="头衔" />
 			<field name="consumer" type="reference" checkType="exist(retail_store_member)" description="消费者" />
 			<field name="store" type="reference" checkType="exist(retail_store)" description="商场" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="consumer_order_line_item_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="biz_order" type="reference" checkType="exist(consumer_order)" description="订单" />
 			<field name="sku_id" type="string" checkType="StringLengthRange" min="1" max="12" description="产品ID" />
 			<field name="sku_name" type="string" checkType="StringLengthRange" min="2" max="16" description="产品名称" />
 			<field name="price" type="money" checkType="MoneyAmount" min="0.00" max="5.97" description="价格" />
 			<field name="quantity" type="double" checkType="BigDecimalRange" min="0" max="1000.00" description="数量" />
 			<field name="amount" type="money" checkType="MoneyAmount" min="0.00" max="9999.99" description="金额" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="consumer_order_shipping_group_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="24" description="名称" />
 			<field name="biz_order" type="reference" checkType="exist(consumer_order)" description="订单" />
 			<field name="amount" type="money" checkType="MoneyAmount" min="0.00" max="599.99" description="金额" />
@@ -321,7 +321,7 @@
 
 	<table name="consumer_order_payment_group_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="16" description="名称" />
 			<field name="biz_order" type="reference" checkType="exist(consumer_order)" description="订单" />
 			<field name="card_number" type="string" checkType="StringLengthRange" min="5" max="68" description="卡号码" />
@@ -331,7 +331,7 @@
 
 	<table name="consumer_order_price_adjustment_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="biz_order" type="reference" checkType="exist(consumer_order)" description="订单" />
 			<field name="amount" type="money" checkType="MoneyAmount" min="0.00" max="599.99" description="金额" />
@@ -342,18 +342,18 @@
 
 	<table name="retail_store_member_coupon_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member)" description="业主" />
 			<field name="number" type="string" checkType="StringLengthRange" min="2" max="28" description="数" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="member_wishlist_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="24" description="名称" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member)" description="业主" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -362,7 +362,7 @@
 
 	<table name="member_reward_point_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="24" description="名称" />
 			<field name="point" type="int" checkType="IntegerRange" min="0" max="20" description="点" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member)" description="业主" />
@@ -372,7 +372,7 @@
 
 	<table name="member_reward_point_redemption_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="point" type="int" checkType="IntegerRange" min="0" max="20" description="点" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member)" description="业主" />
@@ -382,7 +382,7 @@
 
 	<table name="member_wishlist_product_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="20" description="名称" />
 			<field name="owner" type="reference" checkType="exist(member_wishlist)" description="业主" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -391,7 +391,7 @@
 
 	<table name="retail_store_member_address_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="24" description="名称" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member)" description="业主" />
 			<field name="mobile_phone" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="移动电话" />
@@ -402,7 +402,7 @@
 
 	<table name="retail_store_member_gift_card_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member)" description="业主" />
 			<field name="number" type="string" checkType="StringLengthRange" min="2" max="28" description="数" />
@@ -413,7 +413,7 @@
 
 	<table name="retail_store_member_gift_card_consume_record_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="occure_time" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="发生时间" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member_gift_card)" description="业主" />
 			<field name="biz_order" type="reference" checkType="exist(consumer_order)" description="订单" />
@@ -425,20 +425,20 @@
 
 	<table name="goods_supplier_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="supply_product" type="string" checkType="StringLengthRange" min="1" max="16" description="供应产品" />
 			<field name="belong_to" type="reference" checkType="exist(retail_store_country_center)" description="属于" />
 			<field name="contact_number" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="联系电话" />
 			<field name="description" type="string" checkType="StringLengthRange" min="5" max="72" description="描述" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="supplier_product_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="product_name" type="string" checkType="StringLengthRange" min="2" max="16" description="品名" />
 			<field name="product_description" type="string" checkType="StringLengthRange" min="4" max="52" description="产品描述" />
 			<field name="product_unit" type="string" checkType="StringLengthRange" min="0" max="8" description="产品单元" />
@@ -449,7 +449,7 @@
 
 	<table name="product_supply_duration_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="quantity" type="int" checkType="IntegerRange" min="0" max="500" description="数量" />
 			<field name="duration" type="string" checkType="StringLengthRange" min="1" max="8" description="持续时间" />
 			<field name="price" type="money" checkType="MoneyAmount" min="0.00" max="9999.99" description="价格" />
@@ -460,19 +460,19 @@
 
 	<table name="supply_order_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="buyer" type="reference" checkType="exist(retail_store_country_center)" description="买方" />
 			<field name="seller" type="reference" checkType="exist(goods_supplier)" description="卖方" />
 			<field name="title" type="string" checkType="StringLengthRange" min="3" max="40" description="头衔" />
 			<field name="total_amount" type="money" checkType="MoneyAmount" min="0.00" max="3000000000.88" description="总金额" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="supply_order_line_item_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="biz_order" type="reference" checkType="exist(supply_order)" description="订单" />
 			<field name="sku_id" type="string" checkType="StringLengthRange" min="1" max="12" description="产品ID" />
 			<field name="sku_name" type="string" checkType="StringLengthRange" min="2" max="16" description="产品名称" />
@@ -485,7 +485,7 @@
 
 	<table name="supply_order_shipping_group_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="40" description="名称" />
 			<field name="biz_order" type="reference" checkType="exist(supply_order)" description="订单" />
 			<field name="amount" type="money" checkType="MoneyAmount" min="0.00" max="5.99" description="金额" />
@@ -495,7 +495,7 @@
 
 	<table name="supply_order_payment_group_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="biz_order" type="reference" checkType="exist(supply_order)" description="订单" />
 			<field name="card_number" type="string" checkType="StringLengthRange" min="5" max="68" description="卡号码" />
@@ -505,19 +505,19 @@
 
 	<table name="retail_store_order_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="buyer" type="reference" checkType="exist(retail_store)" description="买方" />
 			<field name="seller" type="reference" checkType="exist(retail_store_country_center)" description="卖方" />
 			<field name="title" type="string" checkType="StringLengthRange" min="4" max="56" description="头衔" />
 			<field name="total_amount" type="money" checkType="MoneyAmount" min="0.00" max="3000000000.88" description="总金额" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="retail_store_order_line_item_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="biz_order" type="reference" checkType="exist(retail_store_order)" description="订单" />
 			<field name="sku_id" type="string" checkType="StringLengthRange" min="1" max="12" description="产品ID" />
 			<field name="sku_name" type="string" checkType="StringLengthRange" min="2" max="16" description="产品名称" />
@@ -530,7 +530,7 @@
 
 	<table name="retail_store_order_shipping_group_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="40" description="名称" />
 			<field name="biz_order" type="reference" checkType="exist(retail_store_order)" description="订单" />
 			<field name="amount" type="money" checkType="MoneyAmount" min="0.00" max="5.99" description="金额" />
@@ -540,7 +540,7 @@
 
 	<table name="retail_store_order_payment_group_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="biz_order" type="reference" checkType="exist(retail_store_order)" description="订单" />
 			<field name="card_number" type="string" checkType="StringLengthRange" min="5" max="68" description="卡号码" />
@@ -550,61 +550,61 @@
 
 	<table name="warehouse_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="3" max="44" description="位置" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="total_area" type="string" checkType="StringLengthRange" min="3" max="36" description="总面积" />
 			<field name="owner" type="reference" checkType="exist(retail_store_country_center)" description="业主" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="storage_space_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="4" max="56" description="位置" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="total_area" type="string" checkType="StringLengthRange" min="2" max="28" description="总面积" />
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="smart_pallet_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="7" max="104" description="位置" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="total_area" type="string" checkType="StringLengthRange" min="2" max="28" description="总面积" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="goods_shelf_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="5" max="64" description="位置" />
 			<field name="storage_space" type="reference" checkType="exist(storage_space)" description="存货区" />
 			<field name="supplier_space" type="reference" checkType="exist(supplier_space)" description="供应商的空间" />
 			<field name="damage_space" type="reference" checkType="exist(damage_space)" description="残次货物存放区" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="goods_shelf_stock_count_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="2" max="16" description="头衔" />
 			<field name="count_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-04-01" description="计数时间" />
 			<field name="summary" type="string" checkType="StringLengthRange" min="5" max="72" description="概览" />
@@ -615,7 +615,7 @@
 
 	<table name="stock_count_issue_track_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="2" max="16" description="头衔" />
 			<field name="count_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-04-01" description="计数时间" />
 			<field name="summary" type="string" checkType="StringLengthRange" min="3" max="40" description="概览" />
@@ -626,7 +626,7 @@
 
 	<table name="goods_allocation_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="6" max="84" description="位置" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
@@ -637,7 +637,7 @@
 
 	<table name="goods_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="rfid" type="string" checkType="StringLengthRange" min="2" max="28" description="RFID" />
 			<field name="uom" type="string" checkType="StringLengthRange" min="0" max="4" description="计量单位" />
@@ -658,7 +658,7 @@
 
 	<table name="goods_movement_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="move_time" type="date_time" checkType="DateTime" min="1900-01-01T00:00:00" max="2017-08-09T09:09:09" description="移动时间" />
 			<field name="facility" type="string" checkType="StringLengthRange" min="1" max="16" description="设施" />
 			<field name="facility_id" type="string" checkType="StringLengthRange" min="1" max="16" description="设备ID" />
@@ -674,21 +674,21 @@
 
 	<table name="supplier_space_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="5" max="76" description="位置" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="total_area" type="string" checkType="StringLengthRange" min="2" max="28" description="总面积" />
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="receiving_space_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="5" max="64" description="位置" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="description" type="string" checkType="StringLengthRange" min="4" max="52" description="描述" />
@@ -696,14 +696,14 @@
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="shipping_space_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="4" max="56" description="位置" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="total_area" type="string" checkType="StringLengthRange" min="2" max="28" description="总面积" />
@@ -711,50 +711,50 @@
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
 			<field name="description" type="string" checkType="StringLengthRange" min="4" max="52" description="描述" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="damage_space_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="6" max="80" description="位置" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="total_area" type="string" checkType="StringLengthRange" min="2" max="28" description="总面积" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="warehouse_asset_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="20" description="名称" />
 			<field name="position" type="string" checkType="StringLengthRange" min="3" max="40" description="位置" />
 			<field name="owner" type="reference" checkType="exist(warehouse)" description="业主" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="transport_fleet_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="28" description="名称" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
 			<field name="owner" type="reference" checkType="exist(retail_store_country_center)" description="业主" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="transport_truck_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="plate_number" type="string" checkType="StringLengthRange" min="2" max="16" description="车牌号码" />
 			<field name="contact_number" type="string" checkType="StringLengthRange" min="4" max="48" description="联系电话" />
@@ -770,7 +770,7 @@
 
 	<table name="truck_driver_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="24" description="名称" />
 			<field name="driver_license_number" type="string" checkType="StringLengthRange" min="4" max="52" description="驾驶执照号码" />
 			<field name="contact_number" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="5" max="44" description="联系电话" />
@@ -781,7 +781,7 @@
 
 	<table name="transport_task_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="start" type="string" checkType="StringLengthRange" min="2" max="20" description="开始" />
 			<field name="begin_time" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="开始时间" />
@@ -797,7 +797,7 @@
 
 	<table name="transport_task_track_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="track_time" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="跟踪时间" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
@@ -808,7 +808,7 @@
 
 	<table name="account_set_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="24" description="名称" />
 			<field name="year_set" type="string" checkType="StringLengthRange" min="2" max="20" description="年组" />
 			<field name="effective_date" type="date" checkType="DateRange" min="1900-01-01" max="2017-05-28" description="生效日期" />
@@ -820,14 +820,14 @@
 			<field name="country_center" type="reference" checkType="exist(retail_store_country_center)" description="全国运营中心" />
 			<field name="retail_store" type="reference" checkType="exist(retail_store)" description="双链小超" />
 			<field name="goods_supplier" type="reference" checkType="exist(goods_supplier)" description="产品供应商" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="accounting_subject_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="accounting_subject_code" type="string" checkType="StringLengthRange" min="2" max="24" description="会计科目代码" />
 			<field name="accounting_subject_name" type="string" checkType="StringLengthRange" min="2" max="16" description="会计科目名称" />
 			<field name="accounting_subject_class_code" type="int" checkType="IntegerRange" min="0" max="6" description="会计科目类别代码" />
@@ -839,7 +839,7 @@
 
 	<table name="accounting_period_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="32" description="名称" />
 			<field name="start_date" type="date" checkType="DateRange" min="1900-01-01" max="2017-01-09" description="开始日期" />
 			<field name="end_date" type="date" checkType="DateRange" min="1900-01-01" max="2017-01-09" description="结束日期" />
@@ -850,7 +850,7 @@
 
 	<table name="accounting_document_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="description" type="string" checkType="StringLengthRange" min="18" max="280" description="描述" />
 			<field name="accounting_period" type="reference" checkType="exist(account_set)" description="会计期间" />
@@ -860,7 +860,7 @@
 
 	<table name="accounting_document_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="accounting_document_date" type="date" checkType="DateRange" min="1900-01-01" max="2018-09-09" description="会计凭证日期" />
 			<field name="accounting_period" type="reference" checkType="exist(accounting_period)" description="会计期间" />
@@ -871,7 +871,7 @@
 
 	<table name="original_voucher_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="2" max="28" description="头衔" />
 			<field name="made_by" type="string" checkType="StringLengthRange" min="1" max="12" description="由" />
 			<field name="received_by" type="string" checkType="StringLengthRange" min="1" max="12" description="受" />
@@ -884,7 +884,7 @@
 
 	<table name="accounting_document_line_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="24" description="代码" />
 			<field name="direct" type="string" checkType="StringLengthRange" min="0" max="4" description="直接" />
@@ -897,7 +897,7 @@
 
 	<table name="level_one_department_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="belongs_to" type="reference" checkType="exist(retail_store_country_center)" description="属于" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="20" description="名称" />
 			<field name="description" type="string" checkType="StringLengthRange" min="5" max="72" description="描述" />
@@ -909,7 +909,7 @@
 
 	<table name="level_two_department_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="belongs_to" type="reference" checkType="exist(level_one_department)" description="属于" />
 			<field name="name" type="string" checkType="StringLengthRange" min="3" max="40" description="名称" />
 			<field name="description" type="string" checkType="StringLengthRange" min="5" max="72" description="描述" />
@@ -920,7 +920,7 @@
 
 	<table name="level_three_department_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="belongs_to" type="reference" checkType="exist(level_two_department)" description="属于" />
 			<field name="name" type="string" checkType="StringLengthRange" min="5" max="52" description="名称" />
 			<field name="description" type="string" checkType="StringLengthRange" min="5" max="72" description="描述" />
@@ -931,7 +931,7 @@
 
 	<table name="skill_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="20" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="description" type="string" checkType="StringLengthRange" min="1" max="24" description="描述" />
@@ -941,7 +941,7 @@
 
 	<table name="responsibility_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="20" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="base_description" type="string" checkType="StringLengthRange" min="2" max="16" description="基本描述" />
@@ -952,7 +952,7 @@
 
 	<table name="termination_reason_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="28" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="description" type="string" checkType="StringLengthRange" min="2" max="36" description="描述" />
@@ -962,7 +962,7 @@
 
 	<table name="termination_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="28" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="base_description" type="string" checkType="StringLengthRange" min="1" max="16" description="基本描述" />
@@ -973,7 +973,7 @@
 
 	<table name="occupation_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="24" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="description" type="string" checkType="StringLengthRange" min="1" max="28" description="描述" />
@@ -984,7 +984,7 @@
 
 	<table name="leave_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="24" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="description" type="string" checkType="StringLengthRange" min="1" max="16" description="描述" />
@@ -995,7 +995,7 @@
 
 	<table name="salary_grade_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="24" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
@@ -1006,7 +1006,7 @@
 
 	<table name="interview_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="3" max="32" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="description" type="string" checkType="StringLengthRange" min="2" max="24" description="描述" />
@@ -1017,7 +1017,7 @@
 
 	<table name="training_course_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="16" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="16" description="名称" />
@@ -1028,7 +1028,7 @@
 
 	<table name="public_holiday_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="2" max="16" description="代码" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
@@ -1039,7 +1039,7 @@
 
 	<table name="termination_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="reason" type="reference" checkType="exist(termination_reason)" description="原因" />
 			<field name="type" type="reference" checkType="exist(termination_type)" description="类型" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="2" max="16" description="评论" />
@@ -1049,7 +1049,7 @@
 
 	<table name="view_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="who" type="string" checkType="StringLengthRange" min="1" max="12" description="谁" />
 			<field name="assessment" type="string" checkType="StringLengthRange" min="3" max="40" description="评估" />
 			<field name="interview_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-03-03" description="面试时间" />
@@ -1059,7 +1059,7 @@
 
 	<table name="employee_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="title" type="string" checkType="StringLengthRange" min="1" max="12" description="头衔" />
 			<field name="department" type="reference" checkType="exist(level_three_department)" description="部门" />
@@ -1073,14 +1073,14 @@
 			<field name="responsible_for" type="reference" checkType="exist(responsibility_type)" description="负责" />
 			<field name="current_salary_grade" type="reference" checkType="exist(salary_grade)" description="目前工资等级" />
 			<field name="salary_account" type="string" checkType="StringLengthRange" min="4" max="60" description="工资账户" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="instructor_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="2" max="16" description="头衔" />
 			<field name="family_name" type="string" checkType="StringLengthRange" min="0" max="4" description="姓" />
 			<field name="given_name" type="string" checkType="StringLengthRange" min="1" max="8" description="名" />
@@ -1088,28 +1088,28 @@
 			<field name="email" type="string_email" checkType="Email" min="10" max="80" description="电子邮件" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="introduction" type="string" checkType="StringLengthRange" min="4" max="60" description="介绍" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="company_training_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="2" max="16" description="头衔" />
 			<field name="company" type="reference" checkType="exist(retail_store_country_center)" description="公司" />
 			<field name="instructor" type="reference" checkType="exist(instructor)" description="讲师" />
 			<field name="training_course_type" type="reference" checkType="exist(training_course_type)" description="培训课程类型" />
 			<field name="time_start" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="时间开始" />
 			<field name="duration_hours" type="int" checkType="IntegerRange" min="0" max="3" description="持续时间" />
-			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="更新于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="scoring_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="scored_by" type="string" checkType="StringLengthRange" min="1" max="12" description="由谁打分" />
 			<field name="score" type="int" checkType="IntegerRange" min="0" max="100" description="分数" />
 			<field name="comment" type="string" checkType="StringLengthRange" min="3" max="36" description="评论" />
@@ -1119,7 +1119,7 @@
 
 	<table name="employee_company_training_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="training" type="reference" checkType="exist(company_training)" description="训练" />
 			<field name="scoring" type="reference" checkType="exist(scoring)" description="评分" />
@@ -1129,7 +1129,7 @@
 
 	<table name="employee_skill_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="skill_type" type="reference" checkType="exist(skill_type)" description="技能类型" />
 			<field name="description" type="string" checkType="StringLengthRange" min="2" max="28" description="描述" />
@@ -1139,7 +1139,7 @@
 
 	<table name="employee_performance_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="performance_comment" type="string" checkType="StringLengthRange" min="2" max="28" description="绩效评价" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -1148,7 +1148,7 @@
 
 	<table name="employee_work_experience_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="start" type="date" checkType="DateRange" min="1900-01-01" max="2008-01-10" description="开始" />
 			<field name="end" type="date" checkType="DateRange" min="1900-01-01" max="2018-01-10" description="结束" />
@@ -1160,7 +1160,7 @@
 
 	<table name="employee_leave_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="who" type="reference" checkType="exist(employee)" description="谁" />
 			<field name="type" type="reference" checkType="exist(leave_type)" description="类型" />
 			<field name="leave_duration_hour" type="int" checkType="IntegerRange" min="0" max="8" description="请假时长" />
@@ -1171,7 +1171,7 @@
 
 	<table name="employee_interview_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="interview_type" type="reference" checkType="exist(interview_type)" description="面试类型" />
 			<field name="remark" type="string" checkType="StringLengthRange" min="3" max="40" description="备注" />
@@ -1181,7 +1181,7 @@
 
 	<table name="employee_attendance_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="enter_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-01-01" description="进入时间" />
 			<field name="leave_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-03-01" description="离开的时候" />
@@ -1193,7 +1193,7 @@
 
 	<table name="employee_qualifier_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="qualified_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-01-01" description="合格的时间" />
 			<field name="type" type="string" checkType="StringLengthRange" min="1" max="20" description="类型" />
@@ -1205,7 +1205,7 @@
 
 	<table name="employee_education_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="complete_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-01-01" description="完成时间" />
 			<field name="type" type="string" checkType="StringLengthRange" min="1" max="16" description="类型" />
@@ -1216,7 +1216,7 @@
 
 	<table name="employee_award_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="complete_time" type="date" checkType="DateRange" min="1900-01-01" max="2017-01-01" description="完成时间" />
 			<field name="type" type="string" checkType="StringLengthRange" min="2" max="20" description="类型" />
@@ -1227,7 +1227,7 @@
 
 	<table name="employee_salary_sheet_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="current_salary_grade" type="reference" checkType="exist(salary_grade)" description="目前工资等级" />
 			<field name="base_salary" type="money" checkType="MoneyAmount" min="0.00" max="3000.10" description="基本工资" />
@@ -1244,7 +1244,7 @@
 
 	<table name="paying_off_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="who" type="string" checkType="StringLengthRange" min="1" max="8" description="谁" />
 			<field name="paid_for" type="reference" checkType="exist(employee)" description="支付" />
 			<field name="paid_time" type="date" checkType="DateRange" min="1900-01-01" max="2018-01-19" description="支付时间" />
@@ -1255,7 +1255,7 @@
 
 	<table name="mobile_app_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="20" description="名称" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -1263,7 +1263,7 @@
 
 	<table name="page_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="page_title" type="string" checkType="StringLengthRange" min="1" max="10" description="页面标题" />
 			<field name="link_to_url" type="string" checkType="StringLengthRange" min="0" max="512" description="链接网址" />
 			<field name="page_type" type="reference" checkType="exist(page_type)" description="页面类型" />
@@ -1275,7 +1275,7 @@
 
 	<table name="page_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="40" description="名称" />
 			<field name="code" type="string" checkType="StringLengthRange" min="1" max="40" description="代码" />
 			<field name="mobile_app" type="reference" checkType="exist(mobile_app)" description="手机应用程序" />
@@ -1286,7 +1286,7 @@
 
 	<table name="slide_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="0" max="40" description="名称" />
 			<field name="display_order" type="int" checkType="IntegerRange" min="0" max="10000" description="顺序" />
 			<field name="image_url" type="string_image" checkType="Image" min="0" max="512" description="图片链接" />
@@ -1299,7 +1299,7 @@
 
 	<table name="ui_action_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="code" type="string" checkType="StringLengthRange" min="1" max="40" description="代码" />
 			<field name="icon" type="string" checkType="StringLengthRange" min="1" max="512" description="图标" />
 			<field name="title" type="string" checkType="StringLengthRange" min="1" max="40" description="头衔" />
@@ -1315,7 +1315,7 @@
 
 	<table name="section_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="1" max="40" description="头衔" />
 			<field name="brief" type="string" checkType="StringLengthRange" min="0" max="200" description="短暂的" />
 			<field name="icon" type="string_image" checkType="Image" min="0" max="512" description="图标" />
@@ -1329,15 +1329,15 @@
 
 	<table name="user_domain_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="16" description="名称" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
-	<table name="user_white_list_data">
+	<table name="user_allow_list_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="user_identity" type="string" checkType="StringLengthRange" min="1" max="40" description="用户身份" />
 			<field name="user_special_functions" type="string" checkType="StringLengthRange" min="1" max="200" description="用户特殊功能" />
 			<field name="domain" type="reference" checkType="exist(user_domain)" description="域" />
@@ -1347,7 +1347,7 @@
 
 	<table name="sec_user_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="login" type="string" checkType="StringLengthRange" min="0" max="256" description="登录" />
 			<field name="mobile" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="0" max="11" description="手机" />
 			<field name="email" type="string_email" checkType="Email" min="0" max="256" description="电子邮件" />
@@ -1365,9 +1365,9 @@
 
 	<table name="user_app_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="title" type="string" checkType="StringLengthRange" min="1" max="300" description="头衔" />
-			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="SEC的用户" />
+			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="安全用户" />
 			<field name="app_icon" type="string" checkType="StringLengthRange" min="2" max="36" description="应用程序图标" />
 			<field name="full_access" type="bool" checkType="BooleanRange" min="0" max="true" description="完全访问" />
 			<field name="permission" type="string" checkType="StringLengthRange" min="2" max="16" description="许可" />
@@ -1380,12 +1380,12 @@
 
 	<table name="quick_link_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="200" description="名称" />
 			<field name="icon" type="string" checkType="StringLengthRange" min="1" max="200" description="图标" />
 			<field name="image_path" type="string_image" checkType="Image" min="0" max="512" description="图片路径" />
 			<field name="link_target" type="string" checkType="StringLengthRange" min="1" max="200" description="链接的目标" />
-			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建时间" />
+			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建于" />
 			<field name="app" type="reference" checkType="exist(user_app)" description="应用程序" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -1393,7 +1393,7 @@
 
 	<table name="list_access_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="200" description="名称" />
 			<field name="internal_name" type="string" checkType="StringLengthRange" min="1" max="200" description="内部名称" />
 			<field name="read_permission" type="bool" checkType="BooleanRange" min="0" max="true" description="读权限" />
@@ -1408,18 +1408,18 @@
 
 	<table name="login_history_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="login_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="登录时间" />
 			<field name="from_ip" type="string" checkType="StringLengthRange" min="5" max="44" description="从IP" />
 			<field name="description" type="string" checkType="StringLengthRange" min="2" max="16" description="描述" />
-			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="SEC的用户" />
+			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="安全用户" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="candidate_container_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="2" max="28" description="名称" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -1427,7 +1427,7 @@
 
 	<table name="candidate_element_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="200" description="名称" />
 			<field name="type" type="string" checkType="StringLengthRange" min="1" max="200" description="类型" />
 			<field name="image" type="string_image" checkType="Image" min="0" max="512" description="图片" />
@@ -1436,44 +1436,44 @@
 		</fields>
 	</table>
 
-	<table name="wechat_workapp_identify_data">
+	<table name="wechat_workapp_identity_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="corp_id" type="string" checkType="StringLengthRange" min="0" max="100" description="公司标识" />
 			<field name="user_id" type="string" checkType="StringLengthRange" min="1" max="100" description="用户Id" />
-			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="SEC的用户" />
-			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建时间" />
+			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="安全用户" />
+			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建于" />
 			<field name="last_login_time" type="date_time" checkType="DateTime" min="1900-01-01T00:00:00" max="2100-01-01T00:00:00" description="最后登录时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
-	<table name="wechat_miniapp_identify_data">
+	<table name="wechat_miniapp_identity_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="open_id" type="string" checkType="StringLengthRange" min="5" max="128" description="开放Id" />
 			<field name="app_id" type="string" checkType="StringLengthRange" min="5" max="128" description="应用程序Id" />
-			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="SEC的用户" />
-			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建时间" />
+			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="安全用户" />
+			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建于" />
 			<field name="last_login_time" type="date_time" checkType="DateTime" min="1900-01-01T00:00:00" max="2100-01-01T00:00:00" description="最后登录时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
-	<table name="keypair_identify_data">
+	<table name="keypair_identity_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="public_key" type="string_longtext" checkType="Longtext" min="0" max="1048576" description="公钥" />
 			<field name="key_type" type="reference" checkType="exist(public_key_type)" description="密钥类型" />
-			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="SEC的用户" />
-			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建时间" />
+			<field name="sec_user" type="reference" checkType="exist(sec_user)" description="安全用户" />
+			<field name="create_time" type="date_time_create" checkType="DateTimeCreate" min="1900-01-01T00:00:00" max="createTime()" description="创建于" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
 
 	<table name="public_key_type_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="code" type="string" checkType="StringLengthRange" min="1" max="12" description="代码" />
 			<field name="domain" type="reference" checkType="exist(user_domain)" description="域" />
@@ -1483,7 +1483,7 @@
 
 	<table name="tree_node_data">
 		<fields>
-			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="序号" />
+			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="2" max="64" description="ID" />
 			<field name="node_id" type="string" checkType="StringLengthRange" min="3" max="40" description="节点Id" />
 			<field name="node_type" type="string" checkType="StringLengthRange" min="3" max="32" description="节点类型" />
 			<field name="left_value" type="int" checkType="IntegerRange" min="1" max="10000000" description="左值" />

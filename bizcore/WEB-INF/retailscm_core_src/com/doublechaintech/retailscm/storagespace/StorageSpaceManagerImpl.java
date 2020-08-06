@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.storagespace;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.warehouse.Warehouse;
@@ -47,24 +45,24 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = StorageSpaceTokens.start().withTokenFromListName(listName).done();
 		StorageSpace  storageSpace = (StorageSpace) this.loadStorageSpace(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = storageSpace.collectRefercencesFromLists();
 		storageSpaceDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, storageSpace, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new StorageSpaceGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -127,7 +125,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		checkerOf(userContext).throwExceptionIfHasErrors( StorageSpaceManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		StorageSpace storageSpace = loadStorageSpace( userContext, storageSpaceId, tokens);
  		//do some calc before sent to customer?
@@ -146,6 +144,9 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		
 		List<BaseEntity> entityListToNaming = storageSpaceToPresent.collectRefercencesFromLists();
 		storageSpaceDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,storageSpace,tokens);
 		
 		return  storageSpaceToPresent;
 		
@@ -571,7 +572,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			storageSpace.addGoodsShelf( goodsShelf );
 			storageSpace = saveStorageSpace(userContext, storageSpace, tokens().withGoodsShelfList().done());
 			
-			userContext.getManagerGroup().getGoodsShelfManager().onNewInstanceCreated(userContext, goodsShelf);
+			goodsShelfManagerOf(userContext).onNewInstanceCreated(userContext, goodsShelf);
 			return present(userContext,storageSpace, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -592,7 +593,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withGoodsShelfListList()
-				.searchGoodsShelfListWith(GoodsShelf.ID_PROPERTY, "is", id).done();
+				.searchGoodsShelfListWith(GoodsShelf.ID_PROPERTY, tokens().is(), id).done();
 
 		StorageSpace storageSpaceToUpdate = loadStorageSpace(userContext, storageSpaceId, options);
 
@@ -601,7 +602,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		}
 
 		GoodsShelf item = storageSpaceToUpdate.getGoodsShelfList().first();
-
+		beforeUpdateGoodsShelfProperties(userContext,item, storageSpaceId,id,location,tokensExpr);
 		item.updateLocation( location );
 
 
@@ -612,6 +613,10 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		}
 	}
 
+	protected  void beforeUpdateGoodsShelfProperties(RetailscmUserContext userContext, GoodsShelf item, String storageSpaceId, String id,String location, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected GoodsShelf createGoodsShelf(RetailscmUserContext userContext, String location, String supplierSpaceId, String damageSpaceId) throws Exception{
 
@@ -722,7 +727,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			storageSpace.copyGoodsShelfFrom( goodsShelf );
 			storageSpace = saveStorageSpace(userContext, storageSpace, tokens().withGoodsShelfList().done());
 			
-			userContext.getManagerGroup().getGoodsShelfManager().onNewInstanceCreated(userContext, (GoodsShelf)storageSpace.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			goodsShelfManagerOf(userContext).onNewInstanceCreated(userContext, (GoodsShelf)storageSpace.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,storageSpace, mergedAllTokens(tokensExpr));
 		}
 
@@ -735,15 +740,13 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		checkerOf(userContext).checkIdOfStorageSpace(storageSpaceId);
 		checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfId);
 		checkerOf(userContext).checkVersionOfGoodsShelf(goodsShelfVersion);
-		
+
 
 		if(GoodsShelf.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfGoodsShelf(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(StorageSpaceManagerException.class);
 
 	}
@@ -753,7 +756,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 
 		checkParamsForUpdatingGoodsShelf(userContext, storageSpaceId, goodsShelfId, goodsShelfVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withGoodsShelfList().searchGoodsShelfListWith(GoodsShelf.ID_PROPERTY, "eq", goodsShelfId).done();
+		Map<String,Object> loadTokens = this.tokens().withGoodsShelfList().searchGoodsShelfListWith(GoodsShelf.ID_PROPERTY, tokens().equals(), goodsShelfId).done();
 
 
 
@@ -764,13 +767,14 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			//Also good when there is a RAM based DAO implementation
 			//storageSpace.removeGoodsShelf( goodsShelf );
 			//make changes to AcceleraterAccount.
-			GoodsShelf goodsShelfIndex = createIndexedGoodsShelf(goodsShelfId, goodsShelfVersion);
+			GoodsShelf goodsShelfIdVersionKey = createIndexedGoodsShelf(goodsShelfId, goodsShelfVersion);
 
-			GoodsShelf goodsShelf = storageSpace.findTheGoodsShelf(goodsShelfIndex);
+			GoodsShelf goodsShelf = storageSpace.findTheGoodsShelf(goodsShelfIdVersionKey);
 			if(goodsShelf == null){
-				throw new StorageSpaceManagerException(goodsShelf+" is NOT FOUND" );
+				throw new StorageSpaceManagerException(goodsShelfId+" is NOT FOUND" );
 			}
 
+			beforeUpdateGoodsShelf(userContext, goodsShelf, storageSpaceId, goodsShelfId, goodsShelfVersion, property, newValueExpr,  tokensExpr);
 			goodsShelf.changeProperty(property, newValueExpr);
 			goodsShelf.updateLastUpdateTime(userContext.now());
 			storageSpace = saveStorageSpace(userContext, storageSpace, tokens().withGoodsShelfList().done());
@@ -778,6 +782,11 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateGoodsShelf(RetailscmUserContext userContext, GoodsShelf existed, String storageSpaceId, String goodsShelfId, int goodsShelfVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -794,6 +803,12 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    storageSpaceDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -885,6 +900,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1001,7 +1017,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1078,7 +1094,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		propList.add(
 				MapUtil.put("id", "8-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1116,6 +1132,8 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

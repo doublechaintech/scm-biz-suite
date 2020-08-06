@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PublicHolidayDAO{
 
@@ -53,64 +53,68 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 	return this.retailStoreCountryCenterDAO;
  	}	
 
-	
+
 	/*
 	protected PublicHoliday load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalPublicHoliday(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<PublicHoliday> loadAll() {
 	    return this.loadAll(getPublicHolidayMapper());
 	}
-	
-	
+
+  public Stream<PublicHoliday> loadAllAsStream() {
+      return this.loadAllAsStream(getPublicHolidayMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public PublicHoliday load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalPublicHoliday(PublicHolidayTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public PublicHoliday save(PublicHoliday publicHoliday,Map<String,Object> options){
-		
+
 		String methodName="save(PublicHoliday publicHoliday,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(publicHoliday, methodName, "publicHoliday");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalPublicHoliday(publicHoliday,options);
 	}
 	public PublicHoliday clone(String publicHolidayId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(PublicHolidayTable.withId(publicHolidayId),options);
 	}
-	
+
 	protected PublicHoliday clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String publicHolidayId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		PublicHoliday newPublicHoliday = loadInternalPublicHoliday(accessKey, options);
 		newPublicHoliday.setVersion(0);
 		
 		
 
-		
+
 		saveInternalPublicHoliday(newPublicHoliday,options);
-		
+
 		return newPublicHoliday;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String publicHolidayId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String publicHolidayId, int version) throws Exception{
-	
+
 		String methodName="delete(String publicHolidayId, int version)";
 		assertMethodArgumentNotNull(publicHolidayId, methodName, "publicHolidayId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{publicHolidayId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(affectedNumber == 0){
 			handleDeleteOneError(publicHolidayId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public PublicHoliday disconnectFromAll(String publicHolidayId, int version) throws Exception{
-	
-		
+
+
 		PublicHoliday publicHoliday = loadInternalPublicHoliday(PublicHolidayTable.withId(publicHolidayId), emptyOptions());
 		publicHoliday.clearFromAll();
 		this.savePublicHoliday(publicHoliday);
 		return publicHoliday;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "public_holiday";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "publicHoliday";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return publicHoliday;
 		}
 		
-		
+
 		String SQL=this.getSavePublicHolidaySQL(publicHoliday);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSavePublicHolidayParameters(publicHoliday);
@@ -320,57 +324,57 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		publicHoliday.incVersion();
 		return publicHoliday;
-	
+
 	}
 	public SmartList<PublicHoliday> savePublicHolidayList(SmartList<PublicHoliday> publicHolidayList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitPublicHolidayList(publicHolidayList);
-		
+
 		batchPublicHolidayCreate((List<PublicHoliday>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchPublicHolidayUpdate((List<PublicHoliday>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(PublicHoliday publicHoliday:publicHolidayList){
 			if(publicHoliday.isChanged()){
 				publicHoliday.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return publicHolidayList;
 	}
 
 	public SmartList<PublicHoliday> removePublicHolidayList(SmartList<PublicHoliday> publicHolidayList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(publicHolidayList, options);
-		
+
 		return publicHolidayList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> preparePublicHolidayBatchCreateArgs(List<PublicHoliday> publicHolidayList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(PublicHoliday publicHoliday:publicHolidayList ){
 			Object [] parameters = preparePublicHolidayCreateParameters(publicHoliday);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> preparePublicHolidayBatchUpdateArgs(List<PublicHoliday> publicHolidayList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(PublicHoliday publicHoliday:publicHolidayList ){
 			if(!publicHoliday.isChanged()){
@@ -378,40 +382,40 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			Object [] parameters = preparePublicHolidayUpdateParameters(publicHoliday);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchPublicHolidayCreate(List<PublicHoliday> publicHolidayList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=preparePublicHolidayBatchCreateArgs(publicHolidayList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchPublicHolidayUpdate(List<PublicHoliday> publicHolidayList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=preparePublicHolidayBatchUpdateArgs(publicHolidayList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitPublicHolidayList(List<PublicHoliday> publicHolidayList){
-		
+
 		List<PublicHoliday> publicHolidayCreateList=new ArrayList<PublicHoliday>();
 		List<PublicHoliday> publicHolidayUpdateList=new ArrayList<PublicHoliday>();
-		
+
 		for(PublicHoliday publicHoliday: publicHolidayList){
 			if(isUpdateRequest(publicHoliday)){
 				publicHolidayUpdateList.add( publicHoliday);
@@ -419,10 +423,10 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			publicHolidayCreateList.add(publicHoliday);
 		}
-		
+
 		return new Object[]{publicHolidayCreateList,publicHolidayUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(PublicHoliday publicHoliday){
  		return publicHoliday.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSavePublicHolidayParameters(PublicHoliday publicHoliday){
  		if(isUpdateRequest(publicHoliday) ){
  			return preparePublicHolidayUpdateParameters(publicHoliday);
@@ -444,7 +448,7 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  
  		
  		parameters[0] = publicHoliday.getCode();
- 		 	
+ 		
  		if(publicHoliday.getCompany() != null){
  			parameters[1] = publicHoliday.getCompany().getId();
  		}
@@ -454,25 +458,27 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[3] = publicHoliday.getDescription();
- 				
+ 		
  		parameters[4] = publicHoliday.nextVersion();
  		parameters[5] = publicHoliday.getId();
  		parameters[6] = publicHoliday.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] preparePublicHolidayCreateParameters(PublicHoliday publicHoliday){
 		Object[] parameters = new Object[5];
-		String newPublicHolidayId=getNextId();
-		publicHoliday.setId(newPublicHolidayId);
+        if(publicHoliday.getId() == null){
+          String newPublicHolidayId=getNextId();
+          publicHoliday.setId(newPublicHolidayId);
+        }
 		parameters[0] =  publicHoliday.getId();
  
  		
  		parameters[1] = publicHoliday.getCode();
- 		 	
+ 		
  		if(publicHoliday.getCompany() != null){
  			parameters[2] = publicHoliday.getCompany().getId();
- 		
+
  		}
  		
  		
@@ -480,44 +486,44 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[4] = publicHoliday.getDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected PublicHoliday saveInternalPublicHoliday(PublicHoliday publicHoliday, Map<String,Object> options){
-		
+
 		savePublicHoliday(publicHoliday);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(publicHoliday, options);
  		}
  
 		
 		return publicHoliday;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected PublicHoliday saveCompany(PublicHoliday publicHoliday, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(publicHoliday.getCompany() == null){
  			return publicHoliday;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(publicHoliday.getCompany(),options);
  		return publicHoliday;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -537,47 +543,53 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	protected String getTableName(){
 		return PublicHolidayTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<PublicHoliday> publicHolidayList) {		
+
+
+
+	public void enhanceList(List<PublicHoliday> publicHolidayList) {
 		this.enhanceListInternal(publicHolidayList, this.getPublicHolidayMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PublicHoliday> publicHolidayList = ownerEntity.collectRefsWithType(PublicHoliday.INTERNAL_TYPE);
 		this.enhanceList(publicHolidayList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<PublicHoliday> findPublicHolidayWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getPublicHolidayMapper());
 
 	}
 	@Override
 	public int countPublicHolidayWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countPublicHolidayWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<PublicHoliday> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getPublicHolidayMapper());
 	}
+
+  @Override
+  public Stream<PublicHoliday> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getPublicHolidayMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -606,7 +618,7 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 		return result;
 	}
-	
+
 	
 
 }

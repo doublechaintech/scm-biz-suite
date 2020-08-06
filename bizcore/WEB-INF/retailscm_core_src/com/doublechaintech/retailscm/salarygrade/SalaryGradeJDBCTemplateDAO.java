@@ -37,7 +37,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SalaryGradeDAO{
 
@@ -89,50 +89,54 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 	return this.employeeSalarySheetDAO;
  	}	
 
-	
+
 	/*
 	protected SalaryGrade load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalSalaryGrade(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<SalaryGrade> loadAll() {
 	    return this.loadAll(getSalaryGradeMapper());
 	}
-	
-	
+
+  public Stream<SalaryGrade> loadAllAsStream() {
+      return this.loadAllAsStream(getSalaryGradeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public SalaryGrade load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalSalaryGrade(SalaryGradeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public SalaryGrade save(SalaryGrade salaryGrade,Map<String,Object> options){
-		
+
 		String methodName="save(SalaryGrade salaryGrade,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(salaryGrade, methodName, "salaryGrade");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalSalaryGrade(salaryGrade,options);
 	}
 	public SalaryGrade clone(String salaryGradeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(SalaryGradeTable.withId(salaryGradeId),options);
 	}
-	
+
 	protected SalaryGrade clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String salaryGradeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		SalaryGrade newSalaryGrade = loadInternalSalaryGrade(accessKey, options);
 		newSalaryGrade.setVersion(0);
 		
@@ -152,15 +156,15 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		}
 		
 
-		
+
 		saveInternalSalaryGrade(newSalaryGrade,options);
-		
+
 		return newSalaryGrade;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String salaryGradeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -176,15 +180,15 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String salaryGradeId, int version) throws Exception{
-	
+
 		String methodName="delete(String salaryGradeId, int version)";
 		assertMethodArgumentNotNull(salaryGradeId, methodName, "salaryGradeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{salaryGradeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -194,26 +198,26 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(affectedNumber == 0){
 			handleDeleteOneError(salaryGradeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public SalaryGrade disconnectFromAll(String salaryGradeId, int version) throws Exception{
-	
-		
+
+
 		SalaryGrade salaryGrade = loadInternalSalaryGrade(SalaryGradeTable.withId(salaryGradeId), emptyOptions());
 		salaryGrade.clearFromAll();
 		this.saveSalaryGrade(salaryGrade);
 		return salaryGrade;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -221,15 +225,15 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "salary_grade";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "salaryGrade";
 	}
-	
+
 	
 	
 	
@@ -509,7 +513,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return salaryGrade;
 		}
 		
-		
+
 		String SQL=this.getSaveSalaryGradeSQL(salaryGrade);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSalaryGradeParameters(salaryGrade);
@@ -518,57 +522,57 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		salaryGrade.incVersion();
 		return salaryGrade;
-	
+
 	}
 	public SmartList<SalaryGrade> saveSalaryGradeList(SmartList<SalaryGrade> salaryGradeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitSalaryGradeList(salaryGradeList);
-		
+
 		batchSalaryGradeCreate((List<SalaryGrade>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchSalaryGradeUpdate((List<SalaryGrade>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(SalaryGrade salaryGrade:salaryGradeList){
 			if(salaryGrade.isChanged()){
 				salaryGrade.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return salaryGradeList;
 	}
 
 	public SmartList<SalaryGrade> removeSalaryGradeList(SmartList<SalaryGrade> salaryGradeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(salaryGradeList, options);
-		
+
 		return salaryGradeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareSalaryGradeBatchCreateArgs(List<SalaryGrade> salaryGradeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SalaryGrade salaryGrade:salaryGradeList ){
 			Object [] parameters = prepareSalaryGradeCreateParameters(salaryGrade);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareSalaryGradeBatchUpdateArgs(List<SalaryGrade> salaryGradeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SalaryGrade salaryGrade:salaryGradeList ){
 			if(!salaryGrade.isChanged()){
@@ -576,40 +580,40 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			Object [] parameters = prepareSalaryGradeUpdateParameters(salaryGrade);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchSalaryGradeCreate(List<SalaryGrade> salaryGradeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareSalaryGradeBatchCreateArgs(salaryGradeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchSalaryGradeUpdate(List<SalaryGrade> salaryGradeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareSalaryGradeBatchUpdateArgs(salaryGradeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitSalaryGradeList(List<SalaryGrade> salaryGradeList){
-		
+
 		List<SalaryGrade> salaryGradeCreateList=new ArrayList<SalaryGrade>();
 		List<SalaryGrade> salaryGradeUpdateList=new ArrayList<SalaryGrade>();
-		
+
 		for(SalaryGrade salaryGrade: salaryGradeList){
 			if(isUpdateRequest(salaryGrade)){
 				salaryGradeUpdateList.add( salaryGrade);
@@ -617,10 +621,10 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			salaryGradeCreateList.add(salaryGrade);
 		}
-		
+
 		return new Object[]{salaryGradeCreateList,salaryGradeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(SalaryGrade salaryGrade){
  		return salaryGrade.getVersion() > 0;
  	}
@@ -630,7 +634,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveSalaryGradeParameters(SalaryGrade salaryGrade){
  		if(isUpdateRequest(salaryGrade) ){
  			return prepareSalaryGradeUpdateParameters(salaryGrade);
@@ -642,7 +646,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  
  		
  		parameters[0] = salaryGrade.getCode();
- 		 	
+ 		
  		if(salaryGrade.getCompany() != null){
  			parameters[1] = salaryGrade.getCompany().getId();
  		}
@@ -652,25 +656,27 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
  		
  		parameters[3] = salaryGrade.getDetailDescription();
- 				
+ 		
  		parameters[4] = salaryGrade.nextVersion();
  		parameters[5] = salaryGrade.getId();
  		parameters[6] = salaryGrade.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareSalaryGradeCreateParameters(SalaryGrade salaryGrade){
 		Object[] parameters = new Object[5];
-		String newSalaryGradeId=getNextId();
-		salaryGrade.setId(newSalaryGradeId);
+        if(salaryGrade.getId() == null){
+          String newSalaryGradeId=getNextId();
+          salaryGrade.setId(newSalaryGradeId);
+        }
 		parameters[0] =  salaryGrade.getId();
  
  		
  		parameters[1] = salaryGrade.getCode();
- 		 	
+ 		
  		if(salaryGrade.getCompany() != null){
  			parameters[2] = salaryGrade.getCompany().getId();
- 		
+
  		}
  		
  		
@@ -678,15 +684,15 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
  		
  		parameters[4] = salaryGrade.getDetailDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected SalaryGrade saveInternalSalaryGrade(SalaryGrade salaryGrade, Map<String,Object> options){
-		
+
 		saveSalaryGrade(salaryGrade);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(salaryGrade, options);
  		}
@@ -696,49 +702,49 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 		saveEmployeeList(salaryGrade, options);
 	 		//removeEmployeeList(salaryGrade, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveEmployeeSalarySheetListEnabled(options)){
 	 		saveEmployeeSalarySheetList(salaryGrade, options);
 	 		//removeEmployeeSalarySheetList(salaryGrade, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return salaryGrade;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected SalaryGrade saveCompany(SalaryGrade salaryGrade, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(salaryGrade.getCompany() == null){
  			return salaryGrade;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(salaryGrade.getCompany(),options);
  		return salaryGrade;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public SalaryGrade planToRemoveEmployeeList(SalaryGrade salaryGrade, String employeeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(Employee.ID_PROPERTY, employeeIds);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -747,17 +753,17 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 
 			employeeItem.clearFromAll();
 		}
-		
-		
-		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
-		return salaryGrade;	
-	
+		return salaryGrade;
+
 	}
 
 
@@ -766,11 +772,11 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(Employee.COMPANY_PROPERTY, companyId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -779,19 +785,19 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearCompany();
 			employeeItem.clearCurrentSalaryGrade();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return salaryGrade;
 	}
-	
+
 	public int countEmployeeListWithCompany(String salaryGradeId, String companyId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -800,7 +806,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
 		key.put(Employee.COMPANY_PROPERTY, companyId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -810,11 +816,11 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(Employee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -823,19 +829,19 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearDepartment();
 			employeeItem.clearCurrentSalaryGrade();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return salaryGrade;
 	}
-	
+
 	public int countEmployeeListWithDepartment(String salaryGradeId, String departmentId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -844,7 +850,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
 		key.put(Employee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -854,11 +860,11 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(Employee.OCCUPATION_PROPERTY, occupationId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -867,19 +873,19 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearOccupation();
 			employeeItem.clearCurrentSalaryGrade();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return salaryGrade;
 	}
-	
+
 	public int countEmployeeListWithOccupation(String salaryGradeId, String occupationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -888,7 +894,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
 		key.put(Employee.OCCUPATION_PROPERTY, occupationId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -898,11 +904,11 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibleForId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -911,19 +917,19 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearResponsibleFor();
 			employeeItem.clearCurrentSalaryGrade();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return salaryGrade;
 	}
-	
+
 	public int countEmployeeListWithResponsibleFor(String salaryGradeId, String responsibleForId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -932,17 +938,17 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
 		key.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibleForId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
 	
 	public SalaryGrade planToRemoveEmployeeSalarySheetList(SalaryGrade salaryGrade, String employeeSalarySheetIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(EmployeeSalarySheet.ID_PROPERTY, employeeSalarySheetIds);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -951,17 +957,17 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 
 			employeeSalarySheetItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
-		return salaryGrade;	
-	
+		return salaryGrade;
+
 	}
 
 
@@ -970,11 +976,11 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -983,19 +989,19 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 			employeeSalarySheetItem.clearEmployee();
 			employeeSalarySheetItem.clearCurrentSalaryGrade();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
 		return salaryGrade;
 	}
-	
+
 	public int countEmployeeSalarySheetListWithEmployee(String salaryGradeId, String employeeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1004,7 +1010,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
-		
+
 		int count = getEmployeeSalarySheetDAO().countEmployeeSalarySheetWithKey(key, options);
 		return count;
 	}
@@ -1014,11 +1020,11 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, salaryGrade.getId());
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -1027,19 +1033,19 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return salaryGrade;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 			employeeSalarySheetItem.clearPayingOff();
 			employeeSalarySheetItem.clearCurrentSalaryGrade();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
 		return salaryGrade;
 	}
-	
+
 	public int countEmployeeSalarySheetListWithPayingOff(String salaryGradeId, String payingOffId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1048,7 +1054,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);
-		
+
 		int count = getEmployeeSalarySheetDAO().countEmployeeSalarySheetWithKey(key, options);
 		return count;
 	}
@@ -1056,19 +1062,19 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected SalaryGrade saveEmployeeList(SalaryGrade salaryGrade, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
 		if(employeeList == null){
 			//null list means nothing
 			return salaryGrade;
 		}
 		SmartList<Employee> mergedUpdateEmployeeList = new SmartList<Employee>();
-		
-		
-		mergedUpdateEmployeeList.addAll(employeeList); 
+
+
+		mergedUpdateEmployeeList.addAll(employeeList);
 		if(employeeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeList.addAll(employeeList.getToRemoveList());
@@ -1077,28 +1083,28 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeDAO().saveEmployeeList(mergedUpdateEmployeeList,options);
-		
+
 		if(employeeList.getToRemoveList() != null){
 			employeeList.removeAll(employeeList.getToRemoveList());
 		}
-		
-		
+
+
 		return salaryGrade;
-	
+
 	}
-	
+
 	protected SalaryGrade removeEmployeeList(SalaryGrade salaryGrade, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
 		if(employeeList == null){
 			return salaryGrade;
-		}	
-	
+		}
+
 		SmartList<Employee> toRemoveEmployeeList = employeeList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeList == null){
 			return salaryGrade;
 		}
@@ -1106,35 +1112,35 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return salaryGrade;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeDAO().removeEmployeeList(toRemoveEmployeeList,options);
-		
-		return salaryGrade;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeDAO().removeEmployeeList(toRemoveEmployeeList,options);
+
+		return salaryGrade;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected SalaryGrade saveEmployeeSalarySheetList(SalaryGrade salaryGrade, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();
 		if(employeeSalarySheetList == null){
 			//null list means nothing
 			return salaryGrade;
 		}
 		SmartList<EmployeeSalarySheet> mergedUpdateEmployeeSalarySheetList = new SmartList<EmployeeSalarySheet>();
-		
-		
-		mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList); 
+
+
+		mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList);
 		if(employeeSalarySheetList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList.getToRemoveList());
@@ -1143,28 +1149,28 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeSalarySheetDAO().saveEmployeeSalarySheetList(mergedUpdateEmployeeSalarySheetList,options);
-		
+
 		if(employeeSalarySheetList.getToRemoveList() != null){
 			employeeSalarySheetList.removeAll(employeeSalarySheetList.getToRemoveList());
 		}
-		
-		
+
+
 		return salaryGrade;
-	
+
 	}
-	
+
 	protected SalaryGrade removeEmployeeSalarySheetList(SalaryGrade salaryGrade, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();
 		if(employeeSalarySheetList == null){
 			return salaryGrade;
-		}	
-	
+		}
+
 		SmartList<EmployeeSalarySheet> toRemoveEmployeeSalarySheetList = employeeSalarySheetList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeSalarySheetList == null){
 			return salaryGrade;
 		}
@@ -1172,20 +1178,20 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return salaryGrade;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeSalarySheetDAO().removeEmployeeSalarySheetList(toRemoveEmployeeSalarySheetList,options);
-		
-		return salaryGrade;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeSalarySheetDAO().removeEmployeeSalarySheetList(toRemoveEmployeeSalarySheetList,options);
+
+		return salaryGrade;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public SalaryGrade present(SalaryGrade salaryGrade,Map<String, Object> options){
@@ -1255,13 +1261,13 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	protected String getTableName(){
 		return SalaryGradeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<SalaryGrade> salaryGradeList) {		
+
+
+
+	public void enhanceList(List<SalaryGrade> salaryGradeList) {
 		this.enhanceListInternal(salaryGradeList, this.getSalaryGradeMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Employee的currentSalaryGrade的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<SalaryGrade> us, Map<String,Object> options) throws Exception{
@@ -1309,39 +1315,45 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SalaryGrade> salaryGradeList = ownerEntity.collectRefsWithType(SalaryGrade.INTERNAL_TYPE);
 		this.enhanceList(salaryGradeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<SalaryGrade> findSalaryGradeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getSalaryGradeMapper());
 
 	}
 	@Override
 	public int countSalaryGradeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countSalaryGradeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<SalaryGrade> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSalaryGradeMapper());
 	}
+
+  @Override
+  public Stream<SalaryGrade> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getSalaryGradeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1370,7 +1382,7 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 		return result;
 	}
-	
+
 	
 
 }

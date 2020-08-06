@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.userdomain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -13,19 +14,32 @@ import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.KeyValuePair;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteList;
 import com.doublechaintech.retailscm.secuser.SecUser;
+import com.doublechaintech.retailscm.userallowlist.UserAllowList;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
+
+
+
+
+
+
+
+
 
 @JsonSerialize(using = UserDomainSerializer.class)
 public class UserDomain extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
-	public static final String USER_WHITE_LIST_LIST                     = "userWhiteListList" ;
+	public static final String USER_ALLOW_LIST_LIST                     = "userAllowListList" ;
 	public static final String SEC_USER_LIST                            = "secUserList"       ;
 	public static final String PUBLIC_KEY_TYPE_LIST                     = "publicKeyTypeList" ;
 
@@ -53,7 +67,7 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 	protected		int                 	mVersion            ;
 	
 	
-	protected		SmartList<UserWhiteList>	mUserWhiteListList  ;
+	protected		SmartList<UserAllowList>	mUserAllowListList  ;
 	protected		SmartList<SecUser>  	mSecUserList        ;
 	protected		SmartList<PublicKeyType>	mPublicKeyTypeList  ;
 
@@ -115,8 +129,8 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
-		if(USER_WHITE_LIST_LIST.equals(property)){
-			List<BaseEntity> list = getUserWhiteListList().stream().map(item->item).collect(Collectors.toList());
+		if(USER_ALLOW_LIST_LIST.equals(property)){
+			List<BaseEntity> list = getUserAllowListList().stream().map(item->item).collect(Collectors.toList());
 			return list;
 		}
 		if(SEC_USER_LIST.equals(property)){
@@ -187,107 +201,107 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 	
 	
 
-	public  SmartList<UserWhiteList> getUserWhiteListList(){
-		if(this.mUserWhiteListList == null){
-			this.mUserWhiteListList = new SmartList<UserWhiteList>();
-			this.mUserWhiteListList.setListInternalName (USER_WHITE_LIST_LIST );
+	public  SmartList<UserAllowList> getUserAllowListList(){
+		if(this.mUserAllowListList == null){
+			this.mUserAllowListList = new SmartList<UserAllowList>();
+			this.mUserAllowListList.setListInternalName (USER_ALLOW_LIST_LIST );
 			//有名字，便于做权限控制
 		}
 		
-		return this.mUserWhiteListList;	
+		return this.mUserAllowListList;	
 	}
-	public  void setUserWhiteListList(SmartList<UserWhiteList> userWhiteListList){
-		for( UserWhiteList userWhiteList:userWhiteListList){
-			userWhiteList.setDomain(this);
+	public  void setUserAllowListList(SmartList<UserAllowList> userAllowListList){
+		for( UserAllowList userAllowList:userAllowListList){
+			userAllowList.setDomain(this);
 		}
 
-		this.mUserWhiteListList = userWhiteListList;
-		this.mUserWhiteListList.setListInternalName (USER_WHITE_LIST_LIST );
+		this.mUserAllowListList = userAllowListList;
+		this.mUserAllowListList.setListInternalName (USER_ALLOW_LIST_LIST );
 		
 	}
 	
-	public  void addUserWhiteList(UserWhiteList userWhiteList){
-		userWhiteList.setDomain(this);
-		getUserWhiteListList().add(userWhiteList);
+	public  void addUserAllowList(UserAllowList userAllowList){
+		userAllowList.setDomain(this);
+		getUserAllowListList().add(userAllowList);
 	}
-	public  void addUserWhiteListList(SmartList<UserWhiteList> userWhiteListList){
-		for( UserWhiteList userWhiteList:userWhiteListList){
-			userWhiteList.setDomain(this);
+	public  void addUserAllowListList(SmartList<UserAllowList> userAllowListList){
+		for( UserAllowList userAllowList:userAllowListList){
+			userAllowList.setDomain(this);
 		}
-		getUserWhiteListList().addAll(userWhiteListList);
+		getUserAllowListList().addAll(userAllowListList);
 	}
-	public  void mergeUserWhiteListList(SmartList<UserWhiteList> userWhiteListList){
-		if(userWhiteListList==null){
+	public  void mergeUserAllowListList(SmartList<UserAllowList> userAllowListList){
+		if(userAllowListList==null){
 			return;
 		}
-		if(userWhiteListList.isEmpty()){
+		if(userAllowListList.isEmpty()){
 			return;
 		}
-		addUserWhiteListList( userWhiteListList );
+		addUserAllowListList( userAllowListList );
 		
 	}
-	public  UserWhiteList removeUserWhiteList(UserWhiteList userWhiteListIndex){
+	public  UserAllowList removeUserAllowList(UserAllowList userAllowListIndex){
 		
-		int index = getUserWhiteListList().indexOf(userWhiteListIndex);
+		int index = getUserAllowListList().indexOf(userAllowListIndex);
         if(index < 0){
-        	String message = "UserWhiteList("+userWhiteListIndex.getId()+") with version='"+userWhiteListIndex.getVersion()+"' NOT found!";
+        	String message = "UserAllowList("+userAllowListIndex.getId()+") with version='"+userAllowListIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        UserWhiteList userWhiteList = getUserWhiteListList().get(index);        
-        // userWhiteList.clearDomain(); //disconnect with Domain
-        userWhiteList.clearFromAll(); //disconnect with Domain
+        UserAllowList userAllowList = getUserAllowListList().get(index);        
+        // userAllowList.clearDomain(); //disconnect with Domain
+        userAllowList.clearFromAll(); //disconnect with Domain
 		
-		boolean result = getUserWhiteListList().planToRemove(userWhiteList);
+		boolean result = getUserAllowListList().planToRemove(userAllowList);
         if(!result){
-        	String message = "UserWhiteList("+userWhiteListIndex.getId()+") with version='"+userWhiteListIndex.getVersion()+"' NOT found!";
+        	String message = "UserAllowList("+userAllowListIndex.getId()+") with version='"+userAllowListIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        return userWhiteList;
+        return userAllowList;
         
 	
 	}
 	//断舍离
-	public  void breakWithUserWhiteList(UserWhiteList userWhiteList){
+	public  void breakWithUserAllowList(UserAllowList userAllowList){
 		
-		if(userWhiteList == null){
+		if(userAllowList == null){
 			return;
 		}
-		userWhiteList.setDomain(null);
-		//getUserWhiteListList().remove();
+		userAllowList.setDomain(null);
+		//getUserAllowListList().remove();
 	
 	}
 	
-	public  boolean hasUserWhiteList(UserWhiteList userWhiteList){
+	public  boolean hasUserAllowList(UserAllowList userAllowList){
 	
-		return getUserWhiteListList().contains(userWhiteList);
+		return getUserAllowListList().contains(userAllowList);
   
 	}
 	
-	public void copyUserWhiteListFrom(UserWhiteList userWhiteList) {
+	public void copyUserAllowListFrom(UserAllowList userAllowList) {
 
-		UserWhiteList userWhiteListInList = findTheUserWhiteList(userWhiteList);
-		UserWhiteList newUserWhiteList = new UserWhiteList();
-		userWhiteListInList.copyTo(newUserWhiteList);
-		newUserWhiteList.setVersion(0);//will trigger copy
-		getUserWhiteListList().add(newUserWhiteList);
-		addItemToFlexiableObject(COPIED_CHILD, newUserWhiteList);
+		UserAllowList userAllowListInList = findTheUserAllowList(userAllowList);
+		UserAllowList newUserAllowList = new UserAllowList();
+		userAllowListInList.copyTo(newUserAllowList);
+		newUserAllowList.setVersion(0);//will trigger copy
+		getUserAllowListList().add(newUserAllowList);
+		addItemToFlexiableObject(COPIED_CHILD, newUserAllowList);
 	}
 	
-	public  UserWhiteList findTheUserWhiteList(UserWhiteList userWhiteList){
+	public  UserAllowList findTheUserAllowList(UserAllowList userAllowList){
 		
-		int index =  getUserWhiteListList().indexOf(userWhiteList);
+		int index =  getUserAllowListList().indexOf(userAllowList);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
- 			String message = "UserWhiteList("+userWhiteList.getId()+") with version='"+userWhiteList.getVersion()+"' NOT found!";
+ 			String message = "UserAllowList("+userAllowList.getId()+") with version='"+userAllowList.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
 		
-		return  getUserWhiteListList().get(index);
+		return  getUserAllowListList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
 	
-	public  void cleanUpUserWhiteListList(){
-		getUserWhiteListList().clear();
+	public  void cleanUpUserAllowListList(){
+		getUserAllowListList().clear();
 	}
 	
 	
@@ -517,7 +531,7 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
 		
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
-		collectFromList(this, entityList, getUserWhiteListList(), internalType);
+		collectFromList(this, entityList, getUserAllowListList(), internalType);
 		collectFromList(this, entityList, getSecUserList(), internalType);
 		collectFromList(this, entityList, getPublicKeyTypeList(), internalType);
 
@@ -527,7 +541,7 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
 		
-		listOfList.add( getUserWhiteListList());
+		listOfList.add( getUserAllowListList());
 		listOfList.add( getSecUserList());
 		listOfList.add( getPublicKeyTypeList());
 			
@@ -542,10 +556,10 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 		appendKeyValuePair(result, ID_PROPERTY, getId());
 		appendKeyValuePair(result, NAME_PROPERTY, getName());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
-		appendKeyValuePair(result, USER_WHITE_LIST_LIST, getUserWhiteListList());
-		if(!getUserWhiteListList().isEmpty()){
-			appendKeyValuePair(result, "userWhiteListCount", getUserWhiteListList().getTotalCount());
-			appendKeyValuePair(result, "userWhiteListCurrentPageNumber", getUserWhiteListList().getCurrentPageNumber());
+		appendKeyValuePair(result, USER_ALLOW_LIST_LIST, getUserAllowListList());
+		if(!getUserAllowListList().isEmpty()){
+			appendKeyValuePair(result, "userAllowListCount", getUserAllowListList().getTotalCount());
+			appendKeyValuePair(result, "userAllowListCurrentPageNumber", getUserAllowListList().getCurrentPageNumber());
 		}
 		appendKeyValuePair(result, SEC_USER_LIST, getSecUserList());
 		if(!getSecUserList().isEmpty()){
@@ -576,7 +590,7 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setVersion(getVersion());
-			dest.setUserWhiteListList(getUserWhiteListList());
+			dest.setUserAllowListList(getUserAllowListList());
 			dest.setSecUserList(getSecUserList());
 			dest.setPublicKeyTypeList(getPublicKeyTypeList());
 
@@ -595,7 +609,7 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeVersion(getVersion());
-			dest.mergeUserWhiteListList(getUserWhiteListList());
+			dest.mergeUserAllowListList(getUserAllowListList());
 			dest.mergeSecUserList(getSecUserList());
 			dest.mergePublicKeyTypeList(getPublicKeyTypeList());
 

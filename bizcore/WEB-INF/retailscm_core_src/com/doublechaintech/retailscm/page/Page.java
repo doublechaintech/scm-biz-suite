@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.page;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -19,8 +20,21 @@ import com.doublechaintech.retailscm.uiaction.UiAction;
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
 import com.doublechaintech.retailscm.pagetype.PageType;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = PageSerializer.class)
 public class Page extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

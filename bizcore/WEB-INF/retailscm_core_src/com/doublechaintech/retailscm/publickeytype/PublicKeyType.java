@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.publickeytype;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -13,11 +14,24 @@ import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.KeyValuePair;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentify;
+
+
+
+
+
+
+
+
 
 @JsonSerialize(using = PublicKeyTypeSerializer.class)
 public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;
@@ -26,7 +40,7 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 	public static final String DOMAIN_PROPERTY                = "domain"            ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
-	public static final String KEYPAIR_IDENTIFY_LIST                    = "keypairIdentifyList";
+	public static final String KEYPAIR_IDENTITY_LIST                    = "keypairIdentityList";
 
 	public static final String INTERNAL_TYPE="PublicKeyType";
 	public String getInternalType(){
@@ -54,7 +68,7 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 	protected		int                 	mVersion            ;
 	
 	
-	protected		SmartList<KeypairIdentify>	mKeypairIdentifyList;
+	protected		SmartList<KeypairIdentity>	mKeypairIdentityList;
 
 	
 		
@@ -140,8 +154,8 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 		if(DOMAIN_PROPERTY.equals(property)){
 			return getDomain();
 		}
-		if(KEYPAIR_IDENTIFY_LIST.equals(property)){
-			List<BaseEntity> list = getKeypairIdentifyList().stream().map(item->item).collect(Collectors.toList());
+		if(KEYPAIR_IDENTITY_LIST.equals(property)){
+			List<BaseEntity> list = getKeypairIdentityList().stream().map(item->item).collect(Collectors.toList());
 			return list;
 		}
 
@@ -241,107 +255,107 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 	
 	
 
-	public  SmartList<KeypairIdentify> getKeypairIdentifyList(){
-		if(this.mKeypairIdentifyList == null){
-			this.mKeypairIdentifyList = new SmartList<KeypairIdentify>();
-			this.mKeypairIdentifyList.setListInternalName (KEYPAIR_IDENTIFY_LIST );
+	public  SmartList<KeypairIdentity> getKeypairIdentityList(){
+		if(this.mKeypairIdentityList == null){
+			this.mKeypairIdentityList = new SmartList<KeypairIdentity>();
+			this.mKeypairIdentityList.setListInternalName (KEYPAIR_IDENTITY_LIST );
 			//有名字，便于做权限控制
 		}
 		
-		return this.mKeypairIdentifyList;	
+		return this.mKeypairIdentityList;	
 	}
-	public  void setKeypairIdentifyList(SmartList<KeypairIdentify> keypairIdentifyList){
-		for( KeypairIdentify keypairIdentify:keypairIdentifyList){
-			keypairIdentify.setKeyType(this);
+	public  void setKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
+		for( KeypairIdentity keypairIdentity:keypairIdentityList){
+			keypairIdentity.setKeyType(this);
 		}
 
-		this.mKeypairIdentifyList = keypairIdentifyList;
-		this.mKeypairIdentifyList.setListInternalName (KEYPAIR_IDENTIFY_LIST );
+		this.mKeypairIdentityList = keypairIdentityList;
+		this.mKeypairIdentityList.setListInternalName (KEYPAIR_IDENTITY_LIST );
 		
 	}
 	
-	public  void addKeypairIdentify(KeypairIdentify keypairIdentify){
-		keypairIdentify.setKeyType(this);
-		getKeypairIdentifyList().add(keypairIdentify);
+	public  void addKeypairIdentity(KeypairIdentity keypairIdentity){
+		keypairIdentity.setKeyType(this);
+		getKeypairIdentityList().add(keypairIdentity);
 	}
-	public  void addKeypairIdentifyList(SmartList<KeypairIdentify> keypairIdentifyList){
-		for( KeypairIdentify keypairIdentify:keypairIdentifyList){
-			keypairIdentify.setKeyType(this);
+	public  void addKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
+		for( KeypairIdentity keypairIdentity:keypairIdentityList){
+			keypairIdentity.setKeyType(this);
 		}
-		getKeypairIdentifyList().addAll(keypairIdentifyList);
+		getKeypairIdentityList().addAll(keypairIdentityList);
 	}
-	public  void mergeKeypairIdentifyList(SmartList<KeypairIdentify> keypairIdentifyList){
-		if(keypairIdentifyList==null){
+	public  void mergeKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
+		if(keypairIdentityList==null){
 			return;
 		}
-		if(keypairIdentifyList.isEmpty()){
+		if(keypairIdentityList.isEmpty()){
 			return;
 		}
-		addKeypairIdentifyList( keypairIdentifyList );
+		addKeypairIdentityList( keypairIdentityList );
 		
 	}
-	public  KeypairIdentify removeKeypairIdentify(KeypairIdentify keypairIdentifyIndex){
+	public  KeypairIdentity removeKeypairIdentity(KeypairIdentity keypairIdentityIndex){
 		
-		int index = getKeypairIdentifyList().indexOf(keypairIdentifyIndex);
+		int index = getKeypairIdentityList().indexOf(keypairIdentityIndex);
         if(index < 0){
-        	String message = "KeypairIdentify("+keypairIdentifyIndex.getId()+") with version='"+keypairIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "KeypairIdentity("+keypairIdentityIndex.getId()+") with version='"+keypairIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        KeypairIdentify keypairIdentify = getKeypairIdentifyList().get(index);        
-        // keypairIdentify.clearKeyType(); //disconnect with KeyType
-        keypairIdentify.clearFromAll(); //disconnect with KeyType
+        KeypairIdentity keypairIdentity = getKeypairIdentityList().get(index);        
+        // keypairIdentity.clearKeyType(); //disconnect with KeyType
+        keypairIdentity.clearFromAll(); //disconnect with KeyType
 		
-		boolean result = getKeypairIdentifyList().planToRemove(keypairIdentify);
+		boolean result = getKeypairIdentityList().planToRemove(keypairIdentity);
         if(!result){
-        	String message = "KeypairIdentify("+keypairIdentifyIndex.getId()+") with version='"+keypairIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "KeypairIdentity("+keypairIdentityIndex.getId()+") with version='"+keypairIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        return keypairIdentify;
+        return keypairIdentity;
         
 	
 	}
 	//断舍离
-	public  void breakWithKeypairIdentify(KeypairIdentify keypairIdentify){
+	public  void breakWithKeypairIdentity(KeypairIdentity keypairIdentity){
 		
-		if(keypairIdentify == null){
+		if(keypairIdentity == null){
 			return;
 		}
-		keypairIdentify.setKeyType(null);
-		//getKeypairIdentifyList().remove();
+		keypairIdentity.setKeyType(null);
+		//getKeypairIdentityList().remove();
 	
 	}
 	
-	public  boolean hasKeypairIdentify(KeypairIdentify keypairIdentify){
+	public  boolean hasKeypairIdentity(KeypairIdentity keypairIdentity){
 	
-		return getKeypairIdentifyList().contains(keypairIdentify);
+		return getKeypairIdentityList().contains(keypairIdentity);
   
 	}
 	
-	public void copyKeypairIdentifyFrom(KeypairIdentify keypairIdentify) {
+	public void copyKeypairIdentityFrom(KeypairIdentity keypairIdentity) {
 
-		KeypairIdentify keypairIdentifyInList = findTheKeypairIdentify(keypairIdentify);
-		KeypairIdentify newKeypairIdentify = new KeypairIdentify();
-		keypairIdentifyInList.copyTo(newKeypairIdentify);
-		newKeypairIdentify.setVersion(0);//will trigger copy
-		getKeypairIdentifyList().add(newKeypairIdentify);
-		addItemToFlexiableObject(COPIED_CHILD, newKeypairIdentify);
+		KeypairIdentity keypairIdentityInList = findTheKeypairIdentity(keypairIdentity);
+		KeypairIdentity newKeypairIdentity = new KeypairIdentity();
+		keypairIdentityInList.copyTo(newKeypairIdentity);
+		newKeypairIdentity.setVersion(0);//will trigger copy
+		getKeypairIdentityList().add(newKeypairIdentity);
+		addItemToFlexiableObject(COPIED_CHILD, newKeypairIdentity);
 	}
 	
-	public  KeypairIdentify findTheKeypairIdentify(KeypairIdentify keypairIdentify){
+	public  KeypairIdentity findTheKeypairIdentity(KeypairIdentity keypairIdentity){
 		
-		int index =  getKeypairIdentifyList().indexOf(keypairIdentify);
+		int index =  getKeypairIdentityList().indexOf(keypairIdentity);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
- 			String message = "KeypairIdentify("+keypairIdentify.getId()+") with version='"+keypairIdentify.getVersion()+"' NOT found!";
+ 			String message = "KeypairIdentity("+keypairIdentity.getId()+") with version='"+keypairIdentity.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
 		
-		return  getKeypairIdentifyList().get(index);
+		return  getKeypairIdentityList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
 	
-	public  void cleanUpKeypairIdentifyList(){
-		getKeypairIdentifyList().clear();
+	public  void cleanUpKeypairIdentityList(){
+		getKeypairIdentityList().clear();
 	}
 	
 	
@@ -358,7 +372,7 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
 		
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
-		collectFromList(this, entityList, getKeypairIdentifyList(), internalType);
+		collectFromList(this, entityList, getKeypairIdentityList(), internalType);
 
 		return entityList;
 	}
@@ -366,7 +380,7 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
 		
-		listOfList.add( getKeypairIdentifyList());
+		listOfList.add( getKeypairIdentityList());
 			
 
 		return listOfList;
@@ -381,10 +395,10 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 		appendKeyValuePair(result, CODE_PROPERTY, getCode());
 		appendKeyValuePair(result, DOMAIN_PROPERTY, getDomain());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
-		appendKeyValuePair(result, KEYPAIR_IDENTIFY_LIST, getKeypairIdentifyList());
-		if(!getKeypairIdentifyList().isEmpty()){
-			appendKeyValuePair(result, "keypairIdentifyCount", getKeypairIdentifyList().getTotalCount());
-			appendKeyValuePair(result, "keypairIdentifyCurrentPageNumber", getKeypairIdentifyList().getCurrentPageNumber());
+		appendKeyValuePair(result, KEYPAIR_IDENTITY_LIST, getKeypairIdentityList());
+		if(!getKeypairIdentityList().isEmpty()){
+			appendKeyValuePair(result, "keypairIdentityCount", getKeypairIdentityList().getTotalCount());
+			appendKeyValuePair(result, "keypairIdentityCurrentPageNumber", getKeypairIdentityList().getCurrentPageNumber());
 		}
 
 		if (this.valueByKey("valuesOfGroupBy") != null) {
@@ -407,7 +421,7 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 			dest.setCode(getCode());
 			dest.setDomain(getDomain());
 			dest.setVersion(getVersion());
-			dest.setKeypairIdentifyList(getKeypairIdentifyList());
+			dest.setKeypairIdentityList(getKeypairIdentityList());
 
 		}
 		super.copyTo(baseDest);
@@ -426,7 +440,7 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 			dest.mergeCode(getCode());
 			dest.mergeDomain(getDomain());
 			dest.mergeVersion(getVersion());
-			dest.mergeKeypairIdentifyList(getKeypairIdentifyList());
+			dest.mergeKeypairIdentityList(getKeypairIdentityList());
 
 		}
 		super.copyTo(baseDest);

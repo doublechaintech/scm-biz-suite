@@ -17,6 +17,7 @@ public interface CityPartnerManager extends BaseManager{
 	public CityPartner createCityPartner(RetailscmUserContext userContext, String name,String mobile,String cityServiceCenterId,String description) throws Exception;
 	public CityPartner updateCityPartner(RetailscmUserContext userContext,String cityPartnerId, int cityPartnerVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public CityPartner loadCityPartner(RetailscmUserContext userContext, String cityPartnerId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public CityPartner internalSaveCityPartner(RetailscmUserContext userContext, CityPartner cityPartner) throws Exception;
 	public CityPartner internalSaveCityPartner(RetailscmUserContext userContext, CityPartner cityPartner,Map<String,Object>option) throws Exception;
 

@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsAllocationDAO{
 
@@ -71,50 +71,54 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	 	return this.goodsDAO;
  	}	
 
-	
+
 	/*
 	protected GoodsAllocation load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalGoodsAllocation(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<GoodsAllocation> loadAll() {
 	    return this.loadAll(getGoodsAllocationMapper());
 	}
-	
-	
+
+  public Stream<GoodsAllocation> loadAllAsStream() {
+      return this.loadAllAsStream(getGoodsAllocationMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public GoodsAllocation load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalGoodsAllocation(GoodsAllocationTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public GoodsAllocation save(GoodsAllocation goodsAllocation,Map<String,Object> options){
-		
+
 		String methodName="save(GoodsAllocation goodsAllocation,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(goodsAllocation, methodName, "goodsAllocation");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalGoodsAllocation(goodsAllocation,options);
 	}
 	public GoodsAllocation clone(String goodsAllocationId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(GoodsAllocationTable.withId(goodsAllocationId),options);
 	}
-	
+
 	protected GoodsAllocation clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String goodsAllocationId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		GoodsAllocation newGoodsAllocation = loadInternalGoodsAllocation(accessKey, options);
 		newGoodsAllocation.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		}
 		
 
-		
+
 		saveInternalGoodsAllocation(newGoodsAllocation,options);
-		
+
 		return newGoodsAllocation;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String goodsAllocationId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String goodsAllocationId, int version) throws Exception{
-	
+
 		String methodName="delete(String goodsAllocationId, int version)";
 		assertMethodArgumentNotNull(goodsAllocationId, methodName, "goodsAllocationId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{goodsAllocationId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(affectedNumber == 0){
 			handleDeleteOneError(goodsAllocationId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public GoodsAllocation disconnectFromAll(String goodsAllocationId, int version) throws Exception{
-	
-		
+
+
 		GoodsAllocation goodsAllocation = loadInternalGoodsAllocation(GoodsAllocationTable.withId(goodsAllocationId), emptyOptions());
 		goodsAllocation.clearFromAll();
 		this.saveGoodsAllocation(goodsAllocation);
 		return goodsAllocation;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "goods_allocation";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "goodsAllocation";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return goodsAllocation;
 		}
 		
-		
+
 		String SQL=this.getSaveGoodsAllocationSQL(goodsAllocation);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsAllocationParameters(goodsAllocation);
@@ -419,57 +423,57 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		goodsAllocation.incVersion();
 		return goodsAllocation;
-	
+
 	}
 	public SmartList<GoodsAllocation> saveGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitGoodsAllocationList(goodsAllocationList);
-		
+
 		batchGoodsAllocationCreate((List<GoodsAllocation>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchGoodsAllocationUpdate((List<GoodsAllocation>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(GoodsAllocation goodsAllocation:goodsAllocationList){
 			if(goodsAllocation.isChanged()){
 				goodsAllocation.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return goodsAllocationList;
 	}
 
 	public SmartList<GoodsAllocation> removeGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(goodsAllocationList, options);
-		
+
 		return goodsAllocationList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareGoodsAllocationBatchCreateArgs(List<GoodsAllocation> goodsAllocationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(GoodsAllocation goodsAllocation:goodsAllocationList ){
 			Object [] parameters = prepareGoodsAllocationCreateParameters(goodsAllocation);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareGoodsAllocationBatchUpdateArgs(List<GoodsAllocation> goodsAllocationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(GoodsAllocation goodsAllocation:goodsAllocationList ){
 			if(!goodsAllocation.isChanged()){
@@ -477,40 +481,40 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			}
 			Object [] parameters = prepareGoodsAllocationUpdateParameters(goodsAllocation);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchGoodsAllocationCreate(List<GoodsAllocation> goodsAllocationList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareGoodsAllocationBatchCreateArgs(goodsAllocationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchGoodsAllocationUpdate(List<GoodsAllocation> goodsAllocationList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareGoodsAllocationBatchUpdateArgs(goodsAllocationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitGoodsAllocationList(List<GoodsAllocation> goodsAllocationList){
-		
+
 		List<GoodsAllocation> goodsAllocationCreateList=new ArrayList<GoodsAllocation>();
 		List<GoodsAllocation> goodsAllocationUpdateList=new ArrayList<GoodsAllocation>();
-		
+
 		for(GoodsAllocation goodsAllocation: goodsAllocationList){
 			if(isUpdateRequest(goodsAllocation)){
 				goodsAllocationUpdateList.add( goodsAllocation);
@@ -518,10 +522,10 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			}
 			goodsAllocationCreateList.add(goodsAllocation);
 		}
-		
+
 		return new Object[]{goodsAllocationCreateList,goodsAllocationUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(GoodsAllocation goodsAllocation){
  		return goodsAllocation.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveGoodsAllocationParameters(GoodsAllocation goodsAllocation){
  		if(isUpdateRequest(goodsAllocation) ){
  			return prepareGoodsAllocationUpdateParameters(goodsAllocation);
@@ -549,21 +553,23 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
  		
  		parameters[2] = goodsAllocation.getLongitude();
- 		 	
+ 		
  		if(goodsAllocation.getGoodsShelf() != null){
  			parameters[3] = goodsAllocation.getGoodsShelf().getId();
  		}
- 		
+ 
  		parameters[4] = goodsAllocation.nextVersion();
  		parameters[5] = goodsAllocation.getId();
  		parameters[6] = goodsAllocation.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareGoodsAllocationCreateParameters(GoodsAllocation goodsAllocation){
 		Object[] parameters = new Object[5];
-		String newGoodsAllocationId=getNextId();
-		goodsAllocation.setId(newGoodsAllocationId);
+        if(goodsAllocation.getId() == null){
+          String newGoodsAllocationId=getNextId();
+          goodsAllocation.setId(newGoodsAllocationId);
+        }
 		parameters[0] =  goodsAllocation.getId();
  
  		
@@ -574,20 +580,20 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
  		
  		parameters[3] = goodsAllocation.getLongitude();
- 		 	
+ 		
  		if(goodsAllocation.getGoodsShelf() != null){
  			parameters[4] = goodsAllocation.getGoodsShelf().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected GoodsAllocation saveInternalGoodsAllocation(GoodsAllocation goodsAllocation, Map<String,Object> options){
-		
+
 		saveGoodsAllocation(goodsAllocation);
- 	
+
  		if(isSaveGoodsShelfEnabled(options)){
 	 		saveGoodsShelf(goodsAllocation, options);
  		}
@@ -597,42 +603,42 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	 		saveGoodsList(goodsAllocation, options);
 	 		//removeGoodsList(goodsAllocation, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return goodsAllocation;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected GoodsAllocation saveGoodsShelf(GoodsAllocation goodsAllocation, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goodsAllocation.getGoodsShelf() == null){
  			return goodsAllocation;//do nothing when it is null
  		}
- 		
+
  		getGoodsShelfDAO().save(goodsAllocation.getGoodsShelf(),options);
  		return goodsAllocation;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public GoodsAllocation planToRemoveGoodsList(GoodsAllocation goodsAllocation, String goodsIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.ID_PROPERTY, goodsIds);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -641,17 +647,17 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 
 			goodsItem.clearFromAll();
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
-		return goodsAllocation;	
-	
+		return goodsAllocation;
+
 	}
 
 
@@ -660,11 +666,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -673,19 +679,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSku();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithSku(String goodsAllocationId, String skuId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -704,11 +710,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -717,19 +723,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearReceivingSpace();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithReceivingSpace(String goodsAllocationId, String receivingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -738,7 +744,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -748,11 +754,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -761,19 +767,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSmartPallet();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithSmartPallet(String goodsAllocationId, String smartPalletId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -782,7 +788,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -792,11 +798,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -805,19 +811,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearShippingSpace();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithShippingSpace(String goodsAllocationId, String shippingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -826,7 +832,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -836,11 +842,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -849,19 +855,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearTransportTask();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithTransportTask(String goodsAllocationId, String transportTaskId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -870,7 +876,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -880,11 +886,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -893,19 +899,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStore();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithRetailStore(String goodsAllocationId, String retailStoreId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -914,7 +920,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -924,11 +930,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -937,19 +943,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearBizOrder();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithBizOrder(String goodsAllocationId, String bizOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -958,7 +964,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -968,11 +974,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocation.getId());
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -981,19 +987,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalGoodsList.isEmpty()){
 			return goodsAllocation;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStoreOrder();
 			goodsItem.clearGoodsAllocation();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return goodsAllocation;
 	}
-	
+
 	public int countGoodsListWithRetailStoreOrder(String goodsAllocationId, String retailStoreOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1002,7 +1008,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1010,19 +1016,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 		
 	protected GoodsAllocation saveGoodsList(GoodsAllocation goodsAllocation, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		if(goodsList == null){
 			//null list means nothing
 			return goodsAllocation;
 		}
 		SmartList<Goods> mergedUpdateGoodsList = new SmartList<Goods>();
-		
-		
-		mergedUpdateGoodsList.addAll(goodsList); 
+
+
+		mergedUpdateGoodsList.addAll(goodsList);
 		if(goodsList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsList.addAll(goodsList.getToRemoveList());
@@ -1031,28 +1037,28 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsDAO().saveGoodsList(mergedUpdateGoodsList,options);
-		
+
 		if(goodsList.getToRemoveList() != null){
 			goodsList.removeAll(goodsList.getToRemoveList());
 		}
-		
-		
+
+
 		return goodsAllocation;
-	
+
 	}
-	
+
 	protected GoodsAllocation removeGoodsList(GoodsAllocation goodsAllocation, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		if(goodsList == null){
 			return goodsAllocation;
-		}	
-	
+		}
+
 		SmartList<Goods> toRemoveGoodsList = goodsList.getToRemoveList();
-		
+
 		if(toRemoveGoodsList == null){
 			return goodsAllocation;
 		}
@@ -1060,20 +1066,20 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return goodsAllocation;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
-		
-		return goodsAllocation;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
+
+		return goodsAllocation;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public GoodsAllocation present(GoodsAllocation goodsAllocation,Map<String, Object> options){
@@ -1116,13 +1122,13 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	protected String getTableName(){
 		return GoodsAllocationTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<GoodsAllocation> goodsAllocationList) {		
+
+
+
+	public void enhanceList(List<GoodsAllocation> goodsAllocationList) {
 		this.enhanceListInternal(goodsAllocationList, this.getGoodsAllocationMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的goodsAllocation的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<GoodsAllocation> us, Map<String,Object> options) throws Exception{
@@ -1147,39 +1153,45 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsAllocation> goodsAllocationList = ownerEntity.collectRefsWithType(GoodsAllocation.INTERNAL_TYPE);
 		this.enhanceList(goodsAllocationList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<GoodsAllocation> findGoodsAllocationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getGoodsAllocationMapper());
 
 	}
 	@Override
 	public int countGoodsAllocationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countGoodsAllocationWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<GoodsAllocation> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getGoodsAllocationMapper());
 	}
+
+  @Override
+  public Stream<GoodsAllocation> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getGoodsAllocationMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1208,7 +1220,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 		return result;
 	}
-	
+
 	
 
 }

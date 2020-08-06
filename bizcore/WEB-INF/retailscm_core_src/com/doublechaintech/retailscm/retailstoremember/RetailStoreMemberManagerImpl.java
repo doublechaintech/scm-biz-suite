@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.retailstoremember;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPoint;
@@ -52,24 +50,24 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = RetailStoreMemberTokens.start().withTokenFromListName(listName).done();
 		RetailStoreMember  retailStoreMember = (RetailStoreMember) this.loadRetailStoreMember(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = retailStoreMember.collectRefercencesFromLists();
 		retailStoreMemberDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, retailStoreMember, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new RetailStoreMemberGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -132,7 +130,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreMemberManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		RetailStoreMember retailStoreMember = loadRetailStoreMember( userContext, retailStoreMemberId, tokens);
  		//do some calc before sent to customer?
@@ -151,6 +149,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		
 		List<BaseEntity> entityListToNaming = retailStoreMemberToPresent.collectRefercencesFromLists();
 		retailStoreMemberDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,retailStoreMember,tokens);
 		
 		return  retailStoreMemberToPresent;
 		
@@ -561,7 +562,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.addConsumerOrder( consumerOrder );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withConsumerOrderList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderManager().onNewInstanceCreated(userContext, consumerOrder);
+			consumerOrderManagerOf(userContext).onNewInstanceCreated(userContext, consumerOrder);
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -582,7 +583,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withConsumerOrderListList()
-				.searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, "is", id).done();
+				.searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreMember retailStoreMemberToUpdate = loadRetailStoreMember(userContext, retailStoreMemberId, options);
 
@@ -591,7 +592,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		ConsumerOrder item = retailStoreMemberToUpdate.getConsumerOrderList().first();
-
+		beforeUpdateConsumerOrderProperties(userContext,item, retailStoreMemberId,id,title,tokensExpr);
 		item.updateTitle( title );
 
 
@@ -602,6 +603,10 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateConsumerOrderProperties(RetailscmUserContext userContext, ConsumerOrder item, String retailStoreMemberId, String id,String title, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ConsumerOrder createConsumerOrder(RetailscmUserContext userContext, String title, String storeId) throws Exception{
 
@@ -709,7 +714,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.copyConsumerOrderFrom( consumerOrder );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withConsumerOrderList().done());
 			
-			userContext.getManagerGroup().getConsumerOrderManager().onNewInstanceCreated(userContext, (ConsumerOrder)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			consumerOrderManagerOf(userContext).onNewInstanceCreated(userContext, (ConsumerOrder)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -722,15 +727,13 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkVersionOfConsumerOrder(consumerOrderVersion);
-		
+
 
 		if(ConsumerOrder.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfConsumerOrder(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -740,7 +743,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingConsumerOrder(userContext, retailStoreMemberId, consumerOrderId, consumerOrderVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withConsumerOrderList().searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, "eq", consumerOrderId).done();
+		Map<String,Object> loadTokens = this.tokens().withConsumerOrderList().searchConsumerOrderListWith(ConsumerOrder.ID_PROPERTY, tokens().equals(), consumerOrderId).done();
 
 
 
@@ -751,13 +754,14 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreMember.removeConsumerOrder( consumerOrder );
 			//make changes to AcceleraterAccount.
-			ConsumerOrder consumerOrderIndex = createIndexedConsumerOrder(consumerOrderId, consumerOrderVersion);
+			ConsumerOrder consumerOrderIdVersionKey = createIndexedConsumerOrder(consumerOrderId, consumerOrderVersion);
 
-			ConsumerOrder consumerOrder = retailStoreMember.findTheConsumerOrder(consumerOrderIndex);
+			ConsumerOrder consumerOrder = retailStoreMember.findTheConsumerOrder(consumerOrderIdVersionKey);
 			if(consumerOrder == null){
-				throw new RetailStoreMemberManagerException(consumerOrder+" is NOT FOUND" );
+				throw new RetailStoreMemberManagerException(consumerOrderId+" is NOT FOUND" );
 			}
 
+			beforeUpdateConsumerOrder(userContext, consumerOrder, retailStoreMemberId, consumerOrderId, consumerOrderVersion, property, newValueExpr,  tokensExpr);
 			consumerOrder.changeProperty(property, newValueExpr);
 			consumerOrder.updateLastUpdateTime(userContext.now());
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withConsumerOrderList().done());
@@ -765,6 +769,11 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateConsumerOrder(RetailscmUserContext userContext, ConsumerOrder existed, String retailStoreMemberId, String consumerOrderId, int consumerOrderVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -799,7 +808,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.addRetailStoreMemberCoupon( retailStoreMemberCoupon );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberCouponList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberCouponManager().onNewInstanceCreated(userContext, retailStoreMemberCoupon);
+			retailStoreMemberCouponManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreMemberCoupon);
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -821,7 +830,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreMemberCouponListList()
-				.searchRetailStoreMemberCouponListWith(RetailStoreMemberCoupon.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreMemberCouponListWith(RetailStoreMemberCoupon.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreMember retailStoreMemberToUpdate = loadRetailStoreMember(userContext, retailStoreMemberId, options);
 
@@ -830,7 +839,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		RetailStoreMemberCoupon item = retailStoreMemberToUpdate.getRetailStoreMemberCouponList().first();
-
+		beforeUpdateRetailStoreMemberCouponProperties(userContext,item, retailStoreMemberId,id,name,number,tokensExpr);
 		item.updateName( name );
 		item.updateNumber( number );
 
@@ -842,6 +851,10 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreMemberCouponProperties(RetailscmUserContext userContext, RetailStoreMemberCoupon item, String retailStoreMemberId, String id,String name,String number, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreMemberCoupon createRetailStoreMemberCoupon(RetailscmUserContext userContext, String name, String number) throws Exception{
 
@@ -947,7 +960,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.copyRetailStoreMemberCouponFrom( retailStoreMemberCoupon );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberCouponList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberCouponManager().onNewInstanceCreated(userContext, (RetailStoreMemberCoupon)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreMemberCouponManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreMemberCoupon)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -960,21 +973,17 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberCoupon(retailStoreMemberCouponId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberCoupon(retailStoreMemberCouponVersion);
-		
+
 
 		if(RetailStoreMemberCoupon.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStoreMemberCoupon(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMemberCoupon.NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNumberOfRetailStoreMemberCoupon(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -984,7 +993,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingRetailStoreMemberCoupon(userContext, retailStoreMemberId, retailStoreMemberCouponId, retailStoreMemberCouponVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberCouponList().searchRetailStoreMemberCouponListWith(RetailStoreMemberCoupon.ID_PROPERTY, "eq", retailStoreMemberCouponId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberCouponList().searchRetailStoreMemberCouponListWith(RetailStoreMemberCoupon.ID_PROPERTY, tokens().equals(), retailStoreMemberCouponId).done();
 
 
 
@@ -995,13 +1004,14 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreMember.removeRetailStoreMemberCoupon( retailStoreMemberCoupon );
 			//make changes to AcceleraterAccount.
-			RetailStoreMemberCoupon retailStoreMemberCouponIndex = createIndexedRetailStoreMemberCoupon(retailStoreMemberCouponId, retailStoreMemberCouponVersion);
+			RetailStoreMemberCoupon retailStoreMemberCouponIdVersionKey = createIndexedRetailStoreMemberCoupon(retailStoreMemberCouponId, retailStoreMemberCouponVersion);
 
-			RetailStoreMemberCoupon retailStoreMemberCoupon = retailStoreMember.findTheRetailStoreMemberCoupon(retailStoreMemberCouponIndex);
+			RetailStoreMemberCoupon retailStoreMemberCoupon = retailStoreMember.findTheRetailStoreMemberCoupon(retailStoreMemberCouponIdVersionKey);
 			if(retailStoreMemberCoupon == null){
-				throw new RetailStoreMemberManagerException(retailStoreMemberCoupon+" is NOT FOUND" );
+				throw new RetailStoreMemberManagerException(retailStoreMemberCouponId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreMemberCoupon(userContext, retailStoreMemberCoupon, retailStoreMemberId, retailStoreMemberCouponId, retailStoreMemberCouponVersion, property, newValueExpr,  tokensExpr);
 			retailStoreMemberCoupon.changeProperty(property, newValueExpr);
 			retailStoreMemberCoupon.updateLastUpdateTime(userContext.now());
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberCouponList().done());
@@ -1009,6 +1019,11 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreMemberCoupon(RetailscmUserContext userContext, RetailStoreMemberCoupon existed, String retailStoreMemberId, String retailStoreMemberCouponId, int retailStoreMemberCouponVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1041,7 +1056,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.addMemberWishlist( memberWishlist );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberWishlistList().done());
 			
-			userContext.getManagerGroup().getMemberWishlistManager().onNewInstanceCreated(userContext, memberWishlist);
+			memberWishlistManagerOf(userContext).onNewInstanceCreated(userContext, memberWishlist);
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1062,7 +1077,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withMemberWishlistListList()
-				.searchMemberWishlistListWith(MemberWishlist.ID_PROPERTY, "is", id).done();
+				.searchMemberWishlistListWith(MemberWishlist.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreMember retailStoreMemberToUpdate = loadRetailStoreMember(userContext, retailStoreMemberId, options);
 
@@ -1071,7 +1086,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		MemberWishlist item = retailStoreMemberToUpdate.getMemberWishlistList().first();
-
+		beforeUpdateMemberWishlistProperties(userContext,item, retailStoreMemberId,id,name,tokensExpr);
 		item.updateName( name );
 
 
@@ -1082,6 +1097,10 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateMemberWishlistProperties(RetailscmUserContext userContext, MemberWishlist item, String retailStoreMemberId, String id,String name, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected MemberWishlist createMemberWishlist(RetailscmUserContext userContext, String name) throws Exception{
 
@@ -1185,7 +1204,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.copyMemberWishlistFrom( memberWishlist );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberWishlistList().done());
 			
-			userContext.getManagerGroup().getMemberWishlistManager().onNewInstanceCreated(userContext, (MemberWishlist)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			memberWishlistManagerOf(userContext).onNewInstanceCreated(userContext, (MemberWishlist)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1198,15 +1217,13 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 		checkerOf(userContext).checkVersionOfMemberWishlist(memberWishlistVersion);
-		
+
 
 		if(MemberWishlist.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfMemberWishlist(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1216,7 +1233,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingMemberWishlist(userContext, retailStoreMemberId, memberWishlistId, memberWishlistVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withMemberWishlistList().searchMemberWishlistListWith(MemberWishlist.ID_PROPERTY, "eq", memberWishlistId).done();
+		Map<String,Object> loadTokens = this.tokens().withMemberWishlistList().searchMemberWishlistListWith(MemberWishlist.ID_PROPERTY, tokens().equals(), memberWishlistId).done();
 
 
 
@@ -1227,13 +1244,14 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreMember.removeMemberWishlist( memberWishlist );
 			//make changes to AcceleraterAccount.
-			MemberWishlist memberWishlistIndex = createIndexedMemberWishlist(memberWishlistId, memberWishlistVersion);
+			MemberWishlist memberWishlistIdVersionKey = createIndexedMemberWishlist(memberWishlistId, memberWishlistVersion);
 
-			MemberWishlist memberWishlist = retailStoreMember.findTheMemberWishlist(memberWishlistIndex);
+			MemberWishlist memberWishlist = retailStoreMember.findTheMemberWishlist(memberWishlistIdVersionKey);
 			if(memberWishlist == null){
-				throw new RetailStoreMemberManagerException(memberWishlist+" is NOT FOUND" );
+				throw new RetailStoreMemberManagerException(memberWishlistId+" is NOT FOUND" );
 			}
 
+			beforeUpdateMemberWishlist(userContext, memberWishlist, retailStoreMemberId, memberWishlistId, memberWishlistVersion, property, newValueExpr,  tokensExpr);
 			memberWishlist.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberWishlistList().done());
@@ -1241,6 +1259,11 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateMemberWishlist(RetailscmUserContext userContext, MemberWishlist existed, String retailStoreMemberId, String memberWishlistId, int memberWishlistVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1275,7 +1298,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.addMemberRewardPoint( memberRewardPoint );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointList().done());
 			
-			userContext.getManagerGroup().getMemberRewardPointManager().onNewInstanceCreated(userContext, memberRewardPoint);
+			memberRewardPointManagerOf(userContext).onNewInstanceCreated(userContext, memberRewardPoint);
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1297,7 +1320,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withMemberRewardPointListList()
-				.searchMemberRewardPointListWith(MemberRewardPoint.ID_PROPERTY, "is", id).done();
+				.searchMemberRewardPointListWith(MemberRewardPoint.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreMember retailStoreMemberToUpdate = loadRetailStoreMember(userContext, retailStoreMemberId, options);
 
@@ -1306,7 +1329,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		MemberRewardPoint item = retailStoreMemberToUpdate.getMemberRewardPointList().first();
-
+		beforeUpdateMemberRewardPointProperties(userContext,item, retailStoreMemberId,id,name,point,tokensExpr);
 		item.updateName( name );
 		item.updatePoint( point );
 
@@ -1318,6 +1341,10 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateMemberRewardPointProperties(RetailscmUserContext userContext, MemberRewardPoint item, String retailStoreMemberId, String id,String name,int point, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected MemberRewardPoint createMemberRewardPoint(RetailscmUserContext userContext, String name, int point) throws Exception{
 
@@ -1422,7 +1449,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.copyMemberRewardPointFrom( memberRewardPoint );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointList().done());
 			
-			userContext.getManagerGroup().getMemberRewardPointManager().onNewInstanceCreated(userContext, (MemberRewardPoint)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			memberRewardPointManagerOf(userContext).onNewInstanceCreated(userContext, (MemberRewardPoint)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1435,21 +1462,17 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPoint(memberRewardPointId);
 		checkerOf(userContext).checkVersionOfMemberRewardPoint(memberRewardPointVersion);
-		
+
 
 		if(MemberRewardPoint.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfMemberRewardPoint(parseString(newValueExpr));
-		
 		}
 		
 		if(MemberRewardPoint.POINT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPointOfMemberRewardPoint(parseInt(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1459,7 +1482,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingMemberRewardPoint(userContext, retailStoreMemberId, memberRewardPointId, memberRewardPointVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withMemberRewardPointList().searchMemberRewardPointListWith(MemberRewardPoint.ID_PROPERTY, "eq", memberRewardPointId).done();
+		Map<String,Object> loadTokens = this.tokens().withMemberRewardPointList().searchMemberRewardPointListWith(MemberRewardPoint.ID_PROPERTY, tokens().equals(), memberRewardPointId).done();
 
 
 
@@ -1470,13 +1493,14 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreMember.removeMemberRewardPoint( memberRewardPoint );
 			//make changes to AcceleraterAccount.
-			MemberRewardPoint memberRewardPointIndex = createIndexedMemberRewardPoint(memberRewardPointId, memberRewardPointVersion);
+			MemberRewardPoint memberRewardPointIdVersionKey = createIndexedMemberRewardPoint(memberRewardPointId, memberRewardPointVersion);
 
-			MemberRewardPoint memberRewardPoint = retailStoreMember.findTheMemberRewardPoint(memberRewardPointIndex);
+			MemberRewardPoint memberRewardPoint = retailStoreMember.findTheMemberRewardPoint(memberRewardPointIdVersionKey);
 			if(memberRewardPoint == null){
-				throw new RetailStoreMemberManagerException(memberRewardPoint+" is NOT FOUND" );
+				throw new RetailStoreMemberManagerException(memberRewardPointId+" is NOT FOUND" );
 			}
 
+			beforeUpdateMemberRewardPoint(userContext, memberRewardPoint, retailStoreMemberId, memberRewardPointId, memberRewardPointVersion, property, newValueExpr,  tokensExpr);
 			memberRewardPoint.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointList().done());
@@ -1484,6 +1508,11 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateMemberRewardPoint(RetailscmUserContext userContext, MemberRewardPoint existed, String retailStoreMemberId, String memberRewardPointId, int memberRewardPointVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1518,7 +1547,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.addMemberRewardPointRedemption( memberRewardPointRedemption );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointRedemptionList().done());
 			
-			userContext.getManagerGroup().getMemberRewardPointRedemptionManager().onNewInstanceCreated(userContext, memberRewardPointRedemption);
+			memberRewardPointRedemptionManagerOf(userContext).onNewInstanceCreated(userContext, memberRewardPointRedemption);
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1540,7 +1569,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withMemberRewardPointRedemptionListList()
-				.searchMemberRewardPointRedemptionListWith(MemberRewardPointRedemption.ID_PROPERTY, "is", id).done();
+				.searchMemberRewardPointRedemptionListWith(MemberRewardPointRedemption.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreMember retailStoreMemberToUpdate = loadRetailStoreMember(userContext, retailStoreMemberId, options);
 
@@ -1549,7 +1578,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		MemberRewardPointRedemption item = retailStoreMemberToUpdate.getMemberRewardPointRedemptionList().first();
-
+		beforeUpdateMemberRewardPointRedemptionProperties(userContext,item, retailStoreMemberId,id,name,point,tokensExpr);
 		item.updateName( name );
 		item.updatePoint( point );
 
@@ -1561,6 +1590,10 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateMemberRewardPointRedemptionProperties(RetailscmUserContext userContext, MemberRewardPointRedemption item, String retailStoreMemberId, String id,String name,int point, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected MemberRewardPointRedemption createMemberRewardPointRedemption(RetailscmUserContext userContext, String name, int point) throws Exception{
 
@@ -1665,7 +1698,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.copyMemberRewardPointRedemptionFrom( memberRewardPointRedemption );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointRedemptionList().done());
 			
-			userContext.getManagerGroup().getMemberRewardPointRedemptionManager().onNewInstanceCreated(userContext, (MemberRewardPointRedemption)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			memberRewardPointRedemptionManagerOf(userContext).onNewInstanceCreated(userContext, (MemberRewardPointRedemption)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1678,21 +1711,17 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPointRedemption(memberRewardPointRedemptionId);
 		checkerOf(userContext).checkVersionOfMemberRewardPointRedemption(memberRewardPointRedemptionVersion);
-		
+
 
 		if(MemberRewardPointRedemption.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfMemberRewardPointRedemption(parseString(newValueExpr));
-		
 		}
 		
 		if(MemberRewardPointRedemption.POINT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPointOfMemberRewardPointRedemption(parseInt(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1702,7 +1731,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingMemberRewardPointRedemption(userContext, retailStoreMemberId, memberRewardPointRedemptionId, memberRewardPointRedemptionVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withMemberRewardPointRedemptionList().searchMemberRewardPointRedemptionListWith(MemberRewardPointRedemption.ID_PROPERTY, "eq", memberRewardPointRedemptionId).done();
+		Map<String,Object> loadTokens = this.tokens().withMemberRewardPointRedemptionList().searchMemberRewardPointRedemptionListWith(MemberRewardPointRedemption.ID_PROPERTY, tokens().equals(), memberRewardPointRedemptionId).done();
 
 
 
@@ -1713,13 +1742,14 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreMember.removeMemberRewardPointRedemption( memberRewardPointRedemption );
 			//make changes to AcceleraterAccount.
-			MemberRewardPointRedemption memberRewardPointRedemptionIndex = createIndexedMemberRewardPointRedemption(memberRewardPointRedemptionId, memberRewardPointRedemptionVersion);
+			MemberRewardPointRedemption memberRewardPointRedemptionIdVersionKey = createIndexedMemberRewardPointRedemption(memberRewardPointRedemptionId, memberRewardPointRedemptionVersion);
 
-			MemberRewardPointRedemption memberRewardPointRedemption = retailStoreMember.findTheMemberRewardPointRedemption(memberRewardPointRedemptionIndex);
+			MemberRewardPointRedemption memberRewardPointRedemption = retailStoreMember.findTheMemberRewardPointRedemption(memberRewardPointRedemptionIdVersionKey);
 			if(memberRewardPointRedemption == null){
-				throw new RetailStoreMemberManagerException(memberRewardPointRedemption+" is NOT FOUND" );
+				throw new RetailStoreMemberManagerException(memberRewardPointRedemptionId+" is NOT FOUND" );
 			}
 
+			beforeUpdateMemberRewardPointRedemption(userContext, memberRewardPointRedemption, retailStoreMemberId, memberRewardPointRedemptionId, memberRewardPointRedemptionVersion, property, newValueExpr,  tokensExpr);
 			memberRewardPointRedemption.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointRedemptionList().done());
@@ -1727,6 +1757,11 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateMemberRewardPointRedemption(RetailscmUserContext userContext, MemberRewardPointRedemption existed, String retailStoreMemberId, String memberRewardPointRedemptionId, int memberRewardPointRedemptionVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1763,7 +1798,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.addRetailStoreMemberAddress( retailStoreMemberAddress );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberAddressList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberAddressManager().onNewInstanceCreated(userContext, retailStoreMemberAddress);
+			retailStoreMemberAddressManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreMemberAddress);
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1786,7 +1821,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreMemberAddressListList()
-				.searchRetailStoreMemberAddressListWith(RetailStoreMemberAddress.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreMemberAddressListWith(RetailStoreMemberAddress.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreMember retailStoreMemberToUpdate = loadRetailStoreMember(userContext, retailStoreMemberId, options);
 
@@ -1795,7 +1830,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		RetailStoreMemberAddress item = retailStoreMemberToUpdate.getRetailStoreMemberAddressList().first();
-
+		beforeUpdateRetailStoreMemberAddressProperties(userContext,item, retailStoreMemberId,id,name,mobilePhone,address,tokensExpr);
 		item.updateName( name );
 		item.updateMobilePhone( mobilePhone );
 		item.updateAddress( address );
@@ -1808,6 +1843,10 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreMemberAddressProperties(RetailscmUserContext userContext, RetailStoreMemberAddress item, String retailStoreMemberId, String id,String name,String mobilePhone,String address, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreMemberAddress createRetailStoreMemberAddress(RetailscmUserContext userContext, String name, String mobilePhone, String address) throws Exception{
 
@@ -1913,7 +1952,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.copyRetailStoreMemberAddressFrom( retailStoreMemberAddress );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberAddressList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberAddressManager().onNewInstanceCreated(userContext, (RetailStoreMemberAddress)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreMemberAddressManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreMemberAddress)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1926,27 +1965,21 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberAddress(retailStoreMemberAddressId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberAddress(retailStoreMemberAddressVersion);
-		
+
 
 		if(RetailStoreMemberAddress.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStoreMemberAddress(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMemberAddress.MOBILE_PHONE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMobilePhoneOfRetailStoreMemberAddress(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMemberAddress.ADDRESS_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAddressOfRetailStoreMemberAddress(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1956,7 +1989,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingRetailStoreMemberAddress(userContext, retailStoreMemberId, retailStoreMemberAddressId, retailStoreMemberAddressVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberAddressList().searchRetailStoreMemberAddressListWith(RetailStoreMemberAddress.ID_PROPERTY, "eq", retailStoreMemberAddressId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberAddressList().searchRetailStoreMemberAddressListWith(RetailStoreMemberAddress.ID_PROPERTY, tokens().equals(), retailStoreMemberAddressId).done();
 
 
 
@@ -1967,13 +2000,14 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreMember.removeRetailStoreMemberAddress( retailStoreMemberAddress );
 			//make changes to AcceleraterAccount.
-			RetailStoreMemberAddress retailStoreMemberAddressIndex = createIndexedRetailStoreMemberAddress(retailStoreMemberAddressId, retailStoreMemberAddressVersion);
+			RetailStoreMemberAddress retailStoreMemberAddressIdVersionKey = createIndexedRetailStoreMemberAddress(retailStoreMemberAddressId, retailStoreMemberAddressVersion);
 
-			RetailStoreMemberAddress retailStoreMemberAddress = retailStoreMember.findTheRetailStoreMemberAddress(retailStoreMemberAddressIndex);
+			RetailStoreMemberAddress retailStoreMemberAddress = retailStoreMember.findTheRetailStoreMemberAddress(retailStoreMemberAddressIdVersionKey);
 			if(retailStoreMemberAddress == null){
-				throw new RetailStoreMemberManagerException(retailStoreMemberAddress+" is NOT FOUND" );
+				throw new RetailStoreMemberManagerException(retailStoreMemberAddressId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreMemberAddress(userContext, retailStoreMemberAddress, retailStoreMemberId, retailStoreMemberAddressId, retailStoreMemberAddressVersion, property, newValueExpr,  tokensExpr);
 			retailStoreMemberAddress.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberAddressList().done());
@@ -1981,6 +2015,11 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreMemberAddress(RetailscmUserContext userContext, RetailStoreMemberAddress existed, String retailStoreMemberId, String retailStoreMemberAddressId, int retailStoreMemberAddressVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2017,7 +2056,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.addRetailStoreMemberGiftCard( retailStoreMemberGiftCard );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberGiftCardList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberGiftCardManager().onNewInstanceCreated(userContext, retailStoreMemberGiftCard);
+			retailStoreMemberGiftCardManagerOf(userContext).onNewInstanceCreated(userContext, retailStoreMemberGiftCard);
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2040,7 +2079,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withRetailStoreMemberGiftCardListList()
-				.searchRetailStoreMemberGiftCardListWith(RetailStoreMemberGiftCard.ID_PROPERTY, "is", id).done();
+				.searchRetailStoreMemberGiftCardListWith(RetailStoreMemberGiftCard.ID_PROPERTY, tokens().is(), id).done();
 
 		RetailStoreMember retailStoreMemberToUpdate = loadRetailStoreMember(userContext, retailStoreMemberId, options);
 
@@ -2049,7 +2088,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		RetailStoreMemberGiftCard item = retailStoreMemberToUpdate.getRetailStoreMemberGiftCardList().first();
-
+		beforeUpdateRetailStoreMemberGiftCardProperties(userContext,item, retailStoreMemberId,id,name,number,remain,tokensExpr);
 		item.updateName( name );
 		item.updateNumber( number );
 		item.updateRemain( remain );
@@ -2062,6 +2101,10 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateRetailStoreMemberGiftCardProperties(RetailscmUserContext userContext, RetailStoreMemberGiftCard item, String retailStoreMemberId, String id,String name,String number,BigDecimal remain, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected RetailStoreMemberGiftCard createRetailStoreMemberGiftCard(RetailscmUserContext userContext, String name, String number, BigDecimal remain) throws Exception{
 
@@ -2167,7 +2210,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMember.copyRetailStoreMemberGiftCardFrom( retailStoreMemberGiftCard );
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberGiftCardList().done());
 			
-			userContext.getManagerGroup().getRetailStoreMemberGiftCardManager().onNewInstanceCreated(userContext, (RetailStoreMemberGiftCard)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			retailStoreMemberGiftCardManagerOf(userContext).onNewInstanceCreated(userContext, (RetailStoreMemberGiftCard)retailStoreMember.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -2180,27 +2223,21 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardVersion);
-		
+
 
 		if(RetailStoreMemberGiftCard.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfRetailStoreMemberGiftCard(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMemberGiftCard.NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNumberOfRetailStoreMemberGiftCard(parseString(newValueExpr));
-		
 		}
 		
 		if(RetailStoreMemberGiftCard.REMAIN_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemainOfRetailStoreMemberGiftCard(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -2210,7 +2247,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingRetailStoreMemberGiftCard(userContext, retailStoreMemberId, retailStoreMemberGiftCardId, retailStoreMemberGiftCardVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberGiftCardList().searchRetailStoreMemberGiftCardListWith(RetailStoreMemberGiftCard.ID_PROPERTY, "eq", retailStoreMemberGiftCardId).done();
+		Map<String,Object> loadTokens = this.tokens().withRetailStoreMemberGiftCardList().searchRetailStoreMemberGiftCardListWith(RetailStoreMemberGiftCard.ID_PROPERTY, tokens().equals(), retailStoreMemberGiftCardId).done();
 
 
 
@@ -2221,13 +2258,14 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//retailStoreMember.removeRetailStoreMemberGiftCard( retailStoreMemberGiftCard );
 			//make changes to AcceleraterAccount.
-			RetailStoreMemberGiftCard retailStoreMemberGiftCardIndex = createIndexedRetailStoreMemberGiftCard(retailStoreMemberGiftCardId, retailStoreMemberGiftCardVersion);
+			RetailStoreMemberGiftCard retailStoreMemberGiftCardIdVersionKey = createIndexedRetailStoreMemberGiftCard(retailStoreMemberGiftCardId, retailStoreMemberGiftCardVersion);
 
-			RetailStoreMemberGiftCard retailStoreMemberGiftCard = retailStoreMember.findTheRetailStoreMemberGiftCard(retailStoreMemberGiftCardIndex);
+			RetailStoreMemberGiftCard retailStoreMemberGiftCard = retailStoreMember.findTheRetailStoreMemberGiftCard(retailStoreMemberGiftCardIdVersionKey);
 			if(retailStoreMemberGiftCard == null){
-				throw new RetailStoreMemberManagerException(retailStoreMemberGiftCard+" is NOT FOUND" );
+				throw new RetailStoreMemberManagerException(retailStoreMemberGiftCardId+" is NOT FOUND" );
 			}
 
+			beforeUpdateRetailStoreMemberGiftCard(userContext, retailStoreMemberGiftCard, retailStoreMemberId, retailStoreMemberGiftCardId, retailStoreMemberGiftCardVersion, property, newValueExpr,  tokensExpr);
 			retailStoreMemberGiftCard.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberGiftCardList().done());
@@ -2235,6 +2273,11 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateRetailStoreMemberGiftCard(RetailscmUserContext userContext, RetailStoreMemberGiftCard existed, String retailStoreMemberId, String retailStoreMemberGiftCardId, int retailStoreMemberGiftCardVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2251,6 +2294,12 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    retailStoreMemberDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -2342,6 +2391,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -2458,7 +2508,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -2625,6 +2675,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

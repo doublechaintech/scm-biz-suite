@@ -19,7 +19,7 @@ public class PublicKeyTypeGridViewGenerator extends BaseGridViewGenerator{
 	
 	protected String [] getHeaderKeys(String listName) {
 		
-		if(PublicKeyType.KEYPAIR_IDENTIFY_LIST.equals(listName)){
+		if(PublicKeyType.KEYPAIR_IDENTITY_LIST.equals(listName)){
 			return new String[]{"id","public_key","key_type","sec_user","create_time","version"};
 		}
 		
@@ -29,8 +29,8 @@ public class PublicKeyTypeGridViewGenerator extends BaseGridViewGenerator{
 		
 	}
 	protected String  getObjectKey(String listName) {
-		if(PublicKeyType.KEYPAIR_IDENTIFY_LIST.equals(listName)){
-			return "keypair_identify";
+		if(PublicKeyType.KEYPAIR_IDENTITY_LIST.equals(listName)){
+			return "keypair_identity";
 		}
 		
 

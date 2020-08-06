@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.supplierproduct;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
@@ -45,24 +43,24 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = SupplierProductTokens.start().withTokenFromListName(listName).done();
 		SupplierProduct  supplierProduct = (SupplierProduct) this.loadSupplierProduct(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = supplierProduct.collectRefercencesFromLists();
 		supplierProductDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, supplierProduct, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new SupplierProductGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -125,7 +123,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).throwExceptionIfHasErrors( SupplierProductManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		SupplierProduct supplierProduct = loadSupplierProduct( userContext, supplierProductId, tokens);
  		//do some calc before sent to customer?
@@ -144,6 +142,9 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		
 		List<BaseEntity> entityListToNaming = supplierProductToPresent.collectRefercencesFromLists();
 		supplierProductDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,supplierProduct,tokens);
 		
 		return  supplierProductToPresent;
 		
@@ -516,7 +517,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 			supplierProduct.addProductSupplyDuration( productSupplyDuration );
 			supplierProduct = saveSupplierProduct(userContext, supplierProduct, tokens().withProductSupplyDurationList().done());
 			
-			userContext.getManagerGroup().getProductSupplyDurationManager().onNewInstanceCreated(userContext, productSupplyDuration);
+			productSupplyDurationManagerOf(userContext).onNewInstanceCreated(userContext, productSupplyDuration);
 			return present(userContext,supplierProduct, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -539,7 +540,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withProductSupplyDurationListList()
-				.searchProductSupplyDurationListWith(ProductSupplyDuration.ID_PROPERTY, "is", id).done();
+				.searchProductSupplyDurationListWith(ProductSupplyDuration.ID_PROPERTY, tokens().is(), id).done();
 
 		SupplierProduct supplierProductToUpdate = loadSupplierProduct(userContext, supplierProductId, options);
 
@@ -548,7 +549,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		}
 
 		ProductSupplyDuration item = supplierProductToUpdate.getProductSupplyDurationList().first();
-
+		beforeUpdateProductSupplyDurationProperties(userContext,item, supplierProductId,id,quantity,duration,price,tokensExpr);
 		item.updateQuantity( quantity );
 		item.updateDuration( duration );
 		item.updatePrice( price );
@@ -561,6 +562,10 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		}
 	}
 
+	protected  void beforeUpdateProductSupplyDurationProperties(RetailscmUserContext userContext, ProductSupplyDuration item, String supplierProductId, String id,int quantity,String duration,BigDecimal price, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ProductSupplyDuration createProductSupplyDuration(RetailscmUserContext userContext, int quantity, String duration, BigDecimal price) throws Exception{
 
@@ -666,7 +671,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 			supplierProduct.copyProductSupplyDurationFrom( productSupplyDuration );
 			supplierProduct = saveSupplierProduct(userContext, supplierProduct, tokens().withProductSupplyDurationList().done());
 			
-			userContext.getManagerGroup().getProductSupplyDurationManager().onNewInstanceCreated(userContext, (ProductSupplyDuration)supplierProduct.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			productSupplyDurationManagerOf(userContext).onNewInstanceCreated(userContext, (ProductSupplyDuration)supplierProduct.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,supplierProduct, mergedAllTokens(tokensExpr));
 		}
 
@@ -679,27 +684,21 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).checkIdOfSupplierProduct(supplierProductId);
 		checkerOf(userContext).checkIdOfProductSupplyDuration(productSupplyDurationId);
 		checkerOf(userContext).checkVersionOfProductSupplyDuration(productSupplyDurationVersion);
-		
+
 
 		if(ProductSupplyDuration.QUANTITY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkQuantityOfProductSupplyDuration(parseInt(newValueExpr));
-		
 		}
 		
 		if(ProductSupplyDuration.DURATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDurationOfProductSupplyDuration(parseString(newValueExpr));
-		
 		}
 		
 		if(ProductSupplyDuration.PRICE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPriceOfProductSupplyDuration(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierProductManagerException.class);
 
 	}
@@ -709,7 +708,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 
 		checkParamsForUpdatingProductSupplyDuration(userContext, supplierProductId, productSupplyDurationId, productSupplyDurationVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withProductSupplyDurationList().searchProductSupplyDurationListWith(ProductSupplyDuration.ID_PROPERTY, "eq", productSupplyDurationId).done();
+		Map<String,Object> loadTokens = this.tokens().withProductSupplyDurationList().searchProductSupplyDurationListWith(ProductSupplyDuration.ID_PROPERTY, tokens().equals(), productSupplyDurationId).done();
 
 
 
@@ -720,13 +719,14 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 			//Also good when there is a RAM based DAO implementation
 			//supplierProduct.removeProductSupplyDuration( productSupplyDuration );
 			//make changes to AcceleraterAccount.
-			ProductSupplyDuration productSupplyDurationIndex = createIndexedProductSupplyDuration(productSupplyDurationId, productSupplyDurationVersion);
+			ProductSupplyDuration productSupplyDurationIdVersionKey = createIndexedProductSupplyDuration(productSupplyDurationId, productSupplyDurationVersion);
 
-			ProductSupplyDuration productSupplyDuration = supplierProduct.findTheProductSupplyDuration(productSupplyDurationIndex);
+			ProductSupplyDuration productSupplyDuration = supplierProduct.findTheProductSupplyDuration(productSupplyDurationIdVersionKey);
 			if(productSupplyDuration == null){
-				throw new SupplierProductManagerException(productSupplyDuration+" is NOT FOUND" );
+				throw new SupplierProductManagerException(productSupplyDurationId+" is NOT FOUND" );
 			}
 
+			beforeUpdateProductSupplyDuration(userContext, productSupplyDuration, supplierProductId, productSupplyDurationId, productSupplyDurationVersion, property, newValueExpr,  tokensExpr);
 			productSupplyDuration.changeProperty(property, newValueExpr);
 			
 			supplierProduct = saveSupplierProduct(userContext, supplierProduct, tokens().withProductSupplyDurationList().done());
@@ -734,6 +734,11 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateProductSupplyDuration(RetailscmUserContext userContext, ProductSupplyDuration existed, String supplierProductId, String productSupplyDurationId, int productSupplyDurationVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -750,6 +755,12 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    supplierProductDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -841,6 +852,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -957,7 +969,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1039,6 +1051,8 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

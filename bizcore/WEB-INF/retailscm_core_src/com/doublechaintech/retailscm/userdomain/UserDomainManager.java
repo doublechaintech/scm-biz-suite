@@ -17,6 +17,7 @@ public interface UserDomainManager extends BaseManager{
 	public UserDomain createUserDomain(RetailscmUserContext userContext, String name) throws Exception;
 	public UserDomain updateUserDomain(RetailscmUserContext userContext,String userDomainId, int userDomainVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public UserDomain loadUserDomain(RetailscmUserContext userContext, String userDomainId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public UserDomain internalSaveUserDomain(RetailscmUserContext userContext, UserDomain userDomain) throws Exception;
 	public UserDomain internalSaveUserDomain(RetailscmUserContext userContext, UserDomain userDomain,Map<String,Object>option) throws Exception;
 
@@ -29,11 +30,11 @@ public interface UserDomainManager extends BaseManager{
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
 
-	//public  UserWhiteListManager getUserWhiteListManager(RetailscmUserContext userContext, String userDomainId, String userIdentity, String userSpecialFunctions ,String [] tokensExpr)  throws Exception;
+	//public  UserAllowListManager getUserAllowListManager(RetailscmUserContext userContext, String userDomainId, String userIdentity, String userSpecialFunctions ,String [] tokensExpr)  throws Exception;
 
-	public  UserDomain addUserWhiteList(RetailscmUserContext userContext, String userDomainId, String userIdentity, String userSpecialFunctions , String [] tokensExpr)  throws Exception;
-	public  UserDomain removeUserWhiteList(RetailscmUserContext userContext, String userDomainId, String userWhiteListId, int userWhiteListVersion,String [] tokensExpr)  throws Exception;
-	public  UserDomain updateUserWhiteList(RetailscmUserContext userContext, String userDomainId, String userWhiteListId, int userWhiteListVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
+	public  UserDomain addUserAllowList(RetailscmUserContext userContext, String userDomainId, String userIdentity, String userSpecialFunctions , String [] tokensExpr)  throws Exception;
+	public  UserDomain removeUserAllowList(RetailscmUserContext userContext, String userDomainId, String userAllowListId, int userAllowListVersion,String [] tokensExpr)  throws Exception;
+	public  UserDomain updateUserAllowList(RetailscmUserContext userContext, String userDomainId, String userAllowListId, int userAllowListVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
 	/*
 

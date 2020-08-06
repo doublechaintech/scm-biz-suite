@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.sku;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.product.ProductDAO;
 public interface SkuDAO extends BaseDAO{
 
 	public SmartList<Sku> loadAll();
+	public Stream<Sku> loadAllAsStream();
 	public Sku load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<Sku> skuList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public Sku present(Sku sku,Map<String,Object> options) throws Exception;
 	public Sku clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public Sku save(Sku sku,Map<String,Object> options);
 	public SmartList<Sku> saveSkuList(SmartList<Sku> skuList,Map<String,Object> options);
 	public SmartList<Sku> removeSkuList(SmartList<Sku> skuList,Map<String,Object> options);
@@ -86,18 +88,19 @@ public interface SkuDAO extends BaseDAO{
 	public Sku planToRemoveGoodsListWithRetailStoreOrder(Sku sku, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	public int countGoodsListWithRetailStoreOrder(String skuId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<Sku> queryList(String sql, Object ... parmeters);
+	public Stream<Sku> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateSku executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<Sku> findSkuByProduct(String productId, Map<String,Object> options);
  	public int countSkuByProduct(String productId, Map<String,Object> options);
  	public Map<String, Integer> countSkuByProductIds(String[] ids, Map<String,Object> options);
  	public SmartList<Sku> findSkuByProduct(String productId, int start, int count, Map<String,Object> options);
  	public void analyzeSkuByProduct(SmartList<Sku> resultList, String productId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Goods的sku的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<Sku> us, Map<String,Object> options) throws Exception;

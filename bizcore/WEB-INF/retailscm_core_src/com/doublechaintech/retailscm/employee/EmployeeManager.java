@@ -17,6 +17,7 @@ public interface EmployeeManager extends BaseManager{
 	public Employee createEmployee(RetailscmUserContext userContext, String companyId,String title,String departmentId,String familyName,String givenName,String email,String city,String address,String cellPhone,String occupationId,String responsibleForId,String currentSalaryGradeId,String salaryAccount) throws Exception;
 	public Employee updateEmployee(RetailscmUserContext userContext,String employeeId, int employeeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Employee loadEmployee(RetailscmUserContext userContext, String employeeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Employee internalSaveEmployee(RetailscmUserContext userContext, Employee employee) throws Exception;
 	public Employee internalSaveEmployee(RetailscmUserContext userContext, Employee employee,Map<String,Object>option) throws Exception;
 

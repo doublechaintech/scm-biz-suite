@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.page.PageDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiActionDAO{
 
@@ -53,64 +53,68 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 	 	return this.pageDAO;
  	}	
 
-	
+
 	/*
 	protected UiAction load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalUiAction(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<UiAction> loadAll() {
 	    return this.loadAll(getUiActionMapper());
 	}
-	
-	
+
+  public Stream<UiAction> loadAllAsStream() {
+      return this.loadAllAsStream(getUiActionMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public UiAction load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalUiAction(UiActionTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public UiAction save(UiAction uiAction,Map<String,Object> options){
-		
+
 		String methodName="save(UiAction uiAction,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(uiAction, methodName, "uiAction");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalUiAction(uiAction,options);
 	}
 	public UiAction clone(String uiActionId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(UiActionTable.withId(uiActionId),options);
 	}
-	
+
 	protected UiAction clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String uiActionId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		UiAction newUiAction = loadInternalUiAction(accessKey, options);
 		newUiAction.setVersion(0);
 		
 		
 
-		
+
 		saveInternalUiAction(newUiAction,options);
-		
+
 		return newUiAction;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String uiActionId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String uiActionId, int version) throws Exception{
-	
+
 		String methodName="delete(String uiActionId, int version)";
 		assertMethodArgumentNotNull(uiActionId, methodName, "uiActionId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{uiActionId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 		if(affectedNumber == 0){
 			handleDeleteOneError(uiActionId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public UiAction disconnectFromAll(String uiActionId, int version) throws Exception{
-	
-		
+
+
 		UiAction uiAction = loadInternalUiAction(UiActionTable.withId(uiActionId), emptyOptions());
 		uiAction.clearFromAll();
 		this.saveUiAction(uiAction);
 		return uiAction;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "ui_action";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "uiAction";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 			return uiAction;
 		}
 		
-		
+
 		String SQL=this.getSaveUiActionSQL(uiAction);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveUiActionParameters(uiAction);
@@ -320,57 +324,57 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		uiAction.incVersion();
 		return uiAction;
-	
+
 	}
 	public SmartList<UiAction> saveUiActionList(SmartList<UiAction> uiActionList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitUiActionList(uiActionList);
-		
+
 		batchUiActionCreate((List<UiAction>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchUiActionUpdate((List<UiAction>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(UiAction uiAction:uiActionList){
 			if(uiAction.isChanged()){
 				uiAction.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return uiActionList;
 	}
 
 	public SmartList<UiAction> removeUiActionList(SmartList<UiAction> uiActionList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(uiActionList, options);
-		
+
 		return uiActionList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareUiActionBatchCreateArgs(List<UiAction> uiActionList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(UiAction uiAction:uiActionList ){
 			Object [] parameters = prepareUiActionCreateParameters(uiAction);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareUiActionBatchUpdateArgs(List<UiAction> uiActionList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(UiAction uiAction:uiActionList ){
 			if(!uiAction.isChanged()){
@@ -378,40 +382,40 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 			}
 			Object [] parameters = prepareUiActionUpdateParameters(uiAction);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchUiActionCreate(List<UiAction> uiActionList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareUiActionBatchCreateArgs(uiActionList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchUiActionUpdate(List<UiAction> uiActionList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareUiActionBatchUpdateArgs(uiActionList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitUiActionList(List<UiAction> uiActionList){
-		
+
 		List<UiAction> uiActionCreateList=new ArrayList<UiAction>();
 		List<UiAction> uiActionUpdateList=new ArrayList<UiAction>();
-		
+
 		for(UiAction uiAction: uiActionList){
 			if(isUpdateRequest(uiAction)){
 				uiActionUpdateList.add( uiAction);
@@ -419,10 +423,10 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 			}
 			uiActionCreateList.add(uiAction);
 		}
-		
+
 		return new Object[]{uiActionCreateList,uiActionUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(UiAction uiAction){
  		return uiAction.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveUiActionParameters(UiAction uiAction){
  		if(isUpdateRequest(uiAction) ){
  			return prepareUiActionUpdateParameters(uiAction);
@@ -465,21 +469,23 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
  		
  		
  		parameters[7] = uiAction.getExtraData();
- 		 	
+ 		
  		if(uiAction.getPage() != null){
  			parameters[8] = uiAction.getPage().getId();
  		}
- 		
+ 
  		parameters[9] = uiAction.nextVersion();
  		parameters[10] = uiAction.getId();
  		parameters[11] = uiAction.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareUiActionCreateParameters(UiAction uiAction){
 		Object[] parameters = new Object[10];
-		String newUiActionId=getNextId();
-		uiAction.setId(newUiActionId);
+        if(uiAction.getId() == null){
+          String newUiActionId=getNextId();
+          uiAction.setId(newUiActionId);
+        }
 		parameters[0] =  uiAction.getId();
  
  		
@@ -505,49 +511,49 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
  		
  		
  		parameters[8] = uiAction.getExtraData();
- 		 	
+ 		
  		if(uiAction.getPage() != null){
  			parameters[9] = uiAction.getPage().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected UiAction saveInternalUiAction(UiAction uiAction, Map<String,Object> options){
-		
+
 		saveUiAction(uiAction);
- 	
+
  		if(isSavePageEnabled(options)){
 	 		savePage(uiAction, options);
  		}
  
 		
 		return uiAction;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected UiAction savePage(UiAction uiAction, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(uiAction.getPage() == null){
  			return uiAction;//do nothing when it is null
  		}
- 		
+
  		getPageDAO().save(uiAction.getPage(),options);
  		return uiAction;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -567,47 +573,53 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 	protected String getTableName(){
 		return UiActionTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<UiAction> uiActionList) {		
+
+
+
+	public void enhanceList(List<UiAction> uiActionList) {
 		this.enhanceListInternal(uiActionList, this.getUiActionMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<UiAction> uiActionList = ownerEntity.collectRefsWithType(UiAction.INTERNAL_TYPE);
 		this.enhanceList(uiActionList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<UiAction> findUiActionWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getUiActionMapper());
 
 	}
 	@Override
 	public int countUiActionWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countUiActionWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<UiAction> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getUiActionMapper());
 	}
+
+  @Override
+  public Stream<UiAction> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getUiActionMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -636,7 +648,7 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 		}
 		return result;
 	}
-	
+
 	
 
 }

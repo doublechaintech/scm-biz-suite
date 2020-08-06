@@ -17,6 +17,7 @@ public interface SupplyOrderPaymentGroupManager extends BaseManager{
 	public SupplyOrderPaymentGroup createSupplyOrderPaymentGroup(RetailscmUserContext userContext, String name,String bizOrderId,String cardNumber) throws Exception;
 	public SupplyOrderPaymentGroup updateSupplyOrderPaymentGroup(RetailscmUserContext userContext,String supplyOrderPaymentGroupId, int supplyOrderPaymentGroupVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SupplyOrderPaymentGroup loadSupplyOrderPaymentGroup(RetailscmUserContext userContext, String supplyOrderPaymentGroupId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SupplyOrderPaymentGroup internalSaveSupplyOrderPaymentGroup(RetailscmUserContext userContext, SupplyOrderPaymentGroup supplyOrderPaymentGroup) throws Exception;
 	public SupplyOrderPaymentGroup internalSaveSupplyOrderPaymentGroup(RetailscmUserContext userContext, SupplyOrderPaymentGroup supplyOrderPaymentGroup,Map<String,Object>option) throws Exception;
 

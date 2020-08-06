@@ -2,6 +2,7 @@ package com.terapico.caf;
 
 import org.springframework.context.ApplicationContext;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 public class ServletInvocationContextFactory extends ReflectionTool implements InvocationContextFactory {
@@ -256,6 +258,7 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 			return new Object[] {this.readBodyAsBytes(request)};
 		}
 		// only one parameter allowed, the body should be a json object string
+
 		String strExpr = this.readBodyAsString(request);
 		Object object = ReflectionTool.convertOnlyOneParameter(types, strExpr);
 		// return new Object[] {strExpr};
@@ -349,7 +352,9 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 		String str = null;
 		StringBuilder resultString = new StringBuilder();
 		try {
-			while ((str = request.getReader().readLine()) != null) {
+			BufferedReader reader = request.getReader();
+			while (true) {
+				if (!((str = reader.readLine()) != null)) break;
 				resultString.append(str);
 			}
 			return resultString.toString();
@@ -374,10 +379,9 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 		
 		ByteBuffer resultString = ByteBuffer.allocate(request.getContentLength());
 		try {
-			
 			int readLength = 0;
-			
-			while ((readLength = request.getInputStream().read(buffer)) >0) {
+			ServletInputStream inputStream = request.getInputStream();
+			while ((readLength = inputStream.read(buffer)) >0) {
 				resultString.put(buffer, 0, readLength);
 			}
 			return resultString.array();

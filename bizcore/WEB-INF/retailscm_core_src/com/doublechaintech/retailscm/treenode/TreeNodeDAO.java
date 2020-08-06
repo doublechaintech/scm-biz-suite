@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.treenode;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -16,20 +17,21 @@ import com.doublechaintech.retailscm.RetailscmUserContext;
 public interface TreeNodeDAO extends BaseDAO{
 
 	public SmartList<TreeNode> loadAll();
+	public Stream<TreeNode> loadAllAsStream();
 	public TreeNode load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<TreeNode> treeNodeList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public TreeNode present(TreeNode treeNode,Map<String,Object> options) throws Exception;
 	public TreeNode clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public TreeNode save(TreeNode treeNode,Map<String,Object> options);
 	public SmartList<TreeNode> saveTreeNodeList(SmartList<TreeNode> treeNodeList,Map<String,Object> options);
 	public SmartList<TreeNode> removeTreeNodeList(SmartList<TreeNode> treeNodeList,Map<String,Object> options);
@@ -43,8 +45,9 @@ public interface TreeNodeDAO extends BaseDAO{
 
 	
 	
-	
+
 	public SmartList<TreeNode> queryList(String sql, Object ... parmeters);
+	public Stream<TreeNode> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateTreeNode executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.pagetype;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
 import com.doublechaintech.retailscm.page.Page;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = PageTypeSerializer.class)
 public class PageType extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	public static final String HOME = "home";	// 首页
 	public static final String ME = "me";	// 我的

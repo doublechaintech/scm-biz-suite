@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements OccupationTypeDAO{
 
@@ -71,50 +71,54 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	 	return this.employeeDAO;
  	}	
 
-	
+
 	/*
 	protected OccupationType load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalOccupationType(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<OccupationType> loadAll() {
 	    return this.loadAll(getOccupationTypeMapper());
 	}
-	
-	
+
+  public Stream<OccupationType> loadAllAsStream() {
+      return this.loadAllAsStream(getOccupationTypeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public OccupationType load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalOccupationType(OccupationTypeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public OccupationType save(OccupationType occupationType,Map<String,Object> options){
-		
+
 		String methodName="save(OccupationType occupationType,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(occupationType, methodName, "occupationType");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalOccupationType(occupationType,options);
 	}
 	public OccupationType clone(String occupationTypeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(OccupationTypeTable.withId(occupationTypeId),options);
 	}
-	
+
 	protected OccupationType clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String occupationTypeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		OccupationType newOccupationType = loadInternalOccupationType(accessKey, options);
 		newOccupationType.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		}
 		
 
-		
+
 		saveInternalOccupationType(newOccupationType,options);
-		
+
 		return newOccupationType;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String occupationTypeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String occupationTypeId, int version) throws Exception{
-	
+
 		String methodName="delete(String occupationTypeId, int version)";
 		assertMethodArgumentNotNull(occupationTypeId, methodName, "occupationTypeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{occupationTypeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(affectedNumber == 0){
 			handleDeleteOneError(occupationTypeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public OccupationType disconnectFromAll(String occupationTypeId, int version) throws Exception{
-	
-		
+
+
 		OccupationType occupationType = loadInternalOccupationType(OccupationTypeTable.withId(occupationTypeId), emptyOptions());
 		occupationType.clearFromAll();
 		this.saveOccupationType(occupationType);
 		return occupationType;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "occupation_type";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "occupationType";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return occupationType;
 		}
 		
-		
+
 		String SQL=this.getSaveOccupationTypeSQL(occupationType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveOccupationTypeParameters(occupationType);
@@ -419,57 +423,57 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		occupationType.incVersion();
 		return occupationType;
-	
+
 	}
 	public SmartList<OccupationType> saveOccupationTypeList(SmartList<OccupationType> occupationTypeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitOccupationTypeList(occupationTypeList);
-		
+
 		batchOccupationTypeCreate((List<OccupationType>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchOccupationTypeUpdate((List<OccupationType>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(OccupationType occupationType:occupationTypeList){
 			if(occupationType.isChanged()){
 				occupationType.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return occupationTypeList;
 	}
 
 	public SmartList<OccupationType> removeOccupationTypeList(SmartList<OccupationType> occupationTypeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(occupationTypeList, options);
-		
+
 		return occupationTypeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareOccupationTypeBatchCreateArgs(List<OccupationType> occupationTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(OccupationType occupationType:occupationTypeList ){
 			Object [] parameters = prepareOccupationTypeCreateParameters(occupationType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareOccupationTypeBatchUpdateArgs(List<OccupationType> occupationTypeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(OccupationType occupationType:occupationTypeList ){
 			if(!occupationType.isChanged()){
@@ -477,40 +481,40 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			}
 			Object [] parameters = prepareOccupationTypeUpdateParameters(occupationType);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchOccupationTypeCreate(List<OccupationType> occupationTypeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareOccupationTypeBatchCreateArgs(occupationTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchOccupationTypeUpdate(List<OccupationType> occupationTypeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareOccupationTypeBatchUpdateArgs(occupationTypeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitOccupationTypeList(List<OccupationType> occupationTypeList){
-		
+
 		List<OccupationType> occupationTypeCreateList=new ArrayList<OccupationType>();
 		List<OccupationType> occupationTypeUpdateList=new ArrayList<OccupationType>();
-		
+
 		for(OccupationType occupationType: occupationTypeList){
 			if(isUpdateRequest(occupationType)){
 				occupationTypeUpdateList.add( occupationType);
@@ -518,10 +522,10 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			}
 			occupationTypeCreateList.add(occupationType);
 		}
-		
+
 		return new Object[]{occupationTypeCreateList,occupationTypeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(OccupationType occupationType){
  		return occupationType.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveOccupationTypeParameters(OccupationType occupationType){
  		if(isUpdateRequest(occupationType) ){
  			return prepareOccupationTypeUpdateParameters(occupationType);
@@ -543,7 +547,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  
  		
  		parameters[0] = occupationType.getCode();
- 		 	
+ 		
  		if(occupationType.getCompany() != null){
  			parameters[1] = occupationType.getCompany().getId();
  		}
@@ -553,25 +557,27 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		
  		
  		parameters[3] = occupationType.getDetailDescription();
- 				
+ 		
  		parameters[4] = occupationType.nextVersion();
  		parameters[5] = occupationType.getId();
  		parameters[6] = occupationType.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareOccupationTypeCreateParameters(OccupationType occupationType){
 		Object[] parameters = new Object[5];
-		String newOccupationTypeId=getNextId();
-		occupationType.setId(newOccupationTypeId);
+        if(occupationType.getId() == null){
+          String newOccupationTypeId=getNextId();
+          occupationType.setId(newOccupationTypeId);
+        }
 		parameters[0] =  occupationType.getId();
  
  		
  		parameters[1] = occupationType.getCode();
- 		 	
+ 		
  		if(occupationType.getCompany() != null){
  			parameters[2] = occupationType.getCompany().getId();
- 		
+
  		}
  		
  		
@@ -579,15 +585,15 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		
  		
  		parameters[4] = occupationType.getDetailDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected OccupationType saveInternalOccupationType(OccupationType occupationType, Map<String,Object> options){
-		
+
 		saveOccupationType(occupationType);
- 	
+
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(occupationType, options);
  		}
@@ -597,42 +603,42 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	 		saveEmployeeList(occupationType, options);
 	 		//removeEmployeeList(occupationType, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return occupationType;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected OccupationType saveCompany(OccupationType occupationType, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(occupationType.getCompany() == null){
  			return occupationType;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(occupationType.getCompany(),options);
  		return occupationType;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public OccupationType planToRemoveEmployeeList(OccupationType occupationType, String employeeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationType.getId());
 		key.put(Employee.ID_PROPERTY, employeeIds);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -641,17 +647,17 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(externalEmployeeList.isEmpty()){
 			return occupationType;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 
 			employeeItem.clearFromAll();
 		}
-		
-		
-		SmartList<Employee> employeeList = occupationType.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
-		return occupationType;	
-	
+		return occupationType;
+
 	}
 
 
@@ -660,11 +666,11 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationType.getId());
 		key.put(Employee.COMPANY_PROPERTY, companyId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -673,19 +679,19 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(externalEmployeeList.isEmpty()){
 			return occupationType;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearCompany();
 			employeeItem.clearOccupation();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = occupationType.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return occupationType;
 	}
-	
+
 	public int countEmployeeListWithCompany(String occupationTypeId, String companyId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationTypeId);
 		key.put(Employee.COMPANY_PROPERTY, companyId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -704,11 +710,11 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationType.getId());
 		key.put(Employee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -717,19 +723,19 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(externalEmployeeList.isEmpty()){
 			return occupationType;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearDepartment();
 			employeeItem.clearOccupation();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = occupationType.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return occupationType;
 	}
-	
+
 	public int countEmployeeListWithDepartment(String occupationTypeId, String departmentId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -738,7 +744,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationTypeId);
 		key.put(Employee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -748,11 +754,11 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationType.getId());
 		key.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibleForId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -761,19 +767,19 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(externalEmployeeList.isEmpty()){
 			return occupationType;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearResponsibleFor();
 			employeeItem.clearOccupation();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = occupationType.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return occupationType;
 	}
-	
+
 	public int countEmployeeListWithResponsibleFor(String occupationTypeId, String responsibleForId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -782,7 +788,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationTypeId);
 		key.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibleForId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -792,11 +798,11 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationType.getId());
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		SmartList<Employee> externalEmployeeList = getEmployeeDAO().
 				findEmployeeWithKey(key, options);
 		if(externalEmployeeList == null){
@@ -805,19 +811,19 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(externalEmployeeList.isEmpty()){
 			return occupationType;
 		}
-		
+
 		for(Employee employeeItem: externalEmployeeList){
 			employeeItem.clearCurrentSalaryGrade();
 			employeeItem.clearOccupation();
-			
+
 		}
-		
-		
-		SmartList<Employee> employeeList = occupationType.getEmployeeList();		
+
+
+		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		employeeList.addAllToRemoveList(externalEmployeeList);
 		return occupationType;
 	}
-	
+
 	public int countEmployeeListWithCurrentSalaryGrade(String occupationTypeId, String currentSalaryGradeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -826,7 +832,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Employee.OCCUPATION_PROPERTY, occupationTypeId);
 		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		int count = getEmployeeDAO().countEmployeeWithKey(key, options);
 		return count;
 	}
@@ -834,19 +840,19 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 		
 	protected OccupationType saveEmployeeList(OccupationType occupationType, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		if(employeeList == null){
 			//null list means nothing
 			return occupationType;
 		}
 		SmartList<Employee> mergedUpdateEmployeeList = new SmartList<Employee>();
-		
-		
-		mergedUpdateEmployeeList.addAll(employeeList); 
+
+
+		mergedUpdateEmployeeList.addAll(employeeList);
 		if(employeeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeList.addAll(employeeList.getToRemoveList());
@@ -855,28 +861,28 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeDAO().saveEmployeeList(mergedUpdateEmployeeList,options);
-		
+
 		if(employeeList.getToRemoveList() != null){
 			employeeList.removeAll(employeeList.getToRemoveList());
 		}
-		
-		
+
+
 		return occupationType;
-	
+
 	}
-	
+
 	protected OccupationType removeEmployeeList(OccupationType occupationType, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		if(employeeList == null){
 			return occupationType;
-		}	
-	
+		}
+
 		SmartList<Employee> toRemoveEmployeeList = employeeList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeList == null){
 			return occupationType;
 		}
@@ -884,20 +890,20 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return occupationType;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeDAO().removeEmployeeList(toRemoveEmployeeList,options);
-		
-		return occupationType;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeDAO().removeEmployeeList(toRemoveEmployeeList,options);
+
+		return occupationType;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public OccupationType present(OccupationType occupationType,Map<String, Object> options){
@@ -940,13 +946,13 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	protected String getTableName(){
 		return OccupationTypeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<OccupationType> occupationTypeList) {		
+
+
+
+	public void enhanceList(List<OccupationType> occupationTypeList) {
 		this.enhanceListInternal(occupationTypeList, this.getOccupationTypeMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Employee的occupation的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<OccupationType> us, Map<String,Object> options) throws Exception{
@@ -971,39 +977,45 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<OccupationType> occupationTypeList = ownerEntity.collectRefsWithType(OccupationType.INTERNAL_TYPE);
 		this.enhanceList(occupationTypeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<OccupationType> findOccupationTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getOccupationTypeMapper());
 
 	}
 	@Override
 	public int countOccupationTypeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countOccupationTypeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<OccupationType> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getOccupationTypeMapper());
 	}
+
+  @Override
+  public Stream<OccupationType> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getOccupationTypeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1032,7 +1044,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 		return result;
 	}
-	
+
 	
 
 }

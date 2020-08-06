@@ -17,6 +17,7 @@ public interface PublicKeyTypeManager extends BaseManager{
 	public PublicKeyType createPublicKeyType(RetailscmUserContext userContext, String name,String code,String domainId) throws Exception;
 	public PublicKeyType updatePublicKeyType(RetailscmUserContext userContext,String publicKeyTypeId, int publicKeyTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public PublicKeyType loadPublicKeyType(RetailscmUserContext userContext, String publicKeyTypeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public PublicKeyType internalSavePublicKeyType(RetailscmUserContext userContext, PublicKeyType publicKeyType) throws Exception;
 	public PublicKeyType internalSavePublicKeyType(RetailscmUserContext userContext, PublicKeyType publicKeyType,Map<String,Object>option) throws Exception;
 
@@ -30,11 +31,11 @@ public interface PublicKeyTypeManager extends BaseManager{
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
 
-	//public  KeypairIdentifyManager getKeypairIdentifyManager(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId ,String [] tokensExpr)  throws Exception;
+	//public  KeypairIdentityManager getKeypairIdentityManager(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId ,String [] tokensExpr)  throws Exception;
 
-	public  PublicKeyType addKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId , String [] tokensExpr)  throws Exception;
-	public  PublicKeyType removeKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentifyId, int keypairIdentifyVersion,String [] tokensExpr)  throws Exception;
-	public  PublicKeyType updateKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentifyId, int keypairIdentifyVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
+	public  PublicKeyType addKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId , String [] tokensExpr)  throws Exception;
+	public  PublicKeyType removeKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentityId, int keypairIdentityVersion,String [] tokensExpr)  throws Exception;
+	public  PublicKeyType updateKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentityId, int keypairIdentityVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
 	/*
 

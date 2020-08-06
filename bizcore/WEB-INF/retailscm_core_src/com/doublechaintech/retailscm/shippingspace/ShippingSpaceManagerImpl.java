@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.shippingspace;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.goods.Goods;
@@ -53,24 +51,24 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = ShippingSpaceTokens.start().withTokenFromListName(listName).done();
 		ShippingSpace  shippingSpace = (ShippingSpace) this.loadShippingSpace(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = shippingSpace.collectRefercencesFromLists();
 		shippingSpaceDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, shippingSpace, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new ShippingSpaceGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -133,7 +131,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).throwExceptionIfHasErrors( ShippingSpaceManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		ShippingSpace shippingSpace = loadShippingSpace( userContext, shippingSpaceId, tokens);
  		//do some calc before sent to customer?
@@ -152,6 +150,9 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		
 		List<BaseEntity> entityListToNaming = shippingSpaceToPresent.collectRefercencesFromLists();
 		shippingSpaceDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,shippingSpace,tokens);
 		
 		return  shippingSpaceToPresent;
 		
@@ -713,7 +714,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			shippingSpace.addGoods( goods );
 			shippingSpace = saveShippingSpace(userContext, shippingSpace, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, goods);
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, goods);
 			return present(userContext,shippingSpace, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -738,7 +739,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withGoodsListList()
-				.searchGoodsListWith(Goods.ID_PROPERTY, "is", id).done();
+				.searchGoodsListWith(Goods.ID_PROPERTY, tokens().is(), id).done();
 
 		ShippingSpace shippingSpaceToUpdate = loadShippingSpace(userContext, shippingSpaceId, options);
 
@@ -747,7 +748,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		Goods item = shippingSpaceToUpdate.getGoodsList().first();
-
+		beforeUpdateGoodsProperties(userContext,item, shippingSpaceId,id,name,rfid,uom,maxPackage,expireTime,tokensExpr);
 		item.updateName( name );
 		item.updateRfid( rfid );
 		item.updateUom( uom );
@@ -762,6 +763,10 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateGoodsProperties(RetailscmUserContext userContext, Goods item, String shippingSpaceId, String id,String name,String rfid,String uom,int maxPackage,Date expireTime, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected Goods createGoods(RetailscmUserContext userContext, String name, String rfid, String uom, int maxPackage, Date expireTime, String skuId, String receivingSpaceId, String goodsAllocationId, String smartPalletId, String transportTaskId, String retailStoreId, String bizOrderId, String retailStoreOrderId) throws Exception{
 
@@ -893,7 +898,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			shippingSpace.copyGoodsFrom( goods );
 			shippingSpace = saveShippingSpace(userContext, shippingSpace, tokens().withGoodsList().done());
 			
-			userContext.getManagerGroup().getGoodsManager().onNewInstanceCreated(userContext, (Goods)shippingSpace.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			goodsManagerOf(userContext).onNewInstanceCreated(userContext, (Goods)shippingSpace.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,shippingSpace, mergedAllTokens(tokensExpr));
 		}
 
@@ -906,39 +911,29 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfShippingSpace(shippingSpaceId);
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkVersionOfGoods(goodsVersion);
-		
+
 
 		if(Goods.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.RFID_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRfidOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.UOM_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkUomOfGoods(parseString(newValueExpr));
-		
 		}
 		
 		if(Goods.MAX_PACKAGE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMaxPackageOfGoods(parseInt(newValueExpr));
-		
 		}
 		
 		if(Goods.EXPIRE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkExpireTimeOfGoods(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ShippingSpaceManagerException.class);
 
 	}
@@ -948,7 +943,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingGoods(userContext, shippingSpaceId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, "eq", goodsId).done();
+		Map<String,Object> loadTokens = this.tokens().withGoodsList().searchGoodsListWith(Goods.ID_PROPERTY, tokens().equals(), goodsId).done();
 
 
 
@@ -959,13 +954,14 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//shippingSpace.removeGoods( goods );
 			//make changes to AcceleraterAccount.
-			Goods goodsIndex = createIndexedGoods(goodsId, goodsVersion);
+			Goods goodsIdVersionKey = createIndexedGoods(goodsId, goodsVersion);
 
-			Goods goods = shippingSpace.findTheGoods(goodsIndex);
+			Goods goods = shippingSpace.findTheGoods(goodsIdVersionKey);
 			if(goods == null){
-				throw new ShippingSpaceManagerException(goods+" is NOT FOUND" );
+				throw new ShippingSpaceManagerException(goodsId+" is NOT FOUND" );
 			}
 
+			beforeUpdateGoods(userContext, goods, shippingSpaceId, goodsId, goodsVersion, property, newValueExpr,  tokensExpr);
 			goods.changeProperty(property, newValueExpr);
 			
 			shippingSpace = saveShippingSpace(userContext, shippingSpace, tokens().withGoodsList().done());
@@ -973,6 +969,11 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateGoods(RetailscmUserContext userContext, Goods existed, String shippingSpaceId, String goodsId, int goodsVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -989,6 +990,12 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    shippingSpaceDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1080,6 +1087,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1196,7 +1204,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1284,7 +1292,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "9-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1322,6 +1330,8 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

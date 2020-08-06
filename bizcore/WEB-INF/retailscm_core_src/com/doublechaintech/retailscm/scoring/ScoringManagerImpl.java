@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.scoring;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTraining;
@@ -45,24 +43,24 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = ScoringTokens.start().withTokenFromListName(listName).done();
 		Scoring  scoring = (Scoring) this.loadScoring(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = scoring.collectRefercencesFromLists();
 		scoringDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, scoring, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new ScoringGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -125,7 +123,7 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).throwExceptionIfHasErrors( ScoringManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Scoring scoring = loadScoring( userContext, scoringId, tokens);
  		//do some calc before sent to customer?
@@ -144,6 +142,9 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		
 		List<BaseEntity> entityListToNaming = scoringToPresent.collectRefercencesFromLists();
 		scoringDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,scoring,tokens);
 		
 		return  scoringToPresent;
 		
@@ -483,7 +484,7 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 			scoring.addEmployeeCompanyTraining( employeeCompanyTraining );
 			scoring = saveScoring(userContext, scoring, tokens().withEmployeeCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getEmployeeCompanyTrainingManager().onNewInstanceCreated(userContext, employeeCompanyTraining);
+			employeeCompanyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, employeeCompanyTraining);
 			return present(userContext,scoring, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -503,7 +504,7 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeCompanyTrainingListList()
-				.searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, "is", id).done();
+				.searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, tokens().is(), id).done();
 
 		Scoring scoringToUpdate = loadScoring(userContext, scoringId, options);
 
@@ -512,7 +513,7 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 		EmployeeCompanyTraining item = scoringToUpdate.getEmployeeCompanyTrainingList().first();
-
+		beforeUpdateEmployeeCompanyTrainingProperties(userContext,item, scoringId,id,tokensExpr);
 
 
 		//checkParamsForAddingEmployeeCompanyTraining(userContext,scoringId,name, code, used,tokensExpr);
@@ -522,6 +523,10 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 	}
 
+	protected  void beforeUpdateEmployeeCompanyTrainingProperties(RetailscmUserContext userContext, EmployeeCompanyTraining item, String scoringId, String id, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeCompanyTraining createEmployeeCompanyTraining(RetailscmUserContext userContext, String employeeId, String trainingId) throws Exception{
 
@@ -630,7 +635,7 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 			scoring.copyEmployeeCompanyTrainingFrom( employeeCompanyTraining );
 			scoring = saveScoring(userContext, scoring, tokens().withEmployeeCompanyTrainingList().done());
 			
-			userContext.getManagerGroup().getEmployeeCompanyTrainingManager().onNewInstanceCreated(userContext, (EmployeeCompanyTraining)scoring.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeCompanyTrainingManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeCompanyTraining)scoring.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,scoring, mergedAllTokens(tokensExpr));
 		}
 
@@ -643,9 +648,9 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfScoring(scoringId);
 		checkerOf(userContext).checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
 		checkerOf(userContext).checkVersionOfEmployeeCompanyTraining(employeeCompanyTrainingVersion);
-		
 
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ScoringManagerException.class);
 
 	}
@@ -655,7 +660,7 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 
 		checkParamsForUpdatingEmployeeCompanyTraining(userContext, scoringId, employeeCompanyTrainingId, employeeCompanyTrainingVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeCompanyTrainingList().searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, "eq", employeeCompanyTrainingId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeCompanyTrainingList().searchEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY, tokens().equals(), employeeCompanyTrainingId).done();
 
 
 
@@ -666,13 +671,14 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 			//Also good when there is a RAM based DAO implementation
 			//scoring.removeEmployeeCompanyTraining( employeeCompanyTraining );
 			//make changes to AcceleraterAccount.
-			EmployeeCompanyTraining employeeCompanyTrainingIndex = createIndexedEmployeeCompanyTraining(employeeCompanyTrainingId, employeeCompanyTrainingVersion);
+			EmployeeCompanyTraining employeeCompanyTrainingIdVersionKey = createIndexedEmployeeCompanyTraining(employeeCompanyTrainingId, employeeCompanyTrainingVersion);
 
-			EmployeeCompanyTraining employeeCompanyTraining = scoring.findTheEmployeeCompanyTraining(employeeCompanyTrainingIndex);
+			EmployeeCompanyTraining employeeCompanyTraining = scoring.findTheEmployeeCompanyTraining(employeeCompanyTrainingIdVersionKey);
 			if(employeeCompanyTraining == null){
-				throw new ScoringManagerException(employeeCompanyTraining+" is NOT FOUND" );
+				throw new ScoringManagerException(employeeCompanyTrainingId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeCompanyTraining(userContext, employeeCompanyTraining, scoringId, employeeCompanyTrainingId, employeeCompanyTrainingVersion, property, newValueExpr,  tokensExpr);
 			employeeCompanyTraining.changeProperty(property, newValueExpr);
 			
 			scoring = saveScoring(userContext, scoring, tokens().withEmployeeCompanyTrainingList().done());
@@ -680,6 +686,11 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeCompanyTraining(RetailscmUserContext userContext, EmployeeCompanyTraining existed, String scoringId, String employeeCompanyTrainingId, int employeeCompanyTrainingVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -696,6 +707,12 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    scoringDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -787,6 +804,11 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
+    if (methodName.equals("ensureModelInDB")){
+      return false;
+    }
+
 		return true;
 	}
 
@@ -878,7 +900,7 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -949,6 +971,8 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

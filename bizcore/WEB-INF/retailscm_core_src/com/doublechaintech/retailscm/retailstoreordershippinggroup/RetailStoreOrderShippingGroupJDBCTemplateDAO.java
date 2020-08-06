@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl implements RetailStoreOrderShippingGroupDAO{
 
@@ -53,64 +53,68 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 	 	return this.retailStoreOrderDAO;
  	}	
 
-	
+
 	/*
 	protected RetailStoreOrderShippingGroup load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreOrderShippingGroup(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<RetailStoreOrderShippingGroup> loadAll() {
 	    return this.loadAll(getRetailStoreOrderShippingGroupMapper());
 	}
-	
-	
+
+  public Stream<RetailStoreOrderShippingGroup> loadAllAsStream() {
+      return this.loadAllAsStream(getRetailStoreOrderShippingGroupMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public RetailStoreOrderShippingGroup load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreOrderShippingGroup(RetailStoreOrderShippingGroupTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public RetailStoreOrderShippingGroup save(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup,Map<String,Object> options){
-		
+
 		String methodName="save(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(retailStoreOrderShippingGroup, methodName, "retailStoreOrderShippingGroup");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalRetailStoreOrderShippingGroup(retailStoreOrderShippingGroup,options);
 	}
 	public RetailStoreOrderShippingGroup clone(String retailStoreOrderShippingGroupId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(RetailStoreOrderShippingGroupTable.withId(retailStoreOrderShippingGroupId),options);
 	}
-	
+
 	protected RetailStoreOrderShippingGroup clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String retailStoreOrderShippingGroupId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		RetailStoreOrderShippingGroup newRetailStoreOrderShippingGroup = loadInternalRetailStoreOrderShippingGroup(accessKey, options);
 		newRetailStoreOrderShippingGroup.setVersion(0);
 		
 		
 
-		
+
 		saveInternalRetailStoreOrderShippingGroup(newRetailStoreOrderShippingGroup,options);
-		
+
 		return newRetailStoreOrderShippingGroup;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String retailStoreOrderShippingGroupId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String retailStoreOrderShippingGroupId, int version) throws Exception{
-	
+
 		String methodName="delete(String retailStoreOrderShippingGroupId, int version)";
 		assertMethodArgumentNotNull(retailStoreOrderShippingGroupId, methodName, "retailStoreOrderShippingGroupId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{retailStoreOrderShippingGroupId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 		if(affectedNumber == 0){
 			handleDeleteOneError(retailStoreOrderShippingGroupId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public RetailStoreOrderShippingGroup disconnectFromAll(String retailStoreOrderShippingGroupId, int version) throws Exception{
-	
-		
+
+
 		RetailStoreOrderShippingGroup retailStoreOrderShippingGroup = loadInternalRetailStoreOrderShippingGroup(RetailStoreOrderShippingGroupTable.withId(retailStoreOrderShippingGroupId), emptyOptions());
 		retailStoreOrderShippingGroup.clearFromAll();
 		this.saveRetailStoreOrderShippingGroup(retailStoreOrderShippingGroup);
 		return retailStoreOrderShippingGroup;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "retail_store_order_shipping_group";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "retailStoreOrderShippingGroup";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 			return retailStoreOrderShippingGroup;
 		}
 		
-		
+
 		String SQL=this.getSaveRetailStoreOrderShippingGroupSQL(retailStoreOrderShippingGroup);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreOrderShippingGroupParameters(retailStoreOrderShippingGroup);
@@ -320,57 +324,57 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		retailStoreOrderShippingGroup.incVersion();
 		return retailStoreOrderShippingGroup;
-	
+
 	}
 	public SmartList<RetailStoreOrderShippingGroup> saveRetailStoreOrderShippingGroupList(SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitRetailStoreOrderShippingGroupList(retailStoreOrderShippingGroupList);
-		
+
 		batchRetailStoreOrderShippingGroupCreate((List<RetailStoreOrderShippingGroup>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchRetailStoreOrderShippingGroupUpdate((List<RetailStoreOrderShippingGroup>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup:retailStoreOrderShippingGroupList){
 			if(retailStoreOrderShippingGroup.isChanged()){
 				retailStoreOrderShippingGroup.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return retailStoreOrderShippingGroupList;
 	}
 
 	public SmartList<RetailStoreOrderShippingGroup> removeRetailStoreOrderShippingGroupList(SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(retailStoreOrderShippingGroupList, options);
-		
+
 		return retailStoreOrderShippingGroupList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareRetailStoreOrderShippingGroupBatchCreateArgs(List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup:retailStoreOrderShippingGroupList ){
 			Object [] parameters = prepareRetailStoreOrderShippingGroupCreateParameters(retailStoreOrderShippingGroup);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareRetailStoreOrderShippingGroupBatchUpdateArgs(List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup:retailStoreOrderShippingGroupList ){
 			if(!retailStoreOrderShippingGroup.isChanged()){
@@ -378,40 +382,40 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 			}
 			Object [] parameters = prepareRetailStoreOrderShippingGroupUpdateParameters(retailStoreOrderShippingGroup);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchRetailStoreOrderShippingGroupCreate(List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareRetailStoreOrderShippingGroupBatchCreateArgs(retailStoreOrderShippingGroupList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchRetailStoreOrderShippingGroupUpdate(List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareRetailStoreOrderShippingGroupBatchUpdateArgs(retailStoreOrderShippingGroupList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitRetailStoreOrderShippingGroupList(List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList){
-		
+
 		List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupCreateList=new ArrayList<RetailStoreOrderShippingGroup>();
 		List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupUpdateList=new ArrayList<RetailStoreOrderShippingGroup>();
-		
+
 		for(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup: retailStoreOrderShippingGroupList){
 			if(isUpdateRequest(retailStoreOrderShippingGroup)){
 				retailStoreOrderShippingGroupUpdateList.add( retailStoreOrderShippingGroup);
@@ -419,10 +423,10 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 			}
 			retailStoreOrderShippingGroupCreateList.add(retailStoreOrderShippingGroup);
 		}
-		
+
 		return new Object[]{retailStoreOrderShippingGroupCreateList,retailStoreOrderShippingGroupUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup){
  		return retailStoreOrderShippingGroup.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveRetailStoreOrderShippingGroupParameters(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup){
  		if(isUpdateRequest(retailStoreOrderShippingGroup) ){
  			return prepareRetailStoreOrderShippingGroupUpdateParameters(retailStoreOrderShippingGroup);
@@ -444,74 +448,76 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
  
  		
  		parameters[0] = retailStoreOrderShippingGroup.getName();
- 		 	
+ 		
  		if(retailStoreOrderShippingGroup.getBizOrder() != null){
  			parameters[1] = retailStoreOrderShippingGroup.getBizOrder().getId();
  		}
  
  		
  		parameters[2] = retailStoreOrderShippingGroup.getAmount();
- 				
+ 		
  		parameters[3] = retailStoreOrderShippingGroup.nextVersion();
  		parameters[4] = retailStoreOrderShippingGroup.getId();
  		parameters[5] = retailStoreOrderShippingGroup.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreOrderShippingGroupCreateParameters(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup){
 		Object[] parameters = new Object[4];
-		String newRetailStoreOrderShippingGroupId=getNextId();
-		retailStoreOrderShippingGroup.setId(newRetailStoreOrderShippingGroupId);
+        if(retailStoreOrderShippingGroup.getId() == null){
+          String newRetailStoreOrderShippingGroupId=getNextId();
+          retailStoreOrderShippingGroup.setId(newRetailStoreOrderShippingGroupId);
+        }
 		parameters[0] =  retailStoreOrderShippingGroup.getId();
  
  		
  		parameters[1] = retailStoreOrderShippingGroup.getName();
- 		 	
+ 		
  		if(retailStoreOrderShippingGroup.getBizOrder() != null){
  			parameters[2] = retailStoreOrderShippingGroup.getBizOrder().getId();
- 		
+
  		}
  		
  		
  		parameters[3] = retailStoreOrderShippingGroup.getAmount();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected RetailStoreOrderShippingGroup saveInternalRetailStoreOrderShippingGroup(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup, Map<String,Object> options){
-		
+
 		saveRetailStoreOrderShippingGroup(retailStoreOrderShippingGroup);
- 	
+
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(retailStoreOrderShippingGroup, options);
  		}
  
 		
 		return retailStoreOrderShippingGroup;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected RetailStoreOrderShippingGroup saveBizOrder(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(retailStoreOrderShippingGroup.getBizOrder() == null){
  			return retailStoreOrderShippingGroup;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreOrderDAO().save(retailStoreOrderShippingGroup.getBizOrder(),options);
  		return retailStoreOrderShippingGroup;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -531,47 +537,53 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 	protected String getTableName(){
 		return RetailStoreOrderShippingGroupTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList) {		
+
+
+
+	public void enhanceList(List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList) {
 		this.enhanceListInternal(retailStoreOrderShippingGroupList, this.getRetailStoreOrderShippingGroupMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList = ownerEntity.collectRefsWithType(RetailStoreOrderShippingGroup.INTERNAL_TYPE);
 		this.enhanceList(retailStoreOrderShippingGroupList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreOrderShippingGroup> findRetailStoreOrderShippingGroupWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getRetailStoreOrderShippingGroupMapper());
 
 	}
 	@Override
 	public int countRetailStoreOrderShippingGroupWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countRetailStoreOrderShippingGroupWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreOrderShippingGroup> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreOrderShippingGroupMapper());
 	}
+
+  @Override
+  public Stream<RetailStoreOrderShippingGroup> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getRetailStoreOrderShippingGroupMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -600,7 +612,7 @@ public class RetailStoreOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseD
 		}
 		return result;
 	}
-	
+
 	
 
 }

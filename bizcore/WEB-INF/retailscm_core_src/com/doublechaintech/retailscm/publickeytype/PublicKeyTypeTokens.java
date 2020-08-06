@@ -80,7 +80,7 @@ public class PublicKeyTypeTokens extends CommonTokens{
 		
 		return start()
 			.withDomain()
-			.withKeypairIdentifyList();
+			.withKeypairIdentityList();
 	
 	}
 	public static PublicKeyTypeTokens withoutListsTokens(){
@@ -115,71 +115,71 @@ public class PublicKeyTypeTokens extends CommonTokens{
 	}
 	
 	
-	protected static final String KEYPAIR_IDENTIFY_LIST = "keypairIdentifyList";
-	public String getKeypairIdentifyList(){
-		return KEYPAIR_IDENTIFY_LIST;
+	protected static final String KEYPAIR_IDENTITY_LIST = "keypairIdentityList";
+	public String getKeypairIdentityList(){
+		return KEYPAIR_IDENTITY_LIST;
 	}
-	public PublicKeyTypeTokens withKeypairIdentifyList(){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST);
+	public PublicKeyTypeTokens withKeypairIdentityList(){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST);
 		return this;
 	}
-	public PublicKeyTypeTokens analyzeKeypairIdentifyList(){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+".anaylze");
+	public PublicKeyTypeTokens analyzeKeypairIdentityList(){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeKeypairIdentifyListEnabled(){		
+	public boolean analyzeKeypairIdentityListEnabled(){		
 		
-		if(checkOptions(this.options(), KEYPAIR_IDENTIFY_LIST+".anaylze")){
+		if(checkOptions(this.options(), KEYPAIR_IDENTITY_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public PublicKeyTypeTokens extractMoreFromKeypairIdentifyList(String idsSeperatedWithComma){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+".extractIds", idsSeperatedWithComma);
+	public PublicKeyTypeTokens extractMoreFromKeypairIdentityList(String idsSeperatedWithComma){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
 	
 	
 	
 	
-	private int keypairIdentifyListSortCounter = 0;
-	public PublicKeyTypeTokens sortKeypairIdentifyListWith(String field, String descOrAsc){		
-		addSortMoreOptions(KEYPAIR_IDENTIFY_LIST,keypairIdentifyListSortCounter++, field, descOrAsc);
+	private int keypairIdentityListSortCounter = 0;
+	public PublicKeyTypeTokens sortKeypairIdentityListWith(String field, String descOrAsc){		
+		addSortMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSortCounter++, field, descOrAsc);
 		return this;
 	}
-	private int keypairIdentifyListSearchCounter = 0;
-	public PublicKeyTypeTokens searchKeypairIdentifyListWith(String field, String verb, String value){		
+	private int keypairIdentityListSearchCounter = 0;
+	public PublicKeyTypeTokens searchKeypairIdentityListWith(String field, String verb, String value){		
 		
-		withKeypairIdentifyList();
-		addSearchMoreOptions(KEYPAIR_IDENTIFY_LIST,keypairIdentifyListSearchCounter++, field, verb, value);
+		withKeypairIdentityList();
+		addSearchMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public PublicKeyTypeTokens searchAllTextOfKeypairIdentifyList(String verb, String value){	
+	public PublicKeyTypeTokens searchAllTextOfKeypairIdentityList(String verb, String value){	
 		String field = "id|publicKey";
-		addSearchMoreOptions(KEYPAIR_IDENTIFY_LIST,keypairIdentifyListSearchCounter++, field, verb, value);
+		addSearchMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
 	
 	
 	
-	public PublicKeyTypeTokens rowsPerPageOfKeypairIdentifyList(int rowsPerPage){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"RowsPerPage",rowsPerPage);
+	public PublicKeyTypeTokens rowsPerPageOfKeypairIdentityList(int rowsPerPage){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public PublicKeyTypeTokens currentPageNumberOfKeypairIdentifyList(int currentPageNumber){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"CurrentPage",currentPageNumber);
+	public PublicKeyTypeTokens currentPageNumberOfKeypairIdentityList(int currentPageNumber){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public PublicKeyTypeTokens retainColumnsOfKeypairIdentifyList(String[] columns){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"RetainColumns",columns);
+	public PublicKeyTypeTokens retainColumnsOfKeypairIdentityList(String[] columns){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public PublicKeyTypeTokens excludeColumnsOfKeypairIdentifyList(String[] columns){		
-		addSimpleOptions(KEYPAIR_IDENTIFY_LIST+"ExcludeColumns",columns);
+	public PublicKeyTypeTokens excludeColumnsOfKeypairIdentityList(String[] columns){		
+		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"ExcludeColumns",columns);
 		return this;
 	}
 	
@@ -188,7 +188,7 @@ public class PublicKeyTypeTokens extends CommonTokens{
 	
 	public  PublicKeyTypeTokens searchEntireObjectText(String verb, String value){
 		
-		searchAllTextOfKeypairIdentifyList(verb, value);	
+		searchAllTextOfKeypairIdentityList(verb, value);	
 		return this;
 	}
 }

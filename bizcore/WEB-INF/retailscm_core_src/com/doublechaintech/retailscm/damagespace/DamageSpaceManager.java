@@ -17,6 +17,7 @@ public interface DamageSpaceManager extends BaseManager{
 	public DamageSpace createDamageSpace(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String warehouseId) throws Exception;
 	public DamageSpace updateDamageSpace(RetailscmUserContext userContext,String damageSpaceId, int damageSpaceVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public DamageSpace loadDamageSpace(RetailscmUserContext userContext, String damageSpaceId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public DamageSpace internalSaveDamageSpace(RetailscmUserContext userContext, DamageSpace damageSpace) throws Exception;
 	public DamageSpace internalSaveDamageSpace(RetailscmUserContext userContext, DamageSpace damageSpace,Map<String,Object>option) throws Exception;
 

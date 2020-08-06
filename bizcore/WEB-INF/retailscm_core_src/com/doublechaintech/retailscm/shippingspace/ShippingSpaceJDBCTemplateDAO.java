@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ShippingSpaceDAO{
 
@@ -71,50 +71,54 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 	return this.goodsDAO;
  	}	
 
-	
+
 	/*
 	protected ShippingSpace load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalShippingSpace(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<ShippingSpace> loadAll() {
 	    return this.loadAll(getShippingSpaceMapper());
 	}
-	
-	
+
+  public Stream<ShippingSpace> loadAllAsStream() {
+      return this.loadAllAsStream(getShippingSpaceMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public ShippingSpace load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalShippingSpace(ShippingSpaceTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public ShippingSpace save(ShippingSpace shippingSpace,Map<String,Object> options){
-		
+
 		String methodName="save(ShippingSpace shippingSpace,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(shippingSpace, methodName, "shippingSpace");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalShippingSpace(shippingSpace,options);
 	}
 	public ShippingSpace clone(String shippingSpaceId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(ShippingSpaceTable.withId(shippingSpaceId),options);
 	}
-	
+
 	protected ShippingSpace clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String shippingSpaceId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		ShippingSpace newShippingSpace = loadInternalShippingSpace(accessKey, options);
 		newShippingSpace.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
 		
 
-		
+
 		saveInternalShippingSpace(newShippingSpace,options);
-		
+
 		return newShippingSpace;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String shippingSpaceId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String shippingSpaceId, int version) throws Exception{
-	
+
 		String methodName="delete(String shippingSpaceId, int version)";
 		assertMethodArgumentNotNull(shippingSpaceId, methodName, "shippingSpaceId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{shippingSpaceId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(affectedNumber == 0){
 			handleDeleteOneError(shippingSpaceId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public ShippingSpace disconnectFromAll(String shippingSpaceId, int version) throws Exception{
-	
-		
+
+
 		ShippingSpace shippingSpace = loadInternalShippingSpace(ShippingSpaceTable.withId(shippingSpaceId), emptyOptions());
 		shippingSpace.clearFromAll();
 		this.saveShippingSpace(shippingSpace);
 		return shippingSpace;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "shipping_space";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "shippingSpace";
 	}
-	
+
 	
 	
 	
@@ -426,7 +430,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return shippingSpace;
 		}
 		
-		
+
 		String SQL=this.getSaveShippingSpaceSQL(shippingSpace);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveShippingSpaceParameters(shippingSpace);
@@ -435,57 +439,57 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		shippingSpace.incVersion();
 		return shippingSpace;
-	
+
 	}
 	public SmartList<ShippingSpace> saveShippingSpaceList(SmartList<ShippingSpace> shippingSpaceList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitShippingSpaceList(shippingSpaceList);
-		
+
 		batchShippingSpaceCreate((List<ShippingSpace>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchShippingSpaceUpdate((List<ShippingSpace>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(ShippingSpace shippingSpace:shippingSpaceList){
 			if(shippingSpace.isChanged()){
 				shippingSpace.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return shippingSpaceList;
 	}
 
 	public SmartList<ShippingSpace> removeShippingSpaceList(SmartList<ShippingSpace> shippingSpaceList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(shippingSpaceList, options);
-		
+
 		return shippingSpaceList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareShippingSpaceBatchCreateArgs(List<ShippingSpace> shippingSpaceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ShippingSpace shippingSpace:shippingSpaceList ){
 			Object [] parameters = prepareShippingSpaceCreateParameters(shippingSpace);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareShippingSpaceBatchUpdateArgs(List<ShippingSpace> shippingSpaceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ShippingSpace shippingSpace:shippingSpaceList ){
 			if(!shippingSpace.isChanged()){
@@ -493,40 +497,40 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			Object [] parameters = prepareShippingSpaceUpdateParameters(shippingSpace);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchShippingSpaceCreate(List<ShippingSpace> shippingSpaceList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareShippingSpaceBatchCreateArgs(shippingSpaceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchShippingSpaceUpdate(List<ShippingSpace> shippingSpaceList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareShippingSpaceBatchUpdateArgs(shippingSpaceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitShippingSpaceList(List<ShippingSpace> shippingSpaceList){
-		
+
 		List<ShippingSpace> shippingSpaceCreateList=new ArrayList<ShippingSpace>();
 		List<ShippingSpace> shippingSpaceUpdateList=new ArrayList<ShippingSpace>();
-		
+
 		for(ShippingSpace shippingSpace: shippingSpaceList){
 			if(isUpdateRequest(shippingSpace)){
 				shippingSpaceUpdateList.add( shippingSpace);
@@ -534,10 +538,10 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			shippingSpaceCreateList.add(shippingSpace);
 		}
-		
+
 		return new Object[]{shippingSpaceCreateList,shippingSpaceUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(ShippingSpace shippingSpace){
  		return shippingSpace.getVersion() > 0;
  	}
@@ -547,7 +551,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveShippingSpaceParameters(ShippingSpace shippingSpace){
  		if(isUpdateRequest(shippingSpace) ){
  			return prepareShippingSpaceUpdateParameters(shippingSpace);
@@ -565,7 +569,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[2] = shippingSpace.getTotalArea();
- 		 	
+ 		
  		if(shippingSpace.getWarehouse() != null){
  			parameters[3] = shippingSpace.getWarehouse().getId();
  		}
@@ -581,17 +585,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[7] = shippingSpace.getLastUpdateTime();
- 				
+ 		
  		parameters[8] = shippingSpace.nextVersion();
  		parameters[9] = shippingSpace.getId();
  		parameters[10] = shippingSpace.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareShippingSpaceCreateParameters(ShippingSpace shippingSpace){
 		Object[] parameters = new Object[9];
-		String newShippingSpaceId=getNextId();
-		shippingSpace.setId(newShippingSpaceId);
+        if(shippingSpace.getId() == null){
+          String newShippingSpaceId=getNextId();
+          shippingSpace.setId(newShippingSpaceId);
+        }
 		parameters[0] =  shippingSpace.getId();
  
  		
@@ -602,10 +608,10 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[3] = shippingSpace.getTotalArea();
- 		 	
+ 		
  		if(shippingSpace.getWarehouse() != null){
  			parameters[4] = shippingSpace.getWarehouse().getId();
- 		
+
  		}
  		
  		
@@ -619,15 +625,15 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[8] = shippingSpace.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected ShippingSpace saveInternalShippingSpace(ShippingSpace shippingSpace, Map<String,Object> options){
-		
+
 		saveShippingSpace(shippingSpace);
- 	
+
  		if(isSaveWarehouseEnabled(options)){
 	 		saveWarehouse(shippingSpace, options);
  		}
@@ -637,42 +643,42 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 		saveGoodsList(shippingSpace, options);
 	 		//removeGoodsList(shippingSpace, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return shippingSpace;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected ShippingSpace saveWarehouse(ShippingSpace shippingSpace, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(shippingSpace.getWarehouse() == null){
  			return shippingSpace;//do nothing when it is null
  		}
- 		
+
  		getWarehouseDAO().save(shippingSpace.getWarehouse(),options);
  		return shippingSpace;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public ShippingSpace planToRemoveGoodsList(ShippingSpace shippingSpace, String goodsIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.ID_PROPERTY, goodsIds);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -681,17 +687,17 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 
 			goodsItem.clearFromAll();
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
-		return shippingSpace;	
-	
+		return shippingSpace;
+
 	}
 
 
@@ -700,11 +706,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -713,19 +719,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSku();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithSku(String shippingSpaceId, String skuId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -734,7 +740,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -744,11 +750,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -757,19 +763,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearReceivingSpace();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithReceivingSpace(String shippingSpaceId, String receivingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -778,7 +784,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -788,11 +794,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -801,19 +807,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearGoodsAllocation();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithGoodsAllocation(String shippingSpaceId, String goodsAllocationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -822,7 +828,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -832,11 +838,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -845,19 +851,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSmartPallet();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithSmartPallet(String shippingSpaceId, String smartPalletId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -866,7 +872,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -876,11 +882,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -889,19 +895,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearTransportTask();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithTransportTask(String shippingSpaceId, String transportTaskId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -910,7 +916,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -920,11 +926,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -933,19 +939,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStore();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithRetailStore(String shippingSpaceId, String retailStoreId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -954,7 +960,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -964,11 +970,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -977,19 +983,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearBizOrder();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithBizOrder(String shippingSpaceId, String bizOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -998,7 +1004,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1008,11 +1014,11 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpace.getId());
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1021,19 +1027,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(externalGoodsList.isEmpty()){
 			return shippingSpace;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStoreOrder();
 			goodsItem.clearShippingSpace();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = shippingSpace.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return shippingSpace;
 	}
-	
+
 	public int countGoodsListWithRetailStoreOrder(String shippingSpaceId, String retailStoreOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1042,7 +1048,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1050,19 +1056,19 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected ShippingSpace saveGoodsList(ShippingSpace shippingSpace, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		if(goodsList == null){
 			//null list means nothing
 			return shippingSpace;
 		}
 		SmartList<Goods> mergedUpdateGoodsList = new SmartList<Goods>();
-		
-		
-		mergedUpdateGoodsList.addAll(goodsList); 
+
+
+		mergedUpdateGoodsList.addAll(goodsList);
 		if(goodsList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsList.addAll(goodsList.getToRemoveList());
@@ -1071,28 +1077,28 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsDAO().saveGoodsList(mergedUpdateGoodsList,options);
-		
+
 		if(goodsList.getToRemoveList() != null){
 			goodsList.removeAll(goodsList.getToRemoveList());
 		}
-		
-		
+
+
 		return shippingSpace;
-	
+
 	}
-	
+
 	protected ShippingSpace removeGoodsList(ShippingSpace shippingSpace, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Goods> goodsList = shippingSpace.getGoodsList();
 		if(goodsList == null){
 			return shippingSpace;
-		}	
-	
+		}
+
 		SmartList<Goods> toRemoveGoodsList = goodsList.getToRemoveList();
-		
+
 		if(toRemoveGoodsList == null){
 			return shippingSpace;
 		}
@@ -1100,20 +1106,20 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return shippingSpace;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
-		
-		return shippingSpace;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
+
+		return shippingSpace;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public ShippingSpace present(ShippingSpace shippingSpace,Map<String, Object> options){
@@ -1156,13 +1162,13 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	protected String getTableName(){
 		return ShippingSpaceTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<ShippingSpace> shippingSpaceList) {		
+
+
+
+	public void enhanceList(List<ShippingSpace> shippingSpaceList) {
 		this.enhanceListInternal(shippingSpaceList, this.getShippingSpaceMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的shippingSpace的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<ShippingSpace> us, Map<String,Object> options) throws Exception{
@@ -1187,39 +1193,45 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ShippingSpace> shippingSpaceList = ownerEntity.collectRefsWithType(ShippingSpace.INTERNAL_TYPE);
 		this.enhanceList(shippingSpaceList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<ShippingSpace> findShippingSpaceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getShippingSpaceMapper());
 
 	}
 	@Override
 	public int countShippingSpaceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countShippingSpaceWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<ShippingSpace> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getShippingSpaceMapper());
 	}
+
+  @Override
+  public Stream<ShippingSpace> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getShippingSpaceMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1248,7 +1260,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 		return result;
 	}
-	
+
 	
 
 }

@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeWorkExperienceDAO{
 
@@ -53,64 +53,68 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	 	return this.employeeDAO;
  	}	
 
-	
+
 	/*
 	protected EmployeeWorkExperience load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeWorkExperience(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<EmployeeWorkExperience> loadAll() {
 	    return this.loadAll(getEmployeeWorkExperienceMapper());
 	}
-	
-	
+
+  public Stream<EmployeeWorkExperience> loadAllAsStream() {
+      return this.loadAllAsStream(getEmployeeWorkExperienceMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public EmployeeWorkExperience load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalEmployeeWorkExperience(EmployeeWorkExperienceTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public EmployeeWorkExperience save(EmployeeWorkExperience employeeWorkExperience,Map<String,Object> options){
-		
+
 		String methodName="save(EmployeeWorkExperience employeeWorkExperience,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(employeeWorkExperience, methodName, "employeeWorkExperience");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalEmployeeWorkExperience(employeeWorkExperience,options);
 	}
 	public EmployeeWorkExperience clone(String employeeWorkExperienceId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(EmployeeWorkExperienceTable.withId(employeeWorkExperienceId),options);
 	}
-	
+
 	protected EmployeeWorkExperience clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String employeeWorkExperienceId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		EmployeeWorkExperience newEmployeeWorkExperience = loadInternalEmployeeWorkExperience(accessKey, options);
 		newEmployeeWorkExperience.setVersion(0);
 		
 		
 
-		
+
 		saveInternalEmployeeWorkExperience(newEmployeeWorkExperience,options);
-		
+
 		return newEmployeeWorkExperience;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String employeeWorkExperienceId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String employeeWorkExperienceId, int version) throws Exception{
-	
+
 		String methodName="delete(String employeeWorkExperienceId, int version)";
 		assertMethodArgumentNotNull(employeeWorkExperienceId, methodName, "employeeWorkExperienceId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{employeeWorkExperienceId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(affectedNumber == 0){
 			handleDeleteOneError(employeeWorkExperienceId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public EmployeeWorkExperience disconnectFromAll(String employeeWorkExperienceId, int version) throws Exception{
-	
-		
+
+
 		EmployeeWorkExperience employeeWorkExperience = loadInternalEmployeeWorkExperience(EmployeeWorkExperienceTable.withId(employeeWorkExperienceId), emptyOptions());
 		employeeWorkExperience.clearFromAll();
 		this.saveEmployeeWorkExperience(employeeWorkExperience);
 		return employeeWorkExperience;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "employee_work_experience";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "employeeWorkExperience";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			return employeeWorkExperience;
 		}
 		
-		
+
 		String SQL=this.getSaveEmployeeWorkExperienceSQL(employeeWorkExperience);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeWorkExperienceParameters(employeeWorkExperience);
@@ -320,57 +324,57 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		employeeWorkExperience.incVersion();
 		return employeeWorkExperience;
-	
+
 	}
 	public SmartList<EmployeeWorkExperience> saveEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitEmployeeWorkExperienceList(employeeWorkExperienceList);
-		
+
 		batchEmployeeWorkExperienceCreate((List<EmployeeWorkExperience>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchEmployeeWorkExperienceUpdate((List<EmployeeWorkExperience>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(EmployeeWorkExperience employeeWorkExperience:employeeWorkExperienceList){
 			if(employeeWorkExperience.isChanged()){
 				employeeWorkExperience.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return employeeWorkExperienceList;
 	}
 
 	public SmartList<EmployeeWorkExperience> removeEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(employeeWorkExperienceList, options);
-		
+
 		return employeeWorkExperienceList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareEmployeeWorkExperienceBatchCreateArgs(List<EmployeeWorkExperience> employeeWorkExperienceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeWorkExperience employeeWorkExperience:employeeWorkExperienceList ){
 			Object [] parameters = prepareEmployeeWorkExperienceCreateParameters(employeeWorkExperience);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareEmployeeWorkExperienceBatchUpdateArgs(List<EmployeeWorkExperience> employeeWorkExperienceList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(EmployeeWorkExperience employeeWorkExperience:employeeWorkExperienceList ){
 			if(!employeeWorkExperience.isChanged()){
@@ -378,40 +382,40 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			}
 			Object [] parameters = prepareEmployeeWorkExperienceUpdateParameters(employeeWorkExperience);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchEmployeeWorkExperienceCreate(List<EmployeeWorkExperience> employeeWorkExperienceList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareEmployeeWorkExperienceBatchCreateArgs(employeeWorkExperienceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchEmployeeWorkExperienceUpdate(List<EmployeeWorkExperience> employeeWorkExperienceList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareEmployeeWorkExperienceBatchUpdateArgs(employeeWorkExperienceList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitEmployeeWorkExperienceList(List<EmployeeWorkExperience> employeeWorkExperienceList){
-		
+
 		List<EmployeeWorkExperience> employeeWorkExperienceCreateList=new ArrayList<EmployeeWorkExperience>();
 		List<EmployeeWorkExperience> employeeWorkExperienceUpdateList=new ArrayList<EmployeeWorkExperience>();
-		
+
 		for(EmployeeWorkExperience employeeWorkExperience: employeeWorkExperienceList){
 			if(isUpdateRequest(employeeWorkExperience)){
 				employeeWorkExperienceUpdateList.add( employeeWorkExperience);
@@ -419,10 +423,10 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			}
 			employeeWorkExperienceCreateList.add(employeeWorkExperience);
 		}
-		
+
 		return new Object[]{employeeWorkExperienceCreateList,employeeWorkExperienceUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(EmployeeWorkExperience employeeWorkExperience){
  		return employeeWorkExperience.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveEmployeeWorkExperienceParameters(EmployeeWorkExperience employeeWorkExperience){
  		if(isUpdateRequest(employeeWorkExperience) ){
  			return prepareEmployeeWorkExperienceUpdateParameters(employeeWorkExperience);
@@ -441,7 +445,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  	}
  	protected Object[] prepareEmployeeWorkExperienceUpdateParameters(EmployeeWorkExperience employeeWorkExperience){
  		Object[] parameters = new Object[8];
-  	
+ 
  		if(employeeWorkExperience.getEmployee() != null){
  			parameters[0] = employeeWorkExperience.getEmployee().getId();
  		}
@@ -457,22 +461,24 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		
  		
  		parameters[4] = employeeWorkExperience.getDescription();
- 				
+ 		
  		parameters[5] = employeeWorkExperience.nextVersion();
  		parameters[6] = employeeWorkExperience.getId();
  		parameters[7] = employeeWorkExperience.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareEmployeeWorkExperienceCreateParameters(EmployeeWorkExperience employeeWorkExperience){
 		Object[] parameters = new Object[6];
-		String newEmployeeWorkExperienceId=getNextId();
-		employeeWorkExperience.setId(newEmployeeWorkExperienceId);
+        if(employeeWorkExperience.getId() == null){
+          String newEmployeeWorkExperienceId=getNextId();
+          employeeWorkExperience.setId(newEmployeeWorkExperienceId);
+        }
 		parameters[0] =  employeeWorkExperience.getId();
-  	
+ 
  		if(employeeWorkExperience.getEmployee() != null){
  			parameters[1] = employeeWorkExperience.getEmployee().getId();
- 		
+
  		}
  		
  		
@@ -486,44 +492,44 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		
  		
  		parameters[5] = employeeWorkExperience.getDescription();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected EmployeeWorkExperience saveInternalEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperience, Map<String,Object> options){
-		
+
 		saveEmployeeWorkExperience(employeeWorkExperience);
- 	
+
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeWorkExperience, options);
  		}
  
 		
 		return employeeWorkExperience;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected EmployeeWorkExperience saveEmployee(EmployeeWorkExperience employeeWorkExperience, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(employeeWorkExperience.getEmployee() == null){
  			return employeeWorkExperience;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(employeeWorkExperience.getEmployee(),options);
  		return employeeWorkExperience;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -543,47 +549,53 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	protected String getTableName(){
 		return EmployeeWorkExperienceTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<EmployeeWorkExperience> employeeWorkExperienceList) {		
+
+
+
+	public void enhanceList(List<EmployeeWorkExperience> employeeWorkExperienceList) {
 		this.enhanceListInternal(employeeWorkExperienceList, this.getEmployeeWorkExperienceMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeWorkExperience> employeeWorkExperienceList = ownerEntity.collectRefsWithType(EmployeeWorkExperience.INTERNAL_TYPE);
 		this.enhanceList(employeeWorkExperienceList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<EmployeeWorkExperience> findEmployeeWorkExperienceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getEmployeeWorkExperienceMapper());
 
 	}
 	@Override
 	public int countEmployeeWorkExperienceWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countEmployeeWorkExperienceWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<EmployeeWorkExperience> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeWorkExperienceMapper());
 	}
+
+  @Override
+  public Stream<EmployeeWorkExperience> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getEmployeeWorkExperienceMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -612,7 +624,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 		return result;
 	}
-	
+
 	
 
 }

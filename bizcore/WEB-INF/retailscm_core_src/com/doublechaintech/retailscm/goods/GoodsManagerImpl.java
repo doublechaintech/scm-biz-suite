@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.goods;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstore.RetailStore;
@@ -61,24 +59,24 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = GoodsTokens.start().withTokenFromListName(listName).done();
 		Goods  goods = (Goods) this.loadGoods(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = goods.collectRefercencesFromLists();
 		goodsDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, goods, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new GoodsGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -141,7 +139,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		checkerOf(userContext).throwExceptionIfHasErrors( GoodsManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Goods goods = loadGoods( userContext, goodsId, tokens);
  		//do some calc before sent to customer?
@@ -160,6 +158,9 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		
 		List<BaseEntity> entityListToNaming = goodsToPresent.collectRefercencesFromLists();
 		goodsDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,goods,tokens);
 		
 		return  goodsToPresent;
 		
@@ -1049,42 +1050,6 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 	}
 
 
-	//disconnect Goods with facility_id in GoodsMovement
-	protected Goods breakWithGoodsMovementByFacilityId(RetailscmUserContext userContext, String goodsId, String facilityIdId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			Goods goods = loadGoods(userContext, goodsId, allTokens());
-
-			synchronized(goods){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				goodsDaoOf(userContext).planToRemoveGoodsMovementListWithFacilityId(goods, facilityIdId, this.emptyOptions());
-
-				goods = saveGoods(userContext, goods, tokens().withGoodsMovementList().done());
-				return goods;
-			}
-	}
-	//disconnect Goods with session_id in GoodsMovement
-	protected Goods breakWithGoodsMovementBySessionId(RetailscmUserContext userContext, String goodsId, String sessionIdId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			Goods goods = loadGoods(userContext, goodsId, allTokens());
-
-			synchronized(goods){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				goodsDaoOf(userContext).planToRemoveGoodsMovementListWithSessionId(goods, sessionIdId, this.emptyOptions());
-
-				goods = saveGoods(userContext, goods, tokens().withGoodsMovementList().done());
-				return goods;
-			}
-	}
 
 
 
@@ -1130,7 +1095,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 			goods.addGoodsMovement( goodsMovement );
 			goods = saveGoods(userContext, goods, tokens().withGoodsMovementList().done());
 			
-			userContext.getManagerGroup().getGoodsMovementManager().onNewInstanceCreated(userContext, goodsMovement);
+			goodsMovementManagerOf(userContext).onNewInstanceCreated(userContext, goodsMovement);
 			return present(userContext,goods, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1158,7 +1123,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withGoodsMovementListList()
-				.searchGoodsMovementListWith(GoodsMovement.ID_PROPERTY, "is", id).done();
+				.searchGoodsMovementListWith(GoodsMovement.ID_PROPERTY, tokens().is(), id).done();
 
 		Goods goodsToUpdate = loadGoods(userContext, goodsId, options);
 
@@ -1167,7 +1132,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		}
 
 		GoodsMovement item = goodsToUpdate.getGoodsMovementList().first();
-
+		beforeUpdateGoodsMovementProperties(userContext,item, goodsId,id,moveTime,facility,facilityId,fromIp,userAgent,sessionId,latitude,longitude,tokensExpr);
 		item.updateMoveTime( moveTime );
 		item.updateFacility( facility );
 		item.updateFacilityId( facilityId );
@@ -1185,6 +1150,10 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		}
 	}
 
+	protected  void beforeUpdateGoodsMovementProperties(RetailscmUserContext userContext, GoodsMovement item, String goodsId, String id,DateTime moveTime,String facility,String facilityId,String fromIp,String userAgent,String sessionId,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected GoodsMovement createGoodsMovement(RetailscmUserContext userContext, DateTime moveTime, String facility, String facilityId, String fromIp, String userAgent, String sessionId, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -1295,7 +1264,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 			goods.copyGoodsMovementFrom( goodsMovement );
 			goods = saveGoods(userContext, goods, tokens().withGoodsMovementList().done());
 			
-			userContext.getManagerGroup().getGoodsMovementManager().onNewInstanceCreated(userContext, (GoodsMovement)goods.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			goodsMovementManagerOf(userContext).onNewInstanceCreated(userContext, (GoodsMovement)goods.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,goods, mergedAllTokens(tokensExpr));
 		}
 
@@ -1308,57 +1277,41 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkIdOfGoodsMovement(goodsMovementId);
 		checkerOf(userContext).checkVersionOfGoodsMovement(goodsMovementVersion);
-		
+
 
 		if(GoodsMovement.MOVE_TIME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkMoveTimeOfGoodsMovement(parseTimestamp(newValueExpr));
-		
 		}
 		
 		if(GoodsMovement.FACILITY_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFacilityOfGoodsMovement(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsMovement.FACILITY_ID_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFacilityIdOfGoodsMovement(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsMovement.FROM_IP_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkFromIpOfGoodsMovement(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsMovement.USER_AGENT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkUserAgentOfGoodsMovement(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsMovement.SESSION_ID_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkSessionIdOfGoodsMovement(parseString(newValueExpr));
-		
 		}
 		
 		if(GoodsMovement.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfGoodsMovement(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(GoodsMovement.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfGoodsMovement(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(GoodsManagerException.class);
 
 	}
@@ -1368,7 +1321,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 
 		checkParamsForUpdatingGoodsMovement(userContext, goodsId, goodsMovementId, goodsMovementVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withGoodsMovementList().searchGoodsMovementListWith(GoodsMovement.ID_PROPERTY, "eq", goodsMovementId).done();
+		Map<String,Object> loadTokens = this.tokens().withGoodsMovementList().searchGoodsMovementListWith(GoodsMovement.ID_PROPERTY, tokens().equals(), goodsMovementId).done();
 
 
 
@@ -1379,13 +1332,14 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 			//Also good when there is a RAM based DAO implementation
 			//goods.removeGoodsMovement( goodsMovement );
 			//make changes to AcceleraterAccount.
-			GoodsMovement goodsMovementIndex = createIndexedGoodsMovement(goodsMovementId, goodsMovementVersion);
+			GoodsMovement goodsMovementIdVersionKey = createIndexedGoodsMovement(goodsMovementId, goodsMovementVersion);
 
-			GoodsMovement goodsMovement = goods.findTheGoodsMovement(goodsMovementIndex);
+			GoodsMovement goodsMovement = goods.findTheGoodsMovement(goodsMovementIdVersionKey);
 			if(goodsMovement == null){
-				throw new GoodsManagerException(goodsMovement+" is NOT FOUND" );
+				throw new GoodsManagerException(goodsMovementId+" is NOT FOUND" );
 			}
 
+			beforeUpdateGoodsMovement(userContext, goodsMovement, goodsId, goodsMovementId, goodsMovementVersion, property, newValueExpr,  tokensExpr);
 			goodsMovement.changeProperty(property, newValueExpr);
 			
 			goods = saveGoods(userContext, goods, tokens().withGoodsMovementList().done());
@@ -1393,6 +1347,11 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateGoodsMovement(RetailscmUserContext userContext, GoodsMovement existed, String goodsId, String goodsMovementId, int goodsMovementVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1409,6 +1368,12 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    goodsDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1500,6 +1465,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1816,7 +1782,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -2008,6 +1974,8 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

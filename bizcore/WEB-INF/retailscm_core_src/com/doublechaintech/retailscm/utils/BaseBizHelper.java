@@ -20,7 +20,7 @@ public class BaseBizHelper {
 	protected CustomRetailscmUserContextImpl userContext;
 	protected static final Map<String, Object> EO = new HashMap<>();
 	protected Map<String, Object> cache;
-	
+
 	public CustomRetailscmUserContextImpl getUserContext() {
 		return userContext;
 	}
@@ -31,7 +31,7 @@ public class BaseBizHelper {
 	protected static <T extends BaseBizHelper> T _OF(CustomRetailscmUserContextImpl ctx, Class<T> clazz) {
 		return _OF(ctx, clazz, false);
 	}
-			
+
 	protected static <T extends BaseBizHelper> T _OF(CustomRetailscmUserContextImpl ctx,
 			Class<T> clazz, boolean forceNew) {
 		String key = "thread_lvl_helper_" + clazz.getName();
@@ -50,7 +50,7 @@ public class BaseBizHelper {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	protected <T> T cache(String key, T value) {
 		ensureCache();
 		cache.put(key, value);
@@ -76,12 +76,31 @@ public class BaseBizHelper {
 		obj = s.get();
 		return cache(key, obj);
 	}
+	protected <T> T withCacheNotNull(String key, Supplier<T> s) {
+    T obj = cached(key);
+    if (obj != null) {
+      return obj;
+    }
+    obj = s.get();
+    if (obj == null){
+      return null;
+    }
+    if (obj instanceof List && ((List) obj).isEmpty()){
+      return obj;
+    }
+    if (obj instanceof Map && ((Map) obj).isEmpty()){
+      return obj;
+    }
+
+    cache(key, obj);
+    return obj;
+  }
 	protected void ensureCache() {
 		if (cache == null) {
 			cache = new HashMap<>();
 		}
 	}
-	
+
 	public ObjectMapper getObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
@@ -89,11 +108,11 @@ public class BaseBizHelper {
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 		return mapper;
 	}
-	
+
 	protected void notdone() {
 		throw new UnsupportedOperationException("方法未实现");
 	}
-	
+
 }
 
 

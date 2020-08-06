@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.memberwishlistproduct;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.memberwishlist.MemberWishlistDAO;
 public interface MemberWishlistProductDAO extends BaseDAO{
 
 	public SmartList<MemberWishlistProduct> loadAll();
+	public Stream<MemberWishlistProduct> loadAllAsStream();
 	public MemberWishlistProduct load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<MemberWishlistProduct> memberWishlistProductList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public MemberWishlistProduct present(MemberWishlistProduct memberWishlistProduct,Map<String,Object> options) throws Exception;
 	public MemberWishlistProduct clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public MemberWishlistProduct save(MemberWishlistProduct memberWishlistProduct,Map<String,Object> options);
 	public SmartList<MemberWishlistProduct> saveMemberWishlistProductList(SmartList<MemberWishlistProduct> memberWishlistProductList,Map<String,Object> options);
 	public SmartList<MemberWishlistProduct> removeMemberWishlistProductList(SmartList<MemberWishlistProduct> memberWishlistProductList,Map<String,Object> options);
@@ -45,18 +47,19 @@ public interface MemberWishlistProductDAO extends BaseDAO{
 
 	
 	
-	
+
 	public SmartList<MemberWishlistProduct> queryList(String sql, Object ... parmeters);
+	public Stream<MemberWishlistProduct> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateMemberWishlistProduct executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<MemberWishlistProduct> findMemberWishlistProductByOwner(String memberWishlistId, Map<String,Object> options);
  	public int countMemberWishlistProductByOwner(String memberWishlistId, Map<String,Object> options);
  	public Map<String, Integer> countMemberWishlistProductByOwnerIds(String[] ids, Map<String,Object> options);
  	public SmartList<MemberWishlistProduct> findMemberWishlistProductByOwner(String memberWishlistId, int start, int count, Map<String,Object> options);
  	public void analyzeMemberWishlistProductByOwner(SmartList<MemberWishlistProduct> resultList, String memberWishlistId, Map<String,Object> options);
 
- 
+
  
 }
 

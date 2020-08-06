@@ -103,9 +103,9 @@
 	<% SecUser result = (SecUser)request.getAttribute("result");  %>
 			<li><a data-toggle="tab" href="#userAppList" class="disabled"> ${userContext.localeMap['user_app']}</a></li>
 			<li><a data-toggle="tab" href="#loginHistoryList" class="disabled"> ${userContext.localeMap['login_history']}</a></li>
-			<li><a data-toggle="tab" href="#wechatWorkappIdentifyList" class="disabled"> ${userContext.localeMap['wechat_workapp_identify']}</a></li>
-			<li><a data-toggle="tab" href="#wechatMiniappIdentifyList" class="disabled"> ${userContext.localeMap['wechat_miniapp_identify']}</a></li>
-			<li><a data-toggle="tab" href="#keypairIdentifyList" class="disabled"> ${userContext.localeMap['keypair_identify']}</a></li>
+			<li><a data-toggle="tab" href="#wechatWorkappIdentityList" class="disabled"> ${userContext.localeMap['wechat_workapp_identity']}</a></li>
+			<li><a data-toggle="tab" href="#wechatMiniappIdentityList" class="disabled"> ${userContext.localeMap['wechat_miniapp_identity']}</a></li>
+			<li><a data-toggle="tab" href="#keypairIdentityList" class="disabled"> ${userContext.localeMap['keypair_identity']}</a></li>
  
 	</ul>
 	</div>
@@ -171,27 +171,27 @@
 					referName="secUser"/>
 		</div>
 	</c:if>
-	<c:if test='${not empty userContext.accessTokens["wechatWorkappIdentifyList"] or ignoreListAccessControl}'>
-		<c:set var="wechatWorkappIdentifyList" value="${result.wechatWorkappIdentifyList}" scope="request"/>
-		<c:set var="wechatWorkappIdentifyListName" value="wechatWorkappIdentifyList" scope="request"/>
-		<div id="wechatWorkappIdentifyList" class="tab-pane fade sublist" refer-name="sec_user">
-			<sky:include page="com/doublechaintech/retailscm/wechatworkappidentify/WechatWorkappIdentify$List.jsp"
+	<c:if test='${not empty userContext.accessTokens["wechatWorkappIdentityList"] or ignoreListAccessControl}'>
+		<c:set var="wechatWorkappIdentityList" value="${result.wechatWorkappIdentityList}" scope="request"/>
+		<c:set var="wechatWorkappIdentityListName" value="wechatWorkappIdentityList" scope="request"/>
+		<div id="wechatWorkappIdentityList" class="tab-pane fade sublist" refer-name="sec_user">
+			<sky:include page="com/doublechaintech/retailscm/wechatworkappidentity/WechatWorkappIdentity$List.jsp"
 					referName="secUser"/>
 		</div>
 	</c:if>
-	<c:if test='${not empty userContext.accessTokens["wechatMiniappIdentifyList"] or ignoreListAccessControl}'>
-		<c:set var="wechatMiniappIdentifyList" value="${result.wechatMiniappIdentifyList}" scope="request"/>
-		<c:set var="wechatMiniappIdentifyListName" value="wechatMiniappIdentifyList" scope="request"/>
-		<div id="wechatMiniappIdentifyList" class="tab-pane fade sublist" refer-name="sec_user">
-			<sky:include page="com/doublechaintech/retailscm/wechatminiappidentify/WechatMiniappIdentify$List.jsp"
+	<c:if test='${not empty userContext.accessTokens["wechatMiniappIdentityList"] or ignoreListAccessControl}'>
+		<c:set var="wechatMiniappIdentityList" value="${result.wechatMiniappIdentityList}" scope="request"/>
+		<c:set var="wechatMiniappIdentityListName" value="wechatMiniappIdentityList" scope="request"/>
+		<div id="wechatMiniappIdentityList" class="tab-pane fade sublist" refer-name="sec_user">
+			<sky:include page="com/doublechaintech/retailscm/wechatminiappidentity/WechatMiniappIdentity$List.jsp"
 					referName="secUser"/>
 		</div>
 	</c:if>
-	<c:if test='${not empty userContext.accessTokens["keypairIdentifyList"] or ignoreListAccessControl}'>
-		<c:set var="keypairIdentifyList" value="${result.keypairIdentifyList}" scope="request"/>
-		<c:set var="keypairIdentifyListName" value="keypairIdentifyList" scope="request"/>
-		<div id="keypairIdentifyList" class="tab-pane fade sublist" refer-name="sec_user">
-			<sky:include page="com/doublechaintech/retailscm/keypairidentify/KeypairIdentify$List.jsp"
+	<c:if test='${not empty userContext.accessTokens["keypairIdentityList"] or ignoreListAccessControl}'>
+		<c:set var="keypairIdentityList" value="${result.keypairIdentityList}" scope="request"/>
+		<c:set var="keypairIdentityListName" value="keypairIdentityList" scope="request"/>
+		<div id="keypairIdentityList" class="tab-pane fade sublist" refer-name="sec_user">
+			<sky:include page="com/doublechaintech/retailscm/keypairidentity/KeypairIdentity$List.jsp"
 					referName="secUser"/>
 		</div>
 	</c:if>

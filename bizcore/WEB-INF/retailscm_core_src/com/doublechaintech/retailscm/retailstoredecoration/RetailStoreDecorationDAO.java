@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstoredecoration;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 public interface RetailStoreDecorationDAO extends BaseDAO{
 
 	public SmartList<RetailStoreDecoration> loadAll();
+	public Stream<RetailStoreDecoration> loadAllAsStream();
 	public RetailStoreDecoration load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreDecoration> retailStoreDecorationList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreDecoration present(RetailStoreDecoration retailStoreDecoration,Map<String,Object> options) throws Exception;
 	public RetailStoreDecoration clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreDecoration save(RetailStoreDecoration retailStoreDecoration,Map<String,Object> options);
 	public SmartList<RetailStoreDecoration> saveRetailStoreDecorationList(SmartList<RetailStoreDecoration> retailStoreDecorationList,Map<String,Object> options);
 	public SmartList<RetailStoreDecoration> removeRetailStoreDecorationList(SmartList<RetailStoreDecoration> retailStoreDecorationList,Map<String,Object> options);
@@ -80,8 +82,9 @@ public interface RetailStoreDecorationDAO extends BaseDAO{
 	public RetailStoreDecoration planToRemoveRetailStoreListWithClosing(RetailStoreDecoration retailStoreDecoration, String closingId, Map<String,Object> options)throws Exception;
 	public int countRetailStoreListWithClosing(String retailStoreDecorationId, String closingId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStoreDecoration> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreDecoration> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreDecoration executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

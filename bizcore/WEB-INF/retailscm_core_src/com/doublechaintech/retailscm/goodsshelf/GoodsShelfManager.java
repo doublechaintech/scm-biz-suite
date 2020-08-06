@@ -17,6 +17,7 @@ public interface GoodsShelfManager extends BaseManager{
 	public GoodsShelf createGoodsShelf(RetailscmUserContext userContext, String location,String storageSpaceId,String supplierSpaceId,String damageSpaceId) throws Exception;
 	public GoodsShelf updateGoodsShelf(RetailscmUserContext userContext,String goodsShelfId, int goodsShelfVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public GoodsShelf loadGoodsShelf(RetailscmUserContext userContext, String goodsShelfId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public GoodsShelf internalSaveGoodsShelf(RetailscmUserContext userContext, GoodsShelf goodsShelf) throws Exception;
 	public GoodsShelf internalSaveGoodsShelf(RetailscmUserContext userContext, GoodsShelf goodsShelf,Map<String,Object>option) throws Exception;
 

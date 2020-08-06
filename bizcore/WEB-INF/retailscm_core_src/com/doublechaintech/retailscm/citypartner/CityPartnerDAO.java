@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.citypartner;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -22,20 +23,21 @@ import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerC
 public interface CityPartnerDAO extends BaseDAO{
 
 	public SmartList<CityPartner> loadAll();
+	public Stream<CityPartner> loadAllAsStream();
 	public CityPartner load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<CityPartner> cityPartnerList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public CityPartner present(CityPartner cityPartner,Map<String,Object> options) throws Exception;
 	public CityPartner clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public CityPartner save(CityPartner cityPartner,Map<String,Object> options);
 	public SmartList<CityPartner> saveCityPartnerList(SmartList<CityPartner> cityPartnerList,Map<String,Object> options);
 	public SmartList<CityPartner> removeCityPartnerList(SmartList<CityPartner> cityPartnerList,Map<String,Object> options);
@@ -75,18 +77,19 @@ public interface CityPartnerDAO extends BaseDAO{
 	public CityPartner planToRemovePotentialCustomerContactListWithContactTo(CityPartner cityPartner, String contactToId, Map<String,Object> options)throws Exception;
 	public int countPotentialCustomerContactListWithContactTo(String cityPartnerId, String contactToId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<CityPartner> queryList(String sql, Object ... parmeters);
+	public Stream<CityPartner> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateCityPartner executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<CityPartner> findCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
  	public int countCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
  	public Map<String, Integer> countCityPartnerByCityServiceCenterIds(String[] ids, Map<String,Object> options);
  	public SmartList<CityPartner> findCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeCityPartnerByCityServiceCenter(SmartList<CityPartner> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomer的cityPartner的PotentialCustomerList
 	public SmartList<PotentialCustomer> loadOurPotentialCustomerList(RetailscmUserContext userContext, List<CityPartner> us, Map<String,Object> options) throws Exception;

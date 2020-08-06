@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.accountingdocumenttype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
@@ -46,24 +44,24 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = AccountingDocumentTypeTokens.start().withTokenFromListName(listName).done();
 		AccountingDocumentType  accountingDocumentType = (AccountingDocumentType) this.loadAccountingDocumentType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = accountingDocumentType.collectRefercencesFromLists();
 		accountingDocumentTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, accountingDocumentType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new AccountingDocumentTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		checkerOf(userContext).throwExceptionIfHasErrors( AccountingDocumentTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		AccountingDocumentType accountingDocumentType = loadAccountingDocumentType( userContext, accountingDocumentTypeId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		
 		List<BaseEntity> entityListToNaming = accountingDocumentTypeToPresent.collectRefercencesFromLists();
 		accountingDocumentTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,accountingDocumentType,tokens);
 		
 		return  accountingDocumentTypeToPresent;
 		
@@ -527,7 +528,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 			accountingDocumentType.addAccountingDocument( accountingDocument );
 			accountingDocumentType = saveAccountingDocumentType(userContext, accountingDocumentType, tokens().withAccountingDocumentList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentManager().onNewInstanceCreated(userContext, accountingDocument);
+			accountingDocumentManagerOf(userContext).onNewInstanceCreated(userContext, accountingDocument);
 			return present(userContext,accountingDocumentType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -549,7 +550,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withAccountingDocumentListList()
-				.searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, "is", id).done();
+				.searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, tokens().is(), id).done();
 
 		AccountingDocumentType accountingDocumentTypeToUpdate = loadAccountingDocumentType(userContext, accountingDocumentTypeId, options);
 
@@ -558,7 +559,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		}
 
 		AccountingDocument item = accountingDocumentTypeToUpdate.getAccountingDocumentList().first();
-
+		beforeUpdateAccountingDocumentProperties(userContext,item, accountingDocumentTypeId,id,name,accountingDocumentDate,tokensExpr);
 		item.updateName( name );
 		item.updateAccountingDocumentDate( accountingDocumentDate );
 
@@ -570,6 +571,10 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		}
 	}
 
+	protected  void beforeUpdateAccountingDocumentProperties(RetailscmUserContext userContext, AccountingDocument item, String accountingDocumentTypeId, String id,String name,Date accountingDocumentDate, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected AccountingDocument createAccountingDocument(RetailscmUserContext userContext, String name, Date accountingDocumentDate, String accountingPeriodId) throws Exception{
 
@@ -677,7 +682,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 			accountingDocumentType.copyAccountingDocumentFrom( accountingDocument );
 			accountingDocumentType = saveAccountingDocumentType(userContext, accountingDocumentType, tokens().withAccountingDocumentList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentManager().onNewInstanceCreated(userContext, (AccountingDocument)accountingDocumentType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			accountingDocumentManagerOf(userContext).onNewInstanceCreated(userContext, (AccountingDocument)accountingDocumentType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,accountingDocumentType, mergedAllTokens(tokensExpr));
 		}
 
@@ -690,21 +695,17 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		checkerOf(userContext).checkIdOfAccountingDocumentType(accountingDocumentTypeId);
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 		checkerOf(userContext).checkVersionOfAccountingDocument(accountingDocumentVersion);
-		
+
 
 		if(AccountingDocument.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfAccountingDocument(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocument.ACCOUNTING_DOCUMENT_DATE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountingDocumentDateOfAccountingDocument(parseDate(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentTypeManagerException.class);
 
 	}
@@ -714,7 +715,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 
 		checkParamsForUpdatingAccountingDocument(userContext, accountingDocumentTypeId, accountingDocumentId, accountingDocumentVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentList().searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, "eq", accountingDocumentId).done();
+		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentList().searchAccountingDocumentListWith(AccountingDocument.ID_PROPERTY, tokens().equals(), accountingDocumentId).done();
 
 
 
@@ -725,13 +726,14 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 			//Also good when there is a RAM based DAO implementation
 			//accountingDocumentType.removeAccountingDocument( accountingDocument );
 			//make changes to AcceleraterAccount.
-			AccountingDocument accountingDocumentIndex = createIndexedAccountingDocument(accountingDocumentId, accountingDocumentVersion);
+			AccountingDocument accountingDocumentIdVersionKey = createIndexedAccountingDocument(accountingDocumentId, accountingDocumentVersion);
 
-			AccountingDocument accountingDocument = accountingDocumentType.findTheAccountingDocument(accountingDocumentIndex);
+			AccountingDocument accountingDocument = accountingDocumentType.findTheAccountingDocument(accountingDocumentIdVersionKey);
 			if(accountingDocument == null){
-				throw new AccountingDocumentTypeManagerException(accountingDocument+" is NOT FOUND" );
+				throw new AccountingDocumentTypeManagerException(accountingDocumentId+" is NOT FOUND" );
 			}
 
+			beforeUpdateAccountingDocument(userContext, accountingDocument, accountingDocumentTypeId, accountingDocumentId, accountingDocumentVersion, property, newValueExpr,  tokensExpr);
 			accountingDocument.changeProperty(property, newValueExpr);
 			
 			accountingDocumentType = saveAccountingDocumentType(userContext, accountingDocumentType, tokens().withAccountingDocumentList().done());
@@ -739,6 +741,11 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateAccountingDocument(RetailscmUserContext userContext, AccountingDocument existed, String accountingDocumentTypeId, String accountingDocumentId, int accountingDocumentVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -755,6 +762,12 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    accountingDocumentTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -846,6 +859,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -962,7 +976,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1033,6 +1047,8 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

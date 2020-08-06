@@ -17,6 +17,7 @@ public interface OccupationTypeManager extends BaseManager{
 	public OccupationType createOccupationType(RetailscmUserContext userContext, String code,String companyId,String description,String detailDescription) throws Exception;
 	public OccupationType updateOccupationType(RetailscmUserContext userContext,String occupationTypeId, int occupationTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public OccupationType loadOccupationType(RetailscmUserContext userContext, String occupationTypeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public OccupationType internalSaveOccupationType(RetailscmUserContext userContext, OccupationType occupationType) throws Exception;
 	public OccupationType internalSaveOccupationType(RetailscmUserContext userContext, OccupationType occupationType,Map<String,Object>option) throws Exception;
 

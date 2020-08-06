@@ -17,6 +17,7 @@ public interface LevelThreeCategoryManager extends BaseManager{
 	public LevelThreeCategory createLevelThreeCategory(RetailscmUserContext userContext, String parentCategoryId,String name) throws Exception;
 	public LevelThreeCategory updateLevelThreeCategory(RetailscmUserContext userContext,String levelThreeCategoryId, int levelThreeCategoryVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LevelThreeCategory loadLevelThreeCategory(RetailscmUserContext userContext, String levelThreeCategoryId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public LevelThreeCategory internalSaveLevelThreeCategory(RetailscmUserContext userContext, LevelThreeCategory levelThreeCategory) throws Exception;
 	public LevelThreeCategory internalSaveLevelThreeCategory(RetailscmUserContext userContext, LevelThreeCategory levelThreeCategory,Map<String,Object>option) throws Exception;
 

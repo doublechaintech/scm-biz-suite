@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.eventattendance;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;
 import com.doublechaintech.retailscm.cityevent.CityEvent;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = EventAttendanceSerializer.class)
 public class EventAttendance extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

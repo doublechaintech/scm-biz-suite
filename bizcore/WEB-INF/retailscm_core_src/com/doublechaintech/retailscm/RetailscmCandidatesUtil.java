@@ -175,7 +175,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("paying_off").hasFields(";id;who;paid_time;amount;version;");
 		_for("paying_off").targetType("paying_off");
 		_for("paying_off").anchorColumn("paid_for");
-		_for("user_domain").usedIn("user_white_list").withRole("domain");
+		_for("user_domain").usedIn("user_allow_list").withRole("domain");
 		_for("user_domain").usedIn("sec_user").withRole("domain");
 		_for("user_domain").usedIn("public_key_type").withRole("domain");
 		_for("user_domain").isTree("false");
@@ -217,10 +217,10 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("retail_store_franchising").hasFields(";id;comment;version;");
 		_for("retail_store_franchising").targetType("retail_store_franchising");
 		_for("sec_user").referTo("user_domain").withRole("domain");
-		_for("sec_user").usedIn("wechat_miniapp_identify").withRole("sec_user");
 		_for("sec_user").usedIn("login_history").withRole("sec_user");
-		_for("sec_user").usedIn("wechat_workapp_identify").withRole("sec_user");
-		_for("sec_user").usedIn("keypair_identify").withRole("sec_user");
+		_for("sec_user").usedIn("wechat_miniapp_identity").withRole("sec_user");
+		_for("sec_user").usedIn("wechat_workapp_identity").withRole("sec_user");
+		_for("sec_user").usedIn("keypair_identity").withRole("sec_user");
 		_for("sec_user").usedIn("user_app").withRole("sec_user");
 		_for("sec_user").isTree("false");
 		_for("sec_user").hasFields(";id;login;mobile;email;pwd;weixin_openid;weixin_appid;access_token;verification_code;verification_code_expire;last_login_time;version;");
@@ -467,7 +467,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("supply_order").targetType("supply_order");
 		_for("supply_order").anchorColumn("buyer");
 		_for("public_key_type").referTo("user_domain").withRole("domain");
-		_for("public_key_type").usedIn("keypair_identify").withRole("key_type");
+		_for("public_key_type").usedIn("keypair_identity").withRole("key_type");
 		_for("public_key_type").isTree("false");
 		_for("public_key_type").hasFields(";id;name;code;version;");
 		_for("public_key_type").targetType("public_key_type");
@@ -557,16 +557,16 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("retail_store_province_center").anchorColumn("country");
 
 	}
-	
+
 	protected RetailscmBaseDAOImpl currentDAO = null;
-	
+
 	public Object queryCandidates(RetailscmUserContext userContext, CandidateQuery query) throws Exception {
 		if (CandidateQuery.FOR_SEARCH.equals(query.getScenceCode())) {
 			return queryCandidatesForSearch(userContext, query);
 		}
 		return queryCandidatesForAssign(userContext, query);
 	}
-	
+
 	public Object queryCandidatesForAssign(RetailscmUserContext userContext, CandidateQuery query) throws Exception {
 		query.setScenceCode(CandidateQuery.FOR_ASSIGN);
 		query = prepareQueryInput(query);
@@ -586,10 +586,10 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		enhanceGroupByValues(userContext, query, candidates);
 		return wrapperCandidates(userContext, candidates);
 	}
-	
+
 	protected Object wrapperCandidates(RetailscmUserContext userContext, BaseCandidateEntity<? extends BaseEntity> candidates) throws Exception {
 		SmartList<BaseEntity> cs = (SmartList<BaseEntity>) candidates.getCandidates();
-		
+
 		List<Object> rList = new ArrayList<>();
 		cs.forEach(v->{
 			Map<String, Object> data = new HashMap<>();
@@ -600,7 +600,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		});
 		return rList;
 	}
-	
+
 	protected String normalizeModelName(String name) throws Exception {
 		if (name == null) {
 			return null;
@@ -610,7 +610,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		}
 		return new RetailscmNamingServiceDAO().mapToInternalColumn(name);
 	}
-	
+
 	protected String getDisplayNameColumn(String typeName) {
 		String displayNameColumn = RetailscmNamingServiceDAO.getDisplayNameColumnName(getJavaClassName(typeName));
 		return displayNameColumn;
@@ -846,7 +846,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 			throw new Exception("OOTB不支持"+query.getTargetType()+"的候选值查询");
 		}
 	}
-	
+
 	protected void enhanceGroupByValues(RetailscmUserContext userContext, CandidateQuery query,
 			BaseCandidateEntity<? extends BaseEntity> candidates) throws Exception {
 		if (query.getGroupBy() == null) {
@@ -858,9 +858,9 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 				appendGroupByInfo(cv, String.valueOf(cv.propertyOf(this.getJavaMemberName(query.getGroupBy()))));
 			}
 			// 收集了数据就OK了
-			return; 
+			return;
 		}
-		
+
 		List<BaseEntity> list = new ArrayList<>();
 		for(BaseEntity cv : candidates.getCandidates()) {
 			Object x = cv.propertyOf(this.getJavaMemberName(query.getGroupBy()));
@@ -868,7 +868,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 				list.add((BaseEntity) x);
 			}
 		}
-		
+
 		currentDAO.alias(list);
 		if (!isGroupByTree(query)) {
 			for(BaseEntity cv : candidates.getCandidates()) {
@@ -879,7 +879,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 			}
 			return;
 		}
-		
+
 		String gbTypeName = this.getGroupByTypeName(query);
 		Map<String, String[]> groupByNames = new HashMap<>();
 		for(BaseEntity cv : candidates.getCandidates()) {
@@ -904,9 +904,16 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 			}
 		}
 	}
-	
+
 	protected void appendGroupByInfo(BaseEntity cv, String ... groupBy) {
-		cv.addItemToValueMap("valuesOfGroupBy", groupBy);
+		if (groupBy == null || groupBy.length == 0){
+		    return;
+		}
+		if (groupBy.length > 1) {
+		    cv.addItemToValueMap("valuesOfGroupBy", groupBy);
+		    return;
+		}
+		cv.addItemToValueMap("valuesOfGroupBy", groupBy[0].split("/"));
 	}
 }
 

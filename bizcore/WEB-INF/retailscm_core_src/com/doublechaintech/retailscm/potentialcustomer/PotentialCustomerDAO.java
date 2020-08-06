@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.potentialcustomer;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -26,20 +27,21 @@ import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCus
 public interface PotentialCustomerDAO extends BaseDAO{
 
 	public SmartList<PotentialCustomer> loadAll();
+	public Stream<PotentialCustomer> loadAllAsStream();
 	public PotentialCustomer load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<PotentialCustomer> potentialCustomerList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public PotentialCustomer present(PotentialCustomer potentialCustomer,Map<String,Object> options) throws Exception;
 	public PotentialCustomer clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public PotentialCustomer save(PotentialCustomer potentialCustomer,Map<String,Object> options);
 	public SmartList<PotentialCustomer> savePotentialCustomerList(SmartList<PotentialCustomer> potentialCustomerList,Map<String,Object> options);
 	public SmartList<PotentialCustomer> removePotentialCustomerList(SmartList<PotentialCustomer> potentialCustomerList,Map<String,Object> options);
@@ -86,26 +88,27 @@ public interface PotentialCustomerDAO extends BaseDAO{
 	public PotentialCustomer planToRemoveEventAttendanceListWithCityEvent(PotentialCustomer potentialCustomer, String cityEventId, Map<String,Object> options)throws Exception;
 	public int countEventAttendanceListWithCityEvent(String potentialCustomerId, String cityEventId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<PotentialCustomer> queryList(String sql, Object ... parmeters);
+	public Stream<PotentialCustomer> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidatePotentialCustomer executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
  	public int countPotentialCustomerByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
  	public Map<String, Integer> countPotentialCustomerByCityServiceCenterIds(String[] ids, Map<String,Object> options);
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count, Map<String,Object> options);
  	public void analyzePotentialCustomerByCityServiceCenter(SmartList<PotentialCustomer> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityPartner(String cityPartnerId, Map<String,Object> options);
  	public int countPotentialCustomerByCityPartner(String cityPartnerId, Map<String,Object> options);
  	public Map<String, Integer> countPotentialCustomerByCityPartnerIds(String[] ids, Map<String,Object> options);
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityPartner(String cityPartnerId, int start, int count, Map<String,Object> options);
  	public void analyzePotentialCustomerByCityPartner(SmartList<PotentialCustomer> resultList, String cityPartnerId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContactPerson的potentialCustomer的PotentialCustomerContactPersonList
 	public SmartList<PotentialCustomerContactPerson> loadOurPotentialCustomerContactPersonList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception;

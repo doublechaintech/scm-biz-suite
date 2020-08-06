@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.page;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -26,20 +27,21 @@ import com.doublechaintech.retailscm.section.SectionDAO;
 public interface PageDAO extends BaseDAO{
 
 	public SmartList<Page> loadAll();
+	public Stream<Page> loadAllAsStream();
 	public Page load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<Page> pageList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public Page present(Page page,Map<String,Object> options) throws Exception;
 	public Page clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public Page save(Page page,Map<String,Object> options);
 	public SmartList<Page> savePageList(SmartList<Page> pageList,Map<String,Object> options);
 	public SmartList<Page> removePageList(SmartList<Page> pageList,Map<String,Object> options);
@@ -74,26 +76,27 @@ public interface PageDAO extends BaseDAO{
 	public Page planToRemoveSectionList(Page page, String sectionIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<Page> queryList(String sql, Object ... parmeters);
+	public Stream<Page> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidatePage executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<Page> findPageByPageType(String pageTypeId, Map<String,Object> options);
  	public int countPageByPageType(String pageTypeId, Map<String,Object> options);
  	public Map<String, Integer> countPageByPageTypeIds(String[] ids, Map<String,Object> options);
  	public SmartList<Page> findPageByPageType(String pageTypeId, int start, int count, Map<String,Object> options);
  	public void analyzePageByPageType(SmartList<Page> resultList, String pageTypeId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<Page> findPageByMobileApp(String mobileAppId, Map<String,Object> options);
  	public int countPageByMobileApp(String mobileAppId, Map<String,Object> options);
  	public Map<String, Integer> countPageByMobileAppIds(String[] ids, Map<String,Object> options);
  	public SmartList<Page> findPageByMobileApp(String mobileAppId, int start, int count, Map<String,Object> options);
  	public void analyzePageByMobileApp(SmartList<Page> resultList, String mobileAppId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Slide的page的SlideList
 	public SmartList<Slide> loadOurSlideList(RetailscmUserContext userContext, List<Page> us, Map<String,Object> options) throws Exception;

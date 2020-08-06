@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.retailstorecountrycenter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -38,8 +39,21 @@ import com.doublechaintech.retailscm.terminationreason.TerminationReason;
 import com.doublechaintech.retailscm.transportfleet.TransportFleet;
 import com.doublechaintech.retailscm.accountset.AccountSet;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = RetailStoreCountryCenterSerializer.class)
 public class RetailStoreCountryCenter extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

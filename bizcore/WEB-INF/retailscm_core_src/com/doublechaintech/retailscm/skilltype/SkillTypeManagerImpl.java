@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.skilltype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -46,24 +44,24 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = SkillTypeTokens.start().withTokenFromListName(listName).done();
 		SkillType  skillType = (SkillType) this.loadSkillType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = skillType.collectRefercencesFromLists();
 		skillTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, skillType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new SkillTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).throwExceptionIfHasErrors( SkillTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		SkillType skillType = loadSkillType( userContext, skillTypeId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		
 		List<BaseEntity> entityListToNaming = skillTypeToPresent.collectRefercencesFromLists();
 		skillTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,skillType,tokens);
 		
 		return  skillTypeToPresent;
 		
@@ -525,7 +526,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			skillType.addEmployeeSkill( employeeSkill );
 			skillType = saveSkillType(userContext, skillType, tokens().withEmployeeSkillList().done());
 			
-			userContext.getManagerGroup().getEmployeeSkillManager().onNewInstanceCreated(userContext, employeeSkill);
+			employeeSkillManagerOf(userContext).onNewInstanceCreated(userContext, employeeSkill);
 			return present(userContext,skillType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -546,7 +547,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeSkillListList()
-				.searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, "is", id).done();
+				.searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, tokens().is(), id).done();
 
 		SkillType skillTypeToUpdate = loadSkillType(userContext, skillTypeId, options);
 
@@ -555,7 +556,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		EmployeeSkill item = skillTypeToUpdate.getEmployeeSkillList().first();
-
+		beforeUpdateEmployeeSkillProperties(userContext,item, skillTypeId,id,description,tokensExpr);
 		item.updateDescription( description );
 
 
@@ -566,6 +567,10 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateEmployeeSkillProperties(RetailscmUserContext userContext, EmployeeSkill item, String skillTypeId, String id,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeSkill createEmployeeSkill(RetailscmUserContext userContext, String employeeId, String description) throws Exception{
 
@@ -672,7 +677,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			skillType.copyEmployeeSkillFrom( employeeSkill );
 			skillType = saveSkillType(userContext, skillType, tokens().withEmployeeSkillList().done());
 			
-			userContext.getManagerGroup().getEmployeeSkillManager().onNewInstanceCreated(userContext, (EmployeeSkill)skillType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeSkillManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeSkill)skillType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,skillType, mergedAllTokens(tokensExpr));
 		}
 
@@ -685,15 +690,13 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
 		checkerOf(userContext).checkIdOfEmployeeSkill(employeeSkillId);
 		checkerOf(userContext).checkVersionOfEmployeeSkill(employeeSkillVersion);
-		
+
 
 		if(EmployeeSkill.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfEmployeeSkill(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
 
 	}
@@ -703,7 +706,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingEmployeeSkill(userContext, skillTypeId, employeeSkillId, employeeSkillVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeSkillList().searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, "eq", employeeSkillId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeSkillList().searchEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY, tokens().equals(), employeeSkillId).done();
 
 
 
@@ -714,13 +717,14 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//skillType.removeEmployeeSkill( employeeSkill );
 			//make changes to AcceleraterAccount.
-			EmployeeSkill employeeSkillIndex = createIndexedEmployeeSkill(employeeSkillId, employeeSkillVersion);
+			EmployeeSkill employeeSkillIdVersionKey = createIndexedEmployeeSkill(employeeSkillId, employeeSkillVersion);
 
-			EmployeeSkill employeeSkill = skillType.findTheEmployeeSkill(employeeSkillIndex);
+			EmployeeSkill employeeSkill = skillType.findTheEmployeeSkill(employeeSkillIdVersionKey);
 			if(employeeSkill == null){
-				throw new SkillTypeManagerException(employeeSkill+" is NOT FOUND" );
+				throw new SkillTypeManagerException(employeeSkillId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeSkill(userContext, employeeSkill, skillTypeId, employeeSkillId, employeeSkillVersion, property, newValueExpr,  tokensExpr);
 			employeeSkill.changeProperty(property, newValueExpr);
 			
 			skillType = saveSkillType(userContext, skillType, tokens().withEmployeeSkillList().done());
@@ -728,6 +732,11 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeSkill(RetailscmUserContext userContext, EmployeeSkill existed, String skillTypeId, String employeeSkillId, int employeeSkillVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -744,6 +753,12 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    skillTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -835,6 +850,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -951,7 +967,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1022,6 +1038,8 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

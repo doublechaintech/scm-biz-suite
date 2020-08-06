@@ -2169,24 +2169,24 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		commonObjectPropertyCheck(userDomainAsBaseEntity,"id",this::checkIdOfUserDomain);
 		commonObjectPropertyCheck(userDomainAsBaseEntity,"name",this::checkNameOfUserDomain);
 		commonObjectPropertyCheck(userDomainAsBaseEntity,"version",this::checkVersionOfUserDomain);
-		commonObjectPropertyCheck(userDomainAsBaseEntity,"userWhiteListList",this::checkUserWhiteListListOfUserDomain);
+		commonObjectPropertyCheck(userDomainAsBaseEntity,"userAllowListList",this::checkUserAllowListListOfUserDomain);
 		commonObjectPropertyCheck(userDomainAsBaseEntity,"secUserList",this::checkSecUserListOfUserDomain);
 		commonObjectPropertyCheck(userDomainAsBaseEntity,"publicKeyTypeList",this::checkPublicKeyTypeListOfUserDomain);
 		return this;
 
 	}
 
-	public RetailscmObjectChecker checkAndFixUserWhiteList(BaseEntity userWhiteListAsBaseEntity){
+	public RetailscmObjectChecker checkAndFixUserAllowList(BaseEntity userAllowListAsBaseEntity){
 
-		if( isChecked(userWhiteListAsBaseEntity) ){
+		if( isChecked(userAllowListAsBaseEntity) ){
 			return this;
 		}
-		markAsChecked(userWhiteListAsBaseEntity);
-		commonObjectPropertyCheck(userWhiteListAsBaseEntity,"id",this::checkIdOfUserWhiteList);
-		commonObjectPropertyCheck(userWhiteListAsBaseEntity,"userIdentity",this::checkUserIdentityOfUserWhiteList);
-		commonObjectPropertyCheck(userWhiteListAsBaseEntity,"userSpecialFunctions",this::checkUserSpecialFunctionsOfUserWhiteList);
-		commonObjectPropertyCheck(userWhiteListAsBaseEntity,"domain",this::checkDomainOfUserWhiteList);
-		commonObjectPropertyCheck(userWhiteListAsBaseEntity,"version",this::checkVersionOfUserWhiteList);
+		markAsChecked(userAllowListAsBaseEntity);
+		commonObjectPropertyCheck(userAllowListAsBaseEntity,"id",this::checkIdOfUserAllowList);
+		commonObjectPropertyCheck(userAllowListAsBaseEntity,"userIdentity",this::checkUserIdentityOfUserAllowList);
+		commonObjectPropertyCheck(userAllowListAsBaseEntity,"userSpecialFunctions",this::checkUserSpecialFunctionsOfUserAllowList);
+		commonObjectPropertyCheck(userAllowListAsBaseEntity,"domain",this::checkDomainOfUserAllowList);
+		commonObjectPropertyCheck(userAllowListAsBaseEntity,"version",this::checkVersionOfUserAllowList);
 		return this;
 
 	}
@@ -2212,9 +2212,9 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		commonObjectPropertyCheck(secUserAsBaseEntity,"version",this::checkVersionOfSecUser);
 		commonObjectPropertyCheck(secUserAsBaseEntity,"userAppList",this::checkUserAppListOfSecUser);
 		commonObjectPropertyCheck(secUserAsBaseEntity,"loginHistoryList",this::checkLoginHistoryListOfSecUser);
-		commonObjectPropertyCheck(secUserAsBaseEntity,"wechatWorkappIdentifyList",this::checkWechatWorkappIdentifyListOfSecUser);
-		commonObjectPropertyCheck(secUserAsBaseEntity,"wechatMiniappIdentifyList",this::checkWechatMiniappIdentifyListOfSecUser);
-		commonObjectPropertyCheck(secUserAsBaseEntity,"keypairIdentifyList",this::checkKeypairIdentifyListOfSecUser);
+		commonObjectPropertyCheck(secUserAsBaseEntity,"wechatWorkappIdentityList",this::checkWechatWorkappIdentityListOfSecUser);
+		commonObjectPropertyCheck(secUserAsBaseEntity,"wechatMiniappIdentityList",this::checkWechatMiniappIdentityListOfSecUser);
+		commonObjectPropertyCheck(secUserAsBaseEntity,"keypairIdentityList",this::checkKeypairIdentityListOfSecUser);
 		return this;
 
 	}
@@ -2325,52 +2325,52 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 
 	}
 
-	public RetailscmObjectChecker checkAndFixWechatWorkappIdentify(BaseEntity wechatWorkappIdentifyAsBaseEntity){
+	public RetailscmObjectChecker checkAndFixWechatWorkappIdentity(BaseEntity wechatWorkappIdentityAsBaseEntity){
 
-		if( isChecked(wechatWorkappIdentifyAsBaseEntity) ){
+		if( isChecked(wechatWorkappIdentityAsBaseEntity) ){
 			return this;
 		}
-		markAsChecked(wechatWorkappIdentifyAsBaseEntity);
-		commonObjectPropertyCheck(wechatWorkappIdentifyAsBaseEntity,"id",this::checkIdOfWechatWorkappIdentify);
-		commonObjectPropertyCheck(wechatWorkappIdentifyAsBaseEntity,"corpId",this::checkCorpIdOfWechatWorkappIdentify);
-		commonObjectPropertyCheck(wechatWorkappIdentifyAsBaseEntity,"userId",this::checkUserIdOfWechatWorkappIdentify);
-		commonObjectPropertyCheck(wechatWorkappIdentifyAsBaseEntity,"secUser",this::checkSecUserOfWechatWorkappIdentify);
-		commonObjectPropertyAssign(wechatWorkappIdentifyAsBaseEntity,"createTime",this::assignCreateTimeOfWechatWorkappIdentify);
-		commonObjectPropertyCheck(wechatWorkappIdentifyAsBaseEntity,"lastLoginTime",this::checkLastLoginTimeOfWechatWorkappIdentify);
-		commonObjectPropertyCheck(wechatWorkappIdentifyAsBaseEntity,"version",this::checkVersionOfWechatWorkappIdentify);
+		markAsChecked(wechatWorkappIdentityAsBaseEntity);
+		commonObjectPropertyCheck(wechatWorkappIdentityAsBaseEntity,"id",this::checkIdOfWechatWorkappIdentity);
+		commonObjectPropertyCheck(wechatWorkappIdentityAsBaseEntity,"corpId",this::checkCorpIdOfWechatWorkappIdentity);
+		commonObjectPropertyCheck(wechatWorkappIdentityAsBaseEntity,"userId",this::checkUserIdOfWechatWorkappIdentity);
+		commonObjectPropertyCheck(wechatWorkappIdentityAsBaseEntity,"secUser",this::checkSecUserOfWechatWorkappIdentity);
+		commonObjectPropertyAssign(wechatWorkappIdentityAsBaseEntity,"createTime",this::assignCreateTimeOfWechatWorkappIdentity);
+		commonObjectPropertyCheck(wechatWorkappIdentityAsBaseEntity,"lastLoginTime",this::checkLastLoginTimeOfWechatWorkappIdentity);
+		commonObjectPropertyCheck(wechatWorkappIdentityAsBaseEntity,"version",this::checkVersionOfWechatWorkappIdentity);
 		return this;
 
 	}
 
-	public RetailscmObjectChecker checkAndFixWechatMiniappIdentify(BaseEntity wechatMiniappIdentifyAsBaseEntity){
+	public RetailscmObjectChecker checkAndFixWechatMiniappIdentity(BaseEntity wechatMiniappIdentityAsBaseEntity){
 
-		if( isChecked(wechatMiniappIdentifyAsBaseEntity) ){
+		if( isChecked(wechatMiniappIdentityAsBaseEntity) ){
 			return this;
 		}
-		markAsChecked(wechatMiniappIdentifyAsBaseEntity);
-		commonObjectPropertyCheck(wechatMiniappIdentifyAsBaseEntity,"id",this::checkIdOfWechatMiniappIdentify);
-		commonObjectPropertyCheck(wechatMiniappIdentifyAsBaseEntity,"openId",this::checkOpenIdOfWechatMiniappIdentify);
-		commonObjectPropertyCheck(wechatMiniappIdentifyAsBaseEntity,"appId",this::checkAppIdOfWechatMiniappIdentify);
-		commonObjectPropertyCheck(wechatMiniappIdentifyAsBaseEntity,"secUser",this::checkSecUserOfWechatMiniappIdentify);
-		commonObjectPropertyAssign(wechatMiniappIdentifyAsBaseEntity,"createTime",this::assignCreateTimeOfWechatMiniappIdentify);
-		commonObjectPropertyCheck(wechatMiniappIdentifyAsBaseEntity,"lastLoginTime",this::checkLastLoginTimeOfWechatMiniappIdentify);
-		commonObjectPropertyCheck(wechatMiniappIdentifyAsBaseEntity,"version",this::checkVersionOfWechatMiniappIdentify);
+		markAsChecked(wechatMiniappIdentityAsBaseEntity);
+		commonObjectPropertyCheck(wechatMiniappIdentityAsBaseEntity,"id",this::checkIdOfWechatMiniappIdentity);
+		commonObjectPropertyCheck(wechatMiniappIdentityAsBaseEntity,"openId",this::checkOpenIdOfWechatMiniappIdentity);
+		commonObjectPropertyCheck(wechatMiniappIdentityAsBaseEntity,"appId",this::checkAppIdOfWechatMiniappIdentity);
+		commonObjectPropertyCheck(wechatMiniappIdentityAsBaseEntity,"secUser",this::checkSecUserOfWechatMiniappIdentity);
+		commonObjectPropertyAssign(wechatMiniappIdentityAsBaseEntity,"createTime",this::assignCreateTimeOfWechatMiniappIdentity);
+		commonObjectPropertyCheck(wechatMiniappIdentityAsBaseEntity,"lastLoginTime",this::checkLastLoginTimeOfWechatMiniappIdentity);
+		commonObjectPropertyCheck(wechatMiniappIdentityAsBaseEntity,"version",this::checkVersionOfWechatMiniappIdentity);
 		return this;
 
 	}
 
-	public RetailscmObjectChecker checkAndFixKeypairIdentify(BaseEntity keypairIdentifyAsBaseEntity){
+	public RetailscmObjectChecker checkAndFixKeypairIdentity(BaseEntity keypairIdentityAsBaseEntity){
 
-		if( isChecked(keypairIdentifyAsBaseEntity) ){
+		if( isChecked(keypairIdentityAsBaseEntity) ){
 			return this;
 		}
-		markAsChecked(keypairIdentifyAsBaseEntity);
-		commonObjectPropertyCheck(keypairIdentifyAsBaseEntity,"id",this::checkIdOfKeypairIdentify);
-		commonObjectPropertyCheck(keypairIdentifyAsBaseEntity,"publicKey",this::checkPublicKeyOfKeypairIdentify);
-		commonObjectPropertyCheck(keypairIdentifyAsBaseEntity,"keyType",this::checkKeyTypeOfKeypairIdentify);
-		commonObjectPropertyCheck(keypairIdentifyAsBaseEntity,"secUser",this::checkSecUserOfKeypairIdentify);
-		commonObjectPropertyAssign(keypairIdentifyAsBaseEntity,"createTime",this::assignCreateTimeOfKeypairIdentify);
-		commonObjectPropertyCheck(keypairIdentifyAsBaseEntity,"version",this::checkVersionOfKeypairIdentify);
+		markAsChecked(keypairIdentityAsBaseEntity);
+		commonObjectPropertyCheck(keypairIdentityAsBaseEntity,"id",this::checkIdOfKeypairIdentity);
+		commonObjectPropertyCheck(keypairIdentityAsBaseEntity,"publicKey",this::checkPublicKeyOfKeypairIdentity);
+		commonObjectPropertyCheck(keypairIdentityAsBaseEntity,"keyType",this::checkKeyTypeOfKeypairIdentity);
+		commonObjectPropertyCheck(keypairIdentityAsBaseEntity,"secUser",this::checkSecUserOfKeypairIdentity);
+		commonObjectPropertyAssign(keypairIdentityAsBaseEntity,"createTime",this::assignCreateTimeOfKeypairIdentity);
+		commonObjectPropertyCheck(keypairIdentityAsBaseEntity,"version",this::checkVersionOfKeypairIdentity);
 		return this;
 
 	}
@@ -2386,7 +2386,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		commonObjectPropertyCheck(publicKeyTypeAsBaseEntity,"code",this::checkCodeOfPublicKeyType);
 		commonObjectPropertyCheck(publicKeyTypeAsBaseEntity,"domain",this::checkDomainOfPublicKeyType);
 		commonObjectPropertyCheck(publicKeyTypeAsBaseEntity,"version",this::checkVersionOfPublicKeyType);
-		commonObjectPropertyCheck(publicKeyTypeAsBaseEntity,"keypairIdentifyList",this::checkKeypairIdentifyListOfPublicKeyType);
+		commonObjectPropertyCheck(publicKeyTypeAsBaseEntity,"keypairIdentityList",this::checkKeypairIdentityListOfPublicKeyType);
 		return this;
 
 	}
@@ -5558,10 +5558,10 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 	}
 
 
-	public RetailscmObjectChecker checkUserWhiteListListOfUserDomain(List<BaseEntity> userWhiteListList){
+	public RetailscmObjectChecker checkUserAllowListListOfUserDomain(List<BaseEntity> userAllowListList){
 		AtomicInteger index = new AtomicInteger();
-		userWhiteListList.stream().forEach(userWhiteList->
-			commonObjectElementCheck(userWhiteList,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixUserWhiteList));
+		userAllowListList.stream().forEach(userAllowList->
+			commonObjectElementCheck(userAllowList,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixUserAllowList));
 		return this;
 	}
 
@@ -5579,13 +5579,13 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		return this;
 	}
 
-	public static final String DOMAIN_OF_USER_WHITE_LIST = "user_white_list.domain";
+	public static final String DOMAIN_OF_USER_ALLOW_LIST = "user_allow_list.domain";
 
 
-	public RetailscmObjectChecker checkDomainOfUserWhiteList(BaseEntity domainAsBaseEntity){
+	public RetailscmObjectChecker checkDomainOfUserAllowList(BaseEntity domainAsBaseEntity){
 
 		if(domainAsBaseEntity == null){
-			checkBaseEntityReference(domainAsBaseEntity,true,DOMAIN_OF_USER_WHITE_LIST);
+			checkBaseEntityReference(domainAsBaseEntity,true,DOMAIN_OF_USER_ALLOW_LIST);
 			return this;
 		}
 		checkAndFixUserDomain(domainAsBaseEntity);
@@ -5607,24 +5607,24 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		return this;
 	}
 
-	public RetailscmObjectChecker checkWechatWorkappIdentifyListOfSecUser(List<BaseEntity> wechatWorkappIdentifyList){
+	public RetailscmObjectChecker checkWechatWorkappIdentityListOfSecUser(List<BaseEntity> wechatWorkappIdentityList){
 		AtomicInteger index = new AtomicInteger();
-		wechatWorkappIdentifyList.stream().forEach(wechatWorkappIdentify->
-			commonObjectElementCheck(wechatWorkappIdentify,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixWechatWorkappIdentify));
+		wechatWorkappIdentityList.stream().forEach(wechatWorkappIdentity->
+			commonObjectElementCheck(wechatWorkappIdentity,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixWechatWorkappIdentity));
 		return this;
 	}
 
-	public RetailscmObjectChecker checkWechatMiniappIdentifyListOfSecUser(List<BaseEntity> wechatMiniappIdentifyList){
+	public RetailscmObjectChecker checkWechatMiniappIdentityListOfSecUser(List<BaseEntity> wechatMiniappIdentityList){
 		AtomicInteger index = new AtomicInteger();
-		wechatMiniappIdentifyList.stream().forEach(wechatMiniappIdentify->
-			commonObjectElementCheck(wechatMiniappIdentify,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixWechatMiniappIdentify));
+		wechatMiniappIdentityList.stream().forEach(wechatMiniappIdentity->
+			commonObjectElementCheck(wechatMiniappIdentity,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixWechatMiniappIdentity));
 		return this;
 	}
 
-	public RetailscmObjectChecker checkKeypairIdentifyListOfSecUser(List<BaseEntity> keypairIdentifyList){
+	public RetailscmObjectChecker checkKeypairIdentityListOfSecUser(List<BaseEntity> keypairIdentityList){
 		AtomicInteger index = new AtomicInteger();
-		keypairIdentifyList.stream().forEach(keypairIdentify->
-			commonObjectElementCheck(keypairIdentify,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixKeypairIdentify));
+		keypairIdentityList.stream().forEach(keypairIdentity->
+			commonObjectElementCheck(keypairIdentity,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixKeypairIdentity));
 		return this;
 	}
 
@@ -5733,13 +5733,13 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 	}
 
 
-	public static final String SEC_USER_OF_WECHAT_WORKAPP_IDENTIFY = "wechat_workapp_identify.sec_user";
+	public static final String SEC_USER_OF_WECHAT_WORKAPP_IDENTITY = "wechat_workapp_identity.sec_user";
 
 
-	public RetailscmObjectChecker checkSecUserOfWechatWorkappIdentify(BaseEntity secUserAsBaseEntity){
+	public RetailscmObjectChecker checkSecUserOfWechatWorkappIdentity(BaseEntity secUserAsBaseEntity){
 
 		if(secUserAsBaseEntity == null){
-			checkBaseEntityReference(secUserAsBaseEntity,true,SEC_USER_OF_WECHAT_WORKAPP_IDENTIFY);
+			checkBaseEntityReference(secUserAsBaseEntity,true,SEC_USER_OF_WECHAT_WORKAPP_IDENTITY);
 			return this;
 		}
 		checkAndFixSecUser(secUserAsBaseEntity);
@@ -5747,13 +5747,13 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 	}
 
 
-	public static final String SEC_USER_OF_WECHAT_MINIAPP_IDENTIFY = "wechat_miniapp_identify.sec_user";
+	public static final String SEC_USER_OF_WECHAT_MINIAPP_IDENTITY = "wechat_miniapp_identity.sec_user";
 
 
-	public RetailscmObjectChecker checkSecUserOfWechatMiniappIdentify(BaseEntity secUserAsBaseEntity){
+	public RetailscmObjectChecker checkSecUserOfWechatMiniappIdentity(BaseEntity secUserAsBaseEntity){
 
 		if(secUserAsBaseEntity == null){
-			checkBaseEntityReference(secUserAsBaseEntity,true,SEC_USER_OF_WECHAT_MINIAPP_IDENTIFY);
+			checkBaseEntityReference(secUserAsBaseEntity,true,SEC_USER_OF_WECHAT_MINIAPP_IDENTITY);
 			return this;
 		}
 		checkAndFixSecUser(secUserAsBaseEntity);
@@ -5761,13 +5761,13 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 	}
 
 
-	public static final String KEY_TYPE_OF_KEYPAIR_IDENTIFY = "keypair_identify.key_type";
+	public static final String KEY_TYPE_OF_KEYPAIR_IDENTITY = "keypair_identity.key_type";
 
 
-	public RetailscmObjectChecker checkKeyTypeOfKeypairIdentify(BaseEntity keyTypeAsBaseEntity){
+	public RetailscmObjectChecker checkKeyTypeOfKeypairIdentity(BaseEntity keyTypeAsBaseEntity){
 
 		if(keyTypeAsBaseEntity == null){
-			checkBaseEntityReference(keyTypeAsBaseEntity,true,KEY_TYPE_OF_KEYPAIR_IDENTIFY);
+			checkBaseEntityReference(keyTypeAsBaseEntity,true,KEY_TYPE_OF_KEYPAIR_IDENTITY);
 			return this;
 		}
 		checkAndFixPublicKeyType(keyTypeAsBaseEntity);
@@ -5775,13 +5775,13 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 	}
 
 
-	public static final String SEC_USER_OF_KEYPAIR_IDENTIFY = "keypair_identify.sec_user";
+	public static final String SEC_USER_OF_KEYPAIR_IDENTITY = "keypair_identity.sec_user";
 
 
-	public RetailscmObjectChecker checkSecUserOfKeypairIdentify(BaseEntity secUserAsBaseEntity){
+	public RetailscmObjectChecker checkSecUserOfKeypairIdentity(BaseEntity secUserAsBaseEntity){
 
 		if(secUserAsBaseEntity == null){
-			checkBaseEntityReference(secUserAsBaseEntity,true,SEC_USER_OF_KEYPAIR_IDENTIFY);
+			checkBaseEntityReference(secUserAsBaseEntity,true,SEC_USER_OF_KEYPAIR_IDENTITY);
 			return this;
 		}
 		checkAndFixSecUser(secUserAsBaseEntity);
@@ -5789,10 +5789,10 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 	}
 
 
-	public RetailscmObjectChecker checkKeypairIdentifyListOfPublicKeyType(List<BaseEntity> keypairIdentifyList){
+	public RetailscmObjectChecker checkKeypairIdentityListOfPublicKeyType(List<BaseEntity> keypairIdentityList){
 		AtomicInteger index = new AtomicInteger();
-		keypairIdentifyList.stream().forEach(keypairIdentify->
-			commonObjectElementCheck(keypairIdentify,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixKeypairIdentify));
+		keypairIdentityList.stream().forEach(keypairIdentity->
+			commonObjectElementCheck(keypairIdentity,wrapArrayIndex(index.getAndIncrement()),this::checkAndFixKeypairIdentity));
 		return this;
 	}
 
@@ -6025,7 +6025,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		setEntityProperty(targetEntity,"loginTime",userContext.now());
 		return this;
 	}
-	public RetailscmObjectChecker assignCreateTimeOfWechatWorkappIdentify(BaseEntity targetEntity){
+	public RetailscmObjectChecker assignCreateTimeOfWechatWorkappIdentity(BaseEntity targetEntity){
 		if(!isObjectForCreate(targetEntity)){
 			return this;
 		}
@@ -6035,7 +6035,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		setEntityProperty(targetEntity,"createTime",userContext.now());
 		return this;
 	}
-	public RetailscmObjectChecker assignCreateTimeOfWechatMiniappIdentify(BaseEntity targetEntity){
+	public RetailscmObjectChecker assignCreateTimeOfWechatMiniappIdentity(BaseEntity targetEntity){
 		if(!isObjectForCreate(targetEntity)){
 			return this;
 		}
@@ -6045,7 +6045,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		setEntityProperty(targetEntity,"createTime",userContext.now());
 		return this;
 	}
-	public RetailscmObjectChecker assignCreateTimeOfKeypairIdentify(BaseEntity targetEntity){
+	public RetailscmObjectChecker assignCreateTimeOfKeypairIdentity(BaseEntity targetEntity){
 		if(!isObjectForCreate(targetEntity)){
 			return this;
 		}

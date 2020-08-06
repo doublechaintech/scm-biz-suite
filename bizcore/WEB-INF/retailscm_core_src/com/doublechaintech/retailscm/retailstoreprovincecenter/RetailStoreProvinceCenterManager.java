@@ -17,6 +17,7 @@ public interface RetailStoreProvinceCenterManager extends BaseManager{
 	public RetailStoreProvinceCenter createRetailStoreProvinceCenter(RetailscmUserContext userContext, String name,Date founded,String countryId) throws Exception;
 	public RetailStoreProvinceCenter updateRetailStoreProvinceCenter(RetailscmUserContext userContext,String retailStoreProvinceCenterId, int retailStoreProvinceCenterVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreProvinceCenter loadRetailStoreProvinceCenter(RetailscmUserContext userContext, String retailStoreProvinceCenterId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public RetailStoreProvinceCenter internalSaveRetailStoreProvinceCenter(RetailscmUserContext userContext, RetailStoreProvinceCenter retailStoreProvinceCenter) throws Exception;
 	public RetailStoreProvinceCenter internalSaveRetailStoreProvinceCenter(RetailscmUserContext userContext, RetailStoreProvinceCenter retailStoreProvinceCenter,Map<String,Object>option) throws Exception;
 

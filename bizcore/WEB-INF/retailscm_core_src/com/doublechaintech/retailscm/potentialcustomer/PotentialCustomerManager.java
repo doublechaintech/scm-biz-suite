@@ -17,6 +17,7 @@ public interface PotentialCustomerManager extends BaseManager{
 	public PotentialCustomer createPotentialCustomer(RetailscmUserContext userContext, String name,String mobile,String cityServiceCenterId,String cityPartnerId,String description) throws Exception;
 	public PotentialCustomer updatePotentialCustomer(RetailscmUserContext userContext,String potentialCustomerId, int potentialCustomerVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public PotentialCustomer loadPotentialCustomer(RetailscmUserContext userContext, String potentialCustomerId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public PotentialCustomer internalSavePotentialCustomer(RetailscmUserContext userContext, PotentialCustomer potentialCustomer) throws Exception;
 	public PotentialCustomer internalSavePotentialCustomer(RetailscmUserContext userContext, PotentialCustomer potentialCustomer,Map<String,Object>option) throws Exception;
 

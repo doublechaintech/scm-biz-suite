@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.publickeytype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -29,8 +26,9 @@ import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
 
 
+
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentify;
 
 import com.doublechaintech.retailscm.userdomain.CandidateUserDomain;
 
@@ -46,24 +44,24 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = PublicKeyTypeTokens.start().withTokenFromListName(listName).done();
 		PublicKeyType  publicKeyType = (PublicKeyType) this.loadPublicKeyType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = publicKeyType.collectRefercencesFromLists();
 		publicKeyTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, publicKeyType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new PublicKeyTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).throwExceptionIfHasErrors( PublicKeyTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		PublicKeyType publicKeyType = loadPublicKeyType( userContext, publicKeyTypeId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		
 		List<BaseEntity> entityListToNaming = publicKeyTypeToPresent.collectRefercencesFromLists();
 		publicKeyTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,publicKeyType,tokens);
 		
 		return  publicKeyTypeToPresent;
 		
@@ -191,10 +192,10 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		addAction(userContext, publicKeyType, tokens,"@copy","clonePublicKeyType","clonePublicKeyType/"+publicKeyType.getId()+"/","main","primary");
 		
 		addAction(userContext, publicKeyType, tokens,"public_key_type.transfer_to_domain","transferToAnotherDomain","transferToAnotherDomain/"+publicKeyType.getId()+"/","main","primary");
-		addAction(userContext, publicKeyType, tokens,"public_key_type.addKeypairIdentify","addKeypairIdentify","addKeypairIdentify/"+publicKeyType.getId()+"/","keypairIdentifyList","primary");
-		addAction(userContext, publicKeyType, tokens,"public_key_type.removeKeypairIdentify","removeKeypairIdentify","removeKeypairIdentify/"+publicKeyType.getId()+"/","keypairIdentifyList","primary");
-		addAction(userContext, publicKeyType, tokens,"public_key_type.updateKeypairIdentify","updateKeypairIdentify","updateKeypairIdentify/"+publicKeyType.getId()+"/","keypairIdentifyList","primary");
-		addAction(userContext, publicKeyType, tokens,"public_key_type.copyKeypairIdentifyFrom","copyKeypairIdentifyFrom","copyKeypairIdentifyFrom/"+publicKeyType.getId()+"/","keypairIdentifyList","primary");
+		addAction(userContext, publicKeyType, tokens,"public_key_type.addKeypairIdentity","addKeypairIdentity","addKeypairIdentity/"+publicKeyType.getId()+"/","keypairIdentityList","primary");
+		addAction(userContext, publicKeyType, tokens,"public_key_type.removeKeypairIdentity","removeKeypairIdentity","removeKeypairIdentity/"+publicKeyType.getId()+"/","keypairIdentityList","primary");
+		addAction(userContext, publicKeyType, tokens,"public_key_type.updateKeypairIdentity","updateKeypairIdentity","updateKeypairIdentity/"+publicKeyType.getId()+"/","keypairIdentityList","primary");
+		addAction(userContext, publicKeyType, tokens,"public_key_type.copyKeypairIdentityFrom","copyKeypairIdentityFrom","copyKeypairIdentityFrom/"+publicKeyType.getId()+"/","keypairIdentityList","primary");
 	
 		
 		
@@ -365,7 +366,7 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortKeypairIdentifyListWith("id","desc")
+		.sortKeypairIdentityListWith("id","desc")
 		.analyzeAllLists().done();
 
 	}
@@ -474,8 +475,8 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 
 
-	//disconnect PublicKeyType with sec_user in KeypairIdentify
-	protected PublicKeyType breakWithKeypairIdentifyBySecUser(RetailscmUserContext userContext, String publicKeyTypeId, String secUserId,  String [] tokensExpr)
+	//disconnect PublicKeyType with sec_user in KeypairIdentity
+	protected PublicKeyType breakWithKeypairIdentityBySecUser(RetailscmUserContext userContext, String publicKeyTypeId, String secUserId,  String [] tokensExpr)
 		 throws Exception{
 
 			//TODO add check code here
@@ -486,9 +487,9 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 				//Will be good when the thread loaded from this JVM process cache.
 				//Also good when there is a RAM based DAO implementation
 
-				publicKeyTypeDaoOf(userContext).planToRemoveKeypairIdentifyListWithSecUser(publicKeyType, secUserId, this.emptyOptions());
+				publicKeyTypeDaoOf(userContext).planToRemoveKeypairIdentityListWithSecUser(publicKeyType, secUserId, this.emptyOptions());
 
-				publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentifyList().done());
+				publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentityList().done());
 				return publicKeyType;
 			}
 	}
@@ -498,171 +499,175 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 
-	protected void checkParamsForAddingKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeId);
 
 		
-		checkerOf(userContext).checkPublicKeyOfKeypairIdentify(publicKey);
+		checkerOf(userContext).checkPublicKeyOfKeypairIdentity(publicKey);
 		
-		checkerOf(userContext).checkSecUserIdOfKeypairIdentify(secUserId);
+		checkerOf(userContext).checkSecUserIdOfKeypairIdentity(secUserId);
 	
 		checkerOf(userContext).throwExceptionIfHasErrors(PublicKeyTypeManagerException.class);
 
 
 	}
-	public  PublicKeyType addKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId, String [] tokensExpr) throws Exception
+	public  PublicKeyType addKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId, String publicKey, String secUserId, String [] tokensExpr) throws Exception
 	{
 
-		checkParamsForAddingKeypairIdentify(userContext,publicKeyTypeId,publicKey, secUserId,tokensExpr);
+		checkParamsForAddingKeypairIdentity(userContext,publicKeyTypeId,publicKey, secUserId,tokensExpr);
 
-		KeypairIdentify keypairIdentify = createKeypairIdentify(userContext,publicKey, secUserId);
+		KeypairIdentity keypairIdentity = createKeypairIdentity(userContext,publicKey, secUserId);
 
 		PublicKeyType publicKeyType = loadPublicKeyType(userContext, publicKeyTypeId, emptyOptions());
 		synchronized(publicKeyType){
 			//Will be good when the publicKeyType loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
-			publicKeyType.addKeypairIdentify( keypairIdentify );
-			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentifyList().done());
+			publicKeyType.addKeypairIdentity( keypairIdentity );
+			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentityList().done());
 			
-			userContext.getManagerGroup().getKeypairIdentifyManager().onNewInstanceCreated(userContext, keypairIdentify);
+			keypairIdentityManagerOf(userContext).onNewInstanceCreated(userContext, keypairIdentity);
 			return present(userContext,publicKeyType, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingKeypairIdentifyProperties(RetailscmUserContext userContext, String publicKeyTypeId,String id,String publicKey,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingKeypairIdentityProperties(RetailscmUserContext userContext, String publicKeyTypeId,String id,String publicKey,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeId);
-		checkerOf(userContext).checkIdOfKeypairIdentify(id);
+		checkerOf(userContext).checkIdOfKeypairIdentity(id);
 
-		checkerOf(userContext).checkPublicKeyOfKeypairIdentify( publicKey);
+		checkerOf(userContext).checkPublicKeyOfKeypairIdentity( publicKey);
 
 		checkerOf(userContext).throwExceptionIfHasErrors(PublicKeyTypeManagerException.class);
 
 	}
-	public  PublicKeyType updateKeypairIdentifyProperties(RetailscmUserContext userContext, String publicKeyTypeId, String id,String publicKey, String [] tokensExpr) throws Exception
+	public  PublicKeyType updateKeypairIdentityProperties(RetailscmUserContext userContext, String publicKeyTypeId, String id,String publicKey, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingKeypairIdentifyProperties(userContext,publicKeyTypeId,id,publicKey,tokensExpr);
+		checkParamsForUpdatingKeypairIdentityProperties(userContext,publicKeyTypeId,id,publicKey,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
-				//.withKeypairIdentifyListList()
-				.searchKeypairIdentifyListWith(KeypairIdentify.ID_PROPERTY, "is", id).done();
+				//.withKeypairIdentityListList()
+				.searchKeypairIdentityListWith(KeypairIdentity.ID_PROPERTY, tokens().is(), id).done();
 
 		PublicKeyType publicKeyTypeToUpdate = loadPublicKeyType(userContext, publicKeyTypeId, options);
 
-		if(publicKeyTypeToUpdate.getKeypairIdentifyList().isEmpty()){
-			throw new PublicKeyTypeManagerException("KeypairIdentify is NOT FOUND with id: '"+id+"'");
+		if(publicKeyTypeToUpdate.getKeypairIdentityList().isEmpty()){
+			throw new PublicKeyTypeManagerException("KeypairIdentity is NOT FOUND with id: '"+id+"'");
 		}
 
-		KeypairIdentify item = publicKeyTypeToUpdate.getKeypairIdentifyList().first();
-
+		KeypairIdentity item = publicKeyTypeToUpdate.getKeypairIdentityList().first();
+		beforeUpdateKeypairIdentityProperties(userContext,item, publicKeyTypeId,id,publicKey,tokensExpr);
 		item.updatePublicKey( publicKey );
 
 
-		//checkParamsForAddingKeypairIdentify(userContext,publicKeyTypeId,name, code, used,tokensExpr);
-		PublicKeyType publicKeyType = savePublicKeyType(userContext, publicKeyTypeToUpdate, tokens().withKeypairIdentifyList().done());
+		//checkParamsForAddingKeypairIdentity(userContext,publicKeyTypeId,name, code, used,tokensExpr);
+		PublicKeyType publicKeyType = savePublicKeyType(userContext, publicKeyTypeToUpdate, tokens().withKeypairIdentityList().done());
 		synchronized(publicKeyType){
 			return present(userContext,publicKeyType, mergedAllTokens(tokensExpr));
 		}
 	}
 
+	protected  void beforeUpdateKeypairIdentityProperties(RetailscmUserContext userContext, KeypairIdentity item, String publicKeyTypeId, String id,String publicKey, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
-	protected KeypairIdentify createKeypairIdentify(RetailscmUserContext userContext, String publicKey, String secUserId) throws Exception{
+	protected KeypairIdentity createKeypairIdentity(RetailscmUserContext userContext, String publicKey, String secUserId) throws Exception{
 
-		KeypairIdentify keypairIdentify = new KeypairIdentify();
+		KeypairIdentity keypairIdentity = new KeypairIdentity();
 		
 		
-		keypairIdentify.setPublicKey(publicKey);		
+		keypairIdentity.setPublicKey(publicKey);		
 		SecUser  secUser = new SecUser();
 		secUser.setId(secUserId);		
-		keypairIdentify.setSecUser(secUser);		
-		keypairIdentify.setCreateTime(userContext.now());
+		keypairIdentity.setSecUser(secUser);		
+		keypairIdentity.setCreateTime(userContext.now());
 	
 		
-		return keypairIdentify;
+		return keypairIdentity;
 
 
 	}
 
-	protected KeypairIdentify createIndexedKeypairIdentify(String id, int version){
+	protected KeypairIdentity createIndexedKeypairIdentity(String id, int version){
 
-		KeypairIdentify keypairIdentify = new KeypairIdentify();
-		keypairIdentify.setId(id);
-		keypairIdentify.setVersion(version);
-		return keypairIdentify;
+		KeypairIdentity keypairIdentity = new KeypairIdentity();
+		keypairIdentity.setId(id);
+		keypairIdentity.setVersion(version);
+		return keypairIdentity;
 
 	}
 
-	protected void checkParamsForRemovingKeypairIdentifyList(RetailscmUserContext userContext, String publicKeyTypeId,
-			String keypairIdentifyIds[],String [] tokensExpr) throws Exception {
+	protected void checkParamsForRemovingKeypairIdentityList(RetailscmUserContext userContext, String publicKeyTypeId,
+			String keypairIdentityIds[],String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeId);
-		for(String keypairIdentifyIdItem: keypairIdentifyIds){
-			checkerOf(userContext).checkIdOfKeypairIdentify(keypairIdentifyIdItem);
+		for(String keypairIdentityIdItem: keypairIdentityIds){
+			checkerOf(userContext).checkIdOfKeypairIdentity(keypairIdentityIdItem);
 		}
 
 		checkerOf(userContext).throwExceptionIfHasErrors(PublicKeyTypeManagerException.class);
 
 	}
-	public  PublicKeyType removeKeypairIdentifyList(RetailscmUserContext userContext, String publicKeyTypeId,
-			String keypairIdentifyIds[],String [] tokensExpr) throws Exception{
+	public  PublicKeyType removeKeypairIdentityList(RetailscmUserContext userContext, String publicKeyTypeId,
+			String keypairIdentityIds[],String [] tokensExpr) throws Exception{
 
-			checkParamsForRemovingKeypairIdentifyList(userContext, publicKeyTypeId,  keypairIdentifyIds, tokensExpr);
+			checkParamsForRemovingKeypairIdentityList(userContext, publicKeyTypeId,  keypairIdentityIds, tokensExpr);
 
 
 			PublicKeyType publicKeyType = loadPublicKeyType(userContext, publicKeyTypeId, allTokens());
 			synchronized(publicKeyType){
 				//Will be good when the publicKeyType loaded from this JVM process cache.
 				//Also good when there is a RAM based DAO implementation
-				publicKeyTypeDaoOf(userContext).planToRemoveKeypairIdentifyList(publicKeyType, keypairIdentifyIds, allTokens());
-				publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentifyList().done());
-				deleteRelationListInGraph(userContext, publicKeyType.getKeypairIdentifyList());
+				publicKeyTypeDaoOf(userContext).planToRemoveKeypairIdentityList(publicKeyType, keypairIdentityIds, allTokens());
+				publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentityList().done());
+				deleteRelationListInGraph(userContext, publicKeyType.getKeypairIdentityList());
 				return present(userContext,publicKeyType, mergedAllTokens(tokensExpr));
 			}
 	}
 
-	protected void checkParamsForRemovingKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId,
-		String keypairIdentifyId, int keypairIdentifyVersion,String [] tokensExpr) throws Exception{
+	protected void checkParamsForRemovingKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId,
+		String keypairIdentityId, int keypairIdentityVersion,String [] tokensExpr) throws Exception{
 		
 		checkerOf(userContext).checkIdOfPublicKeyType( publicKeyTypeId);
-		checkerOf(userContext).checkIdOfKeypairIdentify(keypairIdentifyId);
-		checkerOf(userContext).checkVersionOfKeypairIdentify(keypairIdentifyVersion);
+		checkerOf(userContext).checkIdOfKeypairIdentity(keypairIdentityId);
+		checkerOf(userContext).checkVersionOfKeypairIdentity(keypairIdentityVersion);
 		checkerOf(userContext).throwExceptionIfHasErrors(PublicKeyTypeManagerException.class);
 
 	}
-	public  PublicKeyType removeKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId,
-		String keypairIdentifyId, int keypairIdentifyVersion,String [] tokensExpr) throws Exception{
+	public  PublicKeyType removeKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId,
+		String keypairIdentityId, int keypairIdentityVersion,String [] tokensExpr) throws Exception{
 
-		checkParamsForRemovingKeypairIdentify(userContext,publicKeyTypeId, keypairIdentifyId, keypairIdentifyVersion,tokensExpr);
+		checkParamsForRemovingKeypairIdentity(userContext,publicKeyTypeId, keypairIdentityId, keypairIdentityVersion,tokensExpr);
 
-		KeypairIdentify keypairIdentify = createIndexedKeypairIdentify(keypairIdentifyId, keypairIdentifyVersion);
+		KeypairIdentity keypairIdentity = createIndexedKeypairIdentity(keypairIdentityId, keypairIdentityVersion);
 		PublicKeyType publicKeyType = loadPublicKeyType(userContext, publicKeyTypeId, allTokens());
 		synchronized(publicKeyType){
 			//Will be good when the publicKeyType loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
-			publicKeyType.removeKeypairIdentify( keypairIdentify );
-			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentifyList().done());
-			deleteRelationInGraph(userContext, keypairIdentify);
+			publicKeyType.removeKeypairIdentity( keypairIdentity );
+			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentityList().done());
+			deleteRelationInGraph(userContext, keypairIdentity);
 			return present(userContext,publicKeyType, mergedAllTokens(tokensExpr));
 		}
 
 
 	}
-	protected void checkParamsForCopyingKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId,
-		String keypairIdentifyId, int keypairIdentifyVersion,String [] tokensExpr) throws Exception{
+	protected void checkParamsForCopyingKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId,
+		String keypairIdentityId, int keypairIdentityVersion,String [] tokensExpr) throws Exception{
 		
 		checkerOf(userContext).checkIdOfPublicKeyType( publicKeyTypeId);
-		checkerOf(userContext).checkIdOfKeypairIdentify(keypairIdentifyId);
-		checkerOf(userContext).checkVersionOfKeypairIdentify(keypairIdentifyVersion);
+		checkerOf(userContext).checkIdOfKeypairIdentity(keypairIdentityId);
+		checkerOf(userContext).checkVersionOfKeypairIdentity(keypairIdentityVersion);
 		checkerOf(userContext).throwExceptionIfHasErrors(PublicKeyTypeManagerException.class);
 
 	}
-	public  PublicKeyType copyKeypairIdentifyFrom(RetailscmUserContext userContext, String publicKeyTypeId,
-		String keypairIdentifyId, int keypairIdentifyVersion,String [] tokensExpr) throws Exception{
+	public  PublicKeyType copyKeypairIdentityFrom(RetailscmUserContext userContext, String publicKeyTypeId,
+		String keypairIdentityId, int keypairIdentityVersion,String [] tokensExpr) throws Exception{
 
-		checkParamsForCopyingKeypairIdentify(userContext,publicKeyTypeId, keypairIdentifyId, keypairIdentifyVersion,tokensExpr);
+		checkParamsForCopyingKeypairIdentity(userContext,publicKeyTypeId, keypairIdentityId, keypairIdentityVersion,tokensExpr);
 
-		KeypairIdentify keypairIdentify = createIndexedKeypairIdentify(keypairIdentifyId, keypairIdentifyVersion);
+		KeypairIdentity keypairIdentity = createIndexedKeypairIdentity(keypairIdentityId, keypairIdentityVersion);
 		PublicKeyType publicKeyType = loadPublicKeyType(userContext, publicKeyTypeId, allTokens());
 		synchronized(publicKeyType){
 			//Will be good when the publicKeyType loaded from this JVM process cache.
@@ -670,41 +675,39 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
 			
 
-			publicKeyType.copyKeypairIdentifyFrom( keypairIdentify );
-			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentifyList().done());
+			publicKeyType.copyKeypairIdentityFrom( keypairIdentity );
+			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentityList().done());
 			
-			userContext.getManagerGroup().getKeypairIdentifyManager().onNewInstanceCreated(userContext, (KeypairIdentify)publicKeyType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			keypairIdentityManagerOf(userContext).onNewInstanceCreated(userContext, (KeypairIdentity)publicKeyType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,publicKeyType, mergedAllTokens(tokensExpr));
 		}
 
 	}
 
-	protected void checkParamsForUpdatingKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentifyId, int keypairIdentifyVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
+	protected void checkParamsForUpdatingKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentityId, int keypairIdentityVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
 		
 		checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeId);
-		checkerOf(userContext).checkIdOfKeypairIdentify(keypairIdentifyId);
-		checkerOf(userContext).checkVersionOfKeypairIdentify(keypairIdentifyVersion);
-		
+		checkerOf(userContext).checkIdOfKeypairIdentity(keypairIdentityId);
+		checkerOf(userContext).checkVersionOfKeypairIdentity(keypairIdentityVersion);
 
-		if(KeypairIdentify.PUBLIC_KEY_PROPERTY.equals(property)){
-		
-			checkerOf(userContext).checkPublicKeyOfKeypairIdentify(parseString(newValueExpr));
-		
+
+		if(KeypairIdentity.PUBLIC_KEY_PROPERTY.equals(property)){
+			checkerOf(userContext).checkPublicKeyOfKeypairIdentity(parseString(newValueExpr));
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PublicKeyTypeManagerException.class);
 
 	}
 
-	public  PublicKeyType updateKeypairIdentify(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentifyId, int keypairIdentifyVersion, String property, String newValueExpr,String [] tokensExpr)
+	public  PublicKeyType updateKeypairIdentity(RetailscmUserContext userContext, String publicKeyTypeId, String keypairIdentityId, int keypairIdentityVersion, String property, String newValueExpr,String [] tokensExpr)
 			throws Exception{
 
-		checkParamsForUpdatingKeypairIdentify(userContext, publicKeyTypeId, keypairIdentifyId, keypairIdentifyVersion, property, newValueExpr,  tokensExpr);
+		checkParamsForUpdatingKeypairIdentity(userContext, publicKeyTypeId, keypairIdentityId, keypairIdentityVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withKeypairIdentifyList().searchKeypairIdentifyListWith(KeypairIdentify.ID_PROPERTY, "eq", keypairIdentifyId).done();
+		Map<String,Object> loadTokens = this.tokens().withKeypairIdentityList().searchKeypairIdentityListWith(KeypairIdentity.ID_PROPERTY, tokens().equals(), keypairIdentityId).done();
 
 
 
@@ -713,22 +716,28 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		synchronized(publicKeyType){
 			//Will be good when the publicKeyType loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
-			//publicKeyType.removeKeypairIdentify( keypairIdentify );
+			//publicKeyType.removeKeypairIdentity( keypairIdentity );
 			//make changes to AcceleraterAccount.
-			KeypairIdentify keypairIdentifyIndex = createIndexedKeypairIdentify(keypairIdentifyId, keypairIdentifyVersion);
+			KeypairIdentity keypairIdentityIdVersionKey = createIndexedKeypairIdentity(keypairIdentityId, keypairIdentityVersion);
 
-			KeypairIdentify keypairIdentify = publicKeyType.findTheKeypairIdentify(keypairIdentifyIndex);
-			if(keypairIdentify == null){
-				throw new PublicKeyTypeManagerException(keypairIdentify+" is NOT FOUND" );
+			KeypairIdentity keypairIdentity = publicKeyType.findTheKeypairIdentity(keypairIdentityIdVersionKey);
+			if(keypairIdentity == null){
+				throw new PublicKeyTypeManagerException(keypairIdentityId+" is NOT FOUND" );
 			}
 
-			keypairIdentify.changeProperty(property, newValueExpr);
+			beforeUpdateKeypairIdentity(userContext, keypairIdentity, publicKeyTypeId, keypairIdentityId, keypairIdentityVersion, property, newValueExpr,  tokensExpr);
+			keypairIdentity.changeProperty(property, newValueExpr);
 			
-			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentifyList().done());
+			publicKeyType = savePublicKeyType(userContext, publicKeyType, tokens().withKeypairIdentityList().done());
 			return present(userContext,publicKeyType, mergedAllTokens(tokensExpr));
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateKeypairIdentity(RetailscmUserContext userContext, KeypairIdentity existed, String publicKeyTypeId, String keypairIdentityId, int keypairIdentityVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -745,6 +754,12 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    publicKeyTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -836,6 +851,7 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -952,7 +968,7 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -995,21 +1011,21 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
 		//处理 sectionList
 
-		//处理Section：keypairIdentifyListSection
-		Map keypairIdentifyListSection = ListofUtils.buildSection(
-		    "keypairIdentifyListSection",
-		    "密钥对识别列表",
+		//处理Section：keypairIdentityListSection
+		Map keypairIdentityListSection = ListofUtils.buildSection(
+		    "keypairIdentityListSection",
+		    "密钥对身份列表",
 		    null,
 		    "",
 		    "__no_group",
-		    "keypairIdentifyManager/listByKeyType/"+merchantObjId+"/",
+		    "keypairIdentityManager/listByKeyType/"+merchantObjId+"/",
 		    "auto"
 		);
-		sections.add(keypairIdentifyListSection);
+		sections.add(keypairIdentityListSection);
 
-		result.put("keypairIdentifyListSection", ListofUtils.toShortList(merchantObj.getKeypairIdentifyList(), "keypairIdentify"));
-		vscope.field("keypairIdentifyListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( KeypairIdentify.class.getName(), null));
+		result.put("keypairIdentityListSection", ListofUtils.toShortList(merchantObj.getKeypairIdentityList(), "keypairIdentity"));
+		vscope.field("keypairIdentityListSection", RetailscmListOfViewScope.getInstance()
+					.getListOfViewScope( KeypairIdentity.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1023,6 +1039,8 @@ public class PublicKeyTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

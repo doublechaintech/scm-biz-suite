@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOImpl implements RetailStoreMemberGiftCardDAO{
 
@@ -71,50 +71,54 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 	 	return this.retailStoreMemberGiftCardConsumeRecordDAO;
  	}	
 
-	
+
 	/*
 	protected RetailStoreMemberGiftCard load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreMemberGiftCard(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<RetailStoreMemberGiftCard> loadAll() {
 	    return this.loadAll(getRetailStoreMemberGiftCardMapper());
 	}
-	
-	
+
+  public Stream<RetailStoreMemberGiftCard> loadAllAsStream() {
+      return this.loadAllAsStream(getRetailStoreMemberGiftCardMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public RetailStoreMemberGiftCard load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreMemberGiftCard(RetailStoreMemberGiftCardTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public RetailStoreMemberGiftCard save(RetailStoreMemberGiftCard retailStoreMemberGiftCard,Map<String,Object> options){
-		
+
 		String methodName="save(RetailStoreMemberGiftCard retailStoreMemberGiftCard,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(retailStoreMemberGiftCard, methodName, "retailStoreMemberGiftCard");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalRetailStoreMemberGiftCard(retailStoreMemberGiftCard,options);
 	}
 	public RetailStoreMemberGiftCard clone(String retailStoreMemberGiftCardId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(RetailStoreMemberGiftCardTable.withId(retailStoreMemberGiftCardId),options);
 	}
-	
+
 	protected RetailStoreMemberGiftCard clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String retailStoreMemberGiftCardId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		RetailStoreMemberGiftCard newRetailStoreMemberGiftCard = loadInternalRetailStoreMemberGiftCard(accessKey, options);
 		newRetailStoreMemberGiftCard.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
  		}
 		
 
-		
+
 		saveInternalRetailStoreMemberGiftCard(newRetailStoreMemberGiftCard,options);
-		
+
 		return newRetailStoreMemberGiftCard;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String retailStoreMemberGiftCardId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String retailStoreMemberGiftCardId, int version) throws Exception{
-	
+
 		String methodName="delete(String retailStoreMemberGiftCardId, int version)";
 		assertMethodArgumentNotNull(retailStoreMemberGiftCardId, methodName, "retailStoreMemberGiftCardId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{retailStoreMemberGiftCardId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(affectedNumber == 0){
 			handleDeleteOneError(retailStoreMemberGiftCardId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public RetailStoreMemberGiftCard disconnectFromAll(String retailStoreMemberGiftCardId, int version) throws Exception{
-	
-		
+
+
 		RetailStoreMemberGiftCard retailStoreMemberGiftCard = loadInternalRetailStoreMemberGiftCard(RetailStoreMemberGiftCardTable.withId(retailStoreMemberGiftCardId), emptyOptions());
 		retailStoreMemberGiftCard.clearFromAll();
 		this.saveRetailStoreMemberGiftCard(retailStoreMemberGiftCard);
 		return retailStoreMemberGiftCard;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "retail_store_member_gift_card";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "retailStoreMemberGiftCard";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreMemberGiftCard;
 		}
 		
-		
+
 		String SQL=this.getSaveRetailStoreMemberGiftCardSQL(retailStoreMemberGiftCard);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreMemberGiftCardParameters(retailStoreMemberGiftCard);
@@ -419,57 +423,57 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		retailStoreMemberGiftCard.incVersion();
 		return retailStoreMemberGiftCard;
-	
+
 	}
 	public SmartList<RetailStoreMemberGiftCard> saveRetailStoreMemberGiftCardList(SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitRetailStoreMemberGiftCardList(retailStoreMemberGiftCardList);
-		
+
 		batchRetailStoreMemberGiftCardCreate((List<RetailStoreMemberGiftCard>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchRetailStoreMemberGiftCardUpdate((List<RetailStoreMemberGiftCard>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(RetailStoreMemberGiftCard retailStoreMemberGiftCard:retailStoreMemberGiftCardList){
 			if(retailStoreMemberGiftCard.isChanged()){
 				retailStoreMemberGiftCard.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return retailStoreMemberGiftCardList;
 	}
 
 	public SmartList<RetailStoreMemberGiftCard> removeRetailStoreMemberGiftCardList(SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(retailStoreMemberGiftCardList, options);
-		
+
 		return retailStoreMemberGiftCardList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareRetailStoreMemberGiftCardBatchCreateArgs(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreMemberGiftCard retailStoreMemberGiftCard:retailStoreMemberGiftCardList ){
 			Object [] parameters = prepareRetailStoreMemberGiftCardCreateParameters(retailStoreMemberGiftCard);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareRetailStoreMemberGiftCardBatchUpdateArgs(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreMemberGiftCard retailStoreMemberGiftCard:retailStoreMemberGiftCardList ){
 			if(!retailStoreMemberGiftCard.isChanged()){
@@ -477,40 +481,40 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 			}
 			Object [] parameters = prepareRetailStoreMemberGiftCardUpdateParameters(retailStoreMemberGiftCard);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchRetailStoreMemberGiftCardCreate(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareRetailStoreMemberGiftCardBatchCreateArgs(retailStoreMemberGiftCardList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchRetailStoreMemberGiftCardUpdate(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareRetailStoreMemberGiftCardBatchUpdateArgs(retailStoreMemberGiftCardList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitRetailStoreMemberGiftCardList(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList){
-		
+
 		List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardCreateList=new ArrayList<RetailStoreMemberGiftCard>();
 		List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardUpdateList=new ArrayList<RetailStoreMemberGiftCard>();
-		
+
 		for(RetailStoreMemberGiftCard retailStoreMemberGiftCard: retailStoreMemberGiftCardList){
 			if(isUpdateRequest(retailStoreMemberGiftCard)){
 				retailStoreMemberGiftCardUpdateList.add( retailStoreMemberGiftCard);
@@ -518,10 +522,10 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 			}
 			retailStoreMemberGiftCardCreateList.add(retailStoreMemberGiftCard);
 		}
-		
+
 		return new Object[]{retailStoreMemberGiftCardCreateList,retailStoreMemberGiftCardUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(RetailStoreMemberGiftCard retailStoreMemberGiftCard){
  		return retailStoreMemberGiftCard.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveRetailStoreMemberGiftCardParameters(RetailStoreMemberGiftCard retailStoreMemberGiftCard){
  		if(isUpdateRequest(retailStoreMemberGiftCard) ){
  			return prepareRetailStoreMemberGiftCardUpdateParameters(retailStoreMemberGiftCard);
@@ -543,7 +547,7 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
  
  		
  		parameters[0] = retailStoreMemberGiftCard.getName();
- 		 	
+ 		
  		if(retailStoreMemberGiftCard.getOwner() != null){
  			parameters[1] = retailStoreMemberGiftCard.getOwner().getId();
  		}
@@ -553,25 +557,27 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
  		
  		
  		parameters[3] = retailStoreMemberGiftCard.getRemain();
- 				
+ 		
  		parameters[4] = retailStoreMemberGiftCard.nextVersion();
  		parameters[5] = retailStoreMemberGiftCard.getId();
  		parameters[6] = retailStoreMemberGiftCard.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreMemberGiftCardCreateParameters(RetailStoreMemberGiftCard retailStoreMemberGiftCard){
 		Object[] parameters = new Object[5];
-		String newRetailStoreMemberGiftCardId=getNextId();
-		retailStoreMemberGiftCard.setId(newRetailStoreMemberGiftCardId);
+        if(retailStoreMemberGiftCard.getId() == null){
+          String newRetailStoreMemberGiftCardId=getNextId();
+          retailStoreMemberGiftCard.setId(newRetailStoreMemberGiftCardId);
+        }
 		parameters[0] =  retailStoreMemberGiftCard.getId();
  
  		
  		parameters[1] = retailStoreMemberGiftCard.getName();
- 		 	
+ 		
  		if(retailStoreMemberGiftCard.getOwner() != null){
  			parameters[2] = retailStoreMemberGiftCard.getOwner().getId();
- 		
+
  		}
  		
  		
@@ -579,15 +585,15 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
  		
  		
  		parameters[4] = retailStoreMemberGiftCard.getRemain();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected RetailStoreMemberGiftCard saveInternalRetailStoreMemberGiftCard(RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String,Object> options){
-		
+
 		saveRetailStoreMemberGiftCard(retailStoreMemberGiftCard);
- 	
+
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(retailStoreMemberGiftCard, options);
  		}
@@ -597,42 +603,42 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 	 		saveRetailStoreMemberGiftCardConsumeRecordList(retailStoreMemberGiftCard, options);
 	 		//removeRetailStoreMemberGiftCardConsumeRecordList(retailStoreMemberGiftCard, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return retailStoreMemberGiftCard;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected RetailStoreMemberGiftCard saveOwner(RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(retailStoreMemberGiftCard.getOwner() == null){
  			return retailStoreMemberGiftCard;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreMemberDAO().save(retailStoreMemberGiftCard.getOwner(),options);
  		return retailStoreMemberGiftCard;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public RetailStoreMemberGiftCard planToRemoveRetailStoreMemberGiftCardConsumeRecordList(RetailStoreMemberGiftCard retailStoreMemberGiftCard, String retailStoreMemberGiftCardConsumeRecordIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreMemberGiftCardConsumeRecord.OWNER_PROPERTY, retailStoreMemberGiftCard.getId());
 		key.put(RetailStoreMemberGiftCardConsumeRecord.ID_PROPERTY, retailStoreMemberGiftCardConsumeRecordIds);
-		
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> externalRetailStoreMemberGiftCardConsumeRecordList = getRetailStoreMemberGiftCardConsumeRecordDAO().
 				findRetailStoreMemberGiftCardConsumeRecordWithKey(key, options);
 		if(externalRetailStoreMemberGiftCardConsumeRecordList == null){
@@ -641,17 +647,17 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(externalRetailStoreMemberGiftCardConsumeRecordList.isEmpty()){
 			return retailStoreMemberGiftCard;
 		}
-		
+
 		for(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordItem: externalRetailStoreMemberGiftCardConsumeRecordList){
 
 			retailStoreMemberGiftCardConsumeRecordItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCard.getRetailStoreMemberGiftCardConsumeRecordList();		
+
+
+		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCard.getRetailStoreMemberGiftCardConsumeRecordList();
 		retailStoreMemberGiftCardConsumeRecordList.addAllToRemoveList(externalRetailStoreMemberGiftCardConsumeRecordList);
-		return retailStoreMemberGiftCard;	
-	
+		return retailStoreMemberGiftCard;
+
 	}
 
 
@@ -660,11 +666,11 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreMemberGiftCardConsumeRecord.OWNER_PROPERTY, retailStoreMemberGiftCard.getId());
 		key.put(RetailStoreMemberGiftCardConsumeRecord.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> externalRetailStoreMemberGiftCardConsumeRecordList = getRetailStoreMemberGiftCardConsumeRecordDAO().
 				findRetailStoreMemberGiftCardConsumeRecordWithKey(key, options);
 		if(externalRetailStoreMemberGiftCardConsumeRecordList == null){
@@ -673,19 +679,19 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(externalRetailStoreMemberGiftCardConsumeRecordList.isEmpty()){
 			return retailStoreMemberGiftCard;
 		}
-		
+
 		for(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordItem: externalRetailStoreMemberGiftCardConsumeRecordList){
 			retailStoreMemberGiftCardConsumeRecordItem.clearBizOrder();
 			retailStoreMemberGiftCardConsumeRecordItem.clearOwner();
-			
+
 		}
-		
-		
-		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCard.getRetailStoreMemberGiftCardConsumeRecordList();		
+
+
+		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCard.getRetailStoreMemberGiftCardConsumeRecordList();
 		retailStoreMemberGiftCardConsumeRecordList.addAllToRemoveList(externalRetailStoreMemberGiftCardConsumeRecordList);
 		return retailStoreMemberGiftCard;
 	}
-	
+
 	public int countRetailStoreMemberGiftCardConsumeRecordListWithBizOrder(String retailStoreMemberGiftCardId, String bizOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreMemberGiftCardConsumeRecord.OWNER_PROPERTY, retailStoreMemberGiftCardId);
 		key.put(RetailStoreMemberGiftCardConsumeRecord.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		int count = getRetailStoreMemberGiftCardConsumeRecordDAO().countRetailStoreMemberGiftCardConsumeRecordWithKey(key, options);
 		return count;
 	}
@@ -702,19 +708,19 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 		
 	protected RetailStoreMemberGiftCard saveRetailStoreMemberGiftCardConsumeRecordList(RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCard.getRetailStoreMemberGiftCardConsumeRecordList();
 		if(retailStoreMemberGiftCardConsumeRecordList == null){
 			//null list means nothing
 			return retailStoreMemberGiftCard;
 		}
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> mergedUpdateRetailStoreMemberGiftCardConsumeRecordList = new SmartList<RetailStoreMemberGiftCardConsumeRecord>();
-		
-		
-		mergedUpdateRetailStoreMemberGiftCardConsumeRecordList.addAll(retailStoreMemberGiftCardConsumeRecordList); 
+
+
+		mergedUpdateRetailStoreMemberGiftCardConsumeRecordList.addAll(retailStoreMemberGiftCardConsumeRecordList);
 		if(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreMemberGiftCardConsumeRecordList.addAll(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList());
@@ -723,28 +729,28 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreMemberGiftCardConsumeRecordDAO().saveRetailStoreMemberGiftCardConsumeRecordList(mergedUpdateRetailStoreMemberGiftCardConsumeRecordList,options);
-		
+
 		if(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList() != null){
 			retailStoreMemberGiftCardConsumeRecordList.removeAll(retailStoreMemberGiftCardConsumeRecordList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreMemberGiftCard;
-	
+
 	}
-	
+
 	protected RetailStoreMemberGiftCard removeRetailStoreMemberGiftCardConsumeRecordList(RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCard.getRetailStoreMemberGiftCardConsumeRecordList();
 		if(retailStoreMemberGiftCardConsumeRecordList == null){
 			return retailStoreMemberGiftCard;
-		}	
-	
+		}
+
 		SmartList<RetailStoreMemberGiftCardConsumeRecord> toRemoveRetailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCardConsumeRecordList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreMemberGiftCardConsumeRecordList == null){
 			return retailStoreMemberGiftCard;
 		}
@@ -752,20 +758,20 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreMemberGiftCard;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreMemberGiftCardConsumeRecordDAO().removeRetailStoreMemberGiftCardConsumeRecordList(toRemoveRetailStoreMemberGiftCardConsumeRecordList,options);
-		
-		return retailStoreMemberGiftCard;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreMemberGiftCardConsumeRecordDAO().removeRetailStoreMemberGiftCardConsumeRecordList(toRemoveRetailStoreMemberGiftCardConsumeRecordList,options);
+
+		return retailStoreMemberGiftCard;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public RetailStoreMemberGiftCard present(RetailStoreMemberGiftCard retailStoreMemberGiftCard,Map<String, Object> options){
@@ -808,13 +814,13 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 	protected String getTableName(){
 		return RetailStoreMemberGiftCardTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList) {		
+
+
+
+	public void enhanceList(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList) {
 		this.enhanceListInternal(retailStoreMemberGiftCardList, this.getRetailStoreMemberGiftCardMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberGiftCardConsumeRecord的owner的RetailStoreMemberGiftCardConsumeRecordList
 	public SmartList<RetailStoreMemberGiftCardConsumeRecord> loadOurRetailStoreMemberGiftCardConsumeRecordList(RetailscmUserContext userContext, List<RetailStoreMemberGiftCard> us, Map<String,Object> options) throws Exception{
@@ -839,39 +845,45 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList = ownerEntity.collectRefsWithType(RetailStoreMemberGiftCard.INTERNAL_TYPE);
 		this.enhanceList(retailStoreMemberGiftCardList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getRetailStoreMemberGiftCardMapper());
 
 	}
 	@Override
 	public int countRetailStoreMemberGiftCardWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countRetailStoreMemberGiftCardWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreMemberGiftCard> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreMemberGiftCardMapper());
 	}
+
+  @Override
+  public Stream<RetailStoreMemberGiftCard> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getRetailStoreMemberGiftCardMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -900,7 +912,7 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 		return result;
 	}
-	
+
 	
 
 }

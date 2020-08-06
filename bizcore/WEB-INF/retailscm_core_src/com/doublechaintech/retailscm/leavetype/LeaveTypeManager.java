@@ -17,6 +17,7 @@ public interface LeaveTypeManager extends BaseManager{
 	public LeaveType createLeaveType(RetailscmUserContext userContext, String code,String companyId,String description,String detailDescription) throws Exception;
 	public LeaveType updateLeaveType(RetailscmUserContext userContext,String leaveTypeId, int leaveTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LeaveType loadLeaveType(RetailscmUserContext userContext, String leaveTypeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public LeaveType internalSaveLeaveType(RetailscmUserContext userContext, LeaveType leaveType) throws Exception;
 	public LeaveType internalSaveLeaveType(RetailscmUserContext userContext, LeaveType leaveType,Map<String,Object>option) throws Exception;
 

@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.goods;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -24,8 +25,21 @@ import com.doublechaintech.retailscm.shippingspace.ShippingSpace;
 import com.doublechaintech.retailscm.transporttask.TransportTask;
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = GoodsSerializer.class)
 public class Goods extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

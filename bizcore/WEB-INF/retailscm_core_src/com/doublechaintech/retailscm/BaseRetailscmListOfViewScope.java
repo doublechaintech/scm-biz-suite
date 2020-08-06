@@ -117,7 +117,7 @@ import com.doublechaintech.retailscm.slide.Slide;
 import com.doublechaintech.retailscm.uiaction.UiAction;
 import com.doublechaintech.retailscm.section.Section;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteList;
+import com.doublechaintech.retailscm.userallowlist.UserAllowList;
 import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.quicklink.QuickLink;
@@ -125,9 +125,9 @@ import com.doublechaintech.retailscm.listaccess.ListAccess;
 import com.doublechaintech.retailscm.loginhistory.LoginHistory;
 import com.doublechaintech.retailscm.candidatecontainer.CandidateContainer;
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentify;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
 import com.doublechaintech.retailscm.treenode.TreeNode;
 
@@ -1544,14 +1544,14 @@ public class BaseRetailscmListOfViewScope {
 		;
 	}
 
-	/** UserWhiteList的简单属性序列化列表 */
-	protected SerializeScope getUserWhiteListSummaryScope() {
+	/** UserAllowList的简单属性序列化列表 */
+	protected SerializeScope getUserAllowListSummaryScope() {
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(UserWhiteList.ID_PROPERTY)
-			.field(UserWhiteList.USER_IDENTITY_PROPERTY)
-			.field(UserWhiteList.USER_SPECIAL_FUNCTIONS_PROPERTY)
-			.field(UserWhiteList.VERSION_PROPERTY)
+			.field(UserAllowList.ID_PROPERTY)
+			.field(UserAllowList.USER_IDENTITY_PROPERTY)
+			.field(UserAllowList.USER_SPECIAL_FUNCTIONS_PROPERTY)
+			.field(UserAllowList.VERSION_PROPERTY)
 		;
 	}
 
@@ -1654,40 +1654,40 @@ public class BaseRetailscmListOfViewScope {
 		;
 	}
 
-	/** WechatWorkappIdentify的简单属性序列化列表 */
-	protected SerializeScope getWechatWorkappIdentifySummaryScope() {
+	/** WechatWorkappIdentity的简单属性序列化列表 */
+	protected SerializeScope getWechatWorkappIdentitySummaryScope() {
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(WechatWorkappIdentify.ID_PROPERTY)
-			.field(WechatWorkappIdentify.CORP_ID_PROPERTY)
-			.field(WechatWorkappIdentify.USER_ID_PROPERTY)
-			.field(WechatWorkappIdentify.CREATE_TIME_PROPERTY)
-			.field(WechatWorkappIdentify.LAST_LOGIN_TIME_PROPERTY)
-			.field(WechatWorkappIdentify.VERSION_PROPERTY)
+			.field(WechatWorkappIdentity.ID_PROPERTY)
+			.field(WechatWorkappIdentity.CORP_ID_PROPERTY)
+			.field(WechatWorkappIdentity.USER_ID_PROPERTY)
+			.field(WechatWorkappIdentity.CREATE_TIME_PROPERTY)
+			.field(WechatWorkappIdentity.LAST_LOGIN_TIME_PROPERTY)
+			.field(WechatWorkappIdentity.VERSION_PROPERTY)
 		;
 	}
 
-	/** WechatMiniappIdentify的简单属性序列化列表 */
-	protected SerializeScope getWechatMiniappIdentifySummaryScope() {
+	/** WechatMiniappIdentity的简单属性序列化列表 */
+	protected SerializeScope getWechatMiniappIdentitySummaryScope() {
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(WechatMiniappIdentify.ID_PROPERTY)
-			.field(WechatMiniappIdentify.OPEN_ID_PROPERTY)
-			.field(WechatMiniappIdentify.APP_ID_PROPERTY)
-			.field(WechatMiniappIdentify.CREATE_TIME_PROPERTY)
-			.field(WechatMiniappIdentify.LAST_LOGIN_TIME_PROPERTY)
-			.field(WechatMiniappIdentify.VERSION_PROPERTY)
+			.field(WechatMiniappIdentity.ID_PROPERTY)
+			.field(WechatMiniappIdentity.OPEN_ID_PROPERTY)
+			.field(WechatMiniappIdentity.APP_ID_PROPERTY)
+			.field(WechatMiniappIdentity.CREATE_TIME_PROPERTY)
+			.field(WechatMiniappIdentity.LAST_LOGIN_TIME_PROPERTY)
+			.field(WechatMiniappIdentity.VERSION_PROPERTY)
 		;
 	}
 
-	/** KeypairIdentify的简单属性序列化列表 */
-	protected SerializeScope getKeypairIdentifySummaryScope() {
+	/** KeypairIdentity的简单属性序列化列表 */
+	protected SerializeScope getKeypairIdentitySummaryScope() {
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(KeypairIdentify.ID_PROPERTY)
-			.field(KeypairIdentify.PUBLIC_KEY_PROPERTY)
-			.field(KeypairIdentify.CREATE_TIME_PROPERTY)
-			.field(KeypairIdentify.VERSION_PROPERTY)
+			.field(KeypairIdentity.ID_PROPERTY)
+			.field(KeypairIdentity.PUBLIC_KEY_PROPERTY)
+			.field(KeypairIdentity.CREATE_TIME_PROPERTY)
+			.field(KeypairIdentity.VERSION_PROPERTY)
 		;
 	}
 
@@ -1718,16 +1718,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreCountryCenter的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreCountryCenterListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='双链小超中国国运营中心|双链小超美国国运营中心|双链小超日本国运营中心|双链小超泰国国运营中心';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='双链小超中国国运营中心|双链小超美国国运营中心|双链小超日本国运营中心|双链小超泰国国运营中心'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='中国中心正式成立，恭喜恭喜';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='中国中心正式成立，恭喜恭喜'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1748,16 +1750,18 @@ public class BaseRetailscmListOfViewScope {
 	/** Catalog的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getCatalogListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$10.11';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$10.11'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1774,10 +1778,11 @@ public class BaseRetailscmListOfViewScope {
 	/** LevelOneCategory的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLevelOneCategoryListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1792,10 +1797,11 @@ public class BaseRetailscmListOfViewScope {
 	/** LevelTwoCategory的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLevelTwoCategoryListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1810,10 +1816,11 @@ public class BaseRetailscmListOfViewScope {
 	/** LevelThreeCategory的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLevelThreeCategoryListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1828,22 +1835,25 @@ public class BaseRetailscmListOfViewScope {
 	/** Product的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getProductListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='啤酒|可乐|久久鸭';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='啤酒|可乐|久久鸭'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='origin';
-		//	type='string';
-		//	value='四川|广东|江苏|安徽|日本|法国';
-		//	required='true';
+		//	name='origin'; 
+		//	type='string'; 
+		//	value='四川|广东|江苏|安徽|日本|法国'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='picture';
-		//	type='string_image';
-		//	value='this is a looooooooooog.jpg';
-		//	required='true';
+		//	name='picture'; 
+		//	type='string_image'; 
+		//	value='this is a looooooooooog.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1863,22 +1873,25 @@ public class BaseRetailscmListOfViewScope {
 	/** Sku的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSkuListOfViewScope() {
 		// DisplayMode{name='product', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='可乐-大罐的';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='可乐-大罐的'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='net_content';
-		//	type='string';
-		//	value='包装数量等信息,包装数量等信息,包装数量等信息';
-		//	required='true';
+		//	name='net_content'; 
+		//	type='string'; 
+		//	value='包装数量等信息,包装数量等信息,包装数量等信息'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='picture';
-		//	type='string_image';
-		//	value='coco.jpg';
-		//	required='true';
+		//	name='picture'; 
+		//	type='string_image'; 
+		//	value='coco.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[DisplayProperty{name='listPrice', level=null}]}
 		return SerializeScope.INCLUDE()
@@ -1899,16 +1912,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreProvinceCenter的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreProvinceCenterListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='双链小超四川省运营中心|双链小超北京运营中心';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='双链小超四川省运营中心|双链小超北京运营中心'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='founded';
-		//	type='date_past';
-		//	value='past()';
-		//	required='true';
+		//	name='founded'; 
+		//	type='date_past'; 
+		//	value='past()'; 
+		//	required='true'; 
+		//	features='{name=date_past, parent=date}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1925,16 +1940,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ProvinceCenterDepartment的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getProvinceCenterDepartmentListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='供应链部|采购部|管理部|财务部|法务部|市场部|人力资源部';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='供应链部|采购部|管理部|财务部|法务部|市场部|人力资源部'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='manager';
-		//	type='string';
-		//	value='刘强|王德宏';
-		//	required='true';
+		//	name='manager'; 
+		//	type='string'; 
+		//	value='刘强|王德宏'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1951,16 +1968,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ProvinceCenterEmployee的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getProvinceCenterEmployeeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='刘强|王德宏';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='刘强|王德宏'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='mobile';
-		//	type='string_china_mobile_phone';
-		//	value='13999998888';
-		//	required='true';
+		//	name='mobile'; 
+		//	type='string_china_mobile_phone'; 
+		//	value='13999998888'; 
+		//	required='true'; 
+		//	features='{name=string_china_mobile_phone}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -1979,16 +1998,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreCityServiceCenter的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreCityServiceCenterListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='双链小超成都办事处|双链小超绵阳办事处|双链小超巴中办事处';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='双链小超成都办事处|双链小超绵阳办事处|双链小超巴中办事处'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='founded';
-		//	type='date_past';
-		//	value='past()';
-		//	required='true';
+		//	name='founded'; 
+		//	type='date_past'; 
+		//	value='past()'; 
+		//	required='true'; 
+		//	features='{name=date_past, parent=date}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2005,16 +2026,18 @@ public class BaseRetailscmListOfViewScope {
 	/** CityPartner的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getCityPartnerListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='曾倩|黄风格|郭超';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='曾倩|黄风格|郭超'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='负责开拓市场，具有极强的开拓能力';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='负责开拓市场，具有极强的开拓能力'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2032,16 +2055,18 @@ public class BaseRetailscmListOfViewScope {
 	/** PotentialCustomer的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPotentialCustomerListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='曾倩|黄风格|郭超';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='曾倩|黄风格|郭超'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='负责开拓市场，具有极强的开拓能力';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='负责开拓市场，具有极强的开拓能力'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2060,16 +2085,18 @@ public class BaseRetailscmListOfViewScope {
 	/** PotentialCustomerContactPerson的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPotentialCustomerContactPersonListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='赵先生';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='赵先生'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='这人在决策中战友较大的权重，密切观察中.....';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='这人在决策中战友较大的权重，密切观察中.....'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2086,16 +2113,18 @@ public class BaseRetailscmListOfViewScope {
 	/** PotentialCustomerContact的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPotentialCustomerContactListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='和连载客户的联系记录';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='和连载客户的联系记录'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='转化希望很大';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='转化希望很大'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2116,16 +2145,18 @@ public class BaseRetailscmListOfViewScope {
 	/** CityEvent的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getCityEventListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='小超见面会|双链小超说明会';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='小超见面会|双链小超说明会'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='给大家讲解小超的发展蓝图';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='给大家讲解小超的发展蓝图'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2143,16 +2174,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EventAttendance的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEventAttendanceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='小超见面会参加信息';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='小超见面会参加信息'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='体会不错，考虑加盟';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='体会不错，考虑加盟'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2169,16 +2202,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStore的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='中和社区小超|华阳社区小超|大源社区小超';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='中和社区小超|华阳社区小超|大源社区小超'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='啤酒饮料矿泉水，香肠瓜子方便面, 请让一让';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='啤酒饮料矿泉水，香肠瓜子方便面, 请让一让'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2207,10 +2242,11 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreCreation的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreCreationListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='comment';
-		//	type='string';
-		//	value='已经建好了';
-		//	required='true';
+		//	name='comment'; 
+		//	type='string'; 
+		//	value='已经建好了'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2224,10 +2260,11 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreInvestmentInvitation的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreInvestmentInvitationListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='comment';
-		//	type='string';
-		//	value='欢迎前来咨询';
-		//	required='true';
+		//	name='comment'; 
+		//	type='string'; 
+		//	value='欢迎前来咨询'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2241,10 +2278,11 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreFranchising的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreFranchisingListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='comment';
-		//	type='string';
-		//	value='谢谢加盟';
-		//	required='true';
+		//	name='comment'; 
+		//	type='string'; 
+		//	value='谢谢加盟'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2258,10 +2296,11 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreDecoration的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreDecorationListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='comment';
-		//	type='string';
-		//	value='装修';
-		//	required='true';
+		//	name='comment'; 
+		//	type='string'; 
+		//	value='装修'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2275,10 +2314,11 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreOpening的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreOpeningListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='comment';
-		//	type='string';
-		//	value='装修';
-		//	required='true';
+		//	name='comment'; 
+		//	type='string'; 
+		//	value='装修'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2292,10 +2332,11 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreClosing的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreClosingListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='comment';
-		//	type='string';
-		//	value='关闭';
-		//	required='true';
+		//	name='comment'; 
+		//	type='string'; 
+		//	value='关闭'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2309,16 +2350,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreMember的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreMemberListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='李亚青';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='李亚青'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='mobile_phone';
-		//	type='string_china_mobile_phone';
-		//	value='18099887766';
-		//	required='true';
+		//	name='mobile_phone'; 
+		//	type='string_china_mobile_phone'; 
+		//	value='18099887766'; 
+		//	required='true'; 
+		//	features='{name=string_china_mobile_phone}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2334,10 +2377,11 @@ public class BaseRetailscmListOfViewScope {
 	/** ConsumerOrder的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getConsumerOrderListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='消费订单';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='消费订单'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2354,16 +2398,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ConsumerOrderLineItem的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getConsumerOrderLineItemListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='sku_name';
-		//	type='string';
-		//	value='大瓶可乐';
-		//	required='true';
+		//	name='sku_name'; 
+		//	type='string'; 
+		//	value='大瓶可乐'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='sku_id';
-		//	type='string';
-		//	value='SKU';
-		//	required='true';
+		//	name='sku_id'; 
+		//	type='string'; 
+		//	value='SKU'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2383,16 +2429,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ConsumerOrderShippingGroup的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getConsumerOrderShippingGroupListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='送货到刘强家';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='送货到刘强家'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$599.99';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$599.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2408,16 +2456,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ConsumerOrderPaymentGroup的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getConsumerOrderPaymentGroupListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='信用卡|支付宝|微信支付';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='信用卡|支付宝|微信支付'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='card_number';
-		//	type='string';
-		//	value='4111 1111 1111 - ';
-		//	required='true';
+		//	name='card_number'; 
+		//	type='string'; 
+		//	value='4111 1111 1111 - '; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2433,16 +2483,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ConsumerOrderPriceAdjustment的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getConsumerOrderPriceAdjustmentListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='端午促销';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='端午促销'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$599.99';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$599.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2459,16 +2511,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreMemberCoupon的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreMemberCouponListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='优惠券';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='优惠券'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='number';
-		//	type='string';
-		//	value='CP00001';
-		//	required='true';
+		//	name='number'; 
+		//	type='string'; 
+		//	value='CP00001'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2485,10 +2539,11 @@ public class BaseRetailscmListOfViewScope {
 	/** MemberWishlist的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getMemberWishlistListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='每周购买清单|每月购买清单';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='每周购买清单|每月购买清单'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2503,16 +2558,18 @@ public class BaseRetailscmListOfViewScope {
 	/** MemberRewardPoint的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getMemberRewardPointListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='购买积分|每月购买清单';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='购买积分|每月购买清单'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='point';
-		//	type='int';
-		//	value='20';
-		//	required='true';
+		//	name='point'; 
+		//	type='int'; 
+		//	value='20'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2528,16 +2585,18 @@ public class BaseRetailscmListOfViewScope {
 	/** MemberRewardPointRedemption的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getMemberRewardPointRedemptionListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='积分换锅|积分换刀';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='积分换锅|积分换刀'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='point';
-		//	type='int';
-		//	value='20';
-		//	required='true';
+		//	name='point'; 
+		//	type='int'; 
+		//	value='20'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2553,10 +2612,11 @@ public class BaseRetailscmListOfViewScope {
 	/** MemberWishlistProduct的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getMemberWishlistProductListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='农夫山泉|利箭口香糖';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='农夫山泉|利箭口香糖'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2571,16 +2631,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreMemberAddress的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreMemberAddressListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='家里|办公室|出差临时地址';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='家里|办公室|出差临时地址'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='mobile_phone';
-		//	type='string_china_mobile_phone';
-		//	value='18099887766';
-		//	required='true';
+		//	name='mobile_phone'; 
+		//	type='string_china_mobile_phone'; 
+		//	value='18099887766'; 
+		//	required='true'; 
+		//	features='{name=string_china_mobile_phone}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2597,16 +2659,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreMemberGiftCard的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreMemberGiftCardListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='礼品卡';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='礼品卡'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='remain';
-		//	type='money';
-		//	value='$213.99';
-		//	required='true';
+		//	name='remain'; 
+		//	type='money'; 
+		//	value='$213.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2623,16 +2687,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreMemberGiftCardConsumeRecord的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreMemberGiftCardConsumeRecordListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='number';
-		//	type='string';
-		//	value='GF00001';
-		//	required='true';
+		//	name='number'; 
+		//	type='string'; 
+		//	value='GF00001'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$20.99';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$20.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2650,16 +2716,18 @@ public class BaseRetailscmListOfViewScope {
 	/** GoodsSupplier的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getGoodsSupplierListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='宝洁|中粮|福临门';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='宝洁|中粮|福临门'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='啤酒饮料矿泉水，香肠瓜子方便面都提供';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='啤酒饮料矿泉水，香肠瓜子方便面都提供'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2678,16 +2746,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SupplierProduct的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSupplierProductListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='product_name';
-		//	type='string';
-		//	value='黑人牙膏';
-		//	required='true';
+		//	name='product_name'; 
+		//	type='string'; 
+		//	value='黑人牙膏'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='product_description';
-		//	type='string';
-		//	value='最好的黑人牙膏，只卖3块喽';
-		//	required='true';
+		//	name='product_description'; 
+		//	type='string'; 
+		//	value='最好的黑人牙膏，只卖3块喽'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2704,16 +2774,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ProductSupplyDuration的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getProductSupplyDurationListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='duration';
-		//	type='string';
-		//	value='现货|两天|三天|一周';
-		//	required='true';
+		//	name='duration'; 
+		//	type='string'; 
+		//	value='现货|两天|三天|一周'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='price';
-		//	type='money';
-		//	value='$9999.99';
-		//	required='true';
+		//	name='price'; 
+		//	type='money'; 
+		//	value='$9999.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2730,16 +2802,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SupplyOrder的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSupplyOrderListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='双链给供货商下的订单';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='双链给供货商下的订单'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='total_amount';
-		//	type='money';
-		//	value='$3000000000.88';
-		//	required='true';
+		//	name='total_amount'; 
+		//	type='money'; 
+		//	value='$3000000000.88'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2757,16 +2831,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SupplyOrderLineItem的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSupplyOrderLineItemListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='sku_name';
-		//	type='string';
-		//	value='大瓶可乐';
-		//	required='true';
+		//	name='sku_name'; 
+		//	type='string'; 
+		//	value='大瓶可乐'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$5.97';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$5.97'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2785,16 +2861,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SupplyOrderShippingGroup的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSupplyOrderShippingGroupListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='送货到双链成都2号仓';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='送货到双链成都2号仓'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$5.99';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$5.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2810,16 +2888,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SupplyOrderPaymentGroup的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSupplyOrderPaymentGroupListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='付款办法';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='付款办法'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='card_number';
-		//	type='string';
-		//	value='4111 1111 1111 - ';
-		//	required='true';
+		//	name='card_number'; 
+		//	type='string'; 
+		//	value='4111 1111 1111 - '; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2835,16 +2915,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreOrder的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreOrderListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='双链小超给双链供应链下的订单';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='双链小超给双链供应链下的订单'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='total_amount';
-		//	type='money';
-		//	value='$3000000000.88';
-		//	required='true';
+		//	name='total_amount'; 
+		//	type='money'; 
+		//	value='$3000000000.88'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2862,16 +2944,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreOrderLineItem的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreOrderLineItemListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='sku_name';
-		//	type='string';
-		//	value='大瓶可乐';
-		//	required='true';
+		//	name='sku_name'; 
+		//	type='string'; 
+		//	value='大瓶可乐'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$3.97';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$3.97'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2890,16 +2974,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreOrderShippingGroup的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreOrderShippingGroupListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='送货到双链中和社区店';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='送货到双链中和社区店'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$5.99';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$5.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2915,16 +3001,18 @@ public class BaseRetailscmListOfViewScope {
 	/** RetailStoreOrderPaymentGroup的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getRetailStoreOrderPaymentGroupListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='付款办法';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='付款办法'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='card_number';
-		//	type='string';
-		//	value='4111 1111 1111 - ';
-		//	required='true';
+		//	name='card_number'; 
+		//	type='string'; 
+		//	value='4111 1111 1111 - '; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2940,16 +3028,18 @@ public class BaseRetailscmListOfViewScope {
 	/** Warehouse的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getWarehouseListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='contact_number';
-		//	type='string';
-		//	value='028 87654321';
-		//	required='true';
+		//	name='contact_number'; 
+		//	type='string'; 
+		//	value='028 87654321'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2969,16 +3059,18 @@ public class BaseRetailscmListOfViewScope {
 	/** StorageSpace的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getStorageSpaceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号存货区';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号存货区'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='contact_number';
-		//	type='string';
-		//	value='028 87654321';
-		//	required='true';
+		//	name='contact_number'; 
+		//	type='string'; 
+		//	value='028 87654321'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -2998,16 +3090,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SmartPallet的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSmartPalletListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='contact_number';
-		//	type='string';
-		//	value='028 87654321';
-		//	required='true';
+		//	name='contact_number'; 
+		//	type='string'; 
+		//	value='028 87654321'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3027,10 +3121,11 @@ public class BaseRetailscmListOfViewScope {
 	/** GoodsShelf的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getGoodsShelfListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号存货区货架';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号存货区货架'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3048,16 +3143,18 @@ public class BaseRetailscmListOfViewScope {
 	/** GoodsShelfStockCount的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getGoodsShelfStockCountListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='每日盘点|每周盘点|每月盘点|年终盘点';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='每日盘点|每周盘点|每月盘点|年终盘点'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='summary';
-		//	type='string';
-		//	value='使用先进的rfid技术，没有任何错误';
-		//	required='true';
+		//	name='summary'; 
+		//	type='string'; 
+		//	value='使用先进的rfid技术，没有任何错误'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3074,16 +3171,18 @@ public class BaseRetailscmListOfViewScope {
 	/** StockCountIssueTrack的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getStockCountIssueTrackListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='盘点差错';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='盘点差错'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='summary';
-		//	type='string';
-		//	value='发现错误已经修正完成';
-		//	required='true';
+		//	name='summary'; 
+		//	type='string'; 
+		//	value='发现错误已经修正完成'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3100,16 +3199,18 @@ public class BaseRetailscmListOfViewScope {
 	/** GoodsAllocation的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getGoodsAllocationListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号存货区货架20号货位';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号存货区货架20号货位'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='latitude';
-		//	type='double';
-		//	value='40.776877';
-		//	required='true';
+		//	name='latitude'; 
+		//	type='double'; 
+		//	value='40.776877'; 
+		//	required='true'; 
+		//	features='{name=double}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3126,16 +3227,18 @@ public class BaseRetailscmListOfViewScope {
 	/** Goods的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getGoodsListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='可口可乐';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='可口可乐'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='max_package';
-		//	type='int';
-		//	value='10';
-		//	required='true';
+		//	name='max_package'; 
+		//	type='int'; 
+		//	value='10'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3162,16 +3265,18 @@ public class BaseRetailscmListOfViewScope {
 	/** GoodsMovement的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getGoodsMovementListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='facility';
-		//	type='string';
-		//	value='仓库货位|卡车|小超';
-		//	required='true';
+		//	name='facility'; 
+		//	type='string'; 
+		//	value='仓库货位|卡车|小超'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='user_agent';
-		//	type='string';
-		//	value='Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405';
-		//	required='true';
+		//	name='user_agent'; 
+		//	type='string'; 
+		//	value='Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3193,16 +3298,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SupplierSpace的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSupplierSpaceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号供货商独立管理区';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号供货商独立管理区'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='contact_number';
-		//	type='string';
-		//	value='028 87654321';
-		//	required='true';
+		//	name='contact_number'; 
+		//	type='string'; 
+		//	value='028 87654321'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3222,16 +3329,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ReceivingSpace的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getReceivingSpaceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号仓库卸货区';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号仓库卸货区'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='每个收货区可以供一辆车卸货';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='每个收货区可以供一辆车卸货'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3252,16 +3361,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ShippingSpace的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getShippingSpaceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号装货区';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号装货区'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='每个收货区可以供一辆车装货';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='每个收货区可以供一辆车装货'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3282,16 +3393,18 @@ public class BaseRetailscmListOfViewScope {
 	/** DamageSpace的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getDamageSpaceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='location';
-		//	type='string';
-		//	value='成都龙泉驿飞鹤路20号仓库损坏货物堆放区';
-		//	required='true';
+		//	name='location'; 
+		//	type='string'; 
+		//	value='成都龙泉驿飞鹤路20号仓库损坏货物堆放区'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='contact_number';
-		//	type='string';
-		//	value='028 87654321';
-		//	required='true';
+		//	name='contact_number'; 
+		//	type='string'; 
+		//	value='028 87654321'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3311,16 +3424,18 @@ public class BaseRetailscmListOfViewScope {
 	/** WarehouseAsset的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getWarehouseAssetListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='叉车|托盘|传送带备件';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='叉车|托盘|传送带备件'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='position';
-		//	type='string';
-		//	value='备用件存放区设备库房';
-		//	required='true';
+		//	name='position'; 
+		//	type='string'; 
+		//	value='备用件存放区设备库房'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3337,16 +3452,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TransportFleet的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTransportFleetListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='双链先锋号车队';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='双链先锋号车队'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='contact_number';
-		//	type='string';
-		//	value='028 87654321';
-		//	required='true';
+		//	name='contact_number'; 
+		//	type='string'; 
+		//	value='028 87654321'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3363,16 +3480,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TransportTruck的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTransportTruckListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='运货卡车';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='运货卡车'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='plate_number';
-		//	type='string';
-		//	value='川AK5';
-		//	required='true';
+		//	name='plate_number'; 
+		//	type='string'; 
+		//	value='川AK5'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3394,16 +3513,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TruckDriver的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTruckDriverListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='运货卡车司机';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='运货卡车司机'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='driver_license_number';
-		//	type='string';
-		//	value='5109 9887 733';
-		//	required='true';
+		//	name='driver_license_number'; 
+		//	type='string'; 
+		//	value='5109 9887 733'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3420,16 +3541,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TransportTask的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTransportTaskListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='货运记录';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='货运记录'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='start';
-		//	type='string';
-		//	value='双链二号仓';
-		//	required='true';
+		//	name='start'; 
+		//	type='string'; 
+		//	value='双链二号仓'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3451,16 +3574,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TransportTaskTrack的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTransportTaskTrackListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='track_time';
-		//	type='date_past';
-		//	value='past()';
-		//	required='true';
+		//	name='track_time'; 
+		//	type='date_past'; 
+		//	value='past()'; 
+		//	required='true'; 
+		//	features='{name=date_past, parent=date}';
 		//}
 		//, briefField=fieldesc{
-		//	name='latitude';
-		//	type='double';
-		//	value='30.912929';
-		//	required='true';
+		//	name='latitude'; 
+		//	type='double'; 
+		//	value='30.912929'; 
+		//	required='true'; 
+		//	features='{name=double}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3477,16 +3602,18 @@ public class BaseRetailscmListOfViewScope {
 	/** AccountSet的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getAccountSetListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='账套2017|账套2018|账套2019';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='账套2017|账套2018|账套2019'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='year_set';
-		//	type='string';
-		//	value='2017年|2018年|2019年';
-		//	required='true';
+		//	name='year_set'; 
+		//	type='string'; 
+		//	value='2017年|2018年|2019年'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3511,16 +3638,18 @@ public class BaseRetailscmListOfViewScope {
 	/** AccountingSubject的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getAccountingSubjectListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='accounting_subject_name';
-		//	type='string';
-		//	value='银行存款';
-		//	required='true';
+		//	name='accounting_subject_name'; 
+		//	type='string'; 
+		//	value='银行存款'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='accounting_subject_class_code';
-		//	type='int';
-		//	value='1|2|3|4|5|6';
-		//	required='true';
+		//	name='accounting_subject_class_code'; 
+		//	type='int'; 
+		//	value='1|2|3|4|5|6'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3538,16 +3667,18 @@ public class BaseRetailscmListOfViewScope {
 	/** AccountingPeriod的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getAccountingPeriodListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='2017年1月|2017年2月|2017年3月|2017年4月|2017年5月|2017年6月|2017年7月|2017年8月|2017年9月|2017年10月|2017年11月|2017年12月';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='2017年1月|2017年2月|2017年3月|2017年4月|2017年5月|2017年6月|2017年7月|2017年8月|2017年9月|2017年10月|2017年11月|2017年12月'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='start_date';
-		//	type='date';
-		//	value='2017-01-09';
-		//	required='true';
+		//	name='start_date'; 
+		//	type='date'; 
+		//	value='2017-01-09'; 
+		//	required='true'; 
+		//	features='{name=date}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3564,16 +3695,18 @@ public class BaseRetailscmListOfViewScope {
 	/** AccountingDocumentType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getAccountingDocumentTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='记账凭证|收款凭证|付款凭证';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='记账凭证|收款凭证|付款凭证'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3589,16 +3722,18 @@ public class BaseRetailscmListOfViewScope {
 	/** AccountingDocument的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getAccountingDocumentListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='记账凭证';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='记账凭证'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='accounting_document_date';
-		//	type='date';
-		//	value='2018-09-09';
-		//	required='true';
+		//	name='accounting_document_date'; 
+		//	type='date'; 
+		//	value='2018-09-09'; 
+		//	required='true'; 
+		//	features='{name=date}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3615,22 +3750,25 @@ public class BaseRetailscmListOfViewScope {
 	/** OriginalVoucher的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getOriginalVoucherListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='这是手写的发票';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='这是手写的发票'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='made_by';
-		//	type='string';
-		//	value='李亚青';
-		//	required='true';
+		//	name='made_by'; 
+		//	type='string'; 
+		//	value='李亚青'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='voucher_image';
-		//	type='string_image';
-		//	value='goodthing.jpg';
-		//	required='true';
+		//	name='voucher_image'; 
+		//	type='string_image'; 
+		//	value='goodthing.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3649,16 +3787,18 @@ public class BaseRetailscmListOfViewScope {
 	/** AccountingDocumentLine的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getAccountingDocumentLineListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='收到存款';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='收到存款'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$989127.99';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$989127.99'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3677,16 +3817,18 @@ public class BaseRetailscmListOfViewScope {
 	/** LevelOneDepartment的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLevelOneDepartmentListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='供应链部|采购部|管理部|财务部|信息技术部|法务部|市场部|人力资源部';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='供应链部|采购部|管理部|财务部|信息技术部|法务部|市场部|人力资源部'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='主要执行集团信息系统建设，维护，规划';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='主要执行集团信息系统建设，维护，规划'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3704,16 +3846,18 @@ public class BaseRetailscmListOfViewScope {
 	/** LevelTwoDepartment的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLevelTwoDepartmentListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='信息系统部大数据部门';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='信息系统部大数据部门'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='主要执行集团信息系统建设，维护，规划';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='主要执行集团信息系统建设，维护，规划'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3730,16 +3874,18 @@ public class BaseRetailscmListOfViewScope {
 	/** LevelThreeDepartment的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLevelThreeDepartmentListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='信息系统部大数据清洗组|信息系统部大数据运算组|信息系统部大数据解决方案组';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='信息系统部大数据清洗组|信息系统部大数据运算组|信息系统部大数据解决方案组'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='主要执行集团信息系统建设，维护，规划';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='主要执行集团信息系统建设，维护，规划'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3756,16 +3902,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SkillType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSkillTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='S0000';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='S0000'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='JAVA编程|大数据|并行计算|操作系统|数据库';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='JAVA编程|大数据|并行计算|操作系统|数据库'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3781,16 +3929,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ResponsibilityType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getResponsibilityTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='S0000';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='S0000'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='base_description';
-		//	type='string';
-		//	value='合规管理|财务管理|总务管理|信息管理|库存管理|市场管理|产品管理|采购管理|资产管理|销售管理|安全管理';
-		//	required='true';
+		//	name='base_description'; 
+		//	type='string'; 
+		//	value='合规管理|财务管理|总务管理|信息管理|库存管理|市场管理|产品管理|采购管理|资产管理|销售管理|安全管理'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3807,16 +3957,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TerminationReason的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTerminationReasonListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='ETR0000';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='ETR0000'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='业务发展，公司转型|战略调整|业务优化';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='业务发展，公司转型|战略调整|业务优化'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3832,16 +3984,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TerminationType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTerminationTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='ETT0000';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='ETT0000'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='base_description';
-		//	type='string';
-		//	value='合同解除|辞职|退休';
-		//	required='true';
+		//	name='base_description'; 
+		//	type='string'; 
+		//	value='合同解除|辞职|退休'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3858,16 +4012,18 @@ public class BaseRetailscmListOfViewScope {
 	/** OccupationType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getOccupationTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='OT0000';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='OT0000'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='需求分析员|软件工程师|高级软件工程师|财务分析师|财务主管|出纳|总经理|副总经历|大数据架构师|销售经理|销售总监|技术总监|区域销售经理';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='需求分析员|软件工程师|高级软件工程师|财务分析师|财务主管|出纳|总经理|副总经历|大数据架构师|销售经理|销售总监|技术总监|区域销售经理'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3884,16 +4040,18 @@ public class BaseRetailscmListOfViewScope {
 	/** LeaveType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLeaveTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='LT0000';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='LT0000'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='带薪年假|病假|事假|婚假|产假|陪产假|丧假|探亲假|哺乳假|待产假|陪待产假';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='带薪年假|病假|事假|婚假|产假|陪产假|丧假|探亲假|哺乳假|待产假|陪待产假'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3910,16 +4068,18 @@ public class BaseRetailscmListOfViewScope {
 	/** SalaryGrade的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSalaryGradeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='一级薪资|二级薪资|三级薪资|四级薪资|五级薪资|六级薪资|七级薪资';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='一级薪资|二级薪资|三级薪资|四级薪资|五级薪资|六级薪资|七级薪资'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='detail_description';
-		//	type='string';
-		//	value='故事还得从遥远的古代开始.................................................';
-		//	required='true';
+		//	name='detail_description'; 
+		//	type='string'; 
+		//	value='故事还得从遥远的古代开始.................................................'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3936,16 +4096,18 @@ public class BaseRetailscmListOfViewScope {
 	/** InterviewType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getInterviewTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='INTRVW00';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='INTRVW00'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='特别情况面试|离职面试|信息面试|入职面试';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='特别情况面试|离职面试|信息面试|入职面试'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3962,16 +4124,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TrainingCourseType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTrainingCourseTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='入职培训|售前培训|技术培训|管理培训|外训';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='入职培训|售前培训|技术培训|管理培训|外训'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='培训是提升个人和企业竞争力的法宝';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='培训是提升个人和企业竞争力的法宝'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -3988,16 +4152,18 @@ public class BaseRetailscmListOfViewScope {
 	/** PublicHoliday的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPublicHolidayListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='元旦节|春节|妇女节|清明节|端午节|暑假|国庆节|中秋节';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='元旦节|春节|妇女节|清明节|端午节|暑假|国庆节|中秋节'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='节日快乐，万事如意！';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='节日快乐，万事如意！'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4014,10 +4180,11 @@ public class BaseRetailscmListOfViewScope {
 	/** Termination的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTerminationListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='comment';
-		//	type='string';
-		//	value='员工离职';
-		//	required='true';
+		//	name='comment'; 
+		//	type='string'; 
+		//	value='员工离职'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4033,16 +4200,18 @@ public class BaseRetailscmListOfViewScope {
 	/** View的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getViewListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='who';
-		//	type='string';
-		//	value='面试官';
-		//	required='true';
+		//	name='who'; 
+		//	type='string'; 
+		//	value='面试官'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='assessment';
-		//	type='string';
-		//	value='小伙子不错，值得培养';
-		//	required='true';
+		//	name='assessment'; 
+		//	type='string'; 
+		//	value='小伙子不错，值得培养'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4058,16 +4227,18 @@ public class BaseRetailscmListOfViewScope {
 	/** Employee的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='程序员';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='程序员'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='family_name';
-		//	type='string';
-		//	value='张|王|李|贺';
-		//	required='true';
+		//	name='family_name'; 
+		//	type='string'; 
+		//	value='张|王|李|贺'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4094,16 +4265,18 @@ public class BaseRetailscmListOfViewScope {
 	/** Instructor的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getInstructorListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='高级讲师';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='高级讲师'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='family_name';
-		//	type='string';
-		//	value='张|王|李|贺';
-		//	required='true';
+		//	name='family_name'; 
+		//	type='string'; 
+		//	value='张|王|李|贺'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4124,16 +4297,18 @@ public class BaseRetailscmListOfViewScope {
 	/** CompanyTraining的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getCompanyTrainingListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='入职培训';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='入职培训'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='duration_hours';
-		//	type='int';
-		//	value='3';
-		//	required='true';
+		//	name='duration_hours'; 
+		//	type='int'; 
+		//	value='3'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4153,16 +4328,18 @@ public class BaseRetailscmListOfViewScope {
 	/** Scoring的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getScoringListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='scored_by';
-		//	type='string';
-		//	value='王志文';
-		//	required='true';
+		//	name='scored_by'; 
+		//	type='string'; 
+		//	value='王志文'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='score';
-		//	type='int';
-		//	value='100';
-		//	required='true';
+		//	name='score'; 
+		//	type='int'; 
+		//	value='100'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4191,10 +4368,11 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeSkill的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeSkillListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='高手高手高高手';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='高手高手高高手'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4210,10 +4388,11 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeePerformance的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeePerformanceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='performance_comment';
-		//	type='string';
-		//	value='绩效大大的不错';
-		//	required='true';
+		//	name='performance_comment'; 
+		//	type='string'; 
+		//	value='绩效大大的不错'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4228,16 +4407,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeWorkExperience的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeWorkExperienceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='company';
-		//	type='string';
-		//	value='丝芙兰化妆品公司';
-		//	required='true';
+		//	name='company'; 
+		//	type='string'; 
+		//	value='丝芙兰化妆品公司'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='在此期间取得非常好的绩效，赢得了客户的信赖';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='在此期间取得非常好的绩效，赢得了客户的信赖'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4255,16 +4436,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeLeave的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeLeaveListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='remark';
-		//	type='string';
-		//	value='请年假，出去耍！！！！';
-		//	required='true';
+		//	name='remark'; 
+		//	type='string'; 
+		//	value='请年假，出去耍！！！！'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='leave_duration_hour';
-		//	type='int';
-		//	value='8';
-		//	required='true';
+		//	name='leave_duration_hour'; 
+		//	type='int'; 
+		//	value='8'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4281,10 +4464,11 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeInterview的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeInterviewListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='remark';
-		//	type='string';
-		//	value='结果不错，面试通过！';
-		//	required='true';
+		//	name='remark'; 
+		//	type='string'; 
+		//	value='结果不错，面试通过！'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4300,16 +4484,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeAttendance的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeAttendanceListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='remark';
-		//	type='string';
-		//	value='今天状态不错啊';
-		//	required='true';
+		//	name='remark'; 
+		//	type='string'; 
+		//	value='今天状态不错啊'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='duration_hours';
-		//	type='int';
-		//	value='8';
-		//	required='true';
+		//	name='duration_hours'; 
+		//	type='int'; 
+		//	value='8'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4327,16 +4513,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeQualifier的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeQualifierListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='type';
-		//	type='string';
-		//	value='认证药剂师|认证架构师|认证会计师|认证经济师|OCP|CCNA|CCNP';
-		//	required='true';
+		//	name='type'; 
+		//	type='string'; 
+		//	value='认证药剂师|认证架构师|认证会计师|认证经济师|OCP|CCNA|CCNP'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='level';
-		//	type='string';
-		//	value='高级|中级|初级';
-		//	required='true';
+		//	name='level'; 
+		//	type='string'; 
+		//	value='高级|中级|初级'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4354,16 +4542,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeEducation的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeEducationListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='type';
-		//	type='string';
-		//	value='小学|初中|高中|大学|硕士|博士|职业教育';
-		//	required='true';
+		//	name='type'; 
+		//	type='string'; 
+		//	value='小学|初中|高中|大学|硕士|博士|职业教育'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='remark';
-		//	type='string';
-		//	value='考试成绩当年第一名';
-		//	required='true';
+		//	name='remark'; 
+		//	type='string'; 
+		//	value='考试成绩当年第一名'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4380,16 +4570,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeAward的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeAwardListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='type';
-		//	type='string';
-		//	value='明星员工|销售之星|技术之星|管理之星|终身成就奖';
-		//	required='true';
+		//	name='type'; 
+		//	type='string'; 
+		//	value='明星员工|销售之星|技术之星|管理之星|终身成就奖'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='remark';
-		//	type='string';
-		//	value='考试成绩当年第一名';
-		//	required='true';
+		//	name='remark'; 
+		//	type='string'; 
+		//	value='考试成绩当年第一名'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4406,16 +4598,18 @@ public class BaseRetailscmListOfViewScope {
 	/** EmployeeSalarySheet的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getEmployeeSalarySheetListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='base_salary';
-		//	type='money';
-		//	value='$3000.10';
-		//	required='true';
+		//	name='base_salary'; 
+		//	type='money'; 
+		//	value='$3000.10'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, briefField=fieldesc{
-		//	name='bonus';
-		//	type='money';
-		//	value='$1000.10';
-		//	required='true';
+		//	name='bonus'; 
+		//	type='money'; 
+		//	value='$1000.10'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4438,16 +4632,18 @@ public class BaseRetailscmListOfViewScope {
 	/** PayingOff的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPayingOffListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='who';
-		//	type='string';
-		//	value='出纳';
-		//	required='true';
+		//	name='who'; 
+		//	type='string'; 
+		//	value='出纳'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='amount';
-		//	type='money';
-		//	value='$5223.88';
-		//	required='true';
+		//	name='amount'; 
+		//	type='money'; 
+		//	value='$5223.88'; 
+		//	required='true'; 
+		//	features='{name=money}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4464,10 +4660,11 @@ public class BaseRetailscmListOfViewScope {
 	/** MobileApp的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getMobileAppListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='移动端配置';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='移动端配置'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4481,16 +4678,18 @@ public class BaseRetailscmListOfViewScope {
 	/** Page的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPageListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='page_title';
-		//	type='string';
-		//	value='首页';
-		//	required='true';
+		//	name='page_title'; 
+		//	type='string'; 
+		//	value='首页'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='display_order';
-		//	type='int';
-		//	value='1|2|3';
-		//	required='true';
+		//	name='display_order'; 
+		//	type='int'; 
+		//	value='1|2|3'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4508,16 +4707,18 @@ public class BaseRetailscmListOfViewScope {
 	/** PageType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPageTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='首页|我的|Generic Page|Listof Page|功能大厅|普通';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='首页|我的|Generic Page|Listof Page|功能大厅|普通'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='home|me|generic-page|listof-page|service-center|simple';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='home|me|generic-page|listof-page|service-center|simple'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4534,22 +4735,25 @@ public class BaseRetailscmListOfViewScope {
 	/** Slide的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSlideListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='首页Focus的内容';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='首页Focus的内容'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='display_order';
-		//	type='int';
-		//	value='1|2|3';
-		//	required='true';
+		//	name='display_order'; 
+		//	type='int'; 
+		//	value='1|2|3'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='image_url';
-		//	type='string_image';
-		//	value='https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_1.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_2.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_3.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_4.jpg';
-		//	required='true';
+		//	name='image_url'; 
+		//	type='string_image'; 
+		//	value='https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_1.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_2.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_3.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_4.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4568,22 +4772,25 @@ public class BaseRetailscmListOfViewScope {
 	/** UiAction的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getUiActionListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='提交|分享|查看|更多';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='提交|分享|查看|更多'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='brief';
-		//	type='string';
-		//	value='Submit|Share|View|View More';
-		//	required='true';
+		//	name='brief'; 
+		//	type='string'; 
+		//	value='Submit|Share|View|View More'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='image_url';
-		//	type='string_image';
-		//	value='https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_1.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_2.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_3.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_4.jpg';
-		//	required='true';
+		//	name='image_url'; 
+		//	type='string_image'; 
+		//	value='https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_1.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_2.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_3.jpg|https://xubai-test.oss-cn-beijing.aliyuncs.com/app/test/slide_4.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4605,22 +4812,25 @@ public class BaseRetailscmListOfViewScope {
 	/** Section的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSectionListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='文章|作品';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='文章|作品'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='brief';
-		//	type='string';
-		//	value='Article|Artwork';
-		//	required='true';
+		//	name='brief'; 
+		//	type='string'; 
+		//	value='Article|Artwork'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='icon';
-		//	type='string_image';
-		//	value='icon.jpg';
-		//	required='true';
+		//	name='icon'; 
+		//	type='string_image'; 
+		//	value='icon.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4640,10 +4850,11 @@ public class BaseRetailscmListOfViewScope {
 	/** UserDomain的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getUserDomainListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='用户区域';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='用户区域'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4654,44 +4865,48 @@ public class BaseRetailscmListOfViewScope {
 		;
 	}
 
-	/** UserWhiteList的ListOf时需要序列化的属性列表 */
-	protected SerializeScope getUserWhiteListListOfViewScope() {
+	/** UserAllowList的ListOf时需要序列化的属性列表 */
+	protected SerializeScope getUserAllowListListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='user_identity';
-		//	type='string';
-		//	value='clariones|13808188512';
-		//	required='true';
+		//	name='user_identity'; 
+		//	type='string'; 
+		//	value='clariones|13808188512'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='user_special_functions';
-		//	type='string';
-		//	value='tester;ios-spokesperson';
-		//	required='true';
+		//	name='user_special_functions'; 
+		//	type='string'; 
+		//	value='tester;ios-spokesperson'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(UserWhiteList.ID_PROPERTY)
-			.field(UserWhiteList.USER_IDENTITY_PROPERTY).as("title")
-			.field(UserWhiteList.USER_SPECIAL_FUNCTIONS_PROPERTY).as("brief").with_prefix("用户特殊功能: ")
-			.field(UserWhiteList.DOMAIN_PROPERTY, getUserDomainSummaryScope())
-			.field(UserWhiteList.VERSION_PROPERTY)
+			.field(UserAllowList.ID_PROPERTY)
+			.field(UserAllowList.USER_IDENTITY_PROPERTY).as("title")
+			.field(UserAllowList.USER_SPECIAL_FUNCTIONS_PROPERTY).as("brief").with_prefix("用户特殊功能: ")
+			.field(UserAllowList.DOMAIN_PROPERTY, getUserDomainSummaryScope())
+			.field(UserAllowList.VERSION_PROPERTY)
 		;
 	}
 
 	/** SecUser的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getSecUserListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='login';
-		//	type='string';
-		//	value='login';
-		//	required='true';
+		//	name='login'; 
+		//	type='string'; 
+		//	value='login'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='verification_code';
-		//	type='int';
-		//	value='0|9999999';
-		//	required='true';
+		//	name='verification_code'; 
+		//	type='int'; 
+		//	value='0|9999999'; 
+		//	required='true'; 
+		//	features='{name=int}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4715,16 +4930,18 @@ public class BaseRetailscmListOfViewScope {
 	/** UserApp的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getUserAppListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='title';
-		//	type='string';
-		//	value='审车平台|账户管理|接车公司|审车公司|维修公司|顾客';
-		//	required='true';
+		//	name='title'; 
+		//	type='string'; 
+		//	value='审车平台|账户管理|接车公司|审车公司|维修公司|顾客'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='app_icon';
-		//	type='string';
-		//	value='users|bank|wechat|bar-chart|user|users';
-		//	required='true';
+		//	name='app_icon'; 
+		//	type='string'; 
+		//	value='users|bank|wechat|bar-chart|user|users'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4745,22 +4962,25 @@ public class BaseRetailscmListOfViewScope {
 	/** QuickLink的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getQuickLinkListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='列表';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='列表'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='icon';
-		//	type='string';
-		//	value='facebook|google';
-		//	required='true';
+		//	name='icon'; 
+		//	type='string'; 
+		//	value='facebook|google'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='image_path';
-		//	type='string_image';
-		//	value='y-200-200-red.jpg';
-		//	required='true';
+		//	name='image_path'; 
+		//	type='string_image'; 
+		//	value='y-200-200-red.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4779,16 +4999,18 @@ public class BaseRetailscmListOfViewScope {
 	/** ListAccess的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getListAccessListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='列表';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='列表'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='internal_name';
-		//	type='string';
-		//	value='levelOneCategoryList';
-		//	required='true';
+		//	name='internal_name'; 
+		//	type='string'; 
+		//	value='levelOneCategoryList'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4809,16 +5031,18 @@ public class BaseRetailscmListOfViewScope {
 	/** LoginHistory的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getLoginHistoryListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='from_ip';
-		//	type='string';
-		//	value='192.168.1.1|192.168.1.2';
-		//	required='true';
+		//	name='from_ip'; 
+		//	type='string'; 
+		//	value='192.168.1.1|192.168.1.2'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='description';
-		//	type='string';
-		//	value='登陆成功';
-		//	required='true';
+		//	name='description'; 
+		//	type='string'; 
+		//	value='登陆成功'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4835,10 +5059,11 @@ public class BaseRetailscmListOfViewScope {
 	/** CandidateContainer的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getCandidateContainerListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='我只是一个容器';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='我只是一个容器'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4852,22 +5077,25 @@ public class BaseRetailscmListOfViewScope {
 	/** CandidateElement的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getCandidateElementListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='搜索到的匹配字段';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='搜索到的匹配字段'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='type';
-		//	type='string';
-		//	value='类型描述';
-		//	required='true';
+		//	name='type'; 
+		//	type='string'; 
+		//	value='类型描述'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=fieldesc{
-		//	name='image';
-		//	type='string_image';
-		//	value='1.jpg';
-		//	required='true';
+		//	name='image'; 
+		//	type='string_image'; 
+		//	value='1.jpg'; 
+		//	required='true'; 
+		//	features='{name=string_image, features=attachment}';
 		//}
 		//, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4881,93 +5109,100 @@ public class BaseRetailscmListOfViewScope {
 		;
 	}
 
-	/** WechatWorkappIdentify的ListOf时需要序列化的属性列表 */
-	protected SerializeScope getWechatWorkappIdentifyListOfViewScope() {
+	/** WechatWorkappIdentity的ListOf时需要序列化的属性列表 */
+	protected SerializeScope getWechatWorkappIdentityListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='corp_id';
-		//	type='string';
-		//	value='corporation123';
-		//	required='true';
+		//	name='corp_id'; 
+		//	type='string'; 
+		//	value='corporation123'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='user_id';
-		//	type='string';
-		//	value='user123';
-		//	required='true';
+		//	name='user_id'; 
+		//	type='string'; 
+		//	value='user123'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(WechatWorkappIdentify.ID_PROPERTY)
-			.field(WechatWorkappIdentify.CORP_ID_PROPERTY).as("title")
-			.field(WechatWorkappIdentify.USER_ID_PROPERTY).as("brief").with_prefix("用户Id: ")
-			.field(WechatWorkappIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-			.field(WechatWorkappIdentify.CREATE_TIME_PROPERTY)
-			.field(WechatWorkappIdentify.LAST_LOGIN_TIME_PROPERTY)
-			.field(WechatWorkappIdentify.VERSION_PROPERTY)
+			.field(WechatWorkappIdentity.ID_PROPERTY)
+			.field(WechatWorkappIdentity.CORP_ID_PROPERTY).as("title")
+			.field(WechatWorkappIdentity.USER_ID_PROPERTY).as("brief").with_prefix("用户Id: ")
+			.field(WechatWorkappIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+			.field(WechatWorkappIdentity.CREATE_TIME_PROPERTY)
+			.field(WechatWorkappIdentity.LAST_LOGIN_TIME_PROPERTY)
+			.field(WechatWorkappIdentity.VERSION_PROPERTY)
 		;
 	}
 
-	/** WechatMiniappIdentify的ListOf时需要序列化的属性列表 */
-	protected SerializeScope getWechatMiniappIdentifyListOfViewScope() {
+	/** WechatMiniappIdentity的ListOf时需要序列化的属性列表 */
+	protected SerializeScope getWechatMiniappIdentityListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='open_id';
-		//	type='string';
-		//	value='wechat_open_id_1234567890';
-		//	required='true';
+		//	name='open_id'; 
+		//	type='string'; 
+		//	value='wechat_open_id_1234567890'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='app_id';
-		//	type='string';
-		//	value='wechat_miniapp_id_1234567890';
-		//	required='true';
+		//	name='app_id'; 
+		//	type='string'; 
+		//	value='wechat_miniapp_id_1234567890'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(WechatMiniappIdentify.ID_PROPERTY)
-			.field(WechatMiniappIdentify.OPEN_ID_PROPERTY).as("title")
-			.field(WechatMiniappIdentify.APP_ID_PROPERTY).as("brief").with_prefix("应用程序Id: ")
-			.field(WechatMiniappIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-			.field(WechatMiniappIdentify.CREATE_TIME_PROPERTY)
-			.field(WechatMiniappIdentify.LAST_LOGIN_TIME_PROPERTY)
-			.field(WechatMiniappIdentify.VERSION_PROPERTY)
+			.field(WechatMiniappIdentity.ID_PROPERTY)
+			.field(WechatMiniappIdentity.OPEN_ID_PROPERTY).as("title")
+			.field(WechatMiniappIdentity.APP_ID_PROPERTY).as("brief").with_prefix("应用程序Id: ")
+			.field(WechatMiniappIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+			.field(WechatMiniappIdentity.CREATE_TIME_PROPERTY)
+			.field(WechatMiniappIdentity.LAST_LOGIN_TIME_PROPERTY)
+			.field(WechatMiniappIdentity.VERSION_PROPERTY)
 		;
 	}
 
-	/** KeypairIdentify的ListOf时需要序列化的属性列表 */
-	protected SerializeScope getKeypairIdentifyListOfViewScope() {
+	/** KeypairIdentity的ListOf时需要序列化的属性列表 */
+	protected SerializeScope getKeypairIdentityListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='public_key';
-		//	type='string_longtext';
-		//	value='text()';
-		//	required='true';
+		//	name='public_key'; 
+		//	type='string_longtext'; 
+		//	value='text()'; 
+		//	required='true'; 
+		//	features='{name=text, features=longtext, type=string_longtext, parent=string_longtext}';
 		//}
 		//, briefField=null, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
 			.field(RetailscmBaseConstants.X_LINK_TO_URL)
-			.field(KeypairIdentify.ID_PROPERTY)
-			.field(KeypairIdentify.PUBLIC_KEY_PROPERTY).as("title")
-			.field(KeypairIdentify.KEY_TYPE_PROPERTY, getPublicKeyTypeSummaryScope())
-			.field(KeypairIdentify.SEC_USER_PROPERTY, getSecUserSummaryScope())
-			.field(KeypairIdentify.CREATE_TIME_PROPERTY)
-			.field(KeypairIdentify.VERSION_PROPERTY)
+			.field(KeypairIdentity.ID_PROPERTY)
+			.field(KeypairIdentity.PUBLIC_KEY_PROPERTY).as("title")
+			.field(KeypairIdentity.KEY_TYPE_PROPERTY, getPublicKeyTypeSummaryScope())
+			.field(KeypairIdentity.SEC_USER_PROPERTY, getSecUserSummaryScope())
+			.field(KeypairIdentity.CREATE_TIME_PROPERTY)
+			.field(KeypairIdentity.VERSION_PROPERTY)
 		;
 	}
 
 	/** PublicKeyType的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getPublicKeyTypeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='name';
-		//	type='string';
-		//	value='rsa|ecc';
-		//	required='true';
+		//	name='name'; 
+		//	type='string'; 
+		//	value='rsa|ecc'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='code';
-		//	type='string';
-		//	value='rsa|ecc';
-		//	required='true';
+		//	name='code'; 
+		//	type='string'; 
+		//	value='rsa|ecc'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -4983,16 +5218,18 @@ public class BaseRetailscmListOfViewScope {
 	/** TreeNode的ListOf时需要序列化的属性列表 */
 	protected SerializeScope getTreeNodeListOfViewScope() {
 		// DisplayMode{name='auto', titleField=fieldesc{
-		//	name='node_id';
-		//	type='string';
-		//	value='node000001';
-		//	required='true';
+		//	name='node_id'; 
+		//	type='string'; 
+		//	value='node000001'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, briefField=fieldesc{
-		//	name='node_type';
-		//	type='string';
-		//	value='nodetype';
-		//	required='true';
+		//	name='node_type'; 
+		//	type='string'; 
+		//	value='nodetype'; 
+		//	required='true'; 
+		//	features='{name=string}';
 		//}
 		//, imageUrlField=null, imageListField=null, propList=[]}
 		return SerializeScope.INCLUDE()
@@ -5128,7 +5365,7 @@ public class BaseRetailscmListOfViewScope {
 		scopes.put(UiAction.class.getName(),getUiActionListOfViewScope());
 		scopes.put(Section.class.getName(),getSectionListOfViewScope());
 		scopes.put(UserDomain.class.getName(),getUserDomainListOfViewScope());
-		scopes.put(UserWhiteList.class.getName(),getUserWhiteListListOfViewScope());
+		scopes.put(UserAllowList.class.getName(),getUserAllowListListOfViewScope());
 		scopes.put(SecUser.class.getName(),getSecUserListOfViewScope());
 		scopes.put(UserApp.class.getName(),getUserAppListOfViewScope());
 		scopes.put(QuickLink.class.getName(),getQuickLinkListOfViewScope());
@@ -5136,9 +5373,9 @@ public class BaseRetailscmListOfViewScope {
 		scopes.put(LoginHistory.class.getName(),getLoginHistoryListOfViewScope());
 		scopes.put(CandidateContainer.class.getName(),getCandidateContainerListOfViewScope());
 		scopes.put(CandidateElement.class.getName(),getCandidateElementListOfViewScope());
-		scopes.put(WechatWorkappIdentify.class.getName(),getWechatWorkappIdentifyListOfViewScope());
-		scopes.put(WechatMiniappIdentify.class.getName(),getWechatMiniappIdentifyListOfViewScope());
-		scopes.put(KeypairIdentify.class.getName(),getKeypairIdentifyListOfViewScope());
+		scopes.put(WechatWorkappIdentity.class.getName(),getWechatWorkappIdentityListOfViewScope());
+		scopes.put(WechatMiniappIdentity.class.getName(),getWechatMiniappIdentityListOfViewScope());
+		scopes.put(KeypairIdentity.class.getName(),getKeypairIdentityListOfViewScope());
 		scopes.put(PublicKeyType.class.getName(),getPublicKeyTypeListOfViewScope());
 		scopes.put(TreeNode.class.getName(),getTreeNodeListOfViewScope());
 	}

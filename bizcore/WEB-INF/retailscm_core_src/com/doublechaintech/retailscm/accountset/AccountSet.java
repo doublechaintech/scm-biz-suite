@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.accountset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -20,8 +21,21 @@ import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;
 import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType;
 import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = AccountSetSerializer.class)
 public class AccountSet extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

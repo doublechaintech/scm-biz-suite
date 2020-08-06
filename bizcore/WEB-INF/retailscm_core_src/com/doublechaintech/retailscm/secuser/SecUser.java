@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.secuser;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -13,15 +14,28 @@ import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.KeyValuePair;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentify;
 import com.doublechaintech.retailscm.loginhistory.LoginHistory;
+
+
+
+
+
+
+
+
 
 @JsonSerialize(using = SecUserSerializer.class)
 public class SecUser extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;
@@ -40,9 +54,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 
 	public static final String USER_APP_LIST                            = "userAppList"       ;
 	public static final String LOGIN_HISTORY_LIST                       = "loginHistoryList"  ;
-	public static final String WECHAT_WORKAPP_IDENTIFY_LIST             = "wechatWorkappIdentifyList";
-	public static final String WECHAT_MINIAPP_IDENTIFY_LIST             = "wechatMiniappIdentifyList";
-	public static final String KEYPAIR_IDENTIFY_LIST                    = "keypairIdentifyList";
+	public static final String WECHAT_WORKAPP_IDENTITY_LIST             = "wechatWorkappIdentityList";
+	public static final String WECHAT_MINIAPP_IDENTITY_LIST             = "wechatMiniappIdentityList";
+	public static final String KEYPAIR_IDENTITY_LIST                    = "keypairIdentityList";
 
 	public static final String INTERNAL_TYPE="SecUser";
 	public String getInternalType(){
@@ -80,9 +94,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 	
 	protected		SmartList<UserApp>  	mUserAppList        ;
 	protected		SmartList<LoginHistory>	mLoginHistoryList   ;
-	protected		SmartList<WechatWorkappIdentify>	mWechatWorkappIdentifyList;
-	protected		SmartList<WechatMiniappIdentify>	mWechatMiniappIdentifyList;
-	protected		SmartList<KeypairIdentify>	mKeypairIdentifyList;
+	protected		SmartList<WechatWorkappIdentity>	mWechatWorkappIdentityList;
+	protected		SmartList<WechatMiniappIdentity>	mWechatMiniappIdentityList;
+	protected		SmartList<KeypairIdentity>	mKeypairIdentityList;
 
 	
 		
@@ -352,16 +366,16 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 			List<BaseEntity> list = getLoginHistoryList().stream().map(item->item).collect(Collectors.toList());
 			return list;
 		}
-		if(WECHAT_WORKAPP_IDENTIFY_LIST.equals(property)){
-			List<BaseEntity> list = getWechatWorkappIdentifyList().stream().map(item->item).collect(Collectors.toList());
+		if(WECHAT_WORKAPP_IDENTITY_LIST.equals(property)){
+			List<BaseEntity> list = getWechatWorkappIdentityList().stream().map(item->item).collect(Collectors.toList());
 			return list;
 		}
-		if(WECHAT_MINIAPP_IDENTIFY_LIST.equals(property)){
-			List<BaseEntity> list = getWechatMiniappIdentifyList().stream().map(item->item).collect(Collectors.toList());
+		if(WECHAT_MINIAPP_IDENTITY_LIST.equals(property)){
+			List<BaseEntity> list = getWechatMiniappIdentityList().stream().map(item->item).collect(Collectors.toList());
 			return list;
 		}
-		if(KEYPAIR_IDENTIFY_LIST.equals(property)){
-			List<BaseEntity> list = getKeypairIdentifyList().stream().map(item->item).collect(Collectors.toList());
+		if(KEYPAIR_IDENTITY_LIST.equals(property)){
+			List<BaseEntity> list = getKeypairIdentityList().stream().map(item->item).collect(Collectors.toList());
 			return list;
 		}
 
@@ -823,321 +837,321 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 	
 
 
-	public  SmartList<WechatWorkappIdentify> getWechatWorkappIdentifyList(){
-		if(this.mWechatWorkappIdentifyList == null){
-			this.mWechatWorkappIdentifyList = new SmartList<WechatWorkappIdentify>();
-			this.mWechatWorkappIdentifyList.setListInternalName (WECHAT_WORKAPP_IDENTIFY_LIST );
+	public  SmartList<WechatWorkappIdentity> getWechatWorkappIdentityList(){
+		if(this.mWechatWorkappIdentityList == null){
+			this.mWechatWorkappIdentityList = new SmartList<WechatWorkappIdentity>();
+			this.mWechatWorkappIdentityList.setListInternalName (WECHAT_WORKAPP_IDENTITY_LIST );
 			//有名字，便于做权限控制
 		}
 		
-		return this.mWechatWorkappIdentifyList;	
+		return this.mWechatWorkappIdentityList;	
 	}
-	public  void setWechatWorkappIdentifyList(SmartList<WechatWorkappIdentify> wechatWorkappIdentifyList){
-		for( WechatWorkappIdentify wechatWorkappIdentify:wechatWorkappIdentifyList){
-			wechatWorkappIdentify.setSecUser(this);
+	public  void setWechatWorkappIdentityList(SmartList<WechatWorkappIdentity> wechatWorkappIdentityList){
+		for( WechatWorkappIdentity wechatWorkappIdentity:wechatWorkappIdentityList){
+			wechatWorkappIdentity.setSecUser(this);
 		}
 
-		this.mWechatWorkappIdentifyList = wechatWorkappIdentifyList;
-		this.mWechatWorkappIdentifyList.setListInternalName (WECHAT_WORKAPP_IDENTIFY_LIST );
+		this.mWechatWorkappIdentityList = wechatWorkappIdentityList;
+		this.mWechatWorkappIdentityList.setListInternalName (WECHAT_WORKAPP_IDENTITY_LIST );
 		
 	}
 	
-	public  void addWechatWorkappIdentify(WechatWorkappIdentify wechatWorkappIdentify){
-		wechatWorkappIdentify.setSecUser(this);
-		getWechatWorkappIdentifyList().add(wechatWorkappIdentify);
+	public  void addWechatWorkappIdentity(WechatWorkappIdentity wechatWorkappIdentity){
+		wechatWorkappIdentity.setSecUser(this);
+		getWechatWorkappIdentityList().add(wechatWorkappIdentity);
 	}
-	public  void addWechatWorkappIdentifyList(SmartList<WechatWorkappIdentify> wechatWorkappIdentifyList){
-		for( WechatWorkappIdentify wechatWorkappIdentify:wechatWorkappIdentifyList){
-			wechatWorkappIdentify.setSecUser(this);
+	public  void addWechatWorkappIdentityList(SmartList<WechatWorkappIdentity> wechatWorkappIdentityList){
+		for( WechatWorkappIdentity wechatWorkappIdentity:wechatWorkappIdentityList){
+			wechatWorkappIdentity.setSecUser(this);
 		}
-		getWechatWorkappIdentifyList().addAll(wechatWorkappIdentifyList);
+		getWechatWorkappIdentityList().addAll(wechatWorkappIdentityList);
 	}
-	public  void mergeWechatWorkappIdentifyList(SmartList<WechatWorkappIdentify> wechatWorkappIdentifyList){
-		if(wechatWorkappIdentifyList==null){
+	public  void mergeWechatWorkappIdentityList(SmartList<WechatWorkappIdentity> wechatWorkappIdentityList){
+		if(wechatWorkappIdentityList==null){
 			return;
 		}
-		if(wechatWorkappIdentifyList.isEmpty()){
+		if(wechatWorkappIdentityList.isEmpty()){
 			return;
 		}
-		addWechatWorkappIdentifyList( wechatWorkappIdentifyList );
+		addWechatWorkappIdentityList( wechatWorkappIdentityList );
 		
 	}
-	public  WechatWorkappIdentify removeWechatWorkappIdentify(WechatWorkappIdentify wechatWorkappIdentifyIndex){
+	public  WechatWorkappIdentity removeWechatWorkappIdentity(WechatWorkappIdentity wechatWorkappIdentityIndex){
 		
-		int index = getWechatWorkappIdentifyList().indexOf(wechatWorkappIdentifyIndex);
+		int index = getWechatWorkappIdentityList().indexOf(wechatWorkappIdentityIndex);
         if(index < 0){
-        	String message = "WechatWorkappIdentify("+wechatWorkappIdentifyIndex.getId()+") with version='"+wechatWorkappIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "WechatWorkappIdentity("+wechatWorkappIdentityIndex.getId()+") with version='"+wechatWorkappIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        WechatWorkappIdentify wechatWorkappIdentify = getWechatWorkappIdentifyList().get(index);        
-        // wechatWorkappIdentify.clearSecUser(); //disconnect with SecUser
-        wechatWorkappIdentify.clearFromAll(); //disconnect with SecUser
+        WechatWorkappIdentity wechatWorkappIdentity = getWechatWorkappIdentityList().get(index);        
+        // wechatWorkappIdentity.clearSecUser(); //disconnect with SecUser
+        wechatWorkappIdentity.clearFromAll(); //disconnect with SecUser
 		
-		boolean result = getWechatWorkappIdentifyList().planToRemove(wechatWorkappIdentify);
+		boolean result = getWechatWorkappIdentityList().planToRemove(wechatWorkappIdentity);
         if(!result){
-        	String message = "WechatWorkappIdentify("+wechatWorkappIdentifyIndex.getId()+") with version='"+wechatWorkappIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "WechatWorkappIdentity("+wechatWorkappIdentityIndex.getId()+") with version='"+wechatWorkappIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        return wechatWorkappIdentify;
+        return wechatWorkappIdentity;
         
 	
 	}
 	//断舍离
-	public  void breakWithWechatWorkappIdentify(WechatWorkappIdentify wechatWorkappIdentify){
+	public  void breakWithWechatWorkappIdentity(WechatWorkappIdentity wechatWorkappIdentity){
 		
-		if(wechatWorkappIdentify == null){
+		if(wechatWorkappIdentity == null){
 			return;
 		}
-		wechatWorkappIdentify.setSecUser(null);
-		//getWechatWorkappIdentifyList().remove();
+		wechatWorkappIdentity.setSecUser(null);
+		//getWechatWorkappIdentityList().remove();
 	
 	}
 	
-	public  boolean hasWechatWorkappIdentify(WechatWorkappIdentify wechatWorkappIdentify){
+	public  boolean hasWechatWorkappIdentity(WechatWorkappIdentity wechatWorkappIdentity){
 	
-		return getWechatWorkappIdentifyList().contains(wechatWorkappIdentify);
+		return getWechatWorkappIdentityList().contains(wechatWorkappIdentity);
   
 	}
 	
-	public void copyWechatWorkappIdentifyFrom(WechatWorkappIdentify wechatWorkappIdentify) {
+	public void copyWechatWorkappIdentityFrom(WechatWorkappIdentity wechatWorkappIdentity) {
 
-		WechatWorkappIdentify wechatWorkappIdentifyInList = findTheWechatWorkappIdentify(wechatWorkappIdentify);
-		WechatWorkappIdentify newWechatWorkappIdentify = new WechatWorkappIdentify();
-		wechatWorkappIdentifyInList.copyTo(newWechatWorkappIdentify);
-		newWechatWorkappIdentify.setVersion(0);//will trigger copy
-		getWechatWorkappIdentifyList().add(newWechatWorkappIdentify);
-		addItemToFlexiableObject(COPIED_CHILD, newWechatWorkappIdentify);
+		WechatWorkappIdentity wechatWorkappIdentityInList = findTheWechatWorkappIdentity(wechatWorkappIdentity);
+		WechatWorkappIdentity newWechatWorkappIdentity = new WechatWorkappIdentity();
+		wechatWorkappIdentityInList.copyTo(newWechatWorkappIdentity);
+		newWechatWorkappIdentity.setVersion(0);//will trigger copy
+		getWechatWorkappIdentityList().add(newWechatWorkappIdentity);
+		addItemToFlexiableObject(COPIED_CHILD, newWechatWorkappIdentity);
 	}
 	
-	public  WechatWorkappIdentify findTheWechatWorkappIdentify(WechatWorkappIdentify wechatWorkappIdentify){
+	public  WechatWorkappIdentity findTheWechatWorkappIdentity(WechatWorkappIdentity wechatWorkappIdentity){
 		
-		int index =  getWechatWorkappIdentifyList().indexOf(wechatWorkappIdentify);
+		int index =  getWechatWorkappIdentityList().indexOf(wechatWorkappIdentity);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
- 			String message = "WechatWorkappIdentify("+wechatWorkappIdentify.getId()+") with version='"+wechatWorkappIdentify.getVersion()+"' NOT found!";
+ 			String message = "WechatWorkappIdentity("+wechatWorkappIdentity.getId()+") with version='"+wechatWorkappIdentity.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
 		
-		return  getWechatWorkappIdentifyList().get(index);
+		return  getWechatWorkappIdentityList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
 	
-	public  void cleanUpWechatWorkappIdentifyList(){
-		getWechatWorkappIdentifyList().clear();
+	public  void cleanUpWechatWorkappIdentityList(){
+		getWechatWorkappIdentityList().clear();
 	}
 	
 	
 	
 
 
-	public  SmartList<WechatMiniappIdentify> getWechatMiniappIdentifyList(){
-		if(this.mWechatMiniappIdentifyList == null){
-			this.mWechatMiniappIdentifyList = new SmartList<WechatMiniappIdentify>();
-			this.mWechatMiniappIdentifyList.setListInternalName (WECHAT_MINIAPP_IDENTIFY_LIST );
+	public  SmartList<WechatMiniappIdentity> getWechatMiniappIdentityList(){
+		if(this.mWechatMiniappIdentityList == null){
+			this.mWechatMiniappIdentityList = new SmartList<WechatMiniappIdentity>();
+			this.mWechatMiniappIdentityList.setListInternalName (WECHAT_MINIAPP_IDENTITY_LIST );
 			//有名字，便于做权限控制
 		}
 		
-		return this.mWechatMiniappIdentifyList;	
+		return this.mWechatMiniappIdentityList;	
 	}
-	public  void setWechatMiniappIdentifyList(SmartList<WechatMiniappIdentify> wechatMiniappIdentifyList){
-		for( WechatMiniappIdentify wechatMiniappIdentify:wechatMiniappIdentifyList){
-			wechatMiniappIdentify.setSecUser(this);
+	public  void setWechatMiniappIdentityList(SmartList<WechatMiniappIdentity> wechatMiniappIdentityList){
+		for( WechatMiniappIdentity wechatMiniappIdentity:wechatMiniappIdentityList){
+			wechatMiniappIdentity.setSecUser(this);
 		}
 
-		this.mWechatMiniappIdentifyList = wechatMiniappIdentifyList;
-		this.mWechatMiniappIdentifyList.setListInternalName (WECHAT_MINIAPP_IDENTIFY_LIST );
+		this.mWechatMiniappIdentityList = wechatMiniappIdentityList;
+		this.mWechatMiniappIdentityList.setListInternalName (WECHAT_MINIAPP_IDENTITY_LIST );
 		
 	}
 	
-	public  void addWechatMiniappIdentify(WechatMiniappIdentify wechatMiniappIdentify){
-		wechatMiniappIdentify.setSecUser(this);
-		getWechatMiniappIdentifyList().add(wechatMiniappIdentify);
+	public  void addWechatMiniappIdentity(WechatMiniappIdentity wechatMiniappIdentity){
+		wechatMiniappIdentity.setSecUser(this);
+		getWechatMiniappIdentityList().add(wechatMiniappIdentity);
 	}
-	public  void addWechatMiniappIdentifyList(SmartList<WechatMiniappIdentify> wechatMiniappIdentifyList){
-		for( WechatMiniappIdentify wechatMiniappIdentify:wechatMiniappIdentifyList){
-			wechatMiniappIdentify.setSecUser(this);
+	public  void addWechatMiniappIdentityList(SmartList<WechatMiniappIdentity> wechatMiniappIdentityList){
+		for( WechatMiniappIdentity wechatMiniappIdentity:wechatMiniappIdentityList){
+			wechatMiniappIdentity.setSecUser(this);
 		}
-		getWechatMiniappIdentifyList().addAll(wechatMiniappIdentifyList);
+		getWechatMiniappIdentityList().addAll(wechatMiniappIdentityList);
 	}
-	public  void mergeWechatMiniappIdentifyList(SmartList<WechatMiniappIdentify> wechatMiniappIdentifyList){
-		if(wechatMiniappIdentifyList==null){
+	public  void mergeWechatMiniappIdentityList(SmartList<WechatMiniappIdentity> wechatMiniappIdentityList){
+		if(wechatMiniappIdentityList==null){
 			return;
 		}
-		if(wechatMiniappIdentifyList.isEmpty()){
+		if(wechatMiniappIdentityList.isEmpty()){
 			return;
 		}
-		addWechatMiniappIdentifyList( wechatMiniappIdentifyList );
+		addWechatMiniappIdentityList( wechatMiniappIdentityList );
 		
 	}
-	public  WechatMiniappIdentify removeWechatMiniappIdentify(WechatMiniappIdentify wechatMiniappIdentifyIndex){
+	public  WechatMiniappIdentity removeWechatMiniappIdentity(WechatMiniappIdentity wechatMiniappIdentityIndex){
 		
-		int index = getWechatMiniappIdentifyList().indexOf(wechatMiniappIdentifyIndex);
+		int index = getWechatMiniappIdentityList().indexOf(wechatMiniappIdentityIndex);
         if(index < 0){
-        	String message = "WechatMiniappIdentify("+wechatMiniappIdentifyIndex.getId()+") with version='"+wechatMiniappIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "WechatMiniappIdentity("+wechatMiniappIdentityIndex.getId()+") with version='"+wechatMiniappIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        WechatMiniappIdentify wechatMiniappIdentify = getWechatMiniappIdentifyList().get(index);        
-        // wechatMiniappIdentify.clearSecUser(); //disconnect with SecUser
-        wechatMiniappIdentify.clearFromAll(); //disconnect with SecUser
+        WechatMiniappIdentity wechatMiniappIdentity = getWechatMiniappIdentityList().get(index);        
+        // wechatMiniappIdentity.clearSecUser(); //disconnect with SecUser
+        wechatMiniappIdentity.clearFromAll(); //disconnect with SecUser
 		
-		boolean result = getWechatMiniappIdentifyList().planToRemove(wechatMiniappIdentify);
+		boolean result = getWechatMiniappIdentityList().planToRemove(wechatMiniappIdentity);
         if(!result){
-        	String message = "WechatMiniappIdentify("+wechatMiniappIdentifyIndex.getId()+") with version='"+wechatMiniappIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "WechatMiniappIdentity("+wechatMiniappIdentityIndex.getId()+") with version='"+wechatMiniappIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        return wechatMiniappIdentify;
+        return wechatMiniappIdentity;
         
 	
 	}
 	//断舍离
-	public  void breakWithWechatMiniappIdentify(WechatMiniappIdentify wechatMiniappIdentify){
+	public  void breakWithWechatMiniappIdentity(WechatMiniappIdentity wechatMiniappIdentity){
 		
-		if(wechatMiniappIdentify == null){
+		if(wechatMiniappIdentity == null){
 			return;
 		}
-		wechatMiniappIdentify.setSecUser(null);
-		//getWechatMiniappIdentifyList().remove();
+		wechatMiniappIdentity.setSecUser(null);
+		//getWechatMiniappIdentityList().remove();
 	
 	}
 	
-	public  boolean hasWechatMiniappIdentify(WechatMiniappIdentify wechatMiniappIdentify){
+	public  boolean hasWechatMiniappIdentity(WechatMiniappIdentity wechatMiniappIdentity){
 	
-		return getWechatMiniappIdentifyList().contains(wechatMiniappIdentify);
+		return getWechatMiniappIdentityList().contains(wechatMiniappIdentity);
   
 	}
 	
-	public void copyWechatMiniappIdentifyFrom(WechatMiniappIdentify wechatMiniappIdentify) {
+	public void copyWechatMiniappIdentityFrom(WechatMiniappIdentity wechatMiniappIdentity) {
 
-		WechatMiniappIdentify wechatMiniappIdentifyInList = findTheWechatMiniappIdentify(wechatMiniappIdentify);
-		WechatMiniappIdentify newWechatMiniappIdentify = new WechatMiniappIdentify();
-		wechatMiniappIdentifyInList.copyTo(newWechatMiniappIdentify);
-		newWechatMiniappIdentify.setVersion(0);//will trigger copy
-		getWechatMiniappIdentifyList().add(newWechatMiniappIdentify);
-		addItemToFlexiableObject(COPIED_CHILD, newWechatMiniappIdentify);
+		WechatMiniappIdentity wechatMiniappIdentityInList = findTheWechatMiniappIdentity(wechatMiniappIdentity);
+		WechatMiniappIdentity newWechatMiniappIdentity = new WechatMiniappIdentity();
+		wechatMiniappIdentityInList.copyTo(newWechatMiniappIdentity);
+		newWechatMiniappIdentity.setVersion(0);//will trigger copy
+		getWechatMiniappIdentityList().add(newWechatMiniappIdentity);
+		addItemToFlexiableObject(COPIED_CHILD, newWechatMiniappIdentity);
 	}
 	
-	public  WechatMiniappIdentify findTheWechatMiniappIdentify(WechatMiniappIdentify wechatMiniappIdentify){
+	public  WechatMiniappIdentity findTheWechatMiniappIdentity(WechatMiniappIdentity wechatMiniappIdentity){
 		
-		int index =  getWechatMiniappIdentifyList().indexOf(wechatMiniappIdentify);
+		int index =  getWechatMiniappIdentityList().indexOf(wechatMiniappIdentity);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
- 			String message = "WechatMiniappIdentify("+wechatMiniappIdentify.getId()+") with version='"+wechatMiniappIdentify.getVersion()+"' NOT found!";
+ 			String message = "WechatMiniappIdentity("+wechatMiniappIdentity.getId()+") with version='"+wechatMiniappIdentity.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
 		
-		return  getWechatMiniappIdentifyList().get(index);
+		return  getWechatMiniappIdentityList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
 	
-	public  void cleanUpWechatMiniappIdentifyList(){
-		getWechatMiniappIdentifyList().clear();
+	public  void cleanUpWechatMiniappIdentityList(){
+		getWechatMiniappIdentityList().clear();
 	}
 	
 	
 	
 
 
-	public  SmartList<KeypairIdentify> getKeypairIdentifyList(){
-		if(this.mKeypairIdentifyList == null){
-			this.mKeypairIdentifyList = new SmartList<KeypairIdentify>();
-			this.mKeypairIdentifyList.setListInternalName (KEYPAIR_IDENTIFY_LIST );
+	public  SmartList<KeypairIdentity> getKeypairIdentityList(){
+		if(this.mKeypairIdentityList == null){
+			this.mKeypairIdentityList = new SmartList<KeypairIdentity>();
+			this.mKeypairIdentityList.setListInternalName (KEYPAIR_IDENTITY_LIST );
 			//有名字，便于做权限控制
 		}
 		
-		return this.mKeypairIdentifyList;	
+		return this.mKeypairIdentityList;	
 	}
-	public  void setKeypairIdentifyList(SmartList<KeypairIdentify> keypairIdentifyList){
-		for( KeypairIdentify keypairIdentify:keypairIdentifyList){
-			keypairIdentify.setSecUser(this);
+	public  void setKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
+		for( KeypairIdentity keypairIdentity:keypairIdentityList){
+			keypairIdentity.setSecUser(this);
 		}
 
-		this.mKeypairIdentifyList = keypairIdentifyList;
-		this.mKeypairIdentifyList.setListInternalName (KEYPAIR_IDENTIFY_LIST );
+		this.mKeypairIdentityList = keypairIdentityList;
+		this.mKeypairIdentityList.setListInternalName (KEYPAIR_IDENTITY_LIST );
 		
 	}
 	
-	public  void addKeypairIdentify(KeypairIdentify keypairIdentify){
-		keypairIdentify.setSecUser(this);
-		getKeypairIdentifyList().add(keypairIdentify);
+	public  void addKeypairIdentity(KeypairIdentity keypairIdentity){
+		keypairIdentity.setSecUser(this);
+		getKeypairIdentityList().add(keypairIdentity);
 	}
-	public  void addKeypairIdentifyList(SmartList<KeypairIdentify> keypairIdentifyList){
-		for( KeypairIdentify keypairIdentify:keypairIdentifyList){
-			keypairIdentify.setSecUser(this);
+	public  void addKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
+		for( KeypairIdentity keypairIdentity:keypairIdentityList){
+			keypairIdentity.setSecUser(this);
 		}
-		getKeypairIdentifyList().addAll(keypairIdentifyList);
+		getKeypairIdentityList().addAll(keypairIdentityList);
 	}
-	public  void mergeKeypairIdentifyList(SmartList<KeypairIdentify> keypairIdentifyList){
-		if(keypairIdentifyList==null){
+	public  void mergeKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
+		if(keypairIdentityList==null){
 			return;
 		}
-		if(keypairIdentifyList.isEmpty()){
+		if(keypairIdentityList.isEmpty()){
 			return;
 		}
-		addKeypairIdentifyList( keypairIdentifyList );
+		addKeypairIdentityList( keypairIdentityList );
 		
 	}
-	public  KeypairIdentify removeKeypairIdentify(KeypairIdentify keypairIdentifyIndex){
+	public  KeypairIdentity removeKeypairIdentity(KeypairIdentity keypairIdentityIndex){
 		
-		int index = getKeypairIdentifyList().indexOf(keypairIdentifyIndex);
+		int index = getKeypairIdentityList().indexOf(keypairIdentityIndex);
         if(index < 0){
-        	String message = "KeypairIdentify("+keypairIdentifyIndex.getId()+") with version='"+keypairIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "KeypairIdentity("+keypairIdentityIndex.getId()+") with version='"+keypairIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        KeypairIdentify keypairIdentify = getKeypairIdentifyList().get(index);        
-        // keypairIdentify.clearSecUser(); //disconnect with SecUser
-        keypairIdentify.clearFromAll(); //disconnect with SecUser
+        KeypairIdentity keypairIdentity = getKeypairIdentityList().get(index);        
+        // keypairIdentity.clearSecUser(); //disconnect with SecUser
+        keypairIdentity.clearFromAll(); //disconnect with SecUser
 		
-		boolean result = getKeypairIdentifyList().planToRemove(keypairIdentify);
+		boolean result = getKeypairIdentityList().planToRemove(keypairIdentity);
         if(!result){
-        	String message = "KeypairIdentify("+keypairIdentifyIndex.getId()+") with version='"+keypairIdentifyIndex.getVersion()+"' NOT found!";
+        	String message = "KeypairIdentity("+keypairIdentityIndex.getId()+") with version='"+keypairIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        return keypairIdentify;
+        return keypairIdentity;
         
 	
 	}
 	//断舍离
-	public  void breakWithKeypairIdentify(KeypairIdentify keypairIdentify){
+	public  void breakWithKeypairIdentity(KeypairIdentity keypairIdentity){
 		
-		if(keypairIdentify == null){
+		if(keypairIdentity == null){
 			return;
 		}
-		keypairIdentify.setSecUser(null);
-		//getKeypairIdentifyList().remove();
+		keypairIdentity.setSecUser(null);
+		//getKeypairIdentityList().remove();
 	
 	}
 	
-	public  boolean hasKeypairIdentify(KeypairIdentify keypairIdentify){
+	public  boolean hasKeypairIdentity(KeypairIdentity keypairIdentity){
 	
-		return getKeypairIdentifyList().contains(keypairIdentify);
+		return getKeypairIdentityList().contains(keypairIdentity);
   
 	}
 	
-	public void copyKeypairIdentifyFrom(KeypairIdentify keypairIdentify) {
+	public void copyKeypairIdentityFrom(KeypairIdentity keypairIdentity) {
 
-		KeypairIdentify keypairIdentifyInList = findTheKeypairIdentify(keypairIdentify);
-		KeypairIdentify newKeypairIdentify = new KeypairIdentify();
-		keypairIdentifyInList.copyTo(newKeypairIdentify);
-		newKeypairIdentify.setVersion(0);//will trigger copy
-		getKeypairIdentifyList().add(newKeypairIdentify);
-		addItemToFlexiableObject(COPIED_CHILD, newKeypairIdentify);
+		KeypairIdentity keypairIdentityInList = findTheKeypairIdentity(keypairIdentity);
+		KeypairIdentity newKeypairIdentity = new KeypairIdentity();
+		keypairIdentityInList.copyTo(newKeypairIdentity);
+		newKeypairIdentity.setVersion(0);//will trigger copy
+		getKeypairIdentityList().add(newKeypairIdentity);
+		addItemToFlexiableObject(COPIED_CHILD, newKeypairIdentity);
 	}
 	
-	public  KeypairIdentify findTheKeypairIdentify(KeypairIdentify keypairIdentify){
+	public  KeypairIdentity findTheKeypairIdentity(KeypairIdentity keypairIdentity){
 		
-		int index =  getKeypairIdentifyList().indexOf(keypairIdentify);
+		int index =  getKeypairIdentityList().indexOf(keypairIdentity);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
- 			String message = "KeypairIdentify("+keypairIdentify.getId()+") with version='"+keypairIdentify.getVersion()+"' NOT found!";
+ 			String message = "KeypairIdentity("+keypairIdentity.getId()+") with version='"+keypairIdentity.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
 		
-		return  getKeypairIdentifyList().get(index);
+		return  getKeypairIdentityList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
 	
-	public  void cleanUpKeypairIdentifyList(){
-		getKeypairIdentifyList().clear();
+	public  void cleanUpKeypairIdentityList(){
+		getKeypairIdentityList().clear();
 	}
 	
 	
@@ -1156,9 +1170,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getUserAppList(), internalType);
 		collectFromList(this, entityList, getLoginHistoryList(), internalType);
-		collectFromList(this, entityList, getWechatWorkappIdentifyList(), internalType);
-		collectFromList(this, entityList, getWechatMiniappIdentifyList(), internalType);
-		collectFromList(this, entityList, getKeypairIdentifyList(), internalType);
+		collectFromList(this, entityList, getWechatWorkappIdentityList(), internalType);
+		collectFromList(this, entityList, getWechatMiniappIdentityList(), internalType);
+		collectFromList(this, entityList, getKeypairIdentityList(), internalType);
 
 		return entityList;
 	}
@@ -1168,9 +1182,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		
 		listOfList.add( getUserAppList());
 		listOfList.add( getLoginHistoryList());
-		listOfList.add( getWechatWorkappIdentifyList());
-		listOfList.add( getWechatMiniappIdentifyList());
-		listOfList.add( getKeypairIdentifyList());
+		listOfList.add( getWechatWorkappIdentityList());
+		listOfList.add( getWechatMiniappIdentityList());
+		listOfList.add( getKeypairIdentityList());
 			
 
 		return listOfList;
@@ -1203,20 +1217,20 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 			appendKeyValuePair(result, "loginHistoryCount", getLoginHistoryList().getTotalCount());
 			appendKeyValuePair(result, "loginHistoryCurrentPageNumber", getLoginHistoryList().getCurrentPageNumber());
 		}
-		appendKeyValuePair(result, WECHAT_WORKAPP_IDENTIFY_LIST, getWechatWorkappIdentifyList());
-		if(!getWechatWorkappIdentifyList().isEmpty()){
-			appendKeyValuePair(result, "wechatWorkappIdentifyCount", getWechatWorkappIdentifyList().getTotalCount());
-			appendKeyValuePair(result, "wechatWorkappIdentifyCurrentPageNumber", getWechatWorkappIdentifyList().getCurrentPageNumber());
+		appendKeyValuePair(result, WECHAT_WORKAPP_IDENTITY_LIST, getWechatWorkappIdentityList());
+		if(!getWechatWorkappIdentityList().isEmpty()){
+			appendKeyValuePair(result, "wechatWorkappIdentityCount", getWechatWorkappIdentityList().getTotalCount());
+			appendKeyValuePair(result, "wechatWorkappIdentityCurrentPageNumber", getWechatWorkappIdentityList().getCurrentPageNumber());
 		}
-		appendKeyValuePair(result, WECHAT_MINIAPP_IDENTIFY_LIST, getWechatMiniappIdentifyList());
-		if(!getWechatMiniappIdentifyList().isEmpty()){
-			appendKeyValuePair(result, "wechatMiniappIdentifyCount", getWechatMiniappIdentifyList().getTotalCount());
-			appendKeyValuePair(result, "wechatMiniappIdentifyCurrentPageNumber", getWechatMiniappIdentifyList().getCurrentPageNumber());
+		appendKeyValuePair(result, WECHAT_MINIAPP_IDENTITY_LIST, getWechatMiniappIdentityList());
+		if(!getWechatMiniappIdentityList().isEmpty()){
+			appendKeyValuePair(result, "wechatMiniappIdentityCount", getWechatMiniappIdentityList().getTotalCount());
+			appendKeyValuePair(result, "wechatMiniappIdentityCurrentPageNumber", getWechatMiniappIdentityList().getCurrentPageNumber());
 		}
-		appendKeyValuePair(result, KEYPAIR_IDENTIFY_LIST, getKeypairIdentifyList());
-		if(!getKeypairIdentifyList().isEmpty()){
-			appendKeyValuePair(result, "keypairIdentifyCount", getKeypairIdentifyList().getTotalCount());
-			appendKeyValuePair(result, "keypairIdentifyCurrentPageNumber", getKeypairIdentifyList().getCurrentPageNumber());
+		appendKeyValuePair(result, KEYPAIR_IDENTITY_LIST, getKeypairIdentityList());
+		if(!getKeypairIdentityList().isEmpty()){
+			appendKeyValuePair(result, "keypairIdentityCount", getKeypairIdentityList().getTotalCount());
+			appendKeyValuePair(result, "keypairIdentityCurrentPageNumber", getKeypairIdentityList().getCurrentPageNumber());
 		}
 
 		if (this.valueByKey("valuesOfGroupBy") != null) {
@@ -1249,9 +1263,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 			dest.setVersion(getVersion());
 			dest.setUserAppList(getUserAppList());
 			dest.setLoginHistoryList(getLoginHistoryList());
-			dest.setWechatWorkappIdentifyList(getWechatWorkappIdentifyList());
-			dest.setWechatMiniappIdentifyList(getWechatMiniappIdentifyList());
-			dest.setKeypairIdentifyList(getKeypairIdentifyList());
+			dest.setWechatWorkappIdentityList(getWechatWorkappIdentityList());
+			dest.setWechatMiniappIdentityList(getWechatMiniappIdentityList());
+			dest.setKeypairIdentityList(getKeypairIdentityList());
 
 		}
 		super.copyTo(baseDest);
@@ -1280,9 +1294,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 			dest.mergeVersion(getVersion());
 			dest.mergeUserAppList(getUserAppList());
 			dest.mergeLoginHistoryList(getLoginHistoryList());
-			dest.mergeWechatWorkappIdentifyList(getWechatWorkappIdentifyList());
-			dest.mergeWechatMiniappIdentifyList(getWechatMiniappIdentifyList());
-			dest.mergeKeypairIdentifyList(getKeypairIdentifyList());
+			dest.mergeWechatWorkappIdentityList(getWechatWorkappIdentityList());
+			dest.mergeWechatMiniappIdentityList(getWechatMiniappIdentityList());
+			dest.mergeKeypairIdentityList(getKeypairIdentityList());
 
 		}
 		super.copyTo(baseDest);

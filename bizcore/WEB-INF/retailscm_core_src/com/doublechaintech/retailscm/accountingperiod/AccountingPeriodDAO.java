@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.accountingperiod;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
 public interface AccountingPeriodDAO extends BaseDAO{
 
 	public SmartList<AccountingPeriod> loadAll();
+	public Stream<AccountingPeriod> loadAllAsStream();
 	public AccountingPeriod load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<AccountingPeriod> accountingPeriodList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public AccountingPeriod present(AccountingPeriod accountingPeriod,Map<String,Object> options) throws Exception;
 	public AccountingPeriod clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public AccountingPeriod save(AccountingPeriod accountingPeriod,Map<String,Object> options);
 	public SmartList<AccountingPeriod> saveAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList,Map<String,Object> options);
 	public SmartList<AccountingPeriod> removeAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList,Map<String,Object> options);
@@ -58,18 +60,19 @@ public interface AccountingPeriodDAO extends BaseDAO{
 	public AccountingPeriod planToRemoveAccountingDocumentListWithDocumentType(AccountingPeriod accountingPeriod, String documentTypeId, Map<String,Object> options)throws Exception;
 	public int countAccountingDocumentListWithDocumentType(String accountingPeriodId, String documentTypeId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<AccountingPeriod> queryList(String sql, Object ... parmeters);
+	public Stream<AccountingPeriod> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateAccountingPeriod executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<AccountingPeriod> findAccountingPeriodByAccountSet(String accountSetId, Map<String,Object> options);
  	public int countAccountingPeriodByAccountSet(String accountSetId, Map<String,Object> options);
  	public Map<String, Integer> countAccountingPeriodByAccountSetIds(String[] ids, Map<String,Object> options);
  	public SmartList<AccountingPeriod> findAccountingPeriodByAccountSet(String accountSetId, int start, int count, Map<String,Object> options);
  	public void analyzeAccountingPeriodByAccountSet(SmartList<AccountingPeriod> resultList, String accountSetId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:AccountingDocument的accountingPeriod的AccountingDocumentList
 	public SmartList<AccountingDocument> loadOurAccountingDocumentList(RetailscmUserContext userContext, List<AccountingPeriod> us, Map<String,Object> options) throws Exception;

@@ -17,6 +17,7 @@ public interface RetailStoreFranchisingManager extends BaseManager{
 	public RetailStoreFranchising createRetailStoreFranchising(RetailscmUserContext userContext, String comment) throws Exception;
 	public RetailStoreFranchising updateRetailStoreFranchising(RetailscmUserContext userContext,String retailStoreFranchisingId, int retailStoreFranchisingVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreFranchising loadRetailStoreFranchising(RetailscmUserContext userContext, String retailStoreFranchisingId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public RetailStoreFranchising internalSaveRetailStoreFranchising(RetailscmUserContext userContext, RetailStoreFranchising retailStoreFranchising) throws Exception;
 	public RetailStoreFranchising internalSaveRetailStoreFranchising(RetailscmUserContext userContext, RetailStoreFranchising retailStoreFranchising,Map<String,Object>option) throws Exception;
 

@@ -5947,42 +5947,42 @@ public class RetailscmChecker extends BaseChecker{
 		return this;
 	}	
 
-	public static final String  ID_OF_USER_WHITE_LIST ="user_white_list.id";
-	public RetailscmChecker checkIdOfUserWhiteList(String id)
+	public static final String  ID_OF_USER_ALLOW_LIST ="user_allow_list.id";
+	public RetailscmChecker checkIdOfUserAllowList(String id)
 	{		
-	 	checkStringLengthRange(id,2, 64,ID_OF_USER_WHITE_LIST ); 		
+	 	checkStringLengthRange(id,2, 64,ID_OF_USER_ALLOW_LIST ); 		
 		
 		return this;
 	}	
 
-	public static final String  USER_IDENTITY_OF_USER_WHITE_LIST ="user_white_list.user_identity";
-	public RetailscmChecker checkUserIdentityOfUserWhiteList(String userIdentity)
+	public static final String  USER_IDENTITY_OF_USER_ALLOW_LIST ="user_allow_list.user_identity";
+	public RetailscmChecker checkUserIdentityOfUserAllowList(String userIdentity)
 	{		
-	 	checkStringLengthRange(userIdentity,1, 40,USER_IDENTITY_OF_USER_WHITE_LIST ); 		
+	 	checkStringLengthRange(userIdentity,1, 40,USER_IDENTITY_OF_USER_ALLOW_LIST ); 		
 		
 		return this;
 	}	
 
-	public static final String  USER_SPECIAL_FUNCTIONS_OF_USER_WHITE_LIST ="user_white_list.user_special_functions";
-	public RetailscmChecker checkUserSpecialFunctionsOfUserWhiteList(String userSpecialFunctions)
+	public static final String  USER_SPECIAL_FUNCTIONS_OF_USER_ALLOW_LIST ="user_allow_list.user_special_functions";
+	public RetailscmChecker checkUserSpecialFunctionsOfUserAllowList(String userSpecialFunctions)
 	{		
-	 	checkStringLengthRange(userSpecialFunctions,1, 200,USER_SPECIAL_FUNCTIONS_OF_USER_WHITE_LIST ); 		
+	 	checkStringLengthRange(userSpecialFunctions,1, 200,USER_SPECIAL_FUNCTIONS_OF_USER_ALLOW_LIST ); 		
 		
 		return this;
 	}	
 
-	public static final String  DOMAIN_OF_USER_WHITE_LIST ="user_white_list.domain";
-	public RetailscmChecker checkDomainIdOfUserWhiteList(String domainId)
+	public static final String  DOMAIN_OF_USER_ALLOW_LIST ="user_allow_list.domain";
+	public RetailscmChecker checkDomainIdOfUserAllowList(String domainId)
 	{		
-	 	checkIdOfUserWhiteList(domainId ); 		
+	 	checkIdOfUserAllowList(domainId ); 		
 		
 		return this;
 	}	
 
-	public static final String  VERSION_OF_USER_WHITE_LIST ="user_white_list.version";
-	public RetailscmChecker checkVersionOfUserWhiteList(int version)
+	public static final String  VERSION_OF_USER_ALLOW_LIST ="user_allow_list.version";
+	public RetailscmChecker checkVersionOfUserAllowList(int version)
 	{		
-	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_USER_WHITE_LIST ); 		
+	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_USER_ALLOW_LIST ); 		
 		
 		return this;
 	}	
@@ -6423,146 +6423,146 @@ public class RetailscmChecker extends BaseChecker{
 		return this;
 	}	
 
-	public static final String  ID_OF_WECHAT_WORKAPP_IDENTIFY ="wechat_workapp_identify.id";
-	public RetailscmChecker checkIdOfWechatWorkappIdentify(String id)
+	public static final String  ID_OF_WECHAT_WORKAPP_IDENTITY ="wechat_workapp_identity.id";
+	public RetailscmChecker checkIdOfWechatWorkappIdentity(String id)
 	{		
-	 	checkStringLengthRange(id,2, 64,ID_OF_WECHAT_WORKAPP_IDENTIFY ); 		
+	 	checkStringLengthRange(id,2, 64,ID_OF_WECHAT_WORKAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  CORP_ID_OF_WECHAT_WORKAPP_IDENTIFY ="wechat_workapp_identify.corp_id";
-	public RetailscmChecker checkCorpIdOfWechatWorkappIdentify(String corpId)
+	public static final String  CORP_ID_OF_WECHAT_WORKAPP_IDENTITY ="wechat_workapp_identity.corp_id";
+	public RetailscmChecker checkCorpIdOfWechatWorkappIdentity(String corpId)
 	{		
-	 	checkStringLengthRange(corpId,0, 100,CORP_ID_OF_WECHAT_WORKAPP_IDENTIFY ); 		
+	 	checkStringLengthRange(corpId,0, 100,CORP_ID_OF_WECHAT_WORKAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  USER_ID_OF_WECHAT_WORKAPP_IDENTIFY ="wechat_workapp_identify.user_id";
-	public RetailscmChecker checkUserIdOfWechatWorkappIdentify(String userId)
+	public static final String  USER_ID_OF_WECHAT_WORKAPP_IDENTITY ="wechat_workapp_identity.user_id";
+	public RetailscmChecker checkUserIdOfWechatWorkappIdentity(String userId)
 	{		
-	 	checkStringLengthRange(userId,1, 100,USER_ID_OF_WECHAT_WORKAPP_IDENTIFY ); 		
+	 	checkStringLengthRange(userId,1, 100,USER_ID_OF_WECHAT_WORKAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  SEC_USER_OF_WECHAT_WORKAPP_IDENTIFY ="wechat_workapp_identify.sec_user";
-	public RetailscmChecker checkSecUserIdOfWechatWorkappIdentify(String secUserId)
+	public static final String  SEC_USER_OF_WECHAT_WORKAPP_IDENTITY ="wechat_workapp_identity.sec_user";
+	public RetailscmChecker checkSecUserIdOfWechatWorkappIdentity(String secUserId)
 	{		
-	 	checkIdOfWechatWorkappIdentify(secUserId ); 		
+	 	checkIdOfWechatWorkappIdentity(secUserId ); 		
 		
 		return this;
 	}	
 
-	public static final String  LAST_LOGIN_TIME_OF_WECHAT_WORKAPP_IDENTIFY ="wechat_workapp_identify.last_login_time";
-	public RetailscmChecker checkLastLoginTimeOfWechatWorkappIdentify(DateTime lastLoginTime)
+	public static final String  LAST_LOGIN_TIME_OF_WECHAT_WORKAPP_IDENTITY ="wechat_workapp_identity.last_login_time";
+	public RetailscmChecker checkLastLoginTimeOfWechatWorkappIdentity(DateTime lastLoginTime)
 	{
 		if(lastLoginTime == null) {
 			return this;
 		}
 		
-	 	checkDateTime(lastLoginTime,parseTimestamp("1900-01-01T00:00:00"), parseTimestamp("2100-01-01T00:00:00"),LAST_LOGIN_TIME_OF_WECHAT_WORKAPP_IDENTIFY ); 		
+	 	checkDateTime(lastLoginTime,parseTimestamp("1900-01-01T00:00:00"), parseTimestamp("2100-01-01T00:00:00"),LAST_LOGIN_TIME_OF_WECHAT_WORKAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  VERSION_OF_WECHAT_WORKAPP_IDENTIFY ="wechat_workapp_identify.version";
-	public RetailscmChecker checkVersionOfWechatWorkappIdentify(int version)
+	public static final String  VERSION_OF_WECHAT_WORKAPP_IDENTITY ="wechat_workapp_identity.version";
+	public RetailscmChecker checkVersionOfWechatWorkappIdentity(int version)
 	{		
-	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_WECHAT_WORKAPP_IDENTIFY ); 		
+	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_WECHAT_WORKAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  ID_OF_WECHAT_MINIAPP_IDENTIFY ="wechat_miniapp_identify.id";
-	public RetailscmChecker checkIdOfWechatMiniappIdentify(String id)
+	public static final String  ID_OF_WECHAT_MINIAPP_IDENTITY ="wechat_miniapp_identity.id";
+	public RetailscmChecker checkIdOfWechatMiniappIdentity(String id)
 	{		
-	 	checkStringLengthRange(id,2, 64,ID_OF_WECHAT_MINIAPP_IDENTIFY ); 		
+	 	checkStringLengthRange(id,2, 64,ID_OF_WECHAT_MINIAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  OPEN_ID_OF_WECHAT_MINIAPP_IDENTIFY ="wechat_miniapp_identify.open_id";
-	public RetailscmChecker checkOpenIdOfWechatMiniappIdentify(String openId)
+	public static final String  OPEN_ID_OF_WECHAT_MINIAPP_IDENTITY ="wechat_miniapp_identity.open_id";
+	public RetailscmChecker checkOpenIdOfWechatMiniappIdentity(String openId)
 	{		
-	 	checkStringLengthRange(openId,5, 128,OPEN_ID_OF_WECHAT_MINIAPP_IDENTIFY ); 		
+	 	checkStringLengthRange(openId,5, 128,OPEN_ID_OF_WECHAT_MINIAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  APP_ID_OF_WECHAT_MINIAPP_IDENTIFY ="wechat_miniapp_identify.app_id";
-	public RetailscmChecker checkAppIdOfWechatMiniappIdentify(String appId)
+	public static final String  APP_ID_OF_WECHAT_MINIAPP_IDENTITY ="wechat_miniapp_identity.app_id";
+	public RetailscmChecker checkAppIdOfWechatMiniappIdentity(String appId)
 	{		
-	 	checkStringLengthRange(appId,5, 128,APP_ID_OF_WECHAT_MINIAPP_IDENTIFY ); 		
+	 	checkStringLengthRange(appId,5, 128,APP_ID_OF_WECHAT_MINIAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  SEC_USER_OF_WECHAT_MINIAPP_IDENTIFY ="wechat_miniapp_identify.sec_user";
-	public RetailscmChecker checkSecUserIdOfWechatMiniappIdentify(String secUserId)
+	public static final String  SEC_USER_OF_WECHAT_MINIAPP_IDENTITY ="wechat_miniapp_identity.sec_user";
+	public RetailscmChecker checkSecUserIdOfWechatMiniappIdentity(String secUserId)
 	{		
-	 	checkIdOfWechatMiniappIdentify(secUserId ); 		
+	 	checkIdOfWechatMiniappIdentity(secUserId ); 		
 		
 		return this;
 	}	
 
-	public static final String  LAST_LOGIN_TIME_OF_WECHAT_MINIAPP_IDENTIFY ="wechat_miniapp_identify.last_login_time";
-	public RetailscmChecker checkLastLoginTimeOfWechatMiniappIdentify(DateTime lastLoginTime)
+	public static final String  LAST_LOGIN_TIME_OF_WECHAT_MINIAPP_IDENTITY ="wechat_miniapp_identity.last_login_time";
+	public RetailscmChecker checkLastLoginTimeOfWechatMiniappIdentity(DateTime lastLoginTime)
 	{
 		if(lastLoginTime == null) {
 			return this;
 		}
 		
-	 	checkDateTime(lastLoginTime,parseTimestamp("1900-01-01T00:00:00"), parseTimestamp("2100-01-01T00:00:00"),LAST_LOGIN_TIME_OF_WECHAT_MINIAPP_IDENTIFY ); 		
+	 	checkDateTime(lastLoginTime,parseTimestamp("1900-01-01T00:00:00"), parseTimestamp("2100-01-01T00:00:00"),LAST_LOGIN_TIME_OF_WECHAT_MINIAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  VERSION_OF_WECHAT_MINIAPP_IDENTIFY ="wechat_miniapp_identify.version";
-	public RetailscmChecker checkVersionOfWechatMiniappIdentify(int version)
+	public static final String  VERSION_OF_WECHAT_MINIAPP_IDENTITY ="wechat_miniapp_identity.version";
+	public RetailscmChecker checkVersionOfWechatMiniappIdentity(int version)
 	{		
-	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_WECHAT_MINIAPP_IDENTIFY ); 		
+	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_WECHAT_MINIAPP_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  ID_OF_KEYPAIR_IDENTIFY ="keypair_identify.id";
-	public RetailscmChecker checkIdOfKeypairIdentify(String id)
+	public static final String  ID_OF_KEYPAIR_IDENTITY ="keypair_identity.id";
+	public RetailscmChecker checkIdOfKeypairIdentity(String id)
 	{		
-	 	checkStringLengthRange(id,2, 64,ID_OF_KEYPAIR_IDENTIFY ); 		
+	 	checkStringLengthRange(id,2, 64,ID_OF_KEYPAIR_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  PUBLIC_KEY_OF_KEYPAIR_IDENTIFY ="keypair_identify.public_key";
-	public RetailscmChecker checkPublicKeyOfKeypairIdentify(String publicKey)
+	public static final String  PUBLIC_KEY_OF_KEYPAIR_IDENTITY ="keypair_identity.public_key";
+	public RetailscmChecker checkPublicKeyOfKeypairIdentity(String publicKey)
 	{		
-	 	checkLongtext(publicKey,0, 1048576,PUBLIC_KEY_OF_KEYPAIR_IDENTIFY ); 		
+	 	checkLongtext(publicKey,0, 1048576,PUBLIC_KEY_OF_KEYPAIR_IDENTITY ); 		
 		
 		return this;
 	}	
 
-	public static final String  KEY_TYPE_OF_KEYPAIR_IDENTIFY ="keypair_identify.key_type";
-	public RetailscmChecker checkKeyTypeIdOfKeypairIdentify(String keyTypeId)
+	public static final String  KEY_TYPE_OF_KEYPAIR_IDENTITY ="keypair_identity.key_type";
+	public RetailscmChecker checkKeyTypeIdOfKeypairIdentity(String keyTypeId)
 	{		
-	 	checkIdOfKeypairIdentify(keyTypeId ); 		
+	 	checkIdOfKeypairIdentity(keyTypeId ); 		
 		
 		return this;
 	}	
 
-	public static final String  SEC_USER_OF_KEYPAIR_IDENTIFY ="keypair_identify.sec_user";
-	public RetailscmChecker checkSecUserIdOfKeypairIdentify(String secUserId)
+	public static final String  SEC_USER_OF_KEYPAIR_IDENTITY ="keypair_identity.sec_user";
+	public RetailscmChecker checkSecUserIdOfKeypairIdentity(String secUserId)
 	{		
-	 	checkIdOfKeypairIdentify(secUserId ); 		
+	 	checkIdOfKeypairIdentity(secUserId ); 		
 		
 		return this;
 	}	
 
-	public static final String  VERSION_OF_KEYPAIR_IDENTIFY ="keypair_identify.version";
-	public RetailscmChecker checkVersionOfKeypairIdentify(int version)
+	public static final String  VERSION_OF_KEYPAIR_IDENTITY ="keypair_identity.version";
+	public RetailscmChecker checkVersionOfKeypairIdentity(int version)
 	{		
-	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_KEYPAIR_IDENTIFY ); 		
+	 	checkIntegerRange(version,0, Integer.MAX_VALUE,VERSION_OF_KEYPAIR_IDENTITY ); 		
 		
 		return this;
 	}	

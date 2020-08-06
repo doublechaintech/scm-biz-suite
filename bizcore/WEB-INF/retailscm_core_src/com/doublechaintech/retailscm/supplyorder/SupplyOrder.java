@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.supplyorder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -20,8 +21,21 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
 import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroup;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = SupplyOrderSerializer.class)
 public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

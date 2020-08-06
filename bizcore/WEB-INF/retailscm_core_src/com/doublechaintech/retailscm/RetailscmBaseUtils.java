@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 
 import com.terapico.caf.form.ImageInfo;
 import com.terapico.caf.viewcomponent.ButtonViewComponent;
+import com.terapico.utils.DBChecker;
+import com.terapico.utils.DBQuerier;
+import com.terapico.utils.DataTypeUtil;
 import com.terapico.utils.TextUtil;
 
 import com.doublechaintech.retailscm.pagetype.PageType;
@@ -36,7 +39,7 @@ public class RetailscmBaseUtils {
 		folderName = String.format("upload%s/%s/%s", isProdEnv ? "" : "/test", tokenType, token);
 		return folderName;
 	}
-	
+
 	public static String hashWithSHA256(String valueToHash, String salt) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -51,11 +54,11 @@ public class RetailscmBaseUtils {
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	public static String formatChinaMobile(String mobile) {
 		return TextUtil.formatChinaMobile(mobile);
 	}
-	
+
 	public static String checkChinaMobile(String mobile) throws Exception {
 		String cleanMobile = formatChinaMobile(mobile);
 		if (cleanMobile == null) {
@@ -63,14 +66,14 @@ public class RetailscmBaseUtils {
 		}
 		return cleanMobile;
 	}
-	
+
 	public static String getCacheAccessKey(RetailscmUserContext ctx) {
 		return ctx.tokenId()+":access_page_without_footprint";
 	}
 	public static <T> Set<Object> toSet(List<T> list, Function<T, ? extends Object> mapper) {
 		return list.stream().map(mapper).collect(Collectors.toSet());
 	}
-	
+
 	protected static BaseEntity loadCanCacheInLocal(RetailscmUserContext userContext, String type, String id) throws Exception {
 		String key = "baseentity:"+type+":"+id;
 		BaseEntity result = (BaseEntity) userContext.getFromContextLocalStorage(key);
@@ -81,7 +84,7 @@ public class RetailscmBaseUtils {
 		userContext.putIntoContextLocalStorage(key, result);
 		return result;
 	}
-	
+
 	public static <T extends BaseEntity> List<T> collectReferencedObjectWithType(RetailscmUserContext userContext,
 			BaseEntity rootObject, Class<T> clazz) throws Exception {
 		List<T> referedObject = new LinkedList<>();
@@ -156,14 +159,14 @@ public class RetailscmBaseUtils {
 			}
 		}
 	}
-	
+
 	public static String getImageFromArray(List<ImageInfo> imageArray, int idx) {
 		if (imageArray == null || imageArray.size() <= idx) {
 			return null;
 		}
 		return imageArray.get(idx).getImageUrl();
 	}
-	
+
 	public static boolean isDivisible(BigDecimal divisor, BigDecimal dividend) throws Exception {
 		if (dividend.signum() == 0) {
 			throw new Exception("请不要输入0");
@@ -177,7 +180,7 @@ public class RetailscmBaseUtils {
 		}
 		return false;
 	}
-	
+
 	static Pattern ptnVersionSegment = Pattern.compile("\\d+");
 	public static int getBuildVersion(String appVersionStr) {
 		if (appVersionStr == null || appVersionStr.isEmpty()) {
@@ -256,9 +259,9 @@ public class RetailscmBaseUtils {
 		ctx.putIntoContextLocalStorage(key, enObj);
 		return enObj;
 	}
-	
 
-	
+
+
 	public static <T extends BaseEntity> void appendLinkToUrl(RetailscmUserContext ctx, List<T> list,
 			Function<T, String> makeFunc) {
 		if (list == null || list.isEmpty()) {
@@ -294,6 +297,51 @@ public class RetailscmBaseUtils {
 		actionBtn.setLinkToUrl(linkToUrl);
 		obj.addItemToValueMap("action", actionBtn);
 	}
+
+    public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result,
+  				   String tableName, String[][] fieldInfo, String title, String[] indexSqls, String[] constraintSqls) throws Exception{
+  		// throw new Exception("RetailscmBaseUtils::ensureTable()尚未实现");
+
+        DBQuerier querier = (DBQuerier) userContext.getBean("dbQuerier");
+        Map<String, Object> checkResult = DBChecker.verifyTable(tableName, title, fieldInfo, indexSqls, constraintSqls, querier);
+
+        boolean success = DataTypeUtil.getBoolean(checkResult.get("result"), null); // if null, it's bug
+        List<String> report = (List<String>) result.get("ensureTableReport");
+        if (report == null) {
+            report = new ArrayList<>();
+            result.put("ensureTableReport", report);
+        }
+        report.add("\r\n");
+        if (success) {
+            report.add("## " + tableName + " is ready");
+        } else {
+            report.add("## " + tableName + " is different with current model");
+            report.add("## " + (String) checkResult.get("message"));
+            report.add("## use below sql to update");
+            report.add((String) checkResult.get("sql"));
+        }
+    }
+
+    public static void ensureDataByCode(RetailscmUserContext userContext, Map<String, Object> result,
+  					String tableName, String[][] rowData) throws Exception{
+        // throw new Exception("RetailscmBaseUtils::ensureDataByCode()尚未实现");
+        DBQuerier querier = (DBQuerier) userContext.getBean("dbQuerier");
+        Map<String, Object> checkResult = DBChecker.verifyData(tableName, rowData, querier);
+        List<String> report = (List<String>) result.get("ensureDataReport");
+        if (report == null) {
+            report = new ArrayList<>();
+            result.put("ensureDataReport", report);
+        }
+        report.add("\r\n");
+        boolean success = DataTypeUtil.getBoolean(checkResult.get("result"), null); // if null, it's bug
+        if (success){
+            report.add("## " + tableName + " data is ready");
+        }else{
+            report.add("## " + tableName + " data is different with current model");
+            report.add("## use below sql to update");
+            report.add((String) checkResult.get("sql"));
+        }
+    }
 }
 
 

@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.transporttask;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -28,20 +29,21 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 public interface TransportTaskDAO extends BaseDAO{
 
 	public SmartList<TransportTask> loadAll();
+	public Stream<TransportTask> loadAllAsStream();
 	public TransportTask load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<TransportTask> transportTaskList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public TransportTask present(TransportTask transportTask,Map<String,Object> options) throws Exception;
 	public TransportTask clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public TransportTask save(TransportTask transportTask,Map<String,Object> options);
 	public SmartList<TransportTask> saveTransportTaskList(SmartList<TransportTask> transportTaskList,Map<String,Object> options);
 	public SmartList<TransportTask> removeTransportTaskList(SmartList<TransportTask> transportTaskList,Map<String,Object> options);
@@ -101,42 +103,43 @@ public interface TransportTaskDAO extends BaseDAO{
 	public TransportTask planToRemoveTransportTaskTrackList(TransportTask transportTask, String transportTaskTrackIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<TransportTask> queryList(String sql, Object ... parmeters);
+	public Stream<TransportTask> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateTransportTask executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<TransportTask> findTransportTaskByEnd(String retailStoreId, Map<String,Object> options);
  	public int countTransportTaskByEnd(String retailStoreId, Map<String,Object> options);
  	public Map<String, Integer> countTransportTaskByEndIds(String[] ids, Map<String,Object> options);
  	public SmartList<TransportTask> findTransportTaskByEnd(String retailStoreId, int start, int count, Map<String,Object> options);
  	public void analyzeTransportTaskByEnd(SmartList<TransportTask> resultList, String retailStoreId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<TransportTask> findTransportTaskByDriver(String truckDriverId, Map<String,Object> options);
  	public int countTransportTaskByDriver(String truckDriverId, Map<String,Object> options);
  	public Map<String, Integer> countTransportTaskByDriverIds(String[] ids, Map<String,Object> options);
  	public SmartList<TransportTask> findTransportTaskByDriver(String truckDriverId, int start, int count, Map<String,Object> options);
  	public void analyzeTransportTaskByDriver(SmartList<TransportTask> resultList, String truckDriverId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<TransportTask> findTransportTaskByTruck(String transportTruckId, Map<String,Object> options);
  	public int countTransportTaskByTruck(String transportTruckId, Map<String,Object> options);
  	public Map<String, Integer> countTransportTaskByTruckIds(String[] ids, Map<String,Object> options);
  	public SmartList<TransportTask> findTransportTaskByTruck(String transportTruckId, int start, int count, Map<String,Object> options);
  	public void analyzeTransportTaskByTruck(SmartList<TransportTask> resultList, String transportTruckId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<TransportTask> findTransportTaskByBelongsTo(String transportFleetId, Map<String,Object> options);
  	public int countTransportTaskByBelongsTo(String transportFleetId, Map<String,Object> options);
  	public Map<String, Integer> countTransportTaskByBelongsToIds(String[] ids, Map<String,Object> options);
  	public SmartList<TransportTask> findTransportTaskByBelongsTo(String transportFleetId, int start, int count, Map<String,Object> options);
  	public void analyzeTransportTaskByBelongsTo(SmartList<TransportTask> resultList, String transportFleetId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Goods的transportTask的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception;

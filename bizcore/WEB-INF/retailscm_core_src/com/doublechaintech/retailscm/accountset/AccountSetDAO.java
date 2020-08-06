@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.accountset;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -28,20 +29,21 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 public interface AccountSetDAO extends BaseDAO{
 
 	public SmartList<AccountSet> loadAll();
+	public Stream<AccountSet> loadAllAsStream();
 	public AccountSet load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<AccountSet> accountSetList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public AccountSet present(AccountSet accountSet,Map<String,Object> options) throws Exception;
 	public AccountSet clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public AccountSet save(AccountSet accountSet,Map<String,Object> options);
 	public SmartList<AccountSet> saveAccountSetList(SmartList<AccountSet> accountSetList,Map<String,Object> options);
 	public SmartList<AccountSet> removeAccountSetList(SmartList<AccountSet> accountSetList,Map<String,Object> options);
@@ -76,34 +78,35 @@ public interface AccountSetDAO extends BaseDAO{
 	public AccountSet planToRemoveAccountingDocumentTypeList(AccountSet accountSet, String accountingDocumentTypeIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<AccountSet> queryList(String sql, Object ... parmeters);
+	public Stream<AccountSet> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateAccountSet executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<AccountSet> findAccountSetByCountryCenter(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countAccountSetByCountryCenter(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countAccountSetByCountryCenterIds(String[] ids, Map<String,Object> options);
  	public SmartList<AccountSet> findAccountSetByCountryCenter(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeAccountSetByCountryCenter(SmartList<AccountSet> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<AccountSet> findAccountSetByRetailStore(String retailStoreId, Map<String,Object> options);
  	public int countAccountSetByRetailStore(String retailStoreId, Map<String,Object> options);
  	public Map<String, Integer> countAccountSetByRetailStoreIds(String[] ids, Map<String,Object> options);
  	public SmartList<AccountSet> findAccountSetByRetailStore(String retailStoreId, int start, int count, Map<String,Object> options);
  	public void analyzeAccountSetByRetailStore(SmartList<AccountSet> resultList, String retailStoreId, Map<String,Object> options);
 
+
  
-  
  	public SmartList<AccountSet> findAccountSetByGoodsSupplier(String goodsSupplierId, Map<String,Object> options);
  	public int countAccountSetByGoodsSupplier(String goodsSupplierId, Map<String,Object> options);
  	public Map<String, Integer> countAccountSetByGoodsSupplierIds(String[] ids, Map<String,Object> options);
  	public SmartList<AccountSet> findAccountSetByGoodsSupplier(String goodsSupplierId, int start, int count, Map<String,Object> options);
  	public void analyzeAccountSetByGoodsSupplier(SmartList<AccountSet> resultList, String goodsSupplierId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:AccountingSubject的accountSet的AccountingSubjectList
 	public SmartList<AccountingSubject> loadOurAccountingSubjectList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception;

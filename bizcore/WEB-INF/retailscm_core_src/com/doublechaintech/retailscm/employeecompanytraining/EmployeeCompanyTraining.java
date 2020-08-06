@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.employeecompanytraining;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -17,8 +18,21 @@ import com.doublechaintech.retailscm.scoring.Scoring;
 import com.doublechaintech.retailscm.employee.Employee;
 import com.doublechaintech.retailscm.companytraining.CompanyTraining;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = EmployeeCompanyTrainingSerializer.class)
 public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

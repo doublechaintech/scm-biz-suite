@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstorecountrycenter;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -64,20 +65,21 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 public interface RetailStoreCountryCenterDAO extends BaseDAO{
 
 	public SmartList<RetailStoreCountryCenter> loadAll();
+	public Stream<RetailStoreCountryCenter> loadAllAsStream();
 	public RetailStoreCountryCenter load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreCountryCenter> retailStoreCountryCenterList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreCountryCenter present(RetailStoreCountryCenter retailStoreCountryCenter,Map<String,Object> options) throws Exception;
 	public RetailStoreCountryCenter clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreCountryCenter save(RetailStoreCountryCenter retailStoreCountryCenter,Map<String,Object> options);
 	public SmartList<RetailStoreCountryCenter> saveRetailStoreCountryCenterList(SmartList<RetailStoreCountryCenter> retailStoreCountryCenterList,Map<String,Object> options);
 	public SmartList<RetailStoreCountryCenter> removeRetailStoreCountryCenterList(SmartList<RetailStoreCountryCenter> retailStoreCountryCenterList,Map<String,Object> options);
@@ -327,8 +329,9 @@ public interface RetailStoreCountryCenterDAO extends BaseDAO{
 	public RetailStoreCountryCenter planToRemoveCompanyTrainingListWithTrainingCourseType(RetailStoreCountryCenter retailStoreCountryCenter, String trainingCourseTypeId, Map<String,Object> options)throws Exception;
 	public int countCompanyTrainingListWithTrainingCourseType(String retailStoreCountryCenterId, String trainingCourseTypeId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStoreCountryCenter> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreCountryCenter> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreCountryCenter executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

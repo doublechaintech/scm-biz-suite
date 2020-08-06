@@ -17,6 +17,7 @@ public interface ListAccessManager extends BaseManager{
 	public ListAccess createListAccess(RetailscmUserContext userContext, String name,String internalName,boolean readPermission,boolean createPermission,boolean deletePermission,boolean updatePermission,boolean executionPermission,String appId) throws Exception;
 	public ListAccess updateListAccess(RetailscmUserContext userContext,String listAccessId, int listAccessVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ListAccess loadListAccess(RetailscmUserContext userContext, String listAccessId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public ListAccess internalSaveListAccess(RetailscmUserContext userContext, ListAccess listAccess) throws Exception;
 	public ListAccess internalSaveListAccess(RetailscmUserContext userContext, ListAccess listAccess,Map<String,Object>option) throws Exception;
 

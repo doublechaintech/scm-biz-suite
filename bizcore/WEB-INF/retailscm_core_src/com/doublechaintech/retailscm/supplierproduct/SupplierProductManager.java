@@ -17,6 +17,7 @@ public interface SupplierProductManager extends BaseManager{
 	public SupplierProduct createSupplierProduct(RetailscmUserContext userContext, String productName,String productDescription,String productUnit,String supplierId) throws Exception;
 	public SupplierProduct updateSupplierProduct(RetailscmUserContext userContext,String supplierProductId, int supplierProductVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SupplierProduct loadSupplierProduct(RetailscmUserContext userContext, String supplierProductId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SupplierProduct internalSaveSupplierProduct(RetailscmUserContext userContext, SupplierProduct supplierProduct) throws Exception;
 	public SupplierProduct internalSaveSupplierProduct(RetailscmUserContext userContext, SupplierProduct supplierProduct,Map<String,Object>option) throws Exception;
 

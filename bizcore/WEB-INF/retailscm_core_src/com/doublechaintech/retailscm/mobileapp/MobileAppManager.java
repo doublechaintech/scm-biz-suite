@@ -17,6 +17,7 @@ public interface MobileAppManager extends BaseManager{
 	public MobileApp createMobileApp(RetailscmUserContext userContext, String name) throws Exception;
 	public MobileApp updateMobileApp(RetailscmUserContext userContext,String mobileAppId, int mobileAppVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public MobileApp loadMobileApp(RetailscmUserContext userContext, String mobileAppId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public MobileApp internalSaveMobileApp(RetailscmUserContext userContext, MobileApp mobileApp) throws Exception;
 	public MobileApp internalSaveMobileApp(RetailscmUserContext userContext, MobileApp mobileApp,Map<String,Object>option) throws Exception;
 

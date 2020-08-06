@@ -17,6 +17,7 @@ public interface GoodsMovementManager extends BaseManager{
 	public GoodsMovement createGoodsMovement(RetailscmUserContext userContext, DateTime moveTime,String facility,String facilityId,String fromIp,String userAgent,String sessionId,BigDecimal latitude,BigDecimal longitude,String goodsId) throws Exception;
 	public GoodsMovement updateGoodsMovement(RetailscmUserContext userContext,String goodsMovementId, int goodsMovementVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public GoodsMovement loadGoodsMovement(RetailscmUserContext userContext, String goodsMovementId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public GoodsMovement internalSaveGoodsMovement(RetailscmUserContext userContext, GoodsMovement goodsMovement) throws Exception;
 	public GoodsMovement internalSaveGoodsMovement(RetailscmUserContext userContext, GoodsMovement goodsMovement,Map<String,Object>option) throws Exception;
 

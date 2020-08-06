@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.termination;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -16,8 +17,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.terminationtype.TerminationType;
 import com.doublechaintech.retailscm.terminationreason.TerminationReason;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = TerminationSerializer.class)
 public class Termination extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

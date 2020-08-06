@@ -17,6 +17,7 @@ public interface EmployeeAwardManager extends BaseManager{
 	public EmployeeAward createEmployeeAward(RetailscmUserContext userContext, String employeeId,Date completeTime,String type,String remark) throws Exception;
 	public EmployeeAward updateEmployeeAward(RetailscmUserContext userContext,String employeeAwardId, int employeeAwardVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public EmployeeAward loadEmployeeAward(RetailscmUserContext userContext, String employeeAwardId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public EmployeeAward internalSaveEmployeeAward(RetailscmUserContext userContext, EmployeeAward employeeAward) throws Exception;
 	public EmployeeAward internalSaveEmployeeAward(RetailscmUserContext userContext, EmployeeAward employeeAward,Map<String,Object>option) throws Exception;
 

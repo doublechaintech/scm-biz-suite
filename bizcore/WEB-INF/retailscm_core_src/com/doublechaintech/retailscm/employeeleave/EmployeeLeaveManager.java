@@ -17,6 +17,7 @@ public interface EmployeeLeaveManager extends BaseManager{
 	public EmployeeLeave createEmployeeLeave(RetailscmUserContext userContext, String whoId,String typeId,int leaveDurationHour,String remark) throws Exception;
 	public EmployeeLeave updateEmployeeLeave(RetailscmUserContext userContext,String employeeLeaveId, int employeeLeaveVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public EmployeeLeave loadEmployeeLeave(RetailscmUserContext userContext, String employeeLeaveId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public EmployeeLeave internalSaveEmployeeLeave(RetailscmUserContext userContext, EmployeeLeave employeeLeave) throws Exception;
 	public EmployeeLeave internalSaveEmployeeLeave(RetailscmUserContext userContext, EmployeeLeave employeeLeave,Map<String,Object>option) throws Exception;
 

@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ConsumerOrderLineItemDAO{
 
@@ -53,64 +53,68 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	 	return this.consumerOrderDAO;
  	}	
 
-	
+
 	/*
 	protected ConsumerOrderLineItem load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalConsumerOrderLineItem(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<ConsumerOrderLineItem> loadAll() {
 	    return this.loadAll(getConsumerOrderLineItemMapper());
 	}
-	
-	
+
+  public Stream<ConsumerOrderLineItem> loadAllAsStream() {
+      return this.loadAllAsStream(getConsumerOrderLineItemMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public ConsumerOrderLineItem load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalConsumerOrderLineItem(ConsumerOrderLineItemTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public ConsumerOrderLineItem save(ConsumerOrderLineItem consumerOrderLineItem,Map<String,Object> options){
-		
+
 		String methodName="save(ConsumerOrderLineItem consumerOrderLineItem,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(consumerOrderLineItem, methodName, "consumerOrderLineItem");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalConsumerOrderLineItem(consumerOrderLineItem,options);
 	}
 	public ConsumerOrderLineItem clone(String consumerOrderLineItemId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(ConsumerOrderLineItemTable.withId(consumerOrderLineItemId),options);
 	}
-	
+
 	protected ConsumerOrderLineItem clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String consumerOrderLineItemId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		ConsumerOrderLineItem newConsumerOrderLineItem = loadInternalConsumerOrderLineItem(accessKey, options);
 		newConsumerOrderLineItem.setVersion(0);
 		
 		
 
-		
+
 		saveInternalConsumerOrderLineItem(newConsumerOrderLineItem,options);
-		
+
 		return newConsumerOrderLineItem;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String consumerOrderLineItemId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String consumerOrderLineItemId, int version) throws Exception{
-	
+
 		String methodName="delete(String consumerOrderLineItemId, int version)";
 		assertMethodArgumentNotNull(consumerOrderLineItemId, methodName, "consumerOrderLineItemId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{consumerOrderLineItemId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		if(affectedNumber == 0){
 			handleDeleteOneError(consumerOrderLineItemId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public ConsumerOrderLineItem disconnectFromAll(String consumerOrderLineItemId, int version) throws Exception{
-	
-		
+
+
 		ConsumerOrderLineItem consumerOrderLineItem = loadInternalConsumerOrderLineItem(ConsumerOrderLineItemTable.withId(consumerOrderLineItemId), emptyOptions());
 		consumerOrderLineItem.clearFromAll();
 		this.saveConsumerOrderLineItem(consumerOrderLineItem);
 		return consumerOrderLineItem;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "consumer_order_line_item";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "consumerOrderLineItem";
 	}
-	
+
 	
 	
 	
@@ -327,7 +331,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			return consumerOrderLineItem;
 		}
 		
-		
+
 		String SQL=this.getSaveConsumerOrderLineItemSQL(consumerOrderLineItem);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveConsumerOrderLineItemParameters(consumerOrderLineItem);
@@ -336,57 +340,57 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		consumerOrderLineItem.incVersion();
 		return consumerOrderLineItem;
-	
+
 	}
 	public SmartList<ConsumerOrderLineItem> saveConsumerOrderLineItemList(SmartList<ConsumerOrderLineItem> consumerOrderLineItemList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitConsumerOrderLineItemList(consumerOrderLineItemList);
-		
+
 		batchConsumerOrderLineItemCreate((List<ConsumerOrderLineItem>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchConsumerOrderLineItemUpdate((List<ConsumerOrderLineItem>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(ConsumerOrderLineItem consumerOrderLineItem:consumerOrderLineItemList){
 			if(consumerOrderLineItem.isChanged()){
 				consumerOrderLineItem.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return consumerOrderLineItemList;
 	}
 
 	public SmartList<ConsumerOrderLineItem> removeConsumerOrderLineItemList(SmartList<ConsumerOrderLineItem> consumerOrderLineItemList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(consumerOrderLineItemList, options);
-		
+
 		return consumerOrderLineItemList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareConsumerOrderLineItemBatchCreateArgs(List<ConsumerOrderLineItem> consumerOrderLineItemList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ConsumerOrderLineItem consumerOrderLineItem:consumerOrderLineItemList ){
 			Object [] parameters = prepareConsumerOrderLineItemCreateParameters(consumerOrderLineItem);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareConsumerOrderLineItemBatchUpdateArgs(List<ConsumerOrderLineItem> consumerOrderLineItemList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ConsumerOrderLineItem consumerOrderLineItem:consumerOrderLineItemList ){
 			if(!consumerOrderLineItem.isChanged()){
@@ -394,40 +398,40 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			}
 			Object [] parameters = prepareConsumerOrderLineItemUpdateParameters(consumerOrderLineItem);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchConsumerOrderLineItemCreate(List<ConsumerOrderLineItem> consumerOrderLineItemList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareConsumerOrderLineItemBatchCreateArgs(consumerOrderLineItemList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchConsumerOrderLineItemUpdate(List<ConsumerOrderLineItem> consumerOrderLineItemList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareConsumerOrderLineItemBatchUpdateArgs(consumerOrderLineItemList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitConsumerOrderLineItemList(List<ConsumerOrderLineItem> consumerOrderLineItemList){
-		
+
 		List<ConsumerOrderLineItem> consumerOrderLineItemCreateList=new ArrayList<ConsumerOrderLineItem>();
 		List<ConsumerOrderLineItem> consumerOrderLineItemUpdateList=new ArrayList<ConsumerOrderLineItem>();
-		
+
 		for(ConsumerOrderLineItem consumerOrderLineItem: consumerOrderLineItemList){
 			if(isUpdateRequest(consumerOrderLineItem)){
 				consumerOrderLineItemUpdateList.add( consumerOrderLineItem);
@@ -435,10 +439,10 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			}
 			consumerOrderLineItemCreateList.add(consumerOrderLineItem);
 		}
-		
+
 		return new Object[]{consumerOrderLineItemCreateList,consumerOrderLineItemUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(ConsumerOrderLineItem consumerOrderLineItem){
  		return consumerOrderLineItem.getVersion() > 0;
  	}
@@ -448,7 +452,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveConsumerOrderLineItemParameters(ConsumerOrderLineItem consumerOrderLineItem){
  		if(isUpdateRequest(consumerOrderLineItem) ){
  			return prepareConsumerOrderLineItemUpdateParameters(consumerOrderLineItem);
@@ -457,7 +461,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  	}
  	protected Object[] prepareConsumerOrderLineItemUpdateParameters(ConsumerOrderLineItem consumerOrderLineItem){
  		Object[] parameters = new Object[10];
-  	
+ 
  		if(consumerOrderLineItem.getBizOrder() != null){
  			parameters[0] = consumerOrderLineItem.getBizOrder().getId();
  		}
@@ -479,22 +483,24 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		
  		
  		parameters[6] = consumerOrderLineItem.getLastUpdateTime();
- 				
+ 		
  		parameters[7] = consumerOrderLineItem.nextVersion();
  		parameters[8] = consumerOrderLineItem.getId();
  		parameters[9] = consumerOrderLineItem.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareConsumerOrderLineItemCreateParameters(ConsumerOrderLineItem consumerOrderLineItem){
 		Object[] parameters = new Object[8];
-		String newConsumerOrderLineItemId=getNextId();
-		consumerOrderLineItem.setId(newConsumerOrderLineItemId);
+        if(consumerOrderLineItem.getId() == null){
+          String newConsumerOrderLineItemId=getNextId();
+          consumerOrderLineItem.setId(newConsumerOrderLineItemId);
+        }
 		parameters[0] =  consumerOrderLineItem.getId();
-  	
+ 
  		if(consumerOrderLineItem.getBizOrder() != null){
  			parameters[1] = consumerOrderLineItem.getBizOrder().getId();
- 		
+
  		}
  		
  		
@@ -514,44 +520,44 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		
  		
  		parameters[7] = consumerOrderLineItem.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected ConsumerOrderLineItem saveInternalConsumerOrderLineItem(ConsumerOrderLineItem consumerOrderLineItem, Map<String,Object> options){
-		
+
 		saveConsumerOrderLineItem(consumerOrderLineItem);
- 	
+
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(consumerOrderLineItem, options);
  		}
  
 		
 		return consumerOrderLineItem;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected ConsumerOrderLineItem saveBizOrder(ConsumerOrderLineItem consumerOrderLineItem, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(consumerOrderLineItem.getBizOrder() == null){
  			return consumerOrderLineItem;//do nothing when it is null
  		}
- 		
+
  		getConsumerOrderDAO().save(consumerOrderLineItem.getBizOrder(),options);
  		return consumerOrderLineItem;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -571,47 +577,53 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	protected String getTableName(){
 		return ConsumerOrderLineItemTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<ConsumerOrderLineItem> consumerOrderLineItemList) {		
+
+
+
+	public void enhanceList(List<ConsumerOrderLineItem> consumerOrderLineItemList) {
 		this.enhanceListInternal(consumerOrderLineItemList, this.getConsumerOrderLineItemMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrderLineItem> consumerOrderLineItemList = ownerEntity.collectRefsWithType(ConsumerOrderLineItem.INTERNAL_TYPE);
 		this.enhanceList(consumerOrderLineItemList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<ConsumerOrderLineItem> findConsumerOrderLineItemWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getConsumerOrderLineItemMapper());
 
 	}
 	@Override
 	public int countConsumerOrderLineItemWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countConsumerOrderLineItemWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<ConsumerOrderLineItem> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getConsumerOrderLineItemMapper());
 	}
+
+  @Override
+  public Stream<ConsumerOrderLineItem> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getConsumerOrderLineItemMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -640,7 +652,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		}
 		return result;
 	}
-	
+
 	
 
 }

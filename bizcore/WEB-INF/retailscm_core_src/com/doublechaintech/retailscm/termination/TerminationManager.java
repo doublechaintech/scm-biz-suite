@@ -17,6 +17,7 @@ public interface TerminationManager extends BaseManager{
 	public Termination createTermination(RetailscmUserContext userContext, String reasonId,String typeId,String comment) throws Exception;
 	public Termination updateTermination(RetailscmUserContext userContext,String terminationId, int terminationVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Termination loadTermination(RetailscmUserContext userContext, String terminationId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public Termination internalSaveTermination(RetailscmUserContext userContext, Termination termination) throws Exception;
 	public Termination internalSaveTermination(RetailscmUserContext userContext, Termination termination,Map<String,Object>option) throws Exception;
 

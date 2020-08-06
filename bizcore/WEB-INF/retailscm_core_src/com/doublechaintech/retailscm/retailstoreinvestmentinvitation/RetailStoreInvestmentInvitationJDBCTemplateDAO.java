@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements RetailStoreInvestmentInvitationDAO{
 
@@ -53,50 +53,54 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 	 	return this.retailStoreDAO;
  	}	
 
-	
+
 	/*
 	protected RetailStoreInvestmentInvitation load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreInvestmentInvitation(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<RetailStoreInvestmentInvitation> loadAll() {
 	    return this.loadAll(getRetailStoreInvestmentInvitationMapper());
 	}
-	
-	
+
+  public Stream<RetailStoreInvestmentInvitation> loadAllAsStream() {
+      return this.loadAllAsStream(getRetailStoreInvestmentInvitationMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public RetailStoreInvestmentInvitation load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreInvestmentInvitation(RetailStoreInvestmentInvitationTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public RetailStoreInvestmentInvitation save(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation,Map<String,Object> options){
-		
+
 		String methodName="save(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(retailStoreInvestmentInvitation, methodName, "retailStoreInvestmentInvitation");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalRetailStoreInvestmentInvitation(retailStoreInvestmentInvitation,options);
 	}
 	public RetailStoreInvestmentInvitation clone(String retailStoreInvestmentInvitationId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(RetailStoreInvestmentInvitationTable.withId(retailStoreInvestmentInvitationId),options);
 	}
-	
+
 	protected RetailStoreInvestmentInvitation clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String retailStoreInvestmentInvitationId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		RetailStoreInvestmentInvitation newRetailStoreInvestmentInvitation = loadInternalRetailStoreInvestmentInvitation(accessKey, options);
 		newRetailStoreInvestmentInvitation.setVersion(0);
 		
@@ -109,15 +113,15 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
  		}
 		
 
-		
+
 		saveInternalRetailStoreInvestmentInvitation(newRetailStoreInvestmentInvitation,options);
-		
+
 		return newRetailStoreInvestmentInvitation;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String retailStoreInvestmentInvitationId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -133,15 +137,15 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String retailStoreInvestmentInvitationId, int version) throws Exception{
-	
+
 		String methodName="delete(String retailStoreInvestmentInvitationId, int version)";
 		assertMethodArgumentNotNull(retailStoreInvestmentInvitationId, methodName, "retailStoreInvestmentInvitationId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{retailStoreInvestmentInvitationId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -151,26 +155,26 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(affectedNumber == 0){
 			handleDeleteOneError(retailStoreInvestmentInvitationId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public RetailStoreInvestmentInvitation disconnectFromAll(String retailStoreInvestmentInvitationId, int version) throws Exception{
-	
-		
+
+
 		RetailStoreInvestmentInvitation retailStoreInvestmentInvitation = loadInternalRetailStoreInvestmentInvitation(RetailStoreInvestmentInvitationTable.withId(retailStoreInvestmentInvitationId), emptyOptions());
 		retailStoreInvestmentInvitation.clearFromAll();
 		this.saveRetailStoreInvestmentInvitation(retailStoreInvestmentInvitation);
 		return retailStoreInvestmentInvitation;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -178,15 +182,15 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "retail_store_investment_invitation";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "retailStoreInvestmentInvitation";
 	}
-	
+
 	
 	
 	
@@ -320,7 +324,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 			return retailStoreInvestmentInvitation;
 		}
 		
-		
+
 		String SQL=this.getSaveRetailStoreInvestmentInvitationSQL(retailStoreInvestmentInvitation);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreInvestmentInvitationParameters(retailStoreInvestmentInvitation);
@@ -329,57 +333,57 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		retailStoreInvestmentInvitation.incVersion();
 		return retailStoreInvestmentInvitation;
-	
+
 	}
 	public SmartList<RetailStoreInvestmentInvitation> saveRetailStoreInvestmentInvitationList(SmartList<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitRetailStoreInvestmentInvitationList(retailStoreInvestmentInvitationList);
-		
+
 		batchRetailStoreInvestmentInvitationCreate((List<RetailStoreInvestmentInvitation>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchRetailStoreInvestmentInvitationUpdate((List<RetailStoreInvestmentInvitation>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation:retailStoreInvestmentInvitationList){
 			if(retailStoreInvestmentInvitation.isChanged()){
 				retailStoreInvestmentInvitation.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return retailStoreInvestmentInvitationList;
 	}
 
 	public SmartList<RetailStoreInvestmentInvitation> removeRetailStoreInvestmentInvitationList(SmartList<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(retailStoreInvestmentInvitationList, options);
-		
+
 		return retailStoreInvestmentInvitationList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareRetailStoreInvestmentInvitationBatchCreateArgs(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation:retailStoreInvestmentInvitationList ){
 			Object [] parameters = prepareRetailStoreInvestmentInvitationCreateParameters(retailStoreInvestmentInvitation);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareRetailStoreInvestmentInvitationBatchUpdateArgs(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation:retailStoreInvestmentInvitationList ){
 			if(!retailStoreInvestmentInvitation.isChanged()){
@@ -387,40 +391,40 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 			}
 			Object [] parameters = prepareRetailStoreInvestmentInvitationUpdateParameters(retailStoreInvestmentInvitation);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchRetailStoreInvestmentInvitationCreate(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareRetailStoreInvestmentInvitationBatchCreateArgs(retailStoreInvestmentInvitationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchRetailStoreInvestmentInvitationUpdate(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareRetailStoreInvestmentInvitationBatchUpdateArgs(retailStoreInvestmentInvitationList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitRetailStoreInvestmentInvitationList(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList){
-		
+
 		List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationCreateList=new ArrayList<RetailStoreInvestmentInvitation>();
 		List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationUpdateList=new ArrayList<RetailStoreInvestmentInvitation>();
-		
+
 		for(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation: retailStoreInvestmentInvitationList){
 			if(isUpdateRequest(retailStoreInvestmentInvitation)){
 				retailStoreInvestmentInvitationUpdateList.add( retailStoreInvestmentInvitation);
@@ -428,10 +432,10 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 			}
 			retailStoreInvestmentInvitationCreateList.add(retailStoreInvestmentInvitation);
 		}
-		
+
 		return new Object[]{retailStoreInvestmentInvitationCreateList,retailStoreInvestmentInvitationUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation){
  		return retailStoreInvestmentInvitation.getVersion() > 0;
  	}
@@ -441,7 +445,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveRetailStoreInvestmentInvitationParameters(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation){
  		if(isUpdateRequest(retailStoreInvestmentInvitation) ){
  			return prepareRetailStoreInvestmentInvitationUpdateParameters(retailStoreInvestmentInvitation);
@@ -453,28 +457,30 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
  
  		
  		parameters[0] = retailStoreInvestmentInvitation.getComment();
- 				
+ 		
  		parameters[1] = retailStoreInvestmentInvitation.nextVersion();
  		parameters[2] = retailStoreInvestmentInvitation.getId();
  		parameters[3] = retailStoreInvestmentInvitation.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreInvestmentInvitationCreateParameters(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation){
 		Object[] parameters = new Object[2];
-		String newRetailStoreInvestmentInvitationId=getNextId();
-		retailStoreInvestmentInvitation.setId(newRetailStoreInvestmentInvitationId);
+        if(retailStoreInvestmentInvitation.getId() == null){
+          String newRetailStoreInvestmentInvitationId=getNextId();
+          retailStoreInvestmentInvitation.setId(newRetailStoreInvestmentInvitationId);
+        }
 		parameters[0] =  retailStoreInvestmentInvitation.getId();
  
  		
  		parameters[1] = retailStoreInvestmentInvitation.getComment();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected RetailStoreInvestmentInvitation saveInternalRetailStoreInvestmentInvitation(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, Map<String,Object> options){
-		
+
 		saveRetailStoreInvestmentInvitation(retailStoreInvestmentInvitation);
 
 		
@@ -482,25 +488,25 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 	 		saveRetailStoreList(retailStoreInvestmentInvitation, options);
 	 		//removeRetailStoreList(retailStoreInvestmentInvitation, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return retailStoreInvestmentInvitation;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
 	
 
 	
 	public RetailStoreInvestmentInvitation planToRemoveRetailStoreList(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, String retailStoreIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.ID_PROPERTY, retailStoreIds);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -509,17 +515,17 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 
 			retailStoreItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
-		return retailStoreInvestmentInvitation;	
-	
+		return retailStoreInvestmentInvitation;
+
 	}
 
 
@@ -528,11 +534,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -541,19 +547,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearRetailStoreCountryCenter();
 			retailStoreItem.clearInvestmentInvitation();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	public int countRetailStoreListWithRetailStoreCountryCenter(String retailStoreInvestmentInvitationId, String retailStoreCountryCenterId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -562,7 +568,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitationId);
 		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -572,11 +578,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.CITY_SERVICE_CENTER_PROPERTY, cityServiceCenterId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -585,19 +591,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearCityServiceCenter();
 			retailStoreItem.clearInvestmentInvitation();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	public int countRetailStoreListWithCityServiceCenter(String retailStoreInvestmentInvitationId, String cityServiceCenterId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -606,7 +612,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitationId);
 		key.put(RetailStore.CITY_SERVICE_CENTER_PROPERTY, cityServiceCenterId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -616,11 +622,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.CREATION_PROPERTY, creationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -629,19 +635,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearCreation();
 			retailStoreItem.clearInvestmentInvitation();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	public int countRetailStoreListWithCreation(String retailStoreInvestmentInvitationId, String creationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -650,7 +656,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitationId);
 		key.put(RetailStore.CREATION_PROPERTY, creationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -660,11 +666,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.FRANCHISING_PROPERTY, franchisingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -673,19 +679,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearFranchising();
 			retailStoreItem.clearInvestmentInvitation();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	public int countRetailStoreListWithFranchising(String retailStoreInvestmentInvitationId, String franchisingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitationId);
 		key.put(RetailStore.FRANCHISING_PROPERTY, franchisingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -704,11 +710,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.DECORATION_PROPERTY, decorationId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -717,19 +723,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearDecoration();
 			retailStoreItem.clearInvestmentInvitation();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	public int countRetailStoreListWithDecoration(String retailStoreInvestmentInvitationId, String decorationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -738,7 +744,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitationId);
 		key.put(RetailStore.DECORATION_PROPERTY, decorationId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -748,11 +754,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.OPENING_PROPERTY, openingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -761,19 +767,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearOpening();
 			retailStoreItem.clearInvestmentInvitation();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	public int countRetailStoreListWithOpening(String retailStoreInvestmentInvitationId, String openingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -782,7 +788,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitationId);
 		key.put(RetailStore.OPENING_PROPERTY, openingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -792,11 +798,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitation.getId());
 		key.put(RetailStore.CLOSING_PROPERTY, closingId);
-		
+
 		SmartList<RetailStore> externalRetailStoreList = getRetailStoreDAO().
 				findRetailStoreWithKey(key, options);
 		if(externalRetailStoreList == null){
@@ -805,19 +811,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		if(externalRetailStoreList.isEmpty()){
 			return retailStoreInvestmentInvitation;
 		}
-		
+
 		for(RetailStore retailStoreItem: externalRetailStoreList){
 			retailStoreItem.clearClosing();
 			retailStoreItem.clearInvestmentInvitation();
-			
+
 		}
-		
-		
-		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();		
+
+
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		retailStoreList.addAllToRemoveList(externalRetailStoreList);
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	public int countRetailStoreListWithClosing(String retailStoreInvestmentInvitationId, String closingId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -826,7 +832,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStore.INVESTMENT_INVITATION_PROPERTY, retailStoreInvestmentInvitationId);
 		key.put(RetailStore.CLOSING_PROPERTY, closingId);
-		
+
 		int count = getRetailStoreDAO().countRetailStoreWithKey(key, options);
 		return count;
 	}
@@ -834,19 +840,19 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 
 		
 	protected RetailStoreInvestmentInvitation saveRetailStoreList(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		if(retailStoreList == null){
 			//null list means nothing
 			return retailStoreInvestmentInvitation;
 		}
 		SmartList<RetailStore> mergedUpdateRetailStoreList = new SmartList<RetailStore>();
-		
-		
-		mergedUpdateRetailStoreList.addAll(retailStoreList); 
+
+
+		mergedUpdateRetailStoreList.addAll(retailStoreList);
 		if(retailStoreList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreList.addAll(retailStoreList.getToRemoveList());
@@ -855,28 +861,28 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreDAO().saveRetailStoreList(mergedUpdateRetailStoreList,options);
-		
+
 		if(retailStoreList.getToRemoveList() != null){
 			retailStoreList.removeAll(retailStoreList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreInvestmentInvitation;
-	
+
 	}
-	
+
 	protected RetailStoreInvestmentInvitation removeRetailStoreList(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
 		if(retailStoreList == null){
 			return retailStoreInvestmentInvitation;
-		}	
-	
+		}
+
 		SmartList<RetailStore> toRemoveRetailStoreList = retailStoreList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreList == null){
 			return retailStoreInvestmentInvitation;
 		}
@@ -884,20 +890,20 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 			return retailStoreInvestmentInvitation;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreDAO().removeRetailStoreList(toRemoveRetailStoreList,options);
-		
-		return retailStoreInvestmentInvitation;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreDAO().removeRetailStoreList(toRemoveRetailStoreList,options);
+
+		return retailStoreInvestmentInvitation;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public RetailStoreInvestmentInvitation present(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation,Map<String, Object> options){
@@ -940,13 +946,13 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 	protected String getTableName(){
 		return RetailStoreInvestmentInvitationTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList) {		
+
+
+
+	public void enhanceList(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList) {
 		this.enhanceListInternal(retailStoreInvestmentInvitationList, this.getRetailStoreInvestmentInvitationMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的investmentInvitation的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreInvestmentInvitation> us, Map<String,Object> options) throws Exception{
@@ -971,39 +977,45 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList = ownerEntity.collectRefsWithType(RetailStoreInvestmentInvitation.INTERNAL_TYPE);
 		this.enhanceList(retailStoreInvestmentInvitationList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreInvestmentInvitation> findRetailStoreInvestmentInvitationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getRetailStoreInvestmentInvitationMapper());
 
 	}
 	@Override
 	public int countRetailStoreInvestmentInvitationWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countRetailStoreInvestmentInvitationWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreInvestmentInvitation> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreInvestmentInvitationMapper());
 	}
+
+  @Override
+  public Stream<RetailStoreInvestmentInvitation> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getRetailStoreInvestmentInvitationMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1032,7 +1044,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmBas
 		}
 		return result;
 	}
-	
+
 	
     
 	public Map<String, Integer> countBySql(String sql, Object[] params) {

@@ -17,6 +17,7 @@ public interface AccountingPeriodManager extends BaseManager{
 	public AccountingPeriod createAccountingPeriod(RetailscmUserContext userContext, String name,Date startDate,Date endDate,String accountSetId) throws Exception;
 	public AccountingPeriod updateAccountingPeriod(RetailscmUserContext userContext,String accountingPeriodId, int accountingPeriodVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public AccountingPeriod loadAccountingPeriod(RetailscmUserContext userContext, String accountingPeriodId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public AccountingPeriod internalSaveAccountingPeriod(RetailscmUserContext userContext, AccountingPeriod accountingPeriod) throws Exception;
 	public AccountingPeriod internalSaveAccountingPeriod(RetailscmUserContext userContext, AccountingPeriod accountingPeriod,Map<String,Object>option) throws Exception;
 

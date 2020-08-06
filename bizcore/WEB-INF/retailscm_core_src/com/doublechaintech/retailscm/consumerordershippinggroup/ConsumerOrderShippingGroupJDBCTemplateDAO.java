@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ConsumerOrderShippingGroupDAO{
 
@@ -53,64 +53,68 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 	 	return this.consumerOrderDAO;
  	}	
 
-	
+
 	/*
 	protected ConsumerOrderShippingGroup load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalConsumerOrderShippingGroup(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<ConsumerOrderShippingGroup> loadAll() {
 	    return this.loadAll(getConsumerOrderShippingGroupMapper());
 	}
-	
-	
+
+  public Stream<ConsumerOrderShippingGroup> loadAllAsStream() {
+      return this.loadAllAsStream(getConsumerOrderShippingGroupMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public ConsumerOrderShippingGroup load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalConsumerOrderShippingGroup(ConsumerOrderShippingGroupTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public ConsumerOrderShippingGroup save(ConsumerOrderShippingGroup consumerOrderShippingGroup,Map<String,Object> options){
-		
+
 		String methodName="save(ConsumerOrderShippingGroup consumerOrderShippingGroup,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(consumerOrderShippingGroup, methodName, "consumerOrderShippingGroup");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalConsumerOrderShippingGroup(consumerOrderShippingGroup,options);
 	}
 	public ConsumerOrderShippingGroup clone(String consumerOrderShippingGroupId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(ConsumerOrderShippingGroupTable.withId(consumerOrderShippingGroupId),options);
 	}
-	
+
 	protected ConsumerOrderShippingGroup clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String consumerOrderShippingGroupId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		ConsumerOrderShippingGroup newConsumerOrderShippingGroup = loadInternalConsumerOrderShippingGroup(accessKey, options);
 		newConsumerOrderShippingGroup.setVersion(0);
 		
 		
 
-		
+
 		saveInternalConsumerOrderShippingGroup(newConsumerOrderShippingGroup,options);
-		
+
 		return newConsumerOrderShippingGroup;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String consumerOrderShippingGroupId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String consumerOrderShippingGroupId, int version) throws Exception{
-	
+
 		String methodName="delete(String consumerOrderShippingGroupId, int version)";
 		assertMethodArgumentNotNull(consumerOrderShippingGroupId, methodName, "consumerOrderShippingGroupId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{consumerOrderShippingGroupId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 		if(affectedNumber == 0){
 			handleDeleteOneError(consumerOrderShippingGroupId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public ConsumerOrderShippingGroup disconnectFromAll(String consumerOrderShippingGroupId, int version) throws Exception{
-	
-		
+
+
 		ConsumerOrderShippingGroup consumerOrderShippingGroup = loadInternalConsumerOrderShippingGroup(ConsumerOrderShippingGroupTable.withId(consumerOrderShippingGroupId), emptyOptions());
 		consumerOrderShippingGroup.clearFromAll();
 		this.saveConsumerOrderShippingGroup(consumerOrderShippingGroup);
 		return consumerOrderShippingGroup;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "consumer_order_shipping_group";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "consumerOrderShippingGroup";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 			return consumerOrderShippingGroup;
 		}
 		
-		
+
 		String SQL=this.getSaveConsumerOrderShippingGroupSQL(consumerOrderShippingGroup);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveConsumerOrderShippingGroupParameters(consumerOrderShippingGroup);
@@ -320,57 +324,57 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		consumerOrderShippingGroup.incVersion();
 		return consumerOrderShippingGroup;
-	
+
 	}
 	public SmartList<ConsumerOrderShippingGroup> saveConsumerOrderShippingGroupList(SmartList<ConsumerOrderShippingGroup> consumerOrderShippingGroupList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitConsumerOrderShippingGroupList(consumerOrderShippingGroupList);
-		
+
 		batchConsumerOrderShippingGroupCreate((List<ConsumerOrderShippingGroup>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchConsumerOrderShippingGroupUpdate((List<ConsumerOrderShippingGroup>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(ConsumerOrderShippingGroup consumerOrderShippingGroup:consumerOrderShippingGroupList){
 			if(consumerOrderShippingGroup.isChanged()){
 				consumerOrderShippingGroup.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return consumerOrderShippingGroupList;
 	}
 
 	public SmartList<ConsumerOrderShippingGroup> removeConsumerOrderShippingGroupList(SmartList<ConsumerOrderShippingGroup> consumerOrderShippingGroupList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(consumerOrderShippingGroupList, options);
-		
+
 		return consumerOrderShippingGroupList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareConsumerOrderShippingGroupBatchCreateArgs(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ConsumerOrderShippingGroup consumerOrderShippingGroup:consumerOrderShippingGroupList ){
 			Object [] parameters = prepareConsumerOrderShippingGroupCreateParameters(consumerOrderShippingGroup);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareConsumerOrderShippingGroupBatchUpdateArgs(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ConsumerOrderShippingGroup consumerOrderShippingGroup:consumerOrderShippingGroupList ){
 			if(!consumerOrderShippingGroup.isChanged()){
@@ -378,40 +382,40 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 			}
 			Object [] parameters = prepareConsumerOrderShippingGroupUpdateParameters(consumerOrderShippingGroup);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchConsumerOrderShippingGroupCreate(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareConsumerOrderShippingGroupBatchCreateArgs(consumerOrderShippingGroupList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchConsumerOrderShippingGroupUpdate(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareConsumerOrderShippingGroupBatchUpdateArgs(consumerOrderShippingGroupList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitConsumerOrderShippingGroupList(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList){
-		
+
 		List<ConsumerOrderShippingGroup> consumerOrderShippingGroupCreateList=new ArrayList<ConsumerOrderShippingGroup>();
 		List<ConsumerOrderShippingGroup> consumerOrderShippingGroupUpdateList=new ArrayList<ConsumerOrderShippingGroup>();
-		
+
 		for(ConsumerOrderShippingGroup consumerOrderShippingGroup: consumerOrderShippingGroupList){
 			if(isUpdateRequest(consumerOrderShippingGroup)){
 				consumerOrderShippingGroupUpdateList.add( consumerOrderShippingGroup);
@@ -419,10 +423,10 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 			}
 			consumerOrderShippingGroupCreateList.add(consumerOrderShippingGroup);
 		}
-		
+
 		return new Object[]{consumerOrderShippingGroupCreateList,consumerOrderShippingGroupUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(ConsumerOrderShippingGroup consumerOrderShippingGroup){
  		return consumerOrderShippingGroup.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveConsumerOrderShippingGroupParameters(ConsumerOrderShippingGroup consumerOrderShippingGroup){
  		if(isUpdateRequest(consumerOrderShippingGroup) ){
  			return prepareConsumerOrderShippingGroupUpdateParameters(consumerOrderShippingGroup);
@@ -444,74 +448,76 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
  
  		
  		parameters[0] = consumerOrderShippingGroup.getName();
- 		 	
+ 		
  		if(consumerOrderShippingGroup.getBizOrder() != null){
  			parameters[1] = consumerOrderShippingGroup.getBizOrder().getId();
  		}
  
  		
  		parameters[2] = consumerOrderShippingGroup.getAmount();
- 				
+ 		
  		parameters[3] = consumerOrderShippingGroup.nextVersion();
  		parameters[4] = consumerOrderShippingGroup.getId();
  		parameters[5] = consumerOrderShippingGroup.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareConsumerOrderShippingGroupCreateParameters(ConsumerOrderShippingGroup consumerOrderShippingGroup){
 		Object[] parameters = new Object[4];
-		String newConsumerOrderShippingGroupId=getNextId();
-		consumerOrderShippingGroup.setId(newConsumerOrderShippingGroupId);
+        if(consumerOrderShippingGroup.getId() == null){
+          String newConsumerOrderShippingGroupId=getNextId();
+          consumerOrderShippingGroup.setId(newConsumerOrderShippingGroupId);
+        }
 		parameters[0] =  consumerOrderShippingGroup.getId();
  
  		
  		parameters[1] = consumerOrderShippingGroup.getName();
- 		 	
+ 		
  		if(consumerOrderShippingGroup.getBizOrder() != null){
  			parameters[2] = consumerOrderShippingGroup.getBizOrder().getId();
- 		
+
  		}
  		
  		
  		parameters[3] = consumerOrderShippingGroup.getAmount();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected ConsumerOrderShippingGroup saveInternalConsumerOrderShippingGroup(ConsumerOrderShippingGroup consumerOrderShippingGroup, Map<String,Object> options){
-		
+
 		saveConsumerOrderShippingGroup(consumerOrderShippingGroup);
- 	
+
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(consumerOrderShippingGroup, options);
  		}
  
 		
 		return consumerOrderShippingGroup;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected ConsumerOrderShippingGroup saveBizOrder(ConsumerOrderShippingGroup consumerOrderShippingGroup, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(consumerOrderShippingGroup.getBizOrder() == null){
  			return consumerOrderShippingGroup;//do nothing when it is null
  		}
- 		
+
  		getConsumerOrderDAO().save(consumerOrderShippingGroup.getBizOrder(),options);
  		return consumerOrderShippingGroup;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -531,47 +537,53 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 	protected String getTableName(){
 		return ConsumerOrderShippingGroupTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList) {		
+
+
+
+	public void enhanceList(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList) {
 		this.enhanceListInternal(consumerOrderShippingGroupList, this.getConsumerOrderShippingGroupMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList = ownerEntity.collectRefsWithType(ConsumerOrderShippingGroup.INTERNAL_TYPE);
 		this.enhanceList(consumerOrderShippingGroupList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<ConsumerOrderShippingGroup> findConsumerOrderShippingGroupWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getConsumerOrderShippingGroupMapper());
 
 	}
 	@Override
 	public int countConsumerOrderShippingGroupWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countConsumerOrderShippingGroupWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<ConsumerOrderShippingGroup> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getConsumerOrderShippingGroupMapper());
 	}
+
+  @Override
+  public Stream<ConsumerOrderShippingGroup> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getConsumerOrderShippingGroupMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -600,7 +612,7 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 		}
 		return result;
 	}
-	
+
 	
 
 }

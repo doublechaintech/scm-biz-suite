@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.product.ProductDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 
@@ -71,50 +71,54 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	 	return this.goodsDAO;
  	}	
 
-	
+
 	/*
 	protected Sku load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalSku(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Sku> loadAll() {
 	    return this.loadAll(getSkuMapper());
 	}
-	
-	
+
+  public Stream<Sku> loadAllAsStream() {
+      return this.loadAllAsStream(getSkuMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Sku load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalSku(SkuTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Sku save(Sku sku,Map<String,Object> options){
-		
+
 		String methodName="save(Sku sku,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(sku, methodName, "sku");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalSku(sku,options);
 	}
 	public Sku clone(String skuId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(SkuTable.withId(skuId),options);
 	}
-	
+
 	protected Sku clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String skuId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Sku newSku = loadInternalSku(accessKey, options);
 		newSku.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		}
 		
 
-		
+
 		saveInternalSku(newSku,options);
-		
+
 		return newSku;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String skuId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String skuId, int version) throws Exception{
-	
+
 		String methodName="delete(String skuId, int version)";
 		assertMethodArgumentNotNull(skuId, methodName, "skuId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{skuId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(affectedNumber == 0){
 			handleDeleteOneError(skuId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Sku disconnectFromAll(String skuId, int version) throws Exception{
-	
-		
+
+
 		Sku sku = loadInternalSku(SkuTable.withId(skuId), emptyOptions());
 		sku.clearFromAll();
 		this.saveSku(sku);
 		return sku;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "sku";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "sku";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 			return sku;
 		}
 		
-		
+
 		String SQL=this.getSaveSkuSQL(sku);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSkuParameters(sku);
@@ -419,57 +423,57 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		sku.incVersion();
 		return sku;
-	
+
 	}
 	public SmartList<Sku> saveSkuList(SmartList<Sku> skuList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitSkuList(skuList);
-		
+
 		batchSkuCreate((List<Sku>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchSkuUpdate((List<Sku>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Sku sku:skuList){
 			if(sku.isChanged()){
 				sku.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return skuList;
 	}
 
 	public SmartList<Sku> removeSkuList(SmartList<Sku> skuList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(skuList, options);
-		
+
 		return skuList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareSkuBatchCreateArgs(List<Sku> skuList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Sku sku:skuList ){
 			Object [] parameters = prepareSkuCreateParameters(sku);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareSkuBatchUpdateArgs(List<Sku> skuList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Sku sku:skuList ){
 			if(!sku.isChanged()){
@@ -477,40 +481,40 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 			}
 			Object [] parameters = prepareSkuUpdateParameters(sku);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchSkuCreate(List<Sku> skuList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareSkuBatchCreateArgs(skuList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchSkuUpdate(List<Sku> skuList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareSkuBatchUpdateArgs(skuList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitSkuList(List<Sku> skuList){
-		
+
 		List<Sku> skuCreateList=new ArrayList<Sku>();
 		List<Sku> skuUpdateList=new ArrayList<Sku>();
-		
+
 		for(Sku sku: skuList){
 			if(isUpdateRequest(sku)){
 				skuUpdateList.add( sku);
@@ -518,10 +522,10 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 			}
 			skuCreateList.add(sku);
 		}
-		
+
 		return new Object[]{skuCreateList,skuUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Sku sku){
  		return sku.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveSkuParameters(Sku sku){
  		if(isUpdateRequest(sku) ){
  			return prepareSkuUpdateParameters(sku);
@@ -546,7 +550,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		
  		
  		parameters[1] = sku.getSize();
- 		 	
+ 		
  		if(sku.getProduct() != null){
  			parameters[2] = sku.getProduct().getId();
  		}
@@ -565,17 +569,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		
  		
  		parameters[7] = sku.getPicture();
- 				
+ 		
  		parameters[8] = sku.nextVersion();
  		parameters[9] = sku.getId();
  		parameters[10] = sku.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareSkuCreateParameters(Sku sku){
 		Object[] parameters = new Object[9];
-		String newSkuId=getNextId();
-		sku.setId(newSkuId);
+        if(sku.getId() == null){
+          String newSkuId=getNextId();
+          sku.setId(newSkuId);
+        }
 		parameters[0] =  sku.getId();
  
  		
@@ -583,10 +589,10 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		
  		
  		parameters[2] = sku.getSize();
- 		 	
+ 		
  		if(sku.getProduct() != null){
  			parameters[3] = sku.getProduct().getId();
- 		
+
  		}
  		
  		
@@ -603,15 +609,15 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		
  		
  		parameters[8] = sku.getPicture();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Sku saveInternalSku(Sku sku, Map<String,Object> options){
-		
+
 		saveSku(sku);
- 	
+
  		if(isSaveProductEnabled(options)){
 	 		saveProduct(sku, options);
  		}
@@ -621,42 +627,42 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	 		saveGoodsList(sku, options);
 	 		//removeGoodsList(sku, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return sku;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Sku saveProduct(Sku sku, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(sku.getProduct() == null){
  			return sku;//do nothing when it is null
  		}
- 		
+
  		getProductDAO().save(sku.getProduct(),options);
  		return sku;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Sku planToRemoveGoodsList(Sku sku, String goodsIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.ID_PROPERTY, goodsIds);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -665,17 +671,17 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 
 			goodsItem.clearFromAll();
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
-		return sku;	
-	
+		return sku;
+
 	}
 
 
@@ -684,11 +690,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -697,19 +703,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearReceivingSpace();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithReceivingSpace(String skuId, String receivingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -718,7 +724,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -728,11 +734,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -741,19 +747,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearGoodsAllocation();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithGoodsAllocation(String skuId, String goodsAllocationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -762,7 +768,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -772,11 +778,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -785,19 +791,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSmartPallet();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithSmartPallet(String skuId, String smartPalletId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -806,7 +812,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -816,11 +822,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -829,19 +835,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearShippingSpace();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithShippingSpace(String skuId, String shippingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -850,7 +856,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -860,11 +866,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -873,19 +879,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearTransportTask();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithTransportTask(String skuId, String transportTaskId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -894,7 +900,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -904,11 +910,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -917,19 +923,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStore();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithRetailStore(String skuId, String retailStoreId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -938,7 +944,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -948,11 +954,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -961,19 +967,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearBizOrder();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithBizOrder(String skuId, String bizOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -982,7 +988,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -992,11 +998,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, sku.getId());
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1005,19 +1011,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(externalGoodsList.isEmpty()){
 			return sku;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStoreOrder();
 			goodsItem.clearSku();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = sku.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return sku;
 	}
-	
+
 	public int countGoodsListWithRetailStoreOrder(String skuId, String retailStoreOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1026,7 +1032,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SKU_PROPERTY, skuId);
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1034,19 +1040,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 
 		
 	protected Sku saveGoodsList(Sku sku, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Goods> goodsList = sku.getGoodsList();
 		if(goodsList == null){
 			//null list means nothing
 			return sku;
 		}
 		SmartList<Goods> mergedUpdateGoodsList = new SmartList<Goods>();
-		
-		
-		mergedUpdateGoodsList.addAll(goodsList); 
+
+
+		mergedUpdateGoodsList.addAll(goodsList);
 		if(goodsList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsList.addAll(goodsList.getToRemoveList());
@@ -1055,28 +1061,28 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsDAO().saveGoodsList(mergedUpdateGoodsList,options);
-		
+
 		if(goodsList.getToRemoveList() != null){
 			goodsList.removeAll(goodsList.getToRemoveList());
 		}
-		
-		
+
+
 		return sku;
-	
+
 	}
-	
+
 	protected Sku removeGoodsList(Sku sku, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Goods> goodsList = sku.getGoodsList();
 		if(goodsList == null){
 			return sku;
-		}	
-	
+		}
+
 		SmartList<Goods> toRemoveGoodsList = goodsList.getToRemoveList();
-		
+
 		if(toRemoveGoodsList == null){
 			return sku;
 		}
@@ -1084,20 +1090,20 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 			return sku;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
-		
-		return sku;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
+
+		return sku;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Sku present(Sku sku,Map<String, Object> options){
@@ -1140,13 +1146,13 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	protected String getTableName(){
 		return SkuTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Sku> skuList) {		
+
+
+
+	public void enhanceList(List<Sku> skuList) {
 		this.enhanceListInternal(skuList, this.getSkuMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的sku的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<Sku> us, Map<String,Object> options) throws Exception{
@@ -1171,39 +1177,45 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Sku> skuList = ownerEntity.collectRefsWithType(Sku.INTERNAL_TYPE);
 		this.enhanceList(skuList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Sku> findSkuWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getSkuMapper());
 
 	}
 	@Override
 	public int countSkuWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countSkuWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Sku> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSkuMapper());
 	}
+
+  @Override
+  public Stream<Sku> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getSkuMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1232,7 +1244,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		}
 		return result;
 	}
-	
+
 	
 
 }

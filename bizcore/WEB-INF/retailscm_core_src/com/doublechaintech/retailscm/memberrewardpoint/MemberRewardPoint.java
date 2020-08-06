@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.memberrewardpoint;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -15,8 +16,21 @@ import com.doublechaintech.retailscm.KeyValuePair;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = MemberRewardPointSerializer.class)
 public class MemberRewardPoint extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;

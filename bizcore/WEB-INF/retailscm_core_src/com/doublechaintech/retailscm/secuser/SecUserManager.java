@@ -32,6 +32,7 @@ public interface SecUserManager extends BaseManager{
 	public SecUser createSecUser(RetailscmUserContext userContext, String login,String mobile,String email,String pwd,String weixinOpenid,String weixinAppid,String accessToken,int verificationCode,DateTime verificationCodeExpire,DateTime lastLoginTime,String domainId) throws Exception;
 	public SecUser updateSecUser(RetailscmUserContext userContext,String secUserId, int secUserVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SecUser loadSecUser(RetailscmUserContext userContext, String secUserId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public SecUser internalSaveSecUser(RetailscmUserContext userContext, SecUser secUser) throws Exception;
 	public SecUser internalSaveSecUser(RetailscmUserContext userContext, SecUser secUser,Map<String,Object>option) throws Exception;
 
@@ -65,31 +66,31 @@ public interface SecUserManager extends BaseManager{
 
 	*/
 
-	//public  WechatWorkappIdentifyManager getWechatWorkappIdentifyManager(RetailscmUserContext userContext, String secUserId, String corpId, String userId, DateTime lastLoginTime ,String [] tokensExpr)  throws Exception;
+	//public  WechatWorkappIdentityManager getWechatWorkappIdentityManager(RetailscmUserContext userContext, String secUserId, String corpId, String userId, DateTime lastLoginTime ,String [] tokensExpr)  throws Exception;
 
-	public  SecUser addWechatWorkappIdentify(RetailscmUserContext userContext, String secUserId, String corpId, String userId, DateTime lastLoginTime , String [] tokensExpr)  throws Exception;
-	public  SecUser removeWechatWorkappIdentify(RetailscmUserContext userContext, String secUserId, String wechatWorkappIdentifyId, int wechatWorkappIdentifyVersion,String [] tokensExpr)  throws Exception;
-	public  SecUser updateWechatWorkappIdentify(RetailscmUserContext userContext, String secUserId, String wechatWorkappIdentifyId, int wechatWorkappIdentifyVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
-
-	/*
-
-	*/
-
-	//public  WechatMiniappIdentifyManager getWechatMiniappIdentifyManager(RetailscmUserContext userContext, String secUserId, String openId, String appId, DateTime lastLoginTime ,String [] tokensExpr)  throws Exception;
-
-	public  SecUser addWechatMiniappIdentify(RetailscmUserContext userContext, String secUserId, String openId, String appId, DateTime lastLoginTime , String [] tokensExpr)  throws Exception;
-	public  SecUser removeWechatMiniappIdentify(RetailscmUserContext userContext, String secUserId, String wechatMiniappIdentifyId, int wechatMiniappIdentifyVersion,String [] tokensExpr)  throws Exception;
-	public  SecUser updateWechatMiniappIdentify(RetailscmUserContext userContext, String secUserId, String wechatMiniappIdentifyId, int wechatMiniappIdentifyVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
+	public  SecUser addWechatWorkappIdentity(RetailscmUserContext userContext, String secUserId, String corpId, String userId, DateTime lastLoginTime , String [] tokensExpr)  throws Exception;
+	public  SecUser removeWechatWorkappIdentity(RetailscmUserContext userContext, String secUserId, String wechatWorkappIdentityId, int wechatWorkappIdentityVersion,String [] tokensExpr)  throws Exception;
+	public  SecUser updateWechatWorkappIdentity(RetailscmUserContext userContext, String secUserId, String wechatWorkappIdentityId, int wechatWorkappIdentityVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
 	/*
 
 	*/
 
-	//public  KeypairIdentifyManager getKeypairIdentifyManager(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId ,String [] tokensExpr)  throws Exception;
+	//public  WechatMiniappIdentityManager getWechatMiniappIdentityManager(RetailscmUserContext userContext, String secUserId, String openId, String appId, DateTime lastLoginTime ,String [] tokensExpr)  throws Exception;
 
-	public  SecUser addKeypairIdentify(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId , String [] tokensExpr)  throws Exception;
-	public  SecUser removeKeypairIdentify(RetailscmUserContext userContext, String secUserId, String keypairIdentifyId, int keypairIdentifyVersion,String [] tokensExpr)  throws Exception;
-	public  SecUser updateKeypairIdentify(RetailscmUserContext userContext, String secUserId, String keypairIdentifyId, int keypairIdentifyVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
+	public  SecUser addWechatMiniappIdentity(RetailscmUserContext userContext, String secUserId, String openId, String appId, DateTime lastLoginTime , String [] tokensExpr)  throws Exception;
+	public  SecUser removeWechatMiniappIdentity(RetailscmUserContext userContext, String secUserId, String wechatMiniappIdentityId, int wechatMiniappIdentityVersion,String [] tokensExpr)  throws Exception;
+	public  SecUser updateWechatMiniappIdentity(RetailscmUserContext userContext, String secUserId, String wechatMiniappIdentityId, int wechatMiniappIdentityVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
+
+	/*
+
+	*/
+
+	//public  KeypairIdentityManager getKeypairIdentityManager(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId ,String [] tokensExpr)  throws Exception;
+
+	public  SecUser addKeypairIdentity(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId , String [] tokensExpr)  throws Exception;
+	public  SecUser removeKeypairIdentity(RetailscmUserContext userContext, String secUserId, String keypairIdentityId, int keypairIdentityVersion,String [] tokensExpr)  throws Exception;
+	public  SecUser updateKeypairIdentity(RetailscmUserContext userContext, String secUserId, String keypairIdentityId, int keypairIdentityVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
 	/*
 

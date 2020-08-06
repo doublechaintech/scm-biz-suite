@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.warehouse;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.supplierspace.SupplierSpace;
@@ -51,24 +49,24 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = WarehouseTokens.start().withTokenFromListName(listName).done();
 		Warehouse  warehouse = (Warehouse) this.loadWarehouse(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = warehouse.collectRefercencesFromLists();
 		warehouseDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, warehouse, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new WarehouseGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -131,7 +129,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).throwExceptionIfHasErrors( WarehouseManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		Warehouse warehouse = loadWarehouse( userContext, warehouseId, tokens);
  		//do some calc before sent to customer?
@@ -150,6 +148,9 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		
 		List<BaseEntity> entityListToNaming = warehouseToPresent.collectRefercencesFromLists();
 		warehouseDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,warehouse,tokens);
 		
 		return  warehouseToPresent;
 		
@@ -573,7 +574,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.addStorageSpace( storageSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withStorageSpaceList().done());
 			
-			userContext.getManagerGroup().getStorageSpaceManager().onNewInstanceCreated(userContext, storageSpace);
+			storageSpaceManagerOf(userContext).onNewInstanceCreated(userContext, storageSpace);
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -598,7 +599,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withStorageSpaceListList()
-				.searchStorageSpaceListWith(StorageSpace.ID_PROPERTY, "is", id).done();
+				.searchStorageSpaceListWith(StorageSpace.ID_PROPERTY, tokens().is(), id).done();
 
 		Warehouse warehouseToUpdate = loadWarehouse(userContext, warehouseId, options);
 
@@ -607,7 +608,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		StorageSpace item = warehouseToUpdate.getStorageSpaceList().first();
-
+		beforeUpdateStorageSpaceProperties(userContext,item, warehouseId,id,location,contactNumber,totalArea,latitude,longitude,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateTotalArea( totalArea );
@@ -622,6 +623,10 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateStorageSpaceProperties(RetailscmUserContext userContext, StorageSpace item, String warehouseId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected StorageSpace createStorageSpace(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -730,7 +735,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.copyStorageSpaceFrom( storageSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withStorageSpaceList().done());
 			
-			userContext.getManagerGroup().getStorageSpaceManager().onNewInstanceCreated(userContext, (StorageSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			storageSpaceManagerOf(userContext).onNewInstanceCreated(userContext, (StorageSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 
@@ -743,39 +748,29 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkIdOfStorageSpace(storageSpaceId);
 		checkerOf(userContext).checkVersionOfStorageSpace(storageSpaceVersion);
-		
+
 
 		if(StorageSpace.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfStorageSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(StorageSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfStorageSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(StorageSpace.TOTAL_AREA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAreaOfStorageSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(StorageSpace.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfStorageSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(StorageSpace.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfStorageSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
 
 	}
@@ -785,7 +780,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingStorageSpace(userContext, warehouseId, storageSpaceId, storageSpaceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withStorageSpaceList().searchStorageSpaceListWith(StorageSpace.ID_PROPERTY, "eq", storageSpaceId).done();
+		Map<String,Object> loadTokens = this.tokens().withStorageSpaceList().searchStorageSpaceListWith(StorageSpace.ID_PROPERTY, tokens().equals(), storageSpaceId).done();
 
 
 
@@ -796,13 +791,14 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//warehouse.removeStorageSpace( storageSpace );
 			//make changes to AcceleraterAccount.
-			StorageSpace storageSpaceIndex = createIndexedStorageSpace(storageSpaceId, storageSpaceVersion);
+			StorageSpace storageSpaceIdVersionKey = createIndexedStorageSpace(storageSpaceId, storageSpaceVersion);
 
-			StorageSpace storageSpace = warehouse.findTheStorageSpace(storageSpaceIndex);
+			StorageSpace storageSpace = warehouse.findTheStorageSpace(storageSpaceIdVersionKey);
 			if(storageSpace == null){
-				throw new WarehouseManagerException(storageSpace+" is NOT FOUND" );
+				throw new WarehouseManagerException(storageSpaceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateStorageSpace(userContext, storageSpace, warehouseId, storageSpaceId, storageSpaceVersion, property, newValueExpr,  tokensExpr);
 			storageSpace.changeProperty(property, newValueExpr);
 			storageSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withStorageSpaceList().done());
@@ -810,6 +806,11 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateStorageSpace(RetailscmUserContext userContext, StorageSpace existed, String warehouseId, String storageSpaceId, int storageSpaceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -850,7 +851,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.addSmartPallet( smartPallet );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSmartPalletList().done());
 			
-			userContext.getManagerGroup().getSmartPalletManager().onNewInstanceCreated(userContext, smartPallet);
+			smartPalletManagerOf(userContext).onNewInstanceCreated(userContext, smartPallet);
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -875,7 +876,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSmartPalletListList()
-				.searchSmartPalletListWith(SmartPallet.ID_PROPERTY, "is", id).done();
+				.searchSmartPalletListWith(SmartPallet.ID_PROPERTY, tokens().is(), id).done();
 
 		Warehouse warehouseToUpdate = loadWarehouse(userContext, warehouseId, options);
 
@@ -884,7 +885,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		SmartPallet item = warehouseToUpdate.getSmartPalletList().first();
-
+		beforeUpdateSmartPalletProperties(userContext,item, warehouseId,id,location,contactNumber,totalArea,latitude,longitude,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateTotalArea( totalArea );
@@ -899,6 +900,10 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateSmartPalletProperties(RetailscmUserContext userContext, SmartPallet item, String warehouseId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected SmartPallet createSmartPallet(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -1007,7 +1012,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.copySmartPalletFrom( smartPallet );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSmartPalletList().done());
 			
-			userContext.getManagerGroup().getSmartPalletManager().onNewInstanceCreated(userContext, (SmartPallet)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			smartPalletManagerOf(userContext).onNewInstanceCreated(userContext, (SmartPallet)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 
@@ -1020,39 +1025,29 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkIdOfSmartPallet(smartPalletId);
 		checkerOf(userContext).checkVersionOfSmartPallet(smartPalletVersion);
-		
+
 
 		if(SmartPallet.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfSmartPallet(parseString(newValueExpr));
-		
 		}
 		
 		if(SmartPallet.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfSmartPallet(parseString(newValueExpr));
-		
 		}
 		
 		if(SmartPallet.TOTAL_AREA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAreaOfSmartPallet(parseString(newValueExpr));
-		
 		}
 		
 		if(SmartPallet.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfSmartPallet(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(SmartPallet.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfSmartPallet(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
 
 	}
@@ -1062,7 +1057,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingSmartPallet(userContext, warehouseId, smartPalletId, smartPalletVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSmartPalletList().searchSmartPalletListWith(SmartPallet.ID_PROPERTY, "eq", smartPalletId).done();
+		Map<String,Object> loadTokens = this.tokens().withSmartPalletList().searchSmartPalletListWith(SmartPallet.ID_PROPERTY, tokens().equals(), smartPalletId).done();
 
 
 
@@ -1073,13 +1068,14 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//warehouse.removeSmartPallet( smartPallet );
 			//make changes to AcceleraterAccount.
-			SmartPallet smartPalletIndex = createIndexedSmartPallet(smartPalletId, smartPalletVersion);
+			SmartPallet smartPalletIdVersionKey = createIndexedSmartPallet(smartPalletId, smartPalletVersion);
 
-			SmartPallet smartPallet = warehouse.findTheSmartPallet(smartPalletIndex);
+			SmartPallet smartPallet = warehouse.findTheSmartPallet(smartPalletIdVersionKey);
 			if(smartPallet == null){
-				throw new WarehouseManagerException(smartPallet+" is NOT FOUND" );
+				throw new WarehouseManagerException(smartPalletId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSmartPallet(userContext, smartPallet, warehouseId, smartPalletId, smartPalletVersion, property, newValueExpr,  tokensExpr);
 			smartPallet.changeProperty(property, newValueExpr);
 			smartPallet.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSmartPalletList().done());
@@ -1087,6 +1083,11 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSmartPallet(RetailscmUserContext userContext, SmartPallet existed, String warehouseId, String smartPalletId, int smartPalletVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1127,7 +1128,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.addSupplierSpace( supplierSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSupplierSpaceList().done());
 			
-			userContext.getManagerGroup().getSupplierSpaceManager().onNewInstanceCreated(userContext, supplierSpace);
+			supplierSpaceManagerOf(userContext).onNewInstanceCreated(userContext, supplierSpace);
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1152,7 +1153,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSupplierSpaceListList()
-				.searchSupplierSpaceListWith(SupplierSpace.ID_PROPERTY, "is", id).done();
+				.searchSupplierSpaceListWith(SupplierSpace.ID_PROPERTY, tokens().is(), id).done();
 
 		Warehouse warehouseToUpdate = loadWarehouse(userContext, warehouseId, options);
 
@@ -1161,7 +1162,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		SupplierSpace item = warehouseToUpdate.getSupplierSpaceList().first();
-
+		beforeUpdateSupplierSpaceProperties(userContext,item, warehouseId,id,location,contactNumber,totalArea,latitude,longitude,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateTotalArea( totalArea );
@@ -1176,6 +1177,10 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateSupplierSpaceProperties(RetailscmUserContext userContext, SupplierSpace item, String warehouseId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected SupplierSpace createSupplierSpace(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -1284,7 +1289,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.copySupplierSpaceFrom( supplierSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSupplierSpaceList().done());
 			
-			userContext.getManagerGroup().getSupplierSpaceManager().onNewInstanceCreated(userContext, (SupplierSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			supplierSpaceManagerOf(userContext).onNewInstanceCreated(userContext, (SupplierSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 
@@ -1297,39 +1302,29 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
 		checkerOf(userContext).checkVersionOfSupplierSpace(supplierSpaceVersion);
-		
+
 
 		if(SupplierSpace.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfSupplierSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(SupplierSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfSupplierSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(SupplierSpace.TOTAL_AREA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAreaOfSupplierSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(SupplierSpace.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfSupplierSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(SupplierSpace.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfSupplierSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
 
 	}
@@ -1339,7 +1334,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingSupplierSpace(userContext, warehouseId, supplierSpaceId, supplierSpaceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSupplierSpaceList().searchSupplierSpaceListWith(SupplierSpace.ID_PROPERTY, "eq", supplierSpaceId).done();
+		Map<String,Object> loadTokens = this.tokens().withSupplierSpaceList().searchSupplierSpaceListWith(SupplierSpace.ID_PROPERTY, tokens().equals(), supplierSpaceId).done();
 
 
 
@@ -1350,13 +1345,14 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//warehouse.removeSupplierSpace( supplierSpace );
 			//make changes to AcceleraterAccount.
-			SupplierSpace supplierSpaceIndex = createIndexedSupplierSpace(supplierSpaceId, supplierSpaceVersion);
+			SupplierSpace supplierSpaceIdVersionKey = createIndexedSupplierSpace(supplierSpaceId, supplierSpaceVersion);
 
-			SupplierSpace supplierSpace = warehouse.findTheSupplierSpace(supplierSpaceIndex);
+			SupplierSpace supplierSpace = warehouse.findTheSupplierSpace(supplierSpaceIdVersionKey);
 			if(supplierSpace == null){
-				throw new WarehouseManagerException(supplierSpace+" is NOT FOUND" );
+				throw new WarehouseManagerException(supplierSpaceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSupplierSpace(userContext, supplierSpace, warehouseId, supplierSpaceId, supplierSpaceVersion, property, newValueExpr,  tokensExpr);
 			supplierSpace.changeProperty(property, newValueExpr);
 			supplierSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSupplierSpaceList().done());
@@ -1364,6 +1360,11 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSupplierSpace(RetailscmUserContext userContext, SupplierSpace existed, String warehouseId, String supplierSpaceId, int supplierSpaceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1406,7 +1407,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.addReceivingSpace( receivingSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withReceivingSpaceList().done());
 			
-			userContext.getManagerGroup().getReceivingSpaceManager().onNewInstanceCreated(userContext, receivingSpace);
+			receivingSpaceManagerOf(userContext).onNewInstanceCreated(userContext, receivingSpace);
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1432,7 +1433,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withReceivingSpaceListList()
-				.searchReceivingSpaceListWith(ReceivingSpace.ID_PROPERTY, "is", id).done();
+				.searchReceivingSpaceListWith(ReceivingSpace.ID_PROPERTY, tokens().is(), id).done();
 
 		Warehouse warehouseToUpdate = loadWarehouse(userContext, warehouseId, options);
 
@@ -1441,7 +1442,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		ReceivingSpace item = warehouseToUpdate.getReceivingSpaceList().first();
-
+		beforeUpdateReceivingSpaceProperties(userContext,item, warehouseId,id,location,contactNumber,description,totalArea,latitude,longitude,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateDescription( description );
@@ -1457,6 +1458,10 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateReceivingSpaceProperties(RetailscmUserContext userContext, ReceivingSpace item, String warehouseId, String id,String location,String contactNumber,String description,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ReceivingSpace createReceivingSpace(RetailscmUserContext userContext, String location, String contactNumber, String description, String totalArea, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -1566,7 +1571,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.copyReceivingSpaceFrom( receivingSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withReceivingSpaceList().done());
 			
-			userContext.getManagerGroup().getReceivingSpaceManager().onNewInstanceCreated(userContext, (ReceivingSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			receivingSpaceManagerOf(userContext).onNewInstanceCreated(userContext, (ReceivingSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 
@@ -1579,45 +1584,33 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
 		checkerOf(userContext).checkVersionOfReceivingSpace(receivingSpaceVersion);
-		
+
 
 		if(ReceivingSpace.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfReceivingSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(ReceivingSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfReceivingSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(ReceivingSpace.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfReceivingSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(ReceivingSpace.TOTAL_AREA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAreaOfReceivingSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(ReceivingSpace.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfReceivingSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(ReceivingSpace.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfReceivingSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
 
 	}
@@ -1627,7 +1620,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingReceivingSpace(userContext, warehouseId, receivingSpaceId, receivingSpaceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withReceivingSpaceList().searchReceivingSpaceListWith(ReceivingSpace.ID_PROPERTY, "eq", receivingSpaceId).done();
+		Map<String,Object> loadTokens = this.tokens().withReceivingSpaceList().searchReceivingSpaceListWith(ReceivingSpace.ID_PROPERTY, tokens().equals(), receivingSpaceId).done();
 
 
 
@@ -1638,13 +1631,14 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//warehouse.removeReceivingSpace( receivingSpace );
 			//make changes to AcceleraterAccount.
-			ReceivingSpace receivingSpaceIndex = createIndexedReceivingSpace(receivingSpaceId, receivingSpaceVersion);
+			ReceivingSpace receivingSpaceIdVersionKey = createIndexedReceivingSpace(receivingSpaceId, receivingSpaceVersion);
 
-			ReceivingSpace receivingSpace = warehouse.findTheReceivingSpace(receivingSpaceIndex);
+			ReceivingSpace receivingSpace = warehouse.findTheReceivingSpace(receivingSpaceIdVersionKey);
 			if(receivingSpace == null){
-				throw new WarehouseManagerException(receivingSpace+" is NOT FOUND" );
+				throw new WarehouseManagerException(receivingSpaceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateReceivingSpace(userContext, receivingSpace, warehouseId, receivingSpaceId, receivingSpaceVersion, property, newValueExpr,  tokensExpr);
 			receivingSpace.changeProperty(property, newValueExpr);
 			receivingSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withReceivingSpaceList().done());
@@ -1652,6 +1646,11 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateReceivingSpace(RetailscmUserContext userContext, ReceivingSpace existed, String warehouseId, String receivingSpaceId, int receivingSpaceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1694,7 +1693,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.addShippingSpace( shippingSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withShippingSpaceList().done());
 			
-			userContext.getManagerGroup().getShippingSpaceManager().onNewInstanceCreated(userContext, shippingSpace);
+			shippingSpaceManagerOf(userContext).onNewInstanceCreated(userContext, shippingSpace);
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1720,7 +1719,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withShippingSpaceListList()
-				.searchShippingSpaceListWith(ShippingSpace.ID_PROPERTY, "is", id).done();
+				.searchShippingSpaceListWith(ShippingSpace.ID_PROPERTY, tokens().is(), id).done();
 
 		Warehouse warehouseToUpdate = loadWarehouse(userContext, warehouseId, options);
 
@@ -1729,7 +1728,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		ShippingSpace item = warehouseToUpdate.getShippingSpaceList().first();
-
+		beforeUpdateShippingSpaceProperties(userContext,item, warehouseId,id,location,contactNumber,totalArea,latitude,longitude,description,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateTotalArea( totalArea );
@@ -1745,6 +1744,10 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateShippingSpaceProperties(RetailscmUserContext userContext, ShippingSpace item, String warehouseId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String description, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ShippingSpace createShippingSpace(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, String description) throws Exception{
 
@@ -1854,7 +1857,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.copyShippingSpaceFrom( shippingSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withShippingSpaceList().done());
 			
-			userContext.getManagerGroup().getShippingSpaceManager().onNewInstanceCreated(userContext, (ShippingSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			shippingSpaceManagerOf(userContext).onNewInstanceCreated(userContext, (ShippingSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 
@@ -1867,45 +1870,33 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkIdOfShippingSpace(shippingSpaceId);
 		checkerOf(userContext).checkVersionOfShippingSpace(shippingSpaceVersion);
-		
+
 
 		if(ShippingSpace.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfShippingSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(ShippingSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfShippingSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(ShippingSpace.TOTAL_AREA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAreaOfShippingSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(ShippingSpace.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfShippingSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(ShippingSpace.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfShippingSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(ShippingSpace.DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDescriptionOfShippingSpace(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
 
 	}
@@ -1915,7 +1906,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingShippingSpace(userContext, warehouseId, shippingSpaceId, shippingSpaceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withShippingSpaceList().searchShippingSpaceListWith(ShippingSpace.ID_PROPERTY, "eq", shippingSpaceId).done();
+		Map<String,Object> loadTokens = this.tokens().withShippingSpaceList().searchShippingSpaceListWith(ShippingSpace.ID_PROPERTY, tokens().equals(), shippingSpaceId).done();
 
 
 
@@ -1926,13 +1917,14 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//warehouse.removeShippingSpace( shippingSpace );
 			//make changes to AcceleraterAccount.
-			ShippingSpace shippingSpaceIndex = createIndexedShippingSpace(shippingSpaceId, shippingSpaceVersion);
+			ShippingSpace shippingSpaceIdVersionKey = createIndexedShippingSpace(shippingSpaceId, shippingSpaceVersion);
 
-			ShippingSpace shippingSpace = warehouse.findTheShippingSpace(shippingSpaceIndex);
+			ShippingSpace shippingSpace = warehouse.findTheShippingSpace(shippingSpaceIdVersionKey);
 			if(shippingSpace == null){
-				throw new WarehouseManagerException(shippingSpace+" is NOT FOUND" );
+				throw new WarehouseManagerException(shippingSpaceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateShippingSpace(userContext, shippingSpace, warehouseId, shippingSpaceId, shippingSpaceVersion, property, newValueExpr,  tokensExpr);
 			shippingSpace.changeProperty(property, newValueExpr);
 			shippingSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withShippingSpaceList().done());
@@ -1940,6 +1932,11 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateShippingSpace(RetailscmUserContext userContext, ShippingSpace existed, String warehouseId, String shippingSpaceId, int shippingSpaceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1980,7 +1977,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.addDamageSpace( damageSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withDamageSpaceList().done());
 			
-			userContext.getManagerGroup().getDamageSpaceManager().onNewInstanceCreated(userContext, damageSpace);
+			damageSpaceManagerOf(userContext).onNewInstanceCreated(userContext, damageSpace);
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2005,7 +2002,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withDamageSpaceListList()
-				.searchDamageSpaceListWith(DamageSpace.ID_PROPERTY, "is", id).done();
+				.searchDamageSpaceListWith(DamageSpace.ID_PROPERTY, tokens().is(), id).done();
 
 		Warehouse warehouseToUpdate = loadWarehouse(userContext, warehouseId, options);
 
@@ -2014,7 +2011,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		DamageSpace item = warehouseToUpdate.getDamageSpaceList().first();
-
+		beforeUpdateDamageSpaceProperties(userContext,item, warehouseId,id,location,contactNumber,totalArea,latitude,longitude,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateTotalArea( totalArea );
@@ -2029,6 +2026,10 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateDamageSpaceProperties(RetailscmUserContext userContext, DamageSpace item, String warehouseId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected DamageSpace createDamageSpace(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude) throws Exception{
 
@@ -2137,7 +2138,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.copyDamageSpaceFrom( damageSpace );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withDamageSpaceList().done());
 			
-			userContext.getManagerGroup().getDamageSpaceManager().onNewInstanceCreated(userContext, (DamageSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			damageSpaceManagerOf(userContext).onNewInstanceCreated(userContext, (DamageSpace)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 
@@ -2150,39 +2151,29 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
 		checkerOf(userContext).checkVersionOfDamageSpace(damageSpaceVersion);
-		
+
 
 		if(DamageSpace.LOCATION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLocationOfDamageSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(DamageSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkContactNumberOfDamageSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(DamageSpace.TOTAL_AREA_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAreaOfDamageSpace(parseString(newValueExpr));
-		
 		}
 		
 		if(DamageSpace.LATITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLatitudeOfDamageSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
 		if(DamageSpace.LONGITUDE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLongitudeOfDamageSpace(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
 
 	}
@@ -2192,7 +2183,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingDamageSpace(userContext, warehouseId, damageSpaceId, damageSpaceVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withDamageSpaceList().searchDamageSpaceListWith(DamageSpace.ID_PROPERTY, "eq", damageSpaceId).done();
+		Map<String,Object> loadTokens = this.tokens().withDamageSpaceList().searchDamageSpaceListWith(DamageSpace.ID_PROPERTY, tokens().equals(), damageSpaceId).done();
 
 
 
@@ -2203,13 +2194,14 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//warehouse.removeDamageSpace( damageSpace );
 			//make changes to AcceleraterAccount.
-			DamageSpace damageSpaceIndex = createIndexedDamageSpace(damageSpaceId, damageSpaceVersion);
+			DamageSpace damageSpaceIdVersionKey = createIndexedDamageSpace(damageSpaceId, damageSpaceVersion);
 
-			DamageSpace damageSpace = warehouse.findTheDamageSpace(damageSpaceIndex);
+			DamageSpace damageSpace = warehouse.findTheDamageSpace(damageSpaceIdVersionKey);
 			if(damageSpace == null){
-				throw new WarehouseManagerException(damageSpace+" is NOT FOUND" );
+				throw new WarehouseManagerException(damageSpaceId+" is NOT FOUND" );
 			}
 
+			beforeUpdateDamageSpace(userContext, damageSpace, warehouseId, damageSpaceId, damageSpaceVersion, property, newValueExpr,  tokensExpr);
 			damageSpace.changeProperty(property, newValueExpr);
 			damageSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withDamageSpaceList().done());
@@ -2217,6 +2209,11 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateDamageSpace(RetailscmUserContext userContext, DamageSpace existed, String warehouseId, String damageSpaceId, int damageSpaceVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2251,7 +2248,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.addWarehouseAsset( warehouseAsset );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withWarehouseAssetList().done());
 			
-			userContext.getManagerGroup().getWarehouseAssetManager().onNewInstanceCreated(userContext, warehouseAsset);
+			warehouseAssetManagerOf(userContext).onNewInstanceCreated(userContext, warehouseAsset);
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -2273,7 +2270,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withWarehouseAssetListList()
-				.searchWarehouseAssetListWith(WarehouseAsset.ID_PROPERTY, "is", id).done();
+				.searchWarehouseAssetListWith(WarehouseAsset.ID_PROPERTY, tokens().is(), id).done();
 
 		Warehouse warehouseToUpdate = loadWarehouse(userContext, warehouseId, options);
 
@@ -2282,7 +2279,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		WarehouseAsset item = warehouseToUpdate.getWarehouseAssetList().first();
-
+		beforeUpdateWarehouseAssetProperties(userContext,item, warehouseId,id,name,position,tokensExpr);
 		item.updateName( name );
 		item.updatePosition( position );
 
@@ -2294,6 +2291,10 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateWarehouseAssetProperties(RetailscmUserContext userContext, WarehouseAsset item, String warehouseId, String id,String name,String position, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected WarehouseAsset createWarehouseAsset(RetailscmUserContext userContext, String name, String position) throws Exception{
 
@@ -2399,7 +2400,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			warehouse.copyWarehouseAssetFrom( warehouseAsset );
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withWarehouseAssetList().done());
 			
-			userContext.getManagerGroup().getWarehouseAssetManager().onNewInstanceCreated(userContext, (WarehouseAsset)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			warehouseAssetManagerOf(userContext).onNewInstanceCreated(userContext, (WarehouseAsset)warehouse.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
 
@@ -2412,21 +2413,17 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfWarehouse(warehouseId);
 		checkerOf(userContext).checkIdOfWarehouseAsset(warehouseAssetId);
 		checkerOf(userContext).checkVersionOfWarehouseAsset(warehouseAssetVersion);
-		
+
 
 		if(WarehouseAsset.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfWarehouseAsset(parseString(newValueExpr));
-		
 		}
 		
 		if(WarehouseAsset.POSITION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkPositionOfWarehouseAsset(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
 
 	}
@@ -2436,7 +2433,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingWarehouseAsset(userContext, warehouseId, warehouseAssetId, warehouseAssetVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withWarehouseAssetList().searchWarehouseAssetListWith(WarehouseAsset.ID_PROPERTY, "eq", warehouseAssetId).done();
+		Map<String,Object> loadTokens = this.tokens().withWarehouseAssetList().searchWarehouseAssetListWith(WarehouseAsset.ID_PROPERTY, tokens().equals(), warehouseAssetId).done();
 
 
 
@@ -2447,13 +2444,14 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//warehouse.removeWarehouseAsset( warehouseAsset );
 			//make changes to AcceleraterAccount.
-			WarehouseAsset warehouseAssetIndex = createIndexedWarehouseAsset(warehouseAssetId, warehouseAssetVersion);
+			WarehouseAsset warehouseAssetIdVersionKey = createIndexedWarehouseAsset(warehouseAssetId, warehouseAssetVersion);
 
-			WarehouseAsset warehouseAsset = warehouse.findTheWarehouseAsset(warehouseAssetIndex);
+			WarehouseAsset warehouseAsset = warehouse.findTheWarehouseAsset(warehouseAssetIdVersionKey);
 			if(warehouseAsset == null){
-				throw new WarehouseManagerException(warehouseAsset+" is NOT FOUND" );
+				throw new WarehouseManagerException(warehouseAssetId+" is NOT FOUND" );
 			}
 
+			beforeUpdateWarehouseAsset(userContext, warehouseAsset, warehouseId, warehouseAssetId, warehouseAssetVersion, property, newValueExpr,  tokensExpr);
 			warehouseAsset.changeProperty(property, newValueExpr);
 			warehouseAsset.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withWarehouseAssetList().done());
@@ -2461,6 +2459,11 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateWarehouseAsset(RetailscmUserContext userContext, WarehouseAsset existed, String warehouseId, String warehouseAssetId, int warehouseAssetVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -2477,6 +2480,12 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    warehouseDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -2568,6 +2577,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -2684,7 +2694,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -2761,7 +2771,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		propList.add(
 				MapUtil.put("id", "8-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -2895,6 +2905,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

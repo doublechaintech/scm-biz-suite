@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements PayingOffDAO{
 
@@ -71,50 +71,54 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 	 	return this.employeeSalarySheetDAO;
  	}	
 
-	
+
 	/*
 	protected PayingOff load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalPayingOff(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<PayingOff> loadAll() {
 	    return this.loadAll(getPayingOffMapper());
 	}
-	
-	
+
+  public Stream<PayingOff> loadAllAsStream() {
+      return this.loadAllAsStream(getPayingOffMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public PayingOff load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalPayingOff(PayingOffTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public PayingOff save(PayingOff payingOff,Map<String,Object> options){
-		
+
 		String methodName="save(PayingOff payingOff,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(payingOff, methodName, "payingOff");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalPayingOff(payingOff,options);
 	}
 	public PayingOff clone(String payingOffId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(PayingOffTable.withId(payingOffId),options);
 	}
-	
+
 	protected PayingOff clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String payingOffId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		PayingOff newPayingOff = loadInternalPayingOff(accessKey, options);
 		newPayingOff.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
  		}
 		
 
-		
+
 		saveInternalPayingOff(newPayingOff,options);
-		
+
 		return newPayingOff;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String payingOffId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String payingOffId, int version) throws Exception{
-	
+
 		String methodName="delete(String payingOffId, int version)";
 		assertMethodArgumentNotNull(payingOffId, methodName, "payingOffId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{payingOffId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		if(affectedNumber == 0){
 			handleDeleteOneError(payingOffId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public PayingOff disconnectFromAll(String payingOffId, int version) throws Exception{
-	
-		
+
+
 		PayingOff payingOff = loadInternalPayingOff(PayingOffTable.withId(payingOffId), emptyOptions());
 		payingOff.clearFromAll();
 		this.savePayingOff(payingOff);
 		return payingOff;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "paying_off";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "payingOff";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 			return payingOff;
 		}
 		
-		
+
 		String SQL=this.getSavePayingOffSQL(payingOff);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSavePayingOffParameters(payingOff);
@@ -419,57 +423,57 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		payingOff.incVersion();
 		return payingOff;
-	
+
 	}
 	public SmartList<PayingOff> savePayingOffList(SmartList<PayingOff> payingOffList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitPayingOffList(payingOffList);
-		
+
 		batchPayingOffCreate((List<PayingOff>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchPayingOffUpdate((List<PayingOff>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(PayingOff payingOff:payingOffList){
 			if(payingOff.isChanged()){
 				payingOff.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return payingOffList;
 	}
 
 	public SmartList<PayingOff> removePayingOffList(SmartList<PayingOff> payingOffList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(payingOffList, options);
-		
+
 		return payingOffList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> preparePayingOffBatchCreateArgs(List<PayingOff> payingOffList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(PayingOff payingOff:payingOffList ){
 			Object [] parameters = preparePayingOffCreateParameters(payingOff);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> preparePayingOffBatchUpdateArgs(List<PayingOff> payingOffList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(PayingOff payingOff:payingOffList ){
 			if(!payingOff.isChanged()){
@@ -477,40 +481,40 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 			}
 			Object [] parameters = preparePayingOffUpdateParameters(payingOff);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchPayingOffCreate(List<PayingOff> payingOffList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=preparePayingOffBatchCreateArgs(payingOffList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchPayingOffUpdate(List<PayingOff> payingOffList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=preparePayingOffBatchUpdateArgs(payingOffList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitPayingOffList(List<PayingOff> payingOffList){
-		
+
 		List<PayingOff> payingOffCreateList=new ArrayList<PayingOff>();
 		List<PayingOff> payingOffUpdateList=new ArrayList<PayingOff>();
-		
+
 		for(PayingOff payingOff: payingOffList){
 			if(isUpdateRequest(payingOff)){
 				payingOffUpdateList.add( payingOff);
@@ -518,10 +522,10 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 			}
 			payingOffCreateList.add(payingOff);
 		}
-		
+
 		return new Object[]{payingOffCreateList,payingOffUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(PayingOff payingOff){
  		return payingOff.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSavePayingOffParameters(PayingOff payingOff){
  		if(isUpdateRequest(payingOff) ){
  			return preparePayingOffUpdateParameters(payingOff);
@@ -543,7 +547,7 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
  
  		
  		parameters[0] = payingOff.getWho();
- 		 	
+ 		
  		if(payingOff.getPaidFor() != null){
  			parameters[1] = payingOff.getPaidFor().getId();
  		}
@@ -553,25 +557,27 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
  		
  		
  		parameters[3] = payingOff.getAmount();
- 				
+ 		
  		parameters[4] = payingOff.nextVersion();
  		parameters[5] = payingOff.getId();
  		parameters[6] = payingOff.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] preparePayingOffCreateParameters(PayingOff payingOff){
 		Object[] parameters = new Object[5];
-		String newPayingOffId=getNextId();
-		payingOff.setId(newPayingOffId);
+        if(payingOff.getId() == null){
+          String newPayingOffId=getNextId();
+          payingOff.setId(newPayingOffId);
+        }
 		parameters[0] =  payingOff.getId();
  
  		
  		parameters[1] = payingOff.getWho();
- 		 	
+ 		
  		if(payingOff.getPaidFor() != null){
  			parameters[2] = payingOff.getPaidFor().getId();
- 		
+
  		}
  		
  		
@@ -579,15 +585,15 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
  		
  		
  		parameters[4] = payingOff.getAmount();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected PayingOff saveInternalPayingOff(PayingOff payingOff, Map<String,Object> options){
-		
+
 		savePayingOff(payingOff);
- 	
+
  		if(isSavePaidForEnabled(options)){
 	 		savePaidFor(payingOff, options);
  		}
@@ -597,42 +603,42 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 	 		saveEmployeeSalarySheetList(payingOff, options);
 	 		//removeEmployeeSalarySheetList(payingOff, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return payingOff;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected PayingOff savePaidFor(PayingOff payingOff, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(payingOff.getPaidFor() == null){
  			return payingOff;//do nothing when it is null
  		}
- 		
+
  		getEmployeeDAO().save(payingOff.getPaidFor(),options);
  		return payingOff;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public PayingOff planToRemoveEmployeeSalarySheetList(PayingOff payingOff, String employeeSalarySheetIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOff.getId());
 		key.put(EmployeeSalarySheet.ID_PROPERTY, employeeSalarySheetIds);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -641,17 +647,17 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return payingOff;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 
 			employeeSalarySheetItem.clearFromAll();
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
-		return payingOff;	
-	
+		return payingOff;
+
 	}
 
 
@@ -660,11 +666,11 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOff.getId());
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -673,19 +679,19 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return payingOff;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 			employeeSalarySheetItem.clearEmployee();
 			employeeSalarySheetItem.clearPayingOff();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
 		return payingOff;
 	}
-	
+
 	public int countEmployeeSalarySheetListWithEmployee(String payingOffId, String employeeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -694,7 +700,7 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);
 		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
-		
+
 		int count = getEmployeeSalarySheetDAO().countEmployeeSalarySheetWithKey(key, options);
 		return count;
 	}
@@ -704,11 +710,11 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOff.getId());
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		SmartList<EmployeeSalarySheet> externalEmployeeSalarySheetList = getEmployeeSalarySheetDAO().
 				findEmployeeSalarySheetWithKey(key, options);
 		if(externalEmployeeSalarySheetList == null){
@@ -717,19 +723,19 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		if(externalEmployeeSalarySheetList.isEmpty()){
 			return payingOff;
 		}
-		
+
 		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 			employeeSalarySheetItem.clearCurrentSalaryGrade();
 			employeeSalarySheetItem.clearPayingOff();
-			
+
 		}
-		
-		
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();		
+
+
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();
 		employeeSalarySheetList.addAllToRemoveList(externalEmployeeSalarySheetList);
 		return payingOff;
 	}
-	
+
 	public int countEmployeeSalarySheetListWithCurrentSalaryGrade(String payingOffId, String currentSalaryGradeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -738,7 +744,7 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);
 		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, currentSalaryGradeId);
-		
+
 		int count = getEmployeeSalarySheetDAO().countEmployeeSalarySheetWithKey(key, options);
 		return count;
 	}
@@ -746,19 +752,19 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 
 		
 	protected PayingOff saveEmployeeSalarySheetList(PayingOff payingOff, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();
 		if(employeeSalarySheetList == null){
 			//null list means nothing
 			return payingOff;
 		}
 		SmartList<EmployeeSalarySheet> mergedUpdateEmployeeSalarySheetList = new SmartList<EmployeeSalarySheet>();
-		
-		
-		mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList); 
+
+
+		mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList);
 		if(employeeSalarySheetList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateEmployeeSalarySheetList.addAll(employeeSalarySheetList.getToRemoveList());
@@ -767,28 +773,28 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		}
 
 		//adding new size can improve performance
-	
+
 		getEmployeeSalarySheetDAO().saveEmployeeSalarySheetList(mergedUpdateEmployeeSalarySheetList,options);
-		
+
 		if(employeeSalarySheetList.getToRemoveList() != null){
 			employeeSalarySheetList.removeAll(employeeSalarySheetList.getToRemoveList());
 		}
-		
-		
+
+
 		return payingOff;
-	
+
 	}
-	
+
 	protected PayingOff removeEmployeeSalarySheetList(PayingOff payingOff, Map<String,Object> options){
-	
-	
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();
 		if(employeeSalarySheetList == null){
 			return payingOff;
-		}	
-	
+		}
+
 		SmartList<EmployeeSalarySheet> toRemoveEmployeeSalarySheetList = employeeSalarySheetList.getToRemoveList();
-		
+
 		if(toRemoveEmployeeSalarySheetList == null){
 			return payingOff;
 		}
@@ -796,20 +802,20 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 			return payingOff;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getEmployeeSalarySheetDAO().removeEmployeeSalarySheetList(toRemoveEmployeeSalarySheetList,options);
-		
-		return payingOff;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getEmployeeSalarySheetDAO().removeEmployeeSalarySheetList(toRemoveEmployeeSalarySheetList,options);
+
+		return payingOff;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public PayingOff present(PayingOff payingOff,Map<String, Object> options){
@@ -852,13 +858,13 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 	protected String getTableName(){
 		return PayingOffTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<PayingOff> payingOffList) {		
+
+
+
+	public void enhanceList(List<PayingOff> payingOffList) {
 		this.enhanceListInternal(payingOffList, this.getPayingOffMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeSalarySheet的payingOff的EmployeeSalarySheetList
 	public SmartList<EmployeeSalarySheet> loadOurEmployeeSalarySheetList(RetailscmUserContext userContext, List<PayingOff> us, Map<String,Object> options) throws Exception{
@@ -883,39 +889,45 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PayingOff> payingOffList = ownerEntity.collectRefsWithType(PayingOff.INTERNAL_TYPE);
 		this.enhanceList(payingOffList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<PayingOff> findPayingOffWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getPayingOffMapper());
 
 	}
 	@Override
 	public int countPayingOffWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countPayingOffWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<PayingOff> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getPayingOffMapper());
 	}
+
+  @Override
+  public Stream<PayingOff> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getPayingOffMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -944,7 +956,7 @@ public class PayingOffJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pa
 		}
 		return result;
 	}
-	
+
 	
 
 }

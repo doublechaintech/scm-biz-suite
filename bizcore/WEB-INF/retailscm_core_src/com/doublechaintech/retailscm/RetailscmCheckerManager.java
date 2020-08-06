@@ -789,11 +789,11 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 	public com.doublechaintech.retailscm.userdomain.UserDomainDAO userDomainDaoOf(RetailscmUserContext userContext){
 		return userContext.getDAOGroup().getUserDomainDAO();
 	}
-	public com.doublechaintech.retailscm.userwhitelist.UserWhiteListManager userWhiteListManagerOf(RetailscmUserContext userContext){
-		return userContext.getManagerGroup().getUserWhiteListManager();
+	public com.doublechaintech.retailscm.userallowlist.UserAllowListManager userAllowListManagerOf(RetailscmUserContext userContext){
+		return userContext.getManagerGroup().getUserAllowListManager();
 	}
-	public com.doublechaintech.retailscm.userwhitelist.UserWhiteListDAO userWhiteListDaoOf(RetailscmUserContext userContext){
-		return userContext.getDAOGroup().getUserWhiteListDAO();
+	public com.doublechaintech.retailscm.userallowlist.UserAllowListDAO userAllowListDaoOf(RetailscmUserContext userContext){
+		return userContext.getDAOGroup().getUserAllowListDAO();
 	}
 	public com.doublechaintech.retailscm.secuser.SecUserManager secUserManagerOf(RetailscmUserContext userContext){
 		return userContext.getManagerGroup().getSecUserManager();
@@ -837,23 +837,23 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 	public com.doublechaintech.retailscm.candidateelement.CandidateElementDAO candidateElementDaoOf(RetailscmUserContext userContext){
 		return userContext.getDAOGroup().getCandidateElementDAO();
 	}
-	public com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentifyManager wechatWorkappIdentifyManagerOf(RetailscmUserContext userContext){
-		return userContext.getManagerGroup().getWechatWorkappIdentifyManager();
+	public com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityManager wechatWorkappIdentityManagerOf(RetailscmUserContext userContext){
+		return userContext.getManagerGroup().getWechatWorkappIdentityManager();
 	}
-	public com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentifyDAO wechatWorkappIdentifyDaoOf(RetailscmUserContext userContext){
-		return userContext.getDAOGroup().getWechatWorkappIdentifyDAO();
+	public com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityDAO wechatWorkappIdentityDaoOf(RetailscmUserContext userContext){
+		return userContext.getDAOGroup().getWechatWorkappIdentityDAO();
 	}
-	public com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentifyManager wechatMiniappIdentifyManagerOf(RetailscmUserContext userContext){
-		return userContext.getManagerGroup().getWechatMiniappIdentifyManager();
+	public com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityManager wechatMiniappIdentityManagerOf(RetailscmUserContext userContext){
+		return userContext.getManagerGroup().getWechatMiniappIdentityManager();
 	}
-	public com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentifyDAO wechatMiniappIdentifyDaoOf(RetailscmUserContext userContext){
-		return userContext.getDAOGroup().getWechatMiniappIdentifyDAO();
+	public com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityDAO wechatMiniappIdentityDaoOf(RetailscmUserContext userContext){
+		return userContext.getDAOGroup().getWechatMiniappIdentityDAO();
 	}
-	public com.doublechaintech.retailscm.keypairidentify.KeypairIdentifyManager keypairIdentifyManagerOf(RetailscmUserContext userContext){
-		return userContext.getManagerGroup().getKeypairIdentifyManager();
+	public com.doublechaintech.retailscm.keypairidentity.KeypairIdentityManager keypairIdentityManagerOf(RetailscmUserContext userContext){
+		return userContext.getManagerGroup().getKeypairIdentityManager();
 	}
-	public com.doublechaintech.retailscm.keypairidentify.KeypairIdentifyDAO keypairIdentifyDaoOf(RetailscmUserContext userContext){
-		return userContext.getDAOGroup().getKeypairIdentifyDAO();
+	public com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO keypairIdentityDaoOf(RetailscmUserContext userContext){
+		return userContext.getDAOGroup().getKeypairIdentityDAO();
 	}
 	public com.doublechaintech.retailscm.publickeytype.PublicKeyTypeManager publicKeyTypeManagerOf(RetailscmUserContext userContext){
 		return userContext.getManagerGroup().getPublicKeyTypeManager();

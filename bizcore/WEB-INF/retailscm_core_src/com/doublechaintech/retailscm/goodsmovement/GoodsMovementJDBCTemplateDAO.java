@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implements GoodsMovementDAO{
 
@@ -53,64 +53,68 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 	return this.goodsDAO;
  	}	
 
-	
+
 	/*
 	protected GoodsMovement load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalGoodsMovement(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<GoodsMovement> loadAll() {
 	    return this.loadAll(getGoodsMovementMapper());
 	}
-	
-	
+
+  public Stream<GoodsMovement> loadAllAsStream() {
+      return this.loadAllAsStream(getGoodsMovementMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public GoodsMovement load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalGoodsMovement(GoodsMovementTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public GoodsMovement save(GoodsMovement goodsMovement,Map<String,Object> options){
-		
+
 		String methodName="save(GoodsMovement goodsMovement,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(goodsMovement, methodName, "goodsMovement");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalGoodsMovement(goodsMovement,options);
 	}
 	public GoodsMovement clone(String goodsMovementId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(GoodsMovementTable.withId(goodsMovementId),options);
 	}
-	
+
 	protected GoodsMovement clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String goodsMovementId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		GoodsMovement newGoodsMovement = loadInternalGoodsMovement(accessKey, options);
 		newGoodsMovement.setVersion(0);
 		
 		
 
-		
+
 		saveInternalGoodsMovement(newGoodsMovement,options);
-		
+
 		return newGoodsMovement;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String goodsMovementId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String goodsMovementId, int version) throws Exception{
-	
+
 		String methodName="delete(String goodsMovementId, int version)";
 		assertMethodArgumentNotNull(goodsMovementId, methodName, "goodsMovementId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{goodsMovementId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(affectedNumber == 0){
 			handleDeleteOneError(goodsMovementId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public GoodsMovement disconnectFromAll(String goodsMovementId, int version) throws Exception{
-	
-		
+
+
 		GoodsMovement goodsMovement = loadInternalGoodsMovement(GoodsMovementTable.withId(goodsMovementId), emptyOptions());
 		goodsMovement.clearFromAll();
 		this.saveGoodsMovement(goodsMovement);
 		return goodsMovement;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "goods_movement";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "goodsMovement";
 	}
-	
+
 	
 	
 	
@@ -327,7 +331,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return goodsMovement;
 		}
 		
-		
+
 		String SQL=this.getSaveGoodsMovementSQL(goodsMovement);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsMovementParameters(goodsMovement);
@@ -336,57 +340,57 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		goodsMovement.incVersion();
 		return goodsMovement;
-	
+
 	}
 	public SmartList<GoodsMovement> saveGoodsMovementList(SmartList<GoodsMovement> goodsMovementList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitGoodsMovementList(goodsMovementList);
-		
+
 		batchGoodsMovementCreate((List<GoodsMovement>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchGoodsMovementUpdate((List<GoodsMovement>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(GoodsMovement goodsMovement:goodsMovementList){
 			if(goodsMovement.isChanged()){
 				goodsMovement.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return goodsMovementList;
 	}
 
 	public SmartList<GoodsMovement> removeGoodsMovementList(SmartList<GoodsMovement> goodsMovementList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(goodsMovementList, options);
-		
+
 		return goodsMovementList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareGoodsMovementBatchCreateArgs(List<GoodsMovement> goodsMovementList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(GoodsMovement goodsMovement:goodsMovementList ){
 			Object [] parameters = prepareGoodsMovementCreateParameters(goodsMovement);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareGoodsMovementBatchUpdateArgs(List<GoodsMovement> goodsMovementList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(GoodsMovement goodsMovement:goodsMovementList ){
 			if(!goodsMovement.isChanged()){
@@ -394,40 +398,40 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			Object [] parameters = prepareGoodsMovementUpdateParameters(goodsMovement);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchGoodsMovementCreate(List<GoodsMovement> goodsMovementList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareGoodsMovementBatchCreateArgs(goodsMovementList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchGoodsMovementUpdate(List<GoodsMovement> goodsMovementList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareGoodsMovementBatchUpdateArgs(goodsMovementList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitGoodsMovementList(List<GoodsMovement> goodsMovementList){
-		
+
 		List<GoodsMovement> goodsMovementCreateList=new ArrayList<GoodsMovement>();
 		List<GoodsMovement> goodsMovementUpdateList=new ArrayList<GoodsMovement>();
-		
+
 		for(GoodsMovement goodsMovement: goodsMovementList){
 			if(isUpdateRequest(goodsMovement)){
 				goodsMovementUpdateList.add( goodsMovement);
@@ -435,10 +439,10 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			}
 			goodsMovementCreateList.add(goodsMovement);
 		}
-		
+
 		return new Object[]{goodsMovementCreateList,goodsMovementUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(GoodsMovement goodsMovement){
  		return goodsMovement.getVersion() > 0;
  	}
@@ -448,7 +452,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveGoodsMovementParameters(GoodsMovement goodsMovement){
  		if(isUpdateRequest(goodsMovement) ){
  			return prepareGoodsMovementUpdateParameters(goodsMovement);
@@ -481,21 +485,23 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[7] = goodsMovement.getLongitude();
- 		 	
+ 		
  		if(goodsMovement.getGoods() != null){
  			parameters[8] = goodsMovement.getGoods().getId();
  		}
- 		
+ 
  		parameters[9] = goodsMovement.nextVersion();
  		parameters[10] = goodsMovement.getId();
  		parameters[11] = goodsMovement.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareGoodsMovementCreateParameters(GoodsMovement goodsMovement){
 		Object[] parameters = new Object[10];
-		String newGoodsMovementId=getNextId();
-		goodsMovement.setId(newGoodsMovementId);
+        if(goodsMovement.getId() == null){
+          String newGoodsMovementId=getNextId();
+          goodsMovement.setId(newGoodsMovementId);
+        }
 		parameters[0] =  goodsMovement.getId();
  
  		
@@ -521,49 +527,49 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
  		
  		parameters[8] = goodsMovement.getLongitude();
- 		 	
+ 		
  		if(goodsMovement.getGoods() != null){
  			parameters[9] = goodsMovement.getGoods().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected GoodsMovement saveInternalGoodsMovement(GoodsMovement goodsMovement, Map<String,Object> options){
-		
+
 		saveGoodsMovement(goodsMovement);
- 	
+
  		if(isSaveGoodsEnabled(options)){
 	 		saveGoods(goodsMovement, options);
  		}
  
 		
 		return goodsMovement;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected GoodsMovement saveGoods(GoodsMovement goodsMovement, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(goodsMovement.getGoods() == null){
  			return goodsMovement;//do nothing when it is null
  		}
- 		
+
  		getGoodsDAO().save(goodsMovement.getGoods(),options);
  		return goodsMovement;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -583,47 +589,53 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	protected String getTableName(){
 		return GoodsMovementTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<GoodsMovement> goodsMovementList) {		
+
+
+
+	public void enhanceList(List<GoodsMovement> goodsMovementList) {
 		this.enhanceListInternal(goodsMovementList, this.getGoodsMovementMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsMovement> goodsMovementList = ownerEntity.collectRefsWithType(GoodsMovement.INTERNAL_TYPE);
 		this.enhanceList(goodsMovementList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<GoodsMovement> findGoodsMovementWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getGoodsMovementMapper());
 
 	}
 	@Override
 	public int countGoodsMovementWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countGoodsMovementWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<GoodsMovement> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getGoodsMovementMapper());
 	}
+
+  @Override
+  public Stream<GoodsMovement> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getGoodsMovementMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -652,7 +664,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 		return result;
 	}
-	
+
 	
 
 }

@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.levelthreedepartment;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 public interface LevelThreeDepartmentDAO extends BaseDAO{
 
 	public SmartList<LevelThreeDepartment> loadAll();
+	public Stream<LevelThreeDepartment> loadAllAsStream();
 	public LevelThreeDepartment load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<LevelThreeDepartment> levelThreeDepartmentList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public LevelThreeDepartment present(LevelThreeDepartment levelThreeDepartment,Map<String,Object> options) throws Exception;
 	public LevelThreeDepartment clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public LevelThreeDepartment save(LevelThreeDepartment levelThreeDepartment,Map<String,Object> options);
 	public SmartList<LevelThreeDepartment> saveLevelThreeDepartmentList(SmartList<LevelThreeDepartment> levelThreeDepartmentList,Map<String,Object> options);
 	public SmartList<LevelThreeDepartment> removeLevelThreeDepartmentList(SmartList<LevelThreeDepartment> levelThreeDepartmentList,Map<String,Object> options);
@@ -70,18 +72,19 @@ public interface LevelThreeDepartmentDAO extends BaseDAO{
 	public LevelThreeDepartment planToRemoveEmployeeListWithCurrentSalaryGrade(LevelThreeDepartment levelThreeDepartment, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
 	public int countEmployeeListWithCurrentSalaryGrade(String levelThreeDepartmentId, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<LevelThreeDepartment> queryList(String sql, Object ... parmeters);
+	public Stream<LevelThreeDepartment> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateLevelThreeDepartment executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<LevelThreeDepartment> findLevelThreeDepartmentByBelongsTo(String levelTwoDepartmentId, Map<String,Object> options);
  	public int countLevelThreeDepartmentByBelongsTo(String levelTwoDepartmentId, Map<String,Object> options);
  	public Map<String, Integer> countLevelThreeDepartmentByBelongsToIds(String[] ids, Map<String,Object> options);
  	public SmartList<LevelThreeDepartment> findLevelThreeDepartmentByBelongsTo(String levelTwoDepartmentId, int start, int count, Map<String,Object> options);
  	public void analyzeLevelThreeDepartmentByBelongsTo(SmartList<LevelThreeDepartment> resultList, String levelTwoDepartmentId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Employee的department的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<LevelThreeDepartment> us, Map<String,Object> options) throws Exception;

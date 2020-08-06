@@ -1025,7 +1025,7 @@
 
 	<bean id="userDomainDAOBase" class="com.doublechaintech.retailscm.userdomain.UserDomainJDBCTemplateDAO">
 		<property name="dataSource" ref="dataSource" />
-		<property name="userWhiteListDAO" ref="userWhiteListDAO" />
+		<property name="userAllowListDAO" ref="userAllowListDAO" />
 		
 		<property name="secUserDAO" ref="secUserDAO" />
 		
@@ -1035,10 +1035,10 @@
 	<bean id="userDomainDAO" parent="userDomainDAOBase"></bean>
 	
 
-	<bean id="userWhiteListDAOBase" class="com.doublechaintech.retailscm.userwhitelist.UserWhiteListJDBCTemplateDAO">
+	<bean id="userAllowListDAOBase" class="com.doublechaintech.retailscm.userallowlist.UserAllowListJDBCTemplateDAO">
 		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
 	</bean>
-	<bean id="userWhiteListDAO" parent="userWhiteListDAOBase"></bean>
+	<bean id="userAllowListDAO" parent="userAllowListDAOBase"></bean>
 	
 
 	<bean id="secUserDAOBase" class="com.doublechaintech.retailscm.secuser.SecUserJDBCTemplateDAO">
@@ -1047,11 +1047,11 @@
 		
 		<property name="loginHistoryDAO" ref="loginHistoryDAO" />
 		
-		<property name="wechatWorkappIdentifyDAO" ref="wechatWorkappIdentifyDAO" />
+		<property name="wechatWorkappIdentityDAO" ref="wechatWorkappIdentityDAO" />
 		
-		<property name="wechatMiniappIdentifyDAO" ref="wechatMiniappIdentifyDAO" />
+		<property name="wechatMiniappIdentityDAO" ref="wechatMiniappIdentityDAO" />
 		
-		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO" />
+		<property name="keypairIdentityDAO" ref="keypairIdentityDAO" />
 		
 	</bean>
 	<bean id="secUserDAO" parent="secUserDAOBase"></bean>
@@ -1099,27 +1099,27 @@
 	<bean id="candidateElementDAO" parent="candidateElementDAOBase"></bean>
 	
 
-	<bean id="wechatWorkappIdentifyDAOBase" class="com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentifyJDBCTemplateDAO">
+	<bean id="wechatWorkappIdentityDAOBase" class="com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityJDBCTemplateDAO">
 		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
 	</bean>
-	<bean id="wechatWorkappIdentifyDAO" parent="wechatWorkappIdentifyDAOBase"></bean>
+	<bean id="wechatWorkappIdentityDAO" parent="wechatWorkappIdentityDAOBase"></bean>
 	
 
-	<bean id="wechatMiniappIdentifyDAOBase" class="com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentifyJDBCTemplateDAO">
+	<bean id="wechatMiniappIdentityDAOBase" class="com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityJDBCTemplateDAO">
 		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
 	</bean>
-	<bean id="wechatMiniappIdentifyDAO" parent="wechatMiniappIdentifyDAOBase"></bean>
+	<bean id="wechatMiniappIdentityDAO" parent="wechatMiniappIdentityDAOBase"></bean>
 	
 
-	<bean id="keypairIdentifyDAOBase" class="com.doublechaintech.retailscm.keypairidentify.KeypairIdentifyJDBCTemplateDAO">
+	<bean id="keypairIdentityDAOBase" class="com.doublechaintech.retailscm.keypairidentity.KeypairIdentityJDBCTemplateDAO">
 		<property name="dataSource" ref="dataSource" /><property name="publicKeyTypeDAO" ref="publicKeyTypeDAO" /><property name="secUserDAO" ref="secUserDAO" />
 	</bean>
-	<bean id="keypairIdentifyDAO" parent="keypairIdentifyDAOBase"></bean>
+	<bean id="keypairIdentityDAO" parent="keypairIdentityDAOBase"></bean>
 	
 
 	<bean id="publicKeyTypeDAOBase" class="com.doublechaintech.retailscm.publickeytype.PublicKeyTypeJDBCTemplateDAO">
 		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
-		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO" />
+		<property name="keypairIdentityDAO" ref="keypairIdentityDAO" />
 		
 	</bean>
 	<bean id="publicKeyTypeDAO" parent="publicKeyTypeDAOBase"></bean>
@@ -1246,7 +1246,7 @@
 		<property name="uiActionDAO" ref="uiActionDAO"/>
 		<property name="sectionDAO" ref="sectionDAO"/>
 		<property name="userDomainDAO" ref="userDomainDAO"/>
-		<property name="userWhiteListDAO" ref="userWhiteListDAO"/>
+		<property name="userAllowListDAO" ref="userAllowListDAO"/>
 		<property name="secUserDAO" ref="secUserDAO"/>
 		<property name="userAppDAO" ref="userAppDAO"/>
 		<property name="quickLinkDAO" ref="quickLinkDAO"/>
@@ -1254,13 +1254,17 @@
 		<property name="loginHistoryDAO" ref="loginHistoryDAO"/>
 		<property name="candidateContainerDAO" ref="candidateContainerDAO"/>
 		<property name="candidateElementDAO" ref="candidateElementDAO"/>
-		<property name="wechatWorkappIdentifyDAO" ref="wechatWorkappIdentifyDAO"/>
-		<property name="wechatMiniappIdentifyDAO" ref="wechatMiniappIdentifyDAO"/>
-		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO"/>
+		<property name="wechatWorkappIdentityDAO" ref="wechatWorkappIdentityDAO"/>
+		<property name="wechatMiniappIdentityDAO" ref="wechatMiniappIdentityDAO"/>
+		<property name="keypairIdentityDAO" ref="keypairIdentityDAO"/>
 		<property name="publicKeyTypeDAO" ref="publicKeyTypeDAO"/>
 		<property name="treeNodeDAO" ref="treeNodeDAO"/>
 	</bean>
 	<bean id="DAOGroup" parent="DAOGroupBase"></bean>
+
+	<bean id="dbQuerier" class="com.terapico.utils.MySqlDBQuerier">
+  	<property name="dataSource" ref="dataSource" />
+  </bean>
 </beans>
 
 

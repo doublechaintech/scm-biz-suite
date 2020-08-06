@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SmartPalletDAO{
 
@@ -71,50 +71,54 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 	return this.goodsDAO;
  	}	
 
-	
+
 	/*
 	protected SmartPallet load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalSmartPallet(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<SmartPallet> loadAll() {
 	    return this.loadAll(getSmartPalletMapper());
 	}
-	
-	
+
+  public Stream<SmartPallet> loadAllAsStream() {
+      return this.loadAllAsStream(getSmartPalletMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public SmartPallet load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalSmartPallet(SmartPalletTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public SmartPallet save(SmartPallet smartPallet,Map<String,Object> options){
-		
+
 		String methodName="save(SmartPallet smartPallet,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(smartPallet, methodName, "smartPallet");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalSmartPallet(smartPallet,options);
 	}
 	public SmartPallet clone(String smartPalletId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(SmartPalletTable.withId(smartPalletId),options);
 	}
-	
+
 	protected SmartPallet clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String smartPalletId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		SmartPallet newSmartPallet = loadInternalSmartPallet(accessKey, options);
 		newSmartPallet.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		}
 		
 
-		
+
 		saveInternalSmartPallet(newSmartPallet,options);
-		
+
 		return newSmartPallet;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String smartPalletId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String smartPalletId, int version) throws Exception{
-	
+
 		String methodName="delete(String smartPalletId, int version)";
 		assertMethodArgumentNotNull(smartPalletId, methodName, "smartPalletId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{smartPalletId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(affectedNumber == 0){
 			handleDeleteOneError(smartPalletId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public SmartPallet disconnectFromAll(String smartPalletId, int version) throws Exception{
-	
-		
+
+
 		SmartPallet smartPallet = loadInternalSmartPallet(SmartPalletTable.withId(smartPalletId), emptyOptions());
 		smartPallet.clearFromAll();
 		this.saveSmartPallet(smartPallet);
 		return smartPallet;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "smart_pallet";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "smartPallet";
 	}
-	
+
 	
 	
 	
@@ -426,7 +430,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return smartPallet;
 		}
 		
-		
+
 		String SQL=this.getSaveSmartPalletSQL(smartPallet);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSmartPalletParameters(smartPallet);
@@ -435,57 +439,57 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		smartPallet.incVersion();
 		return smartPallet;
-	
+
 	}
 	public SmartList<SmartPallet> saveSmartPalletList(SmartList<SmartPallet> smartPalletList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitSmartPalletList(smartPalletList);
-		
+
 		batchSmartPalletCreate((List<SmartPallet>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchSmartPalletUpdate((List<SmartPallet>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(SmartPallet smartPallet:smartPalletList){
 			if(smartPallet.isChanged()){
 				smartPallet.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return smartPalletList;
 	}
 
 	public SmartList<SmartPallet> removeSmartPalletList(SmartList<SmartPallet> smartPalletList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(smartPalletList, options);
-		
+
 		return smartPalletList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareSmartPalletBatchCreateArgs(List<SmartPallet> smartPalletList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SmartPallet smartPallet:smartPalletList ){
 			Object [] parameters = prepareSmartPalletCreateParameters(smartPallet);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareSmartPalletBatchUpdateArgs(List<SmartPallet> smartPalletList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SmartPallet smartPallet:smartPalletList ){
 			if(!smartPallet.isChanged()){
@@ -493,40 +497,40 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			Object [] parameters = prepareSmartPalletUpdateParameters(smartPallet);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchSmartPalletCreate(List<SmartPallet> smartPalletList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareSmartPalletBatchCreateArgs(smartPalletList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchSmartPalletUpdate(List<SmartPallet> smartPalletList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareSmartPalletBatchUpdateArgs(smartPalletList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitSmartPalletList(List<SmartPallet> smartPalletList){
-		
+
 		List<SmartPallet> smartPalletCreateList=new ArrayList<SmartPallet>();
 		List<SmartPallet> smartPalletUpdateList=new ArrayList<SmartPallet>();
-		
+
 		for(SmartPallet smartPallet: smartPalletList){
 			if(isUpdateRequest(smartPallet)){
 				smartPalletUpdateList.add( smartPallet);
@@ -534,10 +538,10 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			}
 			smartPalletCreateList.add(smartPallet);
 		}
-		
+
 		return new Object[]{smartPalletCreateList,smartPalletUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(SmartPallet smartPallet){
  		return smartPallet.getVersion() > 0;
  	}
@@ -547,7 +551,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveSmartPalletParameters(SmartPallet smartPallet){
  		if(isUpdateRequest(smartPallet) ){
  			return prepareSmartPalletUpdateParameters(smartPallet);
@@ -571,24 +575,26 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
  		
  		parameters[4] = smartPallet.getLongitude();
- 		 	
+ 		
  		if(smartPallet.getWarehouse() != null){
  			parameters[5] = smartPallet.getWarehouse().getId();
  		}
  
  		
  		parameters[6] = smartPallet.getLastUpdateTime();
- 				
+ 		
  		parameters[7] = smartPallet.nextVersion();
  		parameters[8] = smartPallet.getId();
  		parameters[9] = smartPallet.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareSmartPalletCreateParameters(SmartPallet smartPallet){
 		Object[] parameters = new Object[8];
-		String newSmartPalletId=getNextId();
-		smartPallet.setId(newSmartPalletId);
+        if(smartPallet.getId() == null){
+          String newSmartPalletId=getNextId();
+          smartPallet.setId(newSmartPalletId);
+        }
 		parameters[0] =  smartPallet.getId();
  
  		
@@ -605,23 +611,23 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
  		
  		parameters[5] = smartPallet.getLongitude();
- 		 	
+ 		
  		if(smartPallet.getWarehouse() != null){
  			parameters[6] = smartPallet.getWarehouse().getId();
- 		
+
  		}
  		
  		
  		parameters[7] = smartPallet.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected SmartPallet saveInternalSmartPallet(SmartPallet smartPallet, Map<String,Object> options){
-		
+
 		saveSmartPallet(smartPallet);
- 	
+
  		if(isSaveWarehouseEnabled(options)){
 	 		saveWarehouse(smartPallet, options);
  		}
@@ -631,42 +637,42 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 		saveGoodsList(smartPallet, options);
 	 		//removeGoodsList(smartPallet, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return smartPallet;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected SmartPallet saveWarehouse(SmartPallet smartPallet, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(smartPallet.getWarehouse() == null){
  			return smartPallet;//do nothing when it is null
  		}
- 		
+
  		getWarehouseDAO().save(smartPallet.getWarehouse(),options);
  		return smartPallet;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public SmartPallet planToRemoveGoodsList(SmartPallet smartPallet, String goodsIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.ID_PROPERTY, goodsIds);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -675,17 +681,17 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 
 			goodsItem.clearFromAll();
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
-		return smartPallet;	
-	
+		return smartPallet;
+
 	}
 
 
@@ -694,11 +700,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -707,19 +713,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearSku();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithSku(String smartPalletId, String skuId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -728,7 +734,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.SKU_PROPERTY, skuId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -738,11 +744,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -751,19 +757,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearReceivingSpace();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithReceivingSpace(String smartPalletId, String receivingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -772,7 +778,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -782,11 +788,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -795,19 +801,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearGoodsAllocation();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithGoodsAllocation(String smartPalletId, String goodsAllocationId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -816,7 +822,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -826,11 +832,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -839,19 +845,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearShippingSpace();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithShippingSpace(String smartPalletId, String shippingSpaceId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -860,7 +866,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -870,11 +876,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -883,19 +889,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearTransportTask();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithTransportTask(String smartPalletId, String transportTaskId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -904,7 +910,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -914,11 +920,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -927,19 +933,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStore();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithRetailStore(String smartPalletId, String retailStoreId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -948,7 +954,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -958,11 +964,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -971,19 +977,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearBizOrder();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithBizOrder(String smartPalletId, String bizOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -992,7 +998,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.BIZ_ORDER_PROPERTY, bizOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1002,11 +1008,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPallet.getId());
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		SmartList<Goods> externalGoodsList = getGoodsDAO().
 				findGoodsWithKey(key, options);
 		if(externalGoodsList == null){
@@ -1015,19 +1021,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(externalGoodsList.isEmpty()){
 			return smartPallet;
 		}
-		
+
 		for(Goods goodsItem: externalGoodsList){
 			goodsItem.clearRetailStoreOrder();
 			goodsItem.clearSmartPallet();
-			
+
 		}
-		
-		
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+
+
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		goodsList.addAllToRemoveList(externalGoodsList);
 		return smartPallet;
 	}
-	
+
 	public int countGoodsListWithRetailStoreOrder(String smartPalletId, String retailStoreOrderId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -1036,7 +1042,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
 		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
-		
+
 		int count = getGoodsDAO().countGoodsWithKey(key, options);
 		return count;
 	}
@@ -1044,19 +1050,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected SmartPallet saveGoodsList(SmartPallet smartPallet, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		if(goodsList == null){
 			//null list means nothing
 			return smartPallet;
 		}
 		SmartList<Goods> mergedUpdateGoodsList = new SmartList<Goods>();
-		
-		
-		mergedUpdateGoodsList.addAll(goodsList); 
+
+
+		mergedUpdateGoodsList.addAll(goodsList);
 		if(goodsList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateGoodsList.addAll(goodsList.getToRemoveList());
@@ -1065,28 +1071,28 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		//adding new size can improve performance
-	
+
 		getGoodsDAO().saveGoodsList(mergedUpdateGoodsList,options);
-		
+
 		if(goodsList.getToRemoveList() != null){
 			goodsList.removeAll(goodsList.getToRemoveList());
 		}
-		
-		
+
+
 		return smartPallet;
-	
+
 	}
-	
+
 	protected SmartPallet removeGoodsList(SmartPallet smartPallet, Map<String,Object> options){
-	
-	
+
+
 		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		if(goodsList == null){
 			return smartPallet;
-		}	
-	
+		}
+
 		SmartList<Goods> toRemoveGoodsList = goodsList.getToRemoveList();
-		
+
 		if(toRemoveGoodsList == null){
 			return smartPallet;
 		}
@@ -1094,20 +1100,20 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return smartPallet;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
-		
-		return smartPallet;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getGoodsDAO().removeGoodsList(toRemoveGoodsList,options);
+
+		return smartPallet;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public SmartPallet present(SmartPallet smartPallet,Map<String, Object> options){
@@ -1150,13 +1156,13 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	protected String getTableName(){
 		return SmartPalletTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<SmartPallet> smartPalletList) {		
+
+
+
+	public void enhanceList(List<SmartPallet> smartPalletList) {
 		this.enhanceListInternal(smartPalletList, this.getSmartPalletMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的smartPallet的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SmartPallet> us, Map<String,Object> options) throws Exception{
@@ -1181,39 +1187,45 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SmartPallet> smartPalletList = ownerEntity.collectRefsWithType(SmartPallet.INTERNAL_TYPE);
 		this.enhanceList(smartPalletList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<SmartPallet> findSmartPalletWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getSmartPalletMapper());
 
 	}
 	@Override
 	public int countSmartPalletWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countSmartPalletWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<SmartPallet> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSmartPalletMapper());
 	}
+
+  @Override
+  public Stream<SmartPallet> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getSmartPalletMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1242,7 +1254,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 		return result;
 	}
-	
+
 	
 
 }

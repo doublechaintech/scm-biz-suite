@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.memberwishlist;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 public interface MemberWishlistDAO extends BaseDAO{
 
 	public SmartList<MemberWishlist> loadAll();
+	public Stream<MemberWishlist> loadAllAsStream();
 	public MemberWishlist load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<MemberWishlist> memberWishlistList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public MemberWishlist present(MemberWishlist memberWishlist,Map<String,Object> options) throws Exception;
 	public MemberWishlist clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public MemberWishlist save(MemberWishlist memberWishlist,Map<String,Object> options);
 	public SmartList<MemberWishlist> saveMemberWishlistList(SmartList<MemberWishlist> memberWishlistList,Map<String,Object> options);
 	public SmartList<MemberWishlist> removeMemberWishlistList(SmartList<MemberWishlist> memberWishlistList,Map<String,Object> options);
@@ -54,18 +56,19 @@ public interface MemberWishlistDAO extends BaseDAO{
 	public MemberWishlist planToRemoveMemberWishlistProductList(MemberWishlist memberWishlist, String memberWishlistProductIds[], Map<String,Object> options)throws Exception;
 
 
-	
+
 	public SmartList<MemberWishlist> queryList(String sql, Object ... parmeters);
+	public Stream<MemberWishlist> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateMemberWishlist executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<MemberWishlist> findMemberWishlistByOwner(String retailStoreMemberId, Map<String,Object> options);
  	public int countMemberWishlistByOwner(String retailStoreMemberId, Map<String,Object> options);
  	public Map<String, Integer> countMemberWishlistByOwnerIds(String[] ids, Map<String,Object> options);
  	public SmartList<MemberWishlist> findMemberWishlistByOwner(String retailStoreMemberId, int start, int count, Map<String,Object> options);
  	public void analyzeMemberWishlistByOwner(SmartList<MemberWishlist> resultList, String retailStoreMemberId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:MemberWishlistProduct的owner的MemberWishlistProductList
 	public SmartList<MemberWishlistProduct> loadOurMemberWishlistProductList(RetailscmUserContext userContext, List<MemberWishlist> us, Map<String,Object> options) throws Exception;

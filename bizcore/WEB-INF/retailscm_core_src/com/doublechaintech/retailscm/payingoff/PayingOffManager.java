@@ -17,6 +17,7 @@ public interface PayingOffManager extends BaseManager{
 	public PayingOff createPayingOff(RetailscmUserContext userContext, String who,String paidForId,Date paidTime,BigDecimal amount) throws Exception;
 	public PayingOff updatePayingOff(RetailscmUserContext userContext,String payingOffId, int payingOffVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public PayingOff loadPayingOff(RetailscmUserContext userContext, String payingOffId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public PayingOff internalSavePayingOff(RetailscmUserContext userContext, PayingOff payingOff) throws Exception;
 	public PayingOff internalSavePayingOff(RetailscmUserContext userContext, PayingOff payingOff,Map<String,Object>option) throws Exception;
 

@@ -17,6 +17,7 @@ public interface InterviewTypeManager extends BaseManager{
 	public InterviewType createInterviewType(RetailscmUserContext userContext, String code,String companyId,String description,String detailDescription) throws Exception;
 	public InterviewType updateInterviewType(RetailscmUserContext userContext,String interviewTypeId, int interviewTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public InterviewType loadInterviewType(RetailscmUserContext userContext, String interviewTypeId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public InterviewType internalSaveInterviewType(RetailscmUserContext userContext, InterviewType interviewType) throws Exception;
 	public InterviewType internalSaveInterviewType(RetailscmUserContext userContext, InterviewType interviewType,Map<String,Object>option) throws Exception;
 

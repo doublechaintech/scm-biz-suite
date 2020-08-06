@@ -33,7 +33,7 @@ import com.doublechaintech.retailscm.memberwishlist.MemberWishlistDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements MemberWishlistProductDAO{
 
@@ -53,64 +53,68 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	 	return this.memberWishlistDAO;
  	}	
 
-	
+
 	/*
 	protected MemberWishlistProduct load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalMemberWishlistProduct(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<MemberWishlistProduct> loadAll() {
 	    return this.loadAll(getMemberWishlistProductMapper());
 	}
-	
-	
+
+  public Stream<MemberWishlistProduct> loadAllAsStream() {
+      return this.loadAllAsStream(getMemberWishlistProductMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public MemberWishlistProduct load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalMemberWishlistProduct(MemberWishlistProductTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public MemberWishlistProduct save(MemberWishlistProduct memberWishlistProduct,Map<String,Object> options){
-		
+
 		String methodName="save(MemberWishlistProduct memberWishlistProduct,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(memberWishlistProduct, methodName, "memberWishlistProduct");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalMemberWishlistProduct(memberWishlistProduct,options);
 	}
 	public MemberWishlistProduct clone(String memberWishlistProductId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(MemberWishlistProductTable.withId(memberWishlistProductId),options);
 	}
-	
+
 	protected MemberWishlistProduct clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String memberWishlistProductId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		MemberWishlistProduct newMemberWishlistProduct = loadInternalMemberWishlistProduct(accessKey, options);
 		newMemberWishlistProduct.setVersion(0);
 		
 		
 
-		
+
 		saveInternalMemberWishlistProduct(newMemberWishlistProduct,options);
-		
+
 		return newMemberWishlistProduct;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String memberWishlistProductId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -126,15 +130,15 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String memberWishlistProductId, int version) throws Exception{
-	
+
 		String methodName="delete(String memberWishlistProductId, int version)";
 		assertMethodArgumentNotNull(memberWishlistProductId, methodName, "memberWishlistProductId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{memberWishlistProductId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -144,26 +148,26 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		if(affectedNumber == 0){
 			handleDeleteOneError(memberWishlistProductId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public MemberWishlistProduct disconnectFromAll(String memberWishlistProductId, int version) throws Exception{
-	
-		
+
+
 		MemberWishlistProduct memberWishlistProduct = loadInternalMemberWishlistProduct(MemberWishlistProductTable.withId(memberWishlistProductId), emptyOptions());
 		memberWishlistProduct.clearFromAll();
 		this.saveMemberWishlistProduct(memberWishlistProduct);
 		return memberWishlistProduct;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -171,15 +175,15 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "member_wishlist_product";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "memberWishlistProduct";
 	}
-	
+
 	
 	
 	
@@ -311,7 +315,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			return memberWishlistProduct;
 		}
 		
-		
+
 		String SQL=this.getSaveMemberWishlistProductSQL(memberWishlistProduct);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveMemberWishlistProductParameters(memberWishlistProduct);
@@ -320,57 +324,57 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		memberWishlistProduct.incVersion();
 		return memberWishlistProduct;
-	
+
 	}
 	public SmartList<MemberWishlistProduct> saveMemberWishlistProductList(SmartList<MemberWishlistProduct> memberWishlistProductList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitMemberWishlistProductList(memberWishlistProductList);
-		
+
 		batchMemberWishlistProductCreate((List<MemberWishlistProduct>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchMemberWishlistProductUpdate((List<MemberWishlistProduct>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(MemberWishlistProduct memberWishlistProduct:memberWishlistProductList){
 			if(memberWishlistProduct.isChanged()){
 				memberWishlistProduct.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return memberWishlistProductList;
 	}
 
 	public SmartList<MemberWishlistProduct> removeMemberWishlistProductList(SmartList<MemberWishlistProduct> memberWishlistProductList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(memberWishlistProductList, options);
-		
+
 		return memberWishlistProductList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareMemberWishlistProductBatchCreateArgs(List<MemberWishlistProduct> memberWishlistProductList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(MemberWishlistProduct memberWishlistProduct:memberWishlistProductList ){
 			Object [] parameters = prepareMemberWishlistProductCreateParameters(memberWishlistProduct);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareMemberWishlistProductBatchUpdateArgs(List<MemberWishlistProduct> memberWishlistProductList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(MemberWishlistProduct memberWishlistProduct:memberWishlistProductList ){
 			if(!memberWishlistProduct.isChanged()){
@@ -378,40 +382,40 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			}
 			Object [] parameters = prepareMemberWishlistProductUpdateParameters(memberWishlistProduct);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchMemberWishlistProductCreate(List<MemberWishlistProduct> memberWishlistProductList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareMemberWishlistProductBatchCreateArgs(memberWishlistProductList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchMemberWishlistProductUpdate(List<MemberWishlistProduct> memberWishlistProductList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareMemberWishlistProductBatchUpdateArgs(memberWishlistProductList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitMemberWishlistProductList(List<MemberWishlistProduct> memberWishlistProductList){
-		
+
 		List<MemberWishlistProduct> memberWishlistProductCreateList=new ArrayList<MemberWishlistProduct>();
 		List<MemberWishlistProduct> memberWishlistProductUpdateList=new ArrayList<MemberWishlistProduct>();
-		
+
 		for(MemberWishlistProduct memberWishlistProduct: memberWishlistProductList){
 			if(isUpdateRequest(memberWishlistProduct)){
 				memberWishlistProductUpdateList.add( memberWishlistProduct);
@@ -419,10 +423,10 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 			}
 			memberWishlistProductCreateList.add(memberWishlistProduct);
 		}
-		
+
 		return new Object[]{memberWishlistProductCreateList,memberWishlistProductUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(MemberWishlistProduct memberWishlistProduct){
  		return memberWishlistProduct.getVersion() > 0;
  	}
@@ -432,7 +436,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveMemberWishlistProductParameters(MemberWishlistProduct memberWishlistProduct){
  		if(isUpdateRequest(memberWishlistProduct) ){
  			return prepareMemberWishlistProductUpdateParameters(memberWishlistProduct);
@@ -444,68 +448,70 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  
  		
  		parameters[0] = memberWishlistProduct.getName();
- 		 	
+ 		
  		if(memberWishlistProduct.getOwner() != null){
  			parameters[1] = memberWishlistProduct.getOwner().getId();
  		}
- 		
+ 
  		parameters[2] = memberWishlistProduct.nextVersion();
  		parameters[3] = memberWishlistProduct.getId();
  		parameters[4] = memberWishlistProduct.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareMemberWishlistProductCreateParameters(MemberWishlistProduct memberWishlistProduct){
 		Object[] parameters = new Object[3];
-		String newMemberWishlistProductId=getNextId();
-		memberWishlistProduct.setId(newMemberWishlistProductId);
+        if(memberWishlistProduct.getId() == null){
+          String newMemberWishlistProductId=getNextId();
+          memberWishlistProduct.setId(newMemberWishlistProductId);
+        }
 		parameters[0] =  memberWishlistProduct.getId();
  
  		
  		parameters[1] = memberWishlistProduct.getName();
- 		 	
+ 		
  		if(memberWishlistProduct.getOwner() != null){
  			parameters[2] = memberWishlistProduct.getOwner().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected MemberWishlistProduct saveInternalMemberWishlistProduct(MemberWishlistProduct memberWishlistProduct, Map<String,Object> options){
-		
+
 		saveMemberWishlistProduct(memberWishlistProduct);
- 	
+
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(memberWishlistProduct, options);
  		}
  
 		
 		return memberWishlistProduct;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected MemberWishlistProduct saveOwner(MemberWishlistProduct memberWishlistProduct, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(memberWishlistProduct.getOwner() == null){
  			return memberWishlistProduct;//do nothing when it is null
  		}
- 		
+
  		getMemberWishlistDAO().save(memberWishlistProduct.getOwner(),options);
  		return memberWishlistProduct;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -525,47 +531,53 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	protected String getTableName(){
 		return MemberWishlistProductTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<MemberWishlistProduct> memberWishlistProductList) {		
+
+
+
+	public void enhanceList(List<MemberWishlistProduct> memberWishlistProductList) {
 		this.enhanceListInternal(memberWishlistProductList, this.getMemberWishlistProductMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<MemberWishlistProduct> memberWishlistProductList = ownerEntity.collectRefsWithType(MemberWishlistProduct.INTERNAL_TYPE);
 		this.enhanceList(memberWishlistProductList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<MemberWishlistProduct> findMemberWishlistProductWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getMemberWishlistProductMapper());
 
 	}
 	@Override
 	public int countMemberWishlistProductWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countMemberWishlistProductWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<MemberWishlistProduct> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getMemberWishlistProductMapper());
 	}
+
+  @Override
+  public Stream<MemberWishlistProduct> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getMemberWishlistProductMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -594,7 +606,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		}
 		return result;
 	}
-	
+
 	
 
 }

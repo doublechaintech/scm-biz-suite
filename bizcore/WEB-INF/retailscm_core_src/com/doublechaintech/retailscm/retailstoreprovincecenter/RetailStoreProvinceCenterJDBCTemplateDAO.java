@@ -39,7 +39,7 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOImpl implements RetailStoreProvinceCenterDAO{
 
@@ -107,50 +107,54 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	 	return this.retailStoreCityServiceCenterDAO;
  	}	
 
-	
+
 	/*
 	protected RetailStoreProvinceCenter load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreProvinceCenter(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<RetailStoreProvinceCenter> loadAll() {
 	    return this.loadAll(getRetailStoreProvinceCenterMapper());
 	}
-	
-	
+
+  public Stream<RetailStoreProvinceCenter> loadAllAsStream() {
+      return this.loadAllAsStream(getRetailStoreProvinceCenterMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public RetailStoreProvinceCenter load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalRetailStoreProvinceCenter(RetailStoreProvinceCenterTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public RetailStoreProvinceCenter save(RetailStoreProvinceCenter retailStoreProvinceCenter,Map<String,Object> options){
-		
+
 		String methodName="save(RetailStoreProvinceCenter retailStoreProvinceCenter,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(retailStoreProvinceCenter, methodName, "retailStoreProvinceCenter");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalRetailStoreProvinceCenter(retailStoreProvinceCenter,options);
 	}
 	public RetailStoreProvinceCenter clone(String retailStoreProvinceCenterId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(RetailStoreProvinceCenterTable.withId(retailStoreProvinceCenterId),options);
 	}
-	
+
 	protected RetailStoreProvinceCenter clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String retailStoreProvinceCenterId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		RetailStoreProvinceCenter newRetailStoreProvinceCenter = loadInternalRetailStoreProvinceCenter(accessKey, options);
 		newRetailStoreProvinceCenter.setVersion(0);
 		
@@ -177,15 +181,15 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		}
 		
 
-		
+
 		saveInternalRetailStoreProvinceCenter(newRetailStoreProvinceCenter,options);
-		
+
 		return newRetailStoreProvinceCenter;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String retailStoreProvinceCenterId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -201,15 +205,15 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String retailStoreProvinceCenterId, int version) throws Exception{
-	
+
 		String methodName="delete(String retailStoreProvinceCenterId, int version)";
 		assertMethodArgumentNotNull(retailStoreProvinceCenterId, methodName, "retailStoreProvinceCenterId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{retailStoreProvinceCenterId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -219,26 +223,26 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(affectedNumber == 0){
 			handleDeleteOneError(retailStoreProvinceCenterId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public RetailStoreProvinceCenter disconnectFromAll(String retailStoreProvinceCenterId, int version) throws Exception{
-	
-		
+
+
 		RetailStoreProvinceCenter retailStoreProvinceCenter = loadInternalRetailStoreProvinceCenter(RetailStoreProvinceCenterTable.withId(retailStoreProvinceCenterId), emptyOptions());
 		retailStoreProvinceCenter.clearFromAll();
 		this.saveRetailStoreProvinceCenter(retailStoreProvinceCenter);
 		return retailStoreProvinceCenter;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -246,15 +250,15 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "retail_store_province_center";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "retailStoreProvinceCenter";
 	}
-	
+
 	
 	
 	
@@ -620,7 +624,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;
 		}
 		
-		
+
 		String SQL=this.getSaveRetailStoreProvinceCenterSQL(retailStoreProvinceCenter);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreProvinceCenterParameters(retailStoreProvinceCenter);
@@ -629,57 +633,57 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		retailStoreProvinceCenter.incVersion();
 		return retailStoreProvinceCenter;
-	
+
 	}
 	public SmartList<RetailStoreProvinceCenter> saveRetailStoreProvinceCenterList(SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitRetailStoreProvinceCenterList(retailStoreProvinceCenterList);
-		
+
 		batchRetailStoreProvinceCenterCreate((List<RetailStoreProvinceCenter>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchRetailStoreProvinceCenterUpdate((List<RetailStoreProvinceCenter>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(RetailStoreProvinceCenter retailStoreProvinceCenter:retailStoreProvinceCenterList){
 			if(retailStoreProvinceCenter.isChanged()){
 				retailStoreProvinceCenter.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return retailStoreProvinceCenterList;
 	}
 
 	public SmartList<RetailStoreProvinceCenter> removeRetailStoreProvinceCenterList(SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(retailStoreProvinceCenterList, options);
-		
+
 		return retailStoreProvinceCenterList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareRetailStoreProvinceCenterBatchCreateArgs(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreProvinceCenter retailStoreProvinceCenter:retailStoreProvinceCenterList ){
 			Object [] parameters = prepareRetailStoreProvinceCenterCreateParameters(retailStoreProvinceCenter);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareRetailStoreProvinceCenterBatchUpdateArgs(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(RetailStoreProvinceCenter retailStoreProvinceCenter:retailStoreProvinceCenterList ){
 			if(!retailStoreProvinceCenter.isChanged()){
@@ -687,40 +691,40 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			}
 			Object [] parameters = prepareRetailStoreProvinceCenterUpdateParameters(retailStoreProvinceCenter);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchRetailStoreProvinceCenterCreate(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareRetailStoreProvinceCenterBatchCreateArgs(retailStoreProvinceCenterList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchRetailStoreProvinceCenterUpdate(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareRetailStoreProvinceCenterBatchUpdateArgs(retailStoreProvinceCenterList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitRetailStoreProvinceCenterList(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList){
-		
+
 		List<RetailStoreProvinceCenter> retailStoreProvinceCenterCreateList=new ArrayList<RetailStoreProvinceCenter>();
 		List<RetailStoreProvinceCenter> retailStoreProvinceCenterUpdateList=new ArrayList<RetailStoreProvinceCenter>();
-		
+
 		for(RetailStoreProvinceCenter retailStoreProvinceCenter: retailStoreProvinceCenterList){
 			if(isUpdateRequest(retailStoreProvinceCenter)){
 				retailStoreProvinceCenterUpdateList.add( retailStoreProvinceCenter);
@@ -728,10 +732,10 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			}
 			retailStoreProvinceCenterCreateList.add(retailStoreProvinceCenter);
 		}
-		
+
 		return new Object[]{retailStoreProvinceCenterCreateList,retailStoreProvinceCenterUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(RetailStoreProvinceCenter retailStoreProvinceCenter){
  		return retailStoreProvinceCenter.getVersion() > 0;
  	}
@@ -741,7 +745,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveRetailStoreProvinceCenterParameters(RetailStoreProvinceCenter retailStoreProvinceCenter){
  		if(isUpdateRequest(retailStoreProvinceCenter) ){
  			return prepareRetailStoreProvinceCenterUpdateParameters(retailStoreProvinceCenter);
@@ -756,24 +760,26 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		
  		
  		parameters[1] = retailStoreProvinceCenter.getFounded();
- 		 	
+ 		
  		if(retailStoreProvinceCenter.getCountry() != null){
  			parameters[2] = retailStoreProvinceCenter.getCountry().getId();
  		}
  
  		
  		parameters[3] = retailStoreProvinceCenter.getLastUpdateTime();
- 				
+ 		
  		parameters[4] = retailStoreProvinceCenter.nextVersion();
  		parameters[5] = retailStoreProvinceCenter.getId();
  		parameters[6] = retailStoreProvinceCenter.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreProvinceCenterCreateParameters(RetailStoreProvinceCenter retailStoreProvinceCenter){
 		Object[] parameters = new Object[5];
-		String newRetailStoreProvinceCenterId=getNextId();
-		retailStoreProvinceCenter.setId(newRetailStoreProvinceCenterId);
+        if(retailStoreProvinceCenter.getId() == null){
+          String newRetailStoreProvinceCenterId=getNextId();
+          retailStoreProvinceCenter.setId(newRetailStoreProvinceCenterId);
+        }
 		parameters[0] =  retailStoreProvinceCenter.getId();
  
  		
@@ -781,23 +787,23 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		
  		
  		parameters[2] = retailStoreProvinceCenter.getFounded();
- 		 	
+ 		
  		if(retailStoreProvinceCenter.getCountry() != null){
  			parameters[3] = retailStoreProvinceCenter.getCountry().getId();
- 		
+
  		}
  		
  		
  		parameters[4] = retailStoreProvinceCenter.getLastUpdateTime();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected RetailStoreProvinceCenter saveInternalRetailStoreProvinceCenter(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
+
 		saveRetailStoreProvinceCenter(retailStoreProvinceCenter);
- 	
+
  		if(isSaveCountryEnabled(options)){
 	 		saveCountry(retailStoreProvinceCenter, options);
  		}
@@ -807,56 +813,56 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	 		saveProvinceCenterDepartmentList(retailStoreProvinceCenter, options);
 	 		//removeProvinceCenterDepartmentList(retailStoreProvinceCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveProvinceCenterEmployeeListEnabled(options)){
 	 		saveProvinceCenterEmployeeList(retailStoreProvinceCenter, options);
 	 		//removeProvinceCenterEmployeeList(retailStoreProvinceCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		if(isSaveRetailStoreCityServiceCenterListEnabled(options)){
 	 		saveRetailStoreCityServiceCenterList(retailStoreProvinceCenter, options);
 	 		//removeRetailStoreCityServiceCenterList(retailStoreProvinceCenter, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return retailStoreProvinceCenter;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected RetailStoreProvinceCenter saveCountry(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(retailStoreProvinceCenter.getCountry() == null){
  			return retailStoreProvinceCenter;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(retailStoreProvinceCenter.getCountry(),options);
  		return retailStoreProvinceCenter;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public RetailStoreProvinceCenter planToRemoveProvinceCenterDepartmentList(RetailStoreProvinceCenter retailStoreProvinceCenter, String provinceCenterDepartmentIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ProvinceCenterDepartment.PROVINCE_CENTER_PROPERTY, retailStoreProvinceCenter.getId());
 		key.put(ProvinceCenterDepartment.ID_PROPERTY, provinceCenterDepartmentIds);
-		
+
 		SmartList<ProvinceCenterDepartment> externalProvinceCenterDepartmentList = getProvinceCenterDepartmentDAO().
 				findProvinceCenterDepartmentWithKey(key, options);
 		if(externalProvinceCenterDepartmentList == null){
@@ -865,26 +871,26 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(externalProvinceCenterDepartmentList.isEmpty()){
 			return retailStoreProvinceCenter;
 		}
-		
+
 		for(ProvinceCenterDepartment provinceCenterDepartmentItem: externalProvinceCenterDepartmentList){
 
 			provinceCenterDepartmentItem.clearFromAll();
 		}
-		
-		
-		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = retailStoreProvinceCenter.getProvinceCenterDepartmentList();		
+
+
+		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = retailStoreProvinceCenter.getProvinceCenterDepartmentList();
 		provinceCenterDepartmentList.addAllToRemoveList(externalProvinceCenterDepartmentList);
-		return retailStoreProvinceCenter;	
-	
+		return retailStoreProvinceCenter;
+
 	}
 
 
 	public RetailStoreProvinceCenter planToRemoveProvinceCenterEmployeeList(RetailStoreProvinceCenter retailStoreProvinceCenter, String provinceCenterEmployeeIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ProvinceCenterEmployee.PROVINCE_CENTER_PROPERTY, retailStoreProvinceCenter.getId());
 		key.put(ProvinceCenterEmployee.ID_PROPERTY, provinceCenterEmployeeIds);
-		
+
 		SmartList<ProvinceCenterEmployee> externalProvinceCenterEmployeeList = getProvinceCenterEmployeeDAO().
 				findProvinceCenterEmployeeWithKey(key, options);
 		if(externalProvinceCenterEmployeeList == null){
@@ -893,17 +899,17 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(externalProvinceCenterEmployeeList.isEmpty()){
 			return retailStoreProvinceCenter;
 		}
-		
+
 		for(ProvinceCenterEmployee provinceCenterEmployeeItem: externalProvinceCenterEmployeeList){
 
 			provinceCenterEmployeeItem.clearFromAll();
 		}
-		
-		
-		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();		
+
+
+		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();
 		provinceCenterEmployeeList.addAllToRemoveList(externalProvinceCenterEmployeeList);
-		return retailStoreProvinceCenter;	
-	
+		return retailStoreProvinceCenter;
+
 	}
 
 
@@ -912,11 +918,11 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-		
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ProvinceCenterEmployee.PROVINCE_CENTER_PROPERTY, retailStoreProvinceCenter.getId());
 		key.put(ProvinceCenterEmployee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		SmartList<ProvinceCenterEmployee> externalProvinceCenterEmployeeList = getProvinceCenterEmployeeDAO().
 				findProvinceCenterEmployeeWithKey(key, options);
 		if(externalProvinceCenterEmployeeList == null){
@@ -925,19 +931,19 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(externalProvinceCenterEmployeeList.isEmpty()){
 			return retailStoreProvinceCenter;
 		}
-		
+
 		for(ProvinceCenterEmployee provinceCenterEmployeeItem: externalProvinceCenterEmployeeList){
 			provinceCenterEmployeeItem.clearDepartment();
 			provinceCenterEmployeeItem.clearProvinceCenter();
-			
+
 		}
-		
-		
-		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();		
+
+
+		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();
 		provinceCenterEmployeeList.addAllToRemoveList(externalProvinceCenterEmployeeList);
 		return retailStoreProvinceCenter;
 	}
-	
+
 	public int countProvinceCenterEmployeeListWithDepartment(String retailStoreProvinceCenterId, String departmentId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
@@ -946,17 +952,17 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ProvinceCenterEmployee.PROVINCE_CENTER_PROPERTY, retailStoreProvinceCenterId);
 		key.put(ProvinceCenterEmployee.DEPARTMENT_PROPERTY, departmentId);
-		
+
 		int count = getProvinceCenterEmployeeDAO().countProvinceCenterEmployeeWithKey(key, options);
 		return count;
 	}
 	
 	public RetailStoreProvinceCenter planToRemoveRetailStoreCityServiceCenterList(RetailStoreProvinceCenter retailStoreProvinceCenter, String retailStoreCityServiceCenterIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(RetailStoreCityServiceCenter.BELONGS_TO_PROPERTY, retailStoreProvinceCenter.getId());
 		key.put(RetailStoreCityServiceCenter.ID_PROPERTY, retailStoreCityServiceCenterIds);
-		
+
 		SmartList<RetailStoreCityServiceCenter> externalRetailStoreCityServiceCenterList = getRetailStoreCityServiceCenterDAO().
 				findRetailStoreCityServiceCenterWithKey(key, options);
 		if(externalRetailStoreCityServiceCenterList == null){
@@ -965,36 +971,36 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(externalRetailStoreCityServiceCenterList.isEmpty()){
 			return retailStoreProvinceCenter;
 		}
-		
+
 		for(RetailStoreCityServiceCenter retailStoreCityServiceCenterItem: externalRetailStoreCityServiceCenterList){
 
 			retailStoreCityServiceCenterItem.clearFromAll();
 		}
-		
-		
-		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = retailStoreProvinceCenter.getRetailStoreCityServiceCenterList();		
+
+
+		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = retailStoreProvinceCenter.getRetailStoreCityServiceCenterList();
 		retailStoreCityServiceCenterList.addAllToRemoveList(externalRetailStoreCityServiceCenterList);
-		return retailStoreProvinceCenter;	
-	
+		return retailStoreProvinceCenter;
+
 	}
 
 
 
 		
 	protected RetailStoreProvinceCenter saveProvinceCenterDepartmentList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = retailStoreProvinceCenter.getProvinceCenterDepartmentList();
 		if(provinceCenterDepartmentList == null){
 			//null list means nothing
 			return retailStoreProvinceCenter;
 		}
 		SmartList<ProvinceCenterDepartment> mergedUpdateProvinceCenterDepartmentList = new SmartList<ProvinceCenterDepartment>();
-		
-		
-		mergedUpdateProvinceCenterDepartmentList.addAll(provinceCenterDepartmentList); 
+
+
+		mergedUpdateProvinceCenterDepartmentList.addAll(provinceCenterDepartmentList);
 		if(provinceCenterDepartmentList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateProvinceCenterDepartmentList.addAll(provinceCenterDepartmentList.getToRemoveList());
@@ -1003,28 +1009,28 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 
 		//adding new size can improve performance
-	
+
 		getProvinceCenterDepartmentDAO().saveProvinceCenterDepartmentList(mergedUpdateProvinceCenterDepartmentList,options);
-		
+
 		if(provinceCenterDepartmentList.getToRemoveList() != null){
 			provinceCenterDepartmentList.removeAll(provinceCenterDepartmentList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreProvinceCenter;
-	
+
 	}
-	
+
 	protected RetailStoreProvinceCenter removeProvinceCenterDepartmentList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = retailStoreProvinceCenter.getProvinceCenterDepartmentList();
 		if(provinceCenterDepartmentList == null){
 			return retailStoreProvinceCenter;
-		}	
-	
+		}
+
 		SmartList<ProvinceCenterDepartment> toRemoveProvinceCenterDepartmentList = provinceCenterDepartmentList.getToRemoveList();
-		
+
 		if(toRemoveProvinceCenterDepartmentList == null){
 			return retailStoreProvinceCenter;
 		}
@@ -1032,35 +1038,35 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getProvinceCenterDepartmentDAO().removeProvinceCenterDepartmentList(toRemoveProvinceCenterDepartmentList,options);
-		
-		return retailStoreProvinceCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getProvinceCenterDepartmentDAO().removeProvinceCenterDepartmentList(toRemoveProvinceCenterDepartmentList,options);
+
+		return retailStoreProvinceCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreProvinceCenter saveProvinceCenterEmployeeList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();
 		if(provinceCenterEmployeeList == null){
 			//null list means nothing
 			return retailStoreProvinceCenter;
 		}
 		SmartList<ProvinceCenterEmployee> mergedUpdateProvinceCenterEmployeeList = new SmartList<ProvinceCenterEmployee>();
-		
-		
-		mergedUpdateProvinceCenterEmployeeList.addAll(provinceCenterEmployeeList); 
+
+
+		mergedUpdateProvinceCenterEmployeeList.addAll(provinceCenterEmployeeList);
 		if(provinceCenterEmployeeList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateProvinceCenterEmployeeList.addAll(provinceCenterEmployeeList.getToRemoveList());
@@ -1069,28 +1075,28 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 
 		//adding new size can improve performance
-	
+
 		getProvinceCenterEmployeeDAO().saveProvinceCenterEmployeeList(mergedUpdateProvinceCenterEmployeeList,options);
-		
+
 		if(provinceCenterEmployeeList.getToRemoveList() != null){
 			provinceCenterEmployeeList.removeAll(provinceCenterEmployeeList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreProvinceCenter;
-	
+
 	}
-	
+
 	protected RetailStoreProvinceCenter removeProvinceCenterEmployeeList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();
 		if(provinceCenterEmployeeList == null){
 			return retailStoreProvinceCenter;
-		}	
-	
+		}
+
 		SmartList<ProvinceCenterEmployee> toRemoveProvinceCenterEmployeeList = provinceCenterEmployeeList.getToRemoveList();
-		
+
 		if(toRemoveProvinceCenterEmployeeList == null){
 			return retailStoreProvinceCenter;
 		}
@@ -1098,35 +1104,35 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getProvinceCenterEmployeeDAO().removeProvinceCenterEmployeeList(toRemoveProvinceCenterEmployeeList,options);
-		
-		return retailStoreProvinceCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getProvinceCenterEmployeeDAO().removeProvinceCenterEmployeeList(toRemoveProvinceCenterEmployeeList,options);
+
+		return retailStoreProvinceCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 	protected RetailStoreProvinceCenter saveRetailStoreCityServiceCenterList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = retailStoreProvinceCenter.getRetailStoreCityServiceCenterList();
 		if(retailStoreCityServiceCenterList == null){
 			//null list means nothing
 			return retailStoreProvinceCenter;
 		}
 		SmartList<RetailStoreCityServiceCenter> mergedUpdateRetailStoreCityServiceCenterList = new SmartList<RetailStoreCityServiceCenter>();
-		
-		
-		mergedUpdateRetailStoreCityServiceCenterList.addAll(retailStoreCityServiceCenterList); 
+
+
+		mergedUpdateRetailStoreCityServiceCenterList.addAll(retailStoreCityServiceCenterList);
 		if(retailStoreCityServiceCenterList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateRetailStoreCityServiceCenterList.addAll(retailStoreCityServiceCenterList.getToRemoveList());
@@ -1135,28 +1141,28 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 
 		//adding new size can improve performance
-	
+
 		getRetailStoreCityServiceCenterDAO().saveRetailStoreCityServiceCenterList(mergedUpdateRetailStoreCityServiceCenterList,options);
-		
+
 		if(retailStoreCityServiceCenterList.getToRemoveList() != null){
 			retailStoreCityServiceCenterList.removeAll(retailStoreCityServiceCenterList.getToRemoveList());
 		}
-		
-		
+
+
 		return retailStoreProvinceCenter;
-	
+
 	}
-	
+
 	protected RetailStoreProvinceCenter removeRetailStoreCityServiceCenterList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-	
-	
+
+
 		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = retailStoreProvinceCenter.getRetailStoreCityServiceCenterList();
 		if(retailStoreCityServiceCenterList == null){
 			return retailStoreProvinceCenter;
-		}	
-	
+		}
+
 		SmartList<RetailStoreCityServiceCenter> toRemoveRetailStoreCityServiceCenterList = retailStoreCityServiceCenterList.getToRemoveList();
-		
+
 		if(toRemoveRetailStoreCityServiceCenterList == null){
 			return retailStoreProvinceCenter;
 		}
@@ -1164,20 +1170,20 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getRetailStoreCityServiceCenterDAO().removeRetailStoreCityServiceCenterList(toRemoveRetailStoreCityServiceCenterList,options);
-		
-		return retailStoreProvinceCenter;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getRetailStoreCityServiceCenterDAO().removeRetailStoreCityServiceCenterList(toRemoveRetailStoreCityServiceCenterList,options);
+
+		return retailStoreProvinceCenter;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public RetailStoreProvinceCenter present(RetailStoreProvinceCenter retailStoreProvinceCenter,Map<String, Object> options){
@@ -1274,13 +1280,13 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	protected String getTableName(){
 		return RetailStoreProvinceCenterTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList) {		
+
+
+
+	public void enhanceList(List<RetailStoreProvinceCenter> retailStoreProvinceCenterList) {
 		this.enhanceListInternal(retailStoreProvinceCenterList, this.getRetailStoreProvinceCenterMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:ProvinceCenterDepartment的provinceCenter的ProvinceCenterDepartmentList
 	public SmartList<ProvinceCenterDepartment> loadOurProvinceCenterDepartmentList(RetailscmUserContext userContext, List<RetailStoreProvinceCenter> us, Map<String,Object> options) throws Exception{
@@ -1351,39 +1357,45 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreProvinceCenter> retailStoreProvinceCenterList = ownerEntity.collectRefsWithType(RetailStoreProvinceCenter.INTERNAL_TYPE);
 		this.enhanceList(retailStoreProvinceCenterList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreProvinceCenter> findRetailStoreProvinceCenterWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getRetailStoreProvinceCenterMapper());
 
 	}
 	@Override
 	public int countRetailStoreProvinceCenterWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countRetailStoreProvinceCenterWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<RetailStoreProvinceCenter> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreProvinceCenterMapper());
 	}
+
+  @Override
+  public Stream<RetailStoreProvinceCenter> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getRetailStoreProvinceCenterMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -1412,7 +1424,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 		return result;
 	}
-	
+
 	
 
 }

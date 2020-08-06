@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstorecreation;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 public interface RetailStoreCreationDAO extends BaseDAO{
 
 	public SmartList<RetailStoreCreation> loadAll();
+	public Stream<RetailStoreCreation> loadAllAsStream();
 	public RetailStoreCreation load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreCreation> retailStoreCreationList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreCreation present(RetailStoreCreation retailStoreCreation,Map<String,Object> options) throws Exception;
 	public RetailStoreCreation clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreCreation save(RetailStoreCreation retailStoreCreation,Map<String,Object> options);
 	public SmartList<RetailStoreCreation> saveRetailStoreCreationList(SmartList<RetailStoreCreation> retailStoreCreationList,Map<String,Object> options);
 	public SmartList<RetailStoreCreation> removeRetailStoreCreationList(SmartList<RetailStoreCreation> retailStoreCreationList,Map<String,Object> options);
@@ -80,8 +82,9 @@ public interface RetailStoreCreationDAO extends BaseDAO{
 	public RetailStoreCreation planToRemoveRetailStoreListWithClosing(RetailStoreCreation retailStoreCreation, String closingId, Map<String,Object> options)throws Exception;
 	public int countRetailStoreListWithClosing(String retailStoreCreationId, String closingId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStoreCreation> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreCreation> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreCreation executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.catalog.CatalogDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements LevelOneCategoryDAO{
 
@@ -71,50 +71,54 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	 	return this.levelTwoCategoryDAO;
  	}	
 
-	
+
 	/*
 	protected LevelOneCategory load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalLevelOneCategory(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<LevelOneCategory> loadAll() {
 	    return this.loadAll(getLevelOneCategoryMapper());
 	}
-	
-	
+
+  public Stream<LevelOneCategory> loadAllAsStream() {
+      return this.loadAllAsStream(getLevelOneCategoryMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public LevelOneCategory load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalLevelOneCategory(LevelOneCategoryTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public LevelOneCategory save(LevelOneCategory levelOneCategory,Map<String,Object> options){
-		
+
 		String methodName="save(LevelOneCategory levelOneCategory,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(levelOneCategory, methodName, "levelOneCategory");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalLevelOneCategory(levelOneCategory,options);
 	}
 	public LevelOneCategory clone(String levelOneCategoryId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(LevelOneCategoryTable.withId(levelOneCategoryId),options);
 	}
-	
+
 	protected LevelOneCategory clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String levelOneCategoryId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		LevelOneCategory newLevelOneCategory = loadInternalLevelOneCategory(accessKey, options);
 		newLevelOneCategory.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		}
 		
 
-		
+
 		saveInternalLevelOneCategory(newLevelOneCategory,options);
-		
+
 		return newLevelOneCategory;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String levelOneCategoryId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String levelOneCategoryId, int version) throws Exception{
-	
+
 		String methodName="delete(String levelOneCategoryId, int version)";
 		assertMethodArgumentNotNull(levelOneCategoryId, methodName, "levelOneCategoryId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{levelOneCategoryId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(affectedNumber == 0){
 			handleDeleteOneError(levelOneCategoryId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public LevelOneCategory disconnectFromAll(String levelOneCategoryId, int version) throws Exception{
-	
-		
+
+
 		LevelOneCategory levelOneCategory = loadInternalLevelOneCategory(LevelOneCategoryTable.withId(levelOneCategoryId), emptyOptions());
 		levelOneCategory.clearFromAll();
 		this.saveLevelOneCategory(levelOneCategory);
 		return levelOneCategory;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "level_one_category";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "levelOneCategory";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return levelOneCategory;
 		}
 		
-		
+
 		String SQL=this.getSaveLevelOneCategorySQL(levelOneCategory);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveLevelOneCategoryParameters(levelOneCategory);
@@ -419,57 +423,57 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		levelOneCategory.incVersion();
 		return levelOneCategory;
-	
+
 	}
 	public SmartList<LevelOneCategory> saveLevelOneCategoryList(SmartList<LevelOneCategory> levelOneCategoryList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitLevelOneCategoryList(levelOneCategoryList);
-		
+
 		batchLevelOneCategoryCreate((List<LevelOneCategory>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchLevelOneCategoryUpdate((List<LevelOneCategory>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(LevelOneCategory levelOneCategory:levelOneCategoryList){
 			if(levelOneCategory.isChanged()){
 				levelOneCategory.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return levelOneCategoryList;
 	}
 
 	public SmartList<LevelOneCategory> removeLevelOneCategoryList(SmartList<LevelOneCategory> levelOneCategoryList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(levelOneCategoryList, options);
-		
+
 		return levelOneCategoryList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareLevelOneCategoryBatchCreateArgs(List<LevelOneCategory> levelOneCategoryList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(LevelOneCategory levelOneCategory:levelOneCategoryList ){
 			Object [] parameters = prepareLevelOneCategoryCreateParameters(levelOneCategory);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareLevelOneCategoryBatchUpdateArgs(List<LevelOneCategory> levelOneCategoryList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(LevelOneCategory levelOneCategory:levelOneCategoryList ){
 			if(!levelOneCategory.isChanged()){
@@ -477,40 +481,40 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			}
 			Object [] parameters = prepareLevelOneCategoryUpdateParameters(levelOneCategory);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchLevelOneCategoryCreate(List<LevelOneCategory> levelOneCategoryList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareLevelOneCategoryBatchCreateArgs(levelOneCategoryList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchLevelOneCategoryUpdate(List<LevelOneCategory> levelOneCategoryList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareLevelOneCategoryBatchUpdateArgs(levelOneCategoryList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitLevelOneCategoryList(List<LevelOneCategory> levelOneCategoryList){
-		
+
 		List<LevelOneCategory> levelOneCategoryCreateList=new ArrayList<LevelOneCategory>();
 		List<LevelOneCategory> levelOneCategoryUpdateList=new ArrayList<LevelOneCategory>();
-		
+
 		for(LevelOneCategory levelOneCategory: levelOneCategoryList){
 			if(isUpdateRequest(levelOneCategory)){
 				levelOneCategoryUpdateList.add( levelOneCategory);
@@ -518,10 +522,10 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			}
 			levelOneCategoryCreateList.add(levelOneCategory);
 		}
-		
+
 		return new Object[]{levelOneCategoryCreateList,levelOneCategoryUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(LevelOneCategory levelOneCategory){
  		return levelOneCategory.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveLevelOneCategoryParameters(LevelOneCategory levelOneCategory){
  		if(isUpdateRequest(levelOneCategory) ){
  			return prepareLevelOneCategoryUpdateParameters(levelOneCategory);
@@ -540,42 +544,44 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  	}
  	protected Object[] prepareLevelOneCategoryUpdateParameters(LevelOneCategory levelOneCategory){
  		Object[] parameters = new Object[5];
-  	
+ 
  		if(levelOneCategory.getCatalog() != null){
  			parameters[0] = levelOneCategory.getCatalog().getId();
  		}
  
  		
  		parameters[1] = levelOneCategory.getName();
- 				
+ 		
  		parameters[2] = levelOneCategory.nextVersion();
  		parameters[3] = levelOneCategory.getId();
  		parameters[4] = levelOneCategory.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareLevelOneCategoryCreateParameters(LevelOneCategory levelOneCategory){
 		Object[] parameters = new Object[3];
-		String newLevelOneCategoryId=getNextId();
-		levelOneCategory.setId(newLevelOneCategoryId);
+        if(levelOneCategory.getId() == null){
+          String newLevelOneCategoryId=getNextId();
+          levelOneCategory.setId(newLevelOneCategoryId);
+        }
 		parameters[0] =  levelOneCategory.getId();
-  	
+ 
  		if(levelOneCategory.getCatalog() != null){
  			parameters[1] = levelOneCategory.getCatalog().getId();
- 		
+
  		}
  		
  		
  		parameters[2] = levelOneCategory.getName();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected LevelOneCategory saveInternalLevelOneCategory(LevelOneCategory levelOneCategory, Map<String,Object> options){
-		
+
 		saveLevelOneCategory(levelOneCategory);
- 	
+
  		if(isSaveCatalogEnabled(options)){
 	 		saveCatalog(levelOneCategory, options);
  		}
@@ -585,42 +591,42 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	 		saveLevelTwoCategoryList(levelOneCategory, options);
 	 		//removeLevelTwoCategoryList(levelOneCategory, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return levelOneCategory;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected LevelOneCategory saveCatalog(LevelOneCategory levelOneCategory, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(levelOneCategory.getCatalog() == null){
  			return levelOneCategory;//do nothing when it is null
  		}
- 		
+
  		getCatalogDAO().save(levelOneCategory.getCatalog(),options);
  		return levelOneCategory;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public LevelOneCategory planToRemoveLevelTwoCategoryList(LevelOneCategory levelOneCategory, String levelTwoCategoryIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(LevelTwoCategory.PARENT_CATEGORY_PROPERTY, levelOneCategory.getId());
 		key.put(LevelTwoCategory.ID_PROPERTY, levelTwoCategoryIds);
-		
+
 		SmartList<LevelTwoCategory> externalLevelTwoCategoryList = getLevelTwoCategoryDAO().
 				findLevelTwoCategoryWithKey(key, options);
 		if(externalLevelTwoCategoryList == null){
@@ -629,36 +635,36 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(externalLevelTwoCategoryList.isEmpty()){
 			return levelOneCategory;
 		}
-		
+
 		for(LevelTwoCategory levelTwoCategoryItem: externalLevelTwoCategoryList){
 
 			levelTwoCategoryItem.clearFromAll();
 		}
-		
-		
-		SmartList<LevelTwoCategory> levelTwoCategoryList = levelOneCategory.getLevelTwoCategoryList();		
+
+
+		SmartList<LevelTwoCategory> levelTwoCategoryList = levelOneCategory.getLevelTwoCategoryList();
 		levelTwoCategoryList.addAllToRemoveList(externalLevelTwoCategoryList);
-		return levelOneCategory;	
-	
+		return levelOneCategory;
+
 	}
 
 
 
 		
 	protected LevelOneCategory saveLevelTwoCategoryList(LevelOneCategory levelOneCategory, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<LevelTwoCategory> levelTwoCategoryList = levelOneCategory.getLevelTwoCategoryList();
 		if(levelTwoCategoryList == null){
 			//null list means nothing
 			return levelOneCategory;
 		}
 		SmartList<LevelTwoCategory> mergedUpdateLevelTwoCategoryList = new SmartList<LevelTwoCategory>();
-		
-		
-		mergedUpdateLevelTwoCategoryList.addAll(levelTwoCategoryList); 
+
+
+		mergedUpdateLevelTwoCategoryList.addAll(levelTwoCategoryList);
 		if(levelTwoCategoryList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateLevelTwoCategoryList.addAll(levelTwoCategoryList.getToRemoveList());
@@ -667,28 +673,28 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		}
 
 		//adding new size can improve performance
-	
+
 		getLevelTwoCategoryDAO().saveLevelTwoCategoryList(mergedUpdateLevelTwoCategoryList,options);
-		
+
 		if(levelTwoCategoryList.getToRemoveList() != null){
 			levelTwoCategoryList.removeAll(levelTwoCategoryList.getToRemoveList());
 		}
-		
-		
+
+
 		return levelOneCategory;
-	
+
 	}
-	
+
 	protected LevelOneCategory removeLevelTwoCategoryList(LevelOneCategory levelOneCategory, Map<String,Object> options){
-	
-	
+
+
 		SmartList<LevelTwoCategory> levelTwoCategoryList = levelOneCategory.getLevelTwoCategoryList();
 		if(levelTwoCategoryList == null){
 			return levelOneCategory;
-		}	
-	
+		}
+
 		SmartList<LevelTwoCategory> toRemoveLevelTwoCategoryList = levelTwoCategoryList.getToRemoveList();
-		
+
 		if(toRemoveLevelTwoCategoryList == null){
 			return levelOneCategory;
 		}
@@ -696,20 +702,20 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return levelOneCategory;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getLevelTwoCategoryDAO().removeLevelTwoCategoryList(toRemoveLevelTwoCategoryList,options);
-		
-		return levelOneCategory;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getLevelTwoCategoryDAO().removeLevelTwoCategoryList(toRemoveLevelTwoCategoryList,options);
+
+		return levelOneCategory;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public LevelOneCategory present(LevelOneCategory levelOneCategory,Map<String, Object> options){
@@ -752,13 +758,13 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	protected String getTableName(){
 		return LevelOneCategoryTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<LevelOneCategory> levelOneCategoryList) {		
+
+
+
+	public void enhanceList(List<LevelOneCategory> levelOneCategoryList) {
 		this.enhanceListInternal(levelOneCategoryList, this.getLevelOneCategoryMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:LevelTwoCategory的parentCategory的LevelTwoCategoryList
 	public SmartList<LevelTwoCategory> loadOurLevelTwoCategoryList(RetailscmUserContext userContext, List<LevelOneCategory> us, Map<String,Object> options) throws Exception{
@@ -783,39 +789,45 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LevelOneCategory> levelOneCategoryList = ownerEntity.collectRefsWithType(LevelOneCategory.INTERNAL_TYPE);
 		this.enhanceList(levelOneCategoryList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<LevelOneCategory> findLevelOneCategoryWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getLevelOneCategoryMapper());
 
 	}
 	@Override
 	public int countLevelOneCategoryWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countLevelOneCategoryWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<LevelOneCategory> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getLevelOneCategoryMapper());
 	}
+
+  @Override
+  public Stream<LevelOneCategory> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getLevelOneCategoryMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -844,7 +856,7 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		}
 		return result;
 	}
-	
+
 	
 
 }

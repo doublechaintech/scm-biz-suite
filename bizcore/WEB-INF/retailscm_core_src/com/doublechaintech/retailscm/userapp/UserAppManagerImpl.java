@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.userapp;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.quicklink.QuickLink;
@@ -46,7 +44,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
 	// Only some of ods have such function
 	
-	
+
 
 
 
@@ -109,7 +107,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).throwExceptionIfHasErrors( UserAppManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		UserApp userApp = loadUserApp( userContext, userAppId, tokens);
  		//do some calc before sent to customer?
@@ -128,6 +126,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		
 		List<BaseEntity> entityListToNaming = userAppToPresent.collectRefercencesFromLists();
 		userAppDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,userApp,tokens);
 		
 		return  userAppToPresent;
 		
@@ -641,7 +642,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			userApp.addQuickLink( quickLink );
 			userApp = saveUserApp(userContext, userApp, tokens().withQuickLinkList().done());
 			
-			userContext.getManagerGroup().getQuickLinkManager().onNewInstanceCreated(userContext, quickLink);
+			quickLinkManagerOf(userContext).onNewInstanceCreated(userContext, quickLink);
 			return present(userContext,userApp, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -665,7 +666,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withQuickLinkListList()
-				.searchQuickLinkListWith(QuickLink.ID_PROPERTY, "is", id).done();
+				.searchQuickLinkListWith(QuickLink.ID_PROPERTY, tokens().is(), id).done();
 
 		UserApp userAppToUpdate = loadUserApp(userContext, userAppId, options);
 
@@ -674,7 +675,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 		QuickLink item = userAppToUpdate.getQuickLinkList().first();
-
+		beforeUpdateQuickLinkProperties(userContext,item, userAppId,id,name,icon,imagePath,linkTarget,tokensExpr);
 		item.updateName( name );
 		item.updateIcon( icon );
 		item.updateImagePath( imagePath );
@@ -688,6 +689,10 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 	}
 
+	protected  void beforeUpdateQuickLinkProperties(RetailscmUserContext userContext, QuickLink item, String userAppId, String id,String name,String icon,String imagePath,String linkTarget, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected QuickLink createQuickLink(RetailscmUserContext userContext, String name, String icon, String imagePath, String linkTarget) throws Exception{
 
@@ -795,7 +800,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			userApp.copyQuickLinkFrom( quickLink );
 			userApp = saveUserApp(userContext, userApp, tokens().withQuickLinkList().done());
 			
-			userContext.getManagerGroup().getQuickLinkManager().onNewInstanceCreated(userContext, (QuickLink)userApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			quickLinkManagerOf(userContext).onNewInstanceCreated(userContext, (QuickLink)userApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,userApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -808,33 +813,25 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfUserApp(userAppId);
 		checkerOf(userContext).checkIdOfQuickLink(quickLinkId);
 		checkerOf(userContext).checkVersionOfQuickLink(quickLinkVersion);
-		
+
 
 		if(QuickLink.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfQuickLink(parseString(newValueExpr));
-		
 		}
 		
 		if(QuickLink.ICON_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkIconOfQuickLink(parseString(newValueExpr));
-		
 		}
 		
 		if(QuickLink.IMAGE_PATH_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkImagePathOfQuickLink(parseString(newValueExpr));
-		
 		}
 		
 		if(QuickLink.LINK_TARGET_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLinkTargetOfQuickLink(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
 	}
@@ -844,7 +841,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
 		checkParamsForUpdatingQuickLink(userContext, userAppId, quickLinkId, quickLinkVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withQuickLinkList().searchQuickLinkListWith(QuickLink.ID_PROPERTY, "eq", quickLinkId).done();
+		Map<String,Object> loadTokens = this.tokens().withQuickLinkList().searchQuickLinkListWith(QuickLink.ID_PROPERTY, tokens().equals(), quickLinkId).done();
 
 
 
@@ -855,13 +852,14 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			//Also good when there is a RAM based DAO implementation
 			//userApp.removeQuickLink( quickLink );
 			//make changes to AcceleraterAccount.
-			QuickLink quickLinkIndex = createIndexedQuickLink(quickLinkId, quickLinkVersion);
+			QuickLink quickLinkIdVersionKey = createIndexedQuickLink(quickLinkId, quickLinkVersion);
 
-			QuickLink quickLink = userApp.findTheQuickLink(quickLinkIndex);
+			QuickLink quickLink = userApp.findTheQuickLink(quickLinkIdVersionKey);
 			if(quickLink == null){
-				throw new UserAppManagerException(quickLink+" is NOT FOUND" );
+				throw new UserAppManagerException(quickLinkId+" is NOT FOUND" );
 			}
 
+			beforeUpdateQuickLink(userContext, quickLink, userAppId, quickLinkId, quickLinkVersion, property, newValueExpr,  tokensExpr);
 			quickLink.changeProperty(property, newValueExpr);
 			
 			userApp = saveUserApp(userContext, userApp, tokens().withQuickLinkList().done());
@@ -869,6 +867,11 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateQuickLink(RetailscmUserContext userContext, QuickLink existed, String userAppId, String quickLinkId, int quickLinkVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -913,7 +916,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			userApp.addListAccess( listAccess );
 			userApp = saveUserApp(userContext, userApp, tokens().withListAccessList().done());
 			
-			userContext.getManagerGroup().getListAccessManager().onNewInstanceCreated(userContext, listAccess);
+			listAccessManagerOf(userContext).onNewInstanceCreated(userContext, listAccess);
 			return present(userContext,userApp, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -940,7 +943,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withListAccessListList()
-				.searchListAccessListWith(ListAccess.ID_PROPERTY, "is", id).done();
+				.searchListAccessListWith(ListAccess.ID_PROPERTY, tokens().is(), id).done();
 
 		UserApp userAppToUpdate = loadUserApp(userContext, userAppId, options);
 
@@ -949,7 +952,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 		ListAccess item = userAppToUpdate.getListAccessList().first();
-
+		beforeUpdateListAccessProperties(userContext,item, userAppId,id,name,internalName,readPermission,createPermission,deletePermission,updatePermission,executionPermission,tokensExpr);
 		item.updateName( name );
 		item.updateInternalName( internalName );
 		item.updateReadPermission( readPermission );
@@ -966,6 +969,10 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 	}
 
+	protected  void beforeUpdateListAccessProperties(RetailscmUserContext userContext, ListAccess item, String userAppId, String id,String name,String internalName,boolean readPermission,boolean createPermission,boolean deletePermission,boolean updatePermission,boolean executionPermission, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected ListAccess createListAccess(RetailscmUserContext userContext, String name, String internalName, boolean readPermission, boolean createPermission, boolean deletePermission, boolean updatePermission, boolean executionPermission) throws Exception{
 
@@ -1075,7 +1082,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			userApp.copyListAccessFrom( listAccess );
 			userApp = saveUserApp(userContext, userApp, tokens().withListAccessList().done());
 			
-			userContext.getManagerGroup().getListAccessManager().onNewInstanceCreated(userContext, (ListAccess)userApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			listAccessManagerOf(userContext).onNewInstanceCreated(userContext, (ListAccess)userApp.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,userApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -1088,51 +1095,37 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfUserApp(userAppId);
 		checkerOf(userContext).checkIdOfListAccess(listAccessId);
 		checkerOf(userContext).checkVersionOfListAccess(listAccessVersion);
-		
+
 
 		if(ListAccess.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfListAccess(parseString(newValueExpr));
-		
 		}
 		
 		if(ListAccess.INTERNAL_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkInternalNameOfListAccess(parseString(newValueExpr));
-		
 		}
 		
 		if(ListAccess.READ_PERMISSION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkReadPermissionOfListAccess(parseBoolean(newValueExpr));
-		
 		}
 		
 		if(ListAccess.CREATE_PERMISSION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCreatePermissionOfListAccess(parseBoolean(newValueExpr));
-		
 		}
 		
 		if(ListAccess.DELETE_PERMISSION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDeletePermissionOfListAccess(parseBoolean(newValueExpr));
-		
 		}
 		
 		if(ListAccess.UPDATE_PERMISSION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkUpdatePermissionOfListAccess(parseBoolean(newValueExpr));
-		
 		}
 		
 		if(ListAccess.EXECUTION_PERMISSION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkExecutionPermissionOfListAccess(parseBoolean(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
 	}
@@ -1142,7 +1135,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
 		checkParamsForUpdatingListAccess(userContext, userAppId, listAccessId, listAccessVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withListAccessList().searchListAccessListWith(ListAccess.ID_PROPERTY, "eq", listAccessId).done();
+		Map<String,Object> loadTokens = this.tokens().withListAccessList().searchListAccessListWith(ListAccess.ID_PROPERTY, tokens().equals(), listAccessId).done();
 
 
 
@@ -1153,13 +1146,14 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			//Also good when there is a RAM based DAO implementation
 			//userApp.removeListAccess( listAccess );
 			//make changes to AcceleraterAccount.
-			ListAccess listAccessIndex = createIndexedListAccess(listAccessId, listAccessVersion);
+			ListAccess listAccessIdVersionKey = createIndexedListAccess(listAccessId, listAccessVersion);
 
-			ListAccess listAccess = userApp.findTheListAccess(listAccessIndex);
+			ListAccess listAccess = userApp.findTheListAccess(listAccessIdVersionKey);
 			if(listAccess == null){
-				throw new UserAppManagerException(listAccess+" is NOT FOUND" );
+				throw new UserAppManagerException(listAccessId+" is NOT FOUND" );
 			}
 
+			beforeUpdateListAccess(userContext, listAccess, userAppId, listAccessId, listAccessVersion, property, newValueExpr,  tokensExpr);
 			listAccess.changeProperty(property, newValueExpr);
 			
 			userApp = saveUserApp(userContext, userApp, tokens().withListAccessList().done());
@@ -1167,6 +1161,11 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateListAccess(RetailscmUserContext userContext, ListAccess existed, String userAppId, String listAccessId, int listAccessVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1183,6 +1182,12 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    userAppDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1274,6 +1279,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1390,7 +1396,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1412,7 +1418,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "3-secUser")
 				    .put("fieldName", "secUser")
-				    .put("label", "SEC的用户")
+				    .put("label", "安全用户")
 				    .put("type", "auto")
 				    .put("linkToUrl", "secUserManager/wxappview/:id/")
 				    .put("displayMode", "{\"brief\":\"verification_code\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"login\",\"imageList\":\"\"}")
@@ -1532,6 +1538,8 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

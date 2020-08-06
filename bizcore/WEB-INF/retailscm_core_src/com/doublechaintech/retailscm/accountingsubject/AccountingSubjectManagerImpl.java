@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.accountingsubject;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;
@@ -46,24 +44,24 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = AccountingSubjectTokens.start().withTokenFromListName(listName).done();
 		AccountingSubject  accountingSubject = (AccountingSubject) this.loadAccountingSubject(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = accountingSubject.collectRefercencesFromLists();
 		accountingSubjectDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, accountingSubject, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new AccountingSubjectGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).throwExceptionIfHasErrors( AccountingSubjectManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		AccountingSubject accountingSubject = loadAccountingSubject( userContext, accountingSubjectId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		
 		List<BaseEntity> entityListToNaming = accountingSubjectToPresent.collectRefercencesFromLists();
 		accountingSubjectDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,accountingSubject,tokens);
 		
 		return  accountingSubjectToPresent;
 		
@@ -547,7 +548,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 			accountingSubject.addAccountingDocumentLine( accountingDocumentLine );
 			accountingSubject = saveAccountingSubject(userContext, accountingSubject, tokens().withAccountingDocumentLineList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentLineManager().onNewInstanceCreated(userContext, accountingDocumentLine);
+			accountingDocumentLineManagerOf(userContext).onNewInstanceCreated(userContext, accountingDocumentLine);
 			return present(userContext,accountingSubject, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -571,7 +572,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withAccountingDocumentLineListList()
-				.searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, "is", id).done();
+				.searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, tokens().is(), id).done();
 
 		AccountingSubject accountingSubjectToUpdate = loadAccountingSubject(userContext, accountingSubjectId, options);
 
@@ -580,7 +581,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 		AccountingDocumentLine item = accountingSubjectToUpdate.getAccountingDocumentLineList().first();
-
+		beforeUpdateAccountingDocumentLineProperties(userContext,item, accountingSubjectId,id,name,code,direct,amount,tokensExpr);
 		item.updateName( name );
 		item.updateCode( code );
 		item.updateDirect( direct );
@@ -594,6 +595,10 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		}
 	}
 
+	protected  void beforeUpdateAccountingDocumentLineProperties(RetailscmUserContext userContext, AccountingDocumentLine item, String accountingSubjectId, String id,String name,String code,String direct,BigDecimal amount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected AccountingDocumentLine createAccountingDocumentLine(RetailscmUserContext userContext, String name, String code, String direct, BigDecimal amount, String belongsToId) throws Exception{
 
@@ -703,7 +708,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 			accountingSubject.copyAccountingDocumentLineFrom( accountingDocumentLine );
 			accountingSubject = saveAccountingSubject(userContext, accountingSubject, tokens().withAccountingDocumentLineList().done());
 			
-			userContext.getManagerGroup().getAccountingDocumentLineManager().onNewInstanceCreated(userContext, (AccountingDocumentLine)accountingSubject.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			accountingDocumentLineManagerOf(userContext).onNewInstanceCreated(userContext, (AccountingDocumentLine)accountingSubject.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,accountingSubject, mergedAllTokens(tokensExpr));
 		}
 
@@ -716,33 +721,25 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfAccountingSubject(accountingSubjectId);
 		checkerOf(userContext).checkIdOfAccountingDocumentLine(accountingDocumentLineId);
 		checkerOf(userContext).checkVersionOfAccountingDocumentLine(accountingDocumentLineVersion);
-		
+
 
 		if(AccountingDocumentLine.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfAccountingDocumentLine(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocumentLine.CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkCodeOfAccountingDocumentLine(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocumentLine.DIRECT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDirectOfAccountingDocumentLine(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountingDocumentLine.AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAmountOfAccountingDocumentLine(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingSubjectManagerException.class);
 
 	}
@@ -752,7 +749,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkParamsForUpdatingAccountingDocumentLine(userContext, accountingSubjectId, accountingDocumentLineId, accountingDocumentLineVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentLineList().searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, "eq", accountingDocumentLineId).done();
+		Map<String,Object> loadTokens = this.tokens().withAccountingDocumentLineList().searchAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY, tokens().equals(), accountingDocumentLineId).done();
 
 
 
@@ -763,13 +760,14 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 			//Also good when there is a RAM based DAO implementation
 			//accountingSubject.removeAccountingDocumentLine( accountingDocumentLine );
 			//make changes to AcceleraterAccount.
-			AccountingDocumentLine accountingDocumentLineIndex = createIndexedAccountingDocumentLine(accountingDocumentLineId, accountingDocumentLineVersion);
+			AccountingDocumentLine accountingDocumentLineIdVersionKey = createIndexedAccountingDocumentLine(accountingDocumentLineId, accountingDocumentLineVersion);
 
-			AccountingDocumentLine accountingDocumentLine = accountingSubject.findTheAccountingDocumentLine(accountingDocumentLineIndex);
+			AccountingDocumentLine accountingDocumentLine = accountingSubject.findTheAccountingDocumentLine(accountingDocumentLineIdVersionKey);
 			if(accountingDocumentLine == null){
-				throw new AccountingSubjectManagerException(accountingDocumentLine+" is NOT FOUND" );
+				throw new AccountingSubjectManagerException(accountingDocumentLineId+" is NOT FOUND" );
 			}
 
+			beforeUpdateAccountingDocumentLine(userContext, accountingDocumentLine, accountingSubjectId, accountingDocumentLineId, accountingDocumentLineVersion, property, newValueExpr,  tokensExpr);
 			accountingDocumentLine.changeProperty(property, newValueExpr);
 			
 			accountingSubject = saveAccountingSubject(userContext, accountingSubject, tokens().withAccountingDocumentLineList().done());
@@ -777,6 +775,11 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateAccountingDocumentLine(RetailscmUserContext userContext, AccountingDocumentLine existed, String accountingSubjectId, String accountingDocumentLineId, int accountingDocumentLineVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -793,6 +796,12 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    accountingSubjectDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -884,6 +893,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1000,7 +1010,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1093,6 +1103,8 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

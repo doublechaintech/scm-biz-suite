@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvin
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ProvinceCenterEmployeeDAO{
 
@@ -71,64 +71,68 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	 	return this.retailStoreProvinceCenterDAO;
  	}	
 
-	
+
 	/*
 	protected ProvinceCenterEmployee load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalProvinceCenterEmployee(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<ProvinceCenterEmployee> loadAll() {
 	    return this.loadAll(getProvinceCenterEmployeeMapper());
 	}
-	
-	
+
+  public Stream<ProvinceCenterEmployee> loadAllAsStream() {
+      return this.loadAllAsStream(getProvinceCenterEmployeeMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public ProvinceCenterEmployee load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalProvinceCenterEmployee(ProvinceCenterEmployeeTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public ProvinceCenterEmployee save(ProvinceCenterEmployee provinceCenterEmployee,Map<String,Object> options){
-		
+
 		String methodName="save(ProvinceCenterEmployee provinceCenterEmployee,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(provinceCenterEmployee, methodName, "provinceCenterEmployee");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalProvinceCenterEmployee(provinceCenterEmployee,options);
 	}
 	public ProvinceCenterEmployee clone(String provinceCenterEmployeeId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(ProvinceCenterEmployeeTable.withId(provinceCenterEmployeeId),options);
 	}
-	
+
 	protected ProvinceCenterEmployee clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String provinceCenterEmployeeId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		ProvinceCenterEmployee newProvinceCenterEmployee = loadInternalProvinceCenterEmployee(accessKey, options);
 		newProvinceCenterEmployee.setVersion(0);
 		
 		
 
-		
+
 		saveInternalProvinceCenterEmployee(newProvinceCenterEmployee,options);
-		
+
 		return newProvinceCenterEmployee;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String provinceCenterEmployeeId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -144,15 +148,15 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String provinceCenterEmployeeId, int version) throws Exception{
-	
+
 		String methodName="delete(String provinceCenterEmployeeId, int version)";
 		assertMethodArgumentNotNull(provinceCenterEmployeeId, methodName, "provinceCenterEmployeeId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{provinceCenterEmployeeId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -162,26 +166,26 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(affectedNumber == 0){
 			handleDeleteOneError(provinceCenterEmployeeId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public ProvinceCenterEmployee disconnectFromAll(String provinceCenterEmployeeId, int version) throws Exception{
-	
-		
+
+
 		ProvinceCenterEmployee provinceCenterEmployee = loadInternalProvinceCenterEmployee(ProvinceCenterEmployeeTable.withId(provinceCenterEmployeeId), emptyOptions());
 		provinceCenterEmployee.clearFromAll();
 		this.saveProvinceCenterEmployee(provinceCenterEmployee);
 		return provinceCenterEmployee;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -189,15 +193,15 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "province_center_employee";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "provinceCenterEmployee";
 	}
-	
+
 	
 	
 	
@@ -419,7 +423,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			return provinceCenterEmployee;
 		}
 		
-		
+
 		String SQL=this.getSaveProvinceCenterEmployeeSQL(provinceCenterEmployee);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveProvinceCenterEmployeeParameters(provinceCenterEmployee);
@@ -428,57 +432,57 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		provinceCenterEmployee.incVersion();
 		return provinceCenterEmployee;
-	
+
 	}
 	public SmartList<ProvinceCenterEmployee> saveProvinceCenterEmployeeList(SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitProvinceCenterEmployeeList(provinceCenterEmployeeList);
-		
+
 		batchProvinceCenterEmployeeCreate((List<ProvinceCenterEmployee>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchProvinceCenterEmployeeUpdate((List<ProvinceCenterEmployee>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(ProvinceCenterEmployee provinceCenterEmployee:provinceCenterEmployeeList){
 			if(provinceCenterEmployee.isChanged()){
 				provinceCenterEmployee.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return provinceCenterEmployeeList;
 	}
 
 	public SmartList<ProvinceCenterEmployee> removeProvinceCenterEmployeeList(SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(provinceCenterEmployeeList, options);
-		
+
 		return provinceCenterEmployeeList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareProvinceCenterEmployeeBatchCreateArgs(List<ProvinceCenterEmployee> provinceCenterEmployeeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ProvinceCenterEmployee provinceCenterEmployee:provinceCenterEmployeeList ){
 			Object [] parameters = prepareProvinceCenterEmployeeCreateParameters(provinceCenterEmployee);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareProvinceCenterEmployeeBatchUpdateArgs(List<ProvinceCenterEmployee> provinceCenterEmployeeList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(ProvinceCenterEmployee provinceCenterEmployee:provinceCenterEmployeeList ){
 			if(!provinceCenterEmployee.isChanged()){
@@ -486,40 +490,40 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			}
 			Object [] parameters = prepareProvinceCenterEmployeeUpdateParameters(provinceCenterEmployee);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchProvinceCenterEmployeeCreate(List<ProvinceCenterEmployee> provinceCenterEmployeeList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareProvinceCenterEmployeeBatchCreateArgs(provinceCenterEmployeeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchProvinceCenterEmployeeUpdate(List<ProvinceCenterEmployee> provinceCenterEmployeeList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareProvinceCenterEmployeeBatchUpdateArgs(provinceCenterEmployeeList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitProvinceCenterEmployeeList(List<ProvinceCenterEmployee> provinceCenterEmployeeList){
-		
+
 		List<ProvinceCenterEmployee> provinceCenterEmployeeCreateList=new ArrayList<ProvinceCenterEmployee>();
 		List<ProvinceCenterEmployee> provinceCenterEmployeeUpdateList=new ArrayList<ProvinceCenterEmployee>();
-		
+
 		for(ProvinceCenterEmployee provinceCenterEmployee: provinceCenterEmployeeList){
 			if(isUpdateRequest(provinceCenterEmployee)){
 				provinceCenterEmployeeUpdateList.add( provinceCenterEmployee);
@@ -527,10 +531,10 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			}
 			provinceCenterEmployeeCreateList.add(provinceCenterEmployee);
 		}
-		
+
 		return new Object[]{provinceCenterEmployeeCreateList,provinceCenterEmployeeUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(ProvinceCenterEmployee provinceCenterEmployee){
  		return provinceCenterEmployee.getVersion() > 0;
  	}
@@ -540,7 +544,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveProvinceCenterEmployeeParameters(ProvinceCenterEmployee provinceCenterEmployee){
  		if(isUpdateRequest(provinceCenterEmployee) ){
  			return prepareProvinceCenterEmployeeUpdateParameters(provinceCenterEmployee);
@@ -561,25 +565,27 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		
  		
  		parameters[3] = provinceCenterEmployee.getFounded();
- 		 	
+ 		
  		if(provinceCenterEmployee.getDepartment() != null){
  			parameters[4] = provinceCenterEmployee.getDepartment().getId();
  		}
-  	
+ 
  		if(provinceCenterEmployee.getProvinceCenter() != null){
  			parameters[5] = provinceCenterEmployee.getProvinceCenter().getId();
  		}
- 		
+ 
  		parameters[6] = provinceCenterEmployee.nextVersion();
  		parameters[7] = provinceCenterEmployee.getId();
  		parameters[8] = provinceCenterEmployee.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareProvinceCenterEmployeeCreateParameters(ProvinceCenterEmployee provinceCenterEmployee){
 		Object[] parameters = new Object[7];
-		String newProvinceCenterEmployeeId=getNextId();
-		provinceCenterEmployee.setId(newProvinceCenterEmployeeId);
+        if(provinceCenterEmployee.getId() == null){
+          String newProvinceCenterEmployeeId=getNextId();
+          provinceCenterEmployee.setId(newProvinceCenterEmployeeId);
+        }
 		parameters[0] =  provinceCenterEmployee.getId();
  
  		
@@ -593,75 +599,75 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		
  		
  		parameters[4] = provinceCenterEmployee.getFounded();
- 		 	
+ 		
  		if(provinceCenterEmployee.getDepartment() != null){
  			parameters[5] = provinceCenterEmployee.getDepartment().getId();
- 		
+
  		}
- 		 	
+ 		
  		if(provinceCenterEmployee.getProvinceCenter() != null){
  			parameters[6] = provinceCenterEmployee.getProvinceCenter().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected ProvinceCenterEmployee saveInternalProvinceCenterEmployee(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options){
-		
+
 		saveProvinceCenterEmployee(provinceCenterEmployee);
- 	
+
  		if(isSaveDepartmentEnabled(options)){
 	 		saveDepartment(provinceCenterEmployee, options);
  		}
-  	
+ 
  		if(isSaveProvinceCenterEnabled(options)){
 	 		saveProvinceCenter(provinceCenterEmployee, options);
  		}
  
 		
 		return provinceCenterEmployee;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected ProvinceCenterEmployee saveDepartment(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(provinceCenterEmployee.getDepartment() == null){
  			return provinceCenterEmployee;//do nothing when it is null
  		}
- 		
+
  		getProvinceCenterDepartmentDAO().save(provinceCenterEmployee.getDepartment(),options);
  		return provinceCenterEmployee;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
-  
+
+
+
+
+
  
+
  	protected ProvinceCenterEmployee saveProvinceCenter(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(provinceCenterEmployee.getProvinceCenter() == null){
  			return provinceCenterEmployee;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreProvinceCenterDAO().save(provinceCenterEmployee.getProvinceCenter(),options);
  		return provinceCenterEmployee;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
@@ -681,47 +687,53 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	protected String getTableName(){
 		return ProvinceCenterEmployeeTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<ProvinceCenterEmployee> provinceCenterEmployeeList) {		
+
+
+
+	public void enhanceList(List<ProvinceCenterEmployee> provinceCenterEmployeeList) {
 		this.enhanceListInternal(provinceCenterEmployeeList, this.getProvinceCenterEmployeeMapper());
 	}
+
 	
-	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ProvinceCenterEmployee> provinceCenterEmployeeList = ownerEntity.collectRefsWithType(ProvinceCenterEmployee.INTERNAL_TYPE);
 		this.enhanceList(provinceCenterEmployeeList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getProvinceCenterEmployeeMapper());
 
 	}
 	@Override
 	public int countProvinceCenterEmployeeWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countProvinceCenterEmployeeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<ProvinceCenterEmployee> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getProvinceCenterEmployeeMapper());
 	}
+
+  @Override
+  public Stream<ProvinceCenterEmployee> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getProvinceCenterEmployeeMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -750,7 +762,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 		return result;
 	}
-	
+
 	
 
 }

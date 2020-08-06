@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.employeeperformance;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.employee.Employee;
@@ -43,7 +41,7 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
 
 	// Only some of ods have such function
 	
-	
+
 
 
 
@@ -106,7 +104,7 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
 		checkerOf(userContext).throwExceptionIfHasErrors( EmployeePerformanceManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		EmployeePerformance employeePerformance = loadEmployeePerformance( userContext, employeePerformanceId, tokens);
  		//do some calc before sent to customer?
@@ -125,6 +123,9 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
 		
 		List<BaseEntity> entityListToNaming = employeePerformanceToPresent.collectRefercencesFromLists();
 		employeePerformanceDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,employeePerformance,tokens);
 		
 		return  employeePerformanceToPresent;
 		
@@ -457,6 +458,12 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
   
   
 
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    employeePerformanceDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
 	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
@@ -547,6 +554,7 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -663,7 +671,7 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -707,6 +715,8 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

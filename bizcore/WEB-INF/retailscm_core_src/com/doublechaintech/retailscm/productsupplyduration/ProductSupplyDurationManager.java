@@ -17,6 +17,7 @@ public interface ProductSupplyDurationManager extends BaseManager{
 	public ProductSupplyDuration createProductSupplyDuration(RetailscmUserContext userContext, int quantity,String duration,BigDecimal price,String productId) throws Exception;
 	public ProductSupplyDuration updateProductSupplyDuration(RetailscmUserContext userContext,String productSupplyDurationId, int productSupplyDurationVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ProductSupplyDuration loadProductSupplyDuration(RetailscmUserContext userContext, String productSupplyDurationId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public ProductSupplyDuration internalSaveProductSupplyDuration(RetailscmUserContext userContext, ProductSupplyDuration productSupplyDuration) throws Exception;
 	public ProductSupplyDuration internalSaveProductSupplyDuration(RetailscmUserContext userContext, ProductSupplyDuration productSupplyDuration,Map<String,Object>option) throws Exception;
 

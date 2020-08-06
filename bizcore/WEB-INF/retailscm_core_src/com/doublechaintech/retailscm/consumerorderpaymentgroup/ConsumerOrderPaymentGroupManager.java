@@ -17,6 +17,7 @@ public interface ConsumerOrderPaymentGroupManager extends BaseManager{
 	public ConsumerOrderPaymentGroup createConsumerOrderPaymentGroup(RetailscmUserContext userContext, String name,String bizOrderId,String cardNumber) throws Exception;
 	public ConsumerOrderPaymentGroup updateConsumerOrderPaymentGroup(RetailscmUserContext userContext,String consumerOrderPaymentGroupId, int consumerOrderPaymentGroupVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ConsumerOrderPaymentGroup loadConsumerOrderPaymentGroup(RetailscmUserContext userContext, String consumerOrderPaymentGroupId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public ConsumerOrderPaymentGroup internalSaveConsumerOrderPaymentGroup(RetailscmUserContext userContext, ConsumerOrderPaymentGroup consumerOrderPaymentGroup) throws Exception;
 	public ConsumerOrderPaymentGroup internalSaveConsumerOrderPaymentGroup(RetailscmUserContext userContext, ConsumerOrderPaymentGroup consumerOrderPaymentGroup,Map<String,Object>option) throws Exception;
 

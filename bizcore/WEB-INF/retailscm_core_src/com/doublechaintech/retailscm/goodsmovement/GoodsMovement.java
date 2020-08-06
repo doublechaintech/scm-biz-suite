@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.goodsmovement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -15,8 +16,21 @@ import com.doublechaintech.retailscm.KeyValuePair;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.doublechaintech.retailscm.goods.Goods;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = GoodsMovementSerializer.class)
 public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;
@@ -356,11 +370,6 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 	}
 	
 	
-	public void clearFacilityId(){
-		setFacilityId ( null );
-		this.changed = true;
-	}
-	
 	public void setFromIp(String fromIp){
 		this.mFromIp = trimString(fromIp);;
 	}
@@ -408,11 +417,6 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		if(sessionId != null) { setSessionId(sessionId);}
 	}
 	
-	
-	public void clearSessionId(){
-		setSessionId ( null );
-		this.changed = true;
-	}
 	
 	public void setLatitude(BigDecimal latitude){
 		this.mLatitude = latitude;;

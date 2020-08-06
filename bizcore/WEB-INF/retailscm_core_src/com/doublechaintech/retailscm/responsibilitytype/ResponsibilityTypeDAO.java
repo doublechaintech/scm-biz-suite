@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.responsibilitytype;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -20,20 +21,21 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 public interface ResponsibilityTypeDAO extends BaseDAO{
 
 	public SmartList<ResponsibilityType> loadAll();
+	public Stream<ResponsibilityType> loadAllAsStream();
 	public ResponsibilityType load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<ResponsibilityType> responsibilityTypeList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public ResponsibilityType present(ResponsibilityType responsibilityType,Map<String,Object> options) throws Exception;
 	public ResponsibilityType clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public ResponsibilityType save(ResponsibilityType responsibilityType,Map<String,Object> options);
 	public SmartList<ResponsibilityType> saveResponsibilityTypeList(SmartList<ResponsibilityType> responsibilityTypeList,Map<String,Object> options);
 	public SmartList<ResponsibilityType> removeResponsibilityTypeList(SmartList<ResponsibilityType> responsibilityTypeList,Map<String,Object> options);
@@ -70,18 +72,19 @@ public interface ResponsibilityTypeDAO extends BaseDAO{
 	public ResponsibilityType planToRemoveEmployeeListWithCurrentSalaryGrade(ResponsibilityType responsibilityType, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
 	public int countEmployeeListWithCurrentSalaryGrade(String responsibilityTypeId, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<ResponsibilityType> queryList(String sql, Object ... parmeters);
+	public Stream<ResponsibilityType> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateResponsibilityType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
- 
+
  	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public int countResponsibilityTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
  	public Map<String, Integer> countResponsibilityTypeByCompanyIds(String[] ids, Map<String,Object> options);
  	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
  	public void analyzeResponsibilityTypeByCompany(SmartList<ResponsibilityType> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
- 
+
  
 	// 需要一个加载引用我的对象的enhance方法:Employee的responsibleFor的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<ResponsibilityType> us, Map<String,Object> options) throws Exception;

@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.goodssupplier;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -49,24 +47,24 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = GoodsSupplierTokens.start().withTokenFromListName(listName).done();
 		GoodsSupplier  goodsSupplier = (GoodsSupplier) this.loadGoodsSupplier(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = goodsSupplier.collectRefercencesFromLists();
 		goodsSupplierDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, goodsSupplier, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new GoodsSupplierGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -129,7 +127,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).throwExceptionIfHasErrors( GoodsSupplierManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		GoodsSupplier goodsSupplier = loadGoodsSupplier( userContext, goodsSupplierId, tokens);
  		//do some calc before sent to customer?
@@ -148,6 +146,9 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		
 		List<BaseEntity> entityListToNaming = goodsSupplierToPresent.collectRefercencesFromLists();
 		goodsSupplierDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,goodsSupplier,tokens);
 		
 		return  goodsSupplierToPresent;
 		
@@ -593,7 +594,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			goodsSupplier.addSupplierProduct( supplierProduct );
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withSupplierProductList().done());
 			
-			userContext.getManagerGroup().getSupplierProductManager().onNewInstanceCreated(userContext, supplierProduct);
+			supplierProductManagerOf(userContext).onNewInstanceCreated(userContext, supplierProduct);
 			return present(userContext,goodsSupplier, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -616,7 +617,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSupplierProductListList()
-				.searchSupplierProductListWith(SupplierProduct.ID_PROPERTY, "is", id).done();
+				.searchSupplierProductListWith(SupplierProduct.ID_PROPERTY, tokens().is(), id).done();
 
 		GoodsSupplier goodsSupplierToUpdate = loadGoodsSupplier(userContext, goodsSupplierId, options);
 
@@ -625,7 +626,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		SupplierProduct item = goodsSupplierToUpdate.getSupplierProductList().first();
-
+		beforeUpdateSupplierProductProperties(userContext,item, goodsSupplierId,id,productName,productDescription,productUnit,tokensExpr);
 		item.updateProductName( productName );
 		item.updateProductDescription( productDescription );
 		item.updateProductUnit( productUnit );
@@ -638,6 +639,10 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateSupplierProductProperties(RetailscmUserContext userContext, SupplierProduct item, String goodsSupplierId, String id,String productName,String productDescription,String productUnit, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected SupplierProduct createSupplierProduct(RetailscmUserContext userContext, String productName, String productDescription, String productUnit) throws Exception{
 
@@ -743,7 +748,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			goodsSupplier.copySupplierProductFrom( supplierProduct );
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withSupplierProductList().done());
 			
-			userContext.getManagerGroup().getSupplierProductManager().onNewInstanceCreated(userContext, (SupplierProduct)goodsSupplier.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			supplierProductManagerOf(userContext).onNewInstanceCreated(userContext, (SupplierProduct)goodsSupplier.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,goodsSupplier, mergedAllTokens(tokensExpr));
 		}
 
@@ -756,27 +761,21 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfGoodsSupplier(goodsSupplierId);
 		checkerOf(userContext).checkIdOfSupplierProduct(supplierProductId);
 		checkerOf(userContext).checkVersionOfSupplierProduct(supplierProductVersion);
-		
+
 
 		if(SupplierProduct.PRODUCT_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkProductNameOfSupplierProduct(parseString(newValueExpr));
-		
 		}
 		
 		if(SupplierProduct.PRODUCT_DESCRIPTION_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkProductDescriptionOfSupplierProduct(parseString(newValueExpr));
-		
 		}
 		
 		if(SupplierProduct.PRODUCT_UNIT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkProductUnitOfSupplierProduct(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(GoodsSupplierManagerException.class);
 
 	}
@@ -786,7 +785,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingSupplierProduct(userContext, goodsSupplierId, supplierProductId, supplierProductVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSupplierProductList().searchSupplierProductListWith(SupplierProduct.ID_PROPERTY, "eq", supplierProductId).done();
+		Map<String,Object> loadTokens = this.tokens().withSupplierProductList().searchSupplierProductListWith(SupplierProduct.ID_PROPERTY, tokens().equals(), supplierProductId).done();
 
 
 
@@ -797,13 +796,14 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//goodsSupplier.removeSupplierProduct( supplierProduct );
 			//make changes to AcceleraterAccount.
-			SupplierProduct supplierProductIndex = createIndexedSupplierProduct(supplierProductId, supplierProductVersion);
+			SupplierProduct supplierProductIdVersionKey = createIndexedSupplierProduct(supplierProductId, supplierProductVersion);
 
-			SupplierProduct supplierProduct = goodsSupplier.findTheSupplierProduct(supplierProductIndex);
+			SupplierProduct supplierProduct = goodsSupplier.findTheSupplierProduct(supplierProductIdVersionKey);
 			if(supplierProduct == null){
-				throw new GoodsSupplierManagerException(supplierProduct+" is NOT FOUND" );
+				throw new GoodsSupplierManagerException(supplierProductId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSupplierProduct(userContext, supplierProduct, goodsSupplierId, supplierProductId, supplierProductVersion, property, newValueExpr,  tokensExpr);
 			supplierProduct.changeProperty(property, newValueExpr);
 			
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withSupplierProductList().done());
@@ -811,6 +811,11 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSupplierProduct(RetailscmUserContext userContext, SupplierProduct existed, String goodsSupplierId, String supplierProductId, int supplierProductVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -847,7 +852,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			goodsSupplier.addSupplyOrder( supplyOrder );
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withSupplyOrderList().done());
 			
-			userContext.getManagerGroup().getSupplyOrderManager().onNewInstanceCreated(userContext, supplyOrder);
+			supplyOrderManagerOf(userContext).onNewInstanceCreated(userContext, supplyOrder);
 			return present(userContext,goodsSupplier, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -869,7 +874,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withSupplyOrderListList()
-				.searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, "is", id).done();
+				.searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, tokens().is(), id).done();
 
 		GoodsSupplier goodsSupplierToUpdate = loadGoodsSupplier(userContext, goodsSupplierId, options);
 
@@ -878,7 +883,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		SupplyOrder item = goodsSupplierToUpdate.getSupplyOrderList().first();
-
+		beforeUpdateSupplyOrderProperties(userContext,item, goodsSupplierId,id,title,totalAmount,tokensExpr);
 		item.updateTitle( title );
 		item.updateTotalAmount( totalAmount );
 
@@ -890,6 +895,10 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateSupplyOrderProperties(RetailscmUserContext userContext, SupplyOrder item, String goodsSupplierId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId, String title, BigDecimal totalAmount) throws Exception{
 
@@ -998,7 +1007,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			goodsSupplier.copySupplyOrderFrom( supplyOrder );
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withSupplyOrderList().done());
 			
-			userContext.getManagerGroup().getSupplyOrderManager().onNewInstanceCreated(userContext, (SupplyOrder)goodsSupplier.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			supplyOrderManagerOf(userContext).onNewInstanceCreated(userContext, (SupplyOrder)goodsSupplier.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,goodsSupplier, mergedAllTokens(tokensExpr));
 		}
 
@@ -1011,21 +1020,17 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfGoodsSupplier(goodsSupplierId);
 		checkerOf(userContext).checkIdOfSupplyOrder(supplyOrderId);
 		checkerOf(userContext).checkVersionOfSupplyOrder(supplyOrderVersion);
-		
+
 
 		if(SupplyOrder.TITLE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTitleOfSupplyOrder(parseString(newValueExpr));
-		
 		}
 		
 		if(SupplyOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkTotalAmountOfSupplyOrder(parseBigDecimal(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(GoodsSupplierManagerException.class);
 
 	}
@@ -1035,7 +1040,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingSupplyOrder(userContext, goodsSupplierId, supplyOrderId, supplyOrderVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withSupplyOrderList().searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, "eq", supplyOrderId).done();
+		Map<String,Object> loadTokens = this.tokens().withSupplyOrderList().searchSupplyOrderListWith(SupplyOrder.ID_PROPERTY, tokens().equals(), supplyOrderId).done();
 
 
 
@@ -1046,13 +1051,14 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//goodsSupplier.removeSupplyOrder( supplyOrder );
 			//make changes to AcceleraterAccount.
-			SupplyOrder supplyOrderIndex = createIndexedSupplyOrder(supplyOrderId, supplyOrderVersion);
+			SupplyOrder supplyOrderIdVersionKey = createIndexedSupplyOrder(supplyOrderId, supplyOrderVersion);
 
-			SupplyOrder supplyOrder = goodsSupplier.findTheSupplyOrder(supplyOrderIndex);
+			SupplyOrder supplyOrder = goodsSupplier.findTheSupplyOrder(supplyOrderIdVersionKey);
 			if(supplyOrder == null){
-				throw new GoodsSupplierManagerException(supplyOrder+" is NOT FOUND" );
+				throw new GoodsSupplierManagerException(supplyOrderId+" is NOT FOUND" );
 			}
 
+			beforeUpdateSupplyOrder(userContext, supplyOrder, goodsSupplierId, supplyOrderId, supplyOrderVersion, property, newValueExpr,  tokensExpr);
 			supplyOrder.changeProperty(property, newValueExpr);
 			supplyOrder.updateLastUpdateTime(userContext.now());
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withSupplyOrderList().done());
@@ -1060,6 +1066,11 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateSupplyOrder(RetailscmUserContext userContext, SupplyOrder existed, String goodsSupplierId, String supplyOrderId, int supplyOrderVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1110,7 +1121,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			goodsSupplier.addAccountSet( accountSet );
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withAccountSetList().done());
 			
-			userContext.getManagerGroup().getAccountSetManager().onNewInstanceCreated(userContext, accountSet);
+			accountSetManagerOf(userContext).onNewInstanceCreated(userContext, accountSet);
 			return present(userContext,goodsSupplier, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -1138,7 +1149,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withAccountSetListList()
-				.searchAccountSetListWith(AccountSet.ID_PROPERTY, "is", id).done();
+				.searchAccountSetListWith(AccountSet.ID_PROPERTY, tokens().is(), id).done();
 
 		GoodsSupplier goodsSupplierToUpdate = loadGoodsSupplier(userContext, goodsSupplierId, options);
 
@@ -1147,7 +1158,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		AccountSet item = goodsSupplierToUpdate.getAccountSetList().first();
-
+		beforeUpdateAccountSetProperties(userContext,item, goodsSupplierId,id,name,yearSet,effectiveDate,accountingSystem,domesticCurrencyCode,domesticCurrencyName,openingBank,accountNumber,tokensExpr);
 		item.updateName( name );
 		item.updateYearSet( yearSet );
 		item.updateEffectiveDate( effectiveDate );
@@ -1165,6 +1176,10 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateAccountSetProperties(RetailscmUserContext userContext, AccountSet item, String goodsSupplierId, String id,String name,String yearSet,Date effectiveDate,String accountingSystem,String domesticCurrencyCode,String domesticCurrencyName,String openingBank,String accountNumber, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected AccountSet createAccountSet(RetailscmUserContext userContext, String name, String yearSet, Date effectiveDate, String accountingSystem, String domesticCurrencyCode, String domesticCurrencyName, String openingBank, String accountNumber, String countryCenterId, String retailStoreId) throws Exception{
 
@@ -1282,7 +1297,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			goodsSupplier.copyAccountSetFrom( accountSet );
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withAccountSetList().done());
 			
-			userContext.getManagerGroup().getAccountSetManager().onNewInstanceCreated(userContext, (AccountSet)goodsSupplier.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			accountSetManagerOf(userContext).onNewInstanceCreated(userContext, (AccountSet)goodsSupplier.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,goodsSupplier, mergedAllTokens(tokensExpr));
 		}
 
@@ -1295,57 +1310,41 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfGoodsSupplier(goodsSupplierId);
 		checkerOf(userContext).checkIdOfAccountSet(accountSetId);
 		checkerOf(userContext).checkVersionOfAccountSet(accountSetVersion);
-		
+
 
 		if(AccountSet.NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkNameOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.YEAR_SET_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkYearSetOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.EFFECTIVE_DATE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkEffectiveDateOfAccountSet(parseDate(newValueExpr));
-		
 		}
 		
 		if(AccountSet.ACCOUNTING_SYSTEM_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountingSystemOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.DOMESTIC_CURRENCY_CODE_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDomesticCurrencyCodeOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.DOMESTIC_CURRENCY_NAME_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkDomesticCurrencyNameOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.OPENING_BANK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkOpeningBankOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
 		if(AccountSet.ACCOUNT_NUMBER_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkAccountNumberOfAccountSet(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(GoodsSupplierManagerException.class);
 
 	}
@@ -1355,7 +1354,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingAccountSet(userContext, goodsSupplierId, accountSetId, accountSetVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withAccountSetList().searchAccountSetListWith(AccountSet.ID_PROPERTY, "eq", accountSetId).done();
+		Map<String,Object> loadTokens = this.tokens().withAccountSetList().searchAccountSetListWith(AccountSet.ID_PROPERTY, tokens().equals(), accountSetId).done();
 
 
 
@@ -1366,13 +1365,14 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//goodsSupplier.removeAccountSet( accountSet );
 			//make changes to AcceleraterAccount.
-			AccountSet accountSetIndex = createIndexedAccountSet(accountSetId, accountSetVersion);
+			AccountSet accountSetIdVersionKey = createIndexedAccountSet(accountSetId, accountSetVersion);
 
-			AccountSet accountSet = goodsSupplier.findTheAccountSet(accountSetIndex);
+			AccountSet accountSet = goodsSupplier.findTheAccountSet(accountSetIdVersionKey);
 			if(accountSet == null){
-				throw new GoodsSupplierManagerException(accountSet+" is NOT FOUND" );
+				throw new GoodsSupplierManagerException(accountSetId+" is NOT FOUND" );
 			}
 
+			beforeUpdateAccountSet(userContext, accountSet, goodsSupplierId, accountSetId, accountSetVersion, property, newValueExpr,  tokensExpr);
 			accountSet.changeProperty(property, newValueExpr);
 			accountSet.updateLastUpdateTime(userContext.now());
 			goodsSupplier = saveGoodsSupplier(userContext, goodsSupplier, tokens().withAccountSetList().done());
@@ -1380,6 +1380,11 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateAccountSet(RetailscmUserContext userContext, AccountSet existed, String goodsSupplierId, String accountSetId, int accountSetVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -1396,6 +1401,12 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    goodsSupplierDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -1487,6 +1498,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -1603,7 +1615,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1669,7 +1681,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "7-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
-				    .put("label", "最后更新时间")
+				    .put("label", "更新于")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1739,6 +1751,8 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

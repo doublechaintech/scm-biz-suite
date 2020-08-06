@@ -4,6 +4,7 @@ package com.doublechaintech.retailscm.userapp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 import com.terapico.caf.DateTime;
@@ -17,8 +18,21 @@ import com.doublechaintech.retailscm.quicklink.QuickLink;
 import com.doublechaintech.retailscm.listaccess.ListAccess;
 import com.doublechaintech.retailscm.secuser.SecUser;
 
+
+
+
+
+
+
+
+
 @JsonSerialize(using = UserAppSerializer.class)
 public class UserApp extends BaseEntity implements  java.io.Serializable{
+
+	
+
+
+
 
 	
 	public static final String ID_PROPERTY                    = "id"                ;
@@ -414,11 +428,6 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		if(objectId != null) { setObjectId(objectId);}
 	}
 	
-	
-	public void clearObjectId(){
-		setObjectId ( null );
-		this.changed = true;
-	}
 	
 	public void setLocation(String location){
 		this.mLocation = trimString(location);;

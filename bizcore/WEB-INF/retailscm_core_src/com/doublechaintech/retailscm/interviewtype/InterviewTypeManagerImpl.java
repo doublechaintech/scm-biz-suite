@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.interviewtype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -46,24 +44,24 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = InterviewTypeTokens.start().withTokenFromListName(listName).done();
 		InterviewType  interviewType = (InterviewType) this.loadInterviewType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = interviewType.collectRefercencesFromLists();
 		interviewTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, interviewType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new InterviewTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).throwExceptionIfHasErrors( InterviewTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		InterviewType interviewType = loadInterviewType( userContext, interviewTypeId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		
 		List<BaseEntity> entityListToNaming = interviewTypeToPresent.collectRefercencesFromLists();
 		interviewTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,interviewType,tokens);
 		
 		return  interviewTypeToPresent;
 		
@@ -533,7 +534,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 			interviewType.addEmployeeInterview( employeeInterview );
 			interviewType = saveInterviewType(userContext, interviewType, tokens().withEmployeeInterviewList().done());
 			
-			userContext.getManagerGroup().getEmployeeInterviewManager().onNewInstanceCreated(userContext, employeeInterview);
+			employeeInterviewManagerOf(userContext).onNewInstanceCreated(userContext, employeeInterview);
 			return present(userContext,interviewType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -554,7 +555,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeInterviewListList()
-				.searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, "is", id).done();
+				.searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, tokens().is(), id).done();
 
 		InterviewType interviewTypeToUpdate = loadInterviewType(userContext, interviewTypeId, options);
 
@@ -563,7 +564,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		EmployeeInterview item = interviewTypeToUpdate.getEmployeeInterviewList().first();
-
+		beforeUpdateEmployeeInterviewProperties(userContext,item, interviewTypeId,id,remark,tokensExpr);
 		item.updateRemark( remark );
 
 
@@ -574,6 +575,10 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
+	protected  void beforeUpdateEmployeeInterviewProperties(RetailscmUserContext userContext, EmployeeInterview item, String interviewTypeId, String id,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeInterview createEmployeeInterview(RetailscmUserContext userContext, String employeeId, String remark) throws Exception{
 
@@ -680,7 +685,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 			interviewType.copyEmployeeInterviewFrom( employeeInterview );
 			interviewType = saveInterviewType(userContext, interviewType, tokens().withEmployeeInterviewList().done());
 			
-			userContext.getManagerGroup().getEmployeeInterviewManager().onNewInstanceCreated(userContext, (EmployeeInterview)interviewType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeInterviewManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeInterview)interviewType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,interviewType, mergedAllTokens(tokensExpr));
 		}
 
@@ -693,15 +698,13 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfInterviewType(interviewTypeId);
 		checkerOf(userContext).checkIdOfEmployeeInterview(employeeInterviewId);
 		checkerOf(userContext).checkVersionOfEmployeeInterview(employeeInterviewVersion);
-		
+
 
 		if(EmployeeInterview.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeInterview(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(InterviewTypeManagerException.class);
 
 	}
@@ -711,7 +714,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkParamsForUpdatingEmployeeInterview(userContext, interviewTypeId, employeeInterviewId, employeeInterviewVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeInterviewList().searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, "eq", employeeInterviewId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeInterviewList().searchEmployeeInterviewListWith(EmployeeInterview.ID_PROPERTY, tokens().equals(), employeeInterviewId).done();
 
 
 
@@ -722,13 +725,14 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 			//Also good when there is a RAM based DAO implementation
 			//interviewType.removeEmployeeInterview( employeeInterview );
 			//make changes to AcceleraterAccount.
-			EmployeeInterview employeeInterviewIndex = createIndexedEmployeeInterview(employeeInterviewId, employeeInterviewVersion);
+			EmployeeInterview employeeInterviewIdVersionKey = createIndexedEmployeeInterview(employeeInterviewId, employeeInterviewVersion);
 
-			EmployeeInterview employeeInterview = interviewType.findTheEmployeeInterview(employeeInterviewIndex);
+			EmployeeInterview employeeInterview = interviewType.findTheEmployeeInterview(employeeInterviewIdVersionKey);
 			if(employeeInterview == null){
-				throw new InterviewTypeManagerException(employeeInterview+" is NOT FOUND" );
+				throw new InterviewTypeManagerException(employeeInterviewId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeInterview(userContext, employeeInterview, interviewTypeId, employeeInterviewId, employeeInterviewVersion, property, newValueExpr,  tokensExpr);
 			employeeInterview.changeProperty(property, newValueExpr);
 			
 			interviewType = saveInterviewType(userContext, interviewType, tokens().withEmployeeInterviewList().done());
@@ -736,6 +740,11 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeInterview(RetailscmUserContext userContext, EmployeeInterview existed, String interviewTypeId, String employeeInterviewId, int employeeInterviewVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -752,6 +761,12 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    interviewTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -843,6 +858,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -959,7 +975,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1041,6 +1057,8 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

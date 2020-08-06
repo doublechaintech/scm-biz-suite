@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.retailstoreinvestmentinvitation;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -18,20 +19,21 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 public interface RetailStoreInvestmentInvitationDAO extends BaseDAO{
 
 	public SmartList<RetailStoreInvestmentInvitation> loadAll();
+	public Stream<RetailStoreInvestmentInvitation> loadAllAsStream();
 	public RetailStoreInvestmentInvitation load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public RetailStoreInvestmentInvitation present(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation,Map<String,Object> options) throws Exception;
 	public RetailStoreInvestmentInvitation clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public RetailStoreInvestmentInvitation save(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation,Map<String,Object> options);
 	public SmartList<RetailStoreInvestmentInvitation> saveRetailStoreInvestmentInvitationList(SmartList<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList,Map<String,Object> options);
 	public SmartList<RetailStoreInvestmentInvitation> removeRetailStoreInvestmentInvitationList(SmartList<RetailStoreInvestmentInvitation> retailStoreInvestmentInvitationList,Map<String,Object> options);
@@ -80,8 +82,9 @@ public interface RetailStoreInvestmentInvitationDAO extends BaseDAO{
 	public RetailStoreInvestmentInvitation planToRemoveRetailStoreListWithClosing(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, String closingId, Map<String,Object> options)throws Exception;
 	public int countRetailStoreListWithClosing(String retailStoreInvestmentInvitationId, String closingId, Map<String,Object> options)throws Exception;
 	
-	
+
 	public SmartList<RetailStoreInvestmentInvitation> queryList(String sql, Object ... parmeters);
+	public Stream<RetailStoreInvestmentInvitation> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateRetailStoreInvestmentInvitation executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

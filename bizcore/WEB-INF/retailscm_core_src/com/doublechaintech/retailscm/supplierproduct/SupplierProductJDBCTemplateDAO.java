@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SupplierProductDAO{
 
@@ -71,50 +71,54 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	 	return this.productSupplyDurationDAO;
  	}	
 
-	
+
 	/*
 	protected SupplierProduct load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalSupplierProduct(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<SupplierProduct> loadAll() {
 	    return this.loadAll(getSupplierProductMapper());
 	}
-	
-	
+
+  public Stream<SupplierProduct> loadAllAsStream() {
+      return this.loadAllAsStream(getSupplierProductMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public SupplierProduct load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalSupplierProduct(SupplierProductTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public SupplierProduct save(SupplierProduct supplierProduct,Map<String,Object> options){
-		
+
 		String methodName="save(SupplierProduct supplierProduct,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(supplierProduct, methodName, "supplierProduct");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalSupplierProduct(supplierProduct,options);
 	}
 	public SupplierProduct clone(String supplierProductId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(SupplierProductTable.withId(supplierProductId),options);
 	}
-	
+
 	protected SupplierProduct clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String supplierProductId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		SupplierProduct newSupplierProduct = loadInternalSupplierProduct(accessKey, options);
 		newSupplierProduct.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		}
 		
 
-		
+
 		saveInternalSupplierProduct(newSupplierProduct,options);
-		
+
 		return newSupplierProduct;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String supplierProductId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String supplierProductId, int version) throws Exception{
-	
+
 		String methodName="delete(String supplierProductId, int version)";
 		assertMethodArgumentNotNull(supplierProductId, methodName, "supplierProductId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{supplierProductId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(affectedNumber == 0){
 			handleDeleteOneError(supplierProductId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public SupplierProduct disconnectFromAll(String supplierProductId, int version) throws Exception{
-	
-		
+
+
 		SupplierProduct supplierProduct = loadInternalSupplierProduct(SupplierProductTable.withId(supplierProductId), emptyOptions());
 		supplierProduct.clearFromAll();
 		this.saveSupplierProduct(supplierProduct);
 		return supplierProduct;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "supplier_product";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "supplierProduct";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return supplierProduct;
 		}
 		
-		
+
 		String SQL=this.getSaveSupplierProductSQL(supplierProduct);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSupplierProductParameters(supplierProduct);
@@ -419,57 +423,57 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		supplierProduct.incVersion();
 		return supplierProduct;
-	
+
 	}
 	public SmartList<SupplierProduct> saveSupplierProductList(SmartList<SupplierProduct> supplierProductList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitSupplierProductList(supplierProductList);
-		
+
 		batchSupplierProductCreate((List<SupplierProduct>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchSupplierProductUpdate((List<SupplierProduct>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(SupplierProduct supplierProduct:supplierProductList){
 			if(supplierProduct.isChanged()){
 				supplierProduct.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return supplierProductList;
 	}
 
 	public SmartList<SupplierProduct> removeSupplierProductList(SmartList<SupplierProduct> supplierProductList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(supplierProductList, options);
-		
+
 		return supplierProductList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareSupplierProductBatchCreateArgs(List<SupplierProduct> supplierProductList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SupplierProduct supplierProduct:supplierProductList ){
 			Object [] parameters = prepareSupplierProductCreateParameters(supplierProduct);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareSupplierProductBatchUpdateArgs(List<SupplierProduct> supplierProductList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(SupplierProduct supplierProduct:supplierProductList ){
 			if(!supplierProduct.isChanged()){
@@ -477,40 +481,40 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			}
 			Object [] parameters = prepareSupplierProductUpdateParameters(supplierProduct);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchSupplierProductCreate(List<SupplierProduct> supplierProductList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareSupplierProductBatchCreateArgs(supplierProductList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchSupplierProductUpdate(List<SupplierProduct> supplierProductList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareSupplierProductBatchUpdateArgs(supplierProductList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitSupplierProductList(List<SupplierProduct> supplierProductList){
-		
+
 		List<SupplierProduct> supplierProductCreateList=new ArrayList<SupplierProduct>();
 		List<SupplierProduct> supplierProductUpdateList=new ArrayList<SupplierProduct>();
-		
+
 		for(SupplierProduct supplierProduct: supplierProductList){
 			if(isUpdateRequest(supplierProduct)){
 				supplierProductUpdateList.add( supplierProduct);
@@ -518,10 +522,10 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			}
 			supplierProductCreateList.add(supplierProduct);
 		}
-		
+
 		return new Object[]{supplierProductCreateList,supplierProductUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(SupplierProduct supplierProduct){
  		return supplierProduct.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveSupplierProductParameters(SupplierProduct supplierProduct){
  		if(isUpdateRequest(supplierProduct) ){
  			return prepareSupplierProductUpdateParameters(supplierProduct);
@@ -549,21 +553,23 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
  		
  		parameters[2] = supplierProduct.getProductUnit();
- 		 	
+ 		
  		if(supplierProduct.getSupplier() != null){
  			parameters[3] = supplierProduct.getSupplier().getId();
  		}
- 		
+ 
  		parameters[4] = supplierProduct.nextVersion();
  		parameters[5] = supplierProduct.getId();
  		parameters[6] = supplierProduct.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareSupplierProductCreateParameters(SupplierProduct supplierProduct){
 		Object[] parameters = new Object[5];
-		String newSupplierProductId=getNextId();
-		supplierProduct.setId(newSupplierProductId);
+        if(supplierProduct.getId() == null){
+          String newSupplierProductId=getNextId();
+          supplierProduct.setId(newSupplierProductId);
+        }
 		parameters[0] =  supplierProduct.getId();
  
  		
@@ -574,20 +580,20 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
  		
  		parameters[3] = supplierProduct.getProductUnit();
- 		 	
+ 		
  		if(supplierProduct.getSupplier() != null){
  			parameters[4] = supplierProduct.getSupplier().getId();
- 		
+
  		}
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected SupplierProduct saveInternalSupplierProduct(SupplierProduct supplierProduct, Map<String,Object> options){
-		
+
 		saveSupplierProduct(supplierProduct);
- 	
+
  		if(isSaveSupplierEnabled(options)){
 	 		saveSupplier(supplierProduct, options);
  		}
@@ -597,42 +603,42 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	 		saveProductSupplyDurationList(supplierProduct, options);
 	 		//removeProductSupplyDurationList(supplierProduct, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return supplierProduct;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected SupplierProduct saveSupplier(SupplierProduct supplierProduct, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(supplierProduct.getSupplier() == null){
  			return supplierProduct;//do nothing when it is null
  		}
- 		
+
  		getGoodsSupplierDAO().save(supplierProduct.getSupplier(),options);
  		return supplierProduct;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public SupplierProduct planToRemoveProductSupplyDurationList(SupplierProduct supplierProduct, String productSupplyDurationIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(ProductSupplyDuration.PRODUCT_PROPERTY, supplierProduct.getId());
 		key.put(ProductSupplyDuration.ID_PROPERTY, productSupplyDurationIds);
-		
+
 		SmartList<ProductSupplyDuration> externalProductSupplyDurationList = getProductSupplyDurationDAO().
 				findProductSupplyDurationWithKey(key, options);
 		if(externalProductSupplyDurationList == null){
@@ -641,36 +647,36 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(externalProductSupplyDurationList.isEmpty()){
 			return supplierProduct;
 		}
-		
+
 		for(ProductSupplyDuration productSupplyDurationItem: externalProductSupplyDurationList){
 
 			productSupplyDurationItem.clearFromAll();
 		}
-		
-		
-		SmartList<ProductSupplyDuration> productSupplyDurationList = supplierProduct.getProductSupplyDurationList();		
+
+
+		SmartList<ProductSupplyDuration> productSupplyDurationList = supplierProduct.getProductSupplyDurationList();
 		productSupplyDurationList.addAllToRemoveList(externalProductSupplyDurationList);
-		return supplierProduct;	
-	
+		return supplierProduct;
+
 	}
 
 
 
 		
 	protected SupplierProduct saveProductSupplyDurationList(SupplierProduct supplierProduct, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<ProductSupplyDuration> productSupplyDurationList = supplierProduct.getProductSupplyDurationList();
 		if(productSupplyDurationList == null){
 			//null list means nothing
 			return supplierProduct;
 		}
 		SmartList<ProductSupplyDuration> mergedUpdateProductSupplyDurationList = new SmartList<ProductSupplyDuration>();
-		
-		
-		mergedUpdateProductSupplyDurationList.addAll(productSupplyDurationList); 
+
+
+		mergedUpdateProductSupplyDurationList.addAll(productSupplyDurationList);
 		if(productSupplyDurationList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateProductSupplyDurationList.addAll(productSupplyDurationList.getToRemoveList());
@@ -679,28 +685,28 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 
 		//adding new size can improve performance
-	
+
 		getProductSupplyDurationDAO().saveProductSupplyDurationList(mergedUpdateProductSupplyDurationList,options);
-		
+
 		if(productSupplyDurationList.getToRemoveList() != null){
 			productSupplyDurationList.removeAll(productSupplyDurationList.getToRemoveList());
 		}
-		
-		
+
+
 		return supplierProduct;
-	
+
 	}
-	
+
 	protected SupplierProduct removeProductSupplyDurationList(SupplierProduct supplierProduct, Map<String,Object> options){
-	
-	
+
+
 		SmartList<ProductSupplyDuration> productSupplyDurationList = supplierProduct.getProductSupplyDurationList();
 		if(productSupplyDurationList == null){
 			return supplierProduct;
-		}	
-	
+		}
+
 		SmartList<ProductSupplyDuration> toRemoveProductSupplyDurationList = productSupplyDurationList.getToRemoveList();
-		
+
 		if(toRemoveProductSupplyDurationList == null){
 			return supplierProduct;
 		}
@@ -708,20 +714,20 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return supplierProduct;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getProductSupplyDurationDAO().removeProductSupplyDurationList(toRemoveProductSupplyDurationList,options);
-		
-		return supplierProduct;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getProductSupplyDurationDAO().removeProductSupplyDurationList(toRemoveProductSupplyDurationList,options);
+
+		return supplierProduct;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public SupplierProduct present(SupplierProduct supplierProduct,Map<String, Object> options){
@@ -764,13 +770,13 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	protected String getTableName(){
 		return SupplierProductTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<SupplierProduct> supplierProductList) {		
+
+
+
+	public void enhanceList(List<SupplierProduct> supplierProductList) {
 		this.enhanceListInternal(supplierProductList, this.getSupplierProductMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:ProductSupplyDuration的product的ProductSupplyDurationList
 	public SmartList<ProductSupplyDuration> loadOurProductSupplyDurationList(RetailscmUserContext userContext, List<SupplierProduct> us, Map<String,Object> options) throws Exception{
@@ -795,39 +801,45 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplierProduct> supplierProductList = ownerEntity.collectRefsWithType(SupplierProduct.INTERNAL_TYPE);
 		this.enhanceList(supplierProductList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<SupplierProduct> findSupplierProductWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getSupplierProductMapper());
 
 	}
 	@Override
 	public int countSupplierProductWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countSupplierProductWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<SupplierProduct> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSupplierProductMapper());
 	}
+
+  @Override
+  public Stream<SupplierProduct> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getSupplierProductMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -856,7 +868,7 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 		return result;
 	}
-	
+
 	
 
 }

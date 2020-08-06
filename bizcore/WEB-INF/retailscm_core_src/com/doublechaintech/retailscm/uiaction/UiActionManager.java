@@ -17,6 +17,7 @@ public interface UiActionManager extends BaseManager{
 	public UiAction createUiAction(RetailscmUserContext userContext, String code,String icon,String title,int displayOrder,String brief,String imageUrl,String linkToUrl,String extraData,String pageId) throws Exception;
 	public UiAction updateUiAction(RetailscmUserContext userContext,String uiActionId, int uiActionVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public UiAction loadUiAction(RetailscmUserContext userContext, String uiActionId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public UiAction internalSaveUiAction(RetailscmUserContext userContext, UiAction uiAction) throws Exception;
 	public UiAction internalSaveUiAction(RetailscmUserContext userContext, UiAction uiAction,Map<String,Object>option) throws Exception;
 

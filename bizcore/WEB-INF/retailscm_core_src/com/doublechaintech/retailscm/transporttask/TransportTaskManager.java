@@ -17,6 +17,7 @@ public interface TransportTaskManager extends BaseManager{
 	public TransportTask createTransportTask(RetailscmUserContext userContext, String name,String start,Date beginTime,String endId,String driverId,String truckId,String belongsToId,BigDecimal latitude,BigDecimal longitude) throws Exception;
 	public TransportTask updateTransportTask(RetailscmUserContext userContext,String transportTaskId, int transportTaskVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public TransportTask loadTransportTask(RetailscmUserContext userContext, String transportTaskId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public TransportTask internalSaveTransportTask(RetailscmUserContext userContext, TransportTask transportTask) throws Exception;
 	public TransportTask internalSaveTransportTask(RetailscmUserContext userContext, TransportTask transportTask,Map<String,Object>option) throws Exception;
 

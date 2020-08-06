@@ -1,13 +1,9 @@
 
 package com.doublechaintech.retailscm.leavetype;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigDecimal;
+import com.terapico.caf.baseelement.PlainText;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.terapico.caf.Password;
@@ -18,6 +14,7 @@ import com.terapico.caf.BlobObject;
 import com.terapico.caf.viewpage.SerializeScope;
 
 import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.ModelAssurance;
 import com.doublechaintech.retailscm.tree.*;
 import com.doublechaintech.retailscm.treenode.*;
 import com.doublechaintech.retailscm.RetailscmUserContextImpl;
@@ -27,6 +24,7 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.BaseViewPage;
 import com.terapico.uccaf.BaseUserContext;
+
 
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -46,24 +44,24 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
 	// Only some of ods have such function
 	
-	// To test 
+	// To test
 	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-		
+
 		Map<String,Object> tokens = LeaveTypeTokens.start().withTokenFromListName(listName).done();
 		LeaveType  leaveType = (LeaveType) this.loadLeaveType(userContext, id, tokens);
 		//to enrich reference object to let it show display name
 		List<BaseEntity> entityListToNaming = leaveType.collectRefercencesFromLists();
 		leaveTypeDaoOf(userContext).alias(entityListToNaming);
-		
+
 		return exportListToExcel(userContext, leaveType, listName);
-		
+
 	}
 	@Override
 	public BaseGridViewGenerator gridViewGenerator() {
 		return new LeaveTypeGridViewGenerator();
 	}
 	
-	
+
 
 
 
@@ -126,7 +124,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).throwExceptionIfHasErrors( LeaveTypeManagerException.class);
 
  		
- 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText("startsWith", textToSearch).initWithArray(tokensExpr);
+ 		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
  		
  		LeaveType leaveType = loadLeaveType( userContext, leaveTypeId, tokens);
  		//do some calc before sent to customer?
@@ -145,6 +143,9 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		
 		List<BaseEntity> entityListToNaming = leaveTypeToPresent.collectRefercencesFromLists();
 		leaveTypeDaoOf(userContext).alias(entityListToNaming);
+		
+		
+		renderActionForList(userContext,leaveType,tokens);
 		
 		return  leaveTypeToPresent;
 		
@@ -535,7 +536,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			leaveType.addEmployeeLeave( employeeLeave );
 			leaveType = saveLeaveType(userContext, leaveType, tokens().withEmployeeLeaveList().done());
 			
-			userContext.getManagerGroup().getEmployeeLeaveManager().onNewInstanceCreated(userContext, employeeLeave);
+			employeeLeaveManagerOf(userContext).onNewInstanceCreated(userContext, employeeLeave);
 			return present(userContext,leaveType, mergedAllTokens(tokensExpr));
 		}
 	}
@@ -557,7 +558,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		Map<String, Object> options = tokens()
 				.allTokens()
 				//.withEmployeeLeaveListList()
-				.searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, "is", id).done();
+				.searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, tokens().is(), id).done();
 
 		LeaveType leaveTypeToUpdate = loadLeaveType(userContext, leaveTypeId, options);
 
@@ -566,7 +567,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 		EmployeeLeave item = leaveTypeToUpdate.getEmployeeLeaveList().first();
-
+		beforeUpdateEmployeeLeaveProperties(userContext,item, leaveTypeId,id,leaveDurationHour,remark,tokensExpr);
 		item.updateLeaveDurationHour( leaveDurationHour );
 		item.updateRemark( remark );
 
@@ -578,6 +579,10 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 	}
 
+	protected  void beforeUpdateEmployeeLeaveProperties(RetailscmUserContext userContext, EmployeeLeave item, String leaveTypeId, String id,int leaveDurationHour,String remark, String [] tokensExpr)
+						throws Exception {
+			// by default, nothing to do
+	}
 
 	protected EmployeeLeave createEmployeeLeave(RetailscmUserContext userContext, String whoId, int leaveDurationHour, String remark) throws Exception{
 
@@ -685,7 +690,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			leaveType.copyEmployeeLeaveFrom( employeeLeave );
 			leaveType = saveLeaveType(userContext, leaveType, tokens().withEmployeeLeaveList().done());
 			
-			userContext.getManagerGroup().getEmployeeLeaveManager().onNewInstanceCreated(userContext, (EmployeeLeave)leaveType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
+			employeeLeaveManagerOf(userContext).onNewInstanceCreated(userContext, (EmployeeLeave)leaveType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
 			return present(userContext,leaveType, mergedAllTokens(tokensExpr));
 		}
 
@@ -698,21 +703,17 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfLeaveType(leaveTypeId);
 		checkerOf(userContext).checkIdOfEmployeeLeave(employeeLeaveId);
 		checkerOf(userContext).checkVersionOfEmployeeLeave(employeeLeaveVersion);
-		
+
 
 		if(EmployeeLeave.LEAVE_DURATION_HOUR_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkLeaveDurationHourOfEmployeeLeave(parseInt(newValueExpr));
-		
 		}
 		
 		if(EmployeeLeave.REMARK_PROPERTY.equals(property)){
-		
 			checkerOf(userContext).checkRemarkOfEmployeeLeave(parseString(newValueExpr));
-		
 		}
 		
-	
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LeaveTypeManagerException.class);
 
 	}
@@ -722,7 +723,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkParamsForUpdatingEmployeeLeave(userContext, leaveTypeId, employeeLeaveId, employeeLeaveVersion, property, newValueExpr,  tokensExpr);
 
-		Map<String,Object> loadTokens = this.tokens().withEmployeeLeaveList().searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, "eq", employeeLeaveId).done();
+		Map<String,Object> loadTokens = this.tokens().withEmployeeLeaveList().searchEmployeeLeaveListWith(EmployeeLeave.ID_PROPERTY, tokens().equals(), employeeLeaveId).done();
 
 
 
@@ -733,13 +734,14 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Also good when there is a RAM based DAO implementation
 			//leaveType.removeEmployeeLeave( employeeLeave );
 			//make changes to AcceleraterAccount.
-			EmployeeLeave employeeLeaveIndex = createIndexedEmployeeLeave(employeeLeaveId, employeeLeaveVersion);
+			EmployeeLeave employeeLeaveIdVersionKey = createIndexedEmployeeLeave(employeeLeaveId, employeeLeaveVersion);
 
-			EmployeeLeave employeeLeave = leaveType.findTheEmployeeLeave(employeeLeaveIndex);
+			EmployeeLeave employeeLeave = leaveType.findTheEmployeeLeave(employeeLeaveIdVersionKey);
 			if(employeeLeave == null){
-				throw new LeaveTypeManagerException(employeeLeave+" is NOT FOUND" );
+				throw new LeaveTypeManagerException(employeeLeaveId+" is NOT FOUND" );
 			}
 
+			beforeUpdateEmployeeLeave(userContext, employeeLeave, leaveTypeId, employeeLeaveId, employeeLeaveVersion, property, newValueExpr,  tokensExpr);
 			employeeLeave.changeProperty(property, newValueExpr);
 			
 			leaveType = saveLeaveType(userContext, leaveType, tokens().withEmployeeLeaveList().done());
@@ -747,6 +749,11 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 
 	}
+
+	/** if you has something need to do before update data from DB, override this */
+	protected void beforeUpdateEmployeeLeave(RetailscmUserContext userContext, EmployeeLeave existed, String leaveTypeId, String employeeLeaveId, int employeeLeaveVersion, String property, String newValueExpr,String [] tokensExpr)
+  			throws Exception{
+  }
 	/*
 
 	*/
@@ -763,6 +770,12 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
   
   
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    leaveTypeDaoOf(ctx).loadAllAsStream().forEach(
+          event -> sendInitEvent(ctx, event)
+    );
+  }
 
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
 	// 手机号+短信验证码 登录
@@ -854,6 +867,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		if (methodName.startsWith("logout")) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -970,7 +984,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		propList.add(
 				MapUtil.put("id", "1-id")
 				    .put("fieldName", "id")
-				    .put("label", "序号")
+				    .put("label", "ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1052,6 +1066,8 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
 		return BaseViewPage.serialize(result, vscope);
 	}
+
+
 
 }
 

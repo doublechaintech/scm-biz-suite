@@ -2,6 +2,7 @@
 package com.doublechaintech.retailscm.view;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.Map;
 import com.terapico.caf.baseelement.CandidateQuery;
 import com.doublechaintech.retailscm.BaseDAO;
@@ -16,20 +17,21 @@ import com.doublechaintech.retailscm.RetailscmUserContext;
 public interface ViewDAO extends BaseDAO{
 
 	public SmartList<View> loadAll();
+	public Stream<View> loadAllAsStream();
 	public View load(String id, Map<String,Object> options) throws Exception;
 	public void enhanceList(List<View> viewList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
-	
+
 	public void alias(List<BaseEntity> entityList);
+
+
 	
-	
-	
-	
+
 	public View present(View view,Map<String,Object> options) throws Exception;
 	public View clone(String id, Map<String,Object> options) throws Exception;
+
 	
-	
-	
+
 	public View save(View view,Map<String,Object> options);
 	public SmartList<View> saveViewList(SmartList<View> viewList,Map<String,Object> options);
 	public SmartList<View> removeViewList(SmartList<View> viewList,Map<String,Object> options);
@@ -43,8 +45,9 @@ public interface ViewDAO extends BaseDAO{
 
 	
 	
-	
+
 	public SmartList<View> queryList(String sql, Object ... parmeters);
+	public Stream<View> queryStream(String sql, Object... parameters) ;
 	public int count(String sql, Object ... parmeters);
 	public CandidateView executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 

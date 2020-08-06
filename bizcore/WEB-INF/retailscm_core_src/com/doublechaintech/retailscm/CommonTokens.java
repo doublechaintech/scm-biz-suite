@@ -169,6 +169,86 @@ public class CommonTokens {
 		return ret;
 	}
 	//the way to implement this is with withLineItemList().withShippingGroupList().
+	
+	public String is() {
+		return "is";
+	}
+	
+	
+	public String not() {
+		return "not";
+	}
+	
+	public String eq() {
+		return "eq";
+	}
+	public String equals() {
+		return eq() ;
+	}
+	public String gt() {
+		return "gt";
+	}
+	public String gte() {
+		return "gte";
+	}
+	public String lessThan() {
+		return lt();
+	}
+	public String lt() {
+		return "lt";
+	}
+	public String lte() {
+		return "lte";
+	}
+	public String lessThanOrEquals() {
+		return lte();
+	}
+	public String contains() {
+		return "contains";
+	}
+	
+	public String endsWith() {
+		return "endsWith";
+	}
+	public String startsWith() {
+		return "startsWith";
+	}
+	public String sortDesc() {
+		return "desc";
+	}
+	public String sortAsc() {
+		return "asc";
+	}
+	public String range() {
+		return "range";
+	}
+	public String between() {
+		return "between";
+	}
+	public String oneOf() {
+		return "oneof";
+	}
+	public String noneof() {
+		return "noneof";
+	}
+	public String thisWeekExpr() {
+		return "thisweek";
+	}
+	public String thisMonthExpr() {
+		return "thismonth";
+	}
+	public String thisYearExpr() {
+		return "thisyear";
+	}
+	public String todayExpr() {
+		return "today";
+	}
+	public String pastExpr() {
+		return "past";
+	}
+	
+	
+	
 }
 
 

@@ -6,7 +6,7 @@ import com.doublechaintech.retailscm.RetailscmUserContext;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
 import com.terapico.utils.*;
 
 import me.chanjar.weixin.cp.api.WxCpService;
@@ -41,7 +41,7 @@ public class WechatWorkAppHandler extends BaseIdentificationHandler {
 			}
 			Map<String, String> additionalInfo = (Map<String, String>) result.getLoginContext().getLoginTarget().getAdditionalInfo();
 			String userId = additionalInfo.get("userId");
-			SmartList<WechatWorkappIdentify> rcdList = getIdentifyRecords(userContext, result.getLoginContext());
+			SmartList<WechatWorkappIdentity> rcdList = getIdentifyRecords(userContext, result.getLoginContext());
 			if (rcdList == null) {
 				result.setAuthenticated(true);
 				result.setSuccess(false);
@@ -69,17 +69,17 @@ public class WechatWorkAppHandler extends BaseIdentificationHandler {
 	}
 
 
-	protected SmartList<WechatWorkappIdentify> getIdentifyRecords(RetailscmUserContext userContext,
+	protected SmartList<WechatWorkappIdentity> getIdentifyRecords(RetailscmUserContext userContext,
 			LoginContext loginContext) {
 		Map<String, String> additionalInfo = (Map<String, String>) loginContext.getLoginTarget().getAdditionalInfo();
 		String userId = additionalInfo.get("userId");
 		// String userSessionKey = additionalInfo.get("sessionKey");
 		String corpId = additionalInfo.get("corpId");
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(WechatWorkappIdentify.USER_ID_PROPERTY, userId);
-		key.put(WechatWorkappIdentify.CORP_ID_PROPERTY, corpId);
-		SmartList<WechatWorkappIdentify> rcdList = userContext.getDAOGroup().getWechatWorkappIdentifyDAO()
-				.findWechatWorkappIdentifyWithKey(key, EO);
+		key.put(WechatWorkappIdentity.USER_ID_PROPERTY, userId);
+		key.put(WechatWorkappIdentity.CORP_ID_PROPERTY, corpId);
+		SmartList<WechatWorkappIdentity> rcdList = userContext.getDAOGroup().getWechatWorkappIdentityDAO()
+				.findWechatWorkappIdentityWithKey(key, EO);
 		return rcdList;
 	}
 
@@ -109,12 +109,12 @@ public class WechatWorkAppHandler extends BaseIdentificationHandler {
 		String userId = additionalInfo.get("userId");
 		// String userSessionKey = additionalInfo.get("sessionKey");
 		String corpId = additionalInfo.get("corpId");
-		SmartList<WechatWorkappIdentify> rcdList = getIdentifyRecords(userContext, loginContext);
+		SmartList<WechatWorkappIdentity> rcdList = getIdentifyRecords(userContext, loginContext);
 		if (rcdList != null && rcdList.stream().anyMatch(it -> it.getSecUser().getId().equals(secUser.getId()))) {
 			// 要提防有重复的
 			return;
 		}
-		userContext.getManagerGroup().getWechatWorkappIdentifyManager().createWechatWorkappIdentify(userContext, corpId,
+		userContext.getManagerGroup().getWechatWorkappIdentityManager().createWechatWorkappIdentity(userContext, corpId,
 				userId, secUser.getId(), userContext.now());
 	}
 

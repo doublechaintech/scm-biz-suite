@@ -227,7 +227,7 @@ import com.doublechaintech.retailscm.section.SectionManager;
 
 import com.doublechaintech.retailscm.userdomain.UserDomainManager;
 
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteListManager;
+import com.doublechaintech.retailscm.userallowlist.UserAllowListManager;
 
 import com.doublechaintech.retailscm.secuser.SecUserManager;
 
@@ -243,16 +243,18 @@ import com.doublechaintech.retailscm.candidatecontainer.CandidateContainerManage
 
 import com.doublechaintech.retailscm.candidateelement.CandidateElementManager;
 
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentifyManager;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityManager;
 
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentifyManager;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityManager;
 
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentifyManager;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityManager;
 
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeManager;
 
 import com.doublechaintech.retailscm.treenode.TreeNodeManager;
 
+import com.skynet.infrastructure.EventService;
+import com.terapico.caf.baseelement.Event;
 
 public class ManagerGroup {
 
@@ -482,7 +484,7 @@ public class ManagerGroup {
 
 	protected UserDomainManager userDomainManager;
 
-	protected UserWhiteListManager userWhiteListManager;
+	protected UserAllowListManager userAllowListManager;
 
 	protected SecUserManager secUserManager;
 
@@ -498,11 +500,11 @@ public class ManagerGroup {
 
 	protected CandidateElementManager candidateElementManager;
 
-	protected WechatWorkappIdentifyManager wechatWorkappIdentifyManager;
+	protected WechatWorkappIdentityManager wechatWorkappIdentityManager;
 
-	protected WechatMiniappIdentifyManager wechatMiniappIdentifyManager;
+	protected WechatMiniappIdentityManager wechatMiniappIdentityManager;
 
-	protected KeypairIdentifyManager keypairIdentifyManager;
+	protected KeypairIdentityManager keypairIdentityManager;
 
 	protected PublicKeyTypeManager publicKeyTypeManager;
 
@@ -1414,11 +1416,11 @@ public class ManagerGroup {
 	}
 
 
-	public UserWhiteListManager getUserWhiteListManager(){
-		return this.userWhiteListManager;
+	public UserAllowListManager getUserAllowListManager(){
+		return this.userAllowListManager;
 	}
-	public void setUserWhiteListManager(UserWhiteListManager manager){
-		this.userWhiteListManager = manager;
+	public void setUserAllowListManager(UserAllowListManager manager){
+		this.userAllowListManager = manager;
 	}
 
 
@@ -1478,27 +1480,27 @@ public class ManagerGroup {
 	}
 
 
-	public WechatWorkappIdentifyManager getWechatWorkappIdentifyManager(){
-		return this.wechatWorkappIdentifyManager;
+	public WechatWorkappIdentityManager getWechatWorkappIdentityManager(){
+		return this.wechatWorkappIdentityManager;
 	}
-	public void setWechatWorkappIdentifyManager(WechatWorkappIdentifyManager manager){
-		this.wechatWorkappIdentifyManager = manager;
-	}
-
-
-	public WechatMiniappIdentifyManager getWechatMiniappIdentifyManager(){
-		return this.wechatMiniappIdentifyManager;
-	}
-	public void setWechatMiniappIdentifyManager(WechatMiniappIdentifyManager manager){
-		this.wechatMiniappIdentifyManager = manager;
+	public void setWechatWorkappIdentityManager(WechatWorkappIdentityManager manager){
+		this.wechatWorkappIdentityManager = manager;
 	}
 
 
-	public KeypairIdentifyManager getKeypairIdentifyManager(){
-		return this.keypairIdentifyManager;
+	public WechatMiniappIdentityManager getWechatMiniappIdentityManager(){
+		return this.wechatMiniappIdentityManager;
 	}
-	public void setKeypairIdentifyManager(KeypairIdentifyManager manager){
-		this.keypairIdentifyManager = manager;
+	public void setWechatMiniappIdentityManager(WechatMiniappIdentityManager manager){
+		this.wechatMiniappIdentityManager = manager;
+	}
+
+
+	public KeypairIdentityManager getKeypairIdentityManager(){
+		return this.keypairIdentityManager;
+	}
+	public void setKeypairIdentityManager(KeypairIdentityManager manager){
+		this.keypairIdentityManager = manager;
 	}
 
 
@@ -1518,6 +1520,275 @@ public class ManagerGroup {
 	}
 
 
+
+  public void sendAllItems(RetailscmUserContext ctx) throws Exception{
+    EventService eventService = ((RetailscmUserContextImpl)ctx).getEventService();
+    if (eventService == null) {
+      return;
+    }
+
+    Event event = new Event();
+    event.setTarget("retailscm.init");
+    event.setMessage("begin");
+    eventService.sendEvent(event);
+    
+    this.retailStoreCountryCenterManager.sendAllItems(ctx);
+    
+    this.catalogManager.sendAllItems(ctx);
+    
+    this.levelOneCategoryManager.sendAllItems(ctx);
+    
+    this.levelTwoCategoryManager.sendAllItems(ctx);
+    
+    this.levelThreeCategoryManager.sendAllItems(ctx);
+    
+    this.productManager.sendAllItems(ctx);
+    
+    this.skuManager.sendAllItems(ctx);
+    
+    this.retailStoreProvinceCenterManager.sendAllItems(ctx);
+    
+    this.provinceCenterDepartmentManager.sendAllItems(ctx);
+    
+    this.provinceCenterEmployeeManager.sendAllItems(ctx);
+    
+    this.retailStoreCityServiceCenterManager.sendAllItems(ctx);
+    
+    this.cityPartnerManager.sendAllItems(ctx);
+    
+    this.potentialCustomerManager.sendAllItems(ctx);
+    
+    this.potentialCustomerContactPersonManager.sendAllItems(ctx);
+    
+    this.potentialCustomerContactManager.sendAllItems(ctx);
+    
+    this.cityEventManager.sendAllItems(ctx);
+    
+    this.eventAttendanceManager.sendAllItems(ctx);
+    
+    this.retailStoreManager.sendAllItems(ctx);
+    
+    this.retailStoreCreationManager.sendAllItems(ctx);
+    
+    this.retailStoreInvestmentInvitationManager.sendAllItems(ctx);
+    
+    this.retailStoreFranchisingManager.sendAllItems(ctx);
+    
+    this.retailStoreDecorationManager.sendAllItems(ctx);
+    
+    this.retailStoreOpeningManager.sendAllItems(ctx);
+    
+    this.retailStoreClosingManager.sendAllItems(ctx);
+    
+    this.retailStoreMemberManager.sendAllItems(ctx);
+    
+    this.consumerOrderManager.sendAllItems(ctx);
+    
+    this.consumerOrderLineItemManager.sendAllItems(ctx);
+    
+    this.consumerOrderShippingGroupManager.sendAllItems(ctx);
+    
+    this.consumerOrderPaymentGroupManager.sendAllItems(ctx);
+    
+    this.consumerOrderPriceAdjustmentManager.sendAllItems(ctx);
+    
+    this.retailStoreMemberCouponManager.sendAllItems(ctx);
+    
+    this.memberWishlistManager.sendAllItems(ctx);
+    
+    this.memberRewardPointManager.sendAllItems(ctx);
+    
+    this.memberRewardPointRedemptionManager.sendAllItems(ctx);
+    
+    this.memberWishlistProductManager.sendAllItems(ctx);
+    
+    this.retailStoreMemberAddressManager.sendAllItems(ctx);
+    
+    this.retailStoreMemberGiftCardManager.sendAllItems(ctx);
+    
+    this.retailStoreMemberGiftCardConsumeRecordManager.sendAllItems(ctx);
+    
+    this.goodsSupplierManager.sendAllItems(ctx);
+    
+    this.supplierProductManager.sendAllItems(ctx);
+    
+    this.productSupplyDurationManager.sendAllItems(ctx);
+    
+    this.supplyOrderManager.sendAllItems(ctx);
+    
+    this.supplyOrderLineItemManager.sendAllItems(ctx);
+    
+    this.supplyOrderShippingGroupManager.sendAllItems(ctx);
+    
+    this.supplyOrderPaymentGroupManager.sendAllItems(ctx);
+    
+    this.retailStoreOrderManager.sendAllItems(ctx);
+    
+    this.retailStoreOrderLineItemManager.sendAllItems(ctx);
+    
+    this.retailStoreOrderShippingGroupManager.sendAllItems(ctx);
+    
+    this.retailStoreOrderPaymentGroupManager.sendAllItems(ctx);
+    
+    this.warehouseManager.sendAllItems(ctx);
+    
+    this.storageSpaceManager.sendAllItems(ctx);
+    
+    this.smartPalletManager.sendAllItems(ctx);
+    
+    this.goodsShelfManager.sendAllItems(ctx);
+    
+    this.goodsShelfStockCountManager.sendAllItems(ctx);
+    
+    this.stockCountIssueTrackManager.sendAllItems(ctx);
+    
+    this.goodsAllocationManager.sendAllItems(ctx);
+    
+    this.goodsManager.sendAllItems(ctx);
+    
+    this.goodsMovementManager.sendAllItems(ctx);
+    
+    this.supplierSpaceManager.sendAllItems(ctx);
+    
+    this.receivingSpaceManager.sendAllItems(ctx);
+    
+    this.shippingSpaceManager.sendAllItems(ctx);
+    
+    this.damageSpaceManager.sendAllItems(ctx);
+    
+    this.warehouseAssetManager.sendAllItems(ctx);
+    
+    this.transportFleetManager.sendAllItems(ctx);
+    
+    this.transportTruckManager.sendAllItems(ctx);
+    
+    this.truckDriverManager.sendAllItems(ctx);
+    
+    this.transportTaskManager.sendAllItems(ctx);
+    
+    this.transportTaskTrackManager.sendAllItems(ctx);
+    
+    this.accountSetManager.sendAllItems(ctx);
+    
+    this.accountingSubjectManager.sendAllItems(ctx);
+    
+    this.accountingPeriodManager.sendAllItems(ctx);
+    
+    this.accountingDocumentTypeManager.sendAllItems(ctx);
+    
+    this.accountingDocumentManager.sendAllItems(ctx);
+    
+    this.originalVoucherManager.sendAllItems(ctx);
+    
+    this.accountingDocumentLineManager.sendAllItems(ctx);
+    
+    this.levelOneDepartmentManager.sendAllItems(ctx);
+    
+    this.levelTwoDepartmentManager.sendAllItems(ctx);
+    
+    this.levelThreeDepartmentManager.sendAllItems(ctx);
+    
+    this.skillTypeManager.sendAllItems(ctx);
+    
+    this.responsibilityTypeManager.sendAllItems(ctx);
+    
+    this.terminationReasonManager.sendAllItems(ctx);
+    
+    this.terminationTypeManager.sendAllItems(ctx);
+    
+    this.occupationTypeManager.sendAllItems(ctx);
+    
+    this.leaveTypeManager.sendAllItems(ctx);
+    
+    this.salaryGradeManager.sendAllItems(ctx);
+    
+    this.interviewTypeManager.sendAllItems(ctx);
+    
+    this.trainingCourseTypeManager.sendAllItems(ctx);
+    
+    this.publicHolidayManager.sendAllItems(ctx);
+    
+    this.terminationManager.sendAllItems(ctx);
+    
+    this.viewManager.sendAllItems(ctx);
+    
+    this.employeeManager.sendAllItems(ctx);
+    
+    this.instructorManager.sendAllItems(ctx);
+    
+    this.companyTrainingManager.sendAllItems(ctx);
+    
+    this.scoringManager.sendAllItems(ctx);
+    
+    this.employeeCompanyTrainingManager.sendAllItems(ctx);
+    
+    this.employeeSkillManager.sendAllItems(ctx);
+    
+    this.employeePerformanceManager.sendAllItems(ctx);
+    
+    this.employeeWorkExperienceManager.sendAllItems(ctx);
+    
+    this.employeeLeaveManager.sendAllItems(ctx);
+    
+    this.employeeInterviewManager.sendAllItems(ctx);
+    
+    this.employeeAttendanceManager.sendAllItems(ctx);
+    
+    this.employeeQualifierManager.sendAllItems(ctx);
+    
+    this.employeeEducationManager.sendAllItems(ctx);
+    
+    this.employeeAwardManager.sendAllItems(ctx);
+    
+    this.employeeSalarySheetManager.sendAllItems(ctx);
+    
+    this.payingOffManager.sendAllItems(ctx);
+    
+    this.mobileAppManager.sendAllItems(ctx);
+    
+    this.pageManager.sendAllItems(ctx);
+    
+    this.pageTypeManager.sendAllItems(ctx);
+    
+    this.slideManager.sendAllItems(ctx);
+    
+    this.uiActionManager.sendAllItems(ctx);
+    
+    this.sectionManager.sendAllItems(ctx);
+    
+    this.userDomainManager.sendAllItems(ctx);
+    
+    this.userAllowListManager.sendAllItems(ctx);
+    
+    this.secUserManager.sendAllItems(ctx);
+    
+    this.userAppManager.sendAllItems(ctx);
+    
+    this.quickLinkManager.sendAllItems(ctx);
+    
+    this.listAccessManager.sendAllItems(ctx);
+    
+    this.loginHistoryManager.sendAllItems(ctx);
+    
+    this.candidateContainerManager.sendAllItems(ctx);
+    
+    this.candidateElementManager.sendAllItems(ctx);
+    
+    this.wechatWorkappIdentityManager.sendAllItems(ctx);
+    
+    this.wechatMiniappIdentityManager.sendAllItems(ctx);
+    
+    this.keypairIdentityManager.sendAllItems(ctx);
+    
+    this.publicKeyTypeManager.sendAllItems(ctx);
+    
+    this.treeNodeManager.sendAllItems(ctx);
+    
+    event = new Event();
+    event.setTarget("retailscm.init");
+    event.setMessage("end");
+    eventService.sendEvent(event);
+  }
 }
 
 

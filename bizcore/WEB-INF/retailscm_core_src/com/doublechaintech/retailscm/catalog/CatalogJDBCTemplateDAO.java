@@ -35,7 +35,7 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
-
+import java.util.stream.Stream;
 
 public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements CatalogDAO{
 
@@ -71,50 +71,54 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 	 	return this.levelOneCategoryDAO;
  	}	
 
-	
+
 	/*
 	protected Catalog load(AccessKey accessKey,Map<String,Object> options) throws Exception{
 		return loadInternalCatalog(accessKey, options);
 	}
 	*/
-	
+
 	public SmartList<Catalog> loadAll() {
 	    return this.loadAll(getCatalogMapper());
 	}
-	
-	
+
+  public Stream<Catalog> loadAllAsStream() {
+      return this.loadAllAsStream(getCatalogMapper());
+  }
+
+
 	protected String getIdFormat()
 	{
 		return getShortName(this.getName())+"%06d";
 	}
-	
+
 	public Catalog load(String id,Map<String,Object> options) throws Exception{
 		return loadInternalCatalog(CatalogTable.withId(id), options);
 	}
+
 	
-	
-	
+
 	public Catalog save(Catalog catalog,Map<String,Object> options){
-		
+
 		String methodName="save(Catalog catalog,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(catalog, methodName, "catalog");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		return saveInternalCatalog(catalog,options);
 	}
 	public Catalog clone(String catalogId, Map<String,Object> options) throws Exception{
-	
+
 		return clone(CatalogTable.withId(catalogId),options);
 	}
-	
+
 	protected Catalog clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-	
+
 		String methodName="clone(String catalogId,Map<String,Object> options)";
-		
+
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
-		
+
 		Catalog newCatalog = loadInternalCatalog(accessKey, options);
 		newCatalog.setVersion(0);
 		
@@ -127,15 +131,15 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
  		}
 		
 
-		
+
 		saveInternalCatalog(newCatalog,options);
-		
+
 		return newCatalog;
 	}
+
 	
-	
-	
-	
+
+
 
 	protected void throwIfHasException(String catalogId,int version,int count) throws Exception{
 		if (count == 1) {
@@ -151,15 +155,15 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
 		}
 	}
-	
-	
+
+
 	public void delete(String catalogId, int version) throws Exception{
-	
+
 		String methodName="delete(String catalogId, int version)";
 		assertMethodArgumentNotNull(catalogId, methodName, "catalogId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-		
-	
+
+
 		String SQL=this.getDeleteSQL();
 		Object [] parameters=new Object[]{catalogId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
@@ -169,26 +173,26 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 		if(affectedNumber == 0){
 			handleDeleteOneError(catalogId,version);
 		}
-		
-	
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public Catalog disconnectFromAll(String catalogId, int version) throws Exception{
-	
-		
+
+
 		Catalog catalog = loadInternalCatalog(CatalogTable.withId(catalogId), emptyOptions());
 		catalog.clearFromAll();
 		this.saveCatalog(catalog);
 		return catalog;
-		
-	
+
+
 	}
-	
+
 	@Override
 	protected String[] getNormalColumnNames() {
 
@@ -196,15 +200,15 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 	}
 	@Override
 	protected String getName() {
-		
+
 		return "catalog";
 	}
 	@Override
 	protected String getBeanName() {
-		
+
 		return "catalog";
 	}
-	
+
 	
 	
 	
@@ -410,7 +414,7 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 			return catalog;
 		}
 		
-		
+
 		String SQL=this.getSaveCatalogSQL(catalog);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveCatalogParameters(catalog);
@@ -419,57 +423,57 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
-		
+
 		catalog.incVersion();
 		return catalog;
-	
+
 	}
 	public SmartList<Catalog> saveCatalogList(SmartList<Catalog> catalogList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
 		Object [] lists=splitCatalogList(catalogList);
-		
+
 		batchCatalogCreate((List<Catalog>)lists[CREATE_LIST_INDEX]);
-		
+
 		batchCatalogUpdate((List<Catalog>)lists[UPDATE_LIST_INDEX]);
-		
-		
+
+
 		//update version after the list successfully saved to database;
 		for(Catalog catalog:catalogList){
 			if(catalog.isChanged()){
 				catalog.incVersion();
 			}
-			
-		
+
+
 		}
-		
-		
+
+
 		return catalogList;
 	}
 
 	public SmartList<Catalog> removeCatalogList(SmartList<Catalog> catalogList,Map<String,Object> options){
-		
-		
+
+
 		super.removeList(catalogList, options);
-		
+
 		return catalogList;
-		
-		
+
+
 	}
-	
+
 	protected List<Object[]> prepareCatalogBatchCreateArgs(List<Catalog> catalogList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Catalog catalog:catalogList ){
 			Object [] parameters = prepareCatalogCreateParameters(catalog);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected List<Object[]> prepareCatalogBatchUpdateArgs(List<Catalog> catalogList){
-		
+
 		List<Object[]> parametersList=new ArrayList<Object[]>();
 		for(Catalog catalog:catalogList ){
 			if(!catalog.isChanged()){
@@ -477,40 +481,40 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 			}
 			Object [] parameters = prepareCatalogUpdateParameters(catalog);
 			parametersList.add(parameters);
-		
+
 		}
 		return parametersList;
-		
+
 	}
 	protected void batchCatalogCreate(List<Catalog> catalogList){
 		String SQL=getCreateSQL();
 		List<Object[]> args=prepareCatalogBatchCreateArgs(catalogList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
+
 	}
-	
-	
+
+
 	protected void batchCatalogUpdate(List<Catalog> catalogList){
 		String SQL=getUpdateSQL();
 		List<Object[]> args=prepareCatalogBatchUpdateArgs(catalogList);
-		
+
 		int affectedNumbers[] = batchUpdate(SQL, args);
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
-	
+
 	protected Object[] splitCatalogList(List<Catalog> catalogList){
-		
+
 		List<Catalog> catalogCreateList=new ArrayList<Catalog>();
 		List<Catalog> catalogUpdateList=new ArrayList<Catalog>();
-		
+
 		for(Catalog catalog: catalogList){
 			if(isUpdateRequest(catalog)){
 				catalogUpdateList.add( catalog);
@@ -518,10 +522,10 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 			}
 			catalogCreateList.add(catalog);
 		}
-		
+
 		return new Object[]{catalogCreateList,catalogUpdateList};
 	}
-	
+
 	protected boolean isUpdateRequest(Catalog catalog){
  		return catalog.getVersion() > 0;
  	}
@@ -531,7 +535,7 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
  		}
  		return getCreateSQL();
  	}
- 	
+
  	protected Object[] getSaveCatalogParameters(Catalog catalog){
  		if(isUpdateRequest(catalog) ){
  			return prepareCatalogUpdateParameters(catalog);
@@ -543,7 +547,7 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
  
  		
  		parameters[0] = catalog.getName();
- 		 	
+ 		
  		if(catalog.getOwner() != null){
  			parameters[1] = catalog.getOwner().getId();
  		}
@@ -553,25 +557,27 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
  		
  		
  		parameters[3] = catalog.getAmount();
- 				
+ 		
  		parameters[4] = catalog.nextVersion();
  		parameters[5] = catalog.getId();
  		parameters[6] = catalog.getVersion();
- 				
+
  		return parameters;
  	}
  	protected Object[] prepareCatalogCreateParameters(Catalog catalog){
 		Object[] parameters = new Object[5];
-		String newCatalogId=getNextId();
-		catalog.setId(newCatalogId);
+        if(catalog.getId() == null){
+          String newCatalogId=getNextId();
+          catalog.setId(newCatalogId);
+        }
 		parameters[0] =  catalog.getId();
  
  		
  		parameters[1] = catalog.getName();
- 		 	
+ 		
  		if(catalog.getOwner() != null){
  			parameters[2] = catalog.getOwner().getId();
- 		
+
  		}
  		
  		
@@ -579,15 +585,15 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
  		
  		
  		parameters[4] = catalog.getAmount();
- 				
- 				
+ 		
+
  		return parameters;
  	}
- 	
+
 	protected Catalog saveInternalCatalog(Catalog catalog, Map<String,Object> options){
-		
+
 		saveCatalog(catalog);
- 	
+
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(catalog, options);
  		}
@@ -597,42 +603,42 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 	 		saveLevelOneCategoryList(catalog, options);
 	 		//removeLevelOneCategoryList(catalog, options);
 	 		//Not delete the record
-	 		
- 		}		
+
+ 		}
 		
 		return catalog;
-		
+
 	}
-	
-	
-	
+
+
+
 	//======================================================================================
-	 
- 
+	
+
  	protected Catalog saveOwner(Catalog catalog, Map<String,Object> options){
  		//Call inject DAO to execute this method
  		if(catalog.getOwner() == null){
  			return catalog;//do nothing when it is null
  		}
- 		
+
  		getRetailStoreCountryCenterDAO().save(catalog.getOwner(),options);
  		return catalog;
- 		
+
  	}
- 	
- 	
- 	
- 	 
-	
+
+
+
+
+
  
 
 	
 	public Catalog planToRemoveLevelOneCategoryList(Catalog catalog, String levelOneCategoryIds[], Map<String,Object> options)throws Exception{
-	
+
 		MultipleAccessKey key = new MultipleAccessKey();
 		key.put(LevelOneCategory.CATALOG_PROPERTY, catalog.getId());
 		key.put(LevelOneCategory.ID_PROPERTY, levelOneCategoryIds);
-		
+
 		SmartList<LevelOneCategory> externalLevelOneCategoryList = getLevelOneCategoryDAO().
 				findLevelOneCategoryWithKey(key, options);
 		if(externalLevelOneCategoryList == null){
@@ -641,36 +647,36 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 		if(externalLevelOneCategoryList.isEmpty()){
 			return catalog;
 		}
-		
+
 		for(LevelOneCategory levelOneCategoryItem: externalLevelOneCategoryList){
 
 			levelOneCategoryItem.clearFromAll();
 		}
-		
-		
-		SmartList<LevelOneCategory> levelOneCategoryList = catalog.getLevelOneCategoryList();		
+
+
+		SmartList<LevelOneCategory> levelOneCategoryList = catalog.getLevelOneCategoryList();
 		levelOneCategoryList.addAllToRemoveList(externalLevelOneCategoryList);
-		return catalog;	
-	
+		return catalog;
+
 	}
 
 
 
 		
 	protected Catalog saveLevelOneCategoryList(Catalog catalog, Map<String,Object> options){
-		
-		
-		
-		
+
+
+
+
 		SmartList<LevelOneCategory> levelOneCategoryList = catalog.getLevelOneCategoryList();
 		if(levelOneCategoryList == null){
 			//null list means nothing
 			return catalog;
 		}
 		SmartList<LevelOneCategory> mergedUpdateLevelOneCategoryList = new SmartList<LevelOneCategory>();
-		
-		
-		mergedUpdateLevelOneCategoryList.addAll(levelOneCategoryList); 
+
+
+		mergedUpdateLevelOneCategoryList.addAll(levelOneCategoryList);
 		if(levelOneCategoryList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
 			mergedUpdateLevelOneCategoryList.addAll(levelOneCategoryList.getToRemoveList());
@@ -679,28 +685,28 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 		}
 
 		//adding new size can improve performance
-	
+
 		getLevelOneCategoryDAO().saveLevelOneCategoryList(mergedUpdateLevelOneCategoryList,options);
-		
+
 		if(levelOneCategoryList.getToRemoveList() != null){
 			levelOneCategoryList.removeAll(levelOneCategoryList.getToRemoveList());
 		}
-		
-		
+
+
 		return catalog;
-	
+
 	}
-	
+
 	protected Catalog removeLevelOneCategoryList(Catalog catalog, Map<String,Object> options){
-	
-	
+
+
 		SmartList<LevelOneCategory> levelOneCategoryList = catalog.getLevelOneCategoryList();
 		if(levelOneCategoryList == null){
 			return catalog;
-		}	
-	
+		}
+
 		SmartList<LevelOneCategory> toRemoveLevelOneCategoryList = levelOneCategoryList.getToRemoveList();
-		
+
 		if(toRemoveLevelOneCategoryList == null){
 			return catalog;
 		}
@@ -708,20 +714,20 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 			return catalog;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
-		
-		getLevelOneCategoryDAO().removeLevelOneCategoryList(toRemoveLevelOneCategoryList,options);
-		
-		return catalog;
-	
-	}
-	
-	
 
- 	
- 	
-	
-	
-	
+		getLevelOneCategoryDAO().removeLevelOneCategoryList(toRemoveLevelOneCategoryList,options);
+
+		return catalog;
+
+	}
+
+
+
+
+
+
+
+
 		
 
 	public Catalog present(Catalog catalog,Map<String, Object> options){
@@ -764,13 +770,13 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 	protected String getTableName(){
 		return CatalogTable.TABLE_NAME;
 	}
-	
-	
-	
-	public void enhanceList(List<Catalog> catalogList) {		
+
+
+
+	public void enhanceList(List<Catalog> catalogList) {
 		this.enhanceListInternal(catalogList, this.getCatalogMapper());
 	}
-	
+
 	
 	// 需要一个加载引用我的对象的enhance方法:LevelOneCategory的catalog的LevelOneCategoryList
 	public SmartList<LevelOneCategory> loadOurLevelOneCategoryList(RetailscmUserContext userContext, List<Catalog> us, Map<String,Object> options) throws Exception{
@@ -795,39 +801,45 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 		return loadedObjs;
 	}
 	
-	
+
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Catalog> catalogList = ownerEntity.collectRefsWithType(Catalog.INTERNAL_TYPE);
 		this.enhanceList(catalogList);
-		
+
 	}
-	
+
 	@Override
 	public SmartList<Catalog> findCatalogWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return queryWith(key, options, getCatalogMapper());
 
 	}
 	@Override
 	public int countCatalogWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
-		
+
   		return countWith(key, options);
 
 	}
 	public Map<String, Integer> countCatalogWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
-			
+
   		return countWithGroup(groupKey, filterKey, options);
 
 	}
-	
+
 	@Override
 	public SmartList<Catalog> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getCatalogMapper());
 	}
+
+  @Override
+  public Stream<Catalog> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getCatalogMapper());
+  }
+
 	@Override
 	public int count(String sql, Object... parameters) {
 	    return queryInt(sql, parameters);
@@ -856,7 +868,7 @@ public class CatalogJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Cata
 		}
 		return result;
 	}
-	
+
 	
 
 }

@@ -344,9 +344,9 @@ import com.doublechaintech.retailscm.section.SectionTokens;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
 import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
 import com.doublechaintech.retailscm.userdomain.UserDomainTokens;
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteList;
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteListDAO;
-import com.doublechaintech.retailscm.userwhitelist.UserWhiteListTokens;
+import com.doublechaintech.retailscm.userallowlist.UserAllowList;
+import com.doublechaintech.retailscm.userallowlist.UserAllowListDAO;
+import com.doublechaintech.retailscm.userallowlist.UserAllowListTokens;
 import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.secuser.SecUserDAO;
 import com.doublechaintech.retailscm.secuser.SecUserTokens;
@@ -368,15 +368,15 @@ import com.doublechaintech.retailscm.candidatecontainer.CandidateContainerTokens
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
 import com.doublechaintech.retailscm.candidateelement.CandidateElementDAO;
 import com.doublechaintech.retailscm.candidateelement.CandidateElementTokens;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentifyDAO;
-import com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentifyTokens;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentifyDAO;
-import com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentifyTokens;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentify;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentifyDAO;
-import com.doublechaintech.retailscm.keypairidentify.KeypairIdentifyTokens;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityDAO;
+import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityTokens;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityDAO;
+import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityTokens;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO;
+import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityTokens;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeDAO;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeTokens;
@@ -612,7 +612,7 @@ public class DAOGroup {
 
 	protected UserDomainDAO userDomainDAO;
 
-	protected UserWhiteListDAO userWhiteListDAO;
+	protected UserAllowListDAO userAllowListDAO;
 
 	protected SecUserDAO secUserDAO;
 
@@ -628,11 +628,11 @@ public class DAOGroup {
 
 	protected CandidateElementDAO candidateElementDAO;
 
-	protected WechatWorkappIdentifyDAO wechatWorkappIdentifyDAO;
+	protected WechatWorkappIdentityDAO wechatWorkappIdentityDAO;
 
-	protected WechatMiniappIdentifyDAO wechatMiniappIdentifyDAO;
+	protected WechatMiniappIdentityDAO wechatMiniappIdentityDAO;
 
-	protected KeypairIdentifyDAO keypairIdentifyDAO;
+	protected KeypairIdentityDAO keypairIdentityDAO;
 
 	protected PublicKeyTypeDAO publicKeyTypeDAO;
 
@@ -1544,11 +1544,11 @@ public class DAOGroup {
 	}
 
 
-	public UserWhiteListDAO getUserWhiteListDAO(){
-		return this.userWhiteListDAO;
+	public UserAllowListDAO getUserAllowListDAO(){
+		return this.userAllowListDAO;
 	}
-	public void setUserWhiteListDAO(UserWhiteListDAO dao){
-		this.userWhiteListDAO = dao;
+	public void setUserAllowListDAO(UserAllowListDAO dao){
+		this.userAllowListDAO = dao;
 	}
 
 
@@ -1608,27 +1608,27 @@ public class DAOGroup {
 	}
 
 
-	public WechatWorkappIdentifyDAO getWechatWorkappIdentifyDAO(){
-		return this.wechatWorkappIdentifyDAO;
+	public WechatWorkappIdentityDAO getWechatWorkappIdentityDAO(){
+		return this.wechatWorkappIdentityDAO;
 	}
-	public void setWechatWorkappIdentifyDAO(WechatWorkappIdentifyDAO dao){
-		this.wechatWorkappIdentifyDAO = dao;
-	}
-
-
-	public WechatMiniappIdentifyDAO getWechatMiniappIdentifyDAO(){
-		return this.wechatMiniappIdentifyDAO;
-	}
-	public void setWechatMiniappIdentifyDAO(WechatMiniappIdentifyDAO dao){
-		this.wechatMiniappIdentifyDAO = dao;
+	public void setWechatWorkappIdentityDAO(WechatWorkappIdentityDAO dao){
+		this.wechatWorkappIdentityDAO = dao;
 	}
 
 
-	public KeypairIdentifyDAO getKeypairIdentifyDAO(){
-		return this.keypairIdentifyDAO;
+	public WechatMiniappIdentityDAO getWechatMiniappIdentityDAO(){
+		return this.wechatMiniappIdentityDAO;
 	}
-	public void setKeypairIdentifyDAO(KeypairIdentifyDAO dao){
-		this.keypairIdentifyDAO = dao;
+	public void setWechatMiniappIdentityDAO(WechatMiniappIdentityDAO dao){
+		this.wechatMiniappIdentityDAO = dao;
+	}
+
+
+	public KeypairIdentityDAO getKeypairIdentityDAO(){
+		return this.keypairIdentityDAO;
+	}
+	public void setKeypairIdentityDAO(KeypairIdentityDAO dao){
+		this.keypairIdentityDAO = dao;
 	}
 
 
@@ -4711,30 +4711,30 @@ public class DAOGroup {
 			}
 		});
 
-		internalLoaderMap.put("UserWhiteList", new BasicLoader() {
+		internalLoaderMap.put("UserAllowList", new BasicLoader() {
 			@Override
 			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
-				return daoGoup.getUserWhiteListDAO().load(id, UserWhiteListTokens.withoutLists());
+				return daoGoup.getUserAllowListDAO().load(id, UserAllowListTokens.withoutLists());
 			}
 			@Override
 			public void enhanceList(DAOGroup daoGoup, List list) throws Exception {
-				daoGoup.getUserWhiteListDAO().enhanceList((List<UserWhiteList>)list);
+				daoGoup.getUserAllowListDAO().enhanceList((List<UserAllowList>)list);
 			}
 			@Override
 			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getUserWhiteListDAO().load(id, tokens);
+				return daoGoup.getUserAllowListDAO().load(id, tokens);
 			}
 			@Override
 			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getUserWhiteListDAO().present((UserWhiteList)data, tokens);
+				return daoGoup.getUserAllowListDAO().present((UserAllowList)data, tokens);
 			}
 			@Override
-			public SmartList<UserWhiteList> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
-				return daoGoup.getUserWhiteListDAO().queryList(sql, parmeters);
+			public SmartList<UserAllowList> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
+				return daoGoup.getUserAllowListDAO().queryList(sql, parmeters);
 			}
       @Override
 			public List<BaseEntity> wrapperList(DAOGroup daoGoup, List<String> ids) throws Exception{
-				return ids.stream().map(id-> (BaseEntity)UserWhiteList.withId(id)).collect(Collectors.toList());
+				return ids.stream().map(id-> (BaseEntity)UserAllowList.withId(id)).collect(Collectors.toList());
 			}
 		});
 
@@ -4927,84 +4927,84 @@ public class DAOGroup {
 			}
 		});
 
-		internalLoaderMap.put("WechatWorkappIdentify", new BasicLoader() {
+		internalLoaderMap.put("WechatWorkappIdentity", new BasicLoader() {
 			@Override
 			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
-				return daoGoup.getWechatWorkappIdentifyDAO().load(id, WechatWorkappIdentifyTokens.withoutLists());
+				return daoGoup.getWechatWorkappIdentityDAO().load(id, WechatWorkappIdentityTokens.withoutLists());
 			}
 			@Override
 			public void enhanceList(DAOGroup daoGoup, List list) throws Exception {
-				daoGoup.getWechatWorkappIdentifyDAO().enhanceList((List<WechatWorkappIdentify>)list);
+				daoGoup.getWechatWorkappIdentityDAO().enhanceList((List<WechatWorkappIdentity>)list);
 			}
 			@Override
 			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getWechatWorkappIdentifyDAO().load(id, tokens);
+				return daoGoup.getWechatWorkappIdentityDAO().load(id, tokens);
 			}
 			@Override
 			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getWechatWorkappIdentifyDAO().present((WechatWorkappIdentify)data, tokens);
+				return daoGoup.getWechatWorkappIdentityDAO().present((WechatWorkappIdentity)data, tokens);
 			}
 			@Override
-			public SmartList<WechatWorkappIdentify> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
-				return daoGoup.getWechatWorkappIdentifyDAO().queryList(sql, parmeters);
+			public SmartList<WechatWorkappIdentity> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
+				return daoGoup.getWechatWorkappIdentityDAO().queryList(sql, parmeters);
 			}
       @Override
 			public List<BaseEntity> wrapperList(DAOGroup daoGoup, List<String> ids) throws Exception{
-				return ids.stream().map(id-> (BaseEntity)WechatWorkappIdentify.withId(id)).collect(Collectors.toList());
+				return ids.stream().map(id-> (BaseEntity)WechatWorkappIdentity.withId(id)).collect(Collectors.toList());
 			}
 		});
 
-		internalLoaderMap.put("WechatMiniappIdentify", new BasicLoader() {
+		internalLoaderMap.put("WechatMiniappIdentity", new BasicLoader() {
 			@Override
 			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
-				return daoGoup.getWechatMiniappIdentifyDAO().load(id, WechatMiniappIdentifyTokens.withoutLists());
+				return daoGoup.getWechatMiniappIdentityDAO().load(id, WechatMiniappIdentityTokens.withoutLists());
 			}
 			@Override
 			public void enhanceList(DAOGroup daoGoup, List list) throws Exception {
-				daoGoup.getWechatMiniappIdentifyDAO().enhanceList((List<WechatMiniappIdentify>)list);
+				daoGoup.getWechatMiniappIdentityDAO().enhanceList((List<WechatMiniappIdentity>)list);
 			}
 			@Override
 			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getWechatMiniappIdentifyDAO().load(id, tokens);
+				return daoGoup.getWechatMiniappIdentityDAO().load(id, tokens);
 			}
 			@Override
 			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getWechatMiniappIdentifyDAO().present((WechatMiniappIdentify)data, tokens);
+				return daoGoup.getWechatMiniappIdentityDAO().present((WechatMiniappIdentity)data, tokens);
 			}
 			@Override
-			public SmartList<WechatMiniappIdentify> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
-				return daoGoup.getWechatMiniappIdentifyDAO().queryList(sql, parmeters);
+			public SmartList<WechatMiniappIdentity> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
+				return daoGoup.getWechatMiniappIdentityDAO().queryList(sql, parmeters);
 			}
       @Override
 			public List<BaseEntity> wrapperList(DAOGroup daoGoup, List<String> ids) throws Exception{
-				return ids.stream().map(id-> (BaseEntity)WechatMiniappIdentify.withId(id)).collect(Collectors.toList());
+				return ids.stream().map(id-> (BaseEntity)WechatMiniappIdentity.withId(id)).collect(Collectors.toList());
 			}
 		});
 
-		internalLoaderMap.put("KeypairIdentify", new BasicLoader() {
+		internalLoaderMap.put("KeypairIdentity", new BasicLoader() {
 			@Override
 			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
-				return daoGoup.getKeypairIdentifyDAO().load(id, KeypairIdentifyTokens.withoutLists());
+				return daoGoup.getKeypairIdentityDAO().load(id, KeypairIdentityTokens.withoutLists());
 			}
 			@Override
 			public void enhanceList(DAOGroup daoGoup, List list) throws Exception {
-				daoGoup.getKeypairIdentifyDAO().enhanceList((List<KeypairIdentify>)list);
+				daoGoup.getKeypairIdentityDAO().enhanceList((List<KeypairIdentity>)list);
 			}
 			@Override
 			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getKeypairIdentifyDAO().load(id, tokens);
+				return daoGoup.getKeypairIdentityDAO().load(id, tokens);
 			}
 			@Override
 			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getKeypairIdentifyDAO().present((KeypairIdentify)data, tokens);
+				return daoGoup.getKeypairIdentityDAO().present((KeypairIdentity)data, tokens);
 			}
 			@Override
-			public SmartList<KeypairIdentify> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
-				return daoGoup.getKeypairIdentifyDAO().queryList(sql, parmeters);
+			public SmartList<KeypairIdentity> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
+				return daoGoup.getKeypairIdentityDAO().queryList(sql, parmeters);
 			}
       @Override
 			public List<BaseEntity> wrapperList(DAOGroup daoGoup, List<String> ids) throws Exception{
-				return ids.stream().map(id-> (BaseEntity)KeypairIdentify.withId(id)).collect(Collectors.toList());
+				return ids.stream().map(id-> (BaseEntity)KeypairIdentity.withId(id)).collect(Collectors.toList());
 			}
 		});
 
@@ -5130,7 +5130,7 @@ public class DAOGroup {
 
   	    loader.enhanceList(this, list);
   	}
-  	
+
   	public SmartList<? extends BaseEntity> queryList(String type, String sql, Object ... parameters) throws Exception{
   	    BasicLoader loader = internalLoaderMap.get(type);
   	    if (loader == null) {

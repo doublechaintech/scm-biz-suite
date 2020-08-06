@@ -17,6 +17,7 @@ public interface MemberWishlistManager extends BaseManager{
 	public MemberWishlist createMemberWishlist(RetailscmUserContext userContext, String name,String ownerId) throws Exception;
 	public MemberWishlist updateMemberWishlist(RetailscmUserContext userContext,String memberWishlistId, int memberWishlistVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public MemberWishlist loadMemberWishlist(RetailscmUserContext userContext, String memberWishlistId, String [] tokensExpr) throws Exception;
+	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;
 	public MemberWishlist internalSaveMemberWishlist(RetailscmUserContext userContext, MemberWishlist memberWishlist) throws Exception;
 	public MemberWishlist internalSaveMemberWishlist(RetailscmUserContext userContext, MemberWishlist memberWishlist,Map<String,Object>option) throws Exception;
 
