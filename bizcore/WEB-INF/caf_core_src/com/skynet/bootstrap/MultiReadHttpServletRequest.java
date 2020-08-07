@@ -87,10 +87,11 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
     @Override
     public Map<String, String[]> getParameterMap() {
         if (parameterMap == null) {
-            Map<String, String[]> result = new LinkedHashMap<String, String[]>();
-            decode(getQueryString(), result);
-            decode(getPostBodyAsString(), result);
-            parameterMap = Collections.unmodifiableMap(result);
+//            Map<String, String[]> result = new LinkedHashMap<String, String[]>();
+//            decode(getQueryString(), result);
+//            decode(getPostBodyAsString(), result);
+//            parameterMap = Collections.unmodifiableMap(result);
+            parameterMap = getRequest().getParameterMap();
         }
         return parameterMap;
     }
@@ -108,6 +109,8 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
                 if (ct.getMimeType().equals(ContentType.APPLICATION_FORM_URLENCODED.getMimeType())) {
                     List<NameValuePair> postParams = URLEncodedUtils.parse(IOUtils.toString(getReader()), UTF8_CHARSET);
                     params = Iterables.concat(params, postParams);
+                }else if (ct.getMimeType().equals(ContentType.MULTIPART_FORM_DATA.getMimeType())) {
+
                 }
             }
         } catch (IOException e) {

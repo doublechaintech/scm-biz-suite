@@ -28,8 +28,9 @@ public class JWTUtil {
 		        .build(); //Reusable verifier instance
 		    DecodedJWT jwt = verifier.verify(token);
 		    return jwt;
-		} catch (JWTVerificationException exception){
-			exception.printStackTrace();
+		} catch (JWTVerificationException e){
+			// exception.printStackTrace();
+			System.out.println("[    Exception]: " + e.getMessage());
 			return null;
 		}
 	}

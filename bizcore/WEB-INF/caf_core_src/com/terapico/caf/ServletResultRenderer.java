@@ -99,11 +99,12 @@ public class ServletResultRenderer {
 		}
 		byte [] value = result.getActualResult().toString().getBytes();
 		int length = value.length;
+		fillOrigin(result, request, response);
 		response.addHeader("X-Class", renderClass);
 		response.addHeader("X-Env-Type", result.getEnvType());
 		response.addHeader("X-Env-Name", result.getEnvName());
 		response.addHeader("Content-Length", Long.valueOf(length).toString());
-		response.addHeader("Access-Control-Expose-Headers", "X-Class, X-Redirect, X-Env-Type, X-Env-Name");
+		response.addHeader("Access-Control-Expose-Headers", "X-Class, X-Redirect, X-Env-Type, X-Env-Name, X-Action");
 		
 		response.getOutputStream().write(value);;
 		
@@ -228,7 +229,7 @@ public class ServletResultRenderer {
 		response.addHeader("Access-Control-Allow-Origin", origin);
 		response.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 		// Access-Control-Expose-Headers
-		response.addHeader("Access-Control-Expose-Headers", "Set-Cookie, X-Redirect, X-Env-Type, X-Env-Name");
+		response.addHeader("Access-Control-Expose-Headers", "Set-Cookie, X-Redirect, X-Env-Type, X-Env-Name, X-Action");
 		response.addHeader("Access-Control-Allow-Credentials", "true");
 
 	}
@@ -255,7 +256,7 @@ public class ServletResultRenderer {
 		response.addHeader("X-Class", renderClass);
 		response.addHeader("X-Env-Type", result.getEnvType());
 		response.addHeader("X-Env-Name", result.getEnvName());
-		response.addHeader("Access-Control-Expose-Headers", "X-Class, X-Redirect, X-Env-Type, X-Env-Name");
+		response.addHeader("Access-Control-Expose-Headers", "X-Class, X-Redirect, X-Env-Type, X-Env-Name, X-Action");
 		// Access-Control-Expose-Headers
 
 		log("Render JSON result with class: " + renderClass + "(" + renderLogResult(result.getActualResult()) + ")");

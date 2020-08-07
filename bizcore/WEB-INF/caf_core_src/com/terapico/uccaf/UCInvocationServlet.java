@@ -23,7 +23,7 @@ import org.springframework.context.ApplicationContext;
 public class UCInvocationServlet extends SimpleInvocationServlet{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -40,20 +40,20 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 
 	@Override
 	public void init() throws ServletException {
-		
+
 		super.init();
 		replaceBeans();
 	}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		
+
 		super.init(config);
 		replaceBeans();
 	}
-	
+
 	protected boolean isAccessControledService(InvocationContext context){
-		
+
 		int parameterLength = context.getParameters().length;
 		if(parameterLength == 0){
 			//no context and no parameter
@@ -62,7 +62,7 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 		Object firstParamter = context.getParameters()[0];
 		if(!(firstParamter instanceof BaseUserContext)){
 			//first parameter is not based on base user context, will not regard as access controlled service.
-			
+
 			return false;
 		}
 		if(!(context instanceof UCInvocationContext)){
@@ -72,30 +72,30 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 		if(!(targetObject instanceof AccessControledService)){
 			return false;
 		}
-		
-		
+
+
 		//UCInvocationContext uInvocationContext = (UCInvocationContext)context;
-		
-		
+
+
 		return true;
-		
+
 	}
-	
+
 	protected InvocationResult invoke(InvocationContext context) throws ServletException
 	{
-		
+
 		//check the user context before invoke
 		//before any call, check the URL
-		
-		
+
+
 		if(!isAccessControledService(context)){
-			
+
 			return super.invoke(context);
 		}
-		
+
 		Object targetObject = context.getTargetObject();
 		Object []parameters = context.getParameters();
-		
+
 		AccessControledService targetService = (AccessControledService)targetObject;
 		UCInvocationContext ucInvocationContext = (UCInvocationContext)context;
 
@@ -103,7 +103,7 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 			System.out.println("InvocationResult result = super.invoke(context); called");
 			String methodName = ucInvocationContext.getMethodToCall().getName();
 			BaseUserContext baseUserContext = ucInvocationContext.getUserContext();
-			
+
 			targetService.onAccess(baseUserContext, methodName ,parameters);
 
 			Object checkResult = targetService.checkAccess(baseUserContext, methodName ,parameters);
@@ -115,36 +115,42 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 				result.setInvocationContext(context);
 				return result;
 			}
-			
+
 			//null means the request passed the access check
 			InvocationResult result = super.invoke(context);
+			if (result.getActualResult() instanceof Throwable){
+				targetService.afterInvoke(baseUserContext, methodName, parameters, false, null, (Throwable) result.getActualResult());
+			}else{
+				targetService.afterInvoke(baseUserContext, methodName, parameters, true, result.getActualResult(), null);
+			}
 			logExceptionResult(baseUserContext,result);
-			
+
 			targetService.enforceAccess(baseUserContext, result.getActualResult());
-			
-			
-			
+
+
+
 			return result;
-			
+
 		} catch (Exception e) {
-			
+
 			InvocationResult result=new SimpleInvocationResult();
-			result.setActualResult(e);			
+			result.setActualResult(e);
+			result.setInvocationContext(context);		
 			//InvocationResult result = super.invoke(context);
 			System.out.println("the call throws the exception not handled by the app layer, framework catches");
 			e.printStackTrace();
-			
+
 			return result;
 		}
 
 	}
-	
-	
+
+
 	protected Method searchMethod(Class <?> clazz,String name){
 		for(Method m:clazz.getMethods()){
 			System.out.println("mmm: "+m.getName());
 			if(name.equals(m.getName())){
-				
+
 				return m;
 			}
 		}
@@ -160,12 +166,12 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 			Class<?> clzz []=new Class[]{String.class, String.class, String.class};
 			//baseUserContext.getClass().getDeclaredMethod(name, parameterTypes)
 			//public void sendEmail(String to, String subject, String content)
-			
+
 			//Method sendMailMethod = searchMethod(baseUserContext.getClass(),"sendMail");//.getMethod("sendMail", String.class, String.class, String.class);
-			
+
 			Method sendMailMethod = baseUserContext.getClass().getMethod("sendEmail", String.class, String.class, String.class);
-			
-			
+
+
 			sendMailMethod.invoke(baseUserContext, getExceptionMonitorEmail(),
 					result.getActualResult().getClass().getSimpleName()+" from " + baseUserContext.getEnvironmentName(),
 					wrapExceptionToString((Throwable)result.getActualResult()));
@@ -174,15 +180,15 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 			e.printStackTrace();
 			//System.out.println("Method not found"+e);
 		}
-		
+
 		return result;
-		
+
 		//Class<?> parameterTypes;
 		//Method sendMailMethod = baseUserContext.getClass().getMethod("sendMail", parameterTypes);
-		
-		
+
+
 	}
-	
+
 	protected Object getExceptionMonitorEmail() {
 		String envValue = System.getenv("EXCEPTION_MONITOR");
 		if (TextUtil.isBlank(envValue)) {
@@ -200,22 +206,22 @@ public class UCInvocationServlet extends SimpleInvocationServlet{
 	}
 
 	/*
-	 * 
+	 *
 	 * public void sendEmail(String to, String subject, String content){
 		this.ensureSMTPService();
 		smtpService.send(to, subject, content);
-		
+
 	}
-	 * 
+	 *
 	 * */
 	public void replaceBeans()
 	{
 		InternalBeanFactory.replaceFormBuilder(new UCFormBuilder());
 		InternalBeanFactory.replaceServletInvocationContextFactory(new UCInvocationContextFactory(mApplicationContext));
-		
+
 	}
-	
-	
-	
+
+
+
 
 }

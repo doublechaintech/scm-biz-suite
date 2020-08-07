@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
@@ -156,6 +158,9 @@ public class TaskUtil {
 
 	public static void runAsync(Runnable runnable) {
 		executor.execute(runnable);
+	}
+	public static <V> Future<V> runAsync(Callable<V> callable) {
+		return executor.submit(callable);
 	}
 
     public synchronized static String addScheduleTask(String taskName, long intervalInMs, Runnable runnable) {
