@@ -391,6 +391,8 @@ server {
 
 ### SpringBoot开发指南
 
+  **Spring Boot版本为完全前后端分离，不支持jsp，请编译前端bizui来运行** 
+
 在正式生产环境下，使用SpringBoot部署更容易，源代码的位置在：
 
 com.skynet.bootstrap.AppEntrance
