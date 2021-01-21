@@ -203,7 +203,7 @@ Available Java Versions
 ```
 
 
-### 下载并且解压Resin
+### 下载并且解压Resin, 请使用Resin-3.1.16版本，Resin-4.0.x需要一些微调
 
 https://caucho.com/products/resin/download/3-1/gpl
 
