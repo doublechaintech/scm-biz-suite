@@ -167,15 +167,15 @@ rm -rf node_modules && yarn install && yarn build
 ```
 curl -s "https://get.sdkman.io" | bash
 ```
-使用 Gradle 5.3，可以使用最新版 
+使用 Gradle 6.8，可以使用最新版 
 
 ```
-sdk install gradle 5.3
+sdk install gradle 6.8
 ```
 
 
 
-安装Java 8， 一定得Java 8， 我们这里选择Amazon的JDK8其他版本未经测试
+安装Java 8， 一定得Java 8， 我们这里选择Amazon的JDK8，其他版本的JDK8应该也没有问题
 ```
 sdk install java 8.0.242-amzn 
 ```
