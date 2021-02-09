@@ -66,7 +66,7 @@
 ## 复制代码到本地
 
 ```
-git clone https://github.com/doublechaintech/retailscm-biz-suite.git
+git clone https://github.com/doublechaintech/scm-biz-suite.git
 ```
 
 
