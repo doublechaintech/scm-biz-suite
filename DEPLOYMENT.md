@@ -303,7 +303,7 @@ mklink /D c:\resin-3.1.16\webapps\retailscm  c:\retailscm-biz-suite\bizcore
 
 ### 启动Resin
 
-启动之前，调整resin的JVM参数 conf/resin.cnf
+启动之前，调整resin的JVM参数 conf/resin.conf, 该参数可保证系统长期运行
 ```
 
 <!--
