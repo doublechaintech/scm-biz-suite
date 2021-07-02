@@ -302,6 +302,36 @@ mklink /D c:\resin-3.1.16\webapps\retailscm  c:\retailscm-biz-suite\bizcore
 这样可以起到热加载效果方便调试。
 
 ### 启动Resin
+
+启动之前，调整resin的JVM参数 conf/resin.cnf
+```
+
+<!--
+         - The JVM arguments
+        -->
+      <jvm-arg>-Xmx2048m</jvm-arg>
+      <jvm-arg>-Xms2048m</jvm-arg>
+      <jvm-arg>-Xss1m</jvm-arg>
+
+      <jvm-arg>-XX:+UseG1GC </jvm-arg>
+      <jvm-arg>-XX:MaxGCPauseMillis=20 </jvm-arg>
+      <jvm-arg>-XX:InitiatingHeapOccupancyPercent=35 </jvm-arg>
+      <jvm-arg>-XX:+ExplicitGCInvokesConcurrent</jvm-arg>
+
+      <jvm-arg>-XX:+PrintGCDateStamps</jvm-arg>
+      <jvm-arg> -XX:+PrintGCTimeStamps </jvm-arg>
+      <jvm-arg>-XX:+UseGCLogFileRotation </jvm-arg>
+      <jvm-arg>-XX:NumberOfGCLogFiles=10 </jvm-arg>
+      <jvm-arg>-XX:GCLogFileSize=100M</jvm-arg>
+      <jvm-arg>-XX:+HeapDumpOnOutOfMemoryError</jvm-arg>
+      <jvm-arg>-verbose:gc</jvm-arg>
+      <jvm-arg>-XX:+PrintGCDetails</jvm-arg>
+      <jvm-arg>-Xloggc:gc.log</jvm-arg>
+      <jvm-arg>-Dcom.sun.management.jmxremote</jvm-arg>
+
+```
+
+
 准备后了就可以启动后端
 ```
 cd  resin-3.1.16/ && bin/httpd.sh
