@@ -89,7 +89,7 @@
 
 ![ScreenShot](/doc/word-cloud.png)
 
-* 桑基图, 展现概念之间关系
+* 桑基图, 展现概念血缘
 
 ![ScreenShot](/doc/retailscm-sankey.jpg)
 
