@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.accountset;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
 import com.doublechaintech.retailscm.retailstore.RetailStore;
@@ -32,12 +29,12 @@ import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
 @JsonSerialize(using = AccountSetSerializer.class)
 public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String YEAR_SET_PROPERTY              = "yearSet"           ;
@@ -61,43 +58,137 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(YEAR_SET_PROPERTY, "year_set", "年组")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(EFFECTIVE_DATE_PROPERTY, "effective_date", "生效日期")
+        .withType("date", Date.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ACCOUNTING_SYSTEM_PROPERTY, "accounting_system", "会计制度")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DOMESTIC_CURRENCY_CODE_PROPERTY, "domestic_currency_code", "本币代码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DOMESTIC_CURRENCY_NAME_PROPERTY, "domestic_currency_name", "本币名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(OPENING_BANK_PROPERTY, "opening_bank", "开户银行")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ACCOUNT_NUMBER_PROPERTY, "account_number", "帐户号码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COUNTRY_CENTER_PROPERTY, "retail_store_country_center", "全国运营中心")
+        .withType("retail_store_country_center", RetailStoreCountryCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(RETAIL_STORE_PROPERTY, "retail_store", "双链小超")
+        .withType("retail_store", RetailStore.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(GOODS_SUPPLIER_PROPERTY, "goods_supplier", "产品供应商")
+        .withType("goods_supplier", GoodsSupplier.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
+        .withType("date_time_update", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(ACCOUNTING_SUBJECT_LIST, "accountSet", "会计科目表")
+        .withType("accounting_subject", AccountingSubject.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(ACCOUNTING_PERIOD_LIST, "accountSet", "会计期间列表")
+        .withType("accounting_period", AccountingPeriod.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(ACCOUNTING_DOCUMENT_TYPE_LIST, "accountingPeriod", "会计凭证种类表")
+        .withType("accounting_document_type", AccountingDocumentType.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,YEAR_SET_PROPERTY ,EFFECTIVE_DATE_PROPERTY ,ACCOUNTING_SYSTEM_PROPERTY ,DOMESTIC_CURRENCY_CODE_PROPERTY ,DOMESTIC_CURRENCY_NAME_PROPERTY ,OPENING_BANK_PROPERTY ,ACCOUNT_NUMBER_PROPERTY ,COUNTRY_CENTER_PROPERTY ,RETAIL_STORE_PROPERTY ,GOODS_SUPPLIER_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(ACCOUNTING_SUBJECT_LIST, "accountSet");
+    	
+    	    refers.put(ACCOUNTING_PERIOD_LIST, "accountSet");
+    	
+    	    refers.put(ACCOUNTING_DOCUMENT_TYPE_LIST, "accountingPeriod");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(ACCOUNTING_SUBJECT_LIST, AccountingSubject.class);
+        	
+        	    refers.put(ACCOUNTING_PERIOD_LIST, AccountingPeriod.class);
+        	
+        	    refers.put(ACCOUNTING_DOCUMENT_TYPE_LIST, AccountingDocumentType.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(COUNTRY_CENTER_PROPERTY, RetailStoreCountryCenter.class);
+parents.put(RETAIL_STORE_PROPERTY, RetailStore.class);
+parents.put(GOODS_SUPPLIER_PROPERTY, GoodsSupplier.class);
+
+    return parents;
+  }
+
+  public AccountSet want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public AccountSet wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mYearSet            ;
-	protected		Date                	mEffectiveDate      ;
-	protected		String              	mAccountingSystem   ;
-	protected		String              	mDomesticCurrencyCode;
-	protected		String              	mDomesticCurrencyName;
-	protected		String              	mOpeningBank        ;
-	protected		String              	mAccountNumber      ;
-	protected		RetailStoreCountryCenter	mCountryCenter      ;
-	protected		RetailStore         	mRetailStore        ;
-	protected		GoodsSupplier       	mGoodsSupplier      ;
-	protected		DateTime            	mLastUpdateTime     ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		String              	yearSet             ;
+	protected		Date                	effectiveDate       ;
+	protected		String              	accountingSystem    ;
+	protected		String              	domesticCurrencyCode;
+	protected		String              	domesticCurrencyName;
+	protected		String              	openingBank         ;
+	protected		String              	accountNumber       ;
+	protected		RetailStoreCountryCenter	countryCenter       ;
+	protected		RetailStore         	retailStore         ;
+	protected		GoodsSupplier       	goodsSupplier       ;
+	protected		DateTime            	lastUpdateTime      ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<AccountingSubject>	mAccountingSubjectList;
 	protected		SmartList<AccountingPeriod>	mAccountingPeriodList;
 	protected		SmartList<AccountingDocumentType>	mAccountingDocumentTypeList;
 
-	
-		
+
+
 	public 	AccountSet(){
 		// lazy load for all the properties
 	}
@@ -105,12 +196,30 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		AccountSet accountSet = new AccountSet();
 		accountSet.setId(id);
 		accountSet.setVersion(Integer.MAX_VALUE);
+		accountSet.setChecked(true);
 		return accountSet;
 	}
 	public 	static AccountSet refById(String id){
 		return withId(id);
 	}
-	
+
+  public AccountSet limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public AccountSet limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static AccountSet searchExample(){
+    AccountSet accountSet = new AccountSet();
+    		accountSet.setVersion(UNSET_INT);
+
+    return accountSet;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCountryCenter( null );
@@ -118,9 +227,10 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		setGoodsSupplier( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -305,7 +415,7 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -358,251 +468,436 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public AccountSet updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public AccountSet addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public AccountSet updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public AccountSet addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setYearSet(String yearSet){
-		this.mYearSet = trimString(yearSet);;
-	}
+	public void setYearSet(String yearSet){String oldYearSet = this.yearSet;String newYearSet = trimString(yearSet);this.yearSet = newYearSet;}
+	public String yearSet(){
+doLoad();
+return getYearSet();
+}
 	public String getYearSet(){
-		return this.mYearSet;
+		return this.yearSet;
 	}
-	public AccountSet updateYearSet(String yearSet){
-		this.mYearSet = trimString(yearSet);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateYearSet(String yearSet){String oldYearSet = this.yearSet;String newYearSet = trimString(yearSet);if(!shouldReplaceBy(newYearSet, oldYearSet)){return this;}this.yearSet = newYearSet;addPropertyChange(YEAR_SET_PROPERTY, oldYearSet, newYearSet);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByYearSet(boolean asc){
+doAddOrderBy(YEAR_SET_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createYearSetCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(YEAR_SET_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreYearSetCriteria(){super.ignoreSearchProperty(YEAR_SET_PROPERTY);
+return this;
+}
+	public AccountSet addYearSetCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createYearSetCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeYearSet(String yearSet){
 		if(yearSet != null) { setYearSet(yearSet);}
 	}
+
 	
-	
-	public void setEffectiveDate(Date effectiveDate){
-		this.mEffectiveDate = effectiveDate;;
-	}
+	public void setEffectiveDate(Date effectiveDate){Date oldEffectiveDate = this.effectiveDate;Date newEffectiveDate = effectiveDate;this.effectiveDate = newEffectiveDate;}
+	public Date effectiveDate(){
+doLoad();
+return getEffectiveDate();
+}
 	public Date getEffectiveDate(){
-		return this.mEffectiveDate;
+		return this.effectiveDate;
 	}
-	public AccountSet updateEffectiveDate(Date effectiveDate){
-		this.mEffectiveDate = effectiveDate;;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateEffectiveDate(Date effectiveDate){Date oldEffectiveDate = this.effectiveDate;Date newEffectiveDate = effectiveDate;if(!shouldReplaceBy(newEffectiveDate, oldEffectiveDate)){return this;}this.effectiveDate = newEffectiveDate;addPropertyChange(EFFECTIVE_DATE_PROPERTY, oldEffectiveDate, newEffectiveDate);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByEffectiveDate(boolean asc){
+doAddOrderBy(EFFECTIVE_DATE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createEffectiveDateCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(EFFECTIVE_DATE_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreEffectiveDateCriteria(){super.ignoreSearchProperty(EFFECTIVE_DATE_PROPERTY);
+return this;
+}
+	public AccountSet addEffectiveDateCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createEffectiveDateCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeEffectiveDate(Date effectiveDate){
 		setEffectiveDate(effectiveDate);
 	}
+
 	
-	
-	public void setAccountingSystem(String accountingSystem){
-		this.mAccountingSystem = trimString(accountingSystem);;
-	}
+	public void setAccountingSystem(String accountingSystem){String oldAccountingSystem = this.accountingSystem;String newAccountingSystem = trimString(accountingSystem);this.accountingSystem = newAccountingSystem;}
+	public String accountingSystem(){
+doLoad();
+return getAccountingSystem();
+}
 	public String getAccountingSystem(){
-		return this.mAccountingSystem;
+		return this.accountingSystem;
 	}
-	public AccountSet updateAccountingSystem(String accountingSystem){
-		this.mAccountingSystem = trimString(accountingSystem);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateAccountingSystem(String accountingSystem){String oldAccountingSystem = this.accountingSystem;String newAccountingSystem = trimString(accountingSystem);if(!shouldReplaceBy(newAccountingSystem, oldAccountingSystem)){return this;}this.accountingSystem = newAccountingSystem;addPropertyChange(ACCOUNTING_SYSTEM_PROPERTY, oldAccountingSystem, newAccountingSystem);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByAccountingSystem(boolean asc){
+doAddOrderBy(ACCOUNTING_SYSTEM_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createAccountingSystemCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ACCOUNTING_SYSTEM_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreAccountingSystemCriteria(){super.ignoreSearchProperty(ACCOUNTING_SYSTEM_PROPERTY);
+return this;
+}
+	public AccountSet addAccountingSystemCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createAccountingSystemCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeAccountingSystem(String accountingSystem){
 		if(accountingSystem != null) { setAccountingSystem(accountingSystem);}
 	}
+
 	
-	
-	public void setDomesticCurrencyCode(String domesticCurrencyCode){
-		this.mDomesticCurrencyCode = trimString(domesticCurrencyCode);;
-	}
+	public void setDomesticCurrencyCode(String domesticCurrencyCode){String oldDomesticCurrencyCode = this.domesticCurrencyCode;String newDomesticCurrencyCode = trimString(domesticCurrencyCode);this.domesticCurrencyCode = newDomesticCurrencyCode;}
+	public String domesticCurrencyCode(){
+doLoad();
+return getDomesticCurrencyCode();
+}
 	public String getDomesticCurrencyCode(){
-		return this.mDomesticCurrencyCode;
+		return this.domesticCurrencyCode;
 	}
-	public AccountSet updateDomesticCurrencyCode(String domesticCurrencyCode){
-		this.mDomesticCurrencyCode = trimString(domesticCurrencyCode);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateDomesticCurrencyCode(String domesticCurrencyCode){String oldDomesticCurrencyCode = this.domesticCurrencyCode;String newDomesticCurrencyCode = trimString(domesticCurrencyCode);if(!shouldReplaceBy(newDomesticCurrencyCode, oldDomesticCurrencyCode)){return this;}this.domesticCurrencyCode = newDomesticCurrencyCode;addPropertyChange(DOMESTIC_CURRENCY_CODE_PROPERTY, oldDomesticCurrencyCode, newDomesticCurrencyCode);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByDomesticCurrencyCode(boolean asc){
+doAddOrderBy(DOMESTIC_CURRENCY_CODE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDomesticCurrencyCodeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DOMESTIC_CURRENCY_CODE_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreDomesticCurrencyCodeCriteria(){super.ignoreSearchProperty(DOMESTIC_CURRENCY_CODE_PROPERTY);
+return this;
+}
+	public AccountSet addDomesticCurrencyCodeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDomesticCurrencyCodeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDomesticCurrencyCode(String domesticCurrencyCode){
 		if(domesticCurrencyCode != null) { setDomesticCurrencyCode(domesticCurrencyCode);}
 	}
+
 	
-	
-	public void setDomesticCurrencyName(String domesticCurrencyName){
-		this.mDomesticCurrencyName = trimString(domesticCurrencyName);;
-	}
+	public void setDomesticCurrencyName(String domesticCurrencyName){String oldDomesticCurrencyName = this.domesticCurrencyName;String newDomesticCurrencyName = trimString(domesticCurrencyName);this.domesticCurrencyName = newDomesticCurrencyName;}
+	public String domesticCurrencyName(){
+doLoad();
+return getDomesticCurrencyName();
+}
 	public String getDomesticCurrencyName(){
-		return this.mDomesticCurrencyName;
+		return this.domesticCurrencyName;
 	}
-	public AccountSet updateDomesticCurrencyName(String domesticCurrencyName){
-		this.mDomesticCurrencyName = trimString(domesticCurrencyName);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateDomesticCurrencyName(String domesticCurrencyName){String oldDomesticCurrencyName = this.domesticCurrencyName;String newDomesticCurrencyName = trimString(domesticCurrencyName);if(!shouldReplaceBy(newDomesticCurrencyName, oldDomesticCurrencyName)){return this;}this.domesticCurrencyName = newDomesticCurrencyName;addPropertyChange(DOMESTIC_CURRENCY_NAME_PROPERTY, oldDomesticCurrencyName, newDomesticCurrencyName);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByDomesticCurrencyName(boolean asc){
+doAddOrderBy(DOMESTIC_CURRENCY_NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDomesticCurrencyNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DOMESTIC_CURRENCY_NAME_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreDomesticCurrencyNameCriteria(){super.ignoreSearchProperty(DOMESTIC_CURRENCY_NAME_PROPERTY);
+return this;
+}
+	public AccountSet addDomesticCurrencyNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDomesticCurrencyNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDomesticCurrencyName(String domesticCurrencyName){
 		if(domesticCurrencyName != null) { setDomesticCurrencyName(domesticCurrencyName);}
 	}
+
 	
-	
-	public void setOpeningBank(String openingBank){
-		this.mOpeningBank = trimString(openingBank);;
-	}
+	public void setOpeningBank(String openingBank){String oldOpeningBank = this.openingBank;String newOpeningBank = trimString(openingBank);this.openingBank = newOpeningBank;}
+	public String openingBank(){
+doLoad();
+return getOpeningBank();
+}
 	public String getOpeningBank(){
-		return this.mOpeningBank;
+		return this.openingBank;
 	}
-	public AccountSet updateOpeningBank(String openingBank){
-		this.mOpeningBank = trimString(openingBank);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateOpeningBank(String openingBank){String oldOpeningBank = this.openingBank;String newOpeningBank = trimString(openingBank);if(!shouldReplaceBy(newOpeningBank, oldOpeningBank)){return this;}this.openingBank = newOpeningBank;addPropertyChange(OPENING_BANK_PROPERTY, oldOpeningBank, newOpeningBank);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByOpeningBank(boolean asc){
+doAddOrderBy(OPENING_BANK_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createOpeningBankCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(OPENING_BANK_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreOpeningBankCriteria(){super.ignoreSearchProperty(OPENING_BANK_PROPERTY);
+return this;
+}
+	public AccountSet addOpeningBankCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createOpeningBankCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeOpeningBank(String openingBank){
 		if(openingBank != null) { setOpeningBank(openingBank);}
 	}
+
 	
-	
-	public void setAccountNumber(String accountNumber){
-		this.mAccountNumber = trimString(accountNumber);;
-	}
+	public void setAccountNumber(String accountNumber){String oldAccountNumber = this.accountNumber;String newAccountNumber = trimString(accountNumber);this.accountNumber = newAccountNumber;}
+	public String accountNumber(){
+doLoad();
+return getAccountNumber();
+}
 	public String getAccountNumber(){
-		return this.mAccountNumber;
+		return this.accountNumber;
 	}
-	public AccountSet updateAccountNumber(String accountNumber){
-		this.mAccountNumber = trimString(accountNumber);;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateAccountNumber(String accountNumber){String oldAccountNumber = this.accountNumber;String newAccountNumber = trimString(accountNumber);if(!shouldReplaceBy(newAccountNumber, oldAccountNumber)){return this;}this.accountNumber = newAccountNumber;addPropertyChange(ACCOUNT_NUMBER_PROPERTY, oldAccountNumber, newAccountNumber);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByAccountNumber(boolean asc){
+doAddOrderBy(ACCOUNT_NUMBER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createAccountNumberCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ACCOUNT_NUMBER_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreAccountNumberCriteria(){super.ignoreSearchProperty(ACCOUNT_NUMBER_PROPERTY);
+return this;
+}
+	public AccountSet addAccountNumberCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createAccountNumberCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeAccountNumber(String accountNumber){
 		if(accountNumber != null) { setAccountNumber(accountNumber);}
 	}
+
 	
-	
-	public void setCountryCenter(RetailStoreCountryCenter countryCenter){
-		this.mCountryCenter = countryCenter;;
-	}
+	public void setCountryCenter(RetailStoreCountryCenter countryCenter){RetailStoreCountryCenter oldCountryCenter = this.countryCenter;RetailStoreCountryCenter newCountryCenter = countryCenter;this.countryCenter = newCountryCenter;}
+	public RetailStoreCountryCenter countryCenter(){
+doLoad();
+return getCountryCenter();
+}
 	public RetailStoreCountryCenter getCountryCenter(){
-		return this.mCountryCenter;
+		return this.countryCenter;
 	}
-	public AccountSet updateCountryCenter(RetailStoreCountryCenter countryCenter){
-		this.mCountryCenter = countryCenter;;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateCountryCenter(RetailStoreCountryCenter countryCenter){RetailStoreCountryCenter oldCountryCenter = this.countryCenter;RetailStoreCountryCenter newCountryCenter = countryCenter;if(!shouldReplaceBy(newCountryCenter, oldCountryCenter)){return this;}this.countryCenter = newCountryCenter;addPropertyChange(COUNTRY_CENTER_PROPERTY, oldCountryCenter, newCountryCenter);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByCountryCenter(boolean asc){
+doAddOrderBy(COUNTRY_CENTER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCountryCenterCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COUNTRY_CENTER_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreCountryCenterCriteria(){super.ignoreSearchProperty(COUNTRY_CENTER_PROPERTY);
+return this;
+}
+	public AccountSet addCountryCenterCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCountryCenterCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCountryCenter(RetailStoreCountryCenter countryCenter){
 		if(countryCenter != null) { setCountryCenter(countryCenter);}
 	}
-	
+
 	
 	public void clearCountryCenter(){
 		setCountryCenter ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setRetailStore(RetailStore retailStore){
-		this.mRetailStore = retailStore;;
-	}
+	public void setRetailStore(RetailStore retailStore){RetailStore oldRetailStore = this.retailStore;RetailStore newRetailStore = retailStore;this.retailStore = newRetailStore;}
+	public RetailStore retailStore(){
+doLoad();
+return getRetailStore();
+}
 	public RetailStore getRetailStore(){
-		return this.mRetailStore;
+		return this.retailStore;
 	}
-	public AccountSet updateRetailStore(RetailStore retailStore){
-		this.mRetailStore = retailStore;;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateRetailStore(RetailStore retailStore){RetailStore oldRetailStore = this.retailStore;RetailStore newRetailStore = retailStore;if(!shouldReplaceBy(newRetailStore, oldRetailStore)){return this;}this.retailStore = newRetailStore;addPropertyChange(RETAIL_STORE_PROPERTY, oldRetailStore, newRetailStore);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByRetailStore(boolean asc){
+doAddOrderBy(RETAIL_STORE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createRetailStoreCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(RETAIL_STORE_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreRetailStoreCriteria(){super.ignoreSearchProperty(RETAIL_STORE_PROPERTY);
+return this;
+}
+	public AccountSet addRetailStoreCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createRetailStoreCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeRetailStore(RetailStore retailStore){
 		if(retailStore != null) { setRetailStore(retailStore);}
 	}
-	
+
 	
 	public void clearRetailStore(){
 		setRetailStore ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setGoodsSupplier(GoodsSupplier goodsSupplier){
-		this.mGoodsSupplier = goodsSupplier;;
-	}
+	public void setGoodsSupplier(GoodsSupplier goodsSupplier){GoodsSupplier oldGoodsSupplier = this.goodsSupplier;GoodsSupplier newGoodsSupplier = goodsSupplier;this.goodsSupplier = newGoodsSupplier;}
+	public GoodsSupplier goodsSupplier(){
+doLoad();
+return getGoodsSupplier();
+}
 	public GoodsSupplier getGoodsSupplier(){
-		return this.mGoodsSupplier;
+		return this.goodsSupplier;
 	}
-	public AccountSet updateGoodsSupplier(GoodsSupplier goodsSupplier){
-		this.mGoodsSupplier = goodsSupplier;;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateGoodsSupplier(GoodsSupplier goodsSupplier){GoodsSupplier oldGoodsSupplier = this.goodsSupplier;GoodsSupplier newGoodsSupplier = goodsSupplier;if(!shouldReplaceBy(newGoodsSupplier, oldGoodsSupplier)){return this;}this.goodsSupplier = newGoodsSupplier;addPropertyChange(GOODS_SUPPLIER_PROPERTY, oldGoodsSupplier, newGoodsSupplier);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByGoodsSupplier(boolean asc){
+doAddOrderBy(GOODS_SUPPLIER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createGoodsSupplierCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(GOODS_SUPPLIER_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreGoodsSupplierCriteria(){super.ignoreSearchProperty(GOODS_SUPPLIER_PROPERTY);
+return this;
+}
+	public AccountSet addGoodsSupplierCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createGoodsSupplierCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeGoodsSupplier(GoodsSupplier goodsSupplier){
 		if(goodsSupplier != null) { setGoodsSupplier(goodsSupplier);}
 	}
-	
+
 	
 	public void clearGoodsSupplier(){
 		setGoodsSupplier ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-	}
+	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
+	public DateTime lastUpdateTime(){
+doLoad();
+return getLastUpdateTime();
+}
 	public DateTime getLastUpdateTime(){
-		return this.mLastUpdateTime;
+		return this.lastUpdateTime;
 	}
-	public AccountSet updateLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;if(!shouldReplaceBy(newLastUpdateTime, oldLastUpdateTime)){return this;}this.lastUpdateTime = newLastUpdateTime;addPropertyChange(LAST_UPDATE_TIME_PROPERTY, oldLastUpdateTime, newLastUpdateTime);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByLastUpdateTime(boolean asc){
+doAddOrderBy(LAST_UPDATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_UPDATE_TIME_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreLastUpdateTimeCriteria(){super.ignoreSearchProperty(LAST_UPDATE_TIME_PROPERTY);
+return this;
+}
+	public AccountSet addLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastUpdateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastUpdateTime(DateTime lastUpdateTime){
 		setLastUpdateTime(lastUpdateTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public AccountSet updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public AccountSet updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public AccountSet orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public AccountSet ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public AccountSet addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<AccountingSubject> getAccountingSubjectList(){
@@ -611,9 +906,18 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 			this.mAccountingSubjectList.setListInternalName (ACCOUNTING_SUBJECT_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mAccountingSubjectList;	
+
+		return this.mAccountingSubjectList;
 	}
+
+  public  SmartList<AccountingSubject> accountingSubjectList(){
+    
+    doLoadChild(ACCOUNTING_SUBJECT_LIST);
+    
+    return getAccountingSubjectList();
+  }
+
+
 	public  void setAccountingSubjectList(SmartList<AccountingSubject> accountingSubjectList){
 		for( AccountingSubject accountingSubject:accountingSubjectList){
 			accountingSubject.setAccountSet(this);
@@ -621,18 +925,20 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
 		this.mAccountingSubjectList = accountingSubjectList;
 		this.mAccountingSubjectList.setListInternalName (ACCOUNTING_SUBJECT_LIST );
-		
+
 	}
-	
-	public  void addAccountingSubject(AccountingSubject accountingSubject){
+
+	public  AccountSet addAccountingSubject(AccountingSubject accountingSubject){
 		accountingSubject.setAccountSet(this);
 		getAccountingSubjectList().add(accountingSubject);
+		return this;
 	}
-	public  void addAccountingSubjectList(SmartList<AccountingSubject> accountingSubjectList){
+	public  AccountSet addAccountingSubjectList(SmartList<AccountingSubject> accountingSubjectList){
 		for( AccountingSubject accountingSubject:accountingSubjectList){
 			accountingSubject.setAccountSet(this);
 		}
 		getAccountingSubjectList().addAll(accountingSubjectList);
+		return this;
 	}
 	public  void mergeAccountingSubjectList(SmartList<AccountingSubject> accountingSubjectList){
 		if(accountingSubjectList==null){
@@ -642,45 +948,45 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addAccountingSubjectList( accountingSubjectList );
-		
+
 	}
 	public  AccountingSubject removeAccountingSubject(AccountingSubject accountingSubjectIndex){
-		
+
 		int index = getAccountingSubjectList().indexOf(accountingSubjectIndex);
         if(index < 0){
         	String message = "AccountingSubject("+accountingSubjectIndex.getId()+") with version='"+accountingSubjectIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        AccountingSubject accountingSubject = getAccountingSubjectList().get(index);        
+        AccountingSubject accountingSubject = getAccountingSubjectList().get(index);
         // accountingSubject.clearAccountSet(); //disconnect with AccountSet
         accountingSubject.clearFromAll(); //disconnect with AccountSet
-		
+
 		boolean result = getAccountingSubjectList().planToRemove(accountingSubject);
         if(!result){
         	String message = "AccountingSubject("+accountingSubjectIndex.getId()+") with version='"+accountingSubjectIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return accountingSubject;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithAccountingSubject(AccountingSubject accountingSubject){
-		
+
 		if(accountingSubject == null){
 			return;
 		}
 		accountingSubject.setAccountSet(null);
 		//getAccountingSubjectList().remove();
-	
+
 	}
-	
+
 	public  boolean hasAccountingSubject(AccountingSubject accountingSubject){
-	
+
 		return getAccountingSubjectList().contains(accountingSubject);
-  
+
 	}
-	
+
 	public void copyAccountingSubjectFrom(AccountingSubject accountingSubject) {
 
 		AccountingSubject accountingSubjectInList = findTheAccountingSubject(accountingSubject);
@@ -690,26 +996,26 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		getAccountingSubjectList().add(newAccountingSubject);
 		addItemToFlexiableObject(COPIED_CHILD, newAccountingSubject);
 	}
-	
+
 	public  AccountingSubject findTheAccountingSubject(AccountingSubject accountingSubject){
-		
+
 		int index =  getAccountingSubjectList().indexOf(accountingSubject);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "AccountingSubject("+accountingSubject.getId()+") with version='"+accountingSubject.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getAccountingSubjectList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpAccountingSubjectList(){
 		getAccountingSubjectList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<AccountingPeriod> getAccountingPeriodList(){
@@ -718,9 +1024,18 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 			this.mAccountingPeriodList.setListInternalName (ACCOUNTING_PERIOD_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mAccountingPeriodList;	
+
+		return this.mAccountingPeriodList;
 	}
+
+  public  SmartList<AccountingPeriod> accountingPeriodList(){
+    
+    doLoadChild(ACCOUNTING_PERIOD_LIST);
+    
+    return getAccountingPeriodList();
+  }
+
+
 	public  void setAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList){
 		for( AccountingPeriod accountingPeriod:accountingPeriodList){
 			accountingPeriod.setAccountSet(this);
@@ -728,18 +1043,20 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
 		this.mAccountingPeriodList = accountingPeriodList;
 		this.mAccountingPeriodList.setListInternalName (ACCOUNTING_PERIOD_LIST );
-		
+
 	}
-	
-	public  void addAccountingPeriod(AccountingPeriod accountingPeriod){
+
+	public  AccountSet addAccountingPeriod(AccountingPeriod accountingPeriod){
 		accountingPeriod.setAccountSet(this);
 		getAccountingPeriodList().add(accountingPeriod);
+		return this;
 	}
-	public  void addAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList){
+	public  AccountSet addAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList){
 		for( AccountingPeriod accountingPeriod:accountingPeriodList){
 			accountingPeriod.setAccountSet(this);
 		}
 		getAccountingPeriodList().addAll(accountingPeriodList);
+		return this;
 	}
 	public  void mergeAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList){
 		if(accountingPeriodList==null){
@@ -749,45 +1066,45 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addAccountingPeriodList( accountingPeriodList );
-		
+
 	}
 	public  AccountingPeriod removeAccountingPeriod(AccountingPeriod accountingPeriodIndex){
-		
+
 		int index = getAccountingPeriodList().indexOf(accountingPeriodIndex);
         if(index < 0){
         	String message = "AccountingPeriod("+accountingPeriodIndex.getId()+") with version='"+accountingPeriodIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        AccountingPeriod accountingPeriod = getAccountingPeriodList().get(index);        
+        AccountingPeriod accountingPeriod = getAccountingPeriodList().get(index);
         // accountingPeriod.clearAccountSet(); //disconnect with AccountSet
         accountingPeriod.clearFromAll(); //disconnect with AccountSet
-		
+
 		boolean result = getAccountingPeriodList().planToRemove(accountingPeriod);
         if(!result){
         	String message = "AccountingPeriod("+accountingPeriodIndex.getId()+") with version='"+accountingPeriodIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return accountingPeriod;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithAccountingPeriod(AccountingPeriod accountingPeriod){
-		
+
 		if(accountingPeriod == null){
 			return;
 		}
 		accountingPeriod.setAccountSet(null);
 		//getAccountingPeriodList().remove();
-	
+
 	}
-	
+
 	public  boolean hasAccountingPeriod(AccountingPeriod accountingPeriod){
-	
+
 		return getAccountingPeriodList().contains(accountingPeriod);
-  
+
 	}
-	
+
 	public void copyAccountingPeriodFrom(AccountingPeriod accountingPeriod) {
 
 		AccountingPeriod accountingPeriodInList = findTheAccountingPeriod(accountingPeriod);
@@ -797,26 +1114,26 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		getAccountingPeriodList().add(newAccountingPeriod);
 		addItemToFlexiableObject(COPIED_CHILD, newAccountingPeriod);
 	}
-	
+
 	public  AccountingPeriod findTheAccountingPeriod(AccountingPeriod accountingPeriod){
-		
+
 		int index =  getAccountingPeriodList().indexOf(accountingPeriod);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "AccountingPeriod("+accountingPeriod.getId()+") with version='"+accountingPeriod.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getAccountingPeriodList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpAccountingPeriodList(){
 		getAccountingPeriodList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<AccountingDocumentType> getAccountingDocumentTypeList(){
@@ -825,9 +1142,18 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 			this.mAccountingDocumentTypeList.setListInternalName (ACCOUNTING_DOCUMENT_TYPE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mAccountingDocumentTypeList;	
+
+		return this.mAccountingDocumentTypeList;
 	}
+
+  public  SmartList<AccountingDocumentType> accountingDocumentTypeList(){
+    
+    doLoadChild(ACCOUNTING_DOCUMENT_TYPE_LIST);
+    
+    return getAccountingDocumentTypeList();
+  }
+
+
 	public  void setAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList){
 		for( AccountingDocumentType accountingDocumentType:accountingDocumentTypeList){
 			accountingDocumentType.setAccountingPeriod(this);
@@ -835,18 +1161,20 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
 		this.mAccountingDocumentTypeList = accountingDocumentTypeList;
 		this.mAccountingDocumentTypeList.setListInternalName (ACCOUNTING_DOCUMENT_TYPE_LIST );
-		
+
 	}
-	
-	public  void addAccountingDocumentType(AccountingDocumentType accountingDocumentType){
+
+	public  AccountSet addAccountingDocumentType(AccountingDocumentType accountingDocumentType){
 		accountingDocumentType.setAccountingPeriod(this);
 		getAccountingDocumentTypeList().add(accountingDocumentType);
+		return this;
 	}
-	public  void addAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList){
+	public  AccountSet addAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList){
 		for( AccountingDocumentType accountingDocumentType:accountingDocumentTypeList){
 			accountingDocumentType.setAccountingPeriod(this);
 		}
 		getAccountingDocumentTypeList().addAll(accountingDocumentTypeList);
+		return this;
 	}
 	public  void mergeAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList){
 		if(accountingDocumentTypeList==null){
@@ -856,45 +1184,45 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addAccountingDocumentTypeList( accountingDocumentTypeList );
-		
+
 	}
 	public  AccountingDocumentType removeAccountingDocumentType(AccountingDocumentType accountingDocumentTypeIndex){
-		
+
 		int index = getAccountingDocumentTypeList().indexOf(accountingDocumentTypeIndex);
         if(index < 0){
         	String message = "AccountingDocumentType("+accountingDocumentTypeIndex.getId()+") with version='"+accountingDocumentTypeIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        AccountingDocumentType accountingDocumentType = getAccountingDocumentTypeList().get(index);        
+        AccountingDocumentType accountingDocumentType = getAccountingDocumentTypeList().get(index);
         // accountingDocumentType.clearAccountingPeriod(); //disconnect with AccountingPeriod
         accountingDocumentType.clearFromAll(); //disconnect with AccountingPeriod
-		
+
 		boolean result = getAccountingDocumentTypeList().planToRemove(accountingDocumentType);
         if(!result){
         	String message = "AccountingDocumentType("+accountingDocumentTypeIndex.getId()+") with version='"+accountingDocumentTypeIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return accountingDocumentType;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithAccountingDocumentType(AccountingDocumentType accountingDocumentType){
-		
+
 		if(accountingDocumentType == null){
 			return;
 		}
 		accountingDocumentType.setAccountingPeriod(null);
 		//getAccountingDocumentTypeList().remove();
-	
+
 	}
-	
+
 	public  boolean hasAccountingDocumentType(AccountingDocumentType accountingDocumentType){
-	
+
 		return getAccountingDocumentTypeList().contains(accountingDocumentType);
-  
+
 	}
-	
+
 	public void copyAccountingDocumentTypeFrom(AccountingDocumentType accountingDocumentType) {
 
 		AccountingDocumentType accountingDocumentTypeInList = findTheAccountingDocumentType(accountingDocumentType);
@@ -904,26 +1232,26 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		getAccountingDocumentTypeList().add(newAccountingDocumentType);
 		addItemToFlexiableObject(COPIED_CHILD, newAccountingDocumentType);
 	}
-	
+
 	public  AccountingDocumentType findTheAccountingDocumentType(AccountingDocumentType accountingDocumentType){
-		
+
 		int index =  getAccountingDocumentTypeList().indexOf(accountingDocumentType);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "AccountingDocumentType("+accountingDocumentType.getId()+") with version='"+accountingDocumentType.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getAccountingDocumentTypeList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpAccountingDocumentTypeList(){
 		getAccountingDocumentTypeList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
@@ -932,11 +1260,11 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		addToEntityList(this, entityList, getRetailStore(), internalType);
 		addToEntityList(this, entityList, getGoodsSupplier(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getAccountingSubjectList(), internalType);
 		collectFromList(this, entityList, getAccountingPeriodList(), internalType);
@@ -944,19 +1272,19 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getAccountingSubjectList());
 		listOfList.add( getAccountingPeriodList());
 		listOfList.add( getAccountingDocumentTypeList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -995,16 +1323,16 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof AccountSet){
-		
-		
+
+
 			AccountSet dest =(AccountSet)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setYearSet(getYearSet());
@@ -1028,13 +1356,13 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof AccountSet){
-		
-			
+
+
 			AccountSet dest =(AccountSet)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeYearSet(getYearSet());
@@ -1057,15 +1385,15 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof AccountSet){
-		
-			
+
+
 			AccountSet dest =(AccountSet)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeYearSet(getYearSet());
@@ -1084,6 +1412,61 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getYearSet(), getEffectiveDate(), getAccountingSystem(), getDomesticCurrencyCode(), getDomesticCurrencyName(), getOpeningBank(), getAccountNumber(), getCountryCenter(), getRetailStore(), getGoodsSupplier(), getLastUpdateTime(), getVersion()};
 	}
+
+
+	public static AccountSet createWith(RetailscmUserContext userContext, ThrowingFunction<AccountSet,AccountSet,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<AccountSet> customCreator = mapper.findCustomCreator(AccountSet.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    AccountSet result = new AccountSet();
+    result.setName(mapper.tryToGet(AccountSet.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setYearSet(mapper.tryToGet(AccountSet.class, YEAR_SET_PROPERTY, String.class,
+        1, false, result.getYearSet(), params));
+    result.setEffectiveDate(mapper.tryToGet(AccountSet.class, EFFECTIVE_DATE_PROPERTY, Date.class,
+        0, true, result.getEffectiveDate(), params));
+    result.setAccountingSystem(mapper.tryToGet(AccountSet.class, ACCOUNTING_SYSTEM_PROPERTY, String.class,
+        2, false, result.getAccountingSystem(), params));
+    result.setDomesticCurrencyCode(mapper.tryToGet(AccountSet.class, DOMESTIC_CURRENCY_CODE_PROPERTY, String.class,
+        3, false, result.getDomesticCurrencyCode(), params));
+    result.setDomesticCurrencyName(mapper.tryToGet(AccountSet.class, DOMESTIC_CURRENCY_NAME_PROPERTY, String.class,
+        4, false, result.getDomesticCurrencyName(), params));
+    result.setOpeningBank(mapper.tryToGet(AccountSet.class, OPENING_BANK_PROPERTY, String.class,
+        5, false, result.getOpeningBank(), params));
+    result.setAccountNumber(mapper.tryToGet(AccountSet.class, ACCOUNT_NUMBER_PROPERTY, String.class,
+        6, false, result.getAccountNumber(), params));
+    result.setCountryCenter(mapper.tryToGet(AccountSet.class, COUNTRY_CENTER_PROPERTY, RetailStoreCountryCenter.class,
+        0, true, result.getCountryCenter(), params));
+    result.setRetailStore(mapper.tryToGet(AccountSet.class, RETAIL_STORE_PROPERTY, RetailStore.class,
+        0, true, result.getRetailStore(), params));
+    result.setGoodsSupplier(mapper.tryToGet(AccountSet.class, GOODS_SUPPLIER_PROPERTY, GoodsSupplier.class,
+        0, true, result.getGoodsSupplier(), params));
+     result.setLastUpdateTime(userContext.now());
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixAccountSet(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      AccountSetTokens tokens = mapper.findParamByClass(params, AccountSetTokens.class);
+      if (tokens == null) {
+        tokens = AccountSetTokens.start();
+      }
+      result = userContext.getManagerGroup().getAccountSetManager().internalSaveAccountSet(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -1112,7 +1495,7 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

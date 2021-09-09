@@ -247,7 +247,7 @@ import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity
 
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityManager;
 
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityManager;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityManager;
 
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeManager;
 
@@ -504,7 +504,7 @@ public class ManagerGroup {
 
 	protected WechatMiniappIdentityManager wechatMiniappIdentityManager;
 
-	protected KeypairIdentityManager keypairIdentityManager;
+	protected KeyPairIdentityManager keyPairIdentityManager;
 
 	protected PublicKeyTypeManager publicKeyTypeManager;
 
@@ -1496,11 +1496,11 @@ public class ManagerGroup {
 	}
 
 
-	public KeypairIdentityManager getKeypairIdentityManager(){
-		return this.keypairIdentityManager;
+	public KeyPairIdentityManager getKeyPairIdentityManager(){
+		return this.keyPairIdentityManager;
 	}
-	public void setKeypairIdentityManager(KeypairIdentityManager manager){
-		this.keypairIdentityManager = manager;
+	public void setKeyPairIdentityManager(KeyPairIdentityManager manager){
+		this.keyPairIdentityManager = manager;
 	}
 
 
@@ -1778,7 +1778,7 @@ public class ManagerGroup {
     
     this.wechatMiniappIdentityManager.sendAllItems(ctx);
     
-    this.keypairIdentityManager.sendAllItems(ctx);
+    this.keyPairIdentityManager.sendAllItems(ctx);
     
     this.publicKeyTypeManager.sendAllItems(ctx);
     

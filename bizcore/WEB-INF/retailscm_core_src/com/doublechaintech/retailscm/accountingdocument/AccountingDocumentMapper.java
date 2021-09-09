@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.accountingdocument;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,26 +10,29 @@ import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTy
 import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
 
 public class AccountingDocumentMapper extends BaseRowMapper<AccountingDocument>{
-	
+
 	protected AccountingDocument internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		AccountingDocument accountingDocument = getAccountingDocument();		
-		 		
- 		setId(accountingDocument, rs, rowNumber); 		
- 		setName(accountingDocument, rs, rowNumber); 		
- 		setAccountingDocumentDate(accountingDocument, rs, rowNumber); 		
- 		setAccountingPeriod(accountingDocument, rs, rowNumber); 		
- 		setDocumentType(accountingDocument, rs, rowNumber); 		
+		AccountingDocument accountingDocument = getAccountingDocument();
+		
+ 		setId(accountingDocument, rs, rowNumber);
+ 		setName(accountingDocument, rs, rowNumber);
+ 		setAccountingDocumentDate(accountingDocument, rs, rowNumber);
+ 		setAccountingPeriod(accountingDocument, rs, rowNumber);
+ 		setDocumentType(accountingDocument, rs, rowNumber);
  		setVersion(accountingDocument, rs, rowNumber);
 
+    
 		return accountingDocument;
 	}
-	
+
 	protected AccountingDocument getAccountingDocument(){
-		return new AccountingDocument();
-	}		
+	  AccountingDocument entity = new AccountingDocument();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(AccountingDocument accountingDocument, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(AccountingDocumentTable.COLUMN_ID);
@@ -39,10 +43,13 @@ public class AccountingDocumentMapper extends BaseRowMapper<AccountingDocument>{
 		}
 		
 		accountingDocument.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(AccountingDocument accountingDocument, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(AccountingDocumentTable.COLUMN_NAME);
@@ -53,10 +60,13 @@ public class AccountingDocumentMapper extends BaseRowMapper<AccountingDocument>{
 		}
 		
 		accountingDocument.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAccountingDocumentDate(AccountingDocument accountingDocument, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date accountingDocumentDate = rs.getDate(AccountingDocumentTable.COLUMN_ACCOUNTING_DOCUMENT_DATE);
@@ -67,10 +77,18 @@ public class AccountingDocumentMapper extends BaseRowMapper<AccountingDocument>{
 		}
 		
 		accountingDocument.setAccountingDocumentDate(accountingDocumentDate);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setAccountingPeriod(AccountingDocument accountingDocument, ResultSet rs, int rowNumber) throws SQLException{
- 		String accountingPeriodId = rs.getString(AccountingDocumentTable.COLUMN_ACCOUNTING_PERIOD);
+ 		String accountingPeriodId;
+ 		try{
+ 		  accountingPeriodId = rs.getString(AccountingDocumentTable.COLUMN_ACCOUNTING_PERIOD);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( accountingPeriodId == null){
  			return;
  		}
@@ -81,14 +99,19 @@ public class AccountingDocumentMapper extends BaseRowMapper<AccountingDocument>{
  		if( accountingPeriod != null ){
  			//if the root object 'accountingDocument' already have the property, just set the id for it;
  			accountingPeriod.setId(accountingPeriodId);
- 			
+
  			return;
  		}
  		accountingDocument.setAccountingPeriod(createEmptyAccountingPeriod(accountingPeriodId));
  	}
- 	 		
+ 	
  	protected void setDocumentType(AccountingDocument accountingDocument, ResultSet rs, int rowNumber) throws SQLException{
- 		String accountingDocumentTypeId = rs.getString(AccountingDocumentTable.COLUMN_DOCUMENT_TYPE);
+ 		String accountingDocumentTypeId;
+ 		try{
+ 		  accountingDocumentTypeId = rs.getString(AccountingDocumentTable.COLUMN_DOCUMENT_TYPE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( accountingDocumentTypeId == null){
  			return;
  		}
@@ -99,14 +122,14 @@ public class AccountingDocumentMapper extends BaseRowMapper<AccountingDocument>{
  		if( accountingDocumentType != null ){
  			//if the root object 'accountingDocument' already have the property, just set the id for it;
  			accountingDocumentType.setId(accountingDocumentTypeId);
- 			
+
  			return;
  		}
  		accountingDocument.setDocumentType(createEmptyDocumentType(accountingDocumentTypeId));
  	}
  	
 	protected void setVersion(AccountingDocument accountingDocument, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(AccountingDocumentTable.COLUMN_VERSION);
@@ -117,9 +140,12 @@ public class AccountingDocumentMapper extends BaseRowMapper<AccountingDocument>{
 		}
 		
 		accountingDocument.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected AccountingPeriod  createEmptyAccountingPeriod(String accountingPeriodId){
  		AccountingPeriod accountingPeriod = new AccountingPeriod();

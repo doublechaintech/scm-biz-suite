@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.employeeaward;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.employee.Employee;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.employee.Employee;
 @JsonSerialize(using = EmployeeAwardSerializer.class)
 public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String EMPLOYEE_PROPERTY              = "employee"          ;
 	public static final String COMPLETE_TIME_PROPERTY         = "completeTime"      ;
@@ -45,32 +42,87 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(EMPLOYEE_PROPERTY, "employee", "员工")
+        .withType("employee", Employee.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COMPLETE_TIME_PROPERTY, "complete_time", "完成时间")
+        .withType("date", Date.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TYPE_PROPERTY, "type", "类型")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(REMARK_PROPERTY, "remark", "备注")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,EMPLOYEE_PROPERTY ,COMPLETE_TIME_PROPERTY ,TYPE_PROPERTY ,REMARK_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(EMPLOYEE_PROPERTY, Employee.class);
+
+    return parents;
+  }
+
+  public EmployeeAward want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public EmployeeAward wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getType();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		Employee            	mEmployee           ;
-	protected		Date                	mCompleteTime       ;
-	protected		String              	mType               ;
-	protected		String              	mRemark             ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		Employee            	employee            ;
+	protected		Date                	completeTime        ;
+	protected		String              	type                ;
+	protected		String              	remark              ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	EmployeeAward(){
 		// lazy load for all the properties
 	}
@@ -78,20 +130,39 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 		EmployeeAward employeeAward = new EmployeeAward();
 		employeeAward.setId(id);
 		employeeAward.setVersion(Integer.MAX_VALUE);
+		employeeAward.setChecked(true);
 		return employeeAward;
 	}
 	public 	static EmployeeAward refById(String id){
 		return withId(id);
 	}
-	
+
+  public EmployeeAward limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public EmployeeAward limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static EmployeeAward searchExample(){
+    EmployeeAward employeeAward = new EmployeeAward();
+    		employeeAward.setVersion(UNSET_INT);
+
+    return employeeAward;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setEmployee( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -162,7 +233,7 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(EMPLOYEE_PROPERTY.equals(property)){
 			return getEmployee();
 		}
@@ -179,138 +250,217 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public EmployeeAward updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAward updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public EmployeeAward orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public EmployeeAward ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public EmployeeAward addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setEmployee(Employee employee){
-		this.mEmployee = employee;;
-	}
+	public void setEmployee(Employee employee){Employee oldEmployee = this.employee;Employee newEmployee = employee;this.employee = newEmployee;}
+	public Employee employee(){
+doLoad();
+return getEmployee();
+}
 	public Employee getEmployee(){
-		return this.mEmployee;
+		return this.employee;
 	}
-	public EmployeeAward updateEmployee(Employee employee){
-		this.mEmployee = employee;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAward updateEmployee(Employee employee){Employee oldEmployee = this.employee;Employee newEmployee = employee;if(!shouldReplaceBy(newEmployee, oldEmployee)){return this;}this.employee = newEmployee;addPropertyChange(EMPLOYEE_PROPERTY, oldEmployee, newEmployee);this.changed = true;setChecked(false);return this;}
+	public EmployeeAward orderByEmployee(boolean asc){
+doAddOrderBy(EMPLOYEE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createEmployeeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(EMPLOYEE_PROPERTY, operator, parameters);
+}
+	public EmployeeAward ignoreEmployeeCriteria(){super.ignoreSearchProperty(EMPLOYEE_PROPERTY);
+return this;
+}
+	public EmployeeAward addEmployeeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createEmployeeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeEmployee(Employee employee){
 		if(employee != null) { setEmployee(employee);}
 	}
-	
+
 	
 	public void clearEmployee(){
 		setEmployee ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setCompleteTime(Date completeTime){
-		this.mCompleteTime = completeTime;;
-	}
+	public void setCompleteTime(Date completeTime){Date oldCompleteTime = this.completeTime;Date newCompleteTime = completeTime;this.completeTime = newCompleteTime;}
+	public Date completeTime(){
+doLoad();
+return getCompleteTime();
+}
 	public Date getCompleteTime(){
-		return this.mCompleteTime;
+		return this.completeTime;
 	}
-	public EmployeeAward updateCompleteTime(Date completeTime){
-		this.mCompleteTime = completeTime;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAward updateCompleteTime(Date completeTime){Date oldCompleteTime = this.completeTime;Date newCompleteTime = completeTime;if(!shouldReplaceBy(newCompleteTime, oldCompleteTime)){return this;}this.completeTime = newCompleteTime;addPropertyChange(COMPLETE_TIME_PROPERTY, oldCompleteTime, newCompleteTime);this.changed = true;setChecked(false);return this;}
+	public EmployeeAward orderByCompleteTime(boolean asc){
+doAddOrderBy(COMPLETE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCompleteTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COMPLETE_TIME_PROPERTY, operator, parameters);
+}
+	public EmployeeAward ignoreCompleteTimeCriteria(){super.ignoreSearchProperty(COMPLETE_TIME_PROPERTY);
+return this;
+}
+	public EmployeeAward addCompleteTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCompleteTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCompleteTime(Date completeTime){
 		setCompleteTime(completeTime);
 	}
+
 	
-	
-	public void setType(String type){
-		this.mType = trimString(type);;
-	}
+	public void setType(String type){String oldType = this.type;String newType = trimString(type);this.type = newType;}
+	public String type(){
+doLoad();
+return getType();
+}
 	public String getType(){
-		return this.mType;
+		return this.type;
 	}
-	public EmployeeAward updateType(String type){
-		this.mType = trimString(type);;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAward updateType(String type){String oldType = this.type;String newType = trimString(type);if(!shouldReplaceBy(newType, oldType)){return this;}this.type = newType;addPropertyChange(TYPE_PROPERTY, oldType, newType);this.changed = true;setChecked(false);return this;}
+	public EmployeeAward orderByType(boolean asc){
+doAddOrderBy(TYPE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createTypeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(TYPE_PROPERTY, operator, parameters);
+}
+	public EmployeeAward ignoreTypeCriteria(){super.ignoreSearchProperty(TYPE_PROPERTY);
+return this;
+}
+	public EmployeeAward addTypeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createTypeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeType(String type){
 		if(type != null) { setType(type);}
 	}
+
 	
-	
-	public void setRemark(String remark){
-		this.mRemark = trimString(remark);;
-	}
+	public void setRemark(String remark){String oldRemark = this.remark;String newRemark = trimString(remark);this.remark = newRemark;}
+	public String remark(){
+doLoad();
+return getRemark();
+}
 	public String getRemark(){
-		return this.mRemark;
+		return this.remark;
 	}
-	public EmployeeAward updateRemark(String remark){
-		this.mRemark = trimString(remark);;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAward updateRemark(String remark){String oldRemark = this.remark;String newRemark = trimString(remark);if(!shouldReplaceBy(newRemark, oldRemark)){return this;}this.remark = newRemark;addPropertyChange(REMARK_PROPERTY, oldRemark, newRemark);this.changed = true;setChecked(false);return this;}
+	public EmployeeAward orderByRemark(boolean asc){
+doAddOrderBy(REMARK_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createRemarkCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(REMARK_PROPERTY, operator, parameters);
+}
+	public EmployeeAward ignoreRemarkCriteria(){super.ignoreSearchProperty(REMARK_PROPERTY);
+return this;
+}
+	public EmployeeAward addRemarkCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createRemarkCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeRemark(String remark){
 		if(remark != null) { setRemark(remark);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public EmployeeAward updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAward updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public EmployeeAward orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public EmployeeAward ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public EmployeeAward addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getEmployee(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -326,16 +476,16 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof EmployeeAward){
-		
-		
+
+
 			EmployeeAward dest =(EmployeeAward)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setEmployee(getEmployee());
 			dest.setCompleteTime(getCompleteTime());
@@ -348,13 +498,13 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof EmployeeAward){
-		
-			
+
+
 			EmployeeAward dest =(EmployeeAward)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeEmployee(getEmployee());
 			dest.mergeCompleteTime(getCompleteTime());
@@ -366,15 +516,15 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof EmployeeAward){
-		
-			
+
+
 			EmployeeAward dest =(EmployeeAward)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCompleteTime(getCompleteTime());
 			dest.mergeType(getType());
@@ -387,6 +537,46 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getEmployee(), getCompleteTime(), getType(), getRemark(), getVersion()};
 	}
+
+
+	public static EmployeeAward createWith(RetailscmUserContext userContext, ThrowingFunction<EmployeeAward,EmployeeAward,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<EmployeeAward> customCreator = mapper.findCustomCreator(EmployeeAward.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    EmployeeAward result = new EmployeeAward();
+    result.setEmployee(mapper.tryToGet(EmployeeAward.class, EMPLOYEE_PROPERTY, Employee.class,
+        0, true, result.getEmployee(), params));
+    result.setCompleteTime(mapper.tryToGet(EmployeeAward.class, COMPLETE_TIME_PROPERTY, Date.class,
+        0, true, result.getCompleteTime(), params));
+    result.setType(mapper.tryToGet(EmployeeAward.class, TYPE_PROPERTY, String.class,
+        0, false, result.getType(), params));
+    result.setRemark(mapper.tryToGet(EmployeeAward.class, REMARK_PROPERTY, String.class,
+        1, false, result.getRemark(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixEmployeeAward(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      EmployeeAwardTokens tokens = mapper.findParamByClass(params, EmployeeAwardTokens.class);
+      if (tokens == null) {
+        tokens = EmployeeAwardTokens.start();
+      }
+      result = userContext.getManagerGroup().getEmployeeAwardManager().internalSaveEmployeeAward(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -403,7 +593,7 @@ public class EmployeeAward extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

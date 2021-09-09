@@ -1,40 +1,27 @@
 
 package com.doublechaintech.retailscm.wechatworkappidentity;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.secuser.CandidateSecUser;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.secuser.SecUser;
-
-import com.doublechaintech.retailscm.secuser.CandidateSecUser;
-
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerManager implements WechatWorkappIdentityManager, BusinessHandler{
@@ -60,6 +47,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws WechatWorkappIdentityManagerException{
 
 		Message message = new Message();
@@ -70,132 +58,186 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 
 
 
- 	protected WechatWorkappIdentity saveWechatWorkappIdentity(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity, String [] tokensExpr) throws Exception{	
+ 	protected WechatWorkappIdentity saveWechatWorkappIdentity(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity, String [] tokensExpr) throws Exception{
  		//return getWechatWorkappIdentityDAO().save(wechatWorkappIdentity, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveWechatWorkappIdentity(userContext, wechatWorkappIdentity, tokens);
  	}
- 	
- 	protected WechatWorkappIdentity saveWechatWorkappIdentityDetail(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity) throws Exception{	
 
- 		
+ 	protected WechatWorkappIdentity saveWechatWorkappIdentityDetail(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity) throws Exception{
+
+
  		return saveWechatWorkappIdentity(userContext, wechatWorkappIdentity, allTokens());
  	}
- 	
- 	public WechatWorkappIdentity loadWechatWorkappIdentity(RetailscmUserContext userContext, String wechatWorkappIdentityId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public WechatWorkappIdentity loadWechatWorkappIdentity(RetailscmUserContext userContext, String wechatWorkappIdentityId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( WechatWorkappIdentityManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity( userContext, wechatWorkappIdentityId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,wechatWorkappIdentity, tokens);
  	}
- 	
- 	
- 	 public WechatWorkappIdentity searchWechatWorkappIdentity(RetailscmUserContext userContext, String wechatWorkappIdentityId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public WechatWorkappIdentity searchWechatWorkappIdentity(RetailscmUserContext userContext, String wechatWorkappIdentityId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( WechatWorkappIdentityManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity( userContext, wechatWorkappIdentityId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,wechatWorkappIdentity, tokens);
  	}
- 	
- 	
+
+
 
  	protected WechatWorkappIdentity present(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,wechatWorkappIdentity,tokens);
-		
-		
+    
+
 		WechatWorkappIdentity  wechatWorkappIdentityToPresent = wechatWorkappIdentityDaoOf(userContext).present(wechatWorkappIdentity, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = wechatWorkappIdentityToPresent.collectRefercencesFromLists();
 		wechatWorkappIdentityDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,wechatWorkappIdentity,tokens);
-		
+
 		return  wechatWorkappIdentityToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public WechatWorkappIdentity loadWechatWorkappIdentityDetail(RetailscmUserContext userContext, String wechatWorkappIdentityId) throws Exception{	
+
+
+
+ 	public WechatWorkappIdentity loadWechatWorkappIdentityDetail(RetailscmUserContext userContext, String wechatWorkappIdentityId) throws Exception{
  		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity( userContext, wechatWorkappIdentityId, allTokens());
  		return present(userContext,wechatWorkappIdentity, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String wechatWorkappIdentityId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String wechatWorkappIdentityId) throws Exception{
  		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity( userContext, wechatWorkappIdentityId, viewTokens());
- 		return present(userContext,wechatWorkappIdentity, allTokens());
-		
- 	}
- 	protected WechatWorkappIdentity saveWechatWorkappIdentity(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, wechatWorkappIdentity);
+ 		return present(userContext,wechatWorkappIdentity, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String wechatWorkappIdentityId) throws Exception{
+		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity( userContext, wechatWorkappIdentityId, viewTokens());
+		wechatWorkappIdentity.summarySuffix();
+		markVisited(userContext, wechatWorkappIdentity);
+ 		return present(userContext,wechatWorkappIdentity, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String wechatWorkappIdentityId) throws Exception{
+		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity( userContext, wechatWorkappIdentityId, analyzeTokens());
+		markVisited(userContext, wechatWorkappIdentity);
+		return present(userContext,wechatWorkappIdentity, analyzeTokens());
+
+	}
+ 	protected WechatWorkappIdentity saveWechatWorkappIdentity(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity, Map<String,Object>tokens) throws Exception{
+ 	
  		return wechatWorkappIdentityDaoOf(userContext).save(wechatWorkappIdentity, tokens);
  	}
- 	protected WechatWorkappIdentity loadWechatWorkappIdentity(RetailscmUserContext userContext, String wechatWorkappIdentityId, Map<String,Object>tokens) throws Exception{	
+ 	protected WechatWorkappIdentity loadWechatWorkappIdentity(RetailscmUserContext userContext, String wechatWorkappIdentityId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( WechatWorkappIdentityManagerException.class);
 
- 
+
+
  		return wechatWorkappIdentityDaoOf(userContext).load(wechatWorkappIdentityId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity, Map<String, Object> tokens){
 		super.addActions(userContext, wechatWorkappIdentity, tokens);
-		
+
 		addAction(userContext, wechatWorkappIdentity, tokens,"@create","createWechatWorkappIdentity","createWechatWorkappIdentity/","main","primary");
 		addAction(userContext, wechatWorkappIdentity, tokens,"@update","updateWechatWorkappIdentity","updateWechatWorkappIdentity/"+wechatWorkappIdentity.getId()+"/","main","primary");
 		addAction(userContext, wechatWorkappIdentity, tokens,"@copy","cloneWechatWorkappIdentity","cloneWechatWorkappIdentity/"+wechatWorkappIdentity.getId()+"/","main","primary");
-		
+
 		addAction(userContext, wechatWorkappIdentity, tokens,"wechat_workapp_identity.transfer_to_sec_user","transferToAnotherSecUser","transferToAnotherSecUser/"+wechatWorkappIdentity.getId()+"/","main","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, WechatWorkappIdentity wechatWorkappIdentity, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<WechatWorkappIdentity> searchWechatWorkappIdentityList(RetailscmUserContext ctx, WechatWorkappIdentityRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<WechatWorkappIdentity> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public WechatWorkappIdentity searchWechatWorkappIdentity(RetailscmUserContext ctx, WechatWorkappIdentityRequest pRequest){
+    pRequest.limit(0, 1);
+    List<WechatWorkappIdentity> list = searchWechatWorkappIdentityList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public WechatWorkappIdentity createWechatWorkappIdentity(RetailscmUserContext userContext, String corpId,String userId,String secUserId,DateTime lastLoginTime) throws Exception
-	//public WechatWorkappIdentity createWechatWorkappIdentity(RetailscmUserContext userContext,String corpId, String userId, String secUserId, DateTime lastLoginTime) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkCorpIdOfWechatWorkappIdentity(corpId);
 		checkerOf(userContext).checkUserIdOfWechatWorkappIdentity(userId);
 		checkerOf(userContext).checkLastLoginTimeOfWechatWorkappIdentity(lastLoginTime);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WechatWorkappIdentityManagerException.class);
+
 
 
 		WechatWorkappIdentity wechatWorkappIdentity=createNewWechatWorkappIdentity();	
@@ -227,34 +269,36 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
 		checkerOf(userContext).checkVersionOfWechatWorkappIdentity( wechatWorkappIdentityVersion);
-		
+
 
 		if(WechatWorkappIdentity.CORP_ID_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkCorpIdOfWechatWorkappIdentity(parseString(newValueExpr));
 		
-			
+
 		}
 		if(WechatWorkappIdentity.USER_ID_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkUserIdOfWechatWorkappIdentity(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(WechatWorkappIdentity.LAST_LOGIN_TIME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLastLoginTimeOfWechatWorkappIdentity(parseTimestamp(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(WechatWorkappIdentityManagerException.class);
+
 
 
 	}
@@ -283,6 +327,8 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 			if (wechatWorkappIdentity.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixWechatWorkappIdentity(wechatWorkappIdentity);
 			wechatWorkappIdentity = saveWechatWorkappIdentity(userContext, wechatWorkappIdentity, options);
 			return wechatWorkappIdentity;
 
@@ -349,9 +395,15 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 	protected Map<String,Object> allTokens(){
 		return WechatWorkappIdentityTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.analyzeAllLists().done();
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -363,6 +415,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 
  		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
  		checkerOf(userContext).checkIdOfSecUser(anotherSecUserId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(WechatWorkappIdentityManagerException.class);
 
  	}
@@ -370,16 +423,17 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
  	{
  		checkParamsForTransferingAnotherSecUser(userContext, wechatWorkappIdentityId,anotherSecUserId);
  
-		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity(userContext, wechatWorkappIdentityId, allTokens());	
+		WechatWorkappIdentity wechatWorkappIdentity = loadWechatWorkappIdentity(userContext, wechatWorkappIdentityId, allTokens());
 		synchronized(wechatWorkappIdentity){
 			//will be good when the wechatWorkappIdentity loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			SecUser secUser = loadSecUser(userContext, anotherSecUserId, emptyOptions());		
-			wechatWorkappIdentity.updateSecUser(secUser);		
+			SecUser secUser = loadSecUser(userContext, anotherSecUserId, emptyOptions());
+			wechatWorkappIdentity.updateSecUser(secUser);
+			
 			wechatWorkappIdentity = saveWechatWorkappIdentity(userContext, wechatWorkappIdentity, emptyOptions());
-			
+
 			return present(userContext,wechatWorkappIdentity, allTokens());
-			
+
 		}
 
  	}
@@ -391,6 +445,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 
  		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
  		checkerOf(userContext).checkLoginOfSecUser( anotherLogin);
+
  		checkerOf(userContext).throwExceptionIfHasErrors(WechatWorkappIdentityManagerException.class);
 
  	}
@@ -418,6 +473,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 
  		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
  		checkerOf(userContext).checkEmailOfSecUser( anotherEmail);
+
  		checkerOf(userContext).throwExceptionIfHasErrors(WechatWorkappIdentityManagerException.class);
 
  	}
@@ -445,6 +501,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 
  		checkerOf(userContext).checkIdOfWechatWorkappIdentity(wechatWorkappIdentityId);
  		checkerOf(userContext).checkMobileOfSecUser( anotherMobile);
+
  		checkerOf(userContext).throwExceptionIfHasErrors(WechatWorkappIdentityManagerException.class);
 
  	}
@@ -493,8 +550,9 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 
  	protected SecUser loadSecUser(RetailscmUserContext userContext, String newSecUserId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return secUserDaoOf(userContext).load(newSecUserId, options);
+ 	  
  	}
  	
  	protected SecUser loadSecUserWithLogin(RetailscmUserContext userContext, String newLogin, Map<String,Object> options) throws Exception
@@ -564,9 +622,6 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 
 
 
-
-
-
 	public void onNewInstanceCreated(RetailscmUserContext userContext, WechatWorkappIdentity newCreated) throws Exception{
 		ensureRelationInGraph(userContext, newCreated);
 		sendCreationEvent(userContext, newCreated);
@@ -583,112 +638,13 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -711,28 +667,21 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, WechatWorkappIdentity.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, WechatWorkappIdentity.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -758,7 +707,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 		page.setContainerObject(SecUser.withId(secUserId));
 		page.setRequestBeanName(this.getBeanName());
 		page.setDataList((SmartList)list);
-		page.setPageTitle("微信企业号认证列表");
+		page.setPageTitle("企业微信认证列表");
 		page.setRequestName("listBySecUser");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
@@ -778,11 +727,11 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String wechatWorkappIdentityId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getWechatWorkappIdentityDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		WechatWorkappIdentity merchantObj = (WechatWorkappIdentity) this.view(userContext, wechatWorkappIdentityId);
     String merchantObjId = wechatWorkappIdentityId;
     String linkToUrl =	"wechatWorkappIdentityManager/wxappview/" + merchantObjId + "/";
-    String pageTitle = "微信企业号认证"+"详情";
+    String pageTitle = "企业微信认证"+"详情";
 		Map result = new HashMap();
 		List propList = new ArrayList();
 		List sections = new ArrayList();
@@ -801,7 +750,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 		propList.add(
 				MapUtil.put("id", "2-corpId")
 				    .put("fieldName", "corpId")
-				    .put("label", "公司标识")
+				    .put("label", "公司")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -812,7 +761,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 		propList.add(
 				MapUtil.put("id", "3-userId")
 				    .put("fieldName", "userId")
-				    .put("label", "用户Id")
+				    .put("label", "用户")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -823,7 +772,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 		propList.add(
 				MapUtil.put("id", "4-secUser")
 				    .put("fieldName", "secUser")
-				    .put("label", "安全用户")
+				    .put("label", "系统用户")
 				    .put("type", "auto")
 				    .put("linkToUrl", "secUserManager/wxappview/:id/")
 				    .put("displayMode", "{\"brief\":\"verification_code\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"login\",\"imageList\":\"\"}")
@@ -834,7 +783,7 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 		propList.add(
 				MapUtil.put("id", "5-createTime")
 				    .put("fieldName", "createTime")
-				    .put("label", "创建于")
+				    .put("label", "创建时间")
 				    .put("type", "datetime")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -868,8 +817,19 @@ public class WechatWorkappIdentityManagerImpl extends CustomRetailscmCheckerMana
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

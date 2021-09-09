@@ -125,7 +125,7 @@ import com.doublechaintech.retailscm.candidatecontainer.CandidateContainerTable;
 import com.doublechaintech.retailscm.candidateelement.CandidateElementTable;
 import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityTable;
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityTable;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityTable;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityTable;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeTable;
 import com.doublechaintech.retailscm.treenode.TreeNodeTable;
 
@@ -256,7 +256,7 @@ public class ModelAssurance {
         CandidateElementTable.ensureTable(ctx, result);
         WechatWorkappIdentityTable.ensureTable(ctx, result);
         WechatMiniappIdentityTable.ensureTable(ctx, result);
-        KeypairIdentityTable.ensureTable(ctx, result);
+        KeyPairIdentityTable.ensureTable(ctx, result);
         PublicKeyTypeTable.ensureTable(ctx, result);
         TreeNodeTable.ensureTable(ctx, result);
 
@@ -267,5 +267,57 @@ public class ModelAssurance {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

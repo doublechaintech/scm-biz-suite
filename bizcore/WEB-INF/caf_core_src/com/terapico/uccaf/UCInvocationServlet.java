@@ -20,208 +20,214 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 @WebServlet(urlPatterns = "/*")
-public class UCInvocationServlet extends SimpleInvocationServlet{
+public class UCInvocationServlet extends SimpleInvocationServlet {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+  /** */
+  private static final long serialVersionUID = 1L;
 
-	public ApplicationContext getApplicationContext() {
-		return mApplicationContext;
-	}
+  public ApplicationContext getApplicationContext() {
+    return mApplicationContext;
+  }
 
-	public void setApplicationContext(ApplicationContext pApplicationContext) {
-		mApplicationContext = pApplicationContext;
-	}
+  public void setApplicationContext(ApplicationContext pApplicationContext) {
+    mApplicationContext = pApplicationContext;
+  }
 
-	@Autowired
-	private ApplicationContext mApplicationContext;
+  @Autowired private ApplicationContext mApplicationContext;
 
-	@Override
-	public void init() throws ServletException {
+  @Override
+  public void init() throws ServletException {
 
-		super.init();
-		replaceBeans();
-	}
+    super.init();
+    replaceBeans();
+  }
 
-	@Override
-	public void init(ServletConfig config) throws ServletException {
+  @Override
+  public void init(ServletConfig config) throws ServletException {
 
-		super.init(config);
-		replaceBeans();
-	}
+    super.init(config);
+    replaceBeans();
+  }
 
-	protected boolean isAccessControledService(InvocationContext context){
+  protected boolean isAccessControledService(InvocationContext context) {
 
-		int parameterLength = context.getParameters().length;
-		if(parameterLength == 0){
-			//no context and no parameter
-			return false;
-		}
-		Object firstParamter = context.getParameters()[0];
-		if(!(firstParamter instanceof BaseUserContext)){
-			//first parameter is not based on base user context, will not regard as access controlled service.
+    int parameterLength = context.getParameters().length;
+    if (parameterLength == 0) {
+      // no context and no parameter
+      return false;
+    }
+    Object firstParamter = context.getParameters()[0];
+    if (!(firstParamter instanceof BaseUserContext)) {
+      // first parameter is not based on base user context, will not regard as access controlled
+      // service.
 
-			return false;
-		}
-		if(!(context instanceof UCInvocationContext)){
-			return false;
-		}
-		Object targetObject = context.getTargetObject();
-		if(!(targetObject instanceof AccessControledService)){
-			return false;
-		}
+      return false;
+    }
+    if (!(context instanceof UCInvocationContext)) {
+      return false;
+    }
+    Object targetObject = context.getTargetObject();
+    if (!(targetObject instanceof AccessControledService)) {
+      return false;
+    }
 
+    // UCInvocationContext uInvocationContext = (UCInvocationContext)context;
 
-		//UCInvocationContext uInvocationContext = (UCInvocationContext)context;
+    return true;
+  }
 
+  protected InvocationResult invoke(InvocationContext context) throws ServletException {
 
-		return true;
+    // check the user context before invoke
+    // before any call, check the URL
 
-	}
+    if (!isAccessControledService(context)) {
 
-	protected InvocationResult invoke(InvocationContext context) throws ServletException
-	{
+      return super.invoke(context);
+    }
 
-		//check the user context before invoke
-		//before any call, check the URL
+    Object targetObject = context.getTargetObject();
+    Object[] parameters = context.getParameters();
 
+    AccessControledService targetService = (AccessControledService) targetObject;
+    UCInvocationContext ucInvocationContext = (UCInvocationContext) context;
 
-		if(!isAccessControledService(context)){
+    try {
+      System.out.println("InvocationResult result = super.invoke(context); called");
+      String methodName = ucInvocationContext.getMethodToCall().getName();
+      BaseUserContext baseUserContext = ucInvocationContext.getUserContext();
 
-			return super.invoke(context);
-		}
+      targetService.onAccess(baseUserContext, methodName, parameters);
 
-		Object targetObject = context.getTargetObject();
-		Object []parameters = context.getParameters();
+      Object checkResult = targetService.checkAccess(baseUserContext, methodName, parameters);
+      if (checkResult != null) {
+        // this means check fail;
+        System.out.println("InvocationResult result = super.invoke(context); called" + checkResult);
+        InvocationResult result = new SimpleInvocationResult();
+        result.setActualResult(checkResult);
+        result.setInvocationContext(context);
+        return result;
+      }
 
-		AccessControledService targetService = (AccessControledService)targetObject;
-		UCInvocationContext ucInvocationContext = (UCInvocationContext)context;
+      // null means the request passed the access check
+      InvocationResult result = super.invoke(context);
+      if (result.getActualResult() instanceof Throwable) {
+        targetService.afterInvoke(
+            baseUserContext,
+            methodName,
+            parameters,
+            false,
+            null,
+            (Throwable) result.getActualResult());
+      } else {
+        targetService.afterInvoke(
+            baseUserContext, methodName, parameters, true, result.getActualResult(), null);
+      }
+      logExceptionResult(baseUserContext, result);
 
-		try {
-			System.out.println("InvocationResult result = super.invoke(context); called");
-			String methodName = ucInvocationContext.getMethodToCall().getName();
-			BaseUserContext baseUserContext = ucInvocationContext.getUserContext();
+      targetService.enforceAccess(baseUserContext, result.getActualResult());
 
-			targetService.onAccess(baseUserContext, methodName ,parameters);
+      return result;
 
-			Object checkResult = targetService.checkAccess(baseUserContext, methodName ,parameters);
-			if(checkResult != null){
-				//this means check fail;
-				System.out.println("InvocationResult result = super.invoke(context); called"+checkResult);
-				InvocationResult result=new SimpleInvocationResult();
-				result.setActualResult(checkResult);
-				result.setInvocationContext(context);
-				return result;
-			}
+    } catch (Exception e) {
 
-			//null means the request passed the access check
-			InvocationResult result = super.invoke(context);
-			if (result.getActualResult() instanceof Throwable){
-				targetService.afterInvoke(baseUserContext, methodName, parameters, false, null, (Throwable) result.getActualResult());
-			}else{
-				targetService.afterInvoke(baseUserContext, methodName, parameters, true, result.getActualResult(), null);
-			}
-			logExceptionResult(baseUserContext,result);
+      InvocationResult result = new SimpleInvocationResult();
+      result.setActualResult(e);
+      result.setInvocationContext(context);
+      // InvocationResult result = super.invoke(context);
+      System.out.println(
+          "the call throws the exception not handled by the app layer, framework catches");
+      e.printStackTrace();
 
-			targetService.enforceAccess(baseUserContext, result.getActualResult());
+      return result;
+    }
+  }
 
+  protected Method searchMethod(Class<?> clazz, String name) {
+    for (Method m : clazz.getMethods()) {
+      System.out.println("mmm: " + m.getName());
+      if (name.equals(m.getName())) {
 
+        return m;
+      }
+    }
+    return null;
+  }
 
-			return result;
+  protected InvocationResult logExceptionResult(
+      BaseUserContext baseUserContext, InvocationResult result) {
+    // System.out.println("logExceptionResult called");
+    if (!(result.getActualResult() instanceof Exception)) {
+      return result;
+    }
 
-		} catch (Exception e) {
+    if (!baseUserContext.shouldSendExceptionEmail()) {
+      return result;
+    }
 
-			InvocationResult result=new SimpleInvocationResult();
-			result.setActualResult(e);
-			result.setInvocationContext(context);		
-			//InvocationResult result = super.invoke(context);
-			System.out.println("the call throws the exception not handled by the app layer, framework catches");
-			e.printStackTrace();
+    Exception exception = (Exception) result.getActualResult();
+    try {
+      Class<?> clzz[] = new Class[] {String.class, String.class, String.class};
+      // baseUserContext.getClass().getDeclaredMethod(name, parameterTypes)
+      // public void sendEmail(String to, String subject, String content)
 
-			return result;
-		}
+      // Method sendMailMethod =
+      // searchMethod(baseUserContext.getClass(),"sendMail");//.getMethod("sendMail", String.class,
+      // String.class, String.class);
 
-	}
+      Method sendMailMethod =
+          baseUserContext
+              .getClass()
+              .getMethod("sendEmail", String.class, String.class, String.class);
 
+      sendMailMethod.invoke(
+          baseUserContext,
+          getExceptionMonitorEmail(),
+          baseUserContext.getEnvironmentName() + "异常: " + exception.getMessage(),
+          //					result.getActualResult().getClass().getSimpleName()+" from " +
+          // baseUserContext.getEnvironmentName(),
+          wrapExceptionToString(exception));
+      // 即时发现错误的地方
+    } catch (Exception e) {
+      e.printStackTrace();
+      // System.out.println("Method not found"+e);
+    }
 
-	protected Method searchMethod(Class <?> clazz,String name){
-		for(Method m:clazz.getMethods()){
-			System.out.println("mmm: "+m.getName());
-			if(name.equals(m.getName())){
+    return result;
 
-				return m;
-			}
-		}
-		return null;
-	}
-	protected InvocationResult logExceptionResult(BaseUserContext baseUserContext, InvocationResult result){
-		//System.out.println("logExceptionResult called");
-		if(!(result.getActualResult() instanceof Exception)){
-			return result;
-		}
+    // Class<?> parameterTypes;
+    // Method sendMailMethod = baseUserContext.getClass().getMethod("sendMail", parameterTypes);
 
-		try {
-			Class<?> clzz []=new Class[]{String.class, String.class, String.class};
-			//baseUserContext.getClass().getDeclaredMethod(name, parameterTypes)
-			//public void sendEmail(String to, String subject, String content)
+  }
 
-			//Method sendMailMethod = searchMethod(baseUserContext.getClass(),"sendMail");//.getMethod("sendMail", String.class, String.class, String.class);
+  protected Object getExceptionMonitorEmail() {
+    String envValue = System.getenv("EXCEPTION_MONITOR");
+    if (TextUtil.isBlank(envValue)) {
+      return "opensw0001@gmail.com";
+    }
+    return envValue;
+  }
 
-			Method sendMailMethod = baseUserContext.getClass().getMethod("sendEmail", String.class, String.class, String.class);
+  protected String wrapExceptionToString(Throwable result) {
+    // TODO Auto-generated method stub
+    StringWriter sw = new StringWriter();
+    PrintWriter pw = new PrintWriter(sw);
+    result.printStackTrace(pw);
+    return sw.toString(); // stack trace as a string
+  }
 
+  /*
+   *
+   * public void sendEmail(String to, String subject, String content){
+  	this.ensureSMTPService();
+  	smtpService.send(to, subject, content);
 
-			sendMailMethod.invoke(baseUserContext, getExceptionMonitorEmail(),
-					result.getActualResult().getClass().getSimpleName()+" from " + baseUserContext.getEnvironmentName(),
-					wrapExceptionToString((Throwable)result.getActualResult()));
-			//即时发现错误的地方
-		} catch (Exception e) {
-			e.printStackTrace();
-			//System.out.println("Method not found"+e);
-		}
-
-		return result;
-
-		//Class<?> parameterTypes;
-		//Method sendMailMethod = baseUserContext.getClass().getMethod("sendMail", parameterTypes);
-
-
-	}
-
-	protected Object getExceptionMonitorEmail() {
-		String envValue = System.getenv("EXCEPTION_MONITOR");
-		if (TextUtil.isBlank(envValue)) {
-			return "opensw0001@gmail.com";
-		}
-		return envValue;
-	}
-
-	protected String wrapExceptionToString(Throwable result) {
-		// TODO Auto-generated method stub
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		result.printStackTrace(pw);
-		return sw.toString(); // stack trace as a string
-	}
-
-	/*
-	 *
-	 * public void sendEmail(String to, String subject, String content){
-		this.ensureSMTPService();
-		smtpService.send(to, subject, content);
-
-	}
-	 *
-	 * */
-	public void replaceBeans()
-	{
-		InternalBeanFactory.replaceFormBuilder(new UCFormBuilder());
-		InternalBeanFactory.replaceServletInvocationContextFactory(new UCInvocationContextFactory(mApplicationContext));
-
-	}
-
-
-
-
+  }
+   *
+   * */
+  public void replaceBeans() {
+    InternalBeanFactory.replaceFormBuilder(new UCFormBuilder());
+    InternalBeanFactory.replaceServletInvocationContextFactory(
+        new UCInvocationContextFactory(mApplicationContext));
+  }
 }

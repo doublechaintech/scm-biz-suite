@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employeeleave;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,26 +10,29 @@ import com.doublechaintech.retailscm.employee.Employee;
 import com.doublechaintech.retailscm.leavetype.LeaveType;
 
 public class EmployeeLeaveMapper extends BaseRowMapper<EmployeeLeave>{
-	
+
 	protected EmployeeLeave internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeLeave employeeLeave = getEmployeeLeave();		
-		 		
- 		setId(employeeLeave, rs, rowNumber); 		
- 		setWho(employeeLeave, rs, rowNumber); 		
- 		setType(employeeLeave, rs, rowNumber); 		
- 		setLeaveDurationHour(employeeLeave, rs, rowNumber); 		
- 		setRemark(employeeLeave, rs, rowNumber); 		
+		EmployeeLeave employeeLeave = getEmployeeLeave();
+		
+ 		setId(employeeLeave, rs, rowNumber);
+ 		setWho(employeeLeave, rs, rowNumber);
+ 		setType(employeeLeave, rs, rowNumber);
+ 		setLeaveDurationHour(employeeLeave, rs, rowNumber);
+ 		setRemark(employeeLeave, rs, rowNumber);
  		setVersion(employeeLeave, rs, rowNumber);
 
+    
 		return employeeLeave;
 	}
-	
+
 	protected EmployeeLeave getEmployeeLeave(){
-		return new EmployeeLeave();
-	}		
+	  EmployeeLeave entity = new EmployeeLeave();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(EmployeeLeave employeeLeave, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeLeaveTable.COLUMN_ID);
@@ -39,10 +43,18 @@ public class EmployeeLeaveMapper extends BaseRowMapper<EmployeeLeave>{
 		}
 		
 		employeeLeave.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setWho(EmployeeLeave employeeLeave, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(EmployeeLeaveTable.COLUMN_WHO);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(EmployeeLeaveTable.COLUMN_WHO);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -53,14 +65,19 @@ public class EmployeeLeaveMapper extends BaseRowMapper<EmployeeLeave>{
  		if( employee != null ){
  			//if the root object 'employeeLeave' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		employeeLeave.setWho(createEmptyWho(employeeId));
  	}
- 	 		
+ 	
  	protected void setType(EmployeeLeave employeeLeave, ResultSet rs, int rowNumber) throws SQLException{
- 		String leaveTypeId = rs.getString(EmployeeLeaveTable.COLUMN_TYPE);
+ 		String leaveTypeId;
+ 		try{
+ 		  leaveTypeId = rs.getString(EmployeeLeaveTable.COLUMN_TYPE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( leaveTypeId == null){
  			return;
  		}
@@ -71,14 +88,14 @@ public class EmployeeLeaveMapper extends BaseRowMapper<EmployeeLeave>{
  		if( leaveType != null ){
  			//if the root object 'employeeLeave' already have the property, just set the id for it;
  			leaveType.setId(leaveTypeId);
- 			
+
  			return;
  		}
  		employeeLeave.setType(createEmptyType(leaveTypeId));
  	}
  	
 	protected void setLeaveDurationHour(EmployeeLeave employeeLeave, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer leaveDurationHour = rs.getInt(EmployeeLeaveTable.COLUMN_LEAVE_DURATION_HOUR);
@@ -89,10 +106,13 @@ public class EmployeeLeaveMapper extends BaseRowMapper<EmployeeLeave>{
 		}
 		
 		employeeLeave.setLeaveDurationHour(leaveDurationHour);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setRemark(EmployeeLeave employeeLeave, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String remark = rs.getString(EmployeeLeaveTable.COLUMN_REMARK);
@@ -103,10 +123,13 @@ public class EmployeeLeaveMapper extends BaseRowMapper<EmployeeLeave>{
 		}
 		
 		employeeLeave.setRemark(remark);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(EmployeeLeave employeeLeave, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeLeaveTable.COLUMN_VERSION);
@@ -117,9 +140,12 @@ public class EmployeeLeaveMapper extends BaseRowMapper<EmployeeLeave>{
 		}
 		
 		employeeLeave.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyWho(String employeeId){
  		Employee employee = new Employee();

@@ -44,13 +44,15 @@ public interface ConsumerOrderShippingGroupDAO extends BaseDAO{
 	public void delete(String consumerOrderShippingGroupId, int version) throws Exception;
 	public ConsumerOrderShippingGroup disconnectFromAll(String consumerOrderShippingGroupId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<ConsumerOrderShippingGroup> queryList(String sql, Object ... parmeters);
+	public SmartList<ConsumerOrderShippingGroup> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<ConsumerOrderShippingGroup> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateConsumerOrderShippingGroup executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<ConsumerOrderShippingGroup> findConsumerOrderShippingGroupByBizOrder(String consumerOrderId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface ConsumerOrderShippingGroupDAO extends BaseDAO{
 
 
  
+
+	List<ConsumerOrderShippingGroup> search(ConsumerOrderShippingGroupRequest pRequest);
 }
 
 

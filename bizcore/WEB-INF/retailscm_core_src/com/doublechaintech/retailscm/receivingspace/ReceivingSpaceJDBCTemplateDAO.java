@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.receivingspace;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected WarehouseDAO warehouseDAO;
 	public void setWarehouseDAO(WarehouseDAO warehouseDAO){
- 	
+
  		if(warehouseDAO == null){
  			throw new IllegalStateException("Do not try to set warehouseDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.warehouseDAO == null){
  			throw new IllegalStateException("The warehouseDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.warehouseDAO;
- 	}	
+ 	}
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		newReceivingSpace.setVersion(0);
 		
 		
- 		
+
  		if(isSaveGoodsListEnabled(options)){
  			for(Goods item: newReceivingSpace.getGoodsList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ReceivingSpaceTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractWarehouseEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ReceivingSpaceTokens.WAREHOUSE);
  	}
 
  	protected boolean isSaveWarehouseEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ReceivingSpaceTokens.WAREHOUSE);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
  		return checkOptions(options,ReceivingSpaceTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){
  		return ReceivingSpaceTokens.of(options).analyzeGoodsListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, ReceivingSpaceTokens.GOODS_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		return new ReceivingSpaceMapper();
 	}
 
-	
-	
+
+
 	protected ReceivingSpace extractReceivingSpace(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ReceivingSpace receivingSpace = loadSingleObject(accessKey, getReceivingSpaceMapper());
@@ -268,13 +270,13 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	}
 
-	
-	
+
+
 
 	protected ReceivingSpace loadInternalReceivingSpace(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ReceivingSpace receivingSpace = extractReceivingSpace(accessKey, loadOptions);
- 	
+
  		if(isExtractWarehouseEnabled(loadOptions)){
 	 		extractWarehouse(receivingSpace, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(receivingSpace, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
 	 		analyzeGoodsList(receivingSpace, loadOptions);
@@ -291,12 +293,13 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		
 		
 		return receivingSpace;
-		
+
 	}
 
-	 
+	
 
  	protected ReceivingSpace extractWarehouse(ReceivingSpace receivingSpace, Map<String,Object> options) throws Exception{
+  
 
 		if(receivingSpace.getWarehouse() == null){
 			return receivingSpace;
@@ -309,21 +312,21 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(warehouse != null){
 			receivingSpace.setWarehouse(warehouse);
 		}
-		
- 		
+
+
  		return receivingSpace;
  	}
- 		
+
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected ReceivingSpace extractGoodsList(ReceivingSpace receivingSpace, Map<String,Object> options){
-		
-		
+    
+
 		if(receivingSpace == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return receivingSpace;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = getGoodsDAO().findGoodsByReceivingSpace(receivingSpace.getId(),options);
 		if(goodsList != null){
 			enhanceGoodsList(goodsList,options);
 			receivingSpace.setGoodsList(goodsList);
 		}
-		
+
 		return receivingSpace;
-	
-	}	
-	
+  
+	}
+
 	protected ReceivingSpace analyzeGoodsList(ReceivingSpace receivingSpace, Map<String,Object> options){
-		
-		
+     
 		if(receivingSpace == null){
 			return null;
 		}
@@ -353,47 +355,47 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return receivingSpace;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = receivingSpace.getGoodsList();
 		if(goodsList != null){
 			getGoodsDAO().analyzeGoodsByReceivingSpace(goodsList, receivingSpace.getId(), options);
-			
+
 		}
-		
+
 		return receivingSpace;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<ReceivingSpace> findReceivingSpaceByWarehouse(String warehouseId,Map<String,Object> options){
- 	
+
   		SmartList<ReceivingSpace> resultList = queryWith(ReceivingSpaceTable.COLUMN_WAREHOUSE, warehouseId, options, getReceivingSpaceMapper());
 		// analyzeReceivingSpaceByWarehouse(resultList, warehouseId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ReceivingSpace> findReceivingSpaceByWarehouse(String warehouseId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ReceivingSpace> resultList =  queryWithRange(ReceivingSpaceTable.COLUMN_WAREHOUSE, warehouseId, options, getReceivingSpaceMapper(), start, count);
  		//analyzeReceivingSpaceByWarehouse(resultList, warehouseId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeReceivingSpaceByWarehouse(SmartList<ReceivingSpace> resultList, String warehouseId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(ReceivingSpace.WAREHOUSE_PROPERTY, warehouseId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ReceivingSpace.LAST_UPDATE_TIME_PROPERTY
@@ -401,11 +403,11 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ReceivingSpace.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ReceivingSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countReceivingSpaceByWarehouse(String warehouseId,Map<String,Object> options){
@@ -416,21 +418,24 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	public Map<String, Integer> countReceivingSpaceByWarehouseIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ReceivingSpaceTable.COLUMN_WAREHOUSE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ReceivingSpace saveReceivingSpace(ReceivingSpace  receivingSpace){
+    
+
 		
 		if(!receivingSpace.isChanged()){
 			return receivingSpace;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(receivingSpace);
 		String SQL=this.getSaveReceivingSpaceSQL(receivingSpace);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveReceivingSpaceParameters(receivingSpace);
@@ -441,6 +446,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 
 		receivingSpace.incVersion();
+		receivingSpace.afterSave();
 		return receivingSpace;
 
 	}
@@ -458,6 +464,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		for(ReceivingSpace receivingSpace:receivingSpaceList){
 			if(receivingSpace.isChanged()){
 				receivingSpace.incVersion();
+				receivingSpace.afterSave();
 			}
 
 
@@ -561,28 +568,21 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  	protected Object[] prepareReceivingSpaceUpdateParameters(ReceivingSpace receivingSpace){
  		Object[] parameters = new Object[11];
  
- 		
  		parameters[0] = receivingSpace.getLocation();
- 		
  		
  		parameters[1] = receivingSpace.getContactNumber();
  		
- 		
  		parameters[2] = receivingSpace.getDescription();
- 		
  		
  		parameters[3] = receivingSpace.getTotalArea();
  		
  		if(receivingSpace.getWarehouse() != null){
  			parameters[4] = receivingSpace.getWarehouse().getId();
  		}
- 
- 		
+    
  		parameters[5] = receivingSpace.getLatitude();
  		
- 		
  		parameters[6] = receivingSpace.getLongitude();
- 		
  		
  		parameters[7] = receivingSpace.getLastUpdateTime();
  		
@@ -600,29 +600,21 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
         }
 		parameters[0] =  receivingSpace.getId();
  
- 		
  		parameters[1] = receivingSpace.getLocation();
- 		
  		
  		parameters[2] = receivingSpace.getContactNumber();
  		
- 		
  		parameters[3] = receivingSpace.getDescription();
- 		
  		
  		parameters[4] = receivingSpace.getTotalArea();
  		
  		if(receivingSpace.getWarehouse() != null){
  			parameters[5] = receivingSpace.getWarehouse().getId();
-
  		}
- 		
  		
  		parameters[6] = receivingSpace.getLatitude();
  		
- 		
  		parameters[7] = receivingSpace.getLongitude();
- 		
  		
  		parameters[8] = receivingSpace.getLastUpdateTime();
  		
@@ -632,12 +624,11 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected ReceivingSpace saveInternalReceivingSpace(ReceivingSpace receivingSpace, Map<String,Object> options){
 
-		saveReceivingSpace(receivingSpace);
-
  		if(isSaveWarehouseEnabled(options)){
 	 		saveWarehouse(receivingSpace, options);
  		}
  
+   saveReceivingSpace(receivingSpace);
 		
 		if(isSaveGoodsListEnabled(options)){
 	 		saveGoodsList(receivingSpace, options);
@@ -656,6 +647,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 
  	protected ReceivingSpace saveWarehouse(ReceivingSpace receivingSpace, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(receivingSpace.getWarehouse() == null){
  			return receivingSpace;//do nothing when it is null
@@ -665,11 +657,6 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		return receivingSpace;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1056,7 +1043,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 		
 	protected ReceivingSpace saveGoodsList(ReceivingSpace receivingSpace, Map<String,Object> options){
-
+    
 
 
 
@@ -1123,19 +1110,19 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 
 	public ReceivingSpace present(ReceivingSpace receivingSpace,Map<String, Object> options){
-	
+
 		presentGoodsList(receivingSpace,options);
 
 		return receivingSpace;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected ReceivingSpace presentGoodsList(
 			ReceivingSpace receivingSpace,
 			Map<String, Object> options) {
-
-		SmartList<Goods> goodsList = receivingSpace.getGoodsList();		
+    
+		SmartList<Goods> goodsList = receivingSpace.getGoodsList();
 				SmartList<Goods> newList= presentSubList(receivingSpace.getId(),
 				goodsList,
 				options,
@@ -1143,12 +1130,12 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				getGoodsDAO()::findGoodsByReceivingSpace
 				);
 
-		
+
 		receivingSpace.setGoodsList(newList);
-		
+
 
 		return receivingSpace;
-	}			
+	}
 		
 
 	
@@ -1172,6 +1159,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的receivingSpace的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<ReceivingSpace> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1228,6 +1216,10 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ReceivingSpace> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getReceivingSpaceMapper());
   }
@@ -1263,6 +1255,15 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	
 
+  @Override
+  public List<ReceivingSpace> search(ReceivingSpaceRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ReceivingSpaceMapper mapper() {
+    return getReceivingSpaceMapper();
+  }
 }
 
 

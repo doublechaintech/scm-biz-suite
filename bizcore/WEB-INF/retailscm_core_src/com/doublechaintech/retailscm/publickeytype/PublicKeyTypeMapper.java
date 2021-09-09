@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.publickeytype;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,25 +9,28 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
 
 public class PublicKeyTypeMapper extends BaseRowMapper<PublicKeyType>{
-	
+
 	protected PublicKeyType internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		PublicKeyType publicKeyType = getPublicKeyType();		
-		 		
- 		setId(publicKeyType, rs, rowNumber); 		
- 		setName(publicKeyType, rs, rowNumber); 		
- 		setCode(publicKeyType, rs, rowNumber); 		
- 		setDomain(publicKeyType, rs, rowNumber); 		
+		PublicKeyType publicKeyType = getPublicKeyType();
+		
+ 		setId(publicKeyType, rs, rowNumber);
+ 		setKeyAlg(publicKeyType, rs, rowNumber);
+ 		setSignAlg(publicKeyType, rs, rowNumber);
+ 		setDomain(publicKeyType, rs, rowNumber);
  		setVersion(publicKeyType, rs, rowNumber);
 
+    
 		return publicKeyType;
 	}
-	
+
 	protected PublicKeyType getPublicKeyType(){
-		return new PublicKeyType();
-	}		
+	  PublicKeyType entity = new PublicKeyType();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(PublicKeyType publicKeyType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(PublicKeyTypeTable.COLUMN_ID);
@@ -37,38 +41,52 @@ public class PublicKeyTypeMapper extends BaseRowMapper<PublicKeyType>{
 		}
 		
 		publicKeyType.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
-	protected void setName(PublicKeyType publicKeyType, ResultSet rs, int rowNumber) throws SQLException{
-	
+	protected void setKeyAlg(PublicKeyType publicKeyType, ResultSet rs, int rowNumber) throws SQLException{
+    try{
 		//there will be issue when the type is double/int/long
 		
-		String name = rs.getString(PublicKeyTypeTable.COLUMN_NAME);
+		String keyAlg = rs.getString(PublicKeyTypeTable.COLUMN_KEY_ALG);
 		
-		if(name == null){
+		if(keyAlg == null){
 			//do nothing when nothing found in database
 			return;
 		}
 		
-		publicKeyType.setName(name);
+		publicKeyType.setKeyAlg(keyAlg);
+		}catch (SQLException e){
+
+    }
 	}
 		
-	protected void setCode(PublicKeyType publicKeyType, ResultSet rs, int rowNumber) throws SQLException{
-	
+	protected void setSignAlg(PublicKeyType publicKeyType, ResultSet rs, int rowNumber) throws SQLException{
+    try{
 		//there will be issue when the type is double/int/long
 		
-		String code = rs.getString(PublicKeyTypeTable.COLUMN_CODE);
+		String signAlg = rs.getString(PublicKeyTypeTable.COLUMN_SIGN_ALG);
 		
-		if(code == null){
+		if(signAlg == null){
 			//do nothing when nothing found in database
 			return;
 		}
 		
-		publicKeyType.setCode(code);
+		publicKeyType.setSignAlg(signAlg);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setDomain(PublicKeyType publicKeyType, ResultSet rs, int rowNumber) throws SQLException{
- 		String userDomainId = rs.getString(PublicKeyTypeTable.COLUMN_DOMAIN);
+ 		String userDomainId;
+ 		try{
+ 		  userDomainId = rs.getString(PublicKeyTypeTable.COLUMN_DOMAIN);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( userDomainId == null){
  			return;
  		}
@@ -79,14 +97,14 @@ public class PublicKeyTypeMapper extends BaseRowMapper<PublicKeyType>{
  		if( userDomain != null ){
  			//if the root object 'publicKeyType' already have the property, just set the id for it;
  			userDomain.setId(userDomainId);
- 			
+
  			return;
  		}
  		publicKeyType.setDomain(createEmptyDomain(userDomainId));
  	}
  	
 	protected void setVersion(PublicKeyType publicKeyType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(PublicKeyTypeTable.COLUMN_VERSION);
@@ -97,9 +115,12 @@ public class PublicKeyTypeMapper extends BaseRowMapper<PublicKeyType>{
 		}
 		
 		publicKeyType.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected UserDomain  createEmptyDomain(String userDomainId){
  		UserDomain userDomain = new UserDomain();

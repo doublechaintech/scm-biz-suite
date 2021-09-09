@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.goods;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface GoodsManager extends BaseManager{
 
 		
 
+  List<Goods> searchGoodsList(RetailscmUserContext ctx, GoodsRequest pRequest);
+  Goods searchGoods(RetailscmUserContext ctx, GoodsRequest pRequest);
 	public Goods createGoods(RetailscmUserContext userContext, String name,String rfid,String uom,int maxPackage,Date expireTime,String skuId,String receivingSpaceId,String goodsAllocationId,String smartPalletId,String shippingSpaceId,String transportTaskId,String retailStoreId,String bizOrderId,String retailStoreOrderId) throws Exception;
 	public Goods updateGoods(RetailscmUserContext userContext,String goodsId, int goodsVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Goods loadGoods(RetailscmUserContext userContext, String goodsId, String [] tokensExpr) throws Exception;
@@ -35,6 +41,8 @@ public interface GoodsManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String goodsId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, Goods newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, Goods updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -77,6 +85,9 @@ public interface GoodsManager extends BaseManager{
 	public Object listByRetailStoreOrder(RetailscmUserContext userContext,String retailStoreOrderId) throws Exception;
 	public Object listPageByRetailStoreOrder(RetailscmUserContext userContext,String retailStoreOrderId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

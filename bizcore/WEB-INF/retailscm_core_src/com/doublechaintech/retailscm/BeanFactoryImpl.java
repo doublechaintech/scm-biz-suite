@@ -125,7 +125,7 @@ import com.doublechaintech.retailscm.candidatecontainer.CandidateContainer;
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
 import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
 import com.doublechaintech.retailscm.treenode.TreeNode;
 
@@ -747,8 +747,8 @@ public class BeanFactoryImpl{
 	}
 
 
-	public KeypairIdentity createKeypairIdentity(Map<String,Object> options){
-		return new KeypairIdentity();
+	public KeyPairIdentity createKeyPairIdentity(Map<String,Object> options){
+		return new KeyPairIdentity();
 	}
 
 

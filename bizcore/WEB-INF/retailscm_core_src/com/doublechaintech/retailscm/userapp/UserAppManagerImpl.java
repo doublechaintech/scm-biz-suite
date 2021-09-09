@@ -1,43 +1,27 @@
 
 package com.doublechaintech.retailscm.userapp;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.listaccess.ListAccess;import com.doublechaintech.retailscm.quicklink.QuickLink;import com.doublechaintech.retailscm.secuser.CandidateSecUser;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.quicklink.QuickLink;
-import com.doublechaintech.retailscm.listaccess.ListAccess;
-import com.doublechaintech.retailscm.secuser.SecUser;
-
-import com.doublechaintech.retailscm.secuser.CandidateSecUser;
-
-import com.doublechaintech.retailscm.userapp.UserApp;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements UserAppManager, BusinessHandler{
@@ -63,6 +47,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws UserAppManagerException{
 
 		Message message = new Message();
@@ -73,107 +58,138 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
 
 
- 	protected UserApp saveUserApp(RetailscmUserContext userContext, UserApp userApp, String [] tokensExpr) throws Exception{	
+ 	protected UserApp saveUserApp(RetailscmUserContext userContext, UserApp userApp, String [] tokensExpr) throws Exception{
  		//return getUserAppDAO().save(userApp, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveUserApp(userContext, userApp, tokens);
  	}
- 	
- 	protected UserApp saveUserAppDetail(RetailscmUserContext userContext, UserApp userApp) throws Exception{	
 
- 		
+ 	protected UserApp saveUserAppDetail(RetailscmUserContext userContext, UserApp userApp) throws Exception{
+
+
  		return saveUserApp(userContext, userApp, allTokens());
  	}
- 	
- 	public UserApp loadUserApp(RetailscmUserContext userContext, String userAppId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public UserApp loadUserApp(RetailscmUserContext userContext, String userAppId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfUserApp(userAppId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserAppManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		UserApp userApp = loadUserApp( userContext, userAppId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,userApp, tokens);
  	}
- 	
- 	
- 	 public UserApp searchUserApp(RetailscmUserContext userContext, String userAppId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public UserApp searchUserApp(RetailscmUserContext userContext, String userAppId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfUserApp(userAppId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserAppManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		UserApp userApp = loadUserApp( userContext, userAppId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,userApp, tokens);
  	}
- 	
- 	
+
+
 
  	protected UserApp present(RetailscmUserContext userContext, UserApp userApp, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,userApp,tokens);
-		
-		
+    
+
 		UserApp  userAppToPresent = userAppDaoOf(userContext).present(userApp, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = userAppToPresent.collectRefercencesFromLists();
 		userAppDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,userApp,tokens);
-		
+
 		return  userAppToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public UserApp loadUserAppDetail(RetailscmUserContext userContext, String userAppId) throws Exception{	
+
+
+
+ 	public UserApp loadUserAppDetail(RetailscmUserContext userContext, String userAppId) throws Exception{
  		UserApp userApp = loadUserApp( userContext, userAppId, allTokens());
  		return present(userContext,userApp, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String userAppId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String userAppId) throws Exception{
  		UserApp userApp = loadUserApp( userContext, userAppId, viewTokens());
- 		return present(userContext,userApp, allTokens());
-		
- 	}
- 	protected UserApp saveUserApp(RetailscmUserContext userContext, UserApp userApp, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, userApp);
+ 		return present(userContext,userApp, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String userAppId) throws Exception{
+		UserApp userApp = loadUserApp( userContext, userAppId, viewTokens());
+		userApp.summarySuffix();
+		markVisited(userContext, userApp);
+ 		return present(userContext,userApp, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String userAppId) throws Exception{
+		UserApp userApp = loadUserApp( userContext, userAppId, analyzeTokens());
+		markVisited(userContext, userApp);
+		return present(userContext,userApp, analyzeTokens());
+
+	}
+ 	protected UserApp saveUserApp(RetailscmUserContext userContext, UserApp userApp, Map<String,Object>tokens) throws Exception{
+ 	
  		return userAppDaoOf(userContext).save(userApp, tokens);
  	}
- 	protected UserApp loadUserApp(RetailscmUserContext userContext, String userAppId, Map<String,Object>tokens) throws Exception{	
+ 	protected UserApp loadUserApp(RetailscmUserContext userContext, String userAppId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfUserApp(userAppId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserAppManagerException.class);
 
- 
+
+
  		return userAppDaoOf(userContext).load(userAppId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, UserApp userApp, Map<String, Object> tokens){
 		super.addActions(userContext, userApp, tokens);
-		
+
 		addAction(userContext, userApp, tokens,"@create","createUserApp","createUserApp/","main","primary");
 		addAction(userContext, userApp, tokens,"@update","updateUserApp","updateUserApp/"+userApp.getId()+"/","main","primary");
 		addAction(userContext, userApp, tokens,"@copy","cloneUserApp","cloneUserApp/"+userApp.getId()+"/","main","primary");
-		
+
 		addAction(userContext, userApp, tokens,"user_app.transfer_to_sec_user","transferToAnotherSecUser","transferToAnotherSecUser/"+userApp.getId()+"/","main","primary");
 		addAction(userContext, userApp, tokens,"user_app.addQuickLink","addQuickLink","addQuickLink/"+userApp.getId()+"/","quickLinkList","primary");
 		addAction(userContext, userApp, tokens,"user_app.removeQuickLink","removeQuickLink","removeQuickLink/"+userApp.getId()+"/","quickLinkList","primary");
@@ -183,34 +199,59 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		addAction(userContext, userApp, tokens,"user_app.removeListAccess","removeListAccess","removeListAccess/"+userApp.getId()+"/","listAccessList","primary");
 		addAction(userContext, userApp, tokens,"user_app.updateListAccess","updateListAccess","updateListAccess/"+userApp.getId()+"/","listAccessList","primary");
 		addAction(userContext, userApp, tokens,"user_app.copyListAccessFrom","copyListAccessFrom","copyListAccessFrom/"+userApp.getId()+"/","listAccessList","primary");
-	
-		
-		
-	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, UserApp userApp, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
 
-	public UserApp createUserApp(RetailscmUserContext userContext, String title,String secUserId,String appIcon,boolean fullAccess,String permission,String objectType,String objectId,String location) throws Exception
-	//public UserApp createUserApp(RetailscmUserContext userContext,String title, String secUserId, String appIcon, boolean fullAccess, String permission, String objectType, String objectId, String location) throws Exception
+
+
+
+
+
+	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, UserApp userApp, Map<String, Object> tokens){
+
+
+
+
+
+
+
+
+  @Override
+  public List<UserApp> searchUserAppList(RetailscmUserContext ctx, UserAppRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<UserApp> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public UserApp searchUserApp(RetailscmUserContext ctx, UserAppRequest pRequest){
+    pRequest.limit(0, 1);
+    List<UserApp> list = searchUserAppList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
+
+	public UserApp createUserApp(RetailscmUserContext userContext, String title,String secUserId,String appIcon,boolean fullAccess,String permission,String appType,String appId,String ctxType,String ctxId,String location) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkTitleOfUserApp(title);
 		checkerOf(userContext).checkAppIconOfUserApp(appIcon);
 		checkerOf(userContext).checkFullAccessOfUserApp(fullAccess);
 		checkerOf(userContext).checkPermissionOfUserApp(permission);
-		checkerOf(userContext).checkObjectTypeOfUserApp(objectType);
-		checkerOf(userContext).checkObjectIdOfUserApp(objectId);
+		checkerOf(userContext).checkAppTypeOfUserApp(appType);
+		checkerOf(userContext).checkAppIdOfUserApp(appId);
+		checkerOf(userContext).checkCtxTypeOfUserApp(ctxType);
+		checkerOf(userContext).checkCtxIdOfUserApp(ctxId);
 		checkerOf(userContext).checkLocationOfUserApp(location);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 
 		UserApp userApp=createNewUserApp();	
@@ -224,8 +265,10 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		userApp.setAppIcon(appIcon);
 		userApp.setFullAccess(fullAccess);
 		userApp.setPermission(permission);
-		userApp.setObjectType(objectType);
-		userApp.setObjectId(objectId);
+		userApp.setAppType(appType);
+		userApp.setAppId(appId);
+		userApp.setCtxType(ctxType);
+		userApp.setCtxId(ctxId);
 		userApp.setLocation(location);
 
 		userApp = saveUserApp(userContext, userApp, emptyOptions());
@@ -245,58 +288,72 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfUserApp(userAppId);
 		checkerOf(userContext).checkVersionOfUserApp( userAppVersion);
-		
+
 
 		if(UserApp.TITLE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTitleOfUserApp(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(UserApp.APP_ICON_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkAppIconOfUserApp(parseString(newValueExpr));
 		
-			
+
 		}
 		if(UserApp.FULL_ACCESS_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkFullAccessOfUserApp(parseBoolean(newValueExpr));
 		
-			
+
 		}
 		if(UserApp.PERMISSION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkPermissionOfUserApp(parseString(newValueExpr));
 		
-			
+
 		}
-		if(UserApp.OBJECT_TYPE_PROPERTY.equals(property)){
+		if(UserApp.APP_TYPE_PROPERTY.equals(property)){
 		
-			checkerOf(userContext).checkObjectTypeOfUserApp(parseString(newValueExpr));
+			checkerOf(userContext).checkAppTypeOfUserApp(parseString(newValueExpr));
 		
-			
+
 		}
-		if(UserApp.OBJECT_ID_PROPERTY.equals(property)){
+		if(UserApp.APP_ID_PROPERTY.equals(property)){
 		
-			checkerOf(userContext).checkObjectIdOfUserApp(parseString(newValueExpr));
+			checkerOf(userContext).checkAppIdOfUserApp(parseString(newValueExpr));
 		
-			
+
+		}
+		if(UserApp.CTX_TYPE_PROPERTY.equals(property)){
+		
+			checkerOf(userContext).checkCtxTypeOfUserApp(parseString(newValueExpr));
+		
+
+		}
+		if(UserApp.CTX_ID_PROPERTY.equals(property)){
+		
+			checkerOf(userContext).checkCtxIdOfUserApp(parseString(newValueExpr));
+		
+
 		}
 		if(UserApp.LOCATION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLocationOfUserApp(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 
 	}
@@ -325,6 +382,8 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			if (userApp.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixUserApp(userApp);
 			userApp = saveUserApp(userContext, userApp, options);
 			return userApp;
 
@@ -391,11 +450,17 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 	protected Map<String,Object> allTokens(){
 		return UserAppTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortQuickLinkListWith("id","desc")
-		.sortListAccessListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortQuickLinkListWith(QuickLink.ID_PROPERTY,sortDesc())
+		.sortListAccessListWith(ListAccess.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -407,6 +472,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
  		checkerOf(userContext).checkIdOfUserApp(userAppId);
  		checkerOf(userContext).checkIdOfSecUser(anotherSecUserId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
  	}
@@ -414,16 +480,17 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
  	{
  		checkParamsForTransferingAnotherSecUser(userContext, userAppId,anotherSecUserId);
  
-		UserApp userApp = loadUserApp(userContext, userAppId, allTokens());	
+		UserApp userApp = loadUserApp(userContext, userAppId, allTokens());
 		synchronized(userApp){
 			//will be good when the userApp loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			SecUser secUser = loadSecUser(userContext, anotherSecUserId, emptyOptions());		
-			userApp.updateSecUser(secUser);		
+			SecUser secUser = loadSecUser(userContext, anotherSecUserId, emptyOptions());
+			userApp.updateSecUser(secUser);
+			
 			userApp = saveUserApp(userContext, userApp, emptyOptions());
-			
+
 			return present(userContext,userApp, allTokens());
-			
+
 		}
 
  	}
@@ -435,6 +502,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
  		checkerOf(userContext).checkIdOfUserApp(userAppId);
  		checkerOf(userContext).checkLoginOfSecUser( anotherLogin);
+
  		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
  	}
@@ -462,6 +530,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
  		checkerOf(userContext).checkIdOfUserApp(userAppId);
  		checkerOf(userContext).checkEmailOfSecUser( anotherEmail);
+
  		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
  	}
@@ -489,6 +558,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
  		checkerOf(userContext).checkIdOfUserApp(userAppId);
  		checkerOf(userContext).checkMobileOfSecUser( anotherMobile);
+
  		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
  	}
@@ -537,8 +607,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
  	protected SecUser loadSecUser(RetailscmUserContext userContext, String newSecUserId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return secUserDaoOf(userContext).load(newSecUserId, options);
+ 	  
  	}
  	
  	protected SecUser loadSecUserWithLogin(RetailscmUserContext userContext, String newLogin, Map<String,Object> options) throws Exception
@@ -608,29 +679,27 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
 
 
-
-
-
 	protected void checkParamsForAddingQuickLink(RetailscmUserContext userContext, String userAppId, String name, String icon, String imagePath, String linkTarget,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfUserApp(userAppId);
 
-		
+
 		checkerOf(userContext).checkNameOfQuickLink(name);
-		
+
 		checkerOf(userContext).checkIconOfQuickLink(icon);
-		
+
 		checkerOf(userContext).checkImagePathOfQuickLink(imagePath);
-		
+
 		checkerOf(userContext).checkLinkTargetOfQuickLink(linkTarget);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 
 	}
 	public  UserApp addQuickLink(RetailscmUserContext userContext, String userAppId, String name, String icon, String imagePath, String linkTarget, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingQuickLink(userContext,userAppId,name, icon, imagePath, linkTarget,tokensExpr);
 
 		QuickLink quickLink = createQuickLink(userContext,name, icon, imagePath, linkTarget);
@@ -656,7 +725,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkImagePathOfQuickLink( imagePath);
 		checkerOf(userContext).checkLinkTargetOfQuickLink( linkTarget);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 	public  UserApp updateQuickLinkProperties(RetailscmUserContext userContext, String userAppId, String id,String name,String icon,String imagePath,String linkTarget, String [] tokensExpr) throws Exception
@@ -728,6 +799,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			checkerOf(userContext).checkIdOfQuickLink(quickLinkIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
 	}
@@ -754,7 +826,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfUserApp( userAppId);
 		checkerOf(userContext).checkIdOfQuickLink(quickLinkId);
 		checkerOf(userContext).checkVersionOfQuickLink(quickLinkVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 	public  UserApp removeQuickLink(RetailscmUserContext userContext, String userAppId,
@@ -781,7 +855,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfUserApp( userAppId);
 		checkerOf(userContext).checkIdOfQuickLink(quickLinkId);
 		checkerOf(userContext).checkVersionOfQuickLink(quickLinkVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 	public  UserApp copyQuickLinkFrom(RetailscmUserContext userContext, String userAppId,
@@ -809,7 +885,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 	protected void checkParamsForUpdatingQuickLink(RetailscmUserContext userContext, String userAppId, String quickLinkId, int quickLinkVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfUserApp(userAppId);
 		checkerOf(userContext).checkIdOfQuickLink(quickLinkId);
 		checkerOf(userContext).checkVersionOfQuickLink(quickLinkVersion);
@@ -832,7 +908,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 
@@ -863,6 +941,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			quickLink.changeProperty(property, newValueExpr);
 			
 			userApp = saveUserApp(userContext, userApp, tokens().withQuickLinkList().done());
+			quickLinkManagerOf(userContext).onUpdated(userContext, quickLink, this, "updateQuickLink");
 			return present(userContext,userApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -883,28 +962,29 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 
 				checkerOf(userContext).checkIdOfUserApp(userAppId);
 
-		
+
 		checkerOf(userContext).checkNameOfListAccess(name);
-		
+
 		checkerOf(userContext).checkInternalNameOfListAccess(internalName);
-		
+
 		checkerOf(userContext).checkReadPermissionOfListAccess(readPermission);
-		
+
 		checkerOf(userContext).checkCreatePermissionOfListAccess(createPermission);
-		
+
 		checkerOf(userContext).checkDeletePermissionOfListAccess(deletePermission);
-		
+
 		checkerOf(userContext).checkUpdatePermissionOfListAccess(updatePermission);
-		
+
 		checkerOf(userContext).checkExecutionPermissionOfListAccess(executionPermission);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 
 	}
 	public  UserApp addListAccess(RetailscmUserContext userContext, String userAppId, String name, String internalName, boolean readPermission, boolean createPermission, boolean deletePermission, boolean updatePermission, boolean executionPermission, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingListAccess(userContext,userAppId,name, internalName, readPermission, createPermission, deletePermission, updatePermission, executionPermission,tokensExpr);
 
 		ListAccess listAccess = createListAccess(userContext,name, internalName, readPermission, createPermission, deletePermission, updatePermission, executionPermission);
@@ -933,7 +1013,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkUpdatePermissionOfListAccess( updatePermission);
 		checkerOf(userContext).checkExecutionPermissionOfListAccess( executionPermission);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 	public  UserApp updateListAccessProperties(RetailscmUserContext userContext, String userAppId, String id,String name,String internalName,boolean readPermission,boolean createPermission,boolean deletePermission,boolean updatePermission,boolean executionPermission, String [] tokensExpr) throws Exception
@@ -1010,6 +1092,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			checkerOf(userContext).checkIdOfListAccess(listAccessIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
 
 	}
@@ -1036,7 +1119,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfUserApp( userAppId);
 		checkerOf(userContext).checkIdOfListAccess(listAccessId);
 		checkerOf(userContext).checkVersionOfListAccess(listAccessVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 	public  UserApp removeListAccess(RetailscmUserContext userContext, String userAppId,
@@ -1063,7 +1148,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkIdOfUserApp( userAppId);
 		checkerOf(userContext).checkIdOfListAccess(listAccessId);
 		checkerOf(userContext).checkVersionOfListAccess(listAccessVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 	public  UserApp copyListAccessFrom(RetailscmUserContext userContext, String userAppId,
@@ -1091,7 +1178,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 	protected void checkParamsForUpdatingListAccess(RetailscmUserContext userContext, String userAppId, String listAccessId, int listAccessVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfUserApp(userAppId);
 		checkerOf(userContext).checkIdOfListAccess(listAccessId);
 		checkerOf(userContext).checkVersionOfListAccess(listAccessVersion);
@@ -1126,7 +1213,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAppManagerException.class);
+
 
 	}
 
@@ -1157,6 +1246,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			listAccess.changeProperty(property, newValueExpr);
 			
 			userApp = saveUserApp(userContext, userApp, tokens().withListAccessList().done());
+			listAccessManagerOf(userContext).onUpdated(userContext, listAccess, this, "updateListAccess");
 			return present(userContext,userApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -1189,112 +1279,13 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1317,28 +1308,21 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, UserApp.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, UserApp.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1364,7 +1348,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		page.setContainerObject(SecUser.withId(secUserId));
 		page.setRequestBeanName(this.getBeanName());
 		page.setDataList((SmartList)list);
-		page.setPageTitle("用户应用程序列表");
+		page.setPageTitle("应用列表");
 		page.setRequestName("listBySecUser");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
@@ -1384,11 +1368,11 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String userAppId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getUserAppDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		UserApp merchantObj = (UserApp) this.view(userContext, userAppId);
     String merchantObjId = userAppId;
     String linkToUrl =	"userAppManager/wxappview/" + merchantObjId + "/";
-    String pageTitle = "用户应用程序"+"详情";
+    String pageTitle = "应用"+"详情";
 		Map result = new HashMap();
 		List propList = new ArrayList();
 		List sections = new ArrayList();
@@ -1407,7 +1391,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "2-title")
 				    .put("fieldName", "title")
-				    .put("label", "头衔")
+				    .put("label", "标题")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1418,7 +1402,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "3-secUser")
 				    .put("fieldName", "secUser")
-				    .put("label", "安全用户")
+				    .put("label", "系统用户")
 				    .put("type", "auto")
 				    .put("linkToUrl", "secUserManager/wxappview/:id/")
 				    .put("displayMode", "{\"brief\":\"verification_code\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"login\",\"imageList\":\"\"}")
@@ -1429,7 +1413,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "4-appIcon")
 				    .put("fieldName", "appIcon")
-				    .put("label", "应用程序图标")
+				    .put("label", "图标")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1451,7 +1435,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		propList.add(
 				MapUtil.put("id", "6-permission")
 				    .put("fieldName", "permission")
-				    .put("label", "许可")
+				    .put("label", "权限")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1460,29 +1444,51 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		result.put("permission", merchantObj.getPermission());
 
 		propList.add(
-				MapUtil.put("id", "7-objectType")
-				    .put("fieldName", "objectType")
+				MapUtil.put("id", "7-appType")
+				    .put("fieldName", "appType")
 				    .put("label", "对象类型")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
 				    .into_map()
 		);
-		result.put("objectType", merchantObj.getObjectType());
+		result.put("appType", merchantObj.getAppType());
 
 		propList.add(
-				MapUtil.put("id", "8-objectId")
-				    .put("fieldName", "objectId")
+				MapUtil.put("id", "8-appId")
+				    .put("fieldName", "appId")
 				    .put("label", "对象ID")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
 				    .into_map()
 		);
-		result.put("objectId", merchantObj.getObjectId());
+		result.put("appId", merchantObj.getAppId());
 
 		propList.add(
-				MapUtil.put("id", "9-location")
+				MapUtil.put("id", "9-ctxType")
+				    .put("fieldName", "ctxType")
+				    .put("label", "上下文类型")
+				    .put("type", "text")
+				    .put("linkToUrl", "")
+				    .put("displayMode", "{}")
+				    .into_map()
+		);
+		result.put("ctxType", merchantObj.getCtxType());
+
+		propList.add(
+				MapUtil.put("id", "10-ctxId")
+				    .put("fieldName", "ctxId")
+				    .put("label", "上下文类型")
+				    .put("type", "text")
+				    .put("linkToUrl", "")
+				    .put("displayMode", "{}")
+				    .into_map()
+		);
+		result.put("ctxId", merchantObj.getCtxId());
+
+		propList.add(
+				MapUtil.put("id", "11-location")
 				    .put("fieldName", "location")
 				    .put("label", "位置")
 				    .put("type", "text")
@@ -1507,8 +1513,6 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		sections.add(quickLinkListSection);
 
 		result.put("quickLinkListSection", ListofUtils.toShortList(merchantObj.getQuickLinkList(), "quickLink"));
-		vscope.field("quickLinkListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( QuickLink.class.getName(), null));
 
 		//处理Section：listAccessListSection
 		Map listAccessListSection = ListofUtils.buildSection(
@@ -1523,8 +1527,6 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		sections.add(listAccessListSection);
 
 		result.put("listAccessListSection", ListofUtils.toShortList(merchantObj.getListAccessList(), "listAccess"));
-		vscope.field("listAccessListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( ListAccess.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1539,8 +1541,19 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

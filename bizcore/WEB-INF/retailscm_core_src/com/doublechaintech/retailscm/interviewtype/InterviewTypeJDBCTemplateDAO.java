@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.interviewtype;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected EmployeeInterviewDAO employeeInterviewDAO;
 	public void setEmployeeInterviewDAO(EmployeeInterviewDAO employeeInterviewDAO){
- 	
+
  		if(employeeInterviewDAO == null){
  			throw new IllegalStateException("Do not try to set employeeInterviewDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.employeeInterviewDAO == null){
  			throw new IllegalStateException("The employeeInterviewDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeInterviewDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		newInterviewType.setVersion(0);
 		
 		
- 		
+
  		if(isSaveEmployeeInterviewListEnabled(options)){
  			for(EmployeeInterview item: newInterviewType.getEmployeeInterviewList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return InterviewTypeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCompanyEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, InterviewTypeTokens.COMPANY);
  	}
 
  	protected boolean isSaveCompanyEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, InterviewTypeTokens.COMPANY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){
  		return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){
  		return InterviewTypeTokens.of(options).analyzeEmployeeInterviewListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){
 		return checkOptions(options, InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new InterviewTypeMapper();
 	}
 
-	
-	
+
+
 	protected InterviewType extractInterviewType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			InterviewType interviewType = loadSingleObject(accessKey, getInterviewTypeMapper());
@@ -268,13 +270,13 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected InterviewType loadInternalInterviewType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		InterviewType interviewType = extractInterviewType(accessKey, loadOptions);
- 	
+
  		if(isExtractCompanyEnabled(loadOptions)){
 	 		extractCompany(interviewType, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 		if(isExtractEmployeeInterviewListEnabled(loadOptions)){
 	 		extractEmployeeInterviewList(interviewType, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeInterviewListEnabled(loadOptions)){
 	 		analyzeEmployeeInterviewList(interviewType, loadOptions);
@@ -291,12 +293,13 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
 		
 		return interviewType;
-		
+
 	}
 
-	 
+	
 
  	protected InterviewType extractCompany(InterviewType interviewType, Map<String,Object> options) throws Exception{
+  
 
 		if(interviewType.getCompany() == null){
 			return interviewType;
@@ -309,21 +312,21 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(company != null){
 			interviewType.setCompany(company);
 		}
-		
- 		
+
+
  		return interviewType;
  	}
- 		
+
  
 		
 	protected void enhanceEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected InterviewType extractEmployeeInterviewList(InterviewType interviewType, Map<String,Object> options){
-		
-		
+    
+
 		if(interviewType == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return interviewType;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeInterview> employeeInterviewList = getEmployeeInterviewDAO().findEmployeeInterviewByInterviewType(interviewType.getId(),options);
 		if(employeeInterviewList != null){
 			enhanceEmployeeInterviewList(employeeInterviewList,options);
 			interviewType.setEmployeeInterviewList(employeeInterviewList);
 		}
-		
+
 		return interviewType;
-	
-	}	
-	
+  
+	}
+
 	protected InterviewType analyzeEmployeeInterviewList(InterviewType interviewType, Map<String,Object> options){
-		
-		
+     
 		if(interviewType == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return interviewType;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeInterview> employeeInterviewList = interviewType.getEmployeeInterviewList();
 		if(employeeInterviewList != null){
 			getEmployeeInterviewDAO().analyzeEmployeeInterviewByInterviewType(employeeInterviewList, interviewType.getId(), options);
-			
+
 		}
-		
+
 		return interviewType;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<InterviewType> findInterviewTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<InterviewType> resultList = queryWith(InterviewTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInterviewTypeMapper());
 		// analyzeInterviewTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<InterviewType> findInterviewTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<InterviewType> resultList =  queryWithRange(InterviewTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInterviewTypeMapper(), start, count);
  		//analyzeInterviewTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeInterviewTypeByCompany(SmartList<InterviewType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countInterviewTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countInterviewTypeByCompanyIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(InterviewTypeTable.COLUMN_COMPANY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected InterviewType saveInterviewType(InterviewType  interviewType){
+    
+
 		
 		if(!interviewType.isChanged()){
 			return interviewType;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(interviewType);
 		String SQL=this.getSaveInterviewTypeSQL(interviewType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveInterviewTypeParameters(interviewType);
@@ -425,6 +430,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		interviewType.incVersion();
+		interviewType.afterSave();
 		return interviewType;
 
 	}
@@ -442,6 +448,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(InterviewType interviewType:interviewTypeList){
 			if(interviewType.isChanged()){
 				interviewType.incVersion();
+				interviewType.afterSave();
 			}
 
 
@@ -545,16 +552,13 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	protected Object[] prepareInterviewTypeUpdateParameters(InterviewType interviewType){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = interviewType.getCode();
  		
  		if(interviewType.getCompany() != null){
  			parameters[1] = interviewType.getCompany().getId();
  		}
- 
- 		
+    
  		parameters[2] = interviewType.getDescription();
- 		
  		
  		parameters[3] = interviewType.getDetailDescription();
  		
@@ -572,17 +576,13 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
         }
 		parameters[0] =  interviewType.getId();
  
- 		
  		parameters[1] = interviewType.getCode();
  		
  		if(interviewType.getCompany() != null){
  			parameters[2] = interviewType.getCompany().getId();
-
  		}
  		
- 		
  		parameters[3] = interviewType.getDescription();
- 		
  		
  		parameters[4] = interviewType.getDetailDescription();
  		
@@ -592,12 +592,11 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected InterviewType saveInternalInterviewType(InterviewType interviewType, Map<String,Object> options){
 
-		saveInterviewType(interviewType);
-
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(interviewType, options);
  		}
  
+   saveInterviewType(interviewType);
 		
 		if(isSaveEmployeeInterviewListEnabled(options)){
 	 		saveEmployeeInterviewList(interviewType, options);
@@ -616,6 +615,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected InterviewType saveCompany(InterviewType interviewType, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(interviewType.getCompany() == null){
  			return interviewType;//do nothing when it is null
@@ -625,11 +625,6 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return interviewType;
 
  	}
-
-
-
-
-
  
 
 	
@@ -708,7 +703,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected InterviewType saveEmployeeInterviewList(InterviewType interviewType, Map<String,Object> options){
-
+    
 
 
 
@@ -775,19 +770,19 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public InterviewType present(InterviewType interviewType,Map<String, Object> options){
-	
+
 		presentEmployeeInterviewList(interviewType,options);
 
 		return interviewType;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected InterviewType presentEmployeeInterviewList(
 			InterviewType interviewType,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeInterview> employeeInterviewList = interviewType.getEmployeeInterviewList();		
+    
+		SmartList<EmployeeInterview> employeeInterviewList = interviewType.getEmployeeInterviewList();
 				SmartList<EmployeeInterview> newList= presentSubList(interviewType.getId(),
 				employeeInterviewList,
 				options,
@@ -795,12 +790,12 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				getEmployeeInterviewDAO()::findEmployeeInterviewByInterviewType
 				);
 
-		
+
 		interviewType.setEmployeeInterviewList(newList);
-		
+
 
 		return interviewType;
-	}			
+	}
 		
 
 	
@@ -824,6 +819,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeInterview的interviewType的EmployeeInterviewList
 	public SmartList<EmployeeInterview> loadOurEmployeeInterviewList(RetailscmUserContext userContext, List<InterviewType> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -880,6 +876,10 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<InterviewType> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getInterviewTypeMapper());
   }
@@ -915,6 +915,15 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<InterviewType> search(InterviewTypeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected InterviewTypeMapper mapper() {
+    return getInterviewTypeMapper();
+  }
 }
 
 

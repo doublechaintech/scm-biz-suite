@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public class LoginForm extends BaseEntity {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class LoginForm extends BaseEntity {
     private String internalToken;
     private String usernameParmeter;
     private String passwordParmeter;
-    
+
 
     public String getUsernameParmeter() {
         return usernameParmeter;
@@ -41,7 +41,7 @@ public class LoginForm extends BaseEntity {
     public void setInternalToken(String internalToken) {
         this.internalToken = internalToken;
     }
-    
+
 
 }
 

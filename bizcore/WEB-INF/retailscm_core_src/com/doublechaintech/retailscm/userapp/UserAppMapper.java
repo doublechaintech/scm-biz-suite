@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.userapp;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,30 +9,35 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.secuser.SecUser;
 
 public class UserAppMapper extends BaseRowMapper<UserApp>{
-	
+
 	protected UserApp internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		UserApp userApp = getUserApp();		
-		 		
- 		setId(userApp, rs, rowNumber); 		
- 		setTitle(userApp, rs, rowNumber); 		
- 		setSecUser(userApp, rs, rowNumber); 		
- 		setAppIcon(userApp, rs, rowNumber); 		
- 		setFullAccess(userApp, rs, rowNumber); 		
- 		setPermission(userApp, rs, rowNumber); 		
- 		setObjectType(userApp, rs, rowNumber); 		
- 		setObjectId(userApp, rs, rowNumber); 		
- 		setLocation(userApp, rs, rowNumber); 		
+		UserApp userApp = getUserApp();
+		
+ 		setId(userApp, rs, rowNumber);
+ 		setTitle(userApp, rs, rowNumber);
+ 		setSecUser(userApp, rs, rowNumber);
+ 		setAppIcon(userApp, rs, rowNumber);
+ 		setFullAccess(userApp, rs, rowNumber);
+ 		setPermission(userApp, rs, rowNumber);
+ 		setAppType(userApp, rs, rowNumber);
+ 		setAppId(userApp, rs, rowNumber);
+ 		setCtxType(userApp, rs, rowNumber);
+ 		setCtxId(userApp, rs, rowNumber);
+ 		setLocation(userApp, rs, rowNumber);
  		setVersion(userApp, rs, rowNumber);
 
+    
 		return userApp;
 	}
-	
+
 	protected UserApp getUserApp(){
-		return new UserApp();
-	}		
+	  UserApp entity = new UserApp();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(UserAppTable.COLUMN_ID);
@@ -42,10 +48,13 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
 		}
 		
 		userApp.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTitle(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String title = rs.getString(UserAppTable.COLUMN_TITLE);
@@ -56,10 +65,18 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
 		}
 		
 		userApp.setTitle(title);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setSecUser(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
- 		String secUserId = rs.getString(UserAppTable.COLUMN_SEC_USER);
+ 		String secUserId;
+ 		try{
+ 		  secUserId = rs.getString(UserAppTable.COLUMN_SEC_USER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( secUserId == null){
  			return;
  		}
@@ -70,14 +87,14 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
  		if( secUser != null ){
  			//if the root object 'userApp' already have the property, just set the id for it;
  			secUser.setId(secUserId);
- 			
+
  			return;
  		}
  		userApp.setSecUser(createEmptySecUser(secUserId));
  	}
  	
 	protected void setAppIcon(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String appIcon = rs.getString(UserAppTable.COLUMN_APP_ICON);
@@ -88,10 +105,13 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
 		}
 		
 		userApp.setAppIcon(appIcon);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFullAccess(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Boolean fullAccess = rs.getBoolean(UserAppTable.COLUMN_FULL_ACCESS);
@@ -102,10 +122,13 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
 		}
 		
 		userApp.setFullAccess(fullAccess);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPermission(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String permission = rs.getString(UserAppTable.COLUMN_PERMISSION);
@@ -116,38 +139,81 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
 		}
 		
 		userApp.setPermission(permission);
+		}catch (SQLException e){
+
+    }
 	}
 		
-	protected void setObjectType(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+	protected void setAppType(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
+    try{
 		//there will be issue when the type is double/int/long
 		
-		String objectType = rs.getString(UserAppTable.COLUMN_OBJECT_TYPE);
+		String appType = rs.getString(UserAppTable.COLUMN_APP_TYPE);
 		
-		if(objectType == null){
+		if(appType == null){
 			//do nothing when nothing found in database
 			return;
 		}
 		
-		userApp.setObjectType(objectType);
+		userApp.setAppType(appType);
+		}catch (SQLException e){
+
+    }
 	}
 		
-	protected void setObjectId(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+	protected void setAppId(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
+    try{
 		//there will be issue when the type is double/int/long
 		
-		String objectId = rs.getString(UserAppTable.COLUMN_OBJECT_ID);
+		String appId = rs.getString(UserAppTable.COLUMN_APP_ID);
 		
-		if(objectId == null){
+		if(appId == null){
 			//do nothing when nothing found in database
 			return;
 		}
 		
-		userApp.setObjectId(objectId);
+		userApp.setAppId(appId);
+		}catch (SQLException e){
+
+    }
+	}
+		
+	protected void setCtxType(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
+    try{
+		//there will be issue when the type is double/int/long
+		
+		String ctxType = rs.getString(UserAppTable.COLUMN_CTX_TYPE);
+		
+		if(ctxType == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		userApp.setCtxType(ctxType);
+		}catch (SQLException e){
+
+    }
+	}
+		
+	protected void setCtxId(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
+    try{
+		//there will be issue when the type is double/int/long
+		
+		String ctxId = rs.getString(UserAppTable.COLUMN_CTX_ID);
+		
+		if(ctxId == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		userApp.setCtxId(ctxId);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLocation(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String location = rs.getString(UserAppTable.COLUMN_LOCATION);
@@ -158,10 +224,13 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
 		}
 		
 		userApp.setLocation(location);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(UserApp userApp, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(UserAppTable.COLUMN_VERSION);
@@ -172,9 +241,12 @@ public class UserAppMapper extends BaseRowMapper<UserApp>{
 		}
 		
 		userApp.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected SecUser  createEmptySecUser(String secUserId){
  		SecUser secUser = new SecUser();

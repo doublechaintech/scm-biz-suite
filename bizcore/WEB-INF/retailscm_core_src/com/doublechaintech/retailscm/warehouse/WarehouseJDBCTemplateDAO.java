@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.warehouse;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -63,13 +64,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected StorageSpaceDAO storageSpaceDAO;
 	public void setStorageSpaceDAO(StorageSpaceDAO storageSpaceDAO){
- 	
+
  		if(storageSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set storageSpaceDAO to null.");
  		}
@@ -79,13 +80,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.storageSpaceDAO == null){
  			throw new IllegalStateException("The storageSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.storageSpaceDAO;
- 	}	
+ 	}
 
 	protected SmartPalletDAO smartPalletDAO;
 	public void setSmartPalletDAO(SmartPalletDAO smartPalletDAO){
- 	
+
  		if(smartPalletDAO == null){
  			throw new IllegalStateException("Do not try to set smartPalletDAO to null.");
  		}
@@ -95,13 +96,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.smartPalletDAO == null){
  			throw new IllegalStateException("The smartPalletDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.smartPalletDAO;
- 	}	
+ 	}
 
 	protected SupplierSpaceDAO supplierSpaceDAO;
 	public void setSupplierSpaceDAO(SupplierSpaceDAO supplierSpaceDAO){
- 	
+
  		if(supplierSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set supplierSpaceDAO to null.");
  		}
@@ -111,13 +112,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.supplierSpaceDAO == null){
  			throw new IllegalStateException("The supplierSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplierSpaceDAO;
- 	}	
+ 	}
 
 	protected ReceivingSpaceDAO receivingSpaceDAO;
 	public void setReceivingSpaceDAO(ReceivingSpaceDAO receivingSpaceDAO){
- 	
+
  		if(receivingSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set receivingSpaceDAO to null.");
  		}
@@ -127,13 +128,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.receivingSpaceDAO == null){
  			throw new IllegalStateException("The receivingSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.receivingSpaceDAO;
- 	}	
+ 	}
 
 	protected ShippingSpaceDAO shippingSpaceDAO;
 	public void setShippingSpaceDAO(ShippingSpaceDAO shippingSpaceDAO){
- 	
+
  		if(shippingSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set shippingSpaceDAO to null.");
  		}
@@ -143,13 +144,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.shippingSpaceDAO == null){
  			throw new IllegalStateException("The shippingSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.shippingSpaceDAO;
- 	}	
+ 	}
 
 	protected DamageSpaceDAO damageSpaceDAO;
 	public void setDamageSpaceDAO(DamageSpaceDAO damageSpaceDAO){
- 	
+
  		if(damageSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set damageSpaceDAO to null.");
  		}
@@ -159,13 +160,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.damageSpaceDAO == null){
  			throw new IllegalStateException("The damageSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.damageSpaceDAO;
- 	}	
+ 	}
 
 	protected WarehouseAssetDAO warehouseAssetDAO;
 	public void setWarehouseAssetDAO(WarehouseAssetDAO warehouseAssetDAO){
- 	
+
  		if(warehouseAssetDAO == null){
  			throw new IllegalStateException("Do not try to set warehouseAssetDAO to null.");
  		}
@@ -175,9 +176,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		if(this.warehouseAssetDAO == null){
  			throw new IllegalStateException("The warehouseAssetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.warehouseAssetDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -231,49 +233,49 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		newWarehouse.setVersion(0);
 		
 		
- 		
+
  		if(isSaveStorageSpaceListEnabled(options)){
  			for(StorageSpace item: newWarehouse.getStorageSpaceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSmartPalletListEnabled(options)){
  			for(SmartPallet item: newWarehouse.getSmartPalletList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSupplierSpaceListEnabled(options)){
  			for(SupplierSpace item: newWarehouse.getSupplierSpaceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveReceivingSpaceListEnabled(options)){
  			for(ReceivingSpace item: newWarehouse.getReceivingSpaceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveShippingSpaceListEnabled(options)){
  			for(ShippingSpace item: newWarehouse.getShippingSpaceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveDamageSpaceListEnabled(options)){
  			for(DamageSpace item: newWarehouse.getDamageSpaceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveWarehouseAssetListEnabled(options)){
  			for(WarehouseAsset item: newWarehouse.getWarehouseAssetList()){
  				item.setVersion(0);
@@ -360,128 +362,128 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return WarehouseTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, WarehouseTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, WarehouseTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractStorageSpaceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractStorageSpaceListEnabled(Map<String,Object> options){
  		return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeStorageSpaceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeStorageSpaceListEnabled(Map<String,Object> options){
  		return WarehouseTokens.of(options).analyzeStorageSpaceListEnabled();
  	}
-	
+
 	protected boolean isSaveStorageSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.STORAGE_SPACE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSmartPalletListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSmartPalletListEnabled(Map<String,Object> options){
  		return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST);
  	}
- 	protected boolean isAnalyzeSmartPalletListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSmartPalletListEnabled(Map<String,Object> options){
  		return WarehouseTokens.of(options).analyzeSmartPalletListEnabled();
  	}
-	
+
 	protected boolean isSaveSmartPalletListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.SMART_PALLET_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSupplierSpaceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSupplierSpaceListEnabled(Map<String,Object> options){
  		return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeSupplierSpaceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSupplierSpaceListEnabled(Map<String,Object> options){
  		return WarehouseTokens.of(options).analyzeSupplierSpaceListEnabled();
  	}
-	
+
 	protected boolean isSaveSupplierSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.SUPPLIER_SPACE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractReceivingSpaceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractReceivingSpaceListEnabled(Map<String,Object> options){
  		return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeReceivingSpaceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeReceivingSpaceListEnabled(Map<String,Object> options){
  		return WarehouseTokens.of(options).analyzeReceivingSpaceListEnabled();
  	}
-	
+
 	protected boolean isSaveReceivingSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.RECEIVING_SPACE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractShippingSpaceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractShippingSpaceListEnabled(Map<String,Object> options){
  		return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeShippingSpaceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeShippingSpaceListEnabled(Map<String,Object> options){
  		return WarehouseTokens.of(options).analyzeShippingSpaceListEnabled();
  	}
-	
+
 	protected boolean isSaveShippingSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.SHIPPING_SPACE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractDamageSpaceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractDamageSpaceListEnabled(Map<String,Object> options){
  		return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeDamageSpaceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeDamageSpaceListEnabled(Map<String,Object> options){
  		return WarehouseTokens.of(options).analyzeDamageSpaceListEnabled();
  	}
-	
+
 	protected boolean isSaveDamageSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.DAMAGE_SPACE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractWarehouseAssetListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractWarehouseAssetListEnabled(Map<String,Object> options){
  		return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST);
  	}
- 	protected boolean isAnalyzeWarehouseAssetListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeWarehouseAssetListEnabled(Map<String,Object> options){
  		return WarehouseTokens.of(options).analyzeWarehouseAssetListEnabled();
  	}
-	
+
 	protected boolean isSaveWarehouseAssetListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.WAREHOUSE_ASSET_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -490,8 +492,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		return new WarehouseMapper();
 	}
 
-	
-	
+
+
 	protected Warehouse extractWarehouse(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Warehouse warehouse = loadSingleObject(accessKey, getWarehouseMapper());
@@ -502,13 +504,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 	}
 
-	
-	
+
+
 
 	protected Warehouse loadInternalWarehouse(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Warehouse warehouse = extractWarehouse(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(warehouse, loadOptions);
  		}
@@ -516,8 +518,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 		if(isExtractStorageSpaceListEnabled(loadOptions)){
 	 		extractStorageSpaceList(warehouse, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeStorageSpaceListEnabled(loadOptions)){
 	 		analyzeStorageSpaceList(warehouse, loadOptions);
@@ -526,8 +528,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 		if(isExtractSmartPalletListEnabled(loadOptions)){
 	 		extractSmartPalletList(warehouse, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSmartPalletListEnabled(loadOptions)){
 	 		analyzeSmartPalletList(warehouse, loadOptions);
@@ -536,8 +538,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 		if(isExtractSupplierSpaceListEnabled(loadOptions)){
 	 		extractSupplierSpaceList(warehouse, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSupplierSpaceListEnabled(loadOptions)){
 	 		analyzeSupplierSpaceList(warehouse, loadOptions);
@@ -546,8 +548,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 		if(isExtractReceivingSpaceListEnabled(loadOptions)){
 	 		extractReceivingSpaceList(warehouse, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeReceivingSpaceListEnabled(loadOptions)){
 	 		analyzeReceivingSpaceList(warehouse, loadOptions);
@@ -556,8 +558,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 		if(isExtractShippingSpaceListEnabled(loadOptions)){
 	 		extractShippingSpaceList(warehouse, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeShippingSpaceListEnabled(loadOptions)){
 	 		analyzeShippingSpaceList(warehouse, loadOptions);
@@ -566,8 +568,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 		if(isExtractDamageSpaceListEnabled(loadOptions)){
 	 		extractDamageSpaceList(warehouse, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeDamageSpaceListEnabled(loadOptions)){
 	 		analyzeDamageSpaceList(warehouse, loadOptions);
@@ -576,8 +578,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 		if(isExtractWarehouseAssetListEnabled(loadOptions)){
 	 		extractWarehouseAssetList(warehouse, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeWarehouseAssetListEnabled(loadOptions)){
 	 		analyzeWarehouseAssetList(warehouse, loadOptions);
@@ -585,12 +587,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		
 		
 		return warehouse;
-		
+
 	}
 
-	 
+	
 
  	protected Warehouse extractOwner(Warehouse warehouse, Map<String,Object> options) throws Exception{
+  
 
 		if(warehouse.getOwner() == null){
 			return warehouse;
@@ -603,21 +606,21 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		if(owner != null){
 			warehouse.setOwner(owner);
 		}
-		
- 		
+
+
  		return warehouse;
  	}
- 		
+
  
 		
 	protected void enhanceStorageSpaceList(SmartList<StorageSpace> storageSpaceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Warehouse extractStorageSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+    
+
 		if(warehouse == null){
 			return null;
 		}
@@ -625,21 +628,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<StorageSpace> storageSpaceList = getStorageSpaceDAO().findStorageSpaceByWarehouse(warehouse.getId(),options);
 		if(storageSpaceList != null){
 			enhanceStorageSpaceList(storageSpaceList,options);
 			warehouse.setStorageSpaceList(storageSpaceList);
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+  
+	}
+
 	protected Warehouse analyzeStorageSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+     
 		if(warehouse == null){
 			return null;
 		}
@@ -647,27 +649,27 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();
 		if(storageSpaceList != null){
 			getStorageSpaceDAO().analyzeStorageSpaceByWarehouse(storageSpaceList, warehouse.getId(), options);
-			
+
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSmartPalletList(SmartList<SmartPallet> smartPalletList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Warehouse extractSmartPalletList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+    
+
 		if(warehouse == null){
 			return null;
 		}
@@ -675,21 +677,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<SmartPallet> smartPalletList = getSmartPalletDAO().findSmartPalletByWarehouse(warehouse.getId(),options);
 		if(smartPalletList != null){
 			enhanceSmartPalletList(smartPalletList,options);
 			warehouse.setSmartPalletList(smartPalletList);
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+  
+	}
+
 	protected Warehouse analyzeSmartPalletList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+     
 		if(warehouse == null){
 			return null;
 		}
@@ -697,27 +698,27 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();
 		if(smartPalletList != null){
 			getSmartPalletDAO().analyzeSmartPalletByWarehouse(smartPalletList, warehouse.getId(), options);
-			
+
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSupplierSpaceList(SmartList<SupplierSpace> supplierSpaceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Warehouse extractSupplierSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+    
+
 		if(warehouse == null){
 			return null;
 		}
@@ -725,21 +726,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<SupplierSpace> supplierSpaceList = getSupplierSpaceDAO().findSupplierSpaceByWarehouse(warehouse.getId(),options);
 		if(supplierSpaceList != null){
 			enhanceSupplierSpaceList(supplierSpaceList,options);
 			warehouse.setSupplierSpaceList(supplierSpaceList);
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+  
+	}
+
 	protected Warehouse analyzeSupplierSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+     
 		if(warehouse == null){
 			return null;
 		}
@@ -747,27 +747,27 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();
 		if(supplierSpaceList != null){
 			getSupplierSpaceDAO().analyzeSupplierSpaceByWarehouse(supplierSpaceList, warehouse.getId(), options);
-			
+
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceReceivingSpaceList(SmartList<ReceivingSpace> receivingSpaceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Warehouse extractReceivingSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+    
+
 		if(warehouse == null){
 			return null;
 		}
@@ -775,21 +775,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<ReceivingSpace> receivingSpaceList = getReceivingSpaceDAO().findReceivingSpaceByWarehouse(warehouse.getId(),options);
 		if(receivingSpaceList != null){
 			enhanceReceivingSpaceList(receivingSpaceList,options);
 			warehouse.setReceivingSpaceList(receivingSpaceList);
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+  
+	}
+
 	protected Warehouse analyzeReceivingSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+     
 		if(warehouse == null){
 			return null;
 		}
@@ -797,27 +796,27 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();
 		if(receivingSpaceList != null){
 			getReceivingSpaceDAO().analyzeReceivingSpaceByWarehouse(receivingSpaceList, warehouse.getId(), options);
-			
+
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceShippingSpaceList(SmartList<ShippingSpace> shippingSpaceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Warehouse extractShippingSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+    
+
 		if(warehouse == null){
 			return null;
 		}
@@ -825,21 +824,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<ShippingSpace> shippingSpaceList = getShippingSpaceDAO().findShippingSpaceByWarehouse(warehouse.getId(),options);
 		if(shippingSpaceList != null){
 			enhanceShippingSpaceList(shippingSpaceList,options);
 			warehouse.setShippingSpaceList(shippingSpaceList);
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+  
+	}
+
 	protected Warehouse analyzeShippingSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+     
 		if(warehouse == null){
 			return null;
 		}
@@ -847,27 +845,27 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();
 		if(shippingSpaceList != null){
 			getShippingSpaceDAO().analyzeShippingSpaceByWarehouse(shippingSpaceList, warehouse.getId(), options);
-			
+
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceDamageSpaceList(SmartList<DamageSpace> damageSpaceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Warehouse extractDamageSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+    
+
 		if(warehouse == null){
 			return null;
 		}
@@ -875,21 +873,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<DamageSpace> damageSpaceList = getDamageSpaceDAO().findDamageSpaceByWarehouse(warehouse.getId(),options);
 		if(damageSpaceList != null){
 			enhanceDamageSpaceList(damageSpaceList,options);
 			warehouse.setDamageSpaceList(damageSpaceList);
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+  
+	}
+
 	protected Warehouse analyzeDamageSpaceList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+     
 		if(warehouse == null){
 			return null;
 		}
@@ -897,27 +894,27 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();
 		if(damageSpaceList != null){
 			getDamageSpaceDAO().analyzeDamageSpaceByWarehouse(damageSpaceList, warehouse.getId(), options);
-			
+
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceWarehouseAssetList(SmartList<WarehouseAsset> warehouseAssetList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Warehouse extractWarehouseAssetList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+    
+
 		if(warehouse == null){
 			return null;
 		}
@@ -925,21 +922,20 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<WarehouseAsset> warehouseAssetList = getWarehouseAssetDAO().findWarehouseAssetByOwner(warehouse.getId(),options);
 		if(warehouseAssetList != null){
 			enhanceWarehouseAssetList(warehouseAssetList,options);
 			warehouse.setWarehouseAssetList(warehouseAssetList);
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+  
+	}
+
 	protected Warehouse analyzeWarehouseAssetList(Warehouse warehouse, Map<String,Object> options){
-		
-		
+     
 		if(warehouse == null){
 			return null;
 		}
@@ -947,47 +943,47 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 			return warehouse;
 		}
 
-		
-		
+
+
 		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();
 		if(warehouseAssetList != null){
 			getWarehouseAssetDAO().analyzeWarehouseAssetByOwner(warehouseAssetList, warehouse.getId(), options);
-			
+
 		}
-		
+
 		return warehouse;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<Warehouse> findWarehouseByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<Warehouse> resultList = queryWith(WarehouseTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getWarehouseMapper());
 		// analyzeWarehouseByOwner(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Warehouse> findWarehouseByOwner(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Warehouse> resultList =  queryWithRange(WarehouseTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getWarehouseMapper(), start, count);
  		//analyzeWarehouseByOwner(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeWarehouseByOwner(SmartList<Warehouse> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Warehouse.OWNER_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Warehouse.LAST_UPDATE_TIME_PROPERTY
@@ -995,11 +991,11 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Warehouse.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Warehouse.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countWarehouseByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -1010,21 +1006,24 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	public Map<String, Integer> countWarehouseByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(WarehouseTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Warehouse saveWarehouse(Warehouse  warehouse){
+    
+
 		
 		if(!warehouse.isChanged()){
 			return warehouse;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(warehouse);
 		String SQL=this.getSaveWarehouseSQL(warehouse);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveWarehouseParameters(warehouse);
@@ -1035,6 +1034,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		}
 
 		warehouse.incVersion();
+		warehouse.afterSave();
 		return warehouse;
 
 	}
@@ -1052,6 +1052,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		for(Warehouse warehouse:warehouseList){
 			if(warehouse.isChanged()){
 				warehouse.incVersion();
+				warehouse.afterSave();
 			}
 
 
@@ -1155,25 +1156,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  	protected Object[] prepareWarehouseUpdateParameters(Warehouse warehouse){
  		Object[] parameters = new Object[10];
  
- 		
  		parameters[0] = warehouse.getLocation();
  		
- 		
  		parameters[1] = warehouse.getContactNumber();
- 		
  		
  		parameters[2] = warehouse.getTotalArea();
  		
  		if(warehouse.getOwner() != null){
  			parameters[3] = warehouse.getOwner().getId();
  		}
- 
- 		
+    
  		parameters[4] = warehouse.getLatitude();
  		
- 		
  		parameters[5] = warehouse.getLongitude();
- 		
  		
  		parameters[6] = warehouse.getLastUpdateTime();
  		
@@ -1191,26 +1186,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
         }
 		parameters[0] =  warehouse.getId();
  
- 		
  		parameters[1] = warehouse.getLocation();
  		
- 		
  		parameters[2] = warehouse.getContactNumber();
- 		
  		
  		parameters[3] = warehouse.getTotalArea();
  		
  		if(warehouse.getOwner() != null){
  			parameters[4] = warehouse.getOwner().getId();
-
  		}
- 		
  		
  		parameters[5] = warehouse.getLatitude();
  		
- 		
  		parameters[6] = warehouse.getLongitude();
- 		
  		
  		parameters[7] = warehouse.getLastUpdateTime();
  		
@@ -1220,12 +1208,11 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 	protected Warehouse saveInternalWarehouse(Warehouse warehouse, Map<String,Object> options){
 
-		saveWarehouse(warehouse);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(warehouse, options);
  		}
  
+   saveWarehouse(warehouse);
 		
 		if(isSaveStorageSpaceListEnabled(options)){
 	 		saveStorageSpaceList(warehouse, options);
@@ -1286,6 +1273,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 
  	protected Warehouse saveOwner(Warehouse warehouse, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(warehouse.getOwner() == null){
  			return warehouse;//do nothing when it is null
@@ -1295,11 +1283,6 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		return warehouse;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1502,7 +1485,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 		
 	protected Warehouse saveStorageSpaceList(Warehouse warehouse, Map<String,Object> options){
-
+    
 
 
 
@@ -1568,7 +1551,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 		
 	protected Warehouse saveSmartPalletList(Warehouse warehouse, Map<String,Object> options){
-
+    
 
 
 
@@ -1634,7 +1617,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 		
 	protected Warehouse saveSupplierSpaceList(Warehouse warehouse, Map<String,Object> options){
-
+    
 
 
 
@@ -1700,7 +1683,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 		
 	protected Warehouse saveReceivingSpaceList(Warehouse warehouse, Map<String,Object> options){
-
+    
 
 
 
@@ -1766,7 +1749,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 		
 	protected Warehouse saveShippingSpaceList(Warehouse warehouse, Map<String,Object> options){
-
+    
 
 
 
@@ -1832,7 +1815,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 		
 	protected Warehouse saveDamageSpaceList(Warehouse warehouse, Map<String,Object> options){
-
+    
 
 
 
@@ -1898,7 +1881,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 		
 	protected Warehouse saveWarehouseAssetList(Warehouse warehouse, Map<String,Object> options){
-
+    
 
 
 
@@ -1965,7 +1948,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		
 
 	public Warehouse present(Warehouse warehouse,Map<String, Object> options){
-	
+
 		presentStorageSpaceList(warehouse,options);
 		presentSmartPalletList(warehouse,options);
 		presentSupplierSpaceList(warehouse,options);
@@ -1975,15 +1958,15 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 		presentWarehouseAssetList(warehouse,options);
 
 		return warehouse;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Warehouse presentStorageSpaceList(
 			Warehouse warehouse,
 			Map<String, Object> options) {
-
-		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();		
+    
+		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();
 				SmartList<StorageSpace> newList= presentSubList(warehouse.getId(),
 				storageSpaceList,
 				options,
@@ -1991,19 +1974,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 				getStorageSpaceDAO()::findStorageSpaceByWarehouse
 				);
 
-		
+
 		warehouse.setStorageSpaceList(newList);
-		
+
 
 		return warehouse;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Warehouse presentSmartPalletList(
 			Warehouse warehouse,
 			Map<String, Object> options) {
-
-		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();		
+    
+		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();
 				SmartList<SmartPallet> newList= presentSubList(warehouse.getId(),
 				smartPalletList,
 				options,
@@ -2011,19 +1994,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 				getSmartPalletDAO()::findSmartPalletByWarehouse
 				);
 
-		
+
 		warehouse.setSmartPalletList(newList);
-		
+
 
 		return warehouse;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Warehouse presentSupplierSpaceList(
 			Warehouse warehouse,
 			Map<String, Object> options) {
-
-		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();		
+    
+		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();
 				SmartList<SupplierSpace> newList= presentSubList(warehouse.getId(),
 				supplierSpaceList,
 				options,
@@ -2031,19 +2014,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 				getSupplierSpaceDAO()::findSupplierSpaceByWarehouse
 				);
 
-		
+
 		warehouse.setSupplierSpaceList(newList);
-		
+
 
 		return warehouse;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Warehouse presentReceivingSpaceList(
 			Warehouse warehouse,
 			Map<String, Object> options) {
-
-		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();		
+    
+		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();
 				SmartList<ReceivingSpace> newList= presentSubList(warehouse.getId(),
 				receivingSpaceList,
 				options,
@@ -2051,19 +2034,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 				getReceivingSpaceDAO()::findReceivingSpaceByWarehouse
 				);
 
-		
+
 		warehouse.setReceivingSpaceList(newList);
-		
+
 
 		return warehouse;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Warehouse presentShippingSpaceList(
 			Warehouse warehouse,
 			Map<String, Object> options) {
-
-		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();		
+    
+		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();
 				SmartList<ShippingSpace> newList= presentSubList(warehouse.getId(),
 				shippingSpaceList,
 				options,
@@ -2071,19 +2054,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 				getShippingSpaceDAO()::findShippingSpaceByWarehouse
 				);
 
-		
+
 		warehouse.setShippingSpaceList(newList);
-		
+
 
 		return warehouse;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Warehouse presentDamageSpaceList(
 			Warehouse warehouse,
 			Map<String, Object> options) {
-
-		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();		
+    
+		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();
 				SmartList<DamageSpace> newList= presentSubList(warehouse.getId(),
 				damageSpaceList,
 				options,
@@ -2091,19 +2074,19 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 				getDamageSpaceDAO()::findDamageSpaceByWarehouse
 				);
 
-		
+
 		warehouse.setDamageSpaceList(newList);
-		
+
 
 		return warehouse;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Warehouse presentWarehouseAssetList(
 			Warehouse warehouse,
 			Map<String, Object> options) {
-
-		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();		
+    
+		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();
 				SmartList<WarehouseAsset> newList= presentSubList(warehouse.getId(),
 				warehouseAssetList,
 				options,
@@ -2111,12 +2094,12 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 				getWarehouseAssetDAO()::findWarehouseAssetByOwner
 				);
 
-		
+
 		warehouse.setWarehouseAssetList(newList);
-		
+
 
 		return warehouse;
-	}			
+	}
 		
 
 	
@@ -2176,6 +2159,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 	// 需要一个加载引用我的对象的enhance方法:StorageSpace的warehouse的StorageSpaceList
 	public SmartList<StorageSpace> loadOurStorageSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2199,6 +2183,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 	// 需要一个加载引用我的对象的enhance方法:SmartPallet的warehouse的SmartPalletList
 	public SmartList<SmartPallet> loadOurSmartPalletList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2222,6 +2207,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 	// 需要一个加载引用我的对象的enhance方法:SupplierSpace的warehouse的SupplierSpaceList
 	public SmartList<SupplierSpace> loadOurSupplierSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2245,6 +2231,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 	// 需要一个加载引用我的对象的enhance方法:ReceivingSpace的warehouse的ReceivingSpaceList
 	public SmartList<ReceivingSpace> loadOurReceivingSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2268,6 +2255,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 	// 需要一个加载引用我的对象的enhance方法:ShippingSpace的warehouse的ShippingSpaceList
 	public SmartList<ShippingSpace> loadOurShippingSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2291,6 +2279,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 	// 需要一个加载引用我的对象的enhance方法:DamageSpace的warehouse的DamageSpaceList
 	public SmartList<DamageSpace> loadOurDamageSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2314,6 +2303,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	
 	// 需要一个加载引用我的对象的enhance方法:WarehouseAsset的owner的WarehouseAssetList
 	public SmartList<WarehouseAsset> loadOurWarehouseAssetList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2370,6 +2360,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Warehouse> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getWarehouseMapper());
   }
@@ -2405,6 +2399,15 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
 
 	
 
+  @Override
+  public List<Warehouse> search(WarehouseRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected WarehouseMapper mapper() {
+    return getWarehouseMapper();
+  }
 }
 
 

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.wechatworkappidentity;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,27 +9,30 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.secuser.SecUser;
 
 public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIdentity>{
-	
+
 	protected WechatWorkappIdentity internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		WechatWorkappIdentity wechatWorkappIdentity = getWechatWorkappIdentity();		
-		 		
- 		setId(wechatWorkappIdentity, rs, rowNumber); 		
- 		setCorpId(wechatWorkappIdentity, rs, rowNumber); 		
- 		setUserId(wechatWorkappIdentity, rs, rowNumber); 		
- 		setSecUser(wechatWorkappIdentity, rs, rowNumber); 		
- 		setCreateTime(wechatWorkappIdentity, rs, rowNumber); 		
- 		setLastLoginTime(wechatWorkappIdentity, rs, rowNumber); 		
+		WechatWorkappIdentity wechatWorkappIdentity = getWechatWorkappIdentity();
+		
+ 		setId(wechatWorkappIdentity, rs, rowNumber);
+ 		setCorpId(wechatWorkappIdentity, rs, rowNumber);
+ 		setUserId(wechatWorkappIdentity, rs, rowNumber);
+ 		setSecUser(wechatWorkappIdentity, rs, rowNumber);
+ 		setCreateTime(wechatWorkappIdentity, rs, rowNumber);
+ 		setLastLoginTime(wechatWorkappIdentity, rs, rowNumber);
  		setVersion(wechatWorkappIdentity, rs, rowNumber);
 
+    
 		return wechatWorkappIdentity;
 	}
-	
+
 	protected WechatWorkappIdentity getWechatWorkappIdentity(){
-		return new WechatWorkappIdentity();
-	}		
+	  WechatWorkappIdentity entity = new WechatWorkappIdentity();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(WechatWorkappIdentity wechatWorkappIdentity, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(WechatWorkappIdentityTable.COLUMN_ID);
@@ -39,10 +43,13 @@ public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIden
 		}
 		
 		wechatWorkappIdentity.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCorpId(WechatWorkappIdentity wechatWorkappIdentity, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String corpId = rs.getString(WechatWorkappIdentityTable.COLUMN_CORP_ID);
@@ -53,10 +60,13 @@ public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIden
 		}
 		
 		wechatWorkappIdentity.setCorpId(corpId);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setUserId(WechatWorkappIdentity wechatWorkappIdentity, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String userId = rs.getString(WechatWorkappIdentityTable.COLUMN_USER_ID);
@@ -67,10 +77,18 @@ public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIden
 		}
 		
 		wechatWorkappIdentity.setUserId(userId);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setSecUser(WechatWorkappIdentity wechatWorkappIdentity, ResultSet rs, int rowNumber) throws SQLException{
- 		String secUserId = rs.getString(WechatWorkappIdentityTable.COLUMN_SEC_USER);
+ 		String secUserId;
+ 		try{
+ 		  secUserId = rs.getString(WechatWorkappIdentityTable.COLUMN_SEC_USER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( secUserId == null){
  			return;
  		}
@@ -81,14 +99,14 @@ public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIden
  		if( secUser != null ){
  			//if the root object 'wechatWorkappIdentity' already have the property, just set the id for it;
  			secUser.setId(secUserId);
- 			
+
  			return;
  		}
  		wechatWorkappIdentity.setSecUser(createEmptySecUser(secUserId));
  	}
  	
 	protected void setCreateTime(WechatWorkappIdentity wechatWorkappIdentity, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date createTime = rs.getTimestamp(WechatWorkappIdentityTable.COLUMN_CREATE_TIME);
@@ -99,10 +117,13 @@ public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIden
 		}
 		
 		wechatWorkappIdentity.setCreateTime(convertToDateTime(createTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastLoginTime(WechatWorkappIdentity wechatWorkappIdentity, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastLoginTime = rs.getTimestamp(WechatWorkappIdentityTable.COLUMN_LAST_LOGIN_TIME);
@@ -113,10 +134,13 @@ public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIden
 		}
 		
 		wechatWorkappIdentity.setLastLoginTime(convertToDateTime(lastLoginTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(WechatWorkappIdentity wechatWorkappIdentity, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(WechatWorkappIdentityTable.COLUMN_VERSION);
@@ -127,9 +151,12 @@ public class WechatWorkappIdentityMapper extends BaseRowMapper<WechatWorkappIden
 		}
 		
 		wechatWorkappIdentity.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected SecUser  createEmptySecUser(String secUserId){
  		SecUser secUser = new SecUser();

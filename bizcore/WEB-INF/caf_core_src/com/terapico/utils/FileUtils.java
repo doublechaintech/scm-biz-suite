@@ -27,6 +27,13 @@ public class FileUtils {
 		return fprint;
 	}
 
+	public static FileOutputStream createFileForWrite(File file) throws IOException {
+		ensureFile(file);
+
+		FileOutputStream fout = new FileOutputStream(file);
+		return fout;
+	}
+
 	private static void ensureFile(File file) throws IOException {
 		if (!file.exists()) {
 			file.getParentFile().mkdirs();
@@ -53,10 +60,14 @@ public class FileUtils {
 
 	public static byte[] readFileAsBytes(File inputFile) throws Exception {
 		FileInputStream fin = new FileInputStream(inputFile);
+		return readToBytes(fin);
+	}
+
+	public static byte[] readToBytes(InputStream fin) throws IOException {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		int n;
 		byte[] buff = new byte[1024];
-		while((n=fin.read(buff)) > 0) {
+		while((n= fin.read(buff)) > 0) {
 			bout.write(buff, 0, n);
 		}
 		fin.close();
@@ -92,6 +103,12 @@ public class FileUtils {
 	public static void writeToFile(File file, String content) throws IOException {
 		try (PrintStream prn = createFileForPrint(file)){
 			prn.print(content);
+		}
+	}
+
+	public static void writeToFile(File file, byte[] content) throws IOException {
+		try (FileOutputStream fout = createFileForWrite(file)){
+			fout.write(content);
 		}
 	}
 }

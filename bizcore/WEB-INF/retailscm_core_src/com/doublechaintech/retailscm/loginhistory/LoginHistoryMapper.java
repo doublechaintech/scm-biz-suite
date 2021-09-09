@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.loginhistory;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.secuser.SecUser;
 
 public class LoginHistoryMapper extends BaseRowMapper<LoginHistory>{
-	
+
 	protected LoginHistory internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		LoginHistory loginHistory = getLoginHistory();		
-		 		
- 		setId(loginHistory, rs, rowNumber); 		
- 		setLoginTime(loginHistory, rs, rowNumber); 		
- 		setFromIp(loginHistory, rs, rowNumber); 		
- 		setDescription(loginHistory, rs, rowNumber); 		
- 		setSecUser(loginHistory, rs, rowNumber); 		
+		LoginHistory loginHistory = getLoginHistory();
+		
+ 		setId(loginHistory, rs, rowNumber);
+ 		setLoginTime(loginHistory, rs, rowNumber);
+ 		setFromIp(loginHistory, rs, rowNumber);
+ 		setDescription(loginHistory, rs, rowNumber);
+ 		setSecUser(loginHistory, rs, rowNumber);
  		setVersion(loginHistory, rs, rowNumber);
 
+    
 		return loginHistory;
 	}
-	
+
 	protected LoginHistory getLoginHistory(){
-		return new LoginHistory();
-	}		
+	  LoginHistory entity = new LoginHistory();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(LoginHistory loginHistory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(LoginHistoryTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class LoginHistoryMapper extends BaseRowMapper<LoginHistory>{
 		}
 		
 		loginHistory.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLoginTime(LoginHistory loginHistory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date loginTime = rs.getTimestamp(LoginHistoryTable.COLUMN_LOGIN_TIME);
@@ -52,10 +59,13 @@ public class LoginHistoryMapper extends BaseRowMapper<LoginHistory>{
 		}
 		
 		loginHistory.setLoginTime(convertToDateTime(loginTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFromIp(LoginHistory loginHistory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String fromIp = rs.getString(LoginHistoryTable.COLUMN_FROM_IP);
@@ -66,10 +76,13 @@ public class LoginHistoryMapper extends BaseRowMapper<LoginHistory>{
 		}
 		
 		loginHistory.setFromIp(fromIp);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDescription(LoginHistory loginHistory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(LoginHistoryTable.COLUMN_DESCRIPTION);
@@ -80,10 +93,18 @@ public class LoginHistoryMapper extends BaseRowMapper<LoginHistory>{
 		}
 		
 		loginHistory.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setSecUser(LoginHistory loginHistory, ResultSet rs, int rowNumber) throws SQLException{
- 		String secUserId = rs.getString(LoginHistoryTable.COLUMN_SEC_USER);
+ 		String secUserId;
+ 		try{
+ 		  secUserId = rs.getString(LoginHistoryTable.COLUMN_SEC_USER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( secUserId == null){
  			return;
  		}
@@ -94,14 +115,14 @@ public class LoginHistoryMapper extends BaseRowMapper<LoginHistory>{
  		if( secUser != null ){
  			//if the root object 'loginHistory' already have the property, just set the id for it;
  			secUser.setId(secUserId);
- 			
+
  			return;
  		}
  		loginHistory.setSecUser(createEmptySecUser(secUserId));
  	}
  	
 	protected void setVersion(LoginHistory loginHistory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(LoginHistoryTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class LoginHistoryMapper extends BaseRowMapper<LoginHistory>{
 		}
 		
 		loginHistory.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected SecUser  createEmptySecUser(String secUserId){
  		SecUser secUser = new SecUser();

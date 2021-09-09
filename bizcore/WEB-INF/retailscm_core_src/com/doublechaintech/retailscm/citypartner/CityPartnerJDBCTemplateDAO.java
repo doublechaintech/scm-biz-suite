@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.citypartner;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected RetailStoreCityServiceCenterDAO retailStoreCityServiceCenterDAO;
 	public void setRetailStoreCityServiceCenterDAO(RetailStoreCityServiceCenterDAO retailStoreCityServiceCenterDAO){
- 	
+
  		if(retailStoreCityServiceCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCityServiceCenterDAO to null.");
  		}
@@ -53,13 +54,13 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.retailStoreCityServiceCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCityServiceCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCityServiceCenterDAO;
- 	}	
+ 	}
 
 	protected PotentialCustomerDAO potentialCustomerDAO;
 	public void setPotentialCustomerDAO(PotentialCustomerDAO potentialCustomerDAO){
- 	
+
  		if(potentialCustomerDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerDAO to null.");
  		}
@@ -69,13 +70,13 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.potentialCustomerDAO == null){
  			throw new IllegalStateException("The potentialCustomerDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerDAO;
- 	}	
+ 	}
 
 	protected PotentialCustomerContactDAO potentialCustomerContactDAO;
 	public void setPotentialCustomerContactDAO(PotentialCustomerContactDAO potentialCustomerContactDAO){
- 	
+
  		if(potentialCustomerContactDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerContactDAO to null.");
  		}
@@ -85,9 +86,10 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.potentialCustomerContactDAO == null){
  			throw new IllegalStateException("The potentialCustomerContactDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerContactDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -141,14 +143,14 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		newCityPartner.setVersion(0);
 		
 		
- 		
+
  		if(isSavePotentialCustomerListEnabled(options)){
  			for(PotentialCustomer item: newCityPartner.getPotentialCustomerList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSavePotentialCustomerContactListEnabled(options)){
  			for(PotentialCustomerContact item: newCityPartner.getPotentialCustomerContactList()){
  				item.setVersion(0);
@@ -235,58 +237,58 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return CityPartnerTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCityServiceCenterEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, CityPartnerTokens.CITYSERVICECENTER);
  	}
 
  	protected boolean isSaveCityServiceCenterEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, CityPartnerTokens.CITYSERVICECENTER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){
  		return CityPartnerTokens.of(options).analyzePotentialCustomerListEnabled();
  	}
-	
+
 	protected boolean isSavePotentialCustomerListEnabled(Map<String,Object> options){
 		return checkOptions(options, CityPartnerTokens.POTENTIAL_CUSTOMER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){
  		return CityPartnerTokens.of(options).analyzePotentialCustomerContactListEnabled();
  	}
-	
+
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
 		return checkOptions(options, CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -295,8 +297,8 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		return new CityPartnerMapper();
 	}
 
-	
-	
+
+
 	protected CityPartner extractCityPartner(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			CityPartner cityPartner = loadSingleObject(accessKey, getCityPartnerMapper());
@@ -307,13 +309,13 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	}
 
-	
-	
+
+
 
 	protected CityPartner loadInternalCityPartner(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		CityPartner cityPartner = extractCityPartner(accessKey, loadOptions);
- 	
+
  		if(isExtractCityServiceCenterEnabled(loadOptions)){
 	 		extractCityServiceCenter(cityPartner, loadOptions);
  		}
@@ -321,8 +323,8 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 		if(isExtractPotentialCustomerListEnabled(loadOptions)){
 	 		extractPotentialCustomerList(cityPartner, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzePotentialCustomerListEnabled(loadOptions)){
 	 		analyzePotentialCustomerList(cityPartner, loadOptions);
@@ -331,8 +333,8 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 		if(isExtractPotentialCustomerContactListEnabled(loadOptions)){
 	 		extractPotentialCustomerContactList(cityPartner, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
 	 		analyzePotentialCustomerContactList(cityPartner, loadOptions);
@@ -340,12 +342,13 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
 		
 		return cityPartner;
-		
+
 	}
 
-	 
+	
 
  	protected CityPartner extractCityServiceCenter(CityPartner cityPartner, Map<String,Object> options) throws Exception{
+  
 
 		if(cityPartner.getCityServiceCenter() == null){
 			return cityPartner;
@@ -358,21 +361,21 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(cityServiceCenter != null){
 			cityPartner.setCityServiceCenter(cityServiceCenter);
 		}
-		
- 		
+
+
  		return cityPartner;
  	}
- 		
+
  
 		
 	protected void enhancePotentialCustomerList(SmartList<PotentialCustomer> potentialCustomerList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected CityPartner extractPotentialCustomerList(CityPartner cityPartner, Map<String,Object> options){
-		
-		
+    
+
 		if(cityPartner == null){
 			return null;
 		}
@@ -380,21 +383,20 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return cityPartner;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomer> potentialCustomerList = getPotentialCustomerDAO().findPotentialCustomerByCityPartner(cityPartner.getId(),options);
 		if(potentialCustomerList != null){
 			enhancePotentialCustomerList(potentialCustomerList,options);
 			cityPartner.setPotentialCustomerList(potentialCustomerList);
 		}
-		
+
 		return cityPartner;
-	
-	}	
-	
+  
+	}
+
 	protected CityPartner analyzePotentialCustomerList(CityPartner cityPartner, Map<String,Object> options){
-		
-		
+     
 		if(cityPartner == null){
 			return null;
 		}
@@ -402,27 +404,27 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return cityPartner;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomer> potentialCustomerList = cityPartner.getPotentialCustomerList();
 		if(potentialCustomerList != null){
 			getPotentialCustomerDAO().analyzePotentialCustomerByCityPartner(potentialCustomerList, cityPartner.getId(), options);
-			
+
 		}
-		
+
 		return cityPartner;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhancePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected CityPartner extractPotentialCustomerContactList(CityPartner cityPartner, Map<String,Object> options){
-		
-		
+    
+
 		if(cityPartner == null){
 			return null;
 		}
@@ -430,21 +432,20 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return cityPartner;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomerContact> potentialCustomerContactList = getPotentialCustomerContactDAO().findPotentialCustomerContactByCityPartner(cityPartner.getId(),options);
 		if(potentialCustomerContactList != null){
 			enhancePotentialCustomerContactList(potentialCustomerContactList,options);
 			cityPartner.setPotentialCustomerContactList(potentialCustomerContactList);
 		}
-		
+
 		return cityPartner;
-	
-	}	
-	
+  
+	}
+
 	protected CityPartner analyzePotentialCustomerContactList(CityPartner cityPartner, Map<String,Object> options){
-		
-		
+     
 		if(cityPartner == null){
 			return null;
 		}
@@ -452,47 +453,47 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return cityPartner;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomerContact> potentialCustomerContactList = cityPartner.getPotentialCustomerContactList();
 		if(potentialCustomerContactList != null){
 			getPotentialCustomerContactDAO().analyzePotentialCustomerContactByCityPartner(potentialCustomerContactList, cityPartner.getId(), options);
-			
+
 		}
-		
+
 		return cityPartner;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<CityPartner> findCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId,Map<String,Object> options){
- 	
+
   		SmartList<CityPartner> resultList = queryWith(CityPartnerTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityPartnerMapper());
 		// analyzeCityPartnerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<CityPartner> findCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<CityPartner> resultList =  queryWithRange(CityPartnerTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityPartnerMapper(), start, count);
  		//analyzeCityPartnerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeCityPartnerByCityServiceCenter(SmartList<CityPartner> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(CityPartner.CITY_SERVICE_CENTER_PROPERTY, retailStoreCityServiceCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityPartner.LAST_UPDATE_TIME_PROPERTY
@@ -500,11 +501,11 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityPartner.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityPartner.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId,Map<String,Object> options){
@@ -515,21 +516,24 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	public Map<String, Integer> countCityPartnerByCityServiceCenterIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(CityPartnerTable.COLUMN_CITY_SERVICE_CENTER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected CityPartner saveCityPartner(CityPartner  cityPartner){
+    
+
 		
 		if(!cityPartner.isChanged()){
 			return cityPartner;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(cityPartner);
 		String SQL=this.getSaveCityPartnerSQL(cityPartner);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveCityPartnerParameters(cityPartner);
@@ -540,6 +544,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		cityPartner.incVersion();
+		cityPartner.afterSave();
 		return cityPartner;
 
 	}
@@ -557,6 +562,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		for(CityPartner cityPartner:cityPartnerList){
 			if(cityPartner.isChanged()){
 				cityPartner.incVersion();
+				cityPartner.afterSave();
 			}
 
 
@@ -660,19 +666,15 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  	protected Object[] prepareCityPartnerUpdateParameters(CityPartner cityPartner){
  		Object[] parameters = new Object[8];
  
- 		
  		parameters[0] = cityPartner.getName();
- 		
  		
  		parameters[1] = cityPartner.getMobile();
  		
  		if(cityPartner.getCityServiceCenter() != null){
  			parameters[2] = cityPartner.getCityServiceCenter().getId();
  		}
- 
- 		
+    
  		parameters[3] = cityPartner.getDescription();
- 		
  		
  		parameters[4] = cityPartner.getLastUpdateTime();
  		
@@ -690,20 +692,15 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
         }
 		parameters[0] =  cityPartner.getId();
  
- 		
  		parameters[1] = cityPartner.getName();
- 		
  		
  		parameters[2] = cityPartner.getMobile();
  		
  		if(cityPartner.getCityServiceCenter() != null){
  			parameters[3] = cityPartner.getCityServiceCenter().getId();
-
  		}
  		
- 		
  		parameters[4] = cityPartner.getDescription();
- 		
  		
  		parameters[5] = cityPartner.getLastUpdateTime();
  		
@@ -713,12 +710,11 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected CityPartner saveInternalCityPartner(CityPartner cityPartner, Map<String,Object> options){
 
-		saveCityPartner(cityPartner);
-
  		if(isSaveCityServiceCenterEnabled(options)){
 	 		saveCityServiceCenter(cityPartner, options);
  		}
  
+   saveCityPartner(cityPartner);
 		
 		if(isSavePotentialCustomerListEnabled(options)){
 	 		savePotentialCustomerList(cityPartner, options);
@@ -744,6 +740,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 
  	protected CityPartner saveCityServiceCenter(CityPartner cityPartner, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(cityPartner.getCityServiceCenter() == null){
  			return cityPartner;//do nothing when it is null
@@ -753,11 +750,6 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		return cityPartner;
 
  	}
-
-
-
-
-
  
 
 	
@@ -952,7 +944,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected CityPartner savePotentialCustomerList(CityPartner cityPartner, Map<String,Object> options){
-
+    
 
 
 
@@ -1018,7 +1010,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected CityPartner savePotentialCustomerContactList(CityPartner cityPartner, Map<String,Object> options){
-
+    
 
 
 
@@ -1085,20 +1077,20 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 
 	public CityPartner present(CityPartner cityPartner,Map<String, Object> options){
-	
+
 		presentPotentialCustomerList(cityPartner,options);
 		presentPotentialCustomerContactList(cityPartner,options);
 
 		return cityPartner;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected CityPartner presentPotentialCustomerList(
 			CityPartner cityPartner,
 			Map<String, Object> options) {
-
-		SmartList<PotentialCustomer> potentialCustomerList = cityPartner.getPotentialCustomerList();		
+    
+		SmartList<PotentialCustomer> potentialCustomerList = cityPartner.getPotentialCustomerList();
 				SmartList<PotentialCustomer> newList= presentSubList(cityPartner.getId(),
 				potentialCustomerList,
 				options,
@@ -1106,19 +1098,19 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				getPotentialCustomerDAO()::findPotentialCustomerByCityPartner
 				);
 
-		
+
 		cityPartner.setPotentialCustomerList(newList);
-		
+
 
 		return cityPartner;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected CityPartner presentPotentialCustomerContactList(
 			CityPartner cityPartner,
 			Map<String, Object> options) {
-
-		SmartList<PotentialCustomerContact> potentialCustomerContactList = cityPartner.getPotentialCustomerContactList();		
+    
+		SmartList<PotentialCustomerContact> potentialCustomerContactList = cityPartner.getPotentialCustomerContactList();
 				SmartList<PotentialCustomerContact> newList= presentSubList(cityPartner.getId(),
 				potentialCustomerContactList,
 				options,
@@ -1126,12 +1118,12 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				getPotentialCustomerContactDAO()::findPotentialCustomerContactByCityPartner
 				);
 
-		
+
 		cityPartner.setPotentialCustomerContactList(newList);
-		
+
 
 		return cityPartner;
-	}			
+	}
 		
 
 	
@@ -1161,6 +1153,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomer的cityPartner的PotentialCustomerList
 	public SmartList<PotentialCustomer> loadOurPotentialCustomerList(RetailscmUserContext userContext, List<CityPartner> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1184,6 +1177,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContact的cityPartner的PotentialCustomerContactList
 	public SmartList<PotentialCustomerContact> loadOurPotentialCustomerContactList(RetailscmUserContext userContext, List<CityPartner> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1240,6 +1234,10 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<CityPartner> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getCityPartnerMapper());
   }
@@ -1275,6 +1273,15 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	
 
+  @Override
+  public List<CityPartner> search(CityPartnerRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected CityPartnerMapper mapper() {
+    return getCityPartnerMapper();
+  }
 }
 
 

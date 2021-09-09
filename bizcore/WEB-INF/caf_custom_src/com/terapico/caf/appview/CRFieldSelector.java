@@ -148,6 +148,11 @@ public class CRFieldSelector {
     return this;
   }
 
+  public CRFieldSelector linkToUrl(String linkToUrl) {
+    foundFieldData().setLinkToUrl(linkToUrl);
+    return this;
+  }
+
   public CRFieldSelector rules(List<Map<String, Object>> rules) {
     foundFieldData().setRules(rules);
     return this;

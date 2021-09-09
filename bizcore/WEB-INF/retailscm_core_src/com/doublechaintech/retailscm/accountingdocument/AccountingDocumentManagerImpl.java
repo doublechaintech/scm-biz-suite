@@ -1,46 +1,27 @@
 
 package com.doublechaintech.retailscm.accountingdocument;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType;import com.doublechaintech.retailscm.accountingdocumenttype.CandidateAccountingDocumentType;import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;import com.doublechaintech.retailscm.accountingperiod.CandidateAccountingPeriod;import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.originalvoucher.OriginalVoucher;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;
-import com.doublechaintech.retailscm.originalvoucher.OriginalVoucher;
-import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType;
-import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
-
-import com.doublechaintech.retailscm.accountingdocumenttype.CandidateAccountingDocumentType;
-import com.doublechaintech.retailscm.accountingperiod.CandidateAccountingPeriod;
-
-import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
-import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager implements AccountingDocumentManager, BusinessHandler{
@@ -83,6 +64,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws AccountingDocumentManagerException{
 
 		Message message = new Message();
@@ -93,107 +75,138 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
 
 
- 	protected AccountingDocument saveAccountingDocument(RetailscmUserContext userContext, AccountingDocument accountingDocument, String [] tokensExpr) throws Exception{	
+ 	protected AccountingDocument saveAccountingDocument(RetailscmUserContext userContext, AccountingDocument accountingDocument, String [] tokensExpr) throws Exception{
  		//return getAccountingDocumentDAO().save(accountingDocument, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveAccountingDocument(userContext, accountingDocument, tokens);
  	}
- 	
- 	protected AccountingDocument saveAccountingDocumentDetail(RetailscmUserContext userContext, AccountingDocument accountingDocument) throws Exception{	
 
- 		
+ 	protected AccountingDocument saveAccountingDocumentDetail(RetailscmUserContext userContext, AccountingDocument accountingDocument) throws Exception{
+
+
  		return saveAccountingDocument(userContext, accountingDocument, allTokens());
  	}
- 	
- 	public AccountingDocument loadAccountingDocument(RetailscmUserContext userContext, String accountingDocumentId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public AccountingDocument loadAccountingDocument(RetailscmUserContext userContext, String accountingDocumentId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( AccountingDocumentManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		AccountingDocument accountingDocument = loadAccountingDocument( userContext, accountingDocumentId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,accountingDocument, tokens);
  	}
- 	
- 	
- 	 public AccountingDocument searchAccountingDocument(RetailscmUserContext userContext, String accountingDocumentId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public AccountingDocument searchAccountingDocument(RetailscmUserContext userContext, String accountingDocumentId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( AccountingDocumentManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		AccountingDocument accountingDocument = loadAccountingDocument( userContext, accountingDocumentId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,accountingDocument, tokens);
  	}
- 	
- 	
+
+
 
  	protected AccountingDocument present(RetailscmUserContext userContext, AccountingDocument accountingDocument, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,accountingDocument,tokens);
-		
-		
+    
+
 		AccountingDocument  accountingDocumentToPresent = accountingDocumentDaoOf(userContext).present(accountingDocument, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = accountingDocumentToPresent.collectRefercencesFromLists();
 		accountingDocumentDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,accountingDocument,tokens);
-		
+
 		return  accountingDocumentToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public AccountingDocument loadAccountingDocumentDetail(RetailscmUserContext userContext, String accountingDocumentId) throws Exception{	
+
+
+
+ 	public AccountingDocument loadAccountingDocumentDetail(RetailscmUserContext userContext, String accountingDocumentId) throws Exception{
  		AccountingDocument accountingDocument = loadAccountingDocument( userContext, accountingDocumentId, allTokens());
  		return present(userContext,accountingDocument, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String accountingDocumentId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String accountingDocumentId) throws Exception{
  		AccountingDocument accountingDocument = loadAccountingDocument( userContext, accountingDocumentId, viewTokens());
- 		return present(userContext,accountingDocument, allTokens());
-		
- 	}
- 	protected AccountingDocument saveAccountingDocument(RetailscmUserContext userContext, AccountingDocument accountingDocument, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, accountingDocument);
+ 		return present(userContext,accountingDocument, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String accountingDocumentId) throws Exception{
+		AccountingDocument accountingDocument = loadAccountingDocument( userContext, accountingDocumentId, viewTokens());
+		accountingDocument.summarySuffix();
+		markVisited(userContext, accountingDocument);
+ 		return present(userContext,accountingDocument, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String accountingDocumentId) throws Exception{
+		AccountingDocument accountingDocument = loadAccountingDocument( userContext, accountingDocumentId, analyzeTokens());
+		markVisited(userContext, accountingDocument);
+		return present(userContext,accountingDocument, analyzeTokens());
+
+	}
+ 	protected AccountingDocument saveAccountingDocument(RetailscmUserContext userContext, AccountingDocument accountingDocument, Map<String,Object>tokens) throws Exception{
+ 	
  		return accountingDocumentDaoOf(userContext).save(accountingDocument, tokens);
  	}
- 	protected AccountingDocument loadAccountingDocument(RetailscmUserContext userContext, String accountingDocumentId, Map<String,Object>tokens) throws Exception{	
+ 	protected AccountingDocument loadAccountingDocument(RetailscmUserContext userContext, String accountingDocumentId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( AccountingDocumentManagerException.class);
 
- 
+
+
  		return accountingDocumentDaoOf(userContext).load(accountingDocumentId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, AccountingDocument accountingDocument, Map<String, Object> tokens){
 		super.addActions(userContext, accountingDocument, tokens);
-		
+
 		addAction(userContext, accountingDocument, tokens,"@create","createAccountingDocument","createAccountingDocument/","main","primary");
 		addAction(userContext, accountingDocument, tokens,"@update","updateAccountingDocument","updateAccountingDocument/"+accountingDocument.getId()+"/","main","primary");
 		addAction(userContext, accountingDocument, tokens,"@copy","cloneAccountingDocument","cloneAccountingDocument/"+accountingDocument.getId()+"/","main","primary");
-		
+
 		addAction(userContext, accountingDocument, tokens,"accounting_document.transfer_to_accounting_period","transferToAnotherAccountingPeriod","transferToAnotherAccountingPeriod/"+accountingDocument.getId()+"/","main","primary");
 		addAction(userContext, accountingDocument, tokens,"accounting_document.transfer_to_document_type","transferToAnotherDocumentType","transferToAnotherDocumentType/"+accountingDocument.getId()+"/","main","primary");
 		addAction(userContext, accountingDocument, tokens,"accounting_document.addOriginalVoucher","addOriginalVoucher","addOriginalVoucher/"+accountingDocument.getId()+"/","originalVoucherList","primary");
@@ -204,29 +217,52 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		addAction(userContext, accountingDocument, tokens,"accounting_document.removeAccountingDocumentLine","removeAccountingDocumentLine","removeAccountingDocumentLine/"+accountingDocument.getId()+"/","accountingDocumentLineList","primary");
 		addAction(userContext, accountingDocument, tokens,"accounting_document.updateAccountingDocumentLine","updateAccountingDocumentLine","updateAccountingDocumentLine/"+accountingDocument.getId()+"/","accountingDocumentLineList","primary");
 		addAction(userContext, accountingDocument, tokens,"accounting_document.copyAccountingDocumentLineFrom","copyAccountingDocumentLineFrom","copyAccountingDocumentLineFrom/"+accountingDocument.getId()+"/","accountingDocumentLineList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, AccountingDocument accountingDocument, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<AccountingDocument> searchAccountingDocumentList(RetailscmUserContext ctx, AccountingDocumentRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<AccountingDocument> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public AccountingDocument searchAccountingDocument(RetailscmUserContext ctx, AccountingDocumentRequest pRequest){
+    pRequest.limit(0, 1);
+    List<AccountingDocument> list = searchAccountingDocumentList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public AccountingDocument createAccountingDocument(RetailscmUserContext userContext, String name,Date accountingDocumentDate,String accountingPeriodId,String documentTypeId) throws Exception
-	//public AccountingDocument createAccountingDocument(RetailscmUserContext userContext,String name, Date accountingDocumentDate, String accountingPeriodId, String documentTypeId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfAccountingDocument(name);
 		checkerOf(userContext).checkAccountingDocumentDateOfAccountingDocument(accountingDocumentDate);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 
 		AccountingDocument accountingDocument=createNewAccountingDocument();	
@@ -261,30 +297,32 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 		checkerOf(userContext).checkVersionOfAccountingDocument( accountingDocumentVersion);
-		
+
 
 		if(AccountingDocument.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfAccountingDocument(parseString(newValueExpr));
 		
-			
+
 		}
 		if(AccountingDocument.ACCOUNTING_DOCUMENT_DATE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkAccountingDocumentDateOfAccountingDocument(parseDate(newValueExpr));
 		
-			
-		}		
 
-				
+		}
 
 		
-	
+
+		
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 
 	}
@@ -313,6 +351,8 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			if (accountingDocument.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixAccountingDocument(accountingDocument);
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, options);
 			return accountingDocument;
 
@@ -379,11 +419,17 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> allTokens(){
 		return AccountingDocumentTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortOriginalVoucherListWith("id","desc")
-		.sortAccountingDocumentLineListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortOriginalVoucherListWith(OriginalVoucher.ID_PROPERTY,sortDesc())
+		.sortAccountingDocumentLineListWith(AccountingDocumentLine.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -395,6 +441,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
  		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
  		checkerOf(userContext).checkIdOfAccountingPeriod(anotherAccountingPeriodId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
 
  	}
@@ -402,16 +449,17 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
  	{
  		checkParamsForTransferingAnotherAccountingPeriod(userContext, accountingDocumentId,anotherAccountingPeriodId);
  
-		AccountingDocument accountingDocument = loadAccountingDocument(userContext, accountingDocumentId, allTokens());	
+		AccountingDocument accountingDocument = loadAccountingDocument(userContext, accountingDocumentId, allTokens());
 		synchronized(accountingDocument){
 			//will be good when the accountingDocument loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			AccountingPeriod accountingPeriod = loadAccountingPeriod(userContext, anotherAccountingPeriodId, emptyOptions());		
-			accountingDocument.updateAccountingPeriod(accountingPeriod);		
+			AccountingPeriod accountingPeriod = loadAccountingPeriod(userContext, anotherAccountingPeriodId, emptyOptions());
+			accountingDocument.updateAccountingPeriod(accountingPeriod);
+			
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, emptyOptions());
-			
+
 			return present(userContext,accountingDocument, allTokens());
-			
+
 		}
 
  	}
@@ -444,6 +492,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
  		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
  		checkerOf(userContext).checkIdOfAccountingDocumentType(anotherDocumentTypeId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
 
  	}
@@ -451,16 +500,17 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
  	{
  		checkParamsForTransferingAnotherDocumentType(userContext, accountingDocumentId,anotherDocumentTypeId);
  
-		AccountingDocument accountingDocument = loadAccountingDocument(userContext, accountingDocumentId, allTokens());	
+		AccountingDocument accountingDocument = loadAccountingDocument(userContext, accountingDocumentId, allTokens());
 		synchronized(accountingDocument){
 			//will be good when the accountingDocument loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			AccountingDocumentType documentType = loadAccountingDocumentType(userContext, anotherDocumentTypeId, emptyOptions());		
-			accountingDocument.updateDocumentType(documentType);		
+			AccountingDocumentType documentType = loadAccountingDocumentType(userContext, anotherDocumentTypeId, emptyOptions());
+			accountingDocument.updateDocumentType(documentType);
+			
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, emptyOptions());
-			
+
 			return present(userContext,accountingDocument, allTokens());
-			
+
 		}
 
  	}
@@ -493,8 +543,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
  	protected AccountingPeriod loadAccountingPeriod(RetailscmUserContext userContext, String newAccountingPeriodId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return accountingPeriodDaoOf(userContext).load(newAccountingPeriodId, options);
+ 	  
  	}
  	
 
@@ -503,8 +554,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
  	protected AccountingDocumentType loadAccountingDocumentType(RetailscmUserContext userContext, String newDocumentTypeId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return accountingDocumentTypeDaoOf(userContext).load(newDocumentTypeId, options);
+ 	  
  	}
  	
 
@@ -550,27 +602,6 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
-	//disconnect AccountingDocument with accounting_subject in AccountingDocumentLine
-	protected AccountingDocument breakWithAccountingDocumentLineByAccountingSubject(RetailscmUserContext userContext, String accountingDocumentId, String accountingSubjectId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			AccountingDocument accountingDocument = loadAccountingDocument(userContext, accountingDocumentId, allTokens());
-
-			synchronized(accountingDocument){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				accountingDocumentDaoOf(userContext).planToRemoveAccountingDocumentLineListWithAccountingSubject(accountingDocument, accountingSubjectId, this.emptyOptions());
-
-				accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withAccountingDocumentLineList().done());
-				return accountingDocument;
-			}
-	}
-
-
-
 
 
 
@@ -578,24 +609,25 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
 				checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 
-		
+
 		checkerOf(userContext).checkTitleOfOriginalVoucher(title);
-		
+
 		checkerOf(userContext).checkMadeByOfOriginalVoucher(madeBy);
-		
+
 		checkerOf(userContext).checkReceivedByOfOriginalVoucher(receivedBy);
-		
+
 		checkerOf(userContext).checkVoucherTypeOfOriginalVoucher(voucherType);
-		
+
 		checkerOf(userContext).checkVoucherImageOfOriginalVoucher(voucherImage);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 
 	}
 	public  AccountingDocument addOriginalVoucher(RetailscmUserContext userContext, String accountingDocumentId, String title, String madeBy, String receivedBy, String voucherType, String voucherImage, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingOriginalVoucher(userContext,accountingDocumentId,title, madeBy, receivedBy, voucherType, voucherImage,tokensExpr);
 
 		OriginalVoucher originalVoucher = createOriginalVoucher(userContext,title, madeBy, receivedBy, voucherType, voucherImage);
@@ -622,7 +654,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkVoucherTypeOfOriginalVoucher( voucherType);
 		checkerOf(userContext).checkVoucherImageOfOriginalVoucher( voucherImage);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 	public  AccountingDocument updateOriginalVoucherProperties(RetailscmUserContext userContext, String accountingDocumentId, String id,String title,String madeBy,String receivedBy,String voucherType,String voucherImage, String [] tokensExpr) throws Exception
@@ -695,6 +729,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			checkerOf(userContext).checkIdOfOriginalVoucher(originalVoucherIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
 
 	}
@@ -721,7 +756,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfAccountingDocument( accountingDocumentId);
 		checkerOf(userContext).checkIdOfOriginalVoucher(originalVoucherId);
 		checkerOf(userContext).checkVersionOfOriginalVoucher(originalVoucherVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 	public  AccountingDocument removeOriginalVoucher(RetailscmUserContext userContext, String accountingDocumentId,
@@ -748,7 +785,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfAccountingDocument( accountingDocumentId);
 		checkerOf(userContext).checkIdOfOriginalVoucher(originalVoucherId);
 		checkerOf(userContext).checkVersionOfOriginalVoucher(originalVoucherVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 	public  AccountingDocument copyOriginalVoucherFrom(RetailscmUserContext userContext, String accountingDocumentId,
@@ -776,7 +815,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 	protected void checkParamsForUpdatingOriginalVoucher(RetailscmUserContext userContext, String accountingDocumentId, String originalVoucherId, int originalVoucherVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 		checkerOf(userContext).checkIdOfOriginalVoucher(originalVoucherId);
 		checkerOf(userContext).checkVersionOfOriginalVoucher(originalVoucherVersion);
@@ -803,7 +842,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 
@@ -834,6 +875,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			originalVoucher.changeProperty(property, newValueExpr);
 			
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withOriginalVoucherList().done());
+			originalVoucherManagerOf(userContext).onUpdated(userContext, originalVoucher, this, "updateOriginalVoucher");
 			return present(userContext,accountingDocument, mergedAllTokens(tokensExpr));
 		}
 
@@ -854,24 +896,25 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 
 				checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 
-		
+
 		checkerOf(userContext).checkNameOfAccountingDocumentLine(name);
-		
+
 		checkerOf(userContext).checkCodeOfAccountingDocumentLine(code);
-		
+
 		checkerOf(userContext).checkDirectOfAccountingDocumentLine(direct);
-		
+
 		checkerOf(userContext).checkAmountOfAccountingDocumentLine(amount);
-		
+
 		checkerOf(userContext).checkAccountingSubjectIdOfAccountingDocumentLine(accountingSubjectId);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 
 	}
 	public  AccountingDocument addAccountingDocumentLine(RetailscmUserContext userContext, String accountingDocumentId, String name, String code, String direct, BigDecimal amount, String accountingSubjectId, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingAccountingDocumentLine(userContext,accountingDocumentId,name, code, direct, amount, accountingSubjectId,tokensExpr);
 
 		AccountingDocumentLine accountingDocumentLine = createAccountingDocumentLine(userContext,name, code, direct, amount, accountingSubjectId);
@@ -897,7 +940,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkDirectOfAccountingDocumentLine( direct);
 		checkerOf(userContext).checkAmountOfAccountingDocumentLine( amount);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 	public  AccountingDocument updateAccountingDocumentLineProperties(RetailscmUserContext userContext, String accountingDocumentId, String id,String name,String code,String direct,BigDecimal amount, String [] tokensExpr) throws Exception
@@ -971,6 +1016,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			checkerOf(userContext).checkIdOfAccountingDocumentLine(accountingDocumentLineIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
 
 	}
@@ -997,7 +1043,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfAccountingDocument( accountingDocumentId);
 		checkerOf(userContext).checkIdOfAccountingDocumentLine(accountingDocumentLineId);
 		checkerOf(userContext).checkVersionOfAccountingDocumentLine(accountingDocumentLineVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 	public  AccountingDocument removeAccountingDocumentLine(RetailscmUserContext userContext, String accountingDocumentId,
@@ -1024,7 +1072,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfAccountingDocument( accountingDocumentId);
 		checkerOf(userContext).checkIdOfAccountingDocumentLine(accountingDocumentLineId);
 		checkerOf(userContext).checkVersionOfAccountingDocumentLine(accountingDocumentLineVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 	public  AccountingDocument copyAccountingDocumentLineFrom(RetailscmUserContext userContext, String accountingDocumentId,
@@ -1052,7 +1102,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 	protected void checkParamsForUpdatingAccountingDocumentLine(RetailscmUserContext userContext, String accountingDocumentId, String accountingDocumentLineId, int accountingDocumentLineVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfAccountingDocument(accountingDocumentId);
 		checkerOf(userContext).checkIdOfAccountingDocumentLine(accountingDocumentLineId);
 		checkerOf(userContext).checkVersionOfAccountingDocumentLine(accountingDocumentLineVersion);
@@ -1075,7 +1125,9 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(AccountingDocumentManagerException.class);
+
 
 	}
 
@@ -1106,6 +1158,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 			accountingDocumentLine.changeProperty(property, newValueExpr);
 			
 			accountingDocument = saveAccountingDocument(userContext, accountingDocument, tokens().withAccountingDocumentLineList().done());
+			accountingDocumentLineManagerOf(userContext).onUpdated(userContext, accountingDocumentLine, this, "updateAccountingDocumentLine");
 			return present(userContext,accountingDocument, mergedAllTokens(tokensExpr));
 		}
 
@@ -1138,112 +1191,13 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1266,28 +1220,21 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, AccountingDocument.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, AccountingDocument.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1358,7 +1305,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String accountingDocumentId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getAccountingDocumentDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		AccountingDocument merchantObj = (AccountingDocument) this.view(userContext, accountingDocumentId);
     String merchantObjId = accountingDocumentId;
     String linkToUrl =	"accountingDocumentManager/wxappview/" + merchantObjId + "/";
@@ -1437,8 +1384,6 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		sections.add(originalVoucherListSection);
 
 		result.put("originalVoucherListSection", ListofUtils.toShortList(merchantObj.getOriginalVoucherList(), "originalVoucher"));
-		vscope.field("originalVoucherListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( OriginalVoucher.class.getName(), null));
 
 		//处理Section：accountingDocumentLineListSection
 		Map accountingDocumentLineListSection = ListofUtils.buildSection(
@@ -1453,8 +1398,6 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		sections.add(accountingDocumentLineListSection);
 
 		result.put("accountingDocumentLineListSection", ListofUtils.toShortList(merchantObj.getAccountingDocumentLineList(), "accountingDocumentLine"));
-		vscope.field("accountingDocumentLineListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( AccountingDocumentLine.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1469,8 +1412,19 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

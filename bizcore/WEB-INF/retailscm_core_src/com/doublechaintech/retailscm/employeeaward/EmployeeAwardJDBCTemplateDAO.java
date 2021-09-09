@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeaward;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeAwardTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeAwardTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeAwardTokens.EMPLOYEE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new EmployeeAwardMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeAward extractEmployeeAward(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeAward employeeAward = loadSingleObject(accessKey, getEmployeeAwardMapper());
@@ -229,25 +231,26 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeAward loadInternalEmployeeAward(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeAward employeeAward = extractEmployeeAward(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeAward, loadOptions);
  		}
  
 		
 		return employeeAward;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeAward extractEmployee(EmployeeAward employeeAward, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeAward.getEmployee() == null){
 			return employeeAward;
@@ -260,37 +263,37 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(employee != null){
 			employeeAward.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeAward;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeAward> findEmployeeAwardByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeAward> resultList = queryWith(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAwardMapper());
 		// analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeAward> findEmployeeAwardByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeAward> resultList =  queryWithRange(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAwardMapper(), start, count);
  		//analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeAwardByEmployee(SmartList<EmployeeAward> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeAwardByEmployee(String employeeId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countEmployeeAwardByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeAwardTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeAward saveEmployeeAward(EmployeeAward  employeeAward){
+    
+
 		
 		if(!employeeAward.isChanged()){
 			return employeeAward;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeAward);
 		String SQL=this.getSaveEmployeeAwardSQL(employeeAward);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeAwardParameters(employeeAward);
@@ -326,6 +332,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		employeeAward.incVersion();
+		employeeAward.afterSave();
 		return employeeAward;
 
 	}
@@ -343,6 +350,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(EmployeeAward employeeAward:employeeAwardList){
 			if(employeeAward.isChanged()){
 				employeeAward.incVersion();
+				employeeAward.afterSave();
 			}
 
 
@@ -449,13 +457,10 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(employeeAward.getEmployee() != null){
  			parameters[0] = employeeAward.getEmployee().getId();
  		}
- 
- 		
+    
  		parameters[1] = employeeAward.getCompleteTime();
  		
- 		
  		parameters[2] = employeeAward.getType();
- 		
  		
  		parameters[3] = employeeAward.getRemark();
  		
@@ -475,15 +480,11 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  
  		if(employeeAward.getEmployee() != null){
  			parameters[1] = employeeAward.getEmployee().getId();
-
  		}
- 		
  		
  		parameters[2] = employeeAward.getCompleteTime();
  		
- 		
  		parameters[3] = employeeAward.getType();
- 		
  		
  		parameters[4] = employeeAward.getRemark();
  		
@@ -493,12 +494,11 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected EmployeeAward saveInternalEmployeeAward(EmployeeAward employeeAward, Map<String,Object> options){
 
-		saveEmployeeAward(employeeAward);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeAward, options);
  		}
  
+   saveEmployeeAward(employeeAward);
 		
 		return employeeAward;
 
@@ -510,6 +510,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected EmployeeAward saveEmployee(EmployeeAward employeeAward, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeAward.getEmployee() == null){
  			return employeeAward;//do nothing when it is null
@@ -519,11 +520,6 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return employeeAward;
 
  	}
-
-
-
-
-
  
 
 	
@@ -531,10 +527,10 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public EmployeeAward present(EmployeeAward employeeAward,Map<String, Object> options){
-	
+
 
 		return employeeAward;
-	
+
 	}
 		
 
@@ -586,6 +582,10 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeAward> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeAwardMapper());
   }
@@ -621,6 +621,15 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<EmployeeAward> search(EmployeeAwardRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeAwardMapper mapper() {
+    return getEmployeeAwardMapper();
+  }
 }
 
 

@@ -1,44 +1,27 @@
 
 package com.doublechaintech.retailscm.damagespace;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.damagespace.DamageSpace;import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.storagespace.StorageSpace;import com.doublechaintech.retailscm.supplierspace.SupplierSpace;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;import com.doublechaintech.retailscm.warehouse.CandidateWarehouse;import com.doublechaintech.retailscm.warehouse.Warehouse;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.warehouse.Warehouse;
-import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
-
-import com.doublechaintech.retailscm.warehouse.CandidateWarehouse;
-
-import com.doublechaintech.retailscm.supplierspace.SupplierSpace;
-import com.doublechaintech.retailscm.damagespace.DamageSpace;
-import com.doublechaintech.retailscm.storagespace.StorageSpace;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implements DamageSpaceManager, BusinessHandler{
@@ -81,6 +64,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws DamageSpaceManagerException{
 
 		Message message = new Message();
@@ -91,138 +75,192 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 
 
 
- 	protected DamageSpace saveDamageSpace(RetailscmUserContext userContext, DamageSpace damageSpace, String [] tokensExpr) throws Exception{	
+ 	protected DamageSpace saveDamageSpace(RetailscmUserContext userContext, DamageSpace damageSpace, String [] tokensExpr) throws Exception{
  		//return getDamageSpaceDAO().save(damageSpace, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveDamageSpace(userContext, damageSpace, tokens);
  	}
- 	
- 	protected DamageSpace saveDamageSpaceDetail(RetailscmUserContext userContext, DamageSpace damageSpace) throws Exception{	
 
- 		
+ 	protected DamageSpace saveDamageSpaceDetail(RetailscmUserContext userContext, DamageSpace damageSpace) throws Exception{
+
+
  		return saveDamageSpace(userContext, damageSpace, allTokens());
  	}
- 	
- 	public DamageSpace loadDamageSpace(RetailscmUserContext userContext, String damageSpaceId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public DamageSpace loadDamageSpace(RetailscmUserContext userContext, String damageSpaceId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( DamageSpaceManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		DamageSpace damageSpace = loadDamageSpace( userContext, damageSpaceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,damageSpace, tokens);
  	}
- 	
- 	
- 	 public DamageSpace searchDamageSpace(RetailscmUserContext userContext, String damageSpaceId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public DamageSpace searchDamageSpace(RetailscmUserContext userContext, String damageSpaceId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( DamageSpaceManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		DamageSpace damageSpace = loadDamageSpace( userContext, damageSpaceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,damageSpace, tokens);
  	}
- 	
- 	
+
+
 
  	protected DamageSpace present(RetailscmUserContext userContext, DamageSpace damageSpace, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,damageSpace,tokens);
-		
-		
+    
+
 		DamageSpace  damageSpaceToPresent = damageSpaceDaoOf(userContext).present(damageSpace, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = damageSpaceToPresent.collectRefercencesFromLists();
 		damageSpaceDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,damageSpace,tokens);
-		
+
 		return  damageSpaceToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public DamageSpace loadDamageSpaceDetail(RetailscmUserContext userContext, String damageSpaceId) throws Exception{	
+
+
+
+ 	public DamageSpace loadDamageSpaceDetail(RetailscmUserContext userContext, String damageSpaceId) throws Exception{
  		DamageSpace damageSpace = loadDamageSpace( userContext, damageSpaceId, allTokens());
  		return present(userContext,damageSpace, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String damageSpaceId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String damageSpaceId) throws Exception{
  		DamageSpace damageSpace = loadDamageSpace( userContext, damageSpaceId, viewTokens());
- 		return present(userContext,damageSpace, allTokens());
-		
- 	}
- 	protected DamageSpace saveDamageSpace(RetailscmUserContext userContext, DamageSpace damageSpace, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, damageSpace);
+ 		return present(userContext,damageSpace, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String damageSpaceId) throws Exception{
+		DamageSpace damageSpace = loadDamageSpace( userContext, damageSpaceId, viewTokens());
+		damageSpace.summarySuffix();
+		markVisited(userContext, damageSpace);
+ 		return present(userContext,damageSpace, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String damageSpaceId) throws Exception{
+		DamageSpace damageSpace = loadDamageSpace( userContext, damageSpaceId, analyzeTokens());
+		markVisited(userContext, damageSpace);
+		return present(userContext,damageSpace, analyzeTokens());
+
+	}
+ 	protected DamageSpace saveDamageSpace(RetailscmUserContext userContext, DamageSpace damageSpace, Map<String,Object>tokens) throws Exception{
+ 	
  		return damageSpaceDaoOf(userContext).save(damageSpace, tokens);
  	}
- 	protected DamageSpace loadDamageSpace(RetailscmUserContext userContext, String damageSpaceId, Map<String,Object>tokens) throws Exception{	
+ 	protected DamageSpace loadDamageSpace(RetailscmUserContext userContext, String damageSpaceId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( DamageSpaceManagerException.class);
 
- 
+
+
  		return damageSpaceDaoOf(userContext).load(damageSpaceId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, DamageSpace damageSpace, Map<String, Object> tokens){
 		super.addActions(userContext, damageSpace, tokens);
-		
+
 		addAction(userContext, damageSpace, tokens,"@create","createDamageSpace","createDamageSpace/","main","primary");
 		addAction(userContext, damageSpace, tokens,"@update","updateDamageSpace","updateDamageSpace/"+damageSpace.getId()+"/","main","primary");
 		addAction(userContext, damageSpace, tokens,"@copy","cloneDamageSpace","cloneDamageSpace/"+damageSpace.getId()+"/","main","primary");
-		
+
 		addAction(userContext, damageSpace, tokens,"damage_space.transfer_to_warehouse","transferToAnotherWarehouse","transferToAnotherWarehouse/"+damageSpace.getId()+"/","main","primary");
 		addAction(userContext, damageSpace, tokens,"damage_space.addGoodsShelf","addGoodsShelf","addGoodsShelf/"+damageSpace.getId()+"/","goodsShelfList","primary");
 		addAction(userContext, damageSpace, tokens,"damage_space.removeGoodsShelf","removeGoodsShelf","removeGoodsShelf/"+damageSpace.getId()+"/","goodsShelfList","primary");
 		addAction(userContext, damageSpace, tokens,"damage_space.updateGoodsShelf","updateGoodsShelf","updateGoodsShelf/"+damageSpace.getId()+"/","goodsShelfList","primary");
 		addAction(userContext, damageSpace, tokens,"damage_space.copyGoodsShelfFrom","copyGoodsShelfFrom","copyGoodsShelfFrom/"+damageSpace.getId()+"/","goodsShelfList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, DamageSpace damageSpace, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<DamageSpace> searchDamageSpaceList(RetailscmUserContext ctx, DamageSpaceRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<DamageSpace> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public DamageSpace searchDamageSpace(RetailscmUserContext ctx, DamageSpaceRequest pRequest){
+    pRequest.limit(0, 1);
+    List<DamageSpace> list = searchDamageSpaceList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public DamageSpace createDamageSpace(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String warehouseId) throws Exception
-	//public DamageSpace createDamageSpace(RetailscmUserContext userContext,String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, String warehouseId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkLocationOfDamageSpace(location);
 		checkerOf(userContext).checkContactNumberOfDamageSpace(contactNumber);
 		checkerOf(userContext).checkTotalAreaOfDamageSpace(totalArea);
 		checkerOf(userContext).checkLatitudeOfDamageSpace(latitude);
 		checkerOf(userContext).checkLongitudeOfDamageSpace(longitude);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
+
 
 
 		DamageSpace damageSpace=createNewDamageSpace();	
@@ -256,46 +294,48 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
 		checkerOf(userContext).checkVersionOfDamageSpace( damageSpaceVersion);
-		
+
 
 		if(DamageSpace.LOCATION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLocationOfDamageSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(DamageSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkContactNumberOfDamageSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(DamageSpace.TOTAL_AREA_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTotalAreaOfDamageSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(DamageSpace.LATITUDE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLatitudeOfDamageSpace(parseBigDecimal(newValueExpr));
 		
-			
+
 		}
 		if(DamageSpace.LONGITUDE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLongitudeOfDamageSpace(parseBigDecimal(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
+
 
 
 	}
@@ -324,6 +364,8 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			if (damageSpace.isChanged()){
 			damageSpace.updateLastUpdateTime(userContext.now());
 			}
+
+      //checkerOf(userContext).checkAndFixDamageSpace(damageSpace);
 			damageSpace = saveDamageSpace(userContext, damageSpace, options);
 			return damageSpace;
 
@@ -390,10 +432,16 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 	protected Map<String,Object> allTokens(){
 		return DamageSpaceTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortGoodsShelfListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortGoodsShelfListWith(GoodsShelf.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -405,6 +453,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 
  		checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
  		checkerOf(userContext).checkIdOfWarehouse(anotherWarehouseId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
 
  	}
@@ -412,16 +461,17 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
  	{
  		checkParamsForTransferingAnotherWarehouse(userContext, damageSpaceId,anotherWarehouseId);
  
-		DamageSpace damageSpace = loadDamageSpace(userContext, damageSpaceId, allTokens());	
+		DamageSpace damageSpace = loadDamageSpace(userContext, damageSpaceId, allTokens());
 		synchronized(damageSpace){
 			//will be good when the damageSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			Warehouse warehouse = loadWarehouse(userContext, anotherWarehouseId, emptyOptions());		
-			damageSpace.updateWarehouse(warehouse);		
+			Warehouse warehouse = loadWarehouse(userContext, anotherWarehouseId, emptyOptions());
+			damageSpace.updateWarehouse(warehouse);
+			damageSpace.updateLastUpdateTime(userContext.now());
 			damageSpace = saveDamageSpace(userContext, damageSpace, emptyOptions());
-			
+
 			return present(userContext,damageSpace, allTokens());
-			
+
 		}
 
  	}
@@ -454,8 +504,9 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 
  	protected Warehouse loadWarehouse(RetailscmUserContext userContext, String newWarehouseId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return warehouseDaoOf(userContext).load(newWarehouseId, options);
+ 	  
  	}
  	
 
@@ -501,45 +552,6 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 	}
 
 
-	//disconnect DamageSpace with storage_space in GoodsShelf
-	protected DamageSpace breakWithGoodsShelfByStorageSpace(RetailscmUserContext userContext, String damageSpaceId, String storageSpaceId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			DamageSpace damageSpace = loadDamageSpace(userContext, damageSpaceId, allTokens());
-
-			synchronized(damageSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				damageSpaceDaoOf(userContext).planToRemoveGoodsShelfListWithStorageSpace(damageSpace, storageSpaceId, this.emptyOptions());
-
-				damageSpace = saveDamageSpace(userContext, damageSpace, tokens().withGoodsShelfList().done());
-				return damageSpace;
-			}
-	}
-	//disconnect DamageSpace with supplier_space in GoodsShelf
-	protected DamageSpace breakWithGoodsShelfBySupplierSpace(RetailscmUserContext userContext, String damageSpaceId, String supplierSpaceId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			DamageSpace damageSpace = loadDamageSpace(userContext, damageSpaceId, allTokens());
-
-			synchronized(damageSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				damageSpaceDaoOf(userContext).planToRemoveGoodsShelfListWithSupplierSpace(damageSpace, supplierSpaceId, this.emptyOptions());
-
-				damageSpace = saveDamageSpace(userContext, damageSpace, tokens().withGoodsShelfList().done());
-				return damageSpace;
-			}
-	}
-
-
-
 
 
 
@@ -547,20 +559,21 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 
 				checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
 
-		
+
 		checkerOf(userContext).checkLocationOfGoodsShelf(location);
-		
+
 		checkerOf(userContext).checkStorageSpaceIdOfGoodsShelf(storageSpaceId);
-		
+
 		checkerOf(userContext).checkSupplierSpaceIdOfGoodsShelf(supplierSpaceId);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
+
 
 
 	}
 	public  DamageSpace addGoodsShelf(RetailscmUserContext userContext, String damageSpaceId, String location, String storageSpaceId, String supplierSpaceId, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingGoodsShelf(userContext,damageSpaceId,location, storageSpaceId, supplierSpaceId,tokensExpr);
 
 		GoodsShelf goodsShelf = createGoodsShelf(userContext,location, storageSpaceId, supplierSpaceId);
@@ -583,7 +596,9 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 
 		checkerOf(userContext).checkLocationOfGoodsShelf( location);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
+
 
 	}
 	public  DamageSpace updateGoodsShelfProperties(RetailscmUserContext userContext, String damageSpaceId, String id,String location, String [] tokensExpr) throws Exception
@@ -655,6 +670,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
 
 	}
@@ -681,7 +697,9 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).checkIdOfDamageSpace( damageSpaceId);
 		checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfId);
 		checkerOf(userContext).checkVersionOfGoodsShelf(goodsShelfVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
+
 
 	}
 	public  DamageSpace removeGoodsShelf(RetailscmUserContext userContext, String damageSpaceId,
@@ -708,7 +726,9 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		checkerOf(userContext).checkIdOfDamageSpace( damageSpaceId);
 		checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfId);
 		checkerOf(userContext).checkVersionOfGoodsShelf(goodsShelfVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
+
 
 	}
 	public  DamageSpace copyGoodsShelfFrom(RetailscmUserContext userContext, String damageSpaceId,
@@ -736,7 +756,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 	protected void checkParamsForUpdatingGoodsShelf(RetailscmUserContext userContext, String damageSpaceId, String goodsShelfId, int goodsShelfVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfDamageSpace(damageSpaceId);
 		checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfId);
 		checkerOf(userContext).checkVersionOfGoodsShelf(goodsShelfVersion);
@@ -747,7 +767,9 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(DamageSpaceManagerException.class);
+
 
 	}
 
@@ -778,6 +800,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			goodsShelf.changeProperty(property, newValueExpr);
 			goodsShelf.updateLastUpdateTime(userContext.now());
 			damageSpace = saveDamageSpace(userContext, damageSpace, tokens().withGoodsShelfList().done());
+			goodsShelfManagerOf(userContext).onUpdated(userContext, goodsShelf, this, "updateGoodsShelf");
 			return present(userContext,damageSpace, mergedAllTokens(tokensExpr));
 		}
 
@@ -810,112 +833,13 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -938,28 +862,21 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, DamageSpace.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, DamageSpace.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1005,7 +922,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String damageSpaceId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getDamageSpaceDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		DamageSpace merchantObj = (DamageSpace) this.view(userContext, damageSpaceId);
     String merchantObjId = damageSpaceId;
     String linkToUrl =	"damageSpaceManager/wxappview/" + merchantObjId + "/";
@@ -1117,8 +1034,6 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		sections.add(goodsShelfListSection);
 
 		result.put("goodsShelfListSection", ListofUtils.toShortList(merchantObj.getGoodsShelfList(), "goodsShelf"));
-		vscope.field("goodsShelfListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( GoodsShelf.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1133,8 +1048,19 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

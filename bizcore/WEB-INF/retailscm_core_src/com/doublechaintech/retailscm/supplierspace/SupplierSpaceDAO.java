@@ -46,6 +46,7 @@ public interface SupplierSpaceDAO extends BaseDAO{
 	public void delete(String supplierSpaceId, int version) throws Exception;
 	public SupplierSpace disconnectFromAll(String supplierSpaceId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public GoodsShelfDAO getGoodsShelfDAO();
 		
@@ -65,9 +66,10 @@ public interface SupplierSpaceDAO extends BaseDAO{
 	public int countGoodsShelfListWithDamageSpace(String supplierSpaceId, String damageSpaceId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<SupplierSpace> queryList(String sql, Object ... parmeters);
+	public SmartList<SupplierSpace> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SupplierSpace> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSupplierSpace executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SupplierSpace> findSupplierSpaceByWarehouse(String warehouseId, Map<String,Object> options);
@@ -81,6 +83,8 @@ public interface SupplierSpaceDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:GoodsShelf的supplierSpace的GoodsShelfList
 	public SmartList<GoodsShelf> loadOurGoodsShelfList(RetailscmUserContext userContext, List<SupplierSpace> us, Map<String,Object> options) throws Exception;
 	
+
+	List<SupplierSpace> search(SupplierSpaceRequest pRequest);
 }
 
 

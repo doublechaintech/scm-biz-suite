@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.transporttruck;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,31 +9,34 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.transportfleet.TransportFleet;
 
 public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
-	
+
 	protected TransportTruck internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		TransportTruck transportTruck = getTransportTruck();		
-		 		
- 		setId(transportTruck, rs, rowNumber); 		
- 		setName(transportTruck, rs, rowNumber); 		
- 		setPlateNumber(transportTruck, rs, rowNumber); 		
- 		setContactNumber(transportTruck, rs, rowNumber); 		
- 		setVehicleLicenseNumber(transportTruck, rs, rowNumber); 		
- 		setEngineNumber(transportTruck, rs, rowNumber); 		
- 		setMakeDate(transportTruck, rs, rowNumber); 		
- 		setMileage(transportTruck, rs, rowNumber); 		
- 		setBodyColor(transportTruck, rs, rowNumber); 		
- 		setOwner(transportTruck, rs, rowNumber); 		
+		TransportTruck transportTruck = getTransportTruck();
+		
+ 		setId(transportTruck, rs, rowNumber);
+ 		setName(transportTruck, rs, rowNumber);
+ 		setPlateNumber(transportTruck, rs, rowNumber);
+ 		setContactNumber(transportTruck, rs, rowNumber);
+ 		setVehicleLicenseNumber(transportTruck, rs, rowNumber);
+ 		setEngineNumber(transportTruck, rs, rowNumber);
+ 		setMakeDate(transportTruck, rs, rowNumber);
+ 		setMileage(transportTruck, rs, rowNumber);
+ 		setBodyColor(transportTruck, rs, rowNumber);
+ 		setOwner(transportTruck, rs, rowNumber);
  		setVersion(transportTruck, rs, rowNumber);
 
+    
 		return transportTruck;
 	}
-	
+
 	protected TransportTruck getTransportTruck(){
-		return new TransportTruck();
-	}		
+	  TransportTruck entity = new TransportTruck();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(TransportTruckTable.COLUMN_ID);
@@ -43,10 +47,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(TransportTruckTable.COLUMN_NAME);
@@ -57,10 +64,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPlateNumber(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String plateNumber = rs.getString(TransportTruckTable.COLUMN_PLATE_NUMBER);
@@ -71,10 +81,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setPlateNumber(plateNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setContactNumber(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String contactNumber = rs.getString(TransportTruckTable.COLUMN_CONTACT_NUMBER);
@@ -85,10 +98,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setContactNumber(contactNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVehicleLicenseNumber(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String vehicleLicenseNumber = rs.getString(TransportTruckTable.COLUMN_VEHICLE_LICENSE_NUMBER);
@@ -99,10 +115,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setVehicleLicenseNumber(vehicleLicenseNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setEngineNumber(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String engineNumber = rs.getString(TransportTruckTable.COLUMN_ENGINE_NUMBER);
@@ -113,10 +132,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setEngineNumber(engineNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setMakeDate(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date makeDate = rs.getDate(TransportTruckTable.COLUMN_MAKE_DATE);
@@ -127,10 +149,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setMakeDate(makeDate);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setMileage(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String mileage = rs.getString(TransportTruckTable.COLUMN_MILEAGE);
@@ -141,10 +166,13 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setMileage(mileage);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setBodyColor(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String bodyColor = rs.getString(TransportTruckTable.COLUMN_BODY_COLOR);
@@ -155,10 +183,18 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setBodyColor(bodyColor);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setOwner(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
- 		String transportFleetId = rs.getString(TransportTruckTable.COLUMN_OWNER);
+ 		String transportFleetId;
+ 		try{
+ 		  transportFleetId = rs.getString(TransportTruckTable.COLUMN_OWNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( transportFleetId == null){
  			return;
  		}
@@ -169,14 +205,14 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
  		if( transportFleet != null ){
  			//if the root object 'transportTruck' already have the property, just set the id for it;
  			transportFleet.setId(transportFleetId);
- 			
+
  			return;
  		}
  		transportTruck.setOwner(createEmptyOwner(transportFleetId));
  	}
  	
 	protected void setVersion(TransportTruck transportTruck, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(TransportTruckTable.COLUMN_VERSION);
@@ -187,9 +223,12 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
 		}
 		
 		transportTruck.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected TransportFleet  createEmptyOwner(String transportFleetId){
  		TransportFleet transportFleet = new TransportFleet();

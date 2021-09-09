@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstoreorderpaymentgroup;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,25 +9,28 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
 
 public class RetailStoreOrderPaymentGroupMapper extends BaseRowMapper<RetailStoreOrderPaymentGroup>{
-	
+
 	protected RetailStoreOrderPaymentGroup internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup = getRetailStoreOrderPaymentGroup();		
-		 		
- 		setId(retailStoreOrderPaymentGroup, rs, rowNumber); 		
- 		setName(retailStoreOrderPaymentGroup, rs, rowNumber); 		
- 		setBizOrder(retailStoreOrderPaymentGroup, rs, rowNumber); 		
- 		setCardNumber(retailStoreOrderPaymentGroup, rs, rowNumber); 		
+		RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup = getRetailStoreOrderPaymentGroup();
+		
+ 		setId(retailStoreOrderPaymentGroup, rs, rowNumber);
+ 		setName(retailStoreOrderPaymentGroup, rs, rowNumber);
+ 		setBizOrder(retailStoreOrderPaymentGroup, rs, rowNumber);
+ 		setCardNumber(retailStoreOrderPaymentGroup, rs, rowNumber);
  		setVersion(retailStoreOrderPaymentGroup, rs, rowNumber);
 
+    
 		return retailStoreOrderPaymentGroup;
 	}
-	
+
 	protected RetailStoreOrderPaymentGroup getRetailStoreOrderPaymentGroup(){
-		return new RetailStoreOrderPaymentGroup();
-	}		
+	  RetailStoreOrderPaymentGroup entity = new RetailStoreOrderPaymentGroup();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreOrderPaymentGroupTable.COLUMN_ID);
@@ -37,10 +41,13 @@ public class RetailStoreOrderPaymentGroupMapper extends BaseRowMapper<RetailStor
 		}
 		
 		retailStoreOrderPaymentGroup.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(RetailStoreOrderPaymentGroupTable.COLUMN_NAME);
@@ -51,10 +58,18 @@ public class RetailStoreOrderPaymentGroupMapper extends BaseRowMapper<RetailStor
 		}
 		
 		retailStoreOrderPaymentGroup.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setBizOrder(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreOrderId = rs.getString(RetailStoreOrderPaymentGroupTable.COLUMN_BIZ_ORDER);
+ 		String retailStoreOrderId;
+ 		try{
+ 		  retailStoreOrderId = rs.getString(RetailStoreOrderPaymentGroupTable.COLUMN_BIZ_ORDER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreOrderId == null){
  			return;
  		}
@@ -65,14 +80,14 @@ public class RetailStoreOrderPaymentGroupMapper extends BaseRowMapper<RetailStor
  		if( retailStoreOrder != null ){
  			//if the root object 'retailStoreOrderPaymentGroup' already have the property, just set the id for it;
  			retailStoreOrder.setId(retailStoreOrderId);
- 			
+
  			return;
  		}
  		retailStoreOrderPaymentGroup.setBizOrder(createEmptyBizOrder(retailStoreOrderId));
  	}
  	
 	protected void setCardNumber(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String cardNumber = rs.getString(RetailStoreOrderPaymentGroupTable.COLUMN_CARD_NUMBER);
@@ -83,10 +98,13 @@ public class RetailStoreOrderPaymentGroupMapper extends BaseRowMapper<RetailStor
 		}
 		
 		retailStoreOrderPaymentGroup.setCardNumber(cardNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreOrderPaymentGroupTable.COLUMN_VERSION);
@@ -97,9 +115,12 @@ public class RetailStoreOrderPaymentGroupMapper extends BaseRowMapper<RetailStor
 		}
 		
 		retailStoreOrderPaymentGroup.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreOrder  createEmptyBizOrder(String retailStoreOrderId){
  		RetailStoreOrder retailStoreOrder = new RetailStoreOrder();

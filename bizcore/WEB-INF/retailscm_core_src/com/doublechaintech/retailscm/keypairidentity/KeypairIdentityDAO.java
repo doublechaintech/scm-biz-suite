@@ -18,12 +18,12 @@ import com.doublechaintech.retailscm.secuser.SecUserDAO;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeDAO;
 
 
-public interface KeypairIdentityDAO extends BaseDAO{
+public interface KeyPairIdentityDAO extends BaseDAO{
 
-	public SmartList<KeypairIdentity> loadAll();
-	public Stream<KeypairIdentity> loadAllAsStream();
-	public KeypairIdentity load(String id, Map<String,Object> options) throws Exception;
-	public void enhanceList(List<KeypairIdentity> keypairIdentityList);
+	public SmartList<KeyPairIdentity> loadAll();
+	public Stream<KeyPairIdentity> loadAllAsStream();
+	public KeyPairIdentity load(String id, Map<String,Object> options) throws Exception;
+	public void enhanceList(List<KeyPairIdentity> keyPairIdentityList);
 	public void collectAndEnhance(BaseEntity ownerEntity);
 
 	public void alias(List<BaseEntity> entityList);
@@ -31,46 +31,50 @@ public interface KeypairIdentityDAO extends BaseDAO{
 
 	
 
-	public KeypairIdentity present(KeypairIdentity keypairIdentity,Map<String,Object> options) throws Exception;
-	public KeypairIdentity clone(String id, Map<String,Object> options) throws Exception;
+	public KeyPairIdentity present(KeyPairIdentity keyPairIdentity,Map<String,Object> options) throws Exception;
+	public KeyPairIdentity clone(String id, Map<String,Object> options) throws Exception;
 
 	
 
-	public KeypairIdentity save(KeypairIdentity keypairIdentity,Map<String,Object> options);
-	public SmartList<KeypairIdentity> saveKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList,Map<String,Object> options);
-	public SmartList<KeypairIdentity> removeKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList,Map<String,Object> options);
-	public SmartList<KeypairIdentity> findKeypairIdentityWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public int countKeypairIdentityWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public Map<String, Integer> countKeypairIdentityWithGroupKey(String groupKey, MultipleAccessKey filterKey,
+	public KeyPairIdentity save(KeyPairIdentity keyPairIdentity,Map<String,Object> options);
+	public SmartList<KeyPairIdentity> saveKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList,Map<String,Object> options);
+	public SmartList<KeyPairIdentity> removeKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList,Map<String,Object> options);
+	public SmartList<KeyPairIdentity> findKeyPairIdentityWithKey(MultipleAccessKey key,Map<String, Object> options);
+	public int countKeyPairIdentityWithKey(MultipleAccessKey key,Map<String, Object> options);
+	public Map<String, Integer> countKeyPairIdentityWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options);
-	public void delete(String keypairIdentityId, int version) throws Exception;
-	public KeypairIdentity disconnectFromAll(String keypairIdentityId, int version) throws Exception;
+	public void delete(String keyPairIdentityId, int version) throws Exception;
+	public KeyPairIdentity disconnectFromAll(String keyPairIdentityId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<KeypairIdentity> queryList(String sql, Object ... parmeters);
-	public Stream<KeypairIdentity> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
-	public CandidateKeypairIdentity executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
+	public SmartList<KeyPairIdentity> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
+	public Stream<KeyPairIdentity> queryStream(String sql, Object... parameters) ;
+	public int count(String sql, Object ... parameters);
+	public CandidateKeyPairIdentity executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
- 	public SmartList<KeypairIdentity> findKeypairIdentityByKeyType(String publicKeyTypeId, Map<String,Object> options);
- 	public int countKeypairIdentityByKeyType(String publicKeyTypeId, Map<String,Object> options);
- 	public Map<String, Integer> countKeypairIdentityByKeyTypeIds(String[] ids, Map<String,Object> options);
- 	public SmartList<KeypairIdentity> findKeypairIdentityByKeyType(String publicKeyTypeId, int start, int count, Map<String,Object> options);
- 	public void analyzeKeypairIdentityByKeyType(SmartList<KeypairIdentity> resultList, String publicKeyTypeId, Map<String,Object> options);
-
-
- 
- 	public SmartList<KeypairIdentity> findKeypairIdentityBySecUser(String secUserId, Map<String,Object> options);
- 	public int countKeypairIdentityBySecUser(String secUserId, Map<String,Object> options);
- 	public Map<String, Integer> countKeypairIdentityBySecUserIds(String[] ids, Map<String,Object> options);
- 	public SmartList<KeypairIdentity> findKeypairIdentityBySecUser(String secUserId, int start, int count, Map<String,Object> options);
- 	public void analyzeKeypairIdentityBySecUser(SmartList<KeypairIdentity> resultList, String secUserId, Map<String,Object> options);
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityByKeyType(String publicKeyTypeId, Map<String,Object> options);
+ 	public int countKeyPairIdentityByKeyType(String publicKeyTypeId, Map<String,Object> options);
+ 	public Map<String, Integer> countKeyPairIdentityByKeyTypeIds(String[] ids, Map<String,Object> options);
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityByKeyType(String publicKeyTypeId, int start, int count, Map<String,Object> options);
+ 	public void analyzeKeyPairIdentityByKeyType(SmartList<KeyPairIdentity> resultList, String publicKeyTypeId, Map<String,Object> options);
 
 
  
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityBySecUser(String secUserId, Map<String,Object> options);
+ 	public int countKeyPairIdentityBySecUser(String secUserId, Map<String,Object> options);
+ 	public Map<String, Integer> countKeyPairIdentityBySecUserIds(String[] ids, Map<String,Object> options);
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityBySecUser(String secUserId, int start, int count, Map<String,Object> options);
+ 	public void analyzeKeyPairIdentityBySecUser(SmartList<KeyPairIdentity> resultList, String secUserId, Map<String,Object> options);
+
+
+ 
+
+	List<KeyPairIdentity> search(KeyPairIdentityRequest pRequest);
 }
 
 

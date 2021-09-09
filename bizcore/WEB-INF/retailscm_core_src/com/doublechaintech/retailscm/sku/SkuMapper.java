@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.sku;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,30 +9,33 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.product.Product;
 
 public class SkuMapper extends BaseRowMapper<Sku>{
-	
+
 	protected Sku internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		Sku sku = getSku();		
-		 		
- 		setId(sku, rs, rowNumber); 		
- 		setName(sku, rs, rowNumber); 		
- 		setSize(sku, rs, rowNumber); 		
- 		setProduct(sku, rs, rowNumber); 		
- 		setBarcode(sku, rs, rowNumber); 		
- 		setPackageType(sku, rs, rowNumber); 		
- 		setNetContent(sku, rs, rowNumber); 		
- 		setPrice(sku, rs, rowNumber); 		
- 		setPicture(sku, rs, rowNumber); 		
+		Sku sku = getSku();
+		
+ 		setId(sku, rs, rowNumber);
+ 		setName(sku, rs, rowNumber);
+ 		setSize(sku, rs, rowNumber);
+ 		setProduct(sku, rs, rowNumber);
+ 		setBarcode(sku, rs, rowNumber);
+ 		setPackageType(sku, rs, rowNumber);
+ 		setNetContent(sku, rs, rowNumber);
+ 		setPrice(sku, rs, rowNumber);
+ 		setPicture(sku, rs, rowNumber);
  		setVersion(sku, rs, rowNumber);
 
+    
 		return sku;
 	}
-	
+
 	protected Sku getSku(){
-		return new Sku();
-	}		
+	  Sku entity = new Sku();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(SkuTable.COLUMN_ID);
@@ -42,10 +46,13 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(SkuTable.COLUMN_NAME);
@@ -56,10 +63,13 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setSize(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String size = rs.getString(SkuTable.COLUMN_SIZE);
@@ -70,10 +80,18 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setSize(size);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setProduct(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
- 		String productId = rs.getString(SkuTable.COLUMN_PRODUCT);
+ 		String productId;
+ 		try{
+ 		  productId = rs.getString(SkuTable.COLUMN_PRODUCT);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( productId == null){
  			return;
  		}
@@ -84,14 +102,14 @@ public class SkuMapper extends BaseRowMapper<Sku>{
  		if( product != null ){
  			//if the root object 'sku' already have the property, just set the id for it;
  			product.setId(productId);
- 			
+
  			return;
  		}
  		sku.setProduct(createEmptyProduct(productId));
  	}
  	
 	protected void setBarcode(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String barcode = rs.getString(SkuTable.COLUMN_BARCODE);
@@ -102,10 +120,13 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setBarcode(barcode);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPackageType(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String packageType = rs.getString(SkuTable.COLUMN_PACKAGE_TYPE);
@@ -116,10 +137,13 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setPackageType(packageType);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setNetContent(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String netContent = rs.getString(SkuTable.COLUMN_NET_CONTENT);
@@ -130,10 +154,13 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setNetContent(netContent);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPrice(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal price = rs.getBigDecimal(SkuTable.COLUMN_PRICE);
@@ -144,10 +171,13 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setPrice(price);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPicture(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String picture = rs.getString(SkuTable.COLUMN_PICTURE);
@@ -158,10 +188,13 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setPicture(picture);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(Sku sku, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(SkuTable.COLUMN_VERSION);
@@ -172,9 +205,12 @@ public class SkuMapper extends BaseRowMapper<Sku>{
 		}
 		
 		sku.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Product  createEmptyProduct(String productId){
  		Product product = new Product();

@@ -44,13 +44,15 @@ public interface QuickLinkDAO extends BaseDAO{
 	public void delete(String quickLinkId, int version) throws Exception;
 	public QuickLink disconnectFromAll(String quickLinkId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<QuickLink> queryList(String sql, Object ... parmeters);
+	public SmartList<QuickLink> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<QuickLink> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateQuickLink executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<QuickLink> findQuickLinkByApp(String userAppId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface QuickLinkDAO extends BaseDAO{
 
 
  
+
+	List<QuickLink> search(QuickLinkRequest pRequest);
 }
 
 

@@ -46,13 +46,15 @@ public interface EmployeeSkillDAO extends BaseDAO{
 	public void delete(String employeeSkillId, int version) throws Exception;
 	public EmployeeSkill disconnectFromAll(String employeeSkillId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeeSkill> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeeSkill> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeeSkill> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeeSkill executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeeSkill> findEmployeeSkillByEmployee(String employeeId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface EmployeeSkillDAO extends BaseDAO{
 
 
  
+
+	List<EmployeeSkill> search(EmployeeSkillRequest pRequest);
 }
 
 

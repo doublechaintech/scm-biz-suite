@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.candidatecontainer;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected CandidateElementDAO candidateElementDAO;
 	public void setCandidateElementDAO(CandidateElementDAO candidateElementDAO){
- 	
+
  		if(candidateElementDAO == null){
  			throw new IllegalStateException("Do not try to set candidateElementDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(this.candidateElementDAO == null){
  			throw new IllegalStateException("The candidateElementDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.candidateElementDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -105,7 +107,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		newCandidateContainer.setVersion(0);
 		
 		
- 		
+
  		if(isSaveCandidateElementListEnabled(options)){
  			for(CandidateElement item: newCandidateContainer.getCandidateElementList()){
  				item.setVersion(0);
@@ -192,30 +194,30 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return CandidateContainerTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
 		
-	
-	protected boolean isExtractCandidateElementListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractCandidateElementListEnabled(Map<String,Object> options){
  		return checkOptions(options,CandidateContainerTokens.CANDIDATE_ELEMENT_LIST);
  	}
- 	protected boolean isAnalyzeCandidateElementListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeCandidateElementListEnabled(Map<String,Object> options){
  		return CandidateContainerTokens.of(options).analyzeCandidateElementListEnabled();
  	}
-	
+
 	protected boolean isSaveCandidateElementListEnabled(Map<String,Object> options){
 		return checkOptions(options, CandidateContainerTokens.CANDIDATE_ELEMENT_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -224,8 +226,8 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		return new CandidateContainerMapper();
 	}
 
-	
-	
+
+
 	protected CandidateContainer extractCandidateContainer(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			CandidateContainer candidateContainer = loadSingleObject(accessKey, getCandidateContainerMapper());
@@ -236,18 +238,18 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	}
 
-	
-	
+
+
 
 	protected CandidateContainer loadInternalCandidateContainer(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		CandidateContainer candidateContainer = extractCandidateContainer(accessKey, loadOptions);
 
 		
 		if(isExtractCandidateElementListEnabled(loadOptions)){
 	 		extractCandidateElementList(candidateContainer, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeCandidateElementListEnabled(loadOptions)){
 	 		analyzeCandidateElementList(candidateContainer, loadOptions);
@@ -255,7 +257,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		
 		
 		return candidateContainer;
-		
+
 	}
 
 	
@@ -264,10 +266,10 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected CandidateContainer extractCandidateElementList(CandidateContainer candidateContainer, Map<String,Object> options){
-		
-		
+    
+
 		if(candidateContainer == null){
 			return null;
 		}
@@ -275,21 +277,20 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return candidateContainer;
 		}
 
-		
-		
+
+
 		SmartList<CandidateElement> candidateElementList = getCandidateElementDAO().findCandidateElementByContainer(candidateContainer.getId(),options);
 		if(candidateElementList != null){
 			enhanceCandidateElementList(candidateElementList,options);
 			candidateContainer.setCandidateElementList(candidateElementList);
 		}
-		
+
 		return candidateContainer;
-	
-	}	
-	
+  
+	}
+
 	protected CandidateContainer analyzeCandidateElementList(CandidateContainer candidateContainer, Map<String,Object> options){
-		
-		
+     
 		if(candidateContainer == null){
 			return null;
 		}
@@ -297,34 +298,37 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return candidateContainer;
 		}
 
-		
-		
+
+
 		SmartList<CandidateElement> candidateElementList = candidateContainer.getCandidateElementList();
 		if(candidateElementList != null){
 			getCandidateElementDAO().analyzeCandidateElementByContainer(candidateElementList, candidateContainer.getId(), options);
-			
+
 		}
-		
+
 		return candidateContainer;
-	
-	}	
-	
+    
+	}
+
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected CandidateContainer saveCandidateContainer(CandidateContainer  candidateContainer){
+    
+
 		
 		if(!candidateContainer.isChanged()){
 			return candidateContainer;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(candidateContainer);
 		String SQL=this.getSaveCandidateContainerSQL(candidateContainer);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveCandidateContainerParameters(candidateContainer);
@@ -335,6 +339,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 
 		candidateContainer.incVersion();
+		candidateContainer.afterSave();
 		return candidateContainer;
 
 	}
@@ -352,6 +357,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		for(CandidateContainer candidateContainer:candidateContainerList){
 			if(candidateContainer.isChanged()){
 				candidateContainer.incVersion();
+				candidateContainer.afterSave();
 			}
 
 
@@ -455,7 +461,6 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  	protected Object[] prepareCandidateContainerUpdateParameters(CandidateContainer candidateContainer){
  		Object[] parameters = new Object[4];
  
- 		
  		parameters[0] = candidateContainer.getName();
  		
  		parameters[1] = candidateContainer.nextVersion();
@@ -472,7 +477,6 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
         }
 		parameters[0] =  candidateContainer.getId();
  
- 		
  		parameters[1] = candidateContainer.getName();
  		
 
@@ -481,8 +485,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected CandidateContainer saveInternalCandidateContainer(CandidateContainer candidateContainer, Map<String,Object> options){
 
-		saveCandidateContainer(candidateContainer);
-
+   saveCandidateContainer(candidateContainer);
 		
 		if(isSaveCandidateElementListEnabled(options)){
 	 		saveCandidateElementList(candidateContainer, options);
@@ -532,7 +535,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 		
 	protected CandidateContainer saveCandidateElementList(CandidateContainer candidateContainer, Map<String,Object> options){
-
+    
 
 
 
@@ -599,19 +602,19 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		
 
 	public CandidateContainer present(CandidateContainer candidateContainer,Map<String, Object> options){
-	
+
 		presentCandidateElementList(candidateContainer,options);
 
 		return candidateContainer;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected CandidateContainer presentCandidateElementList(
 			CandidateContainer candidateContainer,
 			Map<String, Object> options) {
-
-		SmartList<CandidateElement> candidateElementList = candidateContainer.getCandidateElementList();		
+    
+		SmartList<CandidateElement> candidateElementList = candidateContainer.getCandidateElementList();
 				SmartList<CandidateElement> newList= presentSubList(candidateContainer.getId(),
 				candidateElementList,
 				options,
@@ -619,12 +622,12 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				getCandidateElementDAO()::findCandidateElementByContainer
 				);
 
-		
+
 		candidateContainer.setCandidateElementList(newList);
-		
+
 
 		return candidateContainer;
-	}			
+	}
 		
 
 	
@@ -648,6 +651,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	
 	// 需要一个加载引用我的对象的enhance方法:CandidateElement的container的CandidateElementList
 	public SmartList<CandidateElement> loadOurCandidateElementList(RetailscmUserContext userContext, List<CandidateContainer> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -704,6 +708,10 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<CandidateContainer> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getCandidateContainerMapper());
   }
@@ -743,13 +751,13 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -758,19 +766,19 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -778,7 +786,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -789,7 +797,7 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -798,27 +806,36 @@ public class CandidateContainerJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<CandidateContainer> search(CandidateContainerRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected CandidateContainerMapper mapper() {
+    return getCandidateContainerMapper();
+  }
 }
 
 

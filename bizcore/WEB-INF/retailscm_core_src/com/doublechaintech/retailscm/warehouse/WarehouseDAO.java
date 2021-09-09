@@ -58,6 +58,7 @@ public interface WarehouseDAO extends BaseDAO{
 	public void delete(String warehouseId, int version) throws Exception;
 	public Warehouse disconnectFromAll(String warehouseId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public StorageSpaceDAO getStorageSpaceDAO();
 		
@@ -111,9 +112,10 @@ public interface WarehouseDAO extends BaseDAO{
 
 
 
-	public SmartList<Warehouse> queryList(String sql, Object ... parmeters);
+	public SmartList<Warehouse> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Warehouse> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateWarehouse executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Warehouse> findWarehouseByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -145,6 +147,8 @@ public interface WarehouseDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:WarehouseAsset的owner的WarehouseAssetList
 	public SmartList<WarehouseAsset> loadOurWarehouseAssetList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Warehouse> search(WarehouseRequest pRequest);
 }
 
 

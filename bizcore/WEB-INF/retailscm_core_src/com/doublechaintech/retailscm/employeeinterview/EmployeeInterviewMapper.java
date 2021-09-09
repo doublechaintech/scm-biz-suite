@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employeeinterview;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,25 +10,28 @@ import com.doublechaintech.retailscm.employee.Employee;
 import com.doublechaintech.retailscm.interviewtype.InterviewType;
 
 public class EmployeeInterviewMapper extends BaseRowMapper<EmployeeInterview>{
-	
+
 	protected EmployeeInterview internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeInterview employeeInterview = getEmployeeInterview();		
-		 		
- 		setId(employeeInterview, rs, rowNumber); 		
- 		setEmployee(employeeInterview, rs, rowNumber); 		
- 		setInterviewType(employeeInterview, rs, rowNumber); 		
- 		setRemark(employeeInterview, rs, rowNumber); 		
+		EmployeeInterview employeeInterview = getEmployeeInterview();
+		
+ 		setId(employeeInterview, rs, rowNumber);
+ 		setEmployee(employeeInterview, rs, rowNumber);
+ 		setInterviewType(employeeInterview, rs, rowNumber);
+ 		setRemark(employeeInterview, rs, rowNumber);
  		setVersion(employeeInterview, rs, rowNumber);
 
+    
 		return employeeInterview;
 	}
-	
+
 	protected EmployeeInterview getEmployeeInterview(){
-		return new EmployeeInterview();
-	}		
+	  EmployeeInterview entity = new EmployeeInterview();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(EmployeeInterview employeeInterview, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeInterviewTable.COLUMN_ID);
@@ -38,10 +42,18 @@ public class EmployeeInterviewMapper extends BaseRowMapper<EmployeeInterview>{
 		}
 		
 		employeeInterview.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setEmployee(EmployeeInterview employeeInterview, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(EmployeeInterviewTable.COLUMN_EMPLOYEE);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(EmployeeInterviewTable.COLUMN_EMPLOYEE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -52,14 +64,19 @@ public class EmployeeInterviewMapper extends BaseRowMapper<EmployeeInterview>{
  		if( employee != null ){
  			//if the root object 'employeeInterview' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		employeeInterview.setEmployee(createEmptyEmployee(employeeId));
  	}
- 	 		
+ 	
  	protected void setInterviewType(EmployeeInterview employeeInterview, ResultSet rs, int rowNumber) throws SQLException{
- 		String interviewTypeId = rs.getString(EmployeeInterviewTable.COLUMN_INTERVIEW_TYPE);
+ 		String interviewTypeId;
+ 		try{
+ 		  interviewTypeId = rs.getString(EmployeeInterviewTable.COLUMN_INTERVIEW_TYPE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( interviewTypeId == null){
  			return;
  		}
@@ -70,14 +87,14 @@ public class EmployeeInterviewMapper extends BaseRowMapper<EmployeeInterview>{
  		if( interviewType != null ){
  			//if the root object 'employeeInterview' already have the property, just set the id for it;
  			interviewType.setId(interviewTypeId);
- 			
+
  			return;
  		}
  		employeeInterview.setInterviewType(createEmptyInterviewType(interviewTypeId));
  	}
  	
 	protected void setRemark(EmployeeInterview employeeInterview, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String remark = rs.getString(EmployeeInterviewTable.COLUMN_REMARK);
@@ -88,10 +105,13 @@ public class EmployeeInterviewMapper extends BaseRowMapper<EmployeeInterview>{
 		}
 		
 		employeeInterview.setRemark(remark);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(EmployeeInterview employeeInterview, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeInterviewTable.COLUMN_VERSION);
@@ -102,9 +122,12 @@ public class EmployeeInterviewMapper extends BaseRowMapper<EmployeeInterview>{
 		}
 		
 		employeeInterview.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyEmployee(String employeeId){
  		Employee employee = new Employee();

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeesalarysheet;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -53,13 +54,13 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
 
 	protected SalaryGradeDAO salaryGradeDAO;
 	public void setSalaryGradeDAO(SalaryGradeDAO salaryGradeDAO){
- 	
+
  		if(salaryGradeDAO == null){
  			throw new IllegalStateException("Do not try to set salaryGradeDAO to null.");
  		}
@@ -69,13 +70,13 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(this.salaryGradeDAO == null){
  			throw new IllegalStateException("The salaryGradeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.salaryGradeDAO;
- 	}	
+ 	}
 
 	protected PayingOffDAO payingOffDAO;
 	public void setPayingOffDAO(PayingOffDAO payingOffDAO){
- 	
+
  		if(payingOffDAO == null){
  			throw new IllegalStateException("Do not try to set payingOffDAO to null.");
  		}
@@ -85,9 +86,10 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(this.payingOffDAO == null){
  			throw new IllegalStateException("The payingOffDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.payingOffDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -221,57 +223,57 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeSalarySheetTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeSalarySheetTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeSalarySheetTokens.EMPLOYEE);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractCurrentSalaryGradeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeSalarySheetTokens.CURRENTSALARYGRADE);
  	}
 
  	protected boolean isSaveCurrentSalaryGradeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeSalarySheetTokens.CURRENTSALARYGRADE);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractPayingOffEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeSalarySheetTokens.PAYINGOFF);
  	}
 
  	protected boolean isSavePayingOffEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeSalarySheetTokens.PAYINGOFF);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -281,8 +283,8 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		return new EmployeeSalarySheetMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeSalarySheet extractEmployeeSalarySheet(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeSalarySheet employeeSalarySheet = loadSingleObject(accessKey, getEmployeeSalarySheetMapper());
@@ -293,33 +295,34 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeSalarySheet loadInternalEmployeeSalarySheet(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeSalarySheet employeeSalarySheet = extractEmployeeSalarySheet(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeSalarySheet, loadOptions);
  		}
-  	
+ 
  		if(isExtractCurrentSalaryGradeEnabled(loadOptions)){
 	 		extractCurrentSalaryGrade(employeeSalarySheet, loadOptions);
  		}
-  	
+ 
  		if(isExtractPayingOffEnabled(loadOptions)){
 	 		extractPayingOff(employeeSalarySheet, loadOptions);
  		}
  
 		
 		return employeeSalarySheet;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeSalarySheet extractEmployee(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeSalarySheet.getEmployee() == null){
 			return employeeSalarySheet;
@@ -332,14 +335,15 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		if(employee != null){
 			employeeSalarySheet.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeSalarySheet;
  	}
- 		
-  
+
+ 
 
  	protected EmployeeSalarySheet extractCurrentSalaryGrade(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeSalarySheet.getCurrentSalaryGrade() == null){
 			return employeeSalarySheet;
@@ -352,14 +356,15 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		if(currentSalaryGrade != null){
 			employeeSalarySheet.setCurrentSalaryGrade(currentSalaryGrade);
 		}
-		
- 		
+
+
  		return employeeSalarySheet;
  	}
- 		
-  
+
+ 
 
  	protected EmployeeSalarySheet extractPayingOff(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeSalarySheet.getPayingOff() == null){
 			return employeeSalarySheet;
@@ -372,46 +377,46 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		if(payingOff != null){
 			employeeSalarySheet.setPayingOff(payingOff);
 		}
-		
- 		
+
+
  		return employeeSalarySheet;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeSalarySheet> resultList = queryWith(EmployeeSalarySheetTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSalarySheetMapper());
 		// analyzeEmployeeSalarySheetByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeSalarySheet> resultList =  queryWithRange(EmployeeSalarySheetTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSalarySheetMapper(), start, count);
  		//analyzeEmployeeSalarySheetByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeSalarySheetByEmployee(SmartList<EmployeeSalarySheet> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeSalarySheetByEmployee(String employeeId,Map<String,Object> options){
@@ -422,39 +427,39 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	public Map<String, Integer> countEmployeeSalarySheetByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeSalarySheetTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByCurrentSalaryGrade(String salaryGradeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeSalarySheet> resultList = queryWith(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeSalarySheetMapper());
 		// analyzeEmployeeSalarySheetByCurrentSalaryGrade(resultList, salaryGradeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByCurrentSalaryGrade(String salaryGradeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeSalarySheet> resultList =  queryWithRange(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeSalarySheetMapper(), start, count);
  		//analyzeEmployeeSalarySheetByCurrentSalaryGrade(resultList, salaryGradeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeSalarySheetByCurrentSalaryGrade(SmartList<EmployeeSalarySheet> resultList, String salaryGradeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeSalarySheetByCurrentSalaryGrade(String salaryGradeId,Map<String,Object> options){
@@ -465,39 +470,39 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	public Map<String, Integer> countEmployeeSalarySheetByCurrentSalaryGradeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByPayingOff(String payingOffId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeSalarySheet> resultList = queryWith(EmployeeSalarySheetTable.COLUMN_PAYING_OFF, payingOffId, options, getEmployeeSalarySheetMapper());
 		// analyzeEmployeeSalarySheetByPayingOff(resultList, payingOffId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByPayingOff(String payingOffId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeSalarySheet> resultList =  queryWithRange(EmployeeSalarySheetTable.COLUMN_PAYING_OFF, payingOffId, options, getEmployeeSalarySheetMapper(), start, count);
  		//analyzeEmployeeSalarySheetByPayingOff(resultList, payingOffId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeSalarySheetByPayingOff(SmartList<EmployeeSalarySheet> resultList, String payingOffId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeSalarySheetByPayingOff(String payingOffId,Map<String,Object> options){
@@ -508,21 +513,24 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	public Map<String, Integer> countEmployeeSalarySheetByPayingOffIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeSalarySheetTable.COLUMN_PAYING_OFF, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeSalarySheet saveEmployeeSalarySheet(EmployeeSalarySheet  employeeSalarySheet){
+    
+
 		
 		if(!employeeSalarySheet.isChanged()){
 			return employeeSalarySheet;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeSalarySheet);
 		String SQL=this.getSaveEmployeeSalarySheetSQL(employeeSalarySheet);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeSalarySheetParameters(employeeSalarySheet);
@@ -533,6 +541,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		}
 
 		employeeSalarySheet.incVersion();
+		employeeSalarySheet.afterSave();
 		return employeeSalarySheet;
 
 	}
@@ -550,6 +559,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		for(EmployeeSalarySheet employeeSalarySheet:employeeSalarySheetList){
 			if(employeeSalarySheet.isChanged()){
 				employeeSalarySheet.incVersion();
+				employeeSalarySheet.afterSave();
 			}
 
 
@@ -656,36 +666,29 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(employeeSalarySheet.getEmployee() != null){
  			parameters[0] = employeeSalarySheet.getEmployee().getId();
  		}
- 
+    
  		if(employeeSalarySheet.getCurrentSalaryGrade() != null){
  			parameters[1] = employeeSalarySheet.getCurrentSalaryGrade().getId();
  		}
- 
- 		
+    
  		parameters[2] = employeeSalarySheet.getBaseSalary();
- 		
  		
  		parameters[3] = employeeSalarySheet.getBonus();
  		
- 		
  		parameters[4] = employeeSalarySheet.getReward();
- 		
  		
  		parameters[5] = employeeSalarySheet.getPersonalTax();
  		
- 		
  		parameters[6] = employeeSalarySheet.getSocialSecurity();
  		
- 		
  		parameters[7] = employeeSalarySheet.getHousingFound();
- 		
  		
  		parameters[8] = employeeSalarySheet.getJobInsurance();
  		
  		if(employeeSalarySheet.getPayingOff() != null){
  			parameters[9] = employeeSalarySheet.getPayingOff().getId();
  		}
- 
+    
  		parameters[10] = employeeSalarySheet.nextVersion();
  		parameters[11] = employeeSalarySheet.getId();
  		parameters[12] = employeeSalarySheet.getVersion();
@@ -702,38 +705,28 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  
  		if(employeeSalarySheet.getEmployee() != null){
  			parameters[1] = employeeSalarySheet.getEmployee().getId();
-
  		}
  		
  		if(employeeSalarySheet.getCurrentSalaryGrade() != null){
  			parameters[2] = employeeSalarySheet.getCurrentSalaryGrade().getId();
-
  		}
- 		
  		
  		parameters[3] = employeeSalarySheet.getBaseSalary();
  		
- 		
  		parameters[4] = employeeSalarySheet.getBonus();
- 		
  		
  		parameters[5] = employeeSalarySheet.getReward();
  		
- 		
  		parameters[6] = employeeSalarySheet.getPersonalTax();
- 		
  		
  		parameters[7] = employeeSalarySheet.getSocialSecurity();
  		
- 		
  		parameters[8] = employeeSalarySheet.getHousingFound();
- 		
  		
  		parameters[9] = employeeSalarySheet.getJobInsurance();
  		
  		if(employeeSalarySheet.getPayingOff() != null){
  			parameters[10] = employeeSalarySheet.getPayingOff().getId();
-
  		}
  		
 
@@ -741,8 +734,6 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  	}
 
 	protected EmployeeSalarySheet saveInternalEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
-
-		saveEmployeeSalarySheet(employeeSalarySheet);
 
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeSalarySheet, options);
@@ -756,6 +747,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	 		savePayingOff(employeeSalarySheet, options);
  		}
  
+   saveEmployeeSalarySheet(employeeSalarySheet);
 		
 		return employeeSalarySheet;
 
@@ -767,6 +759,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	
 
  	protected EmployeeSalarySheet saveEmployee(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeSalarySheet.getEmployee() == null){
  			return employeeSalarySheet;//do nothing when it is null
@@ -776,14 +769,10 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		return employeeSalarySheet;
 
  	}
-
-
-
-
-
  
 
  	protected EmployeeSalarySheet saveCurrentSalaryGrade(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeSalarySheet.getCurrentSalaryGrade() == null){
  			return employeeSalarySheet;//do nothing when it is null
@@ -793,14 +782,10 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		return employeeSalarySheet;
 
  	}
-
-
-
-
-
  
 
  	protected EmployeeSalarySheet savePayingOff(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeSalarySheet.getPayingOff() == null){
  			return employeeSalarySheet;//do nothing when it is null
@@ -810,11 +795,6 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		return employeeSalarySheet;
 
  	}
-
-
-
-
-
  
 
 	
@@ -822,10 +802,10 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		
 
 	public EmployeeSalarySheet present(EmployeeSalarySheet employeeSalarySheet,Map<String, Object> options){
-	
+
 
 		return employeeSalarySheet;
-	
+
 	}
 		
 
@@ -877,6 +857,10 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeSalarySheet> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeSalarySheetMapper());
   }
@@ -912,6 +896,15 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	
 
+  @Override
+  public List<EmployeeSalarySheet> search(EmployeeSalarySheetRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeSalarySheetMapper mapper() {
+    return getEmployeeSalarySheetMapper();
+  }
 }
 
 

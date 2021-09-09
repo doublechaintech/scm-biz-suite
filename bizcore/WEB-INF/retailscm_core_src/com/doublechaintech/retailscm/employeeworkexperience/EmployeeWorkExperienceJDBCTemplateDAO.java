@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeworkexperience;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeWorkExperienceTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeWorkExperienceTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeWorkExperienceTokens.EMPLOYEE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		return new EmployeeWorkExperienceMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeWorkExperience extractEmployeeWorkExperience(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeWorkExperience employeeWorkExperience = loadSingleObject(accessKey, getEmployeeWorkExperienceMapper());
@@ -229,25 +231,26 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeWorkExperience loadInternalEmployeeWorkExperience(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeWorkExperience employeeWorkExperience = extractEmployeeWorkExperience(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeWorkExperience, loadOptions);
  		}
  
 		
 		return employeeWorkExperience;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeWorkExperience extractEmployee(EmployeeWorkExperience employeeWorkExperience, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeWorkExperience.getEmployee() == null){
 			return employeeWorkExperience;
@@ -260,37 +263,37 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(employee != null){
 			employeeWorkExperience.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeWorkExperience;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeWorkExperience> findEmployeeWorkExperienceByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeWorkExperience> resultList = queryWith(EmployeeWorkExperienceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeWorkExperienceMapper());
 		// analyzeEmployeeWorkExperienceByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeWorkExperience> findEmployeeWorkExperienceByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeWorkExperience> resultList =  queryWithRange(EmployeeWorkExperienceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeWorkExperienceMapper(), start, count);
  		//analyzeEmployeeWorkExperienceByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeWorkExperienceByEmployee(SmartList<EmployeeWorkExperience> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeWorkExperienceByEmployee(String employeeId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	public Map<String, Integer> countEmployeeWorkExperienceByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeWorkExperienceTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeWorkExperience saveEmployeeWorkExperience(EmployeeWorkExperience  employeeWorkExperience){
+    
+
 		
 		if(!employeeWorkExperience.isChanged()){
 			return employeeWorkExperience;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeWorkExperience);
 		String SQL=this.getSaveEmployeeWorkExperienceSQL(employeeWorkExperience);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeWorkExperienceParameters(employeeWorkExperience);
@@ -326,6 +332,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 
 		employeeWorkExperience.incVersion();
+		employeeWorkExperience.afterSave();
 		return employeeWorkExperience;
 
 	}
@@ -343,6 +350,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		for(EmployeeWorkExperience employeeWorkExperience:employeeWorkExperienceList){
 			if(employeeWorkExperience.isChanged()){
 				employeeWorkExperience.incVersion();
+				employeeWorkExperience.afterSave();
 			}
 
 
@@ -449,16 +457,12 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		if(employeeWorkExperience.getEmployee() != null){
  			parameters[0] = employeeWorkExperience.getEmployee().getId();
  		}
- 
- 		
+    
  		parameters[1] = employeeWorkExperience.getStart();
- 		
  		
  		parameters[2] = employeeWorkExperience.getEnd();
  		
- 		
  		parameters[3] = employeeWorkExperience.getCompany();
- 		
  		
  		parameters[4] = employeeWorkExperience.getDescription();
  		
@@ -478,18 +482,13 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  
  		if(employeeWorkExperience.getEmployee() != null){
  			parameters[1] = employeeWorkExperience.getEmployee().getId();
-
  		}
- 		
  		
  		parameters[2] = employeeWorkExperience.getStart();
  		
- 		
  		parameters[3] = employeeWorkExperience.getEnd();
  		
- 		
  		parameters[4] = employeeWorkExperience.getCompany();
- 		
  		
  		parameters[5] = employeeWorkExperience.getDescription();
  		
@@ -499,12 +498,11 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	protected EmployeeWorkExperience saveInternalEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperience, Map<String,Object> options){
 
-		saveEmployeeWorkExperience(employeeWorkExperience);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeWorkExperience, options);
  		}
  
+   saveEmployeeWorkExperience(employeeWorkExperience);
 		
 		return employeeWorkExperience;
 
@@ -516,6 +514,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	
 
  	protected EmployeeWorkExperience saveEmployee(EmployeeWorkExperience employeeWorkExperience, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeWorkExperience.getEmployee() == null){
  			return employeeWorkExperience;//do nothing when it is null
@@ -525,11 +524,6 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		return employeeWorkExperience;
 
  	}
-
-
-
-
-
  
 
 	
@@ -537,10 +531,10 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		
 
 	public EmployeeWorkExperience present(EmployeeWorkExperience employeeWorkExperience,Map<String, Object> options){
-	
+
 
 		return employeeWorkExperience;
-	
+
 	}
 		
 
@@ -592,6 +586,10 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeWorkExperience> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeWorkExperienceMapper());
   }
@@ -627,6 +625,15 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	
 
+  @Override
+  public List<EmployeeWorkExperience> search(EmployeeWorkExperienceRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeWorkExperienceMapper mapper() {
+    return getEmployeeWorkExperienceMapper();
+  }
 }
 
 

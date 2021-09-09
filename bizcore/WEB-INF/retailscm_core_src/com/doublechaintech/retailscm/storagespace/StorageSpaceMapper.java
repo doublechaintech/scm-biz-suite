@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.storagespace;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,29 +9,32 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.warehouse.Warehouse;
 
 public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
-	
+
 	protected StorageSpace internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		StorageSpace storageSpace = getStorageSpace();		
-		 		
- 		setId(storageSpace, rs, rowNumber); 		
- 		setLocation(storageSpace, rs, rowNumber); 		
- 		setContactNumber(storageSpace, rs, rowNumber); 		
- 		setTotalArea(storageSpace, rs, rowNumber); 		
- 		setWarehouse(storageSpace, rs, rowNumber); 		
- 		setLatitude(storageSpace, rs, rowNumber); 		
- 		setLongitude(storageSpace, rs, rowNumber); 		
- 		setLastUpdateTime(storageSpace, rs, rowNumber); 		
+		StorageSpace storageSpace = getStorageSpace();
+		
+ 		setId(storageSpace, rs, rowNumber);
+ 		setLocation(storageSpace, rs, rowNumber);
+ 		setContactNumber(storageSpace, rs, rowNumber);
+ 		setTotalArea(storageSpace, rs, rowNumber);
+ 		setWarehouse(storageSpace, rs, rowNumber);
+ 		setLatitude(storageSpace, rs, rowNumber);
+ 		setLongitude(storageSpace, rs, rowNumber);
+ 		setLastUpdateTime(storageSpace, rs, rowNumber);
  		setVersion(storageSpace, rs, rowNumber);
 
+    
 		return storageSpace;
 	}
-	
+
 	protected StorageSpace getStorageSpace(){
-		return new StorageSpace();
-	}		
+	  StorageSpace entity = new StorageSpace();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(StorageSpaceTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLocation(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String location = rs.getString(StorageSpaceTable.COLUMN_LOCATION);
@@ -55,10 +62,13 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setLocation(location);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setContactNumber(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String contactNumber = rs.getString(StorageSpaceTable.COLUMN_CONTACT_NUMBER);
@@ -69,10 +79,13 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setContactNumber(contactNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTotalArea(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String totalArea = rs.getString(StorageSpaceTable.COLUMN_TOTAL_AREA);
@@ -83,10 +96,18 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setTotalArea(totalArea);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setWarehouse(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
- 		String warehouseId = rs.getString(StorageSpaceTable.COLUMN_WAREHOUSE);
+ 		String warehouseId;
+ 		try{
+ 		  warehouseId = rs.getString(StorageSpaceTable.COLUMN_WAREHOUSE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( warehouseId == null){
  			return;
  		}
@@ -97,14 +118,14 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
  		if( warehouse != null ){
  			//if the root object 'storageSpace' already have the property, just set the id for it;
  			warehouse.setId(warehouseId);
- 			
+
  			return;
  		}
  		storageSpace.setWarehouse(createEmptyWarehouse(warehouseId));
  	}
  	
 	protected void setLatitude(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(StorageSpaceTable.COLUMN_LATITUDE);
@@ -115,10 +136,13 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(StorageSpaceTable.COLUMN_LONGITUDE);
@@ -129,10 +153,13 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(StorageSpaceTable.COLUMN_LAST_UPDATE_TIME);
@@ -143,10 +170,13 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(StorageSpaceTable.COLUMN_VERSION);
@@ -157,9 +187,12 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Warehouse  createEmptyWarehouse(String warehouseId){
  		Warehouse warehouse = new Warehouse();

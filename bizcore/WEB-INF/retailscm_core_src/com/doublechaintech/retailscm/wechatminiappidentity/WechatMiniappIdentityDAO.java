@@ -44,13 +44,15 @@ public interface WechatMiniappIdentityDAO extends BaseDAO{
 	public void delete(String wechatMiniappIdentityId, int version) throws Exception;
 	public WechatMiniappIdentity disconnectFromAll(String wechatMiniappIdentityId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<WechatMiniappIdentity> queryList(String sql, Object ... parmeters);
+	public SmartList<WechatMiniappIdentity> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<WechatMiniappIdentity> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateWechatMiniappIdentity executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<WechatMiniappIdentity> findWechatMiniappIdentityBySecUser(String secUserId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface WechatMiniappIdentityDAO extends BaseDAO{
 
 
  
+
+	List<WechatMiniappIdentity> search(WechatMiniappIdentityRequest pRequest);
 }
 
 

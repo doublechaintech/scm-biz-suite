@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.wechatworkappidentity;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected SecUserDAO secUserDAO;
 	public void setSecUserDAO(SecUserDAO secUserDAO){
- 	
+
  		if(secUserDAO == null){
  			throw new IllegalStateException("Do not try to set secUserDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		if(this.secUserDAO == null){
  			throw new IllegalStateException("The secUserDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.secUserDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return WechatWorkappIdentityTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractSecUserEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, WechatWorkappIdentityTokens.SECUSER);
  	}
 
  	protected boolean isSaveSecUserEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, WechatWorkappIdentityTokens.SECUSER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		return new WechatWorkappIdentityMapper();
 	}
 
-	
-	
+
+
 	protected WechatWorkappIdentity extractWechatWorkappIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			WechatWorkappIdentity wechatWorkappIdentity = loadSingleObject(accessKey, getWechatWorkappIdentityMapper());
@@ -229,25 +231,26 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	}
 
-	
-	
+
+
 
 	protected WechatWorkappIdentity loadInternalWechatWorkappIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		WechatWorkappIdentity wechatWorkappIdentity = extractWechatWorkappIdentity(accessKey, loadOptions);
- 	
+
  		if(isExtractSecUserEnabled(loadOptions)){
 	 		extractSecUser(wechatWorkappIdentity, loadOptions);
  		}
  
 		
 		return wechatWorkappIdentity;
-		
+
 	}
 
-	 
+	
 
  	protected WechatWorkappIdentity extractSecUser(WechatWorkappIdentity wechatWorkappIdentity, Map<String,Object> options) throws Exception{
+  
 
 		if(wechatWorkappIdentity.getSecUser() == null){
 			return wechatWorkappIdentity;
@@ -260,53 +263,53 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		if(secUser != null){
 			wechatWorkappIdentity.setSecUser(secUser);
 		}
-		
- 		
+
+
  		return wechatWorkappIdentity;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<WechatWorkappIdentity> findWechatWorkappIdentityBySecUser(String secUserId,Map<String,Object> options){
- 	
+
   		SmartList<WechatWorkappIdentity> resultList = queryWith(WechatWorkappIdentityTable.COLUMN_SEC_USER, secUserId, options, getWechatWorkappIdentityMapper());
 		// analyzeWechatWorkappIdentityBySecUser(resultList, secUserId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<WechatWorkappIdentity> findWechatWorkappIdentityBySecUser(String secUserId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<WechatWorkappIdentity> resultList =  queryWithRange(WechatWorkappIdentityTable.COLUMN_SEC_USER, secUserId, options, getWechatWorkappIdentityMapper(), start, count);
  		//analyzeWechatWorkappIdentityBySecUser(resultList, secUserId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeWechatWorkappIdentityBySecUser(SmartList<WechatWorkappIdentity> resultList, String secUserId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(WechatWorkappIdentity.SEC_USER_PROPERTY, secUserId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem createTimeStatsItem = new StatsItem();
 		//WechatWorkappIdentity.CREATE_TIME_PROPERTY
-		createTimeStatsItem.setDisplayName("微信企业号认证");
+		createTimeStatsItem.setDisplayName("企业微信认证");
 		createTimeStatsItem.setInternalName(formatKeyForDateLine(WechatWorkappIdentity.CREATE_TIME_PROPERTY));
 		createTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(WechatWorkappIdentity.CREATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(createTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countWechatWorkappIdentityBySecUser(String secUserId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	public Map<String, Integer> countWechatWorkappIdentityBySecUserIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(WechatWorkappIdentityTable.COLUMN_SEC_USER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected WechatWorkappIdentity saveWechatWorkappIdentity(WechatWorkappIdentity  wechatWorkappIdentity){
+    
+
 		
 		if(!wechatWorkappIdentity.isChanged()){
 			return wechatWorkappIdentity;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(wechatWorkappIdentity);
 		String SQL=this.getSaveWechatWorkappIdentitySQL(wechatWorkappIdentity);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveWechatWorkappIdentityParameters(wechatWorkappIdentity);
@@ -342,6 +348,7 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		}
 
 		wechatWorkappIdentity.incVersion();
+		wechatWorkappIdentity.afterSave();
 		return wechatWorkappIdentity;
 
 	}
@@ -359,6 +366,7 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		for(WechatWorkappIdentity wechatWorkappIdentity:wechatWorkappIdentityList){
 			if(wechatWorkappIdentity.isChanged()){
 				wechatWorkappIdentity.incVersion();
+				wechatWorkappIdentity.afterSave();
 			}
 
 
@@ -462,19 +470,15 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  	protected Object[] prepareWechatWorkappIdentityUpdateParameters(WechatWorkappIdentity wechatWorkappIdentity){
  		Object[] parameters = new Object[8];
  
- 		
  		parameters[0] = wechatWorkappIdentity.getCorpId();
- 		
  		
  		parameters[1] = wechatWorkappIdentity.getUserId();
  		
  		if(wechatWorkappIdentity.getSecUser() != null){
  			parameters[2] = wechatWorkappIdentity.getSecUser().getId();
  		}
- 
- 		
+    
  		parameters[3] = wechatWorkappIdentity.getCreateTime();
- 		
  		
  		parameters[4] = wechatWorkappIdentity.getLastLoginTime();
  		
@@ -492,20 +496,15 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
         }
 		parameters[0] =  wechatWorkappIdentity.getId();
  
- 		
  		parameters[1] = wechatWorkappIdentity.getCorpId();
- 		
  		
  		parameters[2] = wechatWorkappIdentity.getUserId();
  		
  		if(wechatWorkappIdentity.getSecUser() != null){
  			parameters[3] = wechatWorkappIdentity.getSecUser().getId();
-
  		}
  		
- 		
  		parameters[4] = wechatWorkappIdentity.getCreateTime();
- 		
  		
  		parameters[5] = wechatWorkappIdentity.getLastLoginTime();
  		
@@ -515,12 +514,11 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected WechatWorkappIdentity saveInternalWechatWorkappIdentity(WechatWorkappIdentity wechatWorkappIdentity, Map<String,Object> options){
 
-		saveWechatWorkappIdentity(wechatWorkappIdentity);
-
  		if(isSaveSecUserEnabled(options)){
 	 		saveSecUser(wechatWorkappIdentity, options);
  		}
  
+   saveWechatWorkappIdentity(wechatWorkappIdentity);
 		
 		return wechatWorkappIdentity;
 
@@ -532,6 +530,7 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	
 
  	protected WechatWorkappIdentity saveSecUser(WechatWorkappIdentity wechatWorkappIdentity, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(wechatWorkappIdentity.getSecUser() == null){
  			return wechatWorkappIdentity;//do nothing when it is null
@@ -541,11 +540,6 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		return wechatWorkappIdentity;
 
  	}
-
-
-
-
-
  
 
 	
@@ -553,10 +547,10 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		
 
 	public WechatWorkappIdentity present(WechatWorkappIdentity wechatWorkappIdentity,Map<String, Object> options){
-	
+
 
 		return wechatWorkappIdentity;
-	
+
 	}
 		
 
@@ -608,6 +602,10 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<WechatWorkappIdentity> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getWechatWorkappIdentityMapper());
   }
@@ -643,6 +641,15 @@ public class WechatWorkappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	
 
+  @Override
+  public List<WechatWorkappIdentity> search(WechatWorkappIdentityRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected WechatWorkappIdentityMapper mapper() {
+    return getWechatWorkappIdentityMapper();
+  }
 }
 
 

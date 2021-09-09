@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.retailstoreorderlineitem;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
 @JsonSerialize(using = RetailStoreOrderLineItemSerializer.class)
 public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String BIZ_ORDER_PROPERTY             = "bizOrder"          ;
 	public static final String SKU_ID_PROPERTY                = "skuId"             ;
@@ -47,34 +44,93 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(BIZ_ORDER_PROPERTY, "retail_store_order", "订单")
+        .withType("retail_store_order", RetailStoreOrder.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SKU_ID_PROPERTY, "sku_id", "产品ID")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SKU_NAME_PROPERTY, "sku_name", "产品名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(AMOUNT_PROPERTY, "amount", "金额")
+        .withType("money", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(QUANTITY_PROPERTY, "quantity", "数量")
+        .withType("int", "int"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(UNIT_OF_MEASUREMENT_PROPERTY, "unit_of_measurement", "测量单位")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,BIZ_ORDER_PROPERTY ,SKU_ID_PROPERTY ,SKU_NAME_PROPERTY ,AMOUNT_PROPERTY ,QUANTITY_PROPERTY ,UNIT_OF_MEASUREMENT_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(BIZ_ORDER_PROPERTY, RetailStoreOrder.class);
+
+    return parents;
+  }
+
+  public RetailStoreOrderLineItem want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public RetailStoreOrderLineItem wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getSkuId();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		RetailStoreOrder    	mBizOrder           ;
-	protected		String              	mSkuId              ;
-	protected		String              	mSkuName            ;
-	protected		BigDecimal          	mAmount             ;
-	protected		int                 	mQuantity           ;
-	protected		String              	mUnitOfMeasurement  ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		RetailStoreOrder    	bizOrder            ;
+	protected		String              	skuId               ;
+	protected		String              	skuName             ;
+	protected		BigDecimal          	amount              ;
+	protected		int                 	quantity            ;
+	protected		String              	unitOfMeasurement   ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	RetailStoreOrderLineItem(){
 		// lazy load for all the properties
 	}
@@ -82,20 +138,40 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		RetailStoreOrderLineItem retailStoreOrderLineItem = new RetailStoreOrderLineItem();
 		retailStoreOrderLineItem.setId(id);
 		retailStoreOrderLineItem.setVersion(Integer.MAX_VALUE);
+		retailStoreOrderLineItem.setChecked(true);
 		return retailStoreOrderLineItem;
 	}
 	public 	static RetailStoreOrderLineItem refById(String id){
 		return withId(id);
 	}
-	
+
+  public RetailStoreOrderLineItem limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public RetailStoreOrderLineItem limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static RetailStoreOrderLineItem searchExample(){
+    RetailStoreOrderLineItem retailStoreOrderLineItem = new RetailStoreOrderLineItem();
+    		retailStoreOrderLineItem.setQuantity(UNSET_INT);
+		retailStoreOrderLineItem.setVersion(UNSET_INT);
+
+    return retailStoreOrderLineItem;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setBizOrder( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -204,7 +280,7 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(BIZ_ORDER_PROPERTY.equals(property)){
 			return getBizOrder();
 		}
@@ -227,170 +303,275 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public RetailStoreOrderLineItem updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setBizOrder(RetailStoreOrder bizOrder){
-		this.mBizOrder = bizOrder;;
-	}
+	public void setBizOrder(RetailStoreOrder bizOrder){RetailStoreOrder oldBizOrder = this.bizOrder;RetailStoreOrder newBizOrder = bizOrder;this.bizOrder = newBizOrder;}
+	public RetailStoreOrder bizOrder(){
+doLoad();
+return getBizOrder();
+}
 	public RetailStoreOrder getBizOrder(){
-		return this.mBizOrder;
+		return this.bizOrder;
 	}
-	public RetailStoreOrderLineItem updateBizOrder(RetailStoreOrder bizOrder){
-		this.mBizOrder = bizOrder;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateBizOrder(RetailStoreOrder bizOrder){RetailStoreOrder oldBizOrder = this.bizOrder;RetailStoreOrder newBizOrder = bizOrder;if(!shouldReplaceBy(newBizOrder, oldBizOrder)){return this;}this.bizOrder = newBizOrder;addPropertyChange(BIZ_ORDER_PROPERTY, oldBizOrder, newBizOrder);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderByBizOrder(boolean asc){
+doAddOrderBy(BIZ_ORDER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createBizOrderCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(BIZ_ORDER_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreBizOrderCriteria(){super.ignoreSearchProperty(BIZ_ORDER_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addBizOrderCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createBizOrderCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeBizOrder(RetailStoreOrder bizOrder){
 		if(bizOrder != null) { setBizOrder(bizOrder);}
 	}
-	
+
 	
 	public void clearBizOrder(){
 		setBizOrder ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setSkuId(String skuId){
-		this.mSkuId = trimString(skuId);;
-	}
+	public void setSkuId(String skuId){String oldSkuId = this.skuId;String newSkuId = trimString(skuId);this.skuId = newSkuId;}
+	public String skuId(){
+doLoad();
+return getSkuId();
+}
 	public String getSkuId(){
-		return this.mSkuId;
+		return this.skuId;
 	}
-	public RetailStoreOrderLineItem updateSkuId(String skuId){
-		this.mSkuId = trimString(skuId);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateSkuId(String skuId){String oldSkuId = this.skuId;String newSkuId = trimString(skuId);if(!shouldReplaceBy(newSkuId, oldSkuId)){return this;}this.skuId = newSkuId;addPropertyChange(SKU_ID_PROPERTY, oldSkuId, newSkuId);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderBySkuId(boolean asc){
+doAddOrderBy(SKU_ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSkuIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SKU_ID_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreSkuIdCriteria(){super.ignoreSearchProperty(SKU_ID_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addSkuIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSkuIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeSkuId(String skuId){
 		if(skuId != null) { setSkuId(skuId);}
 	}
+
 	
-	
-	public void setSkuName(String skuName){
-		this.mSkuName = trimString(skuName);;
-	}
+	public void setSkuName(String skuName){String oldSkuName = this.skuName;String newSkuName = trimString(skuName);this.skuName = newSkuName;}
+	public String skuName(){
+doLoad();
+return getSkuName();
+}
 	public String getSkuName(){
-		return this.mSkuName;
+		return this.skuName;
 	}
-	public RetailStoreOrderLineItem updateSkuName(String skuName){
-		this.mSkuName = trimString(skuName);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateSkuName(String skuName){String oldSkuName = this.skuName;String newSkuName = trimString(skuName);if(!shouldReplaceBy(newSkuName, oldSkuName)){return this;}this.skuName = newSkuName;addPropertyChange(SKU_NAME_PROPERTY, oldSkuName, newSkuName);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderBySkuName(boolean asc){
+doAddOrderBy(SKU_NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSkuNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SKU_NAME_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreSkuNameCriteria(){super.ignoreSearchProperty(SKU_NAME_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addSkuNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSkuNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeSkuName(String skuName){
 		if(skuName != null) { setSkuName(skuName);}
 	}
+
 	
-	
-	public void setAmount(BigDecimal amount){
-		this.mAmount = amount;;
-	}
+	public void setAmount(BigDecimal amount){BigDecimal oldAmount = this.amount;BigDecimal newAmount = amount;this.amount = newAmount;}
+	public BigDecimal amount(){
+doLoad();
+return getAmount();
+}
 	public BigDecimal getAmount(){
-		return this.mAmount;
+		return this.amount;
 	}
-	public RetailStoreOrderLineItem updateAmount(BigDecimal amount){
-		this.mAmount = amount;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateAmount(BigDecimal amount){BigDecimal oldAmount = this.amount;BigDecimal newAmount = amount;if(!shouldReplaceBy(newAmount, oldAmount)){return this;}this.amount = newAmount;addPropertyChange(AMOUNT_PROPERTY, oldAmount, newAmount);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderByAmount(boolean asc){
+doAddOrderBy(AMOUNT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createAmountCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(AMOUNT_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreAmountCriteria(){super.ignoreSearchProperty(AMOUNT_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addAmountCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createAmountCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeAmount(BigDecimal amount){
 		setAmount(amount);
 	}
+
 	
-	
-	public void setQuantity(int quantity){
-		this.mQuantity = quantity;;
-	}
+	public void setQuantity(int quantity){int oldQuantity = this.quantity;int newQuantity = quantity;this.quantity = newQuantity;}
+	public int quantity(){
+doLoad();
+return getQuantity();
+}
 	public int getQuantity(){
-		return this.mQuantity;
+		return this.quantity;
 	}
-	public RetailStoreOrderLineItem updateQuantity(int quantity){
-		this.mQuantity = quantity;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateQuantity(int quantity){int oldQuantity = this.quantity;int newQuantity = quantity;if(!shouldReplaceBy(newQuantity, oldQuantity)){return this;}this.quantity = newQuantity;addPropertyChange(QUANTITY_PROPERTY, oldQuantity, newQuantity);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderByQuantity(boolean asc){
+doAddOrderBy(QUANTITY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createQuantityCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(QUANTITY_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreQuantityCriteria(){super.ignoreSearchProperty(QUANTITY_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addQuantityCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createQuantityCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeQuantity(int quantity){
 		setQuantity(quantity);
 	}
+
 	
-	
-	public void setUnitOfMeasurement(String unitOfMeasurement){
-		this.mUnitOfMeasurement = trimString(unitOfMeasurement);;
-	}
+	public void setUnitOfMeasurement(String unitOfMeasurement){String oldUnitOfMeasurement = this.unitOfMeasurement;String newUnitOfMeasurement = trimString(unitOfMeasurement);this.unitOfMeasurement = newUnitOfMeasurement;}
+	public String unitOfMeasurement(){
+doLoad();
+return getUnitOfMeasurement();
+}
 	public String getUnitOfMeasurement(){
-		return this.mUnitOfMeasurement;
+		return this.unitOfMeasurement;
 	}
-	public RetailStoreOrderLineItem updateUnitOfMeasurement(String unitOfMeasurement){
-		this.mUnitOfMeasurement = trimString(unitOfMeasurement);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateUnitOfMeasurement(String unitOfMeasurement){String oldUnitOfMeasurement = this.unitOfMeasurement;String newUnitOfMeasurement = trimString(unitOfMeasurement);if(!shouldReplaceBy(newUnitOfMeasurement, oldUnitOfMeasurement)){return this;}this.unitOfMeasurement = newUnitOfMeasurement;addPropertyChange(UNIT_OF_MEASUREMENT_PROPERTY, oldUnitOfMeasurement, newUnitOfMeasurement);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderByUnitOfMeasurement(boolean asc){
+doAddOrderBy(UNIT_OF_MEASUREMENT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createUnitOfMeasurementCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(UNIT_OF_MEASUREMENT_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreUnitOfMeasurementCriteria(){super.ignoreSearchProperty(UNIT_OF_MEASUREMENT_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addUnitOfMeasurementCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createUnitOfMeasurementCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeUnitOfMeasurement(String unitOfMeasurement){
 		if(unitOfMeasurement != null) { setUnitOfMeasurement(unitOfMeasurement);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public RetailStoreOrderLineItem updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreOrderLineItem updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public RetailStoreOrderLineItem orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public RetailStoreOrderLineItem ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public RetailStoreOrderLineItem addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getBizOrder(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -408,16 +589,16 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStoreOrderLineItem){
-		
-		
+
+
 			RetailStoreOrderLineItem dest =(RetailStoreOrderLineItem)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setBizOrder(getBizOrder());
 			dest.setSkuId(getSkuId());
@@ -432,13 +613,13 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStoreOrderLineItem){
-		
-			
+
+
 			RetailStoreOrderLineItem dest =(RetailStoreOrderLineItem)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeBizOrder(getBizOrder());
 			dest.mergeSkuId(getSkuId());
@@ -452,15 +633,15 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStoreOrderLineItem){
-		
-			
+
+
 			RetailStoreOrderLineItem dest =(RetailStoreOrderLineItem)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeSkuId(getSkuId());
 			dest.mergeSkuName(getSkuName());
@@ -475,6 +656,50 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getBizOrder(), getSkuId(), getSkuName(), getAmount(), getQuantity(), getUnitOfMeasurement(), getVersion()};
 	}
+
+
+	public static RetailStoreOrderLineItem createWith(RetailscmUserContext userContext, ThrowingFunction<RetailStoreOrderLineItem,RetailStoreOrderLineItem,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<RetailStoreOrderLineItem> customCreator = mapper.findCustomCreator(RetailStoreOrderLineItem.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    RetailStoreOrderLineItem result = new RetailStoreOrderLineItem();
+    result.setBizOrder(mapper.tryToGet(RetailStoreOrderLineItem.class, BIZ_ORDER_PROPERTY, RetailStoreOrder.class,
+        0, true, result.getBizOrder(), params));
+    result.setSkuId(mapper.tryToGet(RetailStoreOrderLineItem.class, SKU_ID_PROPERTY, String.class,
+        0, false, result.getSkuId(), params));
+    result.setSkuName(mapper.tryToGet(RetailStoreOrderLineItem.class, SKU_NAME_PROPERTY, String.class,
+        1, false, result.getSkuName(), params));
+    result.setAmount(mapper.tryToGet(RetailStoreOrderLineItem.class, AMOUNT_PROPERTY, BigDecimal.class,
+        0, true, result.getAmount(), params));
+    result.setQuantity(mapper.tryToGet(RetailStoreOrderLineItem.class, QUANTITY_PROPERTY, int.class,
+        0, true, result.getQuantity(), params));
+    result.setUnitOfMeasurement(mapper.tryToGet(RetailStoreOrderLineItem.class, UNIT_OF_MEASUREMENT_PROPERTY, String.class,
+        2, false, result.getUnitOfMeasurement(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixRetailStoreOrderLineItem(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      RetailStoreOrderLineItemTokens tokens = mapper.findParamByClass(params, RetailStoreOrderLineItemTokens.class);
+      if (tokens == null) {
+        tokens = RetailStoreOrderLineItemTokens.start();
+      }
+      result = userContext.getManagerGroup().getRetailStoreOrderLineItemManager().internalSaveRetailStoreOrderLineItem(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -493,14 +718,14 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 	public void increaseQuantity(int incQuantity){
-		updateQuantity(this.mQuantity +  incQuantity);
+		updateQuantity(this.quantity +  incQuantity);
 	}
 	public void decreaseQuantity(int decQuantity){
-		updateQuantity(this.mQuantity - decQuantity);
+		updateQuantity(this.quantity - decQuantity);
 	}
 	
 

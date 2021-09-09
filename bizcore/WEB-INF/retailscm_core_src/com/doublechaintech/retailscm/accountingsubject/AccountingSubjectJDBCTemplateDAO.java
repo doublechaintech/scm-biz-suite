@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.accountingsubject;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected AccountSetDAO accountSetDAO;
 	public void setAccountSetDAO(AccountSetDAO accountSetDAO){
- 	
+
  		if(accountSetDAO == null){
  			throw new IllegalStateException("Do not try to set accountSetDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.accountSetDAO == null){
  			throw new IllegalStateException("The accountSetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountSetDAO;
- 	}	
+ 	}
 
 	protected AccountingDocumentLineDAO accountingDocumentLineDAO;
 	public void setAccountingDocumentLineDAO(AccountingDocumentLineDAO accountingDocumentLineDAO){
- 	
+
  		if(accountingDocumentLineDAO == null){
  			throw new IllegalStateException("Do not try to set accountingDocumentLineDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.accountingDocumentLineDAO == null){
  			throw new IllegalStateException("The accountingDocumentLineDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountingDocumentLineDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		newAccountingSubject.setVersion(0);
 		
 		
- 		
+
  		if(isSaveAccountingDocumentLineListEnabled(options)){
  			for(AccountingDocumentLine item: newAccountingSubject.getAccountingDocumentLineList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return AccountingSubjectTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractAccountSetEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, AccountingSubjectTokens.ACCOUNTSET);
  	}
 
  	protected boolean isSaveAccountSetEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, AccountingSubjectTokens.ACCOUNTSET);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){
  		return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
  	}
- 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){
  		return AccountingSubjectTokens.of(options).analyzeAccountingDocumentLineListEnabled();
  	}
-	
+
 	protected boolean isSaveAccountingDocumentLineListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		return new AccountingSubjectMapper();
 	}
 
-	
-	
+
+
 	protected AccountingSubject extractAccountingSubject(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			AccountingSubject accountingSubject = loadSingleObject(accessKey, getAccountingSubjectMapper());
@@ -268,13 +270,13 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	}
 
-	
-	
+
+
 
 	protected AccountingSubject loadInternalAccountingSubject(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		AccountingSubject accountingSubject = extractAccountingSubject(accessKey, loadOptions);
- 	
+
  		if(isExtractAccountSetEnabled(loadOptions)){
 	 		extractAccountSet(accountingSubject, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractAccountingDocumentLineListEnabled(loadOptions)){
 	 		extractAccountingDocumentLineList(accountingSubject, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeAccountingDocumentLineListEnabled(loadOptions)){
 	 		analyzeAccountingDocumentLineList(accountingSubject, loadOptions);
@@ -291,12 +293,13 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		
 		
 		return accountingSubject;
-		
+
 	}
 
-	 
+	
 
  	protected AccountingSubject extractAccountSet(AccountingSubject accountingSubject, Map<String,Object> options) throws Exception{
+  
 
 		if(accountingSubject.getAccountSet() == null){
 			return accountingSubject;
@@ -309,21 +312,21 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(accountSet != null){
 			accountingSubject.setAccountSet(accountSet);
 		}
-		
- 		
+
+
  		return accountingSubject;
  	}
- 		
+
  
 		
 	protected void enhanceAccountingDocumentLineList(SmartList<AccountingDocumentLine> accountingDocumentLineList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected AccountingSubject extractAccountingDocumentLineList(AccountingSubject accountingSubject, Map<String,Object> options){
-		
-		
+    
+
 		if(accountingSubject == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return accountingSubject;
 		}
 
-		
-		
+
+
 		SmartList<AccountingDocumentLine> accountingDocumentLineList = getAccountingDocumentLineDAO().findAccountingDocumentLineByAccountingSubject(accountingSubject.getId(),options);
 		if(accountingDocumentLineList != null){
 			enhanceAccountingDocumentLineList(accountingDocumentLineList,options);
 			accountingSubject.setAccountingDocumentLineList(accountingDocumentLineList);
 		}
-		
+
 		return accountingSubject;
-	
-	}	
-	
+  
+	}
+
 	protected AccountingSubject analyzeAccountingDocumentLineList(AccountingSubject accountingSubject, Map<String,Object> options){
-		
-		
+     
 		if(accountingSubject == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return accountingSubject;
 		}
 
-		
-		
+
+
 		SmartList<AccountingDocumentLine> accountingDocumentLineList = accountingSubject.getAccountingDocumentLineList();
 		if(accountingDocumentLineList != null){
 			getAccountingDocumentLineDAO().analyzeAccountingDocumentLineByAccountingSubject(accountingDocumentLineList, accountingSubject.getId(), options);
-			
+
 		}
-		
+
 		return accountingSubject;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<AccountingSubject> findAccountingSubjectByAccountSet(String accountSetId,Map<String,Object> options){
- 	
+
   		SmartList<AccountingSubject> resultList = queryWith(AccountingSubjectTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingSubjectMapper());
 		// analyzeAccountingSubjectByAccountSet(resultList, accountSetId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<AccountingSubject> findAccountingSubjectByAccountSet(String accountSetId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<AccountingSubject> resultList =  queryWithRange(AccountingSubjectTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingSubjectMapper(), start, count);
  		//analyzeAccountingSubjectByAccountSet(resultList, accountSetId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeAccountingSubjectByAccountSet(SmartList<AccountingSubject> resultList, String accountSetId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countAccountingSubjectByAccountSet(String accountSetId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countAccountingSubjectByAccountSetIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(AccountingSubjectTable.COLUMN_ACCOUNT_SET, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected AccountingSubject saveAccountingSubject(AccountingSubject  accountingSubject){
+    
+
 		
 		if(!accountingSubject.isChanged()){
 			return accountingSubject;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(accountingSubject);
 		String SQL=this.getSaveAccountingSubjectSQL(accountingSubject);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveAccountingSubjectParameters(accountingSubject);
@@ -425,6 +430,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 
 		accountingSubject.incVersion();
+		accountingSubject.afterSave();
 		return accountingSubject;
 
 	}
@@ -442,6 +448,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		for(AccountingSubject accountingSubject:accountingSubjectList){
 			if(accountingSubject.isChanged()){
 				accountingSubject.incVersion();
+				accountingSubject.afterSave();
 			}
 
 
@@ -545,22 +552,18 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  	protected Object[] prepareAccountingSubjectUpdateParameters(AccountingSubject accountingSubject){
  		Object[] parameters = new Object[8];
  
- 		
  		parameters[0] = accountingSubject.getAccountingSubjectCode();
- 		
  		
  		parameters[1] = accountingSubject.getAccountingSubjectName();
  		
- 		
  		parameters[2] = accountingSubject.getAccountingSubjectClassCode();
- 		
  		
  		parameters[3] = accountingSubject.getAccountingSubjectClassName();
  		
  		if(accountingSubject.getAccountSet() != null){
  			parameters[4] = accountingSubject.getAccountSet().getId();
  		}
- 
+    
  		parameters[5] = accountingSubject.nextVersion();
  		parameters[6] = accountingSubject.getId();
  		parameters[7] = accountingSubject.getVersion();
@@ -575,21 +578,16 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
         }
 		parameters[0] =  accountingSubject.getId();
  
- 		
  		parameters[1] = accountingSubject.getAccountingSubjectCode();
- 		
  		
  		parameters[2] = accountingSubject.getAccountingSubjectName();
  		
- 		
  		parameters[3] = accountingSubject.getAccountingSubjectClassCode();
- 		
  		
  		parameters[4] = accountingSubject.getAccountingSubjectClassName();
  		
  		if(accountingSubject.getAccountSet() != null){
  			parameters[5] = accountingSubject.getAccountSet().getId();
-
  		}
  		
 
@@ -598,12 +596,11 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected AccountingSubject saveInternalAccountingSubject(AccountingSubject accountingSubject, Map<String,Object> options){
 
-		saveAccountingSubject(accountingSubject);
-
  		if(isSaveAccountSetEnabled(options)){
 	 		saveAccountSet(accountingSubject, options);
  		}
  
+   saveAccountingSubject(accountingSubject);
 		
 		if(isSaveAccountingDocumentLineListEnabled(options)){
 	 		saveAccountingDocumentLineList(accountingSubject, options);
@@ -622,6 +619,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 
  	protected AccountingSubject saveAccountSet(AccountingSubject accountingSubject, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(accountingSubject.getAccountSet() == null){
  			return accountingSubject;//do nothing when it is null
@@ -631,11 +629,6 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return accountingSubject;
 
  	}
-
-
-
-
-
  
 
 	
@@ -714,7 +707,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected AccountingSubject saveAccountingDocumentLineList(AccountingSubject accountingSubject, Map<String,Object> options){
-
+    
 
 
 
@@ -781,19 +774,19 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 
 	public AccountingSubject present(AccountingSubject accountingSubject,Map<String, Object> options){
-	
+
 		presentAccountingDocumentLineList(accountingSubject,options);
 
 		return accountingSubject;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected AccountingSubject presentAccountingDocumentLineList(
 			AccountingSubject accountingSubject,
 			Map<String, Object> options) {
-
-		SmartList<AccountingDocumentLine> accountingDocumentLineList = accountingSubject.getAccountingDocumentLineList();		
+    
+		SmartList<AccountingDocumentLine> accountingDocumentLineList = accountingSubject.getAccountingDocumentLineList();
 				SmartList<AccountingDocumentLine> newList= presentSubList(accountingSubject.getId(),
 				accountingDocumentLineList,
 				options,
@@ -801,12 +794,12 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getAccountingDocumentLineDAO()::findAccountingDocumentLineByAccountingSubject
 				);
 
-		
+
 		accountingSubject.setAccountingDocumentLineList(newList);
-		
+
 
 		return accountingSubject;
-	}			
+	}
 		
 
 	
@@ -830,6 +823,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:AccountingDocumentLine的accountingSubject的AccountingDocumentLineList
 	public SmartList<AccountingDocumentLine> loadOurAccountingDocumentLineList(RetailscmUserContext userContext, List<AccountingSubject> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -886,6 +880,10 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<AccountingSubject> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getAccountingSubjectMapper());
   }
@@ -921,6 +919,15 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	
 
+  @Override
+  public List<AccountingSubject> search(AccountingSubjectRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected AccountingSubjectMapper mapper() {
+    return getAccountingSubjectMapper();
+  }
 }
 
 

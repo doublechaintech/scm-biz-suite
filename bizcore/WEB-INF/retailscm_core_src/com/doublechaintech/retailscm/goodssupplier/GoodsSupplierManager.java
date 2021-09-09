@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.goodssupplier;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface GoodsSupplierManager extends BaseManager{
 
 		
 
+  List<GoodsSupplier> searchGoodsSupplierList(RetailscmUserContext ctx, GoodsSupplierRequest pRequest);
+  GoodsSupplier searchGoodsSupplier(RetailscmUserContext ctx, GoodsSupplierRequest pRequest);
 	public GoodsSupplier createGoodsSupplier(RetailscmUserContext userContext, String name,String supplyProduct,String belongToId,String contactNumber,String description) throws Exception;
 	public GoodsSupplier updateGoodsSupplier(RetailscmUserContext userContext,String goodsSupplierId, int goodsSupplierVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public GoodsSupplier loadGoodsSupplier(RetailscmUserContext userContext, String goodsSupplierId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface GoodsSupplierManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String goodsSupplierId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, GoodsSupplier newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, GoodsSupplier updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -65,6 +73,9 @@ public interface GoodsSupplierManager extends BaseManager{
 	public Object listByBelongTo(RetailscmUserContext userContext,String belongToId) throws Exception;
 	public Object listPageByBelongTo(RetailscmUserContext userContext,String belongToId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

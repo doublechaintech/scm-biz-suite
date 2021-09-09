@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.goodsshelf;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.supplierspace.SupplierSpace;
 import com.doublechaintech.retailscm.damagespace.DamageSpace;
 import com.doublechaintech.retailscm.goodsallocation.GoodsAllocation;
@@ -31,12 +28,12 @@ import com.doublechaintech.retailscm.storagespace.StorageSpace;
 @JsonSerialize(using = GoodsShelfSerializer.class)
 public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String LOCATION_PROPERTY              = "location"          ;
 	public static final String STORAGE_SPACE_PROPERTY         = "storageSpace"      ;
@@ -52,35 +49,108 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LOCATION_PROPERTY, "location", "位置")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(STORAGE_SPACE_PROPERTY, "storage_space", "存货区")
+        .withType("storage_space", StorageSpace.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SUPPLIER_SPACE_PROPERTY, "supplier_space", "供应商的空间")
+        .withType("supplier_space", SupplierSpace.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DAMAGE_SPACE_PROPERTY, "damage_space", "残次货物存放区")
+        .withType("damage_space", DamageSpace.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
+        .withType("date_time_update", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(GOODS_SHELF_STOCK_COUNT_LIST, "shelf", "库存盘点清单")
+        .withType("goods_shelf_stock_count", GoodsShelfStockCount.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(GOODS_ALLOCATION_LIST, "goodsShelf", "货物分配列表")
+        .withType("goods_allocation", GoodsAllocation.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,LOCATION_PROPERTY ,STORAGE_SPACE_PROPERTY ,SUPPLIER_SPACE_PROPERTY ,DAMAGE_SPACE_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(GOODS_SHELF_STOCK_COUNT_LIST, "shelf");
+    	
+    	    refers.put(GOODS_ALLOCATION_LIST, "goodsShelf");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(GOODS_SHELF_STOCK_COUNT_LIST, GoodsShelfStockCount.class);
+        	
+        	    refers.put(GOODS_ALLOCATION_LIST, GoodsAllocation.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(STORAGE_SPACE_PROPERTY, StorageSpace.class);
+parents.put(SUPPLIER_SPACE_PROPERTY, SupplierSpace.class);
+parents.put(DAMAGE_SPACE_PROPERTY, DamageSpace.class);
+
+    return parents;
+  }
+
+  public GoodsShelf want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public GoodsShelf wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getLocation();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mLocation           ;
-	protected		StorageSpace        	mStorageSpace       ;
-	protected		SupplierSpace       	mSupplierSpace      ;
-	protected		DamageSpace         	mDamageSpace        ;
-	protected		DateTime            	mLastUpdateTime     ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	location            ;
+	protected		StorageSpace        	storageSpace        ;
+	protected		SupplierSpace       	supplierSpace       ;
+	protected		DamageSpace         	damageSpace         ;
+	protected		DateTime            	lastUpdateTime      ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<GoodsShelfStockCount>	mGoodsShelfStockCountList;
 	protected		SmartList<GoodsAllocation>	mGoodsAllocationList;
 
-	
-		
+
+
 	public 	GoodsShelf(){
 		// lazy load for all the properties
 	}
@@ -88,12 +158,30 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		GoodsShelf goodsShelf = new GoodsShelf();
 		goodsShelf.setId(id);
 		goodsShelf.setVersion(Integer.MAX_VALUE);
+		goodsShelf.setChecked(true);
 		return goodsShelf;
 	}
 	public 	static GoodsShelf refById(String id){
 		return withId(id);
 	}
-	
+
+  public GoodsShelf limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public GoodsShelf limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static GoodsShelf searchExample(){
+    GoodsShelf goodsShelf = new GoodsShelf();
+    		goodsShelf.setVersion(UNSET_INT);
+
+    return goodsShelf;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setStorageSpace( null );
@@ -101,9 +189,10 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		setDamageSpace( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -155,7 +244,7 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(LOCATION_PROPERTY.equals(property)){
 			return getLocation();
 		}
@@ -183,139 +272,233 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public GoodsShelf updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsShelf updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public GoodsShelf orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public GoodsShelf ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public GoodsShelf addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setLocation(String location){
-		this.mLocation = trimString(location);;
-	}
+	public void setLocation(String location){String oldLocation = this.location;String newLocation = trimString(location);this.location = newLocation;}
+	public String location(){
+doLoad();
+return getLocation();
+}
 	public String getLocation(){
-		return this.mLocation;
+		return this.location;
 	}
-	public GoodsShelf updateLocation(String location){
-		this.mLocation = trimString(location);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsShelf updateLocation(String location){String oldLocation = this.location;String newLocation = trimString(location);if(!shouldReplaceBy(newLocation, oldLocation)){return this;}this.location = newLocation;addPropertyChange(LOCATION_PROPERTY, oldLocation, newLocation);this.changed = true;setChecked(false);return this;}
+	public GoodsShelf orderByLocation(boolean asc){
+doAddOrderBy(LOCATION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLocationCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LOCATION_PROPERTY, operator, parameters);
+}
+	public GoodsShelf ignoreLocationCriteria(){super.ignoreSearchProperty(LOCATION_PROPERTY);
+return this;
+}
+	public GoodsShelf addLocationCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLocationCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLocation(String location){
 		if(location != null) { setLocation(location);}
 	}
+
 	
-	
-	public void setStorageSpace(StorageSpace storageSpace){
-		this.mStorageSpace = storageSpace;;
-	}
+	public void setStorageSpace(StorageSpace storageSpace){StorageSpace oldStorageSpace = this.storageSpace;StorageSpace newStorageSpace = storageSpace;this.storageSpace = newStorageSpace;}
+	public StorageSpace storageSpace(){
+doLoad();
+return getStorageSpace();
+}
 	public StorageSpace getStorageSpace(){
-		return this.mStorageSpace;
+		return this.storageSpace;
 	}
-	public GoodsShelf updateStorageSpace(StorageSpace storageSpace){
-		this.mStorageSpace = storageSpace;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsShelf updateStorageSpace(StorageSpace storageSpace){StorageSpace oldStorageSpace = this.storageSpace;StorageSpace newStorageSpace = storageSpace;if(!shouldReplaceBy(newStorageSpace, oldStorageSpace)){return this;}this.storageSpace = newStorageSpace;addPropertyChange(STORAGE_SPACE_PROPERTY, oldStorageSpace, newStorageSpace);this.changed = true;setChecked(false);return this;}
+	public GoodsShelf orderByStorageSpace(boolean asc){
+doAddOrderBy(STORAGE_SPACE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createStorageSpaceCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(STORAGE_SPACE_PROPERTY, operator, parameters);
+}
+	public GoodsShelf ignoreStorageSpaceCriteria(){super.ignoreSearchProperty(STORAGE_SPACE_PROPERTY);
+return this;
+}
+	public GoodsShelf addStorageSpaceCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createStorageSpaceCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeStorageSpace(StorageSpace storageSpace){
 		if(storageSpace != null) { setStorageSpace(storageSpace);}
 	}
-	
+
 	
 	public void clearStorageSpace(){
 		setStorageSpace ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setSupplierSpace(SupplierSpace supplierSpace){
-		this.mSupplierSpace = supplierSpace;;
-	}
+	public void setSupplierSpace(SupplierSpace supplierSpace){SupplierSpace oldSupplierSpace = this.supplierSpace;SupplierSpace newSupplierSpace = supplierSpace;this.supplierSpace = newSupplierSpace;}
+	public SupplierSpace supplierSpace(){
+doLoad();
+return getSupplierSpace();
+}
 	public SupplierSpace getSupplierSpace(){
-		return this.mSupplierSpace;
+		return this.supplierSpace;
 	}
-	public GoodsShelf updateSupplierSpace(SupplierSpace supplierSpace){
-		this.mSupplierSpace = supplierSpace;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsShelf updateSupplierSpace(SupplierSpace supplierSpace){SupplierSpace oldSupplierSpace = this.supplierSpace;SupplierSpace newSupplierSpace = supplierSpace;if(!shouldReplaceBy(newSupplierSpace, oldSupplierSpace)){return this;}this.supplierSpace = newSupplierSpace;addPropertyChange(SUPPLIER_SPACE_PROPERTY, oldSupplierSpace, newSupplierSpace);this.changed = true;setChecked(false);return this;}
+	public GoodsShelf orderBySupplierSpace(boolean asc){
+doAddOrderBy(SUPPLIER_SPACE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSupplierSpaceCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SUPPLIER_SPACE_PROPERTY, operator, parameters);
+}
+	public GoodsShelf ignoreSupplierSpaceCriteria(){super.ignoreSearchProperty(SUPPLIER_SPACE_PROPERTY);
+return this;
+}
+	public GoodsShelf addSupplierSpaceCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSupplierSpaceCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeSupplierSpace(SupplierSpace supplierSpace){
 		if(supplierSpace != null) { setSupplierSpace(supplierSpace);}
 	}
-	
+
 	
 	public void clearSupplierSpace(){
 		setSupplierSpace ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setDamageSpace(DamageSpace damageSpace){
-		this.mDamageSpace = damageSpace;;
-	}
+	public void setDamageSpace(DamageSpace damageSpace){DamageSpace oldDamageSpace = this.damageSpace;DamageSpace newDamageSpace = damageSpace;this.damageSpace = newDamageSpace;}
+	public DamageSpace damageSpace(){
+doLoad();
+return getDamageSpace();
+}
 	public DamageSpace getDamageSpace(){
-		return this.mDamageSpace;
+		return this.damageSpace;
 	}
-	public GoodsShelf updateDamageSpace(DamageSpace damageSpace){
-		this.mDamageSpace = damageSpace;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsShelf updateDamageSpace(DamageSpace damageSpace){DamageSpace oldDamageSpace = this.damageSpace;DamageSpace newDamageSpace = damageSpace;if(!shouldReplaceBy(newDamageSpace, oldDamageSpace)){return this;}this.damageSpace = newDamageSpace;addPropertyChange(DAMAGE_SPACE_PROPERTY, oldDamageSpace, newDamageSpace);this.changed = true;setChecked(false);return this;}
+	public GoodsShelf orderByDamageSpace(boolean asc){
+doAddOrderBy(DAMAGE_SPACE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDamageSpaceCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DAMAGE_SPACE_PROPERTY, operator, parameters);
+}
+	public GoodsShelf ignoreDamageSpaceCriteria(){super.ignoreSearchProperty(DAMAGE_SPACE_PROPERTY);
+return this;
+}
+	public GoodsShelf addDamageSpaceCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDamageSpaceCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDamageSpace(DamageSpace damageSpace){
 		if(damageSpace != null) { setDamageSpace(damageSpace);}
 	}
-	
+
 	
 	public void clearDamageSpace(){
 		setDamageSpace ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-	}
+	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
+	public DateTime lastUpdateTime(){
+doLoad();
+return getLastUpdateTime();
+}
 	public DateTime getLastUpdateTime(){
-		return this.mLastUpdateTime;
+		return this.lastUpdateTime;
 	}
-	public GoodsShelf updateLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsShelf updateLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;if(!shouldReplaceBy(newLastUpdateTime, oldLastUpdateTime)){return this;}this.lastUpdateTime = newLastUpdateTime;addPropertyChange(LAST_UPDATE_TIME_PROPERTY, oldLastUpdateTime, newLastUpdateTime);this.changed = true;setChecked(false);return this;}
+	public GoodsShelf orderByLastUpdateTime(boolean asc){
+doAddOrderBy(LAST_UPDATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_UPDATE_TIME_PROPERTY, operator, parameters);
+}
+	public GoodsShelf ignoreLastUpdateTimeCriteria(){super.ignoreSearchProperty(LAST_UPDATE_TIME_PROPERTY);
+return this;
+}
+	public GoodsShelf addLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastUpdateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastUpdateTime(DateTime lastUpdateTime){
 		setLastUpdateTime(lastUpdateTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public GoodsShelf updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsShelf updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public GoodsShelf orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public GoodsShelf ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public GoodsShelf addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<GoodsShelfStockCount> getGoodsShelfStockCountList(){
@@ -324,9 +507,18 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 			this.mGoodsShelfStockCountList.setListInternalName (GOODS_SHELF_STOCK_COUNT_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mGoodsShelfStockCountList;	
+
+		return this.mGoodsShelfStockCountList;
 	}
+
+  public  SmartList<GoodsShelfStockCount> goodsShelfStockCountList(){
+    
+    doLoadChild(GOODS_SHELF_STOCK_COUNT_LIST);
+    
+    return getGoodsShelfStockCountList();
+  }
+
+
 	public  void setGoodsShelfStockCountList(SmartList<GoodsShelfStockCount> goodsShelfStockCountList){
 		for( GoodsShelfStockCount goodsShelfStockCount:goodsShelfStockCountList){
 			goodsShelfStockCount.setShelf(this);
@@ -334,18 +526,20 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 
 		this.mGoodsShelfStockCountList = goodsShelfStockCountList;
 		this.mGoodsShelfStockCountList.setListInternalName (GOODS_SHELF_STOCK_COUNT_LIST );
-		
+
 	}
-	
-	public  void addGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCount){
+
+	public  GoodsShelf addGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCount){
 		goodsShelfStockCount.setShelf(this);
 		getGoodsShelfStockCountList().add(goodsShelfStockCount);
+		return this;
 	}
-	public  void addGoodsShelfStockCountList(SmartList<GoodsShelfStockCount> goodsShelfStockCountList){
+	public  GoodsShelf addGoodsShelfStockCountList(SmartList<GoodsShelfStockCount> goodsShelfStockCountList){
 		for( GoodsShelfStockCount goodsShelfStockCount:goodsShelfStockCountList){
 			goodsShelfStockCount.setShelf(this);
 		}
 		getGoodsShelfStockCountList().addAll(goodsShelfStockCountList);
+		return this;
 	}
 	public  void mergeGoodsShelfStockCountList(SmartList<GoodsShelfStockCount> goodsShelfStockCountList){
 		if(goodsShelfStockCountList==null){
@@ -355,45 +549,45 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addGoodsShelfStockCountList( goodsShelfStockCountList );
-		
+
 	}
 	public  GoodsShelfStockCount removeGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCountIndex){
-		
+
 		int index = getGoodsShelfStockCountList().indexOf(goodsShelfStockCountIndex);
         if(index < 0){
         	String message = "GoodsShelfStockCount("+goodsShelfStockCountIndex.getId()+") with version='"+goodsShelfStockCountIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        GoodsShelfStockCount goodsShelfStockCount = getGoodsShelfStockCountList().get(index);        
+        GoodsShelfStockCount goodsShelfStockCount = getGoodsShelfStockCountList().get(index);
         // goodsShelfStockCount.clearShelf(); //disconnect with Shelf
         goodsShelfStockCount.clearFromAll(); //disconnect with Shelf
-		
+
 		boolean result = getGoodsShelfStockCountList().planToRemove(goodsShelfStockCount);
         if(!result){
         	String message = "GoodsShelfStockCount("+goodsShelfStockCountIndex.getId()+") with version='"+goodsShelfStockCountIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return goodsShelfStockCount;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCount){
-		
+
 		if(goodsShelfStockCount == null){
 			return;
 		}
 		goodsShelfStockCount.setShelf(null);
 		//getGoodsShelfStockCountList().remove();
-	
+
 	}
-	
+
 	public  boolean hasGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCount){
-	
+
 		return getGoodsShelfStockCountList().contains(goodsShelfStockCount);
-  
+
 	}
-	
+
 	public void copyGoodsShelfStockCountFrom(GoodsShelfStockCount goodsShelfStockCount) {
 
 		GoodsShelfStockCount goodsShelfStockCountInList = findTheGoodsShelfStockCount(goodsShelfStockCount);
@@ -403,26 +597,26 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		getGoodsShelfStockCountList().add(newGoodsShelfStockCount);
 		addItemToFlexiableObject(COPIED_CHILD, newGoodsShelfStockCount);
 	}
-	
+
 	public  GoodsShelfStockCount findTheGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCount){
-		
+
 		int index =  getGoodsShelfStockCountList().indexOf(goodsShelfStockCount);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "GoodsShelfStockCount("+goodsShelfStockCount.getId()+") with version='"+goodsShelfStockCount.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getGoodsShelfStockCountList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpGoodsShelfStockCountList(){
 		getGoodsShelfStockCountList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<GoodsAllocation> getGoodsAllocationList(){
@@ -431,9 +625,18 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 			this.mGoodsAllocationList.setListInternalName (GOODS_ALLOCATION_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mGoodsAllocationList;	
+
+		return this.mGoodsAllocationList;
 	}
+
+  public  SmartList<GoodsAllocation> goodsAllocationList(){
+    
+    doLoadChild(GOODS_ALLOCATION_LIST);
+    
+    return getGoodsAllocationList();
+  }
+
+
 	public  void setGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList){
 		for( GoodsAllocation goodsAllocation:goodsAllocationList){
 			goodsAllocation.setGoodsShelf(this);
@@ -441,18 +644,20 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 
 		this.mGoodsAllocationList = goodsAllocationList;
 		this.mGoodsAllocationList.setListInternalName (GOODS_ALLOCATION_LIST );
-		
+
 	}
-	
-	public  void addGoodsAllocation(GoodsAllocation goodsAllocation){
+
+	public  GoodsShelf addGoodsAllocation(GoodsAllocation goodsAllocation){
 		goodsAllocation.setGoodsShelf(this);
 		getGoodsAllocationList().add(goodsAllocation);
+		return this;
 	}
-	public  void addGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList){
+	public  GoodsShelf addGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList){
 		for( GoodsAllocation goodsAllocation:goodsAllocationList){
 			goodsAllocation.setGoodsShelf(this);
 		}
 		getGoodsAllocationList().addAll(goodsAllocationList);
+		return this;
 	}
 	public  void mergeGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList){
 		if(goodsAllocationList==null){
@@ -462,45 +667,45 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addGoodsAllocationList( goodsAllocationList );
-		
+
 	}
 	public  GoodsAllocation removeGoodsAllocation(GoodsAllocation goodsAllocationIndex){
-		
+
 		int index = getGoodsAllocationList().indexOf(goodsAllocationIndex);
         if(index < 0){
         	String message = "GoodsAllocation("+goodsAllocationIndex.getId()+") with version='"+goodsAllocationIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        GoodsAllocation goodsAllocation = getGoodsAllocationList().get(index);        
+        GoodsAllocation goodsAllocation = getGoodsAllocationList().get(index);
         // goodsAllocation.clearGoodsShelf(); //disconnect with GoodsShelf
         goodsAllocation.clearFromAll(); //disconnect with GoodsShelf
-		
+
 		boolean result = getGoodsAllocationList().planToRemove(goodsAllocation);
         if(!result){
         	String message = "GoodsAllocation("+goodsAllocationIndex.getId()+") with version='"+goodsAllocationIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return goodsAllocation;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithGoodsAllocation(GoodsAllocation goodsAllocation){
-		
+
 		if(goodsAllocation == null){
 			return;
 		}
 		goodsAllocation.setGoodsShelf(null);
 		//getGoodsAllocationList().remove();
-	
+
 	}
-	
+
 	public  boolean hasGoodsAllocation(GoodsAllocation goodsAllocation){
-	
+
 		return getGoodsAllocationList().contains(goodsAllocation);
-  
+
 	}
-	
+
 	public void copyGoodsAllocationFrom(GoodsAllocation goodsAllocation) {
 
 		GoodsAllocation goodsAllocationInList = findTheGoodsAllocation(goodsAllocation);
@@ -510,26 +715,26 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		getGoodsAllocationList().add(newGoodsAllocation);
 		addItemToFlexiableObject(COPIED_CHILD, newGoodsAllocation);
 	}
-	
+
 	public  GoodsAllocation findTheGoodsAllocation(GoodsAllocation goodsAllocation){
-		
+
 		int index =  getGoodsAllocationList().indexOf(goodsAllocation);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "GoodsAllocation("+goodsAllocation.getId()+") with version='"+goodsAllocation.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getGoodsAllocationList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpGoodsAllocationList(){
 		getGoodsAllocationList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
@@ -538,29 +743,29 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		addToEntityList(this, entityList, getSupplierSpace(), internalType);
 		addToEntityList(this, entityList, getDamageSpace(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getGoodsShelfStockCountList(), internalType);
 		collectFromList(this, entityList, getGoodsAllocationList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getGoodsShelfStockCountList());
 		listOfList.add( getGoodsAllocationList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -587,16 +792,16 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof GoodsShelf){
-		
-		
+
+
 			GoodsShelf dest =(GoodsShelf)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setLocation(getLocation());
 			dest.setStorageSpace(getStorageSpace());
@@ -612,13 +817,13 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof GoodsShelf){
-		
-			
+
+
 			GoodsShelf dest =(GoodsShelf)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeLocation(getLocation());
 			dest.mergeStorageSpace(getStorageSpace());
@@ -633,15 +838,15 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof GoodsShelf){
-		
-			
+
+
 			GoodsShelf dest =(GoodsShelf)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeLocation(getLocation());
 			dest.mergeLastUpdateTime(getLastUpdateTime());
@@ -653,6 +858,47 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getLocation(), getStorageSpace(), getSupplierSpace(), getDamageSpace(), getLastUpdateTime(), getVersion()};
 	}
+
+
+	public static GoodsShelf createWith(RetailscmUserContext userContext, ThrowingFunction<GoodsShelf,GoodsShelf,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<GoodsShelf> customCreator = mapper.findCustomCreator(GoodsShelf.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    GoodsShelf result = new GoodsShelf();
+    result.setLocation(mapper.tryToGet(GoodsShelf.class, LOCATION_PROPERTY, String.class,
+        0, true, result.getLocation(), params));
+    result.setStorageSpace(mapper.tryToGet(GoodsShelf.class, STORAGE_SPACE_PROPERTY, StorageSpace.class,
+        0, true, result.getStorageSpace(), params));
+    result.setSupplierSpace(mapper.tryToGet(GoodsShelf.class, SUPPLIER_SPACE_PROPERTY, SupplierSpace.class,
+        0, true, result.getSupplierSpace(), params));
+    result.setDamageSpace(mapper.tryToGet(GoodsShelf.class, DAMAGE_SPACE_PROPERTY, DamageSpace.class,
+        0, true, result.getDamageSpace(), params));
+     result.setLastUpdateTime(userContext.now());
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixGoodsShelf(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      GoodsShelfTokens tokens = mapper.findParamByClass(params, GoodsShelfTokens.class);
+      if (tokens == null) {
+        tokens = GoodsShelfTokens.start();
+      }
+      result = userContext.getManagerGroup().getGoodsShelfManager().internalSaveGoodsShelf(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -674,7 +920,7 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

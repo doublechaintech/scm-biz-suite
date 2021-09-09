@@ -1,40 +1,27 @@
 
 package com.doublechaintech.retailscm.section;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.page.CandidatePage;import com.doublechaintech.retailscm.page.Page;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.page.Page;
-
-import com.doublechaintech.retailscm.page.CandidatePage;
-
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class SectionManagerImpl extends CustomRetailscmCheckerManager implements SectionManager, BusinessHandler{
@@ -60,6 +47,7 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws SectionManagerException{
 
 		Message message = new Message();
@@ -70,126 +58,178 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 
 
 
- 	protected Section saveSection(RetailscmUserContext userContext, Section section, String [] tokensExpr) throws Exception{	
+ 	protected Section saveSection(RetailscmUserContext userContext, Section section, String [] tokensExpr) throws Exception{
  		//return getSectionDAO().save(section, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveSection(userContext, section, tokens);
  	}
- 	
- 	protected Section saveSectionDetail(RetailscmUserContext userContext, Section section) throws Exception{	
 
- 		
+ 	protected Section saveSectionDetail(RetailscmUserContext userContext, Section section) throws Exception{
+
+
  		return saveSection(userContext, section, allTokens());
  	}
- 	
- 	public Section loadSection(RetailscmUserContext userContext, String sectionId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public Section loadSection(RetailscmUserContext userContext, String sectionId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfSection(sectionId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SectionManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		Section section = loadSection( userContext, sectionId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,section, tokens);
  	}
- 	
- 	
- 	 public Section searchSection(RetailscmUserContext userContext, String sectionId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public Section searchSection(RetailscmUserContext userContext, String sectionId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfSection(sectionId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SectionManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		Section section = loadSection( userContext, sectionId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,section, tokens);
  	}
- 	
- 	
+
+
 
  	protected Section present(RetailscmUserContext userContext, Section section, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,section,tokens);
-		
-		
+    
+
 		Section  sectionToPresent = sectionDaoOf(userContext).present(section, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = sectionToPresent.collectRefercencesFromLists();
 		sectionDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,section,tokens);
-		
+
 		return  sectionToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public Section loadSectionDetail(RetailscmUserContext userContext, String sectionId) throws Exception{	
+
+
+
+ 	public Section loadSectionDetail(RetailscmUserContext userContext, String sectionId) throws Exception{
  		Section section = loadSection( userContext, sectionId, allTokens());
  		return present(userContext,section, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String sectionId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String sectionId) throws Exception{
  		Section section = loadSection( userContext, sectionId, viewTokens());
- 		return present(userContext,section, allTokens());
-		
- 	}
- 	protected Section saveSection(RetailscmUserContext userContext, Section section, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, section);
+ 		return present(userContext,section, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String sectionId) throws Exception{
+		Section section = loadSection( userContext, sectionId, viewTokens());
+		section.summarySuffix();
+		markVisited(userContext, section);
+ 		return present(userContext,section, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String sectionId) throws Exception{
+		Section section = loadSection( userContext, sectionId, analyzeTokens());
+		markVisited(userContext, section);
+		return present(userContext,section, analyzeTokens());
+
+	}
+ 	protected Section saveSection(RetailscmUserContext userContext, Section section, Map<String,Object>tokens) throws Exception{
+ 	
  		return sectionDaoOf(userContext).save(section, tokens);
  	}
- 	protected Section loadSection(RetailscmUserContext userContext, String sectionId, Map<String,Object>tokens) throws Exception{	
+ 	protected Section loadSection(RetailscmUserContext userContext, String sectionId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfSection(sectionId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SectionManagerException.class);
 
- 
+
+
  		return sectionDaoOf(userContext).load(sectionId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, Section section, Map<String, Object> tokens){
 		super.addActions(userContext, section, tokens);
-		
+
 		addAction(userContext, section, tokens,"@create","createSection","createSection/","main","primary");
 		addAction(userContext, section, tokens,"@update","updateSection","updateSection/"+section.getId()+"/","main","primary");
 		addAction(userContext, section, tokens,"@copy","cloneSection","cloneSection/"+section.getId()+"/","main","primary");
-		
+
 		addAction(userContext, section, tokens,"section.transfer_to_page","transferToAnotherPage","transferToAnotherPage/"+section.getId()+"/","main","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, Section section, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<Section> searchSectionList(RetailscmUserContext ctx, SectionRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<Section> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public Section searchSection(RetailscmUserContext ctx, SectionRequest pRequest){
+    pRequest.limit(0, 1);
+    List<Section> list = searchSectionList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public Section createSection(RetailscmUserContext userContext, String title,String brief,String icon,int displayOrder,String viewGroup,String linkToUrl,String pageId) throws Exception
-	//public Section createSection(RetailscmUserContext userContext,String title, String brief, String icon, int displayOrder, String viewGroup, String linkToUrl, String pageId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkTitleOfSection(title);
 		checkerOf(userContext).checkBriefOfSection(brief);
@@ -197,8 +237,10 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 		checkerOf(userContext).checkDisplayOrderOfSection(displayOrder);
 		checkerOf(userContext).checkViewGroupOfSection(viewGroup);
 		checkerOf(userContext).checkLinkToUrlOfSection(linkToUrl);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SectionManagerException.class);
+
 
 
 		Section section=createNewSection();	
@@ -232,52 +274,54 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfSection(sectionId);
 		checkerOf(userContext).checkVersionOfSection( sectionVersion);
-		
+
 
 		if(Section.TITLE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTitleOfSection(parseString(newValueExpr));
 		
-			
+
 		}
 		if(Section.BRIEF_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkBriefOfSection(parseString(newValueExpr));
 		
-			
+
 		}
 		if(Section.ICON_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkIconOfSection(parseString(newValueExpr));
 		
-			
+
 		}
 		if(Section.DISPLAY_ORDER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkDisplayOrderOfSection(parseInt(newValueExpr));
 		
-			
+
 		}
 		if(Section.VIEW_GROUP_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkViewGroupOfSection(parseString(newValueExpr));
 		
-			
+
 		}
 		if(Section.LINK_TO_URL_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLinkToUrlOfSection(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SectionManagerException.class);
+
 
 
 	}
@@ -306,6 +350,8 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 			if (section.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixSection(section);
 			section = saveSection(userContext, section, options);
 			return section;
 
@@ -372,9 +418,15 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 	protected Map<String,Object> allTokens(){
 		return SectionTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.analyzeAllLists().done();
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -386,6 +438,7 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 
  		checkerOf(userContext).checkIdOfSection(sectionId);
  		checkerOf(userContext).checkIdOfPage(anotherPageId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(SectionManagerException.class);
 
  	}
@@ -393,16 +446,17 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
  	{
  		checkParamsForTransferingAnotherPage(userContext, sectionId,anotherPageId);
  
-		Section section = loadSection(userContext, sectionId, allTokens());	
+		Section section = loadSection(userContext, sectionId, allTokens());
 		synchronized(section){
 			//will be good when the section loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			Page page = loadPage(userContext, anotherPageId, emptyOptions());		
-			section.updatePage(page);		
+			Page page = loadPage(userContext, anotherPageId, emptyOptions());
+			section.updatePage(page);
+			
 			section = saveSection(userContext, section, emptyOptions());
-			
+
 			return present(userContext,section, allTokens());
-			
+
 		}
 
  	}
@@ -435,8 +489,9 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 
  	protected Page loadPage(RetailscmUserContext userContext, String newPageId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return pageDaoOf(userContext).load(newPageId, options);
+ 	  
  	}
  	
 
@@ -485,9 +540,6 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 
 
 
-
-
-
 	public void onNewInstanceCreated(RetailscmUserContext userContext, Section newCreated) throws Exception{
 		ensureRelationInGraph(userContext, newCreated);
 		sendCreationEvent(userContext, newCreated);
@@ -504,112 +556,13 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -632,28 +585,21 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, Section.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, Section.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -699,7 +645,7 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String sectionId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getSectionDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		Section merchantObj = (Section) this.view(userContext, sectionId);
     String merchantObjId = sectionId;
     String linkToUrl =	"sectionManager/wxappview/" + merchantObjId + "/";
@@ -811,8 +757,19 @@ public class SectionManagerImpl extends CustomRetailscmCheckerManager implements
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

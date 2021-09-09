@@ -46,13 +46,15 @@ public interface EmployeeInterviewDAO extends BaseDAO{
 	public void delete(String employeeInterviewId, int version) throws Exception;
 	public EmployeeInterview disconnectFromAll(String employeeInterviewId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeeInterview> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeeInterview> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeeInterview> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeeInterview executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeeInterview> findEmployeeInterviewByEmployee(String employeeId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface EmployeeInterviewDAO extends BaseDAO{
 
 
  
+
+	List<EmployeeInterview> search(EmployeeInterviewRequest pRequest);
 }
 
 

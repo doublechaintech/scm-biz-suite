@@ -44,13 +44,15 @@ public interface EmployeePerformanceDAO extends BaseDAO{
 	public void delete(String employeePerformanceId, int version) throws Exception;
 	public EmployeePerformance disconnectFromAll(String employeePerformanceId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeePerformance> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeePerformance> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeePerformance> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeePerformance executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(String employeeId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface EmployeePerformanceDAO extends BaseDAO{
 
 
  
+
+	List<EmployeePerformance> search(EmployeePerformanceRequest pRequest);
 }
 
 

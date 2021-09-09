@@ -46,13 +46,15 @@ public interface EventAttendanceDAO extends BaseDAO{
 	public void delete(String eventAttendanceId, int version) throws Exception;
 	public EventAttendance disconnectFromAll(String eventAttendanceId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EventAttendance> queryList(String sql, Object ... parmeters);
+	public SmartList<EventAttendance> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EventAttendance> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEventAttendance executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EventAttendance> findEventAttendanceByPotentialCustomer(String potentialCustomerId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface EventAttendanceDAO extends BaseDAO{
 
 
  
+
+	List<EventAttendance> search(EventAttendanceRequest pRequest);
 }
 
 

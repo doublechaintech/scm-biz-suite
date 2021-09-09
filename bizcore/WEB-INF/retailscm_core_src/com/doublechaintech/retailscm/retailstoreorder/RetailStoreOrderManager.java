@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.retailstoreorder;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface RetailStoreOrderManager extends BaseManager{
 
 		
 
+  List<RetailStoreOrder> searchRetailStoreOrderList(RetailscmUserContext ctx, RetailStoreOrderRequest pRequest);
+  RetailStoreOrder searchRetailStoreOrder(RetailscmUserContext ctx, RetailStoreOrderRequest pRequest);
 	public RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount) throws Exception;
 	public RetailStoreOrder updateRetailStoreOrder(RetailscmUserContext userContext,String retailStoreOrderId, int retailStoreOrderVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreOrder loadRetailStoreOrder(RetailscmUserContext userContext, String retailStoreOrderId, String [] tokensExpr) throws Exception;
@@ -28,6 +34,8 @@ public interface RetailStoreOrderManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String retailStoreOrderId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, RetailStoreOrder newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, RetailStoreOrder updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -79,6 +87,9 @@ public interface RetailStoreOrderManager extends BaseManager{
 	public Object listBySeller(RetailscmUserContext userContext,String sellerId) throws Exception;
 	public Object listPageBySeller(RetailscmUserContext userContext,String sellerId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

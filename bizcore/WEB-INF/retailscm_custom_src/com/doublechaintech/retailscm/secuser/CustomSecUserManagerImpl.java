@@ -1,31 +1,20 @@
 
 package com.doublechaintech.retailscm.secuser;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.Enumeration;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.util.StreamUtils;
 
-import com.skynet.infrastructure.*;
-
-
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.LoginForm;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.CommonError;
-import com.doublechaintech.retailscm.DAOGroup;
-import com.doublechaintech.retailscm.ManagerGroup;
-
-import com.doublechaintech.retailscm.UserContextImpl;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.RetailscmUserContext;
+import com.doublechaintech.retailscm.*;
 import com.doublechaintech.retailscm.userapp.*;
 import com.doublechaintech.retailscm.listaccess.*;
-import com.doublechaintech.retailscm.RetailscmObjectChecker;
 import com.doublechaintech.retailscm.loginhistory.LoginHistory;
-import com.doublechaintech.retailscm.Message;
-import com.doublechaintech.retailscm.CustomRetailscmUserContextImpl;
 import com.doublechaintech.retailscm.services.IamService;
 import com.doublechaintech.retailscm.tree.*;
 
@@ -33,14 +22,17 @@ import com.terapico.uccaf.BaseUserContext;
 import com.terapico.uccaf.UserContextProvider;
 import com.terapico.caf.BeanFactory;
 import com.terapico.caf.Password;
-import com.terapico.utils.TextUtil;
+import com.terapico.utils.*;
+import com.skynet.infrastructure.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.util.StreamUtils;
 
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-
-
+import java.util.Optional;
+import com.terapico.uccaf.AccessControledService;
 public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         UserContextProvider {
     protected LocationService locationService;
@@ -184,17 +176,16 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
     }
 
     public Object selectApp(RetailscmUserContext userContext,
-            String appId) throws Exception {
+            String userAppId) throws Exception {
         SecUser user = cachedUser(userContext);
         if(user==null){
             return errorLogin("对不起，你的会话过期，请重新登录");
         }
         List<UserApp> userApps = user.getUserAppList();
-        for (UserApp app : userApps) {
-            if (app.getId().equals(appId)) {
+        for (UserApp userApp : userApps) {
+            if (userApp.getId().equals(userAppId)) {
 
-
-                return gotoApp(userContext,app);
+                return gotoApp(userContext,userApp);
             }
         }
         return user;
@@ -224,10 +215,59 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 
 
 
+    public Object accessUserApp(RetailscmUserContext userContext,String targetUserAppId) throws Exception{
+
+
+
+		Optional<UserApp> opUserApp = findOutUserApp(userContext,targetUserAppId);
+		if(!opUserApp.isPresent()){
+			throw new IllegalStateException("未找到 " + targetUserAppId + "对应的UserApp");
+		}
+
+
+
+
+
+		UserApp userApp=(UserApp)opUserApp.get();
+
+		UserApp fullAppData = userAppDaoOf(userContext).load(userApp.getId(), UserAppTokens.all());
+        userContext.putToCache(getCurrentAppKey(userContext), fullAppData, 1000000);
+        IamService iamService = (IamService) userContext.getBean("iamService");
+        iamService.selectUserApp(userContext, fullAppData);
+
+
+
+		String beanName = beanNameFromUserApp(userContext,userApp);
+		Object targetBean = userContext.getBean(beanName);
+
+		if(targetBean==null){
+			throw new IllegalAccessException("Not able to find for bean name " + beanName);
+		}
+
+		if(!(targetBean instanceof AccessControledService)){
+
+			throw new IllegalAccessException("A bean without implement AccessControledService not allowed to be accessed");
+
+		}
+
+		AccessControledService targetService = (AccessControledService)targetBean;
+		userContext.log("trying to access service " + targetService);
+
+		return targetService.prepareContextForUserApp(userContext,userApp);
+
+
+
+
+	}
+
+
+
     protected Object gotoApp(RetailscmUserContext userContext, UserApp app) throws Exception {
 
         UserApp fullAppData = userAppDaoOf(userContext).load(app.getId(), UserAppTokens.all());
         userContext.putToCache(getCurrentAppKey(userContext), fullAppData, 1000000);
+        IamService iamService = (IamService) userContext.getBean("iamService");
+        iamService.selectUserApp(userContext, fullAppData);
         // the app has all the accessable objects
         String targetBeanName = getBeanName( userContext,  app);
         if(targetBeanName == null){
@@ -348,22 +388,22 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 
     protected String getBeanName(RetailscmUserContext userContext, UserApp app){
 
-        String target = app.getObjectType();
+        String target = app.getAppType();
         String lowerCase = target.substring(0,1).toLowerCase()+target.substring(1);
         return lowerCase+"Manager";
 
     }
     protected String getTargetObjectId(RetailscmUserContext userContext, UserApp app){
 
-        return  app.getObjectId();
+        return  app.getAppId();
 
     }
     protected String getServiceType(RetailscmUserContext userContext, UserApp app){
 
-        return app.getObjectType();
+        return app.getAppType();
     }
     protected String getMethodName(RetailscmUserContext userContext, UserApp app){
-        //return "load"+app.getObjectType()+"Detail";
+        //return "load"+app.getAppType()+"Detail";
         return "view";
     }
 
@@ -567,6 +607,16 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         this.checker = checker;
     }
 
+    protected Map<String, List<String>> allTerms;
+
+    public Map<String, List<String>> getAllTerms() {
+      return allTerms;
+    }
+
+    public void setAllTerms(Map<String, List<String>> allTerms) {
+      this.allTerms = allTerms;
+    }
+
     protected void init(UserContextImpl userContext, HttpServletRequest request) {
 
         BeanFactory beanFactory = (BeanFactory)request.getAttribute("beanFactory");
@@ -583,6 +633,7 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         userContext.setMessageService(messageService);
         userContext.setBlockChainAdvancer(blockChainAdvancer);
         userContext.setTokenId(request.getSession().getId());
+        userContext.setAllTerms(allTerms);
         userContext.setUserAgent(request.getHeader("User-Agent"));
         Enumeration<String> headerNames = request.getHeaderNames();
         if (headerNames != null) {
@@ -598,34 +649,25 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         userContext.setRequestCookies(request.getCookies());
         userContext.setDaoGroup(getDaoGroup());
         userContext.setEventService(this.getEventService());
+        userContext.setRequestUrl(request.getRequestURL().toString());
         userContext.setManagerGroup(getManagerGroup());
         userContext.setTreeService(getTreeService());
-        // 原则上不要自己读取request的内容. 特殊情况下读取, 请注明原因. 以下为读取POST的body的例子.
-		//        ServletInputStream ins;
-		//        try {
-		//        	if (request.getMethod().equalsIgnoreCase("post")) {
-		//	            ins = request.getInputStream();
-		//
-		//	            if (ins != null) {
-		//	                if (ins.available() > 0) {
-		//	                    System.out.println("input stream can read");
-		//	                    ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		//	                    byte[] buff = new byte[1024];
-		//	                    int n = 0;
-		//	                    while ((n = ins.read(buff)) > 0) {
-		//	                        bout.write(buff, 0, n);
-		//	                    }
-		//
-		//	                    userContext.setRequestBody(bout.toByteArray());
-		//	                } else {
-		//	                    System.out.println("input stream cannot read");
-		//	                }
-		//	            }
-		//        	}
-		//        } catch (IOException e) {
-		//            e.printStackTrace();
-		//        }
+        userContext.setRequestBody(readBodyAsBytes(request));
+        try {
+          handleFormResubmit((RetailscmUserContextImpl)userContext, request);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
     }
+
+    protected byte[] readBodyAsBytes(HttpServletRequest request) {
+       try {
+            return StreamUtils.copyToByteArray(request.getInputStream());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            return null;
+        }
+     }
 
     protected String getRemoteIP(HttpServletRequest request){
         String remoteHost = request.getHeader("X-Forwarded-For");
@@ -642,9 +684,54 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
     }
 
     protected RetailscmUserContextImpl createNewConext(String path) {
-
         return new CustomRetailscmUserContextImpl();
+    }
 
+    protected void handleFormResubmit(RetailscmUserContextImpl ctx, HttpServletRequest request) throws Exception {
+        boolean isPost = request.getMethod().equalsIgnoreCase("post");
+        if (!isPost) {
+            return;
+        }
+        byte[] bytes = ctx.getRequestBody();
+        if (bytes == null) {
+            bytes = new byte[] {};
+        }
+        String md5 = calcPostBodyMd5(ctx, request, bytes);
+        String existedPostMd5 = (String) ctx.getCachedObject(getPostMd5Key(ctx), String.class);
+        if (existedPostMd5 != null && existedPostMd5.equals(md5)) {
+            System.out.println("[ DEBUG ]"+existedPostMd5 +" VS " + md5+", Put into cache");
+            ctx.putIntoContextLocalStorage(RetailscmBaseConstants.KEY_RE_SUBMIT, true);
+            return;
+        }
+        System.out.println("[ DEBUG ]"+existedPostMd5 +" VS " + md5+", update cache");
+        ctx.putToCache(getPostMd5Key(ctx), md5, 30); // 30秒内不得重新提交
+    }
+
+    public static String getPostMd5Key(RetailscmUserContextImpl ctx) {
+        return ctx.tokenId()+":postMd5Key";
+    }
+
+    protected String calcPostBodyMd5(RetailscmUserContextImpl ctx, HttpServletRequest request, byte[] bytes) throws Exception {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            String contentStr =  request.getRequestURI() +":";
+            try {
+                contentStr +=  ctx.getRequestParameters() == null ? "" : DebugUtil.getObjectMapper().writeValueAsString(ctx.getRequestParameters());
+            } catch (JsonProcessingException e) {
+            }
+            int tokenLength = contentStr.getBytes(StandardCharsets.UTF_8).length;
+            byte[] contentBytes = new byte[tokenLength + bytes.length];
+            System.arraycopy(contentStr.getBytes(StandardCharsets.UTF_8), 0, contentBytes, 0, tokenLength);
+            System.arraycopy(bytes, 0, contentBytes, tokenLength, bytes.length);
+            byte[] hash = digest.digest(contentBytes);
+            StringBuilder stringBuilder = new StringBuilder();
+            for (byte b : hash) {
+                stringBuilder.append(String.format("%02X", b));
+            }
+            return stringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     public void saveUserContext(BaseUserContext uc) throws Exception {
@@ -706,6 +793,9 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         if(methodName.startsWith("selectApp")){
             return accessOK();
         }
+        if(methodName.startsWith("accessUserApp")){
+            return accessOK();
+        }
         if(methodName.startsWith("home")){
             return accessOK();
         }
@@ -715,7 +805,9 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         if(methodName.startsWith("verificationCodeForm")){
             return accessOK();
         }
-
+        if(methodName.startsWith("changeCurUserPassword")){
+            return accessOK();
+        }
 		String managementAccessMethods[] = new String[] { "updateAppPermission","updateListAccess" ,"loadUserAppWithUser" ,"updateListAccess","testIfHasManagementAccess" };
 
 		if(this.isOneOf(methodName, managementAccessMethods)) {
@@ -729,18 +821,18 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 		return super.checkAccess(baseUserContext, methodName, parameters);
 	}
 
-	protected boolean isMe(UserApp app, String objectType, String objectId) {
+	protected boolean isMe(UserApp app, String appType, String appId) {
 
-		if (!app.getObjectType().equalsIgnoreCase(objectType)) {
+		if (!app.getAppType().equalsIgnoreCase(appType)) {
 			return false;
 		}
-		if (!app.getObjectId().equals(objectId)) {
+		if (!app.getAppId().equals(appId)) {
 			return false;
 		}
 		return true;
 	}
 
-	protected void checkUserHasManagementAccess(RetailscmUserContext userContext, String objectType, String objectId)
+	protected void checkUserHasManagementAccess(RetailscmUserContext userContext, String appType, String appId)
 			throws SecUserManagerException {
 
 		final String MANAGEMENT_TOKEN = "M";
@@ -751,7 +843,7 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 			this.throwExceptionWithMessage("你没有管理该对象的权限，");
 		}
 
-		if (isMe(app, objectType, objectId)) {
+		if (isMe(app, appType, appId)) {
 			String permission = app.getPermission();
 			if (permission.contains(MANAGEMENT_TOKEN)) {
 				return; // has direct access
@@ -760,8 +852,8 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 		}
 		// 不是本级权限，需要查询关系
 
-		List<String[]> relations = userContext.relationBetween(objectType, objectId, app.getObjectType(),
-				app.getObjectId());
+		List<String[]> relations = userContext.relationBetween(appType, appId, app.getAppType(),
+				app.getAppId());
 		if (this.hasIndirectRight(userContext, app.getPermission(), MANAGEMENT_TOKEN, relations)) {
 			return;
 		}
@@ -773,10 +865,10 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Start Of privilege control
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	protected SecUserTokens buildLoadTokens(String objectType, String objectId) {
+	protected SecUserTokens buildLoadTokens(String appType, String appId) {
 		SecUserTokens tokens = SecUserTokens.start().withUserAppList()
-				.searchUserAppListWith(UserApp.OBJECT_TYPE_PROPERTY, tokens().equals(), objectType)
-				.searchUserAppListWith(UserApp.OBJECT_ID_PROPERTY, tokens().equals(), objectId);
+				.searchUserAppListWith(UserApp.APP_TYPE_PROPERTY, tokens().equals(), appType)
+				.searchUserAppListWith(UserApp.APP_ID_PROPERTY, tokens().equals(), appId);
 
 		return tokens;
 	}
@@ -792,7 +884,7 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 
 	protected UserApp patchWithTokens(UserApp userApp, String tokensExpr, String displayName) {
 
-		//this.checkUserHasManagementAccess(userContext, userApp.getObjectType(), userApp.getObjectId());
+		//this.checkUserHasManagementAccess(userContext, userApp.getAppType(), userApp.getAppId());
 
 
 		for (ListAccess access : userApp.getListAccessList()) {
@@ -864,7 +956,7 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 		UserApp userApp = userContext.getManagerGroup().getUserAppManager().loadUserApp(userContext, userAppId,
 				token.toArray());
 
-		this.checkUserHasManagementAccess(userContext, userApp.getObjectType(), userApp.getObjectId());
+		this.checkUserHasManagementAccess(userContext, userApp.getAppType(), userApp.getAppId());
 
 		this.patchWithTokens(userApp, permissionTokens, displayName);
 
@@ -873,25 +965,25 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 
 	}
 
-	public UserApp loadUserAppWithUser(RetailscmUserContext userContext, String secUserId, String objectType,
-			String objectId, String title, String appIcon) throws Exception {
+	public UserApp loadUserAppWithUser(RetailscmUserContext userContext, String secUserId, String appType,
+			String appId, String title, String appIcon) throws Exception {
 
 
 		userContext.getChecker()
 			.checkIdOfSecUser(secUserId)
-			.checkObjectTypeOfUserApp(objectType)
-			.checkObjectIdOfUserApp(objectId)
+			.checkAppTypeOfUserApp(appType)
+			.checkAppIdOfUserApp(appId)
 			.throwExceptionIfHasErrors(SecUserManagerException.class);
 
-		this.checkUserHasManagementAccess(userContext, objectType, objectId);
+		this.checkUserHasManagementAccess(userContext, appType, appId);
 
-		SecUser secUser = this.loadSecUser(userContext, secUserId, buildLoadTokens(objectType, objectId).done());
+		SecUser secUser = this.loadSecUser(userContext, secUserId, buildLoadTokens(appType, appId).done());
 
 		if (secUser.getUserAppList().isEmpty()) {
 
 			UserApp newApp = new UserApp();
 
-			newApp.updateTitle(title).updateAppIcon(appIcon).updateObjectType(objectType).updateObjectId(objectId)
+			newApp.updateTitle(title).updateAppIcon(appIcon).updateAppType(appType).updateAppId(appId)
 					.updateFullAccess(true).updateLocation("nolink");
 
 			secUser.addUserApp(newApp);
@@ -933,9 +1025,9 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 		return "OK";
 	}
 
-	public String testIfHasManagementAccess(RetailscmUserContext userContext,String objectType,String objectId) {
+	public String testIfHasManagementAccess(RetailscmUserContext userContext,String appType,String appId) {
 		try {
-			this.checkUserHasManagementAccess(userContext, objectType, objectId);
+			this.checkUserHasManagementAccess(userContext, appType, appId);
 			return "OK";
 		}catch(Exception e){
 			return "FAIL";
@@ -951,7 +1043,7 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 		if (userApp == null) {
 			throwExceptionWithMessage("用户要访问此功能，至少需要登录，并且选择了一个确定的App");
 		}
-		String folderName = String.format("upload/%s/%s", userApp.getObjectType(), userApp.getObjectId());
+		String folderName = String.format("upload/%s/%s", userApp.getAppType(), userApp.getAppId());
 		Map<String, Object> ossToken = storageService.genToken(folderName);
 		System.out.println("ossToken=" + ossToken);
 		return ossToken;

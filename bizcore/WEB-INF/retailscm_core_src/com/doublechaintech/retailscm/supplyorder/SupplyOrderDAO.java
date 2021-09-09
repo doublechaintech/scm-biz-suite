@@ -54,6 +54,7 @@ public interface SupplyOrderDAO extends BaseDAO{
 	public void delete(String supplyOrderId, int version) throws Exception;
 	public SupplyOrder disconnectFromAll(String supplyOrderId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public SupplyOrderLineItemDAO getSupplyOrderLineItemDAO();
 		
@@ -118,9 +119,10 @@ public interface SupplyOrderDAO extends BaseDAO{
 	public int countGoodsListWithRetailStoreOrder(String supplyOrderId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<SupplyOrder> queryList(String sql, Object ... parmeters);
+	public SmartList<SupplyOrder> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SupplyOrder> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSupplyOrder executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SupplyOrder> findSupplyOrderByBuyer(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -151,6 +153,8 @@ public interface SupplyOrderDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Goods的bizOrder的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception;
 	
+
+	List<SupplyOrder> search(SupplyOrderRequest pRequest);
 }
 
 

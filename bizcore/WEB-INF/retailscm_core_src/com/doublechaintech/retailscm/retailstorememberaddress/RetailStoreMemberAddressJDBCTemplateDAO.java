@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstorememberaddress;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected RetailStoreMemberDAO retailStoreMemberDAO;
 	public void setRetailStoreMemberDAO(RetailStoreMemberDAO retailStoreMemberDAO){
- 	
+
  		if(retailStoreMemberDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.retailStoreMemberDAO == null){
  			throw new IllegalStateException("The retailStoreMemberDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreMemberAddressTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreMemberAddressTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreMemberAddressTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 		return new RetailStoreMemberAddressMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreMemberAddress extractRetailStoreMemberAddress(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreMemberAddress retailStoreMemberAddress = loadSingleObject(accessKey, getRetailStoreMemberAddressMapper());
@@ -229,25 +231,26 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreMemberAddress loadInternalRetailStoreMemberAddress(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreMemberAddress retailStoreMemberAddress = extractRetailStoreMemberAddress(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(retailStoreMemberAddress, loadOptions);
  		}
  
 		
 		return retailStoreMemberAddress;
-		
+
 	}
 
-	 
+	
 
  	protected RetailStoreMemberAddress extractOwner(RetailStoreMemberAddress retailStoreMemberAddress, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreMemberAddress.getOwner() == null){
 			return retailStoreMemberAddress;
@@ -260,37 +263,37 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(owner != null){
 			retailStoreMemberAddress.setOwner(owner);
 		}
-		
- 		
+
+
  		return retailStoreMemberAddress;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<RetailStoreMemberAddress> findRetailStoreMemberAddressByOwner(String retailStoreMemberId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreMemberAddress> resultList = queryWith(RetailStoreMemberAddressTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberAddressMapper());
 		// analyzeRetailStoreMemberAddressByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreMemberAddress> findRetailStoreMemberAddressByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreMemberAddress> resultList =  queryWithRange(RetailStoreMemberAddressTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberAddressMapper(), start, count);
  		//analyzeRetailStoreMemberAddressByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreMemberAddressByOwner(SmartList<RetailStoreMemberAddress> resultList, String retailStoreMemberId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreMemberAddressByOwner(String retailStoreMemberId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public Map<String, Integer> countRetailStoreMemberAddressByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreMemberAddressTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreMemberAddress saveRetailStoreMemberAddress(RetailStoreMemberAddress  retailStoreMemberAddress){
+    
+
 		
 		if(!retailStoreMemberAddress.isChanged()){
 			return retailStoreMemberAddress;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreMemberAddress);
 		String SQL=this.getSaveRetailStoreMemberAddressSQL(retailStoreMemberAddress);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreMemberAddressParameters(retailStoreMemberAddress);
@@ -326,6 +332,7 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		retailStoreMemberAddress.incVersion();
+		retailStoreMemberAddress.afterSave();
 		return retailStoreMemberAddress;
 
 	}
@@ -343,6 +350,7 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 		for(RetailStoreMemberAddress retailStoreMemberAddress:retailStoreMemberAddressList){
 			if(retailStoreMemberAddress.isChanged()){
 				retailStoreMemberAddress.incVersion();
+				retailStoreMemberAddress.afterSave();
 			}
 
 
@@ -446,16 +454,13 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
  	protected Object[] prepareRetailStoreMemberAddressUpdateParameters(RetailStoreMemberAddress retailStoreMemberAddress){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = retailStoreMemberAddress.getName();
  		
  		if(retailStoreMemberAddress.getOwner() != null){
  			parameters[1] = retailStoreMemberAddress.getOwner().getId();
  		}
- 
- 		
+    
  		parameters[2] = retailStoreMemberAddress.getMobilePhone();
- 		
  		
  		parameters[3] = retailStoreMemberAddress.getAddress();
  		
@@ -473,17 +478,13 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
         }
 		parameters[0] =  retailStoreMemberAddress.getId();
  
- 		
  		parameters[1] = retailStoreMemberAddress.getName();
  		
  		if(retailStoreMemberAddress.getOwner() != null){
  			parameters[2] = retailStoreMemberAddress.getOwner().getId();
-
  		}
  		
- 		
  		parameters[3] = retailStoreMemberAddress.getMobilePhone();
- 		
  		
  		parameters[4] = retailStoreMemberAddress.getAddress();
  		
@@ -493,12 +494,11 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected RetailStoreMemberAddress saveInternalRetailStoreMemberAddress(RetailStoreMemberAddress retailStoreMemberAddress, Map<String,Object> options){
 
-		saveRetailStoreMemberAddress(retailStoreMemberAddress);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(retailStoreMemberAddress, options);
  		}
  
+   saveRetailStoreMemberAddress(retailStoreMemberAddress);
 		
 		return retailStoreMemberAddress;
 
@@ -510,6 +510,7 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 
  	protected RetailStoreMemberAddress saveOwner(RetailStoreMemberAddress retailStoreMemberAddress, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreMemberAddress.getOwner() == null){
  			return retailStoreMemberAddress;//do nothing when it is null
@@ -519,11 +520,6 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
  		return retailStoreMemberAddress;
 
  	}
-
-
-
-
-
  
 
 	
@@ -531,10 +527,10 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 
 	public RetailStoreMemberAddress present(RetailStoreMemberAddress retailStoreMemberAddress,Map<String, Object> options){
-	
+
 
 		return retailStoreMemberAddress;
-	
+
 	}
 		
 
@@ -586,6 +582,10 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreMemberAddress> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreMemberAddressMapper());
   }
@@ -621,6 +621,15 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	
 
+  @Override
+  public List<RetailStoreMemberAddress> search(RetailStoreMemberAddressRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreMemberAddressMapper mapper() {
+    return getRetailStoreMemberAddressMapper();
+  }
 }
 
 

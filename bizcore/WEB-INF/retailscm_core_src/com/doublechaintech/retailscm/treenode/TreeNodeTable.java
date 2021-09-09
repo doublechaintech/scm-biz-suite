@@ -33,10 +33,10 @@ public class TreeNodeTable{
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "tree_node_data", new String[][]{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
-                new String[]{"node_id","varchar(40)","","节点Id","",""},
+                new String[]{"node_id","varchar(40)","","节点ID","",""},
                 new String[]{"node_type","varchar(32)","","节点类型","",""},
                 new String[]{"left_value","int","","左值","",""},
-                new String[]{"right_value","int","","正确的价值","",""},
+                new String[]{"right_value","int","","右值","",""},
                 new String[]{"version","int","","版本","",""}
             }, "节点", new String[]{
                 "create unique index idx4id_ver_of_tree_node on tree_node_data (id, version);",

@@ -2,14 +2,22 @@
 package com.doublechaintech.retailscm.retailstoreorderpaymentgroup;
 import com.doublechaintech.retailscm.CommonTokens;
 import java.util.Map;
+import java.util.Objects;
+
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderTokens;
+
+
+
+
+
 public class RetailStoreOrderPaymentGroupTokens extends CommonTokens{
 
 	static final String ALL="__all__"; //do not assign this to common users.
 	static final String SELF="__self__";
 	static final String OWNER_OBJECT_NAME="retailStoreOrderPaymentGroup";
-	
+
 	public static boolean checkOptions(Map<String,Object> options, String optionToCheck){
-		
+
 		if(options==null){
  			return false; //completely no option here
  		}
@@ -22,18 +30,18 @@ public class RetailStoreOrderPaymentGroupTokens extends CommonTokens{
 		if(ownerObject ==  null){
 			return false;
 		}
-		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner? 
-			return false; 
+		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner?
+			return false;
 		}
-		
+
  		if(options.containsKey(optionToCheck)){
  			//options.remove(optionToCheck);
- 			//consume the key, can not use any more to extract the data with the same token.			
+ 			//consume the key, can not use any more to extract the data with the same token.
  			return true;
  		}
- 		
+
  		return false;
-	
+
 	}
 	protected RetailStoreOrderPaymentGroupTokens(){
 		//ensure not initialized outside the class
@@ -42,53 +50,86 @@ public class RetailStoreOrderPaymentGroupTokens extends CommonTokens{
 		//ensure not initialized outside the class
 		RetailStoreOrderPaymentGroupTokens tokens = new RetailStoreOrderPaymentGroupTokens(options);
 		return tokens;
-		
+
 	}
 	protected RetailStoreOrderPaymentGroupTokens(Map<String,Object> options){
 		this.options = options;
 	}
-	
+
 	public RetailStoreOrderPaymentGroupTokens merge(String [] tokens){
 		this.parseTokens(tokens);
 		return this;
 	}
-	
+
 	public static RetailStoreOrderPaymentGroupTokens mergeAll(String [] tokens){
-		
+
 		return allTokens().merge(tokens);
 	}
-	
+
 	protected RetailStoreOrderPaymentGroupTokens setOwnerObject(String objectName){
 		ensureOptions();
 		addSimpleOptions(getOwnerObjectKey(), objectName);
 		return this;
 	}
-	
-	
-	
-	
+
+
+
+
 	public static RetailStoreOrderPaymentGroupTokens start(){
 		return new RetailStoreOrderPaymentGroupTokens().setOwnerObject(OWNER_OBJECT_NAME);
 	}
-	
-	public RetailStoreOrderPaymentGroupTokens withTokenFromListName(String listName){		
+
+	public RetailStoreOrderPaymentGroupTokens withTokenFromListName(String listName){
 		addSimpleOptions(listName);
 		return this;
 	}
-	
-	protected static RetailStoreOrderPaymentGroupTokens allTokens(){
-		
+
+  public static RetailStoreOrderPaymentGroupTokens loadGroupTokens(String... groupNames){
+    RetailStoreOrderPaymentGroupTokens tokens = start();
+    if (groupNames == null || groupNames.length == 0){
+      return allTokens();
+    }
+    addToken(tokens, BIZORDER, groupNames, new String[]{"default"});
+
+  
+    return tokens;
+  }
+
+  private static void addToken(RetailStoreOrderPaymentGroupTokens pTokens, String pTokenName, String[] pGroupNames, String[] fieldGroups) {
+    if (pGroupNames == null || fieldGroups == null){
+      return;
+    }
+
+    for (String groupName: pGroupNames){
+      for(String g: fieldGroups){
+        if( Objects.equals(groupName, g)){
+          pTokens.addSimpleOptions(pTokenName);
+          break;
+        }
+      }
+    }
+  }
+
+	public static RetailStoreOrderPaymentGroupTokens filterWithTokenViewGroups(String []viewGroups){
+
 		return start()
 			.withBizOrder();
-	
+
+	}
+
+	public static RetailStoreOrderPaymentGroupTokens allTokens(){
+
+		return start()
+			.withBizOrder();
+
 	}
 	public static RetailStoreOrderPaymentGroupTokens withoutListsTokens(){
-		
+
 		return start()
 			.withBizOrder();
-	
+
 	}
-	
+
 	public static Map <String,Object> all(){
 		return allTokens().done();
 	}
@@ -98,8 +139,8 @@ public class RetailStoreOrderPaymentGroupTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
-	
-	public RetailStoreOrderPaymentGroupTokens analyzeAllLists(){		
+
+	public RetailStoreOrderPaymentGroupTokens analyzeAllLists(){
 		addSimpleOptions(ALL_LISTS_ANALYZE);
 		return this;
 	}
@@ -108,15 +149,21 @@ public class RetailStoreOrderPaymentGroupTokens extends CommonTokens{
 	public String getBizOrder(){
 		return BIZORDER;
 	}
-	public RetailStoreOrderPaymentGroupTokens withBizOrder(){		
+	//
+	public RetailStoreOrderPaymentGroupTokens withBizOrder(){
 		addSimpleOptions(BIZORDER);
 		return this;
 	}
+
+	public RetailStoreOrderTokens withBizOrderTokens(){
+		//addSimpleOptions(BIZORDER);
+		return RetailStoreOrderTokens.start();
+	}
+
 	
-	
-	
+
 	public  RetailStoreOrderPaymentGroupTokens searchEntireObjectText(String verb, String value){
-		
+	
 		return this;
 	}
 }

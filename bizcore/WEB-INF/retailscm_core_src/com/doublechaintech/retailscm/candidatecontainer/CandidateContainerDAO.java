@@ -44,6 +44,7 @@ public interface CandidateContainerDAO extends BaseDAO{
 	public void delete(String candidateContainerId, int version) throws Exception;
 	public CandidateContainer disconnectFromAll(String candidateContainerId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public CandidateElementDAO getCandidateElementDAO();
 		
@@ -55,14 +56,17 @@ public interface CandidateContainerDAO extends BaseDAO{
 
 
 
-	public SmartList<CandidateContainer> queryList(String sql, Object ... parmeters);
+	public SmartList<CandidateContainer> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<CandidateContainer> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateCandidateContainer executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
 	// 需要一个加载引用我的对象的enhance方法:CandidateElement的container的CandidateElementList
 	public SmartList<CandidateElement> loadOurCandidateElementList(RetailscmUserContext userContext, List<CandidateContainer> us, Map<String,Object> options) throws Exception;
 	
+
+	List<CandidateContainer> search(CandidateContainerRequest pRequest);
 }
 
 

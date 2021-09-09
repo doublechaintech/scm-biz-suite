@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.supplyorderlineitem;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	protected SupplyOrderDAO supplyOrderDAO;
 	public void setSupplyOrderDAO(SupplyOrderDAO supplyOrderDAO){
- 	
+
  		if(supplyOrderDAO == null){
  			throw new IllegalStateException("Do not try to set supplyOrderDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(this.supplyOrderDAO == null){
  			throw new IllegalStateException("The supplyOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplyOrderDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SupplyOrderLineItemTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SupplyOrderLineItemTokens.BIZORDER);
  	}
 
  	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SupplyOrderLineItemTokens.BIZORDER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		return new SupplyOrderLineItemMapper();
 	}
 
-	
-	
+
+
 	protected SupplyOrderLineItem extractSupplyOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			SupplyOrderLineItem supplyOrderLineItem = loadSingleObject(accessKey, getSupplyOrderLineItemMapper());
@@ -229,25 +231,26 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	}
 
-	
-	
+
+
 
 	protected SupplyOrderLineItem loadInternalSupplyOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		SupplyOrderLineItem supplyOrderLineItem = extractSupplyOrderLineItem(accessKey, loadOptions);
- 	
+
  		if(isExtractBizOrderEnabled(loadOptions)){
 	 		extractBizOrder(supplyOrderLineItem, loadOptions);
  		}
  
 		
 		return supplyOrderLineItem;
-		
+
 	}
 
-	 
+	
 
  	protected SupplyOrderLineItem extractBizOrder(SupplyOrderLineItem supplyOrderLineItem, Map<String,Object> options) throws Exception{
+  
 
 		if(supplyOrderLineItem.getBizOrder() == null){
 			return supplyOrderLineItem;
@@ -260,37 +263,37 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		if(bizOrder != null){
 			supplyOrderLineItem.setBizOrder(bizOrder);
 		}
-		
- 		
+
+
  		return supplyOrderLineItem;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<SupplyOrderLineItem> findSupplyOrderLineItemByBizOrder(String supplyOrderId,Map<String,Object> options){
- 	
+
   		SmartList<SupplyOrderLineItem> resultList = queryWith(SupplyOrderLineItemTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getSupplyOrderLineItemMapper());
 		// analyzeSupplyOrderLineItemByBizOrder(resultList, supplyOrderId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<SupplyOrderLineItem> findSupplyOrderLineItemByBizOrder(String supplyOrderId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<SupplyOrderLineItem> resultList =  queryWithRange(SupplyOrderLineItemTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getSupplyOrderLineItemMapper(), start, count);
  		//analyzeSupplyOrderLineItemByBizOrder(resultList, supplyOrderId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSupplyOrderLineItemByBizOrder(SmartList<SupplyOrderLineItem> resultList, String supplyOrderId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSupplyOrderLineItemByBizOrder(String supplyOrderId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	public Map<String, Integer> countSupplyOrderLineItemByBizOrderIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SupplyOrderLineItemTable.COLUMN_BIZ_ORDER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected SupplyOrderLineItem saveSupplyOrderLineItem(SupplyOrderLineItem  supplyOrderLineItem){
+    
+
 		
 		if(!supplyOrderLineItem.isChanged()){
 			return supplyOrderLineItem;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(supplyOrderLineItem);
 		String SQL=this.getSaveSupplyOrderLineItemSQL(supplyOrderLineItem);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSupplyOrderLineItemParameters(supplyOrderLineItem);
@@ -326,6 +332,7 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		}
 
 		supplyOrderLineItem.incVersion();
+		supplyOrderLineItem.afterSave();
 		return supplyOrderLineItem;
 
 	}
@@ -343,6 +350,7 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		for(SupplyOrderLineItem supplyOrderLineItem:supplyOrderLineItemList){
 			if(supplyOrderLineItem.isChanged()){
 				supplyOrderLineItem.incVersion();
+				supplyOrderLineItem.afterSave();
 			}
 
 
@@ -449,19 +457,14 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(supplyOrderLineItem.getBizOrder() != null){
  			parameters[0] = supplyOrderLineItem.getBizOrder().getId();
  		}
- 
- 		
+    
  		parameters[1] = supplyOrderLineItem.getSkuId();
- 		
  		
  		parameters[2] = supplyOrderLineItem.getSkuName();
  		
- 		
  		parameters[3] = supplyOrderLineItem.getAmount();
  		
- 		
  		parameters[4] = supplyOrderLineItem.getQuantity();
- 		
  		
  		parameters[5] = supplyOrderLineItem.getUnitOfMeasurement();
  		
@@ -481,21 +484,15 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  
  		if(supplyOrderLineItem.getBizOrder() != null){
  			parameters[1] = supplyOrderLineItem.getBizOrder().getId();
-
  		}
- 		
  		
  		parameters[2] = supplyOrderLineItem.getSkuId();
  		
- 		
  		parameters[3] = supplyOrderLineItem.getSkuName();
- 		
  		
  		parameters[4] = supplyOrderLineItem.getAmount();
  		
- 		
  		parameters[5] = supplyOrderLineItem.getQuantity();
- 		
  		
  		parameters[6] = supplyOrderLineItem.getUnitOfMeasurement();
  		
@@ -505,12 +502,11 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	protected SupplyOrderLineItem saveInternalSupplyOrderLineItem(SupplyOrderLineItem supplyOrderLineItem, Map<String,Object> options){
 
-		saveSupplyOrderLineItem(supplyOrderLineItem);
-
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(supplyOrderLineItem, options);
  		}
  
+   saveSupplyOrderLineItem(supplyOrderLineItem);
 		
 		return supplyOrderLineItem;
 
@@ -522,6 +518,7 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	
 
  	protected SupplyOrderLineItem saveBizOrder(SupplyOrderLineItem supplyOrderLineItem, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(supplyOrderLineItem.getBizOrder() == null){
  			return supplyOrderLineItem;//do nothing when it is null
@@ -531,11 +528,6 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		return supplyOrderLineItem;
 
  	}
-
-
-
-
-
  
 
 	
@@ -543,10 +535,10 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		
 
 	public SupplyOrderLineItem present(SupplyOrderLineItem supplyOrderLineItem,Map<String, Object> options){
-	
+
 
 		return supplyOrderLineItem;
-	
+
 	}
 		
 
@@ -598,6 +590,10 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<SupplyOrderLineItem> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSupplyOrderLineItemMapper());
   }
@@ -633,6 +629,15 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	
 
+  @Override
+  public List<SupplyOrderLineItem> search(SupplyOrderLineItemRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SupplyOrderLineItemMapper mapper() {
+    return getSupplyOrderLineItemMapper();
+  }
 }
 
 

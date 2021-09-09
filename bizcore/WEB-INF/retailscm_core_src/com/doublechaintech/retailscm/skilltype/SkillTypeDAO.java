@@ -46,6 +46,7 @@ public interface SkillTypeDAO extends BaseDAO{
 	public void delete(String skillTypeId, int version) throws Exception;
 	public SkillType disconnectFromAll(String skillTypeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeSkillDAO getEmployeeSkillDAO();
 		
@@ -61,9 +62,10 @@ public interface SkillTypeDAO extends BaseDAO{
 	public int countEmployeeSkillListWithEmployee(String skillTypeId, String employeeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<SkillType> queryList(String sql, Object ... parmeters);
+	public SmartList<SkillType> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SkillType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSkillType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SkillType> findSkillTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -77,6 +79,8 @@ public interface SkillTypeDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:EmployeeSkill的skillType的EmployeeSkillList
 	public SmartList<EmployeeSkill> loadOurEmployeeSkillList(RetailscmUserContext userContext, List<SkillType> us, Map<String,Object> options) throws Exception;
 	
+
+	List<SkillType> search(SkillTypeRequest pRequest);
 }
 
 

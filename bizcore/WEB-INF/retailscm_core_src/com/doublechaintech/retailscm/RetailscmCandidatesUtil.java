@@ -154,7 +154,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("user_app").usedIn("quick_link").withRole("app");
 		_for("user_app").usedIn("list_access").withRole("app");
 		_for("user_app").isTree("false");
-		_for("user_app").hasFields(";id;title;app_icon;full_access;permission;object_type;object_id;location;version;");
+		_for("user_app").hasFields(";id;title;app_icon;full_access;permission;app_type;app_id;ctx_type;ctx_id;location;version;");
 		_for("user_app").targetType("user_app");
 		_for("user_app").anchorColumn("sec_user");
 		_for("responsibility_type").referTo("retail_store_country_center").withRole("company");
@@ -217,10 +217,10 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("retail_store_franchising").hasFields(";id;comment;version;");
 		_for("retail_store_franchising").targetType("retail_store_franchising");
 		_for("sec_user").referTo("user_domain").withRole("domain");
+		_for("sec_user").usedIn("key_pair_identity").withRole("sec_user");
 		_for("sec_user").usedIn("login_history").withRole("sec_user");
 		_for("sec_user").usedIn("wechat_miniapp_identity").withRole("sec_user");
 		_for("sec_user").usedIn("wechat_workapp_identity").withRole("sec_user");
-		_for("sec_user").usedIn("keypair_identity").withRole("sec_user");
 		_for("sec_user").usedIn("user_app").withRole("sec_user");
 		_for("sec_user").isTree("false");
 		_for("sec_user").hasFields(";id;login;mobile;email;pwd;weixin_openid;weixin_appid;access_token;verification_code;verification_code_expire;last_login_time;version;");
@@ -467,9 +467,9 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("supply_order").targetType("supply_order");
 		_for("supply_order").anchorColumn("buyer");
 		_for("public_key_type").referTo("user_domain").withRole("domain");
-		_for("public_key_type").usedIn("keypair_identity").withRole("key_type");
+		_for("public_key_type").usedIn("key_pair_identity").withRole("key_type");
 		_for("public_key_type").isTree("false");
-		_for("public_key_type").hasFields(";id;name;code;version;");
+		_for("public_key_type").hasFields(";id;key_alg;sign_alg;version;");
 		_for("public_key_type").targetType("public_key_type");
 		_for("public_key_type").anchorColumn("domain");
 		_for("receiving_space").referTo("warehouse").withRole("warehouse");
@@ -646,6 +646,9 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "province_center_department":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getProvinceCenterDepartmentDAO();
 			return userContext.getDAOGroup().getProvinceCenterDepartmentDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "province_center_employee":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getProvinceCenterEmployeeDAO();
+			return userContext.getDAOGroup().getProvinceCenterEmployeeDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "retail_store_city_service_center":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreCityServiceCenterDAO();
 			return userContext.getDAOGroup().getRetailStoreCityServiceCenterDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -658,9 +661,15 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "potential_customer_contact_person":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getPotentialCustomerContactPersonDAO();
 			return userContext.getDAOGroup().getPotentialCustomerContactPersonDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "potential_customer_contact":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getPotentialCustomerContactDAO();
+			return userContext.getDAOGroup().getPotentialCustomerContactDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "city_event":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getCityEventDAO();
 			return userContext.getDAOGroup().getCityEventDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "event_attendance":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEventAttendanceDAO();
+			return userContext.getDAOGroup().getEventAttendanceDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "retail_store":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreDAO();
 			return userContext.getDAOGroup().getRetailStoreDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -688,24 +697,75 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "consumer_order":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getConsumerOrderDAO();
 			return userContext.getDAOGroup().getConsumerOrderDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "consumer_order_line_item":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getConsumerOrderLineItemDAO();
+			return userContext.getDAOGroup().getConsumerOrderLineItemDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "consumer_order_shipping_group":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getConsumerOrderShippingGroupDAO();
+			return userContext.getDAOGroup().getConsumerOrderShippingGroupDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "consumer_order_payment_group":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getConsumerOrderPaymentGroupDAO();
+			return userContext.getDAOGroup().getConsumerOrderPaymentGroupDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "consumer_order_price_adjustment":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getConsumerOrderPriceAdjustmentDAO();
+			return userContext.getDAOGroup().getConsumerOrderPriceAdjustmentDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "retail_store_member_coupon":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreMemberCouponDAO();
+			return userContext.getDAOGroup().getRetailStoreMemberCouponDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "member_wishlist":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getMemberWishlistDAO();
 			return userContext.getDAOGroup().getMemberWishlistDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "member_reward_point":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getMemberRewardPointDAO();
+			return userContext.getDAOGroup().getMemberRewardPointDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "member_reward_point_redemption":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getMemberRewardPointRedemptionDAO();
+			return userContext.getDAOGroup().getMemberRewardPointRedemptionDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "member_wishlist_product":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getMemberWishlistProductDAO();
+			return userContext.getDAOGroup().getMemberWishlistProductDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "retail_store_member_address":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreMemberAddressDAO();
+			return userContext.getDAOGroup().getRetailStoreMemberAddressDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "retail_store_member_gift_card":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreMemberGiftCardDAO();
 			return userContext.getDAOGroup().getRetailStoreMemberGiftCardDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "retail_store_member_gift_card_consume_record":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreMemberGiftCardConsumeRecordDAO();
+			return userContext.getDAOGroup().getRetailStoreMemberGiftCardConsumeRecordDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "goods_supplier":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getGoodsSupplierDAO();
 			return userContext.getDAOGroup().getGoodsSupplierDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "supplier_product":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSupplierProductDAO();
 			return userContext.getDAOGroup().getSupplierProductDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "product_supply_duration":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getProductSupplyDurationDAO();
+			return userContext.getDAOGroup().getProductSupplyDurationDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "supply_order":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSupplyOrderDAO();
 			return userContext.getDAOGroup().getSupplyOrderDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "supply_order_line_item":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSupplyOrderLineItemDAO();
+			return userContext.getDAOGroup().getSupplyOrderLineItemDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "supply_order_shipping_group":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSupplyOrderShippingGroupDAO();
+			return userContext.getDAOGroup().getSupplyOrderShippingGroupDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "supply_order_payment_group":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSupplyOrderPaymentGroupDAO();
+			return userContext.getDAOGroup().getSupplyOrderPaymentGroupDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "retail_store_order":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreOrderDAO();
 			return userContext.getDAOGroup().getRetailStoreOrderDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "retail_store_order_line_item":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreOrderLineItemDAO();
+			return userContext.getDAOGroup().getRetailStoreOrderLineItemDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "retail_store_order_shipping_group":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreOrderShippingGroupDAO();
+			return userContext.getDAOGroup().getRetailStoreOrderShippingGroupDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "retail_store_order_payment_group":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getRetailStoreOrderPaymentGroupDAO();
+			return userContext.getDAOGroup().getRetailStoreOrderPaymentGroupDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "warehouse":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getWarehouseDAO();
 			return userContext.getDAOGroup().getWarehouseDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -721,12 +781,18 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "goods_shelf_stock_count":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getGoodsShelfStockCountDAO();
 			return userContext.getDAOGroup().getGoodsShelfStockCountDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "stock_count_issue_track":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getStockCountIssueTrackDAO();
+			return userContext.getDAOGroup().getStockCountIssueTrackDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "goods_allocation":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getGoodsAllocationDAO();
 			return userContext.getDAOGroup().getGoodsAllocationDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "goods":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getGoodsDAO();
 			return userContext.getDAOGroup().getGoodsDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "goods_movement":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getGoodsMovementDAO();
+			return userContext.getDAOGroup().getGoodsMovementDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "supplier_space":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSupplierSpaceDAO();
 			return userContext.getDAOGroup().getSupplierSpaceDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -739,6 +805,9 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "damage_space":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getDamageSpaceDAO();
 			return userContext.getDAOGroup().getDamageSpaceDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "warehouse_asset":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getWarehouseAssetDAO();
+			return userContext.getDAOGroup().getWarehouseAssetDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "transport_fleet":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getTransportFleetDAO();
 			return userContext.getDAOGroup().getTransportFleetDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -751,6 +820,9 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "transport_task":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getTransportTaskDAO();
 			return userContext.getDAOGroup().getTransportTaskDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "transport_task_track":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getTransportTaskTrackDAO();
+			return userContext.getDAOGroup().getTransportTaskTrackDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "account_set":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getAccountSetDAO();
 			return userContext.getDAOGroup().getAccountSetDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -766,6 +838,12 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "accounting_document":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getAccountingDocumentDAO();
 			return userContext.getDAOGroup().getAccountingDocumentDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "original_voucher":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getOriginalVoucherDAO();
+			return userContext.getDAOGroup().getOriginalVoucherDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "accounting_document_line":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getAccountingDocumentLineDAO();
+			return userContext.getDAOGroup().getAccountingDocumentLineDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "level_one_department":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getLevelOneDepartmentDAO();
 			return userContext.getDAOGroup().getLevelOneDepartmentDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -802,6 +880,15 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "training_course_type":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getTrainingCourseTypeDAO();
 			return userContext.getDAOGroup().getTrainingCourseTypeDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "public_holiday":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getPublicHolidayDAO();
+			return userContext.getDAOGroup().getPublicHolidayDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "termination":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getTerminationDAO();
+			return userContext.getDAOGroup().getTerminationDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "view":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getViewDAO();
+			return userContext.getDAOGroup().getViewDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "employee":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeDAO();
 			return userContext.getDAOGroup().getEmployeeDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -814,6 +901,39 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "scoring":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getScoringDAO();
 			return userContext.getDAOGroup().getScoringDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_company_training":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeCompanyTrainingDAO();
+			return userContext.getDAOGroup().getEmployeeCompanyTrainingDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_skill":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeSkillDAO();
+			return userContext.getDAOGroup().getEmployeeSkillDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_performance":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeePerformanceDAO();
+			return userContext.getDAOGroup().getEmployeePerformanceDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_work_experience":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeWorkExperienceDAO();
+			return userContext.getDAOGroup().getEmployeeWorkExperienceDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_leave":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeLeaveDAO();
+			return userContext.getDAOGroup().getEmployeeLeaveDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_interview":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeInterviewDAO();
+			return userContext.getDAOGroup().getEmployeeInterviewDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_attendance":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeAttendanceDAO();
+			return userContext.getDAOGroup().getEmployeeAttendanceDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_qualifier":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeQualifierDAO();
+			return userContext.getDAOGroup().getEmployeeQualifierDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_education":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeEducationDAO();
+			return userContext.getDAOGroup().getEmployeeEducationDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_award":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeAwardDAO();
+			return userContext.getDAOGroup().getEmployeeAwardDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "employee_salary_sheet":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getEmployeeSalarySheetDAO();
+			return userContext.getDAOGroup().getEmployeeSalarySheetDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "paying_off":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getPayingOffDAO();
 			return userContext.getDAOGroup().getPayingOffDAO().executeCandidatesQuery(query, sql, params.toArray());
@@ -826,21 +946,57 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		case "page_type":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getPageTypeDAO();
 			return userContext.getDAOGroup().getPageTypeDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "slide":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSlideDAO();
+			return userContext.getDAOGroup().getSlideDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "ui_action":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getUiActionDAO();
+			return userContext.getDAOGroup().getUiActionDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "section":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSectionDAO();
+			return userContext.getDAOGroup().getSectionDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "user_domain":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getUserDomainDAO();
 			return userContext.getDAOGroup().getUserDomainDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "user_allow_list":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getUserAllowListDAO();
+			return userContext.getDAOGroup().getUserAllowListDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "sec_user":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getSecUserDAO();
 			return userContext.getDAOGroup().getSecUserDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "user_app":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getUserAppDAO();
 			return userContext.getDAOGroup().getUserAppDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "quick_link":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getQuickLinkDAO();
+			return userContext.getDAOGroup().getQuickLinkDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "list_access":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getListAccessDAO();
+			return userContext.getDAOGroup().getListAccessDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "login_history":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getLoginHistoryDAO();
+			return userContext.getDAOGroup().getLoginHistoryDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "candidate_container":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getCandidateContainerDAO();
 			return userContext.getDAOGroup().getCandidateContainerDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "candidate_element":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getCandidateElementDAO();
+			return userContext.getDAOGroup().getCandidateElementDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "wechat_workapp_identity":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getWechatWorkappIdentityDAO();
+			return userContext.getDAOGroup().getWechatWorkappIdentityDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "wechat_miniapp_identity":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getWechatMiniappIdentityDAO();
+			return userContext.getDAOGroup().getWechatMiniappIdentityDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "key_pair_identity":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getKeyPairIdentityDAO();
+			return userContext.getDAOGroup().getKeyPairIdentityDAO().executeCandidatesQuery(query, sql, params.toArray());
 		case "public_key_type":
 			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getPublicKeyTypeDAO();
 			return userContext.getDAOGroup().getPublicKeyTypeDAO().executeCandidatesQuery(query, sql, params.toArray());
+		case "tree_node":
+			currentDAO = (RetailscmBaseDAOImpl)userContext.getDAOGroup().getTreeNodeDAO();
+			return userContext.getDAOGroup().getTreeNodeDAO().executeCandidatesQuery(query, sql, params.toArray());
 
 		default:
 			throw new Exception("OOTB不支持"+query.getTargetType()+"的候选值查询");

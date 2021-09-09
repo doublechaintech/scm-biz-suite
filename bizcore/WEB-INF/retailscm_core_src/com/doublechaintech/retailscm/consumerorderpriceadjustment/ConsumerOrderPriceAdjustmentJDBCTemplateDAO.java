@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.consumerorderpriceadjustment;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 
 	protected ConsumerOrderDAO consumerOrderDAO;
 	public void setConsumerOrderDAO(ConsumerOrderDAO consumerOrderDAO){
- 	
+
  		if(consumerOrderDAO == null){
  			throw new IllegalStateException("Do not try to set consumerOrderDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
  		if(this.consumerOrderDAO == null){
  			throw new IllegalStateException("The consumerOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.consumerOrderDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ConsumerOrderPriceAdjustmentTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ConsumerOrderPriceAdjustmentTokens.BIZORDER);
  	}
 
  	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ConsumerOrderPriceAdjustmentTokens.BIZORDER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 		return new ConsumerOrderPriceAdjustmentMapper();
 	}
 
-	
-	
+
+
 	protected ConsumerOrderPriceAdjustment extractConsumerOrderPriceAdjustment(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment = loadSingleObject(accessKey, getConsumerOrderPriceAdjustmentMapper());
@@ -229,25 +231,26 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 
 	}
 
-	
-	
+
+
 
 	protected ConsumerOrderPriceAdjustment loadInternalConsumerOrderPriceAdjustment(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment = extractConsumerOrderPriceAdjustment(accessKey, loadOptions);
- 	
+
  		if(isExtractBizOrderEnabled(loadOptions)){
 	 		extractBizOrder(consumerOrderPriceAdjustment, loadOptions);
  		}
  
 		
 		return consumerOrderPriceAdjustment;
-		
+
 	}
 
-	 
+	
 
  	protected ConsumerOrderPriceAdjustment extractBizOrder(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment, Map<String,Object> options) throws Exception{
+  
 
 		if(consumerOrderPriceAdjustment.getBizOrder() == null){
 			return consumerOrderPriceAdjustment;
@@ -260,37 +263,37 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 		if(bizOrder != null){
 			consumerOrderPriceAdjustment.setBizOrder(bizOrder);
 		}
-		
- 		
+
+
  		return consumerOrderPriceAdjustment;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<ConsumerOrderPriceAdjustment> findConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId,Map<String,Object> options){
- 	
+
   		SmartList<ConsumerOrderPriceAdjustment> resultList = queryWith(ConsumerOrderPriceAdjustmentTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPriceAdjustmentMapper());
 		// analyzeConsumerOrderPriceAdjustmentByBizOrder(resultList, consumerOrderId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ConsumerOrderPriceAdjustment> findConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ConsumerOrderPriceAdjustment> resultList =  queryWithRange(ConsumerOrderPriceAdjustmentTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPriceAdjustmentMapper(), start, count);
  		//analyzeConsumerOrderPriceAdjustmentByBizOrder(resultList, consumerOrderId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeConsumerOrderPriceAdjustmentByBizOrder(SmartList<ConsumerOrderPriceAdjustment> resultList, String consumerOrderId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 	public Map<String, Integer> countConsumerOrderPriceAdjustmentByBizOrderIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ConsumerOrderPriceAdjustmentTable.COLUMN_BIZ_ORDER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ConsumerOrderPriceAdjustment saveConsumerOrderPriceAdjustment(ConsumerOrderPriceAdjustment  consumerOrderPriceAdjustment){
+    
+
 		
 		if(!consumerOrderPriceAdjustment.isChanged()){
 			return consumerOrderPriceAdjustment;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(consumerOrderPriceAdjustment);
 		String SQL=this.getSaveConsumerOrderPriceAdjustmentSQL(consumerOrderPriceAdjustment);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveConsumerOrderPriceAdjustmentParameters(consumerOrderPriceAdjustment);
@@ -326,6 +332,7 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 		}
 
 		consumerOrderPriceAdjustment.incVersion();
+		consumerOrderPriceAdjustment.afterSave();
 		return consumerOrderPriceAdjustment;
 
 	}
@@ -343,6 +350,7 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 		for(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment:consumerOrderPriceAdjustmentList){
 			if(consumerOrderPriceAdjustment.isChanged()){
 				consumerOrderPriceAdjustment.incVersion();
+				consumerOrderPriceAdjustment.afterSave();
 			}
 
 
@@ -446,16 +454,13 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
  	protected Object[] prepareConsumerOrderPriceAdjustmentUpdateParameters(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = consumerOrderPriceAdjustment.getName();
  		
  		if(consumerOrderPriceAdjustment.getBizOrder() != null){
  			parameters[1] = consumerOrderPriceAdjustment.getBizOrder().getId();
  		}
- 
- 		
+    
  		parameters[2] = consumerOrderPriceAdjustment.getAmount();
- 		
  		
  		parameters[3] = consumerOrderPriceAdjustment.getProvider();
  		
@@ -473,17 +478,13 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
         }
 		parameters[0] =  consumerOrderPriceAdjustment.getId();
  
- 		
  		parameters[1] = consumerOrderPriceAdjustment.getName();
  		
  		if(consumerOrderPriceAdjustment.getBizOrder() != null){
  			parameters[2] = consumerOrderPriceAdjustment.getBizOrder().getId();
-
  		}
  		
- 		
  		parameters[3] = consumerOrderPriceAdjustment.getAmount();
- 		
  		
  		parameters[4] = consumerOrderPriceAdjustment.getProvider();
  		
@@ -493,12 +494,11 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 
 	protected ConsumerOrderPriceAdjustment saveInternalConsumerOrderPriceAdjustment(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment, Map<String,Object> options){
 
-		saveConsumerOrderPriceAdjustment(consumerOrderPriceAdjustment);
-
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(consumerOrderPriceAdjustment, options);
  		}
  
+   saveConsumerOrderPriceAdjustment(consumerOrderPriceAdjustment);
 		
 		return consumerOrderPriceAdjustment;
 
@@ -510,6 +510,7 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 	
 
  	protected ConsumerOrderPriceAdjustment saveBizOrder(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(consumerOrderPriceAdjustment.getBizOrder() == null){
  			return consumerOrderPriceAdjustment;//do nothing when it is null
@@ -519,11 +520,6 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
  		return consumerOrderPriceAdjustment;
 
  	}
-
-
-
-
-
  
 
 	
@@ -531,10 +527,10 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 		
 
 	public ConsumerOrderPriceAdjustment present(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment,Map<String, Object> options){
-	
+
 
 		return consumerOrderPriceAdjustment;
-	
+
 	}
 		
 
@@ -586,6 +582,10 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ConsumerOrderPriceAdjustment> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getConsumerOrderPriceAdjustmentMapper());
   }
@@ -621,6 +621,15 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmBaseDA
 
 	
 
+  @Override
+  public List<ConsumerOrderPriceAdjustment> search(ConsumerOrderPriceAdjustmentRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ConsumerOrderPriceAdjustmentMapper mapper() {
+    return getConsumerOrderPriceAdjustmentMapper();
+  }
 }
 
 

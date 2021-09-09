@@ -46,13 +46,15 @@ public interface TerminationDAO extends BaseDAO{
 	public void delete(String terminationId, int version) throws Exception;
 	public Termination disconnectFromAll(String terminationId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<Termination> queryList(String sql, Object ... parmeters);
+	public SmartList<Termination> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Termination> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateTermination executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Termination> findTerminationByReason(String terminationReasonId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface TerminationDAO extends BaseDAO{
 
 
  
+
+	List<Termination> search(TerminationRequest pRequest);
 }
 
 

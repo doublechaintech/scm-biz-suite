@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employee;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -71,7 +72,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -81,13 +82,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected LevelThreeDepartmentDAO levelThreeDepartmentDAO;
 	public void setLevelThreeDepartmentDAO(LevelThreeDepartmentDAO levelThreeDepartmentDAO){
- 	
+
  		if(levelThreeDepartmentDAO == null){
  			throw new IllegalStateException("Do not try to set levelThreeDepartmentDAO to null.");
  		}
@@ -97,13 +98,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.levelThreeDepartmentDAO == null){
  			throw new IllegalStateException("The levelThreeDepartmentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.levelThreeDepartmentDAO;
- 	}	
+ 	}
 
 	protected OccupationTypeDAO occupationTypeDAO;
 	public void setOccupationTypeDAO(OccupationTypeDAO occupationTypeDAO){
- 	
+
  		if(occupationTypeDAO == null){
  			throw new IllegalStateException("Do not try to set occupationTypeDAO to null.");
  		}
@@ -113,13 +114,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.occupationTypeDAO == null){
  			throw new IllegalStateException("The occupationTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.occupationTypeDAO;
- 	}	
+ 	}
 
 	protected ResponsibilityTypeDAO responsibilityTypeDAO;
 	public void setResponsibilityTypeDAO(ResponsibilityTypeDAO responsibilityTypeDAO){
- 	
+
  		if(responsibilityTypeDAO == null){
  			throw new IllegalStateException("Do not try to set responsibilityTypeDAO to null.");
  		}
@@ -129,13 +130,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.responsibilityTypeDAO == null){
  			throw new IllegalStateException("The responsibilityTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.responsibilityTypeDAO;
- 	}	
+ 	}
 
 	protected SalaryGradeDAO salaryGradeDAO;
 	public void setSalaryGradeDAO(SalaryGradeDAO salaryGradeDAO){
- 	
+
  		if(salaryGradeDAO == null){
  			throw new IllegalStateException("Do not try to set salaryGradeDAO to null.");
  		}
@@ -145,13 +146,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.salaryGradeDAO == null){
  			throw new IllegalStateException("The salaryGradeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.salaryGradeDAO;
- 	}	
+ 	}
 
 	protected EmployeeCompanyTrainingDAO employeeCompanyTrainingDAO;
 	public void setEmployeeCompanyTrainingDAO(EmployeeCompanyTrainingDAO employeeCompanyTrainingDAO){
- 	
+
  		if(employeeCompanyTrainingDAO == null){
  			throw new IllegalStateException("Do not try to set employeeCompanyTrainingDAO to null.");
  		}
@@ -161,13 +162,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeCompanyTrainingDAO == null){
  			throw new IllegalStateException("The employeeCompanyTrainingDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeCompanyTrainingDAO;
- 	}	
+ 	}
 
 	protected EmployeeSkillDAO employeeSkillDAO;
 	public void setEmployeeSkillDAO(EmployeeSkillDAO employeeSkillDAO){
- 	
+
  		if(employeeSkillDAO == null){
  			throw new IllegalStateException("Do not try to set employeeSkillDAO to null.");
  		}
@@ -177,13 +178,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeSkillDAO == null){
  			throw new IllegalStateException("The employeeSkillDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeSkillDAO;
- 	}	
+ 	}
 
 	protected EmployeePerformanceDAO employeePerformanceDAO;
 	public void setEmployeePerformanceDAO(EmployeePerformanceDAO employeePerformanceDAO){
- 	
+
  		if(employeePerformanceDAO == null){
  			throw new IllegalStateException("Do not try to set employeePerformanceDAO to null.");
  		}
@@ -193,13 +194,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeePerformanceDAO == null){
  			throw new IllegalStateException("The employeePerformanceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeePerformanceDAO;
- 	}	
+ 	}
 
 	protected EmployeeWorkExperienceDAO employeeWorkExperienceDAO;
 	public void setEmployeeWorkExperienceDAO(EmployeeWorkExperienceDAO employeeWorkExperienceDAO){
- 	
+
  		if(employeeWorkExperienceDAO == null){
  			throw new IllegalStateException("Do not try to set employeeWorkExperienceDAO to null.");
  		}
@@ -209,13 +210,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeWorkExperienceDAO == null){
  			throw new IllegalStateException("The employeeWorkExperienceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeWorkExperienceDAO;
- 	}	
+ 	}
 
 	protected EmployeeLeaveDAO employeeLeaveDAO;
 	public void setEmployeeLeaveDAO(EmployeeLeaveDAO employeeLeaveDAO){
- 	
+
  		if(employeeLeaveDAO == null){
  			throw new IllegalStateException("Do not try to set employeeLeaveDAO to null.");
  		}
@@ -225,13 +226,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeLeaveDAO == null){
  			throw new IllegalStateException("The employeeLeaveDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeLeaveDAO;
- 	}	
+ 	}
 
 	protected EmployeeInterviewDAO employeeInterviewDAO;
 	public void setEmployeeInterviewDAO(EmployeeInterviewDAO employeeInterviewDAO){
- 	
+
  		if(employeeInterviewDAO == null){
  			throw new IllegalStateException("Do not try to set employeeInterviewDAO to null.");
  		}
@@ -241,13 +242,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeInterviewDAO == null){
  			throw new IllegalStateException("The employeeInterviewDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeInterviewDAO;
- 	}	
+ 	}
 
 	protected EmployeeAttendanceDAO employeeAttendanceDAO;
 	public void setEmployeeAttendanceDAO(EmployeeAttendanceDAO employeeAttendanceDAO){
- 	
+
  		if(employeeAttendanceDAO == null){
  			throw new IllegalStateException("Do not try to set employeeAttendanceDAO to null.");
  		}
@@ -257,13 +258,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeAttendanceDAO == null){
  			throw new IllegalStateException("The employeeAttendanceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeAttendanceDAO;
- 	}	
+ 	}
 
 	protected EmployeeQualifierDAO employeeQualifierDAO;
 	public void setEmployeeQualifierDAO(EmployeeQualifierDAO employeeQualifierDAO){
- 	
+
  		if(employeeQualifierDAO == null){
  			throw new IllegalStateException("Do not try to set employeeQualifierDAO to null.");
  		}
@@ -273,13 +274,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeQualifierDAO == null){
  			throw new IllegalStateException("The employeeQualifierDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeQualifierDAO;
- 	}	
+ 	}
 
 	protected EmployeeEducationDAO employeeEducationDAO;
 	public void setEmployeeEducationDAO(EmployeeEducationDAO employeeEducationDAO){
- 	
+
  		if(employeeEducationDAO == null){
  			throw new IllegalStateException("Do not try to set employeeEducationDAO to null.");
  		}
@@ -289,13 +290,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeEducationDAO == null){
  			throw new IllegalStateException("The employeeEducationDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeEducationDAO;
- 	}	
+ 	}
 
 	protected EmployeeAwardDAO employeeAwardDAO;
 	public void setEmployeeAwardDAO(EmployeeAwardDAO employeeAwardDAO){
- 	
+
  		if(employeeAwardDAO == null){
  			throw new IllegalStateException("Do not try to set employeeAwardDAO to null.");
  		}
@@ -305,13 +306,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeAwardDAO == null){
  			throw new IllegalStateException("The employeeAwardDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeAwardDAO;
- 	}	
+ 	}
 
 	protected EmployeeSalarySheetDAO employeeSalarySheetDAO;
 	public void setEmployeeSalarySheetDAO(EmployeeSalarySheetDAO employeeSalarySheetDAO){
- 	
+
  		if(employeeSalarySheetDAO == null){
  			throw new IllegalStateException("Do not try to set employeeSalarySheetDAO to null.");
  		}
@@ -321,13 +322,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.employeeSalarySheetDAO == null){
  			throw new IllegalStateException("The employeeSalarySheetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeSalarySheetDAO;
- 	}	
+ 	}
 
 	protected PayingOffDAO payingOffDAO;
 	public void setPayingOffDAO(PayingOffDAO payingOffDAO){
- 	
+
  		if(payingOffDAO == null){
  			throw new IllegalStateException("Do not try to set payingOffDAO to null.");
  		}
@@ -337,9 +338,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(this.payingOffDAO == null){
  			throw new IllegalStateException("The payingOffDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.payingOffDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -393,84 +395,84 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		newEmployee.setVersion(0);
 		
 		
- 		
+
  		if(isSaveEmployeeCompanyTrainingListEnabled(options)){
  			for(EmployeeCompanyTraining item: newEmployee.getEmployeeCompanyTrainingList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeSkillListEnabled(options)){
  			for(EmployeeSkill item: newEmployee.getEmployeeSkillList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeePerformanceListEnabled(options)){
  			for(EmployeePerformance item: newEmployee.getEmployeePerformanceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeWorkExperienceListEnabled(options)){
  			for(EmployeeWorkExperience item: newEmployee.getEmployeeWorkExperienceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeLeaveListEnabled(options)){
  			for(EmployeeLeave item: newEmployee.getEmployeeLeaveList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeInterviewListEnabled(options)){
  			for(EmployeeInterview item: newEmployee.getEmployeeInterviewList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeAttendanceListEnabled(options)){
  			for(EmployeeAttendance item: newEmployee.getEmployeeAttendanceList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeQualifierListEnabled(options)){
  			for(EmployeeQualifier item: newEmployee.getEmployeeQualifierList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeEducationListEnabled(options)){
  			for(EmployeeEducation item: newEmployee.getEmployeeEducationList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeAwardListEnabled(options)){
  			for(EmployeeAward item: newEmployee.getEmployeeAwardList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeSalarySheetListEnabled(options)){
  			for(EmployeeSalarySheet item: newEmployee.getEmployeeSalarySheetList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSavePayingOffListEnabled(options)){
  			for(PayingOff item: newEmployee.getPayingOffList()){
  				item.setVersion(0);
@@ -557,254 +559,254 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCompanyEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeTokens.COMPANY);
  	}
 
  	protected boolean isSaveCompanyEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeTokens.COMPANY);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractDepartmentEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeTokens.DEPARTMENT);
  	}
 
  	protected boolean isSaveDepartmentEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeTokens.DEPARTMENT);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractOccupationEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeTokens.OCCUPATION);
  	}
 
  	protected boolean isSaveOccupationEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeTokens.OCCUPATION);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractResponsibleForEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeTokens.RESPONSIBLEFOR);
  	}
 
  	protected boolean isSaveResponsibleForEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeTokens.RESPONSIBLEFOR);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractCurrentSalaryGradeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeTokens.CURRENTSALARYGRADE);
  	}
 
  	protected boolean isSaveCurrentSalaryGradeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeTokens.CURRENTSALARYGRADE);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeCompanyTrainingListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeSkillListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeSkillListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_SKILL_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeePerformanceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeePerformanceListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeePerformanceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeePerformanceListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeePerformanceListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeePerformanceListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeWorkExperienceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeWorkExperienceListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeWorkExperienceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeWorkExperienceListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeWorkExperienceListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeWorkExperienceListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeLeaveListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeLeaveListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_LEAVE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeInterviewListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_INTERVIEW_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeAttendanceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeAttendanceListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeAttendanceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeAttendanceListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeAttendanceListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeAttendanceListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeQualifierListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeQualifierListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeQualifierListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeQualifierListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeQualifierListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeQualifierListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_QUALIFIER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeEducationListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeEducationListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeEducationListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeEducationListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeEducationListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeEducationListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_EDUCATION_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeAwardListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeAwardListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeAwardListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeAwardListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeAwardListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeAwardListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_AWARD_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzeEmployeeSalarySheetListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractPayingOffListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPayingOffListEnabled(Map<String,Object> options){
  		return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST);
  	}
- 	protected boolean isAnalyzePayingOffListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePayingOffListEnabled(Map<String,Object> options){
  		return EmployeeTokens.of(options).analyzePayingOffListEnabled();
  	}
-	
+
 	protected boolean isSavePayingOffListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.PAYING_OFF_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -813,8 +815,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		return new EmployeeMapper();
 	}
 
-	
-	
+
+
 	protected Employee extractEmployee(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Employee employee = loadSingleObject(accessKey, getEmployeeMapper());
@@ -825,29 +827,29 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 	}
 
-	
-	
+
+
 
 	protected Employee loadInternalEmployee(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Employee employee = extractEmployee(accessKey, loadOptions);
- 	
+
  		if(isExtractCompanyEnabled(loadOptions)){
 	 		extractCompany(employee, loadOptions);
  		}
-  	
+ 
  		if(isExtractDepartmentEnabled(loadOptions)){
 	 		extractDepartment(employee, loadOptions);
  		}
-  	
+ 
  		if(isExtractOccupationEnabled(loadOptions)){
 	 		extractOccupation(employee, loadOptions);
  		}
-  	
+ 
  		if(isExtractResponsibleForEnabled(loadOptions)){
 	 		extractResponsibleFor(employee, loadOptions);
  		}
-  	
+ 
  		if(isExtractCurrentSalaryGradeEnabled(loadOptions)){
 	 		extractCurrentSalaryGrade(employee, loadOptions);
  		}
@@ -855,8 +857,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeCompanyTrainingListEnabled(loadOptions)){
 	 		extractEmployeeCompanyTrainingList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeCompanyTrainingListEnabled(loadOptions)){
 	 		analyzeEmployeeCompanyTrainingList(employee, loadOptions);
@@ -865,8 +867,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeSkillListEnabled(loadOptions)){
 	 		extractEmployeeSkillList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeSkillListEnabled(loadOptions)){
 	 		analyzeEmployeeSkillList(employee, loadOptions);
@@ -875,8 +877,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeePerformanceListEnabled(loadOptions)){
 	 		extractEmployeePerformanceList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeePerformanceListEnabled(loadOptions)){
 	 		analyzeEmployeePerformanceList(employee, loadOptions);
@@ -885,8 +887,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeWorkExperienceListEnabled(loadOptions)){
 	 		extractEmployeeWorkExperienceList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeWorkExperienceListEnabled(loadOptions)){
 	 		analyzeEmployeeWorkExperienceList(employee, loadOptions);
@@ -895,8 +897,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeLeaveListEnabled(loadOptions)){
 	 		extractEmployeeLeaveList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeLeaveListEnabled(loadOptions)){
 	 		analyzeEmployeeLeaveList(employee, loadOptions);
@@ -905,8 +907,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeInterviewListEnabled(loadOptions)){
 	 		extractEmployeeInterviewList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeInterviewListEnabled(loadOptions)){
 	 		analyzeEmployeeInterviewList(employee, loadOptions);
@@ -915,8 +917,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeAttendanceListEnabled(loadOptions)){
 	 		extractEmployeeAttendanceList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeAttendanceListEnabled(loadOptions)){
 	 		analyzeEmployeeAttendanceList(employee, loadOptions);
@@ -925,8 +927,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeQualifierListEnabled(loadOptions)){
 	 		extractEmployeeQualifierList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeQualifierListEnabled(loadOptions)){
 	 		analyzeEmployeeQualifierList(employee, loadOptions);
@@ -935,8 +937,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeEducationListEnabled(loadOptions)){
 	 		extractEmployeeEducationList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeEducationListEnabled(loadOptions)){
 	 		analyzeEmployeeEducationList(employee, loadOptions);
@@ -945,8 +947,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeAwardListEnabled(loadOptions)){
 	 		extractEmployeeAwardList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeAwardListEnabled(loadOptions)){
 	 		analyzeEmployeeAwardList(employee, loadOptions);
@@ -955,8 +957,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractEmployeeSalarySheetListEnabled(loadOptions)){
 	 		extractEmployeeSalarySheetList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeSalarySheetListEnabled(loadOptions)){
 	 		analyzeEmployeeSalarySheetList(employee, loadOptions);
@@ -965,8 +967,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 		if(isExtractPayingOffListEnabled(loadOptions)){
 	 		extractPayingOffList(employee, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzePayingOffListEnabled(loadOptions)){
 	 		analyzePayingOffList(employee, loadOptions);
@@ -974,12 +976,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		
 		
 		return employee;
-		
+
 	}
 
-	 
+	
 
  	protected Employee extractCompany(Employee employee, Map<String,Object> options) throws Exception{
+  
 
 		if(employee.getCompany() == null){
 			return employee;
@@ -992,14 +995,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(company != null){
 			employee.setCompany(company);
 		}
-		
- 		
+
+
  		return employee;
  	}
- 		
-  
+
+ 
 
  	protected Employee extractDepartment(Employee employee, Map<String,Object> options) throws Exception{
+  
 
 		if(employee.getDepartment() == null){
 			return employee;
@@ -1012,14 +1016,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(department != null){
 			employee.setDepartment(department);
 		}
-		
- 		
+
+
  		return employee;
  	}
- 		
-  
+
+ 
 
  	protected Employee extractOccupation(Employee employee, Map<String,Object> options) throws Exception{
+  
 
 		if(employee.getOccupation() == null){
 			return employee;
@@ -1032,14 +1037,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(occupation != null){
 			employee.setOccupation(occupation);
 		}
-		
- 		
+
+
  		return employee;
  	}
- 		
-  
+
+ 
 
  	protected Employee extractResponsibleFor(Employee employee, Map<String,Object> options) throws Exception{
+  
 
 		if(employee.getResponsibleFor() == null){
 			return employee;
@@ -1052,14 +1058,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(responsibleFor != null){
 			employee.setResponsibleFor(responsibleFor);
 		}
-		
- 		
+
+
  		return employee;
  	}
- 		
-  
+
+ 
 
  	protected Employee extractCurrentSalaryGrade(Employee employee, Map<String,Object> options) throws Exception{
+  
 
 		if(employee.getCurrentSalaryGrade() == null){
 			return employee;
@@ -1072,21 +1079,21 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		if(currentSalaryGrade != null){
 			employee.setCurrentSalaryGrade(currentSalaryGrade);
 		}
-		
- 		
+
+
  		return employee;
  	}
- 		
+
  
 		
 	protected void enhanceEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeCompanyTrainingList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1094,21 +1101,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = getEmployeeCompanyTrainingDAO().findEmployeeCompanyTrainingByEmployee(employee.getId(),options);
 		if(employeeCompanyTrainingList != null){
 			enhanceEmployeeCompanyTrainingList(employeeCompanyTrainingList,options);
 			employee.setEmployeeCompanyTrainingList(employeeCompanyTrainingList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeCompanyTrainingList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1116,27 +1122,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
 		if(employeeCompanyTrainingList != null){
 			getEmployeeCompanyTrainingDAO().analyzeEmployeeCompanyTrainingByEmployee(employeeCompanyTrainingList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeSkillList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1144,21 +1150,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeSkill> employeeSkillList = getEmployeeSkillDAO().findEmployeeSkillByEmployee(employee.getId(),options);
 		if(employeeSkillList != null){
 			enhanceEmployeeSkillList(employeeSkillList,options);
 			employee.setEmployeeSkillList(employeeSkillList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeSkillList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1166,27 +1171,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();
 		if(employeeSkillList != null){
 			getEmployeeSkillDAO().analyzeEmployeeSkillByEmployee(employeeSkillList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeePerformanceList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1194,21 +1199,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeePerformance> employeePerformanceList = getEmployeePerformanceDAO().findEmployeePerformanceByEmployee(employee.getId(),options);
 		if(employeePerformanceList != null){
 			enhanceEmployeePerformanceList(employeePerformanceList,options);
 			employee.setEmployeePerformanceList(employeePerformanceList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeePerformanceList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1216,27 +1220,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();
 		if(employeePerformanceList != null){
 			getEmployeePerformanceDAO().analyzeEmployeePerformanceByEmployee(employeePerformanceList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeWorkExperienceList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1244,21 +1248,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = getEmployeeWorkExperienceDAO().findEmployeeWorkExperienceByEmployee(employee.getId(),options);
 		if(employeeWorkExperienceList != null){
 			enhanceEmployeeWorkExperienceList(employeeWorkExperienceList,options);
 			employee.setEmployeeWorkExperienceList(employeeWorkExperienceList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeWorkExperienceList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1266,27 +1269,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();
 		if(employeeWorkExperienceList != null){
 			getEmployeeWorkExperienceDAO().analyzeEmployeeWorkExperienceByEmployee(employeeWorkExperienceList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeLeaveList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1294,21 +1297,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeLeave> employeeLeaveList = getEmployeeLeaveDAO().findEmployeeLeaveByWho(employee.getId(),options);
 		if(employeeLeaveList != null){
 			enhanceEmployeeLeaveList(employeeLeaveList,options);
 			employee.setEmployeeLeaveList(employeeLeaveList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeLeaveList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1316,27 +1318,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();
 		if(employeeLeaveList != null){
 			getEmployeeLeaveDAO().analyzeEmployeeLeaveByWho(employeeLeaveList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeInterviewList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1344,21 +1346,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeInterview> employeeInterviewList = getEmployeeInterviewDAO().findEmployeeInterviewByEmployee(employee.getId(),options);
 		if(employeeInterviewList != null){
 			enhanceEmployeeInterviewList(employeeInterviewList,options);
 			employee.setEmployeeInterviewList(employeeInterviewList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeInterviewList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1366,27 +1367,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();
 		if(employeeInterviewList != null){
 			getEmployeeInterviewDAO().analyzeEmployeeInterviewByEmployee(employeeInterviewList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeAttendanceList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1394,21 +1395,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeAttendance> employeeAttendanceList = getEmployeeAttendanceDAO().findEmployeeAttendanceByEmployee(employee.getId(),options);
 		if(employeeAttendanceList != null){
 			enhanceEmployeeAttendanceList(employeeAttendanceList,options);
 			employee.setEmployeeAttendanceList(employeeAttendanceList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeAttendanceList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1416,27 +1416,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();
 		if(employeeAttendanceList != null){
 			getEmployeeAttendanceDAO().analyzeEmployeeAttendanceByEmployee(employeeAttendanceList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeQualifierList(SmartList<EmployeeQualifier> employeeQualifierList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeQualifierList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1444,21 +1444,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeQualifier> employeeQualifierList = getEmployeeQualifierDAO().findEmployeeQualifierByEmployee(employee.getId(),options);
 		if(employeeQualifierList != null){
 			enhanceEmployeeQualifierList(employeeQualifierList,options);
 			employee.setEmployeeQualifierList(employeeQualifierList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeQualifierList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1466,27 +1465,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();
 		if(employeeQualifierList != null){
 			getEmployeeQualifierDAO().analyzeEmployeeQualifierByEmployee(employeeQualifierList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeEducationList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1494,21 +1493,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeEducation> employeeEducationList = getEmployeeEducationDAO().findEmployeeEducationByEmployee(employee.getId(),options);
 		if(employeeEducationList != null){
 			enhanceEmployeeEducationList(employeeEducationList,options);
 			employee.setEmployeeEducationList(employeeEducationList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeEducationList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1516,27 +1514,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();
 		if(employeeEducationList != null){
 			getEmployeeEducationDAO().analyzeEmployeeEducationByEmployee(employeeEducationList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeAwardList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1544,21 +1542,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeAward> employeeAwardList = getEmployeeAwardDAO().findEmployeeAwardByEmployee(employee.getId(),options);
 		if(employeeAwardList != null){
 			enhanceEmployeeAwardList(employeeAwardList,options);
 			employee.setEmployeeAwardList(employeeAwardList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeAwardList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1566,27 +1563,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();
 		if(employeeAwardList != null){
 			getEmployeeAwardDAO().analyzeEmployeeAwardByEmployee(employeeAwardList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractEmployeeSalarySheetList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1594,21 +1591,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = getEmployeeSalarySheetDAO().findEmployeeSalarySheetByEmployee(employee.getId(),options);
 		if(employeeSalarySheetList != null){
 			enhanceEmployeeSalarySheetList(employeeSalarySheetList,options);
 			employee.setEmployeeSalarySheetList(employeeSalarySheetList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzeEmployeeSalarySheetList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1616,27 +1612,27 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
 		if(employeeSalarySheetList != null){
 			getEmployeeSalarySheetDAO().analyzeEmployeeSalarySheetByEmployee(employeeSalarySheetList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhancePayingOffList(SmartList<PayingOff> payingOffList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Employee extractPayingOffList(Employee employee, Map<String,Object> options){
-		
-		
+    
+
 		if(employee == null){
 			return null;
 		}
@@ -1644,21 +1640,20 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<PayingOff> payingOffList = getPayingOffDAO().findPayingOffByPaidFor(employee.getId(),options);
 		if(payingOffList != null){
 			enhancePayingOffList(payingOffList,options);
 			employee.setPayingOffList(payingOffList);
 		}
-		
+
 		return employee;
-	
-	}	
-	
+  
+	}
+
 	protected Employee analyzePayingOffList(Employee employee, Map<String,Object> options){
-		
-		
+     
 		if(employee == null){
 			return null;
 		}
@@ -1666,47 +1661,47 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 			return employee;
 		}
 
-		
-		
+
+
 		SmartList<PayingOff> payingOffList = employee.getPayingOffList();
 		if(payingOffList != null){
 			getPayingOffDAO().analyzePayingOffByPaidFor(payingOffList, employee.getId(), options);
-			
+
 		}
-		
+
 		return employee;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<Employee> findEmployeeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getEmployeeMapper());
 		// analyzeEmployeeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Employee> findEmployeeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getEmployeeMapper(), start, count);
  		//analyzeEmployeeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeByCompany(SmartList<Employee> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
@@ -1714,11 +1709,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -1729,34 +1724,34 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	public Map<String, Integer> countEmployeeByCompanyIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeTable.COLUMN_COMPANY, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<Employee> findEmployeeByDepartment(String levelThreeDepartmentId,Map<String,Object> options){
- 	
+
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_DEPARTMENT, levelThreeDepartmentId, options, getEmployeeMapper());
 		// analyzeEmployeeByDepartment(resultList, levelThreeDepartmentId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Employee> findEmployeeByDepartment(String levelThreeDepartmentId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_DEPARTMENT, levelThreeDepartmentId, options, getEmployeeMapper(), start, count);
  		//analyzeEmployeeByDepartment(resultList, levelThreeDepartmentId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeByDepartment(SmartList<Employee> resultList, String levelThreeDepartmentId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.DEPARTMENT_PROPERTY, levelThreeDepartmentId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
@@ -1764,11 +1759,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeByDepartment(String levelThreeDepartmentId,Map<String,Object> options){
@@ -1779,34 +1774,34 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	public Map<String, Integer> countEmployeeByDepartmentIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeTable.COLUMN_DEPARTMENT, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<Employee> findEmployeeByOccupation(String occupationTypeId,Map<String,Object> options){
- 	
+
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_OCCUPATION, occupationTypeId, options, getEmployeeMapper());
 		// analyzeEmployeeByOccupation(resultList, occupationTypeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Employee> findEmployeeByOccupation(String occupationTypeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_OCCUPATION, occupationTypeId, options, getEmployeeMapper(), start, count);
  		//analyzeEmployeeByOccupation(resultList, occupationTypeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeByOccupation(SmartList<Employee> resultList, String occupationTypeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.OCCUPATION_PROPERTY, occupationTypeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
@@ -1814,11 +1809,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeByOccupation(String occupationTypeId,Map<String,Object> options){
@@ -1829,34 +1824,34 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	public Map<String, Integer> countEmployeeByOccupationIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeTable.COLUMN_OCCUPATION, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<Employee> findEmployeeByResponsibleFor(String responsibilityTypeId,Map<String,Object> options){
- 	
+
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_RESPONSIBLE_FOR, responsibilityTypeId, options, getEmployeeMapper());
 		// analyzeEmployeeByResponsibleFor(resultList, responsibilityTypeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Employee> findEmployeeByResponsibleFor(String responsibilityTypeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_RESPONSIBLE_FOR, responsibilityTypeId, options, getEmployeeMapper(), start, count);
  		//analyzeEmployeeByResponsibleFor(resultList, responsibilityTypeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeByResponsibleFor(SmartList<Employee> resultList, String responsibilityTypeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibilityTypeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
@@ -1864,11 +1859,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeByResponsibleFor(String responsibilityTypeId,Map<String,Object> options){
@@ -1879,34 +1874,34 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	public Map<String, Integer> countEmployeeByResponsibleForIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeTable.COLUMN_RESPONSIBLE_FOR, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<Employee> findEmployeeByCurrentSalaryGrade(String salaryGradeId,Map<String,Object> options){
- 	
+
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeMapper());
 		// analyzeEmployeeByCurrentSalaryGrade(resultList, salaryGradeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Employee> findEmployeeByCurrentSalaryGrade(String salaryGradeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeMapper(), start, count);
  		//analyzeEmployeeByCurrentSalaryGrade(resultList, salaryGradeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeByCurrentSalaryGrade(SmartList<Employee> resultList, String salaryGradeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
@@ -1914,11 +1909,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeByCurrentSalaryGrade(String salaryGradeId,Map<String,Object> options){
@@ -1929,21 +1924,24 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	public Map<String, Integer> countEmployeeByCurrentSalaryGradeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeTable.COLUMN_CURRENT_SALARY_GRADE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Employee saveEmployee(Employee  employee){
+    
+
 		
 		if(!employee.isChanged()){
 			return employee;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employee);
 		String SQL=this.getSaveEmployeeSQL(employee);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeParameters(employee);
@@ -1954,6 +1952,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		}
 
 		employee.incVersion();
+		employee.afterSave();
 		return employee;
 
 	}
@@ -1971,6 +1970,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		for(Employee employee:employeeList){
 			if(employee.isChanged()){
 				employee.incVersion();
+				employee.afterSave();
 			}
 
 
@@ -2077,47 +2077,38 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		if(employee.getCompany() != null){
  			parameters[0] = employee.getCompany().getId();
  		}
- 
- 		
+    
  		parameters[1] = employee.getTitle();
  		
  		if(employee.getDepartment() != null){
  			parameters[2] = employee.getDepartment().getId();
  		}
- 
- 		
+    
  		parameters[3] = employee.getFamilyName();
- 		
  		
  		parameters[4] = employee.getGivenName();
  		
- 		
  		parameters[5] = employee.getEmail();
- 		
  		
  		parameters[6] = employee.getCity();
  		
- 		
  		parameters[7] = employee.getAddress();
- 		
  		
  		parameters[8] = employee.getCellPhone();
  		
  		if(employee.getOccupation() != null){
  			parameters[9] = employee.getOccupation().getId();
  		}
- 
+    
  		if(employee.getResponsibleFor() != null){
  			parameters[10] = employee.getResponsibleFor().getId();
  		}
- 
+    
  		if(employee.getCurrentSalaryGrade() != null){
  			parameters[11] = employee.getCurrentSalaryGrade().getId();
  		}
- 
- 		
+    
  		parameters[12] = employee.getSalaryAccount();
- 		
  		
  		parameters[13] = employee.getLastUpdateTime();
  		
@@ -2137,53 +2128,39 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  
  		if(employee.getCompany() != null){
  			parameters[1] = employee.getCompany().getId();
-
  		}
- 		
  		
  		parameters[2] = employee.getTitle();
  		
  		if(employee.getDepartment() != null){
  			parameters[3] = employee.getDepartment().getId();
-
  		}
- 		
  		
  		parameters[4] = employee.getFamilyName();
  		
- 		
  		parameters[5] = employee.getGivenName();
- 		
  		
  		parameters[6] = employee.getEmail();
  		
- 		
  		parameters[7] = employee.getCity();
  		
- 		
  		parameters[8] = employee.getAddress();
- 		
  		
  		parameters[9] = employee.getCellPhone();
  		
  		if(employee.getOccupation() != null){
  			parameters[10] = employee.getOccupation().getId();
-
  		}
  		
  		if(employee.getResponsibleFor() != null){
  			parameters[11] = employee.getResponsibleFor().getId();
-
  		}
  		
  		if(employee.getCurrentSalaryGrade() != null){
  			parameters[12] = employee.getCurrentSalaryGrade().getId();
-
  		}
  		
- 		
  		parameters[13] = employee.getSalaryAccount();
- 		
  		
  		parameters[14] = employee.getLastUpdateTime();
  		
@@ -2192,8 +2169,6 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  	}
 
 	protected Employee saveInternalEmployee(Employee employee, Map<String,Object> options){
-
-		saveEmployee(employee);
 
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(employee, options);
@@ -2215,6 +2190,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	 		saveCurrentSalaryGrade(employee, options);
  		}
  
+   saveEmployee(employee);
 		
 		if(isSaveEmployeeCompanyTrainingListEnabled(options)){
 	 		saveEmployeeCompanyTrainingList(employee, options);
@@ -2310,6 +2286,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 
  	protected Employee saveCompany(Employee employee, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employee.getCompany() == null){
  			return employee;//do nothing when it is null
@@ -2319,14 +2296,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		return employee;
 
  	}
-
-
-
-
-
  
 
  	protected Employee saveDepartment(Employee employee, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employee.getDepartment() == null){
  			return employee;//do nothing when it is null
@@ -2336,14 +2309,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		return employee;
 
  	}
-
-
-
-
-
  
 
  	protected Employee saveOccupation(Employee employee, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employee.getOccupation() == null){
  			return employee;//do nothing when it is null
@@ -2353,14 +2322,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		return employee;
 
  	}
-
-
-
-
-
  
 
  	protected Employee saveResponsibleFor(Employee employee, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employee.getResponsibleFor() == null){
  			return employee;//do nothing when it is null
@@ -2370,14 +2335,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		return employee;
 
  	}
-
-
-
-
-
  
 
  	protected Employee saveCurrentSalaryGrade(Employee employee, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employee.getCurrentSalaryGrade() == null){
  			return employee;//do nothing when it is null
@@ -2387,11 +2348,6 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
  		return employee;
 
  	}
-
-
-
-
-
  
 
 	
@@ -3042,7 +2998,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeCompanyTrainingList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3108,7 +3064,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeSkillList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3174,7 +3130,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeePerformanceList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3240,7 +3196,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeWorkExperienceList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3306,7 +3262,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeLeaveList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3372,7 +3328,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeInterviewList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3438,7 +3394,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeAttendanceList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3504,7 +3460,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeQualifierList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3570,7 +3526,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeEducationList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3636,7 +3592,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeAwardList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3702,7 +3658,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee saveEmployeeSalarySheetList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3768,7 +3724,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 		
 	protected Employee savePayingOffList(Employee employee, Map<String,Object> options){
-
+    
 
 
 
@@ -3835,7 +3791,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		
 
 	public Employee present(Employee employee,Map<String, Object> options){
-	
+
 		presentEmployeeCompanyTrainingList(employee,options);
 		presentEmployeeSkillList(employee,options);
 		presentEmployeePerformanceList(employee,options);
@@ -3850,15 +3806,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 		presentPayingOffList(employee,options);
 
 		return employee;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeCompanyTrainingList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();		
+    
+		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
 				SmartList<EmployeeCompanyTraining> newList= presentSubList(employee.getId(),
 				employeeCompanyTrainingList,
 				options,
@@ -3866,19 +3822,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeCompanyTrainingDAO()::findEmployeeCompanyTrainingByEmployee
 				);
 
-		
+
 		employee.setEmployeeCompanyTrainingList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeSkillList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();		
+    
+		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();
 				SmartList<EmployeeSkill> newList= presentSubList(employee.getId(),
 				employeeSkillList,
 				options,
@@ -3886,19 +3842,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeSkillDAO()::findEmployeeSkillByEmployee
 				);
 
-		
+
 		employee.setEmployeeSkillList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeePerformanceList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();		
+    
+		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();
 				SmartList<EmployeePerformance> newList= presentSubList(employee.getId(),
 				employeePerformanceList,
 				options,
@@ -3906,19 +3862,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeePerformanceDAO()::findEmployeePerformanceByEmployee
 				);
 
-		
+
 		employee.setEmployeePerformanceList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeWorkExperienceList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();		
+    
+		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();
 				SmartList<EmployeeWorkExperience> newList= presentSubList(employee.getId(),
 				employeeWorkExperienceList,
 				options,
@@ -3926,19 +3882,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeWorkExperienceDAO()::findEmployeeWorkExperienceByEmployee
 				);
 
-		
+
 		employee.setEmployeeWorkExperienceList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeLeaveList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();		
+    
+		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();
 				SmartList<EmployeeLeave> newList= presentSubList(employee.getId(),
 				employeeLeaveList,
 				options,
@@ -3946,19 +3902,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeLeaveDAO()::findEmployeeLeaveByWho
 				);
 
-		
+
 		employee.setEmployeeLeaveList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeInterviewList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();		
+    
+		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();
 				SmartList<EmployeeInterview> newList= presentSubList(employee.getId(),
 				employeeInterviewList,
 				options,
@@ -3966,19 +3922,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeInterviewDAO()::findEmployeeInterviewByEmployee
 				);
 
-		
+
 		employee.setEmployeeInterviewList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeAttendanceList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();		
+    
+		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();
 				SmartList<EmployeeAttendance> newList= presentSubList(employee.getId(),
 				employeeAttendanceList,
 				options,
@@ -3986,19 +3942,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeAttendanceDAO()::findEmployeeAttendanceByEmployee
 				);
 
-		
+
 		employee.setEmployeeAttendanceList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeQualifierList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();		
+    
+		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();
 				SmartList<EmployeeQualifier> newList= presentSubList(employee.getId(),
 				employeeQualifierList,
 				options,
@@ -4006,19 +3962,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeQualifierDAO()::findEmployeeQualifierByEmployee
 				);
 
-		
+
 		employee.setEmployeeQualifierList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeEducationList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();		
+    
+		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();
 				SmartList<EmployeeEducation> newList= presentSubList(employee.getId(),
 				employeeEducationList,
 				options,
@@ -4026,19 +3982,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeEducationDAO()::findEmployeeEducationByEmployee
 				);
 
-		
+
 		employee.setEmployeeEducationList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeAwardList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();		
+    
+		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();
 				SmartList<EmployeeAward> newList= presentSubList(employee.getId(),
 				employeeAwardList,
 				options,
@@ -4046,19 +4002,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeAwardDAO()::findEmployeeAwardByEmployee
 				);
 
-		
+
 		employee.setEmployeeAwardList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentEmployeeSalarySheetList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();		
+    
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
 				SmartList<EmployeeSalarySheet> newList= presentSubList(employee.getId(),
 				employeeSalarySheetList,
 				options,
@@ -4066,19 +4022,19 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getEmployeeSalarySheetDAO()::findEmployeeSalarySheetByEmployee
 				);
 
-		
+
 		employee.setEmployeeSalarySheetList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Employee presentPayingOffList(
 			Employee employee,
 			Map<String, Object> options) {
-
-		SmartList<PayingOff> payingOffList = employee.getPayingOffList();		
+    
+		SmartList<PayingOff> payingOffList = employee.getPayingOffList();
 				SmartList<PayingOff> newList= presentSubList(employee.getId(),
 				payingOffList,
 				options,
@@ -4086,12 +4042,12 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 				getPayingOffDAO()::findPayingOffByPaidFor
 				);
 
-		
+
 		employee.setPayingOffList(newList);
-		
+
 
 		return employee;
-	}			
+	}
 		
 
 	
@@ -4181,6 +4137,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的employee的EmployeeCompanyTrainingList
 	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4204,6 +4161,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeSkill的employee的EmployeeSkillList
 	public SmartList<EmployeeSkill> loadOurEmployeeSkillList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4227,6 +4185,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeePerformance的employee的EmployeePerformanceList
 	public SmartList<EmployeePerformance> loadOurEmployeePerformanceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4250,6 +4209,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeWorkExperience的employee的EmployeeWorkExperienceList
 	public SmartList<EmployeeWorkExperience> loadOurEmployeeWorkExperienceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4273,6 +4233,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeLeave的who的EmployeeLeaveList
 	public SmartList<EmployeeLeave> loadOurEmployeeLeaveList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4296,6 +4257,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeInterview的employee的EmployeeInterviewList
 	public SmartList<EmployeeInterview> loadOurEmployeeInterviewList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4319,6 +4281,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeAttendance的employee的EmployeeAttendanceList
 	public SmartList<EmployeeAttendance> loadOurEmployeeAttendanceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4342,6 +4305,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeQualifier的employee的EmployeeQualifierList
 	public SmartList<EmployeeQualifier> loadOurEmployeeQualifierList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4365,6 +4329,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeEducation的employee的EmployeeEducationList
 	public SmartList<EmployeeEducation> loadOurEmployeeEducationList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4388,6 +4353,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeAward的employee的EmployeeAwardList
 	public SmartList<EmployeeAward> loadOurEmployeeAwardList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4411,6 +4377,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeSalarySheet的employee的EmployeeSalarySheetList
 	public SmartList<EmployeeSalarySheet> loadOurEmployeeSalarySheetList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4434,6 +4401,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	
 	// 需要一个加载引用我的对象的enhance方法:PayingOff的paidFor的PayingOffList
 	public SmartList<PayingOff> loadOurPayingOffList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -4490,6 +4458,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Employee> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeMapper());
   }
@@ -4525,6 +4497,15 @@ public class EmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Emp
 
 	
 
+  @Override
+  public List<Employee> search(EmployeeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeMapper mapper() {
+    return getEmployeeMapper();
+  }
 }
 
 

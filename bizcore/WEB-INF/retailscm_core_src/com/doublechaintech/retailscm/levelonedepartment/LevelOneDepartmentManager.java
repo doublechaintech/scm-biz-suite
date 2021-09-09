@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.levelonedepartment;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface LevelOneDepartmentManager extends BaseManager{
 
 		
 
+  List<LevelOneDepartment> searchLevelOneDepartmentList(RetailscmUserContext ctx, LevelOneDepartmentRequest pRequest);
+  LevelOneDepartment searchLevelOneDepartment(RetailscmUserContext ctx, LevelOneDepartmentRequest pRequest);
 	public LevelOneDepartment createLevelOneDepartment(RetailscmUserContext userContext, String belongsToId,String name,String description,String manager,Date founded) throws Exception;
 	public LevelOneDepartment updateLevelOneDepartment(RetailscmUserContext userContext,String levelOneDepartmentId, int levelOneDepartmentVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LevelOneDepartment loadLevelOneDepartment(RetailscmUserContext userContext, String levelOneDepartmentId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface LevelOneDepartmentManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String levelOneDepartmentId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, LevelOneDepartment newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, LevelOneDepartment updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface LevelOneDepartmentManager extends BaseManager{
 	public Object listByBelongsTo(RetailscmUserContext userContext,String belongsToId) throws Exception;
 	public Object listPageByBelongsTo(RetailscmUserContext userContext,String belongsToId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.supplyorder;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,27 +10,30 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
 
 public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
-	
+
 	protected SupplyOrder internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		SupplyOrder supplyOrder = getSupplyOrder();		
-		 		
- 		setId(supplyOrder, rs, rowNumber); 		
- 		setBuyer(supplyOrder, rs, rowNumber); 		
- 		setSeller(supplyOrder, rs, rowNumber); 		
- 		setTitle(supplyOrder, rs, rowNumber); 		
- 		setTotalAmount(supplyOrder, rs, rowNumber); 		
- 		setLastUpdateTime(supplyOrder, rs, rowNumber); 		
+		SupplyOrder supplyOrder = getSupplyOrder();
+		
+ 		setId(supplyOrder, rs, rowNumber);
+ 		setBuyer(supplyOrder, rs, rowNumber);
+ 		setSeller(supplyOrder, rs, rowNumber);
+ 		setTitle(supplyOrder, rs, rowNumber);
+ 		setTotalAmount(supplyOrder, rs, rowNumber);
+ 		setLastUpdateTime(supplyOrder, rs, rowNumber);
  		setVersion(supplyOrder, rs, rowNumber);
 
+    
 		return supplyOrder;
 	}
-	
+
 	protected SupplyOrder getSupplyOrder(){
-		return new SupplyOrder();
-	}		
+	  SupplyOrder entity = new SupplyOrder();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(SupplyOrderTable.COLUMN_ID);
@@ -40,10 +44,18 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
 		}
 		
 		supplyOrder.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setBuyer(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(SupplyOrderTable.COLUMN_BUYER);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(SupplyOrderTable.COLUMN_BUYER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -54,14 +66,19 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		supplyOrder.setBuyer(createEmptyBuyer(retailStoreCountryCenterId));
  	}
- 	 		
+ 	
  	protected void setSeller(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
- 		String goodsSupplierId = rs.getString(SupplyOrderTable.COLUMN_SELLER);
+ 		String goodsSupplierId;
+ 		try{
+ 		  goodsSupplierId = rs.getString(SupplyOrderTable.COLUMN_SELLER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( goodsSupplierId == null){
  			return;
  		}
@@ -72,14 +89,14 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( goodsSupplier != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
  			goodsSupplier.setId(goodsSupplierId);
- 			
+
  			return;
  		}
  		supplyOrder.setSeller(createEmptySeller(goodsSupplierId));
  	}
  	
 	protected void setTitle(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String title = rs.getString(SupplyOrderTable.COLUMN_TITLE);
@@ -90,10 +107,13 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
 		}
 		
 		supplyOrder.setTitle(title);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTotalAmount(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal totalAmount = rs.getBigDecimal(SupplyOrderTable.COLUMN_TOTAL_AMOUNT);
@@ -104,10 +124,13 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
 		}
 		
 		supplyOrder.setTotalAmount(totalAmount);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(SupplyOrderTable.COLUMN_LAST_UPDATE_TIME);
@@ -118,10 +141,13 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
 		}
 		
 		supplyOrder.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(SupplyOrderTable.COLUMN_VERSION);
@@ -132,9 +158,12 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
 		}
 		
 		supplyOrder.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyBuyer(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

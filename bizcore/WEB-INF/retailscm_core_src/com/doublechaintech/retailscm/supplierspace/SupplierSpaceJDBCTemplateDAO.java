@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.supplierspace;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected WarehouseDAO warehouseDAO;
 	public void setWarehouseDAO(WarehouseDAO warehouseDAO){
- 	
+
  		if(warehouseDAO == null){
  			throw new IllegalStateException("Do not try to set warehouseDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.warehouseDAO == null){
  			throw new IllegalStateException("The warehouseDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.warehouseDAO;
- 	}	
+ 	}
 
 	protected GoodsShelfDAO goodsShelfDAO;
 	public void setGoodsShelfDAO(GoodsShelfDAO goodsShelfDAO){
- 	
+
  		if(goodsShelfDAO == null){
  			throw new IllegalStateException("Do not try to set goodsShelfDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.goodsShelfDAO == null){
  			throw new IllegalStateException("The goodsShelfDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsShelfDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		newSupplierSpace.setVersion(0);
 		
 		
- 		
+
  		if(isSaveGoodsShelfListEnabled(options)){
  			for(GoodsShelf item: newSupplierSpace.getGoodsShelfList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SupplierSpaceTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractWarehouseEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SupplierSpaceTokens.WAREHOUSE);
  	}
 
  	protected boolean isSaveWarehouseEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SupplierSpaceTokens.WAREHOUSE);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractGoodsShelfListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsShelfListEnabled(Map<String,Object> options){
  		return checkOptions(options,SupplierSpaceTokens.GOODS_SHELF_LIST);
  	}
- 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){
  		return SupplierSpaceTokens.of(options).analyzeGoodsShelfListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsShelfListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplierSpaceTokens.GOODS_SHELF_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new SupplierSpaceMapper();
 	}
 
-	
-	
+
+
 	protected SupplierSpace extractSupplierSpace(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			SupplierSpace supplierSpace = loadSingleObject(accessKey, getSupplierSpaceMapper());
@@ -268,13 +270,13 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected SupplierSpace loadInternalSupplierSpace(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		SupplierSpace supplierSpace = extractSupplierSpace(accessKey, loadOptions);
- 	
+
  		if(isExtractWarehouseEnabled(loadOptions)){
 	 		extractWarehouse(supplierSpace, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 		if(isExtractGoodsShelfListEnabled(loadOptions)){
 	 		extractGoodsShelfList(supplierSpace, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsShelfListEnabled(loadOptions)){
 	 		analyzeGoodsShelfList(supplierSpace, loadOptions);
@@ -291,12 +293,13 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
 		
 		return supplierSpace;
-		
+
 	}
 
-	 
+	
 
  	protected SupplierSpace extractWarehouse(SupplierSpace supplierSpace, Map<String,Object> options) throws Exception{
+  
 
 		if(supplierSpace.getWarehouse() == null){
 			return supplierSpace;
@@ -309,21 +312,21 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(warehouse != null){
 			supplierSpace.setWarehouse(warehouse);
 		}
-		
- 		
+
+
  		return supplierSpace;
  	}
- 		
+
  
 		
 	protected void enhanceGoodsShelfList(SmartList<GoodsShelf> goodsShelfList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SupplierSpace extractGoodsShelfList(SupplierSpace supplierSpace, Map<String,Object> options){
-		
-		
+    
+
 		if(supplierSpace == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return supplierSpace;
 		}
 
-		
-		
+
+
 		SmartList<GoodsShelf> goodsShelfList = getGoodsShelfDAO().findGoodsShelfBySupplierSpace(supplierSpace.getId(),options);
 		if(goodsShelfList != null){
 			enhanceGoodsShelfList(goodsShelfList,options);
 			supplierSpace.setGoodsShelfList(goodsShelfList);
 		}
-		
+
 		return supplierSpace;
-	
-	}	
-	
+  
+	}
+
 	protected SupplierSpace analyzeGoodsShelfList(SupplierSpace supplierSpace, Map<String,Object> options){
-		
-		
+     
 		if(supplierSpace == null){
 			return null;
 		}
@@ -353,47 +355,47 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return supplierSpace;
 		}
 
-		
-		
+
+
 		SmartList<GoodsShelf> goodsShelfList = supplierSpace.getGoodsShelfList();
 		if(goodsShelfList != null){
 			getGoodsShelfDAO().analyzeGoodsShelfBySupplierSpace(goodsShelfList, supplierSpace.getId(), options);
-			
+
 		}
-		
+
 		return supplierSpace;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<SupplierSpace> findSupplierSpaceByWarehouse(String warehouseId,Map<String,Object> options){
- 	
+
   		SmartList<SupplierSpace> resultList = queryWith(SupplierSpaceTable.COLUMN_WAREHOUSE, warehouseId, options, getSupplierSpaceMapper());
 		// analyzeSupplierSpaceByWarehouse(resultList, warehouseId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<SupplierSpace> findSupplierSpaceByWarehouse(String warehouseId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<SupplierSpace> resultList =  queryWithRange(SupplierSpaceTable.COLUMN_WAREHOUSE, warehouseId, options, getSupplierSpaceMapper(), start, count);
  		//analyzeSupplierSpaceByWarehouse(resultList, warehouseId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSupplierSpaceByWarehouse(SmartList<SupplierSpace> resultList, String warehouseId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplierSpace.WAREHOUSE_PROPERTY, warehouseId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//SupplierSpace.LAST_UPDATE_TIME_PROPERTY
@@ -401,11 +403,11 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SupplierSpace.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SupplierSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSupplierSpaceByWarehouse(String warehouseId,Map<String,Object> options){
@@ -416,21 +418,24 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countSupplierSpaceByWarehouseIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SupplierSpaceTable.COLUMN_WAREHOUSE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected SupplierSpace saveSupplierSpace(SupplierSpace  supplierSpace){
+    
+
 		
 		if(!supplierSpace.isChanged()){
 			return supplierSpace;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(supplierSpace);
 		String SQL=this.getSaveSupplierSpaceSQL(supplierSpace);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSupplierSpaceParameters(supplierSpace);
@@ -441,6 +446,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		supplierSpace.incVersion();
+		supplierSpace.afterSave();
 		return supplierSpace;
 
 	}
@@ -458,6 +464,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(SupplierSpace supplierSpace:supplierSpaceList){
 			if(supplierSpace.isChanged()){
 				supplierSpace.incVersion();
+				supplierSpace.afterSave();
 			}
 
 
@@ -561,25 +568,19 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	protected Object[] prepareSupplierSpaceUpdateParameters(SupplierSpace supplierSpace){
  		Object[] parameters = new Object[10];
  
- 		
  		parameters[0] = supplierSpace.getLocation();
  		
- 		
  		parameters[1] = supplierSpace.getContactNumber();
- 		
  		
  		parameters[2] = supplierSpace.getTotalArea();
  		
  		if(supplierSpace.getWarehouse() != null){
  			parameters[3] = supplierSpace.getWarehouse().getId();
  		}
- 
- 		
+    
  		parameters[4] = supplierSpace.getLatitude();
  		
- 		
  		parameters[5] = supplierSpace.getLongitude();
- 		
  		
  		parameters[6] = supplierSpace.getLastUpdateTime();
  		
@@ -597,26 +598,19 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
         }
 		parameters[0] =  supplierSpace.getId();
  
- 		
  		parameters[1] = supplierSpace.getLocation();
  		
- 		
  		parameters[2] = supplierSpace.getContactNumber();
- 		
  		
  		parameters[3] = supplierSpace.getTotalArea();
  		
  		if(supplierSpace.getWarehouse() != null){
  			parameters[4] = supplierSpace.getWarehouse().getId();
-
  		}
- 		
  		
  		parameters[5] = supplierSpace.getLatitude();
  		
- 		
  		parameters[6] = supplierSpace.getLongitude();
- 		
  		
  		parameters[7] = supplierSpace.getLastUpdateTime();
  		
@@ -626,12 +620,11 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected SupplierSpace saveInternalSupplierSpace(SupplierSpace supplierSpace, Map<String,Object> options){
 
-		saveSupplierSpace(supplierSpace);
-
  		if(isSaveWarehouseEnabled(options)){
 	 		saveWarehouse(supplierSpace, options);
  		}
  
+   saveSupplierSpace(supplierSpace);
 		
 		if(isSaveGoodsShelfListEnabled(options)){
 	 		saveGoodsShelfList(supplierSpace, options);
@@ -650,6 +643,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected SupplierSpace saveWarehouse(SupplierSpace supplierSpace, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(supplierSpace.getWarehouse() == null){
  			return supplierSpace;//do nothing when it is null
@@ -659,11 +653,6 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return supplierSpace;
 
  	}
-
-
-
-
-
  
 
 	
@@ -786,7 +775,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected SupplierSpace saveGoodsShelfList(SupplierSpace supplierSpace, Map<String,Object> options){
-
+    
 
 
 
@@ -853,19 +842,19 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public SupplierSpace present(SupplierSpace supplierSpace,Map<String, Object> options){
-	
+
 		presentGoodsShelfList(supplierSpace,options);
 
 		return supplierSpace;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SupplierSpace presentGoodsShelfList(
 			SupplierSpace supplierSpace,
 			Map<String, Object> options) {
-
-		SmartList<GoodsShelf> goodsShelfList = supplierSpace.getGoodsShelfList();		
+    
+		SmartList<GoodsShelf> goodsShelfList = supplierSpace.getGoodsShelfList();
 				SmartList<GoodsShelf> newList= presentSubList(supplierSpace.getId(),
 				goodsShelfList,
 				options,
@@ -873,12 +862,12 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				getGoodsShelfDAO()::findGoodsShelfBySupplierSpace
 				);
 
-		
+
 		supplierSpace.setGoodsShelfList(newList);
-		
+
 
 		return supplierSpace;
-	}			
+	}
 		
 
 	
@@ -902,6 +891,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 	// 需要一个加载引用我的对象的enhance方法:GoodsShelf的supplierSpace的GoodsShelfList
 	public SmartList<GoodsShelf> loadOurGoodsShelfList(RetailscmUserContext userContext, List<SupplierSpace> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -958,6 +948,10 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<SupplierSpace> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSupplierSpaceMapper());
   }
@@ -993,6 +987,15 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<SupplierSpace> search(SupplierSpaceRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SupplierSpaceMapper mapper() {
+    return getSupplierSpaceMapper();
+  }
 }
 
 

@@ -10,6 +10,19 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+/**
+ * <pre><xmp>
+ *     <property name="securityStatus">
+ *        <option value="ANONYMOUS" code="0"/>
+ *        <option value="URL-PARAM" code="1"/>
+ *        <option value="AUTO-SIGNIN" code="2"/>
+ *        <option value="HTTP-BASIC-AUTH" code="3"/>
+ *        <option value="EXPLICIT-SIGNIN" code="4"/>
+ *        <option value="SECURE-SIGNIN" code="5"/>
+ *        <option value="CERTIFICATE" code="6"/>
+ *      </property>
+ * </xmp></pre>
+ */
 public class JWTUtil {
 	
 	
@@ -56,6 +69,11 @@ public class JWTUtil {
 		try {
 			
 		    Algorithm algorithm = Algorithm.HMAC256(getSecret());
+		    String securityStatus = "CERTIFICATE";
+		    if (userId == null || "anonymous".equals(userId)){
+				securityStatus = "ANONYMOUS";
+				userId = "anonymous_"+tokenKey;
+			}
 		    String token = JWT.create()
 		        .withIssuer(getIssuer())
 		        .withKeyId(userId)
@@ -64,6 +82,8 @@ public class JWTUtil {
 		        .withClaim("userUploadHome", userUploadHome)
 		        .withClaim("envType", envType)
 		        .withClaim("tokenKey", tokenKey)
+				.withClaim("userId", userId)
+				.withClaim("securityStatus", securityStatus)
 		        .withArrayClaim("tags", tags)
 		        .sign(algorithm);
 		    return token;

@@ -46,13 +46,15 @@ public interface ProvinceCenterEmployeeDAO extends BaseDAO{
 	public void delete(String provinceCenterEmployeeId, int version) throws Exception;
 	public ProvinceCenterEmployee disconnectFromAll(String provinceCenterEmployeeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<ProvinceCenterEmployee> queryList(String sql, Object ... parmeters);
+	public SmartList<ProvinceCenterEmployee> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<ProvinceCenterEmployee> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateProvinceCenterEmployee executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByDepartment(String provinceCenterDepartmentId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface ProvinceCenterEmployeeDAO extends BaseDAO{
 
 
  
+
+	List<ProvinceCenterEmployee> search(ProvinceCenterEmployeeRequest pRequest);
 }
 
 

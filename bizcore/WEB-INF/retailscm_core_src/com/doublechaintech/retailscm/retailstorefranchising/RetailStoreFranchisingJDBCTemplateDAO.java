@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstorefranchising;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	protected RetailStoreDAO retailStoreDAO;
 	public void setRetailStoreDAO(RetailStoreDAO retailStoreDAO){
- 	
+
  		if(retailStoreDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		if(this.retailStoreDAO == null){
  			throw new IllegalStateException("The retailStoreDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -105,7 +107,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		newRetailStoreFranchising.setVersion(0);
 		
 		
- 		
+
  		if(isSaveRetailStoreListEnabled(options)){
  			for(RetailStore item: newRetailStoreFranchising.getRetailStoreList()){
  				item.setVersion(0);
@@ -192,30 +194,30 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreFranchisingTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
 		
-	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){
  		return RetailStoreFranchisingTokens.of(options).analyzeRetailStoreListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreFranchisingTokens.RETAIL_STORE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -224,8 +226,8 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		return new RetailStoreFranchisingMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreFranchising extractRetailStoreFranchising(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreFranchising retailStoreFranchising = loadSingleObject(accessKey, getRetailStoreFranchisingMapper());
@@ -236,18 +238,18 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreFranchising loadInternalRetailStoreFranchising(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreFranchising retailStoreFranchising = extractRetailStoreFranchising(accessKey, loadOptions);
 
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreFranchising, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
 	 		analyzeRetailStoreList(retailStoreFranchising, loadOptions);
@@ -255,7 +257,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		
 		
 		return retailStoreFranchising;
-		
+
 	}
 
 	
@@ -264,10 +266,10 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreFranchising extractRetailStoreList(RetailStoreFranchising retailStoreFranchising, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreFranchising == null){
 			return null;
 		}
@@ -275,21 +277,20 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			return retailStoreFranchising;
 		}
 
-		
-		
+
+
 		SmartList<RetailStore> retailStoreList = getRetailStoreDAO().findRetailStoreByFranchising(retailStoreFranchising.getId(),options);
 		if(retailStoreList != null){
 			enhanceRetailStoreList(retailStoreList,options);
 			retailStoreFranchising.setRetailStoreList(retailStoreList);
 		}
-		
+
 		return retailStoreFranchising;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreFranchising analyzeRetailStoreList(RetailStoreFranchising retailStoreFranchising, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreFranchising == null){
 			return null;
 		}
@@ -297,34 +298,37 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 			return retailStoreFranchising;
 		}
 
-		
-		
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreFranchising.getRetailStoreList();
 		if(retailStoreList != null){
 			getRetailStoreDAO().analyzeRetailStoreByFranchising(retailStoreList, retailStoreFranchising.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreFranchising;
-	
-	}	
-	
+    
+	}
+
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreFranchising saveRetailStoreFranchising(RetailStoreFranchising  retailStoreFranchising){
+    
+
 		
 		if(!retailStoreFranchising.isChanged()){
 			return retailStoreFranchising;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreFranchising);
 		String SQL=this.getSaveRetailStoreFranchisingSQL(retailStoreFranchising);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreFranchisingParameters(retailStoreFranchising);
@@ -335,6 +339,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 
 		retailStoreFranchising.incVersion();
+		retailStoreFranchising.afterSave();
 		return retailStoreFranchising;
 
 	}
@@ -352,6 +357,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		for(RetailStoreFranchising retailStoreFranchising:retailStoreFranchisingList){
 			if(retailStoreFranchising.isChanged()){
 				retailStoreFranchising.incVersion();
+				retailStoreFranchising.afterSave();
 			}
 
 
@@ -455,7 +461,6 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  	protected Object[] prepareRetailStoreFranchisingUpdateParameters(RetailStoreFranchising retailStoreFranchising){
  		Object[] parameters = new Object[4];
  
- 		
  		parameters[0] = retailStoreFranchising.getComment();
  		
  		parameters[1] = retailStoreFranchising.nextVersion();
@@ -472,7 +477,6 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
         }
 		parameters[0] =  retailStoreFranchising.getId();
  
- 		
  		parameters[1] = retailStoreFranchising.getComment();
  		
 
@@ -481,8 +485,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	protected RetailStoreFranchising saveInternalRetailStoreFranchising(RetailStoreFranchising retailStoreFranchising, Map<String,Object> options){
 
-		saveRetailStoreFranchising(retailStoreFranchising);
-
+   saveRetailStoreFranchising(retailStoreFranchising);
 		
 		if(isSaveRetailStoreListEnabled(options)){
 	 		saveRetailStoreList(retailStoreFranchising, options);
@@ -840,7 +843,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 		
 	protected RetailStoreFranchising saveRetailStoreList(RetailStoreFranchising retailStoreFranchising, Map<String,Object> options){
-
+    
 
 
 
@@ -907,19 +910,19 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		
 
 	public RetailStoreFranchising present(RetailStoreFranchising retailStoreFranchising,Map<String, Object> options){
-	
+
 		presentRetailStoreList(retailStoreFranchising,options);
 
 		return retailStoreFranchising;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreFranchising presentRetailStoreList(
 			RetailStoreFranchising retailStoreFranchising,
 			Map<String, Object> options) {
-
-		SmartList<RetailStore> retailStoreList = retailStoreFranchising.getRetailStoreList();		
+    
+		SmartList<RetailStore> retailStoreList = retailStoreFranchising.getRetailStoreList();
 				SmartList<RetailStore> newList= presentSubList(retailStoreFranchising.getId(),
 				retailStoreList,
 				options,
@@ -927,12 +930,12 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 				getRetailStoreDAO()::findRetailStoreByFranchising
 				);
 
-		
+
 		retailStoreFranchising.setRetailStoreList(newList);
-		
+
 
 		return retailStoreFranchising;
-	}			
+	}
 		
 
 	
@@ -956,6 +959,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的franchising的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreFranchising> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1012,6 +1016,10 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreFranchising> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreFranchisingMapper());
   }
@@ -1051,13 +1059,13 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -1066,19 +1074,19 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -1086,7 +1094,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -1097,7 +1105,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -1106,27 +1114,36 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<RetailStoreFranchising> search(RetailStoreFranchisingRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreFranchisingMapper mapper() {
+    return getRetailStoreFranchisingMapper();
+  }
 }
 
 

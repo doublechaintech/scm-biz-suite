@@ -46,6 +46,7 @@ public interface ReceivingSpaceDAO extends BaseDAO{
 	public void delete(String receivingSpaceId, int version) throws Exception;
 	public ReceivingSpace disconnectFromAll(String receivingSpaceId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public GoodsDAO getGoodsDAO();
 		
@@ -89,9 +90,10 @@ public interface ReceivingSpaceDAO extends BaseDAO{
 	public int countGoodsListWithRetailStoreOrder(String receivingSpaceId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<ReceivingSpace> queryList(String sql, Object ... parmeters);
+	public SmartList<ReceivingSpace> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<ReceivingSpace> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateReceivingSpace executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<ReceivingSpace> findReceivingSpaceByWarehouse(String warehouseId, Map<String,Object> options);
@@ -105,6 +107,8 @@ public interface ReceivingSpaceDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Goods的receivingSpace的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<ReceivingSpace> us, Map<String,Object> options) throws Exception;
 	
+
+	List<ReceivingSpace> search(ReceivingSpaceRequest pRequest);
 }
 
 

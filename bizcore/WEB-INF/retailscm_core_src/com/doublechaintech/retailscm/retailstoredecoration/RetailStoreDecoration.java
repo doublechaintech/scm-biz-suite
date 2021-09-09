@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.retailstoredecoration;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstore.RetailStore;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.retailstore.RetailStore;
 @JsonSerialize(using = RetailStoreDecorationSerializer.class)
 public class RetailStoreDecoration extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String COMMENT_PROPERTY               = "comment"           ;
 	public static final String VERSION_PROPERTY               = "version"           ;
@@ -43,30 +40,85 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COMMENT_PROPERTY, "comment", "评论")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(RETAIL_STORE_LIST, "decoration", "零售门店列表")
+        .withType("retail_store", RetailStore.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,COMMENT_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(RETAIL_STORE_LIST, "decoration");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(RETAIL_STORE_LIST, RetailStore.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    
+    return parents;
+  }
+
+  public RetailStoreDecoration want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public RetailStoreDecoration wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getComment();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mComment            ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	comment             ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<RetailStore>	mRetailStoreList    ;
 
-	
-		
+
+
 	public 	RetailStoreDecoration(){
 		// lazy load for all the properties
 	}
@@ -74,19 +126,38 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		RetailStoreDecoration retailStoreDecoration = new RetailStoreDecoration();
 		retailStoreDecoration.setId(id);
 		retailStoreDecoration.setVersion(Integer.MAX_VALUE);
+		retailStoreDecoration.setChecked(true);
 		return retailStoreDecoration;
 	}
 	public 	static RetailStoreDecoration refById(String id){
 		return withId(id);
 	}
-	
+
+  public RetailStoreDecoration limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public RetailStoreDecoration limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static RetailStoreDecoration searchExample(){
+    RetailStoreDecoration retailStoreDecoration = new RetailStoreDecoration();
+    		retailStoreDecoration.setVersion(UNSET_INT);
+
+    return retailStoreDecoration;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -119,7 +190,7 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(COMMENT_PROPERTY.equals(property)){
 			return getComment();
 		}
@@ -131,60 +202,99 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public RetailStoreDecoration updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreDecoration updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public RetailStoreDecoration orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public RetailStoreDecoration ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public RetailStoreDecoration addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setComment(String comment){
-		this.mComment = trimString(comment);;
-	}
+	public void setComment(String comment){String oldComment = this.comment;String newComment = trimString(comment);this.comment = newComment;}
+	public String comment(){
+doLoad();
+return getComment();
+}
 	public String getComment(){
-		return this.mComment;
+		return this.comment;
 	}
-	public RetailStoreDecoration updateComment(String comment){
-		this.mComment = trimString(comment);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreDecoration updateComment(String comment){String oldComment = this.comment;String newComment = trimString(comment);if(!shouldReplaceBy(newComment, oldComment)){return this;}this.comment = newComment;addPropertyChange(COMMENT_PROPERTY, oldComment, newComment);this.changed = true;setChecked(false);return this;}
+	public RetailStoreDecoration orderByComment(boolean asc){
+doAddOrderBy(COMMENT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCommentCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COMMENT_PROPERTY, operator, parameters);
+}
+	public RetailStoreDecoration ignoreCommentCriteria(){super.ignoreSearchProperty(COMMENT_PROPERTY);
+return this;
+}
+	public RetailStoreDecoration addCommentCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCommentCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeComment(String comment){
 		if(comment != null) { setComment(comment);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public RetailStoreDecoration updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStoreDecoration updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public RetailStoreDecoration orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public RetailStoreDecoration ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public RetailStoreDecoration addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<RetailStore> getRetailStoreList(){
@@ -193,9 +303,18 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 			this.mRetailStoreList.setListInternalName (RETAIL_STORE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mRetailStoreList;	
+
+		return this.mRetailStoreList;
 	}
+
+  public  SmartList<RetailStore> retailStoreList(){
+    
+    doLoadChild(RETAIL_STORE_LIST);
+    
+    return getRetailStoreList();
+  }
+
+
 	public  void setRetailStoreList(SmartList<RetailStore> retailStoreList){
 		for( RetailStore retailStore:retailStoreList){
 			retailStore.setDecoration(this);
@@ -203,18 +322,20 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 
 		this.mRetailStoreList = retailStoreList;
 		this.mRetailStoreList.setListInternalName (RETAIL_STORE_LIST );
-		
+
 	}
-	
-	public  void addRetailStore(RetailStore retailStore){
+
+	public  RetailStoreDecoration addRetailStore(RetailStore retailStore){
 		retailStore.setDecoration(this);
 		getRetailStoreList().add(retailStore);
+		return this;
 	}
-	public  void addRetailStoreList(SmartList<RetailStore> retailStoreList){
+	public  RetailStoreDecoration addRetailStoreList(SmartList<RetailStore> retailStoreList){
 		for( RetailStore retailStore:retailStoreList){
 			retailStore.setDecoration(this);
 		}
 		getRetailStoreList().addAll(retailStoreList);
+		return this;
 	}
 	public  void mergeRetailStoreList(SmartList<RetailStore> retailStoreList){
 		if(retailStoreList==null){
@@ -224,45 +345,45 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 			return;
 		}
 		addRetailStoreList( retailStoreList );
-		
+
 	}
 	public  RetailStore removeRetailStore(RetailStore retailStoreIndex){
-		
+
 		int index = getRetailStoreList().indexOf(retailStoreIndex);
         if(index < 0){
         	String message = "RetailStore("+retailStoreIndex.getId()+") with version='"+retailStoreIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        RetailStore retailStore = getRetailStoreList().get(index);        
+        RetailStore retailStore = getRetailStoreList().get(index);
         // retailStore.clearDecoration(); //disconnect with Decoration
         retailStore.clearFromAll(); //disconnect with Decoration
-		
+
 		boolean result = getRetailStoreList().planToRemove(retailStore);
         if(!result){
         	String message = "RetailStore("+retailStoreIndex.getId()+") with version='"+retailStoreIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return retailStore;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithRetailStore(RetailStore retailStore){
-		
+
 		if(retailStore == null){
 			return;
 		}
 		retailStore.setDecoration(null);
 		//getRetailStoreList().remove();
-	
+
 	}
-	
+
 	public  boolean hasRetailStore(RetailStore retailStore){
-	
+
 		return getRetailStoreList().contains(retailStore);
-  
+
 	}
-	
+
 	public void copyRetailStoreFrom(RetailStore retailStore) {
 
 		RetailStore retailStoreInList = findTheRetailStore(retailStore);
@@ -272,52 +393,52 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		getRetailStoreList().add(newRetailStore);
 		addItemToFlexiableObject(COPIED_CHILD, newRetailStore);
 	}
-	
+
 	public  RetailStore findTheRetailStore(RetailStore retailStore){
-		
+
 		int index =  getRetailStoreList().indexOf(retailStore);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "RetailStore("+retailStore.getId()+") with version='"+retailStore.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getRetailStoreList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpRetailStoreList(){
 		getRetailStoreList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getRetailStoreList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getRetailStoreList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -335,16 +456,16 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStoreDecoration){
-		
-		
+
+
 			RetailStoreDecoration dest =(RetailStoreDecoration)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setComment(getComment());
 			dest.setVersion(getVersion());
@@ -355,13 +476,13 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStoreDecoration){
-		
-			
+
+
 			RetailStoreDecoration dest =(RetailStoreDecoration)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeComment(getComment());
 			dest.mergeVersion(getVersion());
@@ -371,15 +492,15 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStoreDecoration){
-		
-			
+
+
 			RetailStoreDecoration dest =(RetailStoreDecoration)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeComment(getComment());
 			dest.mergeVersion(getVersion());
@@ -390,6 +511,40 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getComment(), getVersion()};
 	}
+
+
+	public static RetailStoreDecoration createWith(RetailscmUserContext userContext, ThrowingFunction<RetailStoreDecoration,RetailStoreDecoration,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<RetailStoreDecoration> customCreator = mapper.findCustomCreator(RetailStoreDecoration.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    RetailStoreDecoration result = new RetailStoreDecoration();
+    result.setComment(mapper.tryToGet(RetailStoreDecoration.class, COMMENT_PROPERTY, String.class,
+        0, true, result.getComment(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixRetailStoreDecoration(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      RetailStoreDecorationTokens tokens = mapper.findParamByClass(params, RetailStoreDecorationTokens.class);
+      if (tokens == null) {
+        tokens = RetailStoreDecorationTokens.start();
+      }
+      result = userContext.getManagerGroup().getRetailStoreDecorationManager().internalSaveRetailStoreDecoration(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -401,7 +556,7 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

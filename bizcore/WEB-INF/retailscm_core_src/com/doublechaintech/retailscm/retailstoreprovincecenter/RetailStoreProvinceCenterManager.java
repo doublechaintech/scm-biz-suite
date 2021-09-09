@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.retailstoreprovincecenter;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface RetailStoreProvinceCenterManager extends BaseManager{
 
 		
 
+  List<RetailStoreProvinceCenter> searchRetailStoreProvinceCenterList(RetailscmUserContext ctx, RetailStoreProvinceCenterRequest pRequest);
+  RetailStoreProvinceCenter searchRetailStoreProvinceCenter(RetailscmUserContext ctx, RetailStoreProvinceCenterRequest pRequest);
 	public RetailStoreProvinceCenter createRetailStoreProvinceCenter(RetailscmUserContext userContext, String name,Date founded,String countryId) throws Exception;
 	public RetailStoreProvinceCenter updateRetailStoreProvinceCenter(RetailscmUserContext userContext,String retailStoreProvinceCenterId, int retailStoreProvinceCenterVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreProvinceCenter loadRetailStoreProvinceCenter(RetailscmUserContext userContext, String retailStoreProvinceCenterId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface RetailStoreProvinceCenterManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String retailStoreProvinceCenterId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, RetailStoreProvinceCenter newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, RetailStoreProvinceCenter updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -65,6 +73,9 @@ public interface RetailStoreProvinceCenterManager extends BaseManager{
 	public Object listByCountry(RetailscmUserContext userContext,String countryId) throws Exception;
 	public Object listPageByCountry(RetailscmUserContext userContext,String countryId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

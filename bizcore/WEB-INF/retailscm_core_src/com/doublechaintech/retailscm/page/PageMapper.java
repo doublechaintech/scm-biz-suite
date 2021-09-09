@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.page;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,27 +10,30 @@ import com.doublechaintech.retailscm.mobileapp.MobileApp;
 import com.doublechaintech.retailscm.pagetype.PageType;
 
 public class PageMapper extends BaseRowMapper<Page>{
-	
+
 	protected Page internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		Page page = getPage();		
-		 		
- 		setId(page, rs, rowNumber); 		
- 		setPageTitle(page, rs, rowNumber); 		
- 		setLinkToUrl(page, rs, rowNumber); 		
- 		setPageType(page, rs, rowNumber); 		
- 		setDisplayOrder(page, rs, rowNumber); 		
- 		setMobileApp(page, rs, rowNumber); 		
+		Page page = getPage();
+		
+ 		setId(page, rs, rowNumber);
+ 		setPageTitle(page, rs, rowNumber);
+ 		setLinkToUrl(page, rs, rowNumber);
+ 		setPageType(page, rs, rowNumber);
+ 		setDisplayOrder(page, rs, rowNumber);
+ 		setMobileApp(page, rs, rowNumber);
  		setVersion(page, rs, rowNumber);
 
+    
 		return page;
 	}
-	
+
 	protected Page getPage(){
-		return new Page();
-	}		
+	  Page entity = new Page();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(Page page, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(PageTable.COLUMN_ID);
@@ -40,10 +44,13 @@ public class PageMapper extends BaseRowMapper<Page>{
 		}
 		
 		page.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPageTitle(Page page, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String pageTitle = rs.getString(PageTable.COLUMN_PAGE_TITLE);
@@ -54,10 +61,13 @@ public class PageMapper extends BaseRowMapper<Page>{
 		}
 		
 		page.setPageTitle(pageTitle);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLinkToUrl(Page page, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String linkToUrl = rs.getString(PageTable.COLUMN_LINK_TO_URL);
@@ -68,10 +78,18 @@ public class PageMapper extends BaseRowMapper<Page>{
 		}
 		
 		page.setLinkToUrl(linkToUrl);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setPageType(Page page, ResultSet rs, int rowNumber) throws SQLException{
- 		String pageTypeId = rs.getString(PageTable.COLUMN_PAGE_TYPE);
+ 		String pageTypeId;
+ 		try{
+ 		  pageTypeId = rs.getString(PageTable.COLUMN_PAGE_TYPE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( pageTypeId == null){
  			return;
  		}
@@ -82,14 +100,14 @@ public class PageMapper extends BaseRowMapper<Page>{
  		if( pageType != null ){
  			//if the root object 'page' already have the property, just set the id for it;
  			pageType.setId(pageTypeId);
- 			
+
  			return;
  		}
  		page.setPageType(createEmptyPageType(pageTypeId));
  	}
  	
 	protected void setDisplayOrder(Page page, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer displayOrder = rs.getInt(PageTable.COLUMN_DISPLAY_ORDER);
@@ -100,10 +118,18 @@ public class PageMapper extends BaseRowMapper<Page>{
 		}
 		
 		page.setDisplayOrder(displayOrder);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setMobileApp(Page page, ResultSet rs, int rowNumber) throws SQLException{
- 		String mobileAppId = rs.getString(PageTable.COLUMN_MOBILE_APP);
+ 		String mobileAppId;
+ 		try{
+ 		  mobileAppId = rs.getString(PageTable.COLUMN_MOBILE_APP);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( mobileAppId == null){
  			return;
  		}
@@ -114,14 +140,14 @@ public class PageMapper extends BaseRowMapper<Page>{
  		if( mobileApp != null ){
  			//if the root object 'page' already have the property, just set the id for it;
  			mobileApp.setId(mobileAppId);
- 			
+
  			return;
  		}
  		page.setMobileApp(createEmptyMobileApp(mobileAppId));
  	}
  	
 	protected void setVersion(Page page, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(PageTable.COLUMN_VERSION);
@@ -132,9 +158,12 @@ public class PageMapper extends BaseRowMapper<Page>{
 		}
 		
 		page.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected PageType  createEmptyPageType(String pageTypeId){
  		PageType pageType = new PageType();

@@ -46,6 +46,7 @@ public interface OccupationTypeDAO extends BaseDAO{
 	public void delete(String occupationTypeId, int version) throws Exception;
 	public OccupationType disconnectFromAll(String occupationTypeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeDAO getEmployeeDAO();
 		
@@ -73,9 +74,10 @@ public interface OccupationTypeDAO extends BaseDAO{
 	public int countEmployeeListWithCurrentSalaryGrade(String occupationTypeId, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<OccupationType> queryList(String sql, Object ... parmeters);
+	public SmartList<OccupationType> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<OccupationType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateOccupationType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<OccupationType> findOccupationTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -89,6 +91,8 @@ public interface OccupationTypeDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Employee的occupation的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<OccupationType> us, Map<String,Object> options) throws Exception;
 	
+
+	List<OccupationType> search(OccupationTypeRequest pRequest);
 }
 
 

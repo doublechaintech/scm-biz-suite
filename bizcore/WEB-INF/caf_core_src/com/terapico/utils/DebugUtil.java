@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -177,7 +178,20 @@ public class DebugUtil {
         	out.write(String.format(template));
     	}
     	template = "</div>";
-    	out.write(String.format(template));
+    	out.write(template);
+    	if (level == 1) {
+			template = "<button onclick='javascript:$(\"#json_src\").toggle();'>点击查看/收起JSON:</button><br/>" +
+					"<pre  style='background-color:#d9d9d9;'>" +
+					"<code id='json_src'>";
+			out.write(template);
+			try {
+				out.write(DebugUtil.dumpAsJson(map, true));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			template = "</code></pre>";
+			out.write(template);
+		}
     }
 
     private static String getIconHtml() {
@@ -248,6 +262,10 @@ public class DebugUtil {
 		if (key.endsWith("Logo")) {
 			return true;
 		}
+
+		if (key.toLowerCase().endsWith("avatar")){
+			return true;
+		}
 		
 		return false;
 	}
@@ -289,5 +307,18 @@ public class DebugUtil {
 			}
 			t = t.getCause();
 		}
+	}
+
+	public static <T> T fromJson(String json, TypeReference<T> type) throws IOException {
+		if (json == null || json.isEmpty()){
+			return null;
+		}
+		return getObjectMapper().readValue(json, type);
+	}
+	public static <T> T fromJson(String json, Class<T> type) throws IOException {
+		if (json == null || json.isEmpty()){
+			return null;
+		}
+		return getObjectMapper().readValue(json, type);
 	}
 }

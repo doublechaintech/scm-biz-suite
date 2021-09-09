@@ -44,6 +44,7 @@ public interface ScoringDAO extends BaseDAO{
 	public void delete(String scoringId, int version) throws Exception;
 	public Scoring disconnectFromAll(String scoringId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeCompanyTrainingDAO getEmployeeCompanyTrainingDAO();
 		
@@ -63,14 +64,17 @@ public interface ScoringDAO extends BaseDAO{
 	public int countEmployeeCompanyTrainingListWithTraining(String scoringId, String trainingId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<Scoring> queryList(String sql, Object ... parmeters);
+	public SmartList<Scoring> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Scoring> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateScoring executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
 	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的scoring的EmployeeCompanyTrainingList
 	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Scoring> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Scoring> search(ScoringRequest pRequest);
 }
 
 

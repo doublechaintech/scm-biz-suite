@@ -1,44 +1,27 @@
 
 package com.doublechaintech.retailscm.payingoff;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.employee.CandidateEmployee;import com.doublechaintech.retailscm.employee.Employee;import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheet;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.payingoff.PayingOff;import com.doublechaintech.retailscm.salarygrade.SalaryGrade;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.employee.Employee;
-import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheet;
-
-import com.doublechaintech.retailscm.employee.CandidateEmployee;
-
-import com.doublechaintech.retailscm.employee.Employee;
-import com.doublechaintech.retailscm.payingoff.PayingOff;
-import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implements PayingOffManager, BusinessHandler{
@@ -81,6 +64,7 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws PayingOffManagerException{
 
 		Message message = new Message();
@@ -91,136 +75,190 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 
 
 
- 	protected PayingOff savePayingOff(RetailscmUserContext userContext, PayingOff payingOff, String [] tokensExpr) throws Exception{	
+ 	protected PayingOff savePayingOff(RetailscmUserContext userContext, PayingOff payingOff, String [] tokensExpr) throws Exception{
  		//return getPayingOffDAO().save(payingOff, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return savePayingOff(userContext, payingOff, tokens);
  	}
- 	
- 	protected PayingOff savePayingOffDetail(RetailscmUserContext userContext, PayingOff payingOff) throws Exception{	
 
- 		
+ 	protected PayingOff savePayingOffDetail(RetailscmUserContext userContext, PayingOff payingOff) throws Exception{
+
+
  		return savePayingOff(userContext, payingOff, allTokens());
  	}
- 	
- 	public PayingOff loadPayingOff(RetailscmUserContext userContext, String payingOffId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public PayingOff loadPayingOff(RetailscmUserContext userContext, String payingOffId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfPayingOff(payingOffId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PayingOffManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		PayingOff payingOff = loadPayingOff( userContext, payingOffId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,payingOff, tokens);
  	}
- 	
- 	
- 	 public PayingOff searchPayingOff(RetailscmUserContext userContext, String payingOffId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public PayingOff searchPayingOff(RetailscmUserContext userContext, String payingOffId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfPayingOff(payingOffId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PayingOffManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		PayingOff payingOff = loadPayingOff( userContext, payingOffId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,payingOff, tokens);
  	}
- 	
- 	
+
+
 
  	protected PayingOff present(RetailscmUserContext userContext, PayingOff payingOff, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,payingOff,tokens);
-		
-		
+    
+
 		PayingOff  payingOffToPresent = payingOffDaoOf(userContext).present(payingOff, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = payingOffToPresent.collectRefercencesFromLists();
 		payingOffDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,payingOff,tokens);
-		
+
 		return  payingOffToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public PayingOff loadPayingOffDetail(RetailscmUserContext userContext, String payingOffId) throws Exception{	
+
+
+
+ 	public PayingOff loadPayingOffDetail(RetailscmUserContext userContext, String payingOffId) throws Exception{
  		PayingOff payingOff = loadPayingOff( userContext, payingOffId, allTokens());
  		return present(userContext,payingOff, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String payingOffId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String payingOffId) throws Exception{
  		PayingOff payingOff = loadPayingOff( userContext, payingOffId, viewTokens());
- 		return present(userContext,payingOff, allTokens());
-		
- 	}
- 	protected PayingOff savePayingOff(RetailscmUserContext userContext, PayingOff payingOff, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, payingOff);
+ 		return present(userContext,payingOff, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String payingOffId) throws Exception{
+		PayingOff payingOff = loadPayingOff( userContext, payingOffId, viewTokens());
+		payingOff.summarySuffix();
+		markVisited(userContext, payingOff);
+ 		return present(userContext,payingOff, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String payingOffId) throws Exception{
+		PayingOff payingOff = loadPayingOff( userContext, payingOffId, analyzeTokens());
+		markVisited(userContext, payingOff);
+		return present(userContext,payingOff, analyzeTokens());
+
+	}
+ 	protected PayingOff savePayingOff(RetailscmUserContext userContext, PayingOff payingOff, Map<String,Object>tokens) throws Exception{
+ 	
  		return payingOffDaoOf(userContext).save(payingOff, tokens);
  	}
- 	protected PayingOff loadPayingOff(RetailscmUserContext userContext, String payingOffId, Map<String,Object>tokens) throws Exception{	
+ 	protected PayingOff loadPayingOff(RetailscmUserContext userContext, String payingOffId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfPayingOff(payingOffId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PayingOffManagerException.class);
 
- 
+
+
  		return payingOffDaoOf(userContext).load(payingOffId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, PayingOff payingOff, Map<String, Object> tokens){
 		super.addActions(userContext, payingOff, tokens);
-		
+
 		addAction(userContext, payingOff, tokens,"@create","createPayingOff","createPayingOff/","main","primary");
 		addAction(userContext, payingOff, tokens,"@update","updatePayingOff","updatePayingOff/"+payingOff.getId()+"/","main","primary");
 		addAction(userContext, payingOff, tokens,"@copy","clonePayingOff","clonePayingOff/"+payingOff.getId()+"/","main","primary");
-		
+
 		addAction(userContext, payingOff, tokens,"paying_off.transfer_to_paid_for","transferToAnotherPaidFor","transferToAnotherPaidFor/"+payingOff.getId()+"/","main","primary");
 		addAction(userContext, payingOff, tokens,"paying_off.addEmployeeSalarySheet","addEmployeeSalarySheet","addEmployeeSalarySheet/"+payingOff.getId()+"/","employeeSalarySheetList","primary");
 		addAction(userContext, payingOff, tokens,"paying_off.removeEmployeeSalarySheet","removeEmployeeSalarySheet","removeEmployeeSalarySheet/"+payingOff.getId()+"/","employeeSalarySheetList","primary");
 		addAction(userContext, payingOff, tokens,"paying_off.updateEmployeeSalarySheet","updateEmployeeSalarySheet","updateEmployeeSalarySheet/"+payingOff.getId()+"/","employeeSalarySheetList","primary");
 		addAction(userContext, payingOff, tokens,"paying_off.copyEmployeeSalarySheetFrom","copyEmployeeSalarySheetFrom","copyEmployeeSalarySheetFrom/"+payingOff.getId()+"/","employeeSalarySheetList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, PayingOff payingOff, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<PayingOff> searchPayingOffList(RetailscmUserContext ctx, PayingOffRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<PayingOff> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public PayingOff searchPayingOff(RetailscmUserContext ctx, PayingOffRequest pRequest){
+    pRequest.limit(0, 1);
+    List<PayingOff> list = searchPayingOffList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public PayingOff createPayingOff(RetailscmUserContext userContext, String who,String paidForId,Date paidTime,BigDecimal amount) throws Exception
-	//public PayingOff createPayingOff(RetailscmUserContext userContext,String who, String paidForId, Date paidTime, BigDecimal amount) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkWhoOfPayingOff(who);
 		checkerOf(userContext).checkPaidTimeOfPayingOff(paidTime);
 		checkerOf(userContext).checkAmountOfPayingOff(amount);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
+
 
 
 		PayingOff payingOff=createNewPayingOff();	
@@ -251,34 +289,36 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfPayingOff(payingOffId);
 		checkerOf(userContext).checkVersionOfPayingOff( payingOffVersion);
-		
+
 
 		if(PayingOff.WHO_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkWhoOfPayingOff(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(PayingOff.PAID_TIME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkPaidTimeOfPayingOff(parseDate(newValueExpr));
 		
-			
+
 		}
 		if(PayingOff.AMOUNT_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkAmountOfPayingOff(parseBigDecimal(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
+
 
 
 	}
@@ -307,6 +347,8 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 			if (payingOff.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixPayingOff(payingOff);
 			payingOff = savePayingOff(userContext, payingOff, options);
 			return payingOff;
 
@@ -373,10 +415,16 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected Map<String,Object> allTokens(){
 		return PayingOffTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortEmployeeSalarySheetListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortEmployeeSalarySheetListWith(EmployeeSalarySheet.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -388,6 +436,7 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 
  		checkerOf(userContext).checkIdOfPayingOff(payingOffId);
  		checkerOf(userContext).checkIdOfEmployee(anotherPaidForId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
 
  	}
@@ -395,16 +444,17 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
  	{
  		checkParamsForTransferingAnotherPaidFor(userContext, payingOffId,anotherPaidForId);
  
-		PayingOff payingOff = loadPayingOff(userContext, payingOffId, allTokens());	
+		PayingOff payingOff = loadPayingOff(userContext, payingOffId, allTokens());
 		synchronized(payingOff){
 			//will be good when the payingOff loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			Employee paidFor = loadEmployee(userContext, anotherPaidForId, emptyOptions());		
-			payingOff.updatePaidFor(paidFor);		
+			Employee paidFor = loadEmployee(userContext, anotherPaidForId, emptyOptions());
+			payingOff.updatePaidFor(paidFor);
+			
 			payingOff = savePayingOff(userContext, payingOff, emptyOptions());
-			
+
 			return present(userContext,payingOff, allTokens());
-			
+
 		}
 
  	}
@@ -437,8 +487,9 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 
  	protected Employee loadEmployee(RetailscmUserContext userContext, String newPaidForId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return employeeDaoOf(userContext).load(newPaidForId, options);
+ 	  
  	}
  	
 
@@ -484,45 +535,6 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 	}
 
 
-	//disconnect PayingOff with employee in EmployeeSalarySheet
-	protected PayingOff breakWithEmployeeSalarySheetByEmployee(RetailscmUserContext userContext, String payingOffId, String employeeId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			PayingOff payingOff = loadPayingOff(userContext, payingOffId, allTokens());
-
-			synchronized(payingOff){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				payingOffDaoOf(userContext).planToRemoveEmployeeSalarySheetListWithEmployee(payingOff, employeeId, this.emptyOptions());
-
-				payingOff = savePayingOff(userContext, payingOff, tokens().withEmployeeSalarySheetList().done());
-				return payingOff;
-			}
-	}
-	//disconnect PayingOff with current_salary_grade in EmployeeSalarySheet
-	protected PayingOff breakWithEmployeeSalarySheetByCurrentSalaryGrade(RetailscmUserContext userContext, String payingOffId, String currentSalaryGradeId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			PayingOff payingOff = loadPayingOff(userContext, payingOffId, allTokens());
-
-			synchronized(payingOff){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				payingOffDaoOf(userContext).planToRemoveEmployeeSalarySheetListWithCurrentSalaryGrade(payingOff, currentSalaryGradeId, this.emptyOptions());
-
-				payingOff = savePayingOff(userContext, payingOff, tokens().withEmployeeSalarySheetList().done());
-				return payingOff;
-			}
-	}
-
-
-
 
 
 
@@ -530,32 +542,33 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 
 				checkerOf(userContext).checkIdOfPayingOff(payingOffId);
 
-		
+
 		checkerOf(userContext).checkEmployeeIdOfEmployeeSalarySheet(employeeId);
-		
+
 		checkerOf(userContext).checkCurrentSalaryGradeIdOfEmployeeSalarySheet(currentSalaryGradeId);
-		
+
 		checkerOf(userContext).checkBaseSalaryOfEmployeeSalarySheet(baseSalary);
-		
+
 		checkerOf(userContext).checkBonusOfEmployeeSalarySheet(bonus);
-		
+
 		checkerOf(userContext).checkRewardOfEmployeeSalarySheet(reward);
-		
+
 		checkerOf(userContext).checkPersonalTaxOfEmployeeSalarySheet(personalTax);
-		
+
 		checkerOf(userContext).checkSocialSecurityOfEmployeeSalarySheet(socialSecurity);
-		
+
 		checkerOf(userContext).checkHousingFoundOfEmployeeSalarySheet(housingFound);
-		
+
 		checkerOf(userContext).checkJobInsuranceOfEmployeeSalarySheet(jobInsurance);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
+
 
 
 	}
 	public  PayingOff addEmployeeSalarySheet(RetailscmUserContext userContext, String payingOffId, String employeeId, String currentSalaryGradeId, BigDecimal baseSalary, BigDecimal bonus, BigDecimal reward, BigDecimal personalTax, BigDecimal socialSecurity, BigDecimal housingFound, BigDecimal jobInsurance, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingEmployeeSalarySheet(userContext,payingOffId,employeeId, currentSalaryGradeId, baseSalary, bonus, reward, personalTax, socialSecurity, housingFound, jobInsurance,tokensExpr);
 
 		EmployeeSalarySheet employeeSalarySheet = createEmployeeSalarySheet(userContext,employeeId, currentSalaryGradeId, baseSalary, bonus, reward, personalTax, socialSecurity, housingFound, jobInsurance);
@@ -584,7 +597,9 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkHousingFoundOfEmployeeSalarySheet( housingFound);
 		checkerOf(userContext).checkJobInsuranceOfEmployeeSalarySheet( jobInsurance);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
+
 
 	}
 	public  PayingOff updateEmployeeSalarySheetProperties(RetailscmUserContext userContext, String payingOffId, String id,BigDecimal baseSalary,BigDecimal bonus,BigDecimal reward,BigDecimal personalTax,BigDecimal socialSecurity,BigDecimal housingFound,BigDecimal jobInsurance, String [] tokensExpr) throws Exception
@@ -667,6 +682,7 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 			checkerOf(userContext).checkIdOfEmployeeSalarySheet(employeeSalarySheetIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
 
 	}
@@ -693,7 +709,9 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfPayingOff( payingOffId);
 		checkerOf(userContext).checkIdOfEmployeeSalarySheet(employeeSalarySheetId);
 		checkerOf(userContext).checkVersionOfEmployeeSalarySheet(employeeSalarySheetVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
+
 
 	}
 	public  PayingOff removeEmployeeSalarySheet(RetailscmUserContext userContext, String payingOffId,
@@ -720,7 +738,9 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfPayingOff( payingOffId);
 		checkerOf(userContext).checkIdOfEmployeeSalarySheet(employeeSalarySheetId);
 		checkerOf(userContext).checkVersionOfEmployeeSalarySheet(employeeSalarySheetVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
+
 
 	}
 	public  PayingOff copyEmployeeSalarySheetFrom(RetailscmUserContext userContext, String payingOffId,
@@ -748,7 +768,7 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected void checkParamsForUpdatingEmployeeSalarySheet(RetailscmUserContext userContext, String payingOffId, String employeeSalarySheetId, int employeeSalarySheetVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfPayingOff(payingOffId);
 		checkerOf(userContext).checkIdOfEmployeeSalarySheet(employeeSalarySheetId);
 		checkerOf(userContext).checkVersionOfEmployeeSalarySheet(employeeSalarySheetVersion);
@@ -783,7 +803,9 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PayingOffManagerException.class);
+
 
 	}
 
@@ -814,6 +836,7 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 			employeeSalarySheet.changeProperty(property, newValueExpr);
 			
 			payingOff = savePayingOff(userContext, payingOff, tokens().withEmployeeSalarySheetList().done());
+			employeeSalarySheetManagerOf(userContext).onUpdated(userContext, employeeSalarySheet, this, "updateEmployeeSalarySheet");
 			return present(userContext,payingOff, mergedAllTokens(tokensExpr));
 		}
 
@@ -846,112 +869,13 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -974,28 +898,21 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, PayingOff.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, PayingOff.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1041,7 +958,7 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String payingOffId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getPayingOffDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		PayingOff merchantObj = (PayingOff) this.view(userContext, payingOffId);
     String merchantObjId = payingOffId;
     String linkToUrl =	"payingOffManager/wxappview/" + merchantObjId + "/";
@@ -1120,8 +1037,6 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 		sections.add(employeeSalarySheetListSection);
 
 		result.put("employeeSalarySheetListSection", ListofUtils.toShortList(merchantObj.getEmployeeSalarySheetList(), "employeeSalarySheet"));
-		vscope.field("employeeSalarySheetListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( EmployeeSalarySheet.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1136,8 +1051,19 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

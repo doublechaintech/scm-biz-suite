@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.transporttruck;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.transportfleet.TransportFleet;
 import com.doublechaintech.retailscm.transporttask.TransportTask;
 
@@ -28,12 +25,12 @@ import com.doublechaintech.retailscm.transporttask.TransportTask;
 @JsonSerialize(using = TransportTruckSerializer.class)
 public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String PLATE_NUMBER_PROPERTY          = "plateNumber"       ;
@@ -52,38 +49,110 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(PLATE_NUMBER_PROPERTY, "plate_number", "车牌号码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CONTACT_NUMBER_PROPERTY, "contact_number", "联系电话")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VEHICLE_LICENSE_NUMBER_PROPERTY, "vehicle_license_number", "汽车牌照号码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ENGINE_NUMBER_PROPERTY, "engine_number", "发动机号")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(MAKE_DATE_PROPERTY, "make_date", "制造日期")
+        .withType("date", Date.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(MILEAGE_PROPERTY, "mileage", "里程")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(BODY_COLOR_PROPERTY, "body_color", "车身颜色")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(OWNER_PROPERTY, "transport_fleet", "业主")
+        .withType("transport_fleet", TransportFleet.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(TRANSPORT_TASK_LIST, "truck", "运输任务列表")
+        .withType("transport_task", TransportTask.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,PLATE_NUMBER_PROPERTY ,CONTACT_NUMBER_PROPERTY ,VEHICLE_LICENSE_NUMBER_PROPERTY ,ENGINE_NUMBER_PROPERTY ,MAKE_DATE_PROPERTY ,MILEAGE_PROPERTY ,BODY_COLOR_PROPERTY ,OWNER_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(TRANSPORT_TASK_LIST, "truck");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(TRANSPORT_TASK_LIST, TransportTask.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(OWNER_PROPERTY, TransportFleet.class);
+
+    return parents;
+  }
+
+  public TransportTruck want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public TransportTruck wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mPlateNumber        ;
-	protected		String              	mContactNumber      ;
-	protected		String              	mVehicleLicenseNumber;
-	protected		String              	mEngineNumber       ;
-	protected		Date                	mMakeDate           ;
-	protected		String              	mMileage            ;
-	protected		String              	mBodyColor          ;
-	protected		TransportFleet      	mOwner              ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		String              	plateNumber         ;
+	protected		String              	contactNumber       ;
+	protected		String              	vehicleLicenseNumber;
+	protected		String              	engineNumber        ;
+	protected		Date                	makeDate            ;
+	protected		String              	mileage             ;
+	protected		String              	bodyColor           ;
+	protected		TransportFleet      	owner               ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<TransportTask>	mTransportTaskList  ;
 
-	
-		
+
+
 	public 	TransportTruck(){
 		// lazy load for all the properties
 	}
@@ -91,20 +160,39 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		TransportTruck transportTruck = new TransportTruck();
 		transportTruck.setId(id);
 		transportTruck.setVersion(Integer.MAX_VALUE);
+		transportTruck.setChecked(true);
 		return transportTruck;
 	}
 	public 	static TransportTruck refById(String id){
 		return withId(id);
 	}
-	
+
+  public TransportTruck limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public TransportTruck limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static TransportTruck searchExample(){
+    TransportTruck transportTruck = new TransportTruck();
+    		transportTruck.setVersion(UNSET_INT);
+
+    return transportTruck;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setOwner( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -270,7 +358,7 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -306,193 +394,337 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public TransportTruck updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public TransportTruck addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public TransportTruck updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public TransportTruck addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setPlateNumber(String plateNumber){
-		this.mPlateNumber = trimString(plateNumber);;
-	}
+	public void setPlateNumber(String plateNumber){String oldPlateNumber = this.plateNumber;String newPlateNumber = trimString(plateNumber);this.plateNumber = newPlateNumber;}
+	public String plateNumber(){
+doLoad();
+return getPlateNumber();
+}
 	public String getPlateNumber(){
-		return this.mPlateNumber;
+		return this.plateNumber;
 	}
-	public TransportTruck updatePlateNumber(String plateNumber){
-		this.mPlateNumber = trimString(plateNumber);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updatePlateNumber(String plateNumber){String oldPlateNumber = this.plateNumber;String newPlateNumber = trimString(plateNumber);if(!shouldReplaceBy(newPlateNumber, oldPlateNumber)){return this;}this.plateNumber = newPlateNumber;addPropertyChange(PLATE_NUMBER_PROPERTY, oldPlateNumber, newPlateNumber);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByPlateNumber(boolean asc){
+doAddOrderBy(PLATE_NUMBER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createPlateNumberCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(PLATE_NUMBER_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignorePlateNumberCriteria(){super.ignoreSearchProperty(PLATE_NUMBER_PROPERTY);
+return this;
+}
+	public TransportTruck addPlateNumberCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createPlateNumberCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergePlateNumber(String plateNumber){
 		if(plateNumber != null) { setPlateNumber(plateNumber);}
 	}
+
 	
-	
-	public void setContactNumber(String contactNumber){
-		this.mContactNumber = trimString(contactNumber);;
-	}
+	public void setContactNumber(String contactNumber){String oldContactNumber = this.contactNumber;String newContactNumber = trimString(contactNumber);this.contactNumber = newContactNumber;}
+	public String contactNumber(){
+doLoad();
+return getContactNumber();
+}
 	public String getContactNumber(){
-		return this.mContactNumber;
+		return this.contactNumber;
 	}
-	public TransportTruck updateContactNumber(String contactNumber){
-		this.mContactNumber = trimString(contactNumber);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateContactNumber(String contactNumber){String oldContactNumber = this.contactNumber;String newContactNumber = trimString(contactNumber);if(!shouldReplaceBy(newContactNumber, oldContactNumber)){return this;}this.contactNumber = newContactNumber;addPropertyChange(CONTACT_NUMBER_PROPERTY, oldContactNumber, newContactNumber);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByContactNumber(boolean asc){
+doAddOrderBy(CONTACT_NUMBER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createContactNumberCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CONTACT_NUMBER_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreContactNumberCriteria(){super.ignoreSearchProperty(CONTACT_NUMBER_PROPERTY);
+return this;
+}
+	public TransportTruck addContactNumberCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createContactNumberCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeContactNumber(String contactNumber){
 		if(contactNumber != null) { setContactNumber(contactNumber);}
 	}
+
 	
-	
-	public void setVehicleLicenseNumber(String vehicleLicenseNumber){
-		this.mVehicleLicenseNumber = trimString(vehicleLicenseNumber);;
-	}
+	public void setVehicleLicenseNumber(String vehicleLicenseNumber){String oldVehicleLicenseNumber = this.vehicleLicenseNumber;String newVehicleLicenseNumber = trimString(vehicleLicenseNumber);this.vehicleLicenseNumber = newVehicleLicenseNumber;}
+	public String vehicleLicenseNumber(){
+doLoad();
+return getVehicleLicenseNumber();
+}
 	public String getVehicleLicenseNumber(){
-		return this.mVehicleLicenseNumber;
+		return this.vehicleLicenseNumber;
 	}
-	public TransportTruck updateVehicleLicenseNumber(String vehicleLicenseNumber){
-		this.mVehicleLicenseNumber = trimString(vehicleLicenseNumber);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateVehicleLicenseNumber(String vehicleLicenseNumber){String oldVehicleLicenseNumber = this.vehicleLicenseNumber;String newVehicleLicenseNumber = trimString(vehicleLicenseNumber);if(!shouldReplaceBy(newVehicleLicenseNumber, oldVehicleLicenseNumber)){return this;}this.vehicleLicenseNumber = newVehicleLicenseNumber;addPropertyChange(VEHICLE_LICENSE_NUMBER_PROPERTY, oldVehicleLicenseNumber, newVehicleLicenseNumber);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByVehicleLicenseNumber(boolean asc){
+doAddOrderBy(VEHICLE_LICENSE_NUMBER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVehicleLicenseNumberCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VEHICLE_LICENSE_NUMBER_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreVehicleLicenseNumberCriteria(){super.ignoreSearchProperty(VEHICLE_LICENSE_NUMBER_PROPERTY);
+return this;
+}
+	public TransportTruck addVehicleLicenseNumberCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVehicleLicenseNumberCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVehicleLicenseNumber(String vehicleLicenseNumber){
 		if(vehicleLicenseNumber != null) { setVehicleLicenseNumber(vehicleLicenseNumber);}
 	}
+
 	
-	
-	public void setEngineNumber(String engineNumber){
-		this.mEngineNumber = trimString(engineNumber);;
-	}
+	public void setEngineNumber(String engineNumber){String oldEngineNumber = this.engineNumber;String newEngineNumber = trimString(engineNumber);this.engineNumber = newEngineNumber;}
+	public String engineNumber(){
+doLoad();
+return getEngineNumber();
+}
 	public String getEngineNumber(){
-		return this.mEngineNumber;
+		return this.engineNumber;
 	}
-	public TransportTruck updateEngineNumber(String engineNumber){
-		this.mEngineNumber = trimString(engineNumber);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateEngineNumber(String engineNumber){String oldEngineNumber = this.engineNumber;String newEngineNumber = trimString(engineNumber);if(!shouldReplaceBy(newEngineNumber, oldEngineNumber)){return this;}this.engineNumber = newEngineNumber;addPropertyChange(ENGINE_NUMBER_PROPERTY, oldEngineNumber, newEngineNumber);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByEngineNumber(boolean asc){
+doAddOrderBy(ENGINE_NUMBER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createEngineNumberCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ENGINE_NUMBER_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreEngineNumberCriteria(){super.ignoreSearchProperty(ENGINE_NUMBER_PROPERTY);
+return this;
+}
+	public TransportTruck addEngineNumberCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createEngineNumberCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeEngineNumber(String engineNumber){
 		if(engineNumber != null) { setEngineNumber(engineNumber);}
 	}
+
 	
-	
-	public void setMakeDate(Date makeDate){
-		this.mMakeDate = makeDate;;
-	}
+	public void setMakeDate(Date makeDate){Date oldMakeDate = this.makeDate;Date newMakeDate = makeDate;this.makeDate = newMakeDate;}
+	public Date makeDate(){
+doLoad();
+return getMakeDate();
+}
 	public Date getMakeDate(){
-		return this.mMakeDate;
+		return this.makeDate;
 	}
-	public TransportTruck updateMakeDate(Date makeDate){
-		this.mMakeDate = makeDate;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateMakeDate(Date makeDate){Date oldMakeDate = this.makeDate;Date newMakeDate = makeDate;if(!shouldReplaceBy(newMakeDate, oldMakeDate)){return this;}this.makeDate = newMakeDate;addPropertyChange(MAKE_DATE_PROPERTY, oldMakeDate, newMakeDate);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByMakeDate(boolean asc){
+doAddOrderBy(MAKE_DATE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createMakeDateCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(MAKE_DATE_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreMakeDateCriteria(){super.ignoreSearchProperty(MAKE_DATE_PROPERTY);
+return this;
+}
+	public TransportTruck addMakeDateCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createMakeDateCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeMakeDate(Date makeDate){
 		setMakeDate(makeDate);
 	}
+
 	
-	
-	public void setMileage(String mileage){
-		this.mMileage = trimString(mileage);;
-	}
+	public void setMileage(String mileage){String oldMileage = this.mileage;String newMileage = trimString(mileage);this.mileage = newMileage;}
+	public String mileage(){
+doLoad();
+return getMileage();
+}
 	public String getMileage(){
-		return this.mMileage;
+		return this.mileage;
 	}
-	public TransportTruck updateMileage(String mileage){
-		this.mMileage = trimString(mileage);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateMileage(String mileage){String oldMileage = this.mileage;String newMileage = trimString(mileage);if(!shouldReplaceBy(newMileage, oldMileage)){return this;}this.mileage = newMileage;addPropertyChange(MILEAGE_PROPERTY, oldMileage, newMileage);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByMileage(boolean asc){
+doAddOrderBy(MILEAGE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createMileageCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(MILEAGE_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreMileageCriteria(){super.ignoreSearchProperty(MILEAGE_PROPERTY);
+return this;
+}
+	public TransportTruck addMileageCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createMileageCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeMileage(String mileage){
 		if(mileage != null) { setMileage(mileage);}
 	}
+
 	
-	
-	public void setBodyColor(String bodyColor){
-		this.mBodyColor = trimString(bodyColor);;
-	}
+	public void setBodyColor(String bodyColor){String oldBodyColor = this.bodyColor;String newBodyColor = trimString(bodyColor);this.bodyColor = newBodyColor;}
+	public String bodyColor(){
+doLoad();
+return getBodyColor();
+}
 	public String getBodyColor(){
-		return this.mBodyColor;
+		return this.bodyColor;
 	}
-	public TransportTruck updateBodyColor(String bodyColor){
-		this.mBodyColor = trimString(bodyColor);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateBodyColor(String bodyColor){String oldBodyColor = this.bodyColor;String newBodyColor = trimString(bodyColor);if(!shouldReplaceBy(newBodyColor, oldBodyColor)){return this;}this.bodyColor = newBodyColor;addPropertyChange(BODY_COLOR_PROPERTY, oldBodyColor, newBodyColor);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByBodyColor(boolean asc){
+doAddOrderBy(BODY_COLOR_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createBodyColorCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(BODY_COLOR_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreBodyColorCriteria(){super.ignoreSearchProperty(BODY_COLOR_PROPERTY);
+return this;
+}
+	public TransportTruck addBodyColorCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createBodyColorCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeBodyColor(String bodyColor){
 		if(bodyColor != null) { setBodyColor(bodyColor);}
 	}
+
 	
-	
-	public void setOwner(TransportFleet owner){
-		this.mOwner = owner;;
-	}
+	public void setOwner(TransportFleet owner){TransportFleet oldOwner = this.owner;TransportFleet newOwner = owner;this.owner = newOwner;}
+	public TransportFleet owner(){
+doLoad();
+return getOwner();
+}
 	public TransportFleet getOwner(){
-		return this.mOwner;
+		return this.owner;
 	}
-	public TransportTruck updateOwner(TransportFleet owner){
-		this.mOwner = owner;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateOwner(TransportFleet owner){TransportFleet oldOwner = this.owner;TransportFleet newOwner = owner;if(!shouldReplaceBy(newOwner, oldOwner)){return this;}this.owner = newOwner;addPropertyChange(OWNER_PROPERTY, oldOwner, newOwner);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByOwner(boolean asc){
+doAddOrderBy(OWNER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createOwnerCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(OWNER_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreOwnerCriteria(){super.ignoreSearchProperty(OWNER_PROPERTY);
+return this;
+}
+	public TransportTruck addOwnerCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createOwnerCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeOwner(TransportFleet owner){
 		if(owner != null) { setOwner(owner);}
 	}
-	
+
 	
 	public void clearOwner(){
 		setOwner ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public TransportTruck updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTruck updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public TransportTruck orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public TransportTruck ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public TransportTruck addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<TransportTask> getTransportTaskList(){
@@ -501,9 +733,18 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 			this.mTransportTaskList.setListInternalName (TRANSPORT_TASK_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mTransportTaskList;	
+
+		return this.mTransportTaskList;
 	}
+
+  public  SmartList<TransportTask> transportTaskList(){
+    
+    doLoadChild(TRANSPORT_TASK_LIST);
+    
+    return getTransportTaskList();
+  }
+
+
 	public  void setTransportTaskList(SmartList<TransportTask> transportTaskList){
 		for( TransportTask transportTask:transportTaskList){
 			transportTask.setTruck(this);
@@ -511,18 +752,20 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 
 		this.mTransportTaskList = transportTaskList;
 		this.mTransportTaskList.setListInternalName (TRANSPORT_TASK_LIST );
-		
+
 	}
-	
-	public  void addTransportTask(TransportTask transportTask){
+
+	public  TransportTruck addTransportTask(TransportTask transportTask){
 		transportTask.setTruck(this);
 		getTransportTaskList().add(transportTask);
+		return this;
 	}
-	public  void addTransportTaskList(SmartList<TransportTask> transportTaskList){
+	public  TransportTruck addTransportTaskList(SmartList<TransportTask> transportTaskList){
 		for( TransportTask transportTask:transportTaskList){
 			transportTask.setTruck(this);
 		}
 		getTransportTaskList().addAll(transportTaskList);
+		return this;
 	}
 	public  void mergeTransportTaskList(SmartList<TransportTask> transportTaskList){
 		if(transportTaskList==null){
@@ -532,45 +775,45 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addTransportTaskList( transportTaskList );
-		
+
 	}
 	public  TransportTask removeTransportTask(TransportTask transportTaskIndex){
-		
+
 		int index = getTransportTaskList().indexOf(transportTaskIndex);
         if(index < 0){
         	String message = "TransportTask("+transportTaskIndex.getId()+") with version='"+transportTaskIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        TransportTask transportTask = getTransportTaskList().get(index);        
+        TransportTask transportTask = getTransportTaskList().get(index);
         // transportTask.clearTruck(); //disconnect with Truck
         transportTask.clearFromAll(); //disconnect with Truck
-		
+
 		boolean result = getTransportTaskList().planToRemove(transportTask);
         if(!result){
         	String message = "TransportTask("+transportTaskIndex.getId()+") with version='"+transportTaskIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return transportTask;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithTransportTask(TransportTask transportTask){
-		
+
 		if(transportTask == null){
 			return;
 		}
 		transportTask.setTruck(null);
 		//getTransportTaskList().remove();
-	
+
 	}
-	
+
 	public  boolean hasTransportTask(TransportTask transportTask){
-	
+
 		return getTransportTaskList().contains(transportTask);
-  
+
 	}
-	
+
 	public void copyTransportTaskFrom(TransportTask transportTask) {
 
 		TransportTask transportTaskInList = findTheTransportTask(transportTask);
@@ -580,53 +823,53 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		getTransportTaskList().add(newTransportTask);
 		addItemToFlexiableObject(COPIED_CHILD, newTransportTask);
 	}
-	
+
 	public  TransportTask findTheTransportTask(TransportTask transportTask){
-		
+
 		int index =  getTransportTaskList().indexOf(transportTask);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "TransportTask("+transportTask.getId()+") with version='"+transportTask.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getTransportTaskList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpTransportTaskList(){
 		getTransportTaskList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getOwner(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getTransportTaskList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getTransportTaskList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -652,16 +895,16 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TransportTruck){
-		
-		
+
+
 			TransportTruck dest =(TransportTruck)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setPlateNumber(getPlateNumber());
@@ -680,13 +923,13 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TransportTruck){
-		
-			
+
+
 			TransportTruck dest =(TransportTruck)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergePlateNumber(getPlateNumber());
@@ -704,15 +947,15 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TransportTruck){
-		
-			
+
+
 			TransportTruck dest =(TransportTruck)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergePlateNumber(getPlateNumber());
@@ -730,6 +973,56 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getPlateNumber(), getContactNumber(), getVehicleLicenseNumber(), getEngineNumber(), getMakeDate(), getMileage(), getBodyColor(), getOwner(), getVersion()};
 	}
+
+
+	public static TransportTruck createWith(RetailscmUserContext userContext, ThrowingFunction<TransportTruck,TransportTruck,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<TransportTruck> customCreator = mapper.findCustomCreator(TransportTruck.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    TransportTruck result = new TransportTruck();
+    result.setName(mapper.tryToGet(TransportTruck.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setPlateNumber(mapper.tryToGet(TransportTruck.class, PLATE_NUMBER_PROPERTY, String.class,
+        1, false, result.getPlateNumber(), params));
+    result.setContactNumber(mapper.tryToGet(TransportTruck.class, CONTACT_NUMBER_PROPERTY, String.class,
+        2, false, result.getContactNumber(), params));
+    result.setVehicleLicenseNumber(mapper.tryToGet(TransportTruck.class, VEHICLE_LICENSE_NUMBER_PROPERTY, String.class,
+        3, false, result.getVehicleLicenseNumber(), params));
+    result.setEngineNumber(mapper.tryToGet(TransportTruck.class, ENGINE_NUMBER_PROPERTY, String.class,
+        4, false, result.getEngineNumber(), params));
+    result.setMakeDate(mapper.tryToGet(TransportTruck.class, MAKE_DATE_PROPERTY, Date.class,
+        0, true, result.getMakeDate(), params));
+    result.setMileage(mapper.tryToGet(TransportTruck.class, MILEAGE_PROPERTY, String.class,
+        5, false, result.getMileage(), params));
+    result.setBodyColor(mapper.tryToGet(TransportTruck.class, BODY_COLOR_PROPERTY, String.class,
+        6, false, result.getBodyColor(), params));
+    result.setOwner(mapper.tryToGet(TransportTruck.class, OWNER_PROPERTY, TransportFleet.class,
+        0, true, result.getOwner(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixTransportTruck(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      TransportTruckTokens tokens = mapper.findParamByClass(params, TransportTruckTokens.class);
+      if (tokens == null) {
+        tokens = TransportTruckTokens.start();
+      }
+      result = userContext.getManagerGroup().getTransportTruckManager().internalSaveTransportTruck(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -751,7 +1044,7 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

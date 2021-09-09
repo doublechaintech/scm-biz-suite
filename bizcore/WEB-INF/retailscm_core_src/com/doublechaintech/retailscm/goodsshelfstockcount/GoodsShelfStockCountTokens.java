@@ -2,14 +2,23 @@
 package com.doublechaintech.retailscm.goodsshelfstockcount;
 import com.doublechaintech.retailscm.CommonTokens;
 import java.util.Map;
+import java.util.Objects;
+
+import com.doublechaintech.retailscm.goodsshelf.GoodsShelfTokens;
+import com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrackTokens;
+
+
+
+
+
 public class GoodsShelfStockCountTokens extends CommonTokens{
 
 	static final String ALL="__all__"; //do not assign this to common users.
 	static final String SELF="__self__";
 	static final String OWNER_OBJECT_NAME="goodsShelfStockCount";
-	
+
 	public static boolean checkOptions(Map<String,Object> options, String optionToCheck){
-		
+
 		if(options==null){
  			return false; //completely no option here
  		}
@@ -22,18 +31,18 @@ public class GoodsShelfStockCountTokens extends CommonTokens{
 		if(ownerObject ==  null){
 			return false;
 		}
-		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner? 
-			return false; 
+		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner?
+			return false;
 		}
-		
+
  		if(options.containsKey(optionToCheck)){
  			//options.remove(optionToCheck);
- 			//consume the key, can not use any more to extract the data with the same token.			
+ 			//consume the key, can not use any more to extract the data with the same token.
  			return true;
  		}
- 		
+
  		return false;
-	
+
 	}
 	protected GoodsShelfStockCountTokens(){
 		//ensure not initialized outside the class
@@ -42,54 +51,90 @@ public class GoodsShelfStockCountTokens extends CommonTokens{
 		//ensure not initialized outside the class
 		GoodsShelfStockCountTokens tokens = new GoodsShelfStockCountTokens(options);
 		return tokens;
-		
+
 	}
 	protected GoodsShelfStockCountTokens(Map<String,Object> options){
 		this.options = options;
 	}
-	
+
 	public GoodsShelfStockCountTokens merge(String [] tokens){
 		this.parseTokens(tokens);
 		return this;
 	}
-	
+
 	public static GoodsShelfStockCountTokens mergeAll(String [] tokens){
-		
+
 		return allTokens().merge(tokens);
 	}
-	
+
 	protected GoodsShelfStockCountTokens setOwnerObject(String objectName){
 		ensureOptions();
 		addSimpleOptions(getOwnerObjectKey(), objectName);
 		return this;
 	}
-	
-	
-	
-	
+
+
+
+
 	public static GoodsShelfStockCountTokens start(){
 		return new GoodsShelfStockCountTokens().setOwnerObject(OWNER_OBJECT_NAME);
 	}
-	
-	public GoodsShelfStockCountTokens withTokenFromListName(String listName){		
+
+	public GoodsShelfStockCountTokens withTokenFromListName(String listName){
 		addSimpleOptions(listName);
 		return this;
 	}
-	
-	protected static GoodsShelfStockCountTokens allTokens(){
-		
+
+  public static GoodsShelfStockCountTokens loadGroupTokens(String... groupNames){
+    GoodsShelfStockCountTokens tokens = start();
+    if (groupNames == null || groupNames.length == 0){
+      return allTokens();
+    }
+    addToken(tokens, SHELF, groupNames, new String[]{"default"});
+
+  
+     addToken(tokens, STOCK_COUNT_ISSUE_TRACK_LIST, groupNames, new String[]{"default"});
+    
+    return tokens;
+  }
+
+  private static void addToken(GoodsShelfStockCountTokens pTokens, String pTokenName, String[] pGroupNames, String[] fieldGroups) {
+    if (pGroupNames == null || fieldGroups == null){
+      return;
+    }
+
+    for (String groupName: pGroupNames){
+      for(String g: fieldGroups){
+        if( Objects.equals(groupName, g)){
+          pTokens.addSimpleOptions(pTokenName);
+          break;
+        }
+      }
+    }
+  }
+
+	public static GoodsShelfStockCountTokens filterWithTokenViewGroups(String []viewGroups){
+
+		return start()
+			.withShelf()
+			.withStockCountIssueTrackListIfViewGroupInclude(viewGroups);
+
+	}
+
+	public static GoodsShelfStockCountTokens allTokens(){
+
 		return start()
 			.withShelf()
 			.withStockCountIssueTrackList();
-	
+
 	}
 	public static GoodsShelfStockCountTokens withoutListsTokens(){
-		
+
 		return start()
 			.withShelf();
-	
+
 	}
-	
+
 	public static Map <String,Object> all(){
 		return allTokens().done();
 	}
@@ -99,8 +144,8 @@ public class GoodsShelfStockCountTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
-	
-	public GoodsShelfStockCountTokens analyzeAllLists(){		
+
+	public GoodsShelfStockCountTokens analyzeAllLists(){
 		addSimpleOptions(ALL_LISTS_ANALYZE);
 		return this;
 	}
@@ -109,86 +154,107 @@ public class GoodsShelfStockCountTokens extends CommonTokens{
 	public String getShelf(){
 		return SHELF;
 	}
-	public GoodsShelfStockCountTokens withShelf(){		
+	//
+	public GoodsShelfStockCountTokens withShelf(){
 		addSimpleOptions(SHELF);
 		return this;
 	}
-	
+
+	public GoodsShelfTokens withShelfTokens(){
+		//addSimpleOptions(SHELF);
+		return GoodsShelfTokens.start();
+	}
+
 	
 	protected static final String STOCK_COUNT_ISSUE_TRACK_LIST = "stockCountIssueTrackList";
 	public String getStockCountIssueTrackList(){
 		return STOCK_COUNT_ISSUE_TRACK_LIST;
 	}
-	public GoodsShelfStockCountTokens withStockCountIssueTrackList(){		
+
+
+
+	public GoodsShelfStockCountTokens withStockCountIssueTrackListIfViewGroupInclude(String [] viewGroups){
+
+		if(isViewGroupOneOf("__no_group",viewGroups)){
+			addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST);
+		}
+		return this;
+	}
+
+
+	public GoodsShelfStockCountTokens withStockCountIssueTrackList(){
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST);
 		return this;
 	}
-	public GoodsShelfStockCountTokens analyzeStockCountIssueTrackList(){		
+
+	public StockCountIssueTrackTokens withStockCountIssueTrackListTokens(){
+		//addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST);
+		return StockCountIssueTrackTokens.start();
+	}
+
+	public GoodsShelfStockCountTokens analyzeStockCountIssueTrackList(){
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeStockCountIssueTrackListEnabled(){		
-		
+	public boolean analyzeStockCountIssueTrackListEnabled(){
+
 		if(checkOptions(this.options(), STOCK_COUNT_ISSUE_TRACK_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public GoodsShelfStockCountTokens extractMoreFromStockCountIssueTrackList(String idsSeperatedWithComma){		
+	public GoodsShelfStockCountTokens extractMoreFromStockCountIssueTrackList(String idsSeperatedWithComma){
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
-	
-	
-	
-	
+
 	private int stockCountIssueTrackListSortCounter = 0;
-	public GoodsShelfStockCountTokens sortStockCountIssueTrackListWith(String field, String descOrAsc){		
+	public GoodsShelfStockCountTokens sortStockCountIssueTrackListWith(String field, String descOrAsc){
 		addSortMoreOptions(STOCK_COUNT_ISSUE_TRACK_LIST,stockCountIssueTrackListSortCounter++, field, descOrAsc);
 		return this;
 	}
 	private int stockCountIssueTrackListSearchCounter = 0;
-	public GoodsShelfStockCountTokens searchStockCountIssueTrackListWith(String field, String verb, String value){		
-		
+	public GoodsShelfStockCountTokens searchStockCountIssueTrackListWith(String field, String verb, String value){
+
 		withStockCountIssueTrackList();
 		addSearchMoreOptions(STOCK_COUNT_ISSUE_TRACK_LIST,stockCountIssueTrackListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public GoodsShelfStockCountTokens searchAllTextOfStockCountIssueTrackList(String verb, String value){	
+
+
+
+	public GoodsShelfStockCountTokens searchAllTextOfStockCountIssueTrackList(String verb, String value){
 		String field = "id|title|summary";
 		addSearchMoreOptions(STOCK_COUNT_ISSUE_TRACK_LIST,stockCountIssueTrackListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public GoodsShelfStockCountTokens rowsPerPageOfStockCountIssueTrackList(int rowsPerPage){		
+
+
+
+	public GoodsShelfStockCountTokens rowsPerPageOfStockCountIssueTrackList(int rowsPerPage){
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public GoodsShelfStockCountTokens currentPageNumberOfStockCountIssueTrackList(int currentPageNumber){		
+	public GoodsShelfStockCountTokens currentPageNumberOfStockCountIssueTrackList(int currentPageNumber){
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public GoodsShelfStockCountTokens retainColumnsOfStockCountIssueTrackList(String[] columns){		
+	public GoodsShelfStockCountTokens retainColumnsOfStockCountIssueTrackList(String[] columns){
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public GoodsShelfStockCountTokens excludeColumnsOfStockCountIssueTrackList(String[] columns){		
+	public GoodsShelfStockCountTokens excludeColumnsOfStockCountIssueTrackList(String[] columns){
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+"ExcludeColumns",columns);
 		return this;
 	}
-	
-	
+
+
 		
-	
+
 	public  GoodsShelfStockCountTokens searchEntireObjectText(String verb, String value){
-		
-		searchAllTextOfStockCountIssueTrackList(verb, value);	
+	
+		searchAllTextOfStockCountIssueTrackList(verb, value);
 		return this;
 	}
 }

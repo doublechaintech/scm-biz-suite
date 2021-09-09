@@ -44,13 +44,15 @@ public interface EmployeeWorkExperienceDAO extends BaseDAO{
 	public void delete(String employeeWorkExperienceId, int version) throws Exception;
 	public EmployeeWorkExperience disconnectFromAll(String employeeWorkExperienceId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeeWorkExperience> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeeWorkExperience> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeeWorkExperience> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeeWorkExperience executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeeWorkExperience> findEmployeeWorkExperienceByEmployee(String employeeId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface EmployeeWorkExperienceDAO extends BaseDAO{
 
 
  
+
+	List<EmployeeWorkExperience> search(EmployeeWorkExperienceRequest pRequest);
 }
 
 

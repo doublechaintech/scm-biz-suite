@@ -12,9 +12,7 @@ import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
-import com.doublechaintech.retailscm.page.Page;
 
-import com.doublechaintech.retailscm.page.PageDAO;
 import com.doublechaintech.retailscm.mobileapp.MobileAppDAO;
 
 
@@ -52,24 +50,17 @@ public interface PageTypeDAO extends BaseDAO{
 	public void delete(String pageTypeId, int version) throws Exception;
 	public PageType disconnectFromAll(String pageTypeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
-	public PageDAO getPageDAO();
-		
 	
  	public SmartList<PageType> requestCandidatePageTypeForPage(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
 		
 	
-	public PageType planToRemovePageList(PageType pageType, String pageIds[], Map<String,Object> options)throws Exception;
 
-
-	//disconnect PageType with mobile_app in Page
-	public PageType planToRemovePageListWithMobileApp(PageType pageType, String mobileAppId, Map<String,Object> options)throws Exception;
-	public int countPageListWithMobileApp(String pageTypeId, String mobileAppId, Map<String,Object> options)throws Exception;
-	
-
-	public SmartList<PageType> queryList(String sql, Object ... parmeters);
+	public SmartList<PageType> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<PageType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidatePageType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<PageType> findPageTypeByMobileApp(String mobileAppId, Map<String,Object> options);
@@ -80,9 +71,8 @@ public interface PageTypeDAO extends BaseDAO{
 
 
  
-	// 需要一个加载引用我的对象的enhance方法:Page的pageType的PageList
-	public SmartList<Page> loadOurPageList(RetailscmUserContext userContext, List<PageType> us, Map<String,Object> options) throws Exception;
-	
+
+	List<PageType> search(PageTypeRequest pRequest);
 }
 
 

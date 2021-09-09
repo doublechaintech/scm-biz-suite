@@ -46,6 +46,7 @@ public interface MobileAppDAO extends BaseDAO{
 	public void delete(String mobileAppId, int version) throws Exception;
 	public MobileApp disconnectFromAll(String mobileAppId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public PageDAO getPageDAO();
 		
@@ -68,9 +69,10 @@ public interface MobileAppDAO extends BaseDAO{
 
 
 
-	public SmartList<MobileApp> queryList(String sql, Object ... parmeters);
+	public SmartList<MobileApp> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<MobileApp> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateMobileApp executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
 	// 需要一个加载引用我的对象的enhance方法:Page的mobileApp的PageList
@@ -79,6 +81,8 @@ public interface MobileAppDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:PageType的mobileApp的PageTypeList
 	public SmartList<PageType> loadOurPageTypeList(RetailscmUserContext userContext, List<MobileApp> us, Map<String,Object> options) throws Exception;
 	
+
+	List<MobileApp> search(MobileAppRequest pRequest);
 }
 
 

@@ -32,12 +32,13 @@ public class UserAllowListTable{
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "user_allow_list_data", new String[][]{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
-                new String[]{"user_identity","varchar(40)","","用户身份","",""},
-                new String[]{"user_special_functions","varchar(200)","","用户特殊功能","",""},
+                new String[]{"user_identity","varchar(40)","","用户标识","",""},
+                new String[]{"user_special_functions","varchar(200)","","用户特权","",""},
                 new String[]{"domain","varchar(48)","","域","user_domain_data","id"},
                 new String[]{"version","int","","版本","",""}
-            }, "用户允许列表", new String[]{
-                "create unique index idx4id_ver_of_user_allow_list on user_allow_list_data (id, version);"
+            }, "用户权限列表", new String[]{
+                "create unique index idx4id_ver_of_user_allow_list on user_allow_list_data (id, version);",
+                "create  index idx4user_identity_of_user_allow_list on user_allow_list_data (user_identity);"
          }, new String[]{
                 "alter table user_allow_list_data add constraint pk4id_of_user_allow_list_data primary key (id);",
                 "alter table user_allow_list_data add constraint fk4domain_of_user_allow_list_data foreign key (domain) references user_domain_data(id) ON DELETE CASCADE ON UPDATE CASCADE;",

@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.supplyorder;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface SupplyOrderManager extends BaseManager{
 
 		
 
+  List<SupplyOrder> searchSupplyOrderList(RetailscmUserContext ctx, SupplyOrderRequest pRequest);
+  SupplyOrder searchSupplyOrder(RetailscmUserContext ctx, SupplyOrderRequest pRequest);
 	public SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount) throws Exception;
 	public SupplyOrder updateSupplyOrder(RetailscmUserContext userContext,String supplyOrderId, int supplyOrderVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SupplyOrder loadSupplyOrder(RetailscmUserContext userContext, String supplyOrderId, String [] tokensExpr) throws Exception;
@@ -28,6 +34,8 @@ public interface SupplyOrderManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String supplyOrderId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, SupplyOrder newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, SupplyOrder updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -79,6 +87,9 @@ public interface SupplyOrderManager extends BaseManager{
 	public Object listBySeller(RetailscmUserContext userContext,String sellerId) throws Exception;
 	public Object listPageBySeller(RetailscmUserContext userContext,String sellerId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

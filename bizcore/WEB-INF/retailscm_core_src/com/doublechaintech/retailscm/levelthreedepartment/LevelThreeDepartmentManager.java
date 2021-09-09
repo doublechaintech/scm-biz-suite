@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.levelthreedepartment;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface LevelThreeDepartmentManager extends BaseManager{
 
 		
 
+  List<LevelThreeDepartment> searchLevelThreeDepartmentList(RetailscmUserContext ctx, LevelThreeDepartmentRequest pRequest);
+  LevelThreeDepartment searchLevelThreeDepartment(RetailscmUserContext ctx, LevelThreeDepartmentRequest pRequest);
 	public LevelThreeDepartment createLevelThreeDepartment(RetailscmUserContext userContext, String belongsToId,String name,String description,Date founded) throws Exception;
 	public LevelThreeDepartment updateLevelThreeDepartment(RetailscmUserContext userContext,String levelThreeDepartmentId, int levelThreeDepartmentVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LevelThreeDepartment loadLevelThreeDepartment(RetailscmUserContext userContext, String levelThreeDepartmentId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface LevelThreeDepartmentManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String levelThreeDepartmentId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, LevelThreeDepartment newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, LevelThreeDepartment updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface LevelThreeDepartmentManager extends BaseManager{
 	public Object listByBelongsTo(RetailscmUserContext userContext,String belongsToId) throws Exception;
 	public Object listPageByBelongsTo(RetailscmUserContext userContext,String belongsToId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

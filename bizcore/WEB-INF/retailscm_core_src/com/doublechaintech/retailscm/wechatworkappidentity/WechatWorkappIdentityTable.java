@@ -34,13 +34,13 @@ public class WechatWorkappIdentityTable{
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "wechat_workapp_identity_data", new String[][]{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
-                new String[]{"corp_id","varchar(100)","","公司标识","",""},
-                new String[]{"user_id","varchar(100)","","用户Id","",""},
-                new String[]{"sec_user","varchar(48)","","安全用户","sec_user_data","id"},
-                new String[]{"create_time","datetime","","创建于","",""},
+                new String[]{"corp_id","varchar(100)","","公司","",""},
+                new String[]{"user_id","varchar(100)","","用户","",""},
+                new String[]{"sec_user","varchar(48)","","系统用户","sec_user_data","id"},
+                new String[]{"create_time","datetime","","创建时间","",""},
                 new String[]{"last_login_time","datetime","","最后登录时间","",""},
                 new String[]{"version","int","","版本","",""}
-            }, "微信企业号认证", new String[]{
+            }, "企业微信认证", new String[]{
                 "create unique index idx4id_ver_of_wechat_workapp_identity on wechat_workapp_identity_data (id, version);",
                 "create  index idx4corp_id_of_wechat_workapp_identity on wechat_workapp_identity_data (corp_id);",
                 "create  index idx4user_id_of_wechat_workapp_identity on wechat_workapp_identity_data (user_id);",

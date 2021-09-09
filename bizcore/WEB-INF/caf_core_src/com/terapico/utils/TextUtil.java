@@ -12,8 +12,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TextUtil {
-    public static boolean isBlank(String str) {
-        if (str == null || str.isEmpty()) {
+    public static boolean isBlank(Object value) {
+        if (!(value instanceof String)) {
+            return value == null;
+        }
+        String str = (String) value;
+        if (str.isEmpty()) {
             return true;
         }
         for (char c : str.toCharArray()) {
@@ -249,9 +253,9 @@ public class TextUtil {
     }
 
     public static String formatNumber(Number number, String format) {
-    	if (number == null) {
-    		number = new Integer(0);
-    	}
+        if (number == null) {
+            number = new Integer(0);
+        }
         return new DecimalFormat(format).format(number.doubleValue());
     }
 
@@ -283,7 +287,7 @@ public class TextUtil {
         }
         boolean isMask = moreFlag.matches("^\\*+$");
         if (isMask && (headChars + tailChars) >= orgStr.length()) {
-        	return orgStr;
+            return orgStr;
         }
         int finalLen = headChars + tailChars + (moreFlag == null ? 0 : moreFlag.length());
         if (orgStr.length() <= finalLen && !isMask) {
@@ -300,44 +304,45 @@ public class TextUtil {
         return sb.toString();
     }
 
-	public static String uncapFirstChar(String str) {
-		if (str == null || str.isEmpty()) {
-			return str;
-		}
-		return Character.toLowerCase(str.charAt(0)) + str.substring(1);
-	}
-	public static String capFirstChar(String str) {
-		if (str == null || str.isEmpty()) {
-			return str;
-		}
-		return Character.toUpperCase(str.charAt(0)) + str.substring(1);
-	}
+    public static String uncapFirstChar(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return Character.toLowerCase(str.charAt(0)) + str.substring(1);
+    }
 
-	public static String encodeUrl(String urlStr) {
-		return encodeEntireUrl(urlStr);
-	}
+    public static String capFirstChar(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+
+    public static String encodeUrl(String urlStr) {
+        return encodeEntireUrl(urlStr);
+    }
 //	private static String ENCODED_SLASH = URLEncoder.encode("/");
-			
-	public static String encodeEntireUrl(String urlStr) {
-		if (isBlank(urlStr)) {
-			return null;
-		}
-		try {
+
+    public static String encodeEntireUrl(String urlStr) {
+        if (isBlank(urlStr)) {
+            return null;
+        }
+        try {
 //			String urlEncoded = URLEncoder.encode(urlStr, "ut-8");
 //			urlEncoded = urlEncoded.replace("%2F", replacement)
-			return new URI(urlStr).toASCIIString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return urlStr;
-		}
-	}
+            return new URI(urlStr).toASCIIString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return urlStr;
+        }
+    }
 
-	public static boolean isEqualsIfNotNull(String str1, String str2) {
-		if (str1 == null || str2 == null) {
-			return false;
-		}
-		return str1.equals(str2);
-	}
+    public static boolean isEqualsIfNotNull(String str1, String str2) {
+        if (str1 == null || str2 == null) {
+            return false;
+        }
+        return str1.equals(str2);
+    }
 
     public static boolean isEqualsWhenMayNull(String str1, String str2) {
         if (str1 == null && str2 == null) {
@@ -348,110 +353,112 @@ public class TextUtil {
         }
         return str1.equals(str2);
     }
-	
-	public static String repeat(String repeatedStr, int times, String seperator) {
-		return repeat(repeatedStr, times, seperator, true);
-	}
 
-	public static String repeat(String repeatedStr, int times, String seperator, boolean noSeperatorAtLast) {
-		if (times <= 0) {
-			return "";
-		}
-		StringBuilder sb  = new StringBuilder();
-		for(int i=0;i<times;i++) {
-			sb.append(repeatedStr);
-			if (seperator!= null  && (!noSeperatorAtLast || i < (times-1))) {
-				sb.append(seperator);
-			}
-		}
-		return sb.toString();
-	}
+    public static String repeat(String repeatedStr, int times, String seperator) {
+        return repeat(repeatedStr, times, seperator, true);
+    }
 
-	public static int lengthOf(String inStr) {
-		if (inStr == null) {
-			return 0;
-		}
-		return inStr.length();
-	}
-	
-	public static String formatMobileNumber(String inStr) {
-		if (inStr == null) {
-			return null;
-		}
-		String str = onlyNumber(inStr);
-		return str;
-	}
+    public static String repeat(String repeatedStr, int times, String seperator, boolean noSeperatorAtLast) {
+        if (times <= 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < times; i++) {
+            sb.append(repeatedStr);
+            if (seperator != null && (!noSeperatorAtLast || i < (times - 1))) {
+                sb.append(seperator);
+            }
+        }
+        return sb.toString();
+    }
 
-	private static final Pattern ptnChnMobile = Pattern.compile("1[3-9]\\d{9}");
-	public static String formatChinaMobile(String mobile) {
-		String num = TextUtil.onlyNumber(mobile);
-		if (num.startsWith("86") || num.startsWith("086") || num.startsWith("0086")) {
-			int pos = num.indexOf("86");
-			num = num.substring(pos+2);
-		}
-		Matcher m = ptnChnMobile.matcher(num);
-		if (m.matches()) {
-			return num;
-		}
-		return null;
-	}
-	
-	public static String nullIfBlank(String input) {
-		if (isBlank(input)) {
-			return null;
-		}
-		return input.trim();
-	}
+    public static int lengthOf(String inStr) {
+        if (inStr == null) {
+            return 0;
+        }
+        return inStr.length();
+    }
 
-	public static String firstNotBlank(String ...strings ) {
-		if (strings == null || strings.length == 0) {
-			return null;
-		}
-		for(String str : strings) {
-			if(!isBlank(str)) {
-				return str;
-			}
-		}
-		return null;
-	}
+    public static String formatMobileNumber(String inStr) {
+        if (inStr == null) {
+            return null;
+        }
+        String str = onlyNumber(inStr);
+        return str;
+    }
 
-	public static List<String> findAllMatched(String source, Pattern pattern) {
-		Matcher matcher = pattern.matcher(source);
-		List<String> list = new ArrayList<>();
-		while (matcher.find()) {
-			list.add(matcher.group());
-		}
-		return list;
+    private static final Pattern ptnChnMobile = Pattern.compile("1[3-9]\\d{9}");
 
-	}
-	
-	public static String toCamelCase(String input) {
-		// 以空格或者下划线分隔,首字母大写,其他全部小写
-		// 已经是camel case了,就不处理
-		if (input == null || input.isEmpty()) {
-			return input;
-		}
-		if (input.matches("^[A-Za-z][^ _]*$")) {
-			return capFirstChar(input); 
-		}
-		List<String> strList = new ArrayList<>(Arrays.asList(input.trim().split("[ _]")));
-		List<String> strList2 = strList.stream()
-			.filter(str->(str != null && str.trim().length() > 0))
-			.map(str->capFirstChar(str.toLowerCase()))
-			.collect(Collectors.toList());
-		return String.join("", strList2);
-	}
-	
-	static final int GB_SP_DIFF = 160;
+    public static String formatChinaMobile(String mobile) {
+        String num = TextUtil.onlyNumber(mobile);
+        if (num.startsWith("86") || num.startsWith("086") || num.startsWith("0086")) {
+            int pos = num.indexOf("86");
+            num = num.substring(pos + 2);
+        }
+        Matcher m = ptnChnMobile.matcher(num);
+        if (m.matches()) {
+            return num;
+        }
+        return null;
+    }
+
+    public static String nullIfBlank(String input) {
+        if (isBlank(input)) {
+            return null;
+        }
+        return input.trim();
+    }
+
+    public static String firstNotBlank(String... strings) {
+        if (strings == null || strings.length == 0) {
+            return null;
+        }
+        for (String str : strings) {
+            if (!isBlank(str)) {
+                return str;
+            }
+        }
+        return null;
+    }
+
+    public static List<String> findAllMatched(String source, Pattern pattern) {
+        Matcher matcher = pattern.matcher(source);
+        List<String> list = new ArrayList<>();
+        while (matcher.find()) {
+            list.add(matcher.group());
+        }
+        return list;
+
+    }
+
+    public static String toCamelCase(String input) {
+        // 以空格或者下划线分隔,首字母大写,其他全部小写
+        // 已经是camel case了,就不处理
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        if (input.matches("^[A-Za-z][^ _]*$")) {
+            return capFirstChar(input);
+        }
+        List<String> strList = new ArrayList<>(Arrays.asList(input.trim().split("[ _]")));
+        List<String> strList2 = strList.stream()
+                .filter(str -> (str != null && str.trim().length() > 0))
+                .map(str -> capFirstChar(str.toLowerCase()))
+                .collect(Collectors.toList());
+        return String.join("", strList2);
+    }
+
+    static final int GB_SP_DIFF = 160;
     // 存放国标一级汉字不同读音的起始区位码
-    static final int[] secPosValueList = { 1601, 1637, 1833, 2078, 2274, 2302, 2433, 2594, 2787, 3106, 3212, 3472, 3635,
-            3722, 3730, 3858, 4027, 4086, 4390, 4558, 4684, 4925, 5249, 5600 };
+    static final int[] secPosValueList = {1601, 1637, 1833, 2078, 2274, 2302, 2433, 2594, 2787, 3106, 3212, 3472, 3635,
+            3722, 3730, 3858, 4027, 4086, 4390, 4558, 4684, 4925, 5249, 5600};
     // 存放国标一级汉字不同读音的起始区位码对应读音
-    static final char[] firstLetter = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-            'r', 's', 't', 'w', 'x', 'y', 'z' };
+    static final char[] firstLetter = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+            'r', 's', 't', 'w', 'x', 'y', 'z'};
 
     /**
      * 提取汉字字符串的首字母
+     *
      * @param characters 汉字字符串
      * @return
      */
@@ -473,6 +480,7 @@ public class TextUtil {
 
     /**
      * 获取一个汉字的首字母
+     *
      * @param ch 汉字
      * @return
      */
@@ -552,5 +560,41 @@ public class TextUtil {
         }
 
         return (1 - (double) d[n][m] / Math.max(str.length(), target.length())) * 100.0;
+    }
+
+
+    public static String propertyToColumnName(String input) {
+        int length = input.length();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            char c = input.charAt(i);
+            if (!Character.isUpperCase(c)) {
+                sb.append(c);
+            } else {
+                sb.append("_");
+                sb.append(Character.toLowerCase(c));
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String toCamelName(String input) {
+        int length = input.length();
+        StringBuilder sb = new StringBuilder();
+        boolean nextUpper = false;
+        for (int i = 0; i < length; i++) {
+            char c = input.charAt(i);
+            if (c == '_') {
+                nextUpper = true;
+                continue;
+            }
+            if (!nextUpper) {
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(Character.toUpperCase(c));
+                nextUpper = false;
+            }
+        }
+        return sb.toString();
     }
 }

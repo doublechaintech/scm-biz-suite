@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.accountingdocument;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface AccountingDocumentManager extends BaseManager{
 
 		
 
+  List<AccountingDocument> searchAccountingDocumentList(RetailscmUserContext ctx, AccountingDocumentRequest pRequest);
+  AccountingDocument searchAccountingDocument(RetailscmUserContext ctx, AccountingDocumentRequest pRequest);
 	public AccountingDocument createAccountingDocument(RetailscmUserContext userContext, String name,Date accountingDocumentDate,String accountingPeriodId,String documentTypeId) throws Exception;
 	public AccountingDocument updateAccountingDocument(RetailscmUserContext userContext,String accountingDocumentId, int accountingDocumentVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public AccountingDocument loadAccountingDocument(RetailscmUserContext userContext, String accountingDocumentId, String [] tokensExpr) throws Exception;
@@ -28,6 +34,8 @@ public interface AccountingDocumentManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String accountingDocumentId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, AccountingDocument newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, AccountingDocument updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -59,6 +67,9 @@ public interface AccountingDocumentManager extends BaseManager{
 	public Object listByDocumentType(RetailscmUserContext userContext,String documentTypeId) throws Exception;
 	public Object listPageByDocumentType(RetailscmUserContext userContext,String documentTypeId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

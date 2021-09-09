@@ -1,11 +1,16 @@
 package com.terapico.caf.viewcomponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VComponentSection extends BaseVC {
   protected String title;
   protected String brief;
   protected String icon;
   protected String viewGroup;
   protected String displayMode;
+  protected Boolean horizontal;
+  private List<VComponentAction> actionList;
 
   public VComponentSection() {
     super();
@@ -87,6 +92,27 @@ public class VComponentSection extends BaseVC {
     return this;
   }
 
+  public Boolean getHorizontal() {
+    return this.horizontal;
+  }
+
+  public void setHorizontal(Boolean value) {
+    this.horizontal = value;
+  }
+
+  public VComponentSection horizontal(Boolean value) {
+    this.horizontal = value;
+    return this;
+  }
+
+  public List<VComponentAction> getActionList() {
+    return actionList;
+  }
+
+  public void setActionList(List<VComponentAction> actionList) {
+    this.actionList = actionList;
+  }
+
   public VComponentSection setAttribute(String attrName, Object value) {
     String stdAttrName = toStandardAttributeName(attrName);
     if (handledByBaseAttribute(stdAttrName, value)) {
@@ -118,8 +144,31 @@ public class VComponentSection extends BaseVC {
           setDisplayMode((String) value);
         }
         return this;
+      case "horizontal":
+        if (checkAttributeValueAssignable(value, Boolean.class, "section的horizontal必须是Boolean类型")) {
+          setHorizontal((Boolean) value);
+        }
+        return this;
       default:
         throw new RuntimeException("section 不支持设置属性 " + stdAttrName);
     }
+  }
+
+  public VComponentSection actionList(List<VComponentAction> value) {
+    this.actionList = value;
+    return this;
+  }
+
+  public VComponentSection actionList(VComponentAction value) {
+    ensureActionList().add(value);
+    return this;
+  }
+
+  protected List<VComponentAction> ensureActionList() {
+    if (this.actionList != null) {
+      return this.actionList;
+    }
+    this.actionList = new ArrayList<>();
+    return this.actionList;
   }
 }

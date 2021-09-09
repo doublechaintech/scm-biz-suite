@@ -46,6 +46,7 @@ public interface LeaveTypeDAO extends BaseDAO{
 	public void delete(String leaveTypeId, int version) throws Exception;
 	public LeaveType disconnectFromAll(String leaveTypeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeLeaveDAO getEmployeeLeaveDAO();
 		
@@ -61,9 +62,10 @@ public interface LeaveTypeDAO extends BaseDAO{
 	public int countEmployeeLeaveListWithWho(String leaveTypeId, String whoId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<LeaveType> queryList(String sql, Object ... parmeters);
+	public SmartList<LeaveType> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<LeaveType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateLeaveType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<LeaveType> findLeaveTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -77,6 +79,8 @@ public interface LeaveTypeDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:EmployeeLeave的type的EmployeeLeaveList
 	public SmartList<EmployeeLeave> loadOurEmployeeLeaveList(RetailscmUserContext userContext, List<LeaveType> us, Map<String,Object> options) throws Exception;
 	
+
+	List<LeaveType> search(LeaveTypeRequest pRequest);
 }
 
 

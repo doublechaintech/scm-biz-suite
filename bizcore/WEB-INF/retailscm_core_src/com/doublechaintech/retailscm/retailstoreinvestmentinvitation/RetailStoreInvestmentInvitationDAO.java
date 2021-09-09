@@ -44,6 +44,7 @@ public interface RetailStoreInvestmentInvitationDAO extends BaseDAO{
 	public void delete(String retailStoreInvestmentInvitationId, int version) throws Exception;
 	public RetailStoreInvestmentInvitation disconnectFromAll(String retailStoreInvestmentInvitationId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public RetailStoreDAO getRetailStoreDAO();
 		
@@ -83,14 +84,17 @@ public interface RetailStoreInvestmentInvitationDAO extends BaseDAO{
 	public int countRetailStoreListWithClosing(String retailStoreInvestmentInvitationId, String closingId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<RetailStoreInvestmentInvitation> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreInvestmentInvitation> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreInvestmentInvitation> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreInvestmentInvitation executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的investmentInvitation的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreInvestmentInvitation> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStoreInvestmentInvitation> search(RetailStoreInvestmentInvitationRequest pRequest);
 }
 
 

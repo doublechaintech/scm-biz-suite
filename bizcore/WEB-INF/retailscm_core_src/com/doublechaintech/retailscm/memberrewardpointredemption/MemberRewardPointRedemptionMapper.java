@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.memberrewardpointredemption;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,25 +9,28 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
 
 public class MemberRewardPointRedemptionMapper extends BaseRowMapper<MemberRewardPointRedemption>{
-	
+
 	protected MemberRewardPointRedemption internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		MemberRewardPointRedemption memberRewardPointRedemption = getMemberRewardPointRedemption();		
-		 		
- 		setId(memberRewardPointRedemption, rs, rowNumber); 		
- 		setName(memberRewardPointRedemption, rs, rowNumber); 		
- 		setPoint(memberRewardPointRedemption, rs, rowNumber); 		
- 		setOwner(memberRewardPointRedemption, rs, rowNumber); 		
+		MemberRewardPointRedemption memberRewardPointRedemption = getMemberRewardPointRedemption();
+		
+ 		setId(memberRewardPointRedemption, rs, rowNumber);
+ 		setName(memberRewardPointRedemption, rs, rowNumber);
+ 		setPoint(memberRewardPointRedemption, rs, rowNumber);
+ 		setOwner(memberRewardPointRedemption, rs, rowNumber);
  		setVersion(memberRewardPointRedemption, rs, rowNumber);
 
+    
 		return memberRewardPointRedemption;
 	}
-	
+
 	protected MemberRewardPointRedemption getMemberRewardPointRedemption(){
-		return new MemberRewardPointRedemption();
-	}		
+	  MemberRewardPointRedemption entity = new MemberRewardPointRedemption();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(MemberRewardPointRedemption memberRewardPointRedemption, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(MemberRewardPointRedemptionTable.COLUMN_ID);
@@ -37,10 +41,13 @@ public class MemberRewardPointRedemptionMapper extends BaseRowMapper<MemberRewar
 		}
 		
 		memberRewardPointRedemption.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(MemberRewardPointRedemption memberRewardPointRedemption, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(MemberRewardPointRedemptionTable.COLUMN_NAME);
@@ -51,10 +58,13 @@ public class MemberRewardPointRedemptionMapper extends BaseRowMapper<MemberRewar
 		}
 		
 		memberRewardPointRedemption.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPoint(MemberRewardPointRedemption memberRewardPointRedemption, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer point = rs.getInt(MemberRewardPointRedemptionTable.COLUMN_POINT);
@@ -65,10 +75,18 @@ public class MemberRewardPointRedemptionMapper extends BaseRowMapper<MemberRewar
 		}
 		
 		memberRewardPointRedemption.setPoint(point);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setOwner(MemberRewardPointRedemption memberRewardPointRedemption, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreMemberId = rs.getString(MemberRewardPointRedemptionTable.COLUMN_OWNER);
+ 		String retailStoreMemberId;
+ 		try{
+ 		  retailStoreMemberId = rs.getString(MemberRewardPointRedemptionTable.COLUMN_OWNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreMemberId == null){
  			return;
  		}
@@ -79,14 +97,14 @@ public class MemberRewardPointRedemptionMapper extends BaseRowMapper<MemberRewar
  		if( retailStoreMember != null ){
  			//if the root object 'memberRewardPointRedemption' already have the property, just set the id for it;
  			retailStoreMember.setId(retailStoreMemberId);
- 			
+
  			return;
  		}
  		memberRewardPointRedemption.setOwner(createEmptyOwner(retailStoreMemberId));
  	}
  	
 	protected void setVersion(MemberRewardPointRedemption memberRewardPointRedemption, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(MemberRewardPointRedemptionTable.COLUMN_VERSION);
@@ -97,9 +115,12 @@ public class MemberRewardPointRedemptionMapper extends BaseRowMapper<MemberRewar
 		}
 		
 		memberRewardPointRedemption.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreMember  createEmptyOwner(String retailStoreMemberId){
  		RetailStoreMember retailStoreMember = new RetailStoreMember();

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.goodsallocation;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
 
 public class GoodsAllocationMapper extends BaseRowMapper<GoodsAllocation>{
-	
+
 	protected GoodsAllocation internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		GoodsAllocation goodsAllocation = getGoodsAllocation();		
-		 		
- 		setId(goodsAllocation, rs, rowNumber); 		
- 		setLocation(goodsAllocation, rs, rowNumber); 		
- 		setLatitude(goodsAllocation, rs, rowNumber); 		
- 		setLongitude(goodsAllocation, rs, rowNumber); 		
- 		setGoodsShelf(goodsAllocation, rs, rowNumber); 		
+		GoodsAllocation goodsAllocation = getGoodsAllocation();
+		
+ 		setId(goodsAllocation, rs, rowNumber);
+ 		setLocation(goodsAllocation, rs, rowNumber);
+ 		setLatitude(goodsAllocation, rs, rowNumber);
+ 		setLongitude(goodsAllocation, rs, rowNumber);
+ 		setGoodsShelf(goodsAllocation, rs, rowNumber);
  		setVersion(goodsAllocation, rs, rowNumber);
 
+    
 		return goodsAllocation;
 	}
-	
+
 	protected GoodsAllocation getGoodsAllocation(){
-		return new GoodsAllocation();
-	}		
+	  GoodsAllocation entity = new GoodsAllocation();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(GoodsAllocation goodsAllocation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(GoodsAllocationTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class GoodsAllocationMapper extends BaseRowMapper<GoodsAllocation>{
 		}
 		
 		goodsAllocation.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLocation(GoodsAllocation goodsAllocation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String location = rs.getString(GoodsAllocationTable.COLUMN_LOCATION);
@@ -52,10 +59,13 @@ public class GoodsAllocationMapper extends BaseRowMapper<GoodsAllocation>{
 		}
 		
 		goodsAllocation.setLocation(location);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLatitude(GoodsAllocation goodsAllocation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(GoodsAllocationTable.COLUMN_LATITUDE);
@@ -66,10 +76,13 @@ public class GoodsAllocationMapper extends BaseRowMapper<GoodsAllocation>{
 		}
 		
 		goodsAllocation.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(GoodsAllocation goodsAllocation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(GoodsAllocationTable.COLUMN_LONGITUDE);
@@ -80,10 +93,18 @@ public class GoodsAllocationMapper extends BaseRowMapper<GoodsAllocation>{
 		}
 		
 		goodsAllocation.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setGoodsShelf(GoodsAllocation goodsAllocation, ResultSet rs, int rowNumber) throws SQLException{
- 		String goodsShelfId = rs.getString(GoodsAllocationTable.COLUMN_GOODS_SHELF);
+ 		String goodsShelfId;
+ 		try{
+ 		  goodsShelfId = rs.getString(GoodsAllocationTable.COLUMN_GOODS_SHELF);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( goodsShelfId == null){
  			return;
  		}
@@ -94,14 +115,14 @@ public class GoodsAllocationMapper extends BaseRowMapper<GoodsAllocation>{
  		if( goodsShelf != null ){
  			//if the root object 'goodsAllocation' already have the property, just set the id for it;
  			goodsShelf.setId(goodsShelfId);
- 			
+
  			return;
  		}
  		goodsAllocation.setGoodsShelf(createEmptyGoodsShelf(goodsShelfId));
  	}
  	
 	protected void setVersion(GoodsAllocation goodsAllocation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(GoodsAllocationTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class GoodsAllocationMapper extends BaseRowMapper<GoodsAllocation>{
 		}
 		
 		goodsAllocation.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected GoodsShelf  createEmptyGoodsShelf(String goodsShelfId){
  		GoodsShelf goodsShelf = new GoodsShelf();

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.userallowlist;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,25 +9,28 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
 
 public class UserAllowListMapper extends BaseRowMapper<UserAllowList>{
-	
+
 	protected UserAllowList internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		UserAllowList userAllowList = getUserAllowList();		
-		 		
- 		setId(userAllowList, rs, rowNumber); 		
- 		setUserIdentity(userAllowList, rs, rowNumber); 		
- 		setUserSpecialFunctions(userAllowList, rs, rowNumber); 		
- 		setDomain(userAllowList, rs, rowNumber); 		
+		UserAllowList userAllowList = getUserAllowList();
+		
+ 		setId(userAllowList, rs, rowNumber);
+ 		setUserIdentity(userAllowList, rs, rowNumber);
+ 		setUserSpecialFunctions(userAllowList, rs, rowNumber);
+ 		setDomain(userAllowList, rs, rowNumber);
  		setVersion(userAllowList, rs, rowNumber);
 
+    
 		return userAllowList;
 	}
-	
+
 	protected UserAllowList getUserAllowList(){
-		return new UserAllowList();
-	}		
+	  UserAllowList entity = new UserAllowList();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(UserAllowList userAllowList, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(UserAllowListTable.COLUMN_ID);
@@ -37,10 +41,13 @@ public class UserAllowListMapper extends BaseRowMapper<UserAllowList>{
 		}
 		
 		userAllowList.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setUserIdentity(UserAllowList userAllowList, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String userIdentity = rs.getString(UserAllowListTable.COLUMN_USER_IDENTITY);
@@ -51,10 +58,13 @@ public class UserAllowListMapper extends BaseRowMapper<UserAllowList>{
 		}
 		
 		userAllowList.setUserIdentity(userIdentity);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setUserSpecialFunctions(UserAllowList userAllowList, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String userSpecialFunctions = rs.getString(UserAllowListTable.COLUMN_USER_SPECIAL_FUNCTIONS);
@@ -65,10 +75,18 @@ public class UserAllowListMapper extends BaseRowMapper<UserAllowList>{
 		}
 		
 		userAllowList.setUserSpecialFunctions(userSpecialFunctions);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setDomain(UserAllowList userAllowList, ResultSet rs, int rowNumber) throws SQLException{
- 		String userDomainId = rs.getString(UserAllowListTable.COLUMN_DOMAIN);
+ 		String userDomainId;
+ 		try{
+ 		  userDomainId = rs.getString(UserAllowListTable.COLUMN_DOMAIN);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( userDomainId == null){
  			return;
  		}
@@ -79,14 +97,14 @@ public class UserAllowListMapper extends BaseRowMapper<UserAllowList>{
  		if( userDomain != null ){
  			//if the root object 'userAllowList' already have the property, just set the id for it;
  			userDomain.setId(userDomainId);
- 			
+
  			return;
  		}
  		userAllowList.setDomain(createEmptyDomain(userDomainId));
  	}
  	
 	protected void setVersion(UserAllowList userAllowList, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(UserAllowListTable.COLUMN_VERSION);
@@ -97,9 +115,12 @@ public class UserAllowListMapper extends BaseRowMapper<UserAllowList>{
 		}
 		
 		userAllowList.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected UserDomain  createEmptyDomain(String userDomainId){
  		UserDomain userDomain = new UserDomain();

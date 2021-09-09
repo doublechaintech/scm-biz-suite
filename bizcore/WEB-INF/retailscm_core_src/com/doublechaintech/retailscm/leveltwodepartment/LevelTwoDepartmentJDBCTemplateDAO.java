@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.leveltwodepartment;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected LevelOneDepartmentDAO levelOneDepartmentDAO;
 	public void setLevelOneDepartmentDAO(LevelOneDepartmentDAO levelOneDepartmentDAO){
- 	
+
  		if(levelOneDepartmentDAO == null){
  			throw new IllegalStateException("Do not try to set levelOneDepartmentDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(this.levelOneDepartmentDAO == null){
  			throw new IllegalStateException("The levelOneDepartmentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.levelOneDepartmentDAO;
- 	}	
+ 	}
 
 	protected LevelThreeDepartmentDAO levelThreeDepartmentDAO;
 	public void setLevelThreeDepartmentDAO(LevelThreeDepartmentDAO levelThreeDepartmentDAO){
- 	
+
  		if(levelThreeDepartmentDAO == null){
  			throw new IllegalStateException("Do not try to set levelThreeDepartmentDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(this.levelThreeDepartmentDAO == null){
  			throw new IllegalStateException("The levelThreeDepartmentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.levelThreeDepartmentDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		newLevelTwoDepartment.setVersion(0);
 		
 		
- 		
+
  		if(isSaveLevelThreeDepartmentListEnabled(options)){
  			for(LevelThreeDepartment item: newLevelTwoDepartment.getLevelThreeDepartmentList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return LevelTwoDepartmentTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBelongsToEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, LevelTwoDepartmentTokens.BELONGSTO);
  	}
 
  	protected boolean isSaveBelongsToEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, LevelTwoDepartmentTokens.BELONGSTO);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractLevelThreeDepartmentListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractLevelThreeDepartmentListEnabled(Map<String,Object> options){
  		return checkOptions(options,LevelTwoDepartmentTokens.LEVEL_THREE_DEPARTMENT_LIST);
  	}
- 	protected boolean isAnalyzeLevelThreeDepartmentListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeLevelThreeDepartmentListEnabled(Map<String,Object> options){
  		return LevelTwoDepartmentTokens.of(options).analyzeLevelThreeDepartmentListEnabled();
  	}
-	
+
 	protected boolean isSaveLevelThreeDepartmentListEnabled(Map<String,Object> options){
 		return checkOptions(options, LevelTwoDepartmentTokens.LEVEL_THREE_DEPARTMENT_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		return new LevelTwoDepartmentMapper();
 	}
 
-	
-	
+
+
 	protected LevelTwoDepartment extractLevelTwoDepartment(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			LevelTwoDepartment levelTwoDepartment = loadSingleObject(accessKey, getLevelTwoDepartmentMapper());
@@ -268,13 +270,13 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	}
 
-	
-	
+
+
 
 	protected LevelTwoDepartment loadInternalLevelTwoDepartment(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		LevelTwoDepartment levelTwoDepartment = extractLevelTwoDepartment(accessKey, loadOptions);
- 	
+
  		if(isExtractBelongsToEnabled(loadOptions)){
 	 		extractBelongsTo(levelTwoDepartment, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		
 		if(isExtractLevelThreeDepartmentListEnabled(loadOptions)){
 	 		extractLevelThreeDepartmentList(levelTwoDepartment, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeLevelThreeDepartmentListEnabled(loadOptions)){
 	 		analyzeLevelThreeDepartmentList(levelTwoDepartment, loadOptions);
@@ -291,12 +293,13 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		
 		
 		return levelTwoDepartment;
-		
+
 	}
 
-	 
+	
 
  	protected LevelTwoDepartment extractBelongsTo(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options) throws Exception{
+  
 
 		if(levelTwoDepartment.getBelongsTo() == null){
 			return levelTwoDepartment;
@@ -309,21 +312,21 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(belongsTo != null){
 			levelTwoDepartment.setBelongsTo(belongsTo);
 		}
-		
- 		
+
+
  		return levelTwoDepartment;
  	}
- 		
+
  
 		
 	protected void enhanceLevelThreeDepartmentList(SmartList<LevelThreeDepartment> levelThreeDepartmentList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected LevelTwoDepartment extractLevelThreeDepartmentList(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options){
-		
-		
+    
+
 		if(levelTwoDepartment == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return levelTwoDepartment;
 		}
 
-		
-		
+
+
 		SmartList<LevelThreeDepartment> levelThreeDepartmentList = getLevelThreeDepartmentDAO().findLevelThreeDepartmentByBelongsTo(levelTwoDepartment.getId(),options);
 		if(levelThreeDepartmentList != null){
 			enhanceLevelThreeDepartmentList(levelThreeDepartmentList,options);
 			levelTwoDepartment.setLevelThreeDepartmentList(levelThreeDepartmentList);
 		}
-		
+
 		return levelTwoDepartment;
-	
-	}	
-	
+  
+	}
+
 	protected LevelTwoDepartment analyzeLevelThreeDepartmentList(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options){
-		
-		
+     
 		if(levelTwoDepartment == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return levelTwoDepartment;
 		}
 
-		
-		
+
+
 		SmartList<LevelThreeDepartment> levelThreeDepartmentList = levelTwoDepartment.getLevelThreeDepartmentList();
 		if(levelThreeDepartmentList != null){
 			getLevelThreeDepartmentDAO().analyzeLevelThreeDepartmentByBelongsTo(levelThreeDepartmentList, levelTwoDepartment.getId(), options);
-			
+
 		}
-		
+
 		return levelTwoDepartment;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<LevelTwoDepartment> findLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId,Map<String,Object> options){
- 	
+
   		SmartList<LevelTwoDepartment> resultList = queryWith(LevelTwoDepartmentTable.COLUMN_BELONGS_TO, levelOneDepartmentId, options, getLevelTwoDepartmentMapper());
 		// analyzeLevelTwoDepartmentByBelongsTo(resultList, levelOneDepartmentId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<LevelTwoDepartment> findLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<LevelTwoDepartment> resultList =  queryWithRange(LevelTwoDepartmentTable.COLUMN_BELONGS_TO, levelOneDepartmentId, options, getLevelTwoDepartmentMapper(), start, count);
  		//analyzeLevelTwoDepartmentByBelongsTo(resultList, levelOneDepartmentId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeLevelTwoDepartmentByBelongsTo(SmartList<LevelTwoDepartment> resultList, String levelOneDepartmentId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	public Map<String, Integer> countLevelTwoDepartmentByBelongsToIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(LevelTwoDepartmentTable.COLUMN_BELONGS_TO, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected LevelTwoDepartment saveLevelTwoDepartment(LevelTwoDepartment  levelTwoDepartment){
+    
+
 		
 		if(!levelTwoDepartment.isChanged()){
 			return levelTwoDepartment;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(levelTwoDepartment);
 		String SQL=this.getSaveLevelTwoDepartmentSQL(levelTwoDepartment);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveLevelTwoDepartmentParameters(levelTwoDepartment);
@@ -425,6 +430,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 
 		levelTwoDepartment.incVersion();
+		levelTwoDepartment.afterSave();
 		return levelTwoDepartment;
 
 	}
@@ -442,6 +448,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		for(LevelTwoDepartment levelTwoDepartment:levelTwoDepartmentList){
 			if(levelTwoDepartment.isChanged()){
 				levelTwoDepartment.incVersion();
+				levelTwoDepartment.afterSave();
 			}
 
 
@@ -548,13 +555,10 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(levelTwoDepartment.getBelongsTo() != null){
  			parameters[0] = levelTwoDepartment.getBelongsTo().getId();
  		}
- 
- 		
+    
  		parameters[1] = levelTwoDepartment.getName();
  		
- 		
  		parameters[2] = levelTwoDepartment.getDescription();
- 		
  		
  		parameters[3] = levelTwoDepartment.getFounded();
  		
@@ -574,15 +578,11 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  
  		if(levelTwoDepartment.getBelongsTo() != null){
  			parameters[1] = levelTwoDepartment.getBelongsTo().getId();
-
  		}
- 		
  		
  		parameters[2] = levelTwoDepartment.getName();
  		
- 		
  		parameters[3] = levelTwoDepartment.getDescription();
- 		
  		
  		parameters[4] = levelTwoDepartment.getFounded();
  		
@@ -592,12 +592,11 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected LevelTwoDepartment saveInternalLevelTwoDepartment(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options){
 
-		saveLevelTwoDepartment(levelTwoDepartment);
-
  		if(isSaveBelongsToEnabled(options)){
 	 		saveBelongsTo(levelTwoDepartment, options);
  		}
  
+   saveLevelTwoDepartment(levelTwoDepartment);
 		
 		if(isSaveLevelThreeDepartmentListEnabled(options)){
 	 		saveLevelThreeDepartmentList(levelTwoDepartment, options);
@@ -616,6 +615,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	
 
  	protected LevelTwoDepartment saveBelongsTo(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(levelTwoDepartment.getBelongsTo() == null){
  			return levelTwoDepartment;//do nothing when it is null
@@ -625,11 +625,6 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		return levelTwoDepartment;
 
  	}
-
-
-
-
-
  
 
 	
@@ -664,7 +659,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 		
 	protected LevelTwoDepartment saveLevelThreeDepartmentList(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options){
-
+    
 
 
 
@@ -731,19 +726,19 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		
 
 	public LevelTwoDepartment present(LevelTwoDepartment levelTwoDepartment,Map<String, Object> options){
-	
+
 		presentLevelThreeDepartmentList(levelTwoDepartment,options);
 
 		return levelTwoDepartment;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected LevelTwoDepartment presentLevelThreeDepartmentList(
 			LevelTwoDepartment levelTwoDepartment,
 			Map<String, Object> options) {
-
-		SmartList<LevelThreeDepartment> levelThreeDepartmentList = levelTwoDepartment.getLevelThreeDepartmentList();		
+    
+		SmartList<LevelThreeDepartment> levelThreeDepartmentList = levelTwoDepartment.getLevelThreeDepartmentList();
 				SmartList<LevelThreeDepartment> newList= presentSubList(levelTwoDepartment.getId(),
 				levelThreeDepartmentList,
 				options,
@@ -751,12 +746,12 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				getLevelThreeDepartmentDAO()::findLevelThreeDepartmentByBelongsTo
 				);
 
-		
+
 		levelTwoDepartment.setLevelThreeDepartmentList(newList);
-		
+
 
 		return levelTwoDepartment;
-	}			
+	}
 		
 
 	
@@ -780,6 +775,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	
 	// 需要一个加载引用我的对象的enhance方法:LevelThreeDepartment的belongsTo的LevelThreeDepartmentList
 	public SmartList<LevelThreeDepartment> loadOurLevelThreeDepartmentList(RetailscmUserContext userContext, List<LevelTwoDepartment> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -836,6 +832,10 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<LevelTwoDepartment> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getLevelTwoDepartmentMapper());
   }
@@ -871,6 +871,15 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	
 
+  @Override
+  public List<LevelTwoDepartment> search(LevelTwoDepartmentRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected LevelTwoDepartmentMapper mapper() {
+    return getLevelTwoDepartmentMapper();
+  }
 }
 
 

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.goodssupplier;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -55,13 +56,13 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected SupplierProductDAO supplierProductDAO;
 	public void setSupplierProductDAO(SupplierProductDAO supplierProductDAO){
- 	
+
  		if(supplierProductDAO == null){
  			throw new IllegalStateException("Do not try to set supplierProductDAO to null.");
  		}
@@ -71,13 +72,13 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.supplierProductDAO == null){
  			throw new IllegalStateException("The supplierProductDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplierProductDAO;
- 	}	
+ 	}
 
 	protected SupplyOrderDAO supplyOrderDAO;
 	public void setSupplyOrderDAO(SupplyOrderDAO supplyOrderDAO){
- 	
+
  		if(supplyOrderDAO == null){
  			throw new IllegalStateException("Do not try to set supplyOrderDAO to null.");
  		}
@@ -87,13 +88,13 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.supplyOrderDAO == null){
  			throw new IllegalStateException("The supplyOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplyOrderDAO;
- 	}	
+ 	}
 
 	protected AccountSetDAO accountSetDAO;
 	public void setAccountSetDAO(AccountSetDAO accountSetDAO){
- 	
+
  		if(accountSetDAO == null){
  			throw new IllegalStateException("Do not try to set accountSetDAO to null.");
  		}
@@ -103,9 +104,10 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.accountSetDAO == null){
  			throw new IllegalStateException("The accountSetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountSetDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -159,21 +161,21 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		newGoodsSupplier.setVersion(0);
 		
 		
- 		
+
  		if(isSaveSupplierProductListEnabled(options)){
  			for(SupplierProduct item: newGoodsSupplier.getSupplierProductList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSupplyOrderListEnabled(options)){
  			for(SupplyOrder item: newGoodsSupplier.getSupplyOrderList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveAccountSetListEnabled(options)){
  			for(AccountSet item: newGoodsSupplier.getAccountSetList()){
  				item.setVersion(0);
@@ -260,72 +262,72 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return GoodsSupplierTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBelongToEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, GoodsSupplierTokens.BELONGTO);
  	}
 
  	protected boolean isSaveBelongToEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, GoodsSupplierTokens.BELONGTO);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractSupplierProductListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSupplierProductListEnabled(Map<String,Object> options){
  		return checkOptions(options,GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST);
  	}
- 	protected boolean isAnalyzeSupplierProductListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSupplierProductListEnabled(Map<String,Object> options){
  		return GoodsSupplierTokens.of(options).analyzeSupplierProductListEnabled();
  	}
-	
+
 	protected boolean isSaveSupplierProductListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){
  		return checkOptions(options,GoodsSupplierTokens.SUPPLY_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){
  		return GoodsSupplierTokens.of(options).analyzeSupplyOrderListEnabled();
  	}
-	
+
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsSupplierTokens.SUPPLY_ORDER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractAccountSetListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractAccountSetListEnabled(Map<String,Object> options){
  		return checkOptions(options,GoodsSupplierTokens.ACCOUNT_SET_LIST);
  	}
- 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){
  		return GoodsSupplierTokens.of(options).analyzeAccountSetListEnabled();
  	}
-	
+
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsSupplierTokens.ACCOUNT_SET_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -334,8 +336,8 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new GoodsSupplierMapper();
 	}
 
-	
-	
+
+
 	protected GoodsSupplier extractGoodsSupplier(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			GoodsSupplier goodsSupplier = loadSingleObject(accessKey, getGoodsSupplierMapper());
@@ -346,13 +348,13 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected GoodsSupplier loadInternalGoodsSupplier(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		GoodsSupplier goodsSupplier = extractGoodsSupplier(accessKey, loadOptions);
- 	
+
  		if(isExtractBelongToEnabled(loadOptions)){
 	 		extractBelongTo(goodsSupplier, loadOptions);
  		}
@@ -360,8 +362,8 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 		if(isExtractSupplierProductListEnabled(loadOptions)){
 	 		extractSupplierProductList(goodsSupplier, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSupplierProductListEnabled(loadOptions)){
 	 		analyzeSupplierProductList(goodsSupplier, loadOptions);
@@ -370,8 +372,8 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 		if(isExtractSupplyOrderListEnabled(loadOptions)){
 	 		extractSupplyOrderList(goodsSupplier, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
 	 		analyzeSupplyOrderList(goodsSupplier, loadOptions);
@@ -380,8 +382,8 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 		if(isExtractAccountSetListEnabled(loadOptions)){
 	 		extractAccountSetList(goodsSupplier, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeAccountSetListEnabled(loadOptions)){
 	 		analyzeAccountSetList(goodsSupplier, loadOptions);
@@ -389,12 +391,13 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
 		
 		return goodsSupplier;
-		
+
 	}
 
-	 
+	
 
  	protected GoodsSupplier extractBelongTo(GoodsSupplier goodsSupplier, Map<String,Object> options) throws Exception{
+  
 
 		if(goodsSupplier.getBelongTo() == null){
 			return goodsSupplier;
@@ -407,21 +410,21 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(belongTo != null){
 			goodsSupplier.setBelongTo(belongTo);
 		}
-		
- 		
+
+
  		return goodsSupplier;
  	}
- 		
+
  
 		
 	protected void enhanceSupplierProductList(SmartList<SupplierProduct> supplierProductList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected GoodsSupplier extractSupplierProductList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-		
-		
+    
+
 		if(goodsSupplier == null){
 			return null;
 		}
@@ -429,21 +432,20 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return goodsSupplier;
 		}
 
-		
-		
+
+
 		SmartList<SupplierProduct> supplierProductList = getSupplierProductDAO().findSupplierProductBySupplier(goodsSupplier.getId(),options);
 		if(supplierProductList != null){
 			enhanceSupplierProductList(supplierProductList,options);
 			goodsSupplier.setSupplierProductList(supplierProductList);
 		}
-		
+
 		return goodsSupplier;
-	
-	}	
-	
+  
+	}
+
 	protected GoodsSupplier analyzeSupplierProductList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-		
-		
+     
 		if(goodsSupplier == null){
 			return null;
 		}
@@ -451,27 +453,27 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return goodsSupplier;
 		}
 
-		
-		
+
+
 		SmartList<SupplierProduct> supplierProductList = goodsSupplier.getSupplierProductList();
 		if(supplierProductList != null){
 			getSupplierProductDAO().analyzeSupplierProductBySupplier(supplierProductList, goodsSupplier.getId(), options);
-			
+
 		}
-		
+
 		return goodsSupplier;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSupplyOrderList(SmartList<SupplyOrder> supplyOrderList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected GoodsSupplier extractSupplyOrderList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-		
-		
+    
+
 		if(goodsSupplier == null){
 			return null;
 		}
@@ -479,21 +481,20 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return goodsSupplier;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrder> supplyOrderList = getSupplyOrderDAO().findSupplyOrderBySeller(goodsSupplier.getId(),options);
 		if(supplyOrderList != null){
 			enhanceSupplyOrderList(supplyOrderList,options);
 			goodsSupplier.setSupplyOrderList(supplyOrderList);
 		}
-		
+
 		return goodsSupplier;
-	
-	}	
-	
+  
+	}
+
 	protected GoodsSupplier analyzeSupplyOrderList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-		
-		
+     
 		if(goodsSupplier == null){
 			return null;
 		}
@@ -501,27 +502,27 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return goodsSupplier;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrder> supplyOrderList = goodsSupplier.getSupplyOrderList();
 		if(supplyOrderList != null){
 			getSupplyOrderDAO().analyzeSupplyOrderBySeller(supplyOrderList, goodsSupplier.getId(), options);
-			
+
 		}
-		
+
 		return goodsSupplier;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceAccountSetList(SmartList<AccountSet> accountSetList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected GoodsSupplier extractAccountSetList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-		
-		
+    
+
 		if(goodsSupplier == null){
 			return null;
 		}
@@ -529,21 +530,20 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return goodsSupplier;
 		}
 
-		
-		
+
+
 		SmartList<AccountSet> accountSetList = getAccountSetDAO().findAccountSetByGoodsSupplier(goodsSupplier.getId(),options);
 		if(accountSetList != null){
 			enhanceAccountSetList(accountSetList,options);
 			goodsSupplier.setAccountSetList(accountSetList);
 		}
-		
+
 		return goodsSupplier;
-	
-	}	
-	
+  
+	}
+
 	protected GoodsSupplier analyzeAccountSetList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-		
-		
+     
 		if(goodsSupplier == null){
 			return null;
 		}
@@ -551,47 +551,47 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return goodsSupplier;
 		}
 
-		
-		
+
+
 		SmartList<AccountSet> accountSetList = goodsSupplier.getAccountSetList();
 		if(accountSetList != null){
 			getAccountSetDAO().analyzeAccountSetByGoodsSupplier(accountSetList, goodsSupplier.getId(), options);
-			
+
 		}
-		
+
 		return goodsSupplier;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<GoodsSupplier> findGoodsSupplierByBelongTo(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<GoodsSupplier> resultList = queryWith(GoodsSupplierTable.COLUMN_BELONG_TO, retailStoreCountryCenterId, options, getGoodsSupplierMapper());
 		// analyzeGoodsSupplierByBelongTo(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<GoodsSupplier> findGoodsSupplierByBelongTo(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<GoodsSupplier> resultList =  queryWithRange(GoodsSupplierTable.COLUMN_BELONG_TO, retailStoreCountryCenterId, options, getGoodsSupplierMapper(), start, count);
  		//analyzeGoodsSupplierByBelongTo(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeGoodsSupplierByBelongTo(SmartList<GoodsSupplier> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsSupplier.BELONG_TO_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsSupplier.LAST_UPDATE_TIME_PROPERTY
@@ -599,11 +599,11 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsSupplier.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsSupplier.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countGoodsSupplierByBelongTo(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -614,21 +614,24 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countGoodsSupplierByBelongToIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(GoodsSupplierTable.COLUMN_BELONG_TO, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected GoodsSupplier saveGoodsSupplier(GoodsSupplier  goodsSupplier){
+    
+
 		
 		if(!goodsSupplier.isChanged()){
 			return goodsSupplier;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(goodsSupplier);
 		String SQL=this.getSaveGoodsSupplierSQL(goodsSupplier);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsSupplierParameters(goodsSupplier);
@@ -639,6 +642,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		goodsSupplier.incVersion();
+		goodsSupplier.afterSave();
 		return goodsSupplier;
 
 	}
@@ -656,6 +660,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(GoodsSupplier goodsSupplier:goodsSupplierList){
 			if(goodsSupplier.isChanged()){
 				goodsSupplier.incVersion();
+				goodsSupplier.afterSave();
 			}
 
 
@@ -759,22 +764,17 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	protected Object[] prepareGoodsSupplierUpdateParameters(GoodsSupplier goodsSupplier){
  		Object[] parameters = new Object[9];
  
- 		
  		parameters[0] = goodsSupplier.getName();
- 		
  		
  		parameters[1] = goodsSupplier.getSupplyProduct();
  		
  		if(goodsSupplier.getBelongTo() != null){
  			parameters[2] = goodsSupplier.getBelongTo().getId();
  		}
- 
- 		
+    
  		parameters[3] = goodsSupplier.getContactNumber();
  		
- 		
  		parameters[4] = goodsSupplier.getDescription();
- 		
  		
  		parameters[5] = goodsSupplier.getLastUpdateTime();
  		
@@ -792,23 +792,17 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
         }
 		parameters[0] =  goodsSupplier.getId();
  
- 		
  		parameters[1] = goodsSupplier.getName();
- 		
  		
  		parameters[2] = goodsSupplier.getSupplyProduct();
  		
  		if(goodsSupplier.getBelongTo() != null){
  			parameters[3] = goodsSupplier.getBelongTo().getId();
-
  		}
- 		
  		
  		parameters[4] = goodsSupplier.getContactNumber();
  		
- 		
  		parameters[5] = goodsSupplier.getDescription();
- 		
  		
  		parameters[6] = goodsSupplier.getLastUpdateTime();
  		
@@ -818,12 +812,11 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected GoodsSupplier saveInternalGoodsSupplier(GoodsSupplier goodsSupplier, Map<String,Object> options){
 
-		saveGoodsSupplier(goodsSupplier);
-
  		if(isSaveBelongToEnabled(options)){
 	 		saveBelongTo(goodsSupplier, options);
  		}
  
+   saveGoodsSupplier(goodsSupplier);
 		
 		if(isSaveSupplierProductListEnabled(options)){
 	 		saveSupplierProductList(goodsSupplier, options);
@@ -856,6 +849,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected GoodsSupplier saveBelongTo(GoodsSupplier goodsSupplier, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(goodsSupplier.getBelongTo() == null){
  			return goodsSupplier;//do nothing when it is null
@@ -865,11 +859,6 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return goodsSupplier;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1092,7 +1081,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected GoodsSupplier saveSupplierProductList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-
+    
 
 
 
@@ -1158,7 +1147,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected GoodsSupplier saveSupplyOrderList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-
+    
 
 
 
@@ -1224,7 +1213,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected GoodsSupplier saveAccountSetList(GoodsSupplier goodsSupplier, Map<String,Object> options){
-
+    
 
 
 
@@ -1291,21 +1280,21 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public GoodsSupplier present(GoodsSupplier goodsSupplier,Map<String, Object> options){
-	
+
 		presentSupplierProductList(goodsSupplier,options);
 		presentSupplyOrderList(goodsSupplier,options);
 		presentAccountSetList(goodsSupplier,options);
 
 		return goodsSupplier;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected GoodsSupplier presentSupplierProductList(
 			GoodsSupplier goodsSupplier,
 			Map<String, Object> options) {
-
-		SmartList<SupplierProduct> supplierProductList = goodsSupplier.getSupplierProductList();		
+    
+		SmartList<SupplierProduct> supplierProductList = goodsSupplier.getSupplierProductList();
 				SmartList<SupplierProduct> newList= presentSubList(goodsSupplier.getId(),
 				supplierProductList,
 				options,
@@ -1313,19 +1302,19 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				getSupplierProductDAO()::findSupplierProductBySupplier
 				);
 
-		
+
 		goodsSupplier.setSupplierProductList(newList);
-		
+
 
 		return goodsSupplier;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected GoodsSupplier presentSupplyOrderList(
 			GoodsSupplier goodsSupplier,
 			Map<String, Object> options) {
-
-		SmartList<SupplyOrder> supplyOrderList = goodsSupplier.getSupplyOrderList();		
+    
+		SmartList<SupplyOrder> supplyOrderList = goodsSupplier.getSupplyOrderList();
 				SmartList<SupplyOrder> newList= presentSubList(goodsSupplier.getId(),
 				supplyOrderList,
 				options,
@@ -1333,19 +1322,19 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				getSupplyOrderDAO()::findSupplyOrderBySeller
 				);
 
-		
+
 		goodsSupplier.setSupplyOrderList(newList);
-		
+
 
 		return goodsSupplier;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected GoodsSupplier presentAccountSetList(
 			GoodsSupplier goodsSupplier,
 			Map<String, Object> options) {
-
-		SmartList<AccountSet> accountSetList = goodsSupplier.getAccountSetList();		
+    
+		SmartList<AccountSet> accountSetList = goodsSupplier.getAccountSetList();
 				SmartList<AccountSet> newList= presentSubList(goodsSupplier.getId(),
 				accountSetList,
 				options,
@@ -1353,12 +1342,12 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				getAccountSetDAO()::findAccountSetByGoodsSupplier
 				);
 
-		
+
 		goodsSupplier.setAccountSetList(newList);
-		
+
 
 		return goodsSupplier;
-	}			
+	}
 		
 
 	
@@ -1394,6 +1383,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 	// 需要一个加载引用我的对象的enhance方法:SupplierProduct的supplier的SupplierProductList
 	public SmartList<SupplierProduct> loadOurSupplierProductList(RetailscmUserContext userContext, List<GoodsSupplier> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1417,6 +1407,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 	// 需要一个加载引用我的对象的enhance方法:SupplyOrder的seller的SupplyOrderList
 	public SmartList<SupplyOrder> loadOurSupplyOrderList(RetailscmUserContext userContext, List<GoodsSupplier> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1440,6 +1431,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 	// 需要一个加载引用我的对象的enhance方法:AccountSet的goodsSupplier的AccountSetList
 	public SmartList<AccountSet> loadOurAccountSetList(RetailscmUserContext userContext, List<GoodsSupplier> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1496,6 +1488,10 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<GoodsSupplier> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getGoodsSupplierMapper());
   }
@@ -1531,6 +1527,15 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<GoodsSupplier> search(GoodsSupplierRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected GoodsSupplierMapper mapper() {
+    return getGoodsSupplierMapper();
+  }
 }
 
 

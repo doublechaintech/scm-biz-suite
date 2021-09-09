@@ -32,7 +32,7 @@ public class CandidateContainerTable{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
                 new String[]{"name","varchar(28)","","名称","",""},
                 new String[]{"version","int","","版本","",""}
-            }, "候选人容器", new String[]{
+            }, "候选容器", new String[]{
                 "create unique index idx4id_ver_of_candidate_container on candidate_container_data (id, version);"
          }, new String[]{
                 "alter table candidate_container_data add constraint pk4id_of_candidate_container_data primary key (id);",

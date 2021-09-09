@@ -50,6 +50,7 @@ public interface GoodsSupplierDAO extends BaseDAO{
 	public void delete(String goodsSupplierId, int version) throws Exception;
 	public GoodsSupplier disconnectFromAll(String goodsSupplierId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public SupplierProductDAO getSupplierProductDAO();
 		
@@ -87,9 +88,10 @@ public interface GoodsSupplierDAO extends BaseDAO{
 	public int countAccountSetListWithRetailStore(String goodsSupplierId, String retailStoreId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<GoodsSupplier> queryList(String sql, Object ... parmeters);
+	public SmartList<GoodsSupplier> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<GoodsSupplier> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateGoodsSupplier executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<GoodsSupplier> findGoodsSupplierByBelongTo(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -109,6 +111,8 @@ public interface GoodsSupplierDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:AccountSet的goodsSupplier的AccountSetList
 	public SmartList<AccountSet> loadOurAccountSetList(RetailscmUserContext userContext, List<GoodsSupplier> us, Map<String,Object> options) throws Exception;
 	
+
+	List<GoodsSupplier> search(GoodsSupplierRequest pRequest);
 }
 
 

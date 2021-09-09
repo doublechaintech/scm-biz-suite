@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employeecompanytraining;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -10,25 +11,28 @@ import com.doublechaintech.retailscm.employee.Employee;
 import com.doublechaintech.retailscm.companytraining.CompanyTraining;
 
 public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompanyTraining>{
-	
+
 	protected EmployeeCompanyTraining internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeCompanyTraining employeeCompanyTraining = getEmployeeCompanyTraining();		
-		 		
- 		setId(employeeCompanyTraining, rs, rowNumber); 		
- 		setEmployee(employeeCompanyTraining, rs, rowNumber); 		
- 		setTraining(employeeCompanyTraining, rs, rowNumber); 		
- 		setScoring(employeeCompanyTraining, rs, rowNumber); 		
+		EmployeeCompanyTraining employeeCompanyTraining = getEmployeeCompanyTraining();
+		
+ 		setId(employeeCompanyTraining, rs, rowNumber);
+ 		setEmployee(employeeCompanyTraining, rs, rowNumber);
+ 		setTraining(employeeCompanyTraining, rs, rowNumber);
+ 		setScoring(employeeCompanyTraining, rs, rowNumber);
  		setVersion(employeeCompanyTraining, rs, rowNumber);
 
+    
 		return employeeCompanyTraining;
 	}
-	
+
 	protected EmployeeCompanyTraining getEmployeeCompanyTraining(){
-		return new EmployeeCompanyTraining();
-	}		
+	  EmployeeCompanyTraining entity = new EmployeeCompanyTraining();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(EmployeeCompanyTraining employeeCompanyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeCompanyTrainingTable.COLUMN_ID);
@@ -39,10 +43,18 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
 		}
 		
 		employeeCompanyTraining.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setEmployee(EmployeeCompanyTraining employeeCompanyTraining, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(EmployeeCompanyTrainingTable.COLUMN_EMPLOYEE);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(EmployeeCompanyTrainingTable.COLUMN_EMPLOYEE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -53,14 +65,19 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
  		if( employee != null ){
  			//if the root object 'employeeCompanyTraining' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		employeeCompanyTraining.setEmployee(createEmptyEmployee(employeeId));
  	}
- 	 		
+ 	
  	protected void setTraining(EmployeeCompanyTraining employeeCompanyTraining, ResultSet rs, int rowNumber) throws SQLException{
- 		String companyTrainingId = rs.getString(EmployeeCompanyTrainingTable.COLUMN_TRAINING);
+ 		String companyTrainingId;
+ 		try{
+ 		  companyTrainingId = rs.getString(EmployeeCompanyTrainingTable.COLUMN_TRAINING);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( companyTrainingId == null){
  			return;
  		}
@@ -71,14 +88,19 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
  		if( companyTraining != null ){
  			//if the root object 'employeeCompanyTraining' already have the property, just set the id for it;
  			companyTraining.setId(companyTrainingId);
- 			
+
  			return;
  		}
  		employeeCompanyTraining.setTraining(createEmptyTraining(companyTrainingId));
  	}
- 	 		
+ 	
  	protected void setScoring(EmployeeCompanyTraining employeeCompanyTraining, ResultSet rs, int rowNumber) throws SQLException{
- 		String scoringId = rs.getString(EmployeeCompanyTrainingTable.COLUMN_SCORING);
+ 		String scoringId;
+ 		try{
+ 		  scoringId = rs.getString(EmployeeCompanyTrainingTable.COLUMN_SCORING);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( scoringId == null){
  			return;
  		}
@@ -89,14 +111,14 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
  		if( scoring != null ){
  			//if the root object 'employeeCompanyTraining' already have the property, just set the id for it;
  			scoring.setId(scoringId);
- 			
+
  			return;
  		}
  		employeeCompanyTraining.setScoring(createEmptyScoring(scoringId));
  	}
  	
 	protected void setVersion(EmployeeCompanyTraining employeeCompanyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeCompanyTrainingTable.COLUMN_VERSION);
@@ -107,9 +129,12 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
 		}
 		
 		employeeCompanyTraining.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyEmployee(String employeeId){
  		Employee employee = new Employee();

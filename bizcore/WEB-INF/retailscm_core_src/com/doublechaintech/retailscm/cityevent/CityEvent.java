@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.cityevent;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.eventattendance.EventAttendance;
 import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
 
@@ -28,12 +25,12 @@ import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCit
 @JsonSerialize(using = CityEventSerializer.class)
 public class CityEvent extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String MOBILE_PROPERTY                = "mobile"            ;
@@ -48,34 +45,98 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(MOBILE_PROPERTY, "mobile", "手机")
+        .withType("string_china_mobile_phone", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CITY_SERVICE_CENTER_PROPERTY, "retail_store_city_service_center", "城市服务中心")
+        .withType("retail_store_city_service_center", RetailStoreCityServiceCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DESCRIPTION_PROPERTY, "description", "描述")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
+        .withType("date_time_update", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EVENT_ATTENDANCE_LIST, "cityEvent", "事件出席名单")
+        .withType("event_attendance", EventAttendance.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,MOBILE_PROPERTY ,CITY_SERVICE_CENTER_PROPERTY ,DESCRIPTION_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(EVENT_ATTENDANCE_LIST, "cityEvent");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(EVENT_ATTENDANCE_LIST, EventAttendance.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(CITY_SERVICE_CENTER_PROPERTY, RetailStoreCityServiceCenter.class);
+
+    return parents;
+  }
+
+  public CityEvent want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public CityEvent wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mMobile             ;
-	protected		RetailStoreCityServiceCenter	mCityServiceCenter  ;
-	protected		String              	mDescription        ;
-	protected		DateTime            	mLastUpdateTime     ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		String              	mobile              ;
+	protected		RetailStoreCityServiceCenter	cityServiceCenter   ;
+	protected		String              	description         ;
+	protected		DateTime            	lastUpdateTime      ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<EventAttendance>	mEventAttendanceList;
 
-	
-		
+
+
 	public 	CityEvent(){
 		// lazy load for all the properties
 	}
@@ -83,20 +144,39 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		CityEvent cityEvent = new CityEvent();
 		cityEvent.setId(id);
 		cityEvent.setVersion(Integer.MAX_VALUE);
+		cityEvent.setChecked(true);
 		return cityEvent;
 	}
 	public 	static CityEvent refById(String id){
 		return withId(id);
 	}
-	
+
+  public CityEvent limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public CityEvent limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static CityEvent searchExample(){
+    CityEvent cityEvent = new CityEvent();
+    		cityEvent.setVersion(UNSET_INT);
+
+    return cityEvent;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCityServiceCenter( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -186,7 +266,7 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -210,136 +290,228 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public CityEvent updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public CityEvent updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public CityEvent orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public CityEvent ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public CityEvent addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public CityEvent updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public CityEvent updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public CityEvent orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public CityEvent ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public CityEvent addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setMobile(String mobile){
-		this.mMobile = trimString(mobile);;
-	}
+	public void setMobile(String mobile){String oldMobile = this.mobile;String newMobile = trimString(mobile);this.mobile = newMobile;}
+	public String mobile(){
+doLoad();
+return getMobile();
+}
 	public String getMobile(){
-		return this.mMobile;
+		return this.mobile;
 	}
-	public CityEvent updateMobile(String mobile){
-		this.mMobile = trimString(mobile);;
-		this.changed = true;
-		return this;
-	}
+	public CityEvent updateMobile(String mobile){String oldMobile = this.mobile;String newMobile = trimString(mobile);if(!shouldReplaceBy(newMobile, oldMobile)){return this;}this.mobile = newMobile;addPropertyChange(MOBILE_PROPERTY, oldMobile, newMobile);this.changed = true;setChecked(false);return this;}
+	public CityEvent orderByMobile(boolean asc){
+doAddOrderBy(MOBILE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createMobileCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(MOBILE_PROPERTY, operator, parameters);
+}
+	public CityEvent ignoreMobileCriteria(){super.ignoreSearchProperty(MOBILE_PROPERTY);
+return this;
+}
+	public CityEvent addMobileCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createMobileCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeMobile(String mobile){
 		if(mobile != null) { setMobile(mobile);}
 	}
+
 	
-	
-	
+
 	public String getMaskedMobile(){
 		String mobilePhoneNumber = getMobile();
 		return maskChinaMobileNumber(mobilePhoneNumber);
 	}
-	
+
 		
-	public void setCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
-		this.mCityServiceCenter = cityServiceCenter;;
-	}
+	public void setCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){RetailStoreCityServiceCenter oldCityServiceCenter = this.cityServiceCenter;RetailStoreCityServiceCenter newCityServiceCenter = cityServiceCenter;this.cityServiceCenter = newCityServiceCenter;}
+	public RetailStoreCityServiceCenter cityServiceCenter(){
+doLoad();
+return getCityServiceCenter();
+}
 	public RetailStoreCityServiceCenter getCityServiceCenter(){
-		return this.mCityServiceCenter;
+		return this.cityServiceCenter;
 	}
-	public CityEvent updateCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
-		this.mCityServiceCenter = cityServiceCenter;;
-		this.changed = true;
-		return this;
-	}
+	public CityEvent updateCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){RetailStoreCityServiceCenter oldCityServiceCenter = this.cityServiceCenter;RetailStoreCityServiceCenter newCityServiceCenter = cityServiceCenter;if(!shouldReplaceBy(newCityServiceCenter, oldCityServiceCenter)){return this;}this.cityServiceCenter = newCityServiceCenter;addPropertyChange(CITY_SERVICE_CENTER_PROPERTY, oldCityServiceCenter, newCityServiceCenter);this.changed = true;setChecked(false);return this;}
+	public CityEvent orderByCityServiceCenter(boolean asc){
+doAddOrderBy(CITY_SERVICE_CENTER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCityServiceCenterCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CITY_SERVICE_CENTER_PROPERTY, operator, parameters);
+}
+	public CityEvent ignoreCityServiceCenterCriteria(){super.ignoreSearchProperty(CITY_SERVICE_CENTER_PROPERTY);
+return this;
+}
+	public CityEvent addCityServiceCenterCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCityServiceCenterCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
 		if(cityServiceCenter != null) { setCityServiceCenter(cityServiceCenter);}
 	}
-	
+
 	
 	public void clearCityServiceCenter(){
 		setCityServiceCenter ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setDescription(String description){
-		this.mDescription = trimString(description);;
-	}
+	public void setDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);this.description = newDescription;}
+	public String description(){
+doLoad();
+return getDescription();
+}
 	public String getDescription(){
-		return this.mDescription;
+		return this.description;
 	}
-	public CityEvent updateDescription(String description){
-		this.mDescription = trimString(description);;
-		this.changed = true;
-		return this;
-	}
+	public CityEvent updateDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);if(!shouldReplaceBy(newDescription, oldDescription)){return this;}this.description = newDescription;addPropertyChange(DESCRIPTION_PROPERTY, oldDescription, newDescription);this.changed = true;setChecked(false);return this;}
+	public CityEvent orderByDescription(boolean asc){
+doAddOrderBy(DESCRIPTION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDescriptionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DESCRIPTION_PROPERTY, operator, parameters);
+}
+	public CityEvent ignoreDescriptionCriteria(){super.ignoreSearchProperty(DESCRIPTION_PROPERTY);
+return this;
+}
+	public CityEvent addDescriptionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDescriptionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDescription(String description){
 		if(description != null) { setDescription(description);}
 	}
+
 	
-	
-	public void setLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-	}
+	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
+	public DateTime lastUpdateTime(){
+doLoad();
+return getLastUpdateTime();
+}
 	public DateTime getLastUpdateTime(){
-		return this.mLastUpdateTime;
+		return this.lastUpdateTime;
 	}
-	public CityEvent updateLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-		this.changed = true;
-		return this;
-	}
+	public CityEvent updateLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;if(!shouldReplaceBy(newLastUpdateTime, oldLastUpdateTime)){return this;}this.lastUpdateTime = newLastUpdateTime;addPropertyChange(LAST_UPDATE_TIME_PROPERTY, oldLastUpdateTime, newLastUpdateTime);this.changed = true;setChecked(false);return this;}
+	public CityEvent orderByLastUpdateTime(boolean asc){
+doAddOrderBy(LAST_UPDATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_UPDATE_TIME_PROPERTY, operator, parameters);
+}
+	public CityEvent ignoreLastUpdateTimeCriteria(){super.ignoreSearchProperty(LAST_UPDATE_TIME_PROPERTY);
+return this;
+}
+	public CityEvent addLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastUpdateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastUpdateTime(DateTime lastUpdateTime){
 		setLastUpdateTime(lastUpdateTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public CityEvent updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public CityEvent updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public CityEvent orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public CityEvent ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public CityEvent addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<EventAttendance> getEventAttendanceList(){
@@ -348,9 +520,18 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 			this.mEventAttendanceList.setListInternalName (EVENT_ATTENDANCE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEventAttendanceList;	
+
+		return this.mEventAttendanceList;
 	}
+
+  public  SmartList<EventAttendance> eventAttendanceList(){
+    
+    doLoadChild(EVENT_ATTENDANCE_LIST);
+    
+    return getEventAttendanceList();
+  }
+
+
 	public  void setEventAttendanceList(SmartList<EventAttendance> eventAttendanceList){
 		for( EventAttendance eventAttendance:eventAttendanceList){
 			eventAttendance.setCityEvent(this);
@@ -358,18 +539,20 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 
 		this.mEventAttendanceList = eventAttendanceList;
 		this.mEventAttendanceList.setListInternalName (EVENT_ATTENDANCE_LIST );
-		
+
 	}
-	
-	public  void addEventAttendance(EventAttendance eventAttendance){
+
+	public  CityEvent addEventAttendance(EventAttendance eventAttendance){
 		eventAttendance.setCityEvent(this);
 		getEventAttendanceList().add(eventAttendance);
+		return this;
 	}
-	public  void addEventAttendanceList(SmartList<EventAttendance> eventAttendanceList){
+	public  CityEvent addEventAttendanceList(SmartList<EventAttendance> eventAttendanceList){
 		for( EventAttendance eventAttendance:eventAttendanceList){
 			eventAttendance.setCityEvent(this);
 		}
 		getEventAttendanceList().addAll(eventAttendanceList);
+		return this;
 	}
 	public  void mergeEventAttendanceList(SmartList<EventAttendance> eventAttendanceList){
 		if(eventAttendanceList==null){
@@ -379,45 +562,45 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEventAttendanceList( eventAttendanceList );
-		
+
 	}
 	public  EventAttendance removeEventAttendance(EventAttendance eventAttendanceIndex){
-		
+
 		int index = getEventAttendanceList().indexOf(eventAttendanceIndex);
         if(index < 0){
         	String message = "EventAttendance("+eventAttendanceIndex.getId()+") with version='"+eventAttendanceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EventAttendance eventAttendance = getEventAttendanceList().get(index);        
+        EventAttendance eventAttendance = getEventAttendanceList().get(index);
         // eventAttendance.clearCityEvent(); //disconnect with CityEvent
         eventAttendance.clearFromAll(); //disconnect with CityEvent
-		
+
 		boolean result = getEventAttendanceList().planToRemove(eventAttendance);
         if(!result){
         	String message = "EventAttendance("+eventAttendanceIndex.getId()+") with version='"+eventAttendanceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return eventAttendance;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEventAttendance(EventAttendance eventAttendance){
-		
+
 		if(eventAttendance == null){
 			return;
 		}
 		eventAttendance.setCityEvent(null);
 		//getEventAttendanceList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEventAttendance(EventAttendance eventAttendance){
-	
+
 		return getEventAttendanceList().contains(eventAttendance);
-  
+
 	}
-	
+
 	public void copyEventAttendanceFrom(EventAttendance eventAttendance) {
 
 		EventAttendance eventAttendanceInList = findTheEventAttendance(eventAttendance);
@@ -427,53 +610,53 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		getEventAttendanceList().add(newEventAttendance);
 		addItemToFlexiableObject(COPIED_CHILD, newEventAttendance);
 	}
-	
+
 	public  EventAttendance findTheEventAttendance(EventAttendance eventAttendance){
-		
+
 		int index =  getEventAttendanceList().indexOf(eventAttendance);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EventAttendance("+eventAttendance.getId()+") with version='"+eventAttendance.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEventAttendanceList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEventAttendanceList(){
 		getEventAttendanceList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getCityServiceCenter(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getEventAttendanceList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getEventAttendanceList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -495,16 +678,16 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof CityEvent){
-		
-		
+
+
 			CityEvent dest =(CityEvent)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setMobile(getMobile());
@@ -519,13 +702,13 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof CityEvent){
-		
-			
+
+
 			CityEvent dest =(CityEvent)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeMobile(getMobile());
@@ -539,15 +722,15 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof CityEvent){
-		
-			
+
+
 			CityEvent dest =(CityEvent)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeMobile(getMobile());
@@ -561,6 +744,47 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getMobile(), getCityServiceCenter(), getDescription(), getLastUpdateTime(), getVersion()};
 	}
+
+
+	public static CityEvent createWith(RetailscmUserContext userContext, ThrowingFunction<CityEvent,CityEvent,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<CityEvent> customCreator = mapper.findCustomCreator(CityEvent.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    CityEvent result = new CityEvent();
+    result.setName(mapper.tryToGet(CityEvent.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setMobile(mapper.tryToGet(CityEvent.class, MOBILE_PROPERTY, String.class,
+        1, false, result.getMobile(), params));
+    result.setCityServiceCenter(mapper.tryToGet(CityEvent.class, CITY_SERVICE_CENTER_PROPERTY, RetailStoreCityServiceCenter.class,
+        0, true, result.getCityServiceCenter(), params));
+    result.setDescription(mapper.tryToGet(CityEvent.class, DESCRIPTION_PROPERTY, String.class,
+        2, false, result.getDescription(), params));
+     result.setLastUpdateTime(userContext.now());
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixCityEvent(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      CityEventTokens tokens = mapper.findParamByClass(params, CityEventTokens.class);
+      if (tokens == null) {
+        tokens = CityEventTokens.start();
+      }
+      result = userContext.getManagerGroup().getCityEventManager().internalSaveCityEvent(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -578,7 +802,7 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

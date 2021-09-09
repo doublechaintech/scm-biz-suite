@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstoreprovincecenter;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 
 public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStoreProvinceCenter>{
-	
+
 	protected RetailStoreProvinceCenter internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStoreProvinceCenter retailStoreProvinceCenter = getRetailStoreProvinceCenter();		
-		 		
- 		setId(retailStoreProvinceCenter, rs, rowNumber); 		
- 		setName(retailStoreProvinceCenter, rs, rowNumber); 		
- 		setFounded(retailStoreProvinceCenter, rs, rowNumber); 		
- 		setCountry(retailStoreProvinceCenter, rs, rowNumber); 		
- 		setLastUpdateTime(retailStoreProvinceCenter, rs, rowNumber); 		
+		RetailStoreProvinceCenter retailStoreProvinceCenter = getRetailStoreProvinceCenter();
+		
+ 		setId(retailStoreProvinceCenter, rs, rowNumber);
+ 		setName(retailStoreProvinceCenter, rs, rowNumber);
+ 		setFounded(retailStoreProvinceCenter, rs, rowNumber);
+ 		setCountry(retailStoreProvinceCenter, rs, rowNumber);
+ 		setLastUpdateTime(retailStoreProvinceCenter, rs, rowNumber);
  		setVersion(retailStoreProvinceCenter, rs, rowNumber);
 
+    
 		return retailStoreProvinceCenter;
 	}
-	
+
 	protected RetailStoreProvinceCenter getRetailStoreProvinceCenter(){
-		return new RetailStoreProvinceCenter();
-	}		
+	  RetailStoreProvinceCenter entity = new RetailStoreProvinceCenter();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStoreProvinceCenter retailStoreProvinceCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreProvinceCenterTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStorePr
 		}
 		
 		retailStoreProvinceCenter.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(RetailStoreProvinceCenter retailStoreProvinceCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(RetailStoreProvinceCenterTable.COLUMN_NAME);
@@ -52,10 +59,13 @@ public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStorePr
 		}
 		
 		retailStoreProvinceCenter.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFounded(RetailStoreProvinceCenter retailStoreProvinceCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date founded = rs.getDate(RetailStoreProvinceCenterTable.COLUMN_FOUNDED);
@@ -66,10 +76,18 @@ public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStorePr
 		}
 		
 		retailStoreProvinceCenter.setFounded(founded);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setCountry(RetailStoreProvinceCenter retailStoreProvinceCenter, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(RetailStoreProvinceCenterTable.COLUMN_COUNTRY);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(RetailStoreProvinceCenterTable.COLUMN_COUNTRY);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -80,14 +98,14 @@ public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStorePr
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'retailStoreProvinceCenter' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		retailStoreProvinceCenter.setCountry(createEmptyCountry(retailStoreCountryCenterId));
  	}
  	
 	protected void setLastUpdateTime(RetailStoreProvinceCenter retailStoreProvinceCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(RetailStoreProvinceCenterTable.COLUMN_LAST_UPDATE_TIME);
@@ -98,10 +116,13 @@ public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStorePr
 		}
 		
 		retailStoreProvinceCenter.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(RetailStoreProvinceCenter retailStoreProvinceCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreProvinceCenterTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStorePr
 		}
 		
 		retailStoreProvinceCenter.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyCountry(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

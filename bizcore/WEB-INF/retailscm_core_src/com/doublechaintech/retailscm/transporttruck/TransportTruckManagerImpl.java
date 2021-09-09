@@ -1,45 +1,27 @@
 
 package com.doublechaintech.retailscm.transporttruck;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.retailstore.RetailStore;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.transportfleet.CandidateTransportFleet;import com.doublechaintech.retailscm.transportfleet.TransportFleet;import com.doublechaintech.retailscm.transporttask.TransportTask;import com.doublechaintech.retailscm.transporttruck.TransportTruck;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.truckdriver.TruckDriver;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.transportfleet.TransportFleet;
-import com.doublechaintech.retailscm.transporttask.TransportTask;
-
-import com.doublechaintech.retailscm.transportfleet.CandidateTransportFleet;
-
-import com.doublechaintech.retailscm.retailstore.RetailStore;
-import com.doublechaintech.retailscm.transporttruck.TransportTruck;
-import com.doublechaintech.retailscm.truckdriver.TruckDriver;
-import com.doublechaintech.retailscm.transportfleet.TransportFleet;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager implements TransportTruckManager, BusinessHandler{
@@ -82,6 +64,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws TransportTruckManagerException{
 
 		Message message = new Message();
@@ -92,130 +75,182 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 
 
 
- 	protected TransportTruck saveTransportTruck(RetailscmUserContext userContext, TransportTruck transportTruck, String [] tokensExpr) throws Exception{	
+ 	protected TransportTruck saveTransportTruck(RetailscmUserContext userContext, TransportTruck transportTruck, String [] tokensExpr) throws Exception{
  		//return getTransportTruckDAO().save(transportTruck, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveTransportTruck(userContext, transportTruck, tokens);
  	}
- 	
- 	protected TransportTruck saveTransportTruckDetail(RetailscmUserContext userContext, TransportTruck transportTruck) throws Exception{	
 
- 		
+ 	protected TransportTruck saveTransportTruckDetail(RetailscmUserContext userContext, TransportTruck transportTruck) throws Exception{
+
+
  		return saveTransportTruck(userContext, transportTruck, allTokens());
  	}
- 	
- 	public TransportTruck loadTransportTruck(RetailscmUserContext userContext, String transportTruckId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public TransportTruck loadTransportTruck(RetailscmUserContext userContext, String transportTruckId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TransportTruckManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		TransportTruck transportTruck = loadTransportTruck( userContext, transportTruckId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,transportTruck, tokens);
  	}
- 	
- 	
- 	 public TransportTruck searchTransportTruck(RetailscmUserContext userContext, String transportTruckId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public TransportTruck searchTransportTruck(RetailscmUserContext userContext, String transportTruckId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TransportTruckManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		TransportTruck transportTruck = loadTransportTruck( userContext, transportTruckId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,transportTruck, tokens);
  	}
- 	
- 	
+
+
 
  	protected TransportTruck present(RetailscmUserContext userContext, TransportTruck transportTruck, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,transportTruck,tokens);
-		
-		
+    
+
 		TransportTruck  transportTruckToPresent = transportTruckDaoOf(userContext).present(transportTruck, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = transportTruckToPresent.collectRefercencesFromLists();
 		transportTruckDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,transportTruck,tokens);
-		
+
 		return  transportTruckToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public TransportTruck loadTransportTruckDetail(RetailscmUserContext userContext, String transportTruckId) throws Exception{	
+
+
+
+ 	public TransportTruck loadTransportTruckDetail(RetailscmUserContext userContext, String transportTruckId) throws Exception{
  		TransportTruck transportTruck = loadTransportTruck( userContext, transportTruckId, allTokens());
  		return present(userContext,transportTruck, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String transportTruckId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String transportTruckId) throws Exception{
  		TransportTruck transportTruck = loadTransportTruck( userContext, transportTruckId, viewTokens());
- 		return present(userContext,transportTruck, allTokens());
-		
- 	}
- 	protected TransportTruck saveTransportTruck(RetailscmUserContext userContext, TransportTruck transportTruck, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, transportTruck);
+ 		return present(userContext,transportTruck, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String transportTruckId) throws Exception{
+		TransportTruck transportTruck = loadTransportTruck( userContext, transportTruckId, viewTokens());
+		transportTruck.summarySuffix();
+		markVisited(userContext, transportTruck);
+ 		return present(userContext,transportTruck, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String transportTruckId) throws Exception{
+		TransportTruck transportTruck = loadTransportTruck( userContext, transportTruckId, analyzeTokens());
+		markVisited(userContext, transportTruck);
+		return present(userContext,transportTruck, analyzeTokens());
+
+	}
+ 	protected TransportTruck saveTransportTruck(RetailscmUserContext userContext, TransportTruck transportTruck, Map<String,Object>tokens) throws Exception{
+ 	
  		return transportTruckDaoOf(userContext).save(transportTruck, tokens);
  	}
- 	protected TransportTruck loadTransportTruck(RetailscmUserContext userContext, String transportTruckId, Map<String,Object>tokens) throws Exception{	
+ 	protected TransportTruck loadTransportTruck(RetailscmUserContext userContext, String transportTruckId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TransportTruckManagerException.class);
 
- 
+
+
  		return transportTruckDaoOf(userContext).load(transportTruckId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, TransportTruck transportTruck, Map<String, Object> tokens){
 		super.addActions(userContext, transportTruck, tokens);
-		
+
 		addAction(userContext, transportTruck, tokens,"@create","createTransportTruck","createTransportTruck/","main","primary");
 		addAction(userContext, transportTruck, tokens,"@update","updateTransportTruck","updateTransportTruck/"+transportTruck.getId()+"/","main","primary");
 		addAction(userContext, transportTruck, tokens,"@copy","cloneTransportTruck","cloneTransportTruck/"+transportTruck.getId()+"/","main","primary");
-		
+
 		addAction(userContext, transportTruck, tokens,"transport_truck.transfer_to_owner","transferToAnotherOwner","transferToAnotherOwner/"+transportTruck.getId()+"/","main","primary");
 		addAction(userContext, transportTruck, tokens,"transport_truck.addTransportTask","addTransportTask","addTransportTask/"+transportTruck.getId()+"/","transportTaskList","primary");
 		addAction(userContext, transportTruck, tokens,"transport_truck.removeTransportTask","removeTransportTask","removeTransportTask/"+transportTruck.getId()+"/","transportTaskList","primary");
 		addAction(userContext, transportTruck, tokens,"transport_truck.updateTransportTask","updateTransportTask","updateTransportTask/"+transportTruck.getId()+"/","transportTaskList","primary");
 		addAction(userContext, transportTruck, tokens,"transport_truck.copyTransportTaskFrom","copyTransportTaskFrom","copyTransportTaskFrom/"+transportTruck.getId()+"/","transportTaskList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, TransportTruck transportTruck, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<TransportTruck> searchTransportTruckList(RetailscmUserContext ctx, TransportTruckRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<TransportTruck> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public TransportTruck searchTransportTruck(RetailscmUserContext ctx, TransportTruckRequest pRequest){
+    pRequest.limit(0, 1);
+    List<TransportTruck> list = searchTransportTruckList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public TransportTruck createTransportTruck(RetailscmUserContext userContext, String name,String plateNumber,String contactNumber,String vehicleLicenseNumber,String engineNumber,Date makeDate,String mileage,String bodyColor,String ownerId) throws Exception
-	//public TransportTruck createTransportTruck(RetailscmUserContext userContext,String name, String plateNumber, String contactNumber, String vehicleLicenseNumber, String engineNumber, Date makeDate, String mileage, String bodyColor, String ownerId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfTransportTruck(name);
 		checkerOf(userContext).checkPlateNumberOfTransportTruck(plateNumber);
@@ -225,8 +260,10 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkMakeDateOfTransportTruck(makeDate);
 		checkerOf(userContext).checkMileageOfTransportTruck(mileage);
 		checkerOf(userContext).checkBodyColorOfTransportTruck(bodyColor);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
+
 
 
 		TransportTruck transportTruck=createNewTransportTruck();	
@@ -262,64 +299,66 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
 		checkerOf(userContext).checkVersionOfTransportTruck( transportTruckVersion);
-		
+
 
 		if(TransportTruck.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfTransportTruck(parseString(newValueExpr));
 		
-			
+
 		}
 		if(TransportTruck.PLATE_NUMBER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkPlateNumberOfTransportTruck(parseString(newValueExpr));
 		
-			
+
 		}
 		if(TransportTruck.CONTACT_NUMBER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkContactNumberOfTransportTruck(parseString(newValueExpr));
 		
-			
+
 		}
 		if(TransportTruck.VEHICLE_LICENSE_NUMBER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkVehicleLicenseNumberOfTransportTruck(parseString(newValueExpr));
 		
-			
+
 		}
 		if(TransportTruck.ENGINE_NUMBER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkEngineNumberOfTransportTruck(parseString(newValueExpr));
 		
-			
+
 		}
 		if(TransportTruck.MAKE_DATE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkMakeDateOfTransportTruck(parseDate(newValueExpr));
 		
-			
+
 		}
 		if(TransportTruck.MILEAGE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkMileageOfTransportTruck(parseString(newValueExpr));
 		
-			
+
 		}
 		if(TransportTruck.BODY_COLOR_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkBodyColorOfTransportTruck(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
+
 
 
 	}
@@ -348,6 +387,8 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 			if (transportTruck.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixTransportTruck(transportTruck);
 			transportTruck = saveTransportTruck(userContext, transportTruck, options);
 			return transportTruck;
 
@@ -414,10 +455,16 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 	protected Map<String,Object> allTokens(){
 		return TransportTruckTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortTransportTaskListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortTransportTaskListWith(TransportTask.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -429,6 +476,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 
  		checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
  		checkerOf(userContext).checkIdOfTransportFleet(anotherOwnerId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
 
  	}
@@ -436,16 +484,17 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
  	{
  		checkParamsForTransferingAnotherOwner(userContext, transportTruckId,anotherOwnerId);
  
-		TransportTruck transportTruck = loadTransportTruck(userContext, transportTruckId, allTokens());	
+		TransportTruck transportTruck = loadTransportTruck(userContext, transportTruckId, allTokens());
 		synchronized(transportTruck){
 			//will be good when the transportTruck loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			TransportFleet owner = loadTransportFleet(userContext, anotherOwnerId, emptyOptions());		
-			transportTruck.updateOwner(owner);		
+			TransportFleet owner = loadTransportFleet(userContext, anotherOwnerId, emptyOptions());
+			transportTruck.updateOwner(owner);
+			
 			transportTruck = saveTransportTruck(userContext, transportTruck, emptyOptions());
-			
+
 			return present(userContext,transportTruck, allTokens());
-			
+
 		}
 
  	}
@@ -478,8 +527,9 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 
  	protected TransportFleet loadTransportFleet(RetailscmUserContext userContext, String newOwnerId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return transportFleetDaoOf(userContext).load(newOwnerId, options);
+ 	  
  	}
  	
 
@@ -525,63 +575,6 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 	}
 
 
-	//disconnect TransportTruck with end in TransportTask
-	protected TransportTruck breakWithTransportTaskByEnd(RetailscmUserContext userContext, String transportTruckId, String endId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			TransportTruck transportTruck = loadTransportTruck(userContext, transportTruckId, allTokens());
-
-			synchronized(transportTruck){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				transportTruckDaoOf(userContext).planToRemoveTransportTaskListWithEnd(transportTruck, endId, this.emptyOptions());
-
-				transportTruck = saveTransportTruck(userContext, transportTruck, tokens().withTransportTaskList().done());
-				return transportTruck;
-			}
-	}
-	//disconnect TransportTruck with driver in TransportTask
-	protected TransportTruck breakWithTransportTaskByDriver(RetailscmUserContext userContext, String transportTruckId, String driverId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			TransportTruck transportTruck = loadTransportTruck(userContext, transportTruckId, allTokens());
-
-			synchronized(transportTruck){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				transportTruckDaoOf(userContext).planToRemoveTransportTaskListWithDriver(transportTruck, driverId, this.emptyOptions());
-
-				transportTruck = saveTransportTruck(userContext, transportTruck, tokens().withTransportTaskList().done());
-				return transportTruck;
-			}
-	}
-	//disconnect TransportTruck with belongs_to in TransportTask
-	protected TransportTruck breakWithTransportTaskByBelongsTo(RetailscmUserContext userContext, String transportTruckId, String belongsToId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			TransportTruck transportTruck = loadTransportTruck(userContext, transportTruckId, allTokens());
-
-			synchronized(transportTruck){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				transportTruckDaoOf(userContext).planToRemoveTransportTaskListWithBelongsTo(transportTruck, belongsToId, this.emptyOptions());
-
-				transportTruck = saveTransportTruck(userContext, transportTruck, tokens().withTransportTaskList().done());
-				return transportTruck;
-			}
-	}
-
-
-
 
 
 
@@ -589,30 +582,31 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 
 				checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
 
-		
+
 		checkerOf(userContext).checkNameOfTransportTask(name);
-		
+
 		checkerOf(userContext).checkStartOfTransportTask(start);
-		
+
 		checkerOf(userContext).checkBeginTimeOfTransportTask(beginTime);
-		
+
 		checkerOf(userContext).checkEndIdOfTransportTask(endId);
-		
+
 		checkerOf(userContext).checkDriverIdOfTransportTask(driverId);
-		
+
 		checkerOf(userContext).checkBelongsToIdOfTransportTask(belongsToId);
-		
+
 		checkerOf(userContext).checkLatitudeOfTransportTask(latitude);
-		
+
 		checkerOf(userContext).checkLongitudeOfTransportTask(longitude);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
+
 
 
 	}
 	public  TransportTruck addTransportTask(RetailscmUserContext userContext, String transportTruckId, String name, String start, Date beginTime, String endId, String driverId, String belongsToId, BigDecimal latitude, BigDecimal longitude, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingTransportTask(userContext,transportTruckId,name, start, beginTime, endId, driverId, belongsToId, latitude, longitude,tokensExpr);
 
 		TransportTask transportTask = createTransportTask(userContext,name, start, beginTime, endId, driverId, belongsToId, latitude, longitude);
@@ -639,7 +633,9 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkLatitudeOfTransportTask( latitude);
 		checkerOf(userContext).checkLongitudeOfTransportTask( longitude);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
+
 
 	}
 	public  TransportTruck updateTransportTaskProperties(RetailscmUserContext userContext, String transportTruckId, String id,String name,String start,Date beginTime,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr) throws Exception
@@ -721,6 +717,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 			checkerOf(userContext).checkIdOfTransportTask(transportTaskIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
 
 	}
@@ -747,7 +744,9 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfTransportTruck( transportTruckId);
 		checkerOf(userContext).checkIdOfTransportTask(transportTaskId);
 		checkerOf(userContext).checkVersionOfTransportTask(transportTaskVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
+
 
 	}
 	public  TransportTruck removeTransportTask(RetailscmUserContext userContext, String transportTruckId,
@@ -774,7 +773,9 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfTransportTruck( transportTruckId);
 		checkerOf(userContext).checkIdOfTransportTask(transportTaskId);
 		checkerOf(userContext).checkVersionOfTransportTask(transportTaskVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
+
 
 	}
 	public  TransportTruck copyTransportTaskFrom(RetailscmUserContext userContext, String transportTruckId,
@@ -802,7 +803,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 	protected void checkParamsForUpdatingTransportTask(RetailscmUserContext userContext, String transportTruckId, String transportTaskId, int transportTaskVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfTransportTruck(transportTruckId);
 		checkerOf(userContext).checkIdOfTransportTask(transportTaskId);
 		checkerOf(userContext).checkVersionOfTransportTask(transportTaskVersion);
@@ -829,7 +830,9 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportTruckManagerException.class);
+
 
 	}
 
@@ -860,6 +863,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 			transportTask.changeProperty(property, newValueExpr);
 			
 			transportTruck = saveTransportTruck(userContext, transportTruck, tokens().withTransportTaskList().done());
+			transportTaskManagerOf(userContext).onUpdated(userContext, transportTask, this, "updateTransportTask");
 			return present(userContext,transportTruck, mergedAllTokens(tokensExpr));
 		}
 
@@ -892,112 +896,13 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1020,28 +925,21 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, TransportTruck.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, TransportTruck.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1087,7 +985,7 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String transportTruckId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getTransportTruckDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		TransportTruck merchantObj = (TransportTruck) this.view(userContext, transportTruckId);
     String merchantObjId = transportTruckId;
     String linkToUrl =	"transportTruckManager/wxappview/" + merchantObjId + "/";
@@ -1221,8 +1119,6 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		sections.add(transportTaskListSection);
 
 		result.put("transportTaskListSection", ListofUtils.toShortList(merchantObj.getTransportTaskList(), "transportTask"));
-		vscope.field("transportTaskListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( TransportTask.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1237,8 +1133,19 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

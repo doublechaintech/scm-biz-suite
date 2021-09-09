@@ -21,16 +21,16 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 		return ((BaseDAO)daoOf(ctx)).requestCandidateValuesForSearch(ownerMemberName, ownerId, resultMemberName,
 				resutlClassName, targetClassName, filterKey, pageNo);
 	}
-	
+
 	protected Object daoOf(RetailscmUserContext ctx) {
 		throw new UnsupportedOperationException("You must implement it in your specific Manager implementation");
 	}
-	
-	
+
+
 	public Object queryCandidates(RetailscmUserContext userContext, CandidateQuery query) throws Exception {
 		return new CandidatesUtil().queryCandidates(userContext, query);
 	}
-	
+
 	public Object queryCandidatesForAssign(RetailscmUserContext userContext, CandidateQuery query) throws Exception {
 		return new CandidatesUtil().queryCandidatesForAssign(userContext, query);
 	}
@@ -38,7 +38,7 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 	public Object queryCandidatesForSearch(RetailscmUserContext userContext, CandidateQuery query) throws Exception {
 		return new CandidatesUtil().queryCandidatesForSearch(userContext, query);
 	}
-	
+
 	protected RetailscmObjectChecker checkerOf(RetailscmUserContext ctx) {
 		return ctx.getChecker();
 	}
@@ -68,14 +68,14 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 			}
 		}
 	}
-	
+
 	public static final Map<String, Object> EO = new HashMap<>();
 	protected Object asyncProxy = null;
 	protected Object getAsyncProxy() {
 		if (asyncProxy != null) {
 			return asyncProxy;
 		}
-		
+
 		Object me = this;
 		MethodInterceptor proxy = new MethodInterceptor() {
 
@@ -91,17 +91,17 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 		enhancer.setCallback(proxy);
 		return asyncProxy = enhancer.create();
 	}
-	
-	protected void cacheVerifyCode(RetailscmUserContext ctx, String mobile, String verifyCode) {
+
+	public static void cacheVerifyCode(RetailscmUserContext ctx, String mobile, String verifyCode) {
 		String cacheKey = String.format("vcode:%s:%s", mobile, "login");
 		ctx.putToCache(cacheKey, verifyCode, RetailscmBaseConstants.DEFAULT_CACHE_TIME_FOR_VCODE);
 	}
 
-	protected String getVerifyCodeFromCache(RetailscmUserContext ctx, String mobile) {
+	public static String getVerifyCodeFromCache(RetailscmUserContext ctx, String mobile) {
 		String cacheKey = String.format("vcode:%s:%s", mobile, "login");
 		return (String) ctx.getCachedObject(cacheKey, String.class);
 	}
-	protected void checkVerifyCode(RetailscmUserContext ctx, String inputVerifyCode, String mobile) throws Exception {
+	public static void checkVerifyCode(RetailscmUserContext ctx, String inputVerifyCode, String mobile) throws Exception {
 		String cachedVerifyCode = getVerifyCodeFromCache(ctx, mobile);
 		if (cachedVerifyCode == null) {
 			throw new Exception("请先获取验证码");
@@ -110,7 +110,7 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 			throw new Exception("验证码不正确");
 		}
 	}
-	
+
 	public com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterManager retailStoreCountryCenterManagerOf(RetailscmUserContext userContext){
 		return userContext.getManagerGroup().getRetailStoreCountryCenterManager();
 	}
@@ -849,11 +849,11 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 	public com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityDAO wechatMiniappIdentityDaoOf(RetailscmUserContext userContext){
 		return userContext.getDAOGroup().getWechatMiniappIdentityDAO();
 	}
-	public com.doublechaintech.retailscm.keypairidentity.KeypairIdentityManager keypairIdentityManagerOf(RetailscmUserContext userContext){
-		return userContext.getManagerGroup().getKeypairIdentityManager();
+	public com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityManager keyPairIdentityManagerOf(RetailscmUserContext userContext){
+		return userContext.getManagerGroup().getKeyPairIdentityManager();
 	}
-	public com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO keypairIdentityDaoOf(RetailscmUserContext userContext){
-		return userContext.getDAOGroup().getKeypairIdentityDAO();
+	public com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityDAO keyPairIdentityDaoOf(RetailscmUserContext userContext){
+		return userContext.getDAOGroup().getKeyPairIdentityDAO();
 	}
 	public com.doublechaintech.retailscm.publickeytype.PublicKeyTypeManager publicKeyTypeManagerOf(RetailscmUserContext userContext){
 		return userContext.getManagerGroup().getPublicKeyTypeManager();
@@ -867,21 +867,21 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 	public com.doublechaintech.retailscm.treenode.TreeNodeDAO treeNodeDaoOf(RetailscmUserContext userContext){
 		return userContext.getDAOGroup().getTreeNodeDAO();
 	}
-	
-	
-	
-	
+
+
+
+
 
 	protected void checkGender(String gender, int i, int j,String targetFieldName, List<Message> messageList) {
-		
-		
+
+
 	}
-	
+
 	//for stub only
 	protected void checkDateNow(Date likeTime, int i, Object now,
 			String targetFieldName, RetailscmException exception) {
-		
-		
+
+
 	}
 
 
@@ -889,12 +889,12 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 
 		return null;
 	}
-	
+
 	protected boolean isValidIdentifier(String value){
 		return hasVisualChar(value);
-		
+
 	}
-	
+
 	protected boolean hasVisualChar(String value){
 		if(value==null){
 			return false;
@@ -906,13 +906,13 @@ public class RetailscmCheckerManager extends BaseManagerImpl {
 			return false;
 		}
 		return true;
-		
+
 	}
 	protected void checkBigDecimalRange(BigDecimal projectArea, double i, double j, String projectAreaOfProject,
 			List<Message> messageList) {
-		
+
 	}
-    
+
 }
 
 

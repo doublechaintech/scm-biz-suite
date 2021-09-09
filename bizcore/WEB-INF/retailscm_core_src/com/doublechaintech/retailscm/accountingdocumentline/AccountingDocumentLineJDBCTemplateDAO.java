@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.accountingdocumentline;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	protected AccountingDocumentDAO accountingDocumentDAO;
 	public void setAccountingDocumentDAO(AccountingDocumentDAO accountingDocumentDAO){
- 	
+
  		if(accountingDocumentDAO == null){
  			throw new IllegalStateException("Do not try to set accountingDocumentDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		if(this.accountingDocumentDAO == null){
  			throw new IllegalStateException("The accountingDocumentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountingDocumentDAO;
- 	}	
+ 	}
 
 	protected AccountingSubjectDAO accountingSubjectDAO;
 	public void setAccountingSubjectDAO(AccountingSubjectDAO accountingSubjectDAO){
- 	
+
  		if(accountingSubjectDAO == null){
  			throw new IllegalStateException("Do not try to set accountingSubjectDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		if(this.accountingSubjectDAO == null){
  			throw new IllegalStateException("The accountingSubjectDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountingSubjectDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -203,43 +205,43 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return AccountingDocumentLineTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBelongsToEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, AccountingDocumentLineTokens.BELONGSTO);
  	}
 
  	protected boolean isSaveBelongsToEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, AccountingDocumentLineTokens.BELONGSTO);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractAccountingSubjectEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, AccountingDocumentLineTokens.ACCOUNTINGSUBJECT);
  	}
 
  	protected boolean isSaveAccountingSubjectEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, AccountingDocumentLineTokens.ACCOUNTINGSUBJECT);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -249,8 +251,8 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		return new AccountingDocumentLineMapper();
 	}
 
-	
-	
+
+
 	protected AccountingDocumentLine extractAccountingDocumentLine(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			AccountingDocumentLine accountingDocumentLine = loadSingleObject(accessKey, getAccountingDocumentLineMapper());
@@ -261,29 +263,30 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	}
 
-	
-	
+
+
 
 	protected AccountingDocumentLine loadInternalAccountingDocumentLine(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		AccountingDocumentLine accountingDocumentLine = extractAccountingDocumentLine(accessKey, loadOptions);
- 	
+
  		if(isExtractBelongsToEnabled(loadOptions)){
 	 		extractBelongsTo(accountingDocumentLine, loadOptions);
  		}
-  	
+ 
  		if(isExtractAccountingSubjectEnabled(loadOptions)){
 	 		extractAccountingSubject(accountingDocumentLine, loadOptions);
  		}
  
 		
 		return accountingDocumentLine;
-		
+
 	}
 
-	 
+	
 
  	protected AccountingDocumentLine extractBelongsTo(AccountingDocumentLine accountingDocumentLine, Map<String,Object> options) throws Exception{
+  
 
 		if(accountingDocumentLine.getBelongsTo() == null){
 			return accountingDocumentLine;
@@ -296,14 +299,15 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(belongsTo != null){
 			accountingDocumentLine.setBelongsTo(belongsTo);
 		}
-		
- 		
+
+
  		return accountingDocumentLine;
  	}
- 		
-  
+
+ 
 
  	protected AccountingDocumentLine extractAccountingSubject(AccountingDocumentLine accountingDocumentLine, Map<String,Object> options) throws Exception{
+  
 
 		if(accountingDocumentLine.getAccountingSubject() == null){
 			return accountingDocumentLine;
@@ -316,46 +320,46 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(accountingSubject != null){
 			accountingDocumentLine.setAccountingSubject(accountingSubject);
 		}
-		
- 		
+
+
  		return accountingDocumentLine;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByBelongsTo(String accountingDocumentId,Map<String,Object> options){
- 	
+
   		SmartList<AccountingDocumentLine> resultList = queryWith(AccountingDocumentLineTable.COLUMN_BELONGS_TO, accountingDocumentId, options, getAccountingDocumentLineMapper());
 		// analyzeAccountingDocumentLineByBelongsTo(resultList, accountingDocumentId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByBelongsTo(String accountingDocumentId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<AccountingDocumentLine> resultList =  queryWithRange(AccountingDocumentLineTable.COLUMN_BELONGS_TO, accountingDocumentId, options, getAccountingDocumentLineMapper(), start, count);
  		//analyzeAccountingDocumentLineByBelongsTo(resultList, accountingDocumentId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeAccountingDocumentLineByBelongsTo(SmartList<AccountingDocumentLine> resultList, String accountingDocumentId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocumentLine.BELONGS_TO_PROPERTY, accountingDocumentId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countAccountingDocumentLineByBelongsTo(String accountingDocumentId,Map<String,Object> options){
@@ -366,39 +370,39 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	public Map<String, Integer> countAccountingDocumentLineByBelongsToIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(AccountingDocumentLineTable.COLUMN_BELONGS_TO, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByAccountingSubject(String accountingSubjectId,Map<String,Object> options){
- 	
+
   		SmartList<AccountingDocumentLine> resultList = queryWith(AccountingDocumentLineTable.COLUMN_ACCOUNTING_SUBJECT, accountingSubjectId, options, getAccountingDocumentLineMapper());
 		// analyzeAccountingDocumentLineByAccountingSubject(resultList, accountingSubjectId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByAccountingSubject(String accountingSubjectId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<AccountingDocumentLine> resultList =  queryWithRange(AccountingDocumentLineTable.COLUMN_ACCOUNTING_SUBJECT, accountingSubjectId, options, getAccountingDocumentLineMapper(), start, count);
  		//analyzeAccountingDocumentLineByAccountingSubject(resultList, accountingSubjectId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeAccountingDocumentLineByAccountingSubject(SmartList<AccountingDocumentLine> resultList, String accountingSubjectId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocumentLine.ACCOUNTING_SUBJECT_PROPERTY, accountingSubjectId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countAccountingDocumentLineByAccountingSubject(String accountingSubjectId,Map<String,Object> options){
@@ -409,21 +413,24 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	public Map<String, Integer> countAccountingDocumentLineByAccountingSubjectIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(AccountingDocumentLineTable.COLUMN_ACCOUNTING_SUBJECT, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected AccountingDocumentLine saveAccountingDocumentLine(AccountingDocumentLine  accountingDocumentLine){
+    
+
 		
 		if(!accountingDocumentLine.isChanged()){
 			return accountingDocumentLine;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(accountingDocumentLine);
 		String SQL=this.getSaveAccountingDocumentLineSQL(accountingDocumentLine);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveAccountingDocumentLineParameters(accountingDocumentLine);
@@ -434,6 +441,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 
 		accountingDocumentLine.incVersion();
+		accountingDocumentLine.afterSave();
 		return accountingDocumentLine;
 
 	}
@@ -451,6 +459,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		for(AccountingDocumentLine accountingDocumentLine:accountingDocumentLineList){
 			if(accountingDocumentLine.isChanged()){
 				accountingDocumentLine.incVersion();
+				accountingDocumentLine.afterSave();
 			}
 
 
@@ -554,26 +563,22 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  	protected Object[] prepareAccountingDocumentLineUpdateParameters(AccountingDocumentLine accountingDocumentLine){
  		Object[] parameters = new Object[9];
  
- 		
  		parameters[0] = accountingDocumentLine.getName();
- 		
  		
  		parameters[1] = accountingDocumentLine.getCode();
  		
- 		
  		parameters[2] = accountingDocumentLine.getDirect();
- 		
  		
  		parameters[3] = accountingDocumentLine.getAmount();
  		
  		if(accountingDocumentLine.getBelongsTo() != null){
  			parameters[4] = accountingDocumentLine.getBelongsTo().getId();
  		}
- 
+    
  		if(accountingDocumentLine.getAccountingSubject() != null){
  			parameters[5] = accountingDocumentLine.getAccountingSubject().getId();
  		}
- 
+    
  		parameters[6] = accountingDocumentLine.nextVersion();
  		parameters[7] = accountingDocumentLine.getId();
  		parameters[8] = accountingDocumentLine.getVersion();
@@ -588,26 +593,20 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
         }
 		parameters[0] =  accountingDocumentLine.getId();
  
- 		
  		parameters[1] = accountingDocumentLine.getName();
- 		
  		
  		parameters[2] = accountingDocumentLine.getCode();
  		
- 		
  		parameters[3] = accountingDocumentLine.getDirect();
- 		
  		
  		parameters[4] = accountingDocumentLine.getAmount();
  		
  		if(accountingDocumentLine.getBelongsTo() != null){
  			parameters[5] = accountingDocumentLine.getBelongsTo().getId();
-
  		}
  		
  		if(accountingDocumentLine.getAccountingSubject() != null){
  			parameters[6] = accountingDocumentLine.getAccountingSubject().getId();
-
  		}
  		
 
@@ -615,8 +614,6 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  	}
 
 	protected AccountingDocumentLine saveInternalAccountingDocumentLine(AccountingDocumentLine accountingDocumentLine, Map<String,Object> options){
-
-		saveAccountingDocumentLine(accountingDocumentLine);
 
  		if(isSaveBelongsToEnabled(options)){
 	 		saveBelongsTo(accountingDocumentLine, options);
@@ -626,6 +623,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	 		saveAccountingSubject(accountingDocumentLine, options);
  		}
  
+   saveAccountingDocumentLine(accountingDocumentLine);
 		
 		return accountingDocumentLine;
 
@@ -637,6 +635,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	
 
  	protected AccountingDocumentLine saveBelongsTo(AccountingDocumentLine accountingDocumentLine, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(accountingDocumentLine.getBelongsTo() == null){
  			return accountingDocumentLine;//do nothing when it is null
@@ -646,14 +645,10 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		return accountingDocumentLine;
 
  	}
-
-
-
-
-
  
 
  	protected AccountingDocumentLine saveAccountingSubject(AccountingDocumentLine accountingDocumentLine, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(accountingDocumentLine.getAccountingSubject() == null){
  			return accountingDocumentLine;//do nothing when it is null
@@ -663,11 +658,6 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		return accountingDocumentLine;
 
  	}
-
-
-
-
-
  
 
 	
@@ -675,10 +665,10 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		
 
 	public AccountingDocumentLine present(AccountingDocumentLine accountingDocumentLine,Map<String, Object> options){
-	
+
 
 		return accountingDocumentLine;
-	
+
 	}
 		
 
@@ -730,6 +720,10 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<AccountingDocumentLine> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getAccountingDocumentLineMapper());
   }
@@ -765,6 +759,15 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	
 
+  @Override
+  public List<AccountingDocumentLine> search(AccountingDocumentLineRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected AccountingDocumentLineMapper mapper() {
+    return getAccountingDocumentLineMapper();
+  }
 }
 
 

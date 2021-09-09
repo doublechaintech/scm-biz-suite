@@ -44,13 +44,15 @@ public interface OriginalVoucherDAO extends BaseDAO{
 	public void delete(String originalVoucherId, int version) throws Exception;
 	public OriginalVoucher disconnectFromAll(String originalVoucherId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<OriginalVoucher> queryList(String sql, Object ... parmeters);
+	public SmartList<OriginalVoucher> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<OriginalVoucher> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateOriginalVoucher executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<OriginalVoucher> findOriginalVoucherByBelongsTo(String accountingDocumentId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface OriginalVoucherDAO extends BaseDAO{
 
 
  
+
+	List<OriginalVoucher> search(OriginalVoucherRequest pRequest);
 }
 
 

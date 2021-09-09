@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 import javax.servlet.http.Cookie;
 
@@ -39,11 +40,21 @@ public class UserContextImpl implements UserContext {
     protected String assignedRenderingWay;
     protected byte[] requestBody;
     protected String environmentName;
+    protected String ownerBeanName;
     protected Boolean productEnvironment;
     protected DAOGroup daoGroup;
     protected ManagerGroup managerGroup;
     protected Cookie[] requestCookies;
     protected LocationService locationService;
+    protected Map<String, List<String>> allTerms;
+
+    public Map<String, List<String>> getAllTerms() {
+      return allTerms;
+    }
+
+    public void setAllTerms(Map<String, List<String>> allTerms) {
+      this.allTerms = allTerms;
+    }
 
     public LocationService getLocationService() {
         return locationService;
@@ -106,6 +117,14 @@ public class UserContextImpl implements UserContext {
     public void setManagerGroup(ManagerGroup managerGroup) {
         this.managerGroup = managerGroup;
     }
+
+  public String getOwnerBeanName() {
+    return ownerBeanName;
+  }
+
+  public void setOwnerBeanName(String ownerBeanName) {
+    this.ownerBeanName = ownerBeanName;
+  }
 
     public String getEnvironmentName() {
         if (environmentName == null || environmentName.isEmpty()) {
@@ -333,6 +352,24 @@ public class UserContextImpl implements UserContext {
         System.out.println(logMessage);
     }
 
+    public void debug(Callable<String> callable) {
+      if (this.isProductEnvironment()) {
+        return;
+      }
+      try {
+        debug(callable.call());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    public void debug(String message) {
+      if (this.isProductEnvironment()) {
+        return;
+      }
+      log(message);
+    }
+
     protected Date getCurrentTime() {
         return new Date();// provide a way to shift the time for some use cases;
     }
@@ -537,11 +574,22 @@ public class UserContextImpl implements UserContext {
 
 	}
 
-    @Override
-    public <T> List<T> getCachedObjectsWithOneType(List<String> keys, Class<T> clazz) {
-        ensureCacheService();
-        return (List<T>) cacheService.mget(keys, clazz);
+  @Override
+  public <T> List<T> getCachedObjectsWithOneType(List<String> keys, Class<T> clazz) {
+      ensureCacheService();
+      return (List<T>) cacheService.mget(keys, clazz);
+  }
+  @Override
+  public boolean shouldSendExceptionEmail(){
+    Object val = getFromContextLocalStorage("$$sendExceptionEmail");
+    if (val instanceof Boolean){
+      return (Boolean) val;
     }
+    return true;
+  }
 
+  public void preventExceptionEmail(){
+    this.putIntoContextLocalStorage("$$sendExceptionEmail", false);
+  }
 }
 

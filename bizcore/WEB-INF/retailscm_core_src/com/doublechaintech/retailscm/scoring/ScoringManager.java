@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.scoring;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface ScoringManager extends BaseManager{
 
 		
 
+  List<Scoring> searchScoringList(RetailscmUserContext ctx, ScoringRequest pRequest);
+  Scoring searchScoring(RetailscmUserContext ctx, ScoringRequest pRequest);
 	public Scoring createScoring(RetailscmUserContext userContext, String scoredBy,int score,String comment) throws Exception;
 	public Scoring updateScoring(RetailscmUserContext userContext,String scoringId, int scoringVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Scoring loadScoring(RetailscmUserContext userContext, String scoringId, String [] tokensExpr) throws Exception;
@@ -26,6 +32,8 @@ public interface ScoringManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String scoringId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, Scoring newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, Scoring updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -39,6 +47,9 @@ public interface ScoringManager extends BaseManager{
 	/*
 
 	*/
+
+
+
 
 
 

@@ -44,13 +44,15 @@ public interface GoodsMovementDAO extends BaseDAO{
 	public void delete(String goodsMovementId, int version) throws Exception;
 	public GoodsMovement disconnectFromAll(String goodsMovementId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<GoodsMovement> queryList(String sql, Object ... parmeters);
+	public SmartList<GoodsMovement> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<GoodsMovement> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateGoodsMovement executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<GoodsMovement> findGoodsMovementByGoods(String goodsId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface GoodsMovementDAO extends BaseDAO{
 
 
  
+
+	List<GoodsMovement> search(GoodsMovementRequest pRequest);
 }
 
 

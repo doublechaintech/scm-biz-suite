@@ -5,9 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-
-	<!-- Enable Annotation based Declarative Transaction Management -->
-
   <bean id="modelService" class="com.doublechaintech.retailscm.ModelService"/>
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
   	  <property name="poolName" value="retailscm_connection_pool" />
@@ -24,6 +21,19 @@
   	  </property>
   	</bean>
 
+  <bean class="com.doublechaintech.retailscm.Beans"/>
+  <bean class="com.doublechaintech.retailscm.meta.MetaRegistry"/>
+  <bean id="DBUtil" class="com.doublechaintech.retailscm.DBUtil">
+		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+	</bean>
+
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg type="org.springframework.jdbc.core.JdbcOperations" ref="jdbcTemplate0" />
+	</bean>
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
 	<!-- dbcp 2.6 https://commons.apache.org/proper/commons-dbcp/configuration.html
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -50,9 +60,25 @@
 	  <constructor-arg ref="hikariConfig" />
 	</bean>
 
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="fetchSize" value="1000"/>
+    <property name="maxRows" value="1000"/>
+    <property name="queryTimeout" value="10"/>
+  </bean>
+
+  <bean id="jdbcTemplate0" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="fetchSize" value="1000"/>
+    <property name="maxRows" value="10000"/>
+    <property name="queryTimeout" value="10"/>
+  </bean>
+
+
 
 	<bean id="retailStoreCountryCenterDAOBase" class="com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="catalogDAO" ref="catalogDAO" />
 		
 		<property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
@@ -106,7 +132,10 @@
 	
 
 	<bean id="catalogDAOBase" class="com.doublechaintech.retailscm.catalog.CatalogJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="levelOneCategoryDAO" ref="levelOneCategoryDAO" />
 		
 	</bean>
@@ -114,7 +143,10 @@
 	
 
 	<bean id="levelOneCategoryDAOBase" class="com.doublechaintech.retailscm.levelonecategory.LevelOneCategoryJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="catalogDAO" ref="catalogDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="catalogDAO" ref="catalogDAO" />
+ 		
 		<property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO" />
 		
 	</bean>
@@ -122,7 +154,10 @@
 	
 
 	<bean id="levelTwoCategoryDAOBase" class="com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategoryJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="levelOneCategoryDAO" ref="levelOneCategoryDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="levelOneCategoryDAO" ref="levelOneCategoryDAO" />
+ 		
 		<property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO" />
 		
 	</bean>
@@ -130,7 +165,10 @@
 	
 
 	<bean id="levelThreeCategoryDAOBase" class="com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategoryJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO" />
+ 		
 		<property name="productDAO" ref="productDAO" />
 		
 	</bean>
@@ -138,7 +176,10 @@
 	
 
 	<bean id="productDAOBase" class="com.doublechaintech.retailscm.product.ProductJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO" />
+ 		
 		<property name="skuDAO" ref="skuDAO" />
 		
 	</bean>
@@ -146,7 +187,10 @@
 	
 
 	<bean id="skuDAOBase" class="com.doublechaintech.retailscm.sku.SkuJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="productDAO" ref="productDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="productDAO" ref="productDAO" />
+ 		
 		<property name="goodsDAO" ref="goodsDAO" />
 		
 	</bean>
@@ -154,7 +198,10 @@
 	
 
 	<bean id="retailStoreProvinceCenterDAOBase" class="com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenterJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="provinceCenterDepartmentDAO" ref="provinceCenterDepartmentDAO" />
 		
 		<property name="provinceCenterEmployeeDAO" ref="provinceCenterEmployeeDAO" />
@@ -166,7 +213,10 @@
 	
 
 	<bean id="provinceCenterDepartmentDAOBase" class="com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartmentJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+ 		
 		<property name="provinceCenterEmployeeDAO" ref="provinceCenterEmployeeDAO" />
 		
 	</bean>
@@ -174,13 +224,21 @@
 	
 
 	<bean id="provinceCenterEmployeeDAOBase" class="com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmployeeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="provinceCenterDepartmentDAO" ref="provinceCenterDepartmentDAO" /><property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="provinceCenterDepartmentDAO" ref="provinceCenterDepartmentDAO" />
+ 		
+ 		<property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+ 		
 	</bean>
 	<bean id="provinceCenterEmployeeDAO" parent="provinceCenterEmployeeDAOBase"></bean>
 	
 
 	<bean id="retailStoreCityServiceCenterDAOBase" class="com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenterJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+ 		
 		<property name="cityPartnerDAO" ref="cityPartnerDAO" />
 		
 		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
@@ -194,7 +252,10 @@
 	
 
 	<bean id="cityPartnerDAOBase" class="com.doublechaintech.retailscm.citypartner.CityPartnerJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+ 		
 		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
 		
 		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
@@ -204,7 +265,12 @@
 	
 
 	<bean id="potentialCustomerDAOBase" class="com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="cityPartnerDAO" ref="cityPartnerDAO" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="cityPartnerDAO" ref="cityPartnerDAO" />
+ 		
+ 		<property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+ 		
 		<property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO" />
 		
 		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
@@ -216,7 +282,10 @@
 	
 
 	<bean id="potentialCustomerContactPersonDAOBase" class="com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPersonJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+ 		
 		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
 		
 	</bean>
@@ -224,13 +293,23 @@
 	
 
 	<bean id="potentialCustomerContactDAOBase" class="com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContactJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" /><property name="cityPartnerDAO" ref="cityPartnerDAO" /><property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+ 		
+ 		<property name="cityPartnerDAO" ref="cityPartnerDAO" />
+ 		
+ 		<property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO" />
+ 		
 	</bean>
 	<bean id="potentialCustomerContactDAO" parent="potentialCustomerContactDAOBase"></bean>
 	
 
 	<bean id="cityEventDAOBase" class="com.doublechaintech.retailscm.cityevent.CityEventJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+ 		
 		<property name="eventAttendanceDAO" ref="eventAttendanceDAO" />
 		
 	</bean>
@@ -238,13 +317,35 @@
 	
 
 	<bean id="eventAttendanceDAOBase" class="com.doublechaintech.retailscm.eventattendance.EventAttendanceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" /><property name="cityEventDAO" ref="cityEventDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+ 		
+ 		<property name="cityEventDAO" ref="cityEventDAO" />
+ 		
 	</bean>
 	<bean id="eventAttendanceDAO" parent="eventAttendanceDAOBase"></bean>
 	
 
 	<bean id="retailStoreDAOBase" class="com.doublechaintech.retailscm.retailstore.RetailStoreJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreOpeningDAO" ref="retailStoreOpeningDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" /><property name="retailStoreClosingDAO" ref="retailStoreClosingDAO" /><property name="retailStoreCreationDAO" ref="retailStoreCreationDAO" /><property name="retailStoreFranchisingDAO" ref="retailStoreFranchisingDAO" /><property name="retailStoreDecorationDAO" ref="retailStoreDecorationDAO" /><property name="retailStoreInvestmentInvitationDAO" ref="retailStoreInvestmentInvitationDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreOpeningDAO" ref="retailStoreOpeningDAO" />
+ 		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
+ 		<property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+ 		
+ 		<property name="retailStoreClosingDAO" ref="retailStoreClosingDAO" />
+ 		
+ 		<property name="retailStoreCreationDAO" ref="retailStoreCreationDAO" />
+ 		
+ 		<property name="retailStoreFranchisingDAO" ref="retailStoreFranchisingDAO" />
+ 		
+ 		<property name="retailStoreDecorationDAO" ref="retailStoreDecorationDAO" />
+ 		
+ 		<property name="retailStoreInvestmentInvitationDAO" ref="retailStoreInvestmentInvitationDAO" />
+ 		
 		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
 		
 		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
@@ -260,7 +361,8 @@
 	
 
 	<bean id="retailStoreCreationDAOBase" class="com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreationJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="retailStoreDAO" ref="retailStoreDAO" />
 		
 	</bean>
@@ -268,7 +370,8 @@
 	
 
 	<bean id="retailStoreInvestmentInvitationDAOBase" class="com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitationJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="retailStoreDAO" ref="retailStoreDAO" />
 		
 	</bean>
@@ -276,7 +379,8 @@
 	
 
 	<bean id="retailStoreFranchisingDAOBase" class="com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchisingJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="retailStoreDAO" ref="retailStoreDAO" />
 		
 	</bean>
@@ -284,7 +388,8 @@
 	
 
 	<bean id="retailStoreDecorationDAOBase" class="com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecorationJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="retailStoreDAO" ref="retailStoreDAO" />
 		
 	</bean>
@@ -292,7 +397,8 @@
 	
 
 	<bean id="retailStoreOpeningDAOBase" class="com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpeningJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="retailStoreDAO" ref="retailStoreDAO" />
 		
 	</bean>
@@ -300,7 +406,8 @@
 	
 
 	<bean id="retailStoreClosingDAOBase" class="com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosingJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="retailStoreDAO" ref="retailStoreDAO" />
 		
 	</bean>
@@ -308,7 +415,10 @@
 	
 
 	<bean id="retailStoreMemberDAOBase" class="com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
 		
 		<property name="retailStoreMemberCouponDAO" ref="retailStoreMemberCouponDAO" />
@@ -328,7 +438,12 @@
 	
 
 	<bean id="consumerOrderDAOBase" class="com.doublechaintech.retailscm.consumerorder.ConsumerOrderJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+ 		
+ 		<property name="retailStoreDAO" ref="retailStoreDAO" />
+ 		
 		<property name="consumerOrderLineItemDAO" ref="consumerOrderLineItemDAO" />
 		
 		<property name="consumerOrderShippingGroupDAO" ref="consumerOrderShippingGroupDAO" />
@@ -344,37 +459,55 @@
 	
 
 	<bean id="consumerOrderLineItemDAOBase" class="com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItemJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+ 		
 	</bean>
 	<bean id="consumerOrderLineItemDAO" parent="consumerOrderLineItemDAOBase"></bean>
 	
 
 	<bean id="consumerOrderShippingGroupDAOBase" class="com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroupJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+ 		
 	</bean>
 	<bean id="consumerOrderShippingGroupDAO" parent="consumerOrderShippingGroupDAOBase"></bean>
 	
 
 	<bean id="consumerOrderPaymentGroupDAOBase" class="com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroupJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+ 		
 	</bean>
 	<bean id="consumerOrderPaymentGroupDAO" parent="consumerOrderPaymentGroupDAOBase"></bean>
 	
 
 	<bean id="consumerOrderPriceAdjustmentDAOBase" class="com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustmentJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+ 		
 	</bean>
 	<bean id="consumerOrderPriceAdjustmentDAO" parent="consumerOrderPriceAdjustmentDAOBase"></bean>
 	
 
 	<bean id="retailStoreMemberCouponDAOBase" class="com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCouponJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+ 		
 	</bean>
 	<bean id="retailStoreMemberCouponDAO" parent="retailStoreMemberCouponDAOBase"></bean>
 	
 
 	<bean id="memberWishlistDAOBase" class="com.doublechaintech.retailscm.memberwishlist.MemberWishlistJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+ 		
 		<property name="memberWishlistProductDAO" ref="memberWishlistProductDAO" />
 		
 	</bean>
@@ -382,31 +515,46 @@
 	
 
 	<bean id="memberRewardPointDAOBase" class="com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPointJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+ 		
 	</bean>
 	<bean id="memberRewardPointDAO" parent="memberRewardPointDAOBase"></bean>
 	
 
 	<bean id="memberRewardPointRedemptionDAOBase" class="com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemptionJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+ 		
 	</bean>
 	<bean id="memberRewardPointRedemptionDAO" parent="memberRewardPointRedemptionDAOBase"></bean>
 	
 
 	<bean id="memberWishlistProductDAOBase" class="com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProductJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="memberWishlistDAO" ref="memberWishlistDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="memberWishlistDAO" ref="memberWishlistDAO" />
+ 		
 	</bean>
 	<bean id="memberWishlistProductDAO" parent="memberWishlistProductDAOBase"></bean>
 	
 
 	<bean id="retailStoreMemberAddressDAOBase" class="com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddressJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+ 		
 	</bean>
 	<bean id="retailStoreMemberAddressDAO" parent="retailStoreMemberAddressDAOBase"></bean>
 	
 
 	<bean id="retailStoreMemberGiftCardDAOBase" class="com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCardJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+ 		
 		<property name="retailStoreMemberGiftCardConsumeRecordDAO" ref="retailStoreMemberGiftCardConsumeRecordDAO" />
 		
 	</bean>
@@ -414,13 +562,21 @@
 	
 
 	<bean id="retailStoreMemberGiftCardConsumeRecordDAOBase" class="com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberGiftCardDAO" ref="retailStoreMemberGiftCardDAO" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreMemberGiftCardDAO" ref="retailStoreMemberGiftCardDAO" />
+ 		
+ 		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+ 		
 	</bean>
 	<bean id="retailStoreMemberGiftCardConsumeRecordDAO" parent="retailStoreMemberGiftCardConsumeRecordDAOBase"></bean>
 	
 
 	<bean id="goodsSupplierDAOBase" class="com.doublechaintech.retailscm.goodssupplier.GoodsSupplierJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="supplierProductDAO" ref="supplierProductDAO" />
 		
 		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
@@ -432,7 +588,10 @@
 	
 
 	<bean id="supplierProductDAOBase" class="com.doublechaintech.retailscm.supplierproduct.SupplierProductJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="goodsSupplierDAO" ref="goodsSupplierDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="goodsSupplierDAO" ref="goodsSupplierDAO" />
+ 		
 		<property name="productSupplyDurationDAO" ref="productSupplyDurationDAO" />
 		
 	</bean>
@@ -440,13 +599,21 @@
 	
 
 	<bean id="productSupplyDurationDAOBase" class="com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDurationJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="supplierProductDAO" ref="supplierProductDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="supplierProductDAO" ref="supplierProductDAO" />
+ 		
 	</bean>
 	<bean id="productSupplyDurationDAO" parent="productSupplyDurationDAOBase"></bean>
 	
 
 	<bean id="supplyOrderDAOBase" class="com.doublechaintech.retailscm.supplyorder.SupplyOrderJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="goodsSupplierDAO" ref="goodsSupplierDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="goodsSupplierDAO" ref="goodsSupplierDAO" />
+ 		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="supplyOrderLineItemDAO" ref="supplyOrderLineItemDAO" />
 		
 		<property name="supplyOrderShippingGroupDAO" ref="supplyOrderShippingGroupDAO" />
@@ -460,25 +627,39 @@
 	
 
 	<bean id="supplyOrderLineItemDAOBase" class="com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+ 		
 	</bean>
 	<bean id="supplyOrderLineItemDAO" parent="supplyOrderLineItemDAOBase"></bean>
 	
 
 	<bean id="supplyOrderShippingGroupDAOBase" class="com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroupJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+ 		
 	</bean>
 	<bean id="supplyOrderShippingGroupDAO" parent="supplyOrderShippingGroupDAOBase"></bean>
 	
 
 	<bean id="supplyOrderPaymentGroupDAOBase" class="com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroupJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+ 		
 	</bean>
 	<bean id="supplyOrderPaymentGroupDAO" parent="supplyOrderPaymentGroupDAOBase"></bean>
 	
 
 	<bean id="retailStoreOrderDAOBase" class="com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreDAO" ref="retailStoreDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreDAO" ref="retailStoreDAO" />
+ 		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="retailStoreOrderLineItemDAO" ref="retailStoreOrderLineItemDAO" />
 		
 		<property name="retailStoreOrderShippingGroupDAO" ref="retailStoreOrderShippingGroupDAO" />
@@ -492,25 +673,37 @@
 	
 
 	<bean id="retailStoreOrderLineItemDAOBase" class="com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItemJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+ 		
 	</bean>
 	<bean id="retailStoreOrderLineItemDAO" parent="retailStoreOrderLineItemDAOBase"></bean>
 	
 
 	<bean id="retailStoreOrderShippingGroupDAOBase" class="com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroupJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+ 		
 	</bean>
 	<bean id="retailStoreOrderShippingGroupDAO" parent="retailStoreOrderShippingGroupDAOBase"></bean>
 	
 
 	<bean id="retailStoreOrderPaymentGroupDAOBase" class="com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroupJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+ 		
 	</bean>
 	<bean id="retailStoreOrderPaymentGroupDAO" parent="retailStoreOrderPaymentGroupDAOBase"></bean>
 	
 
 	<bean id="warehouseDAOBase" class="com.doublechaintech.retailscm.warehouse.WarehouseJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="storageSpaceDAO" ref="storageSpaceDAO" />
 		
 		<property name="smartPalletDAO" ref="smartPalletDAO" />
@@ -530,7 +723,10 @@
 	
 
 	<bean id="storageSpaceDAOBase" class="com.doublechaintech.retailscm.storagespace.StorageSpaceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="warehouseDAO" ref="warehouseDAO" />
+ 		
 		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
 		
 	</bean>
@@ -538,7 +734,10 @@
 	
 
 	<bean id="smartPalletDAOBase" class="com.doublechaintech.retailscm.smartpallet.SmartPalletJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="warehouseDAO" ref="warehouseDAO" />
+ 		
 		<property name="goodsDAO" ref="goodsDAO" />
 		
 	</bean>
@@ -546,7 +745,14 @@
 	
 
 	<bean id="goodsShelfDAOBase" class="com.doublechaintech.retailscm.goodsshelf.GoodsShelfJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="supplierSpaceDAO" ref="supplierSpaceDAO" /><property name="damageSpaceDAO" ref="damageSpaceDAO" /><property name="storageSpaceDAO" ref="storageSpaceDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="supplierSpaceDAO" ref="supplierSpaceDAO" />
+ 		
+ 		<property name="damageSpaceDAO" ref="damageSpaceDAO" />
+ 		
+ 		<property name="storageSpaceDAO" ref="storageSpaceDAO" />
+ 		
 		<property name="goodsShelfStockCountDAO" ref="goodsShelfStockCountDAO" />
 		
 		<property name="goodsAllocationDAO" ref="goodsAllocationDAO" />
@@ -556,7 +762,10 @@
 	
 
 	<bean id="goodsShelfStockCountDAOBase" class="com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="goodsShelfDAO" ref="goodsShelfDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
+ 		
 		<property name="stockCountIssueTrackDAO" ref="stockCountIssueTrackDAO" />
 		
 	</bean>
@@ -564,13 +773,19 @@
 	
 
 	<bean id="stockCountIssueTrackDAOBase" class="com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrackJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="goodsShelfStockCountDAO" ref="goodsShelfStockCountDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="goodsShelfStockCountDAO" ref="goodsShelfStockCountDAO" />
+ 		
 	</bean>
 	<bean id="stockCountIssueTrackDAO" parent="stockCountIssueTrackDAOBase"></bean>
 	
 
 	<bean id="goodsAllocationDAOBase" class="com.doublechaintech.retailscm.goodsallocation.GoodsAllocationJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="goodsShelfDAO" ref="goodsShelfDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
+ 		
 		<property name="goodsDAO" ref="goodsDAO" />
 		
 	</bean>
@@ -578,7 +793,26 @@
 	
 
 	<bean id="goodsDAOBase" class="com.doublechaintech.retailscm.goods.GoodsJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="receivingSpaceDAO" ref="receivingSpaceDAO" /><property name="goodsAllocationDAO" ref="goodsAllocationDAO" /><property name="smartPalletDAO" ref="smartPalletDAO" /><property name="supplyOrderDAO" ref="supplyOrderDAO" /><property name="transportTaskDAO" ref="transportTaskDAO" /><property name="shippingSpaceDAO" ref="shippingSpaceDAO" /><property name="skuDAO" ref="skuDAO" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="receivingSpaceDAO" ref="receivingSpaceDAO" />
+ 		
+ 		<property name="goodsAllocationDAO" ref="goodsAllocationDAO" />
+ 		
+ 		<property name="smartPalletDAO" ref="smartPalletDAO" />
+ 		
+ 		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+ 		
+ 		<property name="transportTaskDAO" ref="transportTaskDAO" />
+ 		
+ 		<property name="shippingSpaceDAO" ref="shippingSpaceDAO" />
+ 		
+ 		<property name="skuDAO" ref="skuDAO" />
+ 		
+ 		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+ 		
+ 		<property name="retailStoreDAO" ref="retailStoreDAO" />
+ 		
 		<property name="goodsMovementDAO" ref="goodsMovementDAO" />
 		
 	</bean>
@@ -586,13 +820,19 @@
 	
 
 	<bean id="goodsMovementDAOBase" class="com.doublechaintech.retailscm.goodsmovement.GoodsMovementJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="goodsDAO" ref="goodsDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="goodsDAO" ref="goodsDAO" />
+ 		
 	</bean>
 	<bean id="goodsMovementDAO" parent="goodsMovementDAOBase"></bean>
 	
 
 	<bean id="supplierSpaceDAOBase" class="com.doublechaintech.retailscm.supplierspace.SupplierSpaceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="warehouseDAO" ref="warehouseDAO" />
+ 		
 		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
 		
 	</bean>
@@ -600,7 +840,10 @@
 	
 
 	<bean id="receivingSpaceDAOBase" class="com.doublechaintech.retailscm.receivingspace.ReceivingSpaceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="warehouseDAO" ref="warehouseDAO" />
+ 		
 		<property name="goodsDAO" ref="goodsDAO" />
 		
 	</bean>
@@ -608,7 +851,10 @@
 	
 
 	<bean id="shippingSpaceDAOBase" class="com.doublechaintech.retailscm.shippingspace.ShippingSpaceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="warehouseDAO" ref="warehouseDAO" />
+ 		
 		<property name="goodsDAO" ref="goodsDAO" />
 		
 	</bean>
@@ -616,7 +862,10 @@
 	
 
 	<bean id="damageSpaceDAOBase" class="com.doublechaintech.retailscm.damagespace.DamageSpaceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="warehouseDAO" ref="warehouseDAO" />
+ 		
 		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
 		
 	</bean>
@@ -624,13 +873,19 @@
 	
 
 	<bean id="warehouseAssetDAOBase" class="com.doublechaintech.retailscm.warehouseasset.WarehouseAssetJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="warehouseDAO" ref="warehouseDAO" />
+ 		
 	</bean>
 	<bean id="warehouseAssetDAO" parent="warehouseAssetDAOBase"></bean>
 	
 
 	<bean id="transportFleetDAOBase" class="com.doublechaintech.retailscm.transportfleet.TransportFleetJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="transportTruckDAO" ref="transportTruckDAO" />
 		
 		<property name="truckDriverDAO" ref="truckDriverDAO" />
@@ -642,7 +897,10 @@
 	
 
 	<bean id="transportTruckDAOBase" class="com.doublechaintech.retailscm.transporttruck.TransportTruckJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="transportFleetDAO" ref="transportFleetDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="transportFleetDAO" ref="transportFleetDAO" />
+ 		
 		<property name="transportTaskDAO" ref="transportTaskDAO" />
 		
 	</bean>
@@ -650,7 +908,10 @@
 	
 
 	<bean id="truckDriverDAOBase" class="com.doublechaintech.retailscm.truckdriver.TruckDriverJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="transportFleetDAO" ref="transportFleetDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="transportFleetDAO" ref="transportFleetDAO" />
+ 		
 		<property name="transportTaskDAO" ref="transportTaskDAO" />
 		
 	</bean>
@@ -658,7 +919,16 @@
 	
 
 	<bean id="transportTaskDAOBase" class="com.doublechaintech.retailscm.transporttask.TransportTaskJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="transportFleetDAO" ref="transportFleetDAO" /><property name="truckDriverDAO" ref="truckDriverDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" /><property name="transportTruckDAO" ref="transportTruckDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="transportFleetDAO" ref="transportFleetDAO" />
+ 		
+ 		<property name="truckDriverDAO" ref="truckDriverDAO" />
+ 		
+ 		<property name="retailStoreDAO" ref="retailStoreDAO" />
+ 		
+ 		<property name="transportTruckDAO" ref="transportTruckDAO" />
+ 		
 		<property name="goodsDAO" ref="goodsDAO" />
 		
 		<property name="transportTaskTrackDAO" ref="transportTaskTrackDAO" />
@@ -668,13 +938,23 @@
 	
 
 	<bean id="transportTaskTrackDAOBase" class="com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrackJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="transportTaskDAO" ref="transportTaskDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="transportTaskDAO" ref="transportTaskDAO" />
+ 		
 	</bean>
 	<bean id="transportTaskTrackDAO" parent="transportTaskTrackDAOBase"></bean>
 	
 
 	<bean id="accountSetDAOBase" class="com.doublechaintech.retailscm.accountset.AccountSetJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="goodsSupplierDAO" ref="goodsSupplierDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
+ 		<property name="goodsSupplierDAO" ref="goodsSupplierDAO" />
+ 		
+ 		<property name="retailStoreDAO" ref="retailStoreDAO" />
+ 		
 		<property name="accountingSubjectDAO" ref="accountingSubjectDAO" />
 		
 		<property name="accountingPeriodDAO" ref="accountingPeriodDAO" />
@@ -686,7 +966,10 @@
 	
 
 	<bean id="accountingSubjectDAOBase" class="com.doublechaintech.retailscm.accountingsubject.AccountingSubjectJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="accountSetDAO" ref="accountSetDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="accountSetDAO" ref="accountSetDAO" />
+ 		
 		<property name="accountingDocumentLineDAO" ref="accountingDocumentLineDAO" />
 		
 	</bean>
@@ -694,7 +977,10 @@
 	
 
 	<bean id="accountingPeriodDAOBase" class="com.doublechaintech.retailscm.accountingperiod.AccountingPeriodJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="accountSetDAO" ref="accountSetDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="accountSetDAO" ref="accountSetDAO" />
+ 		
 		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
 		
 	</bean>
@@ -702,7 +988,10 @@
 	
 
 	<bean id="accountingDocumentTypeDAOBase" class="com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="accountSetDAO" ref="accountSetDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="accountSetDAO" ref="accountSetDAO" />
+ 		
 		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
 		
 	</bean>
@@ -710,7 +999,12 @@
 	
 
 	<bean id="accountingDocumentDAOBase" class="com.doublechaintech.retailscm.accountingdocument.AccountingDocumentJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="accountingPeriodDAO" ref="accountingPeriodDAO" /><property name="accountingDocumentTypeDAO" ref="accountingDocumentTypeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="accountingPeriodDAO" ref="accountingPeriodDAO" />
+ 		
+ 		<property name="accountingDocumentTypeDAO" ref="accountingDocumentTypeDAO" />
+ 		
 		<property name="originalVoucherDAO" ref="originalVoucherDAO" />
 		
 		<property name="accountingDocumentLineDAO" ref="accountingDocumentLineDAO" />
@@ -720,19 +1014,30 @@
 	
 
 	<bean id="originalVoucherDAOBase" class="com.doublechaintech.retailscm.originalvoucher.OriginalVoucherJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+ 		
 	</bean>
 	<bean id="originalVoucherDAO" parent="originalVoucherDAOBase"></bean>
 	
 
 	<bean id="accountingDocumentLineDAOBase" class="com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLineJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="accountingDocumentDAO" ref="accountingDocumentDAO" /><property name="accountingSubjectDAO" ref="accountingSubjectDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+ 		
+ 		<property name="accountingSubjectDAO" ref="accountingSubjectDAO" />
+ 		
 	</bean>
 	<bean id="accountingDocumentLineDAO" parent="accountingDocumentLineDAOBase"></bean>
 	
 
 	<bean id="levelOneDepartmentDAOBase" class="com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartmentJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="levelTwoDepartmentDAO" ref="levelTwoDepartmentDAO" />
 		
 	</bean>
@@ -740,7 +1045,10 @@
 	
 
 	<bean id="levelTwoDepartmentDAOBase" class="com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartmentJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="levelOneDepartmentDAO" ref="levelOneDepartmentDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="levelOneDepartmentDAO" ref="levelOneDepartmentDAO" />
+ 		
 		<property name="levelThreeDepartmentDAO" ref="levelThreeDepartmentDAO" />
 		
 	</bean>
@@ -748,7 +1056,10 @@
 	
 
 	<bean id="levelThreeDepartmentDAOBase" class="com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartmentJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="levelTwoDepartmentDAO" ref="levelTwoDepartmentDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="levelTwoDepartmentDAO" ref="levelTwoDepartmentDAO" />
+ 		
 		<property name="employeeDAO" ref="employeeDAO" />
 		
 	</bean>
@@ -756,7 +1067,10 @@
 	
 
 	<bean id="skillTypeDAOBase" class="com.doublechaintech.retailscm.skilltype.SkillTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="employeeSkillDAO" ref="employeeSkillDAO" />
 		
 	</bean>
@@ -764,7 +1078,10 @@
 	
 
 	<bean id="responsibilityTypeDAOBase" class="com.doublechaintech.retailscm.responsibilitytype.ResponsibilityTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="employeeDAO" ref="employeeDAO" />
 		
 	</bean>
@@ -772,7 +1089,10 @@
 	
 
 	<bean id="terminationReasonDAOBase" class="com.doublechaintech.retailscm.terminationreason.TerminationReasonJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="terminationDAO" ref="terminationDAO" />
 		
 	</bean>
@@ -780,7 +1100,10 @@
 	
 
 	<bean id="terminationTypeDAOBase" class="com.doublechaintech.retailscm.terminationtype.TerminationTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="terminationDAO" ref="terminationDAO" />
 		
 	</bean>
@@ -788,7 +1111,10 @@
 	
 
 	<bean id="occupationTypeDAOBase" class="com.doublechaintech.retailscm.occupationtype.OccupationTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="employeeDAO" ref="employeeDAO" />
 		
 	</bean>
@@ -796,7 +1122,10 @@
 	
 
 	<bean id="leaveTypeDAOBase" class="com.doublechaintech.retailscm.leavetype.LeaveTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="employeeLeaveDAO" ref="employeeLeaveDAO" />
 		
 	</bean>
@@ -804,7 +1133,10 @@
 	
 
 	<bean id="salaryGradeDAOBase" class="com.doublechaintech.retailscm.salarygrade.SalaryGradeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="employeeDAO" ref="employeeDAO" />
 		
 		<property name="employeeSalarySheetDAO" ref="employeeSalarySheetDAO" />
@@ -814,7 +1146,10 @@
 	
 
 	<bean id="interviewTypeDAOBase" class="com.doublechaintech.retailscm.interviewtype.InterviewTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="employeeInterviewDAO" ref="employeeInterviewDAO" />
 		
 	</bean>
@@ -822,7 +1157,10 @@
 	
 
 	<bean id="trainingCourseTypeDAOBase" class="com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="companyTrainingDAO" ref="companyTrainingDAO" />
 		
 	</bean>
@@ -830,25 +1168,45 @@
 	
 
 	<bean id="publicHolidayDAOBase" class="com.doublechaintech.retailscm.publicholiday.PublicHolidayJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 	</bean>
 	<bean id="publicHolidayDAO" parent="publicHolidayDAOBase"></bean>
 	
 
 	<bean id="terminationDAOBase" class="com.doublechaintech.retailscm.termination.TerminationJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="terminationReasonDAO" ref="terminationReasonDAO" /><property name="terminationTypeDAO" ref="terminationTypeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="terminationReasonDAO" ref="terminationReasonDAO" />
+ 		
+ 		<property name="terminationTypeDAO" ref="terminationTypeDAO" />
+ 		
 	</bean>
 	<bean id="terminationDAO" parent="terminationDAOBase"></bean>
 	
 
 	<bean id="viewDAOBase" class="com.doublechaintech.retailscm.view.ViewJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 	</bean>
 	<bean id="viewDAO" parent="viewDAOBase"></bean>
 	
 
 	<bean id="employeeDAOBase" class="com.doublechaintech.retailscm.employee.EmployeeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="salaryGradeDAO" ref="salaryGradeDAO" /><property name="levelThreeDepartmentDAO" ref="levelThreeDepartmentDAO" /><property name="occupationTypeDAO" ref="occupationTypeDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="responsibilityTypeDAO" ref="responsibilityTypeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="salaryGradeDAO" ref="salaryGradeDAO" />
+ 		
+ 		<property name="levelThreeDepartmentDAO" ref="levelThreeDepartmentDAO" />
+ 		
+ 		<property name="occupationTypeDAO" ref="occupationTypeDAO" />
+ 		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
+ 		<property name="responsibilityTypeDAO" ref="responsibilityTypeDAO" />
+ 		
 		<property name="employeeCompanyTrainingDAO" ref="employeeCompanyTrainingDAO" />
 		
 		<property name="employeeSkillDAO" ref="employeeSkillDAO" />
@@ -878,7 +1236,10 @@
 	
 
 	<bean id="instructorDAOBase" class="com.doublechaintech.retailscm.instructor.InstructorJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
 		<property name="companyTrainingDAO" ref="companyTrainingDAO" />
 		
 	</bean>
@@ -886,7 +1247,14 @@
 	
 
 	<bean id="companyTrainingDAOBase" class="com.doublechaintech.retailscm.companytraining.CompanyTrainingJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="instructorDAO" ref="instructorDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="trainingCourseTypeDAO" ref="trainingCourseTypeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="instructorDAO" ref="instructorDAO" />
+ 		
+ 		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+ 		
+ 		<property name="trainingCourseTypeDAO" ref="trainingCourseTypeDAO" />
+ 		
 		<property name="employeeCompanyTrainingDAO" ref="employeeCompanyTrainingDAO" />
 		
 	</bean>
@@ -894,7 +1262,8 @@
 	
 
 	<bean id="scoringDAOBase" class="com.doublechaintech.retailscm.scoring.ScoringJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="employeeCompanyTrainingDAO" ref="employeeCompanyTrainingDAO" />
 		
 	</bean>
@@ -902,73 +1271,123 @@
 	
 
 	<bean id="employeeCompanyTrainingDAOBase" class="com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrainingJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="scoringDAO" ref="scoringDAO" /><property name="companyTrainingDAO" ref="companyTrainingDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
+ 		<property name="scoringDAO" ref="scoringDAO" />
+ 		
+ 		<property name="companyTrainingDAO" ref="companyTrainingDAO" />
+ 		
 	</bean>
 	<bean id="employeeCompanyTrainingDAO" parent="employeeCompanyTrainingDAOBase"></bean>
 	
 
 	<bean id="employeeSkillDAOBase" class="com.doublechaintech.retailscm.employeeskill.EmployeeSkillJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="skillTypeDAO" ref="skillTypeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
+ 		<property name="skillTypeDAO" ref="skillTypeDAO" />
+ 		
 	</bean>
 	<bean id="employeeSkillDAO" parent="employeeSkillDAOBase"></bean>
 	
 
 	<bean id="employeePerformanceDAOBase" class="com.doublechaintech.retailscm.employeeperformance.EmployeePerformanceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 	</bean>
 	<bean id="employeePerformanceDAO" parent="employeePerformanceDAOBase"></bean>
 	
 
 	<bean id="employeeWorkExperienceDAOBase" class="com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperienceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 	</bean>
 	<bean id="employeeWorkExperienceDAO" parent="employeeWorkExperienceDAOBase"></bean>
 	
 
 	<bean id="employeeLeaveDAOBase" class="com.doublechaintech.retailscm.employeeleave.EmployeeLeaveJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="leaveTypeDAO" ref="leaveTypeDAO" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="leaveTypeDAO" ref="leaveTypeDAO" />
+ 		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 	</bean>
 	<bean id="employeeLeaveDAO" parent="employeeLeaveDAOBase"></bean>
 	
 
 	<bean id="employeeInterviewDAOBase" class="com.doublechaintech.retailscm.employeeinterview.EmployeeInterviewJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="interviewTypeDAO" ref="interviewTypeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
+ 		<property name="interviewTypeDAO" ref="interviewTypeDAO" />
+ 		
 	</bean>
 	<bean id="employeeInterviewDAO" parent="employeeInterviewDAOBase"></bean>
 	
 
 	<bean id="employeeAttendanceDAOBase" class="com.doublechaintech.retailscm.employeeattendance.EmployeeAttendanceJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 	</bean>
 	<bean id="employeeAttendanceDAO" parent="employeeAttendanceDAOBase"></bean>
 	
 
 	<bean id="employeeQualifierDAOBase" class="com.doublechaintech.retailscm.employeequalifier.EmployeeQualifierJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 	</bean>
 	<bean id="employeeQualifierDAO" parent="employeeQualifierDAOBase"></bean>
 	
 
 	<bean id="employeeEducationDAOBase" class="com.doublechaintech.retailscm.employeeeducation.EmployeeEducationJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 	</bean>
 	<bean id="employeeEducationDAO" parent="employeeEducationDAOBase"></bean>
 	
 
 	<bean id="employeeAwardDAOBase" class="com.doublechaintech.retailscm.employeeaward.EmployeeAwardJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 	</bean>
 	<bean id="employeeAwardDAO" parent="employeeAwardDAOBase"></bean>
 	
 
 	<bean id="employeeSalarySheetDAOBase" class="com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheetJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="salaryGradeDAO" ref="salaryGradeDAO" /><property name="payingOffDAO" ref="payingOffDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
+ 		<property name="salaryGradeDAO" ref="salaryGradeDAO" />
+ 		
+ 		<property name="payingOffDAO" ref="payingOffDAO" />
+ 		
 	</bean>
 	<bean id="employeeSalarySheetDAO" parent="employeeSalarySheetDAOBase"></bean>
 	
 
 	<bean id="payingOffDAOBase" class="com.doublechaintech.retailscm.payingoff.PayingOffJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="employeeDAO" ref="employeeDAO" />
+ 		
 		<property name="employeeSalarySheetDAO" ref="employeeSalarySheetDAO" />
 		
 	</bean>
@@ -976,7 +1395,8 @@
 	
 
 	<bean id="mobileAppDAOBase" class="com.doublechaintech.retailscm.mobileapp.MobileAppJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="pageDAO" ref="pageDAO" />
 		
 		<property name="pageTypeDAO" ref="pageTypeDAO" />
@@ -986,7 +1406,12 @@
 	
 
 	<bean id="pageDAOBase" class="com.doublechaintech.retailscm.page.PageJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="pageTypeDAO" ref="pageTypeDAO" /><property name="mobileAppDAO" ref="mobileAppDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="pageTypeDAO" ref="pageTypeDAO" />
+ 		
+ 		<property name="mobileAppDAO" ref="mobileAppDAO" />
+ 		
 		<property name="slideDAO" ref="slideDAO" />
 		
 		<property name="uiActionDAO" ref="uiActionDAO" />
@@ -998,33 +1423,44 @@
 	
 
 	<bean id="pageTypeDAOBase" class="com.doublechaintech.retailscm.pagetype.PageTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="mobileAppDAO" ref="mobileAppDAO" />
-		<property name="pageDAO" ref="pageDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 		
+ 		<property name="mobileAppDAO" ref="mobileAppDAO" />
+ 		
 	</bean>
 	<bean id="pageTypeDAO" parent="pageTypeDAOBase"></bean>
 	
 
 	<bean id="slideDAOBase" class="com.doublechaintech.retailscm.slide.SlideJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="pageDAO" ref="pageDAO" />
+ 		
 	</bean>
 	<bean id="slideDAO" parent="slideDAOBase"></bean>
 	
 
 	<bean id="uiActionDAOBase" class="com.doublechaintech.retailscm.uiaction.UiActionJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="pageDAO" ref="pageDAO" />
+ 		
 	</bean>
 	<bean id="uiActionDAO" parent="uiActionDAOBase"></bean>
 	
 
 	<bean id="sectionDAOBase" class="com.doublechaintech.retailscm.section.SectionJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="pageDAO" ref="pageDAO" />
+ 		
 	</bean>
 	<bean id="sectionDAO" parent="sectionDAOBase"></bean>
 	
 
 	<bean id="userDomainDAOBase" class="com.doublechaintech.retailscm.userdomain.UserDomainJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="userAllowListDAO" ref="userAllowListDAO" />
 		
 		<property name="secUserDAO" ref="secUserDAO" />
@@ -1036,13 +1472,19 @@
 	
 
 	<bean id="userAllowListDAOBase" class="com.doublechaintech.retailscm.userallowlist.UserAllowListJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="userDomainDAO" ref="userDomainDAO" />
+ 		
 	</bean>
 	<bean id="userAllowListDAO" parent="userAllowListDAOBase"></bean>
 	
 
 	<bean id="secUserDAOBase" class="com.doublechaintech.retailscm.secuser.SecUserJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="userDomainDAO" ref="userDomainDAO" />
+ 		
 		<property name="userAppDAO" ref="userAppDAO" />
 		
 		<property name="loginHistoryDAO" ref="loginHistoryDAO" />
@@ -1051,14 +1493,17 @@
 		
 		<property name="wechatMiniappIdentityDAO" ref="wechatMiniappIdentityDAO" />
 		
-		<property name="keypairIdentityDAO" ref="keypairIdentityDAO" />
+		<property name="keyPairIdentityDAO" ref="keyPairIdentityDAO" />
 		
 	</bean>
 	<bean id="secUserDAO" parent="secUserDAOBase"></bean>
 	
 
 	<bean id="userAppDAOBase" class="com.doublechaintech.retailscm.userapp.UserAppJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="secUserDAO" ref="secUserDAO" />
+ 		
 		<property name="quickLinkDAO" ref="quickLinkDAO" />
 		
 		<property name="listAccessDAO" ref="listAccessDAO" />
@@ -1068,25 +1513,35 @@
 	
 
 	<bean id="quickLinkDAOBase" class="com.doublechaintech.retailscm.quicklink.QuickLinkJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="userAppDAO" ref="userAppDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="userAppDAO" ref="userAppDAO" />
+ 		
 	</bean>
 	<bean id="quickLinkDAO" parent="quickLinkDAOBase"></bean>
 	
 
 	<bean id="listAccessDAOBase" class="com.doublechaintech.retailscm.listaccess.ListAccessJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="userAppDAO" ref="userAppDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="userAppDAO" ref="userAppDAO" />
+ 		
 	</bean>
 	<bean id="listAccessDAO" parent="listAccessDAOBase"></bean>
 	
 
 	<bean id="loginHistoryDAOBase" class="com.doublechaintech.retailscm.loginhistory.LoginHistoryJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="secUserDAO" ref="secUserDAO" />
+ 		
 	</bean>
 	<bean id="loginHistoryDAO" parent="loginHistoryDAOBase"></bean>
 	
 
 	<bean id="candidateContainerDAOBase" class="com.doublechaintech.retailscm.candidatecontainer.CandidateContainerJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 		<property name="candidateElementDAO" ref="candidateElementDAO" />
 		
 	</bean>
@@ -1094,39 +1549,57 @@
 	
 
 	<bean id="candidateElementDAOBase" class="com.doublechaintech.retailscm.candidateelement.CandidateElementJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="candidateContainerDAO" ref="candidateContainerDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="candidateContainerDAO" ref="candidateContainerDAO" />
+ 		
 	</bean>
 	<bean id="candidateElementDAO" parent="candidateElementDAOBase"></bean>
 	
 
 	<bean id="wechatWorkappIdentityDAOBase" class="com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="secUserDAO" ref="secUserDAO" />
+ 		
 	</bean>
 	<bean id="wechatWorkappIdentityDAO" parent="wechatWorkappIdentityDAOBase"></bean>
 	
 
 	<bean id="wechatMiniappIdentityDAOBase" class="com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="secUserDAO" ref="secUserDAO" />
+ 		
 	</bean>
 	<bean id="wechatMiniappIdentityDAO" parent="wechatMiniappIdentityDAOBase"></bean>
 	
 
-	<bean id="keypairIdentityDAOBase" class="com.doublechaintech.retailscm.keypairidentity.KeypairIdentityJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="publicKeyTypeDAO" ref="publicKeyTypeDAO" /><property name="secUserDAO" ref="secUserDAO" />
+	<bean id="keyPairIdentityDAOBase" class="com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityJDBCTemplateDAO">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="publicKeyTypeDAO" ref="publicKeyTypeDAO" />
+ 		
+ 		<property name="secUserDAO" ref="secUserDAO" />
+ 		
 	</bean>
-	<bean id="keypairIdentityDAO" parent="keypairIdentityDAOBase"></bean>
+	<bean id="keyPairIdentityDAO" parent="keyPairIdentityDAOBase"></bean>
 	
 
 	<bean id="publicKeyTypeDAOBase" class="com.doublechaintech.retailscm.publickeytype.PublicKeyTypeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
-		<property name="keypairIdentityDAO" ref="keypairIdentityDAO" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
+ 		<property name="userDomainDAO" ref="userDomainDAO" />
+ 		
+		<property name="keyPairIdentityDAO" ref="keyPairIdentityDAO" />
 		
 	</bean>
 	<bean id="publicKeyTypeDAO" parent="publicKeyTypeDAOBase"></bean>
 	
 
 	<bean id="treeNodeDAOBase" class="com.doublechaintech.retailscm.treenode.TreeNodeJDBCTemplateDAO">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		
 	</bean>
 	<bean id="treeNodeDAO" parent="treeNodeDAOBase"></bean>
 	
@@ -1256,7 +1729,7 @@
 		<property name="candidateElementDAO" ref="candidateElementDAO"/>
 		<property name="wechatWorkappIdentityDAO" ref="wechatWorkappIdentityDAO"/>
 		<property name="wechatMiniappIdentityDAO" ref="wechatMiniappIdentityDAO"/>
-		<property name="keypairIdentityDAO" ref="keypairIdentityDAO"/>
+		<property name="keyPairIdentityDAO" ref="keyPairIdentityDAO"/>
 		<property name="publicKeyTypeDAO" ref="publicKeyTypeDAO"/>
 		<property name="treeNodeDAO" ref="treeNodeDAO"/>
 	</bean>
@@ -1278,7 +1751,7 @@
 
 		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 	  <property name="poolName" value="mercatus_connection_pool" />
-	  <property name="dataSourceClassName" value="com.mysql.cj.jdbc.MysqlDataSource"/>
+	  <property name="dataSourceClassName" value="com.mysql.cj.jdbc.MysqlXADataSource"/>
 	  <property name="maximumPoolSize" value="50" />
 	  <property name="maxLifetime" value="60000" />
 	  <property name="idleTimeout" value="30000" />

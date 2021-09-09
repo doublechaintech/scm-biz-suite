@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.consumerorder;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface ConsumerOrderManager extends BaseManager{
 
 		
 
+  List<ConsumerOrder> searchConsumerOrderList(RetailscmUserContext ctx, ConsumerOrderRequest pRequest);
+  ConsumerOrder searchConsumerOrder(RetailscmUserContext ctx, ConsumerOrderRequest pRequest);
 	public ConsumerOrder createConsumerOrder(RetailscmUserContext userContext, String title,String consumerId,String storeId) throws Exception;
 	public ConsumerOrder updateConsumerOrder(RetailscmUserContext userContext,String consumerOrderId, int consumerOrderVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ConsumerOrder loadConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, String [] tokensExpr) throws Exception;
@@ -28,6 +34,8 @@ public interface ConsumerOrderManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String consumerOrderId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, ConsumerOrder newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, ConsumerOrder updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -89,6 +97,9 @@ public interface ConsumerOrderManager extends BaseManager{
 	public Object listByStore(RetailscmUserContext userContext,String storeId) throws Exception;
 	public Object listPageByStore(RetailscmUserContext userContext,String storeId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

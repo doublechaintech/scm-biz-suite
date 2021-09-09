@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeskill;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
 
 	protected SkillTypeDAO skillTypeDAO;
 	public void setSkillTypeDAO(SkillTypeDAO skillTypeDAO){
- 	
+
  		if(skillTypeDAO == null){
  			throw new IllegalStateException("Do not try to set skillTypeDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.skillTypeDAO == null){
  			throw new IllegalStateException("The skillTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.skillTypeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -203,43 +205,43 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeSkillTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeSkillTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeSkillTokens.EMPLOYEE);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractSkillTypeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeSkillTokens.SKILLTYPE);
  	}
 
  	protected boolean isSaveSkillTypeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeSkillTokens.SKILLTYPE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -249,8 +251,8 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new EmployeeSkillMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeSkill extractEmployeeSkill(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeSkill employeeSkill = loadSingleObject(accessKey, getEmployeeSkillMapper());
@@ -261,29 +263,30 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeSkill loadInternalEmployeeSkill(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeSkill employeeSkill = extractEmployeeSkill(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeSkill, loadOptions);
  		}
-  	
+ 
  		if(isExtractSkillTypeEnabled(loadOptions)){
 	 		extractSkillType(employeeSkill, loadOptions);
  		}
  
 		
 		return employeeSkill;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeSkill extractEmployee(EmployeeSkill employeeSkill, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeSkill.getEmployee() == null){
 			return employeeSkill;
@@ -296,14 +299,15 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(employee != null){
 			employeeSkill.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeSkill;
  	}
- 		
-  
+
+ 
 
  	protected EmployeeSkill extractSkillType(EmployeeSkill employeeSkill, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeSkill.getSkillType() == null){
 			return employeeSkill;
@@ -316,46 +320,46 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(skillType != null){
 			employeeSkill.setSkillType(skillType);
 		}
-		
- 		
+
+
  		return employeeSkill;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeSkill> findEmployeeSkillByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeSkill> resultList = queryWith(EmployeeSkillTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSkillMapper());
 		// analyzeEmployeeSkillByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeSkill> findEmployeeSkillByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeSkill> resultList =  queryWithRange(EmployeeSkillTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSkillMapper(), start, count);
  		//analyzeEmployeeSkillByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeSkillByEmployee(SmartList<EmployeeSkill> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSkill.EMPLOYEE_PROPERTY, employeeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeSkillByEmployee(String employeeId,Map<String,Object> options){
@@ -366,39 +370,39 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countEmployeeSkillByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeSkillTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EmployeeSkill> findEmployeeSkillBySkillType(String skillTypeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeSkill> resultList = queryWith(EmployeeSkillTable.COLUMN_SKILL_TYPE, skillTypeId, options, getEmployeeSkillMapper());
 		// analyzeEmployeeSkillBySkillType(resultList, skillTypeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeSkill> findEmployeeSkillBySkillType(String skillTypeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeSkill> resultList =  queryWithRange(EmployeeSkillTable.COLUMN_SKILL_TYPE, skillTypeId, options, getEmployeeSkillMapper(), start, count);
  		//analyzeEmployeeSkillBySkillType(resultList, skillTypeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeSkillBySkillType(SmartList<EmployeeSkill> resultList, String skillTypeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSkill.SKILL_TYPE_PROPERTY, skillTypeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeSkillBySkillType(String skillTypeId,Map<String,Object> options){
@@ -409,21 +413,24 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countEmployeeSkillBySkillTypeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeSkillTable.COLUMN_SKILL_TYPE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeSkill saveEmployeeSkill(EmployeeSkill  employeeSkill){
+    
+
 		
 		if(!employeeSkill.isChanged()){
 			return employeeSkill;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeSkill);
 		String SQL=this.getSaveEmployeeSkillSQL(employeeSkill);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeSkillParameters(employeeSkill);
@@ -434,6 +441,7 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		employeeSkill.incVersion();
+		employeeSkill.afterSave();
 		return employeeSkill;
 
 	}
@@ -451,6 +459,7 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(EmployeeSkill employeeSkill:employeeSkillList){
 			if(employeeSkill.isChanged()){
 				employeeSkill.incVersion();
+				employeeSkill.afterSave();
 			}
 
 
@@ -557,12 +566,11 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(employeeSkill.getEmployee() != null){
  			parameters[0] = employeeSkill.getEmployee().getId();
  		}
- 
+    
  		if(employeeSkill.getSkillType() != null){
  			parameters[1] = employeeSkill.getSkillType().getId();
  		}
- 
- 		
+    
  		parameters[2] = employeeSkill.getDescription();
  		
  		parameters[3] = employeeSkill.nextVersion();
@@ -581,14 +589,11 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  
  		if(employeeSkill.getEmployee() != null){
  			parameters[1] = employeeSkill.getEmployee().getId();
-
  		}
  		
  		if(employeeSkill.getSkillType() != null){
  			parameters[2] = employeeSkill.getSkillType().getId();
-
  		}
- 		
  		
  		parameters[3] = employeeSkill.getDescription();
  		
@@ -598,8 +603,6 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected EmployeeSkill saveInternalEmployeeSkill(EmployeeSkill employeeSkill, Map<String,Object> options){
 
-		saveEmployeeSkill(employeeSkill);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeSkill, options);
  		}
@@ -608,6 +611,7 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 		saveSkillType(employeeSkill, options);
  		}
  
+   saveEmployeeSkill(employeeSkill);
 		
 		return employeeSkill;
 
@@ -619,6 +623,7 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected EmployeeSkill saveEmployee(EmployeeSkill employeeSkill, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeSkill.getEmployee() == null){
  			return employeeSkill;//do nothing when it is null
@@ -628,14 +633,10 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return employeeSkill;
 
  	}
-
-
-
-
-
  
 
  	protected EmployeeSkill saveSkillType(EmployeeSkill employeeSkill, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeSkill.getSkillType() == null){
  			return employeeSkill;//do nothing when it is null
@@ -645,11 +646,6 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return employeeSkill;
 
  	}
-
-
-
-
-
  
 
 	
@@ -657,10 +653,10 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public EmployeeSkill present(EmployeeSkill employeeSkill,Map<String, Object> options){
-	
+
 
 		return employeeSkill;
-	
+
 	}
 		
 
@@ -712,6 +708,10 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeSkill> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeSkillMapper());
   }
@@ -747,6 +747,15 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<EmployeeSkill> search(EmployeeSkillRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeSkillMapper mapper() {
+    return getEmployeeSkillMapper();
+  }
 }
 
 

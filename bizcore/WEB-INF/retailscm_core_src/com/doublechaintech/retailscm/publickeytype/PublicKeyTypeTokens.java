@@ -2,14 +2,23 @@
 package com.doublechaintech.retailscm.publickeytype;
 import com.doublechaintech.retailscm.CommonTokens;
 import java.util.Map;
+import java.util.Objects;
+
+import com.doublechaintech.retailscm.userdomain.UserDomainTokens;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityTokens;
+
+
+
+
+
 public class PublicKeyTypeTokens extends CommonTokens{
 
 	static final String ALL="__all__"; //do not assign this to common users.
 	static final String SELF="__self__";
 	static final String OWNER_OBJECT_NAME="publicKeyType";
-	
+
 	public static boolean checkOptions(Map<String,Object> options, String optionToCheck){
-		
+
 		if(options==null){
  			return false; //completely no option here
  		}
@@ -22,18 +31,18 @@ public class PublicKeyTypeTokens extends CommonTokens{
 		if(ownerObject ==  null){
 			return false;
 		}
-		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner? 
-			return false; 
+		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner?
+			return false;
 		}
-		
+
  		if(options.containsKey(optionToCheck)){
  			//options.remove(optionToCheck);
- 			//consume the key, can not use any more to extract the data with the same token.			
+ 			//consume the key, can not use any more to extract the data with the same token.
  			return true;
  		}
- 		
+
  		return false;
-	
+
 	}
 	protected PublicKeyTypeTokens(){
 		//ensure not initialized outside the class
@@ -42,54 +51,90 @@ public class PublicKeyTypeTokens extends CommonTokens{
 		//ensure not initialized outside the class
 		PublicKeyTypeTokens tokens = new PublicKeyTypeTokens(options);
 		return tokens;
-		
+
 	}
 	protected PublicKeyTypeTokens(Map<String,Object> options){
 		this.options = options;
 	}
-	
+
 	public PublicKeyTypeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
 		return this;
 	}
-	
+
 	public static PublicKeyTypeTokens mergeAll(String [] tokens){
-		
+
 		return allTokens().merge(tokens);
 	}
-	
+
 	protected PublicKeyTypeTokens setOwnerObject(String objectName){
 		ensureOptions();
 		addSimpleOptions(getOwnerObjectKey(), objectName);
 		return this;
 	}
-	
-	
-	
-	
+
+
+
+
 	public static PublicKeyTypeTokens start(){
 		return new PublicKeyTypeTokens().setOwnerObject(OWNER_OBJECT_NAME);
 	}
-	
-	public PublicKeyTypeTokens withTokenFromListName(String listName){		
+
+	public PublicKeyTypeTokens withTokenFromListName(String listName){
 		addSimpleOptions(listName);
 		return this;
 	}
-	
-	protected static PublicKeyTypeTokens allTokens(){
-		
+
+  public static PublicKeyTypeTokens loadGroupTokens(String... groupNames){
+    PublicKeyTypeTokens tokens = start();
+    if (groupNames == null || groupNames.length == 0){
+      return allTokens();
+    }
+    addToken(tokens, DOMAIN, groupNames, new String[]{"default"});
+
+  
+     addToken(tokens, KEY_PAIR_IDENTITY_LIST, groupNames, new String[]{"default"});
+    
+    return tokens;
+  }
+
+  private static void addToken(PublicKeyTypeTokens pTokens, String pTokenName, String[] pGroupNames, String[] fieldGroups) {
+    if (pGroupNames == null || fieldGroups == null){
+      return;
+    }
+
+    for (String groupName: pGroupNames){
+      for(String g: fieldGroups){
+        if( Objects.equals(groupName, g)){
+          pTokens.addSimpleOptions(pTokenName);
+          break;
+        }
+      }
+    }
+  }
+
+	public static PublicKeyTypeTokens filterWithTokenViewGroups(String []viewGroups){
+
 		return start()
 			.withDomain()
-			.withKeypairIdentityList();
-	
+			.withKeyPairIdentityListIfViewGroupInclude(viewGroups);
+
+	}
+
+	public static PublicKeyTypeTokens allTokens(){
+
+		return start()
+			.withDomain()
+			.withKeyPairIdentityList();
+
 	}
 	public static PublicKeyTypeTokens withoutListsTokens(){
-		
+
 		return start()
 			.withDomain();
-	
+
 	}
-	
+
 	public static Map <String,Object> all(){
 		return allTokens().done();
 	}
@@ -99,8 +144,8 @@ public class PublicKeyTypeTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
-	
-	public PublicKeyTypeTokens analyzeAllLists(){		
+
+	public PublicKeyTypeTokens analyzeAllLists(){
 		addSimpleOptions(ALL_LISTS_ANALYZE);
 		return this;
 	}
@@ -109,86 +154,107 @@ public class PublicKeyTypeTokens extends CommonTokens{
 	public String getDomain(){
 		return DOMAIN;
 	}
-	public PublicKeyTypeTokens withDomain(){		
+	//
+	public PublicKeyTypeTokens withDomain(){
 		addSimpleOptions(DOMAIN);
 		return this;
 	}
-	
-	
-	protected static final String KEYPAIR_IDENTITY_LIST = "keypairIdentityList";
-	public String getKeypairIdentityList(){
-		return KEYPAIR_IDENTITY_LIST;
+
+	public UserDomainTokens withDomainTokens(){
+		//addSimpleOptions(DOMAIN);
+		return UserDomainTokens.start();
 	}
-	public PublicKeyTypeTokens withKeypairIdentityList(){		
-		addSimpleOptions(KEYPAIR_IDENTITY_LIST);
+
+	
+	protected static final String KEY_PAIR_IDENTITY_LIST = "keyPairIdentityList";
+	public String getKeyPairIdentityList(){
+		return KEY_PAIR_IDENTITY_LIST;
+	}
+
+
+
+	public PublicKeyTypeTokens withKeyPairIdentityListIfViewGroupInclude(String [] viewGroups){
+
+		if(isViewGroupOneOf("__no_group",viewGroups)){
+			addSimpleOptions(KEY_PAIR_IDENTITY_LIST);
+		}
 		return this;
 	}
-	public PublicKeyTypeTokens analyzeKeypairIdentityList(){		
-		addSimpleOptions(KEYPAIR_IDENTITY_LIST+".anaylze");
+
+
+	public PublicKeyTypeTokens withKeyPairIdentityList(){
+		addSimpleOptions(KEY_PAIR_IDENTITY_LIST);
 		return this;
 	}
-	public boolean analyzeKeypairIdentityListEnabled(){		
-		
-		if(checkOptions(this.options(), KEYPAIR_IDENTITY_LIST+".anaylze")){
+
+	public KeyPairIdentityTokens withKeyPairIdentityListTokens(){
+		//addSimpleOptions(KEY_PAIR_IDENTITY_LIST);
+		return KeyPairIdentityTokens.start();
+	}
+
+	public PublicKeyTypeTokens analyzeKeyPairIdentityList(){
+		addSimpleOptions(KEY_PAIR_IDENTITY_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeKeyPairIdentityListEnabled(){
+
+		if(checkOptions(this.options(), KEY_PAIR_IDENTITY_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public PublicKeyTypeTokens extractMoreFromKeypairIdentityList(String idsSeperatedWithComma){		
-		addSimpleOptions(KEYPAIR_IDENTITY_LIST+".extractIds", idsSeperatedWithComma);
+	public PublicKeyTypeTokens extractMoreFromKeyPairIdentityList(String idsSeperatedWithComma){
+		addSimpleOptions(KEY_PAIR_IDENTITY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
-	
-	
-	
-	
-	private int keypairIdentityListSortCounter = 0;
-	public PublicKeyTypeTokens sortKeypairIdentityListWith(String field, String descOrAsc){		
-		addSortMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSortCounter++, field, descOrAsc);
+
+	private int keyPairIdentityListSortCounter = 0;
+	public PublicKeyTypeTokens sortKeyPairIdentityListWith(String field, String descOrAsc){
+		addSortMoreOptions(KEY_PAIR_IDENTITY_LIST,keyPairIdentityListSortCounter++, field, descOrAsc);
 		return this;
 	}
-	private int keypairIdentityListSearchCounter = 0;
-	public PublicKeyTypeTokens searchKeypairIdentityListWith(String field, String verb, String value){		
-		
-		withKeypairIdentityList();
-		addSearchMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSearchCounter++, field, verb, value);
+	private int keyPairIdentityListSearchCounter = 0;
+	public PublicKeyTypeTokens searchKeyPairIdentityListWith(String field, String verb, String value){
+
+		withKeyPairIdentityList();
+		addSearchMoreOptions(KEY_PAIR_IDENTITY_LIST,keyPairIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public PublicKeyTypeTokens searchAllTextOfKeypairIdentityList(String verb, String value){	
+
+
+
+	public PublicKeyTypeTokens searchAllTextOfKeyPairIdentityList(String verb, String value){
 		String field = "id|publicKey";
-		addSearchMoreOptions(KEYPAIR_IDENTITY_LIST,keypairIdentityListSearchCounter++, field, verb, value);
+		addSearchMoreOptions(KEY_PAIR_IDENTITY_LIST,keyPairIdentityListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public PublicKeyTypeTokens rowsPerPageOfKeypairIdentityList(int rowsPerPage){		
-		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"RowsPerPage",rowsPerPage);
+
+
+
+	public PublicKeyTypeTokens rowsPerPageOfKeyPairIdentityList(int rowsPerPage){
+		addSimpleOptions(KEY_PAIR_IDENTITY_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public PublicKeyTypeTokens currentPageNumberOfKeypairIdentityList(int currentPageNumber){		
-		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"CurrentPage",currentPageNumber);
+	public PublicKeyTypeTokens currentPageNumberOfKeyPairIdentityList(int currentPageNumber){
+		addSimpleOptions(KEY_PAIR_IDENTITY_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public PublicKeyTypeTokens retainColumnsOfKeypairIdentityList(String[] columns){		
-		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"RetainColumns",columns);
+	public PublicKeyTypeTokens retainColumnsOfKeyPairIdentityList(String[] columns){
+		addSimpleOptions(KEY_PAIR_IDENTITY_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public PublicKeyTypeTokens excludeColumnsOfKeypairIdentityList(String[] columns){		
-		addSimpleOptions(KEYPAIR_IDENTITY_LIST+"ExcludeColumns",columns);
+	public PublicKeyTypeTokens excludeColumnsOfKeyPairIdentityList(String[] columns){
+		addSimpleOptions(KEY_PAIR_IDENTITY_LIST+"ExcludeColumns",columns);
 		return this;
 	}
-	
-	
+
+
 		
-	
+
 	public  PublicKeyTypeTokens searchEntireObjectText(String verb, String value){
-		
-		searchAllTextOfKeypairIdentityList(verb, value);	
+	
+		searchAllTextOfKeyPairIdentityList(verb, value);
 		return this;
 	}
 }

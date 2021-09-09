@@ -50,6 +50,7 @@ public interface CompanyTrainingDAO extends BaseDAO{
 	public void delete(String companyTrainingId, int version) throws Exception;
 	public CompanyTraining disconnectFromAll(String companyTrainingId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeCompanyTrainingDAO getEmployeeCompanyTrainingDAO();
 		
@@ -69,9 +70,10 @@ public interface CompanyTrainingDAO extends BaseDAO{
 	public int countEmployeeCompanyTrainingListWithScoring(String companyTrainingId, String scoringId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<CompanyTraining> queryList(String sql, Object ... parmeters);
+	public SmartList<CompanyTraining> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<CompanyTraining> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateCompanyTraining executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<CompanyTraining> findCompanyTrainingByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -101,6 +103,8 @@ public interface CompanyTrainingDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的training的EmployeeCompanyTrainingList
 	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<CompanyTraining> us, Map<String,Object> options) throws Exception;
 	
+
+	List<CompanyTraining> search(CompanyTrainingRequest pRequest);
 }
 
 

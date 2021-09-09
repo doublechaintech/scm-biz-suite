@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.listaccess;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,30 +9,33 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.userapp.UserApp;
 
 public class ListAccessMapper extends BaseRowMapper<ListAccess>{
-	
+
 	protected ListAccess internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		ListAccess listAccess = getListAccess();		
-		 		
- 		setId(listAccess, rs, rowNumber); 		
- 		setName(listAccess, rs, rowNumber); 		
- 		setInternalName(listAccess, rs, rowNumber); 		
- 		setReadPermission(listAccess, rs, rowNumber); 		
- 		setCreatePermission(listAccess, rs, rowNumber); 		
- 		setDeletePermission(listAccess, rs, rowNumber); 		
- 		setUpdatePermission(listAccess, rs, rowNumber); 		
- 		setExecutionPermission(listAccess, rs, rowNumber); 		
- 		setApp(listAccess, rs, rowNumber); 		
+		ListAccess listAccess = getListAccess();
+		
+ 		setId(listAccess, rs, rowNumber);
+ 		setName(listAccess, rs, rowNumber);
+ 		setInternalName(listAccess, rs, rowNumber);
+ 		setReadPermission(listAccess, rs, rowNumber);
+ 		setCreatePermission(listAccess, rs, rowNumber);
+ 		setDeletePermission(listAccess, rs, rowNumber);
+ 		setUpdatePermission(listAccess, rs, rowNumber);
+ 		setExecutionPermission(listAccess, rs, rowNumber);
+ 		setApp(listAccess, rs, rowNumber);
  		setVersion(listAccess, rs, rowNumber);
 
+    
 		return listAccess;
 	}
-	
+
 	protected ListAccess getListAccess(){
-		return new ListAccess();
-	}		
+	  ListAccess entity = new ListAccess();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(ListAccessTable.COLUMN_ID);
@@ -42,10 +46,13 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(ListAccessTable.COLUMN_NAME);
@@ -56,10 +63,13 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setInternalName(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String internalName = rs.getString(ListAccessTable.COLUMN_INTERNAL_NAME);
@@ -70,10 +80,13 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setInternalName(internalName);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setReadPermission(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Boolean readPermission = rs.getBoolean(ListAccessTable.COLUMN_READ_PERMISSION);
@@ -84,10 +97,13 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setReadPermission(readPermission);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCreatePermission(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Boolean createPermission = rs.getBoolean(ListAccessTable.COLUMN_CREATE_PERMISSION);
@@ -98,10 +114,13 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setCreatePermission(createPermission);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDeletePermission(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Boolean deletePermission = rs.getBoolean(ListAccessTable.COLUMN_DELETE_PERMISSION);
@@ -112,10 +131,13 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setDeletePermission(deletePermission);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setUpdatePermission(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Boolean updatePermission = rs.getBoolean(ListAccessTable.COLUMN_UPDATE_PERMISSION);
@@ -126,10 +148,13 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setUpdatePermission(updatePermission);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setExecutionPermission(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Boolean executionPermission = rs.getBoolean(ListAccessTable.COLUMN_EXECUTION_PERMISSION);
@@ -140,10 +165,18 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setExecutionPermission(executionPermission);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setApp(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
- 		String userAppId = rs.getString(ListAccessTable.COLUMN_APP);
+ 		String userAppId;
+ 		try{
+ 		  userAppId = rs.getString(ListAccessTable.COLUMN_APP);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( userAppId == null){
  			return;
  		}
@@ -154,14 +187,14 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
  		if( userApp != null ){
  			//if the root object 'listAccess' already have the property, just set the id for it;
  			userApp.setId(userAppId);
- 			
+
  			return;
  		}
  		listAccess.setApp(createEmptyApp(userAppId));
  	}
  	
 	protected void setVersion(ListAccess listAccess, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(ListAccessTable.COLUMN_VERSION);
@@ -172,9 +205,12 @@ public class ListAccessMapper extends BaseRowMapper<ListAccess>{
 		}
 		
 		listAccess.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected UserApp  createEmptyApp(String userAppId){
  		UserApp userApp = new UserApp();

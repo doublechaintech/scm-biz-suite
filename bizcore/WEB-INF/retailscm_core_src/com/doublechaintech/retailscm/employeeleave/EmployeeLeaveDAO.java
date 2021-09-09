@@ -46,13 +46,15 @@ public interface EmployeeLeaveDAO extends BaseDAO{
 	public void delete(String employeeLeaveId, int version) throws Exception;
 	public EmployeeLeave disconnectFromAll(String employeeLeaveId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeeLeave> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeeLeave> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeeLeave> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeeLeave executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeeLeave> findEmployeeLeaveByWho(String employeeId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface EmployeeLeaveDAO extends BaseDAO{
 
 
  
+
+	List<EmployeeLeave> search(EmployeeLeaveRequest pRequest);
 }
 
 

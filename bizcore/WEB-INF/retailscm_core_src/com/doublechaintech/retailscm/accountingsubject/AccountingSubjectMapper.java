@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.accountingsubject;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,27 +9,30 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.accountset.AccountSet;
 
 public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
-	
+
 	protected AccountingSubject internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		AccountingSubject accountingSubject = getAccountingSubject();		
-		 		
- 		setId(accountingSubject, rs, rowNumber); 		
- 		setAccountingSubjectCode(accountingSubject, rs, rowNumber); 		
- 		setAccountingSubjectName(accountingSubject, rs, rowNumber); 		
- 		setAccountingSubjectClassCode(accountingSubject, rs, rowNumber); 		
- 		setAccountingSubjectClassName(accountingSubject, rs, rowNumber); 		
- 		setAccountSet(accountingSubject, rs, rowNumber); 		
+		AccountingSubject accountingSubject = getAccountingSubject();
+		
+ 		setId(accountingSubject, rs, rowNumber);
+ 		setAccountingSubjectCode(accountingSubject, rs, rowNumber);
+ 		setAccountingSubjectName(accountingSubject, rs, rowNumber);
+ 		setAccountingSubjectClassCode(accountingSubject, rs, rowNumber);
+ 		setAccountingSubjectClassName(accountingSubject, rs, rowNumber);
+ 		setAccountSet(accountingSubject, rs, rowNumber);
  		setVersion(accountingSubject, rs, rowNumber);
 
+    
 		return accountingSubject;
 	}
-	
+
 	protected AccountingSubject getAccountingSubject(){
-		return new AccountingSubject();
-	}		
+	  AccountingSubject entity = new AccountingSubject();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(AccountingSubject accountingSubject, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(AccountingSubjectTable.COLUMN_ID);
@@ -39,10 +43,13 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
 		}
 		
 		accountingSubject.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAccountingSubjectCode(AccountingSubject accountingSubject, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String accountingSubjectCode = rs.getString(AccountingSubjectTable.COLUMN_ACCOUNTING_SUBJECT_CODE);
@@ -53,10 +60,13 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
 		}
 		
 		accountingSubject.setAccountingSubjectCode(accountingSubjectCode);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAccountingSubjectName(AccountingSubject accountingSubject, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String accountingSubjectName = rs.getString(AccountingSubjectTable.COLUMN_ACCOUNTING_SUBJECT_NAME);
@@ -67,10 +77,13 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
 		}
 		
 		accountingSubject.setAccountingSubjectName(accountingSubjectName);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAccountingSubjectClassCode(AccountingSubject accountingSubject, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer accountingSubjectClassCode = rs.getInt(AccountingSubjectTable.COLUMN_ACCOUNTING_SUBJECT_CLASS_CODE);
@@ -81,10 +94,13 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
 		}
 		
 		accountingSubject.setAccountingSubjectClassCode(accountingSubjectClassCode);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAccountingSubjectClassName(AccountingSubject accountingSubject, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String accountingSubjectClassName = rs.getString(AccountingSubjectTable.COLUMN_ACCOUNTING_SUBJECT_CLASS_NAME);
@@ -95,10 +111,18 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
 		}
 		
 		accountingSubject.setAccountingSubjectClassName(accountingSubjectClassName);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setAccountSet(AccountingSubject accountingSubject, ResultSet rs, int rowNumber) throws SQLException{
- 		String accountSetId = rs.getString(AccountingSubjectTable.COLUMN_ACCOUNT_SET);
+ 		String accountSetId;
+ 		try{
+ 		  accountSetId = rs.getString(AccountingSubjectTable.COLUMN_ACCOUNT_SET);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( accountSetId == null){
  			return;
  		}
@@ -109,14 +133,14 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
  		if( accountSet != null ){
  			//if the root object 'accountingSubject' already have the property, just set the id for it;
  			accountSet.setId(accountSetId);
- 			
+
  			return;
  		}
  		accountingSubject.setAccountSet(createEmptyAccountSet(accountSetId));
  	}
  	
 	protected void setVersion(AccountingSubject accountingSubject, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(AccountingSubjectTable.COLUMN_VERSION);
@@ -127,9 +151,12 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
 		}
 		
 		accountingSubject.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected AccountSet  createEmptyAccountSet(String accountSetId){
  		AccountSet accountSet = new AccountSet();

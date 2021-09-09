@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.uiaction;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 
 	protected PageDAO pageDAO;
 	public void setPageDAO(PageDAO pageDAO){
- 	
+
  		if(pageDAO == null){
  			throw new IllegalStateException("Do not try to set pageDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
  		if(this.pageDAO == null){
  			throw new IllegalStateException("The pageDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.pageDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return UiActionTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractPageEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, UiActionTokens.PAGE);
  	}
 
  	protected boolean isSavePageEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, UiActionTokens.PAGE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 		return new UiActionMapper();
 	}
 
-	
-	
+
+
 	protected UiAction extractUiAction(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			UiAction uiAction = loadSingleObject(accessKey, getUiActionMapper());
@@ -229,25 +231,26 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 
 	}
 
-	
-	
+
+
 
 	protected UiAction loadInternalUiAction(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		UiAction uiAction = extractUiAction(accessKey, loadOptions);
- 	
+
  		if(isExtractPageEnabled(loadOptions)){
 	 		extractPage(uiAction, loadOptions);
  		}
  
 		
 		return uiAction;
-		
+
 	}
 
-	 
+	
 
  	protected UiAction extractPage(UiAction uiAction, Map<String,Object> options) throws Exception{
+  
 
 		if(uiAction.getPage() == null){
 			return uiAction;
@@ -260,37 +263,37 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 		if(page != null){
 			uiAction.setPage(page);
 		}
-		
- 		
+
+
  		return uiAction;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<UiAction> findUiActionByPage(String pageId,Map<String,Object> options){
- 	
+
   		SmartList<UiAction> resultList = queryWith(UiActionTable.COLUMN_PAGE, pageId, options, getUiActionMapper());
 		// analyzeUiActionByPage(resultList, pageId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<UiAction> findUiActionByPage(String pageId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<UiAction> resultList =  queryWithRange(UiActionTable.COLUMN_PAGE, pageId, options, getUiActionMapper(), start, count);
  		//analyzeUiActionByPage(resultList, pageId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeUiActionByPage(SmartList<UiAction> resultList, String pageId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countUiActionByPage(String pageId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 	public Map<String, Integer> countUiActionByPageIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(UiActionTable.COLUMN_PAGE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected UiAction saveUiAction(UiAction  uiAction){
+    
+
 		
 		if(!uiAction.isChanged()){
 			return uiAction;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(uiAction);
 		String SQL=this.getSaveUiActionSQL(uiAction);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveUiActionParameters(uiAction);
@@ -326,6 +332,7 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 		}
 
 		uiAction.incVersion();
+		uiAction.afterSave();
 		return uiAction;
 
 	}
@@ -343,6 +350,7 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 		for(UiAction uiAction:uiActionList){
 			if(uiAction.isChanged()){
 				uiAction.incVersion();
+				uiAction.afterSave();
 			}
 
 
@@ -446,34 +454,26 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
  	protected Object[] prepareUiActionUpdateParameters(UiAction uiAction){
  		Object[] parameters = new Object[12];
  
- 		
  		parameters[0] = uiAction.getCode();
- 		
  		
  		parameters[1] = uiAction.getIcon();
  		
- 		
  		parameters[2] = uiAction.getTitle();
- 		
  		
  		parameters[3] = uiAction.getDisplayOrder();
  		
- 		
  		parameters[4] = uiAction.getBrief();
- 		
  		
  		parameters[5] = uiAction.getImageUrl();
  		
- 		
  		parameters[6] = uiAction.getLinkToUrl();
- 		
  		
  		parameters[7] = uiAction.getExtraData();
  		
  		if(uiAction.getPage() != null){
  			parameters[8] = uiAction.getPage().getId();
  		}
- 
+    
  		parameters[9] = uiAction.nextVersion();
  		parameters[10] = uiAction.getId();
  		parameters[11] = uiAction.getVersion();
@@ -488,33 +488,24 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
         }
 		parameters[0] =  uiAction.getId();
  
- 		
  		parameters[1] = uiAction.getCode();
- 		
  		
  		parameters[2] = uiAction.getIcon();
  		
- 		
  		parameters[3] = uiAction.getTitle();
- 		
  		
  		parameters[4] = uiAction.getDisplayOrder();
  		
- 		
  		parameters[5] = uiAction.getBrief();
- 		
  		
  		parameters[6] = uiAction.getImageUrl();
  		
- 		
  		parameters[7] = uiAction.getLinkToUrl();
- 		
  		
  		parameters[8] = uiAction.getExtraData();
  		
  		if(uiAction.getPage() != null){
  			parameters[9] = uiAction.getPage().getId();
-
  		}
  		
 
@@ -523,12 +514,11 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 
 	protected UiAction saveInternalUiAction(UiAction uiAction, Map<String,Object> options){
 
-		saveUiAction(uiAction);
-
  		if(isSavePageEnabled(options)){
 	 		savePage(uiAction, options);
  		}
  
+   saveUiAction(uiAction);
 		
 		return uiAction;
 
@@ -540,6 +530,7 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 	
 
  	protected UiAction savePage(UiAction uiAction, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(uiAction.getPage() == null){
  			return uiAction;//do nothing when it is null
@@ -549,11 +540,6 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
  		return uiAction;
 
  	}
-
-
-
-
-
  
 
 	
@@ -561,10 +547,10 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 		
 
 	public UiAction present(UiAction uiAction,Map<String, Object> options){
-	
+
 
 		return uiAction;
-	
+
 	}
 		
 
@@ -616,6 +602,10 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<UiAction> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getUiActionMapper());
   }
@@ -651,6 +641,15 @@ public class UiActionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements UiA
 
 	
 
+  @Override
+  public List<UiAction> search(UiActionRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected UiActionMapper mapper() {
+    return getUiActionMapper();
+  }
 }
 
 

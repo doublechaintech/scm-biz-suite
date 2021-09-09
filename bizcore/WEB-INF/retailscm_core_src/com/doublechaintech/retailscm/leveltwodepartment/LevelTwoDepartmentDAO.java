@@ -46,6 +46,7 @@ public interface LevelTwoDepartmentDAO extends BaseDAO{
 	public void delete(String levelTwoDepartmentId, int version) throws Exception;
 	public LevelTwoDepartment disconnectFromAll(String levelTwoDepartmentId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public LevelThreeDepartmentDAO getLevelThreeDepartmentDAO();
 		
@@ -57,9 +58,10 @@ public interface LevelTwoDepartmentDAO extends BaseDAO{
 
 
 
-	public SmartList<LevelTwoDepartment> queryList(String sql, Object ... parmeters);
+	public SmartList<LevelTwoDepartment> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<LevelTwoDepartment> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateLevelTwoDepartment executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<LevelTwoDepartment> findLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId, Map<String,Object> options);
@@ -73,6 +75,8 @@ public interface LevelTwoDepartmentDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:LevelThreeDepartment的belongsTo的LevelThreeDepartmentList
 	public SmartList<LevelThreeDepartment> loadOurLevelThreeDepartmentList(RetailscmUserContext userContext, List<LevelTwoDepartment> us, Map<String,Object> options) throws Exception;
 	
+
+	List<LevelTwoDepartment> search(LevelTwoDepartmentRequest pRequest);
 }
 
 

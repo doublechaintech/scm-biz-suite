@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.quicklink;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.userapp.UserApp;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.userapp.UserApp;
 @JsonSerialize(using = QuickLinkSerializer.class)
 public class QuickLink extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String ICON_PROPERTY                  = "icon"              ;
@@ -47,34 +44,93 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ICON_PROPERTY, "icon", "图标")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(IMAGE_PATH_PROPERTY, "image_path", "图片路径")
+        .withType("string_image", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LINK_TARGET_PROPERTY, "link_target", "链接的目标")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CREATE_TIME_PROPERTY, "create_time", "创建于")
+        .withType("date_time_create", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(APP_PROPERTY, "user_app", "应用程序")
+        .withType("user_app", UserApp.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,ICON_PROPERTY ,IMAGE_PATH_PROPERTY ,LINK_TARGET_PROPERTY ,CREATE_TIME_PROPERTY ,APP_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(APP_PROPERTY, UserApp.class);
+
+    return parents;
+  }
+
+  public QuickLink want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public QuickLink wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mIcon               ;
-	protected		String              	mImagePath          ;
-	protected		String              	mLinkTarget         ;
-	protected		DateTime            	mCreateTime         ;
-	protected		UserApp             	mApp                ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		String              	icon                ;
+	protected		String              	imagePath           ;
+	protected		String              	linkTarget          ;
+	protected		DateTime            	createTime          ;
+	protected		UserApp             	app                 ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	QuickLink(){
 		// lazy load for all the properties
 	}
@@ -82,20 +138,39 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 		QuickLink quickLink = new QuickLink();
 		quickLink.setId(id);
 		quickLink.setVersion(Integer.MAX_VALUE);
+		quickLink.setChecked(true);
 		return quickLink;
 	}
 	public 	static QuickLink refById(String id){
 		return withId(id);
 	}
-	
+
+  public QuickLink limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public QuickLink limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static QuickLink searchExample(){
+    QuickLink quickLink = new QuickLink();
+    		quickLink.setVersion(UNSET_INT);
+
+    return quickLink;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setApp( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -204,7 +279,7 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -227,170 +302,275 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public QuickLink updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public QuickLink addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public QuickLink updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public QuickLink addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setIcon(String icon){
-		this.mIcon = trimString(icon);;
-	}
+	public void setIcon(String icon){String oldIcon = this.icon;String newIcon = trimString(icon);this.icon = newIcon;}
+	public String icon(){
+doLoad();
+return getIcon();
+}
 	public String getIcon(){
-		return this.mIcon;
+		return this.icon;
 	}
-	public QuickLink updateIcon(String icon){
-		this.mIcon = trimString(icon);;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateIcon(String icon){String oldIcon = this.icon;String newIcon = trimString(icon);if(!shouldReplaceBy(newIcon, oldIcon)){return this;}this.icon = newIcon;addPropertyChange(ICON_PROPERTY, oldIcon, newIcon);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderByIcon(boolean asc){
+doAddOrderBy(ICON_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIconCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ICON_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreIconCriteria(){super.ignoreSearchProperty(ICON_PROPERTY);
+return this;
+}
+	public QuickLink addIconCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIconCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeIcon(String icon){
 		if(icon != null) { setIcon(icon);}
 	}
+
 	
-	
-	public void setImagePath(String imagePath){
-		this.mImagePath = trimString(encodeUrl(imagePath));;
-	}
+	public void setImagePath(String imagePath){String oldImagePath = this.imagePath;String newImagePath = trimString(encodeUrl(imagePath));;this.imagePath = newImagePath;}
+	public String imagePath(){
+doLoad();
+return getImagePath();
+}
 	public String getImagePath(){
-		return this.mImagePath;
+		return this.imagePath;
 	}
-	public QuickLink updateImagePath(String imagePath){
-		this.mImagePath = trimString(encodeUrl(imagePath));;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateImagePath(String imagePath){String oldImagePath = this.imagePath;String newImagePath = trimString(encodeUrl(imagePath));;if(!shouldReplaceBy(newImagePath, oldImagePath)){return this;}this.imagePath = newImagePath;addPropertyChange(IMAGE_PATH_PROPERTY, oldImagePath, newImagePath);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderByImagePath(boolean asc){
+doAddOrderBy(IMAGE_PATH_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createImagePathCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(IMAGE_PATH_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreImagePathCriteria(){super.ignoreSearchProperty(IMAGE_PATH_PROPERTY);
+return this;
+}
+	public QuickLink addImagePathCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createImagePathCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeImagePath(String imagePath){
 		if(imagePath != null) { setImagePath(imagePath);}
 	}
+
 	
-	
-	public void setLinkTarget(String linkTarget){
-		this.mLinkTarget = trimString(linkTarget);;
-	}
+	public void setLinkTarget(String linkTarget){String oldLinkTarget = this.linkTarget;String newLinkTarget = trimString(linkTarget);this.linkTarget = newLinkTarget;}
+	public String linkTarget(){
+doLoad();
+return getLinkTarget();
+}
 	public String getLinkTarget(){
-		return this.mLinkTarget;
+		return this.linkTarget;
 	}
-	public QuickLink updateLinkTarget(String linkTarget){
-		this.mLinkTarget = trimString(linkTarget);;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateLinkTarget(String linkTarget){String oldLinkTarget = this.linkTarget;String newLinkTarget = trimString(linkTarget);if(!shouldReplaceBy(newLinkTarget, oldLinkTarget)){return this;}this.linkTarget = newLinkTarget;addPropertyChange(LINK_TARGET_PROPERTY, oldLinkTarget, newLinkTarget);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderByLinkTarget(boolean asc){
+doAddOrderBy(LINK_TARGET_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLinkTargetCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LINK_TARGET_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreLinkTargetCriteria(){super.ignoreSearchProperty(LINK_TARGET_PROPERTY);
+return this;
+}
+	public QuickLink addLinkTargetCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLinkTargetCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLinkTarget(String linkTarget){
 		if(linkTarget != null) { setLinkTarget(linkTarget);}
 	}
+
 	
-	
-	public void setCreateTime(DateTime createTime){
-		this.mCreateTime = createTime;;
-	}
+	public void setCreateTime(DateTime createTime){DateTime oldCreateTime = this.createTime;DateTime newCreateTime = createTime;this.createTime = newCreateTime;}
+	public DateTime createTime(){
+doLoad();
+return getCreateTime();
+}
 	public DateTime getCreateTime(){
-		return this.mCreateTime;
+		return this.createTime;
 	}
-	public QuickLink updateCreateTime(DateTime createTime){
-		this.mCreateTime = createTime;;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateCreateTime(DateTime createTime){DateTime oldCreateTime = this.createTime;DateTime newCreateTime = createTime;if(!shouldReplaceBy(newCreateTime, oldCreateTime)){return this;}this.createTime = newCreateTime;addPropertyChange(CREATE_TIME_PROPERTY, oldCreateTime, newCreateTime);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderByCreateTime(boolean asc){
+doAddOrderBy(CREATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCreateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CREATE_TIME_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreCreateTimeCriteria(){super.ignoreSearchProperty(CREATE_TIME_PROPERTY);
+return this;
+}
+	public QuickLink addCreateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCreateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCreateTime(DateTime createTime){
 		setCreateTime(createTime);
 	}
+
 	
-	
-	public void setApp(UserApp app){
-		this.mApp = app;;
-	}
+	public void setApp(UserApp app){UserApp oldApp = this.app;UserApp newApp = app;this.app = newApp;}
+	public UserApp app(){
+doLoad();
+return getApp();
+}
 	public UserApp getApp(){
-		return this.mApp;
+		return this.app;
 	}
-	public QuickLink updateApp(UserApp app){
-		this.mApp = app;;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateApp(UserApp app){UserApp oldApp = this.app;UserApp newApp = app;if(!shouldReplaceBy(newApp, oldApp)){return this;}this.app = newApp;addPropertyChange(APP_PROPERTY, oldApp, newApp);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderByApp(boolean asc){
+doAddOrderBy(APP_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createAppCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(APP_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreAppCriteria(){super.ignoreSearchProperty(APP_PROPERTY);
+return this;
+}
+	public QuickLink addAppCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createAppCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeApp(UserApp app){
 		if(app != null) { setApp(app);}
 	}
-	
+
 	
 	public void clearApp(){
 		setApp ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public QuickLink updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public QuickLink updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public QuickLink orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public QuickLink ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public QuickLink addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getApp(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -408,16 +588,16 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof QuickLink){
-		
-		
+
+
 			QuickLink dest =(QuickLink)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setIcon(getIcon());
@@ -432,13 +612,13 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof QuickLink){
-		
-			
+
+
 			QuickLink dest =(QuickLink)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeIcon(getIcon());
@@ -452,15 +632,15 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof QuickLink){
-		
-			
+
+
 			QuickLink dest =(QuickLink)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeIcon(getIcon());
@@ -475,6 +655,49 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getIcon(), getImagePath(), getLinkTarget(), getCreateTime(), getApp(), getVersion()};
 	}
+
+
+	public static QuickLink createWith(RetailscmUserContext userContext, ThrowingFunction<QuickLink,QuickLink,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<QuickLink> customCreator = mapper.findCustomCreator(QuickLink.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    QuickLink result = new QuickLink();
+    result.setName(mapper.tryToGet(QuickLink.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setIcon(mapper.tryToGet(QuickLink.class, ICON_PROPERTY, String.class,
+        1, false, result.getIcon(), params));
+    result.setImagePath(mapper.tryToGet(QuickLink.class, IMAGE_PATH_PROPERTY, String.class,
+        2, false, result.getImagePath(), params));
+    result.setLinkTarget(mapper.tryToGet(QuickLink.class, LINK_TARGET_PROPERTY, String.class,
+        3, false, result.getLinkTarget(), params));
+     result.setCreateTime(userContext.now());
+    result.setApp(mapper.tryToGet(QuickLink.class, APP_PROPERTY, UserApp.class,
+        0, true, result.getApp(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixQuickLink(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      QuickLinkTokens tokens = mapper.findParamByClass(params, QuickLinkTokens.class);
+      if (tokens == null) {
+        tokens = QuickLinkTokens.start();
+      }
+      result = userContext.getManagerGroup().getQuickLinkManager().internalSaveQuickLink(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -493,7 +716,7 @@ public class QuickLink extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

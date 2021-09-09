@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.keypairidentity;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -37,11 +38,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
-public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl implements KeypairIdentityDAO{
+public class KeyPairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl implements KeyPairIdentityDAO{
 
 	protected PublicKeyTypeDAO publicKeyTypeDAO;
 	public void setPublicKeyTypeDAO(PublicKeyTypeDAO publicKeyTypeDAO){
- 	
+
  		if(publicKeyTypeDAO == null){
  			throw new IllegalStateException("Do not try to set publicKeyTypeDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.publicKeyTypeDAO == null){
  			throw new IllegalStateException("The publicKeyTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.publicKeyTypeDAO;
- 	}	
+ 	}
 
 	protected SecUserDAO secUserDAO;
 	public void setSecUserDAO(SecUserDAO secUserDAO){
- 	
+
  		if(secUserDAO == null){
  			throw new IllegalStateException("Do not try to set secUserDAO to null.");
  		}
@@ -67,23 +68,24 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.secUserDAO == null){
  			throw new IllegalStateException("The secUserDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.secUserDAO;
- 	}	
+ 	}
+
 
 
 	/*
-	protected KeypairIdentity load(AccessKey accessKey,Map<String,Object> options) throws Exception{
-		return loadInternalKeypairIdentity(accessKey, options);
+	protected KeyPairIdentity load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+		return loadInternalKeyPairIdentity(accessKey, options);
 	}
 	*/
 
-	public SmartList<KeypairIdentity> loadAll() {
-	    return this.loadAll(getKeypairIdentityMapper());
+	public SmartList<KeyPairIdentity> loadAll() {
+	    return this.loadAll(getKeyPairIdentityMapper());
 	}
 
-  public Stream<KeypairIdentity> loadAllAsStream() {
-      return this.loadAllAsStream(getKeypairIdentityMapper());
+  public Stream<KeyPairIdentity> loadAllAsStream() {
+      return this.loadAllAsStream(getKeyPairIdentityMapper());
   }
 
 
@@ -92,56 +94,56 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		return getShortName(this.getName())+"%06d";
 	}
 
-	public KeypairIdentity load(String id,Map<String,Object> options) throws Exception{
-		return loadInternalKeypairIdentity(KeypairIdentityTable.withId(id), options);
+	public KeyPairIdentity load(String id,Map<String,Object> options) throws Exception{
+		return loadInternalKeyPairIdentity(KeyPairIdentityTable.withId(id), options);
 	}
 
 	
 
-	public KeypairIdentity save(KeypairIdentity keypairIdentity,Map<String,Object> options){
+	public KeyPairIdentity save(KeyPairIdentity keyPairIdentity,Map<String,Object> options){
 
-		String methodName="save(KeypairIdentity keypairIdentity,Map<String,Object> options)";
+		String methodName="save(KeyPairIdentity keyPairIdentity,Map<String,Object> options)";
 
-		assertMethodArgumentNotNull(keypairIdentity, methodName, "keypairIdentity");
+		assertMethodArgumentNotNull(keyPairIdentity, methodName, "keyPairIdentity");
 		assertMethodArgumentNotNull(options, methodName, "options");
 
-		return saveInternalKeypairIdentity(keypairIdentity,options);
+		return saveInternalKeyPairIdentity(keyPairIdentity,options);
 	}
-	public KeypairIdentity clone(String keypairIdentityId, Map<String,Object> options) throws Exception{
+	public KeyPairIdentity clone(String keyPairIdentityId, Map<String,Object> options) throws Exception{
 
-		return clone(KeypairIdentityTable.withId(keypairIdentityId),options);
+		return clone(KeyPairIdentityTable.withId(keyPairIdentityId),options);
 	}
 
-	protected KeypairIdentity clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
+	protected KeyPairIdentity clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
 
-		String methodName="clone(String keypairIdentityId,Map<String,Object> options)";
+		String methodName="clone(String keyPairIdentityId,Map<String,Object> options)";
 
 		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
 		assertMethodArgumentNotNull(options, methodName, "options");
 
-		KeypairIdentity newKeypairIdentity = loadInternalKeypairIdentity(accessKey, options);
-		newKeypairIdentity.setVersion(0);
+		KeyPairIdentity newKeyPairIdentity = loadInternalKeyPairIdentity(accessKey, options);
+		newKeyPairIdentity.setVersion(0);
 		
 		
 
 
-		saveInternalKeypairIdentity(newKeypairIdentity,options);
+		saveInternalKeyPairIdentity(newKeyPairIdentity,options);
 
-		return newKeypairIdentity;
+		return newKeyPairIdentity;
 	}
 
 	
 
 
 
-	protected void throwIfHasException(String keypairIdentityId,int version,int count) throws Exception{
+	protected void throwIfHasException(String keyPairIdentityId,int version,int count) throws Exception{
 		if (count == 1) {
-			throw new KeypairIdentityVersionChangedException(
+			throw new KeyPairIdentityVersionChangedException(
 					"The object version has been changed, please reload to delete");
 		}
 		if (count < 1) {
-			throw new KeypairIdentityNotFoundException(
-					"The " + this.getTableName() + "(" + keypairIdentityId + ") has already been deleted.");
+			throw new KeyPairIdentityNotFoundException(
+					"The " + this.getTableName() + "(" + keyPairIdentityId + ") has already been deleted.");
 		}
 		if (count > 1) {
 			throw new IllegalStateException(
@@ -150,21 +152,21 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
 
-	public void delete(String keypairIdentityId, int version) throws Exception{
+	public void delete(String keyPairIdentityId, int version) throws Exception{
 
-		String methodName="delete(String keypairIdentityId, int version)";
-		assertMethodArgumentNotNull(keypairIdentityId, methodName, "keypairIdentityId");
+		String methodName="delete(String keyPairIdentityId, int version)";
+		assertMethodArgumentNotNull(keyPairIdentityId, methodName, "keyPairIdentityId");
 		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
 
 
 		String SQL=this.getDeleteSQL();
-		Object [] parameters=new Object[]{keypairIdentityId,version};
+		Object [] parameters=new Object[]{keyPairIdentityId,version};
 		int affectedNumber = singleUpdate(SQL,parameters);
 		if(affectedNumber == 1){
 			return ; //Delete successfully
 		}
 		if(affectedNumber == 0){
-			handleDeleteOneError(keypairIdentityId,version);
+			handleDeleteOneError(keyPairIdentityId,version);
 		}
 
 
@@ -175,13 +177,13 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 
 
-	public KeypairIdentity disconnectFromAll(String keypairIdentityId, int version) throws Exception{
+	public KeyPairIdentity disconnectFromAll(String keyPairIdentityId, int version) throws Exception{
 
 
-		KeypairIdentity keypairIdentity = loadInternalKeypairIdentity(KeypairIdentityTable.withId(keypairIdentityId), emptyOptions());
-		keypairIdentity.clearFromAll();
-		this.saveKeypairIdentity(keypairIdentity);
-		return keypairIdentity;
+		KeyPairIdentity keyPairIdentity = loadInternalKeyPairIdentity(KeyPairIdentityTable.withId(keyPairIdentityId), emptyOptions());
+		keyPairIdentity.clearFromAll();
+		this.saveKeyPairIdentity(keyPairIdentity);
+		return keyPairIdentity;
 
 
 	}
@@ -189,338 +191,345 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	@Override
 	protected String[] getNormalColumnNames() {
 
-		return KeypairIdentityTable.NORMAL_CLOUMNS;
+		return KeyPairIdentityTable.NORMAL_CLOUMNS;
 	}
 	@Override
 	protected String getName() {
 
-		return "keypair_identity";
+		return "key_pair_identity";
 	}
 	@Override
 	protected String getBeanName() {
 
-		return "keypairIdentity";
+		return "keyPairIdentity";
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
- 		return KeypairIdentityTokens.checkOptions(options, optionToCheck);
-	
+
+ 		return KeyPairIdentityTokens.checkOptions(options, optionToCheck);
+
 	}
 
- 
+
 
  	protected boolean isExtractKeyTypeEnabled(Map<String,Object> options){
- 		
-	 	return checkOptions(options, KeypairIdentityTokens.KEYTYPE);
+
+	 	return checkOptions(options, KeyPairIdentityTokens.KEYTYPE);
  	}
 
  	protected boolean isSaveKeyTypeEnabled(Map<String,Object> options){
-	 	
- 		return checkOptions(options, KeypairIdentityTokens.KEYTYPE);
- 	}
- 	
 
- 	
-  
+ 		return checkOptions(options, KeyPairIdentityTokens.KEYTYPE);
+ 	}
+
+
+
+ 
 
  	protected boolean isExtractSecUserEnabled(Map<String,Object> options){
- 		
-	 	return checkOptions(options, KeypairIdentityTokens.SECUSER);
+
+	 	return checkOptions(options, KeyPairIdentityTokens.SECUSER);
  	}
 
  	protected boolean isSaveSecUserEnabled(Map<String,Object> options){
-	 	
- 		return checkOptions(options, KeypairIdentityTokens.SECUSER);
+
+ 		return checkOptions(options, KeyPairIdentityTokens.SECUSER);
  	}
- 	
 
- 	
+
+
  
 		
 
 	
 
-	protected KeypairIdentityMapper getKeypairIdentityMapper(){
-		return new KeypairIdentityMapper();
+	protected KeyPairIdentityMapper getKeyPairIdentityMapper(){
+		return new KeyPairIdentityMapper();
 	}
 
-	
-	
-	protected KeypairIdentity extractKeypairIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
+
+
+	protected KeyPairIdentity extractKeyPairIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
-			KeypairIdentity keypairIdentity = loadSingleObject(accessKey, getKeypairIdentityMapper());
-			return keypairIdentity;
+			KeyPairIdentity keyPairIdentity = loadSingleObject(accessKey, getKeyPairIdentityMapper());
+			return keyPairIdentity;
 		}catch(EmptyResultDataAccessException e){
-			throw new KeypairIdentityNotFoundException("KeypairIdentity("+accessKey+") is not found!");
+			throw new KeyPairIdentityNotFoundException("KeyPairIdentity("+accessKey+") is not found!");
 		}
 
 	}
 
-	
-	
 
-	protected KeypairIdentity loadInternalKeypairIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
-		KeypairIdentity keypairIdentity = extractKeypairIdentity(accessKey, loadOptions);
- 	
+
+
+	protected KeyPairIdentity loadInternalKeyPairIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
+
+		KeyPairIdentity keyPairIdentity = extractKeyPairIdentity(accessKey, loadOptions);
+
  		if(isExtractKeyTypeEnabled(loadOptions)){
-	 		extractKeyType(keypairIdentity, loadOptions);
+	 		extractKeyType(keyPairIdentity, loadOptions);
  		}
-  	
+ 
  		if(isExtractSecUserEnabled(loadOptions)){
-	 		extractSecUser(keypairIdentity, loadOptions);
+	 		extractSecUser(keyPairIdentity, loadOptions);
  		}
  
 		
-		return keypairIdentity;
-		
+		return keyPairIdentity;
+
 	}
 
-	 
+	
 
- 	protected KeypairIdentity extractKeyType(KeypairIdentity keypairIdentity, Map<String,Object> options) throws Exception{
+ 	protected KeyPairIdentity extractKeyType(KeyPairIdentity keyPairIdentity, Map<String,Object> options) throws Exception{
+  
 
-		if(keypairIdentity.getKeyType() == null){
-			return keypairIdentity;
+		if(keyPairIdentity.getKeyType() == null){
+			return keyPairIdentity;
 		}
-		String keyTypeId = keypairIdentity.getKeyType().getId();
+		String keyTypeId = keyPairIdentity.getKeyType().getId();
 		if( keyTypeId == null){
-			return keypairIdentity;
+			return keyPairIdentity;
 		}
 		PublicKeyType keyType = getPublicKeyTypeDAO().load(keyTypeId,options);
 		if(keyType != null){
-			keypairIdentity.setKeyType(keyType);
+			keyPairIdentity.setKeyType(keyType);
 		}
-		
- 		
- 		return keypairIdentity;
+
+
+ 		return keyPairIdentity;
  	}
- 		
+
+ 
+
+ 	protected KeyPairIdentity extractSecUser(KeyPairIdentity keyPairIdentity, Map<String,Object> options) throws Exception{
   
 
- 	protected KeypairIdentity extractSecUser(KeypairIdentity keypairIdentity, Map<String,Object> options) throws Exception{
-
-		if(keypairIdentity.getSecUser() == null){
-			return keypairIdentity;
+		if(keyPairIdentity.getSecUser() == null){
+			return keyPairIdentity;
 		}
-		String secUserId = keypairIdentity.getSecUser().getId();
+		String secUserId = keyPairIdentity.getSecUser().getId();
 		if( secUserId == null){
-			return keypairIdentity;
+			return keyPairIdentity;
 		}
 		SecUser secUser = getSecUserDAO().load(secUserId,options);
 		if(secUser != null){
-			keypairIdentity.setSecUser(secUser);
+			keyPairIdentity.setSecUser(secUser);
 		}
-		
- 		
- 		return keypairIdentity;
+
+
+ 		return keyPairIdentity;
  	}
- 		
+
  
 		
-		
-  	
- 	public SmartList<KeypairIdentity> findKeypairIdentityByKeyType(String publicKeyTypeId,Map<String,Object> options){
- 	
-  		SmartList<KeypairIdentity> resultList = queryWith(KeypairIdentityTable.COLUMN_KEY_TYPE, publicKeyTypeId, options, getKeypairIdentityMapper());
-		// analyzeKeypairIdentityByKeyType(resultList, publicKeyTypeId, options);
+
+ 
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityByKeyType(String publicKeyTypeId,Map<String,Object> options){
+
+  		SmartList<KeyPairIdentity> resultList = queryWith(KeyPairIdentityTable.COLUMN_KEY_TYPE, publicKeyTypeId, options, getKeyPairIdentityMapper());
+		// analyzeKeyPairIdentityByKeyType(resultList, publicKeyTypeId, options);
 		return resultList;
  	}
- 	 
- 
- 	public SmartList<KeypairIdentity> findKeypairIdentityByKeyType(String publicKeyTypeId, int start, int count,Map<String,Object> options){
- 		
- 		SmartList<KeypairIdentity> resultList =  queryWithRange(KeypairIdentityTable.COLUMN_KEY_TYPE, publicKeyTypeId, options, getKeypairIdentityMapper(), start, count);
- 		//analyzeKeypairIdentityByKeyType(resultList, publicKeyTypeId, options);
+ 	
+
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityByKeyType(String publicKeyTypeId, int start, int count,Map<String,Object> options){
+
+ 		SmartList<KeyPairIdentity> resultList =  queryWithRange(KeyPairIdentityTable.COLUMN_KEY_TYPE, publicKeyTypeId, options, getKeyPairIdentityMapper(), start, count);
+ 		//analyzeKeyPairIdentityByKeyType(resultList, publicKeyTypeId, options);
  		return resultList;
- 		
+
  	}
- 	public void analyzeKeypairIdentityByKeyType(SmartList<KeypairIdentity> resultList, String publicKeyTypeId, Map<String,Object> options){
+ 	public void analyzeKeyPairIdentityByKeyType(SmartList<KeyPairIdentity> resultList, String publicKeyTypeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
- 		filterKey.put(KeypairIdentity.KEY_TYPE_PROPERTY, publicKeyTypeId);
+ 		filterKey.put(KeyPairIdentity.KEY_TYPE_PROPERTY, publicKeyTypeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem createTimeStatsItem = new StatsItem();
-		//KeypairIdentity.CREATE_TIME_PROPERTY
-		createTimeStatsItem.setDisplayName("密钥对身份");
-		createTimeStatsItem.setInternalName(formatKeyForDateLine(KeypairIdentity.CREATE_TIME_PROPERTY));
-		createTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(KeypairIdentity.CREATE_TIME_PROPERTY),filterKey,emptyOptions));
+		//KeyPairIdentity.CREATE_TIME_PROPERTY
+		createTimeStatsItem.setDisplayName("秘钥对认证");
+		createTimeStatsItem.setInternalName(formatKeyForDateLine(KeyPairIdentity.CREATE_TIME_PROPERTY));
+		createTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(KeyPairIdentity.CREATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(createTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
- 	}
- 	@Override
- 	public int countKeypairIdentityByKeyType(String publicKeyTypeId,Map<String,Object> options){
 
- 		return countWith(KeypairIdentityTable.COLUMN_KEY_TYPE, publicKeyTypeId, options);
+
  	}
  	@Override
-	public Map<String, Integer> countKeypairIdentityByKeyTypeIds(String[] ids, Map<String, Object> options) {
-		return countWithIds(KeypairIdentityTable.COLUMN_KEY_TYPE, ids, options);
+ 	public int countKeyPairIdentityByKeyType(String publicKeyTypeId,Map<String,Object> options){
+
+ 		return countWith(KeyPairIdentityTable.COLUMN_KEY_TYPE, publicKeyTypeId, options);
+ 	}
+ 	@Override
+	public Map<String, Integer> countKeyPairIdentityByKeyTypeIds(String[] ids, Map<String, Object> options) {
+		return countWithIds(KeyPairIdentityTable.COLUMN_KEY_TYPE, ids, options);
 	}
- 	
-  	
- 	public SmartList<KeypairIdentity> findKeypairIdentityBySecUser(String secUserId,Map<String,Object> options){
- 	
-  		SmartList<KeypairIdentity> resultList = queryWith(KeypairIdentityTable.COLUMN_SEC_USER, secUserId, options, getKeypairIdentityMapper());
-		// analyzeKeypairIdentityBySecUser(resultList, secUserId, options);
+
+ 
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityBySecUser(String secUserId,Map<String,Object> options){
+
+  		SmartList<KeyPairIdentity> resultList = queryWith(KeyPairIdentityTable.COLUMN_SEC_USER, secUserId, options, getKeyPairIdentityMapper());
+		// analyzeKeyPairIdentityBySecUser(resultList, secUserId, options);
 		return resultList;
  	}
- 	 
- 
- 	public SmartList<KeypairIdentity> findKeypairIdentityBySecUser(String secUserId, int start, int count,Map<String,Object> options){
- 		
- 		SmartList<KeypairIdentity> resultList =  queryWithRange(KeypairIdentityTable.COLUMN_SEC_USER, secUserId, options, getKeypairIdentityMapper(), start, count);
- 		//analyzeKeypairIdentityBySecUser(resultList, secUserId, options);
+ 	
+
+ 	public SmartList<KeyPairIdentity> findKeyPairIdentityBySecUser(String secUserId, int start, int count,Map<String,Object> options){
+
+ 		SmartList<KeyPairIdentity> resultList =  queryWithRange(KeyPairIdentityTable.COLUMN_SEC_USER, secUserId, options, getKeyPairIdentityMapper(), start, count);
+ 		//analyzeKeyPairIdentityBySecUser(resultList, secUserId, options);
  		return resultList;
- 		
+
  	}
- 	public void analyzeKeypairIdentityBySecUser(SmartList<KeypairIdentity> resultList, String secUserId, Map<String,Object> options){
+ 	public void analyzeKeyPairIdentityBySecUser(SmartList<KeyPairIdentity> resultList, String secUserId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
- 		filterKey.put(KeypairIdentity.SEC_USER_PROPERTY, secUserId);
+ 		filterKey.put(KeyPairIdentity.SEC_USER_PROPERTY, secUserId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem createTimeStatsItem = new StatsItem();
-		//KeypairIdentity.CREATE_TIME_PROPERTY
-		createTimeStatsItem.setDisplayName("密钥对身份");
-		createTimeStatsItem.setInternalName(formatKeyForDateLine(KeypairIdentity.CREATE_TIME_PROPERTY));
-		createTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(KeypairIdentity.CREATE_TIME_PROPERTY),filterKey,emptyOptions));
+		//KeyPairIdentity.CREATE_TIME_PROPERTY
+		createTimeStatsItem.setDisplayName("秘钥对认证");
+		createTimeStatsItem.setInternalName(formatKeyForDateLine(KeyPairIdentity.CREATE_TIME_PROPERTY));
+		createTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(KeyPairIdentity.CREATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(createTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
- 	}
- 	@Override
- 	public int countKeypairIdentityBySecUser(String secUserId,Map<String,Object> options){
 
- 		return countWith(KeypairIdentityTable.COLUMN_SEC_USER, secUserId, options);
+
  	}
  	@Override
-	public Map<String, Integer> countKeypairIdentityBySecUserIds(String[] ids, Map<String, Object> options) {
-		return countWithIds(KeypairIdentityTable.COLUMN_SEC_USER, ids, options);
+ 	public int countKeyPairIdentityBySecUser(String secUserId,Map<String,Object> options){
+
+ 		return countWith(KeyPairIdentityTable.COLUMN_SEC_USER, secUserId, options);
+ 	}
+ 	@Override
+	public Map<String, Integer> countKeyPairIdentityBySecUserIds(String[] ids, Map<String, Object> options) {
+		return countWithIds(KeyPairIdentityTable.COLUMN_SEC_USER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
-	protected KeypairIdentity saveKeypairIdentity(KeypairIdentity  keypairIdentity){
+	protected KeyPairIdentity saveKeyPairIdentity(KeyPairIdentity  keyPairIdentity){
+    
+
 		
-		if(!keypairIdentity.isChanged()){
-			return keypairIdentity;
+		if(!keyPairIdentity.isChanged()){
+			return keyPairIdentity;
 		}
 		
 
-		String SQL=this.getSaveKeypairIdentitySQL(keypairIdentity);
+    Beans.dbUtil().cacheCleanUp(keyPairIdentity);
+		String SQL=this.getSaveKeyPairIdentitySQL(keyPairIdentity);
 		//FIXME: how about when an item has been updated more than MAX_INT?
-		Object [] parameters = getSaveKeypairIdentityParameters(keypairIdentity);
+		Object [] parameters = getSaveKeyPairIdentityParameters(keyPairIdentity);
 		int affectedNumber = singleUpdate(SQL,parameters);
 		if(affectedNumber != 1){
 			throw new IllegalStateException("The save operation should return value = 1, while the value = "
 				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
 		}
 
-		keypairIdentity.incVersion();
-		return keypairIdentity;
+		keyPairIdentity.incVersion();
+		keyPairIdentity.afterSave();
+		return keyPairIdentity;
 
 	}
-	public SmartList<KeypairIdentity> saveKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList,Map<String,Object> options){
+	public SmartList<KeyPairIdentity> saveKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList,Map<String,Object> options){
 		//assuming here are big amount objects to be updated.
 		//First step is split into two groups, one group for update and another group for create
-		Object [] lists=splitKeypairIdentityList(keypairIdentityList);
+		Object [] lists=splitKeyPairIdentityList(keyPairIdentityList);
 
-		batchKeypairIdentityCreate((List<KeypairIdentity>)lists[CREATE_LIST_INDEX]);
+		batchKeyPairIdentityCreate((List<KeyPairIdentity>)lists[CREATE_LIST_INDEX]);
 
-		batchKeypairIdentityUpdate((List<KeypairIdentity>)lists[UPDATE_LIST_INDEX]);
+		batchKeyPairIdentityUpdate((List<KeyPairIdentity>)lists[UPDATE_LIST_INDEX]);
 
 
 		//update version after the list successfully saved to database;
-		for(KeypairIdentity keypairIdentity:keypairIdentityList){
-			if(keypairIdentity.isChanged()){
-				keypairIdentity.incVersion();
+		for(KeyPairIdentity keyPairIdentity:keyPairIdentityList){
+			if(keyPairIdentity.isChanged()){
+				keyPairIdentity.incVersion();
+				keyPairIdentity.afterSave();
 			}
 
 
 		}
 
 
-		return keypairIdentityList;
+		return keyPairIdentityList;
 	}
 
-	public SmartList<KeypairIdentity> removeKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList,Map<String,Object> options){
+	public SmartList<KeyPairIdentity> removeKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList,Map<String,Object> options){
 
 
-		super.removeList(keypairIdentityList, options);
+		super.removeList(keyPairIdentityList, options);
 
-		return keypairIdentityList;
+		return keyPairIdentityList;
 
 
 	}
 
-	protected List<Object[]> prepareKeypairIdentityBatchCreateArgs(List<KeypairIdentity> keypairIdentityList){
+	protected List<Object[]> prepareKeyPairIdentityBatchCreateArgs(List<KeyPairIdentity> keyPairIdentityList){
 
 		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(KeypairIdentity keypairIdentity:keypairIdentityList ){
-			Object [] parameters = prepareKeypairIdentityCreateParameters(keypairIdentity);
+		for(KeyPairIdentity keyPairIdentity:keyPairIdentityList ){
+			Object [] parameters = prepareKeyPairIdentityCreateParameters(keyPairIdentity);
 			parametersList.add(parameters);
 
 		}
 		return parametersList;
 
 	}
-	protected List<Object[]> prepareKeypairIdentityBatchUpdateArgs(List<KeypairIdentity> keypairIdentityList){
+	protected List<Object[]> prepareKeyPairIdentityBatchUpdateArgs(List<KeyPairIdentity> keyPairIdentityList){
 
 		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(KeypairIdentity keypairIdentity:keypairIdentityList ){
-			if(!keypairIdentity.isChanged()){
+		for(KeyPairIdentity keyPairIdentity:keyPairIdentityList ){
+			if(!keyPairIdentity.isChanged()){
 				continue;
 			}
-			Object [] parameters = prepareKeypairIdentityUpdateParameters(keypairIdentity);
+			Object [] parameters = prepareKeyPairIdentityUpdateParameters(keyPairIdentity);
 			parametersList.add(parameters);
 
 		}
 		return parametersList;
 
 	}
-	protected void batchKeypairIdentityCreate(List<KeypairIdentity> keypairIdentityList){
+	protected void batchKeyPairIdentityCreate(List<KeyPairIdentity> keyPairIdentityList){
 		String SQL=getCreateSQL();
-		List<Object[]> args=prepareKeypairIdentityBatchCreateArgs(keypairIdentityList);
+		List<Object[]> args=prepareKeyPairIdentityBatchCreateArgs(keyPairIdentityList);
 
 		int affectedNumbers[] = batchUpdate(SQL, args);
 
 	}
 
 
-	protected void batchKeypairIdentityUpdate(List<KeypairIdentity> keypairIdentityList){
+	protected void batchKeyPairIdentityUpdate(List<KeyPairIdentity> keyPairIdentityList){
 		String SQL=getUpdateSQL();
-		List<Object[]> args=prepareKeypairIdentityBatchUpdateArgs(keypairIdentityList);
+		List<Object[]> args=prepareKeyPairIdentityBatchUpdateArgs(keyPairIdentityList);
 
 		int affectedNumbers[] = batchUpdate(SQL, args);
 
@@ -533,103 +542,96 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	static final int CREATE_LIST_INDEX=0;
 	static final int UPDATE_LIST_INDEX=1;
 
-	protected Object[] splitKeypairIdentityList(List<KeypairIdentity> keypairIdentityList){
+	protected Object[] splitKeyPairIdentityList(List<KeyPairIdentity> keyPairIdentityList){
 
-		List<KeypairIdentity> keypairIdentityCreateList=new ArrayList<KeypairIdentity>();
-		List<KeypairIdentity> keypairIdentityUpdateList=new ArrayList<KeypairIdentity>();
+		List<KeyPairIdentity> keyPairIdentityCreateList=new ArrayList<KeyPairIdentity>();
+		List<KeyPairIdentity> keyPairIdentityUpdateList=new ArrayList<KeyPairIdentity>();
 
-		for(KeypairIdentity keypairIdentity: keypairIdentityList){
-			if(isUpdateRequest(keypairIdentity)){
-				keypairIdentityUpdateList.add( keypairIdentity);
+		for(KeyPairIdentity keyPairIdentity: keyPairIdentityList){
+			if(isUpdateRequest(keyPairIdentity)){
+				keyPairIdentityUpdateList.add( keyPairIdentity);
 				continue;
 			}
-			keypairIdentityCreateList.add(keypairIdentity);
+			keyPairIdentityCreateList.add(keyPairIdentity);
 		}
 
-		return new Object[]{keypairIdentityCreateList,keypairIdentityUpdateList};
+		return new Object[]{keyPairIdentityCreateList,keyPairIdentityUpdateList};
 	}
 
-	protected boolean isUpdateRequest(KeypairIdentity keypairIdentity){
- 		return keypairIdentity.getVersion() > 0;
+	protected boolean isUpdateRequest(KeyPairIdentity keyPairIdentity){
+ 		return keyPairIdentity.getVersion() > 0;
  	}
- 	protected String getSaveKeypairIdentitySQL(KeypairIdentity keypairIdentity){
- 		if(isUpdateRequest(keypairIdentity)){
+ 	protected String getSaveKeyPairIdentitySQL(KeyPairIdentity keyPairIdentity){
+ 		if(isUpdateRequest(keyPairIdentity)){
  			return getUpdateSQL();
  		}
  		return getCreateSQL();
  	}
 
- 	protected Object[] getSaveKeypairIdentityParameters(KeypairIdentity keypairIdentity){
- 		if(isUpdateRequest(keypairIdentity) ){
- 			return prepareKeypairIdentityUpdateParameters(keypairIdentity);
+ 	protected Object[] getSaveKeyPairIdentityParameters(KeyPairIdentity keyPairIdentity){
+ 		if(isUpdateRequest(keyPairIdentity) ){
+ 			return prepareKeyPairIdentityUpdateParameters(keyPairIdentity);
  		}
- 		return prepareKeypairIdentityCreateParameters(keypairIdentity);
+ 		return prepareKeyPairIdentityCreateParameters(keyPairIdentity);
  	}
- 	protected Object[] prepareKeypairIdentityUpdateParameters(KeypairIdentity keypairIdentity){
+ 	protected Object[] prepareKeyPairIdentityUpdateParameters(KeyPairIdentity keyPairIdentity){
  		Object[] parameters = new Object[7];
  
+ 		parameters[0] = keyPairIdentity.getPublicKey();
  		
- 		parameters[0] = keypairIdentity.getPublicKey();
- 		
- 		if(keypairIdentity.getKeyType() != null){
- 			parameters[1] = keypairIdentity.getKeyType().getId();
+ 		if(keyPairIdentity.getKeyType() != null){
+ 			parameters[1] = keyPairIdentity.getKeyType().getId();
  		}
- 
- 		if(keypairIdentity.getSecUser() != null){
- 			parameters[2] = keypairIdentity.getSecUser().getId();
+    
+ 		if(keyPairIdentity.getSecUser() != null){
+ 			parameters[2] = keyPairIdentity.getSecUser().getId();
  		}
- 
+    
+ 		parameters[3] = keyPairIdentity.getCreateTime();
  		
- 		parameters[3] = keypairIdentity.getCreateTime();
- 		
- 		parameters[4] = keypairIdentity.nextVersion();
- 		parameters[5] = keypairIdentity.getId();
- 		parameters[6] = keypairIdentity.getVersion();
+ 		parameters[4] = keyPairIdentity.nextVersion();
+ 		parameters[5] = keyPairIdentity.getId();
+ 		parameters[6] = keyPairIdentity.getVersion();
 
  		return parameters;
  	}
- 	protected Object[] prepareKeypairIdentityCreateParameters(KeypairIdentity keypairIdentity){
+ 	protected Object[] prepareKeyPairIdentityCreateParameters(KeyPairIdentity keyPairIdentity){
 		Object[] parameters = new Object[5];
-        if(keypairIdentity.getId() == null){
-          String newKeypairIdentityId=getNextId();
-          keypairIdentity.setId(newKeypairIdentityId);
+        if(keyPairIdentity.getId() == null){
+          String newKeyPairIdentityId=getNextId();
+          keyPairIdentity.setId(newKeyPairIdentityId);
         }
-		parameters[0] =  keypairIdentity.getId();
+		parameters[0] =  keyPairIdentity.getId();
  
+ 		parameters[1] = keyPairIdentity.getPublicKey();
  		
- 		parameters[1] = keypairIdentity.getPublicKey();
- 		
- 		if(keypairIdentity.getKeyType() != null){
- 			parameters[2] = keypairIdentity.getKeyType().getId();
-
+ 		if(keyPairIdentity.getKeyType() != null){
+ 			parameters[2] = keyPairIdentity.getKeyType().getId();
  		}
  		
- 		if(keypairIdentity.getSecUser() != null){
- 			parameters[3] = keypairIdentity.getSecUser().getId();
-
+ 		if(keyPairIdentity.getSecUser() != null){
+ 			parameters[3] = keyPairIdentity.getSecUser().getId();
  		}
  		
- 		
- 		parameters[4] = keypairIdentity.getCreateTime();
+ 		parameters[4] = keyPairIdentity.getCreateTime();
  		
 
  		return parameters;
  	}
 
-	protected KeypairIdentity saveInternalKeypairIdentity(KeypairIdentity keypairIdentity, Map<String,Object> options){
-
-		saveKeypairIdentity(keypairIdentity);
+	protected KeyPairIdentity saveInternalKeyPairIdentity(KeyPairIdentity keyPairIdentity, Map<String,Object> options){
 
  		if(isSaveKeyTypeEnabled(options)){
-	 		saveKeyType(keypairIdentity, options);
+	 		saveKeyType(keyPairIdentity, options);
  		}
  
  		if(isSaveSecUserEnabled(options)){
-	 		saveSecUser(keypairIdentity, options);
+	 		saveSecUser(keyPairIdentity, options);
  		}
  
+   saveKeyPairIdentity(keyPairIdentity);
 		
-		return keypairIdentity;
+		return keyPairIdentity;
 
 	}
 
@@ -638,88 +640,80 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	//======================================================================================
 	
 
- 	protected KeypairIdentity saveKeyType(KeypairIdentity keypairIdentity, Map<String,Object> options){
+ 	protected KeyPairIdentity saveKeyType(KeyPairIdentity keyPairIdentity, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
- 		if(keypairIdentity.getKeyType() == null){
- 			return keypairIdentity;//do nothing when it is null
+ 		if(keyPairIdentity.getKeyType() == null){
+ 			return keyPairIdentity;//do nothing when it is null
  		}
 
- 		getPublicKeyTypeDAO().save(keypairIdentity.getKeyType(),options);
- 		return keypairIdentity;
+ 		getPublicKeyTypeDAO().save(keyPairIdentity.getKeyType(),options);
+ 		return keyPairIdentity;
 
  	}
-
-
-
-
-
  
 
- 	protected KeypairIdentity saveSecUser(KeypairIdentity keypairIdentity, Map<String,Object> options){
+ 	protected KeyPairIdentity saveSecUser(KeyPairIdentity keyPairIdentity, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
- 		if(keypairIdentity.getSecUser() == null){
- 			return keypairIdentity;//do nothing when it is null
+ 		if(keyPairIdentity.getSecUser() == null){
+ 			return keyPairIdentity;//do nothing when it is null
  		}
 
- 		getSecUserDAO().save(keypairIdentity.getSecUser(),options);
- 		return keypairIdentity;
+ 		getSecUserDAO().save(keyPairIdentity.getSecUser(),options);
+ 		return keyPairIdentity;
 
  	}
-
-
-
-
-
  
 
 	
 
 		
 
-	public KeypairIdentity present(KeypairIdentity keypairIdentity,Map<String, Object> options){
-	
+	public KeyPairIdentity present(KeyPairIdentity keyPairIdentity,Map<String, Object> options){
 
-		return keypairIdentity;
-	
+
+		return keyPairIdentity;
+
 	}
 		
 
 	
 
 	protected String getTableName(){
-		return KeypairIdentityTable.TABLE_NAME;
+		return KeyPairIdentityTable.TABLE_NAME;
 	}
 
 
 
-	public void enhanceList(List<KeypairIdentity> keypairIdentityList) {
-		this.enhanceListInternal(keypairIdentityList, this.getKeypairIdentityMapper());
+	public void enhanceList(List<KeyPairIdentity> keyPairIdentityList) {
+		this.enhanceListInternal(keyPairIdentityList, this.getKeyPairIdentityMapper());
 	}
 
 	
 
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
-		List<KeypairIdentity> keypairIdentityList = ownerEntity.collectRefsWithType(KeypairIdentity.INTERNAL_TYPE);
-		this.enhanceList(keypairIdentityList);
+		List<KeyPairIdentity> keyPairIdentityList = ownerEntity.collectRefsWithType(KeyPairIdentity.INTERNAL_TYPE);
+		this.enhanceList(keyPairIdentityList);
 
 	}
 
 	@Override
-	public SmartList<KeypairIdentity> findKeypairIdentityWithKey(MultipleAccessKey key,
+	public SmartList<KeyPairIdentity> findKeyPairIdentityWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
 
-  		return queryWith(key, options, getKeypairIdentityMapper());
+  		return queryWith(key, options, getKeyPairIdentityMapper());
 
 	}
 	@Override
-	public int countKeypairIdentityWithKey(MultipleAccessKey key,
+	public int countKeyPairIdentityWithKey(MultipleAccessKey key,
 			Map<String, Object> options) {
 
   		return countWith(key, options);
 
 	}
-	public Map<String, Integer> countKeypairIdentityWithGroupKey(String groupKey, MultipleAccessKey filterKey,
+	public Map<String, Integer> countKeyPairIdentityWithGroupKey(String groupKey, MultipleAccessKey filterKey,
 			Map<String, Object> options) {
 
   		return countWithGroup(groupKey, filterKey, options);
@@ -727,13 +721,17 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
 	@Override
-	public SmartList<KeypairIdentity> queryList(String sql, Object... parameters) {
-	    return this.queryForList(sql, parameters, this.getKeypairIdentityMapper());
+	public SmartList<KeyPairIdentity> queryList(String sql, Object... parameters) {
+	    return this.queryForList(sql, parameters, this.getKeyPairIdentityMapper());
 	}
 
   @Override
-  public Stream<KeypairIdentity> queryStream(String sql, Object... parameters) {
-    return this.queryForStream(sql, parameters, this.getKeypairIdentityMapper());
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
+  public Stream<KeyPairIdentity> queryStream(String sql, Object... parameters) {
+    return this.queryForStream(sql, parameters, this.getKeyPairIdentityMapper());
   }
 
 	@Override
@@ -741,9 +739,9 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	    return queryInt(sql, parameters);
 	}
 	@Override
-	public CandidateKeypairIdentity executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+	public CandidateKeyPairIdentity executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
 
-		CandidateKeypairIdentity result = new CandidateKeypairIdentity();
+		CandidateKeyPairIdentity result = new CandidateKeyPairIdentity();
 		int pageNo = Math.max(1, query.getPageNo());
 		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
 		result.setOwnerId(query.getOwnerId());
@@ -767,6 +765,15 @@ public class KeypairIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	
 
+  @Override
+  public List<KeyPairIdentity> search(KeyPairIdentityRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected KeyPairIdentityMapper mapper() {
+    return getKeyPairIdentityMapper();
+  }
 }
 
 

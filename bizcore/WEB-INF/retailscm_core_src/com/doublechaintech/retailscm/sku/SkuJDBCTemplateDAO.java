@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.sku;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 
 	protected ProductDAO productDAO;
 	public void setProductDAO(ProductDAO productDAO){
- 	
+
  		if(productDAO == null){
  			throw new IllegalStateException("Do not try to set productDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		if(this.productDAO == null){
  			throw new IllegalStateException("The productDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.productDAO;
- 	}	
+ 	}
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		newSku.setVersion(0);
 		
 		
- 		
+
  		if(isSaveGoodsListEnabled(options)){
  			for(Goods item: newSku.getGoodsList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SkuTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractProductEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SkuTokens.PRODUCT);
  	}
 
  	protected boolean isSaveProductEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SkuTokens.PRODUCT);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
  		return checkOptions(options,SkuTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){
  		return SkuTokens.of(options).analyzeGoodsListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, SkuTokens.GOODS_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		return new SkuMapper();
 	}
 
-	
-	
+
+
 	protected Sku extractSku(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Sku sku = loadSingleObject(accessKey, getSkuMapper());
@@ -268,13 +270,13 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 
 	}
 
-	
-	
+
+
 
 	protected Sku loadInternalSku(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Sku sku = extractSku(accessKey, loadOptions);
- 	
+
  		if(isExtractProductEnabled(loadOptions)){
 	 		extractProduct(sku, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(sku, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
 	 		analyzeGoodsList(sku, loadOptions);
@@ -291,12 +293,13 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		
 		
 		return sku;
-		
+
 	}
 
-	 
+	
 
  	protected Sku extractProduct(Sku sku, Map<String,Object> options) throws Exception{
+  
 
 		if(sku.getProduct() == null){
 			return sku;
@@ -309,21 +312,21 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		if(product != null){
 			sku.setProduct(product);
 		}
-		
- 		
+
+
  		return sku;
  	}
- 		
+
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Sku extractGoodsList(Sku sku, Map<String,Object> options){
-		
-		
+    
+
 		if(sku == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 			return sku;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = getGoodsDAO().findGoodsBySku(sku.getId(),options);
 		if(goodsList != null){
 			enhanceGoodsList(goodsList,options);
 			sku.setGoodsList(goodsList);
 		}
-		
+
 		return sku;
-	
-	}	
-	
+  
+	}
+
 	protected Sku analyzeGoodsList(Sku sku, Map<String,Object> options){
-		
-		
+     
 		if(sku == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 			return sku;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = sku.getGoodsList();
 		if(goodsList != null){
 			getGoodsDAO().analyzeGoodsBySku(goodsList, sku.getId(), options);
-			
+
 		}
-		
+
 		return sku;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<Sku> findSkuByProduct(String productId,Map<String,Object> options){
- 	
+
   		SmartList<Sku> resultList = queryWith(SkuTable.COLUMN_PRODUCT, productId, options, getSkuMapper());
 		// analyzeSkuByProduct(resultList, productId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Sku> findSkuByProduct(String productId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Sku> resultList =  queryWithRange(SkuTable.COLUMN_PRODUCT, productId, options, getSkuMapper(), start, count);
  		//analyzeSkuByProduct(resultList, productId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSkuByProduct(SmartList<Sku> resultList, String productId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSkuByProduct(String productId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	public Map<String, Integer> countSkuByProductIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SkuTable.COLUMN_PRODUCT, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Sku saveSku(Sku  sku){
+    
+
 		
 		if(!sku.isChanged()){
 			return sku;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(sku);
 		String SQL=this.getSaveSkuSQL(sku);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSkuParameters(sku);
@@ -425,6 +430,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		}
 
 		sku.incVersion();
+		sku.afterSave();
 		return sku;
 
 	}
@@ -442,6 +448,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		for(Sku sku:skuList){
 			if(sku.isChanged()){
 				sku.incVersion();
+				sku.afterSave();
 			}
 
 
@@ -545,28 +552,21 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  	protected Object[] prepareSkuUpdateParameters(Sku sku){
  		Object[] parameters = new Object[11];
  
- 		
  		parameters[0] = sku.getName();
- 		
  		
  		parameters[1] = sku.getSize();
  		
  		if(sku.getProduct() != null){
  			parameters[2] = sku.getProduct().getId();
  		}
- 
- 		
+    
  		parameters[3] = sku.getBarcode();
- 		
  		
  		parameters[4] = sku.getPackageType();
  		
- 		
  		parameters[5] = sku.getNetContent();
  		
- 		
  		parameters[6] = sku.getPrice();
- 		
  		
  		parameters[7] = sku.getPicture();
  		
@@ -584,29 +584,21 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
         }
 		parameters[0] =  sku.getId();
  
- 		
  		parameters[1] = sku.getName();
- 		
  		
  		parameters[2] = sku.getSize();
  		
  		if(sku.getProduct() != null){
  			parameters[3] = sku.getProduct().getId();
-
  		}
- 		
  		
  		parameters[4] = sku.getBarcode();
  		
- 		
  		parameters[5] = sku.getPackageType();
- 		
  		
  		parameters[6] = sku.getNetContent();
  		
- 		
  		parameters[7] = sku.getPrice();
- 		
  		
  		parameters[8] = sku.getPicture();
  		
@@ -616,12 +608,11 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 
 	protected Sku saveInternalSku(Sku sku, Map<String,Object> options){
 
-		saveSku(sku);
-
  		if(isSaveProductEnabled(options)){
 	 		saveProduct(sku, options);
  		}
  
+   saveSku(sku);
 		
 		if(isSaveGoodsListEnabled(options)){
 	 		saveGoodsList(sku, options);
@@ -640,6 +631,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	
 
  	protected Sku saveProduct(Sku sku, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(sku.getProduct() == null){
  			return sku;//do nothing when it is null
@@ -649,11 +641,6 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
  		return sku;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1040,7 +1027,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 
 		
 	protected Sku saveGoodsList(Sku sku, Map<String,Object> options){
-
+    
 
 
 
@@ -1107,19 +1094,19 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 		
 
 	public Sku present(Sku sku,Map<String, Object> options){
-	
+
 		presentGoodsList(sku,options);
 
 		return sku;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Sku presentGoodsList(
 			Sku sku,
 			Map<String, Object> options) {
-
-		SmartList<Goods> goodsList = sku.getGoodsList();		
+    
+		SmartList<Goods> goodsList = sku.getGoodsList();
 				SmartList<Goods> newList= presentSubList(sku.getId(),
 				goodsList,
 				options,
@@ -1127,12 +1114,12 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 				getGoodsDAO()::findGoodsBySku
 				);
 
-		
+
 		sku.setGoodsList(newList);
-		
+
 
 		return sku;
-	}			
+	}
 		
 
 	
@@ -1156,6 +1143,7 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的sku的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<Sku> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1212,6 +1200,10 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Sku> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSkuMapper());
   }
@@ -1247,6 +1239,15 @@ public class SkuJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SkuDAO{
 
 	
 
+  @Override
+  public List<Sku> search(SkuRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SkuMapper mapper() {
+    return getSkuMapper();
+  }
 }
 
 

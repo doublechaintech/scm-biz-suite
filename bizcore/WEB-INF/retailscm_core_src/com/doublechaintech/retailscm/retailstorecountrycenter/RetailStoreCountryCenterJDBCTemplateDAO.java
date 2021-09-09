@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstorecountrycenter;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -85,7 +86,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected CatalogDAO catalogDAO;
 	public void setCatalogDAO(CatalogDAO catalogDAO){
- 	
+
  		if(catalogDAO == null){
  			throw new IllegalStateException("Do not try to set catalogDAO to null.");
  		}
@@ -95,13 +96,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.catalogDAO == null){
  			throw new IllegalStateException("The catalogDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.catalogDAO;
- 	}	
+ 	}
 
 	protected RetailStoreProvinceCenterDAO retailStoreProvinceCenterDAO;
 	public void setRetailStoreProvinceCenterDAO(RetailStoreProvinceCenterDAO retailStoreProvinceCenterDAO){
- 	
+
  		if(retailStoreProvinceCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreProvinceCenterDAO to null.");
  		}
@@ -111,13 +112,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.retailStoreProvinceCenterDAO == null){
  			throw new IllegalStateException("The retailStoreProvinceCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreProvinceCenterDAO;
- 	}	
+ 	}
 
 	protected RetailStoreDAO retailStoreDAO;
 	public void setRetailStoreDAO(RetailStoreDAO retailStoreDAO){
- 	
+
  		if(retailStoreDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreDAO to null.");
  		}
@@ -127,13 +128,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.retailStoreDAO == null){
  			throw new IllegalStateException("The retailStoreDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreDAO;
- 	}	
+ 	}
 
 	protected RetailStoreMemberDAO retailStoreMemberDAO;
 	public void setRetailStoreMemberDAO(RetailStoreMemberDAO retailStoreMemberDAO){
- 	
+
  		if(retailStoreMemberDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberDAO to null.");
  		}
@@ -143,13 +144,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.retailStoreMemberDAO == null){
  			throw new IllegalStateException("The retailStoreMemberDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberDAO;
- 	}	
+ 	}
 
 	protected GoodsSupplierDAO goodsSupplierDAO;
 	public void setGoodsSupplierDAO(GoodsSupplierDAO goodsSupplierDAO){
- 	
+
  		if(goodsSupplierDAO == null){
  			throw new IllegalStateException("Do not try to set goodsSupplierDAO to null.");
  		}
@@ -159,13 +160,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.goodsSupplierDAO == null){
  			throw new IllegalStateException("The goodsSupplierDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsSupplierDAO;
- 	}	
+ 	}
 
 	protected SupplyOrderDAO supplyOrderDAO;
 	public void setSupplyOrderDAO(SupplyOrderDAO supplyOrderDAO){
- 	
+
  		if(supplyOrderDAO == null){
  			throw new IllegalStateException("Do not try to set supplyOrderDAO to null.");
  		}
@@ -175,13 +176,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.supplyOrderDAO == null){
  			throw new IllegalStateException("The supplyOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplyOrderDAO;
- 	}	
+ 	}
 
 	protected RetailStoreOrderDAO retailStoreOrderDAO;
 	public void setRetailStoreOrderDAO(RetailStoreOrderDAO retailStoreOrderDAO){
- 	
+
  		if(retailStoreOrderDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreOrderDAO to null.");
  		}
@@ -191,13 +192,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.retailStoreOrderDAO == null){
  			throw new IllegalStateException("The retailStoreOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreOrderDAO;
- 	}	
+ 	}
 
 	protected WarehouseDAO warehouseDAO;
 	public void setWarehouseDAO(WarehouseDAO warehouseDAO){
- 	
+
  		if(warehouseDAO == null){
  			throw new IllegalStateException("Do not try to set warehouseDAO to null.");
  		}
@@ -207,13 +208,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.warehouseDAO == null){
  			throw new IllegalStateException("The warehouseDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.warehouseDAO;
- 	}	
+ 	}
 
 	protected TransportFleetDAO transportFleetDAO;
 	public void setTransportFleetDAO(TransportFleetDAO transportFleetDAO){
- 	
+
  		if(transportFleetDAO == null){
  			throw new IllegalStateException("Do not try to set transportFleetDAO to null.");
  		}
@@ -223,13 +224,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.transportFleetDAO == null){
  			throw new IllegalStateException("The transportFleetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.transportFleetDAO;
- 	}	
+ 	}
 
 	protected AccountSetDAO accountSetDAO;
 	public void setAccountSetDAO(AccountSetDAO accountSetDAO){
- 	
+
  		if(accountSetDAO == null){
  			throw new IllegalStateException("Do not try to set accountSetDAO to null.");
  		}
@@ -239,13 +240,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.accountSetDAO == null){
  			throw new IllegalStateException("The accountSetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountSetDAO;
- 	}	
+ 	}
 
 	protected LevelOneDepartmentDAO levelOneDepartmentDAO;
 	public void setLevelOneDepartmentDAO(LevelOneDepartmentDAO levelOneDepartmentDAO){
- 	
+
  		if(levelOneDepartmentDAO == null){
  			throw new IllegalStateException("Do not try to set levelOneDepartmentDAO to null.");
  		}
@@ -255,13 +256,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.levelOneDepartmentDAO == null){
  			throw new IllegalStateException("The levelOneDepartmentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.levelOneDepartmentDAO;
- 	}	
+ 	}
 
 	protected SkillTypeDAO skillTypeDAO;
 	public void setSkillTypeDAO(SkillTypeDAO skillTypeDAO){
- 	
+
  		if(skillTypeDAO == null){
  			throw new IllegalStateException("Do not try to set skillTypeDAO to null.");
  		}
@@ -271,13 +272,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.skillTypeDAO == null){
  			throw new IllegalStateException("The skillTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.skillTypeDAO;
- 	}	
+ 	}
 
 	protected ResponsibilityTypeDAO responsibilityTypeDAO;
 	public void setResponsibilityTypeDAO(ResponsibilityTypeDAO responsibilityTypeDAO){
- 	
+
  		if(responsibilityTypeDAO == null){
  			throw new IllegalStateException("Do not try to set responsibilityTypeDAO to null.");
  		}
@@ -287,13 +288,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.responsibilityTypeDAO == null){
  			throw new IllegalStateException("The responsibilityTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.responsibilityTypeDAO;
- 	}	
+ 	}
 
 	protected TerminationReasonDAO terminationReasonDAO;
 	public void setTerminationReasonDAO(TerminationReasonDAO terminationReasonDAO){
- 	
+
  		if(terminationReasonDAO == null){
  			throw new IllegalStateException("Do not try to set terminationReasonDAO to null.");
  		}
@@ -303,13 +304,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.terminationReasonDAO == null){
  			throw new IllegalStateException("The terminationReasonDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.terminationReasonDAO;
- 	}	
+ 	}
 
 	protected TerminationTypeDAO terminationTypeDAO;
 	public void setTerminationTypeDAO(TerminationTypeDAO terminationTypeDAO){
- 	
+
  		if(terminationTypeDAO == null){
  			throw new IllegalStateException("Do not try to set terminationTypeDAO to null.");
  		}
@@ -319,13 +320,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.terminationTypeDAO == null){
  			throw new IllegalStateException("The terminationTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.terminationTypeDAO;
- 	}	
+ 	}
 
 	protected OccupationTypeDAO occupationTypeDAO;
 	public void setOccupationTypeDAO(OccupationTypeDAO occupationTypeDAO){
- 	
+
  		if(occupationTypeDAO == null){
  			throw new IllegalStateException("Do not try to set occupationTypeDAO to null.");
  		}
@@ -335,13 +336,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.occupationTypeDAO == null){
  			throw new IllegalStateException("The occupationTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.occupationTypeDAO;
- 	}	
+ 	}
 
 	protected LeaveTypeDAO leaveTypeDAO;
 	public void setLeaveTypeDAO(LeaveTypeDAO leaveTypeDAO){
- 	
+
  		if(leaveTypeDAO == null){
  			throw new IllegalStateException("Do not try to set leaveTypeDAO to null.");
  		}
@@ -351,13 +352,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.leaveTypeDAO == null){
  			throw new IllegalStateException("The leaveTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.leaveTypeDAO;
- 	}	
+ 	}
 
 	protected SalaryGradeDAO salaryGradeDAO;
 	public void setSalaryGradeDAO(SalaryGradeDAO salaryGradeDAO){
- 	
+
  		if(salaryGradeDAO == null){
  			throw new IllegalStateException("Do not try to set salaryGradeDAO to null.");
  		}
@@ -367,13 +368,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.salaryGradeDAO == null){
  			throw new IllegalStateException("The salaryGradeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.salaryGradeDAO;
- 	}	
+ 	}
 
 	protected InterviewTypeDAO interviewTypeDAO;
 	public void setInterviewTypeDAO(InterviewTypeDAO interviewTypeDAO){
- 	
+
  		if(interviewTypeDAO == null){
  			throw new IllegalStateException("Do not try to set interviewTypeDAO to null.");
  		}
@@ -383,13 +384,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.interviewTypeDAO == null){
  			throw new IllegalStateException("The interviewTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.interviewTypeDAO;
- 	}	
+ 	}
 
 	protected TrainingCourseTypeDAO trainingCourseTypeDAO;
 	public void setTrainingCourseTypeDAO(TrainingCourseTypeDAO trainingCourseTypeDAO){
- 	
+
  		if(trainingCourseTypeDAO == null){
  			throw new IllegalStateException("Do not try to set trainingCourseTypeDAO to null.");
  		}
@@ -399,13 +400,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.trainingCourseTypeDAO == null){
  			throw new IllegalStateException("The trainingCourseTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.trainingCourseTypeDAO;
- 	}	
+ 	}
 
 	protected PublicHolidayDAO publicHolidayDAO;
 	public void setPublicHolidayDAO(PublicHolidayDAO publicHolidayDAO){
- 	
+
  		if(publicHolidayDAO == null){
  			throw new IllegalStateException("Do not try to set publicHolidayDAO to null.");
  		}
@@ -415,13 +416,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.publicHolidayDAO == null){
  			throw new IllegalStateException("The publicHolidayDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.publicHolidayDAO;
- 	}	
+ 	}
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -431,13 +432,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
 
 	protected InstructorDAO instructorDAO;
 	public void setInstructorDAO(InstructorDAO instructorDAO){
- 	
+
  		if(instructorDAO == null){
  			throw new IllegalStateException("Do not try to set instructorDAO to null.");
  		}
@@ -447,13 +448,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.instructorDAO == null){
  			throw new IllegalStateException("The instructorDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.instructorDAO;
- 	}	
+ 	}
 
 	protected CompanyTrainingDAO companyTrainingDAO;
 	public void setCompanyTrainingDAO(CompanyTrainingDAO companyTrainingDAO){
- 	
+
  		if(companyTrainingDAO == null){
  			throw new IllegalStateException("Do not try to set companyTrainingDAO to null.");
  		}
@@ -463,9 +464,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.companyTrainingDAO == null){
  			throw new IllegalStateException("The companyTrainingDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.companyTrainingDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -519,168 +521,168 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		newRetailStoreCountryCenter.setVersion(0);
 		
 		
- 		
+
  		if(isSaveCatalogListEnabled(options)){
  			for(Catalog item: newRetailStoreCountryCenter.getCatalogList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreProvinceCenterListEnabled(options)){
  			for(RetailStoreProvinceCenter item: newRetailStoreCountryCenter.getRetailStoreProvinceCenterList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreListEnabled(options)){
  			for(RetailStore item: newRetailStoreCountryCenter.getRetailStoreList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreMemberListEnabled(options)){
  			for(RetailStoreMember item: newRetailStoreCountryCenter.getRetailStoreMemberList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveGoodsSupplierListEnabled(options)){
  			for(GoodsSupplier item: newRetailStoreCountryCenter.getGoodsSupplierList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSupplyOrderListEnabled(options)){
  			for(SupplyOrder item: newRetailStoreCountryCenter.getSupplyOrderList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreOrderListEnabled(options)){
  			for(RetailStoreOrder item: newRetailStoreCountryCenter.getRetailStoreOrderList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveWarehouseListEnabled(options)){
  			for(Warehouse item: newRetailStoreCountryCenter.getWarehouseList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveTransportFleetListEnabled(options)){
  			for(TransportFleet item: newRetailStoreCountryCenter.getTransportFleetList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveAccountSetListEnabled(options)){
  			for(AccountSet item: newRetailStoreCountryCenter.getAccountSetList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveLevelOneDepartmentListEnabled(options)){
  			for(LevelOneDepartment item: newRetailStoreCountryCenter.getLevelOneDepartmentList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSkillTypeListEnabled(options)){
  			for(SkillType item: newRetailStoreCountryCenter.getSkillTypeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveResponsibilityTypeListEnabled(options)){
  			for(ResponsibilityType item: newRetailStoreCountryCenter.getResponsibilityTypeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveTerminationReasonListEnabled(options)){
  			for(TerminationReason item: newRetailStoreCountryCenter.getTerminationReasonList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveTerminationTypeListEnabled(options)){
  			for(TerminationType item: newRetailStoreCountryCenter.getTerminationTypeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveOccupationTypeListEnabled(options)){
  			for(OccupationType item: newRetailStoreCountryCenter.getOccupationTypeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveLeaveTypeListEnabled(options)){
  			for(LeaveType item: newRetailStoreCountryCenter.getLeaveTypeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSalaryGradeListEnabled(options)){
  			for(SalaryGrade item: newRetailStoreCountryCenter.getSalaryGradeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveInterviewTypeListEnabled(options)){
  			for(InterviewType item: newRetailStoreCountryCenter.getInterviewTypeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveTrainingCourseTypeListEnabled(options)){
  			for(TrainingCourseType item: newRetailStoreCountryCenter.getTrainingCourseTypeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSavePublicHolidayListEnabled(options)){
  			for(PublicHoliday item: newRetailStoreCountryCenter.getPublicHolidayList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveEmployeeListEnabled(options)){
  			for(Employee item: newRetailStoreCountryCenter.getEmployeeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveInstructorListEnabled(options)){
  			for(Instructor item: newRetailStoreCountryCenter.getInstructorList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveCompanyTrainingListEnabled(options)){
  			for(CompanyTraining item: newRetailStoreCountryCenter.getCompanyTrainingList()){
  				item.setVersion(0);
@@ -767,352 +769,352 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreCountryCenterTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
 		
-	
-	protected boolean isExtractCatalogListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractCatalogListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.CATALOG_LIST);
  	}
- 	protected boolean isAnalyzeCatalogListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeCatalogListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeCatalogListEnabled();
  	}
-	
+
 	protected boolean isSaveCatalogListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.CATALOG_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreProvinceCenterListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreProvinceCenterListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreProvinceCenterListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreProvinceCenterListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreProvinceCenterListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreProvinceCenterListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreMemberListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreMemberListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreMemberListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreMemberListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreMemberListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractGoodsSupplierListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsSupplierListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST);
  	}
- 	protected boolean isAnalyzeGoodsSupplierListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsSupplierListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeGoodsSupplierListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsSupplierListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeSupplyOrderListEnabled();
  	}
-	
+
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreOrderListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractWarehouseListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractWarehouseListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.WAREHOUSE_LIST);
  	}
- 	protected boolean isAnalyzeWarehouseListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeWarehouseListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeWarehouseListEnabled();
  	}
-	
+
 	protected boolean isSaveWarehouseListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.WAREHOUSE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractTransportFleetListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTransportFleetListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST);
  	}
- 	protected boolean isAnalyzeTransportFleetListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTransportFleetListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeTransportFleetListEnabled();
  	}
-	
+
 	protected boolean isSaveTransportFleetListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractAccountSetListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractAccountSetListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST);
  	}
- 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeAccountSetListEnabled();
  	}
-	
+
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractLevelOneDepartmentListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractLevelOneDepartmentListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST);
  	}
- 	protected boolean isAnalyzeLevelOneDepartmentListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeLevelOneDepartmentListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeLevelOneDepartmentListEnabled();
  	}
-	
+
 	protected boolean isSaveLevelOneDepartmentListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSkillTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSkillTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.SKILL_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeSkillTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSkillTypeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeSkillTypeListEnabled();
  	}
-	
+
 	protected boolean isSaveSkillTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.SKILL_TYPE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractResponsibilityTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractResponsibilityTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeResponsibilityTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeResponsibilityTypeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeResponsibilityTypeListEnabled();
  	}
-	
+
 	protected boolean isSaveResponsibilityTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractTerminationReasonListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTerminationReasonListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST);
  	}
- 	protected boolean isAnalyzeTerminationReasonListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTerminationReasonListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeTerminationReasonListEnabled();
  	}
-	
+
 	protected boolean isSaveTerminationReasonListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractTerminationTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTerminationTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeTerminationTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTerminationTypeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeTerminationTypeListEnabled();
  	}
-	
+
 	protected boolean isSaveTerminationTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractOccupationTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractOccupationTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeOccupationTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeOccupationTypeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeOccupationTypeListEnabled();
  	}
-	
+
 	protected boolean isSaveOccupationTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractLeaveTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractLeaveTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeLeaveTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeLeaveTypeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeLeaveTypeListEnabled();
  	}
-	
+
 	protected boolean isSaveLeaveTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSalaryGradeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSalaryGradeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.SALARY_GRADE_LIST);
  	}
- 	protected boolean isAnalyzeSalaryGradeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSalaryGradeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeSalaryGradeListEnabled();
  	}
-	
+
 	protected boolean isSaveSalaryGradeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.SALARY_GRADE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractInterviewTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractInterviewTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeInterviewTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeInterviewTypeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeInterviewTypeListEnabled();
  	}
-	
+
 	protected boolean isSaveInterviewTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractTrainingCourseTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTrainingCourseTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeTrainingCourseTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTrainingCourseTypeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeTrainingCourseTypeListEnabled();
  	}
-	
+
 	protected boolean isSaveTrainingCourseTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractPublicHolidayListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPublicHolidayListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST);
  	}
- 	protected boolean isAnalyzePublicHolidayListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePublicHolidayListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzePublicHolidayListEnabled();
  	}
-	
+
 	protected boolean isSavePublicHolidayListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeEmployeeListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.EMPLOYEE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractInstructorListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractInstructorListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.INSTRUCTOR_LIST);
  	}
- 	protected boolean isAnalyzeInstructorListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeInstructorListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeInstructorListEnabled();
  	}
-	
+
 	protected boolean isSaveInstructorListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.INSTRUCTOR_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){
  		return RetailStoreCountryCenterTokens.of(options).analyzeCompanyTrainingListEnabled();
  	}
-	
+
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -1121,8 +1123,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		return new RetailStoreCountryCenterMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreCountryCenter extractRetailStoreCountryCenter(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreCountryCenter retailStoreCountryCenter = loadSingleObject(accessKey, getRetailStoreCountryCenterMapper());
@@ -1133,18 +1135,18 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreCountryCenter loadInternalRetailStoreCountryCenter(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreCountryCenter retailStoreCountryCenter = extractRetailStoreCountryCenter(accessKey, loadOptions);
 
 		
 		if(isExtractCatalogListEnabled(loadOptions)){
 	 		extractCatalogList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeCatalogListEnabled(loadOptions)){
 	 		analyzeCatalogList(retailStoreCountryCenter, loadOptions);
@@ -1153,8 +1155,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractRetailStoreProvinceCenterListEnabled(loadOptions)){
 	 		extractRetailStoreProvinceCenterList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreProvinceCenterListEnabled(loadOptions)){
 	 		analyzeRetailStoreProvinceCenterList(retailStoreCountryCenter, loadOptions);
@@ -1163,8 +1165,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
 	 		analyzeRetailStoreList(retailStoreCountryCenter, loadOptions);
@@ -1173,8 +1175,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractRetailStoreMemberListEnabled(loadOptions)){
 	 		extractRetailStoreMemberList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreMemberListEnabled(loadOptions)){
 	 		analyzeRetailStoreMemberList(retailStoreCountryCenter, loadOptions);
@@ -1183,8 +1185,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractGoodsSupplierListEnabled(loadOptions)){
 	 		extractGoodsSupplierList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsSupplierListEnabled(loadOptions)){
 	 		analyzeGoodsSupplierList(retailStoreCountryCenter, loadOptions);
@@ -1193,8 +1195,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractSupplyOrderListEnabled(loadOptions)){
 	 		extractSupplyOrderList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
 	 		analyzeSupplyOrderList(retailStoreCountryCenter, loadOptions);
@@ -1203,8 +1205,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractRetailStoreOrderListEnabled(loadOptions)){
 	 		extractRetailStoreOrderList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
 	 		analyzeRetailStoreOrderList(retailStoreCountryCenter, loadOptions);
@@ -1213,8 +1215,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractWarehouseListEnabled(loadOptions)){
 	 		extractWarehouseList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeWarehouseListEnabled(loadOptions)){
 	 		analyzeWarehouseList(retailStoreCountryCenter, loadOptions);
@@ -1223,8 +1225,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractTransportFleetListEnabled(loadOptions)){
 	 		extractTransportFleetList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeTransportFleetListEnabled(loadOptions)){
 	 		analyzeTransportFleetList(retailStoreCountryCenter, loadOptions);
@@ -1233,8 +1235,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractAccountSetListEnabled(loadOptions)){
 	 		extractAccountSetList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeAccountSetListEnabled(loadOptions)){
 	 		analyzeAccountSetList(retailStoreCountryCenter, loadOptions);
@@ -1243,8 +1245,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractLevelOneDepartmentListEnabled(loadOptions)){
 	 		extractLevelOneDepartmentList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeLevelOneDepartmentListEnabled(loadOptions)){
 	 		analyzeLevelOneDepartmentList(retailStoreCountryCenter, loadOptions);
@@ -1253,68 +1255,68 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractSkillTypeListEnabled(loadOptions)){
 	 		extractSkillTypeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractResponsibilityTypeListEnabled(loadOptions)){
 	 		extractResponsibilityTypeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractTerminationReasonListEnabled(loadOptions)){
 	 		extractTerminationReasonList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractTerminationTypeListEnabled(loadOptions)){
 	 		extractTerminationTypeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractOccupationTypeListEnabled(loadOptions)){
 	 		extractOccupationTypeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractLeaveTypeListEnabled(loadOptions)){
 	 		extractLeaveTypeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractSalaryGradeListEnabled(loadOptions)){
 	 		extractSalaryGradeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractInterviewTypeListEnabled(loadOptions)){
 	 		extractInterviewTypeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractTrainingCourseTypeListEnabled(loadOptions)){
 	 		extractTrainingCourseTypeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractPublicHolidayListEnabled(loadOptions)){
 	 		extractPublicHolidayList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
 	 		analyzeEmployeeList(retailStoreCountryCenter, loadOptions);
@@ -1323,8 +1325,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractInstructorListEnabled(loadOptions)){
 	 		extractInstructorList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeInstructorListEnabled(loadOptions)){
 	 		analyzeInstructorList(retailStoreCountryCenter, loadOptions);
@@ -1333,8 +1335,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 		if(isExtractCompanyTrainingListEnabled(loadOptions)){
 	 		extractCompanyTrainingList(retailStoreCountryCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeCompanyTrainingListEnabled(loadOptions)){
 	 		analyzeCompanyTrainingList(retailStoreCountryCenter, loadOptions);
@@ -1342,7 +1344,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  		
 		
 		return retailStoreCountryCenter;
-		
+
 	}
 
 	
@@ -1351,10 +1353,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractCatalogList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1362,21 +1364,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Catalog> catalogList = getCatalogDAO().findCatalogByOwner(retailStoreCountryCenter.getId(),options);
 		if(catalogList != null){
 			enhanceCatalogList(catalogList,options);
 			retailStoreCountryCenter.setCatalogList(catalogList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeCatalogList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1384,27 +1385,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Catalog> catalogList = retailStoreCountryCenter.getCatalogList();
 		if(catalogList != null){
 			getCatalogDAO().analyzeCatalogByOwner(catalogList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreProvinceCenterList(SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractRetailStoreProvinceCenterList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1412,21 +1413,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = getRetailStoreProvinceCenterDAO().findRetailStoreProvinceCenterByCountry(retailStoreCountryCenter.getId(),options);
 		if(retailStoreProvinceCenterList != null){
 			enhanceRetailStoreProvinceCenterList(retailStoreProvinceCenterList,options);
 			retailStoreCountryCenter.setRetailStoreProvinceCenterList(retailStoreProvinceCenterList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeRetailStoreProvinceCenterList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1434,27 +1434,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = retailStoreCountryCenter.getRetailStoreProvinceCenterList();
 		if(retailStoreProvinceCenterList != null){
 			getRetailStoreProvinceCenterDAO().analyzeRetailStoreProvinceCenterByCountry(retailStoreProvinceCenterList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractRetailStoreList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1462,21 +1462,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStore> retailStoreList = getRetailStoreDAO().findRetailStoreByRetailStoreCountryCenter(retailStoreCountryCenter.getId(),options);
 		if(retailStoreList != null){
 			enhanceRetailStoreList(retailStoreList,options);
 			retailStoreCountryCenter.setRetailStoreList(retailStoreList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeRetailStoreList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1484,27 +1483,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 		if(retailStoreList != null){
 			getRetailStoreDAO().analyzeRetailStoreByRetailStoreCountryCenter(retailStoreList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreMemberList(SmartList<RetailStoreMember> retailStoreMemberList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractRetailStoreMemberList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1512,21 +1511,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMember> retailStoreMemberList = getRetailStoreMemberDAO().findRetailStoreMemberByOwner(retailStoreCountryCenter.getId(),options);
 		if(retailStoreMemberList != null){
 			enhanceRetailStoreMemberList(retailStoreMemberList,options);
 			retailStoreCountryCenter.setRetailStoreMemberList(retailStoreMemberList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeRetailStoreMemberList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1534,27 +1532,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMember> retailStoreMemberList = retailStoreCountryCenter.getRetailStoreMemberList();
 		if(retailStoreMemberList != null){
 			getRetailStoreMemberDAO().analyzeRetailStoreMemberByOwner(retailStoreMemberList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceGoodsSupplierList(SmartList<GoodsSupplier> goodsSupplierList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractGoodsSupplierList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1562,21 +1560,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<GoodsSupplier> goodsSupplierList = getGoodsSupplierDAO().findGoodsSupplierByBelongTo(retailStoreCountryCenter.getId(),options);
 		if(goodsSupplierList != null){
 			enhanceGoodsSupplierList(goodsSupplierList,options);
 			retailStoreCountryCenter.setGoodsSupplierList(goodsSupplierList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeGoodsSupplierList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1584,27 +1581,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<GoodsSupplier> goodsSupplierList = retailStoreCountryCenter.getGoodsSupplierList();
 		if(goodsSupplierList != null){
 			getGoodsSupplierDAO().analyzeGoodsSupplierByBelongTo(goodsSupplierList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSupplyOrderList(SmartList<SupplyOrder> supplyOrderList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractSupplyOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1612,21 +1609,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrder> supplyOrderList = getSupplyOrderDAO().findSupplyOrderByBuyer(retailStoreCountryCenter.getId(),options);
 		if(supplyOrderList != null){
 			enhanceSupplyOrderList(supplyOrderList,options);
 			retailStoreCountryCenter.setSupplyOrderList(supplyOrderList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeSupplyOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1634,27 +1630,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();
 		if(supplyOrderList != null){
 			getSupplyOrderDAO().analyzeSupplyOrderByBuyer(supplyOrderList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractRetailStoreOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1662,21 +1658,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrder> retailStoreOrderList = getRetailStoreOrderDAO().findRetailStoreOrderBySeller(retailStoreCountryCenter.getId(),options);
 		if(retailStoreOrderList != null){
 			enhanceRetailStoreOrderList(retailStoreOrderList,options);
 			retailStoreCountryCenter.setRetailStoreOrderList(retailStoreOrderList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeRetailStoreOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1684,27 +1679,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();
 		if(retailStoreOrderList != null){
 			getRetailStoreOrderDAO().analyzeRetailStoreOrderBySeller(retailStoreOrderList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceWarehouseList(SmartList<Warehouse> warehouseList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractWarehouseList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1712,21 +1707,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Warehouse> warehouseList = getWarehouseDAO().findWarehouseByOwner(retailStoreCountryCenter.getId(),options);
 		if(warehouseList != null){
 			enhanceWarehouseList(warehouseList,options);
 			retailStoreCountryCenter.setWarehouseList(warehouseList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeWarehouseList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1734,27 +1728,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Warehouse> warehouseList = retailStoreCountryCenter.getWarehouseList();
 		if(warehouseList != null){
 			getWarehouseDAO().analyzeWarehouseByOwner(warehouseList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceTransportFleetList(SmartList<TransportFleet> transportFleetList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractTransportFleetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1762,21 +1756,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TransportFleet> transportFleetList = getTransportFleetDAO().findTransportFleetByOwner(retailStoreCountryCenter.getId(),options);
 		if(transportFleetList != null){
 			enhanceTransportFleetList(transportFleetList,options);
 			retailStoreCountryCenter.setTransportFleetList(transportFleetList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeTransportFleetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1784,27 +1777,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TransportFleet> transportFleetList = retailStoreCountryCenter.getTransportFleetList();
 		if(transportFleetList != null){
 			getTransportFleetDAO().analyzeTransportFleetByOwner(transportFleetList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceAccountSetList(SmartList<AccountSet> accountSetList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractAccountSetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1812,21 +1805,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<AccountSet> accountSetList = getAccountSetDAO().findAccountSetByCountryCenter(retailStoreCountryCenter.getId(),options);
 		if(accountSetList != null){
 			enhanceAccountSetList(accountSetList,options);
 			retailStoreCountryCenter.setAccountSetList(accountSetList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeAccountSetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1834,27 +1826,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();
 		if(accountSetList != null){
 			getAccountSetDAO().analyzeAccountSetByCountryCenter(accountSetList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceLevelOneDepartmentList(SmartList<LevelOneDepartment> levelOneDepartmentList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractLevelOneDepartmentList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1862,21 +1854,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<LevelOneDepartment> levelOneDepartmentList = getLevelOneDepartmentDAO().findLevelOneDepartmentByBelongsTo(retailStoreCountryCenter.getId(),options);
 		if(levelOneDepartmentList != null){
 			enhanceLevelOneDepartmentList(levelOneDepartmentList,options);
 			retailStoreCountryCenter.setLevelOneDepartmentList(levelOneDepartmentList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeLevelOneDepartmentList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1884,27 +1875,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<LevelOneDepartment> levelOneDepartmentList = retailStoreCountryCenter.getLevelOneDepartmentList();
 		if(levelOneDepartmentList != null){
 			getLevelOneDepartmentDAO().analyzeLevelOneDepartmentByBelongsTo(levelOneDepartmentList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSkillTypeList(SmartList<SkillType> skillTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractSkillTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1912,21 +1903,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<SkillType> skillTypeList = getSkillTypeDAO().findSkillTypeByCompany(retailStoreCountryCenter.getId(),options);
 		if(skillTypeList != null){
 			enhanceSkillTypeList(skillTypeList,options);
 			retailStoreCountryCenter.setSkillTypeList(skillTypeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeSkillTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1934,27 +1924,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<SkillType> skillTypeList = retailStoreCountryCenter.getSkillTypeList();
 		if(skillTypeList != null){
 			getSkillTypeDAO().analyzeSkillTypeByCompany(skillTypeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceResponsibilityTypeList(SmartList<ResponsibilityType> responsibilityTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractResponsibilityTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1962,21 +1952,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<ResponsibilityType> responsibilityTypeList = getResponsibilityTypeDAO().findResponsibilityTypeByCompany(retailStoreCountryCenter.getId(),options);
 		if(responsibilityTypeList != null){
 			enhanceResponsibilityTypeList(responsibilityTypeList,options);
 			retailStoreCountryCenter.setResponsibilityTypeList(responsibilityTypeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeResponsibilityTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -1984,27 +1973,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<ResponsibilityType> responsibilityTypeList = retailStoreCountryCenter.getResponsibilityTypeList();
 		if(responsibilityTypeList != null){
 			getResponsibilityTypeDAO().analyzeResponsibilityTypeByCompany(responsibilityTypeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceTerminationReasonList(SmartList<TerminationReason> terminationReasonList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractTerminationReasonList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2012,21 +2001,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TerminationReason> terminationReasonList = getTerminationReasonDAO().findTerminationReasonByCompany(retailStoreCountryCenter.getId(),options);
 		if(terminationReasonList != null){
 			enhanceTerminationReasonList(terminationReasonList,options);
 			retailStoreCountryCenter.setTerminationReasonList(terminationReasonList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeTerminationReasonList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2034,27 +2022,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TerminationReason> terminationReasonList = retailStoreCountryCenter.getTerminationReasonList();
 		if(terminationReasonList != null){
 			getTerminationReasonDAO().analyzeTerminationReasonByCompany(terminationReasonList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceTerminationTypeList(SmartList<TerminationType> terminationTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractTerminationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2062,21 +2050,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TerminationType> terminationTypeList = getTerminationTypeDAO().findTerminationTypeByCompany(retailStoreCountryCenter.getId(),options);
 		if(terminationTypeList != null){
 			enhanceTerminationTypeList(terminationTypeList,options);
 			retailStoreCountryCenter.setTerminationTypeList(terminationTypeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeTerminationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2084,27 +2071,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TerminationType> terminationTypeList = retailStoreCountryCenter.getTerminationTypeList();
 		if(terminationTypeList != null){
 			getTerminationTypeDAO().analyzeTerminationTypeByCompany(terminationTypeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceOccupationTypeList(SmartList<OccupationType> occupationTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractOccupationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2112,21 +2099,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<OccupationType> occupationTypeList = getOccupationTypeDAO().findOccupationTypeByCompany(retailStoreCountryCenter.getId(),options);
 		if(occupationTypeList != null){
 			enhanceOccupationTypeList(occupationTypeList,options);
 			retailStoreCountryCenter.setOccupationTypeList(occupationTypeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeOccupationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2134,27 +2120,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<OccupationType> occupationTypeList = retailStoreCountryCenter.getOccupationTypeList();
 		if(occupationTypeList != null){
 			getOccupationTypeDAO().analyzeOccupationTypeByCompany(occupationTypeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceLeaveTypeList(SmartList<LeaveType> leaveTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractLeaveTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2162,21 +2148,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<LeaveType> leaveTypeList = getLeaveTypeDAO().findLeaveTypeByCompany(retailStoreCountryCenter.getId(),options);
 		if(leaveTypeList != null){
 			enhanceLeaveTypeList(leaveTypeList,options);
 			retailStoreCountryCenter.setLeaveTypeList(leaveTypeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeLeaveTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2184,27 +2169,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<LeaveType> leaveTypeList = retailStoreCountryCenter.getLeaveTypeList();
 		if(leaveTypeList != null){
 			getLeaveTypeDAO().analyzeLeaveTypeByCompany(leaveTypeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSalaryGradeList(SmartList<SalaryGrade> salaryGradeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractSalaryGradeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2212,21 +2197,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<SalaryGrade> salaryGradeList = getSalaryGradeDAO().findSalaryGradeByCompany(retailStoreCountryCenter.getId(),options);
 		if(salaryGradeList != null){
 			enhanceSalaryGradeList(salaryGradeList,options);
 			retailStoreCountryCenter.setSalaryGradeList(salaryGradeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeSalaryGradeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2234,27 +2218,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<SalaryGrade> salaryGradeList = retailStoreCountryCenter.getSalaryGradeList();
 		if(salaryGradeList != null){
 			getSalaryGradeDAO().analyzeSalaryGradeByCompany(salaryGradeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceInterviewTypeList(SmartList<InterviewType> interviewTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractInterviewTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2262,21 +2246,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<InterviewType> interviewTypeList = getInterviewTypeDAO().findInterviewTypeByCompany(retailStoreCountryCenter.getId(),options);
 		if(interviewTypeList != null){
 			enhanceInterviewTypeList(interviewTypeList,options);
 			retailStoreCountryCenter.setInterviewTypeList(interviewTypeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeInterviewTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2284,27 +2267,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<InterviewType> interviewTypeList = retailStoreCountryCenter.getInterviewTypeList();
 		if(interviewTypeList != null){
 			getInterviewTypeDAO().analyzeInterviewTypeByCompany(interviewTypeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceTrainingCourseTypeList(SmartList<TrainingCourseType> trainingCourseTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractTrainingCourseTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2312,21 +2295,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TrainingCourseType> trainingCourseTypeList = getTrainingCourseTypeDAO().findTrainingCourseTypeByCompany(retailStoreCountryCenter.getId(),options);
 		if(trainingCourseTypeList != null){
 			enhanceTrainingCourseTypeList(trainingCourseTypeList,options);
 			retailStoreCountryCenter.setTrainingCourseTypeList(trainingCourseTypeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeTrainingCourseTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2334,27 +2316,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<TrainingCourseType> trainingCourseTypeList = retailStoreCountryCenter.getTrainingCourseTypeList();
 		if(trainingCourseTypeList != null){
 			getTrainingCourseTypeDAO().analyzeTrainingCourseTypeByCompany(trainingCourseTypeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhancePublicHolidayList(SmartList<PublicHoliday> publicHolidayList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractPublicHolidayList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2362,21 +2344,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<PublicHoliday> publicHolidayList = getPublicHolidayDAO().findPublicHolidayByCompany(retailStoreCountryCenter.getId(),options);
 		if(publicHolidayList != null){
 			enhancePublicHolidayList(publicHolidayList,options);
 			retailStoreCountryCenter.setPublicHolidayList(publicHolidayList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzePublicHolidayList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2384,27 +2365,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<PublicHoliday> publicHolidayList = retailStoreCountryCenter.getPublicHolidayList();
 		if(publicHolidayList != null){
 			getPublicHolidayDAO().analyzePublicHolidayByCompany(publicHolidayList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractEmployeeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2412,21 +2393,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Employee> employeeList = getEmployeeDAO().findEmployeeByCompany(retailStoreCountryCenter.getId(),options);
 		if(employeeList != null){
 			enhanceEmployeeList(employeeList,options);
 			retailStoreCountryCenter.setEmployeeList(employeeList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeEmployeeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2434,27 +2414,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 		if(employeeList != null){
 			getEmployeeDAO().analyzeEmployeeByCompany(employeeList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceInstructorList(SmartList<Instructor> instructorList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractInstructorList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2462,21 +2442,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Instructor> instructorList = getInstructorDAO().findInstructorByCompany(retailStoreCountryCenter.getId(),options);
 		if(instructorList != null){
 			enhanceInstructorList(instructorList,options);
 			retailStoreCountryCenter.setInstructorList(instructorList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeInstructorList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2484,27 +2463,27 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<Instructor> instructorList = retailStoreCountryCenter.getInstructorList();
 		if(instructorList != null){
 			getInstructorDAO().analyzeInstructorByCompany(instructorList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCountryCenter extractCompanyTrainingList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2512,21 +2491,20 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<CompanyTraining> companyTrainingList = getCompanyTrainingDAO().findCompanyTrainingByCompany(retailStoreCountryCenter.getId(),options);
 		if(companyTrainingList != null){
 			enhanceCompanyTrainingList(companyTrainingList,options);
 			retailStoreCountryCenter.setCompanyTrainingList(companyTrainingList);
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCountryCenter analyzeCompanyTrainingList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCountryCenter == null){
 			return null;
 		}
@@ -2534,34 +2512,37 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 			return retailStoreCountryCenter;
 		}
 
-		
-		
+
+
 		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();
 		if(companyTrainingList != null){
 			getCompanyTrainingDAO().analyzeCompanyTrainingByCompany(companyTrainingList, retailStoreCountryCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCountryCenter;
-	
-	}	
-	
+    
+	}
+
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreCountryCenter saveRetailStoreCountryCenter(RetailStoreCountryCenter  retailStoreCountryCenter){
+    
+
 		
 		if(!retailStoreCountryCenter.isChanged()){
 			return retailStoreCountryCenter;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreCountryCenter);
 		String SQL=this.getSaveRetailStoreCountryCenterSQL(retailStoreCountryCenter);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreCountryCenterParameters(retailStoreCountryCenter);
@@ -2572,6 +2553,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		retailStoreCountryCenter.incVersion();
+		retailStoreCountryCenter.afterSave();
 		return retailStoreCountryCenter;
 
 	}
@@ -2589,6 +2571,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		for(RetailStoreCountryCenter retailStoreCountryCenter:retailStoreCountryCenterList){
 			if(retailStoreCountryCenter.isChanged()){
 				retailStoreCountryCenter.incVersion();
+				retailStoreCountryCenter.afterSave();
 			}
 
 
@@ -2692,27 +2675,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
  	protected Object[] prepareRetailStoreCountryCenterUpdateParameters(RetailStoreCountryCenter retailStoreCountryCenter){
  		Object[] parameters = new Object[11];
  
- 		
  		parameters[0] = retailStoreCountryCenter.getName();
- 		
  		
  		parameters[1] = retailStoreCountryCenter.getServiceNumber();
  		
- 		
  		parameters[2] = retailStoreCountryCenter.getFounded();
- 		
  		
  		parameters[3] = retailStoreCountryCenter.getWebSite();
  		
- 		
  		parameters[4] = retailStoreCountryCenter.getAddress();
- 		
  		
  		parameters[5] = retailStoreCountryCenter.getOperatedBy();
  		
- 		
  		parameters[6] = retailStoreCountryCenter.getLegalRepresentative();
- 		
  		
  		parameters[7] = retailStoreCountryCenter.getDescription();
  		
@@ -2730,27 +2705,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
         }
 		parameters[0] =  retailStoreCountryCenter.getId();
  
- 		
  		parameters[1] = retailStoreCountryCenter.getName();
- 		
  		
  		parameters[2] = retailStoreCountryCenter.getServiceNumber();
  		
- 		
  		parameters[3] = retailStoreCountryCenter.getFounded();
- 		
  		
  		parameters[4] = retailStoreCountryCenter.getWebSite();
  		
- 		
  		parameters[5] = retailStoreCountryCenter.getAddress();
- 		
  		
  		parameters[6] = retailStoreCountryCenter.getOperatedBy();
  		
- 		
  		parameters[7] = retailStoreCountryCenter.getLegalRepresentative();
- 		
  		
  		parameters[8] = retailStoreCountryCenter.getDescription();
  		
@@ -2760,8 +2727,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected RetailStoreCountryCenter saveInternalRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
 
-		saveRetailStoreCountryCenter(retailStoreCountryCenter);
-
+   saveRetailStoreCountryCenter(retailStoreCountryCenter);
 		
 		if(isSaveCatalogListEnabled(options)){
 	 		saveCatalogList(retailStoreCountryCenter, options);
@@ -4364,7 +4330,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveCatalogList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4430,7 +4396,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveRetailStoreProvinceCenterList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4496,7 +4462,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveRetailStoreList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4562,7 +4528,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveRetailStoreMemberList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4628,7 +4594,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveGoodsSupplierList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4694,7 +4660,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveSupplyOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4760,7 +4726,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveRetailStoreOrderList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4826,7 +4792,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveWarehouseList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4892,7 +4858,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveTransportFleetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -4958,7 +4924,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveAccountSetList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5024,7 +4990,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveLevelOneDepartmentList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5090,7 +5056,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveSkillTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5156,7 +5122,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveResponsibilityTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5222,7 +5188,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveTerminationReasonList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5288,7 +5254,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveTerminationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5354,7 +5320,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveOccupationTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5420,7 +5386,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveLeaveTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5486,7 +5452,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveSalaryGradeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5552,7 +5518,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveInterviewTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5618,7 +5584,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveTrainingCourseTypeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5684,7 +5650,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter savePublicHolidayList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5750,7 +5716,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveEmployeeList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5816,7 +5782,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveInstructorList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5882,7 +5848,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 		
 	protected RetailStoreCountryCenter saveCompanyTrainingList(RetailStoreCountryCenter retailStoreCountryCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -5949,7 +5915,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 
 	public RetailStoreCountryCenter present(RetailStoreCountryCenter retailStoreCountryCenter,Map<String, Object> options){
-	
+
 		presentCatalogList(retailStoreCountryCenter,options);
 		presentRetailStoreProvinceCenterList(retailStoreCountryCenter,options);
 		presentRetailStoreList(retailStoreCountryCenter,options);
@@ -5976,15 +5942,15 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		presentCompanyTrainingList(retailStoreCountryCenter,options);
 
 		return retailStoreCountryCenter;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentCatalogList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<Catalog> catalogList = retailStoreCountryCenter.getCatalogList();		
+    
+		SmartList<Catalog> catalogList = retailStoreCountryCenter.getCatalogList();
 				SmartList<Catalog> newList= presentSubList(retailStoreCountryCenter.getId(),
 				catalogList,
 				options,
@@ -5992,19 +5958,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getCatalogDAO()::findCatalogByOwner
 				);
 
-		
+
 		retailStoreCountryCenter.setCatalogList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentRetailStoreProvinceCenterList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = retailStoreCountryCenter.getRetailStoreProvinceCenterList();		
+    
+		SmartList<RetailStoreProvinceCenter> retailStoreProvinceCenterList = retailStoreCountryCenter.getRetailStoreProvinceCenterList();
 				SmartList<RetailStoreProvinceCenter> newList= presentSubList(retailStoreCountryCenter.getId(),
 				retailStoreProvinceCenterList,
 				options,
@@ -6012,19 +5978,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getRetailStoreProvinceCenterDAO()::findRetailStoreProvinceCenterByCountry
 				);
 
-		
+
 		retailStoreCountryCenter.setRetailStoreProvinceCenterList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentRetailStoreList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();		
+    
+		SmartList<RetailStore> retailStoreList = retailStoreCountryCenter.getRetailStoreList();
 				SmartList<RetailStore> newList= presentSubList(retailStoreCountryCenter.getId(),
 				retailStoreList,
 				options,
@@ -6032,19 +5998,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getRetailStoreDAO()::findRetailStoreByRetailStoreCountryCenter
 				);
 
-		
+
 		retailStoreCountryCenter.setRetailStoreList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentRetailStoreMemberList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreMember> retailStoreMemberList = retailStoreCountryCenter.getRetailStoreMemberList();		
+    
+		SmartList<RetailStoreMember> retailStoreMemberList = retailStoreCountryCenter.getRetailStoreMemberList();
 				SmartList<RetailStoreMember> newList= presentSubList(retailStoreCountryCenter.getId(),
 				retailStoreMemberList,
 				options,
@@ -6052,19 +6018,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getRetailStoreMemberDAO()::findRetailStoreMemberByOwner
 				);
 
-		
+
 		retailStoreCountryCenter.setRetailStoreMemberList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentGoodsSupplierList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<GoodsSupplier> goodsSupplierList = retailStoreCountryCenter.getGoodsSupplierList();		
+    
+		SmartList<GoodsSupplier> goodsSupplierList = retailStoreCountryCenter.getGoodsSupplierList();
 				SmartList<GoodsSupplier> newList= presentSubList(retailStoreCountryCenter.getId(),
 				goodsSupplierList,
 				options,
@@ -6072,19 +6038,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getGoodsSupplierDAO()::findGoodsSupplierByBelongTo
 				);
 
-		
+
 		retailStoreCountryCenter.setGoodsSupplierList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentSupplyOrderList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();		
+    
+		SmartList<SupplyOrder> supplyOrderList = retailStoreCountryCenter.getSupplyOrderList();
 				SmartList<SupplyOrder> newList= presentSubList(retailStoreCountryCenter.getId(),
 				supplyOrderList,
 				options,
@@ -6092,19 +6058,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getSupplyOrderDAO()::findSupplyOrderByBuyer
 				);
 
-		
+
 		retailStoreCountryCenter.setSupplyOrderList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentRetailStoreOrderList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();		
+    
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreCountryCenter.getRetailStoreOrderList();
 				SmartList<RetailStoreOrder> newList= presentSubList(retailStoreCountryCenter.getId(),
 				retailStoreOrderList,
 				options,
@@ -6112,19 +6078,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getRetailStoreOrderDAO()::findRetailStoreOrderBySeller
 				);
 
-		
+
 		retailStoreCountryCenter.setRetailStoreOrderList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentWarehouseList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<Warehouse> warehouseList = retailStoreCountryCenter.getWarehouseList();		
+    
+		SmartList<Warehouse> warehouseList = retailStoreCountryCenter.getWarehouseList();
 				SmartList<Warehouse> newList= presentSubList(retailStoreCountryCenter.getId(),
 				warehouseList,
 				options,
@@ -6132,19 +6098,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getWarehouseDAO()::findWarehouseByOwner
 				);
 
-		
+
 		retailStoreCountryCenter.setWarehouseList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentTransportFleetList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<TransportFleet> transportFleetList = retailStoreCountryCenter.getTransportFleetList();		
+    
+		SmartList<TransportFleet> transportFleetList = retailStoreCountryCenter.getTransportFleetList();
 				SmartList<TransportFleet> newList= presentSubList(retailStoreCountryCenter.getId(),
 				transportFleetList,
 				options,
@@ -6152,19 +6118,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getTransportFleetDAO()::findTransportFleetByOwner
 				);
 
-		
+
 		retailStoreCountryCenter.setTransportFleetList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentAccountSetList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();		
+    
+		SmartList<AccountSet> accountSetList = retailStoreCountryCenter.getAccountSetList();
 				SmartList<AccountSet> newList= presentSubList(retailStoreCountryCenter.getId(),
 				accountSetList,
 				options,
@@ -6172,19 +6138,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getAccountSetDAO()::findAccountSetByCountryCenter
 				);
 
-		
+
 		retailStoreCountryCenter.setAccountSetList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentLevelOneDepartmentList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<LevelOneDepartment> levelOneDepartmentList = retailStoreCountryCenter.getLevelOneDepartmentList();		
+    
+		SmartList<LevelOneDepartment> levelOneDepartmentList = retailStoreCountryCenter.getLevelOneDepartmentList();
 				SmartList<LevelOneDepartment> newList= presentSubList(retailStoreCountryCenter.getId(),
 				levelOneDepartmentList,
 				options,
@@ -6192,19 +6158,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getLevelOneDepartmentDAO()::findLevelOneDepartmentByBelongsTo
 				);
 
-		
+
 		retailStoreCountryCenter.setLevelOneDepartmentList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentSkillTypeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<SkillType> skillTypeList = retailStoreCountryCenter.getSkillTypeList();		
+    
+		SmartList<SkillType> skillTypeList = retailStoreCountryCenter.getSkillTypeList();
 				SmartList<SkillType> newList= presentSubList(retailStoreCountryCenter.getId(),
 				skillTypeList,
 				options,
@@ -6212,19 +6178,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getSkillTypeDAO()::findSkillTypeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setSkillTypeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentResponsibilityTypeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<ResponsibilityType> responsibilityTypeList = retailStoreCountryCenter.getResponsibilityTypeList();		
+    
+		SmartList<ResponsibilityType> responsibilityTypeList = retailStoreCountryCenter.getResponsibilityTypeList();
 				SmartList<ResponsibilityType> newList= presentSubList(retailStoreCountryCenter.getId(),
 				responsibilityTypeList,
 				options,
@@ -6232,19 +6198,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getResponsibilityTypeDAO()::findResponsibilityTypeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setResponsibilityTypeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentTerminationReasonList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<TerminationReason> terminationReasonList = retailStoreCountryCenter.getTerminationReasonList();		
+    
+		SmartList<TerminationReason> terminationReasonList = retailStoreCountryCenter.getTerminationReasonList();
 				SmartList<TerminationReason> newList= presentSubList(retailStoreCountryCenter.getId(),
 				terminationReasonList,
 				options,
@@ -6252,19 +6218,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getTerminationReasonDAO()::findTerminationReasonByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setTerminationReasonList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentTerminationTypeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<TerminationType> terminationTypeList = retailStoreCountryCenter.getTerminationTypeList();		
+    
+		SmartList<TerminationType> terminationTypeList = retailStoreCountryCenter.getTerminationTypeList();
 				SmartList<TerminationType> newList= presentSubList(retailStoreCountryCenter.getId(),
 				terminationTypeList,
 				options,
@@ -6272,19 +6238,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getTerminationTypeDAO()::findTerminationTypeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setTerminationTypeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentOccupationTypeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<OccupationType> occupationTypeList = retailStoreCountryCenter.getOccupationTypeList();		
+    
+		SmartList<OccupationType> occupationTypeList = retailStoreCountryCenter.getOccupationTypeList();
 				SmartList<OccupationType> newList= presentSubList(retailStoreCountryCenter.getId(),
 				occupationTypeList,
 				options,
@@ -6292,19 +6258,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getOccupationTypeDAO()::findOccupationTypeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setOccupationTypeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentLeaveTypeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<LeaveType> leaveTypeList = retailStoreCountryCenter.getLeaveTypeList();		
+    
+		SmartList<LeaveType> leaveTypeList = retailStoreCountryCenter.getLeaveTypeList();
 				SmartList<LeaveType> newList= presentSubList(retailStoreCountryCenter.getId(),
 				leaveTypeList,
 				options,
@@ -6312,19 +6278,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getLeaveTypeDAO()::findLeaveTypeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setLeaveTypeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentSalaryGradeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<SalaryGrade> salaryGradeList = retailStoreCountryCenter.getSalaryGradeList();		
+    
+		SmartList<SalaryGrade> salaryGradeList = retailStoreCountryCenter.getSalaryGradeList();
 				SmartList<SalaryGrade> newList= presentSubList(retailStoreCountryCenter.getId(),
 				salaryGradeList,
 				options,
@@ -6332,19 +6298,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getSalaryGradeDAO()::findSalaryGradeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setSalaryGradeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentInterviewTypeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<InterviewType> interviewTypeList = retailStoreCountryCenter.getInterviewTypeList();		
+    
+		SmartList<InterviewType> interviewTypeList = retailStoreCountryCenter.getInterviewTypeList();
 				SmartList<InterviewType> newList= presentSubList(retailStoreCountryCenter.getId(),
 				interviewTypeList,
 				options,
@@ -6352,19 +6318,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getInterviewTypeDAO()::findInterviewTypeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setInterviewTypeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentTrainingCourseTypeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<TrainingCourseType> trainingCourseTypeList = retailStoreCountryCenter.getTrainingCourseTypeList();		
+    
+		SmartList<TrainingCourseType> trainingCourseTypeList = retailStoreCountryCenter.getTrainingCourseTypeList();
 				SmartList<TrainingCourseType> newList= presentSubList(retailStoreCountryCenter.getId(),
 				trainingCourseTypeList,
 				options,
@@ -6372,19 +6338,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getTrainingCourseTypeDAO()::findTrainingCourseTypeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setTrainingCourseTypeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentPublicHolidayList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<PublicHoliday> publicHolidayList = retailStoreCountryCenter.getPublicHolidayList();		
+    
+		SmartList<PublicHoliday> publicHolidayList = retailStoreCountryCenter.getPublicHolidayList();
 				SmartList<PublicHoliday> newList= presentSubList(retailStoreCountryCenter.getId(),
 				publicHolidayList,
 				options,
@@ -6392,19 +6358,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getPublicHolidayDAO()::findPublicHolidayByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setPublicHolidayList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentEmployeeList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();		
+    
+		SmartList<Employee> employeeList = retailStoreCountryCenter.getEmployeeList();
 				SmartList<Employee> newList= presentSubList(retailStoreCountryCenter.getId(),
 				employeeList,
 				options,
@@ -6412,19 +6378,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getEmployeeDAO()::findEmployeeByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setEmployeeList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentInstructorList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<Instructor> instructorList = retailStoreCountryCenter.getInstructorList();		
+    
+		SmartList<Instructor> instructorList = retailStoreCountryCenter.getInstructorList();
 				SmartList<Instructor> newList= presentSubList(retailStoreCountryCenter.getId(),
 				instructorList,
 				options,
@@ -6432,19 +6398,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getInstructorDAO()::findInstructorByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setInstructorList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCountryCenter presentCompanyTrainingList(
 			RetailStoreCountryCenter retailStoreCountryCenter,
 			Map<String, Object> options) {
-
-		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();		
+    
+		SmartList<CompanyTraining> companyTrainingList = retailStoreCountryCenter.getCompanyTrainingList();
 				SmartList<CompanyTraining> newList= presentSubList(retailStoreCountryCenter.getId(),
 				companyTrainingList,
 				options,
@@ -6452,12 +6418,12 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 				getCompanyTrainingDAO()::findCompanyTrainingByCompany
 				);
 
-		
+
 		retailStoreCountryCenter.setCompanyTrainingList(newList);
-		
+
 
 		return retailStoreCountryCenter;
-	}			
+	}
 		
 
 	
@@ -6619,6 +6585,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:Catalog的owner的CatalogList
 	public SmartList<Catalog> loadOurCatalogList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6642,6 +6609,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreProvinceCenter的country的RetailStoreProvinceCenterList
 	public SmartList<RetailStoreProvinceCenter> loadOurRetailStoreProvinceCenterList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6665,6 +6633,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的retailStoreCountryCenter的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6688,6 +6657,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreMember的owner的RetailStoreMemberList
 	public SmartList<RetailStoreMember> loadOurRetailStoreMemberList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6711,6 +6681,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:GoodsSupplier的belongTo的GoodsSupplierList
 	public SmartList<GoodsSupplier> loadOurGoodsSupplierList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6734,6 +6705,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:SupplyOrder的buyer的SupplyOrderList
 	public SmartList<SupplyOrder> loadOurSupplyOrderList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6757,6 +6729,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrder的seller的RetailStoreOrderList
 	public SmartList<RetailStoreOrder> loadOurRetailStoreOrderList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6780,6 +6753,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:Warehouse的owner的WarehouseList
 	public SmartList<Warehouse> loadOurWarehouseList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6803,6 +6777,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:TransportFleet的owner的TransportFleetList
 	public SmartList<TransportFleet> loadOurTransportFleetList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6826,6 +6801,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:AccountSet的countryCenter的AccountSetList
 	public SmartList<AccountSet> loadOurAccountSetList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6849,6 +6825,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:LevelOneDepartment的belongsTo的LevelOneDepartmentList
 	public SmartList<LevelOneDepartment> loadOurLevelOneDepartmentList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6872,6 +6849,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:SkillType的company的SkillTypeList
 	public SmartList<SkillType> loadOurSkillTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6895,6 +6873,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:ResponsibilityType的company的ResponsibilityTypeList
 	public SmartList<ResponsibilityType> loadOurResponsibilityTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6918,6 +6897,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:TerminationReason的company的TerminationReasonList
 	public SmartList<TerminationReason> loadOurTerminationReasonList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6941,6 +6921,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:TerminationType的company的TerminationTypeList
 	public SmartList<TerminationType> loadOurTerminationTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6964,6 +6945,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:OccupationType的company的OccupationTypeList
 	public SmartList<OccupationType> loadOurOccupationTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -6987,6 +6969,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:LeaveType的company的LeaveTypeList
 	public SmartList<LeaveType> loadOurLeaveTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7010,6 +6993,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:SalaryGrade的company的SalaryGradeList
 	public SmartList<SalaryGrade> loadOurSalaryGradeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7033,6 +7017,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:InterviewType的company的InterviewTypeList
 	public SmartList<InterviewType> loadOurInterviewTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7056,6 +7041,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:TrainingCourseType的company的TrainingCourseTypeList
 	public SmartList<TrainingCourseType> loadOurTrainingCourseTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7079,6 +7065,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:PublicHoliday的company的PublicHolidayList
 	public SmartList<PublicHoliday> loadOurPublicHolidayList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7102,6 +7089,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:Employee的company的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7125,6 +7113,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:Instructor的company的InstructorList
 	public SmartList<Instructor> loadOurInstructorList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7148,6 +7137,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的company的CompanyTrainingList
 	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -7204,6 +7194,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreCountryCenter> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreCountryCenterMapper());
   }
@@ -7243,13 +7237,13 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -7258,19 +7252,19 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -7278,7 +7272,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -7289,7 +7283,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -7298,27 +7292,36 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<RetailStoreCountryCenter> search(RetailStoreCountryCenterRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreCountryCenterMapper mapper() {
+    return getRetailStoreCountryCenterMapper();
+  }
 }
 
 

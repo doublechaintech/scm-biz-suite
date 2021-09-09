@@ -1,42 +1,27 @@
 
 package com.doublechaintech.retailscm.memberwishlist;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProduct;import com.doublechaintech.retailscm.retailstoremember.CandidateRetailStoreMember;import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProduct;
-import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
-
-import com.doublechaintech.retailscm.retailstoremember.CandidateRetailStoreMember;
-
-import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager implements MemberWishlistManager, BusinessHandler{
@@ -79,6 +64,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws MemberWishlistManagerException{
 
 		Message message = new Message();
@@ -89,134 +75,188 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
 
 
- 	protected MemberWishlist saveMemberWishlist(RetailscmUserContext userContext, MemberWishlist memberWishlist, String [] tokensExpr) throws Exception{	
+ 	protected MemberWishlist saveMemberWishlist(RetailscmUserContext userContext, MemberWishlist memberWishlist, String [] tokensExpr) throws Exception{
  		//return getMemberWishlistDAO().save(memberWishlist, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveMemberWishlist(userContext, memberWishlist, tokens);
  	}
- 	
- 	protected MemberWishlist saveMemberWishlistDetail(RetailscmUserContext userContext, MemberWishlist memberWishlist) throws Exception{	
 
- 		
+ 	protected MemberWishlist saveMemberWishlistDetail(RetailscmUserContext userContext, MemberWishlist memberWishlist) throws Exception{
+
+
  		return saveMemberWishlist(userContext, memberWishlist, allTokens());
  	}
- 	
- 	public MemberWishlist loadMemberWishlist(RetailscmUserContext userContext, String memberWishlistId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public MemberWishlist loadMemberWishlist(RetailscmUserContext userContext, String memberWishlistId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( MemberWishlistManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		MemberWishlist memberWishlist = loadMemberWishlist( userContext, memberWishlistId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,memberWishlist, tokens);
  	}
- 	
- 	
- 	 public MemberWishlist searchMemberWishlist(RetailscmUserContext userContext, String memberWishlistId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public MemberWishlist searchMemberWishlist(RetailscmUserContext userContext, String memberWishlistId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( MemberWishlistManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		MemberWishlist memberWishlist = loadMemberWishlist( userContext, memberWishlistId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,memberWishlist, tokens);
  	}
- 	
- 	
+
+
 
  	protected MemberWishlist present(RetailscmUserContext userContext, MemberWishlist memberWishlist, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,memberWishlist,tokens);
-		
-		
+    
+
 		MemberWishlist  memberWishlistToPresent = memberWishlistDaoOf(userContext).present(memberWishlist, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = memberWishlistToPresent.collectRefercencesFromLists();
 		memberWishlistDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,memberWishlist,tokens);
-		
+
 		return  memberWishlistToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public MemberWishlist loadMemberWishlistDetail(RetailscmUserContext userContext, String memberWishlistId) throws Exception{	
+
+
+
+ 	public MemberWishlist loadMemberWishlistDetail(RetailscmUserContext userContext, String memberWishlistId) throws Exception{
  		MemberWishlist memberWishlist = loadMemberWishlist( userContext, memberWishlistId, allTokens());
  		return present(userContext,memberWishlist, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String memberWishlistId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String memberWishlistId) throws Exception{
  		MemberWishlist memberWishlist = loadMemberWishlist( userContext, memberWishlistId, viewTokens());
- 		return present(userContext,memberWishlist, allTokens());
-		
- 	}
- 	protected MemberWishlist saveMemberWishlist(RetailscmUserContext userContext, MemberWishlist memberWishlist, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, memberWishlist);
+ 		return present(userContext,memberWishlist, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String memberWishlistId) throws Exception{
+		MemberWishlist memberWishlist = loadMemberWishlist( userContext, memberWishlistId, viewTokens());
+		memberWishlist.summarySuffix();
+		markVisited(userContext, memberWishlist);
+ 		return present(userContext,memberWishlist, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String memberWishlistId) throws Exception{
+		MemberWishlist memberWishlist = loadMemberWishlist( userContext, memberWishlistId, analyzeTokens());
+		markVisited(userContext, memberWishlist);
+		return present(userContext,memberWishlist, analyzeTokens());
+
+	}
+ 	protected MemberWishlist saveMemberWishlist(RetailscmUserContext userContext, MemberWishlist memberWishlist, Map<String,Object>tokens) throws Exception{
+ 	
  		return memberWishlistDaoOf(userContext).save(memberWishlist, tokens);
  	}
- 	protected MemberWishlist loadMemberWishlist(RetailscmUserContext userContext, String memberWishlistId, Map<String,Object>tokens) throws Exception{	
+ 	protected MemberWishlist loadMemberWishlist(RetailscmUserContext userContext, String memberWishlistId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( MemberWishlistManagerException.class);
 
- 
+
+
  		return memberWishlistDaoOf(userContext).load(memberWishlistId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, MemberWishlist memberWishlist, Map<String, Object> tokens){
 		super.addActions(userContext, memberWishlist, tokens);
-		
+
 		addAction(userContext, memberWishlist, tokens,"@create","createMemberWishlist","createMemberWishlist/","main","primary");
 		addAction(userContext, memberWishlist, tokens,"@update","updateMemberWishlist","updateMemberWishlist/"+memberWishlist.getId()+"/","main","primary");
 		addAction(userContext, memberWishlist, tokens,"@copy","cloneMemberWishlist","cloneMemberWishlist/"+memberWishlist.getId()+"/","main","primary");
-		
+
 		addAction(userContext, memberWishlist, tokens,"member_wishlist.transfer_to_owner","transferToAnotherOwner","transferToAnotherOwner/"+memberWishlist.getId()+"/","main","primary");
 		addAction(userContext, memberWishlist, tokens,"member_wishlist.addMemberWishlistProduct","addMemberWishlistProduct","addMemberWishlistProduct/"+memberWishlist.getId()+"/","memberWishlistProductList","primary");
 		addAction(userContext, memberWishlist, tokens,"member_wishlist.removeMemberWishlistProduct","removeMemberWishlistProduct","removeMemberWishlistProduct/"+memberWishlist.getId()+"/","memberWishlistProductList","primary");
 		addAction(userContext, memberWishlist, tokens,"member_wishlist.updateMemberWishlistProduct","updateMemberWishlistProduct","updateMemberWishlistProduct/"+memberWishlist.getId()+"/","memberWishlistProductList","primary");
 		addAction(userContext, memberWishlist, tokens,"member_wishlist.copyMemberWishlistProductFrom","copyMemberWishlistProductFrom","copyMemberWishlistProductFrom/"+memberWishlist.getId()+"/","memberWishlistProductList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, MemberWishlist memberWishlist, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<MemberWishlist> searchMemberWishlistList(RetailscmUserContext ctx, MemberWishlistRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<MemberWishlist> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public MemberWishlist searchMemberWishlist(RetailscmUserContext ctx, MemberWishlistRequest pRequest){
+    pRequest.limit(0, 1);
+    List<MemberWishlist> list = searchMemberWishlistList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public MemberWishlist createMemberWishlist(RetailscmUserContext userContext, String name,String ownerId) throws Exception
-	//public MemberWishlist createMemberWishlist(RetailscmUserContext userContext,String name, String ownerId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfMemberWishlist(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
+
 
 
 		MemberWishlist memberWishlist=createNewMemberWishlist();	
@@ -245,22 +285,24 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 		checkerOf(userContext).checkVersionOfMemberWishlist( memberWishlistVersion);
-		
+
 
 		if(MemberWishlist.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfMemberWishlist(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
+
 
 
 	}
@@ -289,6 +331,8 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 			if (memberWishlist.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixMemberWishlist(memberWishlist);
 			memberWishlist = saveMemberWishlist(userContext, memberWishlist, options);
 			return memberWishlist;
 
@@ -355,10 +399,16 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 	protected Map<String,Object> allTokens(){
 		return MemberWishlistTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortMemberWishlistProductListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortMemberWishlistProductListWith(MemberWishlistProduct.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -370,6 +420,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
  		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
  		checkerOf(userContext).checkIdOfRetailStoreMember(anotherOwnerId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
 
  	}
@@ -377,16 +428,17 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
  	{
  		checkParamsForTransferingAnotherOwner(userContext, memberWishlistId,anotherOwnerId);
  
-		MemberWishlist memberWishlist = loadMemberWishlist(userContext, memberWishlistId, allTokens());	
+		MemberWishlist memberWishlist = loadMemberWishlist(userContext, memberWishlistId, allTokens());
 		synchronized(memberWishlist){
 			//will be good when the memberWishlist loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStoreMember owner = loadRetailStoreMember(userContext, anotherOwnerId, emptyOptions());		
-			memberWishlist.updateOwner(owner);		
+			RetailStoreMember owner = loadRetailStoreMember(userContext, anotherOwnerId, emptyOptions());
+			memberWishlist.updateOwner(owner);
+			
 			memberWishlist = saveMemberWishlist(userContext, memberWishlist, emptyOptions());
-			
+
 			return present(userContext,memberWishlist, allTokens());
-			
+
 		}
 
  	}
@@ -419,8 +471,9 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
  	protected RetailStoreMember loadRetailStoreMember(RetailscmUserContext userContext, String newOwnerId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreMemberDaoOf(userContext).load(newOwnerId, options);
+ 	  
  	}
  	
 
@@ -469,23 +522,21 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
 
 
-
-
-
 	protected void checkParamsForAddingMemberWishlistProduct(RetailscmUserContext userContext, String memberWishlistId, String name,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 
-		
+
 		checkerOf(userContext).checkNameOfMemberWishlistProduct(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
+
 
 
 	}
 	public  MemberWishlist addMemberWishlistProduct(RetailscmUserContext userContext, String memberWishlistId, String name, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingMemberWishlistProduct(userContext,memberWishlistId,name,tokensExpr);
 
 		MemberWishlistProduct memberWishlistProduct = createMemberWishlistProduct(userContext,name);
@@ -508,7 +559,9 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 
 		checkerOf(userContext).checkNameOfMemberWishlistProduct( name);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
+
 
 	}
 	public  MemberWishlist updateMemberWishlistProductProperties(RetailscmUserContext userContext, String memberWishlistId, String id,String name, String [] tokensExpr) throws Exception
@@ -573,6 +626,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 			checkerOf(userContext).checkIdOfMemberWishlistProduct(memberWishlistProductIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
 
 	}
@@ -599,7 +653,9 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfMemberWishlist( memberWishlistId);
 		checkerOf(userContext).checkIdOfMemberWishlistProduct(memberWishlistProductId);
 		checkerOf(userContext).checkVersionOfMemberWishlistProduct(memberWishlistProductVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
+
 
 	}
 	public  MemberWishlist removeMemberWishlistProduct(RetailscmUserContext userContext, String memberWishlistId,
@@ -626,7 +682,9 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfMemberWishlist( memberWishlistId);
 		checkerOf(userContext).checkIdOfMemberWishlistProduct(memberWishlistProductId);
 		checkerOf(userContext).checkVersionOfMemberWishlistProduct(memberWishlistProductVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
+
 
 	}
 	public  MemberWishlist copyMemberWishlistProductFrom(RetailscmUserContext userContext, String memberWishlistId,
@@ -654,7 +712,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 	protected void checkParamsForUpdatingMemberWishlistProduct(RetailscmUserContext userContext, String memberWishlistId, String memberWishlistProductId, int memberWishlistProductVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 		checkerOf(userContext).checkIdOfMemberWishlistProduct(memberWishlistProductId);
 		checkerOf(userContext).checkVersionOfMemberWishlistProduct(memberWishlistProductVersion);
@@ -665,7 +723,9 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MemberWishlistManagerException.class);
+
 
 	}
 
@@ -696,6 +756,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 			memberWishlistProduct.changeProperty(property, newValueExpr);
 			
 			memberWishlist = saveMemberWishlist(userContext, memberWishlist, tokens().withMemberWishlistProductList().done());
+			memberWishlistProductManagerOf(userContext).onUpdated(userContext, memberWishlistProduct, this, "updateMemberWishlistProduct");
 			return present(userContext,memberWishlist, mergedAllTokens(tokensExpr));
 		}
 
@@ -728,112 +789,13 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -856,28 +818,21 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, MemberWishlist.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, MemberWishlist.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -923,7 +878,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String memberWishlistId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getMemberWishlistDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		MemberWishlist merchantObj = (MemberWishlist) this.view(userContext, memberWishlistId);
     String merchantObjId = memberWishlistId;
     String linkToUrl =	"memberWishlistManager/wxappview/" + merchantObjId + "/";
@@ -980,8 +935,6 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		sections.add(memberWishlistProductListSection);
 
 		result.put("memberWishlistProductListSection", ListofUtils.toShortList(merchantObj.getMemberWishlistProductList(), "memberWishlistProduct"));
-		vscope.field("memberWishlistProductListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( MemberWishlistProduct.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -996,8 +949,19 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

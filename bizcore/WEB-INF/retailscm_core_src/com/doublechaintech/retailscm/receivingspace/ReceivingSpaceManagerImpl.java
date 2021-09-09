@@ -1,50 +1,27 @@
 
 package com.doublechaintech.retailscm.receivingspace;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.goods.Goods;import com.doublechaintech.retailscm.goodsallocation.GoodsAllocation;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.receivingspace.ReceivingSpace;import com.doublechaintech.retailscm.retailstore.RetailStore;import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.shippingspace.ShippingSpace;import com.doublechaintech.retailscm.sku.Sku;import com.doublechaintech.retailscm.smartpallet.SmartPallet;import com.doublechaintech.retailscm.supplyorder.SupplyOrder;import com.doublechaintech.retailscm.transporttask.TransportTask;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;import com.doublechaintech.retailscm.warehouse.CandidateWarehouse;import com.doublechaintech.retailscm.warehouse.Warehouse;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.goods.Goods;
-import com.doublechaintech.retailscm.warehouse.Warehouse;
-
-import com.doublechaintech.retailscm.warehouse.CandidateWarehouse;
-
-import com.doublechaintech.retailscm.retailstore.RetailStore;
-import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
-import com.doublechaintech.retailscm.goodsallocation.GoodsAllocation;
-import com.doublechaintech.retailscm.sku.Sku;
-import com.doublechaintech.retailscm.receivingspace.ReceivingSpace;
-import com.doublechaintech.retailscm.smartpallet.SmartPallet;
-import com.doublechaintech.retailscm.shippingspace.ShippingSpace;
-import com.doublechaintech.retailscm.transporttask.TransportTask;
-import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager implements ReceivingSpaceManager, BusinessHandler{
@@ -87,6 +64,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws ReceivingSpaceManagerException{
 
 		Message message = new Message();
@@ -97,130 +75,182 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 
 
 
- 	protected ReceivingSpace saveReceivingSpace(RetailscmUserContext userContext, ReceivingSpace receivingSpace, String [] tokensExpr) throws Exception{	
+ 	protected ReceivingSpace saveReceivingSpace(RetailscmUserContext userContext, ReceivingSpace receivingSpace, String [] tokensExpr) throws Exception{
  		//return getReceivingSpaceDAO().save(receivingSpace, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveReceivingSpace(userContext, receivingSpace, tokens);
  	}
- 	
- 	protected ReceivingSpace saveReceivingSpaceDetail(RetailscmUserContext userContext, ReceivingSpace receivingSpace) throws Exception{	
 
- 		
+ 	protected ReceivingSpace saveReceivingSpaceDetail(RetailscmUserContext userContext, ReceivingSpace receivingSpace) throws Exception{
+
+
  		return saveReceivingSpace(userContext, receivingSpace, allTokens());
  	}
- 	
- 	public ReceivingSpace loadReceivingSpace(RetailscmUserContext userContext, String receivingSpaceId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public ReceivingSpace loadReceivingSpace(RetailscmUserContext userContext, String receivingSpaceId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( ReceivingSpaceManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		ReceivingSpace receivingSpace = loadReceivingSpace( userContext, receivingSpaceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,receivingSpace, tokens);
  	}
- 	
- 	
- 	 public ReceivingSpace searchReceivingSpace(RetailscmUserContext userContext, String receivingSpaceId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public ReceivingSpace searchReceivingSpace(RetailscmUserContext userContext, String receivingSpaceId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( ReceivingSpaceManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		ReceivingSpace receivingSpace = loadReceivingSpace( userContext, receivingSpaceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,receivingSpace, tokens);
  	}
- 	
- 	
+
+
 
  	protected ReceivingSpace present(RetailscmUserContext userContext, ReceivingSpace receivingSpace, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,receivingSpace,tokens);
-		
-		
+    
+
 		ReceivingSpace  receivingSpaceToPresent = receivingSpaceDaoOf(userContext).present(receivingSpace, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = receivingSpaceToPresent.collectRefercencesFromLists();
 		receivingSpaceDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,receivingSpace,tokens);
-		
+
 		return  receivingSpaceToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public ReceivingSpace loadReceivingSpaceDetail(RetailscmUserContext userContext, String receivingSpaceId) throws Exception{	
+
+
+
+ 	public ReceivingSpace loadReceivingSpaceDetail(RetailscmUserContext userContext, String receivingSpaceId) throws Exception{
  		ReceivingSpace receivingSpace = loadReceivingSpace( userContext, receivingSpaceId, allTokens());
  		return present(userContext,receivingSpace, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String receivingSpaceId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String receivingSpaceId) throws Exception{
  		ReceivingSpace receivingSpace = loadReceivingSpace( userContext, receivingSpaceId, viewTokens());
- 		return present(userContext,receivingSpace, allTokens());
-		
- 	}
- 	protected ReceivingSpace saveReceivingSpace(RetailscmUserContext userContext, ReceivingSpace receivingSpace, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, receivingSpace);
+ 		return present(userContext,receivingSpace, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String receivingSpaceId) throws Exception{
+		ReceivingSpace receivingSpace = loadReceivingSpace( userContext, receivingSpaceId, viewTokens());
+		receivingSpace.summarySuffix();
+		markVisited(userContext, receivingSpace);
+ 		return present(userContext,receivingSpace, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String receivingSpaceId) throws Exception{
+		ReceivingSpace receivingSpace = loadReceivingSpace( userContext, receivingSpaceId, analyzeTokens());
+		markVisited(userContext, receivingSpace);
+		return present(userContext,receivingSpace, analyzeTokens());
+
+	}
+ 	protected ReceivingSpace saveReceivingSpace(RetailscmUserContext userContext, ReceivingSpace receivingSpace, Map<String,Object>tokens) throws Exception{
+ 	
  		return receivingSpaceDaoOf(userContext).save(receivingSpace, tokens);
  	}
- 	protected ReceivingSpace loadReceivingSpace(RetailscmUserContext userContext, String receivingSpaceId, Map<String,Object>tokens) throws Exception{	
+ 	protected ReceivingSpace loadReceivingSpace(RetailscmUserContext userContext, String receivingSpaceId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( ReceivingSpaceManagerException.class);
 
- 
+
+
  		return receivingSpaceDaoOf(userContext).load(receivingSpaceId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, ReceivingSpace receivingSpace, Map<String, Object> tokens){
 		super.addActions(userContext, receivingSpace, tokens);
-		
+
 		addAction(userContext, receivingSpace, tokens,"@create","createReceivingSpace","createReceivingSpace/","main","primary");
 		addAction(userContext, receivingSpace, tokens,"@update","updateReceivingSpace","updateReceivingSpace/"+receivingSpace.getId()+"/","main","primary");
 		addAction(userContext, receivingSpace, tokens,"@copy","cloneReceivingSpace","cloneReceivingSpace/"+receivingSpace.getId()+"/","main","primary");
-		
+
 		addAction(userContext, receivingSpace, tokens,"receiving_space.transfer_to_warehouse","transferToAnotherWarehouse","transferToAnotherWarehouse/"+receivingSpace.getId()+"/","main","primary");
 		addAction(userContext, receivingSpace, tokens,"receiving_space.addGoods","addGoods","addGoods/"+receivingSpace.getId()+"/","goodsList","primary");
 		addAction(userContext, receivingSpace, tokens,"receiving_space.removeGoods","removeGoods","removeGoods/"+receivingSpace.getId()+"/","goodsList","primary");
 		addAction(userContext, receivingSpace, tokens,"receiving_space.updateGoods","updateGoods","updateGoods/"+receivingSpace.getId()+"/","goodsList","primary");
 		addAction(userContext, receivingSpace, tokens,"receiving_space.copyGoodsFrom","copyGoodsFrom","copyGoodsFrom/"+receivingSpace.getId()+"/","goodsList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, ReceivingSpace receivingSpace, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<ReceivingSpace> searchReceivingSpaceList(RetailscmUserContext ctx, ReceivingSpaceRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<ReceivingSpace> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public ReceivingSpace searchReceivingSpace(RetailscmUserContext ctx, ReceivingSpaceRequest pRequest){
+    pRequest.limit(0, 1);
+    List<ReceivingSpace> list = searchReceivingSpaceList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public ReceivingSpace createReceivingSpace(RetailscmUserContext userContext, String location,String contactNumber,String description,String totalArea,String warehouseId,BigDecimal latitude,BigDecimal longitude) throws Exception
-	//public ReceivingSpace createReceivingSpace(RetailscmUserContext userContext,String location, String contactNumber, String description, String totalArea, String warehouseId, BigDecimal latitude, BigDecimal longitude) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkLocationOfReceivingSpace(location);
 		checkerOf(userContext).checkContactNumberOfReceivingSpace(contactNumber);
@@ -228,8 +258,10 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkTotalAreaOfReceivingSpace(totalArea);
 		checkerOf(userContext).checkLatitudeOfReceivingSpace(latitude);
 		checkerOf(userContext).checkLongitudeOfReceivingSpace(longitude);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
+
 
 
 		ReceivingSpace receivingSpace=createNewReceivingSpace();	
@@ -264,52 +296,54 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
 		checkerOf(userContext).checkVersionOfReceivingSpace( receivingSpaceVersion);
-		
+
 
 		if(ReceivingSpace.LOCATION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLocationOfReceivingSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(ReceivingSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkContactNumberOfReceivingSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(ReceivingSpace.DESCRIPTION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkDescriptionOfReceivingSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(ReceivingSpace.TOTAL_AREA_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTotalAreaOfReceivingSpace(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(ReceivingSpace.LATITUDE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLatitudeOfReceivingSpace(parseBigDecimal(newValueExpr));
 		
-			
+
 		}
 		if(ReceivingSpace.LONGITUDE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLongitudeOfReceivingSpace(parseBigDecimal(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
+
 
 
 	}
@@ -338,6 +372,8 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 			if (receivingSpace.isChanged()){
 			receivingSpace.updateLastUpdateTime(userContext.now());
 			}
+
+      //checkerOf(userContext).checkAndFixReceivingSpace(receivingSpace);
 			receivingSpace = saveReceivingSpace(userContext, receivingSpace, options);
 			return receivingSpace;
 
@@ -404,10 +440,16 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 	protected Map<String,Object> allTokens(){
 		return ReceivingSpaceTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortGoodsListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortGoodsListWith(Goods.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -419,6 +461,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 
  		checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
  		checkerOf(userContext).checkIdOfWarehouse(anotherWarehouseId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
 
  	}
@@ -426,16 +469,17 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
  	{
  		checkParamsForTransferingAnotherWarehouse(userContext, receivingSpaceId,anotherWarehouseId);
  
-		ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());	
+		ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
 		synchronized(receivingSpace){
 			//will be good when the receivingSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			Warehouse warehouse = loadWarehouse(userContext, anotherWarehouseId, emptyOptions());		
-			receivingSpace.updateWarehouse(warehouse);		
+			Warehouse warehouse = loadWarehouse(userContext, anotherWarehouseId, emptyOptions());
+			receivingSpace.updateWarehouse(warehouse);
+			receivingSpace.updateLastUpdateTime(userContext.now());
 			receivingSpace = saveReceivingSpace(userContext, receivingSpace, emptyOptions());
-			
+
 			return present(userContext,receivingSpace, allTokens());
-			
+
 		}
 
  	}
@@ -468,8 +512,9 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 
  	protected Warehouse loadWarehouse(RetailscmUserContext userContext, String newWarehouseId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return warehouseDaoOf(userContext).load(newWarehouseId, options);
+ 	  
  	}
  	
 
@@ -515,153 +560,6 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 	}
 
 
-	//disconnect ReceivingSpace with sku in Goods
-	protected ReceivingSpace breakWithGoodsBySku(RetailscmUserContext userContext, String receivingSpaceId, String skuId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithSku(receivingSpace, skuId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-	//disconnect ReceivingSpace with goods_allocation in Goods
-	protected ReceivingSpace breakWithGoodsByGoodsAllocation(RetailscmUserContext userContext, String receivingSpaceId, String goodsAllocationId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithGoodsAllocation(receivingSpace, goodsAllocationId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-	//disconnect ReceivingSpace with smart_pallet in Goods
-	protected ReceivingSpace breakWithGoodsBySmartPallet(RetailscmUserContext userContext, String receivingSpaceId, String smartPalletId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithSmartPallet(receivingSpace, smartPalletId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-	//disconnect ReceivingSpace with shipping_space in Goods
-	protected ReceivingSpace breakWithGoodsByShippingSpace(RetailscmUserContext userContext, String receivingSpaceId, String shippingSpaceId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithShippingSpace(receivingSpace, shippingSpaceId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-	//disconnect ReceivingSpace with transport_task in Goods
-	protected ReceivingSpace breakWithGoodsByTransportTask(RetailscmUserContext userContext, String receivingSpaceId, String transportTaskId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithTransportTask(receivingSpace, transportTaskId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-	//disconnect ReceivingSpace with retail_store in Goods
-	protected ReceivingSpace breakWithGoodsByRetailStore(RetailscmUserContext userContext, String receivingSpaceId, String retailStoreId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithRetailStore(receivingSpace, retailStoreId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-	//disconnect ReceivingSpace with biz_order in Goods
-	protected ReceivingSpace breakWithGoodsByBizOrder(RetailscmUserContext userContext, String receivingSpaceId, String bizOrderId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithBizOrder(receivingSpace, bizOrderId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-	//disconnect ReceivingSpace with retail_store_order in Goods
-	protected ReceivingSpace breakWithGoodsByRetailStoreOrder(RetailscmUserContext userContext, String receivingSpaceId, String retailStoreOrderId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ReceivingSpace receivingSpace = loadReceivingSpace(userContext, receivingSpaceId, allTokens());
-
-			synchronized(receivingSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				receivingSpaceDaoOf(userContext).planToRemoveGoodsListWithRetailStoreOrder(receivingSpace, retailStoreOrderId, this.emptyOptions());
-
-				receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
-				return receivingSpace;
-			}
-	}
-
-
-
 
 
 
@@ -669,40 +567,41 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 
 				checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
 
-		
+
 		checkerOf(userContext).checkNameOfGoods(name);
-		
+
 		checkerOf(userContext).checkRfidOfGoods(rfid);
-		
+
 		checkerOf(userContext).checkUomOfGoods(uom);
-		
+
 		checkerOf(userContext).checkMaxPackageOfGoods(maxPackage);
-		
+
 		checkerOf(userContext).checkExpireTimeOfGoods(expireTime);
-		
+
 		checkerOf(userContext).checkSkuIdOfGoods(skuId);
-		
+
 		checkerOf(userContext).checkGoodsAllocationIdOfGoods(goodsAllocationId);
-		
+
 		checkerOf(userContext).checkSmartPalletIdOfGoods(smartPalletId);
-		
+
 		checkerOf(userContext).checkShippingSpaceIdOfGoods(shippingSpaceId);
-		
+
 		checkerOf(userContext).checkTransportTaskIdOfGoods(transportTaskId);
-		
+
 		checkerOf(userContext).checkRetailStoreIdOfGoods(retailStoreId);
-		
+
 		checkerOf(userContext).checkBizOrderIdOfGoods(bizOrderId);
-		
+
 		checkerOf(userContext).checkRetailStoreOrderIdOfGoods(retailStoreOrderId);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
+
 
 
 	}
 	public  ReceivingSpace addGoods(RetailscmUserContext userContext, String receivingSpaceId, String name, String rfid, String uom, int maxPackage, Date expireTime, String skuId, String goodsAllocationId, String smartPalletId, String shippingSpaceId, String transportTaskId, String retailStoreId, String bizOrderId, String retailStoreOrderId, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingGoods(userContext,receivingSpaceId,name, rfid, uom, maxPackage, expireTime, skuId, goodsAllocationId, smartPalletId, shippingSpaceId, transportTaskId, retailStoreId, bizOrderId, retailStoreOrderId,tokensExpr);
 
 		Goods goods = createGoods(userContext,name, rfid, uom, maxPackage, expireTime, skuId, goodsAllocationId, smartPalletId, shippingSpaceId, transportTaskId, retailStoreId, bizOrderId, retailStoreOrderId);
@@ -729,7 +628,9 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkMaxPackageOfGoods( maxPackage);
 		checkerOf(userContext).checkExpireTimeOfGoods( expireTime);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
+
 
 	}
 	public  ReceivingSpace updateGoodsProperties(RetailscmUserContext userContext, String receivingSpaceId, String id,String name,String rfid,String uom,int maxPackage,Date expireTime, String [] tokensExpr) throws Exception
@@ -826,6 +727,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 			checkerOf(userContext).checkIdOfGoods(goodsIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
 
 	}
@@ -852,7 +754,9 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfReceivingSpace( receivingSpaceId);
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkVersionOfGoods(goodsVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
+
 
 	}
 	public  ReceivingSpace removeGoods(RetailscmUserContext userContext, String receivingSpaceId,
@@ -879,7 +783,9 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		checkerOf(userContext).checkIdOfReceivingSpace( receivingSpaceId);
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkVersionOfGoods(goodsVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
+
 
 	}
 	public  ReceivingSpace copyGoodsFrom(RetailscmUserContext userContext, String receivingSpaceId,
@@ -907,7 +813,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 	protected void checkParamsForUpdatingGoods(RetailscmUserContext userContext, String receivingSpaceId, String goodsId, int goodsVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfReceivingSpace(receivingSpaceId);
 		checkerOf(userContext).checkIdOfGoods(goodsId);
 		checkerOf(userContext).checkVersionOfGoods(goodsVersion);
@@ -934,7 +840,9 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ReceivingSpaceManagerException.class);
+
 
 	}
 
@@ -965,6 +873,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 			goods.changeProperty(property, newValueExpr);
 			
 			receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().withGoodsList().done());
+			goodsManagerOf(userContext).onUpdated(userContext, goods, this, "updateGoods");
 			return present(userContext,receivingSpace, mergedAllTokens(tokensExpr));
 		}
 
@@ -997,112 +906,13 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1125,28 +935,21 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, ReceivingSpace.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, ReceivingSpace.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1192,7 +995,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String receivingSpaceId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getReceivingSpaceDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		ReceivingSpace merchantObj = (ReceivingSpace) this.view(userContext, receivingSpaceId);
     String merchantObjId = receivingSpaceId;
     String linkToUrl =	"receivingSpaceManager/wxappview/" + merchantObjId + "/";
@@ -1315,8 +1118,6 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		sections.add(goodsListSection);
 
 		result.put("goodsListSection", ListofUtils.toShortList(merchantObj.getGoodsList(), "goods"));
-		vscope.field("goodsListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( Goods.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1331,8 +1132,19 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.cityevent;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 
 	protected RetailStoreCityServiceCenterDAO retailStoreCityServiceCenterDAO;
 	public void setRetailStoreCityServiceCenterDAO(RetailStoreCityServiceCenterDAO retailStoreCityServiceCenterDAO){
- 	
+
  		if(retailStoreCityServiceCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCityServiceCenterDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
  		if(this.retailStoreCityServiceCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCityServiceCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCityServiceCenterDAO;
- 	}	
+ 	}
 
 	protected EventAttendanceDAO eventAttendanceDAO;
 	public void setEventAttendanceDAO(EventAttendanceDAO eventAttendanceDAO){
- 	
+
  		if(eventAttendanceDAO == null){
  			throw new IllegalStateException("Do not try to set eventAttendanceDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
  		if(this.eventAttendanceDAO == null){
  			throw new IllegalStateException("The eventAttendanceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.eventAttendanceDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		newCityEvent.setVersion(0);
 		
 		
- 		
+
  		if(isSaveEventAttendanceListEnabled(options)){
  			for(EventAttendance item: newCityEvent.getEventAttendanceList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return CityEventTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCityServiceCenterEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, CityEventTokens.CITYSERVICECENTER);
  	}
 
  	protected boolean isSaveCityServiceCenterEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, CityEventTokens.CITYSERVICECENTER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){
  		return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST);
  	}
- 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){
  		return CityEventTokens.of(options).analyzeEventAttendanceListEnabled();
  	}
-	
+
 	protected boolean isSaveEventAttendanceListEnabled(Map<String,Object> options){
 		return checkOptions(options, CityEventTokens.EVENT_ATTENDANCE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		return new CityEventMapper();
 	}
 
-	
-	
+
+
 	protected CityEvent extractCityEvent(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			CityEvent cityEvent = loadSingleObject(accessKey, getCityEventMapper());
@@ -268,13 +270,13 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 
 	}
 
-	
-	
+
+
 
 	protected CityEvent loadInternalCityEvent(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		CityEvent cityEvent = extractCityEvent(accessKey, loadOptions);
- 	
+
  		if(isExtractCityServiceCenterEnabled(loadOptions)){
 	 		extractCityServiceCenter(cityEvent, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		
 		if(isExtractEventAttendanceListEnabled(loadOptions)){
 	 		extractEventAttendanceList(cityEvent, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEventAttendanceListEnabled(loadOptions)){
 	 		analyzeEventAttendanceList(cityEvent, loadOptions);
@@ -291,12 +293,13 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
  		
 		
 		return cityEvent;
-		
+
 	}
 
-	 
+	
 
  	protected CityEvent extractCityServiceCenter(CityEvent cityEvent, Map<String,Object> options) throws Exception{
+  
 
 		if(cityEvent.getCityServiceCenter() == null){
 			return cityEvent;
@@ -309,21 +312,21 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		if(cityServiceCenter != null){
 			cityEvent.setCityServiceCenter(cityServiceCenter);
 		}
-		
- 		
+
+
  		return cityEvent;
  	}
- 		
+
  
 		
 	protected void enhanceEventAttendanceList(SmartList<EventAttendance> eventAttendanceList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected CityEvent extractEventAttendanceList(CityEvent cityEvent, Map<String,Object> options){
-		
-		
+    
+
 		if(cityEvent == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 			return cityEvent;
 		}
 
-		
-		
+
+
 		SmartList<EventAttendance> eventAttendanceList = getEventAttendanceDAO().findEventAttendanceByCityEvent(cityEvent.getId(),options);
 		if(eventAttendanceList != null){
 			enhanceEventAttendanceList(eventAttendanceList,options);
 			cityEvent.setEventAttendanceList(eventAttendanceList);
 		}
-		
+
 		return cityEvent;
-	
-	}	
-	
+  
+	}
+
 	protected CityEvent analyzeEventAttendanceList(CityEvent cityEvent, Map<String,Object> options){
-		
-		
+     
 		if(cityEvent == null){
 			return null;
 		}
@@ -353,47 +355,47 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 			return cityEvent;
 		}
 
-		
-		
+
+
 		SmartList<EventAttendance> eventAttendanceList = cityEvent.getEventAttendanceList();
 		if(eventAttendanceList != null){
 			getEventAttendanceDAO().analyzeEventAttendanceByCityEvent(eventAttendanceList, cityEvent.getId(), options);
-			
+
 		}
-		
+
 		return cityEvent;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<CityEvent> findCityEventByCityServiceCenter(String retailStoreCityServiceCenterId,Map<String,Object> options){
- 	
+
   		SmartList<CityEvent> resultList = queryWith(CityEventTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityEventMapper());
 		// analyzeCityEventByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<CityEvent> findCityEventByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<CityEvent> resultList =  queryWithRange(CityEventTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityEventMapper(), start, count);
  		//analyzeCityEventByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeCityEventByCityServiceCenter(SmartList<CityEvent> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(CityEvent.CITY_SERVICE_CENTER_PROPERTY, retailStoreCityServiceCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityEvent.LAST_UPDATE_TIME_PROPERTY
@@ -401,11 +403,11 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityEvent.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityEvent.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countCityEventByCityServiceCenter(String retailStoreCityServiceCenterId,Map<String,Object> options){
@@ -416,21 +418,24 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 	public Map<String, Integer> countCityEventByCityServiceCenterIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(CityEventTable.COLUMN_CITY_SERVICE_CENTER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected CityEvent saveCityEvent(CityEvent  cityEvent){
+    
+
 		
 		if(!cityEvent.isChanged()){
 			return cityEvent;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(cityEvent);
 		String SQL=this.getSaveCityEventSQL(cityEvent);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveCityEventParameters(cityEvent);
@@ -441,6 +446,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		}
 
 		cityEvent.incVersion();
+		cityEvent.afterSave();
 		return cityEvent;
 
 	}
@@ -458,6 +464,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		for(CityEvent cityEvent:cityEventList){
 			if(cityEvent.isChanged()){
 				cityEvent.incVersion();
+				cityEvent.afterSave();
 			}
 
 
@@ -561,19 +568,15 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
  	protected Object[] prepareCityEventUpdateParameters(CityEvent cityEvent){
  		Object[] parameters = new Object[8];
  
- 		
  		parameters[0] = cityEvent.getName();
- 		
  		
  		parameters[1] = cityEvent.getMobile();
  		
  		if(cityEvent.getCityServiceCenter() != null){
  			parameters[2] = cityEvent.getCityServiceCenter().getId();
  		}
- 
- 		
+    
  		parameters[3] = cityEvent.getDescription();
- 		
  		
  		parameters[4] = cityEvent.getLastUpdateTime();
  		
@@ -591,20 +594,15 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
         }
 		parameters[0] =  cityEvent.getId();
  
- 		
  		parameters[1] = cityEvent.getName();
- 		
  		
  		parameters[2] = cityEvent.getMobile();
  		
  		if(cityEvent.getCityServiceCenter() != null){
  			parameters[3] = cityEvent.getCityServiceCenter().getId();
-
  		}
  		
- 		
  		parameters[4] = cityEvent.getDescription();
- 		
  		
  		parameters[5] = cityEvent.getLastUpdateTime();
  		
@@ -614,12 +612,11 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 
 	protected CityEvent saveInternalCityEvent(CityEvent cityEvent, Map<String,Object> options){
 
-		saveCityEvent(cityEvent);
-
  		if(isSaveCityServiceCenterEnabled(options)){
 	 		saveCityServiceCenter(cityEvent, options);
  		}
  
+   saveCityEvent(cityEvent);
 		
 		if(isSaveEventAttendanceListEnabled(options)){
 	 		saveEventAttendanceList(cityEvent, options);
@@ -638,6 +635,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 	
 
  	protected CityEvent saveCityServiceCenter(CityEvent cityEvent, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(cityEvent.getCityServiceCenter() == null){
  			return cityEvent;//do nothing when it is null
@@ -647,11 +645,6 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
  		return cityEvent;
 
  	}
-
-
-
-
-
  
 
 	
@@ -730,7 +723,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 
 		
 	protected CityEvent saveEventAttendanceList(CityEvent cityEvent, Map<String,Object> options){
-
+    
 
 
 
@@ -797,19 +790,19 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 		
 
 	public CityEvent present(CityEvent cityEvent,Map<String, Object> options){
-	
+
 		presentEventAttendanceList(cityEvent,options);
 
 		return cityEvent;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected CityEvent presentEventAttendanceList(
 			CityEvent cityEvent,
 			Map<String, Object> options) {
-
-		SmartList<EventAttendance> eventAttendanceList = cityEvent.getEventAttendanceList();		
+    
+		SmartList<EventAttendance> eventAttendanceList = cityEvent.getEventAttendanceList();
 				SmartList<EventAttendance> newList= presentSubList(cityEvent.getId(),
 				eventAttendanceList,
 				options,
@@ -817,12 +810,12 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 				getEventAttendanceDAO()::findEventAttendanceByCityEvent
 				);
 
-		
+
 		cityEvent.setEventAttendanceList(newList);
-		
+
 
 		return cityEvent;
-	}			
+	}
 		
 
 	
@@ -846,6 +839,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 	
 	// 需要一个加载引用我的对象的enhance方法:EventAttendance的cityEvent的EventAttendanceList
 	public SmartList<EventAttendance> loadOurEventAttendanceList(RetailscmUserContext userContext, List<CityEvent> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -902,6 +896,10 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<CityEvent> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getCityEventMapper());
   }
@@ -937,6 +935,15 @@ public class CityEventJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Ci
 
 	
 
+  @Override
+  public List<CityEvent> search(CityEventRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected CityEventMapper mapper() {
+    return getCityEventMapper();
+  }
 }
 
 

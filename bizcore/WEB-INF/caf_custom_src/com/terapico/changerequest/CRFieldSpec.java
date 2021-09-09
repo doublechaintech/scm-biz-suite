@@ -1,5 +1,7 @@
 package com.terapico.changerequest;
 
+import java.util.Map;
+
 public class CRFieldSpec {
   public static final String NOT_SELECTABLE = "not_selectable";
   public static final String SINGLE_SELECTABLE = "single_selectable";
@@ -11,10 +13,11 @@ public class CRFieldSpec {
   protected Object value;
   protected String interactionMode;
   protected String selectable;
-  protected String
-      type; // ="text|longtext|date|date_time|money|url|image|password|number|switch|vcode"
+  protected String type; // ="text|longtext|date|date_time|money|url|image|password|number|switch|vcode"
   protected String placeholder; // ="姓名就是你身份证上的名字"
   protected Object defaultValue; // ="李一一"
+  protected String autoFillExpression;
+  protected String onChange;
   protected String tipsTitle; // ="?"
   protected String tipsContent; // ="姓名就是你身份证上的名字"
   protected String fieldGroup; // ="基础信息|扩展信息"
@@ -27,6 +30,16 @@ public class CRFieldSpec {
   protected String modelName;
   protected String uiStyle;
   protected String regExp;
+  protected boolean inline;
+  protected Map<String, Object> extraData;
+
+  public String getAutoFillExpression() {
+    return autoFillExpression;
+  }
+
+  public void setAutoFillExpression(String autoFillExpression) {
+    this.autoFillExpression = autoFillExpression;
+  }
 
   public String getUiStyle() {
     return uiStyle;
@@ -194,5 +207,29 @@ public class CRFieldSpec {
 
   public void setValuesRetrieveApi(String valuesRetrieveApi) {
     this.valuesRetrieveApi = valuesRetrieveApi;
+  }
+
+  public String getOnChange() {
+    return onChange;
+  }
+
+  public void setOnChange(String onChange) {
+    this.onChange = onChange;
+  }
+
+  public boolean isInline() {
+    return inline;
+  }
+
+  public void setInline(boolean inline) {
+    this.inline = inline;
+  }
+
+  public Map<String, Object> getExtraData() {
+    return extraData;
+  }
+
+  public void setExtraData(Map<String, Object> extraData) {
+    this.extraData = extraData;
   }
 }

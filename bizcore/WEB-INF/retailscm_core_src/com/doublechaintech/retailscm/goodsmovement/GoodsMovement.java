@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.goodsmovement;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.goods.Goods;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.goods.Goods;
 @JsonSerialize(using = GoodsMovementSerializer.class)
 public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String MOVE_TIME_PROPERTY             = "moveTime"          ;
 	public static final String FACILITY_PROPERTY              = "facility"          ;
@@ -50,37 +47,102 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(MOVE_TIME_PROPERTY, "move_time", "移动时间")
+        .withType("date_time", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(FACILITY_PROPERTY, "facility", "设施")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(FACILITY_ID_PROPERTY, "facility_id", "设备ID")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(FROM_IP_PROPERTY, "from_ip", "从IP")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(USER_AGENT_PROPERTY, "user_agent", "用户代理")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SESSION_ID_PROPERTY, "session_id", "会话ID")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LATITUDE_PROPERTY, "latitude", "纬度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LONGITUDE_PROPERTY, "longitude", "经度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(GOODS_PROPERTY, "goods", "货物")
+        .withType("goods", Goods.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,MOVE_TIME_PROPERTY ,FACILITY_PROPERTY ,FACILITY_ID_PROPERTY ,FROM_IP_PROPERTY ,USER_AGENT_PROPERTY ,SESSION_ID_PROPERTY ,LATITUDE_PROPERTY ,LONGITUDE_PROPERTY ,GOODS_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(GOODS_PROPERTY, Goods.class);
+
+    return parents;
+  }
+
+  public GoodsMovement want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public GoodsMovement wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getFacility();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		DateTime            	mMoveTime           ;
-	protected		String              	mFacility           ;
-	protected		String              	mFacilityId         ;
-	protected		String              	mFromIp             ;
-	protected		String              	mUserAgent          ;
-	protected		String              	mSessionId          ;
-	protected		BigDecimal          	mLatitude           ;
-	protected		BigDecimal          	mLongitude          ;
-	protected		Goods               	mGoods              ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		DateTime            	moveTime            ;
+	protected		String              	facility            ;
+	protected		String              	facilityId          ;
+	protected		String              	fromIp              ;
+	protected		String              	userAgent           ;
+	protected		String              	sessionId           ;
+	protected		BigDecimal          	latitude            ;
+	protected		BigDecimal          	longitude           ;
+	protected		Goods               	goods               ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	GoodsMovement(){
 		// lazy load for all the properties
 	}
@@ -88,20 +150,39 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		GoodsMovement goodsMovement = new GoodsMovement();
 		goodsMovement.setId(id);
 		goodsMovement.setVersion(Integer.MAX_VALUE);
+		goodsMovement.setChecked(true);
 		return goodsMovement;
 	}
 	public 	static GoodsMovement refById(String id){
 		return withId(id);
 	}
-	
+
+  public GoodsMovement limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public GoodsMovement limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static GoodsMovement searchExample(){
+    GoodsMovement goodsMovement = new GoodsMovement();
+    		goodsMovement.setVersion(UNSET_INT);
+
+    return goodsMovement;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setGoods( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -267,7 +348,7 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(MOVE_TIME_PROPERTY.equals(property)){
 			return getMoveTime();
 		}
@@ -299,218 +380,362 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public GoodsMovement updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public GoodsMovement addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setMoveTime(DateTime moveTime){
-		this.mMoveTime = moveTime;;
-	}
+	public void setMoveTime(DateTime moveTime){DateTime oldMoveTime = this.moveTime;DateTime newMoveTime = moveTime;this.moveTime = newMoveTime;}
+	public DateTime moveTime(){
+doLoad();
+return getMoveTime();
+}
 	public DateTime getMoveTime(){
-		return this.mMoveTime;
+		return this.moveTime;
 	}
-	public GoodsMovement updateMoveTime(DateTime moveTime){
-		this.mMoveTime = moveTime;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateMoveTime(DateTime moveTime){DateTime oldMoveTime = this.moveTime;DateTime newMoveTime = moveTime;if(!shouldReplaceBy(newMoveTime, oldMoveTime)){return this;}this.moveTime = newMoveTime;addPropertyChange(MOVE_TIME_PROPERTY, oldMoveTime, newMoveTime);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByMoveTime(boolean asc){
+doAddOrderBy(MOVE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createMoveTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(MOVE_TIME_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreMoveTimeCriteria(){super.ignoreSearchProperty(MOVE_TIME_PROPERTY);
+return this;
+}
+	public GoodsMovement addMoveTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createMoveTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeMoveTime(DateTime moveTime){
 		setMoveTime(moveTime);
 	}
+
 	
-	
-	public void setFacility(String facility){
-		this.mFacility = trimString(facility);;
-	}
+	public void setFacility(String facility){String oldFacility = this.facility;String newFacility = trimString(facility);this.facility = newFacility;}
+	public String facility(){
+doLoad();
+return getFacility();
+}
 	public String getFacility(){
-		return this.mFacility;
+		return this.facility;
 	}
-	public GoodsMovement updateFacility(String facility){
-		this.mFacility = trimString(facility);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateFacility(String facility){String oldFacility = this.facility;String newFacility = trimString(facility);if(!shouldReplaceBy(newFacility, oldFacility)){return this;}this.facility = newFacility;addPropertyChange(FACILITY_PROPERTY, oldFacility, newFacility);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByFacility(boolean asc){
+doAddOrderBy(FACILITY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createFacilityCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(FACILITY_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreFacilityCriteria(){super.ignoreSearchProperty(FACILITY_PROPERTY);
+return this;
+}
+	public GoodsMovement addFacilityCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createFacilityCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeFacility(String facility){
 		if(facility != null) { setFacility(facility);}
 	}
+
 	
-	
-	public void setFacilityId(String facilityId){
-		this.mFacilityId = trimString(facilityId);;
-	}
+	public void setFacilityId(String facilityId){String oldFacilityId = this.facilityId;String newFacilityId = trimString(facilityId);this.facilityId = newFacilityId;}
+	public String facilityId(){
+doLoad();
+return getFacilityId();
+}
 	public String getFacilityId(){
-		return this.mFacilityId;
+		return this.facilityId;
 	}
-	public GoodsMovement updateFacilityId(String facilityId){
-		this.mFacilityId = trimString(facilityId);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateFacilityId(String facilityId){String oldFacilityId = this.facilityId;String newFacilityId = trimString(facilityId);if(!shouldReplaceBy(newFacilityId, oldFacilityId)){return this;}this.facilityId = newFacilityId;addPropertyChange(FACILITY_ID_PROPERTY, oldFacilityId, newFacilityId);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByFacilityId(boolean asc){
+doAddOrderBy(FACILITY_ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createFacilityIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(FACILITY_ID_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreFacilityIdCriteria(){super.ignoreSearchProperty(FACILITY_ID_PROPERTY);
+return this;
+}
+	public GoodsMovement addFacilityIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createFacilityIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeFacilityId(String facilityId){
 		if(facilityId != null) { setFacilityId(facilityId);}
 	}
+
 	
-	
-	public void setFromIp(String fromIp){
-		this.mFromIp = trimString(fromIp);;
-	}
+	public void setFromIp(String fromIp){String oldFromIp = this.fromIp;String newFromIp = trimString(fromIp);this.fromIp = newFromIp;}
+	public String fromIp(){
+doLoad();
+return getFromIp();
+}
 	public String getFromIp(){
-		return this.mFromIp;
+		return this.fromIp;
 	}
-	public GoodsMovement updateFromIp(String fromIp){
-		this.mFromIp = trimString(fromIp);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateFromIp(String fromIp){String oldFromIp = this.fromIp;String newFromIp = trimString(fromIp);if(!shouldReplaceBy(newFromIp, oldFromIp)){return this;}this.fromIp = newFromIp;addPropertyChange(FROM_IP_PROPERTY, oldFromIp, newFromIp);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByFromIp(boolean asc){
+doAddOrderBy(FROM_IP_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createFromIpCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(FROM_IP_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreFromIpCriteria(){super.ignoreSearchProperty(FROM_IP_PROPERTY);
+return this;
+}
+	public GoodsMovement addFromIpCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createFromIpCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeFromIp(String fromIp){
 		if(fromIp != null) { setFromIp(fromIp);}
 	}
+
 	
-	
-	public void setUserAgent(String userAgent){
-		this.mUserAgent = trimString(userAgent);;
-	}
+	public void setUserAgent(String userAgent){String oldUserAgent = this.userAgent;String newUserAgent = trimString(userAgent);this.userAgent = newUserAgent;}
+	public String userAgent(){
+doLoad();
+return getUserAgent();
+}
 	public String getUserAgent(){
-		return this.mUserAgent;
+		return this.userAgent;
 	}
-	public GoodsMovement updateUserAgent(String userAgent){
-		this.mUserAgent = trimString(userAgent);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateUserAgent(String userAgent){String oldUserAgent = this.userAgent;String newUserAgent = trimString(userAgent);if(!shouldReplaceBy(newUserAgent, oldUserAgent)){return this;}this.userAgent = newUserAgent;addPropertyChange(USER_AGENT_PROPERTY, oldUserAgent, newUserAgent);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByUserAgent(boolean asc){
+doAddOrderBy(USER_AGENT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createUserAgentCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(USER_AGENT_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreUserAgentCriteria(){super.ignoreSearchProperty(USER_AGENT_PROPERTY);
+return this;
+}
+	public GoodsMovement addUserAgentCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createUserAgentCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeUserAgent(String userAgent){
 		if(userAgent != null) { setUserAgent(userAgent);}
 	}
+
 	
-	
-	public void setSessionId(String sessionId){
-		this.mSessionId = trimString(sessionId);;
-	}
+	public void setSessionId(String sessionId){String oldSessionId = this.sessionId;String newSessionId = trimString(sessionId);this.sessionId = newSessionId;}
+	public String sessionId(){
+doLoad();
+return getSessionId();
+}
 	public String getSessionId(){
-		return this.mSessionId;
+		return this.sessionId;
 	}
-	public GoodsMovement updateSessionId(String sessionId){
-		this.mSessionId = trimString(sessionId);;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateSessionId(String sessionId){String oldSessionId = this.sessionId;String newSessionId = trimString(sessionId);if(!shouldReplaceBy(newSessionId, oldSessionId)){return this;}this.sessionId = newSessionId;addPropertyChange(SESSION_ID_PROPERTY, oldSessionId, newSessionId);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderBySessionId(boolean asc){
+doAddOrderBy(SESSION_ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSessionIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SESSION_ID_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreSessionIdCriteria(){super.ignoreSearchProperty(SESSION_ID_PROPERTY);
+return this;
+}
+	public GoodsMovement addSessionIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSessionIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeSessionId(String sessionId){
 		if(sessionId != null) { setSessionId(sessionId);}
 	}
+
 	
-	
-	public void setLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-	}
+	public void setLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;this.latitude = newLatitude;}
+	public BigDecimal latitude(){
+doLoad();
+return getLatitude();
+}
 	public BigDecimal getLatitude(){
-		return this.mLatitude;
+		return this.latitude;
 	}
-	public GoodsMovement updateLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;if(!shouldReplaceBy(newLatitude, oldLatitude)){return this;}this.latitude = newLatitude;addPropertyChange(LATITUDE_PROPERTY, oldLatitude, newLatitude);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByLatitude(boolean asc){
+doAddOrderBy(LATITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLatitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LATITUDE_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreLatitudeCriteria(){super.ignoreSearchProperty(LATITUDE_PROPERTY);
+return this;
+}
+	public GoodsMovement addLatitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLatitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLatitude(BigDecimal latitude){
 		setLatitude(latitude);
 	}
+
 	
-	
-	public void setLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-	}
+	public void setLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;this.longitude = newLongitude;}
+	public BigDecimal longitude(){
+doLoad();
+return getLongitude();
+}
 	public BigDecimal getLongitude(){
-		return this.mLongitude;
+		return this.longitude;
 	}
-	public GoodsMovement updateLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;if(!shouldReplaceBy(newLongitude, oldLongitude)){return this;}this.longitude = newLongitude;addPropertyChange(LONGITUDE_PROPERTY, oldLongitude, newLongitude);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByLongitude(boolean asc){
+doAddOrderBy(LONGITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLongitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LONGITUDE_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreLongitudeCriteria(){super.ignoreSearchProperty(LONGITUDE_PROPERTY);
+return this;
+}
+	public GoodsMovement addLongitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLongitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLongitude(BigDecimal longitude){
 		setLongitude(longitude);
 	}
+
 	
-	
-	public void setGoods(Goods goods){
-		this.mGoods = goods;;
-	}
+	public void setGoods(Goods goods){Goods oldGoods = this.goods;Goods newGoods = goods;this.goods = newGoods;}
+	public Goods goods(){
+doLoad();
+return getGoods();
+}
 	public Goods getGoods(){
-		return this.mGoods;
+		return this.goods;
 	}
-	public GoodsMovement updateGoods(Goods goods){
-		this.mGoods = goods;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateGoods(Goods goods){Goods oldGoods = this.goods;Goods newGoods = goods;if(!shouldReplaceBy(newGoods, oldGoods)){return this;}this.goods = newGoods;addPropertyChange(GOODS_PROPERTY, oldGoods, newGoods);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByGoods(boolean asc){
+doAddOrderBy(GOODS_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createGoodsCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(GOODS_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreGoodsCriteria(){super.ignoreSearchProperty(GOODS_PROPERTY);
+return this;
+}
+	public GoodsMovement addGoodsCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createGoodsCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeGoods(Goods goods){
 		if(goods != null) { setGoods(goods);}
 	}
-	
+
 	
 	public void clearGoods(){
 		setGoods ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public GoodsMovement updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public GoodsMovement updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public GoodsMovement orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public GoodsMovement ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public GoodsMovement addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getGoods(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -531,16 +756,16 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof GoodsMovement){
-		
-		
+
+
 			GoodsMovement dest =(GoodsMovement)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setMoveTime(getMoveTime());
 			dest.setFacility(getFacility());
@@ -558,13 +783,13 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof GoodsMovement){
-		
-			
+
+
 			GoodsMovement dest =(GoodsMovement)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeMoveTime(getMoveTime());
 			dest.mergeFacility(getFacility());
@@ -581,15 +806,15 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof GoodsMovement){
-		
-			
+
+
 			GoodsMovement dest =(GoodsMovement)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeMoveTime(getMoveTime());
 			dest.mergeFacility(getFacility());
@@ -607,6 +832,56 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getMoveTime(), getFacility(), getFacilityId(), getFromIp(), getUserAgent(), getSessionId(), getLatitude(), getLongitude(), getGoods(), getVersion()};
 	}
+
+
+	public static GoodsMovement createWith(RetailscmUserContext userContext, ThrowingFunction<GoodsMovement,GoodsMovement,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<GoodsMovement> customCreator = mapper.findCustomCreator(GoodsMovement.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    GoodsMovement result = new GoodsMovement();
+    result.setMoveTime(mapper.tryToGet(GoodsMovement.class, MOVE_TIME_PROPERTY, DateTime.class,
+        0, true, result.getMoveTime(), params));
+    result.setFacility(mapper.tryToGet(GoodsMovement.class, FACILITY_PROPERTY, String.class,
+        0, false, result.getFacility(), params));
+    result.setFacilityId(mapper.tryToGet(GoodsMovement.class, FACILITY_ID_PROPERTY, String.class,
+        1, false, result.getFacilityId(), params));
+    result.setFromIp(mapper.tryToGet(GoodsMovement.class, FROM_IP_PROPERTY, String.class,
+        2, false, result.getFromIp(), params));
+    result.setUserAgent(mapper.tryToGet(GoodsMovement.class, USER_AGENT_PROPERTY, String.class,
+        3, false, result.getUserAgent(), params));
+    result.setSessionId(mapper.tryToGet(GoodsMovement.class, SESSION_ID_PROPERTY, String.class,
+        4, false, result.getSessionId(), params));
+    result.setLatitude(mapper.tryToGet(GoodsMovement.class, LATITUDE_PROPERTY, BigDecimal.class,
+        0, false, result.getLatitude(), params));
+    result.setLongitude(mapper.tryToGet(GoodsMovement.class, LONGITUDE_PROPERTY, BigDecimal.class,
+        1, false, result.getLongitude(), params));
+    result.setGoods(mapper.tryToGet(GoodsMovement.class, GOODS_PROPERTY, Goods.class,
+        0, true, result.getGoods(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixGoodsMovement(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      GoodsMovementTokens tokens = mapper.findParamByClass(params, GoodsMovementTokens.class);
+      if (tokens == null) {
+        tokens = GoodsMovementTokens.start();
+      }
+      result = userContext.getManagerGroup().getGoodsMovementManager().internalSaveGoodsMovement(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -628,7 +903,7 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

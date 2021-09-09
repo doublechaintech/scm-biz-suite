@@ -39,14 +39,14 @@ public class ListAccessTable{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
                 new String[]{"name","varchar(200)","","名称","",""},
                 new String[]{"internal_name","varchar(200)","","内部名称","",""},
-                new String[]{"read_permission","tinyint","","读权限","",""},
-                new String[]{"create_permission","tinyint","","创建权限","",""},
-                new String[]{"delete_permission","tinyint","","删除权限","",""},
-                new String[]{"update_permission","tinyint","","更新权限","",""},
-                new String[]{"execution_permission","tinyint","","执行权限","",""},
-                new String[]{"app","varchar(48)","","应用程序","user_app_data","id"},
+                new String[]{"read_permission","bool","","可读","",""},
+                new String[]{"create_permission","bool","","可创建","",""},
+                new String[]{"delete_permission","bool","","可删除","",""},
+                new String[]{"update_permission","bool","","可更新","",""},
+                new String[]{"execution_permission","bool","","可执行","",""},
+                new String[]{"app","varchar(48)","","应用","user_app_data","id"},
                 new String[]{"version","int","","版本","",""}
-            }, "访问列表", new String[]{
+            }, "列表访问控制", new String[]{
                 "create unique index idx4id_ver_of_list_access on list_access_data (id, version);"
          }, new String[]{
                 "alter table list_access_data add constraint pk4id_of_list_access_data primary key (id);",
