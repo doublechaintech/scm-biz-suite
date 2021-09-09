@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { TransportTaskAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <TransportTaskAssociateForm 
-	visible={currentAssociateModal==='movement'} 
-	data={{transportTaskTrackList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'movement')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'movement')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class TransportTaskTrackSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class TransportTaskTrackSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {TransportTaskTrackTable} = GlobalComponents;
     const {TransportTaskTrackSearchForm} = GlobalComponents;
     const {TransportTaskTrackModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class TransportTaskTrackSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,TransportTaskTrackModalTable,"transportTaskTrackIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

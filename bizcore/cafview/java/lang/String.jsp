@@ -9,5 +9,5 @@
 </style>
 
 <div class="message">
-	string: ${result}
+	string: <pre>${result}</pre>
 </div>

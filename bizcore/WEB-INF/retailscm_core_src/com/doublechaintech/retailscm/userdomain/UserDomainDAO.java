@@ -48,6 +48,7 @@ public interface UserDomainDAO extends BaseDAO{
 	public void delete(String userDomainId, int version) throws Exception;
 	public UserDomain disconnectFromAll(String userDomainId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public UserAllowListDAO getUserAllowListDAO();
 		
@@ -73,9 +74,10 @@ public interface UserDomainDAO extends BaseDAO{
 
 
 
-	public SmartList<UserDomain> queryList(String sql, Object ... parmeters);
+	public SmartList<UserDomain> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<UserDomain> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateUserDomain executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
 	// 需要一个加载引用我的对象的enhance方法:UserAllowList的domain的UserAllowListList
@@ -87,6 +89,8 @@ public interface UserDomainDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:PublicKeyType的domain的PublicKeyTypeList
 	public SmartList<PublicKeyType> loadOurPublicKeyTypeList(RetailscmUserContext userContext, List<UserDomain> us, Map<String,Object> options) throws Exception;
 	
+
+	List<UserDomain> search(UserDomainRequest pRequest);
 }
 
 

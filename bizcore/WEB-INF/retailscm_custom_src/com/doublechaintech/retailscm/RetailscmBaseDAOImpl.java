@@ -9,3 +9,13 @@ public class RetailscmBaseDAOImpl extends RetailscmNamingServiceDAO {
 
 
 
+
+
+
+
+
+
+
+
+
+

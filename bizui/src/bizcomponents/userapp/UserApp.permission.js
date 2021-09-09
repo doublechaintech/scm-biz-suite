@@ -31,13 +31,14 @@ const internalSummaryOf = (userApp,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{userApp.id}</Description> 
-<Description term="头衔">{userApp.title}</Description> 
-<Description term="应用程序图标">{userApp.appIcon}</Description> 
-<Description term="完全访问">{userApp.fullAccess}</Description> 
-<Description term="许可">{userApp.permission}</Description> 
-<Description term="对象类型">{userApp.objectType}</Description> 
-<Description term="对象ID">{userApp.objectId}</Description> 
+<Description term="ID">{userApp.id}</Description> 
+<Description term="标题">{userApp.title}</Description> 
+<Description term="图标">{userApp.appIcon}</Description> 
+<Description term="权限">{userApp.permission}</Description> 
+<Description term="对象类型">{userApp.appType}</Description> 
+<Description term="对象ID">{userApp.appId}</Description> 
+<Description term="上下文类型">{userApp.ctxType}</Description> 
+<Description term="上下文类型">{userApp.ctxId}</Description> 
 <Description term="位置">{userApp.location}</Description> 
 	
       </DescriptionList>
@@ -64,8 +65,8 @@ class UserAppPermission extends Component {
     // eslint-disable-next-line max-len
     const  userApp = this.props.userApp
     const { id,displayName, quickLinkCount, listAccessCount } = userApp
-    const  returnURL = `/userApp/${id}/dashboard`
-    const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",cardsSource: userApp,displayName,returnURL,
+    const  returnURL = `/userApp/${id}/workbench`
+    const cardsData = {cardsName:"应用",cardsFor: "userApp",cardsSource: userApp,displayName,returnURL,
   		subItems: [
     
       	],
@@ -77,10 +78,10 @@ class UserAppPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

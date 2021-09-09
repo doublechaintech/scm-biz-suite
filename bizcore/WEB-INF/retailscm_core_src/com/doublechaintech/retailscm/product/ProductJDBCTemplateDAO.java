@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.product;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 
 	protected LevelThreeCategoryDAO levelThreeCategoryDAO;
 	public void setLevelThreeCategoryDAO(LevelThreeCategoryDAO levelThreeCategoryDAO){
- 	
+
  		if(levelThreeCategoryDAO == null){
  			throw new IllegalStateException("Do not try to set levelThreeCategoryDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		if(this.levelThreeCategoryDAO == null){
  			throw new IllegalStateException("The levelThreeCategoryDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.levelThreeCategoryDAO;
- 	}	
+ 	}
 
 	protected SkuDAO skuDAO;
 	public void setSkuDAO(SkuDAO skuDAO){
- 	
+
  		if(skuDAO == null){
  			throw new IllegalStateException("Do not try to set skuDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		if(this.skuDAO == null){
  			throw new IllegalStateException("The skuDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.skuDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		newProduct.setVersion(0);
 		
 		
- 		
+
  		if(isSaveSkuListEnabled(options)){
  			for(Sku item: newProduct.getSkuList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ProductTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractParentCategoryEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ProductTokens.PARENTCATEGORY);
  	}
 
  	protected boolean isSaveParentCategoryEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ProductTokens.PARENTCATEGORY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractSkuListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSkuListEnabled(Map<String,Object> options){
  		return checkOptions(options,ProductTokens.SKU_LIST);
  	}
- 	protected boolean isAnalyzeSkuListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSkuListEnabled(Map<String,Object> options){
  		return ProductTokens.of(options).analyzeSkuListEnabled();
  	}
-	
+
 	protected boolean isSaveSkuListEnabled(Map<String,Object> options){
 		return checkOptions(options, ProductTokens.SKU_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		return new ProductMapper();
 	}
 
-	
-	
+
+
 	protected Product extractProduct(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Product product = loadSingleObject(accessKey, getProductMapper());
@@ -268,13 +270,13 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 
 	}
 
-	
-	
+
+
 
 	protected Product loadInternalProduct(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Product product = extractProduct(accessKey, loadOptions);
- 	
+
  		if(isExtractParentCategoryEnabled(loadOptions)){
 	 		extractParentCategory(product, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		
 		if(isExtractSkuListEnabled(loadOptions)){
 	 		extractSkuList(product, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSkuListEnabled(loadOptions)){
 	 		analyzeSkuList(product, loadOptions);
@@ -291,12 +293,13 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		
 		
 		return product;
-		
+
 	}
 
-	 
+	
 
  	protected Product extractParentCategory(Product product, Map<String,Object> options) throws Exception{
+  
 
 		if(product.getParentCategory() == null){
 			return product;
@@ -309,21 +312,21 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		if(parentCategory != null){
 			product.setParentCategory(parentCategory);
 		}
-		
- 		
+
+
  		return product;
  	}
- 		
+
  
 		
 	protected void enhanceSkuList(SmartList<Sku> skuList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Product extractSkuList(Product product, Map<String,Object> options){
-		
-		
+    
+
 		if(product == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 			return product;
 		}
 
-		
-		
+
+
 		SmartList<Sku> skuList = getSkuDAO().findSkuByProduct(product.getId(),options);
 		if(skuList != null){
 			enhanceSkuList(skuList,options);
 			product.setSkuList(skuList);
 		}
-		
+
 		return product;
-	
-	}	
-	
+  
+	}
+
 	protected Product analyzeSkuList(Product product, Map<String,Object> options){
-		
-		
+     
 		if(product == null){
 			return null;
 		}
@@ -353,47 +355,47 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 			return product;
 		}
 
-		
-		
+
+
 		SmartList<Sku> skuList = product.getSkuList();
 		if(skuList != null){
 			getSkuDAO().analyzeSkuByProduct(skuList, product.getId(), options);
-			
+
 		}
-		
+
 		return product;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<Product> findProductByParentCategory(String levelThreeCategoryId,Map<String,Object> options){
- 	
+
   		SmartList<Product> resultList = queryWith(ProductTable.COLUMN_PARENT_CATEGORY, levelThreeCategoryId, options, getProductMapper());
 		// analyzeProductByParentCategory(resultList, levelThreeCategoryId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Product> findProductByParentCategory(String levelThreeCategoryId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Product> resultList =  queryWithRange(ProductTable.COLUMN_PARENT_CATEGORY, levelThreeCategoryId, options, getProductMapper(), start, count);
  		//analyzeProductByParentCategory(resultList, levelThreeCategoryId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeProductByParentCategory(SmartList<Product> resultList, String levelThreeCategoryId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Product.PARENT_CATEGORY_PROPERTY, levelThreeCategoryId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Product.LAST_UPDATE_TIME_PROPERTY
@@ -401,11 +403,11 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Product.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Product.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countProductByParentCategory(String levelThreeCategoryId,Map<String,Object> options){
@@ -416,21 +418,24 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	public Map<String, Integer> countProductByParentCategoryIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ProductTable.COLUMN_PARENT_CATEGORY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Product saveProduct(Product  product){
+    
+
 		
 		if(!product.isChanged()){
 			return product;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(product);
 		String SQL=this.getSaveProductSQL(product);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveProductParameters(product);
@@ -441,6 +446,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		}
 
 		product.incVersion();
+		product.afterSave();
 		return product;
 
 	}
@@ -458,6 +464,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		for(Product product:productList){
 			if(product.isChanged()){
 				product.incVersion();
+				product.afterSave();
 			}
 
 
@@ -561,25 +568,19 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  	protected Object[] prepareProductUpdateParameters(Product product){
  		Object[] parameters = new Object[10];
  
- 		
  		parameters[0] = product.getName();
  		
  		if(product.getParentCategory() != null){
  			parameters[1] = product.getParentCategory().getId();
  		}
- 
- 		
+    
  		parameters[2] = product.getOrigin();
- 		
  		
  		parameters[3] = product.getRemark();
  		
- 		
  		parameters[4] = product.getBrand();
  		
- 		
  		parameters[5] = product.getPicture();
- 		
  		
  		parameters[6] = product.getLastUpdateTime();
  		
@@ -597,26 +598,19 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
         }
 		parameters[0] =  product.getId();
  
- 		
  		parameters[1] = product.getName();
  		
  		if(product.getParentCategory() != null){
  			parameters[2] = product.getParentCategory().getId();
-
  		}
- 		
  		
  		parameters[3] = product.getOrigin();
  		
- 		
  		parameters[4] = product.getRemark();
- 		
  		
  		parameters[5] = product.getBrand();
  		
- 		
  		parameters[6] = product.getPicture();
- 		
  		
  		parameters[7] = product.getLastUpdateTime();
  		
@@ -626,12 +620,11 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 
 	protected Product saveInternalProduct(Product product, Map<String,Object> options){
 
-		saveProduct(product);
-
  		if(isSaveParentCategoryEnabled(options)){
 	 		saveParentCategory(product, options);
  		}
  
+   saveProduct(product);
 		
 		if(isSaveSkuListEnabled(options)){
 	 		saveSkuList(product, options);
@@ -650,6 +643,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	
 
  	protected Product saveParentCategory(Product product, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(product.getParentCategory() == null){
  			return product;//do nothing when it is null
@@ -659,11 +653,6 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
  		return product;
 
  	}
-
-
-
-
-
  
 
 	
@@ -698,7 +687,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 
 		
 	protected Product saveSkuList(Product product, Map<String,Object> options){
-
+    
 
 
 
@@ -765,19 +754,19 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 		
 
 	public Product present(Product product,Map<String, Object> options){
-	
+
 		presentSkuList(product,options);
 
 		return product;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Product presentSkuList(
 			Product product,
 			Map<String, Object> options) {
-
-		SmartList<Sku> skuList = product.getSkuList();		
+    
+		SmartList<Sku> skuList = product.getSkuList();
 				SmartList<Sku> newList= presentSubList(product.getId(),
 				skuList,
 				options,
@@ -785,12 +774,12 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 				getSkuDAO()::findSkuByProduct
 				);
 
-		
+
 		product.setSkuList(newList);
-		
+
 
 		return product;
-	}			
+	}
 		
 
 	
@@ -814,6 +803,7 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	
 	// 需要一个加载引用我的对象的enhance方法:Sku的product的SkuList
 	public SmartList<Sku> loadOurSkuList(RetailscmUserContext userContext, List<Product> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -870,6 +860,10 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Product> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getProductMapper());
   }
@@ -905,6 +899,15 @@ public class ProductJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Prod
 
 	
 
+  @Override
+  public List<Product> search(ProductRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ProductMapper mapper() {
+    return getProductMapper();
+  }
 }
 
 

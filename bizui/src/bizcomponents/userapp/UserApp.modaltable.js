@@ -38,7 +38,7 @@ class UserAppModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1275 }}
+          scroll={{ x: 1200 }}
         />
       </div>
     )

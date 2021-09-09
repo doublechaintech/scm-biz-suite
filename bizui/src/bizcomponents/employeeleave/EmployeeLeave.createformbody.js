@@ -15,14 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = EmployeeLeaveBase
 const testValues = {};
-/*
-const testValues = {
-  leaveDurationHour: '6',
-  remark: '请年假，出去耍！！！！',
-  whoId: 'E000001',
-  typeId: 'LT000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -36,9 +31,20 @@ class EmployeeLeaveCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = EmployeeLeaveBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -49,7 +55,7 @@ class EmployeeLeaveCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -57,7 +63,7 @@ class EmployeeLeaveCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -65,10 +71,10 @@ class EmployeeLeaveCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -77,16 +83,16 @@ class EmployeeLeaveCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {EmployeeLeaveService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -96,9 +102,9 @@ class EmployeeLeaveCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -107,7 +113,7 @@ class EmployeeLeaveCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -119,25 +125,25 @@ class EmployeeLeaveCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_leave')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.leaveDurationHour} {...formItemLayout}>
                   {getFieldDecorator('leaveDurationHour', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.leaveDurationHour} />
+                    <SmallTextInput minLength={0} maxLength={8} size="large"  placeholder={fieldLabels.leaveDurationHour} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,65 +153,65 @@ class EmployeeLeaveCreateFormBody extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.remark} />
+                    <SmallTextInput minLength={3} maxLength={44} size="large"  placeholder={fieldLabels.remark} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.who} {...formItemLayout}>
                   {getFieldDecorator('whoId', {
                   	initialValue: tryinit('who'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('who')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"employee_leave"} 
-		                 targetType={"employee"} 
-                 
+		                 listType={"employee_leave"}
+		                 targetType={"employee"}
+
                     requestFunction={EmployeeLeaveService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.type} {...formItemLayout}>
                   {getFieldDecorator('typeId', {
                   	initialValue: tryinit('type'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('type')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"employee_leave"} 
-		                 targetType={"leave_type"} 
-                 
+		                 listType={"employee_leave"}
+		                 targetType={"leave_type"}
+
                     requestFunction={EmployeeLeaveService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -220,7 +226,7 @@ class EmployeeLeaveCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

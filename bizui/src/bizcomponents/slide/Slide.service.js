@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}slideManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}slideManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}slideService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const SlideService = { view,
   load,
+  analyze,
   requestCandidatePage,
-  transferToAnotherPage, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherPage, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default SlideService
 

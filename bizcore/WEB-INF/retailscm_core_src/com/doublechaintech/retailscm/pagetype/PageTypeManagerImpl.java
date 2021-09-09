@@ -1,65 +1,32 @@
 
 package com.doublechaintech.retailscm.pagetype;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.mobileapp.CandidateMobileApp;import com.doublechaintech.retailscm.mobileapp.MobileApp;import com.doublechaintech.retailscm.pagetype.PageType;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.mobileapp.MobileApp;
-import com.doublechaintech.retailscm.page.Page;
-
-import com.doublechaintech.retailscm.mobileapp.CandidateMobileApp;
-
-import com.doublechaintech.retailscm.mobileapp.MobileApp;
-import com.doublechaintech.retailscm.pagetype.PageType;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implements PageTypeManager, BusinessHandler{
 
 	// Only some of ods have such function
-	
-	// To test
-	public BlobObject exportExcelFromList(RetailscmUserContext userContext, String id, String listName) throws Exception {
-
-		Map<String,Object> tokens = PageTypeTokens.start().withTokenFromListName(listName).done();
-		PageType  pageType = (PageType) this.loadPageType(userContext, id, tokens);
-		//to enrich reference object to let it show display name
-		List<BaseEntity> entityListToNaming = pageType.collectRefercencesFromLists();
-		pageTypeDaoOf(userContext).alias(entityListToNaming);
-
-		return exportListToExcel(userContext, pageType, listName);
-
-	}
-	@Override
-	public BaseGridViewGenerator gridViewGenerator() {
-		return new PageTypeGridViewGenerator();
-	}
 	
 
 
@@ -80,6 +47,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws PageTypeManagerException{
 
 		Message message = new Message();
@@ -90,143 +58,201 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 
 
 
- 	protected PageType savePageType(RetailscmUserContext userContext, PageType pageType, String [] tokensExpr) throws Exception{	
+ 	protected PageType savePageType(RetailscmUserContext userContext, PageType pageType, String [] tokensExpr) throws Exception{
  		//return getPageTypeDAO().save(pageType, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return savePageType(userContext, pageType, tokens);
  	}
- 	
- 	protected PageType savePageTypeDetail(RetailscmUserContext userContext, PageType pageType) throws Exception{	
 
- 		
+ 	protected PageType savePageTypeDetail(RetailscmUserContext userContext, PageType pageType) throws Exception{
+
+
  		return savePageType(userContext, pageType, allTokens());
  	}
- 	
- 	public PageType loadPageType(RetailscmUserContext userContext, String pageTypeId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public PageType loadPageType(RetailscmUserContext userContext, String pageTypeId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfPageType(pageTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PageTypeManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		PageType pageType = loadPageType( userContext, pageTypeId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,pageType, tokens);
  	}
- 	
- 	
- 	 public PageType searchPageType(RetailscmUserContext userContext, String pageTypeId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public PageType searchPageType(RetailscmUserContext userContext, String pageTypeId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfPageType(pageTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PageTypeManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		PageType pageType = loadPageType( userContext, pageTypeId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,pageType, tokens);
  	}
- 	
- 	
+
+
 
  	protected PageType present(RetailscmUserContext userContext, PageType pageType, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,pageType,tokens);
-		
-		
+    
+
 		PageType  pageTypeToPresent = pageTypeDaoOf(userContext).present(pageType, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = pageTypeToPresent.collectRefercencesFromLists();
 		pageTypeDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,pageType,tokens);
-		
+
 		return  pageTypeToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public PageType loadPageTypeDetail(RetailscmUserContext userContext, String pageTypeId) throws Exception{	
+
+
+
+ 	public PageType loadPageTypeDetail(RetailscmUserContext userContext, String pageTypeId) throws Exception{
  		PageType pageType = loadPageType( userContext, pageTypeId, allTokens());
  		return present(userContext,pageType, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String pageTypeId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String pageTypeId) throws Exception{
  		PageType pageType = loadPageType( userContext, pageTypeId, viewTokens());
- 		return present(userContext,pageType, allTokens());
-		
- 	}
- 	protected PageType savePageType(RetailscmUserContext userContext, PageType pageType, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, pageType);
+ 		return present(userContext,pageType, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String pageTypeId) throws Exception{
+		PageType pageType = loadPageType( userContext, pageTypeId, viewTokens());
+		pageType.summarySuffix();
+		markVisited(userContext, pageType);
+ 		return present(userContext,pageType, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String pageTypeId) throws Exception{
+		PageType pageType = loadPageType( userContext, pageTypeId, analyzeTokens());
+		markVisited(userContext, pageType);
+		return present(userContext,pageType, analyzeTokens());
+
+	}
+ 	protected PageType savePageType(RetailscmUserContext userContext, PageType pageType, Map<String,Object>tokens) throws Exception{
+ 	
+    if (pageType.getId() == null) {
+      pageType.setId(pageType.getCode());
+    }
+ 	
  		return pageTypeDaoOf(userContext).save(pageType, tokens);
  	}
- 	protected PageType loadPageType(RetailscmUserContext userContext, String pageTypeId, Map<String,Object>tokens) throws Exception{	
+ 	protected PageType loadPageType(RetailscmUserContext userContext, String pageTypeId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfPageType(pageTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PageTypeManagerException.class);
 
- 
+
+
  		return pageTypeDaoOf(userContext).load(pageTypeId, tokens);
  	}
 
 	
-	
 
-	public PageType loadPageTypeWithCode(RetailscmUserContext userContext, String code, Map<String,Object>tokens) throws Exception{	
+
+	public PageType loadPageTypeWithCode(RetailscmUserContext userContext, String code, Map<String,Object>tokens) throws Exception{
  		return pageTypeDaoOf(userContext).loadByCode(code, tokens);
  	}
 
 	 
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, PageType pageType, Map<String, Object> tokens){
 		super.addActions(userContext, pageType, tokens);
-		
+
 		addAction(userContext, pageType, tokens,"@create","createPageType","createPageType/","main","primary");
 		addAction(userContext, pageType, tokens,"@update","updatePageType","updatePageType/"+pageType.getId()+"/","main","primary");
 		addAction(userContext, pageType, tokens,"@copy","clonePageType","clonePageType/"+pageType.getId()+"/","main","primary");
-		
+
 		addAction(userContext, pageType, tokens,"page_type.transfer_to_mobile_app","transferToAnotherMobileApp","transferToAnotherMobileApp/"+pageType.getId()+"/","main","primary");
 		addAction(userContext, pageType, tokens,"page_type.addPage","addPage","addPage/"+pageType.getId()+"/","pageList","primary");
 		addAction(userContext, pageType, tokens,"page_type.removePage","removePage","removePage/"+pageType.getId()+"/","pageList","primary");
 		addAction(userContext, pageType, tokens,"page_type.updatePage","updatePage","updatePage/"+pageType.getId()+"/","pageList","primary");
 		addAction(userContext, pageType, tokens,"page_type.copyPageFrom","copyPageFrom","copyPageFrom/"+pageType.getId()+"/","pageList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, PageType pageType, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<PageType> searchPageTypeList(RetailscmUserContext ctx, PageTypeRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<PageType> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public PageType searchPageType(RetailscmUserContext ctx, PageTypeRequest pRequest){
+    pRequest.limit(0, 1);
+    List<PageType> list = searchPageTypeList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public PageType createPageType(RetailscmUserContext userContext, String name,String code,String mobileAppId,boolean footerTab) throws Exception
-	//public PageType createPageType(RetailscmUserContext userContext,String name, String code, String mobileAppId, boolean footerTab) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfPageType(name);
 		checkerOf(userContext).checkCodeOfPageType(code);
 		checkerOf(userContext).checkFooterTabOfPageType(footerTab);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
+
 
 
 		PageType pageType=createNewPageType();	
@@ -257,34 +283,36 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfPageType(pageTypeId);
 		checkerOf(userContext).checkVersionOfPageType( pageTypeVersion);
-		
+
 
 		if(PageType.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfPageType(parseString(newValueExpr));
 		
-			
+
 		}
 		if(PageType.CODE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkCodeOfPageType(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(PageType.FOOTER_TAB_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkFooterTabOfPageType(parseBoolean(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
+
 
 
 	}
@@ -313,6 +341,8 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 			if (pageType.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixPageType(pageType);
 			pageType = savePageType(userContext, pageType, options);
 			return pageType;
 
@@ -379,10 +409,15 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 	protected Map<String,Object> allTokens(){
 		return PageTypeTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortPageListWith("id","desc")
-		.analyzeAllLists().done();
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -394,6 +429,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 
  		checkerOf(userContext).checkIdOfPageType(pageTypeId);
  		checkerOf(userContext).checkIdOfMobileApp(anotherMobileAppId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
 
  	}
@@ -401,16 +437,17 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
  	{
  		checkParamsForTransferingAnotherMobileApp(userContext, pageTypeId,anotherMobileAppId);
  
-		PageType pageType = loadPageType(userContext, pageTypeId, allTokens());	
+		PageType pageType = loadPageType(userContext, pageTypeId, allTokens());
 		synchronized(pageType){
 			//will be good when the pageType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			MobileApp mobileApp = loadMobileApp(userContext, anotherMobileAppId, emptyOptions());		
-			pageType.updateMobileApp(mobileApp);		
+			MobileApp mobileApp = loadMobileApp(userContext, anotherMobileAppId, emptyOptions());
+			pageType.updateMobileApp(mobileApp);
+			
 			pageType = savePageType(userContext, pageType, emptyOptions());
-			
+
 			return present(userContext,pageType, allTokens());
-			
+
 		}
 
  	}
@@ -443,8 +480,9 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 
  	protected MobileApp loadMobileApp(RetailscmUserContext userContext, String newMobileAppId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return mobileAppDaoOf(userContext).load(newMobileAppId, options);
+ 	  
  	}
  	
 
@@ -490,290 +528,6 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 	}
 
 
-	//disconnect PageType with mobile_app in Page
-	protected PageType breakWithPageByMobileApp(RetailscmUserContext userContext, String pageTypeId, String mobileAppId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			PageType pageType = loadPageType(userContext, pageTypeId, allTokens());
-
-			synchronized(pageType){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				pageTypeDaoOf(userContext).planToRemovePageListWithMobileApp(pageType, mobileAppId, this.emptyOptions());
-
-				pageType = savePageType(userContext, pageType, tokens().withPageList().done());
-				return pageType;
-			}
-	}
-
-
-
-
-
-
-	protected void checkParamsForAddingPage(RetailscmUserContext userContext, String pageTypeId, String pageTitle, String linkToUrl, int displayOrder, String mobileAppId,String [] tokensExpr) throws Exception{
-
-				checkerOf(userContext).checkIdOfPageType(pageTypeId);
-
-		
-		checkerOf(userContext).checkPageTitleOfPage(pageTitle);
-		
-		checkerOf(userContext).checkLinkToUrlOfPage(linkToUrl);
-		
-		checkerOf(userContext).checkDisplayOrderOfPage(displayOrder);
-		
-		checkerOf(userContext).checkMobileAppIdOfPage(mobileAppId);
-	
-		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
-
-
-	}
-	public  PageType addPage(RetailscmUserContext userContext, String pageTypeId, String pageTitle, String linkToUrl, int displayOrder, String mobileAppId, String [] tokensExpr) throws Exception
-	{
-
-		checkParamsForAddingPage(userContext,pageTypeId,pageTitle, linkToUrl, displayOrder, mobileAppId,tokensExpr);
-
-		Page page = createPage(userContext,pageTitle, linkToUrl, displayOrder, mobileAppId);
-
-		PageType pageType = loadPageType(userContext, pageTypeId, emptyOptions());
-		synchronized(pageType){
-			//Will be good when the pageType loaded from this JVM process cache.
-			//Also good when there is a RAM based DAO implementation
-			pageType.addPage( page );
-			pageType = savePageType(userContext, pageType, tokens().withPageList().done());
-			
-			pageManagerOf(userContext).onNewInstanceCreated(userContext, page);
-			return present(userContext,pageType, mergedAllTokens(tokensExpr));
-		}
-	}
-	protected void checkParamsForUpdatingPageProperties(RetailscmUserContext userContext, String pageTypeId,String id,String pageTitle,String linkToUrl,int displayOrder,String [] tokensExpr) throws Exception {
-
-		checkerOf(userContext).checkIdOfPageType(pageTypeId);
-		checkerOf(userContext).checkIdOfPage(id);
-
-		checkerOf(userContext).checkPageTitleOfPage( pageTitle);
-		checkerOf(userContext).checkLinkToUrlOfPage( linkToUrl);
-		checkerOf(userContext).checkDisplayOrderOfPage( displayOrder);
-
-		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
-
-	}
-	public  PageType updatePageProperties(RetailscmUserContext userContext, String pageTypeId, String id,String pageTitle,String linkToUrl,int displayOrder, String [] tokensExpr) throws Exception
-	{
-		checkParamsForUpdatingPageProperties(userContext,pageTypeId,id,pageTitle,linkToUrl,displayOrder,tokensExpr);
-
-		Map<String, Object> options = tokens()
-				.allTokens()
-				//.withPageListList()
-				.searchPageListWith(Page.ID_PROPERTY, tokens().is(), id).done();
-
-		PageType pageTypeToUpdate = loadPageType(userContext, pageTypeId, options);
-
-		if(pageTypeToUpdate.getPageList().isEmpty()){
-			throw new PageTypeManagerException("Page is NOT FOUND with id: '"+id+"'");
-		}
-
-		Page item = pageTypeToUpdate.getPageList().first();
-		beforeUpdatePageProperties(userContext,item, pageTypeId,id,pageTitle,linkToUrl,displayOrder,tokensExpr);
-		item.updatePageTitle( pageTitle );
-		item.updateLinkToUrl( linkToUrl );
-		item.updateDisplayOrder( displayOrder );
-
-
-		//checkParamsForAddingPage(userContext,pageTypeId,name, code, used,tokensExpr);
-		PageType pageType = savePageType(userContext, pageTypeToUpdate, tokens().withPageList().done());
-		synchronized(pageType){
-			return present(userContext,pageType, mergedAllTokens(tokensExpr));
-		}
-	}
-
-	protected  void beforeUpdatePageProperties(RetailscmUserContext userContext, Page item, String pageTypeId, String id,String pageTitle,String linkToUrl,int displayOrder, String [] tokensExpr)
-						throws Exception {
-			// by default, nothing to do
-	}
-
-	protected Page createPage(RetailscmUserContext userContext, String pageTitle, String linkToUrl, int displayOrder, String mobileAppId) throws Exception{
-
-		Page page = new Page();
-		
-		
-		page.setPageTitle(pageTitle);		
-		page.setLinkToUrl(linkToUrl);		
-		page.setDisplayOrder(displayOrder);		
-		MobileApp  mobileApp = new MobileApp();
-		mobileApp.setId(mobileAppId);		
-		page.setMobileApp(mobileApp);
-	
-		
-		return page;
-
-
-	}
-
-	protected Page createIndexedPage(String id, int version){
-
-		Page page = new Page();
-		page.setId(id);
-		page.setVersion(version);
-		return page;
-
-	}
-
-	protected void checkParamsForRemovingPageList(RetailscmUserContext userContext, String pageTypeId,
-			String pageIds[],String [] tokensExpr) throws Exception {
-
-		checkerOf(userContext).checkIdOfPageType(pageTypeId);
-		for(String pageIdItem: pageIds){
-			checkerOf(userContext).checkIdOfPage(pageIdItem);
-		}
-
-		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
-
-	}
-	public  PageType removePageList(RetailscmUserContext userContext, String pageTypeId,
-			String pageIds[],String [] tokensExpr) throws Exception{
-
-			checkParamsForRemovingPageList(userContext, pageTypeId,  pageIds, tokensExpr);
-
-
-			PageType pageType = loadPageType(userContext, pageTypeId, allTokens());
-			synchronized(pageType){
-				//Will be good when the pageType loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-				pageTypeDaoOf(userContext).planToRemovePageList(pageType, pageIds, allTokens());
-				pageType = savePageType(userContext, pageType, tokens().withPageList().done());
-				deleteRelationListInGraph(userContext, pageType.getPageList());
-				return present(userContext,pageType, mergedAllTokens(tokensExpr));
-			}
-	}
-
-	protected void checkParamsForRemovingPage(RetailscmUserContext userContext, String pageTypeId,
-		String pageId, int pageVersion,String [] tokensExpr) throws Exception{
-		
-		checkerOf(userContext).checkIdOfPageType( pageTypeId);
-		checkerOf(userContext).checkIdOfPage(pageId);
-		checkerOf(userContext).checkVersionOfPage(pageVersion);
-		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
-
-	}
-	public  PageType removePage(RetailscmUserContext userContext, String pageTypeId,
-		String pageId, int pageVersion,String [] tokensExpr) throws Exception{
-
-		checkParamsForRemovingPage(userContext,pageTypeId, pageId, pageVersion,tokensExpr);
-
-		Page page = createIndexedPage(pageId, pageVersion);
-		PageType pageType = loadPageType(userContext, pageTypeId, allTokens());
-		synchronized(pageType){
-			//Will be good when the pageType loaded from this JVM process cache.
-			//Also good when there is a RAM based DAO implementation
-			pageType.removePage( page );
-			pageType = savePageType(userContext, pageType, tokens().withPageList().done());
-			deleteRelationInGraph(userContext, page);
-			return present(userContext,pageType, mergedAllTokens(tokensExpr));
-		}
-
-
-	}
-	protected void checkParamsForCopyingPage(RetailscmUserContext userContext, String pageTypeId,
-		String pageId, int pageVersion,String [] tokensExpr) throws Exception{
-		
-		checkerOf(userContext).checkIdOfPageType( pageTypeId);
-		checkerOf(userContext).checkIdOfPage(pageId);
-		checkerOf(userContext).checkVersionOfPage(pageVersion);
-		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
-
-	}
-	public  PageType copyPageFrom(RetailscmUserContext userContext, String pageTypeId,
-		String pageId, int pageVersion,String [] tokensExpr) throws Exception{
-
-		checkParamsForCopyingPage(userContext,pageTypeId, pageId, pageVersion,tokensExpr);
-
-		Page page = createIndexedPage(pageId, pageVersion);
-		PageType pageType = loadPageType(userContext, pageTypeId, allTokens());
-		synchronized(pageType){
-			//Will be good when the pageType loaded from this JVM process cache.
-			//Also good when there is a RAM based DAO implementation
-
-			
-
-			pageType.copyPageFrom( page );
-			pageType = savePageType(userContext, pageType, tokens().withPageList().done());
-			
-			pageManagerOf(userContext).onNewInstanceCreated(userContext, (Page)pageType.getFlexiableObjects().get(BaseEntity.COPIED_CHILD));
-			return present(userContext,pageType, mergedAllTokens(tokensExpr));
-		}
-
-	}
-
-	protected void checkParamsForUpdatingPage(RetailscmUserContext userContext, String pageTypeId, String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
-		
-
-		
-		checkerOf(userContext).checkIdOfPageType(pageTypeId);
-		checkerOf(userContext).checkIdOfPage(pageId);
-		checkerOf(userContext).checkVersionOfPage(pageVersion);
-
-
-		if(Page.PAGE_TITLE_PROPERTY.equals(property)){
-			checkerOf(userContext).checkPageTitleOfPage(parseString(newValueExpr));
-		}
-		
-		if(Page.LINK_TO_URL_PROPERTY.equals(property)){
-			checkerOf(userContext).checkLinkToUrlOfPage(parseString(newValueExpr));
-		}
-		
-		if(Page.DISPLAY_ORDER_PROPERTY.equals(property)){
-			checkerOf(userContext).checkDisplayOrderOfPage(parseInt(newValueExpr));
-		}
-		
-
-		checkerOf(userContext).throwExceptionIfHasErrors(PageTypeManagerException.class);
-
-	}
-
-	public  PageType updatePage(RetailscmUserContext userContext, String pageTypeId, String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr)
-			throws Exception{
-
-		checkParamsForUpdatingPage(userContext, pageTypeId, pageId, pageVersion, property, newValueExpr,  tokensExpr);
-
-		Map<String,Object> loadTokens = this.tokens().withPageList().searchPageListWith(Page.ID_PROPERTY, tokens().equals(), pageId).done();
-
-
-
-		PageType pageType = loadPageType(userContext, pageTypeId, loadTokens);
-
-		synchronized(pageType){
-			//Will be good when the pageType loaded from this JVM process cache.
-			//Also good when there is a RAM based DAO implementation
-			//pageType.removePage( page );
-			//make changes to AcceleraterAccount.
-			Page pageIdVersionKey = createIndexedPage(pageId, pageVersion);
-
-			Page page = pageType.findThePage(pageIdVersionKey);
-			if(page == null){
-				throw new PageTypeManagerException(pageId+" is NOT FOUND" );
-			}
-
-			beforeUpdatePage(userContext, page, pageTypeId, pageId, pageVersion, property, newValueExpr,  tokensExpr);
-			page.changeProperty(property, newValueExpr);
-			
-			pageType = savePageType(userContext, pageType, tokens().withPageList().done());
-			return present(userContext,pageType, mergedAllTokens(tokensExpr));
-		}
-
-	}
-
-	/** if you has something need to do before update data from DB, override this */
-	protected void beforeUpdatePage(RetailscmUserContext userContext, Page existed, String pageTypeId, String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr)
-  			throws Exception{
-  }
-	/*
-
-	*/
-
 
 
 
@@ -793,112 +547,13 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -921,28 +576,21 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, PageType.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, PageType.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -988,7 +636,7 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String pageTypeId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getPageTypeDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		PageType merchantObj = (PageType) this.view(userContext, pageTypeId);
     String merchantObjId = pageTypeId;
     String linkToUrl =	"pageTypeManager/wxappview/" + merchantObjId + "/";
@@ -1054,22 +702,6 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 
 		//处理 sectionList
 
-		//处理Section：pageListSection
-		Map pageListSection = ListofUtils.buildSection(
-		    "pageListSection",
-		    "页面列表",
-		    null,
-		    "",
-		    "__no_group",
-		    "pageManager/listByPageType/"+merchantObjId+"/",
-		    "auto"
-		);
-		sections.add(pageListSection);
-
-		result.put("pageListSection", ListofUtils.toShortList(merchantObj.getPageList(), "page"));
-		vscope.field("pageListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( Page.class.getName(), null));
-
 		result.put("propList", propList);
 		result.put("sectionList", sections);
 		result.put("pageTitle", pageTitle);
@@ -1083,8 +715,19 @@ public class PageTypeManagerImpl extends CustomRetailscmCheckerManager implement
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

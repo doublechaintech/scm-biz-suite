@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.salarygrade;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface SalaryGradeManager extends BaseManager{
 
 		
 
+  List<SalaryGrade> searchSalaryGradeList(RetailscmUserContext ctx, SalaryGradeRequest pRequest);
+  SalaryGrade searchSalaryGrade(RetailscmUserContext ctx, SalaryGradeRequest pRequest);
 	public SalaryGrade createSalaryGrade(RetailscmUserContext userContext, String code,String companyId,String name,String detailDescription) throws Exception;
 	public SalaryGrade updateSalaryGrade(RetailscmUserContext userContext,String salaryGradeId, int salaryGradeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SalaryGrade loadSalaryGrade(RetailscmUserContext userContext, String salaryGradeId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface SalaryGradeManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String salaryGradeId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, SalaryGrade newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, SalaryGrade updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -55,6 +63,9 @@ public interface SalaryGradeManager extends BaseManager{
 	public Object listByCompany(RetailscmUserContext userContext,String companyId) throws Exception;
 	public Object listPageByCompany(RetailscmUserContext userContext,String companyId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

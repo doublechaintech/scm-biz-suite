@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}supplyOrderManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}supplyOrderManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -157,6 +162,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -176,6 +189,7 @@ const  processRequest = (data) => {
 
 const SupplyOrderService = { view,
   load,
+  analyze,
   addSupplyOrderLineItem,
   addSupplyOrderShippingGroup,
   addSupplyOrderPaymentGroup,
@@ -191,6 +205,6 @@ const SupplyOrderService = { view,
   requestCandidateBuyer,
   requestCandidateSeller,
   transferToAnotherBuyer,
-  transferToAnotherSeller, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherSeller, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default SupplyOrderService
 

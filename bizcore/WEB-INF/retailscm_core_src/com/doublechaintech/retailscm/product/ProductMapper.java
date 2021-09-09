@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.product;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,29 +9,32 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategory;
 
 public class ProductMapper extends BaseRowMapper<Product>{
-	
+
 	protected Product internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		Product product = getProduct();		
-		 		
- 		setId(product, rs, rowNumber); 		
- 		setName(product, rs, rowNumber); 		
- 		setParentCategory(product, rs, rowNumber); 		
- 		setOrigin(product, rs, rowNumber); 		
- 		setRemark(product, rs, rowNumber); 		
- 		setBrand(product, rs, rowNumber); 		
- 		setPicture(product, rs, rowNumber); 		
- 		setLastUpdateTime(product, rs, rowNumber); 		
+		Product product = getProduct();
+		
+ 		setId(product, rs, rowNumber);
+ 		setName(product, rs, rowNumber);
+ 		setParentCategory(product, rs, rowNumber);
+ 		setOrigin(product, rs, rowNumber);
+ 		setRemark(product, rs, rowNumber);
+ 		setBrand(product, rs, rowNumber);
+ 		setPicture(product, rs, rowNumber);
+ 		setLastUpdateTime(product, rs, rowNumber);
  		setVersion(product, rs, rowNumber);
 
+    
 		return product;
 	}
-	
+
 	protected Product getProduct(){
-		return new Product();
-	}		
+	  Product entity = new Product();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(ProductTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(ProductTable.COLUMN_NAME);
@@ -55,10 +62,18 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setParentCategory(Product product, ResultSet rs, int rowNumber) throws SQLException{
- 		String levelThreeCategoryId = rs.getString(ProductTable.COLUMN_PARENT_CATEGORY);
+ 		String levelThreeCategoryId;
+ 		try{
+ 		  levelThreeCategoryId = rs.getString(ProductTable.COLUMN_PARENT_CATEGORY);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( levelThreeCategoryId == null){
  			return;
  		}
@@ -69,14 +84,14 @@ public class ProductMapper extends BaseRowMapper<Product>{
  		if( levelThreeCategory != null ){
  			//if the root object 'product' already have the property, just set the id for it;
  			levelThreeCategory.setId(levelThreeCategoryId);
- 			
+
  			return;
  		}
  		product.setParentCategory(createEmptyParentCategory(levelThreeCategoryId));
  	}
  	
 	protected void setOrigin(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String origin = rs.getString(ProductTable.COLUMN_ORIGIN);
@@ -87,10 +102,13 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setOrigin(origin);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setRemark(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String remark = rs.getString(ProductTable.COLUMN_REMARK);
@@ -101,10 +119,13 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setRemark(remark);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setBrand(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String brand = rs.getString(ProductTable.COLUMN_BRAND);
@@ -115,10 +136,13 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setBrand(brand);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPicture(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String picture = rs.getString(ProductTable.COLUMN_PICTURE);
@@ -129,10 +153,13 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setPicture(picture);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(ProductTable.COLUMN_LAST_UPDATE_TIME);
@@ -143,10 +170,13 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(Product product, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(ProductTable.COLUMN_VERSION);
@@ -157,9 +187,12 @@ public class ProductMapper extends BaseRowMapper<Product>{
 		}
 		
 		product.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected LevelThreeCategory  createEmptyParentCategory(String levelThreeCategoryId){
  		LevelThreeCategory levelThreeCategory = new LevelThreeCategory();

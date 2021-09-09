@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreProvinceCenterManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreProvinceCenterManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -120,6 +125,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreProvinceCenterService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -139,6 +152,7 @@ const  processRequest = (data) => {
 
 const RetailStoreProvinceCenterService = { view,
   load,
+  analyze,
   addProvinceCenterDepartment,
   addProvinceCenterEmployee,
   addRetailStoreCityServiceCenter,
@@ -149,6 +163,6 @@ const RetailStoreProvinceCenterService = { view,
   removeProvinceCenterEmployeeList,
   removeRetailStoreCityServiceCenterList,
   requestCandidateCountry,
-  transferToAnotherCountry, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCountry, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreProvinceCenterService
 

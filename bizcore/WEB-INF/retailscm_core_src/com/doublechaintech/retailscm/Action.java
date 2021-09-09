@@ -4,7 +4,8 @@ package com.doublechaintech.retailscm;
 class BaseAction {
 	public static final String CHANGE_REQUEST_TYPE="changerequesttype";
 	public static final String CUSTOM_ACTION="custom";
-	
+  public static final String OPEN_LINK_IN_NEW_WINDOW = "open_link_in_new_window";
+
 	public BaseAction asCustomGroup() {
 		this.setActionGroup(CUSTOM_ACTION);
 		return this;
@@ -13,9 +14,22 @@ class BaseAction {
 		this.setActionGroup(CHANGE_REQUEST_TYPE);
 		return this;
 	}
-	
+
+  public BaseAction asOpenLinkInNewWindowGroup() {
+    this.setActionGroup(OPEN_LINK_IN_NEW_WINDOW);
+    return this;
+  }
+
+	public boolean isChangeRequestGroup(){
+		return CHANGE_REQUEST_TYPE.equals(this.getActionGroup());
+	}
+
+  public boolean isOpenLinkInNewWindowGroup() {
+    return OPEN_LINK_IN_NEW_WINDOW.equals(this.getActionGroup());
+  }
+
 	public String[] specialActionTypes() {
-		return new String[] {Action.CUSTOM_ACTION,Action.CHANGE_REQUEST_TYPE};
+		return new String[] {Action.CUSTOM_ACTION,Action.CHANGE_REQUEST_TYPE,Action.OPEN_LINK_IN_NEW_WINDOW};
 	}
 
 	protected String actionName;
@@ -27,7 +41,7 @@ class BaseAction {
 	protected String actionLevel;
 	protected String actionIcon;
 	protected String actionId;
-	
+
 	public String getActionIcon() {
 		return actionIcon;
 	}
@@ -35,14 +49,14 @@ class BaseAction {
 	public void setActionIcon(String actionIcon) {
 		this.actionIcon = actionIcon;
 	}
-	
-	
+
+
 	public String getActionId() {
 		if(actionId==null) {
 			actionId = java.util.UUID.randomUUID().toString();
 		}
 		return actionId;
-		
+
 	}
 
 	public String getActionGroup() {
@@ -92,29 +106,29 @@ class BaseAction {
 	public void setManagerBeanName(String managerBeanName) {
 		this.managerBeanName = managerBeanName;
 	}
-	
+
 	public String getActionName() {
 		return actionName;
 	}
-	
+
 	public void setActionName(String actionName) {
 		this.actionName = actionName;
 	}
-	
-	
+
+
 }
 
 public class Action extends BaseAction{
-	
+
 	public Action withActionName(String name){
 		super.setActionName(name);
 		return this;
-		
+
 	}
 	public Action withManagerBeanName(String managerBeanName){
 		super.setManagerBeanName(managerBeanName);
 		return this;
-		
+
 	}
 	public Action withActionPath(String actionPath){
 		super.setActionPath(actionPath);
@@ -147,10 +161,10 @@ level
 icon
 id
 
-	 * 
-	 * 
+	 *
+	 *
 	 * */
-	
+
 	public String getTitle() {
 		if(title==null) {
 			return super.getActionName();
@@ -219,7 +233,7 @@ id
 	protected String level;
 	protected String id;
 
-	
+
 }
 
 

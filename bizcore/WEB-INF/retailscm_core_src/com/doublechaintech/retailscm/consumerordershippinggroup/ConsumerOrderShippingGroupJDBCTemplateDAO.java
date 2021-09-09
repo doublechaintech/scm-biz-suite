@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.consumerordershippinggroup;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 
 	protected ConsumerOrderDAO consumerOrderDAO;
 	public void setConsumerOrderDAO(ConsumerOrderDAO consumerOrderDAO){
- 	
+
  		if(consumerOrderDAO == null){
  			throw new IllegalStateException("Do not try to set consumerOrderDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
  		if(this.consumerOrderDAO == null){
  			throw new IllegalStateException("The consumerOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.consumerOrderDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ConsumerOrderShippingGroupTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ConsumerOrderShippingGroupTokens.BIZORDER);
  	}
 
  	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ConsumerOrderShippingGroupTokens.BIZORDER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 		return new ConsumerOrderShippingGroupMapper();
 	}
 
-	
-	
+
+
 	protected ConsumerOrderShippingGroup extractConsumerOrderShippingGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ConsumerOrderShippingGroup consumerOrderShippingGroup = loadSingleObject(accessKey, getConsumerOrderShippingGroupMapper());
@@ -229,25 +231,26 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 
 	}
 
-	
-	
+
+
 
 	protected ConsumerOrderShippingGroup loadInternalConsumerOrderShippingGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ConsumerOrderShippingGroup consumerOrderShippingGroup = extractConsumerOrderShippingGroup(accessKey, loadOptions);
- 	
+
  		if(isExtractBizOrderEnabled(loadOptions)){
 	 		extractBizOrder(consumerOrderShippingGroup, loadOptions);
  		}
  
 		
 		return consumerOrderShippingGroup;
-		
+
 	}
 
-	 
+	
 
  	protected ConsumerOrderShippingGroup extractBizOrder(ConsumerOrderShippingGroup consumerOrderShippingGroup, Map<String,Object> options) throws Exception{
+  
 
 		if(consumerOrderShippingGroup.getBizOrder() == null){
 			return consumerOrderShippingGroup;
@@ -260,37 +263,37 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 		if(bizOrder != null){
 			consumerOrderShippingGroup.setBizOrder(bizOrder);
 		}
-		
- 		
+
+
  		return consumerOrderShippingGroup;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<ConsumerOrderShippingGroup> findConsumerOrderShippingGroupByBizOrder(String consumerOrderId,Map<String,Object> options){
- 	
+
   		SmartList<ConsumerOrderShippingGroup> resultList = queryWith(ConsumerOrderShippingGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderShippingGroupMapper());
 		// analyzeConsumerOrderShippingGroupByBizOrder(resultList, consumerOrderId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ConsumerOrderShippingGroup> findConsumerOrderShippingGroupByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ConsumerOrderShippingGroup> resultList =  queryWithRange(ConsumerOrderShippingGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderShippingGroupMapper(), start, count);
  		//analyzeConsumerOrderShippingGroupByBizOrder(resultList, consumerOrderId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeConsumerOrderShippingGroupByBizOrder(SmartList<ConsumerOrderShippingGroup> resultList, String consumerOrderId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countConsumerOrderShippingGroupByBizOrder(String consumerOrderId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 	public Map<String, Integer> countConsumerOrderShippingGroupByBizOrderIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ConsumerOrderShippingGroupTable.COLUMN_BIZ_ORDER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ConsumerOrderShippingGroup saveConsumerOrderShippingGroup(ConsumerOrderShippingGroup  consumerOrderShippingGroup){
+    
+
 		
 		if(!consumerOrderShippingGroup.isChanged()){
 			return consumerOrderShippingGroup;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(consumerOrderShippingGroup);
 		String SQL=this.getSaveConsumerOrderShippingGroupSQL(consumerOrderShippingGroup);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveConsumerOrderShippingGroupParameters(consumerOrderShippingGroup);
@@ -326,6 +332,7 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 		}
 
 		consumerOrderShippingGroup.incVersion();
+		consumerOrderShippingGroup.afterSave();
 		return consumerOrderShippingGroup;
 
 	}
@@ -343,6 +350,7 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 		for(ConsumerOrderShippingGroup consumerOrderShippingGroup:consumerOrderShippingGroupList){
 			if(consumerOrderShippingGroup.isChanged()){
 				consumerOrderShippingGroup.incVersion();
+				consumerOrderShippingGroup.afterSave();
 			}
 
 
@@ -446,14 +454,12 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
  	protected Object[] prepareConsumerOrderShippingGroupUpdateParameters(ConsumerOrderShippingGroup consumerOrderShippingGroup){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = consumerOrderShippingGroup.getName();
  		
  		if(consumerOrderShippingGroup.getBizOrder() != null){
  			parameters[1] = consumerOrderShippingGroup.getBizOrder().getId();
  		}
- 
- 		
+    
  		parameters[2] = consumerOrderShippingGroup.getAmount();
  		
  		parameters[3] = consumerOrderShippingGroup.nextVersion();
@@ -470,14 +476,11 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
         }
 		parameters[0] =  consumerOrderShippingGroup.getId();
  
- 		
  		parameters[1] = consumerOrderShippingGroup.getName();
  		
  		if(consumerOrderShippingGroup.getBizOrder() != null){
  			parameters[2] = consumerOrderShippingGroup.getBizOrder().getId();
-
  		}
- 		
  		
  		parameters[3] = consumerOrderShippingGroup.getAmount();
  		
@@ -487,12 +490,11 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 
 	protected ConsumerOrderShippingGroup saveInternalConsumerOrderShippingGroup(ConsumerOrderShippingGroup consumerOrderShippingGroup, Map<String,Object> options){
 
-		saveConsumerOrderShippingGroup(consumerOrderShippingGroup);
-
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(consumerOrderShippingGroup, options);
  		}
  
+   saveConsumerOrderShippingGroup(consumerOrderShippingGroup);
 		
 		return consumerOrderShippingGroup;
 
@@ -504,6 +506,7 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 	
 
  	protected ConsumerOrderShippingGroup saveBizOrder(ConsumerOrderShippingGroup consumerOrderShippingGroup, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(consumerOrderShippingGroup.getBizOrder() == null){
  			return consumerOrderShippingGroup;//do nothing when it is null
@@ -513,11 +516,6 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
  		return consumerOrderShippingGroup;
 
  	}
-
-
-
-
-
  
 
 	
@@ -525,10 +523,10 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 		
 
 	public ConsumerOrderShippingGroup present(ConsumerOrderShippingGroup consumerOrderShippingGroup,Map<String, Object> options){
-	
+
 
 		return consumerOrderShippingGroup;
-	
+
 	}
 		
 
@@ -580,6 +578,10 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ConsumerOrderShippingGroup> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getConsumerOrderShippingGroupMapper());
   }
@@ -615,6 +617,15 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOI
 
 	
 
+  @Override
+  public List<ConsumerOrderShippingGroup> search(ConsumerOrderShippingGroupRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ConsumerOrderShippingGroupMapper mapper() {
+    return getConsumerOrderShippingGroupMapper();
+  }
 }
 
 

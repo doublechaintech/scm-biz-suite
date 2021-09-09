@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}employeeQualifierManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}employeeQualifierManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeQualifierService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const EmployeeQualifierService = { view,
   load,
+  analyze,
   requestCandidateEmployee,
-  transferToAnotherEmployee, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherEmployee, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default EmployeeQualifierService
 

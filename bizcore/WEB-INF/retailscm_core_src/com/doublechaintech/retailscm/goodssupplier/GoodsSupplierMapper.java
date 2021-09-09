@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.goodssupplier;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,28 +9,31 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 
 public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
-	
+
 	protected GoodsSupplier internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		GoodsSupplier goodsSupplier = getGoodsSupplier();		
-		 		
- 		setId(goodsSupplier, rs, rowNumber); 		
- 		setName(goodsSupplier, rs, rowNumber); 		
- 		setSupplyProduct(goodsSupplier, rs, rowNumber); 		
- 		setBelongTo(goodsSupplier, rs, rowNumber); 		
- 		setContactNumber(goodsSupplier, rs, rowNumber); 		
- 		setDescription(goodsSupplier, rs, rowNumber); 		
- 		setLastUpdateTime(goodsSupplier, rs, rowNumber); 		
+		GoodsSupplier goodsSupplier = getGoodsSupplier();
+		
+ 		setId(goodsSupplier, rs, rowNumber);
+ 		setName(goodsSupplier, rs, rowNumber);
+ 		setSupplyProduct(goodsSupplier, rs, rowNumber);
+ 		setBelongTo(goodsSupplier, rs, rowNumber);
+ 		setContactNumber(goodsSupplier, rs, rowNumber);
+ 		setDescription(goodsSupplier, rs, rowNumber);
+ 		setLastUpdateTime(goodsSupplier, rs, rowNumber);
  		setVersion(goodsSupplier, rs, rowNumber);
 
+    
 		return goodsSupplier;
 	}
-	
+
 	protected GoodsSupplier getGoodsSupplier(){
-		return new GoodsSupplier();
-	}		
+	  GoodsSupplier entity = new GoodsSupplier();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(GoodsSupplierTable.COLUMN_ID);
@@ -40,10 +44,13 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
 		}
 		
 		goodsSupplier.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(GoodsSupplierTable.COLUMN_NAME);
@@ -54,10 +61,13 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
 		}
 		
 		goodsSupplier.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setSupplyProduct(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String supplyProduct = rs.getString(GoodsSupplierTable.COLUMN_SUPPLY_PRODUCT);
@@ -68,10 +78,18 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
 		}
 		
 		goodsSupplier.setSupplyProduct(supplyProduct);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setBelongTo(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(GoodsSupplierTable.COLUMN_BELONG_TO);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(GoodsSupplierTable.COLUMN_BELONG_TO);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -82,14 +100,14 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'goodsSupplier' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		goodsSupplier.setBelongTo(createEmptyBelongTo(retailStoreCountryCenterId));
  	}
  	
 	protected void setContactNumber(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String contactNumber = rs.getString(GoodsSupplierTable.COLUMN_CONTACT_NUMBER);
@@ -100,10 +118,13 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
 		}
 		
 		goodsSupplier.setContactNumber(contactNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDescription(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(GoodsSupplierTable.COLUMN_DESCRIPTION);
@@ -114,10 +135,13 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
 		}
 		
 		goodsSupplier.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(GoodsSupplierTable.COLUMN_LAST_UPDATE_TIME);
@@ -128,10 +152,13 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
 		}
 		
 		goodsSupplier.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(GoodsSupplier goodsSupplier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(GoodsSupplierTable.COLUMN_VERSION);
@@ -142,9 +169,12 @@ public class GoodsSupplierMapper extends BaseRowMapper<GoodsSupplier>{
 		}
 		
 		goodsSupplier.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyBelongTo(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

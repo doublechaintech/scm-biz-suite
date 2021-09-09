@@ -44,13 +44,15 @@ public interface RetailStoreMemberAddressDAO extends BaseDAO{
 	public void delete(String retailStoreMemberAddressId, int version) throws Exception;
 	public RetailStoreMemberAddress disconnectFromAll(String retailStoreMemberAddressId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<RetailStoreMemberAddress> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreMemberAddress> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreMemberAddress> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreMemberAddress executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreMemberAddress> findRetailStoreMemberAddressByOwner(String retailStoreMemberId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface RetailStoreMemberAddressDAO extends BaseDAO{
 
 
  
+
+	List<RetailStoreMemberAddress> search(RetailStoreMemberAddressRequest pRequest);
 }
 
 

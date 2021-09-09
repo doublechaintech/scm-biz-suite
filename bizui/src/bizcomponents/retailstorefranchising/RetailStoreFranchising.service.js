@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreFranchisingManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreFranchisingManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -61,6 +66,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreFranchisingService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -80,8 +93,9 @@ const  processRequest = (data) => {
 
 const RetailStoreFranchisingService = { view,
   load,
+  analyze,
   addRetailStore,
   updateRetailStore,
-  removeRetailStoreList, listFunctions, saveRequest, processRequest, queryCandidates}
+  removeRetailStoreList, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreFranchisingService
 

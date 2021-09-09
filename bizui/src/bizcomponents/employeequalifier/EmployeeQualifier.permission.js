@@ -31,7 +31,7 @@ const internalSummaryOf = (employeeQualifier,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeQualifier.id}</Description> 
+<Description term="ID">{employeeQualifier.id}</Description> 
 <Description term="合格的时间">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
 <Description term="类型">{employeeQualifier.type}</Description> 
 <Description term="水平">{employeeQualifier.level}</Description> 
@@ -61,7 +61,7 @@ class EmployeeQualifierPermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeQualifier = this.props.employeeQualifier
     const { id,displayName,  } = employeeQualifier
-    const  returnURL = `/employeeQualifier/${id}/dashboard`
+    const  returnURL = `/employeeQualifier/${id}/workbench`
     const cardsData = {cardsName:"员工资质",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,displayName,returnURL,
   		subItems: [
     
@@ -74,10 +74,10 @@ class EmployeeQualifierPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

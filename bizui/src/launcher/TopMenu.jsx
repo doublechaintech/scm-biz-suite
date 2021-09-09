@@ -63,19 +63,20 @@ class TopMenu extends React.Component {
 
     return (
       <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode={mode} theme="dark">
-       
-        <Menu.Item key={ChangePassword} >
+        <Menu.Item key={ChangePassword}>
           <Icon type="lock" />
           {launcherLocaleName(userContext, 'ChangePassword')}
         </Menu.Item>
 
         {!isOnHomePage && (
-          <Menu.Item key={'gohome'} >
-            <Icon type="home" />&nbsp;{launcherLocaleName(userContext, 'Home')}
+          <Menu.Item key={'gohome'}>
+            <Icon type="home" />
+            &nbsp;
+            {launcherLocaleName(userContext, 'Home')}
           </Menu.Item>
         )}
-        
-         <Menu.Item key="logout" >
+
+        <Menu.Item key="logout">
           <Icon type="logout" />
           {launcherLocaleName(userContext, 'Exit')}
         </Menu.Item>

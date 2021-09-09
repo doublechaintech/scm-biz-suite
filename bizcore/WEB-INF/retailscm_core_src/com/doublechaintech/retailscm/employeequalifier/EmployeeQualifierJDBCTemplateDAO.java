@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeequalifier;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeQualifierTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeQualifierTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeQualifierTokens.EMPLOYEE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		return new EmployeeQualifierMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeQualifier extractEmployeeQualifier(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeQualifier employeeQualifier = loadSingleObject(accessKey, getEmployeeQualifierMapper());
@@ -229,25 +231,26 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeQualifier loadInternalEmployeeQualifier(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeQualifier employeeQualifier = extractEmployeeQualifier(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeQualifier, loadOptions);
  		}
  
 		
 		return employeeQualifier;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeQualifier extractEmployee(EmployeeQualifier employeeQualifier, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeQualifier.getEmployee() == null){
 			return employeeQualifier;
@@ -260,37 +263,37 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(employee != null){
 			employeeQualifier.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeQualifier;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeQualifier> findEmployeeQualifierByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeQualifier> resultList = queryWith(EmployeeQualifierTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeQualifierMapper());
 		// analyzeEmployeeQualifierByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeQualifier> findEmployeeQualifierByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeQualifier> resultList =  queryWithRange(EmployeeQualifierTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeQualifierMapper(), start, count);
  		//analyzeEmployeeQualifierByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeQualifierByEmployee(SmartList<EmployeeQualifier> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeQualifierByEmployee(String employeeId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countEmployeeQualifierByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeQualifierTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeQualifier saveEmployeeQualifier(EmployeeQualifier  employeeQualifier){
+    
+
 		
 		if(!employeeQualifier.isChanged()){
 			return employeeQualifier;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeQualifier);
 		String SQL=this.getSaveEmployeeQualifierSQL(employeeQualifier);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeQualifierParameters(employeeQualifier);
@@ -326,6 +332,7 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 
 		employeeQualifier.incVersion();
+		employeeQualifier.afterSave();
 		return employeeQualifier;
 
 	}
@@ -343,6 +350,7 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		for(EmployeeQualifier employeeQualifier:employeeQualifierList){
 			if(employeeQualifier.isChanged()){
 				employeeQualifier.incVersion();
+				employeeQualifier.afterSave();
 			}
 
 
@@ -449,16 +457,12 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(employeeQualifier.getEmployee() != null){
  			parameters[0] = employeeQualifier.getEmployee().getId();
  		}
- 
- 		
+    
  		parameters[1] = employeeQualifier.getQualifiedTime();
- 		
  		
  		parameters[2] = employeeQualifier.getType();
  		
- 		
  		parameters[3] = employeeQualifier.getLevel();
- 		
  		
  		parameters[4] = employeeQualifier.getRemark();
  		
@@ -478,18 +482,13 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  
  		if(employeeQualifier.getEmployee() != null){
  			parameters[1] = employeeQualifier.getEmployee().getId();
-
  		}
- 		
  		
  		parameters[2] = employeeQualifier.getQualifiedTime();
  		
- 		
  		parameters[3] = employeeQualifier.getType();
  		
- 		
  		parameters[4] = employeeQualifier.getLevel();
- 		
  		
  		parameters[5] = employeeQualifier.getRemark();
  		
@@ -499,12 +498,11 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected EmployeeQualifier saveInternalEmployeeQualifier(EmployeeQualifier employeeQualifier, Map<String,Object> options){
 
-		saveEmployeeQualifier(employeeQualifier);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeQualifier, options);
  		}
  
+   saveEmployeeQualifier(employeeQualifier);
 		
 		return employeeQualifier;
 
@@ -516,6 +514,7 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 
  	protected EmployeeQualifier saveEmployee(EmployeeQualifier employeeQualifier, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeQualifier.getEmployee() == null){
  			return employeeQualifier;//do nothing when it is null
@@ -525,11 +524,6 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return employeeQualifier;
 
  	}
-
-
-
-
-
  
 
 	
@@ -537,10 +531,10 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 
 	public EmployeeQualifier present(EmployeeQualifier employeeQualifier,Map<String, Object> options){
-	
+
 
 		return employeeQualifier;
-	
+
 	}
 		
 
@@ -592,6 +586,10 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeQualifier> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeQualifierMapper());
   }
@@ -627,6 +625,15 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	
 
+  @Override
+  public List<EmployeeQualifier> search(EmployeeQualifierRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeQualifierMapper mapper() {
+    return getEmployeeQualifierMapper();
+  }
 }
 
 

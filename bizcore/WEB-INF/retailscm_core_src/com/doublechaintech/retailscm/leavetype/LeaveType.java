@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.leavetype;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 import com.doublechaintech.retailscm.employeeleave.EmployeeLeave;
 
@@ -28,12 +25,12 @@ import com.doublechaintech.retailscm.employeeleave.EmployeeLeave;
 @JsonSerialize(using = LeaveTypeSerializer.class)
 public class LeaveType extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String CODE_PROPERTY                  = "code"              ;
 	public static final String COMPANY_PROPERTY               = "company"           ;
@@ -47,33 +44,95 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CODE_PROPERTY, "code", "代码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COMPANY_PROPERTY, "retail_store_country_center", "公司")
+        .withType("retail_store_country_center", RetailStoreCountryCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DESCRIPTION_PROPERTY, "description", "描述")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DETAIL_DESCRIPTION_PROPERTY, "detail_description", "详细描述")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_LEAVE_LIST, "type", "员工离开列表")
+        .withType("employee_leave", EmployeeLeave.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,CODE_PROPERTY ,COMPANY_PROPERTY ,DESCRIPTION_PROPERTY ,DETAIL_DESCRIPTION_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(EMPLOYEE_LEAVE_LIST, "type");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(EMPLOYEE_LEAVE_LIST, EmployeeLeave.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(COMPANY_PROPERTY, RetailStoreCountryCenter.class);
+
+    return parents;
+  }
+
+  public LeaveType want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public LeaveType wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getCode();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mCode               ;
-	protected		RetailStoreCountryCenter	mCompany            ;
-	protected		String              	mDescription        ;
-	protected		String              	mDetailDescription  ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	code                ;
+	protected		RetailStoreCountryCenter	company             ;
+	protected		String              	description         ;
+	protected		String              	detailDescription   ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<EmployeeLeave>	mEmployeeLeaveList  ;
 
-	
-		
+
+
 	public 	LeaveType(){
 		// lazy load for all the properties
 	}
@@ -81,20 +140,39 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		LeaveType leaveType = new LeaveType();
 		leaveType.setId(id);
 		leaveType.setVersion(Integer.MAX_VALUE);
+		leaveType.setChecked(true);
 		return leaveType;
 	}
 	public 	static LeaveType refById(String id){
 		return withId(id);
 	}
-	
+
+  public LeaveType limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public LeaveType limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static LeaveType searchExample(){
+    LeaveType leaveType = new LeaveType();
+    		leaveType.setVersion(UNSET_INT);
+
+    return leaveType;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCompany( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -165,7 +243,7 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(CODE_PROPERTY.equals(property)){
 			return getCode();
 		}
@@ -186,113 +264,192 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public LeaveType updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public LeaveType updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public LeaveType orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public LeaveType ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public LeaveType addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setCode(String code){
-		this.mCode = trimString(code);;
-	}
+	public void setCode(String code){String oldCode = this.code;String newCode = trimString(code);this.code = newCode;}
+	public String code(){
+doLoad();
+return getCode();
+}
 	public String getCode(){
-		return this.mCode;
+		return this.code;
 	}
-	public LeaveType updateCode(String code){
-		this.mCode = trimString(code);;
-		this.changed = true;
-		return this;
-	}
+	public LeaveType updateCode(String code){String oldCode = this.code;String newCode = trimString(code);if(!shouldReplaceBy(newCode, oldCode)){return this;}this.code = newCode;addPropertyChange(CODE_PROPERTY, oldCode, newCode);this.changed = true;setChecked(false);return this;}
+	public LeaveType orderByCode(boolean asc){
+doAddOrderBy(CODE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCodeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CODE_PROPERTY, operator, parameters);
+}
+	public LeaveType ignoreCodeCriteria(){super.ignoreSearchProperty(CODE_PROPERTY);
+return this;
+}
+	public LeaveType addCodeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCodeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCode(String code){
 		if(code != null) { setCode(code);}
 	}
+
 	
-	
-	public void setCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-	}
+	public void setCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;this.company = newCompany;}
+	public RetailStoreCountryCenter company(){
+doLoad();
+return getCompany();
+}
 	public RetailStoreCountryCenter getCompany(){
-		return this.mCompany;
+		return this.company;
 	}
-	public LeaveType updateCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-		this.changed = true;
-		return this;
-	}
+	public LeaveType updateCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;if(!shouldReplaceBy(newCompany, oldCompany)){return this;}this.company = newCompany;addPropertyChange(COMPANY_PROPERTY, oldCompany, newCompany);this.changed = true;setChecked(false);return this;}
+	public LeaveType orderByCompany(boolean asc){
+doAddOrderBy(COMPANY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCompanyCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COMPANY_PROPERTY, operator, parameters);
+}
+	public LeaveType ignoreCompanyCriteria(){super.ignoreSearchProperty(COMPANY_PROPERTY);
+return this;
+}
+	public LeaveType addCompanyCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCompanyCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCompany(RetailStoreCountryCenter company){
 		if(company != null) { setCompany(company);}
 	}
-	
+
 	
 	public void clearCompany(){
 		setCompany ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setDescription(String description){
-		this.mDescription = trimString(description);;
-	}
+	public void setDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);this.description = newDescription;}
+	public String description(){
+doLoad();
+return getDescription();
+}
 	public String getDescription(){
-		return this.mDescription;
+		return this.description;
 	}
-	public LeaveType updateDescription(String description){
-		this.mDescription = trimString(description);;
-		this.changed = true;
-		return this;
-	}
+	public LeaveType updateDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);if(!shouldReplaceBy(newDescription, oldDescription)){return this;}this.description = newDescription;addPropertyChange(DESCRIPTION_PROPERTY, oldDescription, newDescription);this.changed = true;setChecked(false);return this;}
+	public LeaveType orderByDescription(boolean asc){
+doAddOrderBy(DESCRIPTION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDescriptionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DESCRIPTION_PROPERTY, operator, parameters);
+}
+	public LeaveType ignoreDescriptionCriteria(){super.ignoreSearchProperty(DESCRIPTION_PROPERTY);
+return this;
+}
+	public LeaveType addDescriptionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDescriptionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDescription(String description){
 		if(description != null) { setDescription(description);}
 	}
+
 	
-	
-	public void setDetailDescription(String detailDescription){
-		this.mDetailDescription = trimString(detailDescription);;
-	}
+	public void setDetailDescription(String detailDescription){String oldDetailDescription = this.detailDescription;String newDetailDescription = trimString(detailDescription);this.detailDescription = newDetailDescription;}
+	public String detailDescription(){
+doLoad();
+return getDetailDescription();
+}
 	public String getDetailDescription(){
-		return this.mDetailDescription;
+		return this.detailDescription;
 	}
-	public LeaveType updateDetailDescription(String detailDescription){
-		this.mDetailDescription = trimString(detailDescription);;
-		this.changed = true;
-		return this;
-	}
+	public LeaveType updateDetailDescription(String detailDescription){String oldDetailDescription = this.detailDescription;String newDetailDescription = trimString(detailDescription);if(!shouldReplaceBy(newDetailDescription, oldDetailDescription)){return this;}this.detailDescription = newDetailDescription;addPropertyChange(DETAIL_DESCRIPTION_PROPERTY, oldDetailDescription, newDetailDescription);this.changed = true;setChecked(false);return this;}
+	public LeaveType orderByDetailDescription(boolean asc){
+doAddOrderBy(DETAIL_DESCRIPTION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDetailDescriptionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DETAIL_DESCRIPTION_PROPERTY, operator, parameters);
+}
+	public LeaveType ignoreDetailDescriptionCriteria(){super.ignoreSearchProperty(DETAIL_DESCRIPTION_PROPERTY);
+return this;
+}
+	public LeaveType addDetailDescriptionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDetailDescriptionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDetailDescription(String detailDescription){
 		if(detailDescription != null) { setDetailDescription(detailDescription);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public LeaveType updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public LeaveType updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public LeaveType orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public LeaveType ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public LeaveType addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<EmployeeLeave> getEmployeeLeaveList(){
@@ -301,9 +458,18 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeLeaveList.setListInternalName (EMPLOYEE_LEAVE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeLeaveList;	
+
+		return this.mEmployeeLeaveList;
 	}
+
+  public  SmartList<EmployeeLeave> employeeLeaveList(){
+    
+    doLoadChild(EMPLOYEE_LEAVE_LIST);
+    
+    return getEmployeeLeaveList();
+  }
+
+
 	public  void setEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
 		for( EmployeeLeave employeeLeave:employeeLeaveList){
 			employeeLeave.setType(this);
@@ -311,18 +477,20 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeLeaveList = employeeLeaveList;
 		this.mEmployeeLeaveList.setListInternalName (EMPLOYEE_LEAVE_LIST );
-		
+
 	}
-	
-	public  void addEmployeeLeave(EmployeeLeave employeeLeave){
+
+	public  LeaveType addEmployeeLeave(EmployeeLeave employeeLeave){
 		employeeLeave.setType(this);
 		getEmployeeLeaveList().add(employeeLeave);
+		return this;
 	}
-	public  void addEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
+	public  LeaveType addEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
 		for( EmployeeLeave employeeLeave:employeeLeaveList){
 			employeeLeave.setType(this);
 		}
 		getEmployeeLeaveList().addAll(employeeLeaveList);
+		return this;
 	}
 	public  void mergeEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
 		if(employeeLeaveList==null){
@@ -332,45 +500,45 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeLeaveList( employeeLeaveList );
-		
+
 	}
 	public  EmployeeLeave removeEmployeeLeave(EmployeeLeave employeeLeaveIndex){
-		
+
 		int index = getEmployeeLeaveList().indexOf(employeeLeaveIndex);
         if(index < 0){
         	String message = "EmployeeLeave("+employeeLeaveIndex.getId()+") with version='"+employeeLeaveIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeLeave employeeLeave = getEmployeeLeaveList().get(index);        
+        EmployeeLeave employeeLeave = getEmployeeLeaveList().get(index);
         // employeeLeave.clearType(); //disconnect with Type
         employeeLeave.clearFromAll(); //disconnect with Type
-		
+
 		boolean result = getEmployeeLeaveList().planToRemove(employeeLeave);
         if(!result){
         	String message = "EmployeeLeave("+employeeLeaveIndex.getId()+") with version='"+employeeLeaveIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeLeave;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeLeave(EmployeeLeave employeeLeave){
-		
+
 		if(employeeLeave == null){
 			return;
 		}
 		employeeLeave.setType(null);
 		//getEmployeeLeaveList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeLeave(EmployeeLeave employeeLeave){
-	
+
 		return getEmployeeLeaveList().contains(employeeLeave);
-  
+
 	}
-	
+
 	public void copyEmployeeLeaveFrom(EmployeeLeave employeeLeave) {
 
 		EmployeeLeave employeeLeaveInList = findTheEmployeeLeave(employeeLeave);
@@ -380,53 +548,53 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		getEmployeeLeaveList().add(newEmployeeLeave);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeLeave);
 	}
-	
+
 	public  EmployeeLeave findTheEmployeeLeave(EmployeeLeave employeeLeave){
-		
+
 		int index =  getEmployeeLeaveList().indexOf(employeeLeave);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeLeave("+employeeLeave.getId()+") with version='"+employeeLeave.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeLeaveList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeLeaveList(){
 		getEmployeeLeaveList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getCompany(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getEmployeeLeaveList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getEmployeeLeaveList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -447,16 +615,16 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof LeaveType){
-		
-		
+
+
 			LeaveType dest =(LeaveType)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setCode(getCode());
 			dest.setCompany(getCompany());
@@ -470,13 +638,13 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof LeaveType){
-		
-			
+
+
 			LeaveType dest =(LeaveType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeCompany(getCompany());
@@ -489,15 +657,15 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof LeaveType){
-		
-			
+
+
 			LeaveType dest =(LeaveType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeDescription(getDescription());
@@ -510,6 +678,46 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getCode(), getCompany(), getDescription(), getDetailDescription(), getVersion()};
 	}
+
+
+	public static LeaveType createWith(RetailscmUserContext userContext, ThrowingFunction<LeaveType,LeaveType,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<LeaveType> customCreator = mapper.findCustomCreator(LeaveType.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    LeaveType result = new LeaveType();
+    result.setCode(mapper.tryToGet(LeaveType.class, CODE_PROPERTY, String.class,
+        0, false, result.getCode(), params));
+    result.setCompany(mapper.tryToGet(LeaveType.class, COMPANY_PROPERTY, RetailStoreCountryCenter.class,
+        0, true, result.getCompany(), params));
+    result.setDescription(mapper.tryToGet(LeaveType.class, DESCRIPTION_PROPERTY, String.class,
+        1, false, result.getDescription(), params));
+    result.setDetailDescription(mapper.tryToGet(LeaveType.class, DETAIL_DESCRIPTION_PROPERTY, String.class,
+        2, false, result.getDetailDescription(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixLeaveType(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      LeaveTypeTokens tokens = mapper.findParamByClass(params, LeaveTypeTokens.class);
+      if (tokens == null) {
+        tokens = LeaveTypeTokens.start();
+      }
+      result = userContext.getManagerGroup().getLeaveTypeManager().internalSaveLeaveType(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -526,7 +734,7 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}skuManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}skuManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}skuService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const SkuService = { view,
   load,
+  analyze,
   addGoods,
   updateGoods,
   removeGoodsList,
   requestCandidateProduct,
-  transferToAnotherProduct, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherProduct, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default SkuService
 

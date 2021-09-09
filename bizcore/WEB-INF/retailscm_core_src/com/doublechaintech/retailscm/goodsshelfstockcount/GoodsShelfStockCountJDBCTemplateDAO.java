@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.goodsshelfstockcount;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	protected GoodsShelfDAO goodsShelfDAO;
 	public void setGoodsShelfDAO(GoodsShelfDAO goodsShelfDAO){
- 	
+
  		if(goodsShelfDAO == null){
  			throw new IllegalStateException("Do not try to set goodsShelfDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  		if(this.goodsShelfDAO == null){
  			throw new IllegalStateException("The goodsShelfDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsShelfDAO;
- 	}	
+ 	}
 
 	protected StockCountIssueTrackDAO stockCountIssueTrackDAO;
 	public void setStockCountIssueTrackDAO(StockCountIssueTrackDAO stockCountIssueTrackDAO){
- 	
+
  		if(stockCountIssueTrackDAO == null){
  			throw new IllegalStateException("Do not try to set stockCountIssueTrackDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  		if(this.stockCountIssueTrackDAO == null){
  			throw new IllegalStateException("The stockCountIssueTrackDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.stockCountIssueTrackDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		newGoodsShelfStockCount.setVersion(0);
 		
 		
- 		
+
  		if(isSaveStockCountIssueTrackListEnabled(options)){
  			for(StockCountIssueTrack item: newGoodsShelfStockCount.getStockCountIssueTrackList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return GoodsShelfStockCountTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractShelfEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, GoodsShelfStockCountTokens.SHELF);
  	}
 
  	protected boolean isSaveShelfEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, GoodsShelfStockCountTokens.SHELF);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractStockCountIssueTrackListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractStockCountIssueTrackListEnabled(Map<String,Object> options){
  		return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST);
  	}
- 	protected boolean isAnalyzeStockCountIssueTrackListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeStockCountIssueTrackListEnabled(Map<String,Object> options){
  		return GoodsShelfStockCountTokens.of(options).analyzeStockCountIssueTrackListEnabled();
  	}
-	
+
 	protected boolean isSaveStockCountIssueTrackListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		return new GoodsShelfStockCountMapper();
 	}
 
-	
-	
+
+
 	protected GoodsShelfStockCount extractGoodsShelfStockCount(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			GoodsShelfStockCount goodsShelfStockCount = loadSingleObject(accessKey, getGoodsShelfStockCountMapper());
@@ -268,13 +270,13 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	}
 
-	
-	
+
+
 
 	protected GoodsShelfStockCount loadInternalGoodsShelfStockCount(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		GoodsShelfStockCount goodsShelfStockCount = extractGoodsShelfStockCount(accessKey, loadOptions);
- 	
+
  		if(isExtractShelfEnabled(loadOptions)){
 	 		extractShelf(goodsShelfStockCount, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		
 		if(isExtractStockCountIssueTrackListEnabled(loadOptions)){
 	 		extractStockCountIssueTrackList(goodsShelfStockCount, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeStockCountIssueTrackListEnabled(loadOptions)){
 	 		analyzeStockCountIssueTrackList(goodsShelfStockCount, loadOptions);
@@ -291,12 +293,13 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  		
 		
 		return goodsShelfStockCount;
-		
+
 	}
 
-	 
+	
 
  	protected GoodsShelfStockCount extractShelf(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options) throws Exception{
+  
 
 		if(goodsShelfStockCount.getShelf() == null){
 			return goodsShelfStockCount;
@@ -309,21 +312,21 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		if(shelf != null){
 			goodsShelfStockCount.setShelf(shelf);
 		}
-		
- 		
+
+
  		return goodsShelfStockCount;
  	}
- 		
+
  
 		
 	protected void enhanceStockCountIssueTrackList(SmartList<StockCountIssueTrack> stockCountIssueTrackList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected GoodsShelfStockCount extractStockCountIssueTrackList(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options){
-		
-		
+    
+
 		if(goodsShelfStockCount == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 			return goodsShelfStockCount;
 		}
 
-		
-		
+
+
 		SmartList<StockCountIssueTrack> stockCountIssueTrackList = getStockCountIssueTrackDAO().findStockCountIssueTrackByStockCount(goodsShelfStockCount.getId(),options);
 		if(stockCountIssueTrackList != null){
 			enhanceStockCountIssueTrackList(stockCountIssueTrackList,options);
 			goodsShelfStockCount.setStockCountIssueTrackList(stockCountIssueTrackList);
 		}
-		
+
 		return goodsShelfStockCount;
-	
-	}	
-	
+  
+	}
+
 	protected GoodsShelfStockCount analyzeStockCountIssueTrackList(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options){
-		
-		
+     
 		if(goodsShelfStockCount == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 			return goodsShelfStockCount;
 		}
 
-		
-		
+
+
 		SmartList<StockCountIssueTrack> stockCountIssueTrackList = goodsShelfStockCount.getStockCountIssueTrackList();
 		if(stockCountIssueTrackList != null){
 			getStockCountIssueTrackDAO().analyzeStockCountIssueTrackByStockCount(stockCountIssueTrackList, goodsShelfStockCount.getId(), options);
-			
+
 		}
-		
+
 		return goodsShelfStockCount;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<GoodsShelfStockCount> findGoodsShelfStockCountByShelf(String goodsShelfId,Map<String,Object> options){
- 	
+
   		SmartList<GoodsShelfStockCount> resultList = queryWith(GoodsShelfStockCountTable.COLUMN_SHELF, goodsShelfId, options, getGoodsShelfStockCountMapper());
 		// analyzeGoodsShelfStockCountByShelf(resultList, goodsShelfId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<GoodsShelfStockCount> findGoodsShelfStockCountByShelf(String goodsShelfId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<GoodsShelfStockCount> resultList =  queryWithRange(GoodsShelfStockCountTable.COLUMN_SHELF, goodsShelfId, options, getGoodsShelfStockCountMapper(), start, count);
  		//analyzeGoodsShelfStockCountByShelf(resultList, goodsShelfId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeGoodsShelfStockCountByShelf(SmartList<GoodsShelfStockCount> resultList, String goodsShelfId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countGoodsShelfStockCountByShelf(String goodsShelfId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	public Map<String, Integer> countGoodsShelfStockCountByShelfIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(GoodsShelfStockCountTable.COLUMN_SHELF, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected GoodsShelfStockCount saveGoodsShelfStockCount(GoodsShelfStockCount  goodsShelfStockCount){
+    
+
 		
 		if(!goodsShelfStockCount.isChanged()){
 			return goodsShelfStockCount;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(goodsShelfStockCount);
 		String SQL=this.getSaveGoodsShelfStockCountSQL(goodsShelfStockCount);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsShelfStockCountParameters(goodsShelfStockCount);
@@ -425,6 +430,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		}
 
 		goodsShelfStockCount.incVersion();
+		goodsShelfStockCount.afterSave();
 		return goodsShelfStockCount;
 
 	}
@@ -442,6 +448,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		for(GoodsShelfStockCount goodsShelfStockCount:goodsShelfStockCountList){
 			if(goodsShelfStockCount.isChanged()){
 				goodsShelfStockCount.incVersion();
+				goodsShelfStockCount.afterSave();
 			}
 
 
@@ -545,19 +552,16 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  	protected Object[] prepareGoodsShelfStockCountUpdateParameters(GoodsShelfStockCount goodsShelfStockCount){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = goodsShelfStockCount.getTitle();
  		
- 		
  		parameters[1] = goodsShelfStockCount.getCountTime();
- 		
  		
  		parameters[2] = goodsShelfStockCount.getSummary();
  		
  		if(goodsShelfStockCount.getShelf() != null){
  			parameters[3] = goodsShelfStockCount.getShelf().getId();
  		}
- 
+    
  		parameters[4] = goodsShelfStockCount.nextVersion();
  		parameters[5] = goodsShelfStockCount.getId();
  		parameters[6] = goodsShelfStockCount.getVersion();
@@ -572,18 +576,14 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
         }
 		parameters[0] =  goodsShelfStockCount.getId();
  
- 		
  		parameters[1] = goodsShelfStockCount.getTitle();
  		
- 		
  		parameters[2] = goodsShelfStockCount.getCountTime();
- 		
  		
  		parameters[3] = goodsShelfStockCount.getSummary();
  		
  		if(goodsShelfStockCount.getShelf() != null){
  			parameters[4] = goodsShelfStockCount.getShelf().getId();
-
  		}
  		
 
@@ -592,12 +592,11 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	protected GoodsShelfStockCount saveInternalGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options){
 
-		saveGoodsShelfStockCount(goodsShelfStockCount);
-
  		if(isSaveShelfEnabled(options)){
 	 		saveShelf(goodsShelfStockCount, options);
  		}
  
+   saveGoodsShelfStockCount(goodsShelfStockCount);
 		
 		if(isSaveStockCountIssueTrackListEnabled(options)){
 	 		saveStockCountIssueTrackList(goodsShelfStockCount, options);
@@ -616,6 +615,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	
 
  	protected GoodsShelfStockCount saveShelf(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(goodsShelfStockCount.getShelf() == null){
  			return goodsShelfStockCount;//do nothing when it is null
@@ -625,11 +625,6 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  		return goodsShelfStockCount;
 
  	}
-
-
-
-
-
  
 
 	
@@ -664,7 +659,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 		
 	protected GoodsShelfStockCount saveStockCountIssueTrackList(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options){
-
+    
 
 
 
@@ -731,19 +726,19 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		
 
 	public GoodsShelfStockCount present(GoodsShelfStockCount goodsShelfStockCount,Map<String, Object> options){
-	
+
 		presentStockCountIssueTrackList(goodsShelfStockCount,options);
 
 		return goodsShelfStockCount;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected GoodsShelfStockCount presentStockCountIssueTrackList(
 			GoodsShelfStockCount goodsShelfStockCount,
 			Map<String, Object> options) {
-
-		SmartList<StockCountIssueTrack> stockCountIssueTrackList = goodsShelfStockCount.getStockCountIssueTrackList();		
+    
+		SmartList<StockCountIssueTrack> stockCountIssueTrackList = goodsShelfStockCount.getStockCountIssueTrackList();
 				SmartList<StockCountIssueTrack> newList= presentSubList(goodsShelfStockCount.getId(),
 				stockCountIssueTrackList,
 				options,
@@ -751,12 +746,12 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 				getStockCountIssueTrackDAO()::findStockCountIssueTrackByStockCount
 				);
 
-		
+
 		goodsShelfStockCount.setStockCountIssueTrackList(newList);
-		
+
 
 		return goodsShelfStockCount;
-	}			
+	}
 		
 
 	
@@ -780,6 +775,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	
 	// 需要一个加载引用我的对象的enhance方法:StockCountIssueTrack的stockCount的StockCountIssueTrackList
 	public SmartList<StockCountIssueTrack> loadOurStockCountIssueTrackList(RetailscmUserContext userContext, List<GoodsShelfStockCount> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -836,6 +832,10 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<GoodsShelfStockCount> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getGoodsShelfStockCountMapper());
   }
@@ -871,6 +871,15 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	
 
+  @Override
+  public List<GoodsShelfStockCount> search(GoodsShelfStockCountRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected GoodsShelfStockCountMapper mapper() {
+    return getGoodsShelfStockCountMapper();
+  }
 }
 
 

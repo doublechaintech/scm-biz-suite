@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreCityServiceCenterManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreCityServiceCenterManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -142,6 +147,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreCityServiceCenterService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -161,6 +174,7 @@ const  processRequest = (data) => {
 
 const RetailStoreCityServiceCenterService = { view,
   load,
+  analyze,
   addCityPartner,
   addPotentialCustomer,
   addCityEvent,
@@ -174,6 +188,6 @@ const RetailStoreCityServiceCenterService = { view,
   removeCityEventList,
   removeRetailStoreList,
   requestCandidateBelongsTo,
-  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBelongsTo, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreCityServiceCenterService
 

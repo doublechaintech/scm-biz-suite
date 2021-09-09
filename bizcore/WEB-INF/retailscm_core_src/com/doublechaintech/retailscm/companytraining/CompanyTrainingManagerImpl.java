@@ -1,48 +1,27 @@
 
 package com.doublechaintech.retailscm.companytraining;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.companytraining.CompanyTraining;import com.doublechaintech.retailscm.employee.Employee;import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTraining;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.instructor.CandidateInstructor;import com.doublechaintech.retailscm.instructor.Instructor;import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;import com.doublechaintech.retailscm.scoring.Scoring;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.trainingcoursetype.CandidateTrainingCourseType;import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
-import com.doublechaintech.retailscm.instructor.Instructor;
-import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;
-import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTraining;
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;
-import com.doublechaintech.retailscm.instructor.CandidateInstructor;
-import com.doublechaintech.retailscm.trainingcoursetype.CandidateTrainingCourseType;
-
-import com.doublechaintech.retailscm.scoring.Scoring;
-import com.doublechaintech.retailscm.employee.Employee;
-import com.doublechaintech.retailscm.companytraining.CompanyTraining;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager implements CompanyTrainingManager, BusinessHandler{
@@ -85,6 +64,7 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws CompanyTrainingManagerException{
 
 		Message message = new Message();
@@ -95,107 +75,138 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
 
 
- 	protected CompanyTraining saveCompanyTraining(RetailscmUserContext userContext, CompanyTraining companyTraining, String [] tokensExpr) throws Exception{	
+ 	protected CompanyTraining saveCompanyTraining(RetailscmUserContext userContext, CompanyTraining companyTraining, String [] tokensExpr) throws Exception{
  		//return getCompanyTrainingDAO().save(companyTraining, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveCompanyTraining(userContext, companyTraining, tokens);
  	}
- 	
- 	protected CompanyTraining saveCompanyTrainingDetail(RetailscmUserContext userContext, CompanyTraining companyTraining) throws Exception{	
 
- 		
+ 	protected CompanyTraining saveCompanyTrainingDetail(RetailscmUserContext userContext, CompanyTraining companyTraining) throws Exception{
+
+
  		return saveCompanyTraining(userContext, companyTraining, allTokens());
  	}
- 	
- 	public CompanyTraining loadCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public CompanyTraining loadCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( CompanyTrainingManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		CompanyTraining companyTraining = loadCompanyTraining( userContext, companyTrainingId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,companyTraining, tokens);
  	}
- 	
- 	
- 	 public CompanyTraining searchCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public CompanyTraining searchCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( CompanyTrainingManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		CompanyTraining companyTraining = loadCompanyTraining( userContext, companyTrainingId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,companyTraining, tokens);
  	}
- 	
- 	
+
+
 
  	protected CompanyTraining present(RetailscmUserContext userContext, CompanyTraining companyTraining, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,companyTraining,tokens);
-		
-		
+    
+
 		CompanyTraining  companyTrainingToPresent = companyTrainingDaoOf(userContext).present(companyTraining, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = companyTrainingToPresent.collectRefercencesFromLists();
 		companyTrainingDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,companyTraining,tokens);
-		
+
 		return  companyTrainingToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public CompanyTraining loadCompanyTrainingDetail(RetailscmUserContext userContext, String companyTrainingId) throws Exception{	
+
+
+
+ 	public CompanyTraining loadCompanyTrainingDetail(RetailscmUserContext userContext, String companyTrainingId) throws Exception{
  		CompanyTraining companyTraining = loadCompanyTraining( userContext, companyTrainingId, allTokens());
  		return present(userContext,companyTraining, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String companyTrainingId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String companyTrainingId) throws Exception{
  		CompanyTraining companyTraining = loadCompanyTraining( userContext, companyTrainingId, viewTokens());
- 		return present(userContext,companyTraining, allTokens());
-		
- 	}
- 	protected CompanyTraining saveCompanyTraining(RetailscmUserContext userContext, CompanyTraining companyTraining, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, companyTraining);
+ 		return present(userContext,companyTraining, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String companyTrainingId) throws Exception{
+		CompanyTraining companyTraining = loadCompanyTraining( userContext, companyTrainingId, viewTokens());
+		companyTraining.summarySuffix();
+		markVisited(userContext, companyTraining);
+ 		return present(userContext,companyTraining, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String companyTrainingId) throws Exception{
+		CompanyTraining companyTraining = loadCompanyTraining( userContext, companyTrainingId, analyzeTokens());
+		markVisited(userContext, companyTraining);
+		return present(userContext,companyTraining, analyzeTokens());
+
+	}
+ 	protected CompanyTraining saveCompanyTraining(RetailscmUserContext userContext, CompanyTraining companyTraining, Map<String,Object>tokens) throws Exception{
+ 	
  		return companyTrainingDaoOf(userContext).save(companyTraining, tokens);
  	}
- 	protected CompanyTraining loadCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, Map<String,Object>tokens) throws Exception{	
+ 	protected CompanyTraining loadCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( CompanyTrainingManagerException.class);
 
- 
+
+
  		return companyTrainingDaoOf(userContext).load(companyTrainingId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, CompanyTraining companyTraining, Map<String, Object> tokens){
 		super.addActions(userContext, companyTraining, tokens);
-		
+
 		addAction(userContext, companyTraining, tokens,"@create","createCompanyTraining","createCompanyTraining/","main","primary");
 		addAction(userContext, companyTraining, tokens,"@update","updateCompanyTraining","updateCompanyTraining/"+companyTraining.getId()+"/","main","primary");
 		addAction(userContext, companyTraining, tokens,"@copy","cloneCompanyTraining","cloneCompanyTraining/"+companyTraining.getId()+"/","main","primary");
-		
+
 		addAction(userContext, companyTraining, tokens,"company_training.transfer_to_company","transferToAnotherCompany","transferToAnotherCompany/"+companyTraining.getId()+"/","main","primary");
 		addAction(userContext, companyTraining, tokens,"company_training.transfer_to_instructor","transferToAnotherInstructor","transferToAnotherInstructor/"+companyTraining.getId()+"/","main","primary");
 		addAction(userContext, companyTraining, tokens,"company_training.transfer_to_training_course_type","transferToAnotherTrainingCourseType","transferToAnotherTrainingCourseType/"+companyTraining.getId()+"/","main","primary");
@@ -203,30 +214,53 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 		addAction(userContext, companyTraining, tokens,"company_training.removeEmployeeCompanyTraining","removeEmployeeCompanyTraining","removeEmployeeCompanyTraining/"+companyTraining.getId()+"/","employeeCompanyTrainingList","primary");
 		addAction(userContext, companyTraining, tokens,"company_training.updateEmployeeCompanyTraining","updateEmployeeCompanyTraining","updateEmployeeCompanyTraining/"+companyTraining.getId()+"/","employeeCompanyTrainingList","primary");
 		addAction(userContext, companyTraining, tokens,"company_training.copyEmployeeCompanyTrainingFrom","copyEmployeeCompanyTrainingFrom","copyEmployeeCompanyTrainingFrom/"+companyTraining.getId()+"/","employeeCompanyTrainingList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, CompanyTraining companyTraining, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<CompanyTraining> searchCompanyTrainingList(RetailscmUserContext ctx, CompanyTrainingRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<CompanyTraining> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public CompanyTraining searchCompanyTraining(RetailscmUserContext ctx, CompanyTrainingRequest pRequest){
+    pRequest.limit(0, 1);
+    List<CompanyTraining> list = searchCompanyTrainingList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public CompanyTraining createCompanyTraining(RetailscmUserContext userContext, String title,String companyId,String instructorId,String trainingCourseTypeId,Date timeStart,int durationHours) throws Exception
-	//public CompanyTraining createCompanyTraining(RetailscmUserContext userContext,String title, String companyId, String instructorId, String trainingCourseTypeId, Date timeStart, int durationHours) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkTitleOfCompanyTraining(title);
 		checkerOf(userContext).checkTimeStartOfCompanyTraining(timeStart);
 		checkerOf(userContext).checkDurationHoursOfCompanyTraining(durationHours);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
+
 
 
 		CompanyTraining companyTraining=createNewCompanyTraining();	
@@ -268,38 +302,40 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 		checkerOf(userContext).checkVersionOfCompanyTraining( companyTrainingVersion);
-		
+
 
 		if(CompanyTraining.TITLE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTitleOfCompanyTraining(parseString(newValueExpr));
 		
-			
-		}		
 
-				
+		}
 
-				
+		
+
+		
 
 		
 		if(CompanyTraining.TIME_START_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTimeStartOfCompanyTraining(parseDate(newValueExpr));
 		
-			
+
 		}
 		if(CompanyTraining.DURATION_HOURS_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkDurationHoursOfCompanyTraining(parseInt(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
+
 
 
 	}
@@ -328,6 +364,8 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 			if (companyTraining.isChanged()){
 			companyTraining.updateLastUpdateTime(userContext.now());
 			}
+
+      //checkerOf(userContext).checkAndFixCompanyTraining(companyTraining);
 			companyTraining = saveCompanyTraining(userContext, companyTraining, options);
 			return companyTraining;
 
@@ -394,10 +432,16 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 	protected Map<String,Object> allTokens(){
 		return CompanyTrainingTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortEmployeeCompanyTrainingListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortEmployeeCompanyTrainingListWith(EmployeeCompanyTraining.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -409,6 +453,7 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
  		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
  		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(anotherCompanyId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
 
  	}
@@ -416,16 +461,17 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
  	{
  		checkParamsForTransferingAnotherCompany(userContext, companyTrainingId,anotherCompanyId);
  
-		CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());	
+		CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());
 		synchronized(companyTraining){
 			//will be good when the companyTraining loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStoreCountryCenter company = loadRetailStoreCountryCenter(userContext, anotherCompanyId, emptyOptions());		
-			companyTraining.updateCompany(company);		
+			RetailStoreCountryCenter company = loadRetailStoreCountryCenter(userContext, anotherCompanyId, emptyOptions());
+			companyTraining.updateCompany(company);
+			companyTraining.updateLastUpdateTime(userContext.now());
 			companyTraining = saveCompanyTraining(userContext, companyTraining, emptyOptions());
-			
+
 			return present(userContext,companyTraining, allTokens());
-			
+
 		}
 
  	}
@@ -458,6 +504,7 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
  		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
  		checkerOf(userContext).checkIdOfInstructor(anotherInstructorId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
 
  	}
@@ -465,16 +512,17 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
  	{
  		checkParamsForTransferingAnotherInstructor(userContext, companyTrainingId,anotherInstructorId);
  
-		CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());	
+		CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());
 		synchronized(companyTraining){
 			//will be good when the companyTraining loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			Instructor instructor = loadInstructor(userContext, anotherInstructorId, emptyOptions());		
-			companyTraining.updateInstructor(instructor);		
+			Instructor instructor = loadInstructor(userContext, anotherInstructorId, emptyOptions());
+			companyTraining.updateInstructor(instructor);
+			companyTraining.updateLastUpdateTime(userContext.now());
 			companyTraining = saveCompanyTraining(userContext, companyTraining, emptyOptions());
-			
+
 			return present(userContext,companyTraining, allTokens());
-			
+
 		}
 
  	}
@@ -507,6 +555,7 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
  		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
  		checkerOf(userContext).checkIdOfTrainingCourseType(anotherTrainingCourseTypeId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
 
  	}
@@ -514,16 +563,17 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
  	{
  		checkParamsForTransferingAnotherTrainingCourseType(userContext, companyTrainingId,anotherTrainingCourseTypeId);
  
-		CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());	
+		CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());
 		synchronized(companyTraining){
 			//will be good when the companyTraining loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			TrainingCourseType trainingCourseType = loadTrainingCourseType(userContext, anotherTrainingCourseTypeId, emptyOptions());		
-			companyTraining.updateTrainingCourseType(trainingCourseType);		
+			TrainingCourseType trainingCourseType = loadTrainingCourseType(userContext, anotherTrainingCourseTypeId, emptyOptions());
+			companyTraining.updateTrainingCourseType(trainingCourseType);
+			companyTraining.updateLastUpdateTime(userContext.now());
 			companyTraining = saveCompanyTraining(userContext, companyTraining, emptyOptions());
-			
+
 			return present(userContext,companyTraining, allTokens());
-			
+
 		}
 
  	}
@@ -556,8 +606,9 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
  	protected Instructor loadInstructor(RetailscmUserContext userContext, String newInstructorId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return instructorDaoOf(userContext).load(newInstructorId, options);
+ 	  
  	}
  	
 
@@ -566,8 +617,9 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
  	protected RetailStoreCountryCenter loadRetailStoreCountryCenter(RetailscmUserContext userContext, String newCompanyId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreCountryCenterDaoOf(userContext).load(newCompanyId, options);
+ 	  
  	}
  	
 
@@ -576,8 +628,9 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
  	protected TrainingCourseType loadTrainingCourseType(RetailscmUserContext userContext, String newTrainingCourseTypeId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return trainingCourseTypeDaoOf(userContext).load(newTrainingCourseTypeId, options);
+ 	  
  	}
  	
 
@@ -623,45 +676,6 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 	}
 
 
-	//disconnect CompanyTraining with employee in EmployeeCompanyTraining
-	protected CompanyTraining breakWithEmployeeCompanyTrainingByEmployee(RetailscmUserContext userContext, String companyTrainingId, String employeeId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());
-
-			synchronized(companyTraining){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				companyTrainingDaoOf(userContext).planToRemoveEmployeeCompanyTrainingListWithEmployee(companyTraining, employeeId, this.emptyOptions());
-
-				companyTraining = saveCompanyTraining(userContext, companyTraining, tokens().withEmployeeCompanyTrainingList().done());
-				return companyTraining;
-			}
-	}
-	//disconnect CompanyTraining with scoring in EmployeeCompanyTraining
-	protected CompanyTraining breakWithEmployeeCompanyTrainingByScoring(RetailscmUserContext userContext, String companyTrainingId, String scoringId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			CompanyTraining companyTraining = loadCompanyTraining(userContext, companyTrainingId, allTokens());
-
-			synchronized(companyTraining){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				companyTrainingDaoOf(userContext).planToRemoveEmployeeCompanyTrainingListWithScoring(companyTraining, scoringId, this.emptyOptions());
-
-				companyTraining = saveCompanyTraining(userContext, companyTraining, tokens().withEmployeeCompanyTrainingList().done());
-				return companyTraining;
-			}
-	}
-
-
-
 
 
 
@@ -669,18 +683,19 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 
 				checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 
-		
+
 		checkerOf(userContext).checkEmployeeIdOfEmployeeCompanyTraining(employeeId);
-		
+
 		checkerOf(userContext).checkScoringIdOfEmployeeCompanyTraining(scoringId);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
+
 
 
 	}
 	public  CompanyTraining addEmployeeCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, String employeeId, String scoringId, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingEmployeeCompanyTraining(userContext,companyTrainingId,employeeId, scoringId,tokensExpr);
 
 		EmployeeCompanyTraining employeeCompanyTraining = createEmployeeCompanyTraining(userContext,employeeId, scoringId);
@@ -702,7 +717,9 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).checkIdOfEmployeeCompanyTraining(id);
 
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
+
 
 	}
 	public  CompanyTraining updateEmployeeCompanyTrainingProperties(RetailscmUserContext userContext, String companyTrainingId, String id, String [] tokensExpr) throws Exception
@@ -771,6 +788,7 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 			checkerOf(userContext).checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
 
 	}
@@ -797,7 +815,9 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).checkIdOfCompanyTraining( companyTrainingId);
 		checkerOf(userContext).checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
 		checkerOf(userContext).checkVersionOfEmployeeCompanyTraining(employeeCompanyTrainingVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
+
 
 	}
 	public  CompanyTraining removeEmployeeCompanyTraining(RetailscmUserContext userContext, String companyTrainingId,
@@ -824,7 +844,9 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 		checkerOf(userContext).checkIdOfCompanyTraining( companyTrainingId);
 		checkerOf(userContext).checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
 		checkerOf(userContext).checkVersionOfEmployeeCompanyTraining(employeeCompanyTrainingVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
+
 
 	}
 	public  CompanyTraining copyEmployeeCompanyTrainingFrom(RetailscmUserContext userContext, String companyTrainingId,
@@ -852,14 +874,16 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 	protected void checkParamsForUpdatingEmployeeCompanyTraining(RetailscmUserContext userContext, String companyTrainingId, String employeeCompanyTrainingId, int employeeCompanyTrainingVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 		checkerOf(userContext).checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
 		checkerOf(userContext).checkVersionOfEmployeeCompanyTraining(employeeCompanyTrainingVersion);
 
 
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CompanyTrainingManagerException.class);
+
 
 	}
 
@@ -890,6 +914,7 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 			employeeCompanyTraining.changeProperty(property, newValueExpr);
 			
 			companyTraining = saveCompanyTraining(userContext, companyTraining, tokens().withEmployeeCompanyTrainingList().done());
+			employeeCompanyTrainingManagerOf(userContext).onUpdated(userContext, employeeCompanyTraining, this, "updateEmployeeCompanyTraining");
 			return present(userContext,companyTraining, mergedAllTokens(tokensExpr));
 		}
 
@@ -922,112 +947,13 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1050,28 +976,21 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, CompanyTraining.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, CompanyTraining.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1167,7 +1086,7 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String companyTrainingId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getCompanyTrainingDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		CompanyTraining merchantObj = (CompanyTraining) this.view(userContext, companyTrainingId);
     String merchantObjId = companyTrainingId;
     String linkToUrl =	"companyTrainingManager/wxappview/" + merchantObjId + "/";
@@ -1279,8 +1198,6 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 		sections.add(employeeCompanyTrainingListSection);
 
 		result.put("employeeCompanyTrainingListSection", ListofUtils.toShortList(merchantObj.getEmployeeCompanyTrainingList(), "employeeCompanyTraining"));
-		vscope.field("employeeCompanyTrainingListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( EmployeeCompanyTraining.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1295,8 +1212,19 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

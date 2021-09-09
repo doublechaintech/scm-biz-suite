@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}employeeSalarySheetManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}employeeSalarySheetManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -84,6 +89,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeSalarySheetService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -103,11 +116,12 @@ const  processRequest = (data) => {
 
 const EmployeeSalarySheetService = { view,
   load,
+  analyze,
   requestCandidateEmployee,
   requestCandidateCurrentSalaryGrade,
   requestCandidatePayingOff,
   transferToAnotherEmployee,
   transferToAnotherCurrentSalaryGrade,
-  transferToAnotherPayingOff, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherPayingOff, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default EmployeeSalarySheetService
 

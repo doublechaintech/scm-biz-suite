@@ -30,8 +30,7 @@ class NormalLoginForm extends Component {
     });
   };
   render() {
-    console.log("React.version: "+React.version)
-    
+    console.log('React.version: ' + React.version);
 
     const { getFieldDecorator } = this.props.form;
 
@@ -39,14 +38,15 @@ class NormalLoginForm extends Component {
       return null;
     }
     const userContext = this.props.launcher.data;
-    const { systemName } = this.props.launcher;
+
     const { data } = this.props.launcher;
-    if (!systemName) {
-      return null;
-    }
+
+    const sysConfig = window.sysConfig;
+    const { loginBackgroundImage, systemName } = sysConfig();
+
     //console.log("what the type",getFieldDecorator );
     return (
-      <div className={styles.login}>
+      <div className={styles.login} style={{ backgroundImage: `url(${loginBackgroundImage})` }}>
         <div className={styles.loginForm}>
           <div className={styles.loginLogo}>
             <span>{systemName}</span>

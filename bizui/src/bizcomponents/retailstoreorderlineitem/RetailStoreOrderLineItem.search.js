@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreOrderAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreOrderAssociateForm 
-	visible={currentAssociateModal==='bizOrder'} 
-	data={{retailStoreOrderLineItemList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'bizOrder')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'bizOrder')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class RetailStoreOrderLineItemSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class RetailStoreOrderLineItemSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {RetailStoreOrderLineItemTable} = GlobalComponents;
     const {RetailStoreOrderLineItemSearchForm} = GlobalComponents;
     const {RetailStoreOrderLineItemModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class RetailStoreOrderLineItemSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,RetailStoreOrderLineItemModalTable,"retailStoreOrderLineItemIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

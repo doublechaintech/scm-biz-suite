@@ -44,13 +44,15 @@ public interface UiActionDAO extends BaseDAO{
 	public void delete(String uiActionId, int version) throws Exception;
 	public UiAction disconnectFromAll(String uiActionId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<UiAction> queryList(String sql, Object ... parmeters);
+	public SmartList<UiAction> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<UiAction> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateUiAction executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<UiAction> findUiActionByPage(String pageId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface UiActionDAO extends BaseDAO{
 
 
  
+
+	List<UiAction> search(UiActionRequest pRequest);
 }
 
 

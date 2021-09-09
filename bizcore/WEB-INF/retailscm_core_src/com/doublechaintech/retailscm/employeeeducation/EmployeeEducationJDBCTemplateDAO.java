@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeeducation;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeEducationTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeEducationTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeEducationTokens.EMPLOYEE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		return new EmployeeEducationMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeEducation extractEmployeeEducation(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeEducation employeeEducation = loadSingleObject(accessKey, getEmployeeEducationMapper());
@@ -229,25 +231,26 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeEducation loadInternalEmployeeEducation(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeEducation employeeEducation = extractEmployeeEducation(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeEducation, loadOptions);
  		}
  
 		
 		return employeeEducation;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeEducation extractEmployee(EmployeeEducation employeeEducation, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeEducation.getEmployee() == null){
 			return employeeEducation;
@@ -260,37 +263,37 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(employee != null){
 			employeeEducation.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeEducation;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeEducation> findEmployeeEducationByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeEducation> resultList = queryWith(EmployeeEducationTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeEducationMapper());
 		// analyzeEmployeeEducationByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeEducation> findEmployeeEducationByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeEducation> resultList =  queryWithRange(EmployeeEducationTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeEducationMapper(), start, count);
  		//analyzeEmployeeEducationByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeEducationByEmployee(SmartList<EmployeeEducation> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeEducationByEmployee(String employeeId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countEmployeeEducationByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeEducationTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeEducation saveEmployeeEducation(EmployeeEducation  employeeEducation){
+    
+
 		
 		if(!employeeEducation.isChanged()){
 			return employeeEducation;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeEducation);
 		String SQL=this.getSaveEmployeeEducationSQL(employeeEducation);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeEducationParameters(employeeEducation);
@@ -326,6 +332,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 
 		employeeEducation.incVersion();
+		employeeEducation.afterSave();
 		return employeeEducation;
 
 	}
@@ -343,6 +350,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		for(EmployeeEducation employeeEducation:employeeEducationList){
 			if(employeeEducation.isChanged()){
 				employeeEducation.incVersion();
+				employeeEducation.afterSave();
 			}
 
 
@@ -449,13 +457,10 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(employeeEducation.getEmployee() != null){
  			parameters[0] = employeeEducation.getEmployee().getId();
  		}
- 
- 		
+    
  		parameters[1] = employeeEducation.getCompleteTime();
  		
- 		
  		parameters[2] = employeeEducation.getType();
- 		
  		
  		parameters[3] = employeeEducation.getRemark();
  		
@@ -475,15 +480,11 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  
  		if(employeeEducation.getEmployee() != null){
  			parameters[1] = employeeEducation.getEmployee().getId();
-
  		}
- 		
  		
  		parameters[2] = employeeEducation.getCompleteTime();
  		
- 		
  		parameters[3] = employeeEducation.getType();
- 		
  		
  		parameters[4] = employeeEducation.getRemark();
  		
@@ -493,12 +494,11 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected EmployeeEducation saveInternalEmployeeEducation(EmployeeEducation employeeEducation, Map<String,Object> options){
 
-		saveEmployeeEducation(employeeEducation);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeEducation, options);
  		}
  
+   saveEmployeeEducation(employeeEducation);
 		
 		return employeeEducation;
 
@@ -510,6 +510,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 
  	protected EmployeeEducation saveEmployee(EmployeeEducation employeeEducation, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeEducation.getEmployee() == null){
  			return employeeEducation;//do nothing when it is null
@@ -519,11 +520,6 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return employeeEducation;
 
  	}
-
-
-
-
-
  
 
 	
@@ -531,10 +527,10 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 
 	public EmployeeEducation present(EmployeeEducation employeeEducation,Map<String, Object> options){
-	
+
 
 		return employeeEducation;
-	
+
 	}
 		
 
@@ -586,6 +582,10 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeEducation> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeEducationMapper());
   }
@@ -621,6 +621,15 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	
 
+  @Override
+  public List<EmployeeEducation> search(EmployeeEducationRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeEducationMapper mapper() {
+    return getEmployeeEducationMapper();
+  }
 }
 
 

@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreMemberAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreMemberAssociateForm 
-	visible={currentAssociateModal==='owner'} 
-	data={{memberRewardPointRedemptionList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'owner')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'owner')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class MemberRewardPointRedemptionSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class MemberRewardPointRedemptionSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {MemberRewardPointRedemptionTable} = GlobalComponents;
     const {MemberRewardPointRedemptionSearchForm} = GlobalComponents;
     const {MemberRewardPointRedemptionModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class MemberRewardPointRedemptionSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,MemberRewardPointRedemptionModalTable,"memberRewardPointRedemptionIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

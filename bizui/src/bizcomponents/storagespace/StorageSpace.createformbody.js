@@ -15,16 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = StorageSpaceBase
 const testValues = {};
-/*
-const testValues = {
-  location: '成都龙泉驿飞鹤路20号存货区',
-  contactNumber: '028 87654321',
-  totalArea: '1876平方米',
-  latitude: '42.01436813185326',
-  longitude: '131.0286897741727',
-  warehouseId: 'W000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -38,9 +31,20 @@ class StorageSpaceCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = StorageSpaceBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +55,7 @@ class StorageSpaceCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -59,7 +63,7 @@ class StorageSpaceCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -67,10 +71,10 @@ class StorageSpaceCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,16 +83,16 @@ class StorageSpaceCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {StorageSpaceService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -98,9 +102,9 @@ class StorageSpaceCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -109,7 +113,7 @@ class StorageSpaceCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -121,25 +125,25 @@ class StorageSpaceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('storage_space')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.location} {...formItemLayout}>
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.location} />
+                    <SmallTextInput minLength={4} maxLength={56} size="large"  placeholder={fieldLabels.location} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +153,7 @@ class StorageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
+                    <SmallTextInput minLength={4} maxLength={48} size="large"  placeholder={fieldLabels.contactNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +163,7 @@ class StorageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.totalArea} />
+                    <SmallTextInput minLength={2} maxLength={28} size="large"  placeholder={fieldLabels.totalArea} />
                   )}
                 </Form.Item>
               </Col>
@@ -169,7 +173,7 @@ class StorageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.latitude} />
+                    <SmallTextInput minLength={-90.0} maxLength={90.0} size="large"  placeholder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -179,39 +183,39 @@ class StorageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.longitude} />
+                    <SmallTextInput minLength={-180.0} maxLength={180.0} size="large"  placeholder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.warehouse} {...formItemLayout}>
                   {getFieldDecorator('warehouseId', {
                   	initialValue: tryinit('warehouse'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('warehouse')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"storage_space"} 
-		                 targetType={"warehouse"} 
-                 
+		                 listType={"storage_space"}
+		                 targetType={"warehouse"}
+
                     requestFunction={StorageSpaceService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -226,7 +230,7 @@ class StorageSpaceCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

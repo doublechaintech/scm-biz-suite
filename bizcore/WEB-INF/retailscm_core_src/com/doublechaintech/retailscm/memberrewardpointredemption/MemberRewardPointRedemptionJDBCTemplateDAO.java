@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.memberrewardpointredemption;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 
 	protected RetailStoreMemberDAO retailStoreMemberDAO;
 	public void setRetailStoreMemberDAO(RetailStoreMemberDAO retailStoreMemberDAO){
- 	
+
  		if(retailStoreMemberDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
  		if(this.retailStoreMemberDAO == null){
  			throw new IllegalStateException("The retailStoreMemberDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return MemberRewardPointRedemptionTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, MemberRewardPointRedemptionTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, MemberRewardPointRedemptionTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 		return new MemberRewardPointRedemptionMapper();
 	}
 
-	
-	
+
+
 	protected MemberRewardPointRedemption extractMemberRewardPointRedemption(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			MemberRewardPointRedemption memberRewardPointRedemption = loadSingleObject(accessKey, getMemberRewardPointRedemptionMapper());
@@ -229,25 +231,26 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 
 	}
 
-	
-	
+
+
 
 	protected MemberRewardPointRedemption loadInternalMemberRewardPointRedemption(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		MemberRewardPointRedemption memberRewardPointRedemption = extractMemberRewardPointRedemption(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(memberRewardPointRedemption, loadOptions);
  		}
  
 		
 		return memberRewardPointRedemption;
-		
+
 	}
 
-	 
+	
 
  	protected MemberRewardPointRedemption extractOwner(MemberRewardPointRedemption memberRewardPointRedemption, Map<String,Object> options) throws Exception{
+  
 
 		if(memberRewardPointRedemption.getOwner() == null){
 			return memberRewardPointRedemption;
@@ -260,37 +263,37 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 		if(owner != null){
 			memberRewardPointRedemption.setOwner(owner);
 		}
-		
- 		
+
+
  		return memberRewardPointRedemption;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<MemberRewardPointRedemption> findMemberRewardPointRedemptionByOwner(String retailStoreMemberId,Map<String,Object> options){
- 	
+
   		SmartList<MemberRewardPointRedemption> resultList = queryWith(MemberRewardPointRedemptionTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointRedemptionMapper());
 		// analyzeMemberRewardPointRedemptionByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<MemberRewardPointRedemption> findMemberRewardPointRedemptionByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<MemberRewardPointRedemption> resultList =  queryWithRange(MemberRewardPointRedemptionTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointRedemptionMapper(), start, count);
  		//analyzeMemberRewardPointRedemptionByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeMemberRewardPointRedemptionByOwner(SmartList<MemberRewardPointRedemption> resultList, String retailStoreMemberId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countMemberRewardPointRedemptionByOwner(String retailStoreMemberId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 	public Map<String, Integer> countMemberRewardPointRedemptionByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(MemberRewardPointRedemptionTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected MemberRewardPointRedemption saveMemberRewardPointRedemption(MemberRewardPointRedemption  memberRewardPointRedemption){
+    
+
 		
 		if(!memberRewardPointRedemption.isChanged()){
 			return memberRewardPointRedemption;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(memberRewardPointRedemption);
 		String SQL=this.getSaveMemberRewardPointRedemptionSQL(memberRewardPointRedemption);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveMemberRewardPointRedemptionParameters(memberRewardPointRedemption);
@@ -326,6 +332,7 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 		}
 
 		memberRewardPointRedemption.incVersion();
+		memberRewardPointRedemption.afterSave();
 		return memberRewardPointRedemption;
 
 	}
@@ -343,6 +350,7 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 		for(MemberRewardPointRedemption memberRewardPointRedemption:memberRewardPointRedemptionList){
 			if(memberRewardPointRedemption.isChanged()){
 				memberRewardPointRedemption.incVersion();
+				memberRewardPointRedemption.afterSave();
 			}
 
 
@@ -446,16 +454,14 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
  	protected Object[] prepareMemberRewardPointRedemptionUpdateParameters(MemberRewardPointRedemption memberRewardPointRedemption){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = memberRewardPointRedemption.getName();
- 		
  		
  		parameters[1] = memberRewardPointRedemption.getPoint();
  		
  		if(memberRewardPointRedemption.getOwner() != null){
  			parameters[2] = memberRewardPointRedemption.getOwner().getId();
  		}
- 
+    
  		parameters[3] = memberRewardPointRedemption.nextVersion();
  		parameters[4] = memberRewardPointRedemption.getId();
  		parameters[5] = memberRewardPointRedemption.getVersion();
@@ -470,15 +476,12 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
         }
 		parameters[0] =  memberRewardPointRedemption.getId();
  
- 		
  		parameters[1] = memberRewardPointRedemption.getName();
- 		
  		
  		parameters[2] = memberRewardPointRedemption.getPoint();
  		
  		if(memberRewardPointRedemption.getOwner() != null){
  			parameters[3] = memberRewardPointRedemption.getOwner().getId();
-
  		}
  		
 
@@ -487,12 +490,11 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 
 	protected MemberRewardPointRedemption saveInternalMemberRewardPointRedemption(MemberRewardPointRedemption memberRewardPointRedemption, Map<String,Object> options){
 
-		saveMemberRewardPointRedemption(memberRewardPointRedemption);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(memberRewardPointRedemption, options);
  		}
  
+   saveMemberRewardPointRedemption(memberRewardPointRedemption);
 		
 		return memberRewardPointRedemption;
 
@@ -504,6 +506,7 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 	
 
  	protected MemberRewardPointRedemption saveOwner(MemberRewardPointRedemption memberRewardPointRedemption, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(memberRewardPointRedemption.getOwner() == null){
  			return memberRewardPointRedemption;//do nothing when it is null
@@ -513,11 +516,6 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
  		return memberRewardPointRedemption;
 
  	}
-
-
-
-
-
  
 
 	
@@ -525,10 +523,10 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 		
 
 	public MemberRewardPointRedemption present(MemberRewardPointRedemption memberRewardPointRedemption,Map<String, Object> options){
-	
+
 
 		return memberRewardPointRedemption;
-	
+
 	}
 		
 
@@ -580,6 +578,10 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<MemberRewardPointRedemption> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getMemberRewardPointRedemptionMapper());
   }
@@ -615,6 +617,15 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmBaseDAO
 
 	
 
+  @Override
+  public List<MemberRewardPointRedemption> search(MemberRewardPointRedemptionRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected MemberRewardPointRedemptionMapper mapper() {
+    return getMemberRewardPointRedemptionMapper();
+  }
 }
 
 

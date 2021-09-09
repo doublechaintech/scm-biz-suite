@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './Section.updateform.less'
 import SectionBase from './Section.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -35,9 +39,7 @@ class SectionUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -103,13 +105,13 @@ class SectionUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const sectionId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, sectionId, ...imagesValues }
 
-        
+        const parameters = { ...values, sectionId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -124,7 +126,7 @@ class SectionUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -134,12 +136,12 @@ class SectionUpdateForm extends Component {
 
         const { owner } = this.props
         const sectionId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, sectionId, ...imagesValues }
+
+        const parameters = { ...values, sectionId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -161,11 +163,11 @@ class SectionUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextSectionUpdateRow`,
@@ -179,7 +181,7 @@ class SectionUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -187,7 +189,7 @@ class SectionUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'section',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -230,7 +232,7 @@ class SectionUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -244,12 +246,12 @@ class SectionUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}板块: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -259,7 +261,7 @@ class SectionUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -267,8 +269,8 @@ class SectionUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -279,8 +281,8 @@ class SectionUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.title} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.title} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -291,8 +293,8 @@ class SectionUpdateForm extends Component {
                     initialValue: selectedRow.brief,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.brief} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.brief} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -303,8 +305,8 @@ class SectionUpdateForm extends Component {
                     initialValue: selectedRow.displayOrder,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.displayOrder} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -315,8 +317,8 @@ class SectionUpdateForm extends Component {
                     initialValue: selectedRow.viewGroup,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.viewGroup} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.viewGroup} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -327,17 +329,17 @@ class SectionUpdateForm extends Component {
                     initialValue: selectedRow.linkToUrl,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.linkToUrl} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.linkToUrl} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>
@@ -355,12 +357,13 @@ class SectionUpdateForm extends Component {
             <Row gutter={16}>
 
               <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={window.trans('section')}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleChange(event, 'icon')}
-                  fileList={convertedImagesValues.icon}
-                />
+              <Form.Item>
+                  {getFieldDecorator('icon', {
+                  	initialValue: selectedRow.icon,
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.icon}/>
+                )} </Form.Item>
               </Col>
 
             </Row>

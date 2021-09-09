@@ -1,9 +1,9 @@
 
 package com.doublechaintech.retailscm.keypairidentity;
 import com.doublechaintech.retailscm.EntityNotFoundException;
-public class KeypairIdentityNotFoundException extends EntityNotFoundException {
+public class KeyPairIdentityNotFoundException extends EntityNotFoundException {
 	private static final long serialVersionUID = 1L;
-	public KeypairIdentityNotFoundException(String string) {
+	public KeyPairIdentityNotFoundException(String string) {
 		super(string);
 	}
 

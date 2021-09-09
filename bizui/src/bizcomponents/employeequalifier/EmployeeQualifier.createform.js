@@ -16,15 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  qualifiedTime: '2020-05-01',
-  type: '认证药剂师',
-  level: '高级',
-  remark: '考试成绩当年第一名',
-  employeeId: 'E000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -38,9 +29,15 @@ class EmployeeQualifierCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +48,7 @@ class EmployeeQualifierCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -65,8 +62,8 @@ class EmployeeQualifierCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -75,13 +72,13 @@ class EmployeeQualifierCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeQualifierBase
     const {EmployeeQualifierService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -106,10 +103,10 @@ class EmployeeQualifierCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addEmployeeQualifier`,
@@ -117,10 +114,10 @@ class EmployeeQualifierCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'employeeQualifier',listName:appLocaleName(userContext,"List") },
@@ -166,10 +163,10 @@ class EmployeeQualifierCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -181,7 +178,7 @@ class EmployeeQualifierCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -192,7 +189,7 @@ class EmployeeQualifierCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -202,7 +199,7 @@ class EmployeeQualifierCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_qualifier')}</div>)
@@ -214,7 +211,7 @@ class EmployeeQualifierCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_qualifier')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<EmployeeQualifierCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -230,7 +227,7 @@ class EmployeeQualifierCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

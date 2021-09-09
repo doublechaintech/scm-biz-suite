@@ -3,12 +3,16 @@ package com.doublechaintech.retailscm.secuser;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
+
+
+
 
 public interface SecUserManager extends BaseManager{
 
@@ -29,6 +33,8 @@ public interface SecUserManager extends BaseManager{
 
 	 
 
+  List<SecUser> searchSecUserList(RetailscmUserContext ctx, SecUserRequest pRequest);
+  SecUser searchSecUser(RetailscmUserContext ctx, SecUserRequest pRequest);
 	public SecUser createSecUser(RetailscmUserContext userContext, String login,String mobile,String email,String pwd,String weixinOpenid,String weixinAppid,String accessToken,int verificationCode,DateTime verificationCodeExpire,DateTime lastLoginTime,String domainId) throws Exception;
 	public SecUser updateSecUser(RetailscmUserContext userContext,String secUserId, int secUserVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SecUser loadSecUser(RetailscmUserContext userContext, String secUserId, String [] tokensExpr) throws Exception;
@@ -42,13 +48,15 @@ public interface SecUserManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String secUserId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, SecUser newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, SecUser updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
 
-	//public  UserAppManager getUserAppManager(RetailscmUserContext userContext, String secUserId, String title, String appIcon, boolean fullAccess, String permission, String objectType, String objectId, String location ,String [] tokensExpr)  throws Exception;
+	//public  UserAppManager getUserAppManager(RetailscmUserContext userContext, String secUserId, String title, String appIcon, boolean fullAccess, String permission, String appType, String appId, String ctxType, String ctxId, String location ,String [] tokensExpr)  throws Exception;
 
-	public  SecUser addUserApp(RetailscmUserContext userContext, String secUserId, String title, String appIcon, boolean fullAccess, String permission, String objectType, String objectId, String location , String [] tokensExpr)  throws Exception;
+	public  SecUser addUserApp(RetailscmUserContext userContext, String secUserId, String title, String appIcon, boolean fullAccess, String permission, String appType, String appId, String ctxType, String ctxId, String location , String [] tokensExpr)  throws Exception;
 	public  SecUser removeUserApp(RetailscmUserContext userContext, String secUserId, String userAppId, int userAppVersion,String [] tokensExpr)  throws Exception;
 	public  SecUser updateUserApp(RetailscmUserContext userContext, String secUserId, String userAppId, int userAppVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
@@ -76,9 +84,9 @@ public interface SecUserManager extends BaseManager{
 
 	*/
 
-	//public  WechatMiniappIdentityManager getWechatMiniappIdentityManager(RetailscmUserContext userContext, String secUserId, String openId, String appId, DateTime lastLoginTime ,String [] tokensExpr)  throws Exception;
+	//public  WechatMiniappIdentityManager getWechatMiniappIdentityManager(RetailscmUserContext userContext, String secUserId, String openId, String appId, String unionId, DateTime lastLoginTime ,String [] tokensExpr)  throws Exception;
 
-	public  SecUser addWechatMiniappIdentity(RetailscmUserContext userContext, String secUserId, String openId, String appId, DateTime lastLoginTime , String [] tokensExpr)  throws Exception;
+	public  SecUser addWechatMiniappIdentity(RetailscmUserContext userContext, String secUserId, String openId, String appId, String unionId, DateTime lastLoginTime , String [] tokensExpr)  throws Exception;
 	public  SecUser removeWechatMiniappIdentity(RetailscmUserContext userContext, String secUserId, String wechatMiniappIdentityId, int wechatMiniappIdentityVersion,String [] tokensExpr)  throws Exception;
 	public  SecUser updateWechatMiniappIdentity(RetailscmUserContext userContext, String secUserId, String wechatMiniappIdentityId, int wechatMiniappIdentityVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
@@ -86,11 +94,11 @@ public interface SecUserManager extends BaseManager{
 
 	*/
 
-	//public  KeypairIdentityManager getKeypairIdentityManager(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId ,String [] tokensExpr)  throws Exception;
+	//public  KeyPairIdentityManager getKeyPairIdentityManager(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId ,String [] tokensExpr)  throws Exception;
 
-	public  SecUser addKeypairIdentity(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId , String [] tokensExpr)  throws Exception;
-	public  SecUser removeKeypairIdentity(RetailscmUserContext userContext, String secUserId, String keypairIdentityId, int keypairIdentityVersion,String [] tokensExpr)  throws Exception;
-	public  SecUser updateKeypairIdentity(RetailscmUserContext userContext, String secUserId, String keypairIdentityId, int keypairIdentityVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
+	public  SecUser addKeyPairIdentity(RetailscmUserContext userContext, String secUserId, String publicKey, String keyTypeId , String [] tokensExpr)  throws Exception;
+	public  SecUser removeKeyPairIdentity(RetailscmUserContext userContext, String secUserId, String keyPairIdentityId, int keyPairIdentityVersion,String [] tokensExpr)  throws Exception;
+	public  SecUser updateKeyPairIdentity(RetailscmUserContext userContext, String secUserId, String keyPairIdentityId, int keyPairIdentityVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
 	/*
 
@@ -100,6 +108,9 @@ public interface SecUserManager extends BaseManager{
 	public Object listByDomain(RetailscmUserContext userContext,String domainId) throws Exception;
 	public Object listPageByDomain(RetailscmUserContext userContext,String domainId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

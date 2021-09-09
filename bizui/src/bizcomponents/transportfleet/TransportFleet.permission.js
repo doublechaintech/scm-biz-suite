@@ -31,10 +31,10 @@ const internalSummaryOf = (transportFleet,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportFleet.id}</Description> 
+<Description term="ID">{transportFleet.id}</Description> 
 <Description term="名称">{transportFleet.name}</Description> 
 <Description term="联系电话">{transportFleet.contactNumber}</Description> 
-<Description term="最后更新时间">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class TransportFleetPermission extends Component {
     // eslint-disable-next-line max-len
     const  transportFleet = this.props.transportFleet
     const { id,displayName, transportTruckCount, truckDriverCount, transportTaskCount } = transportFleet
-    const  returnURL = `/transportFleet/${id}/dashboard`
+    const  returnURL = `/transportFleet/${id}/workbench`
     const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",cardsSource: transportFleet,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class TransportFleetPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

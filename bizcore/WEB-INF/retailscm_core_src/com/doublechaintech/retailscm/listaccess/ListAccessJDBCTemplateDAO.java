@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.listaccess;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 
 	protected UserAppDAO userAppDAO;
 	public void setUserAppDAO(UserAppDAO userAppDAO){
- 	
+
  		if(userAppDAO == null){
  			throw new IllegalStateException("Do not try to set userAppDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
  		if(this.userAppDAO == null){
  			throw new IllegalStateException("The userAppDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.userAppDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ListAccessTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractAppEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ListAccessTokens.APP);
  	}
 
  	protected boolean isSaveAppEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ListAccessTokens.APP);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 		return new ListAccessMapper();
 	}
 
-	
-	
+
+
 	protected ListAccess extractListAccess(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ListAccess listAccess = loadSingleObject(accessKey, getListAccessMapper());
@@ -229,25 +231,26 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 
 	}
 
-	
-	
+
+
 
 	protected ListAccess loadInternalListAccess(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ListAccess listAccess = extractListAccess(accessKey, loadOptions);
- 	
+
  		if(isExtractAppEnabled(loadOptions)){
 	 		extractApp(listAccess, loadOptions);
  		}
  
 		
 		return listAccess;
-		
+
 	}
 
-	 
+	
 
  	protected ListAccess extractApp(ListAccess listAccess, Map<String,Object> options) throws Exception{
+  
 
 		if(listAccess.getApp() == null){
 			return listAccess;
@@ -260,37 +263,37 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 		if(app != null){
 			listAccess.setApp(app);
 		}
-		
- 		
+
+
  		return listAccess;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<ListAccess> findListAccessByApp(String userAppId,Map<String,Object> options){
- 	
+
   		SmartList<ListAccess> resultList = queryWith(ListAccessTable.COLUMN_APP, userAppId, options, getListAccessMapper());
 		// analyzeListAccessByApp(resultList, userAppId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ListAccess> findListAccessByApp(String userAppId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ListAccess> resultList =  queryWithRange(ListAccessTable.COLUMN_APP, userAppId, options, getListAccessMapper(), start, count);
  		//analyzeListAccessByApp(resultList, userAppId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeListAccessByApp(SmartList<ListAccess> resultList, String userAppId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countListAccessByApp(String userAppId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 	public Map<String, Integer> countListAccessByAppIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ListAccessTable.COLUMN_APP, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ListAccess saveListAccess(ListAccess  listAccess){
+    
+
 		
 		if(!listAccess.isChanged()){
 			return listAccess;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(listAccess);
 		String SQL=this.getSaveListAccessSQL(listAccess);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveListAccessParameters(listAccess);
@@ -326,6 +332,7 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 		}
 
 		listAccess.incVersion();
+		listAccess.afterSave();
 		return listAccess;
 
 	}
@@ -343,6 +350,7 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 		for(ListAccess listAccess:listAccessList){
 			if(listAccess.isChanged()){
 				listAccess.incVersion();
+				listAccess.afterSave();
 			}
 
 
@@ -446,31 +454,24 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
  	protected Object[] prepareListAccessUpdateParameters(ListAccess listAccess){
  		Object[] parameters = new Object[11];
  
- 		
  		parameters[0] = listAccess.getName();
- 		
  		
  		parameters[1] = listAccess.getInternalName();
  		
- 		
  		parameters[2] = listAccess.getReadPermission();
- 		
  		
  		parameters[3] = listAccess.getCreatePermission();
  		
- 		
  		parameters[4] = listAccess.getDeletePermission();
  		
- 		
  		parameters[5] = listAccess.getUpdatePermission();
- 		
  		
  		parameters[6] = listAccess.getExecutionPermission();
  		
  		if(listAccess.getApp() != null){
  			parameters[7] = listAccess.getApp().getId();
  		}
- 
+    
  		parameters[8] = listAccess.nextVersion();
  		parameters[9] = listAccess.getId();
  		parameters[10] = listAccess.getVersion();
@@ -485,30 +486,22 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
         }
 		parameters[0] =  listAccess.getId();
  
- 		
  		parameters[1] = listAccess.getName();
- 		
  		
  		parameters[2] = listAccess.getInternalName();
  		
- 		
  		parameters[3] = listAccess.getReadPermission();
- 		
  		
  		parameters[4] = listAccess.getCreatePermission();
  		
- 		
  		parameters[5] = listAccess.getDeletePermission();
  		
- 		
  		parameters[6] = listAccess.getUpdatePermission();
- 		
  		
  		parameters[7] = listAccess.getExecutionPermission();
  		
  		if(listAccess.getApp() != null){
  			parameters[8] = listAccess.getApp().getId();
-
  		}
  		
 
@@ -517,12 +510,11 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 
 	protected ListAccess saveInternalListAccess(ListAccess listAccess, Map<String,Object> options){
 
-		saveListAccess(listAccess);
-
  		if(isSaveAppEnabled(options)){
 	 		saveApp(listAccess, options);
  		}
  
+   saveListAccess(listAccess);
 		
 		return listAccess;
 
@@ -534,6 +526,7 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 	
 
  	protected ListAccess saveApp(ListAccess listAccess, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(listAccess.getApp() == null){
  			return listAccess;//do nothing when it is null
@@ -543,11 +536,6 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
  		return listAccess;
 
  	}
-
-
-
-
-
  
 
 	
@@ -555,10 +543,10 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 		
 
 	public ListAccess present(ListAccess listAccess,Map<String, Object> options){
-	
+
 
 		return listAccess;
-	
+
 	}
 		
 
@@ -610,6 +598,10 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ListAccess> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getListAccessMapper());
   }
@@ -645,6 +637,15 @@ public class ListAccessJDBCTemplateDAO extends RetailscmBaseDAOImpl implements L
 
 	
 
+  @Override
+  public List<ListAccess> search(ListAccessRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ListAccessMapper mapper() {
+    return getListAccessMapper();
+  }
 }
 
 

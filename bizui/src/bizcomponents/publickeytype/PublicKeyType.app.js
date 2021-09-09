@@ -57,7 +57,7 @@ const naviBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -68,7 +68,7 @@ const searchBarResponsiveStyle = {
   md: 4,
   lg: 8,
   xl: 8,
-  
+
 };
 
 const userBarResponsiveStyle = {
@@ -77,7 +77,7 @@ const userBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -103,13 +103,26 @@ const query = {
   },
 }
 
-
+/*
 const currentAppName=()=>{
 
   const targetApp = sessionObject('targetApp')
   return targetApp.title
 
 }
+*/
+
+const currentAppName=()=>{
+
+  const sysConfig=window.sysConfig
+  const targetApp = sessionObject('targetApp')
+  const {logo}=sysConfig()
+  return <span><img width="25px" src={logo} style={{marginRight:"10px"}}/>{targetApp.title}</span>
+
+}
+
+
+
 
 
 class PublicKeyTypeBizApp extends React.PureComponent {
@@ -149,100 +162,131 @@ constructor(props) {
     }
     return keys
   }
-  
+
  getNavMenuItems = (targetObject, style, customTheme) => {
-  
+
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
     const mode =style || "inline"
-    const theme = customTheme || "light" 
+    const theme = customTheme || "light"
 	const {objectId}=targetApp;
   	const userContext = null
+  	const viewGroupIconNameOf=window.viewGroupIconNameOf
     return (
 	  <Menu
         theme="dark"
         mode="inline"
-        
+
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        
-       >
-           
 
-             <Menu.Item key="dashboard">
-               <Link to={`/publicKeyType/${this.props.publicKeyType.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
-             </Menu.Item>
-           
-        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+       >
+
+       <Menu.Item key="workbench">
+        <Link to={`/publicKeyType/${this.props.publicKeyType.id}/workbench`}><Icon type="solution" style={{marginRight:"20px"}}/><span>工作台</span></Link>
+      </Menu.Item>
+
+        
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('public_key_type',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
         )}
         )}
 
-       		
-        
+
+
            </Menu>
     )
   }
-  
+
+  getSelectedRows=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.selectedRows){
+      return null
+    }
+    if(state.selectedRows.length === 0){
+      return null
+    }
+    return state.selectedRows[0]
+
+  }
+
+  getOwnerId=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.ownerId){
+      return null
+    }
+
+    return state.ownerId
+
+  }
 
 
 
-  getKeypairIdentifySearch = () => {
-    const {KeypairIdentifySearch} = GlobalComponents;
+  getKeyPairIdentitySearch = () => {
+    const {KeyPairIdentitySearch} = GlobalComponents;
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: window.mtrans('keypair_identify','public_key_type.keypair_identify_list',false),
-      role: "keypairIdentify",
-      data: state._publicKeyType.keypairIdentifyList,
-      metaInfo: state._publicKeyType.keypairIdentifyListMetaInfo,
-      count: state._publicKeyType.keypairIdentifyCount,
-      returnURL: `/publicKeyType/${state._publicKeyType.id}/dashboard`,
-      currentPage: state._publicKeyType.keypairIdentifyCurrentPageNumber,
-      searchFormParameters: state._publicKeyType.keypairIdentifySearchFormParameters,
+      name: window.mtrans('key_pair_identity','public_key_type.key_pair_identity_list',false),
+      role: "keyPairIdentity",
+      data: state._publicKeyType.keyPairIdentityList,
+      metaInfo: state._publicKeyType.keyPairIdentityListMetaInfo,
+      count: state._publicKeyType.keyPairIdentityCount,
+      returnURL: `/publicKeyType/${state._publicKeyType.id}/workbench`,
+      currentPage: state._publicKeyType.keyPairIdentityCurrentPageNumber,
+      searchFormParameters: state._publicKeyType.keyPairIdentitySearchFormParameters,
       searchParameters: {...state._publicKeyType.searchParameters},
       expandForm: state._publicKeyType.expandForm,
       loading: state._publicKeyType.loading,
       partialList: state._publicKeyType.partialList,
-      owner: { type: '_publicKeyType', id: state._publicKeyType.id, 
-      referenceName: 'keyType', 
-      listName: 'keypairIdentifyList', ref:state._publicKeyType, 
+      owner: { type: '_publicKeyType', id: state._publicKeyType.id,
+      referenceName: 'keyType',
+      listName: 'keyPairIdentityList', ref:state._publicKeyType,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
-    }))(KeypairIdentifySearch)
+    }))(KeyPairIdentitySearch)
   }
-  
-  getKeypairIdentifyCreateForm = () => {
-   	const {KeypairIdentifyCreateForm} = GlobalComponents;
+
+  getKeyPairIdentityCreateForm = () => {
+   	const {KeyPairIdentityCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
-      role: "keypairIdentify",
-      data: state._publicKeyType.keypairIdentifyList,
-      metaInfo: state._publicKeyType.keypairIdentifyListMetaInfo,
-      count: state._publicKeyType.keypairIdentifyCount,
+      initValue: this.getSelectedRows(),
+      role: "keyPairIdentity",
+      data: state._publicKeyType.keyPairIdentityList,
+      metaInfo: state._publicKeyType.keyPairIdentityListMetaInfo,
+      count: state._publicKeyType.keyPairIdentityCount,
       returnURL: `/publicKeyType/${state._publicKeyType.id}/list`,
-      currentPage: state._publicKeyType.keypairIdentifyCurrentPageNumber,
-      searchFormParameters: state._publicKeyType.keypairIdentifySearchFormParameters,
+      currentPage: state._publicKeyType.keyPairIdentityCurrentPageNumber,
+      searchFormParameters: state._publicKeyType.keyPairIdentitySearchFormParameters,
       loading: state._publicKeyType.loading,
-      owner: { type: '_publicKeyType', id: state._publicKeyType.id, referenceName: 'keyType', listName: 'keypairIdentifyList', ref:state._publicKeyType, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
-    }))(KeypairIdentifyCreateForm)
+      owner: { type: '_publicKeyType', id: state._publicKeyType.id || this.getOwnerId(), referenceName: 'keyType', listName: 'keyPairIdentityList', ref:state._publicKeyType, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+    }))(KeyPairIdentityCreateForm)
   }
-  
-  getKeypairIdentifyUpdateForm = () => {
+
+  getKeyPairIdentityUpdateForm = () => {
     const userContext = null
-  	const {KeypairIdentifyUpdateForm} = GlobalComponents;
+  	const {KeyPairIdentityUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._publicKeyType.selectedRows,
-      role: "keypairIdentify",
-      currentUpdateIndex: state._publicKeyType.currentUpdateIndex,
-      owner: { type: '_publicKeyType', id: state._publicKeyType.id, listName: 'keypairIdentifyList', ref:state._publicKeyType, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
-    }))(KeypairIdentifyUpdateForm)
+      role: "keyPairIdentity",
+      currentUpdateIndex: state._publicKeyType.currentUpdateIndex || 0,
+      owner: { type: '_publicKeyType', id: state._publicKeyType.id || this.getOwnerId(), listName: 'keyPairIdentityList', ref:state._publicKeyType, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+    }))(KeyPairIdentityUpdateForm)
   }
 
 
@@ -256,8 +300,8 @@ constructor(props) {
       owner: { type: '_publicKeyType', id: state._publicKeyType.id, listName: 'nolist', ref:state._publicKeyType, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ChangeRequestStepForm)
   }
-  
- 
+
+
 
   getPageTitle = () => {
     // const { location } = this.props
@@ -265,39 +309,42 @@ constructor(props) {
     const title = '双链小超全流程供应链系统'
     return title
   }
- 
+
   buildRouters = () =>{
-  	const {PublicKeyTypeDashboard} = GlobalComponents
+    const {PublicKeyTypeWorkbench} = GlobalComponents
+
+    const {PublicKeyTypeDashboard} = GlobalComponents
   	const {PublicKeyTypePermission} = GlobalComponents
   	const {PublicKeyTypeProfile} = GlobalComponents
-  	
-  	
-  	const routers=[
-  	{path:"/publicKeyType/:id/dashboard", component: PublicKeyTypeDashboard},
+
+
+    const routers=[
+    {path:"/publicKeyType/:id/workbench", component: PublicKeyTypeWorkbench},
+    
   	{path:"/publicKeyType/:id/profile", component: PublicKeyTypeProfile},
   	{path:"/publicKeyType/:id/permission", component: PublicKeyTypePermission},
-  	
-  	
-  	
-  	{path:"/publicKeyType/:id/list/keypairIdentifyList", component: this.getKeypairIdentifySearch()},
-  	{path:"/publicKeyType/:id/list/keypairIdentifyCreateForm", component: this.getKeypairIdentifyCreateForm()},
-  	{path:"/publicKeyType/:id/list/keypairIdentifyUpdateForm", component: this.getKeypairIdentifyUpdateForm()},
-     	
- 	 
+
+
+
+  	{path:"/publicKeyType/:id/list/keyPairIdentityList", component: this.getKeyPairIdentitySearch()},
+  	{path:"/publicKeyType/:id/list/keyPairIdentityCreateForm", component: this.getKeyPairIdentityCreateForm()},
+  	{path:"/publicKeyType/:id/list/keyPairIdentityUpdateForm", component: this.getKeyPairIdentityUpdateForm()},
+ 
+
   	]
-  	
+
   	const {extraRoutesFunc} = this.props;
   	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
   	const finalRoutes = routers.concat(extraRoutes)
-    
+
   	return (<Switch>
-             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
+             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}
   	  	</Switch>)
-  	
-  
+
+
   }
- 
- 
+
+
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
     this.setState({
@@ -311,7 +358,7 @@ constructor(props) {
        payload: !collapsed,
      })
    }
-   
+
    toggleSwitchText=()=>{
     const { collapsed } = this.props
     if(collapsed){
@@ -320,17 +367,17 @@ constructor(props) {
     return "关闭菜单"
 
    }
-   
+
     logout = () => {
-   
+
     console.log("log out called")
     this.props.dispatch({ type: 'launcher/signOut' })
   }
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     
-  
+
+
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
@@ -341,10 +388,10 @@ constructor(props) {
      	if(value.length < 10){
      		return value
      	}
-     
+
      	return value.substring(0,10)+"..."
-     	
-     	
+
+
      }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
@@ -361,18 +408,18 @@ constructor(props) {
      }
      const breadcrumbMenu=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <Menu mode="vertical"> 
+      return ( <Menu mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
       </Menu>)
-  
+
 
      }
      const breadcrumbBar=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <div mode="vertical"> 
+      return ( <div mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
       </div>)
-  
+
 
      }
 
@@ -381,21 +428,21 @@ constructor(props) {
       const { dispatch} = this.props
       const {name,link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
-	
-     }  
+
+     }
 
 	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
       const { dispatch} = this.props
       const {link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
-	
+
      }
 
      const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
 
       return (
-     <Tag 
-      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+     <Tag
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"}
       	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
         <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
         	{renderBreadcrumbText(breadcrumbMenuItem.name)}
@@ -403,9 +450,9 @@ constructor(props) {
       </Tag>)
 
      }
-     
-     
-     
+
+
+
      const { Search } = Input;
      const showSearchResult=()=>{
 
@@ -424,51 +471,51 @@ constructor(props) {
     }
 
     const {searchLocalData}=GlobalComponents.PublicKeyTypeBase
-	
+
     const renderMenuSwitch=()=>{
       const  text = collapsed?"开启左侧菜单":"关闭左侧菜单"
       const icon = collapsed?"pic-left":"pic-center"
-     
+
       return (
 
         <Tooltip placement="bottom" title={text}>
-       
-      
+
+
       <a  className={styles.menuLink} onClick={()=>this.toggle()} style={{marginLeft:"20px",minHeight:"20px"}}>
-        <Icon type={icon} style={{marginRight:"10px"}}/> 
+        <Icon type={icon} style={{marginRight:"10px"}}/>
       </a>  </Tooltip>)
 
      }
-     
-     
+
+
        const layout = (
      <Layout>
  		<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          
+
         <Row type="flex" justify="start" align="bottom">
-        
+
         <Col {...naviBarResponsiveStyle} >
           <a className={styles.menuLink}  style={{fontSize:"20px"}}>{currentAppName()}</a>
- 
+
         </Col>
-        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
-         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  >
+         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处"
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
           </Col>
-          <Col  {...userBarResponsiveStyle}  > 
+          <Col  {...userBarResponsiveStyle}  >
           <Row>
           <Col  span={10}  > </Col>
           <Col  span={2}  >  {renderMenuSwitch()}</Col>
-          <Col  span={6}  > 
+          <Col  span={6}  >
 	          <Dropdown overlay={<SwitchAppMenu {...this.props} />} style={{marginRight:"100px"}} className={styles.right}>
                 <a  className={styles.menuLink} >
-                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用 
+                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用
                 </a>
               </Dropdown>
-          </Col>  
+          </Col>
 
-          <Col  span={6}  >  
+          <Col  span={6}  >
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
                 <a  className={styles.menuLink}>
                 <Icon type="user" style={{marginRight:"5px"}}/>账户
@@ -477,22 +524,22 @@ constructor(props) {
             </Col>
 
           </Row>
-            </Col>  
+            </Col>
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
-        
-       
+
+
        <Layout>
-      
+
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.publicKeyType,this.state.searchKeyword)}</div>
 
       )}
        </Layout>
-        
-         
+
+
          <Layout>
        <Sider
           trigger={null}
@@ -503,16 +550,16 @@ constructor(props) {
           collapsedWidth={50}
           className={styles.sider}
         >
-         
+
          {this.getNavMenuItems(this.props.publicKeyType,"inline","dark")}
-       
+
         </Sider>
-        
+
          <Layout>
          <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
-        
+
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-           
+
            {this.buildRouters()}
            </Content>
           </Layout>

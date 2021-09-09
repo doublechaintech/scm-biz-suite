@@ -46,6 +46,7 @@ public interface TerminationReasonDAO extends BaseDAO{
 	public void delete(String terminationReasonId, int version) throws Exception;
 	public TerminationReason disconnectFromAll(String terminationReasonId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public TerminationDAO getTerminationDAO();
 		
@@ -61,9 +62,10 @@ public interface TerminationReasonDAO extends BaseDAO{
 	public int countTerminationListWithType(String terminationReasonId, String typeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<TerminationReason> queryList(String sql, Object ... parmeters);
+	public SmartList<TerminationReason> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<TerminationReason> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateTerminationReason executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<TerminationReason> findTerminationReasonByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -77,6 +79,8 @@ public interface TerminationReasonDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Termination的reason的TerminationList
 	public SmartList<Termination> loadOurTerminationList(RetailscmUserContext userContext, List<TerminationReason> us, Map<String,Object> options) throws Exception;
 	
+
+	List<TerminationReason> search(TerminationReasonRequest pRequest);
 }
 
 

@@ -52,6 +52,7 @@ public interface PageDAO extends BaseDAO{
 	public void delete(String pageId, int version) throws Exception;
 	public Page disconnectFromAll(String pageId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public SlideDAO getSlideDAO();
 		
@@ -77,9 +78,10 @@ public interface PageDAO extends BaseDAO{
 
 
 
-	public SmartList<Page> queryList(String sql, Object ... parmeters);
+	public SmartList<Page> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Page> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidatePage executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Page> findPageByPageType(String pageTypeId, Map<String,Object> options);
@@ -107,6 +109,8 @@ public interface PageDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Section的page的SectionList
 	public SmartList<Section> loadOurSectionList(RetailscmUserContext userContext, List<Page> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Page> search(PageRequest pRequest);
 }
 
 

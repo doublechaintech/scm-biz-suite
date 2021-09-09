@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}accountingPeriodManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}accountingPeriodManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingPeriodService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const AccountingPeriodService = { view,
   load,
+  analyze,
   addAccountingDocument,
   updateAccountingDocument,
   removeAccountingDocumentList,
   requestCandidateAccountSet,
-  transferToAnotherAccountSet, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherAccountSet, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default AccountingPeriodService
 

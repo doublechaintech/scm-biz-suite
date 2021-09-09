@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.goodsmovement;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,31 +9,34 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.goods.Goods;
 
 public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
-	
+
 	protected GoodsMovement internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		GoodsMovement goodsMovement = getGoodsMovement();		
-		 		
- 		setId(goodsMovement, rs, rowNumber); 		
- 		setMoveTime(goodsMovement, rs, rowNumber); 		
- 		setFacility(goodsMovement, rs, rowNumber); 		
- 		setFacilityId(goodsMovement, rs, rowNumber); 		
- 		setFromIp(goodsMovement, rs, rowNumber); 		
- 		setUserAgent(goodsMovement, rs, rowNumber); 		
- 		setSessionId(goodsMovement, rs, rowNumber); 		
- 		setLatitude(goodsMovement, rs, rowNumber); 		
- 		setLongitude(goodsMovement, rs, rowNumber); 		
- 		setGoods(goodsMovement, rs, rowNumber); 		
+		GoodsMovement goodsMovement = getGoodsMovement();
+		
+ 		setId(goodsMovement, rs, rowNumber);
+ 		setMoveTime(goodsMovement, rs, rowNumber);
+ 		setFacility(goodsMovement, rs, rowNumber);
+ 		setFacilityId(goodsMovement, rs, rowNumber);
+ 		setFromIp(goodsMovement, rs, rowNumber);
+ 		setUserAgent(goodsMovement, rs, rowNumber);
+ 		setSessionId(goodsMovement, rs, rowNumber);
+ 		setLatitude(goodsMovement, rs, rowNumber);
+ 		setLongitude(goodsMovement, rs, rowNumber);
+ 		setGoods(goodsMovement, rs, rowNumber);
  		setVersion(goodsMovement, rs, rowNumber);
 
+    
 		return goodsMovement;
 	}
-	
+
 	protected GoodsMovement getGoodsMovement(){
-		return new GoodsMovement();
-	}		
+	  GoodsMovement entity = new GoodsMovement();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(GoodsMovementTable.COLUMN_ID);
@@ -43,10 +47,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setMoveTime(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date moveTime = rs.getTimestamp(GoodsMovementTable.COLUMN_MOVE_TIME);
@@ -57,10 +64,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setMoveTime(convertToDateTime(moveTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFacility(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String facility = rs.getString(GoodsMovementTable.COLUMN_FACILITY);
@@ -71,10 +81,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setFacility(facility);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFacilityId(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String facilityId = rs.getString(GoodsMovementTable.COLUMN_FACILITY_ID);
@@ -85,10 +98,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setFacilityId(facilityId);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFromIp(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String fromIp = rs.getString(GoodsMovementTable.COLUMN_FROM_IP);
@@ -99,10 +115,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setFromIp(fromIp);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setUserAgent(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String userAgent = rs.getString(GoodsMovementTable.COLUMN_USER_AGENT);
@@ -113,10 +132,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setUserAgent(userAgent);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setSessionId(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String sessionId = rs.getString(GoodsMovementTable.COLUMN_SESSION_ID);
@@ -127,10 +149,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setSessionId(sessionId);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLatitude(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(GoodsMovementTable.COLUMN_LATITUDE);
@@ -141,10 +166,13 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(GoodsMovementTable.COLUMN_LONGITUDE);
@@ -155,10 +183,18 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setGoods(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
- 		String goodsId = rs.getString(GoodsMovementTable.COLUMN_GOODS);
+ 		String goodsId;
+ 		try{
+ 		  goodsId = rs.getString(GoodsMovementTable.COLUMN_GOODS);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( goodsId == null){
  			return;
  		}
@@ -169,14 +205,14 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
  		if( goods != null ){
  			//if the root object 'goodsMovement' already have the property, just set the id for it;
  			goods.setId(goodsId);
- 			
+
  			return;
  		}
  		goodsMovement.setGoods(createEmptyGoods(goodsId));
  	}
  	
 	protected void setVersion(GoodsMovement goodsMovement, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(GoodsMovementTable.COLUMN_VERSION);
@@ -187,9 +223,12 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
 		}
 		
 		goodsMovement.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Goods  createEmptyGoods(String goodsId){
  		Goods goods = new Goods();

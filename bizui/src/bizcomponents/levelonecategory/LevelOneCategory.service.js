@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}levelOneCategoryManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}levelOneCategoryManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelOneCategoryService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const LevelOneCategoryService = { view,
   load,
+  analyze,
   addLevelTwoCategory,
   updateLevelTwoCategory,
   removeLevelTwoCategoryList,
   requestCandidateCatalog,
-  transferToAnotherCatalog, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCatalog, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default LevelOneCategoryService
 

@@ -31,7 +31,7 @@ const internalSummaryOf = (accountingDocumentLine,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentLine.id}</Description> 
+<Description term="ID">{accountingDocumentLine.id}</Description> 
 <Description term="名称">{accountingDocumentLine.name}</Description> 
 <Description term="代码">{accountingDocumentLine.code}</Description> 
 <Description term="直接">{accountingDocumentLine.direct}</Description> 
@@ -61,7 +61,7 @@ class AccountingDocumentLinePermission extends Component {
     // eslint-disable-next-line max-len
     const  accountingDocumentLine = this.props.accountingDocumentLine
     const { id,displayName,  } = accountingDocumentLine
-    const  returnURL = `/accountingDocumentLine/${id}/dashboard`
+    const  returnURL = `/accountingDocumentLine/${id}/workbench`
     const cardsData = {cardsName:"会计凭证行",cardsFor: "accountingDocumentLine",cardsSource: accountingDocumentLine,displayName,returnURL,
   		subItems: [
     
@@ -74,10 +74,10 @@ class AccountingDocumentLinePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

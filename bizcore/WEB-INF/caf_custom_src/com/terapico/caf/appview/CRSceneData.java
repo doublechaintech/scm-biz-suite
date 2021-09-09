@@ -1,6 +1,7 @@
 package com.terapico.caf.appview;
 
 public class CRSceneData {
+  protected String id;
   protected String title;
   protected String brief;
   protected String status;
@@ -36,5 +37,13 @@ public class CRSceneData {
 
   public void setBrief(String brief) {
     this.brief = brief;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 }

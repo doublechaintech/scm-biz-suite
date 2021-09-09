@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
-import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+import BaseTool from '../../common/Base.tool'
+import { Tag, Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
-import {
-  ChartCard, yuan, MiniArea, MiniBar, MiniProgress, Field, Bar, Pie, TimelineChart,
-} from '../../components/Charts'
+import {TagCloud} from '../../components/Charts'
 import Trend from '../../components/Trend'
 import NumberInfo from '../../components/NumberInfo'
 import { getTimeDistance } from '../../utils/utils'
@@ -30,7 +29,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
 
+const {defaultFormatNumber} = BaseTool
 
+const formatNumber = defaultFormatNumber
 
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
@@ -43,7 +44,7 @@ const imageList =(secUser)=>{return [
 
 const internalImageListOf = (secUser) =>defaultImageListOf(secUser,imageList)
 
-const optionList =(secUser)=>{return [ 
+const optionList =(secUser)=>{return [
 	]}
 
 const buildTransferModal = defaultBuildTransferModal
@@ -53,7 +54,7 @@ const internalSettingListOf = (secUser) =>defaultSettingListOf(secUser, optionLi
 const internalLargeTextOf = (secUser) =>{
 
 	return null
-	
+
 
 }
 
@@ -68,7 +69,7 @@ const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
         <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
-       
+
         <Button>
         <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
       </Button>
@@ -101,38 +102,63 @@ const renderSettingMenu = (cardsData,targetComponent) =>{
 }
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
+
+
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
 
-const internalSummaryOf = (secUser,targetComponent) =>{
-	
-	
+const internalSummaryOf = (cardsData,targetComponent) =>{
+
+	 const quickFunctions = targetComponent.props.quickFunctions || internalQuickFunctions
+	const secUser = cardsData.cardsSource
 	const {SecUserService} = GlobalComponents
 	const userContext = null
 	return (
+	<div>
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号" style={{wordBreak: 'break-all'}}>{secUser.id}</Description> 
-<Description term="登录" style={{wordBreak: 'break-all'}}>{secUser.login}</Description> 
+<Description term="ID" style={{wordBreak: 'break-all'}}>{secUser.id}</Description> 
+<Description term="登录名" style={{wordBreak: 'break-all'}}>{secUser.login}</Description> 
 <Description term="手机" style={{wordBreak: 'break-all'}}>{secUser.mobile}</Description> 
-<Description term="电子邮件" style={{wordBreak: 'break-all'}}>{secUser.email}</Description> 
-<Description term="PWD" style={{wordBreak: 'break-all'}}>{secUser.pwd}</Description> 
-<Description term="微信openid" style={{wordBreak: 'break-all'}}>{secUser.weixinOpenid}</Description> 
-<Description term="微信Appid" style={{wordBreak: 'break-all'}}>{secUser.weixinAppid}</Description> 
+<Description term="邮箱" style={{wordBreak: 'break-all'}}>{secUser.email}</Description> 
+<Description term="密码" style={{wordBreak: 'break-all'}}>{secUser.pwd}</Description> 
+<Description term="微信openId" style={{wordBreak: 'break-all'}}>{secUser.weixinOpenid}</Description> 
+<Description term="微信应用ID" style={{wordBreak: 'break-all'}}>{secUser.weixinAppid}</Description> 
 <Description term="访问令牌" style={{wordBreak: 'break-all'}}>{secUser.accessToken}</Description> 
 <Description term="验证码" style={{wordBreak: 'break-all'}}>{secUser.verificationCode}</Description> 
-<Description term="验证码过期">{ moment(secUser.verificationCodeExpire).format('YYYY-MM-DD HH:mm')}</Description> 
+<Description term="验证码有效期">{ moment(secUser.verificationCodeExpire).format('YYYY-MM-DD HH:mm')}</Description> 
 <Description term="最后登录时间">{ moment(secUser.lastLoginTime).format('YYYY-MM-DD HH:mm')}</Description> 
-	
-        {buildTransferModal(secUser,targetComponent)}
+
+       
       </DescriptionList>
+      <div>{quickFunctions(cardsData)}</div>
+      </div>
 	)
 
 }
+
+
+const renderTagCloud=(cardsData)=>{
+
+
+  if(cardsData.subItems.length<10){
+    return null
+  }
+
+  const tagValue = cardsData.subItems.map(item=>({name:item.displayName, value: item.count}))
+
+  return <div >
+      <div style={{verticalAlign:"middle",textAlign:"center",backgroundColor:"rgba(0, 0, 0, 0.65)",color:"white",fontWeight:"bold",height:"40px"}}>
+       <span style={{display:"inline-block",marginTop:"10px"}}>{`${cardsData.displayName}画像`}</span>
+      </div>
+      <TagCloud data={tagValue} height={200} style={{backgroundColor:"white"}}/>
+    </div>
+
+
+}
+
 
 const internalQuickFunctions = defaultQuickFunctions
 
@@ -146,7 +172,7 @@ class SecUserDashboard extends Component {
     targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
-    transferTargetParameterName:"",  
+    transferTargetParameterName:"",
     defaultType: 'secUser'
 
 
@@ -154,32 +180,32 @@ class SecUserDashboard extends Component {
   componentDidMount() {
 
   }
-  
+
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, userAppListMetaInfo, loginHistoryListMetaInfo, wechatWorkappIdentifyListMetaInfo, wechatMiniappIdentifyListMetaInfo, keypairIdentifyListMetaInfo, userAppCount, loginHistoryCount, wechatWorkappIdentifyCount, wechatMiniappIdentifyCount, keypairIdentifyCount } = this.props.secUser
+    const { id,displayName, userAppListMetaInfo, loginHistoryListMetaInfo, wechatWorkappIdentityListMetaInfo, wechatMiniappIdentityListMetaInfo, keyPairIdentityListMetaInfo, userAppCount, loginHistoryCount, wechatWorkappIdentityCount, wechatMiniappIdentityCount, keyPairIdentityCount } = this.props.secUser
     if(!this.props.secUser.class){
       return null
     }
     const returnURL = this.props.returnURL
-    
+
     const cardsData = {cardsName:window.trans('sec_user'),cardsFor: "secUser",
     	cardsSource: this.props.secUser,returnURL,displayName,
   		subItems: [
 {name: 'userAppList', displayName: window.mtrans('user_app','sec_user.user_app_list',false) ,viewGroup:'__no_group', type:'userApp',count:userAppCount,addFunction: true, role: 'userApp', metaInfo: userAppListMetaInfo, renderItem: GlobalComponents.UserAppBase.renderItemOfList},
 {name: 'loginHistoryList', displayName: window.mtrans('login_history','sec_user.login_history_list',false) ,viewGroup:'__no_group', type:'loginHistory',count:loginHistoryCount,addFunction: false, role: 'loginHistory', metaInfo: loginHistoryListMetaInfo, renderItem: GlobalComponents.LoginHistoryBase.renderItemOfList},
-{name: 'wechatWorkappIdentifyList', displayName: window.mtrans('wechat_workapp_identify','sec_user.wechat_workapp_identify_list',false) ,viewGroup:'__no_group', type:'wechatWorkappIdentify',count:wechatWorkappIdentifyCount,addFunction: true, role: 'wechatWorkappIdentify', metaInfo: wechatWorkappIdentifyListMetaInfo, renderItem: GlobalComponents.WechatWorkappIdentifyBase.renderItemOfList},
-{name: 'wechatMiniappIdentifyList', displayName: window.mtrans('wechat_miniapp_identify','sec_user.wechat_miniapp_identify_list',false) ,viewGroup:'__no_group', type:'wechatMiniappIdentify',count:wechatMiniappIdentifyCount,addFunction: true, role: 'wechatMiniappIdentify', metaInfo: wechatMiniappIdentifyListMetaInfo, renderItem: GlobalComponents.WechatMiniappIdentifyBase.renderItemOfList},
-{name: 'keypairIdentifyList', displayName: window.mtrans('keypair_identify','sec_user.keypair_identify_list',false) ,viewGroup:'__no_group', type:'keypairIdentify',count:keypairIdentifyCount,addFunction: true, role: 'keypairIdentify', metaInfo: keypairIdentifyListMetaInfo, renderItem: GlobalComponents.KeypairIdentifyBase.renderItemOfList},
-    
+{name: 'wechatWorkappIdentityList', displayName: window.mtrans('wechat_workapp_identity','sec_user.wechat_workapp_identity_list',false) ,viewGroup:'__no_group', type:'wechatWorkappIdentity',count:wechatWorkappIdentityCount,addFunction: true, role: 'wechatWorkappIdentity', metaInfo: wechatWorkappIdentityListMetaInfo, renderItem: GlobalComponents.WechatWorkappIdentityBase.renderItemOfList},
+{name: 'wechatMiniappIdentityList', displayName: window.mtrans('wechat_miniapp_identity','sec_user.wechat_miniapp_identity_list',false) ,viewGroup:'__no_group', type:'wechatMiniappIdentity',count:wechatMiniappIdentityCount,addFunction: true, role: 'wechatMiniappIdentity', metaInfo: wechatMiniappIdentityListMetaInfo, renderItem: GlobalComponents.WechatMiniappIdentityBase.renderItemOfList},
+{name: 'keyPairIdentityList', displayName: window.mtrans('key_pair_identity','sec_user.key_pair_identity_list',false) ,viewGroup:'__no_group', type:'keyPairIdentity',count:keyPairIdentityCount,addFunction: true, role: 'keyPairIdentity', metaInfo: keyPairIdentityListMetaInfo, renderItem: GlobalComponents.KeyPairIdentityBase.renderItemOfList},
+
       	],
    		subSettingItems: [
-    
-      	],     	
-      	
+
+      	],
+
   	};
-    
+
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
     const imageListOf = this.props.imageListOf || internalImageListOf
@@ -191,27 +217,28 @@ class SecUserDashboard extends Component {
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
-    
+    // {quickFunctions(cardsData)}
     return (
 
       <PageHeaderLayout
         title={renderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+
+
        
-        {renderExtraHeader(cardsData.cardsSource)}
-        
-        {quickFunctions(cardsData)} 
-        {imageListOf(cardsData.cardsSource)}  
-        {renderAnalytics(cardsData.cardsSource)}
-        {settingListOf(cardsData.cardsSource)}
-        {renderSubjectList(cardsData)}       
-        {largeTextOf(cardsData.cardsSource)}
-        {renderExtraFooter(cardsData.cardsSource)}
-  		
+     <Col span={24} style={{marginRight:"20px", backgroundColor: "white"}}>
+      {renderTagCloud(cardsData)}
+
+      {imageListOf(cardsData.cardsSource)}
+      {renderAnalytics(cardsData.cardsSource)}
+      {settingListOf(cardsData.cardsSource)}
+
+	   </Col>
+
+		 
       </PageHeaderLayout>
-    
+
     )
   }
 }
@@ -219,6 +246,6 @@ class SecUserDashboard extends Component {
 export default connect(state => ({
   secUser: state._secUser,
   returnURL: state.breadcrumb.returnURL,
-  
+
 }))(Form.create()(SecUserDashboard))
 

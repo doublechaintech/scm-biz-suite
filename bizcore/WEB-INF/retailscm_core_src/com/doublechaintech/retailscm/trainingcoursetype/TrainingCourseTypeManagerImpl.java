@@ -1,44 +1,27 @@
 
 package com.doublechaintech.retailscm.trainingcoursetype;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.companytraining.CompanyTraining;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.instructor.Instructor;import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
-import com.doublechaintech.retailscm.companytraining.CompanyTraining;
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
-import com.doublechaintech.retailscm.instructor.Instructor;
-import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager implements TrainingCourseTypeManager, BusinessHandler{
@@ -81,6 +64,7 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws TrainingCourseTypeManagerException{
 
 		Message message = new Message();
@@ -91,136 +75,190 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 
 
 
- 	protected TrainingCourseType saveTrainingCourseType(RetailscmUserContext userContext, TrainingCourseType trainingCourseType, String [] tokensExpr) throws Exception{	
+ 	protected TrainingCourseType saveTrainingCourseType(RetailscmUserContext userContext, TrainingCourseType trainingCourseType, String [] tokensExpr) throws Exception{
  		//return getTrainingCourseTypeDAO().save(trainingCourseType, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveTrainingCourseType(userContext, trainingCourseType, tokens);
  	}
- 	
- 	protected TrainingCourseType saveTrainingCourseTypeDetail(RetailscmUserContext userContext, TrainingCourseType trainingCourseType) throws Exception{	
 
- 		
+ 	protected TrainingCourseType saveTrainingCourseTypeDetail(RetailscmUserContext userContext, TrainingCourseType trainingCourseType) throws Exception{
+
+
  		return saveTrainingCourseType(userContext, trainingCourseType, allTokens());
  	}
- 	
- 	public TrainingCourseType loadTrainingCourseType(RetailscmUserContext userContext, String trainingCourseTypeId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public TrainingCourseType loadTrainingCourseType(RetailscmUserContext userContext, String trainingCourseTypeId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TrainingCourseTypeManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		TrainingCourseType trainingCourseType = loadTrainingCourseType( userContext, trainingCourseTypeId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,trainingCourseType, tokens);
  	}
- 	
- 	
- 	 public TrainingCourseType searchTrainingCourseType(RetailscmUserContext userContext, String trainingCourseTypeId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public TrainingCourseType searchTrainingCourseType(RetailscmUserContext userContext, String trainingCourseTypeId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TrainingCourseTypeManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		TrainingCourseType trainingCourseType = loadTrainingCourseType( userContext, trainingCourseTypeId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,trainingCourseType, tokens);
  	}
- 	
- 	
+
+
 
  	protected TrainingCourseType present(RetailscmUserContext userContext, TrainingCourseType trainingCourseType, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,trainingCourseType,tokens);
-		
-		
+    
+
 		TrainingCourseType  trainingCourseTypeToPresent = trainingCourseTypeDaoOf(userContext).present(trainingCourseType, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = trainingCourseTypeToPresent.collectRefercencesFromLists();
 		trainingCourseTypeDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,trainingCourseType,tokens);
-		
+
 		return  trainingCourseTypeToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public TrainingCourseType loadTrainingCourseTypeDetail(RetailscmUserContext userContext, String trainingCourseTypeId) throws Exception{	
+
+
+
+ 	public TrainingCourseType loadTrainingCourseTypeDetail(RetailscmUserContext userContext, String trainingCourseTypeId) throws Exception{
  		TrainingCourseType trainingCourseType = loadTrainingCourseType( userContext, trainingCourseTypeId, allTokens());
  		return present(userContext,trainingCourseType, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String trainingCourseTypeId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String trainingCourseTypeId) throws Exception{
  		TrainingCourseType trainingCourseType = loadTrainingCourseType( userContext, trainingCourseTypeId, viewTokens());
- 		return present(userContext,trainingCourseType, allTokens());
-		
- 	}
- 	protected TrainingCourseType saveTrainingCourseType(RetailscmUserContext userContext, TrainingCourseType trainingCourseType, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, trainingCourseType);
+ 		return present(userContext,trainingCourseType, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String trainingCourseTypeId) throws Exception{
+		TrainingCourseType trainingCourseType = loadTrainingCourseType( userContext, trainingCourseTypeId, viewTokens());
+		trainingCourseType.summarySuffix();
+		markVisited(userContext, trainingCourseType);
+ 		return present(userContext,trainingCourseType, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String trainingCourseTypeId) throws Exception{
+		TrainingCourseType trainingCourseType = loadTrainingCourseType( userContext, trainingCourseTypeId, analyzeTokens());
+		markVisited(userContext, trainingCourseType);
+		return present(userContext,trainingCourseType, analyzeTokens());
+
+	}
+ 	protected TrainingCourseType saveTrainingCourseType(RetailscmUserContext userContext, TrainingCourseType trainingCourseType, Map<String,Object>tokens) throws Exception{
+ 	
  		return trainingCourseTypeDaoOf(userContext).save(trainingCourseType, tokens);
  	}
- 	protected TrainingCourseType loadTrainingCourseType(RetailscmUserContext userContext, String trainingCourseTypeId, Map<String,Object>tokens) throws Exception{	
+ 	protected TrainingCourseType loadTrainingCourseType(RetailscmUserContext userContext, String trainingCourseTypeId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TrainingCourseTypeManagerException.class);
 
- 
+
+
  		return trainingCourseTypeDaoOf(userContext).load(trainingCourseTypeId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, TrainingCourseType trainingCourseType, Map<String, Object> tokens){
 		super.addActions(userContext, trainingCourseType, tokens);
-		
+
 		addAction(userContext, trainingCourseType, tokens,"@create","createTrainingCourseType","createTrainingCourseType/","main","primary");
 		addAction(userContext, trainingCourseType, tokens,"@update","updateTrainingCourseType","updateTrainingCourseType/"+trainingCourseType.getId()+"/","main","primary");
 		addAction(userContext, trainingCourseType, tokens,"@copy","cloneTrainingCourseType","cloneTrainingCourseType/"+trainingCourseType.getId()+"/","main","primary");
-		
+
 		addAction(userContext, trainingCourseType, tokens,"training_course_type.transfer_to_company","transferToAnotherCompany","transferToAnotherCompany/"+trainingCourseType.getId()+"/","main","primary");
 		addAction(userContext, trainingCourseType, tokens,"training_course_type.addCompanyTraining","addCompanyTraining","addCompanyTraining/"+trainingCourseType.getId()+"/","companyTrainingList","primary");
 		addAction(userContext, trainingCourseType, tokens,"training_course_type.removeCompanyTraining","removeCompanyTraining","removeCompanyTraining/"+trainingCourseType.getId()+"/","companyTrainingList","primary");
 		addAction(userContext, trainingCourseType, tokens,"training_course_type.updateCompanyTraining","updateCompanyTraining","updateCompanyTraining/"+trainingCourseType.getId()+"/","companyTrainingList","primary");
 		addAction(userContext, trainingCourseType, tokens,"training_course_type.copyCompanyTrainingFrom","copyCompanyTrainingFrom","copyCompanyTrainingFrom/"+trainingCourseType.getId()+"/","companyTrainingList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, TrainingCourseType trainingCourseType, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<TrainingCourseType> searchTrainingCourseTypeList(RetailscmUserContext ctx, TrainingCourseTypeRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<TrainingCourseType> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public TrainingCourseType searchTrainingCourseType(RetailscmUserContext ctx, TrainingCourseTypeRequest pRequest){
+    pRequest.limit(0, 1);
+    List<TrainingCourseType> list = searchTrainingCourseTypeList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public TrainingCourseType createTrainingCourseType(RetailscmUserContext userContext, String code,String companyId,String name,String description) throws Exception
-	//public TrainingCourseType createTrainingCourseType(RetailscmUserContext userContext,String code, String companyId, String name, String description) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkCodeOfTrainingCourseType(code);
 		checkerOf(userContext).checkNameOfTrainingCourseType(name);
 		checkerOf(userContext).checkDescriptionOfTrainingCourseType(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
+
 
 
 		TrainingCourseType trainingCourseType=createNewTrainingCourseType();	
@@ -251,34 +289,36 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
 		checkerOf(userContext).checkVersionOfTrainingCourseType( trainingCourseTypeVersion);
-		
+
 
 		if(TrainingCourseType.CODE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkCodeOfTrainingCourseType(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(TrainingCourseType.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfTrainingCourseType(parseString(newValueExpr));
 		
-			
+
 		}
 		if(TrainingCourseType.DESCRIPTION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkDescriptionOfTrainingCourseType(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
+
 
 
 	}
@@ -307,6 +347,8 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 			if (trainingCourseType.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixTrainingCourseType(trainingCourseType);
 			trainingCourseType = saveTrainingCourseType(userContext, trainingCourseType, options);
 			return trainingCourseType;
 
@@ -373,10 +415,16 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> allTokens(){
 		return TrainingCourseTypeTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortCompanyTrainingListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortCompanyTrainingListWith(CompanyTraining.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -388,6 +436,7 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 
  		checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
  		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(anotherCompanyId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
 
  	}
@@ -395,16 +444,17 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
  	{
  		checkParamsForTransferingAnotherCompany(userContext, trainingCourseTypeId,anotherCompanyId);
  
-		TrainingCourseType trainingCourseType = loadTrainingCourseType(userContext, trainingCourseTypeId, allTokens());	
+		TrainingCourseType trainingCourseType = loadTrainingCourseType(userContext, trainingCourseTypeId, allTokens());
 		synchronized(trainingCourseType){
 			//will be good when the trainingCourseType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStoreCountryCenter company = loadRetailStoreCountryCenter(userContext, anotherCompanyId, emptyOptions());		
-			trainingCourseType.updateCompany(company);		
+			RetailStoreCountryCenter company = loadRetailStoreCountryCenter(userContext, anotherCompanyId, emptyOptions());
+			trainingCourseType.updateCompany(company);
+			
 			trainingCourseType = saveTrainingCourseType(userContext, trainingCourseType, emptyOptions());
-			
+
 			return present(userContext,trainingCourseType, allTokens());
-			
+
 		}
 
  	}
@@ -437,8 +487,9 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 
  	protected RetailStoreCountryCenter loadRetailStoreCountryCenter(RetailscmUserContext userContext, String newCompanyId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreCountryCenterDaoOf(userContext).load(newCompanyId, options);
+ 	  
  	}
  	
 
@@ -484,45 +535,6 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
-	//disconnect TrainingCourseType with company in CompanyTraining
-	protected TrainingCourseType breakWithCompanyTrainingByCompany(RetailscmUserContext userContext, String trainingCourseTypeId, String companyId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			TrainingCourseType trainingCourseType = loadTrainingCourseType(userContext, trainingCourseTypeId, allTokens());
-
-			synchronized(trainingCourseType){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				trainingCourseTypeDaoOf(userContext).planToRemoveCompanyTrainingListWithCompany(trainingCourseType, companyId, this.emptyOptions());
-
-				trainingCourseType = saveTrainingCourseType(userContext, trainingCourseType, tokens().withCompanyTrainingList().done());
-				return trainingCourseType;
-			}
-	}
-	//disconnect TrainingCourseType with instructor in CompanyTraining
-	protected TrainingCourseType breakWithCompanyTrainingByInstructor(RetailscmUserContext userContext, String trainingCourseTypeId, String instructorId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			TrainingCourseType trainingCourseType = loadTrainingCourseType(userContext, trainingCourseTypeId, allTokens());
-
-			synchronized(trainingCourseType){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				trainingCourseTypeDaoOf(userContext).planToRemoveCompanyTrainingListWithInstructor(trainingCourseType, instructorId, this.emptyOptions());
-
-				trainingCourseType = saveTrainingCourseType(userContext, trainingCourseType, tokens().withCompanyTrainingList().done());
-				return trainingCourseType;
-			}
-	}
-
-
-
 
 
 
@@ -530,24 +542,25 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 
 				checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
 
-		
+
 		checkerOf(userContext).checkTitleOfCompanyTraining(title);
-		
+
 		checkerOf(userContext).checkCompanyIdOfCompanyTraining(companyId);
-		
+
 		checkerOf(userContext).checkInstructorIdOfCompanyTraining(instructorId);
-		
+
 		checkerOf(userContext).checkTimeStartOfCompanyTraining(timeStart);
-		
+
 		checkerOf(userContext).checkDurationHoursOfCompanyTraining(durationHours);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
+
 
 
 	}
 	public  TrainingCourseType addCompanyTraining(RetailscmUserContext userContext, String trainingCourseTypeId, String title, String companyId, String instructorId, Date timeStart, int durationHours, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingCompanyTraining(userContext,trainingCourseTypeId,title, companyId, instructorId, timeStart, durationHours,tokensExpr);
 
 		CompanyTraining companyTraining = createCompanyTraining(userContext,title, companyId, instructorId, timeStart, durationHours);
@@ -572,7 +585,9 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkTimeStartOfCompanyTraining( timeStart);
 		checkerOf(userContext).checkDurationHoursOfCompanyTraining( durationHours);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
+
 
 	}
 	public  TrainingCourseType updateCompanyTrainingProperties(RetailscmUserContext userContext, String trainingCourseTypeId, String id,String title,Date timeStart,int durationHours, String [] tokensExpr) throws Exception
@@ -648,6 +663,7 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 			checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
 
 	}
@@ -674,7 +690,9 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfTrainingCourseType( trainingCourseTypeId);
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 		checkerOf(userContext).checkVersionOfCompanyTraining(companyTrainingVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
+
 
 	}
 	public  TrainingCourseType removeCompanyTraining(RetailscmUserContext userContext, String trainingCourseTypeId,
@@ -701,7 +719,9 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfTrainingCourseType( trainingCourseTypeId);
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 		checkerOf(userContext).checkVersionOfCompanyTraining(companyTrainingVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
+
 
 	}
 	public  TrainingCourseType copyCompanyTrainingFrom(RetailscmUserContext userContext, String trainingCourseTypeId,
@@ -729,7 +749,7 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 	protected void checkParamsForUpdatingCompanyTraining(RetailscmUserContext userContext, String trainingCourseTypeId, String companyTrainingId, int companyTrainingVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfTrainingCourseType(trainingCourseTypeId);
 		checkerOf(userContext).checkIdOfCompanyTraining(companyTrainingId);
 		checkerOf(userContext).checkVersionOfCompanyTraining(companyTrainingVersion);
@@ -748,7 +768,9 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);
+
 
 	}
 
@@ -779,6 +801,7 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 			companyTraining.changeProperty(property, newValueExpr);
 			companyTraining.updateLastUpdateTime(userContext.now());
 			trainingCourseType = saveTrainingCourseType(userContext, trainingCourseType, tokens().withCompanyTrainingList().done());
+			companyTrainingManagerOf(userContext).onUpdated(userContext, companyTraining, this, "updateCompanyTraining");
 			return present(userContext,trainingCourseType, mergedAllTokens(tokensExpr));
 		}
 
@@ -811,112 +834,13 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -939,28 +863,21 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, TrainingCourseType.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, TrainingCourseType.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1006,7 +923,7 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String trainingCourseTypeId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getTrainingCourseTypeDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		TrainingCourseType merchantObj = (TrainingCourseType) this.view(userContext, trainingCourseTypeId);
     String merchantObjId = trainingCourseTypeId;
     String linkToUrl =	"trainingCourseTypeManager/wxappview/" + merchantObjId + "/";
@@ -1085,8 +1002,6 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 		sections.add(companyTrainingListSection);
 
 		result.put("companyTrainingListSection", ListofUtils.toShortList(merchantObj.getCompanyTrainingList(), "companyTraining"));
-		vscope.field("companyTrainingListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( CompanyTraining.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1101,8 +1016,19 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

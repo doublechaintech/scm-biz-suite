@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.mobileapp;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 
 	protected PageDAO pageDAO;
 	public void setPageDAO(PageDAO pageDAO){
- 	
+
  		if(pageDAO == null){
  			throw new IllegalStateException("Do not try to set pageDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
  		if(this.pageDAO == null){
  			throw new IllegalStateException("The pageDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.pageDAO;
- 	}	
+ 	}
 
 	protected PageTypeDAO pageTypeDAO;
 	public void setPageTypeDAO(PageTypeDAO pageTypeDAO){
- 	
+
  		if(pageTypeDAO == null){
  			throw new IllegalStateException("Do not try to set pageTypeDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
  		if(this.pageTypeDAO == null){
  			throw new IllegalStateException("The pageTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.pageTypeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,14 +125,14 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		newMobileApp.setVersion(0);
 		
 		
- 		
+
  		if(isSavePageListEnabled(options)){
  			for(Page item: newMobileApp.getPageList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSavePageTypeListEnabled(options)){
  			for(PageType item: newMobileApp.getPageTypeList()){
  				item.setVersion(0);
@@ -217,44 +219,44 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return MobileAppTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
 		
-	
-	protected boolean isExtractPageListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPageListEnabled(Map<String,Object> options){
  		return checkOptions(options,MobileAppTokens.PAGE_LIST);
  	}
- 	protected boolean isAnalyzePageListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePageListEnabled(Map<String,Object> options){
  		return MobileAppTokens.of(options).analyzePageListEnabled();
  	}
-	
+
 	protected boolean isSavePageListEnabled(Map<String,Object> options){
 		return checkOptions(options, MobileAppTokens.PAGE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractPageTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPageTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,MobileAppTokens.PAGE_TYPE_LIST);
  	}
- 	protected boolean isAnalyzePageTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePageTypeListEnabled(Map<String,Object> options){
  		return MobileAppTokens.of(options).analyzePageTypeListEnabled();
  	}
-	
+
 	protected boolean isSavePageTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, MobileAppTokens.PAGE_TYPE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -263,8 +265,8 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		return new MobileAppMapper();
 	}
 
-	
-	
+
+
 	protected MobileApp extractMobileApp(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			MobileApp mobileApp = loadSingleObject(accessKey, getMobileAppMapper());
@@ -275,18 +277,18 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 
 	}
 
-	
-	
+
+
 
 	protected MobileApp loadInternalMobileApp(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		MobileApp mobileApp = extractMobileApp(accessKey, loadOptions);
 
 		
 		if(isExtractPageListEnabled(loadOptions)){
 	 		extractPageList(mobileApp, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzePageListEnabled(loadOptions)){
 	 		analyzePageList(mobileApp, loadOptions);
@@ -295,12 +297,12 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		
 		if(isExtractPageTypeListEnabled(loadOptions)){
 	 		extractPageTypeList(mobileApp, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		return mobileApp;
-		
+
 	}
 
 	
@@ -309,10 +311,10 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected MobileApp extractPageList(MobileApp mobileApp, Map<String,Object> options){
-		
-		
+    
+
 		if(mobileApp == null){
 			return null;
 		}
@@ -320,21 +322,20 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			return mobileApp;
 		}
 
-		
-		
+
+
 		SmartList<Page> pageList = getPageDAO().findPageByMobileApp(mobileApp.getId(),options);
 		if(pageList != null){
 			enhancePageList(pageList,options);
 			mobileApp.setPageList(pageList);
 		}
-		
+
 		return mobileApp;
-	
-	}	
-	
+  
+	}
+
 	protected MobileApp analyzePageList(MobileApp mobileApp, Map<String,Object> options){
-		
-		
+     
 		if(mobileApp == null){
 			return null;
 		}
@@ -342,27 +343,27 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			return mobileApp;
 		}
 
-		
-		
+
+
 		SmartList<Page> pageList = mobileApp.getPageList();
 		if(pageList != null){
 			getPageDAO().analyzePageByMobileApp(pageList, mobileApp.getId(), options);
-			
+
 		}
-		
+
 		return mobileApp;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhancePageTypeList(SmartList<PageType> pageTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected MobileApp extractPageTypeList(MobileApp mobileApp, Map<String,Object> options){
-		
-		
+    
+
 		if(mobileApp == null){
 			return null;
 		}
@@ -370,21 +371,20 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			return mobileApp;
 		}
 
-		
-		
+
+
 		SmartList<PageType> pageTypeList = getPageTypeDAO().findPageTypeByMobileApp(mobileApp.getId(),options);
 		if(pageTypeList != null){
 			enhancePageTypeList(pageTypeList,options);
 			mobileApp.setPageTypeList(pageTypeList);
 		}
-		
+
 		return mobileApp;
-	
-	}	
-	
+  
+	}
+
 	protected MobileApp analyzePageTypeList(MobileApp mobileApp, Map<String,Object> options){
-		
-		
+     
 		if(mobileApp == null){
 			return null;
 		}
@@ -392,34 +392,37 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 			return mobileApp;
 		}
 
-		
-		
+
+
 		SmartList<PageType> pageTypeList = mobileApp.getPageTypeList();
 		if(pageTypeList != null){
 			getPageTypeDAO().analyzePageTypeByMobileApp(pageTypeList, mobileApp.getId(), options);
-			
+
 		}
-		
+
 		return mobileApp;
-	
-	}	
-	
+    
+	}
+
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected MobileApp saveMobileApp(MobileApp  mobileApp){
+    
+
 		
 		if(!mobileApp.isChanged()){
 			return mobileApp;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(mobileApp);
 		String SQL=this.getSaveMobileAppSQL(mobileApp);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveMobileAppParameters(mobileApp);
@@ -430,6 +433,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		}
 
 		mobileApp.incVersion();
+		mobileApp.afterSave();
 		return mobileApp;
 
 	}
@@ -447,6 +451,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		for(MobileApp mobileApp:mobileAppList){
 			if(mobileApp.isChanged()){
 				mobileApp.incVersion();
+				mobileApp.afterSave();
 			}
 
 
@@ -550,7 +555,6 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
  	protected Object[] prepareMobileAppUpdateParameters(MobileApp mobileApp){
  		Object[] parameters = new Object[4];
  
- 		
  		parameters[0] = mobileApp.getName();
  		
  		parameters[1] = mobileApp.nextVersion();
@@ -567,7 +571,6 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
         }
 		parameters[0] =  mobileApp.getId();
  
- 		
  		parameters[1] = mobileApp.getName();
  		
 
@@ -576,8 +579,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 
 	protected MobileApp saveInternalMobileApp(MobileApp mobileApp, Map<String,Object> options){
 
-		saveMobileApp(mobileApp);
-
+   saveMobileApp(mobileApp);
 		
 		if(isSavePageListEnabled(options)){
 	 		savePageList(mobileApp, options);
@@ -706,7 +708,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 
 		
 	protected MobileApp savePageList(MobileApp mobileApp, Map<String,Object> options){
-
+    
 
 
 
@@ -772,7 +774,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 
 		
 	protected MobileApp savePageTypeList(MobileApp mobileApp, Map<String,Object> options){
-
+    
 
 
 
@@ -839,20 +841,20 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		
 
 	public MobileApp present(MobileApp mobileApp,Map<String, Object> options){
-	
+
 		presentPageList(mobileApp,options);
 		presentPageTypeList(mobileApp,options);
 
 		return mobileApp;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected MobileApp presentPageList(
 			MobileApp mobileApp,
 			Map<String, Object> options) {
-
-		SmartList<Page> pageList = mobileApp.getPageList();		
+    
+		SmartList<Page> pageList = mobileApp.getPageList();
 				SmartList<Page> newList= presentSubList(mobileApp.getId(),
 				pageList,
 				options,
@@ -860,19 +862,19 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 				getPageDAO()::findPageByMobileApp
 				);
 
-		
+
 		mobileApp.setPageList(newList);
-		
+
 
 		return mobileApp;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected MobileApp presentPageTypeList(
 			MobileApp mobileApp,
 			Map<String, Object> options) {
-
-		SmartList<PageType> pageTypeList = mobileApp.getPageTypeList();		
+    
+		SmartList<PageType> pageTypeList = mobileApp.getPageTypeList();
 				SmartList<PageType> newList= presentSubList(mobileApp.getId(),
 				pageTypeList,
 				options,
@@ -880,12 +882,12 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 				getPageTypeDAO()::findPageTypeByMobileApp
 				);
 
-		
+
 		mobileApp.setPageTypeList(newList);
-		
+
 
 		return mobileApp;
-	}			
+	}
 		
 
 	
@@ -915,6 +917,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	
 	// 需要一个加载引用我的对象的enhance方法:Page的mobileApp的PageList
 	public SmartList<Page> loadOurPageList(RetailscmUserContext userContext, List<MobileApp> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -938,6 +941,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	
 	// 需要一个加载引用我的对象的enhance方法:PageType的mobileApp的PageTypeList
 	public SmartList<PageType> loadOurPageTypeList(RetailscmUserContext userContext, List<MobileApp> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -994,6 +998,10 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<MobileApp> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getMobileAppMapper());
   }
@@ -1033,13 +1041,13 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -1048,19 +1056,19 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -1068,7 +1076,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -1079,7 +1087,7 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -1088,27 +1096,36 @@ public class MobileAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Mo
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<MobileApp> search(MobileAppRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected MobileAppMapper mapper() {
+    return getMobileAppMapper();
+  }
 }
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './TransportTruck.updateform.less'
 import TransportTruckBase from './TransportTruck.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class TransportTruckUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -103,13 +105,13 @@ class TransportTruckUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const transportTruckId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, transportTruckId, ...imagesValues }
 
-        
+        const parameters = { ...values, transportTruckId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -124,7 +126,7 @@ class TransportTruckUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -134,12 +136,12 @@ class TransportTruckUpdateForm extends Component {
 
         const { owner } = this.props
         const transportTruckId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, transportTruckId, ...imagesValues }
+
+        const parameters = { ...values, transportTruckId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -161,11 +163,11 @@ class TransportTruckUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextTransportTruckUpdateRow`,
@@ -179,7 +181,7 @@ class TransportTruckUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -187,7 +189,7 @@ class TransportTruckUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'transportTruck',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -230,7 +232,7 @@ class TransportTruckUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -244,12 +246,12 @@ class TransportTruckUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}运输车: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -259,7 +261,7 @@ class TransportTruckUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -267,8 +269,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -279,8 +281,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.name} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -291,8 +293,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.plateNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.plateNumber} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.plateNumber} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -303,8 +305,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.contactNumber} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -315,8 +317,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.vehicleLicenseNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.vehicleLicenseNumber} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.vehicleLicenseNumber} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -327,8 +329,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.engineNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.engineNumber} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.engineNumber} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -339,8 +341,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.makeDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.makeDate}/>
-                    
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.makeDate}/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -351,8 +353,8 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.mileage,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.mileage} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.mileage} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -363,17 +365,17 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.bodyColor,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.bodyColor} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.bodyColor} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

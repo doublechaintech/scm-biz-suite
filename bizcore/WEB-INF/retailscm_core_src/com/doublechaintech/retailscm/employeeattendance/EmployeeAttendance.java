@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.employeeattendance;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.employee.Employee;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.employee.Employee;
 @JsonSerialize(using = EmployeeAttendanceSerializer.class)
 public class EmployeeAttendance extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String EMPLOYEE_PROPERTY              = "employee"          ;
 	public static final String ENTER_TIME_PROPERTY            = "enterTime"         ;
@@ -46,33 +43,90 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(EMPLOYEE_PROPERTY, "employee", "员工")
+        .withType("employee", Employee.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ENTER_TIME_PROPERTY, "enter_time", "进入时间")
+        .withType("date", Date.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LEAVE_TIME_PROPERTY, "leave_time", "离开的时候")
+        .withType("date", Date.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DURATION_HOURS_PROPERTY, "duration_hours", "持续时间")
+        .withType("int", "int"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(REMARK_PROPERTY, "remark", "备注")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,EMPLOYEE_PROPERTY ,ENTER_TIME_PROPERTY ,LEAVE_TIME_PROPERTY ,DURATION_HOURS_PROPERTY ,REMARK_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(EMPLOYEE_PROPERTY, Employee.class);
+
+    return parents;
+  }
+
+  public EmployeeAttendance want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public EmployeeAttendance wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getRemark();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		Employee            	mEmployee           ;
-	protected		Date                	mEnterTime          ;
-	protected		Date                	mLeaveTime          ;
-	protected		int                 	mDurationHours      ;
-	protected		String              	mRemark             ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		Employee            	employee            ;
+	protected		Date                	enterTime           ;
+	protected		Date                	leaveTime           ;
+	protected		int                 	durationHours       ;
+	protected		String              	remark              ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	EmployeeAttendance(){
 		// lazy load for all the properties
 	}
@@ -80,20 +134,40 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		EmployeeAttendance employeeAttendance = new EmployeeAttendance();
 		employeeAttendance.setId(id);
 		employeeAttendance.setVersion(Integer.MAX_VALUE);
+		employeeAttendance.setChecked(true);
 		return employeeAttendance;
 	}
 	public 	static EmployeeAttendance refById(String id){
 		return withId(id);
 	}
-	
+
+  public EmployeeAttendance limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public EmployeeAttendance limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static EmployeeAttendance searchExample(){
+    EmployeeAttendance employeeAttendance = new EmployeeAttendance();
+    		employeeAttendance.setDurationHours(UNSET_INT);
+		employeeAttendance.setVersion(UNSET_INT);
+
+    return employeeAttendance;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setEmployee( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -183,7 +257,7 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(EMPLOYEE_PROPERTY.equals(property)){
 			return getEmployee();
 		}
@@ -203,154 +277,246 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public EmployeeAttendance updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAttendance updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public EmployeeAttendance orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public EmployeeAttendance ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public EmployeeAttendance addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setEmployee(Employee employee){
-		this.mEmployee = employee;;
-	}
+	public void setEmployee(Employee employee){Employee oldEmployee = this.employee;Employee newEmployee = employee;this.employee = newEmployee;}
+	public Employee employee(){
+doLoad();
+return getEmployee();
+}
 	public Employee getEmployee(){
-		return this.mEmployee;
+		return this.employee;
 	}
-	public EmployeeAttendance updateEmployee(Employee employee){
-		this.mEmployee = employee;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAttendance updateEmployee(Employee employee){Employee oldEmployee = this.employee;Employee newEmployee = employee;if(!shouldReplaceBy(newEmployee, oldEmployee)){return this;}this.employee = newEmployee;addPropertyChange(EMPLOYEE_PROPERTY, oldEmployee, newEmployee);this.changed = true;setChecked(false);return this;}
+	public EmployeeAttendance orderByEmployee(boolean asc){
+doAddOrderBy(EMPLOYEE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createEmployeeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(EMPLOYEE_PROPERTY, operator, parameters);
+}
+	public EmployeeAttendance ignoreEmployeeCriteria(){super.ignoreSearchProperty(EMPLOYEE_PROPERTY);
+return this;
+}
+	public EmployeeAttendance addEmployeeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createEmployeeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeEmployee(Employee employee){
 		if(employee != null) { setEmployee(employee);}
 	}
-	
+
 	
 	public void clearEmployee(){
 		setEmployee ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setEnterTime(Date enterTime){
-		this.mEnterTime = enterTime;;
-	}
+	public void setEnterTime(Date enterTime){Date oldEnterTime = this.enterTime;Date newEnterTime = enterTime;this.enterTime = newEnterTime;}
+	public Date enterTime(){
+doLoad();
+return getEnterTime();
+}
 	public Date getEnterTime(){
-		return this.mEnterTime;
+		return this.enterTime;
 	}
-	public EmployeeAttendance updateEnterTime(Date enterTime){
-		this.mEnterTime = enterTime;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAttendance updateEnterTime(Date enterTime){Date oldEnterTime = this.enterTime;Date newEnterTime = enterTime;if(!shouldReplaceBy(newEnterTime, oldEnterTime)){return this;}this.enterTime = newEnterTime;addPropertyChange(ENTER_TIME_PROPERTY, oldEnterTime, newEnterTime);this.changed = true;setChecked(false);return this;}
+	public EmployeeAttendance orderByEnterTime(boolean asc){
+doAddOrderBy(ENTER_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createEnterTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ENTER_TIME_PROPERTY, operator, parameters);
+}
+	public EmployeeAttendance ignoreEnterTimeCriteria(){super.ignoreSearchProperty(ENTER_TIME_PROPERTY);
+return this;
+}
+	public EmployeeAttendance addEnterTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createEnterTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeEnterTime(Date enterTime){
 		setEnterTime(enterTime);
 	}
+
 	
-	
-	public void setLeaveTime(Date leaveTime){
-		this.mLeaveTime = leaveTime;;
-	}
+	public void setLeaveTime(Date leaveTime){Date oldLeaveTime = this.leaveTime;Date newLeaveTime = leaveTime;this.leaveTime = newLeaveTime;}
+	public Date leaveTime(){
+doLoad();
+return getLeaveTime();
+}
 	public Date getLeaveTime(){
-		return this.mLeaveTime;
+		return this.leaveTime;
 	}
-	public EmployeeAttendance updateLeaveTime(Date leaveTime){
-		this.mLeaveTime = leaveTime;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAttendance updateLeaveTime(Date leaveTime){Date oldLeaveTime = this.leaveTime;Date newLeaveTime = leaveTime;if(!shouldReplaceBy(newLeaveTime, oldLeaveTime)){return this;}this.leaveTime = newLeaveTime;addPropertyChange(LEAVE_TIME_PROPERTY, oldLeaveTime, newLeaveTime);this.changed = true;setChecked(false);return this;}
+	public EmployeeAttendance orderByLeaveTime(boolean asc){
+doAddOrderBy(LEAVE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLeaveTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LEAVE_TIME_PROPERTY, operator, parameters);
+}
+	public EmployeeAttendance ignoreLeaveTimeCriteria(){super.ignoreSearchProperty(LEAVE_TIME_PROPERTY);
+return this;
+}
+	public EmployeeAttendance addLeaveTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLeaveTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLeaveTime(Date leaveTime){
 		setLeaveTime(leaveTime);
 	}
+
 	
-	
-	public void setDurationHours(int durationHours){
-		this.mDurationHours = durationHours;;
-	}
+	public void setDurationHours(int durationHours){int oldDurationHours = this.durationHours;int newDurationHours = durationHours;this.durationHours = newDurationHours;}
+	public int durationHours(){
+doLoad();
+return getDurationHours();
+}
 	public int getDurationHours(){
-		return this.mDurationHours;
+		return this.durationHours;
 	}
-	public EmployeeAttendance updateDurationHours(int durationHours){
-		this.mDurationHours = durationHours;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAttendance updateDurationHours(int durationHours){int oldDurationHours = this.durationHours;int newDurationHours = durationHours;if(!shouldReplaceBy(newDurationHours, oldDurationHours)){return this;}this.durationHours = newDurationHours;addPropertyChange(DURATION_HOURS_PROPERTY, oldDurationHours, newDurationHours);this.changed = true;setChecked(false);return this;}
+	public EmployeeAttendance orderByDurationHours(boolean asc){
+doAddOrderBy(DURATION_HOURS_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDurationHoursCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DURATION_HOURS_PROPERTY, operator, parameters);
+}
+	public EmployeeAttendance ignoreDurationHoursCriteria(){super.ignoreSearchProperty(DURATION_HOURS_PROPERTY);
+return this;
+}
+	public EmployeeAttendance addDurationHoursCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDurationHoursCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDurationHours(int durationHours){
 		setDurationHours(durationHours);
 	}
+
 	
-	
-	public void setRemark(String remark){
-		this.mRemark = trimString(remark);;
-	}
+	public void setRemark(String remark){String oldRemark = this.remark;String newRemark = trimString(remark);this.remark = newRemark;}
+	public String remark(){
+doLoad();
+return getRemark();
+}
 	public String getRemark(){
-		return this.mRemark;
+		return this.remark;
 	}
-	public EmployeeAttendance updateRemark(String remark){
-		this.mRemark = trimString(remark);;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAttendance updateRemark(String remark){String oldRemark = this.remark;String newRemark = trimString(remark);if(!shouldReplaceBy(newRemark, oldRemark)){return this;}this.remark = newRemark;addPropertyChange(REMARK_PROPERTY, oldRemark, newRemark);this.changed = true;setChecked(false);return this;}
+	public EmployeeAttendance orderByRemark(boolean asc){
+doAddOrderBy(REMARK_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createRemarkCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(REMARK_PROPERTY, operator, parameters);
+}
+	public EmployeeAttendance ignoreRemarkCriteria(){super.ignoreSearchProperty(REMARK_PROPERTY);
+return this;
+}
+	public EmployeeAttendance addRemarkCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createRemarkCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeRemark(String remark){
 		if(remark != null) { setRemark(remark);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public EmployeeAttendance updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public EmployeeAttendance updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public EmployeeAttendance orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public EmployeeAttendance ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public EmployeeAttendance addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getEmployee(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -367,16 +533,16 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof EmployeeAttendance){
-		
-		
+
+
 			EmployeeAttendance dest =(EmployeeAttendance)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setEmployee(getEmployee());
 			dest.setEnterTime(getEnterTime());
@@ -390,13 +556,13 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof EmployeeAttendance){
-		
-			
+
+
 			EmployeeAttendance dest =(EmployeeAttendance)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeEmployee(getEmployee());
 			dest.mergeEnterTime(getEnterTime());
@@ -409,15 +575,15 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof EmployeeAttendance){
-		
-			
+
+
 			EmployeeAttendance dest =(EmployeeAttendance)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeEnterTime(getEnterTime());
 			dest.mergeLeaveTime(getLeaveTime());
@@ -431,6 +597,48 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getEmployee(), getEnterTime(), getLeaveTime(), getDurationHours(), getRemark(), getVersion()};
 	}
+
+
+	public static EmployeeAttendance createWith(RetailscmUserContext userContext, ThrowingFunction<EmployeeAttendance,EmployeeAttendance,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<EmployeeAttendance> customCreator = mapper.findCustomCreator(EmployeeAttendance.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    EmployeeAttendance result = new EmployeeAttendance();
+    result.setEmployee(mapper.tryToGet(EmployeeAttendance.class, EMPLOYEE_PROPERTY, Employee.class,
+        0, true, result.getEmployee(), params));
+    result.setEnterTime(mapper.tryToGet(EmployeeAttendance.class, ENTER_TIME_PROPERTY, Date.class,
+        0, false, result.getEnterTime(), params));
+    result.setLeaveTime(mapper.tryToGet(EmployeeAttendance.class, LEAVE_TIME_PROPERTY, Date.class,
+        1, false, result.getLeaveTime(), params));
+    result.setDurationHours(mapper.tryToGet(EmployeeAttendance.class, DURATION_HOURS_PROPERTY, int.class,
+        0, true, result.getDurationHours(), params));
+    result.setRemark(mapper.tryToGet(EmployeeAttendance.class, REMARK_PROPERTY, String.class,
+        0, true, result.getRemark(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixEmployeeAttendance(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      EmployeeAttendanceTokens tokens = mapper.findParamByClass(params, EmployeeAttendanceTokens.class);
+      if (tokens == null) {
+        tokens = EmployeeAttendanceTokens.start();
+      }
+      result = userContext.getManagerGroup().getEmployeeAttendanceManager().internalSaveEmployeeAttendance(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -448,14 +656,14 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 	public void increaseDurationHours(int incDurationHours){
-		updateDurationHours(this.mDurationHours +  incDurationHours);
+		updateDurationHours(this.durationHours +  incDurationHours);
 	}
 	public void decreaseDurationHours(int decDurationHours){
-		updateDurationHours(this.mDurationHours - decDurationHours);
+		updateDurationHours(this.durationHours - decDurationHours);
 	}
 	
 

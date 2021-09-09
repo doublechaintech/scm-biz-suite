@@ -46,6 +46,7 @@ public interface AccountingPeriodDAO extends BaseDAO{
 	public void delete(String accountingPeriodId, int version) throws Exception;
 	public AccountingPeriod disconnectFromAll(String accountingPeriodId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public AccountingDocumentDAO getAccountingDocumentDAO();
 		
@@ -61,9 +62,10 @@ public interface AccountingPeriodDAO extends BaseDAO{
 	public int countAccountingDocumentListWithDocumentType(String accountingPeriodId, String documentTypeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<AccountingPeriod> queryList(String sql, Object ... parmeters);
+	public SmartList<AccountingPeriod> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<AccountingPeriod> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateAccountingPeriod executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<AccountingPeriod> findAccountingPeriodByAccountSet(String accountSetId, Map<String,Object> options);
@@ -77,6 +79,8 @@ public interface AccountingPeriodDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:AccountingDocument的accountingPeriod的AccountingDocumentList
 	public SmartList<AccountingDocument> loadOurAccountingDocumentList(RetailscmUserContext userContext, List<AccountingPeriod> us, Map<String,Object> options) throws Exception;
 	
+
+	List<AccountingPeriod> search(AccountingPeriodRequest pRequest);
 }
 
 

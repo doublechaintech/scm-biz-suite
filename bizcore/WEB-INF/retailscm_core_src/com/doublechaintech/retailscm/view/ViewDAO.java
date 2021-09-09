@@ -42,15 +42,19 @@ public interface ViewDAO extends BaseDAO{
 	public void delete(String viewId, int version) throws Exception;
 	public View disconnectFromAll(String viewId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<View> queryList(String sql, Object ... parmeters);
+	public SmartList<View> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<View> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateView executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
+
+	List<View> search(ViewRequest pRequest);
 }
 
 

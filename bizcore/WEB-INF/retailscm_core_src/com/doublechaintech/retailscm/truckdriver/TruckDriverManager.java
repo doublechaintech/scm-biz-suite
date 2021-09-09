@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.truckdriver;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface TruckDriverManager extends BaseManager{
 
 		
 
+  List<TruckDriver> searchTruckDriverList(RetailscmUserContext ctx, TruckDriverRequest pRequest);
+  TruckDriver searchTruckDriver(RetailscmUserContext ctx, TruckDriverRequest pRequest);
 	public TruckDriver createTruckDriver(RetailscmUserContext userContext, String name,String driverLicenseNumber,String contactNumber,String belongsToId) throws Exception;
 	public TruckDriver updateTruckDriver(RetailscmUserContext userContext,String truckDriverId, int truckDriverVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public TruckDriver loadTruckDriver(RetailscmUserContext userContext, String truckDriverId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface TruckDriverManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String truckDriverId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, TruckDriver newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, TruckDriver updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface TruckDriverManager extends BaseManager{
 	public Object listByBelongsTo(RetailscmUserContext userContext,String belongsToId) throws Exception;
 	public Object listPageByBelongsTo(RetailscmUserContext userContext,String belongsToId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

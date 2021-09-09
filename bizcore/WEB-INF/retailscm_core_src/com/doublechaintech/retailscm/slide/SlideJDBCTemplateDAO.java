@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.slide;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 
 	protected PageDAO pageDAO;
 	public void setPageDAO(PageDAO pageDAO){
- 	
+
  		if(pageDAO == null){
  			throw new IllegalStateException("Do not try to set pageDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
  		if(this.pageDAO == null){
  			throw new IllegalStateException("The pageDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.pageDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SlideTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractPageEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SlideTokens.PAGE);
  	}
 
  	protected boolean isSavePageEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SlideTokens.PAGE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 		return new SlideMapper();
 	}
 
-	
-	
+
+
 	protected Slide extractSlide(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Slide slide = loadSingleObject(accessKey, getSlideMapper());
@@ -229,25 +231,26 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 
 	}
 
-	
-	
+
+
 
 	protected Slide loadInternalSlide(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Slide slide = extractSlide(accessKey, loadOptions);
- 	
+
  		if(isExtractPageEnabled(loadOptions)){
 	 		extractPage(slide, loadOptions);
  		}
  
 		
 		return slide;
-		
+
 	}
 
-	 
+	
 
  	protected Slide extractPage(Slide slide, Map<String,Object> options) throws Exception{
+  
 
 		if(slide.getPage() == null){
 			return slide;
@@ -260,37 +263,37 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 		if(page != null){
 			slide.setPage(page);
 		}
-		
- 		
+
+
  		return slide;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<Slide> findSlideByPage(String pageId,Map<String,Object> options){
- 	
+
   		SmartList<Slide> resultList = queryWith(SlideTable.COLUMN_PAGE, pageId, options, getSlideMapper());
 		// analyzeSlideByPage(resultList, pageId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Slide> findSlideByPage(String pageId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Slide> resultList =  queryWithRange(SlideTable.COLUMN_PAGE, pageId, options, getSlideMapper(), start, count);
  		//analyzeSlideByPage(resultList, pageId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSlideByPage(SmartList<Slide> resultList, String pageId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSlideByPage(String pageId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 	public Map<String, Integer> countSlideByPageIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SlideTable.COLUMN_PAGE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Slide saveSlide(Slide  slide){
+    
+
 		
 		if(!slide.isChanged()){
 			return slide;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(slide);
 		String SQL=this.getSaveSlideSQL(slide);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSlideParameters(slide);
@@ -326,6 +332,7 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 		}
 
 		slide.incVersion();
+		slide.afterSave();
 		return slide;
 
 	}
@@ -343,6 +350,7 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 		for(Slide slide:slideList){
 			if(slide.isChanged()){
 				slide.incVersion();
+				slide.afterSave();
 			}
 
 
@@ -446,25 +454,20 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
  	protected Object[] prepareSlideUpdateParameters(Slide slide){
  		Object[] parameters = new Object[9];
  
- 		
  		parameters[0] = slide.getName();
- 		
  		
  		parameters[1] = slide.getDisplayOrder();
  		
- 		
  		parameters[2] = slide.getImageUrl();
  		
- 		
  		parameters[3] = slide.getVideoUrl();
- 		
  		
  		parameters[4] = slide.getLinkToUrl();
  		
  		if(slide.getPage() != null){
  			parameters[5] = slide.getPage().getId();
  		}
- 
+    
  		parameters[6] = slide.nextVersion();
  		parameters[7] = slide.getId();
  		parameters[8] = slide.getVersion();
@@ -479,24 +482,18 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
         }
 		parameters[0] =  slide.getId();
  
- 		
  		parameters[1] = slide.getName();
- 		
  		
  		parameters[2] = slide.getDisplayOrder();
  		
- 		
  		parameters[3] = slide.getImageUrl();
  		
- 		
  		parameters[4] = slide.getVideoUrl();
- 		
  		
  		parameters[5] = slide.getLinkToUrl();
  		
  		if(slide.getPage() != null){
  			parameters[6] = slide.getPage().getId();
-
  		}
  		
 
@@ -505,12 +502,11 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 
 	protected Slide saveInternalSlide(Slide slide, Map<String,Object> options){
 
-		saveSlide(slide);
-
  		if(isSavePageEnabled(options)){
 	 		savePage(slide, options);
  		}
  
+   saveSlide(slide);
 		
 		return slide;
 
@@ -522,6 +518,7 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 	
 
  	protected Slide savePage(Slide slide, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(slide.getPage() == null){
  			return slide;//do nothing when it is null
@@ -531,11 +528,6 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
  		return slide;
 
  	}
-
-
-
-
-
  
 
 	
@@ -543,10 +535,10 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 		
 
 	public Slide present(Slide slide,Map<String, Object> options){
-	
+
 
 		return slide;
-	
+
 	}
 		
 
@@ -598,6 +590,10 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Slide> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSlideMapper());
   }
@@ -633,6 +629,15 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
 
 	
 
+  @Override
+  public List<Slide> search(SlideRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SlideMapper mapper() {
+    return getSlideMapper();
+  }
 }
 
 

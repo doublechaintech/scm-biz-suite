@@ -37,6 +37,22 @@ export default {
     },
   },
   effects: {
+
+    *analyze({ payload }, { call, put, select }){
+      yield put({ type: 'showLoading', payload })
+      const link = payload.pathname
+      const {UserAppService} = GlobalComponents;
+      const data = yield call(UserAppService.analyze, payload.id)
+      
+      const displayName = payload.displayName||data.displayName
+      
+      
+      yield put({ type: 'breadcrumb/gotoLink', payload: { displayName,link }} )
+      
+
+      yield put({ type: 'updateState', payload: data })
+      
+    },
     *view({ payload }, { call, put, select }) { 
     
       const cachedData = yield select(state => state._userApp)
@@ -206,7 +222,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/userApp/${id}/list/ListAccessList/访问列表+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/userApp/${id}/list/ListAccessList/列表访问控制+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateListAccess({ payload }, { call, put }) {
@@ -228,7 +244,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/userApp/${id}/list/ListAccessList/访问列表列表`, state: newPlayload }
+      const location = { pathname: `/userApp/${id}/list/ListAccessList/列表访问控制列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextListAccessUpdateRow({ payload }, { call, put }) {

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstoreorder;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -49,7 +50,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	protected RetailStoreDAO retailStoreDAO;
 	public void setRetailStoreDAO(RetailStoreDAO retailStoreDAO){
- 	
+
  		if(retailStoreDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreDAO to null.");
  		}
@@ -59,13 +60,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.retailStoreDAO == null){
  			throw new IllegalStateException("The retailStoreDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreDAO;
- 	}	
+ 	}
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -75,13 +76,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected RetailStoreOrderLineItemDAO retailStoreOrderLineItemDAO;
 	public void setRetailStoreOrderLineItemDAO(RetailStoreOrderLineItemDAO retailStoreOrderLineItemDAO){
- 	
+
  		if(retailStoreOrderLineItemDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreOrderLineItemDAO to null.");
  		}
@@ -91,13 +92,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.retailStoreOrderLineItemDAO == null){
  			throw new IllegalStateException("The retailStoreOrderLineItemDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreOrderLineItemDAO;
- 	}	
+ 	}
 
 	protected RetailStoreOrderShippingGroupDAO retailStoreOrderShippingGroupDAO;
 	public void setRetailStoreOrderShippingGroupDAO(RetailStoreOrderShippingGroupDAO retailStoreOrderShippingGroupDAO){
- 	
+
  		if(retailStoreOrderShippingGroupDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreOrderShippingGroupDAO to null.");
  		}
@@ -107,13 +108,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.retailStoreOrderShippingGroupDAO == null){
  			throw new IllegalStateException("The retailStoreOrderShippingGroupDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreOrderShippingGroupDAO;
- 	}	
+ 	}
 
 	protected RetailStoreOrderPaymentGroupDAO retailStoreOrderPaymentGroupDAO;
 	public void setRetailStoreOrderPaymentGroupDAO(RetailStoreOrderPaymentGroupDAO retailStoreOrderPaymentGroupDAO){
- 	
+
  		if(retailStoreOrderPaymentGroupDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreOrderPaymentGroupDAO to null.");
  		}
@@ -123,13 +124,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.retailStoreOrderPaymentGroupDAO == null){
  			throw new IllegalStateException("The retailStoreOrderPaymentGroupDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreOrderPaymentGroupDAO;
- 	}	
+ 	}
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -139,9 +140,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -195,28 +197,28 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		newRetailStoreOrder.setVersion(0);
 		
 		
- 		
+
  		if(isSaveRetailStoreOrderLineItemListEnabled(options)){
  			for(RetailStoreOrderLineItem item: newRetailStoreOrder.getRetailStoreOrderLineItemList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreOrderShippingGroupListEnabled(options)){
  			for(RetailStoreOrderShippingGroup item: newRetailStoreOrder.getRetailStoreOrderShippingGroupList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreOrderPaymentGroupListEnabled(options)){
  			for(RetailStoreOrderPaymentGroup item: newRetailStoreOrder.getRetailStoreOrderPaymentGroupList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveGoodsListEnabled(options)){
  			for(Goods item: newRetailStoreOrder.getGoodsList()){
  				item.setVersion(0);
@@ -303,100 +305,100 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreOrderTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBuyerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreOrderTokens.BUYER);
  	}
 
  	protected boolean isSaveBuyerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreOrderTokens.BUYER);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractSellerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreOrderTokens.SELLER);
  	}
 
  	protected boolean isSaveSellerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreOrderTokens.SELLER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreOrderLineItemListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreOrderLineItemListEnabled(Map<String,Object> options){
  		return RetailStoreOrderTokens.of(options).analyzeRetailStoreOrderLineItemListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreOrderLineItemListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){
  		return RetailStoreOrderTokens.of(options).analyzeRetailStoreOrderShippingGroupListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){
  		return RetailStoreOrderTokens.of(options).analyzeRetailStoreOrderPaymentGroupListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){
  		return RetailStoreOrderTokens.of(options).analyzeGoodsListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.GOODS_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -405,8 +407,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		return new RetailStoreOrderMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreOrder extractRetailStoreOrder(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreOrder retailStoreOrder = loadSingleObject(accessKey, getRetailStoreOrderMapper());
@@ -417,17 +419,17 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreOrder loadInternalRetailStoreOrder(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreOrder retailStoreOrder = extractRetailStoreOrder(accessKey, loadOptions);
- 	
+
  		if(isExtractBuyerEnabled(loadOptions)){
 	 		extractBuyer(retailStoreOrder, loadOptions);
  		}
-  	
+ 
  		if(isExtractSellerEnabled(loadOptions)){
 	 		extractSeller(retailStoreOrder, loadOptions);
  		}
@@ -435,8 +437,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		
 		if(isExtractRetailStoreOrderLineItemListEnabled(loadOptions)){
 	 		extractRetailStoreOrderLineItemList(retailStoreOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreOrderLineItemListEnabled(loadOptions)){
 	 		analyzeRetailStoreOrderLineItemList(retailStoreOrder, loadOptions);
@@ -445,8 +447,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		
 		if(isExtractRetailStoreOrderShippingGroupListEnabled(loadOptions)){
 	 		extractRetailStoreOrderShippingGroupList(retailStoreOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreOrderShippingGroupListEnabled(loadOptions)){
 	 		analyzeRetailStoreOrderShippingGroupList(retailStoreOrder, loadOptions);
@@ -455,8 +457,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		
 		if(isExtractRetailStoreOrderPaymentGroupListEnabled(loadOptions)){
 	 		extractRetailStoreOrderPaymentGroupList(retailStoreOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreOrderPaymentGroupListEnabled(loadOptions)){
 	 		analyzeRetailStoreOrderPaymentGroupList(retailStoreOrder, loadOptions);
@@ -465,8 +467,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(retailStoreOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
 	 		analyzeGoodsList(retailStoreOrder, loadOptions);
@@ -474,12 +476,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		
 		
 		return retailStoreOrder;
-		
+
 	}
 
-	 
+	
 
  	protected RetailStoreOrder extractBuyer(RetailStoreOrder retailStoreOrder, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreOrder.getBuyer() == null){
 			return retailStoreOrder;
@@ -492,14 +495,15 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(buyer != null){
 			retailStoreOrder.setBuyer(buyer);
 		}
-		
- 		
+
+
  		return retailStoreOrder;
  	}
- 		
-  
+
+ 
 
  	protected RetailStoreOrder extractSeller(RetailStoreOrder retailStoreOrder, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreOrder.getSeller() == null){
 			return retailStoreOrder;
@@ -512,21 +516,21 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(seller != null){
 			retailStoreOrder.setSeller(seller);
 		}
-		
- 		
+
+
  		return retailStoreOrder;
  	}
- 		
+
  
 		
 	protected void enhanceRetailStoreOrderLineItemList(SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreOrder extractRetailStoreOrderLineItemList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -534,21 +538,20 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList = getRetailStoreOrderLineItemDAO().findRetailStoreOrderLineItemByBizOrder(retailStoreOrder.getId(),options);
 		if(retailStoreOrderLineItemList != null){
 			enhanceRetailStoreOrderLineItemList(retailStoreOrderLineItemList,options);
 			retailStoreOrder.setRetailStoreOrderLineItemList(retailStoreOrderLineItemList);
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreOrder analyzeRetailStoreOrderLineItemList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -556,27 +559,27 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList = retailStoreOrder.getRetailStoreOrderLineItemList();
 		if(retailStoreOrderLineItemList != null){
 			getRetailStoreOrderLineItemDAO().analyzeRetailStoreOrderLineItemByBizOrder(retailStoreOrderLineItemList, retailStoreOrder.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreOrderShippingGroupList(SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreOrder extractRetailStoreOrderShippingGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -584,21 +587,20 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList = getRetailStoreOrderShippingGroupDAO().findRetailStoreOrderShippingGroupByBizOrder(retailStoreOrder.getId(),options);
 		if(retailStoreOrderShippingGroupList != null){
 			enhanceRetailStoreOrderShippingGroupList(retailStoreOrderShippingGroupList,options);
 			retailStoreOrder.setRetailStoreOrderShippingGroupList(retailStoreOrderShippingGroupList);
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreOrder analyzeRetailStoreOrderShippingGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -606,27 +608,27 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList = retailStoreOrder.getRetailStoreOrderShippingGroupList();
 		if(retailStoreOrderShippingGroupList != null){
 			getRetailStoreOrderShippingGroupDAO().analyzeRetailStoreOrderShippingGroupByBizOrder(retailStoreOrderShippingGroupList, retailStoreOrder.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreOrderPaymentGroupList(SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreOrder extractRetailStoreOrderPaymentGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -634,21 +636,20 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList = getRetailStoreOrderPaymentGroupDAO().findRetailStoreOrderPaymentGroupByBizOrder(retailStoreOrder.getId(),options);
 		if(retailStoreOrderPaymentGroupList != null){
 			enhanceRetailStoreOrderPaymentGroupList(retailStoreOrderPaymentGroupList,options);
 			retailStoreOrder.setRetailStoreOrderPaymentGroupList(retailStoreOrderPaymentGroupList);
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreOrder analyzeRetailStoreOrderPaymentGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -656,27 +657,27 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList = retailStoreOrder.getRetailStoreOrderPaymentGroupList();
 		if(retailStoreOrderPaymentGroupList != null){
 			getRetailStoreOrderPaymentGroupDAO().analyzeRetailStoreOrderPaymentGroupByBizOrder(retailStoreOrderPaymentGroupList, retailStoreOrder.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreOrder extractGoodsList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -684,21 +685,20 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = getGoodsDAO().findGoodsByRetailStoreOrder(retailStoreOrder.getId(),options);
 		if(goodsList != null){
 			enhanceGoodsList(goodsList,options);
 			retailStoreOrder.setGoodsList(goodsList);
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreOrder analyzeGoodsList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreOrder == null){
 			return null;
 		}
@@ -706,47 +706,47 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return retailStoreOrder;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = retailStoreOrder.getGoodsList();
 		if(goodsList != null){
 			getGoodsDAO().analyzeGoodsByRetailStoreOrder(goodsList, retailStoreOrder.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreOrder;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByBuyer(String retailStoreId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_BUYER, retailStoreId, options, getRetailStoreOrderMapper());
 		// analyzeRetailStoreOrderByBuyer(resultList, retailStoreId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByBuyer(String retailStoreId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_BUYER, retailStoreId, options, getRetailStoreOrderMapper(), start, count);
  		//analyzeRetailStoreOrderByBuyer(resultList, retailStoreId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreOrderByBuyer(SmartList<RetailStoreOrder> resultList, String retailStoreId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.BUYER_PROPERTY, retailStoreId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
@@ -754,11 +754,11 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreOrderByBuyer(String retailStoreId,Map<String,Object> options){
@@ -769,34 +769,34 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	public Map<String, Integer> countRetailStoreOrderByBuyerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreOrderTable.COLUMN_BUYER, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<RetailStoreOrder> findRetailStoreOrderBySeller(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_SELLER, retailStoreCountryCenterId, options, getRetailStoreOrderMapper());
 		// analyzeRetailStoreOrderBySeller(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreOrder> findRetailStoreOrderBySeller(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_SELLER, retailStoreCountryCenterId, options, getRetailStoreOrderMapper(), start, count);
  		//analyzeRetailStoreOrderBySeller(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreOrderBySeller(SmartList<RetailStoreOrder> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.SELLER_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
@@ -804,11 +804,11 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreOrderBySeller(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -819,21 +819,24 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	public Map<String, Integer> countRetailStoreOrderBySellerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreOrderTable.COLUMN_SELLER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreOrder saveRetailStoreOrder(RetailStoreOrder  retailStoreOrder){
+    
+
 		
 		if(!retailStoreOrder.isChanged()){
 			return retailStoreOrder;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreOrder);
 		String SQL=this.getSaveRetailStoreOrderSQL(retailStoreOrder);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreOrderParameters(retailStoreOrder);
@@ -844,6 +847,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		}
 
 		retailStoreOrder.incVersion();
+		retailStoreOrder.afterSave();
 		return retailStoreOrder;
 
 	}
@@ -861,6 +865,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		for(RetailStoreOrder retailStoreOrder:retailStoreOrderList){
 			if(retailStoreOrder.isChanged()){
 				retailStoreOrder.incVersion();
+				retailStoreOrder.afterSave();
 			}
 
 
@@ -967,17 +972,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(retailStoreOrder.getBuyer() != null){
  			parameters[0] = retailStoreOrder.getBuyer().getId();
  		}
- 
+    
  		if(retailStoreOrder.getSeller() != null){
  			parameters[1] = retailStoreOrder.getSeller().getId();
  		}
- 
- 		
+    
  		parameters[2] = retailStoreOrder.getTitle();
  		
- 		
  		parameters[3] = retailStoreOrder.getTotalAmount();
- 		
  		
  		parameters[4] = retailStoreOrder.getLastUpdateTime();
  		
@@ -997,20 +999,15 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  
  		if(retailStoreOrder.getBuyer() != null){
  			parameters[1] = retailStoreOrder.getBuyer().getId();
-
  		}
  		
  		if(retailStoreOrder.getSeller() != null){
  			parameters[2] = retailStoreOrder.getSeller().getId();
-
  		}
- 		
  		
  		parameters[3] = retailStoreOrder.getTitle();
  		
- 		
  		parameters[4] = retailStoreOrder.getTotalAmount();
- 		
  		
  		parameters[5] = retailStoreOrder.getLastUpdateTime();
  		
@@ -1020,8 +1017,6 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	protected RetailStoreOrder saveInternalRetailStoreOrder(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
 
-		saveRetailStoreOrder(retailStoreOrder);
-
  		if(isSaveBuyerEnabled(options)){
 	 		saveBuyer(retailStoreOrder, options);
  		}
@@ -1030,6 +1025,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	 		saveSeller(retailStoreOrder, options);
  		}
  
+   saveRetailStoreOrder(retailStoreOrder);
 		
 		if(isSaveRetailStoreOrderLineItemListEnabled(options)){
 	 		saveRetailStoreOrderLineItemList(retailStoreOrder, options);
@@ -1069,6 +1065,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	
 
  	protected RetailStoreOrder saveBuyer(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreOrder.getBuyer() == null){
  			return retailStoreOrder;//do nothing when it is null
@@ -1078,14 +1075,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		return retailStoreOrder;
 
  	}
-
-
-
-
-
  
 
  	protected RetailStoreOrder saveSeller(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreOrder.getSeller() == null){
  			return retailStoreOrder;//do nothing when it is null
@@ -1095,11 +1088,6 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		return retailStoreOrder;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1570,7 +1558,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 		
 	protected RetailStoreOrder saveRetailStoreOrderLineItemList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1636,7 +1624,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 		
 	protected RetailStoreOrder saveRetailStoreOrderShippingGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1702,7 +1690,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 		
 	protected RetailStoreOrder saveRetailStoreOrderPaymentGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1768,7 +1756,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 		
 	protected RetailStoreOrder saveGoodsList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1835,22 +1823,22 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		
 
 	public RetailStoreOrder present(RetailStoreOrder retailStoreOrder,Map<String, Object> options){
-	
+
 		presentRetailStoreOrderLineItemList(retailStoreOrder,options);
 		presentRetailStoreOrderShippingGroupList(retailStoreOrder,options);
 		presentRetailStoreOrderPaymentGroupList(retailStoreOrder,options);
 		presentGoodsList(retailStoreOrder,options);
 
 		return retailStoreOrder;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreOrder presentRetailStoreOrderLineItemList(
 			RetailStoreOrder retailStoreOrder,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList = retailStoreOrder.getRetailStoreOrderLineItemList();		
+    
+		SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList = retailStoreOrder.getRetailStoreOrderLineItemList();
 				SmartList<RetailStoreOrderLineItem> newList= presentSubList(retailStoreOrder.getId(),
 				retailStoreOrderLineItemList,
 				options,
@@ -1858,19 +1846,19 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 				getRetailStoreOrderLineItemDAO()::findRetailStoreOrderLineItemByBizOrder
 				);
 
-		
+
 		retailStoreOrder.setRetailStoreOrderLineItemList(newList);
-		
+
 
 		return retailStoreOrder;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreOrder presentRetailStoreOrderShippingGroupList(
 			RetailStoreOrder retailStoreOrder,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList = retailStoreOrder.getRetailStoreOrderShippingGroupList();		
+    
+		SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList = retailStoreOrder.getRetailStoreOrderShippingGroupList();
 				SmartList<RetailStoreOrderShippingGroup> newList= presentSubList(retailStoreOrder.getId(),
 				retailStoreOrderShippingGroupList,
 				options,
@@ -1878,19 +1866,19 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 				getRetailStoreOrderShippingGroupDAO()::findRetailStoreOrderShippingGroupByBizOrder
 				);
 
-		
+
 		retailStoreOrder.setRetailStoreOrderShippingGroupList(newList);
-		
+
 
 		return retailStoreOrder;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreOrder presentRetailStoreOrderPaymentGroupList(
 			RetailStoreOrder retailStoreOrder,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList = retailStoreOrder.getRetailStoreOrderPaymentGroupList();		
+    
+		SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList = retailStoreOrder.getRetailStoreOrderPaymentGroupList();
 				SmartList<RetailStoreOrderPaymentGroup> newList= presentSubList(retailStoreOrder.getId(),
 				retailStoreOrderPaymentGroupList,
 				options,
@@ -1898,19 +1886,19 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 				getRetailStoreOrderPaymentGroupDAO()::findRetailStoreOrderPaymentGroupByBizOrder
 				);
 
-		
+
 		retailStoreOrder.setRetailStoreOrderPaymentGroupList(newList);
-		
+
 
 		return retailStoreOrder;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreOrder presentGoodsList(
 			RetailStoreOrder retailStoreOrder,
 			Map<String, Object> options) {
-
-		SmartList<Goods> goodsList = retailStoreOrder.getGoodsList();		
+    
+		SmartList<Goods> goodsList = retailStoreOrder.getGoodsList();
 				SmartList<Goods> newList= presentSubList(retailStoreOrder.getId(),
 				goodsList,
 				options,
@@ -1918,12 +1906,12 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 				getGoodsDAO()::findGoodsByRetailStoreOrder
 				);
 
-		
+
 		retailStoreOrder.setGoodsList(newList);
-		
+
 
 		return retailStoreOrder;
-	}			
+	}
 		
 
 	
@@ -1965,6 +1953,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrderLineItem的bizOrder的RetailStoreOrderLineItemList
 	public SmartList<RetailStoreOrderLineItem> loadOurRetailStoreOrderLineItemList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1988,6 +1977,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrderShippingGroup的bizOrder的RetailStoreOrderShippingGroupList
 	public SmartList<RetailStoreOrderShippingGroup> loadOurRetailStoreOrderShippingGroupList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2011,6 +2001,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrderPaymentGroup的bizOrder的RetailStoreOrderPaymentGroupList
 	public SmartList<RetailStoreOrderPaymentGroup> loadOurRetailStoreOrderPaymentGroupList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2034,6 +2025,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的retailStoreOrder的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2090,6 +2082,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreOrder> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreOrderMapper());
   }
@@ -2125,6 +2121,15 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	
 
+  @Override
+  public List<RetailStoreOrder> search(RetailStoreOrderRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreOrderMapper mapper() {
+    return getRetailStoreOrderMapper();
+  }
 }
 
 

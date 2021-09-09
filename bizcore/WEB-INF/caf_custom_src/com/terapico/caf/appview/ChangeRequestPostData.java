@@ -4,10 +4,8 @@ import com.terapico.changerequest.BaseChangeRequestHelper;
 import com.terapico.changerequest.BaseCrConst;
 import com.terapico.changerequest.CRFieldSpec;
 import com.terapico.utils.MapUtil;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class ChangeRequestPostData {
   protected String changeRequestType;
@@ -16,6 +14,8 @@ public class ChangeRequestPostData {
   protected String actionCode;
   protected String actionGroup;
   protected Integer actionIndex;
+  protected String recordId;
+  protected String updatingField;
   protected Map<String, List<Map<String, Object>>> fieldData;
   protected List<Map<String, Object>> verifyMessage;
   protected Map<String, Integer> groupIds;
@@ -92,6 +92,22 @@ public class ChangeRequestPostData {
     this.groupIds = groupIds;
   }
 
+  public String getRecordId() {
+    return recordId;
+  }
+
+  public void setRecordId(String recordId) {
+    this.recordId = recordId;
+  }
+
+  public String getUpdatingField() {
+    return updatingField;
+  }
+
+  public void setUpdatingField(String updatingField) {
+    this.updatingField = updatingField;
+  }
+
   public void addFieldValue(
       String groupName, CRFieldSpec fieldSpec, String recordId, Object fieldValue) {
     List<Map<String, Object>> groupData = ensureFieldData().get(groupName);
@@ -145,5 +161,26 @@ public class ChangeRequestPostData {
       return verifyMessage;
     }
     return verifyMessage = new ArrayList<>();
+  }
+
+  public List<Map<String, Object>> tryGetGroupData(String groupName) {
+    if (fieldData == null || fieldData.isEmpty()){
+      return null;
+    }
+    if (fieldData.size() == 1 || groupName==null) {
+      return fieldData.values().iterator().next();
+    }
+    if (fieldData.containsKey(groupName)) {
+      return fieldData.get(groupName);
+    }
+    Iterator<Map.Entry<String, List<Map<String, Object>>>> it = fieldData.entrySet().iterator();
+    while(it.hasNext()){
+      Map.Entry<String, List<Map<String, Object>>> ent = it.next();
+      String key = ent.getKey();
+      if (key.endsWith("_"+groupName)){
+        return ent.getValue();
+      }
+    }
+    return null;
   }
 }

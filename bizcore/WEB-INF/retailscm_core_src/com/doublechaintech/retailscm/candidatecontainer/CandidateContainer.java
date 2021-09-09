@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.candidatecontainer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.candidateelement.CandidateElement;
 @JsonSerialize(using = CandidateContainerSerializer.class)
 public class CandidateContainer extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String VERSION_PROPERTY               = "version"           ;
@@ -43,30 +40,85 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(CANDIDATE_ELEMENT_LIST, "container", "候选人元素列表")
+        .withType("candidate_element", CandidateElement.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(CANDIDATE_ELEMENT_LIST, "container");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(CANDIDATE_ELEMENT_LIST, CandidateElement.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    
+    return parents;
+  }
+
+  public CandidateContainer want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public CandidateContainer wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<CandidateElement>	mCandidateElementList;
 
-	
-		
+
+
 	public 	CandidateContainer(){
 		// lazy load for all the properties
 	}
@@ -74,19 +126,38 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 		CandidateContainer candidateContainer = new CandidateContainer();
 		candidateContainer.setId(id);
 		candidateContainer.setVersion(Integer.MAX_VALUE);
+		candidateContainer.setChecked(true);
 		return candidateContainer;
 	}
 	public 	static CandidateContainer refById(String id){
 		return withId(id);
 	}
-	
+
+  public CandidateContainer limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public CandidateContainer limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static CandidateContainer searchExample(){
+    CandidateContainer candidateContainer = new CandidateContainer();
+    		candidateContainer.setVersion(UNSET_INT);
+
+    return candidateContainer;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -119,7 +190,7 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -131,60 +202,99 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public CandidateContainer updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public CandidateContainer updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public CandidateContainer orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public CandidateContainer ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public CandidateContainer addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public CandidateContainer updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public CandidateContainer updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public CandidateContainer orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public CandidateContainer ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public CandidateContainer addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public CandidateContainer updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public CandidateContainer updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public CandidateContainer orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public CandidateContainer ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public CandidateContainer addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<CandidateElement> getCandidateElementList(){
@@ -193,9 +303,18 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 			this.mCandidateElementList.setListInternalName (CANDIDATE_ELEMENT_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mCandidateElementList;	
+
+		return this.mCandidateElementList;
 	}
+
+  public  SmartList<CandidateElement> candidateElementList(){
+    
+    doLoadChild(CANDIDATE_ELEMENT_LIST);
+    
+    return getCandidateElementList();
+  }
+
+
 	public  void setCandidateElementList(SmartList<CandidateElement> candidateElementList){
 		for( CandidateElement candidateElement:candidateElementList){
 			candidateElement.setContainer(this);
@@ -203,18 +322,20 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 
 		this.mCandidateElementList = candidateElementList;
 		this.mCandidateElementList.setListInternalName (CANDIDATE_ELEMENT_LIST );
-		
+
 	}
-	
-	public  void addCandidateElement(CandidateElement candidateElement){
+
+	public  CandidateContainer addCandidateElement(CandidateElement candidateElement){
 		candidateElement.setContainer(this);
 		getCandidateElementList().add(candidateElement);
+		return this;
 	}
-	public  void addCandidateElementList(SmartList<CandidateElement> candidateElementList){
+	public  CandidateContainer addCandidateElementList(SmartList<CandidateElement> candidateElementList){
 		for( CandidateElement candidateElement:candidateElementList){
 			candidateElement.setContainer(this);
 		}
 		getCandidateElementList().addAll(candidateElementList);
+		return this;
 	}
 	public  void mergeCandidateElementList(SmartList<CandidateElement> candidateElementList){
 		if(candidateElementList==null){
@@ -224,45 +345,45 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 			return;
 		}
 		addCandidateElementList( candidateElementList );
-		
+
 	}
 	public  CandidateElement removeCandidateElement(CandidateElement candidateElementIndex){
-		
+
 		int index = getCandidateElementList().indexOf(candidateElementIndex);
         if(index < 0){
         	String message = "CandidateElement("+candidateElementIndex.getId()+") with version='"+candidateElementIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        CandidateElement candidateElement = getCandidateElementList().get(index);        
+        CandidateElement candidateElement = getCandidateElementList().get(index);
         // candidateElement.clearContainer(); //disconnect with Container
         candidateElement.clearFromAll(); //disconnect with Container
-		
+
 		boolean result = getCandidateElementList().planToRemove(candidateElement);
         if(!result){
         	String message = "CandidateElement("+candidateElementIndex.getId()+") with version='"+candidateElementIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return candidateElement;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithCandidateElement(CandidateElement candidateElement){
-		
+
 		if(candidateElement == null){
 			return;
 		}
 		candidateElement.setContainer(null);
 		//getCandidateElementList().remove();
-	
+
 	}
-	
+
 	public  boolean hasCandidateElement(CandidateElement candidateElement){
-	
+
 		return getCandidateElementList().contains(candidateElement);
-  
+
 	}
-	
+
 	public void copyCandidateElementFrom(CandidateElement candidateElement) {
 
 		CandidateElement candidateElementInList = findTheCandidateElement(candidateElement);
@@ -272,52 +393,52 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 		getCandidateElementList().add(newCandidateElement);
 		addItemToFlexiableObject(COPIED_CHILD, newCandidateElement);
 	}
-	
+
 	public  CandidateElement findTheCandidateElement(CandidateElement candidateElement){
-		
+
 		int index =  getCandidateElementList().indexOf(candidateElement);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "CandidateElement("+candidateElement.getId()+") with version='"+candidateElement.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getCandidateElementList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpCandidateElementList(){
 		getCandidateElementList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getCandidateElementList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getCandidateElementList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -335,16 +456,16 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof CandidateContainer){
-		
-		
+
+
 			CandidateContainer dest =(CandidateContainer)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setVersion(getVersion());
@@ -355,13 +476,13 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof CandidateContainer){
-		
-			
+
+
 			CandidateContainer dest =(CandidateContainer)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeVersion(getVersion());
@@ -371,15 +492,15 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof CandidateContainer){
-		
-			
+
+
 			CandidateContainer dest =(CandidateContainer)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeVersion(getVersion());
@@ -390,6 +511,40 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getVersion()};
 	}
+
+
+	public static CandidateContainer createWith(RetailscmUserContext userContext, ThrowingFunction<CandidateContainer,CandidateContainer,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<CandidateContainer> customCreator = mapper.findCustomCreator(CandidateContainer.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    CandidateContainer result = new CandidateContainer();
+    result.setName(mapper.tryToGet(CandidateContainer.class, NAME_PROPERTY, String.class,
+        0, true, result.getName(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixCandidateContainer(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      CandidateContainerTokens tokens = mapper.findParamByClass(params, CandidateContainerTokens.class);
+      if (tokens == null) {
+        tokens = CandidateContainerTokens.start();
+      }
+      result = userContext.getManagerGroup().getCandidateContainerManager().internalSaveCandidateContainer(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -401,7 +556,7 @@ public class CandidateContainer extends BaseEntity implements  java.io.Serializa
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

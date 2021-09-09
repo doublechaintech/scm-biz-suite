@@ -16,15 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  name: '啤酒',
-  origin: '四川',
-  remark: '可口可乐，销售百年的糖水，获得了全世界额青睐',
-  brand: '品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品',
-  parentCategoryId: 'LTC000001',
-}
-*/
 
 const imageKeys = [
   'picture',
@@ -39,9 +30,15 @@ class ProductCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -52,7 +49,7 @@ class ProductCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -66,8 +63,8 @@ class ProductCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -76,13 +73,13 @@ class ProductCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ProductBase
     const {ProductService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -107,10 +104,10 @@ class ProductCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addProduct`,
@@ -118,10 +115,10 @@ class ProductCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'product',listName:appLocaleName(userContext,"List") },
@@ -167,10 +164,10 @@ class ProductCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -182,7 +179,7 @@ class ProductCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -193,7 +190,7 @@ class ProductCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -203,7 +200,7 @@ class ProductCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('product')}</div>)
@@ -215,7 +212,7 @@ class ProductCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('product')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<ProductCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -231,7 +228,7 @@ class ProductCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

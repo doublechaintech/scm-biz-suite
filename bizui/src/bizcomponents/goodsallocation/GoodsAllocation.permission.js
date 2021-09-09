@@ -31,7 +31,7 @@ const internalSummaryOf = (goodsAllocation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsAllocation.id}</Description> 
+<Description term="ID">{goodsAllocation.id}</Description> 
 <Description term="位置">{goodsAllocation.location}</Description> 
 <Description term="纬度">{goodsAllocation.latitude}</Description> 
 <Description term="经度">{goodsAllocation.longitude}</Description> 
@@ -60,7 +60,7 @@ class GoodsAllocationPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsAllocation = this.props.goodsAllocation
     const { id,displayName, goodsCount } = goodsAllocation
-    const  returnURL = `/goodsAllocation/${id}/dashboard`
+    const  returnURL = `/goodsAllocation/${id}/workbench`
     const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",cardsSource: goodsAllocation,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class GoodsAllocationPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

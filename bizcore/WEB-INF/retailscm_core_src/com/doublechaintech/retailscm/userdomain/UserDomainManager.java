@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.userdomain;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface UserDomainManager extends BaseManager{
 
 		
 
+  List<UserDomain> searchUserDomainList(RetailscmUserContext ctx, UserDomainRequest pRequest);
+  UserDomain searchUserDomain(RetailscmUserContext ctx, UserDomainRequest pRequest);
 	public UserDomain createUserDomain(RetailscmUserContext userContext, String name) throws Exception;
 	public UserDomain updateUserDomain(RetailscmUserContext userContext,String userDomainId, int userDomainVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public UserDomain loadUserDomain(RetailscmUserContext userContext, String userDomainId, String [] tokensExpr) throws Exception;
@@ -26,6 +32,8 @@ public interface UserDomainManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String userDomainId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, UserDomain newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, UserDomain updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -50,15 +58,18 @@ public interface UserDomainManager extends BaseManager{
 
 	*/
 
-	//public  PublicKeyTypeManager getPublicKeyTypeManager(RetailscmUserContext userContext, String userDomainId, String name, String code ,String [] tokensExpr)  throws Exception;
+	//public  PublicKeyTypeManager getPublicKeyTypeManager(RetailscmUserContext userContext, String userDomainId, String keyAlg, String signAlg ,String [] tokensExpr)  throws Exception;
 
-	public  UserDomain addPublicKeyType(RetailscmUserContext userContext, String userDomainId, String name, String code , String [] tokensExpr)  throws Exception;
+	public  UserDomain addPublicKeyType(RetailscmUserContext userContext, String userDomainId, String keyAlg, String signAlg , String [] tokensExpr)  throws Exception;
 	public  UserDomain removePublicKeyType(RetailscmUserContext userContext, String userDomainId, String publicKeyTypeId, int publicKeyTypeVersion,String [] tokensExpr)  throws Exception;
 	public  UserDomain updatePublicKeyType(RetailscmUserContext userContext, String userDomainId, String publicKeyTypeId, int publicKeyTypeVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 
 	/*
 
 	*/
+
+
+
 
 
 

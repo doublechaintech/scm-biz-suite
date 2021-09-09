@@ -55,7 +55,7 @@ class UserAppProfile extends Component {
     const  userApp = this.props.userApp;
     const { id,displayName, quickLinkCount, listAccessCount } = userApp
     const  returnURL = `/userApp/${id}/dashboard`
-    const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",cardsSource: userApp,displayName,returnURL,
+    const cardsData = {cardsName:"应用",cardsFor: "userApp",cardsSource: userApp,displayName,returnURL,
   		subItems: [
      
       	],

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.memberwishlistproduct;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,24 +9,27 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;
 
 public class MemberWishlistProductMapper extends BaseRowMapper<MemberWishlistProduct>{
-	
+
 	protected MemberWishlistProduct internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		MemberWishlistProduct memberWishlistProduct = getMemberWishlistProduct();		
-		 		
- 		setId(memberWishlistProduct, rs, rowNumber); 		
- 		setName(memberWishlistProduct, rs, rowNumber); 		
- 		setOwner(memberWishlistProduct, rs, rowNumber); 		
+		MemberWishlistProduct memberWishlistProduct = getMemberWishlistProduct();
+		
+ 		setId(memberWishlistProduct, rs, rowNumber);
+ 		setName(memberWishlistProduct, rs, rowNumber);
+ 		setOwner(memberWishlistProduct, rs, rowNumber);
  		setVersion(memberWishlistProduct, rs, rowNumber);
 
+    
 		return memberWishlistProduct;
 	}
-	
+
 	protected MemberWishlistProduct getMemberWishlistProduct(){
-		return new MemberWishlistProduct();
-	}		
+	  MemberWishlistProduct entity = new MemberWishlistProduct();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(MemberWishlistProduct memberWishlistProduct, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(MemberWishlistProductTable.COLUMN_ID);
@@ -36,10 +40,13 @@ public class MemberWishlistProductMapper extends BaseRowMapper<MemberWishlistPro
 		}
 		
 		memberWishlistProduct.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(MemberWishlistProduct memberWishlistProduct, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(MemberWishlistProductTable.COLUMN_NAME);
@@ -50,10 +57,18 @@ public class MemberWishlistProductMapper extends BaseRowMapper<MemberWishlistPro
 		}
 		
 		memberWishlistProduct.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setOwner(MemberWishlistProduct memberWishlistProduct, ResultSet rs, int rowNumber) throws SQLException{
- 		String memberWishlistId = rs.getString(MemberWishlistProductTable.COLUMN_OWNER);
+ 		String memberWishlistId;
+ 		try{
+ 		  memberWishlistId = rs.getString(MemberWishlistProductTable.COLUMN_OWNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( memberWishlistId == null){
  			return;
  		}
@@ -64,14 +79,14 @@ public class MemberWishlistProductMapper extends BaseRowMapper<MemberWishlistPro
  		if( memberWishlist != null ){
  			//if the root object 'memberWishlistProduct' already have the property, just set the id for it;
  			memberWishlist.setId(memberWishlistId);
- 			
+
  			return;
  		}
  		memberWishlistProduct.setOwner(createEmptyOwner(memberWishlistId));
  	}
  	
 	protected void setVersion(MemberWishlistProduct memberWishlistProduct, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(MemberWishlistProductTable.COLUMN_VERSION);
@@ -82,9 +97,12 @@ public class MemberWishlistProductMapper extends BaseRowMapper<MemberWishlistPro
 		}
 		
 		memberWishlistProduct.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected MemberWishlist  createEmptyOwner(String memberWishlistId){
  		MemberWishlist memberWishlist = new MemberWishlist();

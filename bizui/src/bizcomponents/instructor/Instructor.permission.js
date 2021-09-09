@@ -31,14 +31,14 @@ const internalSummaryOf = (instructor,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{instructor.id}</Description> 
+<Description term="ID">{instructor.id}</Description> 
 <Description term="头衔">{instructor.title}</Description> 
 <Description term="姓">{instructor.familyName}</Description> 
 <Description term="名">{instructor.givenName}</Description> 
 <Description term="手机">{instructor.cellPhone}</Description> 
 <Description term="电子邮件">{instructor.email}</Description> 
 <Description term="介绍">{instructor.introduction}</Description> 
-<Description term="最后更新时间">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -64,7 +64,7 @@ class InstructorPermission extends Component {
     // eslint-disable-next-line max-len
     const  instructor = this.props.instructor
     const { id,displayName, companyTrainingCount } = instructor
-    const  returnURL = `/instructor/${id}/dashboard`
+    const  returnURL = `/instructor/${id}/workbench`
     const cardsData = {cardsName:"讲师",cardsFor: "instructor",cardsSource: instructor,displayName,returnURL,
   		subItems: [
     
@@ -77,10 +77,10 @@ class InstructorPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

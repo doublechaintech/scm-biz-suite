@@ -31,16 +31,16 @@ const internalSummaryOf = (secUser,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{secUser.id}</Description> 
-<Description term="登录">{secUser.login}</Description> 
+<Description term="ID">{secUser.id}</Description> 
+<Description term="登录名">{secUser.login}</Description> 
 <Description term="手机">{secUser.mobile}</Description> 
-<Description term="电子邮件">{secUser.email}</Description> 
-<Description term="PWD">{secUser.pwd}</Description> 
-<Description term="微信openid">{secUser.weixinOpenid}</Description> 
-<Description term="微信Appid">{secUser.weixinAppid}</Description> 
+<Description term="邮箱">{secUser.email}</Description> 
+<Description term="密码">{secUser.pwd}</Description> 
+<Description term="微信openId">{secUser.weixinOpenid}</Description> 
+<Description term="微信应用ID">{secUser.weixinAppid}</Description> 
 <Description term="访问令牌">{secUser.accessToken}</Description> 
 <Description term="验证码">{secUser.verificationCode}</Description> 
-<Description term="验证码过期">{ moment(secUser.verificationCodeExpire).format('YYYY-MM-DD')}</Description> 
+<Description term="验证码有效期">{ moment(secUser.verificationCodeExpire).format('YYYY-MM-DD')}</Description> 
 <Description term="最后登录时间">{ moment(secUser.lastLoginTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
@@ -66,9 +66,9 @@ class SecUserPermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  secUser = this.props.secUser
-    const { id,displayName, userAppCount, loginHistoryCount, wechatWorkappIdentifyCount, wechatMiniappIdentifyCount, keypairIdentifyCount } = secUser
-    const  returnURL = `/secUser/${id}/dashboard`
-    const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
+    const { id,displayName, userAppCount, loginHistoryCount, wechatWorkappIdentityCount, wechatMiniappIdentityCount, keyPairIdentityCount } = secUser
+    const  returnURL = `/secUser/${id}/workbench`
+    const cardsData = {cardsName:"安全用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
   		subItems: [
     
       	],
@@ -80,10 +80,10 @@ class SecUserPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

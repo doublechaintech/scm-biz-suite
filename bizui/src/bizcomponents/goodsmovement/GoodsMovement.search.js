@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { GoodsAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <GoodsAssociateForm 
-	visible={currentAssociateModal==='goods'} 
-	data={{goodsMovementList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'goods')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'goods')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class GoodsMovementSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class GoodsMovementSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {GoodsMovementTable} = GlobalComponents;
     const {GoodsMovementSearchForm} = GlobalComponents;
     const {GoodsMovementModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class GoodsMovementSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,GoodsMovementModalTable,"goodsMovementIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

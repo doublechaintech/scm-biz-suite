@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.page;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface PageManager extends BaseManager{
 
 		
 
+  List<Page> searchPageList(RetailscmUserContext ctx, PageRequest pRequest);
+  Page searchPage(RetailscmUserContext ctx, PageRequest pRequest);
 	public Page createPage(RetailscmUserContext userContext, String pageTitle,String linkToUrl,String pageTypeId,int displayOrder,String mobileAppId) throws Exception;
 	public Page updatePage(RetailscmUserContext userContext,String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Page loadPage(RetailscmUserContext userContext, String pageId, String [] tokensExpr) throws Exception;
@@ -28,6 +34,8 @@ public interface PageManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String pageId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, Page newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, Page updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -69,6 +77,9 @@ public interface PageManager extends BaseManager{
 	public Object listByMobileApp(RetailscmUserContext userContext,String mobileAppId) throws Exception;
 	public Object listPageByMobileApp(RetailscmUserContext userContext,String mobileAppId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

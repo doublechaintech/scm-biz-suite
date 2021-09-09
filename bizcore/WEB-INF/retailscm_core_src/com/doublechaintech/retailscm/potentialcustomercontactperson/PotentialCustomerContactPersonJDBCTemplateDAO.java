@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.potentialcustomercontactperson;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 
 	protected PotentialCustomerDAO potentialCustomerDAO;
 	public void setPotentialCustomerDAO(PotentialCustomerDAO potentialCustomerDAO){
- 	
+
  		if(potentialCustomerDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
  		if(this.potentialCustomerDAO == null){
  			throw new IllegalStateException("The potentialCustomerDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerDAO;
- 	}	
+ 	}
 
 	protected PotentialCustomerContactDAO potentialCustomerContactDAO;
 	public void setPotentialCustomerContactDAO(PotentialCustomerContactDAO potentialCustomerContactDAO){
- 	
+
  		if(potentialCustomerContactDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerContactDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
  		if(this.potentialCustomerContactDAO == null){
  			throw new IllegalStateException("The potentialCustomerContactDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerContactDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 		newPotentialCustomerContactPerson.setVersion(0);
 		
 		
- 		
+
  		if(isSavePotentialCustomerContactListEnabled(options)){
  			for(PotentialCustomerContact item: newPotentialCustomerContactPerson.getPotentialCustomerContactList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return PotentialCustomerContactPersonTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractPotentialCustomerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, PotentialCustomerContactPersonTokens.POTENTIALCUSTOMER);
  	}
 
  	protected boolean isSavePotentialCustomerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, PotentialCustomerContactPersonTokens.POTENTIALCUSTOMER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){
  		return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){
  		return PotentialCustomerContactPersonTokens.of(options).analyzePotentialCustomerContactListEnabled();
  	}
-	
+
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
 		return checkOptions(options, PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 		return new PotentialCustomerContactPersonMapper();
 	}
 
-	
-	
+
+
 	protected PotentialCustomerContactPerson extractPotentialCustomerContactPerson(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			PotentialCustomerContactPerson potentialCustomerContactPerson = loadSingleObject(accessKey, getPotentialCustomerContactPersonMapper());
@@ -268,13 +270,13 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 
 	}
 
-	
-	
+
+
 
 	protected PotentialCustomerContactPerson loadInternalPotentialCustomerContactPerson(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		PotentialCustomerContactPerson potentialCustomerContactPerson = extractPotentialCustomerContactPerson(accessKey, loadOptions);
- 	
+
  		if(isExtractPotentialCustomerEnabled(loadOptions)){
 	 		extractPotentialCustomer(potentialCustomerContactPerson, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 		
 		if(isExtractPotentialCustomerContactListEnabled(loadOptions)){
 	 		extractPotentialCustomerContactList(potentialCustomerContactPerson, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
 	 		analyzePotentialCustomerContactList(potentialCustomerContactPerson, loadOptions);
@@ -291,12 +293,13 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
  		
 		
 		return potentialCustomerContactPerson;
-		
+
 	}
 
-	 
+	
 
  	protected PotentialCustomerContactPerson extractPotentialCustomer(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options) throws Exception{
+  
 
 		if(potentialCustomerContactPerson.getPotentialCustomer() == null){
 			return potentialCustomerContactPerson;
@@ -309,21 +312,21 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 		if(potentialCustomer != null){
 			potentialCustomerContactPerson.setPotentialCustomer(potentialCustomer);
 		}
-		
- 		
+
+
  		return potentialCustomerContactPerson;
  	}
- 		
+
  
 		
 	protected void enhancePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected PotentialCustomerContactPerson extractPotentialCustomerContactList(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options){
-		
-		
+    
+
 		if(potentialCustomerContactPerson == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 			return potentialCustomerContactPerson;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomerContact> potentialCustomerContactList = getPotentialCustomerContactDAO().findPotentialCustomerContactByContactTo(potentialCustomerContactPerson.getId(),options);
 		if(potentialCustomerContactList != null){
 			enhancePotentialCustomerContactList(potentialCustomerContactList,options);
 			potentialCustomerContactPerson.setPotentialCustomerContactList(potentialCustomerContactList);
 		}
-		
+
 		return potentialCustomerContactPerson;
-	
-	}	
-	
+  
+	}
+
 	protected PotentialCustomerContactPerson analyzePotentialCustomerContactList(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options){
-		
-		
+     
 		if(potentialCustomerContactPerson == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 			return potentialCustomerContactPerson;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomerContact> potentialCustomerContactList = potentialCustomerContactPerson.getPotentialCustomerContactList();
 		if(potentialCustomerContactList != null){
 			getPotentialCustomerContactDAO().analyzePotentialCustomerContactByContactTo(potentialCustomerContactList, potentialCustomerContactPerson.getId(), options);
-			
+
 		}
-		
+
 		return potentialCustomerContactPerson;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<PotentialCustomerContactPerson> findPotentialCustomerContactPersonByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
- 	
+
   		SmartList<PotentialCustomerContactPerson> resultList = queryWith(PotentialCustomerContactPersonTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactPersonMapper());
 		// analyzePotentialCustomerContactPersonByPotentialCustomer(resultList, potentialCustomerId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<PotentialCustomerContactPerson> findPotentialCustomerContactPersonByPotentialCustomer(String potentialCustomerId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<PotentialCustomerContactPerson> resultList =  queryWithRange(PotentialCustomerContactPersonTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactPersonMapper(), start, count);
  		//analyzePotentialCustomerContactPersonByPotentialCustomer(resultList, potentialCustomerId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzePotentialCustomerContactPersonByPotentialCustomer(SmartList<PotentialCustomerContactPerson> resultList, String potentialCustomerId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countPotentialCustomerContactPersonByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 	public Map<String, Integer> countPotentialCustomerContactPersonByPotentialCustomerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(PotentialCustomerContactPersonTable.COLUMN_POTENTIAL_CUSTOMER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected PotentialCustomerContactPerson savePotentialCustomerContactPerson(PotentialCustomerContactPerson  potentialCustomerContactPerson){
+    
+
 		
 		if(!potentialCustomerContactPerson.isChanged()){
 			return potentialCustomerContactPerson;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(potentialCustomerContactPerson);
 		String SQL=this.getSavePotentialCustomerContactPersonSQL(potentialCustomerContactPerson);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSavePotentialCustomerContactPersonParameters(potentialCustomerContactPerson);
@@ -425,6 +430,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 		}
 
 		potentialCustomerContactPerson.incVersion();
+		potentialCustomerContactPerson.afterSave();
 		return potentialCustomerContactPerson;
 
 	}
@@ -442,6 +448,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 		for(PotentialCustomerContactPerson potentialCustomerContactPerson:potentialCustomerContactPersonList){
 			if(potentialCustomerContactPerson.isChanged()){
 				potentialCustomerContactPerson.incVersion();
+				potentialCustomerContactPerson.afterSave();
 			}
 
 
@@ -545,17 +552,14 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
  	protected Object[] preparePotentialCustomerContactPersonUpdateParameters(PotentialCustomerContactPerson potentialCustomerContactPerson){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = potentialCustomerContactPerson.getName();
- 		
  		
  		parameters[1] = potentialCustomerContactPerson.getMobile();
  		
  		if(potentialCustomerContactPerson.getPotentialCustomer() != null){
  			parameters[2] = potentialCustomerContactPerson.getPotentialCustomer().getId();
  		}
- 
- 		
+    
  		parameters[3] = potentialCustomerContactPerson.getDescription();
  		
  		parameters[4] = potentialCustomerContactPerson.nextVersion();
@@ -572,17 +576,13 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
         }
 		parameters[0] =  potentialCustomerContactPerson.getId();
  
- 		
  		parameters[1] = potentialCustomerContactPerson.getName();
- 		
  		
  		parameters[2] = potentialCustomerContactPerson.getMobile();
  		
  		if(potentialCustomerContactPerson.getPotentialCustomer() != null){
  			parameters[3] = potentialCustomerContactPerson.getPotentialCustomer().getId();
-
  		}
- 		
  		
  		parameters[4] = potentialCustomerContactPerson.getDescription();
  		
@@ -592,12 +592,11 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 
 	protected PotentialCustomerContactPerson saveInternalPotentialCustomerContactPerson(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options){
 
-		savePotentialCustomerContactPerson(potentialCustomerContactPerson);
-
  		if(isSavePotentialCustomerEnabled(options)){
 	 		savePotentialCustomer(potentialCustomerContactPerson, options);
  		}
  
+   savePotentialCustomerContactPerson(potentialCustomerContactPerson);
 		
 		if(isSavePotentialCustomerContactListEnabled(options)){
 	 		savePotentialCustomerContactList(potentialCustomerContactPerson, options);
@@ -616,6 +615,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 	
 
  	protected PotentialCustomerContactPerson savePotentialCustomer(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(potentialCustomerContactPerson.getPotentialCustomer() == null){
  			return potentialCustomerContactPerson;//do nothing when it is null
@@ -625,11 +625,6 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
  		return potentialCustomerContactPerson;
 
  	}
-
-
-
-
-
  
 
 	
@@ -752,7 +747,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 
 		
 	protected PotentialCustomerContactPerson savePotentialCustomerContactList(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options){
-
+    
 
 
 
@@ -819,19 +814,19 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 		
 
 	public PotentialCustomerContactPerson present(PotentialCustomerContactPerson potentialCustomerContactPerson,Map<String, Object> options){
-	
+
 		presentPotentialCustomerContactList(potentialCustomerContactPerson,options);
 
 		return potentialCustomerContactPerson;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected PotentialCustomerContactPerson presentPotentialCustomerContactList(
 			PotentialCustomerContactPerson potentialCustomerContactPerson,
 			Map<String, Object> options) {
-
-		SmartList<PotentialCustomerContact> potentialCustomerContactList = potentialCustomerContactPerson.getPotentialCustomerContactList();		
+    
+		SmartList<PotentialCustomerContact> potentialCustomerContactList = potentialCustomerContactPerson.getPotentialCustomerContactList();
 				SmartList<PotentialCustomerContact> newList= presentSubList(potentialCustomerContactPerson.getId(),
 				potentialCustomerContactList,
 				options,
@@ -839,12 +834,12 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 				getPotentialCustomerContactDAO()::findPotentialCustomerContactByContactTo
 				);
 
-		
+
 		potentialCustomerContactPerson.setPotentialCustomerContactList(newList);
-		
+
 
 		return potentialCustomerContactPerson;
-	}			
+	}
 		
 
 	
@@ -868,6 +863,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 	
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContact的contactTo的PotentialCustomerContactList
 	public SmartList<PotentialCustomerContact> loadOurPotentialCustomerContactList(RetailscmUserContext userContext, List<PotentialCustomerContactPerson> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -924,6 +920,10 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<PotentialCustomerContactPerson> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getPotentialCustomerContactPersonMapper());
   }
@@ -959,6 +959,15 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmBase
 
 	
 
+  @Override
+  public List<PotentialCustomerContactPerson> search(PotentialCustomerContactPersonRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected PotentialCustomerContactPersonMapper mapper() {
+    return getPotentialCustomerContactPersonMapper();
+  }
 }
 
 

@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { EmployeeAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <EmployeeAssociateForm 
-	visible={currentAssociateModal==='employee'} 
-	data={{employeeWorkExperienceList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'employee')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'employee')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class EmployeeWorkExperienceSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class EmployeeWorkExperienceSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {EmployeeWorkExperienceTable} = GlobalComponents;
     const {EmployeeWorkExperienceSearchForm} = GlobalComponents;
     const {EmployeeWorkExperienceModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class EmployeeWorkExperienceSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,EmployeeWorkExperienceModalTable,"employeeWorkExperienceIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

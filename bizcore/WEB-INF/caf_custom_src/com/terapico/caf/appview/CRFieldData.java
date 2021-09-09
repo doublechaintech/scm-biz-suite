@@ -1,5 +1,7 @@
 package com.terapico.caf.appview;
 
+import com.terapico.caf.viewcomponent.VComponentAction;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ public class CRFieldData {
   // prompt_message(表示这个仅是一段文本)
   protected Object candidateValues; // : {     key1:value1,      key2:value2   }
   protected String errorMessage; // : 名字必须大于3个字符 // 大部分情况没有
+  protected String linkToUrl;   // 链接地址,需要代码回填 // 主要用于获取验证码
 
   // ----- 下面的如果考虑流量可以裁剪掉，用spec查
   protected String label; // : 姓名
@@ -29,7 +32,14 @@ public class CRFieldData {
       candidateValuesApi; // : wxappService/getCandidateCity/:grp_1.male.province/  => 只有级联变动的字段才有
   protected String minimum; // : 2 因为字段的值有很多类型,所以 min/max 的含义会不同, 可能表示长度范围,也可能表示值范围
   protected String maximum; // : 20
+  protected String onChangeLinkToUrl;
   protected List<Map<String, Object>> rules;
+  protected VComponentAction searchAction;
+  protected int maxSelectCount = 1;
+  protected Integer step;
+  protected Integer min;
+  protected Integer max;
+  protected boolean inline=true;  // 是否把input和label放在一行上
 
   public String getName() {
     return name;
@@ -173,5 +183,69 @@ public class CRFieldData {
 
   public void setRules(List<Map<String, Object>> rules) {
     this.rules = rules;
+  }
+
+  public String getLinkToUrl() {
+    return linkToUrl;
+  }
+
+  public void setLinkToUrl(String linkToUrl) {
+    this.linkToUrl = linkToUrl;
+  }
+
+  public String getOnChangeLinkToUrl() {
+    return onChangeLinkToUrl;
+  }
+
+  public void setOnChangeLinkToUrl(String onChangeLinkToUrl) {
+    this.onChangeLinkToUrl = onChangeLinkToUrl;
+  }
+
+  public VComponentAction getSearchAction() {
+    return searchAction;
+  }
+
+  public void setSearchAction(VComponentAction searchAction) {
+    this.searchAction = searchAction;
+  }
+
+  public int getMaxSelectCount() {
+    return maxSelectCount;
+  }
+
+  public void setMaxSelectCount(int maxSelectCount) {
+    this.maxSelectCount = maxSelectCount;
+  }
+
+  public Integer getStep() {
+    return step;
+  }
+
+  public void setStep(Integer step) {
+    this.step = step;
+  }
+
+  public Integer getMin() {
+    return min;
+  }
+
+  public void setMin(Integer min) {
+    this.min = min;
+  }
+
+  public Integer getMax() {
+    return max;
+  }
+
+  public void setMax(Integer max) {
+    this.max = max;
+  }
+
+  public boolean isInline() {
+    return inline;
+  }
+
+  public void setInline(boolean inline) {
+    this.inline = inline;
   }
 }

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeleave;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
 
 	protected LeaveTypeDAO leaveTypeDAO;
 	public void setLeaveTypeDAO(LeaveTypeDAO leaveTypeDAO){
- 	
+
  		if(leaveTypeDAO == null){
  			throw new IllegalStateException("Do not try to set leaveTypeDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.leaveTypeDAO == null){
  			throw new IllegalStateException("The leaveTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.leaveTypeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -203,43 +205,43 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeLeaveTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractWhoEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeLeaveTokens.WHO);
  	}
 
  	protected boolean isSaveWhoEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeLeaveTokens.WHO);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractTypeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeLeaveTokens.TYPE);
  	}
 
  	protected boolean isSaveTypeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeLeaveTokens.TYPE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -249,8 +251,8 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new EmployeeLeaveMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeLeave extractEmployeeLeave(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeLeave employeeLeave = loadSingleObject(accessKey, getEmployeeLeaveMapper());
@@ -261,29 +263,30 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeLeave loadInternalEmployeeLeave(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeLeave employeeLeave = extractEmployeeLeave(accessKey, loadOptions);
- 	
+
  		if(isExtractWhoEnabled(loadOptions)){
 	 		extractWho(employeeLeave, loadOptions);
  		}
-  	
+ 
  		if(isExtractTypeEnabled(loadOptions)){
 	 		extractType(employeeLeave, loadOptions);
  		}
  
 		
 		return employeeLeave;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeLeave extractWho(EmployeeLeave employeeLeave, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeLeave.getWho() == null){
 			return employeeLeave;
@@ -296,14 +299,15 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(who != null){
 			employeeLeave.setWho(who);
 		}
-		
- 		
+
+
  		return employeeLeave;
  	}
- 		
-  
+
+ 
 
  	protected EmployeeLeave extractType(EmployeeLeave employeeLeave, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeLeave.getType() == null){
 			return employeeLeave;
@@ -316,46 +320,46 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(type != null){
 			employeeLeave.setType(type);
 		}
-		
- 		
+
+
  		return employeeLeave;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeLeave> findEmployeeLeaveByWho(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeLeave> resultList = queryWith(EmployeeLeaveTable.COLUMN_WHO, employeeId, options, getEmployeeLeaveMapper());
 		// analyzeEmployeeLeaveByWho(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeLeave> findEmployeeLeaveByWho(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeLeave> resultList =  queryWithRange(EmployeeLeaveTable.COLUMN_WHO, employeeId, options, getEmployeeLeaveMapper(), start, count);
  		//analyzeEmployeeLeaveByWho(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeLeaveByWho(SmartList<EmployeeLeave> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeLeave.WHO_PROPERTY, employeeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeLeaveByWho(String employeeId,Map<String,Object> options){
@@ -366,39 +370,39 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countEmployeeLeaveByWhoIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeLeaveTable.COLUMN_WHO, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EmployeeLeave> findEmployeeLeaveByType(String leaveTypeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeLeave> resultList = queryWith(EmployeeLeaveTable.COLUMN_TYPE, leaveTypeId, options, getEmployeeLeaveMapper());
 		// analyzeEmployeeLeaveByType(resultList, leaveTypeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeLeave> findEmployeeLeaveByType(String leaveTypeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeLeave> resultList =  queryWithRange(EmployeeLeaveTable.COLUMN_TYPE, leaveTypeId, options, getEmployeeLeaveMapper(), start, count);
  		//analyzeEmployeeLeaveByType(resultList, leaveTypeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeLeaveByType(SmartList<EmployeeLeave> resultList, String leaveTypeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeLeave.TYPE_PROPERTY, leaveTypeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeLeaveByType(String leaveTypeId,Map<String,Object> options){
@@ -409,21 +413,24 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countEmployeeLeaveByTypeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeLeaveTable.COLUMN_TYPE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeLeave saveEmployeeLeave(EmployeeLeave  employeeLeave){
+    
+
 		
 		if(!employeeLeave.isChanged()){
 			return employeeLeave;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeLeave);
 		String SQL=this.getSaveEmployeeLeaveSQL(employeeLeave);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeLeaveParameters(employeeLeave);
@@ -434,6 +441,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		employeeLeave.incVersion();
+		employeeLeave.afterSave();
 		return employeeLeave;
 
 	}
@@ -451,6 +459,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(EmployeeLeave employeeLeave:employeeLeaveList){
 			if(employeeLeave.isChanged()){
 				employeeLeave.incVersion();
+				employeeLeave.afterSave();
 			}
 
 
@@ -557,14 +566,12 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(employeeLeave.getWho() != null){
  			parameters[0] = employeeLeave.getWho().getId();
  		}
- 
+    
  		if(employeeLeave.getType() != null){
  			parameters[1] = employeeLeave.getType().getId();
  		}
- 
- 		
+    
  		parameters[2] = employeeLeave.getLeaveDurationHour();
- 		
  		
  		parameters[3] = employeeLeave.getRemark();
  		
@@ -584,17 +591,13 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  
  		if(employeeLeave.getWho() != null){
  			parameters[1] = employeeLeave.getWho().getId();
-
  		}
  		
  		if(employeeLeave.getType() != null){
  			parameters[2] = employeeLeave.getType().getId();
-
  		}
  		
- 		
  		parameters[3] = employeeLeave.getLeaveDurationHour();
- 		
  		
  		parameters[4] = employeeLeave.getRemark();
  		
@@ -604,8 +607,6 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected EmployeeLeave saveInternalEmployeeLeave(EmployeeLeave employeeLeave, Map<String,Object> options){
 
-		saveEmployeeLeave(employeeLeave);
-
  		if(isSaveWhoEnabled(options)){
 	 		saveWho(employeeLeave, options);
  		}
@@ -614,6 +615,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 		saveType(employeeLeave, options);
  		}
  
+   saveEmployeeLeave(employeeLeave);
 		
 		return employeeLeave;
 
@@ -625,6 +627,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected EmployeeLeave saveWho(EmployeeLeave employeeLeave, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeLeave.getWho() == null){
  			return employeeLeave;//do nothing when it is null
@@ -634,14 +637,10 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return employeeLeave;
 
  	}
-
-
-
-
-
  
 
  	protected EmployeeLeave saveType(EmployeeLeave employeeLeave, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeLeave.getType() == null){
  			return employeeLeave;//do nothing when it is null
@@ -651,11 +650,6 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return employeeLeave;
 
  	}
-
-
-
-
-
  
 
 	
@@ -663,10 +657,10 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public EmployeeLeave present(EmployeeLeave employeeLeave,Map<String, Object> options){
-	
+
 
 		return employeeLeave;
-	
+
 	}
 		
 
@@ -718,6 +712,10 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeLeave> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeLeaveMapper());
   }
@@ -753,6 +751,15 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<EmployeeLeave> search(EmployeeLeaveRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeLeaveMapper mapper() {
+    return getEmployeeLeaveMapper();
+  }
 }
 
 

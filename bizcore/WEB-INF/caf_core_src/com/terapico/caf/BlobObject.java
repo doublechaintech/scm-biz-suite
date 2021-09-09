@@ -1,5 +1,7 @@
 package com.terapico.caf;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +14,61 @@ public class BlobObject {
 	private byte[] data;
 	private Map<String, String> headers;
 
+
+	public static BlobObject plainUTF8Text(String text){
+		return plainText(text, StandardCharsets.UTF_8);
+	}
+	public static BlobObject plainGBKText(String text){
+		return plainText(text, Charset.forName("GBK"));
+	}
+
+	protected static BlobObject plainText(String text, Charset charset){
+
+		BlobObject blob = new BlobObject();
+		blob.setMimeType(BlobObject.TYPE_TXT+"; charset="+charset.name());
+		blob.setData(text.getBytes(charset));
+		return blob;
+	}
+
+	protected static BlobObject binaryFile(String fileName, byte[] content, String mimeType){
+		BlobObject blob = new BlobObject();
+		blob.setMimeType(mimeType);
+		blob.setFileName(fileName);
+		blob.setData(content);
+		return blob;
+	}
+	protected static BlobObject binaryStream(byte[] content, String mimeType){
+		BlobObject blob = new BlobObject();
+		blob.setMimeType(mimeType);
+		blob.setData(content);
+		return blob;
+	}
+	public static BlobObject jpgImage(byte[] content){
+		return binaryStream(content, BlobObject.TYPE_JPEG);
+	}
+	public static BlobObject pngImage(byte[] content){
+		return binaryStream(content, BlobObject.TYPE_PNG);
+	}
+
+	public static BlobObject pdfFile(String fileName, byte[] content){
+		return binaryFile(fileName,content, BlobObject.TYPE_PDF);
+	}
+	public static BlobObject textFile(String fileName, byte[] content){
+		return binaryFile(fileName,content, BlobObject.TYPE_TXT);
+	}
+	public static BlobObject excelFile(String fileName, byte[] content){
+		return binaryFile(fileName,content, BlobObject.TYPE_XLSX);
+	}
+	public static BlobObject jpgFile(String fileName, byte[] content){
+		return binaryFile(fileName,content, BlobObject.TYPE_JPEG);
+	}
+	public static BlobObject pngFile(String fileName, byte[] content){
+		return binaryFile(fileName,content, BlobObject.TYPE_PNG);
+	}
+
+
+
+
 	public String getFileName() {
 		return fileName;
 	}
@@ -21,6 +78,17 @@ public class BlobObject {
 		String headerName = "Content-Disposition";
 		String attachmentHeader = String.format("attachment; filename=\"%s\"", encodeFileName(fileName));
 		this.addHeader(headerName, attachmentHeader);
+	}
+	public BlobObject packPlainText(String content){
+		BlobObject blob = new BlobObject();
+		blob.setMimeType(BlobObject.TYPE_TXT+"; charset=UTF-8");
+
+		if(content==null){
+			return blob;
+		}
+		blob.setData(content.getBytes());
+
+		return blob;
 	}
 	protected static String encodeAsRFCAttachmentName(final String s) {
 	    final byte[] chars = s.getBytes(Charsets.UTF_8);
@@ -803,3 +871,5 @@ public class BlobObject {
 	public static final String TYPE_ZAZ= "application/vnd.zzazz.deck+xml";
 
 }
+
+

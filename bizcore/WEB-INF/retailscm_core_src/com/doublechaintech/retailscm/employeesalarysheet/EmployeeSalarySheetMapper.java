@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employeesalarysheet;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -10,32 +11,35 @@ import com.doublechaintech.retailscm.payingoff.PayingOff;
 import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
 
 public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet>{
-	
+
 	protected EmployeeSalarySheet internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeSalarySheet employeeSalarySheet = getEmployeeSalarySheet();		
-		 		
- 		setId(employeeSalarySheet, rs, rowNumber); 		
- 		setEmployee(employeeSalarySheet, rs, rowNumber); 		
- 		setCurrentSalaryGrade(employeeSalarySheet, rs, rowNumber); 		
- 		setBaseSalary(employeeSalarySheet, rs, rowNumber); 		
- 		setBonus(employeeSalarySheet, rs, rowNumber); 		
- 		setReward(employeeSalarySheet, rs, rowNumber); 		
- 		setPersonalTax(employeeSalarySheet, rs, rowNumber); 		
- 		setSocialSecurity(employeeSalarySheet, rs, rowNumber); 		
- 		setHousingFound(employeeSalarySheet, rs, rowNumber); 		
- 		setJobInsurance(employeeSalarySheet, rs, rowNumber); 		
- 		setPayingOff(employeeSalarySheet, rs, rowNumber); 		
+		EmployeeSalarySheet employeeSalarySheet = getEmployeeSalarySheet();
+		
+ 		setId(employeeSalarySheet, rs, rowNumber);
+ 		setEmployee(employeeSalarySheet, rs, rowNumber);
+ 		setCurrentSalaryGrade(employeeSalarySheet, rs, rowNumber);
+ 		setBaseSalary(employeeSalarySheet, rs, rowNumber);
+ 		setBonus(employeeSalarySheet, rs, rowNumber);
+ 		setReward(employeeSalarySheet, rs, rowNumber);
+ 		setPersonalTax(employeeSalarySheet, rs, rowNumber);
+ 		setSocialSecurity(employeeSalarySheet, rs, rowNumber);
+ 		setHousingFound(employeeSalarySheet, rs, rowNumber);
+ 		setJobInsurance(employeeSalarySheet, rs, rowNumber);
+ 		setPayingOff(employeeSalarySheet, rs, rowNumber);
  		setVersion(employeeSalarySheet, rs, rowNumber);
 
+    
 		return employeeSalarySheet;
 	}
-	
+
 	protected EmployeeSalarySheet getEmployeeSalarySheet(){
-		return new EmployeeSalarySheet();
-	}		
+	  EmployeeSalarySheet entity = new EmployeeSalarySheet();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeSalarySheetTable.COLUMN_ID);
@@ -46,10 +50,18 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setEmployee(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(EmployeeSalarySheetTable.COLUMN_EMPLOYEE);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(EmployeeSalarySheetTable.COLUMN_EMPLOYEE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -60,14 +72,19 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
  		if( employee != null ){
  			//if the root object 'employeeSalarySheet' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		employeeSalarySheet.setEmployee(createEmptyEmployee(employeeId));
  	}
- 	 		
+ 	
  	protected void setCurrentSalaryGrade(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
- 		String salaryGradeId = rs.getString(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE);
+ 		String salaryGradeId;
+ 		try{
+ 		  salaryGradeId = rs.getString(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( salaryGradeId == null){
  			return;
  		}
@@ -78,14 +95,14 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
  		if( salaryGrade != null ){
  			//if the root object 'employeeSalarySheet' already have the property, just set the id for it;
  			salaryGrade.setId(salaryGradeId);
- 			
+
  			return;
  		}
  		employeeSalarySheet.setCurrentSalaryGrade(createEmptyCurrentSalaryGrade(salaryGradeId));
  	}
  	
 	protected void setBaseSalary(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal baseSalary = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_BASE_SALARY);
@@ -96,10 +113,13 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setBaseSalary(baseSalary);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setBonus(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal bonus = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_BONUS);
@@ -110,10 +130,13 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setBonus(bonus);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setReward(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal reward = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_REWARD);
@@ -124,10 +147,13 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setReward(reward);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setPersonalTax(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal personalTax = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_PERSONAL_TAX);
@@ -138,10 +164,13 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setPersonalTax(personalTax);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setSocialSecurity(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal socialSecurity = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_SOCIAL_SECURITY);
@@ -152,10 +181,13 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setSocialSecurity(socialSecurity);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setHousingFound(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal housingFound = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_HOUSING_FOUND);
@@ -166,10 +198,13 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setHousingFound(housingFound);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setJobInsurance(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal jobInsurance = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_JOB_INSURANCE);
@@ -180,10 +215,18 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setJobInsurance(jobInsurance);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setPayingOff(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
- 		String payingOffId = rs.getString(EmployeeSalarySheetTable.COLUMN_PAYING_OFF);
+ 		String payingOffId;
+ 		try{
+ 		  payingOffId = rs.getString(EmployeeSalarySheetTable.COLUMN_PAYING_OFF);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( payingOffId == null){
  			return;
  		}
@@ -194,14 +237,14 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
  		if( payingOff != null ){
  			//if the root object 'employeeSalarySheet' already have the property, just set the id for it;
  			payingOff.setId(payingOffId);
- 			
+
  			return;
  		}
  		employeeSalarySheet.setPayingOff(createEmptyPayingOff(payingOffId));
  	}
  	
 	protected void setVersion(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeSalarySheetTable.COLUMN_VERSION);
@@ -212,9 +255,12 @@ public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet
 		}
 		
 		employeeSalarySheet.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyEmployee(String employeeId){
  		Employee employee = new Employee();

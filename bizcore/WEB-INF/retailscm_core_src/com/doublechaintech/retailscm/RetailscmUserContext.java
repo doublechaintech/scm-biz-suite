@@ -18,5 +18,7 @@ public interface RetailscmUserContext extends UserContext{
     Object getLastViewPage() throws Exception;
 
     Object goback() throws Exception;
+
+    <T extends BaseEntity> T reloadEntity(T stubEntity) throws Exception;
 }
 

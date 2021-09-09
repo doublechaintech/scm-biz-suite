@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.employee;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface EmployeeManager extends BaseManager{
 
 		
 
+  List<Employee> searchEmployeeList(RetailscmUserContext ctx, EmployeeRequest pRequest);
+  Employee searchEmployee(RetailscmUserContext ctx, EmployeeRequest pRequest);
 	public Employee createEmployee(RetailscmUserContext userContext, String companyId,String title,String departmentId,String familyName,String givenName,String email,String city,String address,String cellPhone,String occupationId,String responsibleForId,String currentSalaryGradeId,String salaryAccount) throws Exception;
 	public Employee updateEmployee(RetailscmUserContext userContext,String employeeId, int employeeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Employee loadEmployee(RetailscmUserContext userContext, String employeeId, String [] tokensExpr) throws Exception;
@@ -31,6 +37,8 @@ public interface EmployeeManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String employeeId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, Employee newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, Employee updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -171,6 +179,9 @@ public interface EmployeeManager extends BaseManager{
 	public Object listByCurrentSalaryGrade(RetailscmUserContext userContext,String currentSalaryGradeId) throws Exception;
 	public Object listPageByCurrentSalaryGrade(RetailscmUserContext userContext,String currentSalaryGradeId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

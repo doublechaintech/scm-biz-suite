@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.transporttask;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface TransportTaskManager extends BaseManager{
 
 		
 
+  List<TransportTask> searchTransportTaskList(RetailscmUserContext ctx, TransportTaskRequest pRequest);
+  TransportTask searchTransportTask(RetailscmUserContext ctx, TransportTaskRequest pRequest);
 	public TransportTask createTransportTask(RetailscmUserContext userContext, String name,String start,Date beginTime,String endId,String driverId,String truckId,String belongsToId,BigDecimal latitude,BigDecimal longitude) throws Exception;
 	public TransportTask updateTransportTask(RetailscmUserContext userContext,String transportTaskId, int transportTaskVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public TransportTask loadTransportTask(RetailscmUserContext userContext, String transportTaskId, String [] tokensExpr) throws Exception;
@@ -30,6 +36,8 @@ public interface TransportTaskManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String transportTaskId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, TransportTask newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, TransportTask updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -67,6 +75,9 @@ public interface TransportTaskManager extends BaseManager{
 	public Object listByBelongsTo(RetailscmUserContext userContext,String belongsToId) throws Exception;
 	public Object listPageByBelongsTo(RetailscmUserContext userContext,String belongsToId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

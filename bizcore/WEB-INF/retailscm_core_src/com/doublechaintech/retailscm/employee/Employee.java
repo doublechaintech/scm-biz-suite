@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.employee;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 import com.doublechaintech.retailscm.employeeleave.EmployeeLeave;
 import com.doublechaintech.retailscm.employeeinterview.EmployeeInterview;
@@ -43,12 +40,12 @@ import com.doublechaintech.retailscm.employeeaward.EmployeeAward;
 @JsonSerialize(using = EmployeeSerializer.class)
 public class Employee extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String COMPANY_PROPERTY               = "company"           ;
 	public static final String TITLE_PROPERTY                 = "title"             ;
@@ -83,38 +80,201 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COMPANY_PROPERTY, "retail_store_country_center", "公司")
+        .withType("retail_store_country_center", RetailStoreCountryCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TITLE_PROPERTY, "title", "头衔")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DEPARTMENT_PROPERTY, "level_three_department", "部门")
+        .withType("level_three_department", LevelThreeDepartment.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(FAMILY_NAME_PROPERTY, "family_name", "姓")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(GIVEN_NAME_PROPERTY, "given_name", "名")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(EMAIL_PROPERTY, "email", "电子邮件")
+        .withType("string_email", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CITY_PROPERTY, "city", "城市")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ADDRESS_PROPERTY, "address", "地址")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CELL_PHONE_PROPERTY, "cell_phone", "手机")
+        .withType("string_china_mobile_phone", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(OCCUPATION_PROPERTY, "occupation_type", "职业")
+        .withType("occupation_type", OccupationType.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(RESPONSIBLE_FOR_PROPERTY, "responsibility_type", "负责")
+        .withType("responsibility_type", ResponsibilityType.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CURRENT_SALARY_GRADE_PROPERTY, "salary_grade", "目前工资等级")
+        .withType("salary_grade", SalaryGrade.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SALARY_ACCOUNT_PROPERTY, "salary_account", "工资账户")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
+        .withType("date_time_update", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_COMPANY_TRAINING_LIST, "employee", "员工公司培训名单")
+        .withType("employee_company_training", EmployeeCompanyTraining.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_SKILL_LIST, "employee", "员工技能列表")
+        .withType("employee_skill", EmployeeSkill.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_PERFORMANCE_LIST, "employee", "员工绩效表")
+        .withType("employee_performance", EmployeePerformance.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_WORK_EXPERIENCE_LIST, "employee", "员工工作经历")
+        .withType("employee_work_experience", EmployeeWorkExperience.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_LEAVE_LIST, "who", "员工离开列表")
+        .withType("employee_leave", EmployeeLeave.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_INTERVIEW_LIST, "employee", "员工面试名单")
+        .withType("employee_interview", EmployeeInterview.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_ATTENDANCE_LIST, "employee", "员工出勤表")
+        .withType("employee_attendance", EmployeeAttendance.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_QUALIFIER_LIST, "employee", "员工限定符列表")
+        .withType("employee_qualifier", EmployeeQualifier.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_EDUCATION_LIST, "employee", "教育员工列表")
+        .withType("employee_education", EmployeeEducation.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_AWARD_LIST, "employee", "员工奖名单")
+        .withType("employee_award", EmployeeAward.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_SALARY_SHEET_LIST, "employee", "员工工资表")
+        .withType("employee_salary_sheet", EmployeeSalarySheet.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(PAYING_OFF_LIST, "paidFor", "偿还列表")
+        .withType("paying_off", PayingOff.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,COMPANY_PROPERTY ,TITLE_PROPERTY ,DEPARTMENT_PROPERTY ,FAMILY_NAME_PROPERTY ,GIVEN_NAME_PROPERTY ,EMAIL_PROPERTY ,CITY_PROPERTY ,ADDRESS_PROPERTY ,CELL_PHONE_PROPERTY ,OCCUPATION_PROPERTY ,RESPONSIBLE_FOR_PROPERTY ,CURRENT_SALARY_GRADE_PROPERTY ,SALARY_ACCOUNT_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(EMPLOYEE_COMPANY_TRAINING_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_SKILL_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_PERFORMANCE_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_WORK_EXPERIENCE_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_LEAVE_LIST, "who");
+    	
+    	    refers.put(EMPLOYEE_INTERVIEW_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_ATTENDANCE_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_QUALIFIER_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_EDUCATION_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_AWARD_LIST, "employee");
+    	
+    	    refers.put(EMPLOYEE_SALARY_SHEET_LIST, "employee");
+    	
+    	    refers.put(PAYING_OFF_LIST, "paidFor");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(EMPLOYEE_COMPANY_TRAINING_LIST, EmployeeCompanyTraining.class);
+        	
+        	    refers.put(EMPLOYEE_SKILL_LIST, EmployeeSkill.class);
+        	
+        	    refers.put(EMPLOYEE_PERFORMANCE_LIST, EmployeePerformance.class);
+        	
+        	    refers.put(EMPLOYEE_WORK_EXPERIENCE_LIST, EmployeeWorkExperience.class);
+        	
+        	    refers.put(EMPLOYEE_LEAVE_LIST, EmployeeLeave.class);
+        	
+        	    refers.put(EMPLOYEE_INTERVIEW_LIST, EmployeeInterview.class);
+        	
+        	    refers.put(EMPLOYEE_ATTENDANCE_LIST, EmployeeAttendance.class);
+        	
+        	    refers.put(EMPLOYEE_QUALIFIER_LIST, EmployeeQualifier.class);
+        	
+        	    refers.put(EMPLOYEE_EDUCATION_LIST, EmployeeEducation.class);
+        	
+        	    refers.put(EMPLOYEE_AWARD_LIST, EmployeeAward.class);
+        	
+        	    refers.put(EMPLOYEE_SALARY_SHEET_LIST, EmployeeSalarySheet.class);
+        	
+        	    refers.put(PAYING_OFF_LIST, PayingOff.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(COMPANY_PROPERTY, RetailStoreCountryCenter.class);
+parents.put(DEPARTMENT_PROPERTY, LevelThreeDepartment.class);
+parents.put(OCCUPATION_PROPERTY, OccupationType.class);
+parents.put(RESPONSIBLE_FOR_PROPERTY, ResponsibilityType.class);
+parents.put(CURRENT_SALARY_GRADE_PROPERTY, SalaryGrade.class);
+
+    return parents;
+  }
+
+  public Employee want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public Employee wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getTitle();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		RetailStoreCountryCenter	mCompany            ;
-	protected		String              	mTitle              ;
-	protected		LevelThreeDepartment	mDepartment         ;
-	protected		String              	mFamilyName         ;
-	protected		String              	mGivenName          ;
-	protected		String              	mEmail              ;
-	protected		String              	mCity               ;
-	protected		String              	mAddress            ;
-	protected		String              	mCellPhone          ;
-	protected		OccupationType      	mOccupation         ;
-	protected		ResponsibilityType  	mResponsibleFor     ;
-	protected		SalaryGrade         	mCurrentSalaryGrade ;
-	protected		String              	mSalaryAccount      ;
-	protected		DateTime            	mLastUpdateTime     ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		RetailStoreCountryCenter	company             ;
+	protected		String              	title               ;
+	protected		LevelThreeDepartment	department          ;
+	protected		String              	familyName          ;
+	protected		String              	givenName           ;
+	protected		String              	email               ;
+	protected		String              	city                ;
+	protected		String              	address             ;
+	protected		String              	cellPhone           ;
+	protected		OccupationType      	occupation          ;
+	protected		ResponsibilityType  	responsibleFor      ;
+	protected		SalaryGrade         	currentSalaryGrade  ;
+	protected		String              	salaryAccount       ;
+	protected		DateTime            	lastUpdateTime      ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<EmployeeCompanyTraining>	mEmployeeCompanyTrainingList;
 	protected		SmartList<EmployeeSkill>	mEmployeeSkillList  ;
@@ -129,8 +289,8 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 	protected		SmartList<EmployeeSalarySheet>	mEmployeeSalarySheetList;
 	protected		SmartList<PayingOff>	mPayingOffList      ;
 
-	
-		
+
+
 	public 	Employee(){
 		// lazy load for all the properties
 	}
@@ -138,12 +298,30 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		Employee employee = new Employee();
 		employee.setId(id);
 		employee.setVersion(Integer.MAX_VALUE);
+		employee.setChecked(true);
 		return employee;
 	}
 	public 	static Employee refById(String id){
 		return withId(id);
 	}
-	
+
+  public Employee limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public Employee limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static Employee searchExample(){
+    Employee employee = new Employee();
+    		employee.setVersion(UNSET_INT);
+
+    return employee;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCompany( null );
@@ -153,9 +331,10 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		setCurrentSalaryGrade( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -340,7 +519,7 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(COMPANY_PROPERTY.equals(property)){
 			return getCompany();
 		}
@@ -435,300 +614,513 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public Employee updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public Employee orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public Employee ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public Employee addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-	}
+	public void setCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;this.company = newCompany;}
+	public RetailStoreCountryCenter company(){
+doLoad();
+return getCompany();
+}
 	public RetailStoreCountryCenter getCompany(){
-		return this.mCompany;
+		return this.company;
 	}
-	public Employee updateCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;if(!shouldReplaceBy(newCompany, oldCompany)){return this;}this.company = newCompany;addPropertyChange(COMPANY_PROPERTY, oldCompany, newCompany);this.changed = true;setChecked(false);return this;}
+	public Employee orderByCompany(boolean asc){
+doAddOrderBy(COMPANY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCompanyCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COMPANY_PROPERTY, operator, parameters);
+}
+	public Employee ignoreCompanyCriteria(){super.ignoreSearchProperty(COMPANY_PROPERTY);
+return this;
+}
+	public Employee addCompanyCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCompanyCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCompany(RetailStoreCountryCenter company){
 		if(company != null) { setCompany(company);}
 	}
-	
+
 	
 	public void clearCompany(){
 		setCompany ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setTitle(String title){
-		this.mTitle = trimString(title);;
-	}
+	public void setTitle(String title){String oldTitle = this.title;String newTitle = trimString(title);this.title = newTitle;}
+	public String title(){
+doLoad();
+return getTitle();
+}
 	public String getTitle(){
-		return this.mTitle;
+		return this.title;
 	}
-	public Employee updateTitle(String title){
-		this.mTitle = trimString(title);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateTitle(String title){String oldTitle = this.title;String newTitle = trimString(title);if(!shouldReplaceBy(newTitle, oldTitle)){return this;}this.title = newTitle;addPropertyChange(TITLE_PROPERTY, oldTitle, newTitle);this.changed = true;setChecked(false);return this;}
+	public Employee orderByTitle(boolean asc){
+doAddOrderBy(TITLE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createTitleCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(TITLE_PROPERTY, operator, parameters);
+}
+	public Employee ignoreTitleCriteria(){super.ignoreSearchProperty(TITLE_PROPERTY);
+return this;
+}
+	public Employee addTitleCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createTitleCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeTitle(String title){
 		if(title != null) { setTitle(title);}
 	}
+
 	
-	
-	public void setDepartment(LevelThreeDepartment department){
-		this.mDepartment = department;;
-	}
+	public void setDepartment(LevelThreeDepartment department){LevelThreeDepartment oldDepartment = this.department;LevelThreeDepartment newDepartment = department;this.department = newDepartment;}
+	public LevelThreeDepartment department(){
+doLoad();
+return getDepartment();
+}
 	public LevelThreeDepartment getDepartment(){
-		return this.mDepartment;
+		return this.department;
 	}
-	public Employee updateDepartment(LevelThreeDepartment department){
-		this.mDepartment = department;;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateDepartment(LevelThreeDepartment department){LevelThreeDepartment oldDepartment = this.department;LevelThreeDepartment newDepartment = department;if(!shouldReplaceBy(newDepartment, oldDepartment)){return this;}this.department = newDepartment;addPropertyChange(DEPARTMENT_PROPERTY, oldDepartment, newDepartment);this.changed = true;setChecked(false);return this;}
+	public Employee orderByDepartment(boolean asc){
+doAddOrderBy(DEPARTMENT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDepartmentCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DEPARTMENT_PROPERTY, operator, parameters);
+}
+	public Employee ignoreDepartmentCriteria(){super.ignoreSearchProperty(DEPARTMENT_PROPERTY);
+return this;
+}
+	public Employee addDepartmentCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDepartmentCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDepartment(LevelThreeDepartment department){
 		if(department != null) { setDepartment(department);}
 	}
-	
+
 	
 	public void clearDepartment(){
 		setDepartment ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setFamilyName(String familyName){
-		this.mFamilyName = trimString(familyName);;
-	}
+	public void setFamilyName(String familyName){String oldFamilyName = this.familyName;String newFamilyName = trimString(familyName);this.familyName = newFamilyName;}
+	public String familyName(){
+doLoad();
+return getFamilyName();
+}
 	public String getFamilyName(){
-		return this.mFamilyName;
+		return this.familyName;
 	}
-	public Employee updateFamilyName(String familyName){
-		this.mFamilyName = trimString(familyName);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateFamilyName(String familyName){String oldFamilyName = this.familyName;String newFamilyName = trimString(familyName);if(!shouldReplaceBy(newFamilyName, oldFamilyName)){return this;}this.familyName = newFamilyName;addPropertyChange(FAMILY_NAME_PROPERTY, oldFamilyName, newFamilyName);this.changed = true;setChecked(false);return this;}
+	public Employee orderByFamilyName(boolean asc){
+doAddOrderBy(FAMILY_NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createFamilyNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(FAMILY_NAME_PROPERTY, operator, parameters);
+}
+	public Employee ignoreFamilyNameCriteria(){super.ignoreSearchProperty(FAMILY_NAME_PROPERTY);
+return this;
+}
+	public Employee addFamilyNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createFamilyNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeFamilyName(String familyName){
 		if(familyName != null) { setFamilyName(familyName);}
 	}
+
 	
-	
-	public void setGivenName(String givenName){
-		this.mGivenName = trimString(givenName);;
-	}
+	public void setGivenName(String givenName){String oldGivenName = this.givenName;String newGivenName = trimString(givenName);this.givenName = newGivenName;}
+	public String givenName(){
+doLoad();
+return getGivenName();
+}
 	public String getGivenName(){
-		return this.mGivenName;
+		return this.givenName;
 	}
-	public Employee updateGivenName(String givenName){
-		this.mGivenName = trimString(givenName);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateGivenName(String givenName){String oldGivenName = this.givenName;String newGivenName = trimString(givenName);if(!shouldReplaceBy(newGivenName, oldGivenName)){return this;}this.givenName = newGivenName;addPropertyChange(GIVEN_NAME_PROPERTY, oldGivenName, newGivenName);this.changed = true;setChecked(false);return this;}
+	public Employee orderByGivenName(boolean asc){
+doAddOrderBy(GIVEN_NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createGivenNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(GIVEN_NAME_PROPERTY, operator, parameters);
+}
+	public Employee ignoreGivenNameCriteria(){super.ignoreSearchProperty(GIVEN_NAME_PROPERTY);
+return this;
+}
+	public Employee addGivenNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createGivenNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeGivenName(String givenName){
 		if(givenName != null) { setGivenName(givenName);}
 	}
+
 	
-	
-	public void setEmail(String email){
-		this.mEmail = trimString(email);;
-	}
+	public void setEmail(String email){String oldEmail = this.email;String newEmail = trimString(email);this.email = newEmail;}
+	public String email(){
+doLoad();
+return getEmail();
+}
 	public String getEmail(){
-		return this.mEmail;
+		return this.email;
 	}
-	public Employee updateEmail(String email){
-		this.mEmail = trimString(email);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateEmail(String email){String oldEmail = this.email;String newEmail = trimString(email);if(!shouldReplaceBy(newEmail, oldEmail)){return this;}this.email = newEmail;addPropertyChange(EMAIL_PROPERTY, oldEmail, newEmail);this.changed = true;setChecked(false);return this;}
+	public Employee orderByEmail(boolean asc){
+doAddOrderBy(EMAIL_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createEmailCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(EMAIL_PROPERTY, operator, parameters);
+}
+	public Employee ignoreEmailCriteria(){super.ignoreSearchProperty(EMAIL_PROPERTY);
+return this;
+}
+	public Employee addEmailCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createEmailCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeEmail(String email){
 		if(email != null) { setEmail(email);}
 	}
+
 	
-	
-	public void setCity(String city){
-		this.mCity = trimString(city);;
-	}
+	public void setCity(String city){String oldCity = this.city;String newCity = trimString(city);this.city = newCity;}
+	public String city(){
+doLoad();
+return getCity();
+}
 	public String getCity(){
-		return this.mCity;
+		return this.city;
 	}
-	public Employee updateCity(String city){
-		this.mCity = trimString(city);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateCity(String city){String oldCity = this.city;String newCity = trimString(city);if(!shouldReplaceBy(newCity, oldCity)){return this;}this.city = newCity;addPropertyChange(CITY_PROPERTY, oldCity, newCity);this.changed = true;setChecked(false);return this;}
+	public Employee orderByCity(boolean asc){
+doAddOrderBy(CITY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCityCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CITY_PROPERTY, operator, parameters);
+}
+	public Employee ignoreCityCriteria(){super.ignoreSearchProperty(CITY_PROPERTY);
+return this;
+}
+	public Employee addCityCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCityCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCity(String city){
 		if(city != null) { setCity(city);}
 	}
+
 	
-	
-	public void setAddress(String address){
-		this.mAddress = trimString(address);;
-	}
+	public void setAddress(String address){String oldAddress = this.address;String newAddress = trimString(address);this.address = newAddress;}
+	public String address(){
+doLoad();
+return getAddress();
+}
 	public String getAddress(){
-		return this.mAddress;
+		return this.address;
 	}
-	public Employee updateAddress(String address){
-		this.mAddress = trimString(address);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateAddress(String address){String oldAddress = this.address;String newAddress = trimString(address);if(!shouldReplaceBy(newAddress, oldAddress)){return this;}this.address = newAddress;addPropertyChange(ADDRESS_PROPERTY, oldAddress, newAddress);this.changed = true;setChecked(false);return this;}
+	public Employee orderByAddress(boolean asc){
+doAddOrderBy(ADDRESS_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createAddressCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ADDRESS_PROPERTY, operator, parameters);
+}
+	public Employee ignoreAddressCriteria(){super.ignoreSearchProperty(ADDRESS_PROPERTY);
+return this;
+}
+	public Employee addAddressCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createAddressCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeAddress(String address){
 		if(address != null) { setAddress(address);}
 	}
+
 	
-	
-	public void setCellPhone(String cellPhone){
-		this.mCellPhone = trimString(cellPhone);;
-	}
+	public void setCellPhone(String cellPhone){String oldCellPhone = this.cellPhone;String newCellPhone = trimString(cellPhone);this.cellPhone = newCellPhone;}
+	public String cellPhone(){
+doLoad();
+return getCellPhone();
+}
 	public String getCellPhone(){
-		return this.mCellPhone;
+		return this.cellPhone;
 	}
-	public Employee updateCellPhone(String cellPhone){
-		this.mCellPhone = trimString(cellPhone);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateCellPhone(String cellPhone){String oldCellPhone = this.cellPhone;String newCellPhone = trimString(cellPhone);if(!shouldReplaceBy(newCellPhone, oldCellPhone)){return this;}this.cellPhone = newCellPhone;addPropertyChange(CELL_PHONE_PROPERTY, oldCellPhone, newCellPhone);this.changed = true;setChecked(false);return this;}
+	public Employee orderByCellPhone(boolean asc){
+doAddOrderBy(CELL_PHONE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCellPhoneCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CELL_PHONE_PROPERTY, operator, parameters);
+}
+	public Employee ignoreCellPhoneCriteria(){super.ignoreSearchProperty(CELL_PHONE_PROPERTY);
+return this;
+}
+	public Employee addCellPhoneCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCellPhoneCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCellPhone(String cellPhone){
 		if(cellPhone != null) { setCellPhone(cellPhone);}
 	}
+
 	
-	
-	
+
 	public String getMaskedCellPhone(){
 		String mobilePhoneNumber = getCellPhone();
 		return maskChinaMobileNumber(mobilePhoneNumber);
 	}
-	
+
 		
-	public void setOccupation(OccupationType occupation){
-		this.mOccupation = occupation;;
-	}
+	public void setOccupation(OccupationType occupation){OccupationType oldOccupation = this.occupation;OccupationType newOccupation = occupation;this.occupation = newOccupation;}
+	public OccupationType occupation(){
+doLoad();
+return getOccupation();
+}
 	public OccupationType getOccupation(){
-		return this.mOccupation;
+		return this.occupation;
 	}
-	public Employee updateOccupation(OccupationType occupation){
-		this.mOccupation = occupation;;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateOccupation(OccupationType occupation){OccupationType oldOccupation = this.occupation;OccupationType newOccupation = occupation;if(!shouldReplaceBy(newOccupation, oldOccupation)){return this;}this.occupation = newOccupation;addPropertyChange(OCCUPATION_PROPERTY, oldOccupation, newOccupation);this.changed = true;setChecked(false);return this;}
+	public Employee orderByOccupation(boolean asc){
+doAddOrderBy(OCCUPATION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createOccupationCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(OCCUPATION_PROPERTY, operator, parameters);
+}
+	public Employee ignoreOccupationCriteria(){super.ignoreSearchProperty(OCCUPATION_PROPERTY);
+return this;
+}
+	public Employee addOccupationCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createOccupationCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeOccupation(OccupationType occupation){
 		if(occupation != null) { setOccupation(occupation);}
 	}
-	
+
 	
 	public void clearOccupation(){
 		setOccupation ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setResponsibleFor(ResponsibilityType responsibleFor){
-		this.mResponsibleFor = responsibleFor;;
-	}
+	public void setResponsibleFor(ResponsibilityType responsibleFor){ResponsibilityType oldResponsibleFor = this.responsibleFor;ResponsibilityType newResponsibleFor = responsibleFor;this.responsibleFor = newResponsibleFor;}
+	public ResponsibilityType responsibleFor(){
+doLoad();
+return getResponsibleFor();
+}
 	public ResponsibilityType getResponsibleFor(){
-		return this.mResponsibleFor;
+		return this.responsibleFor;
 	}
-	public Employee updateResponsibleFor(ResponsibilityType responsibleFor){
-		this.mResponsibleFor = responsibleFor;;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateResponsibleFor(ResponsibilityType responsibleFor){ResponsibilityType oldResponsibleFor = this.responsibleFor;ResponsibilityType newResponsibleFor = responsibleFor;if(!shouldReplaceBy(newResponsibleFor, oldResponsibleFor)){return this;}this.responsibleFor = newResponsibleFor;addPropertyChange(RESPONSIBLE_FOR_PROPERTY, oldResponsibleFor, newResponsibleFor);this.changed = true;setChecked(false);return this;}
+	public Employee orderByResponsibleFor(boolean asc){
+doAddOrderBy(RESPONSIBLE_FOR_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createResponsibleForCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(RESPONSIBLE_FOR_PROPERTY, operator, parameters);
+}
+	public Employee ignoreResponsibleForCriteria(){super.ignoreSearchProperty(RESPONSIBLE_FOR_PROPERTY);
+return this;
+}
+	public Employee addResponsibleForCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createResponsibleForCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeResponsibleFor(ResponsibilityType responsibleFor){
 		if(responsibleFor != null) { setResponsibleFor(responsibleFor);}
 	}
-	
+
 	
 	public void clearResponsibleFor(){
 		setResponsibleFor ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setCurrentSalaryGrade(SalaryGrade currentSalaryGrade){
-		this.mCurrentSalaryGrade = currentSalaryGrade;;
-	}
+	public void setCurrentSalaryGrade(SalaryGrade currentSalaryGrade){SalaryGrade oldCurrentSalaryGrade = this.currentSalaryGrade;SalaryGrade newCurrentSalaryGrade = currentSalaryGrade;this.currentSalaryGrade = newCurrentSalaryGrade;}
+	public SalaryGrade currentSalaryGrade(){
+doLoad();
+return getCurrentSalaryGrade();
+}
 	public SalaryGrade getCurrentSalaryGrade(){
-		return this.mCurrentSalaryGrade;
+		return this.currentSalaryGrade;
 	}
-	public Employee updateCurrentSalaryGrade(SalaryGrade currentSalaryGrade){
-		this.mCurrentSalaryGrade = currentSalaryGrade;;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateCurrentSalaryGrade(SalaryGrade currentSalaryGrade){SalaryGrade oldCurrentSalaryGrade = this.currentSalaryGrade;SalaryGrade newCurrentSalaryGrade = currentSalaryGrade;if(!shouldReplaceBy(newCurrentSalaryGrade, oldCurrentSalaryGrade)){return this;}this.currentSalaryGrade = newCurrentSalaryGrade;addPropertyChange(CURRENT_SALARY_GRADE_PROPERTY, oldCurrentSalaryGrade, newCurrentSalaryGrade);this.changed = true;setChecked(false);return this;}
+	public Employee orderByCurrentSalaryGrade(boolean asc){
+doAddOrderBy(CURRENT_SALARY_GRADE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCurrentSalaryGradeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CURRENT_SALARY_GRADE_PROPERTY, operator, parameters);
+}
+	public Employee ignoreCurrentSalaryGradeCriteria(){super.ignoreSearchProperty(CURRENT_SALARY_GRADE_PROPERTY);
+return this;
+}
+	public Employee addCurrentSalaryGradeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCurrentSalaryGradeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCurrentSalaryGrade(SalaryGrade currentSalaryGrade){
 		if(currentSalaryGrade != null) { setCurrentSalaryGrade(currentSalaryGrade);}
 	}
-	
+
 	
 	public void clearCurrentSalaryGrade(){
 		setCurrentSalaryGrade ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setSalaryAccount(String salaryAccount){
-		this.mSalaryAccount = trimString(salaryAccount);;
-	}
+	public void setSalaryAccount(String salaryAccount){String oldSalaryAccount = this.salaryAccount;String newSalaryAccount = trimString(salaryAccount);this.salaryAccount = newSalaryAccount;}
+	public String salaryAccount(){
+doLoad();
+return getSalaryAccount();
+}
 	public String getSalaryAccount(){
-		return this.mSalaryAccount;
+		return this.salaryAccount;
 	}
-	public Employee updateSalaryAccount(String salaryAccount){
-		this.mSalaryAccount = trimString(salaryAccount);;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateSalaryAccount(String salaryAccount){String oldSalaryAccount = this.salaryAccount;String newSalaryAccount = trimString(salaryAccount);if(!shouldReplaceBy(newSalaryAccount, oldSalaryAccount)){return this;}this.salaryAccount = newSalaryAccount;addPropertyChange(SALARY_ACCOUNT_PROPERTY, oldSalaryAccount, newSalaryAccount);this.changed = true;setChecked(false);return this;}
+	public Employee orderBySalaryAccount(boolean asc){
+doAddOrderBy(SALARY_ACCOUNT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSalaryAccountCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SALARY_ACCOUNT_PROPERTY, operator, parameters);
+}
+	public Employee ignoreSalaryAccountCriteria(){super.ignoreSearchProperty(SALARY_ACCOUNT_PROPERTY);
+return this;
+}
+	public Employee addSalaryAccountCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSalaryAccountCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeSalaryAccount(String salaryAccount){
 		if(salaryAccount != null) { setSalaryAccount(salaryAccount);}
 	}
+
 	
-	
-	public void setLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-	}
+	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
+	public DateTime lastUpdateTime(){
+doLoad();
+return getLastUpdateTime();
+}
 	public DateTime getLastUpdateTime(){
-		return this.mLastUpdateTime;
+		return this.lastUpdateTime;
 	}
-	public Employee updateLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;if(!shouldReplaceBy(newLastUpdateTime, oldLastUpdateTime)){return this;}this.lastUpdateTime = newLastUpdateTime;addPropertyChange(LAST_UPDATE_TIME_PROPERTY, oldLastUpdateTime, newLastUpdateTime);this.changed = true;setChecked(false);return this;}
+	public Employee orderByLastUpdateTime(boolean asc){
+doAddOrderBy(LAST_UPDATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_UPDATE_TIME_PROPERTY, operator, parameters);
+}
+	public Employee ignoreLastUpdateTimeCriteria(){super.ignoreSearchProperty(LAST_UPDATE_TIME_PROPERTY);
+return this;
+}
+	public Employee addLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastUpdateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastUpdateTime(DateTime lastUpdateTime){
 		setLastUpdateTime(lastUpdateTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public Employee updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public Employee updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public Employee orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public Employee ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public Employee addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<EmployeeCompanyTraining> getEmployeeCompanyTrainingList(){
@@ -737,9 +1129,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeCompanyTrainingList.setListInternalName (EMPLOYEE_COMPANY_TRAINING_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeCompanyTrainingList;	
+
+		return this.mEmployeeCompanyTrainingList;
 	}
+
+  public  SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList(){
+    
+    doLoadChild(EMPLOYEE_COMPANY_TRAINING_LIST);
+    
+    return getEmployeeCompanyTrainingList();
+  }
+
+
 	public  void setEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList){
 		for( EmployeeCompanyTraining employeeCompanyTraining:employeeCompanyTrainingList){
 			employeeCompanyTraining.setEmployee(this);
@@ -747,18 +1148,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeCompanyTrainingList = employeeCompanyTrainingList;
 		this.mEmployeeCompanyTrainingList.setListInternalName (EMPLOYEE_COMPANY_TRAINING_LIST );
-		
+
 	}
-	
-	public  void addEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTraining){
+
+	public  Employee addEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTraining){
 		employeeCompanyTraining.setEmployee(this);
 		getEmployeeCompanyTrainingList().add(employeeCompanyTraining);
+		return this;
 	}
-	public  void addEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList){
+	public  Employee addEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList){
 		for( EmployeeCompanyTraining employeeCompanyTraining:employeeCompanyTrainingList){
 			employeeCompanyTraining.setEmployee(this);
 		}
 		getEmployeeCompanyTrainingList().addAll(employeeCompanyTrainingList);
+		return this;
 	}
 	public  void mergeEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList){
 		if(employeeCompanyTrainingList==null){
@@ -768,45 +1171,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeCompanyTrainingList( employeeCompanyTrainingList );
-		
+
 	}
 	public  EmployeeCompanyTraining removeEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTrainingIndex){
-		
+
 		int index = getEmployeeCompanyTrainingList().indexOf(employeeCompanyTrainingIndex);
         if(index < 0){
         	String message = "EmployeeCompanyTraining("+employeeCompanyTrainingIndex.getId()+") with version='"+employeeCompanyTrainingIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeCompanyTraining employeeCompanyTraining = getEmployeeCompanyTrainingList().get(index);        
+        EmployeeCompanyTraining employeeCompanyTraining = getEmployeeCompanyTrainingList().get(index);
         // employeeCompanyTraining.clearEmployee(); //disconnect with Employee
         employeeCompanyTraining.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeCompanyTrainingList().planToRemove(employeeCompanyTraining);
         if(!result){
         	String message = "EmployeeCompanyTraining("+employeeCompanyTrainingIndex.getId()+") with version='"+employeeCompanyTrainingIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeCompanyTraining;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTraining){
-		
+
 		if(employeeCompanyTraining == null){
 			return;
 		}
 		employeeCompanyTraining.setEmployee(null);
 		//getEmployeeCompanyTrainingList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTraining){
-	
+
 		return getEmployeeCompanyTrainingList().contains(employeeCompanyTraining);
-  
+
 	}
-	
+
 	public void copyEmployeeCompanyTrainingFrom(EmployeeCompanyTraining employeeCompanyTraining) {
 
 		EmployeeCompanyTraining employeeCompanyTrainingInList = findTheEmployeeCompanyTraining(employeeCompanyTraining);
@@ -816,26 +1219,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeCompanyTrainingList().add(newEmployeeCompanyTraining);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeCompanyTraining);
 	}
-	
+
 	public  EmployeeCompanyTraining findTheEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTraining){
-		
+
 		int index =  getEmployeeCompanyTrainingList().indexOf(employeeCompanyTraining);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeCompanyTraining("+employeeCompanyTraining.getId()+") with version='"+employeeCompanyTraining.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeCompanyTrainingList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeCompanyTrainingList(){
 		getEmployeeCompanyTrainingList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeSkill> getEmployeeSkillList(){
@@ -844,9 +1247,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeSkillList.setListInternalName (EMPLOYEE_SKILL_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeSkillList;	
+
+		return this.mEmployeeSkillList;
 	}
+
+  public  SmartList<EmployeeSkill> employeeSkillList(){
+    
+    doLoadChild(EMPLOYEE_SKILL_LIST);
+    
+    return getEmployeeSkillList();
+  }
+
+
 	public  void setEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
 		for( EmployeeSkill employeeSkill:employeeSkillList){
 			employeeSkill.setEmployee(this);
@@ -854,18 +1266,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeSkillList = employeeSkillList;
 		this.mEmployeeSkillList.setListInternalName (EMPLOYEE_SKILL_LIST );
-		
+
 	}
-	
-	public  void addEmployeeSkill(EmployeeSkill employeeSkill){
+
+	public  Employee addEmployeeSkill(EmployeeSkill employeeSkill){
 		employeeSkill.setEmployee(this);
 		getEmployeeSkillList().add(employeeSkill);
+		return this;
 	}
-	public  void addEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
+	public  Employee addEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
 		for( EmployeeSkill employeeSkill:employeeSkillList){
 			employeeSkill.setEmployee(this);
 		}
 		getEmployeeSkillList().addAll(employeeSkillList);
+		return this;
 	}
 	public  void mergeEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
 		if(employeeSkillList==null){
@@ -875,45 +1289,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeSkillList( employeeSkillList );
-		
+
 	}
 	public  EmployeeSkill removeEmployeeSkill(EmployeeSkill employeeSkillIndex){
-		
+
 		int index = getEmployeeSkillList().indexOf(employeeSkillIndex);
         if(index < 0){
         	String message = "EmployeeSkill("+employeeSkillIndex.getId()+") with version='"+employeeSkillIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeSkill employeeSkill = getEmployeeSkillList().get(index);        
+        EmployeeSkill employeeSkill = getEmployeeSkillList().get(index);
         // employeeSkill.clearEmployee(); //disconnect with Employee
         employeeSkill.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeSkillList().planToRemove(employeeSkill);
         if(!result){
         	String message = "EmployeeSkill("+employeeSkillIndex.getId()+") with version='"+employeeSkillIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeSkill;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeSkill(EmployeeSkill employeeSkill){
-		
+
 		if(employeeSkill == null){
 			return;
 		}
 		employeeSkill.setEmployee(null);
 		//getEmployeeSkillList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeSkill(EmployeeSkill employeeSkill){
-	
+
 		return getEmployeeSkillList().contains(employeeSkill);
-  
+
 	}
-	
+
 	public void copyEmployeeSkillFrom(EmployeeSkill employeeSkill) {
 
 		EmployeeSkill employeeSkillInList = findTheEmployeeSkill(employeeSkill);
@@ -923,26 +1337,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeSkillList().add(newEmployeeSkill);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeSkill);
 	}
-	
+
 	public  EmployeeSkill findTheEmployeeSkill(EmployeeSkill employeeSkill){
-		
+
 		int index =  getEmployeeSkillList().indexOf(employeeSkill);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeSkill("+employeeSkill.getId()+") with version='"+employeeSkill.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeSkillList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeSkillList(){
 		getEmployeeSkillList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeePerformance> getEmployeePerformanceList(){
@@ -951,9 +1365,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeePerformanceList.setListInternalName (EMPLOYEE_PERFORMANCE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeePerformanceList;	
+
+		return this.mEmployeePerformanceList;
 	}
+
+  public  SmartList<EmployeePerformance> employeePerformanceList(){
+    
+    doLoadChild(EMPLOYEE_PERFORMANCE_LIST);
+    
+    return getEmployeePerformanceList();
+  }
+
+
 	public  void setEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList){
 		for( EmployeePerformance employeePerformance:employeePerformanceList){
 			employeePerformance.setEmployee(this);
@@ -961,18 +1384,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeePerformanceList = employeePerformanceList;
 		this.mEmployeePerformanceList.setListInternalName (EMPLOYEE_PERFORMANCE_LIST );
-		
+
 	}
-	
-	public  void addEmployeePerformance(EmployeePerformance employeePerformance){
+
+	public  Employee addEmployeePerformance(EmployeePerformance employeePerformance){
 		employeePerformance.setEmployee(this);
 		getEmployeePerformanceList().add(employeePerformance);
+		return this;
 	}
-	public  void addEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList){
+	public  Employee addEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList){
 		for( EmployeePerformance employeePerformance:employeePerformanceList){
 			employeePerformance.setEmployee(this);
 		}
 		getEmployeePerformanceList().addAll(employeePerformanceList);
+		return this;
 	}
 	public  void mergeEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList){
 		if(employeePerformanceList==null){
@@ -982,45 +1407,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeePerformanceList( employeePerformanceList );
-		
+
 	}
 	public  EmployeePerformance removeEmployeePerformance(EmployeePerformance employeePerformanceIndex){
-		
+
 		int index = getEmployeePerformanceList().indexOf(employeePerformanceIndex);
         if(index < 0){
         	String message = "EmployeePerformance("+employeePerformanceIndex.getId()+") with version='"+employeePerformanceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeePerformance employeePerformance = getEmployeePerformanceList().get(index);        
+        EmployeePerformance employeePerformance = getEmployeePerformanceList().get(index);
         // employeePerformance.clearEmployee(); //disconnect with Employee
         employeePerformance.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeePerformanceList().planToRemove(employeePerformance);
         if(!result){
         	String message = "EmployeePerformance("+employeePerformanceIndex.getId()+") with version='"+employeePerformanceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeePerformance;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeePerformance(EmployeePerformance employeePerformance){
-		
+
 		if(employeePerformance == null){
 			return;
 		}
 		employeePerformance.setEmployee(null);
 		//getEmployeePerformanceList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeePerformance(EmployeePerformance employeePerformance){
-	
+
 		return getEmployeePerformanceList().contains(employeePerformance);
-  
+
 	}
-	
+
 	public void copyEmployeePerformanceFrom(EmployeePerformance employeePerformance) {
 
 		EmployeePerformance employeePerformanceInList = findTheEmployeePerformance(employeePerformance);
@@ -1030,26 +1455,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeePerformanceList().add(newEmployeePerformance);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeePerformance);
 	}
-	
+
 	public  EmployeePerformance findTheEmployeePerformance(EmployeePerformance employeePerformance){
-		
+
 		int index =  getEmployeePerformanceList().indexOf(employeePerformance);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeePerformance("+employeePerformance.getId()+") with version='"+employeePerformance.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeePerformanceList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeePerformanceList(){
 		getEmployeePerformanceList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeWorkExperience> getEmployeeWorkExperienceList(){
@@ -1058,9 +1483,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeWorkExperienceList.setListInternalName (EMPLOYEE_WORK_EXPERIENCE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeWorkExperienceList;	
+
+		return this.mEmployeeWorkExperienceList;
 	}
+
+  public  SmartList<EmployeeWorkExperience> employeeWorkExperienceList(){
+    
+    doLoadChild(EMPLOYEE_WORK_EXPERIENCE_LIST);
+    
+    return getEmployeeWorkExperienceList();
+  }
+
+
 	public  void setEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList){
 		for( EmployeeWorkExperience employeeWorkExperience:employeeWorkExperienceList){
 			employeeWorkExperience.setEmployee(this);
@@ -1068,18 +1502,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeWorkExperienceList = employeeWorkExperienceList;
 		this.mEmployeeWorkExperienceList.setListInternalName (EMPLOYEE_WORK_EXPERIENCE_LIST );
-		
+
 	}
-	
-	public  void addEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperience){
+
+	public  Employee addEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperience){
 		employeeWorkExperience.setEmployee(this);
 		getEmployeeWorkExperienceList().add(employeeWorkExperience);
+		return this;
 	}
-	public  void addEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList){
+	public  Employee addEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList){
 		for( EmployeeWorkExperience employeeWorkExperience:employeeWorkExperienceList){
 			employeeWorkExperience.setEmployee(this);
 		}
 		getEmployeeWorkExperienceList().addAll(employeeWorkExperienceList);
+		return this;
 	}
 	public  void mergeEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList){
 		if(employeeWorkExperienceList==null){
@@ -1089,45 +1525,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeWorkExperienceList( employeeWorkExperienceList );
-		
+
 	}
 	public  EmployeeWorkExperience removeEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperienceIndex){
-		
+
 		int index = getEmployeeWorkExperienceList().indexOf(employeeWorkExperienceIndex);
         if(index < 0){
         	String message = "EmployeeWorkExperience("+employeeWorkExperienceIndex.getId()+") with version='"+employeeWorkExperienceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeWorkExperience employeeWorkExperience = getEmployeeWorkExperienceList().get(index);        
+        EmployeeWorkExperience employeeWorkExperience = getEmployeeWorkExperienceList().get(index);
         // employeeWorkExperience.clearEmployee(); //disconnect with Employee
         employeeWorkExperience.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeWorkExperienceList().planToRemove(employeeWorkExperience);
         if(!result){
         	String message = "EmployeeWorkExperience("+employeeWorkExperienceIndex.getId()+") with version='"+employeeWorkExperienceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeWorkExperience;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperience){
-		
+
 		if(employeeWorkExperience == null){
 			return;
 		}
 		employeeWorkExperience.setEmployee(null);
 		//getEmployeeWorkExperienceList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperience){
-	
+
 		return getEmployeeWorkExperienceList().contains(employeeWorkExperience);
-  
+
 	}
-	
+
 	public void copyEmployeeWorkExperienceFrom(EmployeeWorkExperience employeeWorkExperience) {
 
 		EmployeeWorkExperience employeeWorkExperienceInList = findTheEmployeeWorkExperience(employeeWorkExperience);
@@ -1137,26 +1573,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeWorkExperienceList().add(newEmployeeWorkExperience);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeWorkExperience);
 	}
-	
+
 	public  EmployeeWorkExperience findTheEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperience){
-		
+
 		int index =  getEmployeeWorkExperienceList().indexOf(employeeWorkExperience);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeWorkExperience("+employeeWorkExperience.getId()+") with version='"+employeeWorkExperience.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeWorkExperienceList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeWorkExperienceList(){
 		getEmployeeWorkExperienceList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeLeave> getEmployeeLeaveList(){
@@ -1165,9 +1601,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeLeaveList.setListInternalName (EMPLOYEE_LEAVE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeLeaveList;	
+
+		return this.mEmployeeLeaveList;
 	}
+
+  public  SmartList<EmployeeLeave> employeeLeaveList(){
+    
+    doLoadChild(EMPLOYEE_LEAVE_LIST);
+    
+    return getEmployeeLeaveList();
+  }
+
+
 	public  void setEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
 		for( EmployeeLeave employeeLeave:employeeLeaveList){
 			employeeLeave.setWho(this);
@@ -1175,18 +1620,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeLeaveList = employeeLeaveList;
 		this.mEmployeeLeaveList.setListInternalName (EMPLOYEE_LEAVE_LIST );
-		
+
 	}
-	
-	public  void addEmployeeLeave(EmployeeLeave employeeLeave){
+
+	public  Employee addEmployeeLeave(EmployeeLeave employeeLeave){
 		employeeLeave.setWho(this);
 		getEmployeeLeaveList().add(employeeLeave);
+		return this;
 	}
-	public  void addEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
+	public  Employee addEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
 		for( EmployeeLeave employeeLeave:employeeLeaveList){
 			employeeLeave.setWho(this);
 		}
 		getEmployeeLeaveList().addAll(employeeLeaveList);
+		return this;
 	}
 	public  void mergeEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
 		if(employeeLeaveList==null){
@@ -1196,45 +1643,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeLeaveList( employeeLeaveList );
-		
+
 	}
 	public  EmployeeLeave removeEmployeeLeave(EmployeeLeave employeeLeaveIndex){
-		
+
 		int index = getEmployeeLeaveList().indexOf(employeeLeaveIndex);
         if(index < 0){
         	String message = "EmployeeLeave("+employeeLeaveIndex.getId()+") with version='"+employeeLeaveIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeLeave employeeLeave = getEmployeeLeaveList().get(index);        
+        EmployeeLeave employeeLeave = getEmployeeLeaveList().get(index);
         // employeeLeave.clearWho(); //disconnect with Who
         employeeLeave.clearFromAll(); //disconnect with Who
-		
+
 		boolean result = getEmployeeLeaveList().planToRemove(employeeLeave);
         if(!result){
         	String message = "EmployeeLeave("+employeeLeaveIndex.getId()+") with version='"+employeeLeaveIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeLeave;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeLeave(EmployeeLeave employeeLeave){
-		
+
 		if(employeeLeave == null){
 			return;
 		}
 		employeeLeave.setWho(null);
 		//getEmployeeLeaveList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeLeave(EmployeeLeave employeeLeave){
-	
+
 		return getEmployeeLeaveList().contains(employeeLeave);
-  
+
 	}
-	
+
 	public void copyEmployeeLeaveFrom(EmployeeLeave employeeLeave) {
 
 		EmployeeLeave employeeLeaveInList = findTheEmployeeLeave(employeeLeave);
@@ -1244,26 +1691,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeLeaveList().add(newEmployeeLeave);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeLeave);
 	}
-	
+
 	public  EmployeeLeave findTheEmployeeLeave(EmployeeLeave employeeLeave){
-		
+
 		int index =  getEmployeeLeaveList().indexOf(employeeLeave);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeLeave("+employeeLeave.getId()+") with version='"+employeeLeave.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeLeaveList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeLeaveList(){
 		getEmployeeLeaveList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeInterview> getEmployeeInterviewList(){
@@ -1272,9 +1719,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeInterviewList.setListInternalName (EMPLOYEE_INTERVIEW_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeInterviewList;	
+
+		return this.mEmployeeInterviewList;
 	}
+
+  public  SmartList<EmployeeInterview> employeeInterviewList(){
+    
+    doLoadChild(EMPLOYEE_INTERVIEW_LIST);
+    
+    return getEmployeeInterviewList();
+  }
+
+
 	public  void setEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList){
 		for( EmployeeInterview employeeInterview:employeeInterviewList){
 			employeeInterview.setEmployee(this);
@@ -1282,18 +1738,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeInterviewList = employeeInterviewList;
 		this.mEmployeeInterviewList.setListInternalName (EMPLOYEE_INTERVIEW_LIST );
-		
+
 	}
-	
-	public  void addEmployeeInterview(EmployeeInterview employeeInterview){
+
+	public  Employee addEmployeeInterview(EmployeeInterview employeeInterview){
 		employeeInterview.setEmployee(this);
 		getEmployeeInterviewList().add(employeeInterview);
+		return this;
 	}
-	public  void addEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList){
+	public  Employee addEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList){
 		for( EmployeeInterview employeeInterview:employeeInterviewList){
 			employeeInterview.setEmployee(this);
 		}
 		getEmployeeInterviewList().addAll(employeeInterviewList);
+		return this;
 	}
 	public  void mergeEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList){
 		if(employeeInterviewList==null){
@@ -1303,45 +1761,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeInterviewList( employeeInterviewList );
-		
+
 	}
 	public  EmployeeInterview removeEmployeeInterview(EmployeeInterview employeeInterviewIndex){
-		
+
 		int index = getEmployeeInterviewList().indexOf(employeeInterviewIndex);
         if(index < 0){
         	String message = "EmployeeInterview("+employeeInterviewIndex.getId()+") with version='"+employeeInterviewIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeInterview employeeInterview = getEmployeeInterviewList().get(index);        
+        EmployeeInterview employeeInterview = getEmployeeInterviewList().get(index);
         // employeeInterview.clearEmployee(); //disconnect with Employee
         employeeInterview.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeInterviewList().planToRemove(employeeInterview);
         if(!result){
         	String message = "EmployeeInterview("+employeeInterviewIndex.getId()+") with version='"+employeeInterviewIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeInterview;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeInterview(EmployeeInterview employeeInterview){
-		
+
 		if(employeeInterview == null){
 			return;
 		}
 		employeeInterview.setEmployee(null);
 		//getEmployeeInterviewList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeInterview(EmployeeInterview employeeInterview){
-	
+
 		return getEmployeeInterviewList().contains(employeeInterview);
-  
+
 	}
-	
+
 	public void copyEmployeeInterviewFrom(EmployeeInterview employeeInterview) {
 
 		EmployeeInterview employeeInterviewInList = findTheEmployeeInterview(employeeInterview);
@@ -1351,26 +1809,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeInterviewList().add(newEmployeeInterview);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeInterview);
 	}
-	
+
 	public  EmployeeInterview findTheEmployeeInterview(EmployeeInterview employeeInterview){
-		
+
 		int index =  getEmployeeInterviewList().indexOf(employeeInterview);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeInterview("+employeeInterview.getId()+") with version='"+employeeInterview.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeInterviewList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeInterviewList(){
 		getEmployeeInterviewList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeAttendance> getEmployeeAttendanceList(){
@@ -1379,9 +1837,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeAttendanceList.setListInternalName (EMPLOYEE_ATTENDANCE_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeAttendanceList;	
+
+		return this.mEmployeeAttendanceList;
 	}
+
+  public  SmartList<EmployeeAttendance> employeeAttendanceList(){
+    
+    doLoadChild(EMPLOYEE_ATTENDANCE_LIST);
+    
+    return getEmployeeAttendanceList();
+  }
+
+
 	public  void setEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList){
 		for( EmployeeAttendance employeeAttendance:employeeAttendanceList){
 			employeeAttendance.setEmployee(this);
@@ -1389,18 +1856,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeAttendanceList = employeeAttendanceList;
 		this.mEmployeeAttendanceList.setListInternalName (EMPLOYEE_ATTENDANCE_LIST );
-		
+
 	}
-	
-	public  void addEmployeeAttendance(EmployeeAttendance employeeAttendance){
+
+	public  Employee addEmployeeAttendance(EmployeeAttendance employeeAttendance){
 		employeeAttendance.setEmployee(this);
 		getEmployeeAttendanceList().add(employeeAttendance);
+		return this;
 	}
-	public  void addEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList){
+	public  Employee addEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList){
 		for( EmployeeAttendance employeeAttendance:employeeAttendanceList){
 			employeeAttendance.setEmployee(this);
 		}
 		getEmployeeAttendanceList().addAll(employeeAttendanceList);
+		return this;
 	}
 	public  void mergeEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList){
 		if(employeeAttendanceList==null){
@@ -1410,45 +1879,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeAttendanceList( employeeAttendanceList );
-		
+
 	}
 	public  EmployeeAttendance removeEmployeeAttendance(EmployeeAttendance employeeAttendanceIndex){
-		
+
 		int index = getEmployeeAttendanceList().indexOf(employeeAttendanceIndex);
         if(index < 0){
         	String message = "EmployeeAttendance("+employeeAttendanceIndex.getId()+") with version='"+employeeAttendanceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeAttendance employeeAttendance = getEmployeeAttendanceList().get(index);        
+        EmployeeAttendance employeeAttendance = getEmployeeAttendanceList().get(index);
         // employeeAttendance.clearEmployee(); //disconnect with Employee
         employeeAttendance.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeAttendanceList().planToRemove(employeeAttendance);
         if(!result){
         	String message = "EmployeeAttendance("+employeeAttendanceIndex.getId()+") with version='"+employeeAttendanceIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeAttendance;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeAttendance(EmployeeAttendance employeeAttendance){
-		
+
 		if(employeeAttendance == null){
 			return;
 		}
 		employeeAttendance.setEmployee(null);
 		//getEmployeeAttendanceList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeAttendance(EmployeeAttendance employeeAttendance){
-	
+
 		return getEmployeeAttendanceList().contains(employeeAttendance);
-  
+
 	}
-	
+
 	public void copyEmployeeAttendanceFrom(EmployeeAttendance employeeAttendance) {
 
 		EmployeeAttendance employeeAttendanceInList = findTheEmployeeAttendance(employeeAttendance);
@@ -1458,26 +1927,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeAttendanceList().add(newEmployeeAttendance);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeAttendance);
 	}
-	
+
 	public  EmployeeAttendance findTheEmployeeAttendance(EmployeeAttendance employeeAttendance){
-		
+
 		int index =  getEmployeeAttendanceList().indexOf(employeeAttendance);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeAttendance("+employeeAttendance.getId()+") with version='"+employeeAttendance.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeAttendanceList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeAttendanceList(){
 		getEmployeeAttendanceList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeQualifier> getEmployeeQualifierList(){
@@ -1486,9 +1955,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeQualifierList.setListInternalName (EMPLOYEE_QUALIFIER_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeQualifierList;	
+
+		return this.mEmployeeQualifierList;
 	}
+
+  public  SmartList<EmployeeQualifier> employeeQualifierList(){
+    
+    doLoadChild(EMPLOYEE_QUALIFIER_LIST);
+    
+    return getEmployeeQualifierList();
+  }
+
+
 	public  void setEmployeeQualifierList(SmartList<EmployeeQualifier> employeeQualifierList){
 		for( EmployeeQualifier employeeQualifier:employeeQualifierList){
 			employeeQualifier.setEmployee(this);
@@ -1496,18 +1974,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeQualifierList = employeeQualifierList;
 		this.mEmployeeQualifierList.setListInternalName (EMPLOYEE_QUALIFIER_LIST );
-		
+
 	}
-	
-	public  void addEmployeeQualifier(EmployeeQualifier employeeQualifier){
+
+	public  Employee addEmployeeQualifier(EmployeeQualifier employeeQualifier){
 		employeeQualifier.setEmployee(this);
 		getEmployeeQualifierList().add(employeeQualifier);
+		return this;
 	}
-	public  void addEmployeeQualifierList(SmartList<EmployeeQualifier> employeeQualifierList){
+	public  Employee addEmployeeQualifierList(SmartList<EmployeeQualifier> employeeQualifierList){
 		for( EmployeeQualifier employeeQualifier:employeeQualifierList){
 			employeeQualifier.setEmployee(this);
 		}
 		getEmployeeQualifierList().addAll(employeeQualifierList);
+		return this;
 	}
 	public  void mergeEmployeeQualifierList(SmartList<EmployeeQualifier> employeeQualifierList){
 		if(employeeQualifierList==null){
@@ -1517,45 +1997,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeQualifierList( employeeQualifierList );
-		
+
 	}
 	public  EmployeeQualifier removeEmployeeQualifier(EmployeeQualifier employeeQualifierIndex){
-		
+
 		int index = getEmployeeQualifierList().indexOf(employeeQualifierIndex);
         if(index < 0){
         	String message = "EmployeeQualifier("+employeeQualifierIndex.getId()+") with version='"+employeeQualifierIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeQualifier employeeQualifier = getEmployeeQualifierList().get(index);        
+        EmployeeQualifier employeeQualifier = getEmployeeQualifierList().get(index);
         // employeeQualifier.clearEmployee(); //disconnect with Employee
         employeeQualifier.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeQualifierList().planToRemove(employeeQualifier);
         if(!result){
         	String message = "EmployeeQualifier("+employeeQualifierIndex.getId()+") with version='"+employeeQualifierIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeQualifier;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeQualifier(EmployeeQualifier employeeQualifier){
-		
+
 		if(employeeQualifier == null){
 			return;
 		}
 		employeeQualifier.setEmployee(null);
 		//getEmployeeQualifierList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeQualifier(EmployeeQualifier employeeQualifier){
-	
+
 		return getEmployeeQualifierList().contains(employeeQualifier);
-  
+
 	}
-	
+
 	public void copyEmployeeQualifierFrom(EmployeeQualifier employeeQualifier) {
 
 		EmployeeQualifier employeeQualifierInList = findTheEmployeeQualifier(employeeQualifier);
@@ -1565,26 +2045,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeQualifierList().add(newEmployeeQualifier);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeQualifier);
 	}
-	
+
 	public  EmployeeQualifier findTheEmployeeQualifier(EmployeeQualifier employeeQualifier){
-		
+
 		int index =  getEmployeeQualifierList().indexOf(employeeQualifier);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeQualifier("+employeeQualifier.getId()+") with version='"+employeeQualifier.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeQualifierList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeQualifierList(){
 		getEmployeeQualifierList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeEducation> getEmployeeEducationList(){
@@ -1593,9 +2073,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeEducationList.setListInternalName (EMPLOYEE_EDUCATION_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeEducationList;	
+
+		return this.mEmployeeEducationList;
 	}
+
+  public  SmartList<EmployeeEducation> employeeEducationList(){
+    
+    doLoadChild(EMPLOYEE_EDUCATION_LIST);
+    
+    return getEmployeeEducationList();
+  }
+
+
 	public  void setEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList){
 		for( EmployeeEducation employeeEducation:employeeEducationList){
 			employeeEducation.setEmployee(this);
@@ -1603,18 +2092,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeEducationList = employeeEducationList;
 		this.mEmployeeEducationList.setListInternalName (EMPLOYEE_EDUCATION_LIST );
-		
+
 	}
-	
-	public  void addEmployeeEducation(EmployeeEducation employeeEducation){
+
+	public  Employee addEmployeeEducation(EmployeeEducation employeeEducation){
 		employeeEducation.setEmployee(this);
 		getEmployeeEducationList().add(employeeEducation);
+		return this;
 	}
-	public  void addEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList){
+	public  Employee addEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList){
 		for( EmployeeEducation employeeEducation:employeeEducationList){
 			employeeEducation.setEmployee(this);
 		}
 		getEmployeeEducationList().addAll(employeeEducationList);
+		return this;
 	}
 	public  void mergeEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList){
 		if(employeeEducationList==null){
@@ -1624,45 +2115,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeEducationList( employeeEducationList );
-		
+
 	}
 	public  EmployeeEducation removeEmployeeEducation(EmployeeEducation employeeEducationIndex){
-		
+
 		int index = getEmployeeEducationList().indexOf(employeeEducationIndex);
         if(index < 0){
         	String message = "EmployeeEducation("+employeeEducationIndex.getId()+") with version='"+employeeEducationIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeEducation employeeEducation = getEmployeeEducationList().get(index);        
+        EmployeeEducation employeeEducation = getEmployeeEducationList().get(index);
         // employeeEducation.clearEmployee(); //disconnect with Employee
         employeeEducation.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeEducationList().planToRemove(employeeEducation);
         if(!result){
         	String message = "EmployeeEducation("+employeeEducationIndex.getId()+") with version='"+employeeEducationIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeEducation;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeEducation(EmployeeEducation employeeEducation){
-		
+
 		if(employeeEducation == null){
 			return;
 		}
 		employeeEducation.setEmployee(null);
 		//getEmployeeEducationList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeEducation(EmployeeEducation employeeEducation){
-	
+
 		return getEmployeeEducationList().contains(employeeEducation);
-  
+
 	}
-	
+
 	public void copyEmployeeEducationFrom(EmployeeEducation employeeEducation) {
 
 		EmployeeEducation employeeEducationInList = findTheEmployeeEducation(employeeEducation);
@@ -1672,26 +2163,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeEducationList().add(newEmployeeEducation);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeEducation);
 	}
-	
+
 	public  EmployeeEducation findTheEmployeeEducation(EmployeeEducation employeeEducation){
-		
+
 		int index =  getEmployeeEducationList().indexOf(employeeEducation);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeEducation("+employeeEducation.getId()+") with version='"+employeeEducation.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeEducationList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeEducationList(){
 		getEmployeeEducationList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeAward> getEmployeeAwardList(){
@@ -1700,9 +2191,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeAwardList.setListInternalName (EMPLOYEE_AWARD_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeAwardList;	
+
+		return this.mEmployeeAwardList;
 	}
+
+  public  SmartList<EmployeeAward> employeeAwardList(){
+    
+    doLoadChild(EMPLOYEE_AWARD_LIST);
+    
+    return getEmployeeAwardList();
+  }
+
+
 	public  void setEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList){
 		for( EmployeeAward employeeAward:employeeAwardList){
 			employeeAward.setEmployee(this);
@@ -1710,18 +2210,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeAwardList = employeeAwardList;
 		this.mEmployeeAwardList.setListInternalName (EMPLOYEE_AWARD_LIST );
-		
+
 	}
-	
-	public  void addEmployeeAward(EmployeeAward employeeAward){
+
+	public  Employee addEmployeeAward(EmployeeAward employeeAward){
 		employeeAward.setEmployee(this);
 		getEmployeeAwardList().add(employeeAward);
+		return this;
 	}
-	public  void addEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList){
+	public  Employee addEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList){
 		for( EmployeeAward employeeAward:employeeAwardList){
 			employeeAward.setEmployee(this);
 		}
 		getEmployeeAwardList().addAll(employeeAwardList);
+		return this;
 	}
 	public  void mergeEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList){
 		if(employeeAwardList==null){
@@ -1731,45 +2233,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeAwardList( employeeAwardList );
-		
+
 	}
 	public  EmployeeAward removeEmployeeAward(EmployeeAward employeeAwardIndex){
-		
+
 		int index = getEmployeeAwardList().indexOf(employeeAwardIndex);
         if(index < 0){
         	String message = "EmployeeAward("+employeeAwardIndex.getId()+") with version='"+employeeAwardIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeAward employeeAward = getEmployeeAwardList().get(index);        
+        EmployeeAward employeeAward = getEmployeeAwardList().get(index);
         // employeeAward.clearEmployee(); //disconnect with Employee
         employeeAward.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeAwardList().planToRemove(employeeAward);
         if(!result){
         	String message = "EmployeeAward("+employeeAwardIndex.getId()+") with version='"+employeeAwardIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeAward;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeAward(EmployeeAward employeeAward){
-		
+
 		if(employeeAward == null){
 			return;
 		}
 		employeeAward.setEmployee(null);
 		//getEmployeeAwardList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeAward(EmployeeAward employeeAward){
-	
+
 		return getEmployeeAwardList().contains(employeeAward);
-  
+
 	}
-	
+
 	public void copyEmployeeAwardFrom(EmployeeAward employeeAward) {
 
 		EmployeeAward employeeAwardInList = findTheEmployeeAward(employeeAward);
@@ -1779,26 +2281,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeAwardList().add(newEmployeeAward);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeAward);
 	}
-	
+
 	public  EmployeeAward findTheEmployeeAward(EmployeeAward employeeAward){
-		
+
 		int index =  getEmployeeAwardList().indexOf(employeeAward);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeAward("+employeeAward.getId()+") with version='"+employeeAward.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeAwardList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeAwardList(){
 		getEmployeeAwardList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<EmployeeSalarySheet> getEmployeeSalarySheetList(){
@@ -1807,9 +2309,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeSalarySheetList.setListInternalName (EMPLOYEE_SALARY_SHEET_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeSalarySheetList;	
+
+		return this.mEmployeeSalarySheetList;
 	}
+
+  public  SmartList<EmployeeSalarySheet> employeeSalarySheetList(){
+    
+    doLoadChild(EMPLOYEE_SALARY_SHEET_LIST);
+    
+    return getEmployeeSalarySheetList();
+  }
+
+
 	public  void setEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList){
 		for( EmployeeSalarySheet employeeSalarySheet:employeeSalarySheetList){
 			employeeSalarySheet.setEmployee(this);
@@ -1817,18 +2328,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeSalarySheetList = employeeSalarySheetList;
 		this.mEmployeeSalarySheetList.setListInternalName (EMPLOYEE_SALARY_SHEET_LIST );
-		
+
 	}
-	
-	public  void addEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheet){
+
+	public  Employee addEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheet){
 		employeeSalarySheet.setEmployee(this);
 		getEmployeeSalarySheetList().add(employeeSalarySheet);
+		return this;
 	}
-	public  void addEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList){
+	public  Employee addEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList){
 		for( EmployeeSalarySheet employeeSalarySheet:employeeSalarySheetList){
 			employeeSalarySheet.setEmployee(this);
 		}
 		getEmployeeSalarySheetList().addAll(employeeSalarySheetList);
+		return this;
 	}
 	public  void mergeEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList){
 		if(employeeSalarySheetList==null){
@@ -1838,45 +2351,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeSalarySheetList( employeeSalarySheetList );
-		
+
 	}
 	public  EmployeeSalarySheet removeEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheetIndex){
-		
+
 		int index = getEmployeeSalarySheetList().indexOf(employeeSalarySheetIndex);
         if(index < 0){
         	String message = "EmployeeSalarySheet("+employeeSalarySheetIndex.getId()+") with version='"+employeeSalarySheetIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeSalarySheet employeeSalarySheet = getEmployeeSalarySheetList().get(index);        
+        EmployeeSalarySheet employeeSalarySheet = getEmployeeSalarySheetList().get(index);
         // employeeSalarySheet.clearEmployee(); //disconnect with Employee
         employeeSalarySheet.clearFromAll(); //disconnect with Employee
-		
+
 		boolean result = getEmployeeSalarySheetList().planToRemove(employeeSalarySheet);
         if(!result){
         	String message = "EmployeeSalarySheet("+employeeSalarySheetIndex.getId()+") with version='"+employeeSalarySheetIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeSalarySheet;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheet){
-		
+
 		if(employeeSalarySheet == null){
 			return;
 		}
 		employeeSalarySheet.setEmployee(null);
 		//getEmployeeSalarySheetList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheet){
-	
+
 		return getEmployeeSalarySheetList().contains(employeeSalarySheet);
-  
+
 	}
-	
+
 	public void copyEmployeeSalarySheetFrom(EmployeeSalarySheet employeeSalarySheet) {
 
 		EmployeeSalarySheet employeeSalarySheetInList = findTheEmployeeSalarySheet(employeeSalarySheet);
@@ -1886,26 +2399,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getEmployeeSalarySheetList().add(newEmployeeSalarySheet);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeSalarySheet);
 	}
-	
+
 	public  EmployeeSalarySheet findTheEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheet){
-		
+
 		int index =  getEmployeeSalarySheetList().indexOf(employeeSalarySheet);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeSalarySheet("+employeeSalarySheet.getId()+") with version='"+employeeSalarySheet.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeSalarySheetList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeSalarySheetList(){
 		getEmployeeSalarySheetList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<PayingOff> getPayingOffList(){
@@ -1914,9 +2427,18 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			this.mPayingOffList.setListInternalName (PAYING_OFF_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mPayingOffList;	
+
+		return this.mPayingOffList;
 	}
+
+  public  SmartList<PayingOff> payingOffList(){
+    
+    doLoadChild(PAYING_OFF_LIST);
+    
+    return getPayingOffList();
+  }
+
+
 	public  void setPayingOffList(SmartList<PayingOff> payingOffList){
 		for( PayingOff payingOff:payingOffList){
 			payingOff.setPaidFor(this);
@@ -1924,18 +2446,20 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		this.mPayingOffList = payingOffList;
 		this.mPayingOffList.setListInternalName (PAYING_OFF_LIST );
-		
+
 	}
-	
-	public  void addPayingOff(PayingOff payingOff){
+
+	public  Employee addPayingOff(PayingOff payingOff){
 		payingOff.setPaidFor(this);
 		getPayingOffList().add(payingOff);
+		return this;
 	}
-	public  void addPayingOffList(SmartList<PayingOff> payingOffList){
+	public  Employee addPayingOffList(SmartList<PayingOff> payingOffList){
 		for( PayingOff payingOff:payingOffList){
 			payingOff.setPaidFor(this);
 		}
 		getPayingOffList().addAll(payingOffList);
+		return this;
 	}
 	public  void mergePayingOffList(SmartList<PayingOff> payingOffList){
 		if(payingOffList==null){
@@ -1945,45 +2469,45 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addPayingOffList( payingOffList );
-		
+
 	}
 	public  PayingOff removePayingOff(PayingOff payingOffIndex){
-		
+
 		int index = getPayingOffList().indexOf(payingOffIndex);
         if(index < 0){
         	String message = "PayingOff("+payingOffIndex.getId()+") with version='"+payingOffIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        PayingOff payingOff = getPayingOffList().get(index);        
+        PayingOff payingOff = getPayingOffList().get(index);
         // payingOff.clearPaidFor(); //disconnect with PaidFor
         payingOff.clearFromAll(); //disconnect with PaidFor
-		
+
 		boolean result = getPayingOffList().planToRemove(payingOff);
         if(!result){
         	String message = "PayingOff("+payingOffIndex.getId()+") with version='"+payingOffIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return payingOff;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithPayingOff(PayingOff payingOff){
-		
+
 		if(payingOff == null){
 			return;
 		}
 		payingOff.setPaidFor(null);
 		//getPayingOffList().remove();
-	
+
 	}
-	
+
 	public  boolean hasPayingOff(PayingOff payingOff){
-	
+
 		return getPayingOffList().contains(payingOff);
-  
+
 	}
-	
+
 	public void copyPayingOffFrom(PayingOff payingOff) {
 
 		PayingOff payingOffInList = findThePayingOff(payingOff);
@@ -1993,26 +2517,26 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		getPayingOffList().add(newPayingOff);
 		addItemToFlexiableObject(COPIED_CHILD, newPayingOff);
 	}
-	
+
 	public  PayingOff findThePayingOff(PayingOff payingOff){
-		
+
 		int index =  getPayingOffList().indexOf(payingOff);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "PayingOff("+payingOff.getId()+") with version='"+payingOff.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getPayingOffList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpPayingOffList(){
 		getPayingOffList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
@@ -2023,11 +2547,11 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		addToEntityList(this, entityList, getResponsibleFor(), internalType);
 		addToEntityList(this, entityList, getCurrentSalaryGrade(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getEmployeeCompanyTrainingList(), internalType);
 		collectFromList(this, entityList, getEmployeeSkillList(), internalType);
@@ -2044,10 +2568,10 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getEmployeeCompanyTrainingList());
 		listOfList.add( getEmployeeSkillList());
 		listOfList.add( getEmployeePerformanceList());
@@ -2060,12 +2584,12 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		listOfList.add( getEmployeeAwardList());
 		listOfList.add( getEmployeeSalarySheetList());
 		listOfList.add( getPayingOffList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -2151,16 +2675,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof Employee){
-		
-		
+
+
 			Employee dest =(Employee)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setCompany(getCompany());
 			dest.setTitle(getTitle());
@@ -2195,13 +2719,13 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof Employee){
-		
-			
+
+
 			Employee dest =(Employee)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCompany(getCompany());
 			dest.mergeTitle(getTitle());
@@ -2235,15 +2759,15 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof Employee){
-		
-			
+
+
 			Employee dest =(Employee)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeTitle(getTitle());
 			dest.mergeFamilyName(getFamilyName());
@@ -2262,6 +2786,65 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getCompany(), getTitle(), getDepartment(), getFamilyName(), getGivenName(), getEmail(), getCity(), getAddress(), getCellPhone(), getOccupation(), getResponsibleFor(), getCurrentSalaryGrade(), getSalaryAccount(), getLastUpdateTime(), getVersion()};
 	}
+
+
+	public static Employee createWith(RetailscmUserContext userContext, ThrowingFunction<Employee,Employee,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<Employee> customCreator = mapper.findCustomCreator(Employee.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    Employee result = new Employee();
+    result.setCompany(mapper.tryToGet(Employee.class, COMPANY_PROPERTY, RetailStoreCountryCenter.class,
+        0, true, result.getCompany(), params));
+    result.setTitle(mapper.tryToGet(Employee.class, TITLE_PROPERTY, String.class,
+        0, false, result.getTitle(), params));
+    result.setDepartment(mapper.tryToGet(Employee.class, DEPARTMENT_PROPERTY, LevelThreeDepartment.class,
+        0, true, result.getDepartment(), params));
+    result.setFamilyName(mapper.tryToGet(Employee.class, FAMILY_NAME_PROPERTY, String.class,
+        1, false, result.getFamilyName(), params));
+    result.setGivenName(mapper.tryToGet(Employee.class, GIVEN_NAME_PROPERTY, String.class,
+        2, false, result.getGivenName(), params));
+    result.setEmail(mapper.tryToGet(Employee.class, EMAIL_PROPERTY, String.class,
+        3, false, result.getEmail(), params));
+    result.setCity(mapper.tryToGet(Employee.class, CITY_PROPERTY, String.class,
+        4, false, result.getCity(), params));
+    result.setAddress(mapper.tryToGet(Employee.class, ADDRESS_PROPERTY, String.class,
+        5, false, result.getAddress(), params));
+    result.setCellPhone(mapper.tryToGet(Employee.class, CELL_PHONE_PROPERTY, String.class,
+        6, false, result.getCellPhone(), params));
+    result.setOccupation(mapper.tryToGet(Employee.class, OCCUPATION_PROPERTY, OccupationType.class,
+        0, true, result.getOccupation(), params));
+    result.setResponsibleFor(mapper.tryToGet(Employee.class, RESPONSIBLE_FOR_PROPERTY, ResponsibilityType.class,
+        0, true, result.getResponsibleFor(), params));
+    result.setCurrentSalaryGrade(mapper.tryToGet(Employee.class, CURRENT_SALARY_GRADE_PROPERTY, SalaryGrade.class,
+        0, true, result.getCurrentSalaryGrade(), params));
+    result.setSalaryAccount(mapper.tryToGet(Employee.class, SALARY_ACCOUNT_PROPERTY, String.class,
+        7, false, result.getSalaryAccount(), params));
+     result.setLastUpdateTime(userContext.now());
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixEmployee(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      EmployeeTokens tokens = mapper.findParamByClass(params, EmployeeTokens.class);
+      if (tokens == null) {
+        tokens = EmployeeTokens.start();
+      }
+      result = userContext.getManagerGroup().getEmployeeManager().internalSaveEmployee(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -2296,7 +2879,7 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

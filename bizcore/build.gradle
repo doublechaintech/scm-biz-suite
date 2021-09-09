@@ -1,7 +1,12 @@
 
 buildscript {
     repositories {
+
         mavenLocal()
+        // Comment out the following line if in China
+        // maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        // jcenter()
+
         mavenCentral()
     }
     dependencies {
@@ -46,6 +51,9 @@ sourceSets {
 
 repositories {
     mavenLocal()
+    // Comment out the following line if in China
+    // maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    // jcenter()
     mavenCentral()
 }
 
@@ -67,11 +75,15 @@ dependencies {
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '5.6.3'
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("org.springframework.boot:spring-boot-starter-jta-atomikos")
     compile 'com.qiniu:qiniu-java-sdk:7.2.+'
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.4'
     compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
   	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.1'
   	compile group: 'com.github.jarod', name: 'qqwry-java', version: '0.7.+'
+  	compile group: 'org.freemarker', name: 'freemarker', version: '2.3.30'
+  	compile 'cn.hutool:hutool-all:5.7.10'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstorecountrycenter;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -7,30 +8,33 @@ import java.math.BigDecimal;
 import com.doublechaintech.retailscm.BaseRowMapper;
 
 public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCountryCenter>{
-	
+
 	protected RetailStoreCountryCenter internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStoreCountryCenter retailStoreCountryCenter = getRetailStoreCountryCenter();		
-		 		
- 		setId(retailStoreCountryCenter, rs, rowNumber); 		
- 		setName(retailStoreCountryCenter, rs, rowNumber); 		
- 		setServiceNumber(retailStoreCountryCenter, rs, rowNumber); 		
- 		setFounded(retailStoreCountryCenter, rs, rowNumber); 		
- 		setWebSite(retailStoreCountryCenter, rs, rowNumber); 		
- 		setAddress(retailStoreCountryCenter, rs, rowNumber); 		
- 		setOperatedBy(retailStoreCountryCenter, rs, rowNumber); 		
- 		setLegalRepresentative(retailStoreCountryCenter, rs, rowNumber); 		
- 		setDescription(retailStoreCountryCenter, rs, rowNumber); 		
+		RetailStoreCountryCenter retailStoreCountryCenter = getRetailStoreCountryCenter();
+		
+ 		setId(retailStoreCountryCenter, rs, rowNumber);
+ 		setName(retailStoreCountryCenter, rs, rowNumber);
+ 		setServiceNumber(retailStoreCountryCenter, rs, rowNumber);
+ 		setFounded(retailStoreCountryCenter, rs, rowNumber);
+ 		setWebSite(retailStoreCountryCenter, rs, rowNumber);
+ 		setAddress(retailStoreCountryCenter, rs, rowNumber);
+ 		setOperatedBy(retailStoreCountryCenter, rs, rowNumber);
+ 		setLegalRepresentative(retailStoreCountryCenter, rs, rowNumber);
+ 		setDescription(retailStoreCountryCenter, rs, rowNumber);
  		setVersion(retailStoreCountryCenter, rs, rowNumber);
 
+    
 		return retailStoreCountryCenter;
 	}
-	
+
 	protected RetailStoreCountryCenter getRetailStoreCountryCenter(){
-		return new RetailStoreCountryCenter();
-	}		
+	  RetailStoreCountryCenter entity = new RetailStoreCountryCenter();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreCountryCenterTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(RetailStoreCountryCenterTable.COLUMN_NAME);
@@ -55,10 +62,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setServiceNumber(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String serviceNumber = rs.getString(RetailStoreCountryCenterTable.COLUMN_SERVICE_NUMBER);
@@ -69,10 +79,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setServiceNumber(serviceNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFounded(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date founded = rs.getDate(RetailStoreCountryCenterTable.COLUMN_FOUNDED);
@@ -83,10 +96,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setFounded(founded);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setWebSite(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String webSite = rs.getString(RetailStoreCountryCenterTable.COLUMN_WEB_SITE);
@@ -97,10 +113,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setWebSite(webSite);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAddress(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String address = rs.getString(RetailStoreCountryCenterTable.COLUMN_ADDRESS);
@@ -111,10 +130,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setAddress(address);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setOperatedBy(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String operatedBy = rs.getString(RetailStoreCountryCenterTable.COLUMN_OPERATED_BY);
@@ -125,10 +147,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setOperatedBy(operatedBy);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLegalRepresentative(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String legalRepresentative = rs.getString(RetailStoreCountryCenterTable.COLUMN_LEGAL_REPRESENTATIVE);
@@ -139,10 +164,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setLegalRepresentative(legalRepresentative);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDescription(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(RetailStoreCountryCenterTable.COLUMN_DESCRIPTION);
@@ -153,10 +181,13 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(RetailStoreCountryCenter retailStoreCountryCenter, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreCountryCenterTable.COLUMN_VERSION);
@@ -167,9 +198,12 @@ public class RetailStoreCountryCenterMapper extends BaseRowMapper<RetailStoreCou
 		}
 		
 		retailStoreCountryCenter.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
 }
 

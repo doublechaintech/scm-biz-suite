@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.goodsshelfstockcount;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
 
 public class GoodsShelfStockCountMapper extends BaseRowMapper<GoodsShelfStockCount>{
-	
+
 	protected GoodsShelfStockCount internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		GoodsShelfStockCount goodsShelfStockCount = getGoodsShelfStockCount();		
-		 		
- 		setId(goodsShelfStockCount, rs, rowNumber); 		
- 		setTitle(goodsShelfStockCount, rs, rowNumber); 		
- 		setCountTime(goodsShelfStockCount, rs, rowNumber); 		
- 		setSummary(goodsShelfStockCount, rs, rowNumber); 		
- 		setShelf(goodsShelfStockCount, rs, rowNumber); 		
+		GoodsShelfStockCount goodsShelfStockCount = getGoodsShelfStockCount();
+		
+ 		setId(goodsShelfStockCount, rs, rowNumber);
+ 		setTitle(goodsShelfStockCount, rs, rowNumber);
+ 		setCountTime(goodsShelfStockCount, rs, rowNumber);
+ 		setSummary(goodsShelfStockCount, rs, rowNumber);
+ 		setShelf(goodsShelfStockCount, rs, rowNumber);
  		setVersion(goodsShelfStockCount, rs, rowNumber);
 
+    
 		return goodsShelfStockCount;
 	}
-	
+
 	protected GoodsShelfStockCount getGoodsShelfStockCount(){
-		return new GoodsShelfStockCount();
-	}		
+	  GoodsShelfStockCount entity = new GoodsShelfStockCount();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(GoodsShelfStockCount goodsShelfStockCount, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(GoodsShelfStockCountTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class GoodsShelfStockCountMapper extends BaseRowMapper<GoodsShelfStockCou
 		}
 		
 		goodsShelfStockCount.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTitle(GoodsShelfStockCount goodsShelfStockCount, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String title = rs.getString(GoodsShelfStockCountTable.COLUMN_TITLE);
@@ -52,10 +59,13 @@ public class GoodsShelfStockCountMapper extends BaseRowMapper<GoodsShelfStockCou
 		}
 		
 		goodsShelfStockCount.setTitle(title);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCountTime(GoodsShelfStockCount goodsShelfStockCount, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date countTime = rs.getDate(GoodsShelfStockCountTable.COLUMN_COUNT_TIME);
@@ -66,10 +76,13 @@ public class GoodsShelfStockCountMapper extends BaseRowMapper<GoodsShelfStockCou
 		}
 		
 		goodsShelfStockCount.setCountTime(countTime);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setSummary(GoodsShelfStockCount goodsShelfStockCount, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String summary = rs.getString(GoodsShelfStockCountTable.COLUMN_SUMMARY);
@@ -80,10 +93,18 @@ public class GoodsShelfStockCountMapper extends BaseRowMapper<GoodsShelfStockCou
 		}
 		
 		goodsShelfStockCount.setSummary(summary);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setShelf(GoodsShelfStockCount goodsShelfStockCount, ResultSet rs, int rowNumber) throws SQLException{
- 		String goodsShelfId = rs.getString(GoodsShelfStockCountTable.COLUMN_SHELF);
+ 		String goodsShelfId;
+ 		try{
+ 		  goodsShelfId = rs.getString(GoodsShelfStockCountTable.COLUMN_SHELF);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( goodsShelfId == null){
  			return;
  		}
@@ -94,14 +115,14 @@ public class GoodsShelfStockCountMapper extends BaseRowMapper<GoodsShelfStockCou
  		if( goodsShelf != null ){
  			//if the root object 'goodsShelfStockCount' already have the property, just set the id for it;
  			goodsShelf.setId(goodsShelfId);
- 			
+
  			return;
  		}
  		goodsShelfStockCount.setShelf(createEmptyShelf(goodsShelfId));
  	}
  	
 	protected void setVersion(GoodsShelfStockCount goodsShelfStockCount, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(GoodsShelfStockCountTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class GoodsShelfStockCountMapper extends BaseRowMapper<GoodsShelfStockCou
 		}
 		
 		goodsShelfStockCount.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected GoodsShelf  createEmptyShelf(String goodsShelfId){
  		GoodsShelf goodsShelf = new GoodsShelf();

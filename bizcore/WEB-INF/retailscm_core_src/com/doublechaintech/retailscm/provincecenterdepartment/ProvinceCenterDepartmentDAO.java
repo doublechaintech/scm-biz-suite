@@ -46,6 +46,7 @@ public interface ProvinceCenterDepartmentDAO extends BaseDAO{
 	public void delete(String provinceCenterDepartmentId, int version) throws Exception;
 	public ProvinceCenterDepartment disconnectFromAll(String provinceCenterDepartmentId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public ProvinceCenterEmployeeDAO getProvinceCenterEmployeeDAO();
 		
@@ -61,9 +62,10 @@ public interface ProvinceCenterDepartmentDAO extends BaseDAO{
 	public int countProvinceCenterEmployeeListWithProvinceCenter(String provinceCenterDepartmentId, String provinceCenterId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<ProvinceCenterDepartment> queryList(String sql, Object ... parmeters);
+	public SmartList<ProvinceCenterDepartment> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<ProvinceCenterDepartment> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateProvinceCenterDepartment executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<ProvinceCenterDepartment> findProvinceCenterDepartmentByProvinceCenter(String retailStoreProvinceCenterId, Map<String,Object> options);
@@ -77,6 +79,8 @@ public interface ProvinceCenterDepartmentDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:ProvinceCenterEmployee的department的ProvinceCenterEmployeeList
 	public SmartList<ProvinceCenterEmployee> loadOurProvinceCenterEmployeeList(RetailscmUserContext userContext, List<ProvinceCenterDepartment> us, Map<String,Object> options) throws Exception;
 	
+
+	List<ProvinceCenterDepartment> search(ProvinceCenterDepartmentRequest pRequest);
 }
 
 

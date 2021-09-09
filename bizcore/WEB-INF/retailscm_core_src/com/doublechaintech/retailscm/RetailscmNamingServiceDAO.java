@@ -142,13 +142,13 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		namingTableMap.put("CandidateElement", new String[]{"candidate_element_data","name"});
 		namingTableMap.put("WechatWorkappIdentity", new String[]{"wechat_workapp_identity_data","corp_id"});
 		namingTableMap.put("WechatMiniappIdentity", new String[]{"wechat_miniapp_identity_data","open_id"});
-		namingTableMap.put("KeypairIdentity", new String[]{"keypair_identity_data","public_key"});
-		namingTableMap.put("PublicKeyType", new String[]{"public_key_type_data","name"});
+		namingTableMap.put("KeyPairIdentity", new String[]{"key_pair_identity_data","public_key"});
+		namingTableMap.put("PublicKeyType", new String[]{"public_key_type_data","key_alg"});
 		namingTableMap.put("TreeNode", new String[]{"tree_node_data","node_id"});
-		
 
-		
-		
+
+
+
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	 
+
 	public void alias(List<BaseEntity> entityList){
 		//this.getClass().getSimpleName()
 		//these objects are most likely the same, or most are the same
@@ -176,7 +176,7 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 			//noting to be enhanced
 			return;
 		}
-		
+
 		if(entityList.isEmpty()){
 			//noting to be enhanced
 			return;
@@ -194,7 +194,7 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 					return 1;
 				}
 				int round1 = internalTypeOf(o1).compareTo(internalTypeOf(o2));
-				
+
 				if(round1!=0){
 					return round1;
 				}
@@ -205,10 +205,10 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 					return -1;//should check in pojo, but prevent the bad thing happing
 				}
 				int round2 = o1.getId().compareTo(o2.getId());
-				
+
 				return round2;
 			}
-			
+
 		});
 		List<BaseEntity> sortedEntityList = entityListToSort;//just for better reading
 		//with a sorted list, the find out the sql and parameters
@@ -219,11 +219,11 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		fillResult(entityList, resultMap);
 
 		//List<BaseEntity> resultList = this.queryForList(unionedSQL, parameters, getMapper());
-		
+
 	}
 
 	protected  void fillResult(List<BaseEntity> entityList,Map<String, String> resultMap) {
-		
+
 		for(BaseEntity baseEntity: entityList){
 			String displayName = findDisplayNameInMap(baseEntity, resultMap);
 			if(displayName==null){
@@ -232,8 +232,8 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 			}
 			baseEntity.setDisplayName(displayName);
 		}
-		
-		
+
+
 	}
 
 	protected String findDisplayNameInMap(BaseEntity baseEntity, Map<String, String> resultMap) {
@@ -249,38 +249,38 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 			return "";
 		}
 		return valueToTrim.trim();
-		
+
 	}
 	protected Map<String, String> getResultMap(String unionedSQL,
 			Object[] parameters) {
-		
+
 		this.logSQLAndParameters("getDisplayName", unionedSQL, parameters,"---");
-		
-		
-		return getJdbcTemplateObject().query(unionedSQL, parameters,new ResultSetExtractor<Map<String,String>>(){
+
+
+		return getJdbcTemplate().query(unionedSQL, parameters,new ResultSetExtractor<Map<String,String>>(){
 
 			@Override
 			public Map<String,String > extractData(ResultSet resultSet) throws SQLException,
 					DataAccessException {
-				
-				
+
+
 				Map<String,String> internalMap = new HashMap<String,String>();
-				while(resultSet.next()){ 
+				while(resultSet.next()){
 					String key = trimString(resultSet.getString(1))+":"+trimString(resultSet.getString(2));
 					// Fixed the issue for Informix and Gbase 8t/s data base, it appends values for the class column
 					String value = resultSet.getString(3);
-					
+
 					// System.out.printf("%s = %s\r\n",key, value);
-					
+
 					internalMap.put(key, value);
-					
-				} 
+
+				}
 				return internalMap;
 			}
-			
+
 		});
 	}
-	
+
 
 
 	protected Object[] parametersOf(Map<String, List<String>> sqlMap) {
@@ -292,27 +292,27 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		}
 		return resultParameters.toArray();
 	}
-	
+
 	private String unionSQLOf(Map<String, List<String>> sqlMap) {
-		
+
 		StringBuilder stringBuilder = new StringBuilder();
 		int index = 0 ;
 		for(Map.Entry<String, List<String>> entry: sqlMap.entrySet()){
-			
+
 			if(index>0){
-				
+
 				stringBuilder.append("\r\n");
 				stringBuilder.append(" union ");
-				
+
 			}
 			String sqlPrefix = entry.getKey();
 			List<String> parameters = entry.getValue();
 			String sqlToUnion = this.getNamingQuerySQL(sqlPrefix, parameters);
 			stringBuilder.append(sqlToUnion);
 			index++;
-			
+
 		}
-		
+
 		return stringBuilder.toString();
 	}
 
@@ -321,9 +321,9 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		List<String> idList = null;
 		Map<String, List<String>> sqlMap = new HashMap<String, List<String>>();
 		for(BaseEntity baseEntity: sortedEntityList){
-			
+
 			String currentClassName = this.internalTypeOf(baseEntity);
-			
+
 			if(currentClassName.equals(lastClassName)){
 				if(idList.contains(baseEntity.getId())){
 					continue;
@@ -334,30 +334,32 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 			idList = new ArrayList<String>();
 			idList.add(baseEntity.getId());
 			String sql = sqlOf(currentClassName);
-			
+
+      if(sql != null)
 			sqlMap.put(sql, idList);
-			
+
 			lastClassName = currentClassName;
-			
-			
+
+
 		}
 		return sqlMap;
 	}
 	protected String sqlOf(String currentClassName) {
 		String[] sqlInfo=namingTableMap.get(currentClassName);
 		if(sqlInfo==null){
-			throw new IllegalArgumentException("sqlOf(String currentClassName): Not able to find sql info for class: "+currentClassName);
+			//throw new IllegalArgumentException("sqlOf(String currentClassName): Not able to find sql info for class: "+currentClassName);
+	    return null;
 		}
 		if(sqlInfo.length<2){
 			throw new IllegalArgumentException("sqlOf(String currentClassName): sqlInfo.length should equals 2 for class: "+currentClassName);
-			
+
 		}
 		String tableName = sqlInfo[0];
 		String displayExpr = sqlInfo[1];
-		
-		
+
+
 		String sql = this.join("select '",currentClassName,"' as class_name, id, ",displayExpr," as display_name from ",tableName," where id in ");
-		
+
 		return sql;
 	}
 
@@ -379,16 +381,16 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 			baseEntitySet.add(baseEntity);
 		}
 		return baseEntitySet;
-		
+
 	}
-	
+
 	protected String getNamingQuerySQL(String sqlPrefix, List<String> entityList){
-		
+
 		String SQL = this.join(sqlPrefix, "(",repeatExpr("?",",",entityList.size()),")");// "select * from "+this.getTableName()+" where id in ;
-		
+
 		return SQL;
 	}
-	
+
 	/*
 	static {
 		namingTableMap = new HashMap<String, String[]>();
@@ -396,20 +398,20 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 
 		namingTableMap.put("CarInspectionPlatform", new String[]{"car_inspection_platform_data","name"});
 		namingTableMap.put("IdentityCard", new String[]{"identity_card_data","holder_name"});
-	
-		
-		
+
+
+
 	}*/
-	
+
     public SmartList<BaseEntity> requestCandidateValuesForSearch(String ownerMemberName, String ownerId, String resultMemberName, String resutlClassName, String targetClassName, String filterKey, int pageNo){
     	this.checkFieldName(resultMemberName);
     	this.checkFieldName(resutlClassName);
     	this.checkFieldName(ownerMemberName);
     	this.checkFieldName(targetClassName);
-    	
+
     	List<Object> params = new ArrayList<>();
     	params.add(ownerId);
-    	
+
     	String filterClause = " ";
     	String joinClause = " ";
     	if (filterKey != null && !filterKey.trim().isEmpty() ) {
@@ -419,21 +421,21 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
     		}
     		if(sqlInfo.length<2){
     			throw new IllegalArgumentException("sqlOf(String currentClassName): sqlInfo.length should equals 2 for filter class: "+targetClassName);
-    			
+
     		}
     		String displayExpr = sqlInfo[1];
     		joinClause = String.format(" left join %s_data T2 on T1.%s=T2.id ", mapToInternalColumn(targetClassName), mapToInternalColumn(resultMemberName));
     		filterClause = String.format(" and T2.%s like ? ", displayExpr);
     		params.add("%"+filterKey.trim()+"%");
     	}
-    	String sql = String.format("select distinct T1.%s from %s_data T1%swhere T1.%s = ?%sorder by cast(%s as CHAR CHARACTER SET GBK) asc", 
-    			mapToInternalColumn(resultMemberName), mapToInternalColumn(resutlClassName), 
+    	String sql = String.format("select distinct T1.%s from %s_data T1%swhere T1.%s = ?%sorder by cast(%s as CHAR CHARACTER SET GBK) asc",
+    			mapToInternalColumn(resultMemberName), mapToInternalColumn(resutlClassName),
     			joinClause,
-    			mapToInternalColumn(ownerMemberName), 
+    			mapToInternalColumn(ownerMemberName),
     			filterClause,
     			mapToInternalColumn(resultMemberName));
     	// System.out.println(sql +" executed with " + params);
-    	List<String> keyList = getJdbcTemplateObject().queryForList(sql, params.toArray(), String.class);
+    	List<String> keyList = getJdbcTemplate().queryForList(sql, params.toArray(), String.class);
     	SmartList<BaseEntity> resultList = new SmartList<>();
     	if (keyList == null) {
     		return resultList;
@@ -444,7 +446,7 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
     	this.alias(resultList);
     	return resultList;
     }
-    
+
     protected String mapToInternalColumn(String field){
 		char [] fieldArray = field.toCharArray();
 		StringBuilder internalFieldBuffer = new StringBuilder();
@@ -463,7 +465,7 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		}
 		return internalFieldBuffer.toString();
 	}
-	
+
 	public static String getDisplayNameColumnName(String modelName) {
     	String[] sqlInfo=namingTableMap.get(modelName);
     	if (sqlInfo == null || sqlInfo.length < 2) {

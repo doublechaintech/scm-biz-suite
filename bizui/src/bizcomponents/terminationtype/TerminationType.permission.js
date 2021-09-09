@@ -31,7 +31,7 @@ const internalSummaryOf = (terminationType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{terminationType.id}</Description> 
+<Description term="ID">{terminationType.id}</Description> 
 <Description term="代码">{terminationType.code}</Description> 
 <Description term="基本描述">{terminationType.baseDescription}</Description> 
 <Description term="详细描述">{terminationType.detailDescription}</Description> 
@@ -60,7 +60,7 @@ class TerminationTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  terminationType = this.props.terminationType
     const { id,displayName, terminationCount } = terminationType
-    const  returnURL = `/terminationType/${id}/dashboard`
+    const  returnURL = `/terminationType/${id}/workbench`
     const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",cardsSource: terminationType,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class TerminationTypePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

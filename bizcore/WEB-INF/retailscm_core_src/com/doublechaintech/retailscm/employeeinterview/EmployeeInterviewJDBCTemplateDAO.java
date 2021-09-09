@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeinterview;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
 
 	protected InterviewTypeDAO interviewTypeDAO;
 	public void setInterviewTypeDAO(InterviewTypeDAO interviewTypeDAO){
- 	
+
  		if(interviewTypeDAO == null){
  			throw new IllegalStateException("Do not try to set interviewTypeDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.interviewTypeDAO == null){
  			throw new IllegalStateException("The interviewTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.interviewTypeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -203,43 +205,43 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeInterviewTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeInterviewTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeInterviewTokens.EMPLOYEE);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractInterviewTypeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeInterviewTokens.INTERVIEWTYPE);
  	}
 
  	protected boolean isSaveInterviewTypeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeInterviewTokens.INTERVIEWTYPE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -249,8 +251,8 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		return new EmployeeInterviewMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeInterview extractEmployeeInterview(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeInterview employeeInterview = loadSingleObject(accessKey, getEmployeeInterviewMapper());
@@ -261,29 +263,30 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeInterview loadInternalEmployeeInterview(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeInterview employeeInterview = extractEmployeeInterview(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeInterview, loadOptions);
  		}
-  	
+ 
  		if(isExtractInterviewTypeEnabled(loadOptions)){
 	 		extractInterviewType(employeeInterview, loadOptions);
  		}
  
 		
 		return employeeInterview;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeInterview extractEmployee(EmployeeInterview employeeInterview, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeInterview.getEmployee() == null){
 			return employeeInterview;
@@ -296,14 +299,15 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(employee != null){
 			employeeInterview.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeInterview;
  	}
- 		
-  
+
+ 
 
  	protected EmployeeInterview extractInterviewType(EmployeeInterview employeeInterview, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeInterview.getInterviewType() == null){
 			return employeeInterview;
@@ -316,46 +320,46 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(interviewType != null){
 			employeeInterview.setInterviewType(interviewType);
 		}
-		
- 		
+
+
  		return employeeInterview;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeInterview> findEmployeeInterviewByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeInterview> resultList = queryWith(EmployeeInterviewTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeInterviewMapper());
 		// analyzeEmployeeInterviewByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeInterview> findEmployeeInterviewByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeInterview> resultList =  queryWithRange(EmployeeInterviewTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeInterviewMapper(), start, count);
  		//analyzeEmployeeInterviewByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeInterviewByEmployee(SmartList<EmployeeInterview> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeInterview.EMPLOYEE_PROPERTY, employeeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeInterviewByEmployee(String employeeId,Map<String,Object> options){
@@ -366,39 +370,39 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countEmployeeInterviewByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeInterviewTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EmployeeInterview> findEmployeeInterviewByInterviewType(String interviewTypeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeInterview> resultList = queryWith(EmployeeInterviewTable.COLUMN_INTERVIEW_TYPE, interviewTypeId, options, getEmployeeInterviewMapper());
 		// analyzeEmployeeInterviewByInterviewType(resultList, interviewTypeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeInterview> findEmployeeInterviewByInterviewType(String interviewTypeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeInterview> resultList =  queryWithRange(EmployeeInterviewTable.COLUMN_INTERVIEW_TYPE, interviewTypeId, options, getEmployeeInterviewMapper(), start, count);
  		//analyzeEmployeeInterviewByInterviewType(resultList, interviewTypeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeInterviewByInterviewType(SmartList<EmployeeInterview> resultList, String interviewTypeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeInterview.INTERVIEW_TYPE_PROPERTY, interviewTypeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeInterviewByInterviewType(String interviewTypeId,Map<String,Object> options){
@@ -409,21 +413,24 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countEmployeeInterviewByInterviewTypeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeInterviewTable.COLUMN_INTERVIEW_TYPE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeInterview saveEmployeeInterview(EmployeeInterview  employeeInterview){
+    
+
 		
 		if(!employeeInterview.isChanged()){
 			return employeeInterview;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeInterview);
 		String SQL=this.getSaveEmployeeInterviewSQL(employeeInterview);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeInterviewParameters(employeeInterview);
@@ -434,6 +441,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 
 		employeeInterview.incVersion();
+		employeeInterview.afterSave();
 		return employeeInterview;
 
 	}
@@ -451,6 +459,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		for(EmployeeInterview employeeInterview:employeeInterviewList){
 			if(employeeInterview.isChanged()){
 				employeeInterview.incVersion();
+				employeeInterview.afterSave();
 			}
 
 
@@ -557,12 +566,11 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(employeeInterview.getEmployee() != null){
  			parameters[0] = employeeInterview.getEmployee().getId();
  		}
- 
+    
  		if(employeeInterview.getInterviewType() != null){
  			parameters[1] = employeeInterview.getInterviewType().getId();
  		}
- 
- 		
+    
  		parameters[2] = employeeInterview.getRemark();
  		
  		parameters[3] = employeeInterview.nextVersion();
@@ -581,14 +589,11 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  
  		if(employeeInterview.getEmployee() != null){
  			parameters[1] = employeeInterview.getEmployee().getId();
-
  		}
  		
  		if(employeeInterview.getInterviewType() != null){
  			parameters[2] = employeeInterview.getInterviewType().getId();
-
  		}
- 		
  		
  		parameters[3] = employeeInterview.getRemark();
  		
@@ -598,8 +603,6 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected EmployeeInterview saveInternalEmployeeInterview(EmployeeInterview employeeInterview, Map<String,Object> options){
 
-		saveEmployeeInterview(employeeInterview);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeInterview, options);
  		}
@@ -608,6 +611,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	 		saveInterviewType(employeeInterview, options);
  		}
  
+   saveEmployeeInterview(employeeInterview);
 		
 		return employeeInterview;
 
@@ -619,6 +623,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 
  	protected EmployeeInterview saveEmployee(EmployeeInterview employeeInterview, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeInterview.getEmployee() == null){
  			return employeeInterview;//do nothing when it is null
@@ -628,14 +633,10 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return employeeInterview;
 
  	}
-
-
-
-
-
  
 
  	protected EmployeeInterview saveInterviewType(EmployeeInterview employeeInterview, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeInterview.getInterviewType() == null){
  			return employeeInterview;//do nothing when it is null
@@ -645,11 +646,6 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return employeeInterview;
 
  	}
-
-
-
-
-
  
 
 	
@@ -657,10 +653,10 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 
 	public EmployeeInterview present(EmployeeInterview employeeInterview,Map<String, Object> options){
-	
+
 
 		return employeeInterview;
-	
+
 	}
 		
 
@@ -712,6 +708,10 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeInterview> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeInterviewMapper());
   }
@@ -747,6 +747,15 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	
 
+  @Override
+  public List<EmployeeInterview> search(EmployeeInterviewRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeInterviewMapper mapper() {
+    return getEmployeeInterviewMapper();
+  }
 }
 
 

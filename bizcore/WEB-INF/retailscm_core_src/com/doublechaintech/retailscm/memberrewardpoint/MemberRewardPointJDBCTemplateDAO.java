@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.memberrewardpoint;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected RetailStoreMemberDAO retailStoreMemberDAO;
 	public void setRetailStoreMemberDAO(RetailStoreMemberDAO retailStoreMemberDAO){
- 	
+
  		if(retailStoreMemberDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.retailStoreMemberDAO == null){
  			throw new IllegalStateException("The retailStoreMemberDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return MemberRewardPointTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, MemberRewardPointTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, MemberRewardPointTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		return new MemberRewardPointMapper();
 	}
 
-	
-	
+
+
 	protected MemberRewardPoint extractMemberRewardPoint(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			MemberRewardPoint memberRewardPoint = loadSingleObject(accessKey, getMemberRewardPointMapper());
@@ -229,25 +231,26 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	}
 
-	
-	
+
+
 
 	protected MemberRewardPoint loadInternalMemberRewardPoint(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		MemberRewardPoint memberRewardPoint = extractMemberRewardPoint(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(memberRewardPoint, loadOptions);
  		}
  
 		
 		return memberRewardPoint;
-		
+
 	}
 
-	 
+	
 
  	protected MemberRewardPoint extractOwner(MemberRewardPoint memberRewardPoint, Map<String,Object> options) throws Exception{
+  
 
 		if(memberRewardPoint.getOwner() == null){
 			return memberRewardPoint;
@@ -260,37 +263,37 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(owner != null){
 			memberRewardPoint.setOwner(owner);
 		}
-		
- 		
+
+
  		return memberRewardPoint;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<MemberRewardPoint> findMemberRewardPointByOwner(String retailStoreMemberId,Map<String,Object> options){
- 	
+
   		SmartList<MemberRewardPoint> resultList = queryWith(MemberRewardPointTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointMapper());
 		// analyzeMemberRewardPointByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<MemberRewardPoint> findMemberRewardPointByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<MemberRewardPoint> resultList =  queryWithRange(MemberRewardPointTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointMapper(), start, count);
  		//analyzeMemberRewardPointByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeMemberRewardPointByOwner(SmartList<MemberRewardPoint> resultList, String retailStoreMemberId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countMemberRewardPointByOwner(String retailStoreMemberId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countMemberRewardPointByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(MemberRewardPointTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected MemberRewardPoint saveMemberRewardPoint(MemberRewardPoint  memberRewardPoint){
+    
+
 		
 		if(!memberRewardPoint.isChanged()){
 			return memberRewardPoint;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(memberRewardPoint);
 		String SQL=this.getSaveMemberRewardPointSQL(memberRewardPoint);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveMemberRewardPointParameters(memberRewardPoint);
@@ -326,6 +332,7 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 
 		memberRewardPoint.incVersion();
+		memberRewardPoint.afterSave();
 		return memberRewardPoint;
 
 	}
@@ -343,6 +350,7 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		for(MemberRewardPoint memberRewardPoint:memberRewardPointList){
 			if(memberRewardPoint.isChanged()){
 				memberRewardPoint.incVersion();
+				memberRewardPoint.afterSave();
 			}
 
 
@@ -446,16 +454,14 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  	protected Object[] prepareMemberRewardPointUpdateParameters(MemberRewardPoint memberRewardPoint){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = memberRewardPoint.getName();
- 		
  		
  		parameters[1] = memberRewardPoint.getPoint();
  		
  		if(memberRewardPoint.getOwner() != null){
  			parameters[2] = memberRewardPoint.getOwner().getId();
  		}
- 
+    
  		parameters[3] = memberRewardPoint.nextVersion();
  		parameters[4] = memberRewardPoint.getId();
  		parameters[5] = memberRewardPoint.getVersion();
@@ -470,15 +476,12 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
         }
 		parameters[0] =  memberRewardPoint.getId();
  
- 		
  		parameters[1] = memberRewardPoint.getName();
- 		
  		
  		parameters[2] = memberRewardPoint.getPoint();
  		
  		if(memberRewardPoint.getOwner() != null){
  			parameters[3] = memberRewardPoint.getOwner().getId();
-
  		}
  		
 
@@ -487,12 +490,11 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected MemberRewardPoint saveInternalMemberRewardPoint(MemberRewardPoint memberRewardPoint, Map<String,Object> options){
 
-		saveMemberRewardPoint(memberRewardPoint);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(memberRewardPoint, options);
  		}
  
+   saveMemberRewardPoint(memberRewardPoint);
 		
 		return memberRewardPoint;
 
@@ -504,6 +506,7 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 
  	protected MemberRewardPoint saveOwner(MemberRewardPoint memberRewardPoint, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(memberRewardPoint.getOwner() == null){
  			return memberRewardPoint;//do nothing when it is null
@@ -513,11 +516,6 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return memberRewardPoint;
 
  	}
-
-
-
-
-
  
 
 	
@@ -525,10 +523,10 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 
 	public MemberRewardPoint present(MemberRewardPoint memberRewardPoint,Map<String, Object> options){
-	
+
 
 		return memberRewardPoint;
-	
+
 	}
 		
 
@@ -580,6 +578,10 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<MemberRewardPoint> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getMemberRewardPointMapper());
   }
@@ -615,6 +617,15 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	
 
+  @Override
+  public List<MemberRewardPoint> search(MemberRewardPointRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected MemberRewardPointMapper mapper() {
+    return getMemberRewardPointMapper();
+  }
 }
 
 

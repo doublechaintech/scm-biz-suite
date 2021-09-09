@@ -57,7 +57,7 @@ const naviBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -68,7 +68,7 @@ const searchBarResponsiveStyle = {
   md: 4,
   lg: 8,
   xl: 8,
-  
+
 };
 
 const userBarResponsiveStyle = {
@@ -77,7 +77,7 @@ const userBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -103,13 +103,26 @@ const query = {
   },
 }
 
-
+/*
 const currentAppName=()=>{
 
   const targetApp = sessionObject('targetApp')
   return targetApp.title
 
 }
+*/
+
+const currentAppName=()=>{
+
+  const sysConfig=window.sysConfig
+  const targetApp = sessionObject('targetApp')
+  const {logo}=sysConfig()
+  return <span><img width="25px" src={logo} style={{marginRight:"10px"}}/>{targetApp.title}</span>
+
+}
+
+
+
 
 
 class RetailStoreMemberBizApp extends React.PureComponent {
@@ -149,47 +162,77 @@ constructor(props) {
     }
     return keys
   }
-  
+
  getNavMenuItems = (targetObject, style, customTheme) => {
-  
+
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
     const mode =style || "inline"
-    const theme = customTheme || "light" 
+    const theme = customTheme || "light"
 	const {objectId}=targetApp;
   	const userContext = null
+  	const viewGroupIconNameOf=window.viewGroupIconNameOf
     return (
 	  <Menu
         theme="dark"
         mode="inline"
-        
+
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        
-       >
-           
 
-             <Menu.Item key="dashboard">
-               <Link to={`/retailStoreMember/${this.props.retailStoreMember.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
-             </Menu.Item>
-           
-        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+       >
+
+       <Menu.Item key="workbench">
+        <Link to={`/retailStoreMember/${this.props.retailStoreMember.id}/workbench`}><Icon type="solution" style={{marginRight:"20px"}}/><span>工作台</span></Link>
+      </Menu.Item>
+
+        
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('retail_store_member',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
         )}
         )}
 
-       		
-        
+
+
            </Menu>
     )
   }
-  
+
+  getSelectedRows=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.selectedRows){
+      return null
+    }
+    if(state.selectedRows.length === 0){
+      return null
+    }
+    return state.selectedRows[0]
+
+  }
+
+  getOwnerId=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.ownerId){
+      return null
+    }
+
+    return state.ownerId
+
+  }
 
 
 
@@ -203,25 +246,26 @@ constructor(props) {
       data: state._retailStoreMember.consumerOrderList,
       metaInfo: state._retailStoreMember.consumerOrderListMetaInfo,
       count: state._retailStoreMember.consumerOrderCount,
-      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/dashboard`,
+      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/workbench`,
       currentPage: state._retailStoreMember.consumerOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.consumerOrderSearchFormParameters,
       searchParameters: {...state._retailStoreMember.searchParameters},
       expandForm: state._retailStoreMember.expandForm,
       loading: state._retailStoreMember.loading,
       partialList: state._retailStoreMember.partialList,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
-      referenceName: 'consumer', 
-      listName: 'consumerOrderList', ref:state._retailStoreMember, 
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id,
+      referenceName: 'consumer',
+      listName: 'consumerOrderList', ref:state._retailStoreMember,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderSearch)
   }
-  
+
   getConsumerOrderCreateForm = () => {
    	const {ConsumerOrderCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "consumerOrder",
       data: state._retailStoreMember.consumerOrderList,
       metaInfo: state._retailStoreMember.consumerOrderListMetaInfo,
@@ -230,18 +274,18 @@ constructor(props) {
       currentPage: state._retailStoreMember.consumerOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.consumerOrderSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'consumer', listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), referenceName: 'consumer', listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ConsumerOrderCreateForm)
   }
-  
+
   getConsumerOrderUpdateForm = () => {
     const userContext = null
   	const {ConsumerOrderUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "consumerOrder",
-      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderUpdateForm)
   }
 
@@ -255,25 +299,26 @@ constructor(props) {
       data: state._retailStoreMember.retailStoreMemberCouponList,
       metaInfo: state._retailStoreMember.retailStoreMemberCouponListMetaInfo,
       count: state._retailStoreMember.retailStoreMemberCouponCount,
-      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/dashboard`,
+      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/workbench`,
       currentPage: state._retailStoreMember.retailStoreMemberCouponCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberCouponSearchFormParameters,
       searchParameters: {...state._retailStoreMember.searchParameters},
       expandForm: state._retailStoreMember.expandForm,
       loading: state._retailStoreMember.loading,
       partialList: state._retailStoreMember.partialList,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
-      referenceName: 'owner', 
-      listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, 
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id,
+      referenceName: 'owner',
+      listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberCouponSearch)
   }
-  
+
   getRetailStoreMemberCouponCreateForm = () => {
    	const {RetailStoreMemberCouponCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "retailStoreMemberCoupon",
       data: state._retailStoreMember.retailStoreMemberCouponList,
       metaInfo: state._retailStoreMember.retailStoreMemberCouponListMetaInfo,
@@ -282,18 +327,18 @@ constructor(props) {
       currentPage: state._retailStoreMember.retailStoreMemberCouponCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberCouponSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), referenceName: 'owner', listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberCouponCreateForm)
   }
-  
+
   getRetailStoreMemberCouponUpdateForm = () => {
     const userContext = null
   	const {RetailStoreMemberCouponUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "retailStoreMemberCoupon",
-      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberCouponUpdateForm)
   }
 
@@ -307,25 +352,26 @@ constructor(props) {
       data: state._retailStoreMember.memberWishlistList,
       metaInfo: state._retailStoreMember.memberWishlistListMetaInfo,
       count: state._retailStoreMember.memberWishlistCount,
-      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/dashboard`,
+      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/workbench`,
       currentPage: state._retailStoreMember.memberWishlistCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberWishlistSearchFormParameters,
       searchParameters: {...state._retailStoreMember.searchParameters},
       expandForm: state._retailStoreMember.expandForm,
       loading: state._retailStoreMember.loading,
       partialList: state._retailStoreMember.partialList,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
-      referenceName: 'owner', 
-      listName: 'memberWishlistList', ref:state._retailStoreMember, 
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id,
+      referenceName: 'owner',
+      listName: 'memberWishlistList', ref:state._retailStoreMember,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberWishlistSearch)
   }
-  
+
   getMemberWishlistCreateForm = () => {
    	const {MemberWishlistCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "memberWishlist",
       data: state._retailStoreMember.memberWishlistList,
       metaInfo: state._retailStoreMember.memberWishlistListMetaInfo,
@@ -334,18 +380,18 @@ constructor(props) {
       currentPage: state._retailStoreMember.memberWishlistCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberWishlistSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), referenceName: 'owner', listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(MemberWishlistCreateForm)
   }
-  
+
   getMemberWishlistUpdateForm = () => {
     const userContext = null
   	const {MemberWishlistUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "memberWishlist",
-      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberWishlistUpdateForm)
   }
 
@@ -359,25 +405,26 @@ constructor(props) {
       data: state._retailStoreMember.memberRewardPointList,
       metaInfo: state._retailStoreMember.memberRewardPointListMetaInfo,
       count: state._retailStoreMember.memberRewardPointCount,
-      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/dashboard`,
+      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/workbench`,
       currentPage: state._retailStoreMember.memberRewardPointCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberRewardPointSearchFormParameters,
       searchParameters: {...state._retailStoreMember.searchParameters},
       expandForm: state._retailStoreMember.expandForm,
       loading: state._retailStoreMember.loading,
       partialList: state._retailStoreMember.partialList,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
-      referenceName: 'owner', 
-      listName: 'memberRewardPointList', ref:state._retailStoreMember, 
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id,
+      referenceName: 'owner',
+      listName: 'memberRewardPointList', ref:state._retailStoreMember,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointSearch)
   }
-  
+
   getMemberRewardPointCreateForm = () => {
    	const {MemberRewardPointCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "memberRewardPoint",
       data: state._retailStoreMember.memberRewardPointList,
       metaInfo: state._retailStoreMember.memberRewardPointListMetaInfo,
@@ -386,18 +433,18 @@ constructor(props) {
       currentPage: state._retailStoreMember.memberRewardPointCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberRewardPointSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), referenceName: 'owner', listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(MemberRewardPointCreateForm)
   }
-  
+
   getMemberRewardPointUpdateForm = () => {
     const userContext = null
   	const {MemberRewardPointUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "memberRewardPoint",
-      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointUpdateForm)
   }
 
@@ -411,25 +458,26 @@ constructor(props) {
       data: state._retailStoreMember.memberRewardPointRedemptionList,
       metaInfo: state._retailStoreMember.memberRewardPointRedemptionListMetaInfo,
       count: state._retailStoreMember.memberRewardPointRedemptionCount,
-      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/dashboard`,
+      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/workbench`,
       currentPage: state._retailStoreMember.memberRewardPointRedemptionCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberRewardPointRedemptionSearchFormParameters,
       searchParameters: {...state._retailStoreMember.searchParameters},
       expandForm: state._retailStoreMember.expandForm,
       loading: state._retailStoreMember.loading,
       partialList: state._retailStoreMember.partialList,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
-      referenceName: 'owner', 
-      listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, 
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id,
+      referenceName: 'owner',
+      listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointRedemptionSearch)
   }
-  
+
   getMemberRewardPointRedemptionCreateForm = () => {
    	const {MemberRewardPointRedemptionCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "memberRewardPointRedemption",
       data: state._retailStoreMember.memberRewardPointRedemptionList,
       metaInfo: state._retailStoreMember.memberRewardPointRedemptionListMetaInfo,
@@ -438,18 +486,18 @@ constructor(props) {
       currentPage: state._retailStoreMember.memberRewardPointRedemptionCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberRewardPointRedemptionSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), referenceName: 'owner', listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(MemberRewardPointRedemptionCreateForm)
   }
-  
+
   getMemberRewardPointRedemptionUpdateForm = () => {
     const userContext = null
   	const {MemberRewardPointRedemptionUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "memberRewardPointRedemption",
-      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointRedemptionUpdateForm)
   }
 
@@ -463,25 +511,26 @@ constructor(props) {
       data: state._retailStoreMember.retailStoreMemberAddressList,
       metaInfo: state._retailStoreMember.retailStoreMemberAddressListMetaInfo,
       count: state._retailStoreMember.retailStoreMemberAddressCount,
-      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/dashboard`,
+      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/workbench`,
       currentPage: state._retailStoreMember.retailStoreMemberAddressCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberAddressSearchFormParameters,
       searchParameters: {...state._retailStoreMember.searchParameters},
       expandForm: state._retailStoreMember.expandForm,
       loading: state._retailStoreMember.loading,
       partialList: state._retailStoreMember.partialList,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
-      referenceName: 'owner', 
-      listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, 
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id,
+      referenceName: 'owner',
+      listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberAddressSearch)
   }
-  
+
   getRetailStoreMemberAddressCreateForm = () => {
    	const {RetailStoreMemberAddressCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "retailStoreMemberAddress",
       data: state._retailStoreMember.retailStoreMemberAddressList,
       metaInfo: state._retailStoreMember.retailStoreMemberAddressListMetaInfo,
@@ -490,18 +539,18 @@ constructor(props) {
       currentPage: state._retailStoreMember.retailStoreMemberAddressCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberAddressSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), referenceName: 'owner', listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberAddressCreateForm)
   }
-  
+
   getRetailStoreMemberAddressUpdateForm = () => {
     const userContext = null
   	const {RetailStoreMemberAddressUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "retailStoreMemberAddress",
-      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberAddressUpdateForm)
   }
 
@@ -515,25 +564,26 @@ constructor(props) {
       data: state._retailStoreMember.retailStoreMemberGiftCardList,
       metaInfo: state._retailStoreMember.retailStoreMemberGiftCardListMetaInfo,
       count: state._retailStoreMember.retailStoreMemberGiftCardCount,
-      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/dashboard`,
+      returnURL: `/retailStoreMember/${state._retailStoreMember.id}/workbench`,
       currentPage: state._retailStoreMember.retailStoreMemberGiftCardCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberGiftCardSearchFormParameters,
       searchParameters: {...state._retailStoreMember.searchParameters},
       expandForm: state._retailStoreMember.expandForm,
       loading: state._retailStoreMember.loading,
       partialList: state._retailStoreMember.partialList,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
-      referenceName: 'owner', 
-      listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, 
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id,
+      referenceName: 'owner',
+      listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberGiftCardSearch)
   }
-  
+
   getRetailStoreMemberGiftCardCreateForm = () => {
    	const {RetailStoreMemberGiftCardCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "retailStoreMemberGiftCard",
       data: state._retailStoreMember.retailStoreMemberGiftCardList,
       metaInfo: state._retailStoreMember.retailStoreMemberGiftCardListMetaInfo,
@@ -542,18 +592,18 @@ constructor(props) {
       currentPage: state._retailStoreMember.retailStoreMemberGiftCardCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberGiftCardSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), referenceName: 'owner', listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberGiftCardCreateForm)
   }
-  
+
   getRetailStoreMemberGiftCardUpdateForm = () => {
     const userContext = null
   	const {RetailStoreMemberGiftCardUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "retailStoreMemberGiftCard",
-      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreMember.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id || this.getOwnerId(), listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberGiftCardUpdateForm)
   }
 
@@ -568,8 +618,8 @@ constructor(props) {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'nolist', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ChangeRequestStepForm)
   }
-  
- 
+
+
 
   getPageTitle = () => {
     // const { location } = this.props
@@ -577,63 +627,66 @@ constructor(props) {
     const title = '双链小超全流程供应链系统'
     return title
   }
- 
+
   buildRouters = () =>{
-  	const {RetailStoreMemberDashboard} = GlobalComponents
+    const {RetailStoreMemberWorkbench} = GlobalComponents
+
+    const {RetailStoreMemberDashboard} = GlobalComponents
   	const {RetailStoreMemberPermission} = GlobalComponents
   	const {RetailStoreMemberProfile} = GlobalComponents
-  	
-  	
-  	const routers=[
-  	{path:"/retailStoreMember/:id/dashboard", component: RetailStoreMemberDashboard},
+
+
+    const routers=[
+    {path:"/retailStoreMember/:id/workbench", component: RetailStoreMemberWorkbench},
+    {path:"/retailStoreMember/:id/dashboard", component: RetailStoreMemberDashboard},
   	{path:"/retailStoreMember/:id/profile", component: RetailStoreMemberProfile},
   	{path:"/retailStoreMember/:id/permission", component: RetailStoreMemberPermission},
-  	
-  	
-  	
+
+
+
   	{path:"/retailStoreMember/:id/list/consumerOrderList", component: this.getConsumerOrderSearch()},
   	{path:"/retailStoreMember/:id/list/consumerOrderCreateForm", component: this.getConsumerOrderCreateForm()},
   	{path:"/retailStoreMember/:id/list/consumerOrderUpdateForm", component: this.getConsumerOrderUpdateForm()},
-   	
+ 
   	{path:"/retailStoreMember/:id/list/retailStoreMemberCouponList", component: this.getRetailStoreMemberCouponSearch()},
   	{path:"/retailStoreMember/:id/list/retailStoreMemberCouponCreateForm", component: this.getRetailStoreMemberCouponCreateForm()},
   	{path:"/retailStoreMember/:id/list/retailStoreMemberCouponUpdateForm", component: this.getRetailStoreMemberCouponUpdateForm()},
-   	
+ 
   	{path:"/retailStoreMember/:id/list/memberWishlistList", component: this.getMemberWishlistSearch()},
   	{path:"/retailStoreMember/:id/list/memberWishlistCreateForm", component: this.getMemberWishlistCreateForm()},
   	{path:"/retailStoreMember/:id/list/memberWishlistUpdateForm", component: this.getMemberWishlistUpdateForm()},
-   	
+ 
   	{path:"/retailStoreMember/:id/list/memberRewardPointList", component: this.getMemberRewardPointSearch()},
   	{path:"/retailStoreMember/:id/list/memberRewardPointCreateForm", component: this.getMemberRewardPointCreateForm()},
   	{path:"/retailStoreMember/:id/list/memberRewardPointUpdateForm", component: this.getMemberRewardPointUpdateForm()},
-   	
+ 
   	{path:"/retailStoreMember/:id/list/memberRewardPointRedemptionList", component: this.getMemberRewardPointRedemptionSearch()},
   	{path:"/retailStoreMember/:id/list/memberRewardPointRedemptionCreateForm", component: this.getMemberRewardPointRedemptionCreateForm()},
   	{path:"/retailStoreMember/:id/list/memberRewardPointRedemptionUpdateForm", component: this.getMemberRewardPointRedemptionUpdateForm()},
-   	
+ 
   	{path:"/retailStoreMember/:id/list/retailStoreMemberAddressList", component: this.getRetailStoreMemberAddressSearch()},
   	{path:"/retailStoreMember/:id/list/retailStoreMemberAddressCreateForm", component: this.getRetailStoreMemberAddressCreateForm()},
   	{path:"/retailStoreMember/:id/list/retailStoreMemberAddressUpdateForm", component: this.getRetailStoreMemberAddressUpdateForm()},
-   	
+ 
   	{path:"/retailStoreMember/:id/list/retailStoreMemberGiftCardList", component: this.getRetailStoreMemberGiftCardSearch()},
   	{path:"/retailStoreMember/:id/list/retailStoreMemberGiftCardCreateForm", component: this.getRetailStoreMemberGiftCardCreateForm()},
   	{path:"/retailStoreMember/:id/list/retailStoreMemberGiftCardUpdateForm", component: this.getRetailStoreMemberGiftCardUpdateForm()},
-     	
- 	 
+ 
+
   	]
-  	
+
   	const {extraRoutesFunc} = this.props;
   	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
   	const finalRoutes = routers.concat(extraRoutes)
-    
+
   	return (<Switch>
-             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
+             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}
   	  	</Switch>)
-  	
-  
+
+
   }
- 
- 
+
+
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
     this.setState({
@@ -647,7 +700,7 @@ constructor(props) {
        payload: !collapsed,
      })
    }
-   
+
    toggleSwitchText=()=>{
     const { collapsed } = this.props
     if(collapsed){
@@ -656,17 +709,17 @@ constructor(props) {
     return "关闭菜单"
 
    }
-   
+
     logout = () => {
-   
+
     console.log("log out called")
     this.props.dispatch({ type: 'launcher/signOut' })
   }
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     
-  
+
+
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
@@ -677,10 +730,10 @@ constructor(props) {
      	if(value.length < 10){
      		return value
      	}
-     
+
      	return value.substring(0,10)+"..."
-     	
-     	
+
+
      }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
@@ -697,18 +750,18 @@ constructor(props) {
      }
      const breadcrumbMenu=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <Menu mode="vertical"> 
+      return ( <Menu mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
       </Menu>)
-  
+
 
      }
      const breadcrumbBar=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <div mode="vertical"> 
+      return ( <div mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
       </div>)
-  
+
 
      }
 
@@ -717,21 +770,21 @@ constructor(props) {
       const { dispatch} = this.props
       const {name,link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
-	
-     }  
+
+     }
 
 	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
       const { dispatch} = this.props
       const {link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
-	
+
      }
 
      const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
 
       return (
-     <Tag 
-      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+     <Tag
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"}
       	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
         <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
         	{renderBreadcrumbText(breadcrumbMenuItem.name)}
@@ -739,9 +792,9 @@ constructor(props) {
       </Tag>)
 
      }
-     
-     
-     
+
+
+
      const { Search } = Input;
      const showSearchResult=()=>{
 
@@ -760,51 +813,51 @@ constructor(props) {
     }
 
     const {searchLocalData}=GlobalComponents.RetailStoreMemberBase
-	
+
     const renderMenuSwitch=()=>{
       const  text = collapsed?"开启左侧菜单":"关闭左侧菜单"
       const icon = collapsed?"pic-left":"pic-center"
-     
+
       return (
 
         <Tooltip placement="bottom" title={text}>
-       
-      
+
+
       <a  className={styles.menuLink} onClick={()=>this.toggle()} style={{marginLeft:"20px",minHeight:"20px"}}>
-        <Icon type={icon} style={{marginRight:"10px"}}/> 
+        <Icon type={icon} style={{marginRight:"10px"}}/>
       </a>  </Tooltip>)
 
      }
-     
-     
+
+
        const layout = (
      <Layout>
  		<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          
+
         <Row type="flex" justify="start" align="bottom">
-        
+
         <Col {...naviBarResponsiveStyle} >
           <a className={styles.menuLink}  style={{fontSize:"20px"}}>{currentAppName()}</a>
- 
+
         </Col>
-        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
-         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  >
+         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处"
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
           </Col>
-          <Col  {...userBarResponsiveStyle}  > 
+          <Col  {...userBarResponsiveStyle}  >
           <Row>
           <Col  span={10}  > </Col>
           <Col  span={2}  >  {renderMenuSwitch()}</Col>
-          <Col  span={6}  > 
+          <Col  span={6}  >
 	          <Dropdown overlay={<SwitchAppMenu {...this.props} />} style={{marginRight:"100px"}} className={styles.right}>
                 <a  className={styles.menuLink} >
-                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用 
+                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用
                 </a>
               </Dropdown>
-          </Col>  
+          </Col>
 
-          <Col  span={6}  >  
+          <Col  span={6}  >
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
                 <a  className={styles.menuLink}>
                 <Icon type="user" style={{marginRight:"5px"}}/>账户
@@ -813,22 +866,22 @@ constructor(props) {
             </Col>
 
           </Row>
-            </Col>  
+            </Col>
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
-        
-       
+
+
        <Layout>
-      
+
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.retailStoreMember,this.state.searchKeyword)}</div>
 
       )}
        </Layout>
-        
-         
+
+
          <Layout>
        <Sider
           trigger={null}
@@ -839,16 +892,16 @@ constructor(props) {
           collapsedWidth={50}
           className={styles.sider}
         >
-         
+
          {this.getNavMenuItems(this.props.retailStoreMember,"inline","dark")}
-       
+
         </Sider>
-        
+
          <Layout>
          <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
-        
+
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-           
+
            {this.buildRouters()}
            </Content>
           </Layout>

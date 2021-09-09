@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.goodsallocation;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	protected GoodsShelfDAO goodsShelfDAO;
 	public void setGoodsShelfDAO(GoodsShelfDAO goodsShelfDAO){
- 	
+
  		if(goodsShelfDAO == null){
  			throw new IllegalStateException("Do not try to set goodsShelfDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.goodsShelfDAO == null){
  			throw new IllegalStateException("The goodsShelfDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsShelfDAO;
- 	}	
+ 	}
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		newGoodsAllocation.setVersion(0);
 		
 		
- 		
+
  		if(isSaveGoodsListEnabled(options)){
  			for(Goods item: newGoodsAllocation.getGoodsList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return GoodsAllocationTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractGoodsShelfEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, GoodsAllocationTokens.GOODSSHELF);
  	}
 
  	protected boolean isSaveGoodsShelfEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, GoodsAllocationTokens.GOODSSHELF);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
  		return checkOptions(options,GoodsAllocationTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){
  		return GoodsAllocationTokens.of(options).analyzeGoodsListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsAllocationTokens.GOODS_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		return new GoodsAllocationMapper();
 	}
 
-	
-	
+
+
 	protected GoodsAllocation extractGoodsAllocation(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			GoodsAllocation goodsAllocation = loadSingleObject(accessKey, getGoodsAllocationMapper());
@@ -268,13 +270,13 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	}
 
-	
-	
+
+
 
 	protected GoodsAllocation loadInternalGoodsAllocation(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		GoodsAllocation goodsAllocation = extractGoodsAllocation(accessKey, loadOptions);
- 	
+
  		if(isExtractGoodsShelfEnabled(loadOptions)){
 	 		extractGoodsShelf(goodsAllocation, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(goodsAllocation, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
 	 		analyzeGoodsList(goodsAllocation, loadOptions);
@@ -291,12 +293,13 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
 		
 		return goodsAllocation;
-		
+
 	}
 
-	 
+	
 
  	protected GoodsAllocation extractGoodsShelf(GoodsAllocation goodsAllocation, Map<String,Object> options) throws Exception{
+  
 
 		if(goodsAllocation.getGoodsShelf() == null){
 			return goodsAllocation;
@@ -309,21 +312,21 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(goodsShelf != null){
 			goodsAllocation.setGoodsShelf(goodsShelf);
 		}
-		
- 		
+
+
  		return goodsAllocation;
  	}
- 		
+
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected GoodsAllocation extractGoodsList(GoodsAllocation goodsAllocation, Map<String,Object> options){
-		
-		
+    
+
 		if(goodsAllocation == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return goodsAllocation;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = getGoodsDAO().findGoodsByGoodsAllocation(goodsAllocation.getId(),options);
 		if(goodsList != null){
 			enhanceGoodsList(goodsList,options);
 			goodsAllocation.setGoodsList(goodsList);
 		}
-		
+
 		return goodsAllocation;
-	
-	}	
-	
+  
+	}
+
 	protected GoodsAllocation analyzeGoodsList(GoodsAllocation goodsAllocation, Map<String,Object> options){
-		
-		
+     
 		if(goodsAllocation == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return goodsAllocation;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 		if(goodsList != null){
 			getGoodsDAO().analyzeGoodsByGoodsAllocation(goodsList, goodsAllocation.getId(), options);
-			
+
 		}
-		
+
 		return goodsAllocation;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<GoodsAllocation> findGoodsAllocationByGoodsShelf(String goodsShelfId,Map<String,Object> options){
- 	
+
   		SmartList<GoodsAllocation> resultList = queryWith(GoodsAllocationTable.COLUMN_GOODS_SHELF, goodsShelfId, options, getGoodsAllocationMapper());
 		// analyzeGoodsAllocationByGoodsShelf(resultList, goodsShelfId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<GoodsAllocation> findGoodsAllocationByGoodsShelf(String goodsShelfId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<GoodsAllocation> resultList =  queryWithRange(GoodsAllocationTable.COLUMN_GOODS_SHELF, goodsShelfId, options, getGoodsAllocationMapper(), start, count);
  		//analyzeGoodsAllocationByGoodsShelf(resultList, goodsShelfId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeGoodsAllocationByGoodsShelf(SmartList<GoodsAllocation> resultList, String goodsShelfId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countGoodsAllocationByGoodsShelf(String goodsShelfId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	public Map<String, Integer> countGoodsAllocationByGoodsShelfIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(GoodsAllocationTable.COLUMN_GOODS_SHELF, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected GoodsAllocation saveGoodsAllocation(GoodsAllocation  goodsAllocation){
+    
+
 		
 		if(!goodsAllocation.isChanged()){
 			return goodsAllocation;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(goodsAllocation);
 		String SQL=this.getSaveGoodsAllocationSQL(goodsAllocation);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsAllocationParameters(goodsAllocation);
@@ -425,6 +430,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 
 		goodsAllocation.incVersion();
+		goodsAllocation.afterSave();
 		return goodsAllocation;
 
 	}
@@ -442,6 +448,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		for(GoodsAllocation goodsAllocation:goodsAllocationList){
 			if(goodsAllocation.isChanged()){
 				goodsAllocation.incVersion();
+				goodsAllocation.afterSave();
 			}
 
 
@@ -545,19 +552,16 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  	protected Object[] prepareGoodsAllocationUpdateParameters(GoodsAllocation goodsAllocation){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = goodsAllocation.getLocation();
  		
- 		
  		parameters[1] = goodsAllocation.getLatitude();
- 		
  		
  		parameters[2] = goodsAllocation.getLongitude();
  		
  		if(goodsAllocation.getGoodsShelf() != null){
  			parameters[3] = goodsAllocation.getGoodsShelf().getId();
  		}
- 
+    
  		parameters[4] = goodsAllocation.nextVersion();
  		parameters[5] = goodsAllocation.getId();
  		parameters[6] = goodsAllocation.getVersion();
@@ -572,18 +576,14 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
         }
 		parameters[0] =  goodsAllocation.getId();
  
- 		
  		parameters[1] = goodsAllocation.getLocation();
  		
- 		
  		parameters[2] = goodsAllocation.getLatitude();
- 		
  		
  		parameters[3] = goodsAllocation.getLongitude();
  		
  		if(goodsAllocation.getGoodsShelf() != null){
  			parameters[4] = goodsAllocation.getGoodsShelf().getId();
-
  		}
  		
 
@@ -592,12 +592,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	protected GoodsAllocation saveInternalGoodsAllocation(GoodsAllocation goodsAllocation, Map<String,Object> options){
 
-		saveGoodsAllocation(goodsAllocation);
-
  		if(isSaveGoodsShelfEnabled(options)){
 	 		saveGoodsShelf(goodsAllocation, options);
  		}
  
+   saveGoodsAllocation(goodsAllocation);
 		
 		if(isSaveGoodsListEnabled(options)){
 	 		saveGoodsList(goodsAllocation, options);
@@ -616,6 +615,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	
 
  	protected GoodsAllocation saveGoodsShelf(GoodsAllocation goodsAllocation, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(goodsAllocation.getGoodsShelf() == null){
  			return goodsAllocation;//do nothing when it is null
@@ -625,11 +625,6 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		return goodsAllocation;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1016,7 +1011,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 		
 	protected GoodsAllocation saveGoodsList(GoodsAllocation goodsAllocation, Map<String,Object> options){
-
+    
 
 
 
@@ -1083,19 +1078,19 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		
 
 	public GoodsAllocation present(GoodsAllocation goodsAllocation,Map<String, Object> options){
-	
+
 		presentGoodsList(goodsAllocation,options);
 
 		return goodsAllocation;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected GoodsAllocation presentGoodsList(
 			GoodsAllocation goodsAllocation,
 			Map<String, Object> options) {
-
-		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();		
+    
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
 				SmartList<Goods> newList= presentSubList(goodsAllocation.getId(),
 				goodsList,
 				options,
@@ -1103,12 +1098,12 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				getGoodsDAO()::findGoodsByGoodsAllocation
 				);
 
-		
+
 		goodsAllocation.setGoodsList(newList);
-		
+
 
 		return goodsAllocation;
-	}			
+	}
 		
 
 	
@@ -1132,6 +1127,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的goodsAllocation的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<GoodsAllocation> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1188,6 +1184,10 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<GoodsAllocation> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getGoodsAllocationMapper());
   }
@@ -1223,6 +1223,15 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	
 
+  @Override
+  public List<GoodsAllocation> search(GoodsAllocationRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected GoodsAllocationMapper mapper() {
+    return getGoodsAllocationMapper();
+  }
 }
 
 

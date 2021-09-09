@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.smartpallet;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface SmartPalletManager extends BaseManager{
 
 		
 
+  List<SmartPallet> searchSmartPalletList(RetailscmUserContext ctx, SmartPalletRequest pRequest);
+  SmartPallet searchSmartPallet(RetailscmUserContext ctx, SmartPalletRequest pRequest);
 	public SmartPallet createSmartPallet(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String warehouseId) throws Exception;
 	public SmartPallet updateSmartPallet(RetailscmUserContext userContext,String smartPalletId, int smartPalletVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SmartPallet loadSmartPallet(RetailscmUserContext userContext, String smartPalletId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface SmartPalletManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String smartPalletId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, SmartPallet newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, SmartPallet updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface SmartPalletManager extends BaseManager{
 	public Object listByWarehouse(RetailscmUserContext userContext,String warehouseId) throws Exception;
 	public Object listPageByWarehouse(RetailscmUserContext userContext,String warehouseId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

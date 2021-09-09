@@ -44,13 +44,15 @@ public interface WarehouseAssetDAO extends BaseDAO{
 	public void delete(String warehouseAssetId, int version) throws Exception;
 	public WarehouseAsset disconnectFromAll(String warehouseAssetId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<WarehouseAsset> queryList(String sql, Object ... parmeters);
+	public SmartList<WarehouseAsset> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<WarehouseAsset> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateWarehouseAsset executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<WarehouseAsset> findWarehouseAssetByOwner(String warehouseId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface WarehouseAssetDAO extends BaseDAO{
 
 
  
+
+	List<WarehouseAsset> search(WarehouseAssetRequest pRequest);
 }
 
 

@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.stockcountissuetrack;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCount;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCount;
 @JsonSerialize(using = StockCountIssueTrackSerializer.class)
 public class StockCountIssueTrack extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String TITLE_PROPERTY                 = "title"             ;
 	public static final String COUNT_TIME_PROPERTY            = "countTime"         ;
@@ -45,32 +42,87 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TITLE_PROPERTY, "title", "头衔")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COUNT_TIME_PROPERTY, "count_time", "计数时间")
+        .withType("date", Date.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SUMMARY_PROPERTY, "summary", "概览")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(STOCK_COUNT_PROPERTY, "goods_shelf_stock_count", "盘点")
+        .withType("goods_shelf_stock_count", GoodsShelfStockCount.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,TITLE_PROPERTY ,COUNT_TIME_PROPERTY ,SUMMARY_PROPERTY ,STOCK_COUNT_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(STOCK_COUNT_PROPERTY, GoodsShelfStockCount.class);
+
+    return parents;
+  }
+
+  public StockCountIssueTrack want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public StockCountIssueTrack wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getTitle();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mTitle              ;
-	protected		Date                	mCountTime          ;
-	protected		String              	mSummary            ;
-	protected		GoodsShelfStockCount	mStockCount         ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		String              	title               ;
+	protected		Date                	countTime           ;
+	protected		String              	summary             ;
+	protected		GoodsShelfStockCount	stockCount          ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	StockCountIssueTrack(){
 		// lazy load for all the properties
 	}
@@ -78,20 +130,39 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		StockCountIssueTrack stockCountIssueTrack = new StockCountIssueTrack();
 		stockCountIssueTrack.setId(id);
 		stockCountIssueTrack.setVersion(Integer.MAX_VALUE);
+		stockCountIssueTrack.setChecked(true);
 		return stockCountIssueTrack;
 	}
 	public 	static StockCountIssueTrack refById(String id){
 		return withId(id);
 	}
-	
+
+  public StockCountIssueTrack limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public StockCountIssueTrack limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static StockCountIssueTrack searchExample(){
+    StockCountIssueTrack stockCountIssueTrack = new StockCountIssueTrack();
+    		stockCountIssueTrack.setVersion(UNSET_INT);
+
+    return stockCountIssueTrack;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setStockCount( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -162,7 +233,7 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(TITLE_PROPERTY.equals(property)){
 			return getTitle();
 		}
@@ -179,138 +250,217 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public StockCountIssueTrack updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public StockCountIssueTrack updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public StockCountIssueTrack orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public StockCountIssueTrack ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public StockCountIssueTrack addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setTitle(String title){
-		this.mTitle = trimString(title);;
-	}
+	public void setTitle(String title){String oldTitle = this.title;String newTitle = trimString(title);this.title = newTitle;}
+	public String title(){
+doLoad();
+return getTitle();
+}
 	public String getTitle(){
-		return this.mTitle;
+		return this.title;
 	}
-	public StockCountIssueTrack updateTitle(String title){
-		this.mTitle = trimString(title);;
-		this.changed = true;
-		return this;
-	}
+	public StockCountIssueTrack updateTitle(String title){String oldTitle = this.title;String newTitle = trimString(title);if(!shouldReplaceBy(newTitle, oldTitle)){return this;}this.title = newTitle;addPropertyChange(TITLE_PROPERTY, oldTitle, newTitle);this.changed = true;setChecked(false);return this;}
+	public StockCountIssueTrack orderByTitle(boolean asc){
+doAddOrderBy(TITLE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createTitleCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(TITLE_PROPERTY, operator, parameters);
+}
+	public StockCountIssueTrack ignoreTitleCriteria(){super.ignoreSearchProperty(TITLE_PROPERTY);
+return this;
+}
+	public StockCountIssueTrack addTitleCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createTitleCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeTitle(String title){
 		if(title != null) { setTitle(title);}
 	}
+
 	
-	
-	public void setCountTime(Date countTime){
-		this.mCountTime = countTime;;
-	}
+	public void setCountTime(Date countTime){Date oldCountTime = this.countTime;Date newCountTime = countTime;this.countTime = newCountTime;}
+	public Date countTime(){
+doLoad();
+return getCountTime();
+}
 	public Date getCountTime(){
-		return this.mCountTime;
+		return this.countTime;
 	}
-	public StockCountIssueTrack updateCountTime(Date countTime){
-		this.mCountTime = countTime;;
-		this.changed = true;
-		return this;
-	}
+	public StockCountIssueTrack updateCountTime(Date countTime){Date oldCountTime = this.countTime;Date newCountTime = countTime;if(!shouldReplaceBy(newCountTime, oldCountTime)){return this;}this.countTime = newCountTime;addPropertyChange(COUNT_TIME_PROPERTY, oldCountTime, newCountTime);this.changed = true;setChecked(false);return this;}
+	public StockCountIssueTrack orderByCountTime(boolean asc){
+doAddOrderBy(COUNT_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCountTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COUNT_TIME_PROPERTY, operator, parameters);
+}
+	public StockCountIssueTrack ignoreCountTimeCriteria(){super.ignoreSearchProperty(COUNT_TIME_PROPERTY);
+return this;
+}
+	public StockCountIssueTrack addCountTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCountTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCountTime(Date countTime){
 		setCountTime(countTime);
 	}
+
 	
-	
-	public void setSummary(String summary){
-		this.mSummary = trimString(summary);;
-	}
+	public void setSummary(String summary){String oldSummary = this.summary;String newSummary = trimString(summary);this.summary = newSummary;}
+	public String summary(){
+doLoad();
+return getSummary();
+}
 	public String getSummary(){
-		return this.mSummary;
+		return this.summary;
 	}
-	public StockCountIssueTrack updateSummary(String summary){
-		this.mSummary = trimString(summary);;
-		this.changed = true;
-		return this;
-	}
+	public StockCountIssueTrack updateSummary(String summary){String oldSummary = this.summary;String newSummary = trimString(summary);if(!shouldReplaceBy(newSummary, oldSummary)){return this;}this.summary = newSummary;addPropertyChange(SUMMARY_PROPERTY, oldSummary, newSummary);this.changed = true;setChecked(false);return this;}
+	public StockCountIssueTrack orderBySummary(boolean asc){
+doAddOrderBy(SUMMARY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSummaryCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SUMMARY_PROPERTY, operator, parameters);
+}
+	public StockCountIssueTrack ignoreSummaryCriteria(){super.ignoreSearchProperty(SUMMARY_PROPERTY);
+return this;
+}
+	public StockCountIssueTrack addSummaryCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSummaryCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeSummary(String summary){
 		if(summary != null) { setSummary(summary);}
 	}
+
 	
-	
-	public void setStockCount(GoodsShelfStockCount stockCount){
-		this.mStockCount = stockCount;;
-	}
+	public void setStockCount(GoodsShelfStockCount stockCount){GoodsShelfStockCount oldStockCount = this.stockCount;GoodsShelfStockCount newStockCount = stockCount;this.stockCount = newStockCount;}
+	public GoodsShelfStockCount stockCount(){
+doLoad();
+return getStockCount();
+}
 	public GoodsShelfStockCount getStockCount(){
-		return this.mStockCount;
+		return this.stockCount;
 	}
-	public StockCountIssueTrack updateStockCount(GoodsShelfStockCount stockCount){
-		this.mStockCount = stockCount;;
-		this.changed = true;
-		return this;
-	}
+	public StockCountIssueTrack updateStockCount(GoodsShelfStockCount stockCount){GoodsShelfStockCount oldStockCount = this.stockCount;GoodsShelfStockCount newStockCount = stockCount;if(!shouldReplaceBy(newStockCount, oldStockCount)){return this;}this.stockCount = newStockCount;addPropertyChange(STOCK_COUNT_PROPERTY, oldStockCount, newStockCount);this.changed = true;setChecked(false);return this;}
+	public StockCountIssueTrack orderByStockCount(boolean asc){
+doAddOrderBy(STOCK_COUNT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createStockCountCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(STOCK_COUNT_PROPERTY, operator, parameters);
+}
+	public StockCountIssueTrack ignoreStockCountCriteria(){super.ignoreSearchProperty(STOCK_COUNT_PROPERTY);
+return this;
+}
+	public StockCountIssueTrack addStockCountCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createStockCountCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeStockCount(GoodsShelfStockCount stockCount){
 		if(stockCount != null) { setStockCount(stockCount);}
 	}
-	
+
 	
 	public void clearStockCount(){
 		setStockCount ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public StockCountIssueTrack updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public StockCountIssueTrack updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public StockCountIssueTrack orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public StockCountIssueTrack ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public StockCountIssueTrack addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getStockCount(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -326,16 +476,16 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof StockCountIssueTrack){
-		
-		
+
+
 			StockCountIssueTrack dest =(StockCountIssueTrack)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setTitle(getTitle());
 			dest.setCountTime(getCountTime());
@@ -348,13 +498,13 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof StockCountIssueTrack){
-		
-			
+
+
 			StockCountIssueTrack dest =(StockCountIssueTrack)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeTitle(getTitle());
 			dest.mergeCountTime(getCountTime());
@@ -366,15 +516,15 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof StockCountIssueTrack){
-		
-			
+
+
 			StockCountIssueTrack dest =(StockCountIssueTrack)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeTitle(getTitle());
 			dest.mergeCountTime(getCountTime());
@@ -387,6 +537,46 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getTitle(), getCountTime(), getSummary(), getStockCount(), getVersion()};
 	}
+
+
+	public static StockCountIssueTrack createWith(RetailscmUserContext userContext, ThrowingFunction<StockCountIssueTrack,StockCountIssueTrack,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<StockCountIssueTrack> customCreator = mapper.findCustomCreator(StockCountIssueTrack.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    StockCountIssueTrack result = new StockCountIssueTrack();
+    result.setTitle(mapper.tryToGet(StockCountIssueTrack.class, TITLE_PROPERTY, String.class,
+        0, false, result.getTitle(), params));
+    result.setCountTime(mapper.tryToGet(StockCountIssueTrack.class, COUNT_TIME_PROPERTY, Date.class,
+        0, true, result.getCountTime(), params));
+    result.setSummary(mapper.tryToGet(StockCountIssueTrack.class, SUMMARY_PROPERTY, String.class,
+        1, false, result.getSummary(), params));
+    result.setStockCount(mapper.tryToGet(StockCountIssueTrack.class, STOCK_COUNT_PROPERTY, GoodsShelfStockCount.class,
+        0, true, result.getStockCount(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixStockCountIssueTrack(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      StockCountIssueTrackTokens tokens = mapper.findParamByClass(params, StockCountIssueTrackTokens.class);
+      if (tokens == null) {
+        tokens = StockCountIssueTrackTokens.start();
+      }
+      result = userContext.getManagerGroup().getStockCountIssueTrackManager().internalSaveStockCountIssueTrack(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -403,7 +593,7 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

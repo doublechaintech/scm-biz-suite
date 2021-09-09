@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='company'} 
-	data={{skillTypeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'company')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'company')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class SkillTypeSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class SkillTypeSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {SkillTypeTable} = GlobalComponents;
     const {SkillTypeSearchForm} = GlobalComponents;
     const {SkillTypeModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class SkillTypeSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,SkillTypeModalTable,"skillTypeIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

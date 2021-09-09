@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeperformance;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeePerformanceTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeePerformanceTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeePerformanceTokens.EMPLOYEE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		return new EmployeePerformanceMapper();
 	}
 
-	
-	
+
+
 	protected EmployeePerformance extractEmployeePerformance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeePerformance employeePerformance = loadSingleObject(accessKey, getEmployeePerformanceMapper());
@@ -229,25 +231,26 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	}
 
-	
-	
+
+
 
 	protected EmployeePerformance loadInternalEmployeePerformance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeePerformance employeePerformance = extractEmployeePerformance(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeePerformance, loadOptions);
  		}
  
 		
 		return employeePerformance;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeePerformance extractEmployee(EmployeePerformance employeePerformance, Map<String,Object> options) throws Exception{
+  
 
 		if(employeePerformance.getEmployee() == null){
 			return employeePerformance;
@@ -260,37 +263,37 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		if(employee != null){
 			employeePerformance.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeePerformance;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeePerformance> resultList = queryWith(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeePerformanceMapper());
 		// analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeePerformance> resultList =  queryWithRange(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeePerformanceMapper(), start, count);
  		//analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeePerformanceByEmployee(SmartList<EmployeePerformance> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeePerformanceByEmployee(String employeeId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	public Map<String, Integer> countEmployeePerformanceByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeePerformanceTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeePerformance saveEmployeePerformance(EmployeePerformance  employeePerformance){
+    
+
 		
 		if(!employeePerformance.isChanged()){
 			return employeePerformance;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeePerformance);
 		String SQL=this.getSaveEmployeePerformanceSQL(employeePerformance);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeePerformanceParameters(employeePerformance);
@@ -326,6 +332,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		}
 
 		employeePerformance.incVersion();
+		employeePerformance.afterSave();
 		return employeePerformance;
 
 	}
@@ -343,6 +350,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		for(EmployeePerformance employeePerformance:employeePerformanceList){
 			if(employeePerformance.isChanged()){
 				employeePerformance.incVersion();
+				employeePerformance.afterSave();
 			}
 
 
@@ -449,8 +457,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		if(employeePerformance.getEmployee() != null){
  			parameters[0] = employeePerformance.getEmployee().getId();
  		}
- 
- 		
+    
  		parameters[1] = employeePerformance.getPerformanceComment();
  		
  		parameters[2] = employeePerformance.nextVersion();
@@ -469,9 +476,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  
  		if(employeePerformance.getEmployee() != null){
  			parameters[1] = employeePerformance.getEmployee().getId();
-
  		}
- 		
  		
  		parameters[2] = employeePerformance.getPerformanceComment();
  		
@@ -481,12 +486,11 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	protected EmployeePerformance saveInternalEmployeePerformance(EmployeePerformance employeePerformance, Map<String,Object> options){
 
-		saveEmployeePerformance(employeePerformance);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeePerformance, options);
  		}
  
+   saveEmployeePerformance(employeePerformance);
 		
 		return employeePerformance;
 
@@ -498,6 +502,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	
 
  	protected EmployeePerformance saveEmployee(EmployeePerformance employeePerformance, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeePerformance.getEmployee() == null){
  			return employeePerformance;//do nothing when it is null
@@ -507,11 +512,6 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
  		return employeePerformance;
 
  	}
-
-
-
-
-
  
 
 	
@@ -519,10 +519,10 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 		
 
 	public EmployeePerformance present(EmployeePerformance employeePerformance,Map<String, Object> options){
-	
+
 
 		return employeePerformance;
-	
+
 	}
 		
 
@@ -574,6 +574,10 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeePerformance> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeePerformanceMapper());
   }
@@ -609,6 +613,15 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
 
 	
 
+  @Override
+  public List<EmployeePerformance> search(EmployeePerformanceRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeePerformanceMapper mapper() {
+    return getEmployeePerformanceMapper();
+  }
 }
 
 

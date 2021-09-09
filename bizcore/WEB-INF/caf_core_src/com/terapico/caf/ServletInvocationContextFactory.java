@@ -44,7 +44,7 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 		this.start = start;
 	}
 
-	public BeanFactory getBeanFactory() {
+	public synchronized BeanFactory getBeanFactory() {
 
 		if (beanFactory == null) {
 			beanFactory = new SpringBeanFactory(mApplicationContext);

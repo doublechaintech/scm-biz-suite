@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStoreMemberGiftCardConsumeRecord.updateform.less'
 import RetailStoreMemberGiftCardConsumeRecordBase from './RetailStoreMemberGiftCardConsumeRecord.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -103,13 +105,13 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const retailStoreMemberGiftCardConsumeRecordId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, retailStoreMemberGiftCardConsumeRecordId, ...imagesValues }
 
-        
+        const parameters = { ...values, retailStoreMemberGiftCardConsumeRecordId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -124,7 +126,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -134,12 +136,12 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
 
         const { owner } = this.props
         const retailStoreMemberGiftCardConsumeRecordId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, retailStoreMemberGiftCardConsumeRecordId, ...imagesValues }
+
+        const parameters = { ...values, retailStoreMemberGiftCardConsumeRecordId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -161,11 +163,11 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextRetailStoreMemberGiftCardConsumeRecordUpdateRow`,
@@ -179,7 +181,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -187,7 +189,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'retailStoreMemberGiftCardConsumeRecord',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -230,7 +232,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -244,12 +246,12 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}零售门店会员卡消费记录: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -259,7 +261,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -267,8 +269,8 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -279,8 +281,8 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.occureTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.occureTime}/>
-                    
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.occureTime}/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -291,8 +293,8 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.number,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.number} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.number} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -303,17 +305,17 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.amount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.amount} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

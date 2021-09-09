@@ -1,40 +1,27 @@
 
 package com.doublechaintech.retailscm.employeeattendance;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.employee.CandidateEmployee;import com.doublechaintech.retailscm.employee.Employee;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.employee.Employee;
-
-import com.doublechaintech.retailscm.employee.CandidateEmployee;
-
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager implements EmployeeAttendanceManager, BusinessHandler{
@@ -60,6 +47,7 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws EmployeeAttendanceManagerException{
 
 		Message message = new Message();
@@ -70,133 +58,187 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 
 
 
- 	protected EmployeeAttendance saveEmployeeAttendance(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance, String [] tokensExpr) throws Exception{	
+ 	protected EmployeeAttendance saveEmployeeAttendance(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance, String [] tokensExpr) throws Exception{
  		//return getEmployeeAttendanceDAO().save(employeeAttendance, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveEmployeeAttendance(userContext, employeeAttendance, tokens);
  	}
- 	
- 	protected EmployeeAttendance saveEmployeeAttendanceDetail(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance) throws Exception{	
 
- 		
+ 	protected EmployeeAttendance saveEmployeeAttendanceDetail(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance) throws Exception{
+
+
  		return saveEmployeeAttendance(userContext, employeeAttendance, allTokens());
  	}
- 	
- 	public EmployeeAttendance loadEmployeeAttendance(RetailscmUserContext userContext, String employeeAttendanceId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public EmployeeAttendance loadEmployeeAttendance(RetailscmUserContext userContext, String employeeAttendanceId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfEmployeeAttendance(employeeAttendanceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( EmployeeAttendanceManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		EmployeeAttendance employeeAttendance = loadEmployeeAttendance( userContext, employeeAttendanceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,employeeAttendance, tokens);
  	}
- 	
- 	
- 	 public EmployeeAttendance searchEmployeeAttendance(RetailscmUserContext userContext, String employeeAttendanceId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public EmployeeAttendance searchEmployeeAttendance(RetailscmUserContext userContext, String employeeAttendanceId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfEmployeeAttendance(employeeAttendanceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( EmployeeAttendanceManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		EmployeeAttendance employeeAttendance = loadEmployeeAttendance( userContext, employeeAttendanceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,employeeAttendance, tokens);
  	}
- 	
- 	
+
+
 
  	protected EmployeeAttendance present(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,employeeAttendance,tokens);
-		
-		
+    
+
 		EmployeeAttendance  employeeAttendanceToPresent = employeeAttendanceDaoOf(userContext).present(employeeAttendance, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = employeeAttendanceToPresent.collectRefercencesFromLists();
 		employeeAttendanceDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,employeeAttendance,tokens);
-		
+
 		return  employeeAttendanceToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public EmployeeAttendance loadEmployeeAttendanceDetail(RetailscmUserContext userContext, String employeeAttendanceId) throws Exception{	
+
+
+
+ 	public EmployeeAttendance loadEmployeeAttendanceDetail(RetailscmUserContext userContext, String employeeAttendanceId) throws Exception{
  		EmployeeAttendance employeeAttendance = loadEmployeeAttendance( userContext, employeeAttendanceId, allTokens());
  		return present(userContext,employeeAttendance, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String employeeAttendanceId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String employeeAttendanceId) throws Exception{
  		EmployeeAttendance employeeAttendance = loadEmployeeAttendance( userContext, employeeAttendanceId, viewTokens());
- 		return present(userContext,employeeAttendance, allTokens());
-		
- 	}
- 	protected EmployeeAttendance saveEmployeeAttendance(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, employeeAttendance);
+ 		return present(userContext,employeeAttendance, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String employeeAttendanceId) throws Exception{
+		EmployeeAttendance employeeAttendance = loadEmployeeAttendance( userContext, employeeAttendanceId, viewTokens());
+		employeeAttendance.summarySuffix();
+		markVisited(userContext, employeeAttendance);
+ 		return present(userContext,employeeAttendance, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String employeeAttendanceId) throws Exception{
+		EmployeeAttendance employeeAttendance = loadEmployeeAttendance( userContext, employeeAttendanceId, analyzeTokens());
+		markVisited(userContext, employeeAttendance);
+		return present(userContext,employeeAttendance, analyzeTokens());
+
+	}
+ 	protected EmployeeAttendance saveEmployeeAttendance(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance, Map<String,Object>tokens) throws Exception{
+ 	
  		return employeeAttendanceDaoOf(userContext).save(employeeAttendance, tokens);
  	}
- 	protected EmployeeAttendance loadEmployeeAttendance(RetailscmUserContext userContext, String employeeAttendanceId, Map<String,Object>tokens) throws Exception{	
+ 	protected EmployeeAttendance loadEmployeeAttendance(RetailscmUserContext userContext, String employeeAttendanceId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfEmployeeAttendance(employeeAttendanceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( EmployeeAttendanceManagerException.class);
 
- 
+
+
  		return employeeAttendanceDaoOf(userContext).load(employeeAttendanceId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance, Map<String, Object> tokens){
 		super.addActions(userContext, employeeAttendance, tokens);
-		
+
 		addAction(userContext, employeeAttendance, tokens,"@create","createEmployeeAttendance","createEmployeeAttendance/","main","primary");
 		addAction(userContext, employeeAttendance, tokens,"@update","updateEmployeeAttendance","updateEmployeeAttendance/"+employeeAttendance.getId()+"/","main","primary");
 		addAction(userContext, employeeAttendance, tokens,"@copy","cloneEmployeeAttendance","cloneEmployeeAttendance/"+employeeAttendance.getId()+"/","main","primary");
-		
+
 		addAction(userContext, employeeAttendance, tokens,"employee_attendance.transfer_to_employee","transferToAnotherEmployee","transferToAnotherEmployee/"+employeeAttendance.getId()+"/","main","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, EmployeeAttendance employeeAttendance, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<EmployeeAttendance> searchEmployeeAttendanceList(RetailscmUserContext ctx, EmployeeAttendanceRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<EmployeeAttendance> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public EmployeeAttendance searchEmployeeAttendance(RetailscmUserContext ctx, EmployeeAttendanceRequest pRequest){
+    pRequest.limit(0, 1);
+    List<EmployeeAttendance> list = searchEmployeeAttendanceList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public EmployeeAttendance createEmployeeAttendance(RetailscmUserContext userContext, String employeeId,Date enterTime,Date leaveTime,int durationHours,String remark) throws Exception
-	//public EmployeeAttendance createEmployeeAttendance(RetailscmUserContext userContext,String employeeId, Date enterTime, Date leaveTime, int durationHours, String remark) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkEnterTimeOfEmployeeAttendance(enterTime);
 		checkerOf(userContext).checkLeaveTimeOfEmployeeAttendance(leaveTime);
 		checkerOf(userContext).checkDurationHoursOfEmployeeAttendance(durationHours);
 		checkerOf(userContext).checkRemarkOfEmployeeAttendance(remark);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeAttendanceManagerException.class);
+
 
 
 		EmployeeAttendance employeeAttendance=createNewEmployeeAttendance();	
@@ -228,40 +270,42 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfEmployeeAttendance(employeeAttendanceId);
 		checkerOf(userContext).checkVersionOfEmployeeAttendance( employeeAttendanceVersion);
-		
-		
+
+
 
 		
 		if(EmployeeAttendance.ENTER_TIME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkEnterTimeOfEmployeeAttendance(parseDate(newValueExpr));
 		
-			
+
 		}
 		if(EmployeeAttendance.LEAVE_TIME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLeaveTimeOfEmployeeAttendance(parseDate(newValueExpr));
 		
-			
+
 		}
 		if(EmployeeAttendance.DURATION_HOURS_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkDurationHoursOfEmployeeAttendance(parseInt(newValueExpr));
 		
-			
+
 		}
 		if(EmployeeAttendance.REMARK_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkRemarkOfEmployeeAttendance(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeAttendanceManagerException.class);
+
 
 
 	}
@@ -290,6 +334,8 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 			if (employeeAttendance.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixEmployeeAttendance(employeeAttendance);
 			employeeAttendance = saveEmployeeAttendance(userContext, employeeAttendance, options);
 			return employeeAttendance;
 
@@ -356,9 +402,15 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> allTokens(){
 		return EmployeeAttendanceTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.analyzeAllLists().done();
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -370,6 +422,7 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 
  		checkerOf(userContext).checkIdOfEmployeeAttendance(employeeAttendanceId);
  		checkerOf(userContext).checkIdOfEmployee(anotherEmployeeId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(EmployeeAttendanceManagerException.class);
 
  	}
@@ -377,16 +430,17 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
  	{
  		checkParamsForTransferingAnotherEmployee(userContext, employeeAttendanceId,anotherEmployeeId);
  
-		EmployeeAttendance employeeAttendance = loadEmployeeAttendance(userContext, employeeAttendanceId, allTokens());	
+		EmployeeAttendance employeeAttendance = loadEmployeeAttendance(userContext, employeeAttendanceId, allTokens());
 		synchronized(employeeAttendance){
 			//will be good when the employeeAttendance loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			Employee employee = loadEmployee(userContext, anotherEmployeeId, emptyOptions());		
-			employeeAttendance.updateEmployee(employee);		
+			Employee employee = loadEmployee(userContext, anotherEmployeeId, emptyOptions());
+			employeeAttendance.updateEmployee(employee);
+			
 			employeeAttendance = saveEmployeeAttendance(userContext, employeeAttendance, emptyOptions());
-			
+
 			return present(userContext,employeeAttendance, allTokens());
-			
+
 		}
 
  	}
@@ -419,8 +473,9 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 
  	protected Employee loadEmployee(RetailscmUserContext userContext, String newEmployeeId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return employeeDaoOf(userContext).load(newEmployeeId, options);
+ 	  
  	}
  	
 
@@ -469,9 +524,6 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 
 
 
-
-
-
 	public void onNewInstanceCreated(RetailscmUserContext userContext, EmployeeAttendance newCreated) throws Exception{
 		ensureRelationInGraph(userContext, newCreated);
 		sendCreationEvent(userContext, newCreated);
@@ -488,112 +540,13 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -616,28 +569,21 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, EmployeeAttendance.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, EmployeeAttendance.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -683,7 +629,7 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String employeeAttendanceId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getEmployeeAttendanceDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		EmployeeAttendance merchantObj = (EmployeeAttendance) this.view(userContext, employeeAttendanceId);
     String merchantObjId = employeeAttendanceId;
     String linkToUrl =	"employeeAttendanceManager/wxappview/" + merchantObjId + "/";
@@ -773,8 +719,19 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

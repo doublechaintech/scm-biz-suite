@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.uiaction;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.page.Page;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.page.Page;
 @JsonSerialize(using = UiActionSerializer.class)
 public class UiAction extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String CODE_PROPERTY                  = "code"              ;
 	public static final String ICON_PROPERTY                  = "icon"              ;
@@ -50,37 +47,102 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CODE_PROPERTY, "code", "代码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ICON_PROPERTY, "icon", "图标")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TITLE_PROPERTY, "title", "头衔")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DISPLAY_ORDER_PROPERTY, "display_order", "顺序")
+        .withType("int", "int"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(BRIEF_PROPERTY, "brief", "短暂的")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(IMAGE_URL_PROPERTY, "image_url", "图片链接")
+        .withType("string_image", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LINK_TO_URL_PROPERTY, "link_to_url", "链接网址")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(EXTRA_DATA_PROPERTY, "extra_data", "额外的数据")
+        .withType("text", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(PAGE_PROPERTY, "page", "页面")
+        .withType("page", Page.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,CODE_PROPERTY ,ICON_PROPERTY ,TITLE_PROPERTY ,DISPLAY_ORDER_PROPERTY ,BRIEF_PROPERTY ,IMAGE_URL_PROPERTY ,LINK_TO_URL_PROPERTY ,EXTRA_DATA_PROPERTY ,PAGE_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(PAGE_PROPERTY, Page.class);
+
+    return parents;
+  }
+
+  public UiAction want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public UiAction wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getCode();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mCode               ;
-	protected		String              	mIcon               ;
-	protected		String              	mTitle              ;
-	protected		int                 	mDisplayOrder       ;
-	protected		String              	mBrief              ;
-	protected		String              	mImageUrl           ;
-	protected		String              	mLinkToUrl          ;
-	protected		String              	mExtraData          ;
-	protected		Page                	mPage               ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		String              	code                ;
+	protected		String              	icon                ;
+	protected		String              	title               ;
+	protected		int                 	displayOrder        ;
+	protected		String              	brief               ;
+	protected		String              	imageUrl            ;
+	protected		String              	linkToUrl           ;
+	protected		String              	extraData           ;
+	protected		Page                	page                ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	UiAction(){
 		// lazy load for all the properties
 	}
@@ -88,20 +150,40 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 		UiAction uiAction = new UiAction();
 		uiAction.setId(id);
 		uiAction.setVersion(Integer.MAX_VALUE);
+		uiAction.setChecked(true);
 		return uiAction;
 	}
 	public 	static UiAction refById(String id){
 		return withId(id);
 	}
-	
+
+  public UiAction limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public UiAction limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static UiAction searchExample(){
+    UiAction uiAction = new UiAction();
+    		uiAction.setDisplayOrder(UNSET_INT);
+		uiAction.setVersion(UNSET_INT);
+
+    return uiAction;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setPage( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -267,7 +349,7 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(CODE_PROPERTY.equals(property)){
 			return getCode();
 		}
@@ -299,218 +381,362 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public UiAction updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public UiAction orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public UiAction addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setCode(String code){
-		this.mCode = trimString(code);;
-	}
+	public void setCode(String code){String oldCode = this.code;String newCode = trimString(code);this.code = newCode;}
+	public String code(){
+doLoad();
+return getCode();
+}
 	public String getCode(){
-		return this.mCode;
+		return this.code;
 	}
-	public UiAction updateCode(String code){
-		this.mCode = trimString(code);;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateCode(String code){String oldCode = this.code;String newCode = trimString(code);if(!shouldReplaceBy(newCode, oldCode)){return this;}this.code = newCode;addPropertyChange(CODE_PROPERTY, oldCode, newCode);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByCode(boolean asc){
+doAddOrderBy(CODE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCodeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CODE_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreCodeCriteria(){super.ignoreSearchProperty(CODE_PROPERTY);
+return this;
+}
+	public UiAction addCodeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCodeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCode(String code){
 		if(code != null) { setCode(code);}
 	}
+
 	
-	
-	public void setIcon(String icon){
-		this.mIcon = trimString(icon);;
-	}
+	public void setIcon(String icon){String oldIcon = this.icon;String newIcon = trimString(icon);this.icon = newIcon;}
+	public String icon(){
+doLoad();
+return getIcon();
+}
 	public String getIcon(){
-		return this.mIcon;
+		return this.icon;
 	}
-	public UiAction updateIcon(String icon){
-		this.mIcon = trimString(icon);;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateIcon(String icon){String oldIcon = this.icon;String newIcon = trimString(icon);if(!shouldReplaceBy(newIcon, oldIcon)){return this;}this.icon = newIcon;addPropertyChange(ICON_PROPERTY, oldIcon, newIcon);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByIcon(boolean asc){
+doAddOrderBy(ICON_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIconCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ICON_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreIconCriteria(){super.ignoreSearchProperty(ICON_PROPERTY);
+return this;
+}
+	public UiAction addIconCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIconCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeIcon(String icon){
 		if(icon != null) { setIcon(icon);}
 	}
+
 	
-	
-	public void setTitle(String title){
-		this.mTitle = trimString(title);;
-	}
+	public void setTitle(String title){String oldTitle = this.title;String newTitle = trimString(title);this.title = newTitle;}
+	public String title(){
+doLoad();
+return getTitle();
+}
 	public String getTitle(){
-		return this.mTitle;
+		return this.title;
 	}
-	public UiAction updateTitle(String title){
-		this.mTitle = trimString(title);;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateTitle(String title){String oldTitle = this.title;String newTitle = trimString(title);if(!shouldReplaceBy(newTitle, oldTitle)){return this;}this.title = newTitle;addPropertyChange(TITLE_PROPERTY, oldTitle, newTitle);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByTitle(boolean asc){
+doAddOrderBy(TITLE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createTitleCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(TITLE_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreTitleCriteria(){super.ignoreSearchProperty(TITLE_PROPERTY);
+return this;
+}
+	public UiAction addTitleCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createTitleCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeTitle(String title){
 		if(title != null) { setTitle(title);}
 	}
+
 	
-	
-	public void setDisplayOrder(int displayOrder){
-		this.mDisplayOrder = displayOrder;;
-	}
+	public void setDisplayOrder(int displayOrder){int oldDisplayOrder = this.displayOrder;int newDisplayOrder = displayOrder;this.displayOrder = newDisplayOrder;}
+	public int displayOrder(){
+doLoad();
+return getDisplayOrder();
+}
 	public int getDisplayOrder(){
-		return this.mDisplayOrder;
+		return this.displayOrder;
 	}
-	public UiAction updateDisplayOrder(int displayOrder){
-		this.mDisplayOrder = displayOrder;;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateDisplayOrder(int displayOrder){int oldDisplayOrder = this.displayOrder;int newDisplayOrder = displayOrder;if(!shouldReplaceBy(newDisplayOrder, oldDisplayOrder)){return this;}this.displayOrder = newDisplayOrder;addPropertyChange(DISPLAY_ORDER_PROPERTY, oldDisplayOrder, newDisplayOrder);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByDisplayOrder(boolean asc){
+doAddOrderBy(DISPLAY_ORDER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDisplayOrderCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DISPLAY_ORDER_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreDisplayOrderCriteria(){super.ignoreSearchProperty(DISPLAY_ORDER_PROPERTY);
+return this;
+}
+	public UiAction addDisplayOrderCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDisplayOrderCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDisplayOrder(int displayOrder){
 		setDisplayOrder(displayOrder);
 	}
+
 	
-	
-	public void setBrief(String brief){
-		this.mBrief = trimString(brief);;
-	}
+	public void setBrief(String brief){String oldBrief = this.brief;String newBrief = trimString(brief);this.brief = newBrief;}
+	public String brief(){
+doLoad();
+return getBrief();
+}
 	public String getBrief(){
-		return this.mBrief;
+		return this.brief;
 	}
-	public UiAction updateBrief(String brief){
-		this.mBrief = trimString(brief);;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateBrief(String brief){String oldBrief = this.brief;String newBrief = trimString(brief);if(!shouldReplaceBy(newBrief, oldBrief)){return this;}this.brief = newBrief;addPropertyChange(BRIEF_PROPERTY, oldBrief, newBrief);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByBrief(boolean asc){
+doAddOrderBy(BRIEF_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createBriefCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(BRIEF_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreBriefCriteria(){super.ignoreSearchProperty(BRIEF_PROPERTY);
+return this;
+}
+	public UiAction addBriefCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createBriefCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeBrief(String brief){
 		if(brief != null) { setBrief(brief);}
 	}
+
 	
-	
-	public void setImageUrl(String imageUrl){
-		this.mImageUrl = trimString(encodeUrl(imageUrl));;
-	}
+	public void setImageUrl(String imageUrl){String oldImageUrl = this.imageUrl;String newImageUrl = trimString(encodeUrl(imageUrl));;this.imageUrl = newImageUrl;}
+	public String imageUrl(){
+doLoad();
+return getImageUrl();
+}
 	public String getImageUrl(){
-		return this.mImageUrl;
+		return this.imageUrl;
 	}
-	public UiAction updateImageUrl(String imageUrl){
-		this.mImageUrl = trimString(encodeUrl(imageUrl));;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateImageUrl(String imageUrl){String oldImageUrl = this.imageUrl;String newImageUrl = trimString(encodeUrl(imageUrl));;if(!shouldReplaceBy(newImageUrl, oldImageUrl)){return this;}this.imageUrl = newImageUrl;addPropertyChange(IMAGE_URL_PROPERTY, oldImageUrl, newImageUrl);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByImageUrl(boolean asc){
+doAddOrderBy(IMAGE_URL_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createImageUrlCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(IMAGE_URL_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreImageUrlCriteria(){super.ignoreSearchProperty(IMAGE_URL_PROPERTY);
+return this;
+}
+	public UiAction addImageUrlCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createImageUrlCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeImageUrl(String imageUrl){
 		if(imageUrl != null) { setImageUrl(imageUrl);}
 	}
+
 	
-	
-	public void setLinkToUrl(String linkToUrl){
-		this.mLinkToUrl = trimString(linkToUrl);;
-	}
+	public void setLinkToUrl(String linkToUrl){String oldLinkToUrl = this.linkToUrl;String newLinkToUrl = trimString(linkToUrl);this.linkToUrl = newLinkToUrl;}
+	public String linkToUrl(){
+doLoad();
+return getLinkToUrl();
+}
 	public String getLinkToUrl(){
-		return this.mLinkToUrl;
+		return this.linkToUrl;
 	}
-	public UiAction updateLinkToUrl(String linkToUrl){
-		this.mLinkToUrl = trimString(linkToUrl);;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateLinkToUrl(String linkToUrl){String oldLinkToUrl = this.linkToUrl;String newLinkToUrl = trimString(linkToUrl);if(!shouldReplaceBy(newLinkToUrl, oldLinkToUrl)){return this;}this.linkToUrl = newLinkToUrl;addPropertyChange(LINK_TO_URL_PROPERTY, oldLinkToUrl, newLinkToUrl);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByLinkToUrl(boolean asc){
+doAddOrderBy(LINK_TO_URL_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLinkToUrlCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LINK_TO_URL_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreLinkToUrlCriteria(){super.ignoreSearchProperty(LINK_TO_URL_PROPERTY);
+return this;
+}
+	public UiAction addLinkToUrlCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLinkToUrlCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLinkToUrl(String linkToUrl){
 		if(linkToUrl != null) { setLinkToUrl(linkToUrl);}
 	}
+
 	
-	
-	public void setExtraData(String extraData){
-		this.mExtraData = extraData;;
-	}
+	public void setExtraData(String extraData){String oldExtraData = this.extraData;String newExtraData = extraData;this.extraData = newExtraData;}
+	public String extraData(){
+doLoad();
+return getExtraData();
+}
 	public String getExtraData(){
-		return this.mExtraData;
+		return this.extraData;
 	}
-	public UiAction updateExtraData(String extraData){
-		this.mExtraData = extraData;;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateExtraData(String extraData){String oldExtraData = this.extraData;String newExtraData = extraData;if(!shouldReplaceBy(newExtraData, oldExtraData)){return this;}this.extraData = newExtraData;addPropertyChange(EXTRA_DATA_PROPERTY, oldExtraData, newExtraData);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByExtraData(boolean asc){
+doAddOrderBy(EXTRA_DATA_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createExtraDataCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(EXTRA_DATA_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreExtraDataCriteria(){super.ignoreSearchProperty(EXTRA_DATA_PROPERTY);
+return this;
+}
+	public UiAction addExtraDataCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createExtraDataCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeExtraData(String extraData){
 		if(extraData != null) { setExtraData(extraData);}
 	}
+
 	
-	
-	public void setPage(Page page){
-		this.mPage = page;;
-	}
+	public void setPage(Page page){Page oldPage = this.page;Page newPage = page;this.page = newPage;}
+	public Page page(){
+doLoad();
+return getPage();
+}
 	public Page getPage(){
-		return this.mPage;
+		return this.page;
 	}
-	public UiAction updatePage(Page page){
-		this.mPage = page;;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updatePage(Page page){Page oldPage = this.page;Page newPage = page;if(!shouldReplaceBy(newPage, oldPage)){return this;}this.page = newPage;addPropertyChange(PAGE_PROPERTY, oldPage, newPage);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByPage(boolean asc){
+doAddOrderBy(PAGE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createPageCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(PAGE_PROPERTY, operator, parameters);
+}
+	public UiAction ignorePageCriteria(){super.ignoreSearchProperty(PAGE_PROPERTY);
+return this;
+}
+	public UiAction addPageCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createPageCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergePage(Page page){
 		if(page != null) { setPage(page);}
 	}
-	
+
 	
 	public void clearPage(){
 		setPage ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public UiAction updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public UiAction updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public UiAction orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public UiAction ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public UiAction addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getPage(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -531,16 +757,16 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof UiAction){
-		
-		
+
+
 			UiAction dest =(UiAction)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setCode(getCode());
 			dest.setIcon(getIcon());
@@ -558,13 +784,13 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof UiAction){
-		
-			
+
+
 			UiAction dest =(UiAction)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeIcon(getIcon());
@@ -581,15 +807,15 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof UiAction){
-		
-			
+
+
 			UiAction dest =(UiAction)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeIcon(getIcon());
@@ -607,6 +833,56 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getCode(), getIcon(), getTitle(), getDisplayOrder(), getBrief(), getImageUrl(), getLinkToUrl(), getExtraData(), getPage(), getVersion()};
 	}
+
+
+	public static UiAction createWith(RetailscmUserContext userContext, ThrowingFunction<UiAction,UiAction,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<UiAction> customCreator = mapper.findCustomCreator(UiAction.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    UiAction result = new UiAction();
+    result.setCode(mapper.tryToGet(UiAction.class, CODE_PROPERTY, String.class,
+        0, false, result.getCode(), params));
+    result.setIcon(mapper.tryToGet(UiAction.class, ICON_PROPERTY, String.class,
+        1, false, result.getIcon(), params));
+    result.setTitle(mapper.tryToGet(UiAction.class, TITLE_PROPERTY, String.class,
+        2, false, result.getTitle(), params));
+    result.setDisplayOrder(mapper.tryToGet(UiAction.class, DISPLAY_ORDER_PROPERTY, int.class,
+        0, true, result.getDisplayOrder(), params));
+    result.setBrief(mapper.tryToGet(UiAction.class, BRIEF_PROPERTY, String.class,
+        3, false, result.getBrief(), params));
+    result.setImageUrl(mapper.tryToGet(UiAction.class, IMAGE_URL_PROPERTY, String.class,
+        4, false, result.getImageUrl(), params));
+    result.setLinkToUrl(mapper.tryToGet(UiAction.class, LINK_TO_URL_PROPERTY, String.class,
+        5, false, result.getLinkToUrl(), params));
+    result.setExtraData(mapper.tryToGet(UiAction.class, EXTRA_DATA_PROPERTY, String.class,
+        6, false, result.getExtraData(), params));
+    result.setPage(mapper.tryToGet(UiAction.class, PAGE_PROPERTY, Page.class,
+        0, true, result.getPage(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixUiAction(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      UiActionTokens tokens = mapper.findParamByClass(params, UiActionTokens.class);
+      if (tokens == null) {
+        tokens = UiActionTokens.start();
+      }
+      result = userContext.getManagerGroup().getUiActionManager().internalSaveUiAction(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -628,14 +904,14 @@ public class UiAction extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 	public void increaseDisplayOrder(int incDisplayOrder){
-		updateDisplayOrder(this.mDisplayOrder +  incDisplayOrder);
+		updateDisplayOrder(this.displayOrder +  incDisplayOrder);
 	}
 	public void decreaseDisplayOrder(int decDisplayOrder){
-		updateDisplayOrder(this.mDisplayOrder - decDisplayOrder);
+		updateDisplayOrder(this.displayOrder - decDisplayOrder);
 	}
 	
 

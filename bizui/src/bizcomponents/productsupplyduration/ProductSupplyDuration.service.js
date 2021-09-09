@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}productSupplyDurationManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}productSupplyDurationManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}productSupplyDurationService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const ProductSupplyDurationService = { view,
   load,
+  analyze,
   requestCandidateProduct,
-  transferToAnotherProduct, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherProduct, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ProductSupplyDurationService
 

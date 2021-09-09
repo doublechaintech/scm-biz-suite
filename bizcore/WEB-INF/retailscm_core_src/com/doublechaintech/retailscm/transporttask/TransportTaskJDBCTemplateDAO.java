@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.transporttask;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -49,7 +50,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected RetailStoreDAO retailStoreDAO;
 	public void setRetailStoreDAO(RetailStoreDAO retailStoreDAO){
- 	
+
  		if(retailStoreDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreDAO to null.");
  		}
@@ -59,13 +60,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.retailStoreDAO == null){
  			throw new IllegalStateException("The retailStoreDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreDAO;
- 	}	
+ 	}
 
 	protected TruckDriverDAO truckDriverDAO;
 	public void setTruckDriverDAO(TruckDriverDAO truckDriverDAO){
- 	
+
  		if(truckDriverDAO == null){
  			throw new IllegalStateException("Do not try to set truckDriverDAO to null.");
  		}
@@ -75,13 +76,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.truckDriverDAO == null){
  			throw new IllegalStateException("The truckDriverDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.truckDriverDAO;
- 	}	
+ 	}
 
 	protected TransportTruckDAO transportTruckDAO;
 	public void setTransportTruckDAO(TransportTruckDAO transportTruckDAO){
- 	
+
  		if(transportTruckDAO == null){
  			throw new IllegalStateException("Do not try to set transportTruckDAO to null.");
  		}
@@ -91,13 +92,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.transportTruckDAO == null){
  			throw new IllegalStateException("The transportTruckDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.transportTruckDAO;
- 	}	
+ 	}
 
 	protected TransportFleetDAO transportFleetDAO;
 	public void setTransportFleetDAO(TransportFleetDAO transportFleetDAO){
- 	
+
  		if(transportFleetDAO == null){
  			throw new IllegalStateException("Do not try to set transportFleetDAO to null.");
  		}
@@ -107,13 +108,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.transportFleetDAO == null){
  			throw new IllegalStateException("The transportFleetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.transportFleetDAO;
- 	}	
+ 	}
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -123,13 +124,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
 
 	protected TransportTaskTrackDAO transportTaskTrackDAO;
 	public void setTransportTaskTrackDAO(TransportTaskTrackDAO transportTaskTrackDAO){
- 	
+
  		if(transportTaskTrackDAO == null){
  			throw new IllegalStateException("Do not try to set transportTaskTrackDAO to null.");
  		}
@@ -139,9 +140,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.transportTaskTrackDAO == null){
  			throw new IllegalStateException("The transportTaskTrackDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.transportTaskTrackDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -195,14 +197,14 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		newTransportTask.setVersion(0);
 		
 		
- 		
+
  		if(isSaveGoodsListEnabled(options)){
  			for(Goods item: newTransportTask.getGoodsList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveTransportTaskTrackListEnabled(options)){
  			for(TransportTaskTrack item: newTransportTask.getTransportTaskTrackList()){
  				item.setVersion(0);
@@ -289,100 +291,100 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return TransportTaskTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEndEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TransportTaskTokens.END);
  	}
 
  	protected boolean isSaveEndEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TransportTaskTokens.END);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractDriverEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TransportTaskTokens.DRIVER);
  	}
 
  	protected boolean isSaveDriverEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TransportTaskTokens.DRIVER);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractTruckEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TransportTaskTokens.TRUCK);
  	}
 
  	protected boolean isSaveTruckEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TransportTaskTokens.TRUCK);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractBelongsToEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TransportTaskTokens.BELONGSTO);
  	}
 
  	protected boolean isSaveBelongsToEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TransportTaskTokens.BELONGSTO);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
  		return checkOptions(options,TransportTaskTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){
  		return TransportTaskTokens.of(options).analyzeGoodsListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportTaskTokens.GOODS_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractTransportTaskTrackListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTransportTaskTrackListEnabled(Map<String,Object> options){
  		return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTaskTrackListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTransportTaskTrackListEnabled(Map<String,Object> options){
  		return TransportTaskTokens.of(options).analyzeTransportTaskTrackListEnabled();
  	}
-	
+
 	protected boolean isSaveTransportTaskTrackListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -391,8 +393,8 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new TransportTaskMapper();
 	}
 
-	
-	
+
+
 	protected TransportTask extractTransportTask(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			TransportTask transportTask = loadSingleObject(accessKey, getTransportTaskMapper());
@@ -403,25 +405,25 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected TransportTask loadInternalTransportTask(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		TransportTask transportTask = extractTransportTask(accessKey, loadOptions);
- 	
+
  		if(isExtractEndEnabled(loadOptions)){
 	 		extractEnd(transportTask, loadOptions);
  		}
-  	
+ 
  		if(isExtractDriverEnabled(loadOptions)){
 	 		extractDriver(transportTask, loadOptions);
  		}
-  	
+ 
  		if(isExtractTruckEnabled(loadOptions)){
 	 		extractTruck(transportTask, loadOptions);
  		}
-  	
+ 
  		if(isExtractBelongsToEnabled(loadOptions)){
 	 		extractBelongsTo(transportTask, loadOptions);
  		}
@@ -429,8 +431,8 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(transportTask, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
 	 		analyzeGoodsList(transportTask, loadOptions);
@@ -439,8 +441,8 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 		if(isExtractTransportTaskTrackListEnabled(loadOptions)){
 	 		extractTransportTaskTrackList(transportTask, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeTransportTaskTrackListEnabled(loadOptions)){
 	 		analyzeTransportTaskTrackList(transportTask, loadOptions);
@@ -448,12 +450,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		
 		
 		return transportTask;
-		
+
 	}
 
-	 
+	
 
  	protected TransportTask extractEnd(TransportTask transportTask, Map<String,Object> options) throws Exception{
+  
 
 		if(transportTask.getEnd() == null){
 			return transportTask;
@@ -466,14 +469,15 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(end != null){
 			transportTask.setEnd(end);
 		}
-		
- 		
+
+
  		return transportTask;
  	}
- 		
-  
+
+ 
 
  	protected TransportTask extractDriver(TransportTask transportTask, Map<String,Object> options) throws Exception{
+  
 
 		if(transportTask.getDriver() == null){
 			return transportTask;
@@ -486,14 +490,15 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(driver != null){
 			transportTask.setDriver(driver);
 		}
-		
- 		
+
+
  		return transportTask;
  	}
- 		
-  
+
+ 
 
  	protected TransportTask extractTruck(TransportTask transportTask, Map<String,Object> options) throws Exception{
+  
 
 		if(transportTask.getTruck() == null){
 			return transportTask;
@@ -506,14 +511,15 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(truck != null){
 			transportTask.setTruck(truck);
 		}
-		
- 		
+
+
  		return transportTask;
  	}
- 		
-  
+
+ 
 
  	protected TransportTask extractBelongsTo(TransportTask transportTask, Map<String,Object> options) throws Exception{
+  
 
 		if(transportTask.getBelongsTo() == null){
 			return transportTask;
@@ -526,21 +532,21 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(belongsTo != null){
 			transportTask.setBelongsTo(belongsTo);
 		}
-		
- 		
+
+
  		return transportTask;
  	}
- 		
+
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected TransportTask extractGoodsList(TransportTask transportTask, Map<String,Object> options){
-		
-		
+    
+
 		if(transportTask == null){
 			return null;
 		}
@@ -548,21 +554,20 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return transportTask;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = getGoodsDAO().findGoodsByTransportTask(transportTask.getId(),options);
 		if(goodsList != null){
 			enhanceGoodsList(goodsList,options);
 			transportTask.setGoodsList(goodsList);
 		}
-		
+
 		return transportTask;
-	
-	}	
-	
+  
+	}
+
 	protected TransportTask analyzeGoodsList(TransportTask transportTask, Map<String,Object> options){
-		
-		
+     
 		if(transportTask == null){
 			return null;
 		}
@@ -570,27 +575,27 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return transportTask;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = transportTask.getGoodsList();
 		if(goodsList != null){
 			getGoodsDAO().analyzeGoodsByTransportTask(goodsList, transportTask.getId(), options);
-			
+
 		}
-		
+
 		return transportTask;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceTransportTaskTrackList(SmartList<TransportTaskTrack> transportTaskTrackList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected TransportTask extractTransportTaskTrackList(TransportTask transportTask, Map<String,Object> options){
-		
-		
+    
+
 		if(transportTask == null){
 			return null;
 		}
@@ -598,21 +603,20 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return transportTask;
 		}
 
-		
-		
+
+
 		SmartList<TransportTaskTrack> transportTaskTrackList = getTransportTaskTrackDAO().findTransportTaskTrackByMovement(transportTask.getId(),options);
 		if(transportTaskTrackList != null){
 			enhanceTransportTaskTrackList(transportTaskTrackList,options);
 			transportTask.setTransportTaskTrackList(transportTaskTrackList);
 		}
-		
+
 		return transportTask;
-	
-	}	
-	
+  
+	}
+
 	protected TransportTask analyzeTransportTaskTrackList(TransportTask transportTask, Map<String,Object> options){
-		
-		
+     
 		if(transportTask == null){
 			return null;
 		}
@@ -620,52 +624,52 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return transportTask;
 		}
 
-		
-		
+
+
 		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();
 		if(transportTaskTrackList != null){
 			getTransportTaskTrackDAO().analyzeTransportTaskTrackByMovement(transportTaskTrackList, transportTask.getId(), options);
-			
+
 		}
-		
+
 		return transportTask;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<TransportTask> findTransportTaskByEnd(String retailStoreId,Map<String,Object> options){
- 	
+
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_END, retailStoreId, options, getTransportTaskMapper());
 		// analyzeTransportTaskByEnd(resultList, retailStoreId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TransportTask> findTransportTaskByEnd(String retailStoreId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_END, retailStoreId, options, getTransportTaskMapper(), start, count);
  		//analyzeTransportTaskByEnd(resultList, retailStoreId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTransportTaskByEnd(SmartList<TransportTask> resultList, String retailStoreId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.END_PROPERTY, retailStoreId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTransportTaskByEnd(String retailStoreId,Map<String,Object> options){
@@ -676,39 +680,39 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countTransportTaskByEndIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TransportTaskTable.COLUMN_END, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<TransportTask> findTransportTaskByDriver(String truckDriverId,Map<String,Object> options){
- 	
+
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_DRIVER, truckDriverId, options, getTransportTaskMapper());
 		// analyzeTransportTaskByDriver(resultList, truckDriverId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TransportTask> findTransportTaskByDriver(String truckDriverId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_DRIVER, truckDriverId, options, getTransportTaskMapper(), start, count);
  		//analyzeTransportTaskByDriver(resultList, truckDriverId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTransportTaskByDriver(SmartList<TransportTask> resultList, String truckDriverId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.DRIVER_PROPERTY, truckDriverId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTransportTaskByDriver(String truckDriverId,Map<String,Object> options){
@@ -719,39 +723,39 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countTransportTaskByDriverIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TransportTaskTable.COLUMN_DRIVER, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<TransportTask> findTransportTaskByTruck(String transportTruckId,Map<String,Object> options){
- 	
+
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_TRUCK, transportTruckId, options, getTransportTaskMapper());
 		// analyzeTransportTaskByTruck(resultList, transportTruckId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TransportTask> findTransportTaskByTruck(String transportTruckId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_TRUCK, transportTruckId, options, getTransportTaskMapper(), start, count);
  		//analyzeTransportTaskByTruck(resultList, transportTruckId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTransportTaskByTruck(SmartList<TransportTask> resultList, String transportTruckId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.TRUCK_PROPERTY, transportTruckId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTransportTaskByTruck(String transportTruckId,Map<String,Object> options){
@@ -762,39 +766,39 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countTransportTaskByTruckIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TransportTaskTable.COLUMN_TRUCK, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<TransportTask> findTransportTaskByBelongsTo(String transportFleetId,Map<String,Object> options){
- 	
+
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_BELONGS_TO, transportFleetId, options, getTransportTaskMapper());
 		// analyzeTransportTaskByBelongsTo(resultList, transportFleetId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TransportTask> findTransportTaskByBelongsTo(String transportFleetId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_BELONGS_TO, transportFleetId, options, getTransportTaskMapper(), start, count);
  		//analyzeTransportTaskByBelongsTo(resultList, transportFleetId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTransportTaskByBelongsTo(SmartList<TransportTask> resultList, String transportFleetId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.BELONGS_TO_PROPERTY, transportFleetId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTransportTaskByBelongsTo(String transportFleetId,Map<String,Object> options){
@@ -805,21 +809,24 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countTransportTaskByBelongsToIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TransportTaskTable.COLUMN_BELONGS_TO, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected TransportTask saveTransportTask(TransportTask  transportTask){
+    
+
 		
 		if(!transportTask.isChanged()){
 			return transportTask;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(transportTask);
 		String SQL=this.getSaveTransportTaskSQL(transportTask);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTransportTaskParameters(transportTask);
@@ -830,6 +837,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		transportTask.incVersion();
+		transportTask.afterSave();
 		return transportTask;
 
 	}
@@ -847,6 +855,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(TransportTask transportTask:transportTaskList){
 			if(transportTask.isChanged()){
 				transportTask.incVersion();
+				transportTask.afterSave();
 			}
 
 
@@ -950,34 +959,29 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	protected Object[] prepareTransportTaskUpdateParameters(TransportTask transportTask){
  		Object[] parameters = new Object[12];
  
- 		
  		parameters[0] = transportTask.getName();
  		
- 		
  		parameters[1] = transportTask.getStart();
- 		
  		
  		parameters[2] = transportTask.getBeginTime();
  		
  		if(transportTask.getEnd() != null){
  			parameters[3] = transportTask.getEnd().getId();
  		}
- 
+    
  		if(transportTask.getDriver() != null){
  			parameters[4] = transportTask.getDriver().getId();
  		}
- 
+    
  		if(transportTask.getTruck() != null){
  			parameters[5] = transportTask.getTruck().getId();
  		}
- 
+    
  		if(transportTask.getBelongsTo() != null){
  			parameters[6] = transportTask.getBelongsTo().getId();
  		}
- 
- 		
+    
  		parameters[7] = transportTask.getLatitude();
- 		
  		
  		parameters[8] = transportTask.getLongitude();
  		
@@ -995,38 +999,29 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
         }
 		parameters[0] =  transportTask.getId();
  
- 		
  		parameters[1] = transportTask.getName();
  		
- 		
  		parameters[2] = transportTask.getStart();
- 		
  		
  		parameters[3] = transportTask.getBeginTime();
  		
  		if(transportTask.getEnd() != null){
  			parameters[4] = transportTask.getEnd().getId();
-
  		}
  		
  		if(transportTask.getDriver() != null){
  			parameters[5] = transportTask.getDriver().getId();
-
  		}
  		
  		if(transportTask.getTruck() != null){
  			parameters[6] = transportTask.getTruck().getId();
-
  		}
  		
  		if(transportTask.getBelongsTo() != null){
  			parameters[7] = transportTask.getBelongsTo().getId();
-
  		}
  		
- 		
  		parameters[8] = transportTask.getLatitude();
- 		
  		
  		parameters[9] = transportTask.getLongitude();
  		
@@ -1035,8 +1030,6 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	}
 
 	protected TransportTask saveInternalTransportTask(TransportTask transportTask, Map<String,Object> options){
-
-		saveTransportTask(transportTask);
 
  		if(isSaveEndEnabled(options)){
 	 		saveEnd(transportTask, options);
@@ -1054,6 +1047,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	 		saveBelongsTo(transportTask, options);
  		}
  
+   saveTransportTask(transportTask);
 		
 		if(isSaveGoodsListEnabled(options)){
 	 		saveGoodsList(transportTask, options);
@@ -1079,6 +1073,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected TransportTask saveEnd(TransportTask transportTask, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(transportTask.getEnd() == null){
  			return transportTask;//do nothing when it is null
@@ -1088,14 +1083,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return transportTask;
 
  	}
-
-
-
-
-
  
 
  	protected TransportTask saveDriver(TransportTask transportTask, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(transportTask.getDriver() == null){
  			return transportTask;//do nothing when it is null
@@ -1105,14 +1096,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return transportTask;
 
  	}
-
-
-
-
-
  
 
  	protected TransportTask saveTruck(TransportTask transportTask, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(transportTask.getTruck() == null){
  			return transportTask;//do nothing when it is null
@@ -1122,14 +1109,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return transportTask;
 
  	}
-
-
-
-
-
  
 
  	protected TransportTask saveBelongsTo(TransportTask transportTask, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(transportTask.getBelongsTo() == null){
  			return transportTask;//do nothing when it is null
@@ -1139,11 +1122,6 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return transportTask;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1558,7 +1536,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected TransportTask saveGoodsList(TransportTask transportTask, Map<String,Object> options){
-
+    
 
 
 
@@ -1624,7 +1602,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 		
 	protected TransportTask saveTransportTaskTrackList(TransportTask transportTask, Map<String,Object> options){
-
+    
 
 
 
@@ -1691,20 +1669,20 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public TransportTask present(TransportTask transportTask,Map<String, Object> options){
-	
+
 		presentGoodsList(transportTask,options);
 		presentTransportTaskTrackList(transportTask,options);
 
 		return transportTask;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected TransportTask presentGoodsList(
 			TransportTask transportTask,
 			Map<String, Object> options) {
-
-		SmartList<Goods> goodsList = transportTask.getGoodsList();		
+    
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
 				SmartList<Goods> newList= presentSubList(transportTask.getId(),
 				goodsList,
 				options,
@@ -1712,19 +1690,19 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				getGoodsDAO()::findGoodsByTransportTask
 				);
 
-		
+
 		transportTask.setGoodsList(newList);
-		
+
 
 		return transportTask;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected TransportTask presentTransportTaskTrackList(
 			TransportTask transportTask,
 			Map<String, Object> options) {
-
-		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();		
+    
+		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();
 				SmartList<TransportTaskTrack> newList= presentSubList(transportTask.getId(),
 				transportTaskTrackList,
 				options,
@@ -1732,12 +1710,12 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 				getTransportTaskTrackDAO()::findTransportTaskTrackByMovement
 				);
 
-		
+
 		transportTask.setTransportTaskTrackList(newList);
-		
+
 
 		return transportTask;
-	}			
+	}
 		
 
 	
@@ -1767,6 +1745,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的transportTask的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1790,6 +1769,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 	// 需要一个加载引用我的对象的enhance方法:TransportTaskTrack的movement的TransportTaskTrackList
 	public SmartList<TransportTaskTrack> loadOurTransportTaskTrackList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1846,6 +1826,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<TransportTask> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTransportTaskMapper());
   }
@@ -1881,6 +1865,15 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<TransportTask> search(TransportTaskRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected TransportTaskMapper mapper() {
+    return getTransportTaskMapper();
+  }
 }
 
 

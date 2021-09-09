@@ -44,13 +44,15 @@ public interface MemberRewardPointDAO extends BaseDAO{
 	public void delete(String memberRewardPointId, int version) throws Exception;
 	public MemberRewardPoint disconnectFromAll(String memberRewardPointId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<MemberRewardPoint> queryList(String sql, Object ... parmeters);
+	public SmartList<MemberRewardPoint> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<MemberRewardPoint> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateMemberRewardPoint executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<MemberRewardPoint> findMemberRewardPointByOwner(String retailStoreMemberId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface MemberRewardPointDAO extends BaseDAO{
 
 
  
+
+	List<MemberRewardPoint> search(MemberRewardPointRequest pRequest);
 }
 
 

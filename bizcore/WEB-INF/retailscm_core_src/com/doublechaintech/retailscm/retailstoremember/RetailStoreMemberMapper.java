@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstoremember;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,25 +9,28 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 
 public class RetailStoreMemberMapper extends BaseRowMapper<RetailStoreMember>{
-	
+
 	protected RetailStoreMember internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStoreMember retailStoreMember = getRetailStoreMember();		
-		 		
- 		setId(retailStoreMember, rs, rowNumber); 		
- 		setName(retailStoreMember, rs, rowNumber); 		
- 		setMobilePhone(retailStoreMember, rs, rowNumber); 		
- 		setOwner(retailStoreMember, rs, rowNumber); 		
+		RetailStoreMember retailStoreMember = getRetailStoreMember();
+		
+ 		setId(retailStoreMember, rs, rowNumber);
+ 		setName(retailStoreMember, rs, rowNumber);
+ 		setMobilePhone(retailStoreMember, rs, rowNumber);
+ 		setOwner(retailStoreMember, rs, rowNumber);
  		setVersion(retailStoreMember, rs, rowNumber);
 
+    
 		return retailStoreMember;
 	}
-	
+
 	protected RetailStoreMember getRetailStoreMember(){
-		return new RetailStoreMember();
-	}		
+	  RetailStoreMember entity = new RetailStoreMember();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStoreMember retailStoreMember, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreMemberTable.COLUMN_ID);
@@ -37,10 +41,13 @@ public class RetailStoreMemberMapper extends BaseRowMapper<RetailStoreMember>{
 		}
 		
 		retailStoreMember.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(RetailStoreMember retailStoreMember, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(RetailStoreMemberTable.COLUMN_NAME);
@@ -51,10 +58,13 @@ public class RetailStoreMemberMapper extends BaseRowMapper<RetailStoreMember>{
 		}
 		
 		retailStoreMember.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setMobilePhone(RetailStoreMember retailStoreMember, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String mobilePhone = rs.getString(RetailStoreMemberTable.COLUMN_MOBILE_PHONE);
@@ -65,10 +75,18 @@ public class RetailStoreMemberMapper extends BaseRowMapper<RetailStoreMember>{
 		}
 		
 		retailStoreMember.setMobilePhone(mobilePhone);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setOwner(RetailStoreMember retailStoreMember, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(RetailStoreMemberTable.COLUMN_OWNER);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(RetailStoreMemberTable.COLUMN_OWNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -79,14 +97,14 @@ public class RetailStoreMemberMapper extends BaseRowMapper<RetailStoreMember>{
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'retailStoreMember' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		retailStoreMember.setOwner(createEmptyOwner(retailStoreCountryCenterId));
  	}
  	
 	protected void setVersion(RetailStoreMember retailStoreMember, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreMemberTable.COLUMN_VERSION);
@@ -97,9 +115,12 @@ public class RetailStoreMemberMapper extends BaseRowMapper<RetailStoreMember>{
 		}
 		
 		retailStoreMember.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyOwner(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

@@ -16,19 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  moveTime: '2020-04-22 04:42:32',
-  facility: '仓库货位',
-  facilityId: '仓库货位',
-  fromIp: '192.168.20.1',
-  sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '41.74908956019133',
-  longitude: '132.2080766735806',
-  goodsId: 'G000001',
-  userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
-}
-*/
 
 const imageKeys = [
 ]
@@ -42,9 +29,15 @@ class GoodsMovementCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -55,7 +48,7 @@ class GoodsMovementCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -69,8 +62,8 @@ class GoodsMovementCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,13 +72,13 @@ class GoodsMovementCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = GoodsMovementBase
     const {GoodsMovementService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -110,10 +103,10 @@ class GoodsMovementCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addGoodsMovement`,
@@ -121,10 +114,10 @@ class GoodsMovementCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'goodsMovement',listName:appLocaleName(userContext,"List") },
@@ -170,10 +163,10 @@ class GoodsMovementCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -185,7 +178,7 @@ class GoodsMovementCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -196,7 +189,7 @@ class GoodsMovementCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -206,7 +199,7 @@ class GoodsMovementCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_movement')}</div>)
@@ -218,7 +211,7 @@ class GoodsMovementCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods_movement')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<GoodsMovementCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -234,7 +227,7 @@ class GoodsMovementCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

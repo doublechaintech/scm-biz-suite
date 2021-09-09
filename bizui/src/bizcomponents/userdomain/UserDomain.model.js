@@ -37,6 +37,22 @@ export default {
     },
   },
   effects: {
+
+    *analyze({ payload }, { call, put, select }){
+      yield put({ type: 'showLoading', payload })
+      const link = payload.pathname
+      const {UserDomainService} = GlobalComponents;
+      const data = yield call(UserDomainService.analyze, payload.id)
+      
+      const displayName = payload.displayName||data.displayName
+      
+      
+      yield put({ type: 'breadcrumb/gotoLink', payload: { displayName,link }} )
+      
+
+      yield put({ type: 'updateState', payload: data })
+      
+    },
     *view({ payload }, { call, put, select }) { 
     
       const cachedData = yield select(state => state._userDomain)
@@ -117,13 +133,13 @@ export default {
 
 
 
-    *addUserWhiteList({ payload }, { call, put }) {
+    *addUserAllowList({ payload }, { call, put }) {
       const userContext = null
       const {UserDomainService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(UserDomainService.addUserWhiteList, id, parameters)
+      const data = yield call(UserDomainService.addUserAllowList, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -137,15 +153,15 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/userDomain/${id}/list/UserWhiteListList/用户白名单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/userDomain/${id}/list/UserAllowListList/用户权限列表+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
-    *updateUserWhiteList({ payload }, { call, put }) {
+    *updateUserAllowList({ payload }, { call, put }) {
       const userContext = null
       const {UserDomainService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(UserDomainService.updateUserWhiteList, id, parameters)
+      const data = yield call(UserDomainService.updateUserAllowList, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -159,20 +175,20 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/userDomain/${id}/list/UserWhiteListList/用户白名单列表`, state: newPlayload }
+      const location = { pathname: `/userDomain/${id}/list/UserAllowListList/用户权限列表列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
-    *gotoNextUserWhiteListUpdateRow({ payload }, { call, put }) {
+    *gotoNextUserAllowListUpdateRow({ payload }, { call, put }) {
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       const newPlayload = { ...payload, selectedRows, currentUpdateIndex }
       yield put({ type: 'updateState', payload: newPlayload })
     },
-    *removeUserWhiteListList({ payload }, { call, put }) {
+    *removeUserAllowListList({ payload }, { call, put }) {
      const userContext = null
       const {UserDomainService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(UserDomainService.removeUserWhiteListList, id, parameters)
+      const data = yield call(UserDomainService.removeUserAllowListList, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -206,7 +222,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/userDomain/${id}/list/SecUserList/SEC的用户+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/userDomain/${id}/list/SecUserList/安全用户+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSecUser({ payload }, { call, put }) {
@@ -228,7 +244,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/userDomain/${id}/list/SecUserList/SEC的用户列表`, state: newPlayload }
+      const location = { pathname: `/userDomain/${id}/list/SecUserList/安全用户列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSecUserUpdateRow({ payload }, { call, put }) {
@@ -275,7 +291,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/userDomain/${id}/list/PublicKeyTypeList/公共密钥类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/userDomain/${id}/list/PublicKeyTypeList/公钥类型+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePublicKeyType({ payload }, { call, put }) {
@@ -297,7 +313,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/userDomain/${id}/list/PublicKeyTypeList/公共密钥类型列表`, state: newPlayload }
+      const location = { pathname: `/userDomain/${id}/list/PublicKeyTypeList/公钥类型列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextPublicKeyTypeUpdateRow({ payload }, { call, put }) {

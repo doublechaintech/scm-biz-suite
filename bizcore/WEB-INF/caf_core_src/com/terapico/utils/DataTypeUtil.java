@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.function.Function;
 
 import com.terapico.caf.DateTime;
+import com.terapico.caf.Image;
 import com.terapico.caf.Images;
 import com.terapico.caf.form.ImageInfo;
 
@@ -174,28 +175,31 @@ public class DataTypeUtil {
 	}
 	// BigDecimal
 	public static BigDecimal getBigDecimal(Object value) {
-		return getBigDecimal(value, null);
+		return getBigDecimal(value, (BigDecimal) null);
 	}
 	public static BigDecimal getBigDecimal(Object value, String defaultValue) {
+		return getBigDecimal(value, string2BigDecimal(defaultValue));
+	}
+	public static BigDecimal getBigDecimal(Object value, BigDecimal defaultValue) {
 		try {
 			if (value == null) {
-				return string2BigDecimal(defaultValue);
+				return defaultValue;
 			}
 			if (value instanceof BigDecimal) {
 				return (BigDecimal) value;
 			}
 			if (value instanceof String) {
 				if (TextUtil.isBlank((String) value)) {
-					return string2BigDecimal(defaultValue);
+					return defaultValue;
 				}
 				return new BigDecimal((String)value);
 			}
 			if (value instanceof Number) {
 				return new BigDecimal(String.valueOf(value));
 			}
-			return string2BigDecimal(defaultValue);
+			return defaultValue;
 		}catch (Throwable t) {
-			return string2BigDecimal(defaultValue);
+			return defaultValue;
 		}
 	}
 	private static BigDecimal string2BigDecimal(String valueStr) {
@@ -295,9 +299,64 @@ public class DataTypeUtil {
 			if (value instanceof String) {
 				return DebugUtil.getObjectMapper().readValue((String)value, ImageInfo.class);
 			}
+			if (value instanceof List) {
+				Images images = Images.fromString(DebugUtil.dumpAsJson(value, false));
+				if (images != null && images.size() > 0){
+					Image image = images.get(0);
+					ImageInfo rst = new ImageInfo();
+					rst.setImageUrl(image.getImageUrl());
+					rst.setId(image.getId());
+					rst.setContent(image.getTitle());
+					return rst;
+				}
+			}
 			return defaultValue;
 		}catch (Throwable t) {
 			return defaultValue;
 		}
+	}
+
+	public static boolean isSameClass(Class clazz1, Class clazz2){
+		if (clazz1 == clazz2){
+			return true;
+		}
+		if (clazz1 == null || clazz2 == null){
+			return false;
+		}
+		if (clazz1.equals(clazz2)){
+			return true;
+		}
+		if (clazz1.isPrimitive()){
+			return comparePrimitiveClass(clazz1, clazz2);
+		}
+		if (clazz2.isPrimitive()){
+			return comparePrimitiveClass(clazz2, clazz1);
+		}
+		return false;
+	}
+
+	private static boolean comparePrimitiveClass(Class clazz1, Class clazz2) {
+		if (clazz1.equals(int.class)) {
+			return clazz2.equals(Integer.TYPE) || clazz2.equals(Integer.class);
+		}
+		if (clazz1.equals(float.class)) {
+			return clazz2.equals(Float.TYPE) || clazz2.equals(Float.class);
+		}
+		if (clazz1.equals(double.class)) {
+			return clazz2.equals(Double.TYPE) || clazz2.equals(Double.class);
+		}
+		if (clazz1.equals(char.class)) {
+			return clazz2.equals(Character.TYPE) || clazz2.equals(Character.class);
+		}
+		if (clazz1.equals(short.class)) {
+			return clazz2.equals(Short.TYPE) || clazz2.equals(Short.class);
+		}
+		if (clazz1.equals(boolean.class)) {
+			return clazz2.equals(Boolean.TYPE) || clazz2.equals(Boolean.class);
+		}
+		if (clazz1.equals(byte.class)) {
+			return clazz2.equals(Byte.TYPE) || clazz2.equals(Byte.class);
+		}
+		return false;
 	}
 }

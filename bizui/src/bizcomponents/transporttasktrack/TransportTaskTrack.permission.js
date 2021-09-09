@@ -31,7 +31,7 @@ const internalSummaryOf = (transportTaskTrack,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTaskTrack.id}</Description> 
+<Description term="ID">{transportTaskTrack.id}</Description> 
 <Description term="跟踪时间">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
 <Description term="纬度">{transportTaskTrack.latitude}</Description> 
 <Description term="经度">{transportTaskTrack.longitude}</Description> 
@@ -60,7 +60,7 @@ class TransportTaskTrackPermission extends Component {
     // eslint-disable-next-line max-len
     const  transportTaskTrack = this.props.transportTaskTrack
     const { id,displayName,  } = transportTaskTrack
-    const  returnURL = `/transportTaskTrack/${id}/dashboard`
+    const  returnURL = `/transportTaskTrack/${id}/workbench`
     const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",cardsSource: transportTaskTrack,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class TransportTaskTrackPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

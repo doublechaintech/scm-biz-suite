@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstoremembercoupon;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 
 	protected RetailStoreMemberDAO retailStoreMemberDAO;
 	public void setRetailStoreMemberDAO(RetailStoreMemberDAO retailStoreMemberDAO){
- 	
+
  		if(retailStoreMemberDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		if(this.retailStoreMemberDAO == null){
  			throw new IllegalStateException("The retailStoreMemberDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreMemberCouponTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreMemberCouponTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreMemberCouponTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		return new RetailStoreMemberCouponMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreMemberCoupon extractRetailStoreMemberCoupon(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreMemberCoupon retailStoreMemberCoupon = loadSingleObject(accessKey, getRetailStoreMemberCouponMapper());
@@ -229,25 +231,26 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreMemberCoupon loadInternalRetailStoreMemberCoupon(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreMemberCoupon retailStoreMemberCoupon = extractRetailStoreMemberCoupon(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(retailStoreMemberCoupon, loadOptions);
  		}
  
 		
 		return retailStoreMemberCoupon;
-		
+
 	}
 
-	 
+	
 
  	protected RetailStoreMemberCoupon extractOwner(RetailStoreMemberCoupon retailStoreMemberCoupon, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreMemberCoupon.getOwner() == null){
 			return retailStoreMemberCoupon;
@@ -260,41 +263,41 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		if(owner != null){
 			retailStoreMemberCoupon.setOwner(owner);
 		}
-		
- 		
+
+
  		return retailStoreMemberCoupon;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<RetailStoreMemberCoupon> findRetailStoreMemberCouponByOwner(String retailStoreMemberId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreMemberCoupon> resultList = queryWith(RetailStoreMemberCouponTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberCouponMapper());
 		// analyzeRetailStoreMemberCouponByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreMemberCoupon> findRetailStoreMemberCouponByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreMemberCoupon> resultList =  queryWithRange(RetailStoreMemberCouponTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberCouponMapper(), start, count);
  		//analyzeRetailStoreMemberCouponByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreMemberCouponByOwner(SmartList<RetailStoreMemberCoupon> resultList, String retailStoreMemberId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreMemberCoupon.OWNER_PROPERTY, retailStoreMemberId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY
@@ -302,11 +305,11 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreMemberCouponByOwner(String retailStoreMemberId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	public Map<String, Integer> countRetailStoreMemberCouponByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreMemberCouponTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreMemberCoupon saveRetailStoreMemberCoupon(RetailStoreMemberCoupon  retailStoreMemberCoupon){
+    
+
 		
 		if(!retailStoreMemberCoupon.isChanged()){
 			return retailStoreMemberCoupon;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreMemberCoupon);
 		String SQL=this.getSaveRetailStoreMemberCouponSQL(retailStoreMemberCoupon);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreMemberCouponParameters(retailStoreMemberCoupon);
@@ -342,6 +348,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		}
 
 		retailStoreMemberCoupon.incVersion();
+		retailStoreMemberCoupon.afterSave();
 		return retailStoreMemberCoupon;
 
 	}
@@ -359,6 +366,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		for(RetailStoreMemberCoupon retailStoreMemberCoupon:retailStoreMemberCouponList){
 			if(retailStoreMemberCoupon.isChanged()){
 				retailStoreMemberCoupon.incVersion();
+				retailStoreMemberCoupon.afterSave();
 			}
 
 
@@ -462,16 +470,13 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
  	protected Object[] prepareRetailStoreMemberCouponUpdateParameters(RetailStoreMemberCoupon retailStoreMemberCoupon){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = retailStoreMemberCoupon.getName();
  		
  		if(retailStoreMemberCoupon.getOwner() != null){
  			parameters[1] = retailStoreMemberCoupon.getOwner().getId();
  		}
- 
- 		
+    
  		parameters[2] = retailStoreMemberCoupon.getNumber();
- 		
  		
  		parameters[3] = retailStoreMemberCoupon.getLastUpdateTime();
  		
@@ -489,17 +494,13 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
         }
 		parameters[0] =  retailStoreMemberCoupon.getId();
  
- 		
  		parameters[1] = retailStoreMemberCoupon.getName();
  		
  		if(retailStoreMemberCoupon.getOwner() != null){
  			parameters[2] = retailStoreMemberCoupon.getOwner().getId();
-
  		}
  		
- 		
  		parameters[3] = retailStoreMemberCoupon.getNumber();
- 		
  		
  		parameters[4] = retailStoreMemberCoupon.getLastUpdateTime();
  		
@@ -509,12 +510,11 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 
 	protected RetailStoreMemberCoupon saveInternalRetailStoreMemberCoupon(RetailStoreMemberCoupon retailStoreMemberCoupon, Map<String,Object> options){
 
-		saveRetailStoreMemberCoupon(retailStoreMemberCoupon);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(retailStoreMemberCoupon, options);
  		}
  
+   saveRetailStoreMemberCoupon(retailStoreMemberCoupon);
 		
 		return retailStoreMemberCoupon;
 
@@ -526,6 +526,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	
 
  	protected RetailStoreMemberCoupon saveOwner(RetailStoreMemberCoupon retailStoreMemberCoupon, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreMemberCoupon.getOwner() == null){
  			return retailStoreMemberCoupon;//do nothing when it is null
@@ -535,11 +536,6 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		return retailStoreMemberCoupon;
 
  	}
-
-
-
-
-
  
 
 	
@@ -547,10 +543,10 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		
 
 	public RetailStoreMemberCoupon present(RetailStoreMemberCoupon retailStoreMemberCoupon,Map<String, Object> options){
-	
+
 
 		return retailStoreMemberCoupon;
-	
+
 	}
 		
 
@@ -602,6 +598,10 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreMemberCoupon> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreMemberCouponMapper());
   }
@@ -637,6 +637,15 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmBaseDAOImpl
 
 	
 
+  @Override
+  public List<RetailStoreMemberCoupon> search(RetailStoreMemberCouponRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreMemberCouponMapper mapper() {
+    return getRetailStoreMemberCouponMapper();
+  }
 }
 
 

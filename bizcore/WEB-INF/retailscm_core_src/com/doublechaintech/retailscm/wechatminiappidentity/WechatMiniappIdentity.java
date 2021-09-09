@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.wechatminiappidentity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.secuser.SecUser;
 
 
@@ -27,15 +24,16 @@ import com.doublechaintech.retailscm.secuser.SecUser;
 @JsonSerialize(using = WechatMiniappIdentitySerializer.class)
 public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String OPEN_ID_PROPERTY               = "openId"            ;
 	public static final String APP_ID_PROPERTY                = "appId"             ;
+	public static final String UNION_ID_PROPERTY              = "unionId"           ;
 	public static final String SEC_USER_PROPERTY              = "secUser"           ;
 	public static final String CREATE_TIME_PROPERTY           = "createTime"        ;
 	public static final String LAST_LOGIN_TIME_PROPERTY       = "lastLoginTime"     ;
@@ -46,33 +44,93 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(OPEN_ID_PROPERTY, "open_id", "openId")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(APP_ID_PROPERTY, "app_id", "应用ID")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(UNION_ID_PROPERTY, "union_id", "UnionID")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SEC_USER_PROPERTY, "sec_user", "系统用户")
+        .withType("sec_user", SecUser.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CREATE_TIME_PROPERTY, "create_time", "创建时间")
+        .withType("date_time_create", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_LOGIN_TIME_PROPERTY, "last_login_time", "最后登录时间")
+        .withType("date_time", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,OPEN_ID_PROPERTY ,APP_ID_PROPERTY ,UNION_ID_PROPERTY ,SEC_USER_PROPERTY ,CREATE_TIME_PROPERTY ,LAST_LOGIN_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(SEC_USER_PROPERTY, SecUser.class);
+
+    return parents;
+  }
+
+  public WechatMiniappIdentity want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public WechatMiniappIdentity wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getOpenId();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
+
+
+	protected		String              	id                  ;
+	protected		String              	openId              ;
+	protected		String              	appId               ;
+	protected		String              	unionId             ;
+	protected		SecUser             	secUser             ;
+	protected		DateTime            	createTime          ;
+	protected		DateTime            	lastLoginTime       ;
+	protected		int                 	version             ;
+
 	
 
-	protected		String              	mId                 ;
-	protected		String              	mOpenId             ;
-	protected		String              	mAppId              ;
-	protected		SecUser             	mSecUser            ;
-	protected		DateTime            	mCreateTime         ;
-	protected		DateTime            	mLastLoginTime      ;
-	protected		int                 	mVersion            ;
-	
-	
 
-	
-		
+
 	public 	WechatMiniappIdentity(){
 		// lazy load for all the properties
 	}
@@ -80,20 +138,39 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 		WechatMiniappIdentity wechatMiniappIdentity = new WechatMiniappIdentity();
 		wechatMiniappIdentity.setId(id);
 		wechatMiniappIdentity.setVersion(Integer.MAX_VALUE);
+		wechatMiniappIdentity.setChecked(true);
 		return wechatMiniappIdentity;
 	}
 	public 	static WechatMiniappIdentity refById(String id){
 		return withId(id);
 	}
-	
+
+  public WechatMiniappIdentity limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public WechatMiniappIdentity limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static WechatMiniappIdentity searchExample(){
+    WechatMiniappIdentity wechatMiniappIdentity = new WechatMiniappIdentity();
+    		wechatMiniappIdentity.setVersion(UNSET_INT);
+
+    return wechatMiniappIdentity;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setSecUser( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -103,6 +180,9 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 		}
 		if(APP_ID_PROPERTY.equals(property)){
 			changeAppIdProperty(newValueExpr);
+		}
+		if(UNION_ID_PROPERTY.equals(property)){
+			changeUnionIdProperty(newValueExpr);
 		}
 		if(CREATE_TIME_PROPERTY.equals(property)){
 			changeCreateTimeProperty(newValueExpr);
@@ -147,6 +227,22 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 			
 			
 			
+	protected void changeUnionIdProperty(String newValueExpr){
+	
+		String oldValue = getUnionId();
+		String newValue = parseString(newValueExpr);
+		if(equalsString(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateUnionId(newValue);
+		this.onChangeProperty(UNION_ID_PROPERTY, oldValue, newValue);
+		return;
+   
+	}
+			
+			
+			
 	protected void changeCreateTimeProperty(String newValueExpr){
 	
 		DateTime oldValue = getCreateTime();
@@ -183,12 +279,15 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(OPEN_ID_PROPERTY.equals(property)){
 			return getOpenId();
 		}
 		if(APP_ID_PROPERTY.equals(property)){
 			return getAppId();
+		}
+		if(UNION_ID_PROPERTY.equals(property)){
+			return getUnionId();
 		}
 		if(SEC_USER_PROPERTY.equals(property)){
 			return getSecUser();
@@ -203,160 +302,282 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public WechatMiniappIdentity updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public WechatMiniappIdentity updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setOpenId(String openId){
-		this.mOpenId = trimString(openId);;
-	}
+	public void setOpenId(String openId){String oldOpenId = this.openId;String newOpenId = trimString(openId);this.openId = newOpenId;}
+	public String openId(){
+doLoad();
+return getOpenId();
+}
 	public String getOpenId(){
-		return this.mOpenId;
+		return this.openId;
 	}
-	public WechatMiniappIdentity updateOpenId(String openId){
-		this.mOpenId = trimString(openId);;
-		this.changed = true;
-		return this;
-	}
+	public WechatMiniappIdentity updateOpenId(String openId){String oldOpenId = this.openId;String newOpenId = trimString(openId);if(!shouldReplaceBy(newOpenId, oldOpenId)){return this;}this.openId = newOpenId;addPropertyChange(OPEN_ID_PROPERTY, oldOpenId, newOpenId);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderByOpenId(boolean asc){
+doAddOrderBy(OPEN_ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createOpenIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(OPEN_ID_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreOpenIdCriteria(){super.ignoreSearchProperty(OPEN_ID_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addOpenIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createOpenIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeOpenId(String openId){
 		if(openId != null) { setOpenId(openId);}
 	}
+
 	
-	
-	public void setAppId(String appId){
-		this.mAppId = trimString(appId);;
-	}
+	public void setAppId(String appId){String oldAppId = this.appId;String newAppId = trimString(appId);this.appId = newAppId;}
+	public String appId(){
+doLoad();
+return getAppId();
+}
 	public String getAppId(){
-		return this.mAppId;
+		return this.appId;
 	}
-	public WechatMiniappIdentity updateAppId(String appId){
-		this.mAppId = trimString(appId);;
-		this.changed = true;
-		return this;
-	}
+	public WechatMiniappIdentity updateAppId(String appId){String oldAppId = this.appId;String newAppId = trimString(appId);if(!shouldReplaceBy(newAppId, oldAppId)){return this;}this.appId = newAppId;addPropertyChange(APP_ID_PROPERTY, oldAppId, newAppId);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderByAppId(boolean asc){
+doAddOrderBy(APP_ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createAppIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(APP_ID_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreAppIdCriteria(){super.ignoreSearchProperty(APP_ID_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addAppIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createAppIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeAppId(String appId){
 		if(appId != null) { setAppId(appId);}
 	}
+
 	
-	
-	public void setSecUser(SecUser secUser){
-		this.mSecUser = secUser;;
+	public void setUnionId(String unionId){String oldUnionId = this.unionId;String newUnionId = trimString(unionId);this.unionId = newUnionId;}
+	public String unionId(){
+doLoad();
+return getUnionId();
+}
+	public String getUnionId(){
+		return this.unionId;
 	}
+	public WechatMiniappIdentity updateUnionId(String unionId){String oldUnionId = this.unionId;String newUnionId = trimString(unionId);if(!shouldReplaceBy(newUnionId, oldUnionId)){return this;}this.unionId = newUnionId;addPropertyChange(UNION_ID_PROPERTY, oldUnionId, newUnionId);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderByUnionId(boolean asc){
+doAddOrderBy(UNION_ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createUnionIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(UNION_ID_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreUnionIdCriteria(){super.ignoreSearchProperty(UNION_ID_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addUnionIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createUnionIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
+	public void mergeUnionId(String unionId){
+		if(unionId != null) { setUnionId(unionId);}
+	}
+
+	
+	public void setSecUser(SecUser secUser){SecUser oldSecUser = this.secUser;SecUser newSecUser = secUser;this.secUser = newSecUser;}
+	public SecUser secUser(){
+doLoad();
+return getSecUser();
+}
 	public SecUser getSecUser(){
-		return this.mSecUser;
+		return this.secUser;
 	}
-	public WechatMiniappIdentity updateSecUser(SecUser secUser){
-		this.mSecUser = secUser;;
-		this.changed = true;
-		return this;
-	}
+	public WechatMiniappIdentity updateSecUser(SecUser secUser){SecUser oldSecUser = this.secUser;SecUser newSecUser = secUser;if(!shouldReplaceBy(newSecUser, oldSecUser)){return this;}this.secUser = newSecUser;addPropertyChange(SEC_USER_PROPERTY, oldSecUser, newSecUser);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderBySecUser(boolean asc){
+doAddOrderBy(SEC_USER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSecUserCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SEC_USER_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreSecUserCriteria(){super.ignoreSearchProperty(SEC_USER_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addSecUserCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSecUserCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeSecUser(SecUser secUser){
 		if(secUser != null) { setSecUser(secUser);}
 	}
-	
+
 	
 	public void clearSecUser(){
 		setSecUser ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setCreateTime(DateTime createTime){
-		this.mCreateTime = createTime;;
-	}
+	public void setCreateTime(DateTime createTime){DateTime oldCreateTime = this.createTime;DateTime newCreateTime = createTime;this.createTime = newCreateTime;}
+	public DateTime createTime(){
+doLoad();
+return getCreateTime();
+}
 	public DateTime getCreateTime(){
-		return this.mCreateTime;
+		return this.createTime;
 	}
-	public WechatMiniappIdentity updateCreateTime(DateTime createTime){
-		this.mCreateTime = createTime;;
-		this.changed = true;
-		return this;
-	}
+	public WechatMiniappIdentity updateCreateTime(DateTime createTime){DateTime oldCreateTime = this.createTime;DateTime newCreateTime = createTime;if(!shouldReplaceBy(newCreateTime, oldCreateTime)){return this;}this.createTime = newCreateTime;addPropertyChange(CREATE_TIME_PROPERTY, oldCreateTime, newCreateTime);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderByCreateTime(boolean asc){
+doAddOrderBy(CREATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCreateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CREATE_TIME_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreCreateTimeCriteria(){super.ignoreSearchProperty(CREATE_TIME_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addCreateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCreateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCreateTime(DateTime createTime){
 		setCreateTime(createTime);
 	}
+
 	
-	
-	public void setLastLoginTime(DateTime lastLoginTime){
-		this.mLastLoginTime = lastLoginTime;;
-	}
+	public void setLastLoginTime(DateTime lastLoginTime){DateTime oldLastLoginTime = this.lastLoginTime;DateTime newLastLoginTime = lastLoginTime;this.lastLoginTime = newLastLoginTime;}
+	public DateTime lastLoginTime(){
+doLoad();
+return getLastLoginTime();
+}
 	public DateTime getLastLoginTime(){
-		return this.mLastLoginTime;
+		return this.lastLoginTime;
 	}
-	public WechatMiniappIdentity updateLastLoginTime(DateTime lastLoginTime){
-		this.mLastLoginTime = lastLoginTime;;
-		this.changed = true;
-		return this;
-	}
+	public WechatMiniappIdentity updateLastLoginTime(DateTime lastLoginTime){DateTime oldLastLoginTime = this.lastLoginTime;DateTime newLastLoginTime = lastLoginTime;if(!shouldReplaceBy(newLastLoginTime, oldLastLoginTime)){return this;}this.lastLoginTime = newLastLoginTime;addPropertyChange(LAST_LOGIN_TIME_PROPERTY, oldLastLoginTime, newLastLoginTime);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderByLastLoginTime(boolean asc){
+doAddOrderBy(LAST_LOGIN_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastLoginTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_LOGIN_TIME_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreLastLoginTimeCriteria(){super.ignoreSearchProperty(LAST_LOGIN_TIME_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addLastLoginTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastLoginTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastLoginTime(DateTime lastLoginTime){
 		setLastLoginTime(lastLoginTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public WechatMiniappIdentity updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public WechatMiniappIdentity updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public WechatMiniappIdentity orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public WechatMiniappIdentity ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public WechatMiniappIdentity addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getSecUser(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
 		appendKeyValuePair(result, ID_PROPERTY, getId());
 		appendKeyValuePair(result, OPEN_ID_PROPERTY, getOpenId());
 		appendKeyValuePair(result, APP_ID_PROPERTY, getAppId());
+		appendKeyValuePair(result, UNION_ID_PROPERTY, getUnionId());
 		appendKeyValuePair(result, SEC_USER_PROPERTY, getSecUser());
 		appendKeyValuePair(result, CREATE_TIME_PROPERTY, getCreateTime());
 		appendKeyValuePair(result, LAST_LOGIN_TIME_PROPERTY, getLastLoginTime());
@@ -367,19 +588,20 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof WechatMiniappIdentity){
-		
-		
+
+
 			WechatMiniappIdentity dest =(WechatMiniappIdentity)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setOpenId(getOpenId());
 			dest.setAppId(getAppId());
+			dest.setUnionId(getUnionId());
 			dest.setSecUser(getSecUser());
 			dest.setCreateTime(getCreateTime());
 			dest.setLastLoginTime(getLastLoginTime());
@@ -390,16 +612,17 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof WechatMiniappIdentity){
-		
-			
+
+
 			WechatMiniappIdentity dest =(WechatMiniappIdentity)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeOpenId(getOpenId());
 			dest.mergeAppId(getAppId());
+			dest.mergeUnionId(getUnionId());
 			dest.mergeSecUser(getSecUser());
 			dest.mergeCreateTime(getCreateTime());
 			dest.mergeLastLoginTime(getLastLoginTime());
@@ -409,18 +632,19 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof WechatMiniappIdentity){
-		
-			
+
+
 			WechatMiniappIdentity dest =(WechatMiniappIdentity)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeOpenId(getOpenId());
 			dest.mergeAppId(getAppId());
+			dest.mergeUnionId(getUnionId());
 			dest.mergeCreateTime(getCreateTime());
 			dest.mergeLastLoginTime(getLastLoginTime());
 			dest.mergeVersion(getVersion());
@@ -429,8 +653,51 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 		return baseDest;
 	}
 	public Object[] toFlatArray(){
-		return new Object[]{getId(), getOpenId(), getAppId(), getSecUser(), getCreateTime(), getLastLoginTime(), getVersion()};
+		return new Object[]{getId(), getOpenId(), getAppId(), getUnionId(), getSecUser(), getCreateTime(), getLastLoginTime(), getVersion()};
 	}
+
+
+	public static WechatMiniappIdentity createWith(RetailscmUserContext userContext, ThrowingFunction<WechatMiniappIdentity,WechatMiniappIdentity,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<WechatMiniappIdentity> customCreator = mapper.findCustomCreator(WechatMiniappIdentity.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    WechatMiniappIdentity result = new WechatMiniappIdentity();
+    result.setOpenId(mapper.tryToGet(WechatMiniappIdentity.class, OPEN_ID_PROPERTY, String.class,
+        0, false, result.getOpenId(), params));
+    result.setAppId(mapper.tryToGet(WechatMiniappIdentity.class, APP_ID_PROPERTY, String.class,
+        1, false, result.getAppId(), params));
+    result.setUnionId(mapper.tryToGet(WechatMiniappIdentity.class, UNION_ID_PROPERTY, String.class,
+        2, false, result.getUnionId(), params));
+    result.setSecUser(mapper.tryToGet(WechatMiniappIdentity.class, SEC_USER_PROPERTY, SecUser.class,
+        0, true, result.getSecUser(), params));
+     result.setCreateTime(userContext.now());
+    result.setLastLoginTime(mapper.tryToGet(WechatMiniappIdentity.class, LAST_LOGIN_TIME_PROPERTY, DateTime.class,
+        0, true, result.getLastLoginTime(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixWechatMiniappIdentity(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      WechatMiniappIdentityTokens tokens = mapper.findParamByClass(params, WechatMiniappIdentityTokens.class);
+      if (tokens == null) {
+        tokens = WechatMiniappIdentityTokens.start();
+      }
+      result = userContext.getManagerGroup().getWechatMiniappIdentityManager().internalSaveWechatMiniappIdentity(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -438,6 +705,7 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 		stringBuilder.append("\tid='"+getId()+"';");
 		stringBuilder.append("\topenId='"+getOpenId()+"';");
 		stringBuilder.append("\tappId='"+getAppId()+"';");
+		stringBuilder.append("\tunionId='"+getUnionId()+"';");
 		if(getSecUser() != null ){
  			stringBuilder.append("\tsecUser='SecUser("+getSecUser().getId()+")';");
  		}
@@ -448,7 +716,7 @@ public class WechatMiniappIdentity extends BaseEntity implements  java.io.Serial
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

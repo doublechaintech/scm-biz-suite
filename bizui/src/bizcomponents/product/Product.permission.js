@@ -31,13 +31,13 @@ const internalSummaryOf = (product,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{product.id}</Description> 
+<Description term="ID">{product.id}</Description> 
 <Description term="名称">{product.name}</Description> 
 <Description term="产地">{product.origin}</Description> 
 <Description term="备注">{product.remark}</Description> 
 <Description term="品牌">{product.brand}</Description> 
 <Description term="图片"><ImagePreview imageTitle="图片" imageLocation={product.picture}/></Description> 
-<Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -63,7 +63,7 @@ class ProductPermission extends Component {
     // eslint-disable-next-line max-len
     const  product = this.props.product
     const { id,displayName, skuCount } = product
-    const  returnURL = `/product/${id}/dashboard`
+    const  returnURL = `/product/${id}/workbench`
     const cardsData = {cardsName:"产品",cardsFor: "product",cardsSource: product,displayName,returnURL,
   		subItems: [
     
@@ -76,10 +76,10 @@ class ProductPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

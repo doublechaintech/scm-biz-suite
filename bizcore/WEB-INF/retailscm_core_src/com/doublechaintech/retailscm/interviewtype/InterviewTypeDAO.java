@@ -46,6 +46,7 @@ public interface InterviewTypeDAO extends BaseDAO{
 	public void delete(String interviewTypeId, int version) throws Exception;
 	public InterviewType disconnectFromAll(String interviewTypeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeInterviewDAO getEmployeeInterviewDAO();
 		
@@ -61,9 +62,10 @@ public interface InterviewTypeDAO extends BaseDAO{
 	public int countEmployeeInterviewListWithEmployee(String interviewTypeId, String employeeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<InterviewType> queryList(String sql, Object ... parmeters);
+	public SmartList<InterviewType> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<InterviewType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateInterviewType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<InterviewType> findInterviewTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -77,6 +79,8 @@ public interface InterviewTypeDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:EmployeeInterview的interviewType的EmployeeInterviewList
 	public SmartList<EmployeeInterview> loadOurEmployeeInterviewList(RetailscmUserContext userContext, List<InterviewType> us, Map<String,Object> options) throws Exception;
 	
+
+	List<InterviewType> search(InterviewTypeRequest pRequest);
 }
 
 

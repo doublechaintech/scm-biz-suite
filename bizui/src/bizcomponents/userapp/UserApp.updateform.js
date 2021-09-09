@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './UserApp.updateform.less'
 import UserAppBase from './UserApp.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class UserAppUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -102,13 +104,13 @@ class UserAppUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const userAppId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, userAppId, ...imagesValues }
 
-        
+        const parameters = { ...values, userAppId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -123,7 +125,7 @@ class UserAppUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -133,12 +135,12 @@ class UserAppUpdateForm extends Component {
 
         const { owner } = this.props
         const userAppId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, userAppId, ...imagesValues }
+
+        const parameters = { ...values, userAppId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -160,11 +162,11 @@ class UserAppUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextUserAppUpdateRow`,
@@ -178,7 +180,7 @@ class UserAppUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -186,7 +188,7 @@ class UserAppUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'userApp',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -229,7 +231,7 @@ class UserAppUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -243,12 +245,12 @@ class UserAppUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}用户应用程序: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}应用: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -258,7 +260,7 @@ class UserAppUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -266,8 +268,8 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -278,8 +280,8 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.title} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.title} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -290,20 +292,8 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.appIcon,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.appIcon} />
-                    
-                  )}
-                </Form.Item>
-              </Col>
+                    <SmallTextInput size="large"  placeholder={fieldLabels.appIcon} />
 
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.fullAccess} {...formItemLayout}>
-                  {getFieldDecorator('fullAccess', {
-                    initialValue: selectedRow.fullAccess,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large"  placeHolder={fieldLabels.fullAccess} />
-                    
                   )}
                 </Form.Item>
               </Col>
@@ -314,32 +304,56 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.permission,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.permission} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.permission} />
+
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.objectType} {...formItemLayout}>
-                  {getFieldDecorator('objectType', {
-                    initialValue: selectedRow.objectType,
+                <Form.Item label={fieldLabels.appType} {...formItemLayout}>
+                  {getFieldDecorator('appType', {
+                    initialValue: selectedRow.appType,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.objectType} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.appType} />
+
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.objectId} {...formItemLayout}>
-                  {getFieldDecorator('objectId', {
-                    initialValue: selectedRow.objectId,
+                <Form.Item label={fieldLabels.appId} {...formItemLayout}>
+                  {getFieldDecorator('appId', {
+                    initialValue: selectedRow.appId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.objectId} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.appId} />
+
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.ctxType} {...formItemLayout}>
+                  {getFieldDecorator('ctxType', {
+                    initialValue: selectedRow.ctxType,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <SmallTextInput size="large"  placeholder={fieldLabels.ctxType} />
+
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.ctxId} {...formItemLayout}>
+                  {getFieldDecorator('ctxId', {
+                    initialValue: selectedRow.ctxId,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <SmallTextInput size="large"  placeholder={fieldLabels.ctxId} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -350,17 +364,34 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.location,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.location} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.location} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.fullAccess} {...switchFormItemLayout}>
+                  {getFieldDecorator('fullAccess', {
+                    initialValue: selectedRow.fullAccess,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    valuePropName: 'checked'
+                  })(
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                  )}
+                </Form.Item>
+              </Col>
+
+
+ 
+
+
+
 
 
 			</Row>

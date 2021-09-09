@@ -31,7 +31,7 @@ const internalSummaryOf = (uiAction,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{uiAction.id}</Description> 
+<Description term="ID">{uiAction.id}</Description> 
 <Description term="代码">{uiAction.code}</Description> 
 <Description term="图标">{uiAction.icon}</Description> 
 <Description term="头衔">{uiAction.title}</Description> 
@@ -64,7 +64,7 @@ class UiActionPermission extends Component {
     // eslint-disable-next-line max-len
     const  uiAction = this.props.uiAction
     const { id,displayName,  } = uiAction
-    const  returnURL = `/uiAction/${id}/dashboard`
+    const  returnURL = `/uiAction/${id}/workbench`
     const cardsData = {cardsName:"用户界面操作",cardsFor: "uiAction",cardsSource: uiAction,displayName,returnURL,
   		subItems: [
     
@@ -77,10 +77,10 @@ class UiActionPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.consumerorderlineitem;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected ConsumerOrderDAO consumerOrderDAO;
 	public void setConsumerOrderDAO(ConsumerOrderDAO consumerOrderDAO){
- 	
+
  		if(consumerOrderDAO == null){
  			throw new IllegalStateException("Do not try to set consumerOrderDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		if(this.consumerOrderDAO == null){
  			throw new IllegalStateException("The consumerOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.consumerOrderDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ConsumerOrderLineItemTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ConsumerOrderLineItemTokens.BIZORDER);
  	}
 
  	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ConsumerOrderLineItemTokens.BIZORDER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		return new ConsumerOrderLineItemMapper();
 	}
 
-	
-	
+
+
 	protected ConsumerOrderLineItem extractConsumerOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ConsumerOrderLineItem consumerOrderLineItem = loadSingleObject(accessKey, getConsumerOrderLineItemMapper());
@@ -229,25 +231,26 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	}
 
-	
-	
+
+
 
 	protected ConsumerOrderLineItem loadInternalConsumerOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ConsumerOrderLineItem consumerOrderLineItem = extractConsumerOrderLineItem(accessKey, loadOptions);
- 	
+
  		if(isExtractBizOrderEnabled(loadOptions)){
 	 		extractBizOrder(consumerOrderLineItem, loadOptions);
  		}
  
 		
 		return consumerOrderLineItem;
-		
+
 	}
 
-	 
+	
 
  	protected ConsumerOrderLineItem extractBizOrder(ConsumerOrderLineItem consumerOrderLineItem, Map<String,Object> options) throws Exception{
+  
 
 		if(consumerOrderLineItem.getBizOrder() == null){
 			return consumerOrderLineItem;
@@ -260,41 +263,41 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		if(bizOrder != null){
 			consumerOrderLineItem.setBizOrder(bizOrder);
 		}
-		
- 		
+
+
  		return consumerOrderLineItem;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<ConsumerOrderLineItem> findConsumerOrderLineItemByBizOrder(String consumerOrderId,Map<String,Object> options){
- 	
+
   		SmartList<ConsumerOrderLineItem> resultList = queryWith(ConsumerOrderLineItemTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderLineItemMapper());
 		// analyzeConsumerOrderLineItemByBizOrder(resultList, consumerOrderId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ConsumerOrderLineItem> findConsumerOrderLineItemByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ConsumerOrderLineItem> resultList =  queryWithRange(ConsumerOrderLineItemTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderLineItemMapper(), start, count);
  		//analyzeConsumerOrderLineItemByBizOrder(resultList, consumerOrderId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeConsumerOrderLineItemByBizOrder(SmartList<ConsumerOrderLineItem> resultList, String consumerOrderId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(ConsumerOrderLineItem.BIZ_ORDER_PROPERTY, consumerOrderId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY
@@ -302,11 +305,11 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countConsumerOrderLineItemByBizOrder(String consumerOrderId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	public Map<String, Integer> countConsumerOrderLineItemByBizOrderIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ConsumerOrderLineItemTable.COLUMN_BIZ_ORDER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ConsumerOrderLineItem saveConsumerOrderLineItem(ConsumerOrderLineItem  consumerOrderLineItem){
+    
+
 		
 		if(!consumerOrderLineItem.isChanged()){
 			return consumerOrderLineItem;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(consumerOrderLineItem);
 		String SQL=this.getSaveConsumerOrderLineItemSQL(consumerOrderLineItem);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveConsumerOrderLineItemParameters(consumerOrderLineItem);
@@ -342,6 +348,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		}
 
 		consumerOrderLineItem.incVersion();
+		consumerOrderLineItem.afterSave();
 		return consumerOrderLineItem;
 
 	}
@@ -359,6 +366,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		for(ConsumerOrderLineItem consumerOrderLineItem:consumerOrderLineItemList){
 			if(consumerOrderLineItem.isChanged()){
 				consumerOrderLineItem.incVersion();
+				consumerOrderLineItem.afterSave();
 			}
 
 
@@ -465,22 +473,16 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		if(consumerOrderLineItem.getBizOrder() != null){
  			parameters[0] = consumerOrderLineItem.getBizOrder().getId();
  		}
- 
- 		
+    
  		parameters[1] = consumerOrderLineItem.getSkuId();
- 		
  		
  		parameters[2] = consumerOrderLineItem.getSkuName();
  		
- 		
  		parameters[3] = consumerOrderLineItem.getPrice();
- 		
  		
  		parameters[4] = consumerOrderLineItem.getQuantity();
  		
- 		
  		parameters[5] = consumerOrderLineItem.getAmount();
- 		
  		
  		parameters[6] = consumerOrderLineItem.getLastUpdateTime();
  		
@@ -500,24 +502,17 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  
  		if(consumerOrderLineItem.getBizOrder() != null){
  			parameters[1] = consumerOrderLineItem.getBizOrder().getId();
-
  		}
- 		
  		
  		parameters[2] = consumerOrderLineItem.getSkuId();
  		
- 		
  		parameters[3] = consumerOrderLineItem.getSkuName();
- 		
  		
  		parameters[4] = consumerOrderLineItem.getPrice();
  		
- 		
  		parameters[5] = consumerOrderLineItem.getQuantity();
  		
- 		
  		parameters[6] = consumerOrderLineItem.getAmount();
- 		
  		
  		parameters[7] = consumerOrderLineItem.getLastUpdateTime();
  		
@@ -527,12 +522,11 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected ConsumerOrderLineItem saveInternalConsumerOrderLineItem(ConsumerOrderLineItem consumerOrderLineItem, Map<String,Object> options){
 
-		saveConsumerOrderLineItem(consumerOrderLineItem);
-
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(consumerOrderLineItem, options);
  		}
  
+   saveConsumerOrderLineItem(consumerOrderLineItem);
 		
 		return consumerOrderLineItem;
 
@@ -544,6 +538,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	
 
  	protected ConsumerOrderLineItem saveBizOrder(ConsumerOrderLineItem consumerOrderLineItem, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(consumerOrderLineItem.getBizOrder() == null){
  			return consumerOrderLineItem;//do nothing when it is null
@@ -553,11 +548,6 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		return consumerOrderLineItem;
 
  	}
-
-
-
-
-
  
 
 	
@@ -565,10 +555,10 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		
 
 	public ConsumerOrderLineItem present(ConsumerOrderLineItem consumerOrderLineItem,Map<String, Object> options){
-	
+
 
 		return consumerOrderLineItem;
-	
+
 	}
 		
 
@@ -620,6 +610,10 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ConsumerOrderLineItem> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getConsumerOrderLineItemMapper());
   }
@@ -655,6 +649,15 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	
 
+  @Override
+  public List<ConsumerOrderLineItem> search(ConsumerOrderLineItemRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ConsumerOrderLineItemMapper mapper() {
+    return getConsumerOrderLineItemMapper();
+  }
 }
 
 

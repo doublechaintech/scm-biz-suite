@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStoreOrderLineItem.updateform.less'
 import RetailStoreOrderLineItemBase from './RetailStoreOrderLineItem.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -102,13 +104,13 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const retailStoreOrderLineItemId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, retailStoreOrderLineItemId, ...imagesValues }
 
-        
+        const parameters = { ...values, retailStoreOrderLineItemId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -123,7 +125,7 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -133,12 +135,12 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
 
         const { owner } = this.props
         const retailStoreOrderLineItemId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, retailStoreOrderLineItemId, ...imagesValues }
+
+        const parameters = { ...values, retailStoreOrderLineItemId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -160,11 +162,11 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextRetailStoreOrderLineItemUpdateRow`,
@@ -178,7 +180,7 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -186,7 +188,7 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'retailStoreOrderLineItem',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -229,7 +231,7 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -243,12 +245,12 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}双链小超订单行项目: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -258,7 +260,7 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -266,8 +268,8 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -278,8 +280,8 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.skuId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.skuId} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.skuId} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -290,8 +292,8 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.skuName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.skuName} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.skuName} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -302,8 +304,8 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.amount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.amount} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -314,8 +316,8 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.quantity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.quantity} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.quantity} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -326,17 +328,17 @@ class RetailStoreOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.unitOfMeasurement,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.unitOfMeasurement} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.unitOfMeasurement} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

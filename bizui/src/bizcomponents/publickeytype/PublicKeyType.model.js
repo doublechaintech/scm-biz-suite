@@ -37,6 +37,22 @@ export default {
     },
   },
   effects: {
+
+    *analyze({ payload }, { call, put, select }){
+      yield put({ type: 'showLoading', payload })
+      const link = payload.pathname
+      const {PublicKeyTypeService} = GlobalComponents;
+      const data = yield call(PublicKeyTypeService.analyze, payload.id)
+      
+      const displayName = payload.displayName||data.displayName
+      
+      
+      yield put({ type: 'breadcrumb/gotoLink', payload: { displayName,link }} )
+      
+
+      yield put({ type: 'updateState', payload: data })
+      
+    },
     *view({ payload }, { call, put, select }) { 
     
       const cachedData = yield select(state => state._publicKeyType)
@@ -117,13 +133,13 @@ export default {
 
 
 
-    *addKeypairIdentify({ payload }, { call, put }) {
+    *addKeyPairIdentity({ payload }, { call, put }) {
       const userContext = null
       const {PublicKeyTypeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(PublicKeyTypeService.addKeypairIdentify, id, parameters)
+      const data = yield call(PublicKeyTypeService.addKeyPairIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -137,15 +153,15 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/publicKeyType/${id}/list/KeypairIdentifyList/密钥对识别+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/publicKeyType/${id}/list/KeyPairIdentityList/秘钥对认证+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
-    *updateKeypairIdentify({ payload }, { call, put }) {
+    *updateKeyPairIdentity({ payload }, { call, put }) {
       const userContext = null
       const {PublicKeyTypeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(PublicKeyTypeService.updateKeypairIdentify, id, parameters)
+      const data = yield call(PublicKeyTypeService.updateKeyPairIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -159,20 +175,20 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/publicKeyType/${id}/list/KeypairIdentifyList/密钥对识别列表`, state: newPlayload }
+      const location = { pathname: `/publicKeyType/${id}/list/KeyPairIdentityList/秘钥对认证列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
-    *gotoNextKeypairIdentifyUpdateRow({ payload }, { call, put }) {
+    *gotoNextKeyPairIdentityUpdateRow({ payload }, { call, put }) {
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       const newPlayload = { ...payload, selectedRows, currentUpdateIndex }
       yield put({ type: 'updateState', payload: newPlayload })
     },
-    *removeKeypairIdentifyList({ payload }, { call, put }) {
+    *removeKeyPairIdentityList({ payload }, { call, put }) {
      const userContext = null
       const {PublicKeyTypeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(PublicKeyTypeService.removeKeypairIdentifyList, id, parameters)
+      const data = yield call(PublicKeyTypeService.removeKeyPairIdentityList, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return

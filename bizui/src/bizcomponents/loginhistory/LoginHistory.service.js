@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}loginHistoryManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}loginHistoryManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}loginHistoryService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const LoginHistoryService = { view,
   load,
+  analyze,
   requestCandidateSecUser,
-  transferToAnotherSecUser, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherSecUser, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default LoginHistoryService
 

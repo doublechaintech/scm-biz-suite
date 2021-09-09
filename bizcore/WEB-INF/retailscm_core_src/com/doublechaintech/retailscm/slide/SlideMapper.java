@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.slide;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,28 +9,31 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.page.Page;
 
 public class SlideMapper extends BaseRowMapper<Slide>{
-	
+
 	protected Slide internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		Slide slide = getSlide();		
-		 		
- 		setId(slide, rs, rowNumber); 		
- 		setName(slide, rs, rowNumber); 		
- 		setDisplayOrder(slide, rs, rowNumber); 		
- 		setImageUrl(slide, rs, rowNumber); 		
- 		setVideoUrl(slide, rs, rowNumber); 		
- 		setLinkToUrl(slide, rs, rowNumber); 		
- 		setPage(slide, rs, rowNumber); 		
+		Slide slide = getSlide();
+		
+ 		setId(slide, rs, rowNumber);
+ 		setName(slide, rs, rowNumber);
+ 		setDisplayOrder(slide, rs, rowNumber);
+ 		setImageUrl(slide, rs, rowNumber);
+ 		setVideoUrl(slide, rs, rowNumber);
+ 		setLinkToUrl(slide, rs, rowNumber);
+ 		setPage(slide, rs, rowNumber);
  		setVersion(slide, rs, rowNumber);
 
+    
 		return slide;
 	}
-	
+
 	protected Slide getSlide(){
-		return new Slide();
-	}		
+	  Slide entity = new Slide();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(SlideTable.COLUMN_ID);
@@ -40,10 +44,13 @@ public class SlideMapper extends BaseRowMapper<Slide>{
 		}
 		
 		slide.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(SlideTable.COLUMN_NAME);
@@ -54,10 +61,13 @@ public class SlideMapper extends BaseRowMapper<Slide>{
 		}
 		
 		slide.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDisplayOrder(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer displayOrder = rs.getInt(SlideTable.COLUMN_DISPLAY_ORDER);
@@ -68,10 +78,13 @@ public class SlideMapper extends BaseRowMapper<Slide>{
 		}
 		
 		slide.setDisplayOrder(displayOrder);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setImageUrl(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String imageUrl = rs.getString(SlideTable.COLUMN_IMAGE_URL);
@@ -82,10 +95,13 @@ public class SlideMapper extends BaseRowMapper<Slide>{
 		}
 		
 		slide.setImageUrl(imageUrl);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVideoUrl(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String videoUrl = rs.getString(SlideTable.COLUMN_VIDEO_URL);
@@ -96,10 +112,13 @@ public class SlideMapper extends BaseRowMapper<Slide>{
 		}
 		
 		slide.setVideoUrl(videoUrl);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLinkToUrl(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String linkToUrl = rs.getString(SlideTable.COLUMN_LINK_TO_URL);
@@ -110,10 +129,18 @@ public class SlideMapper extends BaseRowMapper<Slide>{
 		}
 		
 		slide.setLinkToUrl(linkToUrl);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setPage(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
- 		String pageId = rs.getString(SlideTable.COLUMN_PAGE);
+ 		String pageId;
+ 		try{
+ 		  pageId = rs.getString(SlideTable.COLUMN_PAGE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( pageId == null){
  			return;
  		}
@@ -124,14 +151,14 @@ public class SlideMapper extends BaseRowMapper<Slide>{
  		if( page != null ){
  			//if the root object 'slide' already have the property, just set the id for it;
  			page.setId(pageId);
- 			
+
  			return;
  		}
  		slide.setPage(createEmptyPage(pageId));
  	}
  	
 	protected void setVersion(Slide slide, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(SlideTable.COLUMN_VERSION);
@@ -142,9 +169,12 @@ public class SlideMapper extends BaseRowMapper<Slide>{
 		}
 		
 		slide.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Page  createEmptyPage(String pageId){
  		Page page = new Page();

@@ -44,13 +44,15 @@ public interface StockCountIssueTrackDAO extends BaseDAO{
 	public void delete(String stockCountIssueTrackId, int version) throws Exception;
 	public StockCountIssueTrack disconnectFromAll(String stockCountIssueTrackId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<StockCountIssueTrack> queryList(String sql, Object ... parmeters);
+	public SmartList<StockCountIssueTrack> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<StockCountIssueTrack> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateStockCountIssueTrack executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<StockCountIssueTrack> findStockCountIssueTrackByStockCount(String goodsShelfStockCountId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface StockCountIssueTrackDAO extends BaseDAO{
 
 
  
+
+	List<StockCountIssueTrack> search(StockCountIssueTrackRequest pRequest);
 }
 
 

@@ -55,7 +55,7 @@ class CandidateContainerProfile extends Component {
     const  candidateContainer = this.props.candidateContainer;
     const { id,displayName, candidateElementCount } = candidateContainer
     const  returnURL = `/candidateContainer/${id}/dashboard`
-    const cardsData = {cardsName:"候选人容器",cardsFor: "candidateContainer",cardsSource: candidateContainer,displayName,returnURL,
+    const cardsData = {cardsName:"候选容器",cardsFor: "candidateContainer",cardsSource: candidateContainer,displayName,returnURL,
   		subItems: [
      
       	],

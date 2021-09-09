@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.goodsmovement;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return GoodsMovementTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractGoodsEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, GoodsMovementTokens.GOODS);
  	}
 
  	protected boolean isSaveGoodsEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, GoodsMovementTokens.GOODS);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new GoodsMovementMapper();
 	}
 
-	
-	
+
+
 	protected GoodsMovement extractGoodsMovement(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			GoodsMovement goodsMovement = loadSingleObject(accessKey, getGoodsMovementMapper());
@@ -229,25 +231,26 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected GoodsMovement loadInternalGoodsMovement(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		GoodsMovement goodsMovement = extractGoodsMovement(accessKey, loadOptions);
- 	
+
  		if(isExtractGoodsEnabled(loadOptions)){
 	 		extractGoods(goodsMovement, loadOptions);
  		}
  
 		
 		return goodsMovement;
-		
+
 	}
 
-	 
+	
 
  	protected GoodsMovement extractGoods(GoodsMovement goodsMovement, Map<String,Object> options) throws Exception{
+  
 
 		if(goodsMovement.getGoods() == null){
 			return goodsMovement;
@@ -260,41 +263,41 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(goods != null){
 			goodsMovement.setGoods(goods);
 		}
-		
- 		
+
+
  		return goodsMovement;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<GoodsMovement> findGoodsMovementByGoods(String goodsId,Map<String,Object> options){
- 	
+
   		SmartList<GoodsMovement> resultList = queryWith(GoodsMovementTable.COLUMN_GOODS, goodsId, options, getGoodsMovementMapper());
 		// analyzeGoodsMovementByGoods(resultList, goodsId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<GoodsMovement> findGoodsMovementByGoods(String goodsId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<GoodsMovement> resultList =  queryWithRange(GoodsMovementTable.COLUMN_GOODS, goodsId, options, getGoodsMovementMapper(), start, count);
  		//analyzeGoodsMovementByGoods(resultList, goodsId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeGoodsMovementByGoods(SmartList<GoodsMovement> resultList, String goodsId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsMovement.GOODS_PROPERTY, goodsId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem moveTimeStatsItem = new StatsItem();
 		//GoodsMovement.MOVE_TIME_PROPERTY
@@ -302,11 +305,11 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		moveTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsMovement.MOVE_TIME_PROPERTY));
 		moveTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsMovement.MOVE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(moveTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countGoodsMovementByGoods(String goodsId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countGoodsMovementByGoodsIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(GoodsMovementTable.COLUMN_GOODS, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected GoodsMovement saveGoodsMovement(GoodsMovement  goodsMovement){
+    
+
 		
 		if(!goodsMovement.isChanged()){
 			return goodsMovement;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(goodsMovement);
 		String SQL=this.getSaveGoodsMovementSQL(goodsMovement);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsMovementParameters(goodsMovement);
@@ -342,6 +348,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		goodsMovement.incVersion();
+		goodsMovement.afterSave();
 		return goodsMovement;
 
 	}
@@ -359,6 +366,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(GoodsMovement goodsMovement:goodsMovementList){
 			if(goodsMovement.isChanged()){
 				goodsMovement.incVersion();
+				goodsMovement.afterSave();
 			}
 
 
@@ -462,34 +470,26 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	protected Object[] prepareGoodsMovementUpdateParameters(GoodsMovement goodsMovement){
  		Object[] parameters = new Object[12];
  
- 		
  		parameters[0] = goodsMovement.getMoveTime();
- 		
  		
  		parameters[1] = goodsMovement.getFacility();
  		
- 		
  		parameters[2] = goodsMovement.getFacilityId();
- 		
  		
  		parameters[3] = goodsMovement.getFromIp();
  		
- 		
  		parameters[4] = goodsMovement.getUserAgent();
- 		
  		
  		parameters[5] = goodsMovement.getSessionId();
  		
- 		
  		parameters[6] = goodsMovement.getLatitude();
- 		
  		
  		parameters[7] = goodsMovement.getLongitude();
  		
  		if(goodsMovement.getGoods() != null){
  			parameters[8] = goodsMovement.getGoods().getId();
  		}
- 
+    
  		parameters[9] = goodsMovement.nextVersion();
  		parameters[10] = goodsMovement.getId();
  		parameters[11] = goodsMovement.getVersion();
@@ -504,33 +504,24 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
         }
 		parameters[0] =  goodsMovement.getId();
  
- 		
  		parameters[1] = goodsMovement.getMoveTime();
- 		
  		
  		parameters[2] = goodsMovement.getFacility();
  		
- 		
  		parameters[3] = goodsMovement.getFacilityId();
- 		
  		
  		parameters[4] = goodsMovement.getFromIp();
  		
- 		
  		parameters[5] = goodsMovement.getUserAgent();
- 		
  		
  		parameters[6] = goodsMovement.getSessionId();
  		
- 		
  		parameters[7] = goodsMovement.getLatitude();
- 		
  		
  		parameters[8] = goodsMovement.getLongitude();
  		
  		if(goodsMovement.getGoods() != null){
  			parameters[9] = goodsMovement.getGoods().getId();
-
  		}
  		
 
@@ -539,12 +530,11 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected GoodsMovement saveInternalGoodsMovement(GoodsMovement goodsMovement, Map<String,Object> options){
 
-		saveGoodsMovement(goodsMovement);
-
  		if(isSaveGoodsEnabled(options)){
 	 		saveGoods(goodsMovement, options);
  		}
  
+   saveGoodsMovement(goodsMovement);
 		
 		return goodsMovement;
 
@@ -556,6 +546,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected GoodsMovement saveGoods(GoodsMovement goodsMovement, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(goodsMovement.getGoods() == null){
  			return goodsMovement;//do nothing when it is null
@@ -565,11 +556,6 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return goodsMovement;
 
  	}
-
-
-
-
-
  
 
 	
@@ -577,10 +563,10 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public GoodsMovement present(GoodsMovement goodsMovement,Map<String, Object> options){
-	
+
 
 		return goodsMovement;
-	
+
 	}
 		
 
@@ -632,6 +618,10 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<GoodsMovement> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getGoodsMovementMapper());
   }
@@ -667,6 +657,15 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<GoodsMovement> search(GoodsMovementRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected GoodsMovementMapper mapper() {
+    return getGoodsMovementMapper();
+  }
 }
 
 

@@ -16,14 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  trackTime: '2020-02-22',
-  latitude: '31.847008457465652',
-  longitude: '104.71587947418948',
-  movementId: 'TT000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -37,9 +29,15 @@ class TransportTaskTrackCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -50,7 +48,7 @@ class TransportTaskTrackCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -64,8 +62,8 @@ class TransportTaskTrackCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -74,13 +72,13 @@ class TransportTaskTrackCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = TransportTaskTrackBase
     const {TransportTaskTrackService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -105,10 +103,10 @@ class TransportTaskTrackCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addTransportTaskTrack`,
@@ -116,10 +114,10 @@ class TransportTaskTrackCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'transportTaskTrack',listName:appLocaleName(userContext,"List") },
@@ -165,10 +163,10 @@ class TransportTaskTrackCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -180,7 +178,7 @@ class TransportTaskTrackCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -191,7 +189,7 @@ class TransportTaskTrackCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -201,7 +199,7 @@ class TransportTaskTrackCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_task_track')}</div>)
@@ -213,7 +211,7 @@ class TransportTaskTrackCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('transport_task_track')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<TransportTaskTrackCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -229,7 +227,7 @@ class TransportTaskTrackCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

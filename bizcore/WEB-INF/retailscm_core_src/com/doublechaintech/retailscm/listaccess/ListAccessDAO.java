@@ -44,13 +44,15 @@ public interface ListAccessDAO extends BaseDAO{
 	public void delete(String listAccessId, int version) throws Exception;
 	public ListAccess disconnectFromAll(String listAccessId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<ListAccess> queryList(String sql, Object ... parmeters);
+	public SmartList<ListAccess> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<ListAccess> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateListAccess executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<ListAccess> findListAccessByApp(String userAppId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface ListAccessDAO extends BaseDAO{
 
 
  
+
+	List<ListAccess> search(ListAccessRequest pRequest);
 }
 
 

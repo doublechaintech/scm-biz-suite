@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.goodsshelf;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 
 	protected StorageSpaceDAO storageSpaceDAO;
 	public void setStorageSpaceDAO(StorageSpaceDAO storageSpaceDAO){
- 	
+
  		if(storageSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set storageSpaceDAO to null.");
  		}
@@ -57,13 +58,13 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		if(this.storageSpaceDAO == null){
  			throw new IllegalStateException("The storageSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.storageSpaceDAO;
- 	}	
+ 	}
 
 	protected SupplierSpaceDAO supplierSpaceDAO;
 	public void setSupplierSpaceDAO(SupplierSpaceDAO supplierSpaceDAO){
- 	
+
  		if(supplierSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set supplierSpaceDAO to null.");
  		}
@@ -73,13 +74,13 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		if(this.supplierSpaceDAO == null){
  			throw new IllegalStateException("The supplierSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplierSpaceDAO;
- 	}	
+ 	}
 
 	protected DamageSpaceDAO damageSpaceDAO;
 	public void setDamageSpaceDAO(DamageSpaceDAO damageSpaceDAO){
- 	
+
  		if(damageSpaceDAO == null){
  			throw new IllegalStateException("Do not try to set damageSpaceDAO to null.");
  		}
@@ -89,13 +90,13 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		if(this.damageSpaceDAO == null){
  			throw new IllegalStateException("The damageSpaceDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.damageSpaceDAO;
- 	}	
+ 	}
 
 	protected GoodsShelfStockCountDAO goodsShelfStockCountDAO;
 	public void setGoodsShelfStockCountDAO(GoodsShelfStockCountDAO goodsShelfStockCountDAO){
- 	
+
  		if(goodsShelfStockCountDAO == null){
  			throw new IllegalStateException("Do not try to set goodsShelfStockCountDAO to null.");
  		}
@@ -105,13 +106,13 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		if(this.goodsShelfStockCountDAO == null){
  			throw new IllegalStateException("The goodsShelfStockCountDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsShelfStockCountDAO;
- 	}	
+ 	}
 
 	protected GoodsAllocationDAO goodsAllocationDAO;
 	public void setGoodsAllocationDAO(GoodsAllocationDAO goodsAllocationDAO){
- 	
+
  		if(goodsAllocationDAO == null){
  			throw new IllegalStateException("Do not try to set goodsAllocationDAO to null.");
  		}
@@ -121,9 +122,10 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		if(this.goodsAllocationDAO == null){
  			throw new IllegalStateException("The goodsAllocationDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsAllocationDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -177,14 +179,14 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		newGoodsShelf.setVersion(0);
 		
 		
- 		
+
  		if(isSaveGoodsShelfStockCountListEnabled(options)){
  			for(GoodsShelfStockCount item: newGoodsShelf.getGoodsShelfStockCountList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveGoodsAllocationListEnabled(options)){
  			for(GoodsAllocation item: newGoodsShelf.getGoodsAllocationList()){
  				item.setVersion(0);
@@ -271,86 +273,86 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return GoodsShelfTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractStorageSpaceEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, GoodsShelfTokens.STORAGESPACE);
  	}
 
  	protected boolean isSaveStorageSpaceEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, GoodsShelfTokens.STORAGESPACE);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractSupplierSpaceEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, GoodsShelfTokens.SUPPLIERSPACE);
  	}
 
  	protected boolean isSaveSupplierSpaceEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, GoodsShelfTokens.SUPPLIERSPACE);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractDamageSpaceEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, GoodsShelfTokens.DAMAGESPACE);
  	}
 
  	protected boolean isSaveDamageSpaceEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, GoodsShelfTokens.DAMAGESPACE);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractGoodsShelfStockCountListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsShelfStockCountListEnabled(Map<String,Object> options){
  		return checkOptions(options,GoodsShelfTokens.GOODS_SHELF_STOCK_COUNT_LIST);
  	}
- 	protected boolean isAnalyzeGoodsShelfStockCountListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsShelfStockCountListEnabled(Map<String,Object> options){
  		return GoodsShelfTokens.of(options).analyzeGoodsShelfStockCountListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsShelfStockCountListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsShelfTokens.GOODS_SHELF_STOCK_COUNT_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractGoodsAllocationListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsAllocationListEnabled(Map<String,Object> options){
  		return checkOptions(options,GoodsShelfTokens.GOODS_ALLOCATION_LIST);
  	}
- 	protected boolean isAnalyzeGoodsAllocationListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsAllocationListEnabled(Map<String,Object> options){
  		return GoodsShelfTokens.of(options).analyzeGoodsAllocationListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsAllocationListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsShelfTokens.GOODS_ALLOCATION_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -359,8 +361,8 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		return new GoodsShelfMapper();
 	}
 
-	
-	
+
+
 	protected GoodsShelf extractGoodsShelf(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			GoodsShelf goodsShelf = loadSingleObject(accessKey, getGoodsShelfMapper());
@@ -371,21 +373,21 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 
 	}
 
-	
-	
+
+
 
 	protected GoodsShelf loadInternalGoodsShelf(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		GoodsShelf goodsShelf = extractGoodsShelf(accessKey, loadOptions);
- 	
+
  		if(isExtractStorageSpaceEnabled(loadOptions)){
 	 		extractStorageSpace(goodsShelf, loadOptions);
  		}
-  	
+ 
  		if(isExtractSupplierSpaceEnabled(loadOptions)){
 	 		extractSupplierSpace(goodsShelf, loadOptions);
  		}
-  	
+ 
  		if(isExtractDamageSpaceEnabled(loadOptions)){
 	 		extractDamageSpace(goodsShelf, loadOptions);
  		}
@@ -393,8 +395,8 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		
 		if(isExtractGoodsShelfStockCountListEnabled(loadOptions)){
 	 		extractGoodsShelfStockCountList(goodsShelf, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsShelfStockCountListEnabled(loadOptions)){
 	 		analyzeGoodsShelfStockCountList(goodsShelf, loadOptions);
@@ -403,8 +405,8 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		
 		if(isExtractGoodsAllocationListEnabled(loadOptions)){
 	 		extractGoodsAllocationList(goodsShelf, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsAllocationListEnabled(loadOptions)){
 	 		analyzeGoodsAllocationList(goodsShelf, loadOptions);
@@ -412,12 +414,13 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		
 		
 		return goodsShelf;
-		
+
 	}
 
-	 
+	
 
  	protected GoodsShelf extractStorageSpace(GoodsShelf goodsShelf, Map<String,Object> options) throws Exception{
+  
 
 		if(goodsShelf.getStorageSpace() == null){
 			return goodsShelf;
@@ -430,14 +433,15 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		if(storageSpace != null){
 			goodsShelf.setStorageSpace(storageSpace);
 		}
-		
- 		
+
+
  		return goodsShelf;
  	}
- 		
-  
+
+ 
 
  	protected GoodsShelf extractSupplierSpace(GoodsShelf goodsShelf, Map<String,Object> options) throws Exception{
+  
 
 		if(goodsShelf.getSupplierSpace() == null){
 			return goodsShelf;
@@ -450,14 +454,15 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		if(supplierSpace != null){
 			goodsShelf.setSupplierSpace(supplierSpace);
 		}
-		
- 		
+
+
  		return goodsShelf;
  	}
- 		
-  
+
+ 
 
  	protected GoodsShelf extractDamageSpace(GoodsShelf goodsShelf, Map<String,Object> options) throws Exception{
+  
 
 		if(goodsShelf.getDamageSpace() == null){
 			return goodsShelf;
@@ -470,21 +475,21 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		if(damageSpace != null){
 			goodsShelf.setDamageSpace(damageSpace);
 		}
-		
- 		
+
+
  		return goodsShelf;
  	}
- 		
+
  
 		
 	protected void enhanceGoodsShelfStockCountList(SmartList<GoodsShelfStockCount> goodsShelfStockCountList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected GoodsShelf extractGoodsShelfStockCountList(GoodsShelf goodsShelf, Map<String,Object> options){
-		
-		
+    
+
 		if(goodsShelf == null){
 			return null;
 		}
@@ -492,21 +497,20 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 			return goodsShelf;
 		}
 
-		
-		
+
+
 		SmartList<GoodsShelfStockCount> goodsShelfStockCountList = getGoodsShelfStockCountDAO().findGoodsShelfStockCountByShelf(goodsShelf.getId(),options);
 		if(goodsShelfStockCountList != null){
 			enhanceGoodsShelfStockCountList(goodsShelfStockCountList,options);
 			goodsShelf.setGoodsShelfStockCountList(goodsShelfStockCountList);
 		}
-		
+
 		return goodsShelf;
-	
-	}	
-	
+  
+	}
+
 	protected GoodsShelf analyzeGoodsShelfStockCountList(GoodsShelf goodsShelf, Map<String,Object> options){
-		
-		
+     
 		if(goodsShelf == null){
 			return null;
 		}
@@ -514,27 +518,27 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 			return goodsShelf;
 		}
 
-		
-		
+
+
 		SmartList<GoodsShelfStockCount> goodsShelfStockCountList = goodsShelf.getGoodsShelfStockCountList();
 		if(goodsShelfStockCountList != null){
 			getGoodsShelfStockCountDAO().analyzeGoodsShelfStockCountByShelf(goodsShelfStockCountList, goodsShelf.getId(), options);
-			
+
 		}
-		
+
 		return goodsShelf;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected GoodsShelf extractGoodsAllocationList(GoodsShelf goodsShelf, Map<String,Object> options){
-		
-		
+    
+
 		if(goodsShelf == null){
 			return null;
 		}
@@ -542,21 +546,20 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 			return goodsShelf;
 		}
 
-		
-		
+
+
 		SmartList<GoodsAllocation> goodsAllocationList = getGoodsAllocationDAO().findGoodsAllocationByGoodsShelf(goodsShelf.getId(),options);
 		if(goodsAllocationList != null){
 			enhanceGoodsAllocationList(goodsAllocationList,options);
 			goodsShelf.setGoodsAllocationList(goodsAllocationList);
 		}
-		
+
 		return goodsShelf;
-	
-	}	
-	
+  
+	}
+
 	protected GoodsShelf analyzeGoodsAllocationList(GoodsShelf goodsShelf, Map<String,Object> options){
-		
-		
+     
 		if(goodsShelf == null){
 			return null;
 		}
@@ -564,47 +567,47 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 			return goodsShelf;
 		}
 
-		
-		
+
+
 		SmartList<GoodsAllocation> goodsAllocationList = goodsShelf.getGoodsAllocationList();
 		if(goodsAllocationList != null){
 			getGoodsAllocationDAO().analyzeGoodsAllocationByGoodsShelf(goodsAllocationList, goodsShelf.getId(), options);
-			
+
 		}
-		
+
 		return goodsShelf;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<GoodsShelf> findGoodsShelfByStorageSpace(String storageSpaceId,Map<String,Object> options){
- 	
+
   		SmartList<GoodsShelf> resultList = queryWith(GoodsShelfTable.COLUMN_STORAGE_SPACE, storageSpaceId, options, getGoodsShelfMapper());
 		// analyzeGoodsShelfByStorageSpace(resultList, storageSpaceId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<GoodsShelf> findGoodsShelfByStorageSpace(String storageSpaceId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<GoodsShelf> resultList =  queryWithRange(GoodsShelfTable.COLUMN_STORAGE_SPACE, storageSpaceId, options, getGoodsShelfMapper(), start, count);
  		//analyzeGoodsShelfByStorageSpace(resultList, storageSpaceId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeGoodsShelfByStorageSpace(SmartList<GoodsShelf> resultList, String storageSpaceId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpaceId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
@@ -612,11 +615,11 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countGoodsShelfByStorageSpace(String storageSpaceId,Map<String,Object> options){
@@ -627,34 +630,34 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	public Map<String, Integer> countGoodsShelfByStorageSpaceIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(GoodsShelfTable.COLUMN_STORAGE_SPACE, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<GoodsShelf> findGoodsShelfBySupplierSpace(String supplierSpaceId,Map<String,Object> options){
- 	
+
   		SmartList<GoodsShelf> resultList = queryWith(GoodsShelfTable.COLUMN_SUPPLIER_SPACE, supplierSpaceId, options, getGoodsShelfMapper());
 		// analyzeGoodsShelfBySupplierSpace(resultList, supplierSpaceId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<GoodsShelf> findGoodsShelfBySupplierSpace(String supplierSpaceId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<GoodsShelf> resultList =  queryWithRange(GoodsShelfTable.COLUMN_SUPPLIER_SPACE, supplierSpaceId, options, getGoodsShelfMapper(), start, count);
  		//analyzeGoodsShelfBySupplierSpace(resultList, supplierSpaceId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeGoodsShelfBySupplierSpace(SmartList<GoodsShelf> resultList, String supplierSpaceId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsShelf.SUPPLIER_SPACE_PROPERTY, supplierSpaceId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
@@ -662,11 +665,11 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countGoodsShelfBySupplierSpace(String supplierSpaceId,Map<String,Object> options){
@@ -677,34 +680,34 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	public Map<String, Integer> countGoodsShelfBySupplierSpaceIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(GoodsShelfTable.COLUMN_SUPPLIER_SPACE, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<GoodsShelf> findGoodsShelfByDamageSpace(String damageSpaceId,Map<String,Object> options){
- 	
+
   		SmartList<GoodsShelf> resultList = queryWith(GoodsShelfTable.COLUMN_DAMAGE_SPACE, damageSpaceId, options, getGoodsShelfMapper());
 		// analyzeGoodsShelfByDamageSpace(resultList, damageSpaceId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<GoodsShelf> findGoodsShelfByDamageSpace(String damageSpaceId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<GoodsShelf> resultList =  queryWithRange(GoodsShelfTable.COLUMN_DAMAGE_SPACE, damageSpaceId, options, getGoodsShelfMapper(), start, count);
  		//analyzeGoodsShelfByDamageSpace(resultList, damageSpaceId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeGoodsShelfByDamageSpace(SmartList<GoodsShelf> resultList, String damageSpaceId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpaceId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
@@ -712,11 +715,11 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countGoodsShelfByDamageSpace(String damageSpaceId,Map<String,Object> options){
@@ -727,21 +730,24 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	public Map<String, Integer> countGoodsShelfByDamageSpaceIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(GoodsShelfTable.COLUMN_DAMAGE_SPACE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected GoodsShelf saveGoodsShelf(GoodsShelf  goodsShelf){
+    
+
 		
 		if(!goodsShelf.isChanged()){
 			return goodsShelf;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(goodsShelf);
 		String SQL=this.getSaveGoodsShelfSQL(goodsShelf);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveGoodsShelfParameters(goodsShelf);
@@ -752,6 +758,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		}
 
 		goodsShelf.incVersion();
+		goodsShelf.afterSave();
 		return goodsShelf;
 
 	}
@@ -769,6 +776,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		for(GoodsShelf goodsShelf:goodsShelfList){
 			if(goodsShelf.isChanged()){
 				goodsShelf.incVersion();
+				goodsShelf.afterSave();
 			}
 
 
@@ -872,22 +880,20 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  	protected Object[] prepareGoodsShelfUpdateParameters(GoodsShelf goodsShelf){
  		Object[] parameters = new Object[8];
  
- 		
  		parameters[0] = goodsShelf.getLocation();
  		
  		if(goodsShelf.getStorageSpace() != null){
  			parameters[1] = goodsShelf.getStorageSpace().getId();
  		}
- 
+    
  		if(goodsShelf.getSupplierSpace() != null){
  			parameters[2] = goodsShelf.getSupplierSpace().getId();
  		}
- 
+    
  		if(goodsShelf.getDamageSpace() != null){
  			parameters[3] = goodsShelf.getDamageSpace().getId();
  		}
- 
- 		
+    
  		parameters[4] = goodsShelf.getLastUpdateTime();
  		
  		parameters[5] = goodsShelf.nextVersion();
@@ -904,24 +910,19 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
         }
 		parameters[0] =  goodsShelf.getId();
  
- 		
  		parameters[1] = goodsShelf.getLocation();
  		
  		if(goodsShelf.getStorageSpace() != null){
  			parameters[2] = goodsShelf.getStorageSpace().getId();
-
  		}
  		
  		if(goodsShelf.getSupplierSpace() != null){
  			parameters[3] = goodsShelf.getSupplierSpace().getId();
-
  		}
  		
  		if(goodsShelf.getDamageSpace() != null){
  			parameters[4] = goodsShelf.getDamageSpace().getId();
-
  		}
- 		
  		
  		parameters[5] = goodsShelf.getLastUpdateTime();
  		
@@ -930,8 +931,6 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  	}
 
 	protected GoodsShelf saveInternalGoodsShelf(GoodsShelf goodsShelf, Map<String,Object> options){
-
-		saveGoodsShelf(goodsShelf);
 
  		if(isSaveStorageSpaceEnabled(options)){
 	 		saveStorageSpace(goodsShelf, options);
@@ -945,6 +944,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	 		saveDamageSpace(goodsShelf, options);
  		}
  
+   saveGoodsShelf(goodsShelf);
 		
 		if(isSaveGoodsShelfStockCountListEnabled(options)){
 	 		saveGoodsShelfStockCountList(goodsShelf, options);
@@ -970,6 +970,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	
 
  	protected GoodsShelf saveStorageSpace(GoodsShelf goodsShelf, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(goodsShelf.getStorageSpace() == null){
  			return goodsShelf;//do nothing when it is null
@@ -979,14 +980,10 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		return goodsShelf;
 
  	}
-
-
-
-
-
  
 
  	protected GoodsShelf saveSupplierSpace(GoodsShelf goodsShelf, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(goodsShelf.getSupplierSpace() == null){
  			return goodsShelf;//do nothing when it is null
@@ -996,14 +993,10 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		return goodsShelf;
 
  	}
-
-
-
-
-
  
 
  	protected GoodsShelf saveDamageSpace(GoodsShelf goodsShelf, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(goodsShelf.getDamageSpace() == null){
  			return goodsShelf;//do nothing when it is null
@@ -1013,11 +1006,6 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
  		return goodsShelf;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1080,7 +1068,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 
 		
 	protected GoodsShelf saveGoodsShelfStockCountList(GoodsShelf goodsShelf, Map<String,Object> options){
-
+    
 
 
 
@@ -1146,7 +1134,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 
 		
 	protected GoodsShelf saveGoodsAllocationList(GoodsShelf goodsShelf, Map<String,Object> options){
-
+    
 
 
 
@@ -1213,20 +1201,20 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 		
 
 	public GoodsShelf present(GoodsShelf goodsShelf,Map<String, Object> options){
-	
+
 		presentGoodsShelfStockCountList(goodsShelf,options);
 		presentGoodsAllocationList(goodsShelf,options);
 
 		return goodsShelf;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected GoodsShelf presentGoodsShelfStockCountList(
 			GoodsShelf goodsShelf,
 			Map<String, Object> options) {
-
-		SmartList<GoodsShelfStockCount> goodsShelfStockCountList = goodsShelf.getGoodsShelfStockCountList();		
+    
+		SmartList<GoodsShelfStockCount> goodsShelfStockCountList = goodsShelf.getGoodsShelfStockCountList();
 				SmartList<GoodsShelfStockCount> newList= presentSubList(goodsShelf.getId(),
 				goodsShelfStockCountList,
 				options,
@@ -1234,19 +1222,19 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 				getGoodsShelfStockCountDAO()::findGoodsShelfStockCountByShelf
 				);
 
-		
+
 		goodsShelf.setGoodsShelfStockCountList(newList);
-		
+
 
 		return goodsShelf;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected GoodsShelf presentGoodsAllocationList(
 			GoodsShelf goodsShelf,
 			Map<String, Object> options) {
-
-		SmartList<GoodsAllocation> goodsAllocationList = goodsShelf.getGoodsAllocationList();		
+    
+		SmartList<GoodsAllocation> goodsAllocationList = goodsShelf.getGoodsAllocationList();
 				SmartList<GoodsAllocation> newList= presentSubList(goodsShelf.getId(),
 				goodsAllocationList,
 				options,
@@ -1254,12 +1242,12 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 				getGoodsAllocationDAO()::findGoodsAllocationByGoodsShelf
 				);
 
-		
+
 		goodsShelf.setGoodsAllocationList(newList);
-		
+
 
 		return goodsShelf;
-	}			
+	}
 		
 
 	
@@ -1289,6 +1277,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	
 	// 需要一个加载引用我的对象的enhance方法:GoodsShelfStockCount的shelf的GoodsShelfStockCountList
 	public SmartList<GoodsShelfStockCount> loadOurGoodsShelfStockCountList(RetailscmUserContext userContext, List<GoodsShelf> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1312,6 +1301,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	
 	// 需要一个加载引用我的对象的enhance方法:GoodsAllocation的goodsShelf的GoodsAllocationList
 	public SmartList<GoodsAllocation> loadOurGoodsAllocationList(RetailscmUserContext userContext, List<GoodsShelf> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1368,6 +1358,10 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<GoodsShelf> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getGoodsShelfMapper());
   }
@@ -1403,6 +1397,15 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmBaseDAOImpl implements G
 
 	
 
+  @Override
+  public List<GoodsShelf> search(GoodsShelfRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected GoodsShelfMapper mapper() {
+    return getGoodsShelfMapper();
+  }
 }
 
 

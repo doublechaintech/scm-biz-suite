@@ -31,12 +31,12 @@ const internalSummaryOf = (quickLink,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{quickLink.id}</Description> 
+<Description term="ID">{quickLink.id}</Description> 
 <Description term="名称">{quickLink.name}</Description> 
 <Description term="图标">{quickLink.icon}</Description> 
 <Description term="图片路径"><ImagePreview imageTitle="图片路径" imageLocation={quickLink.imagePath}/></Description> 
 <Description term="链接的目标">{quickLink.linkTarget}</Description> 
-<Description term="创建时间">{ moment(quickLink.createTime).format('YYYY-MM-DD')}</Description> 
+<Description term="创建于">{ moment(quickLink.createTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -62,7 +62,7 @@ class QuickLinkPermission extends Component {
     // eslint-disable-next-line max-len
     const  quickLink = this.props.quickLink
     const { id,displayName,  } = quickLink
-    const  returnURL = `/quickLink/${id}/dashboard`
+    const  returnURL = `/quickLink/${id}/workbench`
     const cardsData = {cardsName:"快速链接",cardsFor: "quickLink",cardsSource: quickLink,displayName,returnURL,
   		subItems: [
     
@@ -75,10 +75,10 @@ class QuickLinkPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

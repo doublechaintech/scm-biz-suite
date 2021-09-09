@@ -16,18 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  code: 'submit',
-  icon: 'icon_edit',
-  title: '提交',
-  displayOrder: '1',
-  brief: 'Submit',
-  linkToUrl: 'wxappService/section/article/',
-  pageId: 'P000001',
-  extraData: '    一段样例文字。    一段样例文字。\n可以分段。可以分段。\n\n可以空行。可以空行。\n\n',
-}
-*/
 
 const imageKeys = [
   'imageUrl',
@@ -42,9 +30,15 @@ class UiActionCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -55,7 +49,7 @@ class UiActionCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -69,8 +63,8 @@ class UiActionCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,13 +73,13 @@ class UiActionCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = UiActionBase
     const {UiActionService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -110,10 +104,10 @@ class UiActionCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addUiAction`,
@@ -121,10 +115,10 @@ class UiActionCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'uiAction',listName:appLocaleName(userContext,"List") },
@@ -170,10 +164,10 @@ class UiActionCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -185,7 +179,7 @@ class UiActionCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -196,7 +190,7 @@ class UiActionCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -206,7 +200,7 @@ class UiActionCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('ui_action')}</div>)
@@ -218,7 +212,7 @@ class UiActionCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('ui_action')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<UiActionCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -234,7 +228,7 @@ class UiActionCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

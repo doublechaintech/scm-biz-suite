@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}transportFleetManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}transportFleetManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -120,6 +125,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}transportFleetService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -139,6 +152,7 @@ const  processRequest = (data) => {
 
 const TransportFleetService = { view,
   load,
+  analyze,
   addTransportTruck,
   addTruckDriver,
   addTransportTask,
@@ -149,6 +163,6 @@ const TransportFleetService = { view,
   removeTruckDriverList,
   removeTransportTaskList,
   requestCandidateOwner,
-  transferToAnotherOwner, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherOwner, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default TransportFleetService
 

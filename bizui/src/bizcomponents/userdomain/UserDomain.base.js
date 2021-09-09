@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Row, Tag, Button,Table} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -21,6 +21,8 @@ const {
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
+	defaultRenderNumberCell,
+	defaultFormatNumber,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -32,24 +34,57 @@ const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
+const renderNumberCell=defaultRenderNumberCell
+const formatNumber = defaultFormatNumber
+
+const renderImageListCell=(imageList, record)=>{
+	const userContext = null;
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+}
 
 
 
-const menuData = {menuName: window.trans('user_domain'), menuFor: "userDomain",
+
+const menuData = {menuName: window.trans('user_domain'), menuFor: "userDomain",  internalName: "user_domain",
   		subItems: [
   {name: 'secUserList', displayName: window.mtrans('sec_user','user_domain.sec_user_list',false), type:'secUser',icon:'user',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'publicKeyTypeList', displayName: window.mtrans('public_key_type','user_domain.public_key_type_list',false), type:'publicKeyType',icon:'key',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  
+
   		],
 }
 
 
-const settingMenuData = {menuName: window.trans('user_domain'), menuFor: "userDomain",
+const settingMenuData = {menuName: window.trans('user_domain'), menuFor: "userDomain",  internalName: "user_domain",
   		subItems: [
-  {name: 'userWhiteListList', displayName: window.mtrans('user_white_list','user_domain.user_white_list_list',false), type:'userWhiteList', icon:'list',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  
+  {name: 'userAllowListList', displayName: window.mtrans('user_allow_list','user_domain.user_allow_list_list',false), type:'userAllowList', icon:'list',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+
   		],
 }
+
+
+const mergedSubItems=()=>{
+
+    const result = []
+    menuData.subItems.forEach(item=>{
+        result.push({...item, for: "menu"})
+    })
+    settingMenuData.subItems.forEach(item=>{
+        result.push({...item, for: "setting"})
+    })
+    return result
+}
+const universalMenuData = {...menuData, subItems: mergedSubItems()}
+
+
 
 const fieldLabels = {
   id: window.trans('user_domain.id'),
@@ -64,7 +99,7 @@ const displayColumns = [
 ]
 
 
-const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(universalMenuData,targetObject,searchTerm)
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -94,7 +129,7 @@ const renderTextItem=(value, label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 const renderImageItem=(value,label, targetComponent)=>{
@@ -102,7 +137,7 @@ const renderImageItem=(value,label, targetComponent)=>{
 	if(!value){
 		return appLocaleName(userContext,"NotAssigned")
 	}
-	
+
 	return <ImagePreview title={label} imageLocation={value}/>
 }
 
@@ -134,47 +169,97 @@ const renderReferenceItem=(value,label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 
-const renderItemOfList=(userDomain, targetComponent, columCount, listName)=>{
-  
+
+const renderImageList=(imageList,label, targetComponent)=>{
+	const userContext = null
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	// return JSON.stringify(imageList)
+/*
+	the data looks like this
+	{"id":"1601","title":"cover_images01",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images010016/400/200/grey/"},
+	{"id":"1602","title":"cover_images02",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images020016/400/200/grey/"}
+*/
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+
+}
+
+
+const renderActionList=(userDomain, targetObject, columCount, listName)=>{
+
+	if(!userDomain){
+		return null
+	}
+	if(!userDomain.actionList){
+		return null
+	}
+	if(userDomain.actionList.length === 0){
+		return null
+	}
+	return (
+		<div className={styles.overlay}>
+
+			<div className={styles.overlayContent}>
+			{userDomain.actionList.map(action=>(<Link key={action.id} to={{pathname: action.actionPath.substring(1), state: {ownerId:targetObject.id,action,selectedRows:[userDomain]}}} >
+				<span className={styles.overlayText}>{action.actionName}</span>
+				</Link> ))}
+			</div>
+
+		</div>
+		)
+
+}
+
+const renderItemOfList=(userDomain, targetObject, columCount, listName)=>{
+
   if(!userDomain){
   	return null
   }
   if(!userDomain.id){
   	return null
   }
-  
-  
+
+
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`${listName}-${userDomain.id}`} style={{marginTop:"10px"}}>
-		
+     <Row key={`${listName}-${userDomain.id}`} className={styles.itemDesc}>
+
 	<Col span={4}>
-		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+		<Avatar size={90} className={styles.avarta} style={{ backgroundColor: genColor()}}>
 			{leftChars(userDomain.displayName)}
 		</Avatar>
 	</Col>
 	<Col span={20}>
 	  
-	  
-	 
-	
+
+
+
       <DescriptionList  key={userDomain.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{userDomain.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{userDomain.name}</Description> 
-	
-        
+
+
       </DescriptionList>
      </Col>
-    </Card>
+      {renderActionList(userDomain,targetObject)}
+    </Row>
 	)
 
 }
-	
+
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name} = formValuesToPack
 
@@ -187,7 +272,10 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const data = {name}
 	return data
 }
-const stepOf=(targetComponent, title, content, position, index)=>{
+
+
+const stepOf=(targetComponent, title, content, position, index, initValue)=>{
+	const isMultipleEvent=false
 	return {
 		title,
 		content,
@@ -195,8 +283,13 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		packFunction: packFormValuesToObject,
 		unpackFunction: unpackObjectToFormValues,
 		index,
+		initValue,
+		isMultipleEvent,
       }
 }
-const UserDomainBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+
+
+
+const UserDomainBase={unpackObjectToFormValues, menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default UserDomainBase
 

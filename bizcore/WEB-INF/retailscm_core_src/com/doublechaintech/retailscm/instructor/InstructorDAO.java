@@ -46,6 +46,7 @@ public interface InstructorDAO extends BaseDAO{
 	public void delete(String instructorId, int version) throws Exception;
 	public Instructor disconnectFromAll(String instructorId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public CompanyTrainingDAO getCompanyTrainingDAO();
 		
@@ -65,9 +66,10 @@ public interface InstructorDAO extends BaseDAO{
 	public int countCompanyTrainingListWithTrainingCourseType(String instructorId, String trainingCourseTypeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<Instructor> queryList(String sql, Object ... parmeters);
+	public SmartList<Instructor> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Instructor> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateInstructor executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Instructor> findInstructorByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -81,6 +83,8 @@ public interface InstructorDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的instructor的CompanyTrainingList
 	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<Instructor> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Instructor> search(InstructorRequest pRequest);
 }
 
 

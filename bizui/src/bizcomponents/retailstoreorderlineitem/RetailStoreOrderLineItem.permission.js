@@ -31,7 +31,7 @@ const internalSummaryOf = (retailStoreOrderLineItem,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderLineItem.id}</Description> 
+<Description term="ID">{retailStoreOrderLineItem.id}</Description> 
 <Description term="产品ID">{retailStoreOrderLineItem.skuId}</Description> 
 <Description term="产品名称">{retailStoreOrderLineItem.skuName}</Description> 
 <Description term="金额">{retailStoreOrderLineItem.amount}</Description> 
@@ -62,7 +62,7 @@ class RetailStoreOrderLineItemPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderLineItem = this.props.retailStoreOrderLineItem
     const { id,displayName,  } = retailStoreOrderLineItem
-    const  returnURL = `/retailStoreOrderLineItem/${id}/dashboard`
+    const  returnURL = `/retailStoreOrderLineItem/${id}/workbench`
     const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",cardsSource: retailStoreOrderLineItem,displayName,returnURL,
   		subItems: [
     
@@ -75,10 +75,10 @@ class RetailStoreOrderLineItemPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

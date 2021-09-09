@@ -1,6 +1,6 @@
 package com.doublechaintech.retailscm;
 
-
+import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -17,7 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.DBUtil.Path;
 
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
@@ -26,8 +29,68 @@ import com.terapico.uccaf.CafEntity;
 import com.terapico.utils.TextUtil;
 
 public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
-	
-	
+  public static Double UNSET_DOUBLE = Double.POSITIVE_INFINITY;
+  public static Integer UNSET_INT = Integer.MAX_VALUE - 31415926;
+  public static Float UNSET_FLOAT = Float.POSITIVE_INFINITY;
+  protected static int MAX_VERSION = Integer.MAX_VALUE - 10000;
+
+  // 通过 viewSuffix, 前端和后端可以约定除了CLassName以外的视图，比如通过后端渲染CR页面
+  public static final String SUMMARY_SUFFIX="summary";
+  public static final String PRINT_SUFFIX="print";
+  private String viewSuffix;
+  public String viewSuffix(){
+    if(viewSuffix==null){
+      return "";
+    }
+    return viewSuffix;
+
+  }
+  public BaseEntity summarySuffix(){
+    viewSuffix = SUMMARY_SUFFIX;
+    return this;
+  }
+  public BaseEntity printSuffix(){
+    viewSuffix = PRINT_SUFFIX;
+    return this;
+  }
+
+  public BaseEntity updateViewSuffix(String suffix){
+    viewSuffix = suffix;
+    return this;
+  }
+
+
+  private boolean checked;
+  public boolean isChecked(){
+    return checked;
+  }
+
+  public void setChecked(boolean checked){
+    this.checked = checked;
+  }
+ protected boolean mustCheck;
+
+   public boolean isMustCheck() {
+     return mustCheck;
+   }
+
+   public void setMustCheck(boolean mustCheck) {
+     this.mustCheck = mustCheck;
+   }
+
+  private Map<String, PropertyChangeEvent>  propertyChanges = new ConcurrentHashMap<>();
+  public void addPropertyChange(String name, Object oldValue, Object newValue){
+    PropertyChangeEvent oldE = propertyChanges.get(name);
+    if (oldE == null){
+      PropertyChangeEvent newE = new PropertyChangeEvent(this, name, oldValue, newValue);
+      propertyChanges.put(name, newE);
+    }else {
+      Object oldV = oldE.getOldValue();
+      PropertyChangeEvent newE = new PropertyChangeEvent(this, name, oldV, newValue);
+      propertyChanges.put(name, newE);
+    }
+  }
+
 	public String getPresentType(){
 		String internalType = getInternalType();
 		if(internalType.isEmpty()) {
@@ -37,13 +100,130 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 				.append(internalType.substring(0, 1)
 						.toLowerCase()).append(internalType.substring(1));
 		return presentTypeBuffer.toString();
-		
+
 	}
-	
+
+	public String[] getPropertyNames(){
+	  return new String[]{"id"};
+	}
+
+	public Map<String, String> getReferProperties(){
+	  return null;
+	}
+
+  public Map<String, Class> getReferTypes() {
+    return null;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    return null;
+  }
+
+  public void doWant(Class<? extends BaseEntity>... classes) {
+    if (classes == null) {
+      return;
+    }
+    List<List<Path>> paths = getPaths(classes);
+
+    for (List<Path> p: paths){
+      DBUtil.addEnhancePaths(this, p);
+    }
+  }
+
+  public void doWants(Class<? extends BaseEntity>... classes) {
+    if (classes == null) {
+      return;
+    }
+    for (Class clazz: classes){
+      doWant(clazz);
+    }
+  }
+
+  public List<List<Path>> getPaths(Class<? extends BaseEntity>... classes) {
+      List<List<Path>> paths = null;
+      Class<? extends BaseEntity> preClass = this.getClass();
+      for (Class<? extends BaseEntity> clazz : classes) {
+        List<List<Path>> thePath = DBUtil.detectShortestPath(preClass, clazz);
+        if (paths == null) {
+          paths = thePath;
+        } else {
+          List<List<Path>> exist = paths;
+          paths = new ArrayList<>();
+          for(List<Path> path: exist){
+            for (List<Path> newPath: thePath){
+              List<Path> total = new ArrayList<>();
+              total.addAll(path);
+              total.addAll(newPath);
+              paths.add(total);
+            }
+          }
+        }
+        preClass = clazz;
+      }
+      return paths;
+    }
+
+    public void enhance(Class... classes) {
+      List<List<Path>> paths = getPaths(classes);
+      for (List<Path> path : paths) {
+        Beans.dbUtil().enhance(this, path);
+      }
+    }
+
+  public void doLoad(){
+       Beans.dbUtil().reload(this);
+  }
+
+  public void doLoadChild(String property){
+    Object o = propertyOf(property);
+    if (o instanceof List) {
+         List l = (List) o;
+         if (l.isEmpty()) {
+         Path p = new Path();
+         p.setUpStream(false);
+         p.setUpProperty(getReferProperties().get(property));
+         p.setDownProperty(property);
+         p.setClazz(getReferTypes().get(property));
+         List<Path> paths = new ArrayList<>();
+         paths.add(p);
+         Beans.dbUtil().enhance(this, paths);
+       }
+    }
+  }
+
+  public void doAddOrderBy(String propertyName, boolean asc){
+    DBUtil.addOrderBy(this, propertyName, asc);
+  }
+
+  public void ignoreSearchProperty(String propertyName){
+    DBUtil.addIgnoreProperty(this, propertyName);
+  }
+
+  public void doAddLimit(long start, long count){
+    DBUtil.addStart(this, start);
+    DBUtil.addRecordCount(this, count);
+  }
+
+  public void doAddCriteria(SearchCriteria criteria){
+    if (criteria == null){
+      return;
+    }
+    DBUtil.addSearchCriteria(this, criteria);
+  }
+
+  public void doAddCriteria(String property, QueryOperator operator, Object... parameters){
+    DBUtil.addSearchCriteria(createCriteria(property, operator, parameters));
+  }
+
+  public SearchCriteria createCriteria(String property, QueryOperator operator, Object... parameters){
+    propertyOf(property);
+    return new BasicSearchCriteria(this, property, parameters, operator);
+  }
+
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getVersion()};
 	}
-	
+
 	private String internalType = null; // 禁止直接操作这个成员
 	public static BaseEntity pretendToBe(String classShortName, String id) {
 		BaseEntity result = new BaseEntity();
@@ -53,7 +233,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		return result;
 	}
 	public  void ensureAccess(Map<String,Object> accessTokens) {
-		
+
 		List<SmartList<?>> allLists = this.getAllRelatedLists();
 		if(allLists==null) {
 			return;
@@ -71,9 +251,9 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			}
 			list.setAccessible(true);
 		}
-		
+
 	}
-	
+
 	protected List<Action> filterActionList(){
 		if(this.getActionList()==null) {
 			return null;
@@ -82,22 +262,26 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 				.stream()
 				.filter(action->this.isOneOf(action.getActionGroup(), action.specialActionTypes()))
 				.collect(Collectors.toList());
-		
+
 		return filteredActionList;
-		
+
 	}
-	
+
+	public String fullId(){
+      return getInternalType()+"_"+getId();
+  }
+
 	public List<KeyValuePair> keyValuePairOf(){
-		
+
 		List<KeyValuePair> result = new ArrayList<KeyValuePair>();
 		this.appendKeyValuePair(result, "actionList", filterActionList() );
 		this.appendKeyValuePair(result, "messageList", this.getErrorMessageList());
 		return result;
 	}
-	
+
 	protected void appendKeyValuePair(List<KeyValuePair> list, String key, Object value) {
-		
-		
+
+
 		if(list==null) {
 			throw new IllegalArgumentException("createKeyValuePair(List<KeyValuePair> list, String key, Object value): list could not be null");
 		}
@@ -111,9 +295,9 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		pair.setKey(key);
 		pair.setValue(value);
 		list.add(pair);
-		
+
 	}
-	
+
 	public List<SmartList<?>> getAllRelatedLists() {
 		//每个具体的类实现该方法
 		return null;
@@ -140,7 +324,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	}
 	return false;
    }
-	
+
 	public String maskChinaMobileNumber(String chinaMobileNumber){
 	
 		if(chinaMobileNumber == null){
@@ -149,7 +333,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		if(chinaMobileNumber.length()!=11){
 			return chinaMobileNumber;//残缺的手机号，无需屏蔽
 		}
-		
+
 		return chinaMobileNumber.substring(0,3)+"****"+chinaMobileNumber.substring(7);
     
 	}
@@ -158,20 +342,26 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	protected		int                 	mVersion            ;
 	protected		boolean					changed = false      ;
 	protected		String 					id;
-	
-	
+
+
 	private String displayName;
-	
-	
+
+
 	public String getDisplayName() {
-		return displayName;
-	}
+    if (displayName != null){
+      return displayName;
+    }
+    if (fullId() != null){
+      return fullId();
+    }
+    return "UNKNOWN";
+  }
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-	
+
 	public Object propertyOf(String propertyName) {
-		
+
 		String methodNames[]={"get", propertyName.substring(0,1).toUpperCase() ,propertyName.substring(1)};
 		String methodName=String.join("", methodNames);
 		Method method;
@@ -184,7 +374,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			throw new IllegalArgumentException(String.join(" ",args));
 		}
 	}
-	
+
 	public void setPropertyOf(String propertyName, Object value) throws Exception{
         String methodName="set"+propertyName.substring(0,1).toUpperCase()+propertyName.substring(1);
         Method method = this.getClass().getMethod(methodName, new Class[]{value.getClass()});
@@ -201,16 +391,16 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			}
 			stringBuilder.append(string);
 		}
-		
+
 		return stringBuilder.toString();
 	}
 	protected void checkFieldName(String field) {
-		
+
 		if(field.length()>50){
 			String message = "The field name: "+ field +" length("+field.length()+") is more 50!";
 			throw new IllegalArgumentException(message);
 		}
-		
+
 		char [] fieldCharArray = field.toCharArray();
 		for(char ch: fieldCharArray){
 			if(isValidFieldChar(ch)){
@@ -219,13 +409,13 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			String message = "Found invalid char <"+ch+"> from the field name: "+ field;
 			throw new IllegalArgumentException(message);
 		}
-		
-		
+
+
 	}
 	protected String mapToInternalColumn(String field){
 		char [] fieldArray = field.toCharArray();
 		StringBuilder internalFieldBuffer = new StringBuilder();
-		
+
 		for(char ch:fieldArray){
 			if(Character.isUpperCase(ch)){
 				internalFieldBuffer.append('_');
@@ -237,10 +427,10 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		}
 		return internalFieldBuffer.toString();
 	}
-	
-	
+
+
 	protected boolean isValidFieldChar(char fieldChar){
-		
+
 		//Character.isAlphabetic(codePoint);
 		if(fieldChar>='0' && fieldChar <='9'){
 			return true;
@@ -254,13 +444,13 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		if(fieldChar == '_'){
 			return true;
 		}
-		
+
 		return false;
-		
-		
-		
+
+
+
 	}
-	
+
 	protected boolean emptyString(String value){
 		if(value == null){
 			return true;
@@ -270,7 +460,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		}
 		return false;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -281,28 +471,33 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		setVersion(nextVersion());
 
 	}
+
+   public void afterSave(){
+      changed = false;
+   }
+
 	public int nextVersion(){
 		int version = getVersion();
-		if(version==Integer.MAX_VALUE){
+		if(version >= MAX_VERSION){
 			return 1;//希望有系统能用到这个分支，也就是这条记录更新了20多亿次，客户的生意一定很好
 		}
 		return version+1;
 	}
 	protected String joinWithDelimitter(String delimitter,Object ...objs ){
 		StringBuilder internalPresentBuffer = new StringBuilder();
-		
+
 		int index = 0;
 		for(Object o:objs){
-			
+
 			if(shouldAppendDelimitter(index,delimitter)){
 				internalPresentBuffer.append(delimitter);
 			}
 			internalPresentBuffer.append(o);
 			index++;
-			
+
 		}
-		
-		
+
+
 		return internalPresentBuffer.toString();
 	}
 	protected String join(Object ...objs ){
@@ -314,8 +509,8 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			}
 			internalPresentBuffer.append(o);
 		}
-		
-		
+
+
 		return internalPresentBuffer.toString();
 	}
 	protected boolean shouldAppendDelimitter(int index, String delimitter){
@@ -329,14 +524,14 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			return false;
 		}
 		return true;
-		
+
 	}
 	public List<Message> getErrorMessageList() {
-		
+
 		if(errorMessageList ==  null){
 			return new ArrayList<Message>();
 		}
-		
+
 		return errorMessageList;
 	}
 	public void setErrorMessageList(List<Message> errorMessageList) {
@@ -347,7 +542,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		if(object == null){
 			return false;
 		}
-		
+
 		if(!(object instanceof BaseEntity)){
 			return false;
 		}
@@ -356,33 +551,33 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		if(targetId == null){
 			return false;
 		}
-		
+
 		if(!(targetId.equals(this.getId()))){
 			return false;
 		}
 		/* comment this for tempory usage for cis
 		int targetVersion = targetObject.getVersion();
-		
+
 		if(targetVersion != this.getVersion()){
 			return false;
 		}*/
-		
+
 		//is exactly the same class?
 		if(object.getClass() == this.getClass()){
 			return true;
 		}
 		//If the class is not exactly the same, but they may initiated from different class loader
-		
-		
+
+
 		String targetClassName = object.getClass().getCanonicalName();
 		String thisClassName = this.getClass().getCanonicalName();
-		
+
 		if(targetClassName.equals(thisClassName)){
 			return true;
-		}		
-		
+		}
+
 		return false;
-		
+
 	}
 	protected  Map<String,List<BaseEntity>> flexibleLists;
 	protected<T> void ensureFlexibleLists(){
@@ -391,23 +586,23 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		}
 	}
 	protected List<BaseEntity> ensureFlexibleList(String key){
-		
+
 		List<BaseEntity> list = (List<BaseEntity>) flexibleLists.get(key);
 		if(list ==  null){
 			list = new ArrayList<BaseEntity>();
 			flexibleLists.put(key,list);
 		}
 		return list;
-		
+
 	}
 	public void  addItemToFlexibleList(String key, BaseEntity item){
 		ensureFlexibleLists();
 		List<BaseEntity> list = ensureFlexibleList(key);
 		list.add(item);
-		
-		
+
+
 	}
-	
+
 	protected Map<String,Object> valueMap;
 	protected<T> void ensureValueMap(){
 		if(valueMap ==  null){
@@ -424,12 +619,12 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		ensureValueMap();
 		valueMap.put(key, item);
 	}
-	
+
 	public Object  valueByKey(String key){
 		if(valueMap == null){
 			return null;
 		}
-		
+
 		return valueMap.get(key);
 	}
 	protected String getListSizeKey(String targetName){
@@ -443,39 +638,39 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		return (Integer)valueMap.get(getListSizeKey(targetName));
 	}
 	public void addListSize(String targetName, int value){
-	
+
 		addItemToValueMap(getListSizeKey(targetName), value);
-		
+
 	}
-	
+
 	public void  addItemToFlexibleList(String key, List<BaseEntity> entityList){
 		ensureFlexibleLists();
 		List<BaseEntity> list = ensureFlexibleList(key);
 		list.addAll(entityList);
-		
-		
+
+
 	}
-	
+
 	public void  addPagesToFlexibleList(String object, List<BaseEntity> entityList){
 		ensureFlexibleLists();
 		List<BaseEntity> list = ensureFlexibleList(object+"ListPagination");
 		list.addAll(entityList);
-		
-		
+
+
 	}
-	
+
 	public List<BaseEntity>   flexibleListOf(String key){
-		
+
 		if(flexibleLists == null){
 			return null;
 		}
 
 		List<BaseEntity> list = (List<BaseEntity>) flexibleLists.get(key);
 		return list;
-		
-		
+
+
 	}
-	
+
 	protected  Map<String,BaseEntity> flexibleObjects;
 	protected void ensureFlexibleObjects(){
 		if(flexibleObjects ==  null){
@@ -483,21 +678,21 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		}
 	}
 	public void addItemToFlexiableObject(String key, BaseEntity item){
-		ensureFlexibleObjects();		
+		ensureFlexibleObjects();
 		flexibleObjects.put(key, item);
-		
+
 	}
 	public Map<String,BaseEntity> getFlexiableObjects(){
 		return flexibleObjects;
 	}
 	/*
 	 * Functional for this list:
-	 * 
+	 *
 	 * Removed items Once an item marked as delete, then the item will move to this list before delete
-	 * 
+	 *
 	 * there may be more items types need to remove
-	 * 
-	 * 
+	 *
+	 *
 	 * */
 	protected List<Message> errorMessageList;
 	protected void ensureErrorMessageList(){
@@ -508,32 +703,35 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	public void addErrorMessage(Message message){
 		ensureErrorMessageList();
 		errorMessageList.add(message);
-		
+
 	}
-	
+
 	protected List<Action> actionList;
-	
+
 	protected void ensureActionList(){
 		if(actionList ==  null){
 			actionList = new ArrayList<Action>();
 		}
 	}
+	public void clearActionList(){
+    actionList = new ArrayList<Action>();
+  }
 	public void addAction(Action action){
 		ensureActionList();
 		actionList.add(action);
-		
+
 	}
-	
-	
+
+
 	public List<Action> getActionList() {
 		return actionList;
 	}
-	
+
 	public void addActions(List<Action> actions){
 		ensureActionList();
 		actionList.addAll(actions);
 	}
-	
+
 	protected void onChangeProperty(String property, Object oldValue, Object newValue){
 		changed = true;
 		return;
@@ -542,6 +740,9 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		if(this.getVersion()==0){
 			return true;
 		}
+		if(this.getVersion() >= MAX_VERSION){
+      return false;
+    }
 		return changed;
 	}
 	public void setVersion(int version){
@@ -550,17 +751,17 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	public int getVersion(){
 		return this.mVersion;
 	}
-	
-	
+
+
 	protected Double parseDouble(String doubleExpr) {
 		//support for money types
 		char firstChar = doubleExpr.charAt(0);
-		
+
 		if(Character.isDigit(firstChar)){
 
 			return Double.parseDouble(doubleExpr);
 		}
-		
+
 		NumberFormat format = NumberFormat.getCurrencyInstance(Locale.SIMPLIFIED_CHINESE);
 		try {
 			return format.parse(doubleExpr).doubleValue();
@@ -568,16 +769,16 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			// TODO Auto-generated catch block
 			throw new NumberFormatException("The value: "+ doubleExpr +" is not for a number");
 		}
-		
-		
+
+
 		//return Double.parseDouble(doubleExpr.substring(1));
-		
-		
+
+
 	}
-	
+
 	protected BigDecimal parseBigDecimal(String bigDecimalExpr) {
 
-		
+
 		if(bigDecimalExpr==null){
 			throw new NumberFormatException("The value: "+ bigDecimalExpr +" is null, not for a number");
 		}
@@ -597,26 +798,26 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 					"The value: " + bigDecimalExpr + " is not a number");
 		}
 	}
-	
-	
-	
-	protected Double parseDouble(String doubleExpr, int precision){		
+
+
+
+	protected Double parseDouble(String doubleExpr, int precision){
 		return Double.parseDouble(doubleExpr);
 	}
-	
-	protected Float parseFloat(String floatExpr){		
+
+	protected Float parseFloat(String floatExpr){
 		return Float.parseFloat(floatExpr);
 	}
-	protected Integer parseInt(String intExpr){		
+	protected Integer parseInt(String intExpr){
 		return Integer.parseInt(intExpr);
 	}
-	protected Long parseLong(String longExpr){		
+	protected Long parseLong(String longExpr){
 		return Long.parseLong(longExpr);
 	}
-	protected Boolean parseBoolean(String booleanExpr){		
+	protected Boolean parseBoolean(String booleanExpr){
 		return Boolean.parseBoolean(booleanExpr);
 	}
-	protected Date parseTime(String timeExpr){		
+	protected Date parseTime(String timeExpr){
 		String defaultFormat = "HH:mm:ss";
 		DateFormat formatter = new SimpleDateFormat(defaultFormat);
 		try {
@@ -635,13 +836,13 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		}
 	}
 
-	protected String parseString(String stringExpr){		
+	protected String parseString(String stringExpr){
 		return stringExpr;
 	}
-	protected Images parseImages(String stringExpr){		
+	protected Images parseImages(String stringExpr){
 		return Images.fromString(stringExpr);
 	}
-	
+
 	protected boolean equalsInt(int a, int b){
 		return a==b;
 	}
@@ -654,11 +855,11 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	protected boolean equalsFloat(float a, float b){
 		return Math.abs(a-b)<0.00001;
 	}
-	
+
 	protected boolean equalsBigDecimal(BigDecimal a, BigDecimal b){
 		return a.equals(b);
 	}
-	
+
 	protected boolean equalsObject(Object a, Object b){
 		if(a==b){
 			return true;//they can be both null, or exact the same object, this is much faster than equals function
@@ -673,7 +874,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			return true;//both of them are not null, then safely compare the value
 		}
 		return false;
-		
+
 	}
 	protected boolean equalsString(String a, String b){
 		return equalsObject(a,b);
@@ -694,7 +895,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	}
 	//This method will be called from external classes.
 	public void addErrorMessage(String messageKey, Object prarameters[]){
-		if(messageKey == null){	
+		if(messageKey == null){
 			//this must a code issue
 			throw new IllegalArgumentException("wrapErrorMessage(String key,Object[] parameters): key is null, this is not epected");
 		}
@@ -702,23 +903,23 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			//this must a code issue
 			addErrorMessageInternal(messageKey,prarameters);
 			return;
-			//throw new IllegalArgumentException("wrapErrorMessage(String key,Object[] parameters): parameters is null, this is not epected");			
+			//throw new IllegalArgumentException("wrapErrorMessage(String key,Object[] parameters): parameters is null, this is not epected");
 		}
 		addErrorMessageInternal(messageKey,prarameters);
-		
+
 	}
 	protected Message createErrorMessage(String key, Object[] parameters){
 		Message message = new Message();
 		message.setSourcePosition(key);
 		message.setParameters(parameters);
-		
+
 		return message;
 	}
 	protected boolean wrapErrorMessage(String key){
 		return  wrapErrorMessage( key, null);
 	}
 	protected boolean wrapErrorMessage(String key,Object[] parameters){
-		if(key == null){	
+		if(key == null){
 			//this must a code issue
 			throw new IllegalArgumentException("wrapErrorMessage(String key,Object[] parameters): key is null, this is not epected");
 		}
@@ -740,15 +941,15 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		return false;
 
 	}
-	private static final String ID_NOT_ALLOWED_TO_BE_NULL_WHEN_VERSION_GREAT_THAN_ZERO = "ID_NOT_ALLOWED_TO_BE_NULL_WHEN_VERSION_GREAT_THAN_ZERO";
-	private static final String ID_NOT_ALLOWED_TO_BE_EMPTY_WHEN_VERSION_GREAT_THAN_ZERO = "ID_NOT_ALLOWED_TO_BE_EMPTY_WHEN_VERSION_GREAT_THAN_ZERO";
-	private static final String VERSION_NOT_ALLOWED_TO_BE_LESS_THAN_ZERO_ANY_TIME = "VERSION_NOT_ALLOWED_TO_LESS_THAN_ZERO_ANY_TIME";
+	protected static final String ID_NOT_ALLOWED_TO_BE_NULL_WHEN_VERSION_GREAT_THAN_ZERO = "ID_NOT_ALLOWED_TO_BE_NULL_WHEN_VERSION_GREAT_THAN_ZERO";
+	protected static final String ID_NOT_ALLOWED_TO_BE_EMPTY_WHEN_VERSION_GREAT_THAN_ZERO = "ID_NOT_ALLOWED_TO_BE_EMPTY_WHEN_VERSION_GREAT_THAN_ZERO";
+	protected static final String VERSION_NOT_ALLOWED_TO_BE_LESS_THAN_ZERO_ANY_TIME = "VERSION_NOT_ALLOWED_TO_LESS_THAN_ZERO_ANY_TIME";
 	public static final String COPIED_CHILD = "__copied_chiled";
-	
+
 	public boolean validate(){
 		if(getVersion()>0){
 			//when the version great than 0, it means an existing object.
-			if(null == getId()){				
+			if(null == getId()){
 				return wrapErrorMessage(ID_NOT_ALLOWED_TO_BE_NULL_WHEN_VERSION_GREAT_THAN_ZERO);
 			}
 			String trimedId = getId().trim();
@@ -757,7 +958,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			}
 		}
 		if(getVersion()<0){
-			
+
 			return wrapErrorMessage(VERSION_NOT_ALLOWED_TO_BE_LESS_THAN_ZERO_ANY_TIME, new Object[]{ getVersion()});
 		}
 		return true;
@@ -767,7 +968,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			return null;
 		}
 		return string.trim();
-		
+
 	}
 	protected static String encodeUrl(String string){
 		return TextUtil.encodeUrl(string);
@@ -777,7 +978,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 	//弱的密码就无法逃脱
 	//加入SALT之后，可以大大增加hash攻击的难度，因为增加了一个维度。
 	protected String hashStringWithSHA256(String valueToHash) {
-		
+
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			String textToHash = new StringBuilder(valueToHash).append(":").append(getSalt()).toString();
@@ -790,13 +991,13 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		} catch (NoSuchAlgorithmException e) {
 			throw new IllegalStateException(e);
 		}
-		
+
 	}
 	protected String getSalt(){
 		return this.getId();
 	}
 	protected boolean equalsTimestamp(Date oldValue, Date newValue) {
-		
+
 		return equalsDate(oldValue,newValue);
 	}
 
@@ -808,9 +1009,9 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("The value '"+timeStampExpr+"' could not be parsed to a TimeStamp.");
 		}
-		
+
 	}
-	
+
 	public BaseEntity copyTo(BaseEntity dest) {
 		if(this.getActionList()==null){
 			return dest;
@@ -818,12 +1019,12 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		if(this.getActionList().isEmpty()){
 			return dest;
 		}
-		
+
 		dest.addActions(this.getActionList());
         dest.setDisplayName(this.getDisplayName());
 		return dest;
 	}
-	
+
 	protected void addToEntityList(BaseEntity owner,List<BaseEntity> entityList, BaseEntity baseEntity, String internalType) {
 		if(baseEntity==null){
 			return;
@@ -847,8 +1048,8 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			return;
 		}
 		//nothing happeng
-		
-		
+
+
 	}
 	@SuppressWarnings("unchecked")
 	public <T  extends BaseEntity> List<T> collectRefsWithType(String internalType){
@@ -856,15 +1057,15 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		List<BaseEntity>  resultList = collectRefercencesFromLists(internalType);
 		for(BaseEntity baseEntity: resultList) {
 			entityList.add((T)baseEntity);
-			
-			
+
+
 		}
 		return entityList;
-	}	
-	
+	}
+
 	protected void collectFromList(BaseEntity owner, List<BaseEntity> entityList,
 			SmartList<? extends BaseEntity> targetEntityList, String internalType) {
-		
+
 		if(targetEntityList==null){
 			return;
 		}
@@ -876,12 +1077,12 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 				continue;
 			}
 
-			
+
 			target.collectRefercences(owner, entityList,internalType);
-			
+
 		}
-		
-		
+
+
 	}
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
 		return new ArrayList<BaseEntity>();
@@ -901,7 +1102,7 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			String message = "The field name: "+ groupKey +" length("+groupKey.length()+") is more 50!";
 			throw new IllegalArgumentException(message);
 		}
-		
+
 		char [] fieldCharArray = groupKey.toCharArray();
 		for(char ch: fieldCharArray){
 			if(isGroupKeyChar(ch)){
@@ -910,8 +1111,8 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 			String message = "Found invalid char <"+ch+"> from the field name: "+ groupKey;
 			throw new IllegalArgumentException(message);
 		}
-		
-		
+
+
 	}
 	protected boolean isGroupKeyChar(char fieldChar) {
 		if(fieldChar=='('||fieldChar==')'||fieldChar==',') {
@@ -919,6 +1120,22 @@ public class BaseEntity implements CafEntity, Serializable, RemoteInitiable{
 		}
 		return this.isValidFieldChar(fieldChar);
 	}
+
+  public boolean isEmpty() {
+    return getVersion() >= MAX_VERSION;
+  }
+
+  public boolean shouldReplaceBy(Object newValue, Object oldValue){
+    if (oldValue == null || newValue == null){  // 特意设置null
+      return true;
+    }
+    if (oldValue instanceof BaseEntity){
+      if (((BaseEntity) oldValue).isEmpty()){
+        return true;
+      }
+    }
+    return !(newValue == oldValue || newValue.equals(oldValue));
+  }
 }
 
 

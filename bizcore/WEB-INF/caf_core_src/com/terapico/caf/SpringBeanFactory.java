@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractRefreshableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public class SpringBeanFactory extends InternalBeanFactory implements BeanFactory{
 
@@ -30,7 +31,7 @@ public class SpringBeanFactory extends InternalBeanFactory implements BeanFactor
 	}
 
 	//
-	protected void ensureContext()
+	protected synchronized void ensureContext()
 	{
 		if(context!=null){return;}
 
@@ -40,9 +41,16 @@ public class SpringBeanFactory extends InternalBeanFactory implements BeanFactor
 			mBeanFactory = ((GenericApplicationContext)mApplicationContext).getBeanFactory();
 			return;
 		}
-		ClassPathXmlApplicationContext classpathContext = new ClassPathXmlApplicationContext(new String[]{
-				"classpath*:/META-INF/spring.xml",
-				"classpath*:/META-INF/online-system.xml"});
+		XmlWebApplicationContext classpathContext = new XmlWebApplicationContext(){
+			@Override
+			protected String[] getDefaultConfigLocations() {
+				return (new String[]{
+						"classpath*:/META-INF/spring.xml",
+						"classpath*:/META-INF/online-system.xml"});
+			}
+		};
+
+		classpathContext.refresh();
 
 		mBeanFactory = classpathContext.getBeanFactory();
 		context = classpathContext;

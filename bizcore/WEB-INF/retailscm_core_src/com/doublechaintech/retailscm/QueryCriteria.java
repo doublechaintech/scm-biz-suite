@@ -324,9 +324,9 @@ class Filter extends QueryElement{
 
 	}
 
-	private static final String CALC_STATEMENT="__calc__";
-	private static final String VERB_ONEOF="oneof";
-	private static final String NONE_OF="noneof";
+	protected static final String CALC_STATEMENT="__calc__";
+	protected static final String VERB_ONEOF="oneof";
+	protected static final String NONE_OF="noneof";
 
 
 

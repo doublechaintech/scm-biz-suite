@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}levelThreeDepartmentManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}levelThreeDepartmentManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelThreeDepartmentService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const LevelThreeDepartmentService = { view,
   load,
+  analyze,
   addEmployee,
   updateEmployee,
   removeEmployeeList,
   requestCandidateBelongsTo,
-  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBelongsTo, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default LevelThreeDepartmentService
 

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.companytraining;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -10,29 +11,32 @@ import com.doublechaintech.retailscm.instructor.Instructor;
 import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;
 
 public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
-	
+
 	protected CompanyTraining internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		CompanyTraining companyTraining = getCompanyTraining();		
-		 		
- 		setId(companyTraining, rs, rowNumber); 		
- 		setTitle(companyTraining, rs, rowNumber); 		
- 		setCompany(companyTraining, rs, rowNumber); 		
- 		setInstructor(companyTraining, rs, rowNumber); 		
- 		setTrainingCourseType(companyTraining, rs, rowNumber); 		
- 		setTimeStart(companyTraining, rs, rowNumber); 		
- 		setDurationHours(companyTraining, rs, rowNumber); 		
- 		setLastUpdateTime(companyTraining, rs, rowNumber); 		
+		CompanyTraining companyTraining = getCompanyTraining();
+		
+ 		setId(companyTraining, rs, rowNumber);
+ 		setTitle(companyTraining, rs, rowNumber);
+ 		setCompany(companyTraining, rs, rowNumber);
+ 		setInstructor(companyTraining, rs, rowNumber);
+ 		setTrainingCourseType(companyTraining, rs, rowNumber);
+ 		setTimeStart(companyTraining, rs, rowNumber);
+ 		setDurationHours(companyTraining, rs, rowNumber);
+ 		setLastUpdateTime(companyTraining, rs, rowNumber);
  		setVersion(companyTraining, rs, rowNumber);
 
+    
 		return companyTraining;
 	}
-	
+
 	protected CompanyTraining getCompanyTraining(){
-		return new CompanyTraining();
-	}		
+	  CompanyTraining entity = new CompanyTraining();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(CompanyTrainingTable.COLUMN_ID);
@@ -43,10 +47,13 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
 		}
 		
 		companyTraining.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTitle(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String title = rs.getString(CompanyTrainingTable.COLUMN_TITLE);
@@ -57,10 +64,18 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
 		}
 		
 		companyTraining.setTitle(title);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setCompany(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(CompanyTrainingTable.COLUMN_COMPANY);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(CompanyTrainingTable.COLUMN_COMPANY);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -71,14 +86,19 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'companyTraining' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		companyTraining.setCompany(createEmptyCompany(retailStoreCountryCenterId));
  	}
- 	 		
+ 	
  	protected void setInstructor(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
- 		String instructorId = rs.getString(CompanyTrainingTable.COLUMN_INSTRUCTOR);
+ 		String instructorId;
+ 		try{
+ 		  instructorId = rs.getString(CompanyTrainingTable.COLUMN_INSTRUCTOR);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( instructorId == null){
  			return;
  		}
@@ -89,14 +109,19 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
  		if( instructor != null ){
  			//if the root object 'companyTraining' already have the property, just set the id for it;
  			instructor.setId(instructorId);
- 			
+
  			return;
  		}
  		companyTraining.setInstructor(createEmptyInstructor(instructorId));
  	}
- 	 		
+ 	
  	protected void setTrainingCourseType(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
- 		String trainingCourseTypeId = rs.getString(CompanyTrainingTable.COLUMN_TRAINING_COURSE_TYPE);
+ 		String trainingCourseTypeId;
+ 		try{
+ 		  trainingCourseTypeId = rs.getString(CompanyTrainingTable.COLUMN_TRAINING_COURSE_TYPE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( trainingCourseTypeId == null){
  			return;
  		}
@@ -107,14 +132,14 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
  		if( trainingCourseType != null ){
  			//if the root object 'companyTraining' already have the property, just set the id for it;
  			trainingCourseType.setId(trainingCourseTypeId);
- 			
+
  			return;
  		}
  		companyTraining.setTrainingCourseType(createEmptyTrainingCourseType(trainingCourseTypeId));
  	}
  	
 	protected void setTimeStart(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date timeStart = rs.getDate(CompanyTrainingTable.COLUMN_TIME_START);
@@ -125,10 +150,13 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
 		}
 		
 		companyTraining.setTimeStart(timeStart);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDurationHours(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer durationHours = rs.getInt(CompanyTrainingTable.COLUMN_DURATION_HOURS);
@@ -139,10 +167,13 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
 		}
 		
 		companyTraining.setDurationHours(durationHours);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(CompanyTrainingTable.COLUMN_LAST_UPDATE_TIME);
@@ -153,10 +184,13 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
 		}
 		
 		companyTraining.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(CompanyTraining companyTraining, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(CompanyTrainingTable.COLUMN_VERSION);
@@ -167,9 +201,12 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
 		}
 		
 		companyTraining.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyCompany(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

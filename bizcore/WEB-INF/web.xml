@@ -1,7 +1,9 @@
 <web-app character-encoding='UTF8'>
 
 	<display-name>New Application Framework and Spring Bean Manager</display-name>
-
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
 <!-- 
 
 

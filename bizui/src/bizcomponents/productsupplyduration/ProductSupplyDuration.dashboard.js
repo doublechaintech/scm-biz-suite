@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
-import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+import BaseTool from '../../common/Base.tool'
+import { Tag, Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
-import {
-  ChartCard, yuan, MiniArea, MiniBar, MiniProgress, Field, Bar, Pie, TimelineChart,
-} from '../../components/Charts'
+import {TagCloud} from '../../components/Charts'
 import Trend from '../../components/Trend'
 import NumberInfo from '../../components/NumberInfo'
 import { getTimeDistance } from '../../utils/utils'
@@ -30,7 +29,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
 
+const {defaultFormatNumber} = BaseTool
 
+const formatNumber = defaultFormatNumber
 
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
@@ -43,7 +44,7 @@ const imageList =(productSupplyDuration)=>{return [
 
 const internalImageListOf = (productSupplyDuration) =>defaultImageListOf(productSupplyDuration,imageList)
 
-const optionList =(productSupplyDuration)=>{return [ 
+const optionList =(productSupplyDuration)=>{return [
 	]}
 
 const buildTransferModal = defaultBuildTransferModal
@@ -53,7 +54,7 @@ const internalSettingListOf = (productSupplyDuration) =>defaultSettingListOf(pro
 const internalLargeTextOf = (productSupplyDuration) =>{
 
 	return null
-	
+
 
 }
 
@@ -68,7 +69,7 @@ const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
         <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
-       
+
         <Button>
         <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
       </Button>
@@ -101,37 +102,58 @@ const renderSettingMenu = (cardsData,targetComponent) =>{
 }
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
+
+
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
 
-const internalSummaryOf = (productSupplyDuration,targetComponent) =>{
-	
-	
+const internalSummaryOf = (cardsData,targetComponent) =>{
+
+	 const quickFunctions = targetComponent.props.quickFunctions || internalQuickFunctions
+	const productSupplyDuration = cardsData.cardsSource
 	const {ProductSupplyDurationService} = GlobalComponents
 	const userContext = null
 	return (
+	<div>
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号" style={{wordBreak: 'break-all'}}>{productSupplyDuration.id}</Description> 
+<Description term="ID" style={{wordBreak: 'break-all'}}>{productSupplyDuration.id}</Description> 
 <Description term="数量" style={{wordBreak: 'break-all'}}>{productSupplyDuration.quantity}</Description> 
 <Description term="持续时间" style={{wordBreak: 'break-all'}}>{productSupplyDuration.duration}</Description> 
 <Description term="价格" style={{wordBreak: 'break-all'}}>{productSupplyDuration.price}</Description> 
 <Description term="产品">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"产品","supplierProduct",ProductSupplyDurationService.requestCandidateProduct,
-	      ProductSupplyDurationService.transferToAnotherProduct,"anotherProductId",productSupplyDuration.product?productSupplyDuration.product.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
-	
-        {buildTransferModal(productSupplyDuration,targetComponent)}
+
+       
       </DescriptionList>
+      <div>{quickFunctions(cardsData)}</div>
+      </div>
 	)
 
 }
+
+
+const renderTagCloud=(cardsData)=>{
+
+
+  if(cardsData.subItems.length<10){
+    return null
+  }
+
+  const tagValue = cardsData.subItems.map(item=>({name:item.displayName, value: item.count}))
+
+  return <div >
+      <div style={{verticalAlign:"middle",textAlign:"center",backgroundColor:"rgba(0, 0, 0, 0.65)",color:"white",fontWeight:"bold",height:"40px"}}>
+       <span style={{display:"inline-block",marginTop:"10px"}}>{`${cardsData.displayName}画像`}</span>
+      </div>
+      <TagCloud data={tagValue} height={200} style={{backgroundColor:"white"}}/>
+    </div>
+
+
+}
+
 
 const internalQuickFunctions = defaultQuickFunctions
 
@@ -145,7 +167,7 @@ class ProductSupplyDurationDashboard extends Component {
     targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
-    transferTargetParameterName:"",  
+    transferTargetParameterName:"",
     defaultType: 'productSupplyDuration'
 
 
@@ -153,7 +175,7 @@ class ProductSupplyDurationDashboard extends Component {
   componentDidMount() {
 
   }
-  
+
 
   render() {
     // eslint-disable-next-line max-len
@@ -162,18 +184,18 @@ class ProductSupplyDurationDashboard extends Component {
       return null
     }
     const returnURL = this.props.returnURL
-    
+
     const cardsData = {cardsName:window.trans('product_supply_duration'),cardsFor: "productSupplyDuration",
     	cardsSource: this.props.productSupplyDuration,returnURL,displayName,
   		subItems: [
-    
+
       	],
    		subSettingItems: [
-    
-      	],     	
-      	
+
+      	],
+
   	};
-    
+
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
     const imageListOf = this.props.imageListOf || internalImageListOf
@@ -185,27 +207,18 @@ class ProductSupplyDurationDashboard extends Component {
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
-    
+    // {quickFunctions(cardsData)}
     return (
 
       <PageHeaderLayout
         title={renderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+
+
        
-        {renderExtraHeader(cardsData.cardsSource)}
-        
-        {quickFunctions(cardsData)} 
-        {imageListOf(cardsData.cardsSource)}  
-        {renderAnalytics(cardsData.cardsSource)}
-        {settingListOf(cardsData.cardsSource)}
-        {renderSubjectList(cardsData)}       
-        {largeTextOf(cardsData.cardsSource)}
-        {renderExtraFooter(cardsData.cardsSource)}
-  		
       </PageHeaderLayout>
-    
+
     )
   }
 }
@@ -213,6 +226,6 @@ class ProductSupplyDurationDashboard extends Component {
 export default connect(state => ({
   productSupplyDuration: state._productSupplyDuration,
   returnURL: state.breadcrumb.returnURL,
-  
+
 }))(Form.create()(ProductSupplyDurationDashboard))
 

@@ -31,7 +31,7 @@ const internalSummaryOf = (goodsMovement,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsMovement.id}</Description> 
+<Description term="ID">{goodsMovement.id}</Description> 
 <Description term="移动时间">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
 <Description term="设施">{goodsMovement.facility}</Description> 
 <Description term="设备ID">{goodsMovement.facilityId}</Description> 
@@ -64,7 +64,7 @@ class GoodsMovementPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsMovement = this.props.goodsMovement
     const { id,displayName,  } = goodsMovement
-    const  returnURL = `/goodsMovement/${id}/dashboard`
+    const  returnURL = `/goodsMovement/${id}/workbench`
     const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",cardsSource: goodsMovement,displayName,returnURL,
   		subItems: [
     
@@ -77,10 +77,10 @@ class GoodsMovementPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

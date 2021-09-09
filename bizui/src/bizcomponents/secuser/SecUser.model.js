@@ -37,6 +37,22 @@ export default {
     },
   },
   effects: {
+
+    *analyze({ payload }, { call, put, select }){
+      yield put({ type: 'showLoading', payload })
+      const link = payload.pathname
+      const {SecUserService} = GlobalComponents;
+      const data = yield call(SecUserService.analyze, payload.id)
+      
+      const displayName = payload.displayName||data.displayName
+      
+      
+      yield put({ type: 'breadcrumb/gotoLink', payload: { displayName,link }} )
+      
+
+      yield put({ type: 'updateState', payload: data })
+      
+    },
     *view({ payload }, { call, put, select }) { 
     
       const cachedData = yield select(state => state._secUser)
@@ -137,7 +153,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/secUser/${id}/list/UserAppList/用户应用程序+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/secUser/${id}/list/UserAppList/应用+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateUserApp({ payload }, { call, put }) {
@@ -159,7 +175,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/secUser/${id}/list/UserAppList/用户应用程序列表`, state: newPlayload }
+      const location = { pathname: `/secUser/${id}/list/UserAppList/应用列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextUserAppUpdateRow({ payload }, { call, put }) {
@@ -255,13 +271,13 @@ export default {
 
 
 
-    *addWechatWorkappIdentify({ payload }, { call, put }) {
+    *addWechatWorkappIdentity({ payload }, { call, put }) {
       const userContext = null
       const {SecUserService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.addWechatWorkappIdentify, id, parameters)
+      const data = yield call(SecUserService.addWechatWorkappIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -275,15 +291,15 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/secUser/${id}/list/WechatWorkappIdentifyList/微信Workapp识别+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/secUser/${id}/list/WechatWorkappIdentityList/企业微信认证+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
-    *updateWechatWorkappIdentify({ payload }, { call, put }) {
+    *updateWechatWorkappIdentity({ payload }, { call, put }) {
       const userContext = null
       const {SecUserService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.updateWechatWorkappIdentify, id, parameters)
+      const data = yield call(SecUserService.updateWechatWorkappIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -297,20 +313,20 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/secUser/${id}/list/WechatWorkappIdentifyList/微信Workapp识别列表`, state: newPlayload }
+      const location = { pathname: `/secUser/${id}/list/WechatWorkappIdentityList/企业微信认证列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
-    *gotoNextWechatWorkappIdentifyUpdateRow({ payload }, { call, put }) {
+    *gotoNextWechatWorkappIdentityUpdateRow({ payload }, { call, put }) {
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       const newPlayload = { ...payload, selectedRows, currentUpdateIndex }
       yield put({ type: 'updateState', payload: newPlayload })
     },
-    *removeWechatWorkappIdentifyList({ payload }, { call, put }) {
+    *removeWechatWorkappIdentityList({ payload }, { call, put }) {
      const userContext = null
       const {SecUserService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.removeWechatWorkappIdentifyList, id, parameters)
+      const data = yield call(SecUserService.removeWechatWorkappIdentityList, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -324,13 +340,13 @@ export default {
 
 
 
-    *addWechatMiniappIdentify({ payload }, { call, put }) {
+    *addWechatMiniappIdentity({ payload }, { call, put }) {
       const userContext = null
       const {SecUserService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.addWechatMiniappIdentify, id, parameters)
+      const data = yield call(SecUserService.addWechatMiniappIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -344,15 +360,15 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/secUser/${id}/list/WechatMiniappIdentifyList/微信Miniapp识别+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/secUser/${id}/list/WechatMiniappIdentityList/微信小程序认证+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
-    *updateWechatMiniappIdentify({ payload }, { call, put }) {
+    *updateWechatMiniappIdentity({ payload }, { call, put }) {
       const userContext = null
       const {SecUserService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.updateWechatMiniappIdentify, id, parameters)
+      const data = yield call(SecUserService.updateWechatMiniappIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -366,20 +382,20 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/secUser/${id}/list/WechatMiniappIdentifyList/微信Miniapp识别列表`, state: newPlayload }
+      const location = { pathname: `/secUser/${id}/list/WechatMiniappIdentityList/微信小程序认证列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
-    *gotoNextWechatMiniappIdentifyUpdateRow({ payload }, { call, put }) {
+    *gotoNextWechatMiniappIdentityUpdateRow({ payload }, { call, put }) {
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       const newPlayload = { ...payload, selectedRows, currentUpdateIndex }
       yield put({ type: 'updateState', payload: newPlayload })
     },
-    *removeWechatMiniappIdentifyList({ payload }, { call, put }) {
+    *removeWechatMiniappIdentityList({ payload }, { call, put }) {
      const userContext = null
       const {SecUserService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.removeWechatMiniappIdentifyList, id, parameters)
+      const data = yield call(SecUserService.removeWechatMiniappIdentityList, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -393,13 +409,13 @@ export default {
 
 
 
-    *addKeypairIdentify({ payload }, { call, put }) {
+    *addKeyPairIdentity({ payload }, { call, put }) {
       const userContext = null
       const {SecUserService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.addKeypairIdentify, id, parameters)
+      const data = yield call(SecUserService.addKeyPairIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -413,15 +429,15 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/secUser/${id}/list/KeypairIdentifyList/密钥对识别+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/secUser/${id}/list/KeyPairIdentityList/秘钥对认证+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
-    *updateKeypairIdentify({ payload }, { call, put }) {
+    *updateKeyPairIdentity({ payload }, { call, put }) {
       const userContext = null
       const {SecUserService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.updateKeypairIdentify, id, parameters)
+      const data = yield call(SecUserService.updateKeyPairIdentity, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return
@@ -435,20 +451,20 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/secUser/${id}/list/KeypairIdentifyList/密钥对识别列表`, state: newPlayload }
+      const location = { pathname: `/secUser/${id}/list/KeyPairIdentityList/秘钥对认证列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
-    *gotoNextKeypairIdentifyUpdateRow({ payload }, { call, put }) {
+    *gotoNextKeyPairIdentityUpdateRow({ payload }, { call, put }) {
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       const newPlayload = { ...payload, selectedRows, currentUpdateIndex }
       yield put({ type: 'updateState', payload: newPlayload })
     },
-    *removeKeypairIdentifyList({ payload }, { call, put }) {
+    *removeKeyPairIdentityList({ payload }, { call, put }) {
      const userContext = null
       const {SecUserService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
-      const data = yield call(SecUserService.removeKeypairIdentifyList, id, parameters)
+      const data = yield call(SecUserService.removeKeyPairIdentityList, id, parameters)
       if (hasError(data)) {
         handleServerError(data)
         return

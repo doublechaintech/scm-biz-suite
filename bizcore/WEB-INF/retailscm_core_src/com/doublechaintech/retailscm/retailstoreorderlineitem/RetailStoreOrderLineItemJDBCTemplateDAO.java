@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstoreorderlineitem;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected RetailStoreOrderDAO retailStoreOrderDAO;
 	public void setRetailStoreOrderDAO(RetailStoreOrderDAO retailStoreOrderDAO){
- 	
+
  		if(retailStoreOrderDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreOrderDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.retailStoreOrderDAO == null){
  			throw new IllegalStateException("The retailStoreOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreOrderDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreOrderLineItemTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreOrderLineItemTokens.BIZORDER);
  	}
 
  	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreOrderLineItemTokens.BIZORDER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 		return new RetailStoreOrderLineItemMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreOrderLineItem extractRetailStoreOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreOrderLineItem retailStoreOrderLineItem = loadSingleObject(accessKey, getRetailStoreOrderLineItemMapper());
@@ -229,25 +231,26 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreOrderLineItem loadInternalRetailStoreOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreOrderLineItem retailStoreOrderLineItem = extractRetailStoreOrderLineItem(accessKey, loadOptions);
- 	
+
  		if(isExtractBizOrderEnabled(loadOptions)){
 	 		extractBizOrder(retailStoreOrderLineItem, loadOptions);
  		}
  
 		
 		return retailStoreOrderLineItem;
-		
+
 	}
 
-	 
+	
 
  	protected RetailStoreOrderLineItem extractBizOrder(RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreOrderLineItem.getBizOrder() == null){
 			return retailStoreOrderLineItem;
@@ -260,37 +263,37 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(bizOrder != null){
 			retailStoreOrderLineItem.setBizOrder(bizOrder);
 		}
-		
- 		
+
+
  		return retailStoreOrderLineItem;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreOrderLineItem> resultList = queryWith(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options, getRetailStoreOrderLineItemMapper());
 		// analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreOrderLineItem> resultList =  queryWithRange(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options, getRetailStoreOrderLineItemMapper(), start, count);
  		//analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreOrderLineItemByBizOrder(SmartList<RetailStoreOrderLineItem> resultList, String retailStoreOrderId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public Map<String, Integer> countRetailStoreOrderLineItemByBizOrderIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreOrderLineItem saveRetailStoreOrderLineItem(RetailStoreOrderLineItem  retailStoreOrderLineItem){
+    
+
 		
 		if(!retailStoreOrderLineItem.isChanged()){
 			return retailStoreOrderLineItem;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreOrderLineItem);
 		String SQL=this.getSaveRetailStoreOrderLineItemSQL(retailStoreOrderLineItem);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreOrderLineItemParameters(retailStoreOrderLineItem);
@@ -326,6 +332,7 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		retailStoreOrderLineItem.incVersion();
+		retailStoreOrderLineItem.afterSave();
 		return retailStoreOrderLineItem;
 
 	}
@@ -343,6 +350,7 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 		for(RetailStoreOrderLineItem retailStoreOrderLineItem:retailStoreOrderLineItemList){
 			if(retailStoreOrderLineItem.isChanged()){
 				retailStoreOrderLineItem.incVersion();
+				retailStoreOrderLineItem.afterSave();
 			}
 
 
@@ -449,19 +457,14 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(retailStoreOrderLineItem.getBizOrder() != null){
  			parameters[0] = retailStoreOrderLineItem.getBizOrder().getId();
  		}
- 
- 		
+    
  		parameters[1] = retailStoreOrderLineItem.getSkuId();
- 		
  		
  		parameters[2] = retailStoreOrderLineItem.getSkuName();
  		
- 		
  		parameters[3] = retailStoreOrderLineItem.getAmount();
  		
- 		
  		parameters[4] = retailStoreOrderLineItem.getQuantity();
- 		
  		
  		parameters[5] = retailStoreOrderLineItem.getUnitOfMeasurement();
  		
@@ -481,21 +484,15 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
  
  		if(retailStoreOrderLineItem.getBizOrder() != null){
  			parameters[1] = retailStoreOrderLineItem.getBizOrder().getId();
-
  		}
- 		
  		
  		parameters[2] = retailStoreOrderLineItem.getSkuId();
  		
- 		
  		parameters[3] = retailStoreOrderLineItem.getSkuName();
- 		
  		
  		parameters[4] = retailStoreOrderLineItem.getAmount();
  		
- 		
  		parameters[5] = retailStoreOrderLineItem.getQuantity();
- 		
  		
  		parameters[6] = retailStoreOrderLineItem.getUnitOfMeasurement();
  		
@@ -505,12 +502,11 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected RetailStoreOrderLineItem saveInternalRetailStoreOrderLineItem(RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String,Object> options){
 
-		saveRetailStoreOrderLineItem(retailStoreOrderLineItem);
-
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(retailStoreOrderLineItem, options);
  		}
  
+   saveRetailStoreOrderLineItem(retailStoreOrderLineItem);
 		
 		return retailStoreOrderLineItem;
 
@@ -522,6 +518,7 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 
  	protected RetailStoreOrderLineItem saveBizOrder(RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreOrderLineItem.getBizOrder() == null){
  			return retailStoreOrderLineItem;//do nothing when it is null
@@ -531,11 +528,6 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
  		return retailStoreOrderLineItem;
 
  	}
-
-
-
-
-
  
 
 	
@@ -543,10 +535,10 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 
 	public RetailStoreOrderLineItem present(RetailStoreOrderLineItem retailStoreOrderLineItem,Map<String, Object> options){
-	
+
 
 		return retailStoreOrderLineItem;
-	
+
 	}
 		
 
@@ -598,6 +590,10 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreOrderLineItem> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreOrderLineItemMapper());
   }
@@ -633,6 +629,15 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	
 
+  @Override
+  public List<RetailStoreOrderLineItem> search(RetailStoreOrderLineItemRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreOrderLineItemMapper mapper() {
+    return getRetailStoreOrderLineItemMapper();
+  }
 }
 
 

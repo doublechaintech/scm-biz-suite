@@ -15,14 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = SlideBase
 const testValues = {};
-/*
-const testValues = {
-  name: '首页Focus的内容',
-  displayOrder: '1',
-  linkToUrl: '',
-  pageId: 'P000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
   'imageUrl',
@@ -38,9 +33,20 @@ class SlideCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = SlideBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +57,7 @@ class SlideCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -59,7 +65,7 @@ class SlideCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -67,10 +73,10 @@ class SlideCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,16 +85,16 @@ class SlideCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {SlideService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -98,9 +104,9 @@ class SlideCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -109,7 +115,7 @@ class SlideCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -121,25 +127,25 @@ class SlideCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('slide')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={0} maxLength={40} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +155,7 @@ class SlideCreateFormBody extends Component {
                   {getFieldDecorator('displayOrder', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
+                    <SmallTextInput minLength={0} maxLength={10000} size="large"  placeholder={fieldLabels.displayOrder} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,39 +165,39 @@ class SlideCreateFormBody extends Component {
                   {getFieldDecorator('linkToUrl', {
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.linkToUrl} />
+                    <SmallTextInput minLength={0} maxLength={512} size="large"  placeholder={fieldLabels.linkToUrl} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.page} {...formItemLayout}>
                   {getFieldDecorator('pageId', {
                   	initialValue: tryinit('page'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('page')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"slide"} 
-		                 targetType={"page"} 
-                 
+		                 listType={"slide"}
+		                 targetType={"page"}
+
                     requestFunction={SlideService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -206,35 +212,39 @@ class SlideCreateFormBody extends Component {
 
        <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
           <Form >
-            <Row gutter={16}>     
-           
+            <Row gutter={16}>
 
-              <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={fieldLabels.imageUrl}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleImageChange(event, 'imageUrl')}
-                  fileList={convertedImagesValues.imageUrl}
-                />
-              </Col>
 
-              <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={fieldLabels.videoUrl}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleImageChange(event, 'videoUrl')}
-                  fileList={convertedImagesValues.videoUrl}
-                />
-              </Col>
+          <Col lg={6} md={6} sm={6}></Col>
+          <Col lg={12} md={12} sm={12}>
+              <Form.Item>
+                  {getFieldDecorator('imageUrl', {
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.imageUrl}/>
+                )} </Form.Item>
+
+              </Col><Col lg={6} md={6} sm={6}></Col>
+
+          <Col lg={6} md={6} sm={6}></Col>
+          <Col lg={12} md={12} sm={12}>
+              <Form.Item>
+                  {getFieldDecorator('videoUrl', {
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.videoUrl}/>
+                )} </Form.Item>
+
+              </Col><Col lg={6} md={6} sm={6}></Col>
 
              </Row>
           </Form>
         </Card>
-         
 
 
 
-      
+
+
        </div>
     )
   }

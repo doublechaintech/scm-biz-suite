@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}supplyOrderLineItemManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}supplyOrderLineItemManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderLineItemService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const SupplyOrderLineItemService = { view,
   load,
+  analyze,
   requestCandidateBizOrder,
-  transferToAnotherBizOrder, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBizOrder, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default SupplyOrderLineItemService
 

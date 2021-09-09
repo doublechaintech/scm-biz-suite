@@ -31,7 +31,7 @@ const internalSummaryOf = (leaveType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{leaveType.id}</Description> 
+<Description term="ID">{leaveType.id}</Description> 
 <Description term="代码">{leaveType.code}</Description> 
 <Description term="描述">{leaveType.description}</Description> 
 <Description term="详细描述">{leaveType.detailDescription}</Description> 
@@ -60,7 +60,7 @@ class LeaveTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  leaveType = this.props.leaveType
     const { id,displayName, employeeLeaveCount } = leaveType
-    const  returnURL = `/leaveType/${id}/dashboard`
+    const  returnURL = `/leaveType/${id}/workbench`
     const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",cardsSource: leaveType,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class LeaveTypePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

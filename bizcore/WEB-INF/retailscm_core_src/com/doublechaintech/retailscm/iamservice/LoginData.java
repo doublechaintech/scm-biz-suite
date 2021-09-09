@@ -14,7 +14,10 @@ public class LoginData {
 	protected static final String CODE = "code";
 	protected static final String APP_ID = "app_id";
 	protected static final String OPEN_ID = "open_id";
-	
+	protected static final String UNION_ID = "union_id";
+	protected static final String ENCRYPTED_DATA = "encrypted_data";
+    protected static final String IV = "iv";
+
 	protected Map<String, Object> datas;
 	protected void ensureDatas() {
 		if (datas == null) {
@@ -29,12 +32,12 @@ public class LoginData {
 		ensureDatas();
 		datas.put(key, value);
 	}
-	
+
 
 	public String getMobile() {
 		return (String) getData(MOBILE);
 	}
-	
+
 	public void setMobile(String mobile) {
 		setData(MOBILE, mobile);
 	}
@@ -92,7 +95,28 @@ public class LoginData {
 	public void setOpenId(String openId) {
 		setData(OPEN_ID, openId);
 	}
-	
+	public String getUnionId() {
+    return (String) getData(UNION_ID);
+  }
+  public void setUnionId(String unionId) {
+    setData(UNION_ID, unionId);
+  }
+
+	  public String getEncryptedData() {
+      return (String) getData(ENCRYPTED_DATA);
+    }
+
+    public void setEncryptedData(String encryptedData) {
+      setData(ENCRYPTED_DATA, encryptedData);
+    }
+
+    public String getIv() {
+      return (String) getData(IV);
+    }
+
+    public void setIv(String iv) {
+      setData(IV, iv);
+    }
 }
 
 

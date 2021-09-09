@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employeeskill;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,25 +10,28 @@ import com.doublechaintech.retailscm.skilltype.SkillType;
 import com.doublechaintech.retailscm.employee.Employee;
 
 public class EmployeeSkillMapper extends BaseRowMapper<EmployeeSkill>{
-	
+
 	protected EmployeeSkill internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeSkill employeeSkill = getEmployeeSkill();		
-		 		
- 		setId(employeeSkill, rs, rowNumber); 		
- 		setEmployee(employeeSkill, rs, rowNumber); 		
- 		setSkillType(employeeSkill, rs, rowNumber); 		
- 		setDescription(employeeSkill, rs, rowNumber); 		
+		EmployeeSkill employeeSkill = getEmployeeSkill();
+		
+ 		setId(employeeSkill, rs, rowNumber);
+ 		setEmployee(employeeSkill, rs, rowNumber);
+ 		setSkillType(employeeSkill, rs, rowNumber);
+ 		setDescription(employeeSkill, rs, rowNumber);
  		setVersion(employeeSkill, rs, rowNumber);
 
+    
 		return employeeSkill;
 	}
-	
+
 	protected EmployeeSkill getEmployeeSkill(){
-		return new EmployeeSkill();
-	}		
+	  EmployeeSkill entity = new EmployeeSkill();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(EmployeeSkill employeeSkill, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeSkillTable.COLUMN_ID);
@@ -38,10 +42,18 @@ public class EmployeeSkillMapper extends BaseRowMapper<EmployeeSkill>{
 		}
 		
 		employeeSkill.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setEmployee(EmployeeSkill employeeSkill, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(EmployeeSkillTable.COLUMN_EMPLOYEE);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(EmployeeSkillTable.COLUMN_EMPLOYEE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -52,14 +64,19 @@ public class EmployeeSkillMapper extends BaseRowMapper<EmployeeSkill>{
  		if( employee != null ){
  			//if the root object 'employeeSkill' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		employeeSkill.setEmployee(createEmptyEmployee(employeeId));
  	}
- 	 		
+ 	
  	protected void setSkillType(EmployeeSkill employeeSkill, ResultSet rs, int rowNumber) throws SQLException{
- 		String skillTypeId = rs.getString(EmployeeSkillTable.COLUMN_SKILL_TYPE);
+ 		String skillTypeId;
+ 		try{
+ 		  skillTypeId = rs.getString(EmployeeSkillTable.COLUMN_SKILL_TYPE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( skillTypeId == null){
  			return;
  		}
@@ -70,14 +87,14 @@ public class EmployeeSkillMapper extends BaseRowMapper<EmployeeSkill>{
  		if( skillType != null ){
  			//if the root object 'employeeSkill' already have the property, just set the id for it;
  			skillType.setId(skillTypeId);
- 			
+
  			return;
  		}
  		employeeSkill.setSkillType(createEmptySkillType(skillTypeId));
  	}
  	
 	protected void setDescription(EmployeeSkill employeeSkill, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(EmployeeSkillTable.COLUMN_DESCRIPTION);
@@ -88,10 +105,13 @@ public class EmployeeSkillMapper extends BaseRowMapper<EmployeeSkill>{
 		}
 		
 		employeeSkill.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(EmployeeSkill employeeSkill, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeSkillTable.COLUMN_VERSION);
@@ -102,9 +122,12 @@ public class EmployeeSkillMapper extends BaseRowMapper<EmployeeSkill>{
 		}
 		
 		employeeSkill.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyEmployee(String employeeId){
  		Employee employee = new Employee();

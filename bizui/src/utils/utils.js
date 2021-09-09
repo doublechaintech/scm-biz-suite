@@ -160,18 +160,18 @@ export function isUrl(path) {
   return reg.test(path);
 }
 
-export function sessionObject(key, value){
-  const isKeyString = (typeof(key)==="string")
-  if(!isKeyString){
-    console.error("sessionObject(key, value): key should be a string")
+export function sessionObject(key, value) {
+  const isKeyString = typeof key === 'string';
+  if (!isKeyString) {
+    console.error('sessionObject(key, value): key should be a string');
     return null;
   }
-  const prefix=window.systemName || window.location.pathname
-  const internalKey=`${prefix}:${key}`
-  if(!value){
-    return JSON.parse(sessionStorage.getItem(internalKey))
+  const prefix = window.systemName || window.location.pathname;
+  const internalKey = `${prefix}:${key}`;
+  if (!value) {
+    return JSON.parse(sessionStorage.getItem(internalKey));
   }
   // const isValueObject = (typeof(prefix)==="object")
-  sessionStorage.setItem(internalKey,JSON.stringify(value))
-  return value
+  sessionStorage.setItem(internalKey, JSON.stringify(value));
+  return value;
 }

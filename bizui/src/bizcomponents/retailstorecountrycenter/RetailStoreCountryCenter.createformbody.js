@@ -15,18 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = RetailStoreCountryCenterBase
 const testValues = {};
-/*
-const testValues = {
-  name: '双链小超中国国运营中心',
-  serviceNumber: '4000-800-',
-  founded: '2018-03-02',
-  webSite: 'https://www.doublechaintech.com/',
-  address: '四川省成都市天府新区双链大厦',
-  operatedBy: '双链集团',
-  legalRepresentative: '张喜来',
-  description: '中国中心正式成立，恭喜恭喜',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -40,9 +31,20 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = RetailStoreCountryCenterBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -53,7 +55,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -61,7 +63,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -69,10 +71,10 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -81,16 +83,16 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {RetailStoreCountryCenterService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -100,9 +102,9 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -111,7 +113,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -123,25 +125,25 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_country_center')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={5} maxLength={44} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +153,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('serviceNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.serviceNumber} />
+                    <SmallTextInput minLength={3} maxLength={36} size="large"  placeholder={fieldLabels.serviceNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +163,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +173,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('webSite', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.webSite} />
+                    <SmallTextInput minLength={16} maxLength={128} size="large"  placeholder={fieldLabels.webSite} />
                   )}
                 </Form.Item>
               </Col>
@@ -181,7 +183,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.address} />
+                    <SmallTextInput minLength={4} maxLength={56} size="large"  placeholder={fieldLabels.address} />
                   )}
                 </Form.Item>
               </Col>
@@ -191,7 +193,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('operatedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.operatedBy} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.operatedBy} />
                   )}
                 </Form.Item>
               </Col>
@@ -201,7 +203,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('legalRepresentative', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.legalRepresentative} />
+                    <SmallTextInput minLength={1} maxLength={12} size="large"  placeholder={fieldLabels.legalRepresentative} />
                   )}
                 </Form.Item>
               </Col>
@@ -211,13 +213,13 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.description} />
+                    <SmallTextInput minLength={4} maxLength={52} size="large"  placeholder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
 
 
@@ -232,7 +234,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

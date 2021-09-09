@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}stockCountIssueTrackManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}stockCountIssueTrackManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}stockCountIssueTrackService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const StockCountIssueTrackService = { view,
   load,
+  analyze,
   requestCandidateStockCount,
-  transferToAnotherStockCount, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherStockCount, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default StockCountIssueTrackService
 

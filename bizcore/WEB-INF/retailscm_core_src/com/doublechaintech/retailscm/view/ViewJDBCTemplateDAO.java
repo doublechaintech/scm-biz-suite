@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.view;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -34,6 +35,7 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
 public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO{
+
 
 
 	/*
@@ -167,13 +169,13 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ViewTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
@@ -185,8 +187,8 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 		return new ViewMapper();
 	}
 
-	
-	
+
+
 	protected View extractView(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			View view = loadSingleObject(accessKey, getViewMapper());
@@ -197,35 +199,38 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 
 	}
 
-	
-	
+
+
 
 	protected View loadInternalView(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		View view = extractView(accessKey, loadOptions);
 
 		
 		return view;
-		
+
 	}
 
 	
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected View saveView(View  view){
+    
+
 		
 		if(!view.isChanged()){
 			return view;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(view);
 		String SQL=this.getSaveViewSQL(view);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveViewParameters(view);
@@ -236,6 +241,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 		}
 
 		view.incVersion();
+		view.afterSave();
 		return view;
 
 	}
@@ -253,6 +259,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 		for(View view:viewList){
 			if(view.isChanged()){
 				view.incVersion();
+				view.afterSave();
 			}
 
 
@@ -356,12 +363,9 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
  	protected Object[] prepareViewUpdateParameters(View view){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = view.getWho();
  		
- 		
  		parameters[1] = view.getAssessment();
- 		
  		
  		parameters[2] = view.getInterviewTime();
  		
@@ -379,12 +383,9 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
         }
 		parameters[0] =  view.getId();
  
- 		
  		parameters[1] = view.getWho();
  		
- 		
  		parameters[2] = view.getAssessment();
- 		
  		
  		parameters[3] = view.getInterviewTime();
  		
@@ -394,8 +395,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 
 	protected View saveInternalView(View view, Map<String,Object> options){
 
-		saveView(view);
-
+   saveView(view);
 		
 		return view;
 
@@ -411,10 +411,10 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 		
 
 	public View present(View view,Map<String, Object> options){
-	
+
 
 		return view;
-	
+
 	}
 		
 
@@ -466,6 +466,10 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<View> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getViewMapper());
   }
@@ -505,13 +509,13 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -520,19 +524,19 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -540,7 +544,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -551,7 +555,7 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -560,27 +564,36 @@ public class ViewJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ViewDAO
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<View> search(ViewRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ViewMapper mapper() {
+    return getViewMapper();
+  }
 }
 
 

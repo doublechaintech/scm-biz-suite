@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.productsupplyduration;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface ProductSupplyDurationManager extends BaseManager{
 
 		
 
+  List<ProductSupplyDuration> searchProductSupplyDurationList(RetailscmUserContext ctx, ProductSupplyDurationRequest pRequest);
+  ProductSupplyDuration searchProductSupplyDuration(RetailscmUserContext ctx, ProductSupplyDurationRequest pRequest);
 	public ProductSupplyDuration createProductSupplyDuration(RetailscmUserContext userContext, int quantity,String duration,BigDecimal price,String productId) throws Exception;
 	public ProductSupplyDuration updateProductSupplyDuration(RetailscmUserContext userContext,String productSupplyDurationId, int productSupplyDurationVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ProductSupplyDuration loadProductSupplyDuration(RetailscmUserContext userContext, String productSupplyDurationId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface ProductSupplyDurationManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String productSupplyDurationId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, ProductSupplyDuration newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, ProductSupplyDuration updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -35,6 +43,9 @@ public interface ProductSupplyDurationManager extends BaseManager{
 	public Object listByProduct(RetailscmUserContext userContext,String productId) throws Exception;
 	public Object listPageByProduct(RetailscmUserContext userContext,String productId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

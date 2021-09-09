@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}levelThreeCategoryManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}levelThreeCategoryManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelThreeCategoryService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const LevelThreeCategoryService = { view,
   load,
+  analyze,
   addProduct,
   updateProduct,
   removeProductList,
   requestCandidateParentCategory,
-  transferToAnotherParentCategory, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherParentCategory, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default LevelThreeCategoryService
 

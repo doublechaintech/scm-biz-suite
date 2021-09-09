@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.occupationtype;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		newOccupationType.setVersion(0);
 		
 		
- 		
+
  		if(isSaveEmployeeListEnabled(options)){
  			for(Employee item: newOccupationType.getEmployeeList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return OccupationTypeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCompanyEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, OccupationTypeTokens.COMPANY);
  	}
 
  	protected boolean isSaveCompanyEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, OccupationTypeTokens.COMPANY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
  		return checkOptions(options,OccupationTypeTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){
  		return OccupationTypeTokens.of(options).analyzeEmployeeListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, OccupationTypeTokens.EMPLOYEE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		return new OccupationTypeMapper();
 	}
 
-	
-	
+
+
 	protected OccupationType extractOccupationType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			OccupationType occupationType = loadSingleObject(accessKey, getOccupationTypeMapper());
@@ -268,13 +270,13 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	}
 
-	
-	
+
+
 
 	protected OccupationType loadInternalOccupationType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		OccupationType occupationType = extractOccupationType(accessKey, loadOptions);
- 	
+
  		if(isExtractCompanyEnabled(loadOptions)){
 	 		extractCompany(occupationType, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(occupationType, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
 	 		analyzeEmployeeList(occupationType, loadOptions);
@@ -291,12 +293,13 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		
 		
 		return occupationType;
-		
+
 	}
 
-	 
+	
 
  	protected OccupationType extractCompany(OccupationType occupationType, Map<String,Object> options) throws Exception{
+  
 
 		if(occupationType.getCompany() == null){
 			return occupationType;
@@ -309,21 +312,21 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(company != null){
 			occupationType.setCompany(company);
 		}
-		
- 		
+
+
  		return occupationType;
  	}
- 		
+
  
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected OccupationType extractEmployeeList(OccupationType occupationType, Map<String,Object> options){
-		
-		
+    
+
 		if(occupationType == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return occupationType;
 		}
 
-		
-		
+
+
 		SmartList<Employee> employeeList = getEmployeeDAO().findEmployeeByOccupation(occupationType.getId(),options);
 		if(employeeList != null){
 			enhanceEmployeeList(employeeList,options);
 			occupationType.setEmployeeList(employeeList);
 		}
-		
+
 		return occupationType;
-	
-	}	
-	
+  
+	}
+
 	protected OccupationType analyzeEmployeeList(OccupationType occupationType, Map<String,Object> options){
-		
-		
+     
 		if(occupationType == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return occupationType;
 		}
 
-		
-		
+
+
 		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 		if(employeeList != null){
 			getEmployeeDAO().analyzeEmployeeByOccupation(employeeList, occupationType.getId(), options);
-			
+
 		}
-		
+
 		return occupationType;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<OccupationType> findOccupationTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<OccupationType> resultList = queryWith(OccupationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getOccupationTypeMapper());
 		// analyzeOccupationTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<OccupationType> findOccupationTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<OccupationType> resultList =  queryWithRange(OccupationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getOccupationTypeMapper(), start, count);
  		//analyzeOccupationTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeOccupationTypeByCompany(SmartList<OccupationType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countOccupationTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	public Map<String, Integer> countOccupationTypeByCompanyIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(OccupationTypeTable.COLUMN_COMPANY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected OccupationType saveOccupationType(OccupationType  occupationType){
+    
+
 		
 		if(!occupationType.isChanged()){
 			return occupationType;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(occupationType);
 		String SQL=this.getSaveOccupationTypeSQL(occupationType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveOccupationTypeParameters(occupationType);
@@ -425,6 +430,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 
 		occupationType.incVersion();
+		occupationType.afterSave();
 		return occupationType;
 
 	}
@@ -442,6 +448,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		for(OccupationType occupationType:occupationTypeList){
 			if(occupationType.isChanged()){
 				occupationType.incVersion();
+				occupationType.afterSave();
 			}
 
 
@@ -545,16 +552,13 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  	protected Object[] prepareOccupationTypeUpdateParameters(OccupationType occupationType){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = occupationType.getCode();
  		
  		if(occupationType.getCompany() != null){
  			parameters[1] = occupationType.getCompany().getId();
  		}
- 
- 		
+    
  		parameters[2] = occupationType.getDescription();
- 		
  		
  		parameters[3] = occupationType.getDetailDescription();
  		
@@ -572,17 +576,13 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
         }
 		parameters[0] =  occupationType.getId();
  
- 		
  		parameters[1] = occupationType.getCode();
  		
  		if(occupationType.getCompany() != null){
  			parameters[2] = occupationType.getCompany().getId();
-
  		}
  		
- 		
  		parameters[3] = occupationType.getDescription();
- 		
  		
  		parameters[4] = occupationType.getDetailDescription();
  		
@@ -592,12 +592,11 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected OccupationType saveInternalOccupationType(OccupationType occupationType, Map<String,Object> options){
 
-		saveOccupationType(occupationType);
-
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(occupationType, options);
  		}
  
+   saveOccupationType(occupationType);
 		
 		if(isSaveEmployeeListEnabled(options)){
 	 		saveEmployeeList(occupationType, options);
@@ -616,6 +615,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 
  	protected OccupationType saveCompany(OccupationType occupationType, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(occupationType.getCompany() == null){
  			return occupationType;//do nothing when it is null
@@ -625,11 +625,6 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		return occupationType;
 
  	}
-
-
-
-
-
  
 
 	
@@ -840,7 +835,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 		
 	protected OccupationType saveEmployeeList(OccupationType occupationType, Map<String,Object> options){
-
+    
 
 
 
@@ -907,19 +902,19 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 
 	public OccupationType present(OccupationType occupationType,Map<String, Object> options){
-	
+
 		presentEmployeeList(occupationType,options);
 
 		return occupationType;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected OccupationType presentEmployeeList(
 			OccupationType occupationType,
 			Map<String, Object> options) {
-
-		SmartList<Employee> employeeList = occupationType.getEmployeeList();		
+    
+		SmartList<Employee> employeeList = occupationType.getEmployeeList();
 				SmartList<Employee> newList= presentSubList(occupationType.getId(),
 				employeeList,
 				options,
@@ -927,12 +922,12 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				getEmployeeDAO()::findEmployeeByOccupation
 				);
 
-		
+
 		occupationType.setEmployeeList(newList);
-		
+
 
 		return occupationType;
-	}			
+	}
 		
 
 	
@@ -956,6 +951,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 	// 需要一个加载引用我的对象的enhance方法:Employee的occupation的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<OccupationType> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1012,6 +1008,10 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<OccupationType> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getOccupationTypeMapper());
   }
@@ -1047,6 +1047,15 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	
 
+  @Override
+  public List<OccupationType> search(OccupationTypeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected OccupationTypeMapper mapper() {
+    return getOccupationTypeMapper();
+  }
 }
 
 

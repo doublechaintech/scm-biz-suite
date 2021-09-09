@@ -44,13 +44,15 @@ public interface EmployeeAwardDAO extends BaseDAO{
 	public void delete(String employeeAwardId, int version) throws Exception;
 	public EmployeeAward disconnectFromAll(String employeeAwardId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeeAward> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeeAward> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeeAward> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeeAward executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeeAward> findEmployeeAwardByEmployee(String employeeId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface EmployeeAwardDAO extends BaseDAO{
 
 
  
+
+	List<EmployeeAward> search(EmployeeAwardRequest pRequest);
 }
 
 

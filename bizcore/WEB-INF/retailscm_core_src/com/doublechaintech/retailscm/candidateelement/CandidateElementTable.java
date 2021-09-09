@@ -33,9 +33,9 @@ public class CandidateElementTable{
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "candidate_element_data", new String[][]{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
-                new String[]{"name","varchar(200)","","名称","",""},
+                new String[]{"name","varchar(200)","","标题","",""},
                 new String[]{"type","varchar(200)","","类型","",""},
-                new String[]{"image","varchar(512) CHARACTER SET ascii COLLATE ascii_general_ci","","图片","",""},
+                new String[]{"image","varchar(512) CHARACTER SET ascii COLLATE ascii_general_ci","","图像","",""},
                 new String[]{"container","varchar(48)","","容器","candidate_container_data","id"},
                 new String[]{"version","int","","版本","",""}
             }, "候选人元素", new String[]{

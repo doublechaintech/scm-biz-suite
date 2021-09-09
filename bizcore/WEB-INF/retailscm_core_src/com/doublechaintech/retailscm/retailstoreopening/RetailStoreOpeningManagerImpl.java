@@ -1,47 +1,27 @@
 
 package com.doublechaintech.retailscm.retailstoreopening;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.retailstore.RetailStore;import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreation;import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecoration;import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpening;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.retailstore.RetailStore;
-
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
-import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;
-import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;
-import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecoration;
-import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreation;
-import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpening;
-import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
-import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager implements RetailStoreOpeningManager, BusinessHandler{
@@ -84,6 +64,7 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws RetailStoreOpeningManagerException{
 
 		Message message = new Message();
@@ -94,133 +75,187 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 
 
 
- 	protected RetailStoreOpening saveRetailStoreOpening(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening, String [] tokensExpr) throws Exception{	
+ 	protected RetailStoreOpening saveRetailStoreOpening(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening, String [] tokensExpr) throws Exception{
  		//return getRetailStoreOpeningDAO().save(retailStoreOpening, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveRetailStoreOpening(userContext, retailStoreOpening, tokens);
  	}
- 	
- 	protected RetailStoreOpening saveRetailStoreOpeningDetail(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening) throws Exception{	
 
- 		
+ 	protected RetailStoreOpening saveRetailStoreOpeningDetail(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening) throws Exception{
+
+
  		return saveRetailStoreOpening(userContext, retailStoreOpening, allTokens());
  	}
- 	
- 	public RetailStoreOpening loadRetailStoreOpening(RetailscmUserContext userContext, String retailStoreOpeningId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public RetailStoreOpening loadRetailStoreOpening(RetailscmUserContext userContext, String retailStoreOpeningId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfRetailStoreOpening(retailStoreOpeningId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreOpeningManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		RetailStoreOpening retailStoreOpening = loadRetailStoreOpening( userContext, retailStoreOpeningId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,retailStoreOpening, tokens);
  	}
- 	
- 	
- 	 public RetailStoreOpening searchRetailStoreOpening(RetailscmUserContext userContext, String retailStoreOpeningId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public RetailStoreOpening searchRetailStoreOpening(RetailscmUserContext userContext, String retailStoreOpeningId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfRetailStoreOpening(retailStoreOpeningId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreOpeningManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		RetailStoreOpening retailStoreOpening = loadRetailStoreOpening( userContext, retailStoreOpeningId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,retailStoreOpening, tokens);
  	}
- 	
- 	
+
+
 
  	protected RetailStoreOpening present(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,retailStoreOpening,tokens);
-		
-		
+    
+
 		RetailStoreOpening  retailStoreOpeningToPresent = retailStoreOpeningDaoOf(userContext).present(retailStoreOpening, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = retailStoreOpeningToPresent.collectRefercencesFromLists();
 		retailStoreOpeningDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,retailStoreOpening,tokens);
-		
+
 		return  retailStoreOpeningToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public RetailStoreOpening loadRetailStoreOpeningDetail(RetailscmUserContext userContext, String retailStoreOpeningId) throws Exception{	
+
+
+
+ 	public RetailStoreOpening loadRetailStoreOpeningDetail(RetailscmUserContext userContext, String retailStoreOpeningId) throws Exception{
  		RetailStoreOpening retailStoreOpening = loadRetailStoreOpening( userContext, retailStoreOpeningId, allTokens());
  		return present(userContext,retailStoreOpening, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String retailStoreOpeningId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String retailStoreOpeningId) throws Exception{
  		RetailStoreOpening retailStoreOpening = loadRetailStoreOpening( userContext, retailStoreOpeningId, viewTokens());
- 		return present(userContext,retailStoreOpening, allTokens());
-		
- 	}
- 	protected RetailStoreOpening saveRetailStoreOpening(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, retailStoreOpening);
+ 		return present(userContext,retailStoreOpening, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String retailStoreOpeningId) throws Exception{
+		RetailStoreOpening retailStoreOpening = loadRetailStoreOpening( userContext, retailStoreOpeningId, viewTokens());
+		retailStoreOpening.summarySuffix();
+		markVisited(userContext, retailStoreOpening);
+ 		return present(userContext,retailStoreOpening, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String retailStoreOpeningId) throws Exception{
+		RetailStoreOpening retailStoreOpening = loadRetailStoreOpening( userContext, retailStoreOpeningId, analyzeTokens());
+		markVisited(userContext, retailStoreOpening);
+		return present(userContext,retailStoreOpening, analyzeTokens());
+
+	}
+ 	protected RetailStoreOpening saveRetailStoreOpening(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening, Map<String,Object>tokens) throws Exception{
+ 	
  		return retailStoreOpeningDaoOf(userContext).save(retailStoreOpening, tokens);
  	}
- 	protected RetailStoreOpening loadRetailStoreOpening(RetailscmUserContext userContext, String retailStoreOpeningId, Map<String,Object>tokens) throws Exception{	
+ 	protected RetailStoreOpening loadRetailStoreOpening(RetailscmUserContext userContext, String retailStoreOpeningId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfRetailStoreOpening(retailStoreOpeningId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreOpeningManagerException.class);
 
- 
+
+
  		return retailStoreOpeningDaoOf(userContext).load(retailStoreOpeningId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening, Map<String, Object> tokens){
 		super.addActions(userContext, retailStoreOpening, tokens);
-		
+
 		addAction(userContext, retailStoreOpening, tokens,"@create","createRetailStoreOpening","createRetailStoreOpening/","main","primary");
 		addAction(userContext, retailStoreOpening, tokens,"@update","updateRetailStoreOpening","updateRetailStoreOpening/"+retailStoreOpening.getId()+"/","main","primary");
 		addAction(userContext, retailStoreOpening, tokens,"@copy","cloneRetailStoreOpening","cloneRetailStoreOpening/"+retailStoreOpening.getId()+"/","main","primary");
-		
+
 		addAction(userContext, retailStoreOpening, tokens,"retail_store_opening.addRetailStore","addRetailStore","addRetailStore/"+retailStoreOpening.getId()+"/","retailStoreList","primary");
 		addAction(userContext, retailStoreOpening, tokens,"retail_store_opening.removeRetailStore","removeRetailStore","removeRetailStore/"+retailStoreOpening.getId()+"/","retailStoreList","primary");
 		addAction(userContext, retailStoreOpening, tokens,"retail_store_opening.updateRetailStore","updateRetailStore","updateRetailStore/"+retailStoreOpening.getId()+"/","retailStoreList","primary");
 		addAction(userContext, retailStoreOpening, tokens,"retail_store_opening.copyRetailStoreFrom","copyRetailStoreFrom","copyRetailStoreFrom/"+retailStoreOpening.getId()+"/","retailStoreList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, RetailStoreOpening retailStoreOpening, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<RetailStoreOpening> searchRetailStoreOpeningList(RetailscmUserContext ctx, RetailStoreOpeningRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<RetailStoreOpening> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public RetailStoreOpening searchRetailStoreOpening(RetailscmUserContext ctx, RetailStoreOpeningRequest pRequest){
+    pRequest.limit(0, 1);
+    List<RetailStoreOpening> list = searchRetailStoreOpeningList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public RetailStoreOpening createRetailStoreOpening(RetailscmUserContext userContext, String comment) throws Exception
-	//public RetailStoreOpening createRetailStoreOpening(RetailscmUserContext userContext,String comment) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkCommentOfRetailStoreOpening(comment);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
+
 
 
 		RetailStoreOpening retailStoreOpening=createNewRetailStoreOpening();	
@@ -244,20 +279,22 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfRetailStoreOpening(retailStoreOpeningId);
 		checkerOf(userContext).checkVersionOfRetailStoreOpening( retailStoreOpeningVersion);
-		
+
 
 		if(RetailStoreOpening.COMMENT_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkCommentOfRetailStoreOpening(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
+
 
 
 	}
@@ -286,6 +323,8 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 			if (retailStoreOpening.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixRetailStoreOpening(retailStoreOpening);
 			retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, options);
 			return retailStoreOpening;
 
@@ -352,10 +391,16 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> allTokens(){
 		return RetailStoreOpeningTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortRetailStoreListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortRetailStoreListWith(RetailStore.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -404,135 +449,6 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
-	//disconnect RetailStoreOpening with retail_store_country_center in RetailStore
-	protected RetailStoreOpening breakWithRetailStoreByRetailStoreCountryCenter(RetailscmUserContext userContext, String retailStoreOpeningId, String retailStoreCountryCenterId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreOpening retailStoreOpening = loadRetailStoreOpening(userContext, retailStoreOpeningId, allTokens());
-
-			synchronized(retailStoreOpening){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreOpeningDaoOf(userContext).planToRemoveRetailStoreListWithRetailStoreCountryCenter(retailStoreOpening, retailStoreCountryCenterId, this.emptyOptions());
-
-				retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
-				return retailStoreOpening;
-			}
-	}
-	//disconnect RetailStoreOpening with city_service_center in RetailStore
-	protected RetailStoreOpening breakWithRetailStoreByCityServiceCenter(RetailscmUserContext userContext, String retailStoreOpeningId, String cityServiceCenterId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreOpening retailStoreOpening = loadRetailStoreOpening(userContext, retailStoreOpeningId, allTokens());
-
-			synchronized(retailStoreOpening){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreOpeningDaoOf(userContext).planToRemoveRetailStoreListWithCityServiceCenter(retailStoreOpening, cityServiceCenterId, this.emptyOptions());
-
-				retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
-				return retailStoreOpening;
-			}
-	}
-	//disconnect RetailStoreOpening with creation in RetailStore
-	protected RetailStoreOpening breakWithRetailStoreByCreation(RetailscmUserContext userContext, String retailStoreOpeningId, String creationId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreOpening retailStoreOpening = loadRetailStoreOpening(userContext, retailStoreOpeningId, allTokens());
-
-			synchronized(retailStoreOpening){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreOpeningDaoOf(userContext).planToRemoveRetailStoreListWithCreation(retailStoreOpening, creationId, this.emptyOptions());
-
-				retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
-				return retailStoreOpening;
-			}
-	}
-	//disconnect RetailStoreOpening with investment_invitation in RetailStore
-	protected RetailStoreOpening breakWithRetailStoreByInvestmentInvitation(RetailscmUserContext userContext, String retailStoreOpeningId, String investmentInvitationId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreOpening retailStoreOpening = loadRetailStoreOpening(userContext, retailStoreOpeningId, allTokens());
-
-			synchronized(retailStoreOpening){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreOpeningDaoOf(userContext).planToRemoveRetailStoreListWithInvestmentInvitation(retailStoreOpening, investmentInvitationId, this.emptyOptions());
-
-				retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
-				return retailStoreOpening;
-			}
-	}
-	//disconnect RetailStoreOpening with franchising in RetailStore
-	protected RetailStoreOpening breakWithRetailStoreByFranchising(RetailscmUserContext userContext, String retailStoreOpeningId, String franchisingId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreOpening retailStoreOpening = loadRetailStoreOpening(userContext, retailStoreOpeningId, allTokens());
-
-			synchronized(retailStoreOpening){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreOpeningDaoOf(userContext).planToRemoveRetailStoreListWithFranchising(retailStoreOpening, franchisingId, this.emptyOptions());
-
-				retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
-				return retailStoreOpening;
-			}
-	}
-	//disconnect RetailStoreOpening with decoration in RetailStore
-	protected RetailStoreOpening breakWithRetailStoreByDecoration(RetailscmUserContext userContext, String retailStoreOpeningId, String decorationId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreOpening retailStoreOpening = loadRetailStoreOpening(userContext, retailStoreOpeningId, allTokens());
-
-			synchronized(retailStoreOpening){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreOpeningDaoOf(userContext).planToRemoveRetailStoreListWithDecoration(retailStoreOpening, decorationId, this.emptyOptions());
-
-				retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
-				return retailStoreOpening;
-			}
-	}
-	//disconnect RetailStoreOpening with closing in RetailStore
-	protected RetailStoreOpening breakWithRetailStoreByClosing(RetailscmUserContext userContext, String retailStoreOpeningId, String closingId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreOpening retailStoreOpening = loadRetailStoreOpening(userContext, retailStoreOpeningId, allTokens());
-
-			synchronized(retailStoreOpening){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreOpeningDaoOf(userContext).planToRemoveRetailStoreListWithClosing(retailStoreOpening, closingId, this.emptyOptions());
-
-				retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
-				return retailStoreOpening;
-			}
-	}
-
-
-
 
 
 
@@ -540,42 +456,43 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 
 				checkerOf(userContext).checkIdOfRetailStoreOpening(retailStoreOpeningId);
 
-		
+
 		checkerOf(userContext).checkNameOfRetailStore(name);
-		
+
 		checkerOf(userContext).checkTelephoneOfRetailStore(telephone);
-		
+
 		checkerOf(userContext).checkOwnerOfRetailStore(owner);
-		
+
 		checkerOf(userContext).checkRetailStoreCountryCenterIdOfRetailStore(retailStoreCountryCenterId);
-		
+
 		checkerOf(userContext).checkCityServiceCenterIdOfRetailStore(cityServiceCenterId);
-		
+
 		checkerOf(userContext).checkCreationIdOfRetailStore(creationId);
-		
+
 		checkerOf(userContext).checkInvestmentInvitationIdOfRetailStore(investmentInvitationId);
-		
+
 		checkerOf(userContext).checkFranchisingIdOfRetailStore(franchisingId);
-		
+
 		checkerOf(userContext).checkDecorationIdOfRetailStore(decorationId);
-		
+
 		checkerOf(userContext).checkClosingIdOfRetailStore(closingId);
-		
+
 		checkerOf(userContext).checkFoundedOfRetailStore(founded);
-		
+
 		checkerOf(userContext).checkLatitudeOfRetailStore(latitude);
-		
+
 		checkerOf(userContext).checkLongitudeOfRetailStore(longitude);
-		
+
 		checkerOf(userContext).checkDescriptionOfRetailStore(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
+
 
 
 	}
 	public  RetailStoreOpening addRetailStore(RetailscmUserContext userContext, String retailStoreOpeningId, String name, String telephone, String owner, String retailStoreCountryCenterId, String cityServiceCenterId, String creationId, String investmentInvitationId, String franchisingId, String decorationId, String closingId, Date founded, BigDecimal latitude, BigDecimal longitude, String description, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingRetailStore(userContext,retailStoreOpeningId,name, telephone, owner, retailStoreCountryCenterId, cityServiceCenterId, creationId, investmentInvitationId, franchisingId, decorationId, closingId, founded, latitude, longitude, description,tokensExpr);
 
 		RetailStore retailStore = createRetailStore(userContext,name, telephone, owner, retailStoreCountryCenterId, cityServiceCenterId, creationId, investmentInvitationId, franchisingId, decorationId, closingId, founded, latitude, longitude, description);
@@ -604,7 +521,9 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkLongitudeOfRetailStore( longitude);
 		checkerOf(userContext).checkDescriptionOfRetailStore( description);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
+
 
 	}
 	public  RetailStoreOpening updateRetailStoreProperties(RetailscmUserContext userContext, String retailStoreOpeningId, String id,String name,String telephone,String owner,Date founded,BigDecimal latitude,BigDecimal longitude,String description, String [] tokensExpr) throws Exception
@@ -703,6 +622,7 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 			checkerOf(userContext).checkIdOfRetailStore(retailStoreIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
 
 	}
@@ -729,7 +649,9 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfRetailStoreOpening( retailStoreOpeningId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
+
 
 	}
 	public  RetailStoreOpening removeRetailStore(RetailscmUserContext userContext, String retailStoreOpeningId,
@@ -756,7 +678,9 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfRetailStoreOpening( retailStoreOpeningId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
+
 
 	}
 	public  RetailStoreOpening copyRetailStoreFrom(RetailscmUserContext userContext, String retailStoreOpeningId,
@@ -784,7 +708,7 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 	protected void checkParamsForUpdatingRetailStore(RetailscmUserContext userContext, String retailStoreOpeningId, String retailStoreId, int retailStoreVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreOpening(retailStoreOpeningId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
@@ -819,7 +743,9 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOpeningManagerException.class);
+
 
 	}
 
@@ -850,6 +776,7 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 			retailStore.changeProperty(property, newValueExpr);
 			retailStore.updateLastUpdateTime(userContext.now());
 			retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, tokens().withRetailStoreList().done());
+			retailStoreManagerOf(userContext).onUpdated(userContext, retailStore, this, "updateRetailStore");
 			return present(userContext,retailStoreOpening, mergedAllTokens(tokensExpr));
 		}
 
@@ -882,116 +809,13 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-    if (methodName.equals("ensureModelInDB")){
-      return false;
-    }
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1014,28 +838,21 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, RetailStoreOpening.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, RetailStoreOpening.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1056,7 +873,7 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String retailStoreOpeningId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getRetailStoreOpeningDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		RetailStoreOpening merchantObj = (RetailStoreOpening) this.view(userContext, retailStoreOpeningId);
     String merchantObjId = retailStoreOpeningId;
     String linkToUrl =	"retailStoreOpeningManager/wxappview/" + merchantObjId + "/";
@@ -1102,8 +919,6 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 		sections.add(retailStoreListSection);
 
 		result.put("retailStoreListSection", ListofUtils.toShortList(merchantObj.getRetailStoreList(), "retailStore"));
-		vscope.field("retailStoreListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( RetailStore.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1118,8 +933,19 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

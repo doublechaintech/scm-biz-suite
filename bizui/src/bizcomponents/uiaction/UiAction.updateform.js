@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './UiAction.updateform.less'
 import UiActionBase from './UiAction.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -35,9 +39,7 @@ class UiActionUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -103,13 +105,13 @@ class UiActionUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const uiActionId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, uiActionId, ...imagesValues }
 
-        
+        const parameters = { ...values, uiActionId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -124,7 +126,7 @@ class UiActionUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -134,12 +136,12 @@ class UiActionUpdateForm extends Component {
 
         const { owner } = this.props
         const uiActionId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, uiActionId, ...imagesValues }
+
+        const parameters = { ...values, uiActionId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -161,11 +163,11 @@ class UiActionUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextUiActionUpdateRow`,
@@ -179,7 +181,7 @@ class UiActionUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -187,7 +189,7 @@ class UiActionUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'uiAction',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -230,7 +232,7 @@ class UiActionUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -244,12 +246,12 @@ class UiActionUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}用户界面操作: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -259,7 +261,7 @@ class UiActionUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -267,8 +269,8 @@ class UiActionUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -279,8 +281,8 @@ class UiActionUpdateForm extends Component {
                     initialValue: selectedRow.code,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.code} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.code} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -291,8 +293,8 @@ class UiActionUpdateForm extends Component {
                     initialValue: selectedRow.icon,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.icon} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.icon} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -303,8 +305,8 @@ class UiActionUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.title} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.title} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -315,8 +317,8 @@ class UiActionUpdateForm extends Component {
                     initialValue: selectedRow.displayOrder,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.displayOrder} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -327,8 +329,8 @@ class UiActionUpdateForm extends Component {
                     initialValue: selectedRow.brief,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.brief} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.brief} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -339,17 +341,17 @@ class UiActionUpdateForm extends Component {
                     initialValue: selectedRow.linkToUrl,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.linkToUrl} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.linkToUrl} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>
@@ -361,20 +363,22 @@ class UiActionUpdateForm extends Component {
 
        <Card title={window.trans('ui_action')} className={styles.card} bordered={false}>
           <Form >
-          	<Row gutter={16}> 
-              <Col lg={24} md={24} sm={24}>
+          	<Row gutter={16}>
+              <Col lg={4} md={4} sm={4}></Col>
+              <Col lg={16} md={16} sm={16}>
                 <Form.Item>
                   {getFieldDecorator('extraData', {
                   	initialValue: selectedRow.extraData,
                     rules: [{  required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <TextArea rows={16} placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <TextArea rows={8} placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>
+              <Col lg={4} md={4} sm={4}></Col>
           </Row>
           </Form>
-        </Card>   
+        </Card>
 
 
 
@@ -384,12 +388,13 @@ class UiActionUpdateForm extends Component {
             <Row gutter={16}>
 
               <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={window.trans('ui_action')}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleChange(event, 'imageUrl')}
-                  fileList={convertedImagesValues.imageUrl}
-                />
+              <Form.Item>
+                  {getFieldDecorator('imageUrl', {
+                  	initialValue: selectedRow.imageUrl,
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.imageUrl}/>
+                )} </Form.Item>
               </Col>
 
             </Row>

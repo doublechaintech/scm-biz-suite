@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.retailstore;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface RetailStoreManager extends BaseManager{
 
 		
 
+  List<RetailStore> searchRetailStoreList(RetailscmUserContext ctx, RetailStoreRequest pRequest);
+  RetailStore searchRetailStore(RetailscmUserContext ctx, RetailStoreRequest pRequest);
 	public RetailStore createRetailStore(RetailscmUserContext userContext, String name,String telephone,String owner,String retailStoreCountryCenterId,String cityServiceCenterId,String creationId,String investmentInvitationId,String franchisingId,String decorationId,String openingId,String closingId,Date founded,BigDecimal latitude,BigDecimal longitude,String description) throws Exception;
 	public RetailStore updateRetailStore(RetailscmUserContext userContext,String retailStoreId, int retailStoreVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStore loadRetailStore(RetailscmUserContext userContext, String retailStoreId, String [] tokensExpr) throws Exception;
@@ -34,6 +40,8 @@ public interface RetailStoreManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String retailStoreId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, RetailStore newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, RetailStore updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -113,6 +121,9 @@ public interface RetailStoreManager extends BaseManager{
 	public Object listByClosing(RetailscmUserContext userContext,String closingId) throws Exception;
 	public Object listPageByClosing(RetailscmUserContext userContext,String closingId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

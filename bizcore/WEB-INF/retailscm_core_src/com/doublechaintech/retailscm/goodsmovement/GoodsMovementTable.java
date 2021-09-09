@@ -43,7 +43,7 @@ public class GoodsMovementTable{
                 new String[]{"facility_id","varchar(16)","","设备ID","",""},
                 new String[]{"from_ip","varchar(48)","","从IP","",""},
                 new String[]{"user_agent","varchar(444)","","用户代理","",""},
-                new String[]{"session_id","varchar(80)","","会话ID","",""},
+                new String[]{"session_id","varchar(124)","","会话ID","",""},
                 new String[]{"latitude","numeric(9,6)","","纬度","",""},
                 new String[]{"longitude","numeric(10,6)","","经度","",""},
                 new String[]{"goods","varchar(48)","","货物","goods_data","id"},

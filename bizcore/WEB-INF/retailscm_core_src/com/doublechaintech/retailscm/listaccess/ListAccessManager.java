@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.listaccess;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface ListAccessManager extends BaseManager{
 
 		
 
+  List<ListAccess> searchListAccessList(RetailscmUserContext ctx, ListAccessRequest pRequest);
+  ListAccess searchListAccess(RetailscmUserContext ctx, ListAccessRequest pRequest);
 	public ListAccess createListAccess(RetailscmUserContext userContext, String name,String internalName,boolean readPermission,boolean createPermission,boolean deletePermission,boolean updatePermission,boolean executionPermission,String appId) throws Exception;
 	public ListAccess updateListAccess(RetailscmUserContext userContext,String listAccessId, int listAccessVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ListAccess loadListAccess(RetailscmUserContext userContext, String listAccessId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface ListAccessManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String listAccessId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, ListAccess newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, ListAccess updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -35,6 +43,9 @@ public interface ListAccessManager extends BaseManager{
 	public Object listByApp(RetailscmUserContext userContext,String appId) throws Exception;
 	public Object listPageByApp(RetailscmUserContext userContext,String appId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

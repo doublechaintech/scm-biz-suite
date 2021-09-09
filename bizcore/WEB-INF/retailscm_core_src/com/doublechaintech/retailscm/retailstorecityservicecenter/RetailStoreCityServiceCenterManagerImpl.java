@@ -1,53 +1,27 @@
 
 package com.doublechaintech.retailscm.retailstorecityservicecenter;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.cityevent.CityEvent;import com.doublechaintech.retailscm.citypartner.CityPartner;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;import com.doublechaintech.retailscm.retailstore.RetailStore;import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreation;import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecoration;import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpening;import com.doublechaintech.retailscm.retailstoreprovincecenter.CandidateRetailStoreProvinceCenter;import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenter;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.retailstore.RetailStore;
-import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenter;
-import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;
-import com.doublechaintech.retailscm.cityevent.CityEvent;
-import com.doublechaintech.retailscm.citypartner.CityPartner;
-
-import com.doublechaintech.retailscm.retailstoreprovincecenter.CandidateRetailStoreProvinceCenter;
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
-import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;
-import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;
-import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecoration;
-import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreation;
-import com.doublechaintech.retailscm.citypartner.CityPartner;
-import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpening;
-import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
-import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmCheckerManager implements RetailStoreCityServiceCenterManager, BusinessHandler{
@@ -90,6 +64,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws RetailStoreCityServiceCenterManagerException{
 
 		Message message = new Message();
@@ -100,107 +75,138 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 
 
 
- 	protected RetailStoreCityServiceCenter saveRetailStoreCityServiceCenter(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter, String [] tokensExpr) throws Exception{	
+ 	protected RetailStoreCityServiceCenter saveRetailStoreCityServiceCenter(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter, String [] tokensExpr) throws Exception{
  		//return getRetailStoreCityServiceCenterDAO().save(retailStoreCityServiceCenter, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens);
  	}
- 	
- 	protected RetailStoreCityServiceCenter saveRetailStoreCityServiceCenterDetail(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter) throws Exception{	
 
- 		
+ 	protected RetailStoreCityServiceCenter saveRetailStoreCityServiceCenterDetail(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter) throws Exception{
+
+
  		return saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, allTokens());
  	}
- 	
- 	public RetailStoreCityServiceCenter loadRetailStoreCityServiceCenter(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public RetailStoreCityServiceCenter loadRetailStoreCityServiceCenter(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreCityServiceCenterManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter( userContext, retailStoreCityServiceCenterId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,retailStoreCityServiceCenter, tokens);
  	}
- 	
- 	
- 	 public RetailStoreCityServiceCenter searchRetailStoreCityServiceCenter(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public RetailStoreCityServiceCenter searchRetailStoreCityServiceCenter(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreCityServiceCenterManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter( userContext, retailStoreCityServiceCenterId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,retailStoreCityServiceCenter, tokens);
  	}
- 	
- 	
+
+
 
  	protected RetailStoreCityServiceCenter present(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,retailStoreCityServiceCenter,tokens);
-		
-		
+    
+
 		RetailStoreCityServiceCenter  retailStoreCityServiceCenterToPresent = retailStoreCityServiceCenterDaoOf(userContext).present(retailStoreCityServiceCenter, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = retailStoreCityServiceCenterToPresent.collectRefercencesFromLists();
 		retailStoreCityServiceCenterDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,retailStoreCityServiceCenter,tokens);
-		
+
 		return  retailStoreCityServiceCenterToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public RetailStoreCityServiceCenter loadRetailStoreCityServiceCenterDetail(RetailscmUserContext userContext, String retailStoreCityServiceCenterId) throws Exception{	
+
+
+
+ 	public RetailStoreCityServiceCenter loadRetailStoreCityServiceCenterDetail(RetailscmUserContext userContext, String retailStoreCityServiceCenterId) throws Exception{
  		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter( userContext, retailStoreCityServiceCenterId, allTokens());
  		return present(userContext,retailStoreCityServiceCenter, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String retailStoreCityServiceCenterId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String retailStoreCityServiceCenterId) throws Exception{
  		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter( userContext, retailStoreCityServiceCenterId, viewTokens());
- 		return present(userContext,retailStoreCityServiceCenter, allTokens());
-		
- 	}
- 	protected RetailStoreCityServiceCenter saveRetailStoreCityServiceCenter(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, retailStoreCityServiceCenter);
+ 		return present(userContext,retailStoreCityServiceCenter, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String retailStoreCityServiceCenterId) throws Exception{
+		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter( userContext, retailStoreCityServiceCenterId, viewTokens());
+		retailStoreCityServiceCenter.summarySuffix();
+		markVisited(userContext, retailStoreCityServiceCenter);
+ 		return present(userContext,retailStoreCityServiceCenter, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String retailStoreCityServiceCenterId) throws Exception{
+		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter( userContext, retailStoreCityServiceCenterId, analyzeTokens());
+		markVisited(userContext, retailStoreCityServiceCenter);
+		return present(userContext,retailStoreCityServiceCenter, analyzeTokens());
+
+	}
+ 	protected RetailStoreCityServiceCenter saveRetailStoreCityServiceCenter(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object>tokens) throws Exception{
+ 	
  		return retailStoreCityServiceCenterDaoOf(userContext).save(retailStoreCityServiceCenter, tokens);
  	}
- 	protected RetailStoreCityServiceCenter loadRetailStoreCityServiceCenter(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, Map<String,Object>tokens) throws Exception{	
+ 	protected RetailStoreCityServiceCenter loadRetailStoreCityServiceCenter(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreCityServiceCenterManagerException.class);
 
- 
+
+
  		return retailStoreCityServiceCenterDaoOf(userContext).load(retailStoreCityServiceCenterId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String, Object> tokens){
 		super.addActions(userContext, retailStoreCityServiceCenter, tokens);
-		
+
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"@create","createRetailStoreCityServiceCenter","createRetailStoreCityServiceCenter/","main","primary");
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"@update","updateRetailStoreCityServiceCenter","updateRetailStoreCityServiceCenter/"+retailStoreCityServiceCenter.getId()+"/","main","primary");
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"@copy","cloneRetailStoreCityServiceCenter","cloneRetailStoreCityServiceCenter/"+retailStoreCityServiceCenter.getId()+"/","main","primary");
-		
+
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"retail_store_city_service_center.transfer_to_belongs_to","transferToAnotherBelongsTo","transferToAnotherBelongsTo/"+retailStoreCityServiceCenter.getId()+"/","main","primary");
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"retail_store_city_service_center.addCityPartner","addCityPartner","addCityPartner/"+retailStoreCityServiceCenter.getId()+"/","cityPartnerList","primary");
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"retail_store_city_service_center.removeCityPartner","removeCityPartner","removeCityPartner/"+retailStoreCityServiceCenter.getId()+"/","cityPartnerList","primary");
@@ -218,29 +224,52 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"retail_store_city_service_center.removeRetailStore","removeRetailStore","removeRetailStore/"+retailStoreCityServiceCenter.getId()+"/","retailStoreList","primary");
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"retail_store_city_service_center.updateRetailStore","updateRetailStore","updateRetailStore/"+retailStoreCityServiceCenter.getId()+"/","retailStoreList","primary");
 		addAction(userContext, retailStoreCityServiceCenter, tokens,"retail_store_city_service_center.copyRetailStoreFrom","copyRetailStoreFrom","copyRetailStoreFrom/"+retailStoreCityServiceCenter.getId()+"/","retailStoreList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<RetailStoreCityServiceCenter> searchRetailStoreCityServiceCenterList(RetailscmUserContext ctx, RetailStoreCityServiceCenterRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<RetailStoreCityServiceCenter> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public RetailStoreCityServiceCenter searchRetailStoreCityServiceCenter(RetailscmUserContext ctx, RetailStoreCityServiceCenterRequest pRequest){
+    pRequest.limit(0, 1);
+    List<RetailStoreCityServiceCenter> list = searchRetailStoreCityServiceCenterList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public RetailStoreCityServiceCenter createRetailStoreCityServiceCenter(RetailscmUserContext userContext, String name,Date founded,String belongsToId) throws Exception
-	//public RetailStoreCityServiceCenter createRetailStoreCityServiceCenter(RetailscmUserContext userContext,String name, Date founded, String belongsToId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfRetailStoreCityServiceCenter(name);
 		checkerOf(userContext).checkFoundedOfRetailStoreCityServiceCenter(founded);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 
 		RetailStoreCityServiceCenter retailStoreCityServiceCenter=createNewRetailStoreCityServiceCenter();	
@@ -271,28 +300,30 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkVersionOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterVersion);
-		
+
 
 		if(RetailStoreCityServiceCenter.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfRetailStoreCityServiceCenter(parseString(newValueExpr));
 		
-			
+
 		}
 		if(RetailStoreCityServiceCenter.FOUNDED_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkFoundedOfRetailStoreCityServiceCenter(parseDate(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 
 	}
@@ -321,6 +352,8 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			if (retailStoreCityServiceCenter.isChanged()){
 			retailStoreCityServiceCenter.updateLastUpdateTime(userContext.now());
 			}
+
+      //checkerOf(userContext).checkAndFixRetailStoreCityServiceCenter(retailStoreCityServiceCenter);
 			retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, options);
 			return retailStoreCityServiceCenter;
 
@@ -387,13 +420,19 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	protected Map<String,Object> allTokens(){
 		return RetailStoreCityServiceCenterTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortCityPartnerListWith("id","desc")
-		.sortPotentialCustomerListWith("id","desc")
-		.sortCityEventListWith("id","desc")
-		.sortRetailStoreListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortCityPartnerListWith(CityPartner.ID_PROPERTY,sortDesc())
+		.sortPotentialCustomerListWith(PotentialCustomer.ID_PROPERTY,sortDesc())
+		.sortCityEventListWith(CityEvent.ID_PROPERTY,sortDesc())
+		.sortRetailStoreListWith(RetailStore.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -405,6 +444,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 
  		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
  		checkerOf(userContext).checkIdOfRetailStoreProvinceCenter(anotherBelongsToId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
 
  	}
@@ -412,16 +452,17 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
  	{
  		checkParamsForTransferingAnotherBelongsTo(userContext, retailStoreCityServiceCenterId,anotherBelongsToId);
  
-		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());	
+		RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
 		synchronized(retailStoreCityServiceCenter){
 			//will be good when the retailStoreCityServiceCenter loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStoreProvinceCenter belongsTo = loadRetailStoreProvinceCenter(userContext, anotherBelongsToId, emptyOptions());		
-			retailStoreCityServiceCenter.updateBelongsTo(belongsTo);		
+			RetailStoreProvinceCenter belongsTo = loadRetailStoreProvinceCenter(userContext, anotherBelongsToId, emptyOptions());
+			retailStoreCityServiceCenter.updateBelongsTo(belongsTo);
+			retailStoreCityServiceCenter.updateLastUpdateTime(userContext.now());
 			retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, emptyOptions());
-			
+
 			return present(userContext,retailStoreCityServiceCenter, allTokens());
-			
+
 		}
 
  	}
@@ -454,8 +495,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 
  	protected RetailStoreProvinceCenter loadRetailStoreProvinceCenter(RetailscmUserContext userContext, String newBelongsToId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreProvinceCenterDaoOf(userContext).load(newBelongsToId, options);
+ 	  
  	}
  	
 
@@ -501,153 +543,6 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	}
 
 
-	//disconnect RetailStoreCityServiceCenter with city_partner in PotentialCustomer
-	protected RetailStoreCityServiceCenter breakWithPotentialCustomerByCityPartner(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String cityPartnerId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemovePotentialCustomerListWithCityPartner(retailStoreCityServiceCenter, cityPartnerId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withPotentialCustomerList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-	//disconnect RetailStoreCityServiceCenter with retail_store_country_center in RetailStore
-	protected RetailStoreCityServiceCenter breakWithRetailStoreByRetailStoreCountryCenter(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String retailStoreCountryCenterId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemoveRetailStoreListWithRetailStoreCountryCenter(retailStoreCityServiceCenter, retailStoreCountryCenterId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-	//disconnect RetailStoreCityServiceCenter with creation in RetailStore
-	protected RetailStoreCityServiceCenter breakWithRetailStoreByCreation(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String creationId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemoveRetailStoreListWithCreation(retailStoreCityServiceCenter, creationId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-	//disconnect RetailStoreCityServiceCenter with investment_invitation in RetailStore
-	protected RetailStoreCityServiceCenter breakWithRetailStoreByInvestmentInvitation(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String investmentInvitationId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemoveRetailStoreListWithInvestmentInvitation(retailStoreCityServiceCenter, investmentInvitationId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-	//disconnect RetailStoreCityServiceCenter with franchising in RetailStore
-	protected RetailStoreCityServiceCenter breakWithRetailStoreByFranchising(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String franchisingId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemoveRetailStoreListWithFranchising(retailStoreCityServiceCenter, franchisingId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-	//disconnect RetailStoreCityServiceCenter with decoration in RetailStore
-	protected RetailStoreCityServiceCenter breakWithRetailStoreByDecoration(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String decorationId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemoveRetailStoreListWithDecoration(retailStoreCityServiceCenter, decorationId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-	//disconnect RetailStoreCityServiceCenter with opening in RetailStore
-	protected RetailStoreCityServiceCenter breakWithRetailStoreByOpening(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String openingId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemoveRetailStoreListWithOpening(retailStoreCityServiceCenter, openingId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-	//disconnect RetailStoreCityServiceCenter with closing in RetailStore
-	protected RetailStoreCityServiceCenter breakWithRetailStoreByClosing(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String closingId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenterId, allTokens());
-
-			synchronized(retailStoreCityServiceCenter){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreCityServiceCenterDaoOf(userContext).planToRemoveRetailStoreListWithClosing(retailStoreCityServiceCenter, closingId, this.emptyOptions());
-
-				retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
-				return retailStoreCityServiceCenter;
-			}
-	}
-
-
-
 
 
 
@@ -655,20 +550,21 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 
 				checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 
-		
+
 		checkerOf(userContext).checkNameOfCityPartner(name);
-		
+
 		checkerOf(userContext).checkMobileOfCityPartner(mobile);
-		
+
 		checkerOf(userContext).checkDescriptionOfCityPartner(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 
 	}
 	public  RetailStoreCityServiceCenter addCityPartner(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String name, String mobile, String description, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingCityPartner(userContext,retailStoreCityServiceCenterId,name, mobile, description,tokensExpr);
 
 		CityPartner cityPartner = createCityPartner(userContext,name, mobile, description);
@@ -693,7 +589,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkMobileOfCityPartner( mobile);
 		checkerOf(userContext).checkDescriptionOfCityPartner( description);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter updateCityPartnerProperties(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String id,String name,String mobile,String description, String [] tokensExpr) throws Exception
@@ -763,6 +661,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			checkerOf(userContext).checkIdOfCityPartner(cityPartnerIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
 
 	}
@@ -789,7 +688,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfCityPartner(cityPartnerId);
 		checkerOf(userContext).checkVersionOfCityPartner(cityPartnerVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter removeCityPartner(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -816,7 +717,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfCityPartner(cityPartnerId);
 		checkerOf(userContext).checkVersionOfCityPartner(cityPartnerVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter copyCityPartnerFrom(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -844,7 +747,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	protected void checkParamsForUpdatingCityPartner(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String cityPartnerId, int cityPartnerVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfCityPartner(cityPartnerId);
 		checkerOf(userContext).checkVersionOfCityPartner(cityPartnerVersion);
@@ -863,7 +766,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 
@@ -894,6 +799,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			cityPartner.changeProperty(property, newValueExpr);
 			cityPartner.updateLastUpdateTime(userContext.now());
 			retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withCityPartnerList().done());
+			cityPartnerManagerOf(userContext).onUpdated(userContext, cityPartner, this, "updateCityPartner");
 			return present(userContext,retailStoreCityServiceCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -914,22 +820,23 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 
 				checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 
-		
+
 		checkerOf(userContext).checkNameOfPotentialCustomer(name);
-		
+
 		checkerOf(userContext).checkMobileOfPotentialCustomer(mobile);
-		
+
 		checkerOf(userContext).checkCityPartnerIdOfPotentialCustomer(cityPartnerId);
-		
+
 		checkerOf(userContext).checkDescriptionOfPotentialCustomer(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 
 	}
 	public  RetailStoreCityServiceCenter addPotentialCustomer(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String name, String mobile, String cityPartnerId, String description, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingPotentialCustomer(userContext,retailStoreCityServiceCenterId,name, mobile, cityPartnerId, description,tokensExpr);
 
 		PotentialCustomer potentialCustomer = createPotentialCustomer(userContext,name, mobile, cityPartnerId, description);
@@ -954,7 +861,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkMobileOfPotentialCustomer( mobile);
 		checkerOf(userContext).checkDescriptionOfPotentialCustomer( description);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter updatePotentialCustomerProperties(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String id,String name,String mobile,String description, String [] tokensExpr) throws Exception
@@ -1027,6 +936,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			checkerOf(userContext).checkIdOfPotentialCustomer(potentialCustomerIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
 
 	}
@@ -1053,7 +963,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfPotentialCustomer(potentialCustomerId);
 		checkerOf(userContext).checkVersionOfPotentialCustomer(potentialCustomerVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter removePotentialCustomer(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -1080,7 +992,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfPotentialCustomer(potentialCustomerId);
 		checkerOf(userContext).checkVersionOfPotentialCustomer(potentialCustomerVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter copyPotentialCustomerFrom(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -1108,7 +1022,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	protected void checkParamsForUpdatingPotentialCustomer(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String potentialCustomerId, int potentialCustomerVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfPotentialCustomer(potentialCustomerId);
 		checkerOf(userContext).checkVersionOfPotentialCustomer(potentialCustomerVersion);
@@ -1127,7 +1041,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 
@@ -1158,6 +1074,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			potentialCustomer.changeProperty(property, newValueExpr);
 			potentialCustomer.updateLastUpdateTime(userContext.now());
 			retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withPotentialCustomerList().done());
+			potentialCustomerManagerOf(userContext).onUpdated(userContext, potentialCustomer, this, "updatePotentialCustomer");
 			return present(userContext,retailStoreCityServiceCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1178,20 +1095,21 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 
 				checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 
-		
+
 		checkerOf(userContext).checkNameOfCityEvent(name);
-		
+
 		checkerOf(userContext).checkMobileOfCityEvent(mobile);
-		
+
 		checkerOf(userContext).checkDescriptionOfCityEvent(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 
 	}
 	public  RetailStoreCityServiceCenter addCityEvent(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String name, String mobile, String description, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingCityEvent(userContext,retailStoreCityServiceCenterId,name, mobile, description,tokensExpr);
 
 		CityEvent cityEvent = createCityEvent(userContext,name, mobile, description);
@@ -1216,7 +1134,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkMobileOfCityEvent( mobile);
 		checkerOf(userContext).checkDescriptionOfCityEvent( description);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter updateCityEventProperties(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String id,String name,String mobile,String description, String [] tokensExpr) throws Exception
@@ -1286,6 +1206,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			checkerOf(userContext).checkIdOfCityEvent(cityEventIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
 
 	}
@@ -1312,7 +1233,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfCityEvent(cityEventId);
 		checkerOf(userContext).checkVersionOfCityEvent(cityEventVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter removeCityEvent(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -1339,7 +1262,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfCityEvent(cityEventId);
 		checkerOf(userContext).checkVersionOfCityEvent(cityEventVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter copyCityEventFrom(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -1367,7 +1292,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	protected void checkParamsForUpdatingCityEvent(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String cityEventId, int cityEventVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfCityEvent(cityEventId);
 		checkerOf(userContext).checkVersionOfCityEvent(cityEventVersion);
@@ -1386,7 +1311,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 
@@ -1417,6 +1344,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			cityEvent.changeProperty(property, newValueExpr);
 			cityEvent.updateLastUpdateTime(userContext.now());
 			retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withCityEventList().done());
+			cityEventManagerOf(userContext).onUpdated(userContext, cityEvent, this, "updateCityEvent");
 			return present(userContext,retailStoreCityServiceCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1437,42 +1365,43 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 
 				checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 
-		
+
 		checkerOf(userContext).checkNameOfRetailStore(name);
-		
+
 		checkerOf(userContext).checkTelephoneOfRetailStore(telephone);
-		
+
 		checkerOf(userContext).checkOwnerOfRetailStore(owner);
-		
+
 		checkerOf(userContext).checkRetailStoreCountryCenterIdOfRetailStore(retailStoreCountryCenterId);
-		
+
 		checkerOf(userContext).checkCreationIdOfRetailStore(creationId);
-		
+
 		checkerOf(userContext).checkInvestmentInvitationIdOfRetailStore(investmentInvitationId);
-		
+
 		checkerOf(userContext).checkFranchisingIdOfRetailStore(franchisingId);
-		
+
 		checkerOf(userContext).checkDecorationIdOfRetailStore(decorationId);
-		
+
 		checkerOf(userContext).checkOpeningIdOfRetailStore(openingId);
-		
+
 		checkerOf(userContext).checkClosingIdOfRetailStore(closingId);
-		
+
 		checkerOf(userContext).checkFoundedOfRetailStore(founded);
-		
+
 		checkerOf(userContext).checkLatitudeOfRetailStore(latitude);
-		
+
 		checkerOf(userContext).checkLongitudeOfRetailStore(longitude);
-		
+
 		checkerOf(userContext).checkDescriptionOfRetailStore(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 
 	}
 	public  RetailStoreCityServiceCenter addRetailStore(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String name, String telephone, String owner, String retailStoreCountryCenterId, String creationId, String investmentInvitationId, String franchisingId, String decorationId, String openingId, String closingId, Date founded, BigDecimal latitude, BigDecimal longitude, String description, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingRetailStore(userContext,retailStoreCityServiceCenterId,name, telephone, owner, retailStoreCountryCenterId, creationId, investmentInvitationId, franchisingId, decorationId, openingId, closingId, founded, latitude, longitude, description,tokensExpr);
 
 		RetailStore retailStore = createRetailStore(userContext,name, telephone, owner, retailStoreCountryCenterId, creationId, investmentInvitationId, franchisingId, decorationId, openingId, closingId, founded, latitude, longitude, description);
@@ -1501,7 +1430,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkLongitudeOfRetailStore( longitude);
 		checkerOf(userContext).checkDescriptionOfRetailStore( description);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter updateRetailStoreProperties(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String id,String name,String telephone,String owner,Date founded,BigDecimal latitude,BigDecimal longitude,String description, String [] tokensExpr) throws Exception
@@ -1600,6 +1531,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			checkerOf(userContext).checkIdOfRetailStore(retailStoreIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
 
 	}
@@ -1626,7 +1558,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter removeRetailStore(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -1653,7 +1587,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter( retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 	public  RetailStoreCityServiceCenter copyRetailStoreFrom(RetailscmUserContext userContext, String retailStoreCityServiceCenterId,
@@ -1681,7 +1617,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	protected void checkParamsForUpdatingRetailStore(RetailscmUserContext userContext, String retailStoreCityServiceCenterId, String retailStoreId, int retailStoreVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreCityServiceCenter(retailStoreCityServiceCenterId);
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkVersionOfRetailStore(retailStoreVersion);
@@ -1716,7 +1652,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCityServiceCenterManagerException.class);
+
 
 	}
 
@@ -1747,6 +1685,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			retailStore.changeProperty(property, newValueExpr);
 			retailStore.updateLastUpdateTime(userContext.now());
 			retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, tokens().withRetailStoreList().done());
+			retailStoreManagerOf(userContext).onUpdated(userContext, retailStore, this, "updateRetailStore");
 			return present(userContext,retailStoreCityServiceCenter, mergedAllTokens(tokensExpr));
 		}
 
@@ -1779,112 +1718,13 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1907,28 +1747,21 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, RetailStoreCityServiceCenter.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, RetailStoreCityServiceCenter.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1974,7 +1807,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String retailStoreCityServiceCenterId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getRetailStoreCityServiceCenterDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		RetailStoreCityServiceCenter merchantObj = (RetailStoreCityServiceCenter) this.view(userContext, retailStoreCityServiceCenterId);
     String merchantObjId = retailStoreCityServiceCenterId;
     String linkToUrl =	"retailStoreCityServiceCenterManager/wxappview/" + merchantObjId + "/";
@@ -2053,8 +1886,6 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		sections.add(cityPartnerListSection);
 
 		result.put("cityPartnerListSection", ListofUtils.toShortList(merchantObj.getCityPartnerList(), "cityPartner"));
-		vscope.field("cityPartnerListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( CityPartner.class.getName(), null));
 
 		//处理Section：potentialCustomerListSection
 		Map potentialCustomerListSection = ListofUtils.buildSection(
@@ -2069,8 +1900,6 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		sections.add(potentialCustomerListSection);
 
 		result.put("potentialCustomerListSection", ListofUtils.toShortList(merchantObj.getPotentialCustomerList(), "potentialCustomer"));
-		vscope.field("potentialCustomerListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( PotentialCustomer.class.getName(), null));
 
 		//处理Section：cityEventListSection
 		Map cityEventListSection = ListofUtils.buildSection(
@@ -2085,8 +1914,6 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		sections.add(cityEventListSection);
 
 		result.put("cityEventListSection", ListofUtils.toShortList(merchantObj.getCityEventList(), "cityEvent"));
-		vscope.field("cityEventListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( CityEvent.class.getName(), null));
 
 		//处理Section：retailStoreListSection
 		Map retailStoreListSection = ListofUtils.buildSection(
@@ -2101,8 +1928,6 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		sections.add(retailStoreListSection);
 
 		result.put("retailStoreListSection", ListofUtils.toShortList(merchantObj.getRetailStoreList(), "retailStore"));
-		vscope.field("retailStoreListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( RetailStore.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -2117,8 +1942,19 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

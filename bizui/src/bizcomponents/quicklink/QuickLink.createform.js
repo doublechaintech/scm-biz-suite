@@ -16,14 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  name: '列表',
-  icon: 'facebook',
-  linkTarget: '列表',
-  appId: 'UA000001',
-}
-*/
 
 const imageKeys = [
   'imagePath',
@@ -38,9 +30,15 @@ class QuickLinkCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +49,7 @@ class QuickLinkCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -65,8 +63,8 @@ class QuickLinkCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -75,13 +73,13 @@ class QuickLinkCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = QuickLinkBase
     const {QuickLinkService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -106,10 +104,10 @@ class QuickLinkCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addQuickLink`,
@@ -117,10 +115,10 @@ class QuickLinkCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'quickLink',listName:appLocaleName(userContext,"List") },
@@ -166,10 +164,10 @@ class QuickLinkCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -181,7 +179,7 @@ class QuickLinkCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -192,7 +190,7 @@ class QuickLinkCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -202,7 +200,7 @@ class QuickLinkCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('quick_link')}</div>)
@@ -214,7 +212,7 @@ class QuickLinkCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('quick_link')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<QuickLinkCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -230,7 +228,7 @@ class QuickLinkCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

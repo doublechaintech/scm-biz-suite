@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}userAppManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}userAppManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -98,6 +103,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}userAppService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -117,6 +130,7 @@ const  processRequest = (data) => {
 
 const UserAppService = { view,
   load,
+  analyze,
   addQuickLink,
   addListAccess,
   updateQuickLink,
@@ -124,6 +138,6 @@ const UserAppService = { view,
   removeQuickLinkList,
   removeListAccessList,
   requestCandidateSecUser,
-  transferToAnotherSecUser, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherSecUser, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default UserAppService
 

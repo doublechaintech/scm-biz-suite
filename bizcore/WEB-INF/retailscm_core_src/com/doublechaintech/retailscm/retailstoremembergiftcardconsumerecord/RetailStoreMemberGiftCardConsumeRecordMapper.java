@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,27 +10,30 @@ import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
 import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;
 
 public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<RetailStoreMemberGiftCardConsumeRecord>{
-	
+
 	protected RetailStoreMemberGiftCardConsumeRecord internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord = getRetailStoreMemberGiftCardConsumeRecord();		
-		 		
- 		setId(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber); 		
- 		setOccureTime(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber); 		
- 		setOwner(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber); 		
- 		setBizOrder(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber); 		
- 		setNumber(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber); 		
- 		setAmount(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber); 		
+		RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord = getRetailStoreMemberGiftCardConsumeRecord();
+		
+ 		setId(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber);
+ 		setOccureTime(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber);
+ 		setOwner(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber);
+ 		setBizOrder(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber);
+ 		setNumber(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber);
+ 		setAmount(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber);
  		setVersion(retailStoreMemberGiftCardConsumeRecord, rs, rowNumber);
 
+    
 		return retailStoreMemberGiftCardConsumeRecord;
 	}
-	
+
 	protected RetailStoreMemberGiftCardConsumeRecord getRetailStoreMemberGiftCardConsumeRecord(){
-		return new RetailStoreMemberGiftCardConsumeRecord();
-	}		
+	  RetailStoreMemberGiftCardConsumeRecord entity = new RetailStoreMemberGiftCardConsumeRecord();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_ID);
@@ -40,10 +44,13 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
 		}
 		
 		retailStoreMemberGiftCardConsumeRecord.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setOccureTime(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date occureTime = rs.getDate(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_OCCURE_TIME);
@@ -54,10 +61,18 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
 		}
 		
 		retailStoreMemberGiftCardConsumeRecord.setOccureTime(occureTime);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setOwner(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreMemberGiftCardId = rs.getString(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_OWNER);
+ 		String retailStoreMemberGiftCardId;
+ 		try{
+ 		  retailStoreMemberGiftCardId = rs.getString(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_OWNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreMemberGiftCardId == null){
  			return;
  		}
@@ -68,14 +83,19 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
  		if( retailStoreMemberGiftCard != null ){
  			//if the root object 'retailStoreMemberGiftCardConsumeRecord' already have the property, just set the id for it;
  			retailStoreMemberGiftCard.setId(retailStoreMemberGiftCardId);
- 			
+
  			return;
  		}
  		retailStoreMemberGiftCardConsumeRecord.setOwner(createEmptyOwner(retailStoreMemberGiftCardId));
  	}
- 	 		
+ 	
  	protected void setBizOrder(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, ResultSet rs, int rowNumber) throws SQLException{
- 		String consumerOrderId = rs.getString(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_BIZ_ORDER);
+ 		String consumerOrderId;
+ 		try{
+ 		  consumerOrderId = rs.getString(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_BIZ_ORDER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( consumerOrderId == null){
  			return;
  		}
@@ -86,14 +106,14 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
  		if( consumerOrder != null ){
  			//if the root object 'retailStoreMemberGiftCardConsumeRecord' already have the property, just set the id for it;
  			consumerOrder.setId(consumerOrderId);
- 			
+
  			return;
  		}
  		retailStoreMemberGiftCardConsumeRecord.setBizOrder(createEmptyBizOrder(consumerOrderId));
  	}
  	
 	protected void setNumber(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String number = rs.getString(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_NUMBER);
@@ -104,10 +124,13 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
 		}
 		
 		retailStoreMemberGiftCardConsumeRecord.setNumber(number);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAmount(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal amount = rs.getBigDecimal(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_AMOUNT);
@@ -118,10 +141,13 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
 		}
 		
 		retailStoreMemberGiftCardConsumeRecord.setAmount(amount);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_VERSION);
@@ -132,9 +158,12 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
 		}
 		
 		retailStoreMemberGiftCardConsumeRecord.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreMemberGiftCard  createEmptyOwner(String retailStoreMemberGiftCardId){
  		RetailStoreMemberGiftCard retailStoreMemberGiftCard = new RetailStoreMemberGiftCard();

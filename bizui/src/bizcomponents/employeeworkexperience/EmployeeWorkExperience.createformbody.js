@@ -15,15 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = EmployeeWorkExperienceBase
 const testValues = {};
-/*
-const testValues = {
-  start: '2018-02-12',
-  end: '2020-02-20',
-  company: '丝芙兰化妆品公司',
-  description: '在此期间取得非常好的绩效，赢得了客户的信赖',
-  employeeId: 'E000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -37,9 +31,20 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = EmployeeWorkExperienceBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -50,7 +55,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -58,7 +63,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -66,10 +71,10 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -78,16 +83,16 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {EmployeeWorkExperienceService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -97,9 +102,9 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -108,7 +113,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -120,25 +125,25 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_work_experience')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.start} {...formItemLayout}>
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.start}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.start}/>
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +153,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
                   {getFieldDecorator('end', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.end}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.end}/>
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +163,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
                   {getFieldDecorator('company', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.company} />
+                    <SmallTextInput minLength={3} maxLength={32} size="large"  placeholder={fieldLabels.company} />
                   )}
                 </Form.Item>
               </Col>
@@ -168,39 +173,39 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.description} />
+                    <SmallTextInput minLength={6} maxLength={84} size="large"  placeholder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('employee')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"employee_work_experience"} 
-		                 targetType={"employee"} 
-                 
+		                 listType={"employee_work_experience"}
+		                 targetType={"employee"}
+
                     requestFunction={EmployeeWorkExperienceService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -215,7 +220,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

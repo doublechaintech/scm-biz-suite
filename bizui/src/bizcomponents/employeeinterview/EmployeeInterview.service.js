@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}employeeInterviewManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}employeeInterviewManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -69,6 +74,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeInterviewService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -88,9 +101,10 @@ const  processRequest = (data) => {
 
 const EmployeeInterviewService = { view,
   load,
+  analyze,
   requestCandidateEmployee,
   requestCandidateInterviewType,
   transferToAnotherEmployee,
-  transferToAnotherInterviewType, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherInterviewType, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default EmployeeInterviewService
 

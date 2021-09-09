@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employeequalifier;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,27 +9,30 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.employee.Employee;
 
 public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
-	
+
 	protected EmployeeQualifier internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeQualifier employeeQualifier = getEmployeeQualifier();		
-		 		
- 		setId(employeeQualifier, rs, rowNumber); 		
- 		setEmployee(employeeQualifier, rs, rowNumber); 		
- 		setQualifiedTime(employeeQualifier, rs, rowNumber); 		
- 		setType(employeeQualifier, rs, rowNumber); 		
- 		setLevel(employeeQualifier, rs, rowNumber); 		
- 		setRemark(employeeQualifier, rs, rowNumber); 		
+		EmployeeQualifier employeeQualifier = getEmployeeQualifier();
+		
+ 		setId(employeeQualifier, rs, rowNumber);
+ 		setEmployee(employeeQualifier, rs, rowNumber);
+ 		setQualifiedTime(employeeQualifier, rs, rowNumber);
+ 		setType(employeeQualifier, rs, rowNumber);
+ 		setLevel(employeeQualifier, rs, rowNumber);
+ 		setRemark(employeeQualifier, rs, rowNumber);
  		setVersion(employeeQualifier, rs, rowNumber);
 
+    
 		return employeeQualifier;
 	}
-	
+
 	protected EmployeeQualifier getEmployeeQualifier(){
-		return new EmployeeQualifier();
-	}		
+	  EmployeeQualifier entity = new EmployeeQualifier();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(EmployeeQualifier employeeQualifier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeQualifierTable.COLUMN_ID);
@@ -39,10 +43,18 @@ public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
 		}
 		
 		employeeQualifier.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setEmployee(EmployeeQualifier employeeQualifier, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(EmployeeQualifierTable.COLUMN_EMPLOYEE);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(EmployeeQualifierTable.COLUMN_EMPLOYEE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -53,14 +65,14 @@ public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
  		if( employee != null ){
  			//if the root object 'employeeQualifier' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		employeeQualifier.setEmployee(createEmptyEmployee(employeeId));
  	}
  	
 	protected void setQualifiedTime(EmployeeQualifier employeeQualifier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date qualifiedTime = rs.getDate(EmployeeQualifierTable.COLUMN_QUALIFIED_TIME);
@@ -71,10 +83,13 @@ public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
 		}
 		
 		employeeQualifier.setQualifiedTime(qualifiedTime);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setType(EmployeeQualifier employeeQualifier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String type = rs.getString(EmployeeQualifierTable.COLUMN_TYPE);
@@ -85,10 +100,13 @@ public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
 		}
 		
 		employeeQualifier.setType(type);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLevel(EmployeeQualifier employeeQualifier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String level = rs.getString(EmployeeQualifierTable.COLUMN_LEVEL);
@@ -99,10 +117,13 @@ public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
 		}
 		
 		employeeQualifier.setLevel(level);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setRemark(EmployeeQualifier employeeQualifier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String remark = rs.getString(EmployeeQualifierTable.COLUMN_REMARK);
@@ -113,10 +134,13 @@ public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
 		}
 		
 		employeeQualifier.setRemark(remark);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(EmployeeQualifier employeeQualifier, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeQualifierTable.COLUMN_VERSION);
@@ -127,9 +151,12 @@ public class EmployeeQualifierMapper extends BaseRowMapper<EmployeeQualifier>{
 		}
 		
 		employeeQualifier.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyEmployee(String employeeId){
  		Employee employee = new Employee();

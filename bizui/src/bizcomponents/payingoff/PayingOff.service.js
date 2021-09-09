@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}payingOffManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}payingOffManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}payingOffService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const PayingOffService = { view,
   load,
+  analyze,
   addEmployeeSalarySheet,
   updateEmployeeSalarySheet,
   removeEmployeeSalarySheetList,
   requestCandidatePaidFor,
-  transferToAnotherPaidFor, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherPaidFor, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default PayingOffService
 

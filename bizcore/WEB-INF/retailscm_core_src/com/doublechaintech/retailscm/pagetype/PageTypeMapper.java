@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.pagetype;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
 
 public class PageTypeMapper extends BaseRowMapper<PageType>{
-	
+
 	protected PageType internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		PageType pageType = getPageType();		
-		 		
- 		setId(pageType, rs, rowNumber); 		
- 		setName(pageType, rs, rowNumber); 		
- 		setCode(pageType, rs, rowNumber); 		
- 		setMobileApp(pageType, rs, rowNumber); 		
- 		setFooterTab(pageType, rs, rowNumber); 		
+		PageType pageType = getPageType();
+		
+ 		setId(pageType, rs, rowNumber);
+ 		setName(pageType, rs, rowNumber);
+ 		setCode(pageType, rs, rowNumber);
+ 		setMobileApp(pageType, rs, rowNumber);
+ 		setFooterTab(pageType, rs, rowNumber);
  		setVersion(pageType, rs, rowNumber);
 
+    
 		return pageType;
 	}
-	
+
 	protected PageType getPageType(){
-		return new PageType();
-	}		
+	  PageType entity = new PageType();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(PageType pageType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(PageTypeTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class PageTypeMapper extends BaseRowMapper<PageType>{
 		}
 		
 		pageType.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(PageType pageType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(PageTypeTable.COLUMN_NAME);
@@ -52,10 +59,13 @@ public class PageTypeMapper extends BaseRowMapper<PageType>{
 		}
 		
 		pageType.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCode(PageType pageType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String code = rs.getString(PageTypeTable.COLUMN_CODE);
@@ -66,10 +76,18 @@ public class PageTypeMapper extends BaseRowMapper<PageType>{
 		}
 		
 		pageType.setCode(code);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setMobileApp(PageType pageType, ResultSet rs, int rowNumber) throws SQLException{
- 		String mobileAppId = rs.getString(PageTypeTable.COLUMN_MOBILE_APP);
+ 		String mobileAppId;
+ 		try{
+ 		  mobileAppId = rs.getString(PageTypeTable.COLUMN_MOBILE_APP);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( mobileAppId == null){
  			return;
  		}
@@ -80,14 +98,14 @@ public class PageTypeMapper extends BaseRowMapper<PageType>{
  		if( mobileApp != null ){
  			//if the root object 'pageType' already have the property, just set the id for it;
  			mobileApp.setId(mobileAppId);
- 			
+
  			return;
  		}
  		pageType.setMobileApp(createEmptyMobileApp(mobileAppId));
  	}
  	
 	protected void setFooterTab(PageType pageType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Boolean footerTab = rs.getBoolean(PageTypeTable.COLUMN_FOOTER_TAB);
@@ -98,10 +116,13 @@ public class PageTypeMapper extends BaseRowMapper<PageType>{
 		}
 		
 		pageType.setFooterTab(footerTab);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(PageType pageType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(PageTypeTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class PageTypeMapper extends BaseRowMapper<PageType>{
 		}
 		
 		pageType.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected MobileApp  createEmptyMobileApp(String mobileAppId){
  		MobileApp mobileApp = new MobileApp();

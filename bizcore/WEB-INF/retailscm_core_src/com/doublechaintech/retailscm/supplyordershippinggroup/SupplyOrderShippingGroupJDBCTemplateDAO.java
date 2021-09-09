@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.supplyordershippinggroup;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected SupplyOrderDAO supplyOrderDAO;
 	public void setSupplyOrderDAO(SupplyOrderDAO supplyOrderDAO){
- 	
+
  		if(supplyOrderDAO == null){
  			throw new IllegalStateException("Do not try to set supplyOrderDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.supplyOrderDAO == null){
  			throw new IllegalStateException("The supplyOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplyOrderDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SupplyOrderShippingGroupTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SupplyOrderShippingGroupTokens.BIZORDER);
  	}
 
  	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SupplyOrderShippingGroupTokens.BIZORDER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 		return new SupplyOrderShippingGroupMapper();
 	}
 
-	
-	
+
+
 	protected SupplyOrderShippingGroup extractSupplyOrderShippingGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			SupplyOrderShippingGroup supplyOrderShippingGroup = loadSingleObject(accessKey, getSupplyOrderShippingGroupMapper());
@@ -229,25 +231,26 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	}
 
-	
-	
+
+
 
 	protected SupplyOrderShippingGroup loadInternalSupplyOrderShippingGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		SupplyOrderShippingGroup supplyOrderShippingGroup = extractSupplyOrderShippingGroup(accessKey, loadOptions);
- 	
+
  		if(isExtractBizOrderEnabled(loadOptions)){
 	 		extractBizOrder(supplyOrderShippingGroup, loadOptions);
  		}
  
 		
 		return supplyOrderShippingGroup;
-		
+
 	}
 
-	 
+	
 
  	protected SupplyOrderShippingGroup extractBizOrder(SupplyOrderShippingGroup supplyOrderShippingGroup, Map<String,Object> options) throws Exception{
+  
 
 		if(supplyOrderShippingGroup.getBizOrder() == null){
 			return supplyOrderShippingGroup;
@@ -260,37 +263,37 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(bizOrder != null){
 			supplyOrderShippingGroup.setBizOrder(bizOrder);
 		}
-		
- 		
+
+
  		return supplyOrderShippingGroup;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<SupplyOrderShippingGroup> findSupplyOrderShippingGroupByBizOrder(String supplyOrderId,Map<String,Object> options){
- 	
+
   		SmartList<SupplyOrderShippingGroup> resultList = queryWith(SupplyOrderShippingGroupTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getSupplyOrderShippingGroupMapper());
 		// analyzeSupplyOrderShippingGroupByBizOrder(resultList, supplyOrderId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<SupplyOrderShippingGroup> findSupplyOrderShippingGroupByBizOrder(String supplyOrderId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<SupplyOrderShippingGroup> resultList =  queryWithRange(SupplyOrderShippingGroupTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getSupplyOrderShippingGroupMapper(), start, count);
  		//analyzeSupplyOrderShippingGroupByBizOrder(resultList, supplyOrderId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSupplyOrderShippingGroupByBizOrder(SmartList<SupplyOrderShippingGroup> resultList, String supplyOrderId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSupplyOrderShippingGroupByBizOrder(String supplyOrderId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public Map<String, Integer> countSupplyOrderShippingGroupByBizOrderIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SupplyOrderShippingGroupTable.COLUMN_BIZ_ORDER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected SupplyOrderShippingGroup saveSupplyOrderShippingGroup(SupplyOrderShippingGroup  supplyOrderShippingGroup){
+    
+
 		
 		if(!supplyOrderShippingGroup.isChanged()){
 			return supplyOrderShippingGroup;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(supplyOrderShippingGroup);
 		String SQL=this.getSaveSupplyOrderShippingGroupSQL(supplyOrderShippingGroup);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSupplyOrderShippingGroupParameters(supplyOrderShippingGroup);
@@ -326,6 +332,7 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		supplyOrderShippingGroup.incVersion();
+		supplyOrderShippingGroup.afterSave();
 		return supplyOrderShippingGroup;
 
 	}
@@ -343,6 +350,7 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 		for(SupplyOrderShippingGroup supplyOrderShippingGroup:supplyOrderShippingGroupList){
 			if(supplyOrderShippingGroup.isChanged()){
 				supplyOrderShippingGroup.incVersion();
+				supplyOrderShippingGroup.afterSave();
 			}
 
 
@@ -446,14 +454,12 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
  	protected Object[] prepareSupplyOrderShippingGroupUpdateParameters(SupplyOrderShippingGroup supplyOrderShippingGroup){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = supplyOrderShippingGroup.getName();
  		
  		if(supplyOrderShippingGroup.getBizOrder() != null){
  			parameters[1] = supplyOrderShippingGroup.getBizOrder().getId();
  		}
- 
- 		
+    
  		parameters[2] = supplyOrderShippingGroup.getAmount();
  		
  		parameters[3] = supplyOrderShippingGroup.nextVersion();
@@ -470,14 +476,11 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
         }
 		parameters[0] =  supplyOrderShippingGroup.getId();
  
- 		
  		parameters[1] = supplyOrderShippingGroup.getName();
  		
  		if(supplyOrderShippingGroup.getBizOrder() != null){
  			parameters[2] = supplyOrderShippingGroup.getBizOrder().getId();
-
  		}
- 		
  		
  		parameters[3] = supplyOrderShippingGroup.getAmount();
  		
@@ -487,12 +490,11 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected SupplyOrderShippingGroup saveInternalSupplyOrderShippingGroup(SupplyOrderShippingGroup supplyOrderShippingGroup, Map<String,Object> options){
 
-		saveSupplyOrderShippingGroup(supplyOrderShippingGroup);
-
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(supplyOrderShippingGroup, options);
  		}
  
+   saveSupplyOrderShippingGroup(supplyOrderShippingGroup);
 		
 		return supplyOrderShippingGroup;
 
@@ -504,6 +506,7 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 
  	protected SupplyOrderShippingGroup saveBizOrder(SupplyOrderShippingGroup supplyOrderShippingGroup, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(supplyOrderShippingGroup.getBizOrder() == null){
  			return supplyOrderShippingGroup;//do nothing when it is null
@@ -513,11 +516,6 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
  		return supplyOrderShippingGroup;
 
  	}
-
-
-
-
-
  
 
 	
@@ -525,10 +523,10 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 
 	public SupplyOrderShippingGroup present(SupplyOrderShippingGroup supplyOrderShippingGroup,Map<String, Object> options){
-	
+
 
 		return supplyOrderShippingGroup;
-	
+
 	}
 		
 
@@ -580,6 +578,10 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<SupplyOrderShippingGroup> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSupplyOrderShippingGroupMapper());
   }
@@ -615,6 +617,15 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	
 
+  @Override
+  public List<SupplyOrderShippingGroup> search(SupplyOrderShippingGroupRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SupplyOrderShippingGroupMapper mapper() {
+    return getSupplyOrderShippingGroupMapper();
+  }
 }
 
 

@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.skilltype;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 import com.doublechaintech.retailscm.employeeskill.EmployeeSkill;
 
@@ -28,12 +25,12 @@ import com.doublechaintech.retailscm.employeeskill.EmployeeSkill;
 @JsonSerialize(using = SkillTypeSerializer.class)
 public class SkillType extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String CODE_PROPERTY                  = "code"              ;
 	public static final String COMPANY_PROPERTY               = "company"           ;
@@ -46,32 +43,92 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CODE_PROPERTY, "code", "代码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COMPANY_PROPERTY, "retail_store_country_center", "公司")
+        .withType("retail_store_country_center", RetailStoreCountryCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DESCRIPTION_PROPERTY, "description", "描述")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(EMPLOYEE_SKILL_LIST, "skillType", "员工技能列表")
+        .withType("employee_skill", EmployeeSkill.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,CODE_PROPERTY ,COMPANY_PROPERTY ,DESCRIPTION_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(EMPLOYEE_SKILL_LIST, "skillType");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(EMPLOYEE_SKILL_LIST, EmployeeSkill.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(COMPANY_PROPERTY, RetailStoreCountryCenter.class);
+
+    return parents;
+  }
+
+  public SkillType want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public SkillType wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getCode();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mCode               ;
-	protected		RetailStoreCountryCenter	mCompany            ;
-	protected		String              	mDescription        ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	code                ;
+	protected		RetailStoreCountryCenter	company             ;
+	protected		String              	description         ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<EmployeeSkill>	mEmployeeSkillList  ;
 
-	
-		
+
+
 	public 	SkillType(){
 		// lazy load for all the properties
 	}
@@ -79,20 +136,39 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		SkillType skillType = new SkillType();
 		skillType.setId(id);
 		skillType.setVersion(Integer.MAX_VALUE);
+		skillType.setChecked(true);
 		return skillType;
 	}
 	public 	static SkillType refById(String id){
 		return withId(id);
 	}
-	
+
+  public SkillType limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public SkillType limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static SkillType searchExample(){
+    SkillType skillType = new SkillType();
+    		skillType.setVersion(UNSET_INT);
+
+    return skillType;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCompany( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -144,7 +220,7 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(CODE_PROPERTY.equals(property)){
 			return getCode();
 		}
@@ -162,97 +238,163 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public SkillType updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public SkillType updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public SkillType orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public SkillType ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public SkillType addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setCode(String code){
-		this.mCode = trimString(code);;
-	}
+	public void setCode(String code){String oldCode = this.code;String newCode = trimString(code);this.code = newCode;}
+	public String code(){
+doLoad();
+return getCode();
+}
 	public String getCode(){
-		return this.mCode;
+		return this.code;
 	}
-	public SkillType updateCode(String code){
-		this.mCode = trimString(code);;
-		this.changed = true;
-		return this;
-	}
+	public SkillType updateCode(String code){String oldCode = this.code;String newCode = trimString(code);if(!shouldReplaceBy(newCode, oldCode)){return this;}this.code = newCode;addPropertyChange(CODE_PROPERTY, oldCode, newCode);this.changed = true;setChecked(false);return this;}
+	public SkillType orderByCode(boolean asc){
+doAddOrderBy(CODE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCodeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CODE_PROPERTY, operator, parameters);
+}
+	public SkillType ignoreCodeCriteria(){super.ignoreSearchProperty(CODE_PROPERTY);
+return this;
+}
+	public SkillType addCodeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCodeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCode(String code){
 		if(code != null) { setCode(code);}
 	}
+
 	
-	
-	public void setCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-	}
+	public void setCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;this.company = newCompany;}
+	public RetailStoreCountryCenter company(){
+doLoad();
+return getCompany();
+}
 	public RetailStoreCountryCenter getCompany(){
-		return this.mCompany;
+		return this.company;
 	}
-	public SkillType updateCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-		this.changed = true;
-		return this;
-	}
+	public SkillType updateCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;if(!shouldReplaceBy(newCompany, oldCompany)){return this;}this.company = newCompany;addPropertyChange(COMPANY_PROPERTY, oldCompany, newCompany);this.changed = true;setChecked(false);return this;}
+	public SkillType orderByCompany(boolean asc){
+doAddOrderBy(COMPANY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCompanyCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COMPANY_PROPERTY, operator, parameters);
+}
+	public SkillType ignoreCompanyCriteria(){super.ignoreSearchProperty(COMPANY_PROPERTY);
+return this;
+}
+	public SkillType addCompanyCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCompanyCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCompany(RetailStoreCountryCenter company){
 		if(company != null) { setCompany(company);}
 	}
-	
+
 	
 	public void clearCompany(){
 		setCompany ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setDescription(String description){
-		this.mDescription = trimString(description);;
-	}
+	public void setDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);this.description = newDescription;}
+	public String description(){
+doLoad();
+return getDescription();
+}
 	public String getDescription(){
-		return this.mDescription;
+		return this.description;
 	}
-	public SkillType updateDescription(String description){
-		this.mDescription = trimString(description);;
-		this.changed = true;
-		return this;
-	}
+	public SkillType updateDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);if(!shouldReplaceBy(newDescription, oldDescription)){return this;}this.description = newDescription;addPropertyChange(DESCRIPTION_PROPERTY, oldDescription, newDescription);this.changed = true;setChecked(false);return this;}
+	public SkillType orderByDescription(boolean asc){
+doAddOrderBy(DESCRIPTION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDescriptionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DESCRIPTION_PROPERTY, operator, parameters);
+}
+	public SkillType ignoreDescriptionCriteria(){super.ignoreSearchProperty(DESCRIPTION_PROPERTY);
+return this;
+}
+	public SkillType addDescriptionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDescriptionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDescription(String description){
 		if(description != null) { setDescription(description);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public SkillType updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public SkillType updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public SkillType orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public SkillType ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public SkillType addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<EmployeeSkill> getEmployeeSkillList(){
@@ -261,9 +403,18 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 			this.mEmployeeSkillList.setListInternalName (EMPLOYEE_SKILL_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mEmployeeSkillList;	
+
+		return this.mEmployeeSkillList;
 	}
+
+  public  SmartList<EmployeeSkill> employeeSkillList(){
+    
+    doLoadChild(EMPLOYEE_SKILL_LIST);
+    
+    return getEmployeeSkillList();
+  }
+
+
 	public  void setEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
 		for( EmployeeSkill employeeSkill:employeeSkillList){
 			employeeSkill.setSkillType(this);
@@ -271,18 +422,20 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 
 		this.mEmployeeSkillList = employeeSkillList;
 		this.mEmployeeSkillList.setListInternalName (EMPLOYEE_SKILL_LIST );
-		
+
 	}
-	
-	public  void addEmployeeSkill(EmployeeSkill employeeSkill){
+
+	public  SkillType addEmployeeSkill(EmployeeSkill employeeSkill){
 		employeeSkill.setSkillType(this);
 		getEmployeeSkillList().add(employeeSkill);
+		return this;
 	}
-	public  void addEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
+	public  SkillType addEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
 		for( EmployeeSkill employeeSkill:employeeSkillList){
 			employeeSkill.setSkillType(this);
 		}
 		getEmployeeSkillList().addAll(employeeSkillList);
+		return this;
 	}
 	public  void mergeEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
 		if(employeeSkillList==null){
@@ -292,45 +445,45 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addEmployeeSkillList( employeeSkillList );
-		
+
 	}
 	public  EmployeeSkill removeEmployeeSkill(EmployeeSkill employeeSkillIndex){
-		
+
 		int index = getEmployeeSkillList().indexOf(employeeSkillIndex);
         if(index < 0){
         	String message = "EmployeeSkill("+employeeSkillIndex.getId()+") with version='"+employeeSkillIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        EmployeeSkill employeeSkill = getEmployeeSkillList().get(index);        
+        EmployeeSkill employeeSkill = getEmployeeSkillList().get(index);
         // employeeSkill.clearSkillType(); //disconnect with SkillType
         employeeSkill.clearFromAll(); //disconnect with SkillType
-		
+
 		boolean result = getEmployeeSkillList().planToRemove(employeeSkill);
         if(!result){
         	String message = "EmployeeSkill("+employeeSkillIndex.getId()+") with version='"+employeeSkillIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return employeeSkill;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithEmployeeSkill(EmployeeSkill employeeSkill){
-		
+
 		if(employeeSkill == null){
 			return;
 		}
 		employeeSkill.setSkillType(null);
 		//getEmployeeSkillList().remove();
-	
+
 	}
-	
+
 	public  boolean hasEmployeeSkill(EmployeeSkill employeeSkill){
-	
+
 		return getEmployeeSkillList().contains(employeeSkill);
-  
+
 	}
-	
+
 	public void copyEmployeeSkillFrom(EmployeeSkill employeeSkill) {
 
 		EmployeeSkill employeeSkillInList = findTheEmployeeSkill(employeeSkill);
@@ -340,53 +493,53 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		getEmployeeSkillList().add(newEmployeeSkill);
 		addItemToFlexiableObject(COPIED_CHILD, newEmployeeSkill);
 	}
-	
+
 	public  EmployeeSkill findTheEmployeeSkill(EmployeeSkill employeeSkill){
-		
+
 		int index =  getEmployeeSkillList().indexOf(employeeSkill);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "EmployeeSkill("+employeeSkill.getId()+") with version='"+employeeSkill.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getEmployeeSkillList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpEmployeeSkillList(){
 		getEmployeeSkillList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getCompany(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getEmployeeSkillList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getEmployeeSkillList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -406,16 +559,16 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof SkillType){
-		
-		
+
+
 			SkillType dest =(SkillType)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setCode(getCode());
 			dest.setCompany(getCompany());
@@ -428,13 +581,13 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof SkillType){
-		
-			
+
+
 			SkillType dest =(SkillType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeCompany(getCompany());
@@ -446,15 +599,15 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof SkillType){
-		
-			
+
+
 			SkillType dest =(SkillType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeDescription(getDescription());
@@ -466,6 +619,44 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getCode(), getCompany(), getDescription(), getVersion()};
 	}
+
+
+	public static SkillType createWith(RetailscmUserContext userContext, ThrowingFunction<SkillType,SkillType,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<SkillType> customCreator = mapper.findCustomCreator(SkillType.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    SkillType result = new SkillType();
+    result.setCode(mapper.tryToGet(SkillType.class, CODE_PROPERTY, String.class,
+        0, false, result.getCode(), params));
+    result.setCompany(mapper.tryToGet(SkillType.class, COMPANY_PROPERTY, RetailStoreCountryCenter.class,
+        0, true, result.getCompany(), params));
+    result.setDescription(mapper.tryToGet(SkillType.class, DESCRIPTION_PROPERTY, String.class,
+        1, false, result.getDescription(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixSkillType(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      SkillTypeTokens tokens = mapper.findParamByClass(params, SkillTypeTokens.class);
+      if (tokens == null) {
+        tokens = SkillTypeTokens.start();
+      }
+      result = userContext.getManagerGroup().getSkillTypeManager().internalSaveSkillType(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -481,7 +672,7 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

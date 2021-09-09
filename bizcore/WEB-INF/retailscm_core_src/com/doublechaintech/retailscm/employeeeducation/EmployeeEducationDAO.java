@@ -44,13 +44,15 @@ public interface EmployeeEducationDAO extends BaseDAO{
 	public void delete(String employeeEducationId, int version) throws Exception;
 	public EmployeeEducation disconnectFromAll(String employeeEducationId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeeEducation> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeeEducation> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeeEducation> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeeEducation executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeeEducation> findEmployeeEducationByEmployee(String employeeId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface EmployeeEducationDAO extends BaseDAO{
 
 
  
+
+	List<EmployeeEducation> search(EmployeeEducationRequest pRequest);
 }
 
 

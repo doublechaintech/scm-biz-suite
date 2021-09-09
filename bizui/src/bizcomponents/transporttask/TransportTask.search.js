@@ -65,50 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreAssociateForm } = GlobalComponents
-  const { TruckDriverAssociateForm } = GlobalComponents
-  const { TransportTruckAssociateForm } = GlobalComponents
-  const { TransportFleetAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreAssociateForm 
-	visible={currentAssociateModal==='end'} 
-	data={{transportTaskList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'end')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'end')}/> <TruckDriverAssociateForm 
-	visible={currentAssociateModal==='driver'} 
-	data={{transportTaskList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'driver')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'driver')}/> <TransportTruckAssociateForm 
-	visible={currentAssociateModal==='truck'} 
-	data={{transportTaskList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'truck')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'truck')}/> <TransportFleetAssociateForm 
-	visible={currentAssociateModal==='belongsTo'} 
-	data={{transportTaskList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class TransportTaskSearch extends PureComponent {
   state = {
@@ -143,7 +99,7 @@ class TransportTaskSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {TransportTaskTable} = GlobalComponents;
     const {TransportTaskSearchForm} = GlobalComponents;
     const {TransportTaskModalTable} = GlobalComponents;
@@ -195,7 +151,7 @@ class TransportTaskSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,TransportTaskModalTable,"transportTaskIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

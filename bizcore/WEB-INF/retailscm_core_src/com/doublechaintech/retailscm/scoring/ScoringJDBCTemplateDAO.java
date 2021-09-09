@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.scoring;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 
 	protected EmployeeCompanyTrainingDAO employeeCompanyTrainingDAO;
 	public void setEmployeeCompanyTrainingDAO(EmployeeCompanyTrainingDAO employeeCompanyTrainingDAO){
- 	
+
  		if(employeeCompanyTrainingDAO == null){
  			throw new IllegalStateException("Do not try to set employeeCompanyTrainingDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
  		if(this.employeeCompanyTrainingDAO == null){
  			throw new IllegalStateException("The employeeCompanyTrainingDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeCompanyTrainingDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -105,7 +107,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 		newScoring.setVersion(0);
 		
 		
- 		
+
  		if(isSaveEmployeeCompanyTrainingListEnabled(options)){
  			for(EmployeeCompanyTraining item: newScoring.getEmployeeCompanyTrainingList()){
  				item.setVersion(0);
@@ -192,30 +194,30 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ScoringTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
 		
-	
-	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
  		return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
  		return ScoringTokens.of(options).analyzeEmployeeCompanyTrainingListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -224,8 +226,8 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 		return new ScoringMapper();
 	}
 
-	
-	
+
+
 	protected Scoring extractScoring(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Scoring scoring = loadSingleObject(accessKey, getScoringMapper());
@@ -236,18 +238,18 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 
 	}
 
-	
-	
+
+
 
 	protected Scoring loadInternalScoring(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Scoring scoring = extractScoring(accessKey, loadOptions);
 
 		
 		if(isExtractEmployeeCompanyTrainingListEnabled(loadOptions)){
 	 		extractEmployeeCompanyTrainingList(scoring, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeCompanyTrainingListEnabled(loadOptions)){
 	 		analyzeEmployeeCompanyTrainingList(scoring, loadOptions);
@@ -255,7 +257,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
  		
 		
 		return scoring;
-		
+
 	}
 
 	
@@ -264,10 +266,10 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Scoring extractEmployeeCompanyTrainingList(Scoring scoring, Map<String,Object> options){
-		
-		
+    
+
 		if(scoring == null){
 			return null;
 		}
@@ -275,21 +277,20 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 			return scoring;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = getEmployeeCompanyTrainingDAO().findEmployeeCompanyTrainingByScoring(scoring.getId(),options);
 		if(employeeCompanyTrainingList != null){
 			enhanceEmployeeCompanyTrainingList(employeeCompanyTrainingList,options);
 			scoring.setEmployeeCompanyTrainingList(employeeCompanyTrainingList);
 		}
-		
+
 		return scoring;
-	
-	}	
-	
+  
+	}
+
 	protected Scoring analyzeEmployeeCompanyTrainingList(Scoring scoring, Map<String,Object> options){
-		
-		
+     
 		if(scoring == null){
 			return null;
 		}
@@ -297,34 +298,37 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 			return scoring;
 		}
 
-		
-		
+
+
 		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = scoring.getEmployeeCompanyTrainingList();
 		if(employeeCompanyTrainingList != null){
 			getEmployeeCompanyTrainingDAO().analyzeEmployeeCompanyTrainingByScoring(employeeCompanyTrainingList, scoring.getId(), options);
-			
+
 		}
-		
+
 		return scoring;
-	
-	}	
-	
+    
+	}
+
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Scoring saveScoring(Scoring  scoring){
+    
+
 		
 		if(!scoring.isChanged()){
 			return scoring;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(scoring);
 		String SQL=this.getSaveScoringSQL(scoring);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveScoringParameters(scoring);
@@ -335,6 +339,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 		}
 
 		scoring.incVersion();
+		scoring.afterSave();
 		return scoring;
 
 	}
@@ -352,6 +357,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 		for(Scoring scoring:scoringList){
 			if(scoring.isChanged()){
 				scoring.incVersion();
+				scoring.afterSave();
 			}
 
 
@@ -455,12 +461,9 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
  	protected Object[] prepareScoringUpdateParameters(Scoring scoring){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = scoring.getScoredBy();
  		
- 		
  		parameters[1] = scoring.getScore();
- 		
  		
  		parameters[2] = scoring.getComment();
  		
@@ -478,12 +481,9 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
         }
 		parameters[0] =  scoring.getId();
  
- 		
  		parameters[1] = scoring.getScoredBy();
  		
- 		
  		parameters[2] = scoring.getScore();
- 		
  		
  		parameters[3] = scoring.getComment();
  		
@@ -493,8 +493,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 
 	protected Scoring saveInternalScoring(Scoring scoring, Map<String,Object> options){
 
-		saveScoring(scoring);
-
+   saveScoring(scoring);
 		
 		if(isSaveEmployeeCompanyTrainingListEnabled(options)){
 	 		saveEmployeeCompanyTrainingList(scoring, options);
@@ -632,7 +631,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 
 		
 	protected Scoring saveEmployeeCompanyTrainingList(Scoring scoring, Map<String,Object> options){
-
+    
 
 
 
@@ -699,19 +698,19 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 		
 
 	public Scoring present(Scoring scoring,Map<String, Object> options){
-	
+
 		presentEmployeeCompanyTrainingList(scoring,options);
 
 		return scoring;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Scoring presentEmployeeCompanyTrainingList(
 			Scoring scoring,
 			Map<String, Object> options) {
-
-		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = scoring.getEmployeeCompanyTrainingList();		
+    
+		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = scoring.getEmployeeCompanyTrainingList();
 				SmartList<EmployeeCompanyTraining> newList= presentSubList(scoring.getId(),
 				employeeCompanyTrainingList,
 				options,
@@ -719,12 +718,12 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 				getEmployeeCompanyTrainingDAO()::findEmployeeCompanyTrainingByScoring
 				);
 
-		
+
 		scoring.setEmployeeCompanyTrainingList(newList);
-		
+
 
 		return scoring;
-	}			
+	}
 		
 
 	
@@ -748,6 +747,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 	
 	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的scoring的EmployeeCompanyTrainingList
 	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Scoring> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -804,6 +804,10 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Scoring> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getScoringMapper());
   }
@@ -843,13 +847,13 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -858,19 +862,19 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -878,7 +882,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -889,7 +893,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -898,27 +902,36 @@ public class ScoringJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Scor
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<Scoring> search(ScoringRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ScoringMapper mapper() {
+    return getScoringMapper();
+  }
 }
 
 

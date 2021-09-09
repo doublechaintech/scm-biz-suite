@@ -32,6 +32,7 @@ public class DefaultSMTPService extends InfraBaseService implements SMTPService 
 	protected String smtpPassword;
 	protected String smtpSenderName;
 	protected String smtpSenderAddress;
+	protected Integer smtpPort;
 	
 	public String getSmtpSenderAddress() {
 		return getCfgValue(smtpSenderAddress, "SMTP_SENDER_ADDRESS", getSmtpUserName());
@@ -69,8 +70,15 @@ public class DefaultSMTPService extends InfraBaseService implements SMTPService 
 	public void setSmtpSenderName(String smtpSenderName) {
 		this.smtpSenderName = smtpSenderName;
 	}
-	
-	
+
+	public int getSmtpPort() {
+		return Integer.parseInt(getCfgValue(smtpPort==null?null:smtpPort.toString(), "SMTP_PORT", "25"));
+	}
+
+	public void setSmtpPort(int smtpPort) {
+		this.smtpPort = smtpPort;
+	}
+
 	public DefaultSMTPService() {
 		// TODO Auto-generated constructor stub
 	}
@@ -103,7 +111,7 @@ public class DefaultSMTPService extends InfraBaseService implements SMTPService 
 		Properties mailProps = new Properties();
         mailProps.put("mail.smtp.from", getSmtpSenderName());
         mailProps.put("mail.smtp.host", getSmtpHost());
-        mailProps.put("mail.smtp.port", 25);
+        mailProps.put("mail.smtp.port", getSmtpPort());
         mailProps.put("mail.smtp.auth", "true");
         //mailProps.put("mail.smtp.socketFactory.port", port);
         //mailProps.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -137,7 +145,7 @@ public class DefaultSMTPService extends InfraBaseService implements SMTPService 
 		Properties mailProps = new Properties();
         mailProps.put("mail.smtp.from", getSmtpSenderName());
         mailProps.put("mail.smtp.host", getSmtpHost());
-        mailProps.put("mail.smtp.port", 25);
+        mailProps.put("mail.smtp.port", getSmtpPort());
         mailProps.put("mail.smtp.auth", "true");
         //mailProps.put("mail.smtp.socketFactory.port", port);
         //mailProps.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");

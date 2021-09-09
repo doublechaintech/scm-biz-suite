@@ -20,9 +20,14 @@ public class Images extends ArrayList<Image> {
     try {
       return objectMapper().readValue(dataInDb, Images.class);
     } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+      //e.printStackTrace();
+      // 如果尝试直接json反序列化失败, 继续按单图处理
     }
+    Images images = new Images();
+    Image image = new Image();
+    image.setImageUrl(dataInDb);
+    images.add(image );
+    return images;
   }
 
   public Images() {}

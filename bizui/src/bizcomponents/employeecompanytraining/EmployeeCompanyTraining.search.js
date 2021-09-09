@@ -65,45 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { EmployeeAssociateForm } = GlobalComponents
-  const { CompanyTrainingAssociateForm } = GlobalComponents
-  const { ScoringAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <EmployeeAssociateForm 
-	visible={currentAssociateModal==='employee'} 
-	data={{employeeCompanyTrainingList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'employee')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'employee')}/> <CompanyTrainingAssociateForm 
-	visible={currentAssociateModal==='training'} 
-	data={{employeeCompanyTrainingList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'training')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'training')}/> <ScoringAssociateForm 
-	visible={currentAssociateModal==='scoring'} 
-	data={{employeeCompanyTrainingList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'scoring')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'scoring')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class EmployeeCompanyTrainingSearch extends PureComponent {
   state = {
@@ -138,7 +99,7 @@ class EmployeeCompanyTrainingSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {EmployeeCompanyTrainingTable} = GlobalComponents;
     const {EmployeeCompanyTrainingSearchForm} = GlobalComponents;
     const {EmployeeCompanyTrainingModalTable} = GlobalComponents;
@@ -190,7 +151,7 @@ class EmployeeCompanyTrainingSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,EmployeeCompanyTrainingModalTable,"employeeCompanyTrainingIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.provincecenteremployee;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	protected ProvinceCenterDepartmentDAO provinceCenterDepartmentDAO;
 	public void setProvinceCenterDepartmentDAO(ProvinceCenterDepartmentDAO provinceCenterDepartmentDAO){
- 	
+
  		if(provinceCenterDepartmentDAO == null){
  			throw new IllegalStateException("Do not try to set provinceCenterDepartmentDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		if(this.provinceCenterDepartmentDAO == null){
  			throw new IllegalStateException("The provinceCenterDepartmentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.provinceCenterDepartmentDAO;
- 	}	
+ 	}
 
 	protected RetailStoreProvinceCenterDAO retailStoreProvinceCenterDAO;
 	public void setRetailStoreProvinceCenterDAO(RetailStoreProvinceCenterDAO retailStoreProvinceCenterDAO){
- 	
+
  		if(retailStoreProvinceCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreProvinceCenterDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		if(this.retailStoreProvinceCenterDAO == null){
  			throw new IllegalStateException("The retailStoreProvinceCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreProvinceCenterDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -203,43 +205,43 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ProvinceCenterEmployeeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractDepartmentEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ProvinceCenterEmployeeTokens.DEPARTMENT);
  	}
 
  	protected boolean isSaveDepartmentEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ProvinceCenterEmployeeTokens.DEPARTMENT);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractProvinceCenterEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ProvinceCenterEmployeeTokens.PROVINCECENTER);
  	}
 
  	protected boolean isSaveProvinceCenterEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ProvinceCenterEmployeeTokens.PROVINCECENTER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -249,8 +251,8 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		return new ProvinceCenterEmployeeMapper();
 	}
 
-	
-	
+
+
 	protected ProvinceCenterEmployee extractProvinceCenterEmployee(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ProvinceCenterEmployee provinceCenterEmployee = loadSingleObject(accessKey, getProvinceCenterEmployeeMapper());
@@ -261,29 +263,30 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	}
 
-	
-	
+
+
 
 	protected ProvinceCenterEmployee loadInternalProvinceCenterEmployee(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ProvinceCenterEmployee provinceCenterEmployee = extractProvinceCenterEmployee(accessKey, loadOptions);
- 	
+
  		if(isExtractDepartmentEnabled(loadOptions)){
 	 		extractDepartment(provinceCenterEmployee, loadOptions);
  		}
-  	
+ 
  		if(isExtractProvinceCenterEnabled(loadOptions)){
 	 		extractProvinceCenter(provinceCenterEmployee, loadOptions);
  		}
  
 		
 		return provinceCenterEmployee;
-		
+
 	}
 
-	 
+	
 
  	protected ProvinceCenterEmployee extractDepartment(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options) throws Exception{
+  
 
 		if(provinceCenterEmployee.getDepartment() == null){
 			return provinceCenterEmployee;
@@ -296,14 +299,15 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(department != null){
 			provinceCenterEmployee.setDepartment(department);
 		}
-		
- 		
+
+
  		return provinceCenterEmployee;
  	}
- 		
-  
+
+ 
 
  	protected ProvinceCenterEmployee extractProvinceCenter(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options) throws Exception{
+  
 
 		if(provinceCenterEmployee.getProvinceCenter() == null){
 			return provinceCenterEmployee;
@@ -316,46 +320,46 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		if(provinceCenter != null){
 			provinceCenterEmployee.setProvinceCenter(provinceCenter);
 		}
-		
- 		
+
+
  		return provinceCenterEmployee;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByDepartment(String provinceCenterDepartmentId,Map<String,Object> options){
- 	
+
   		SmartList<ProvinceCenterEmployee> resultList = queryWith(ProvinceCenterEmployeeTable.COLUMN_DEPARTMENT, provinceCenterDepartmentId, options, getProvinceCenterEmployeeMapper());
 		// analyzeProvinceCenterEmployeeByDepartment(resultList, provinceCenterDepartmentId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByDepartment(String provinceCenterDepartmentId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ProvinceCenterEmployee> resultList =  queryWithRange(ProvinceCenterEmployeeTable.COLUMN_DEPARTMENT, provinceCenterDepartmentId, options, getProvinceCenterEmployeeMapper(), start, count);
  		//analyzeProvinceCenterEmployeeByDepartment(resultList, provinceCenterDepartmentId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeProvinceCenterEmployeeByDepartment(SmartList<ProvinceCenterEmployee> resultList, String provinceCenterDepartmentId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(ProvinceCenterEmployee.DEPARTMENT_PROPERTY, provinceCenterDepartmentId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countProvinceCenterEmployeeByDepartment(String provinceCenterDepartmentId,Map<String,Object> options){
@@ -366,39 +370,39 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	public Map<String, Integer> countProvinceCenterEmployeeByDepartmentIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ProvinceCenterEmployeeTable.COLUMN_DEPARTMENT, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByProvinceCenter(String retailStoreProvinceCenterId,Map<String,Object> options){
- 	
+
   		SmartList<ProvinceCenterEmployee> resultList = queryWith(ProvinceCenterEmployeeTable.COLUMN_PROVINCE_CENTER, retailStoreProvinceCenterId, options, getProvinceCenterEmployeeMapper());
 		// analyzeProvinceCenterEmployeeByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByProvinceCenter(String retailStoreProvinceCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ProvinceCenterEmployee> resultList =  queryWithRange(ProvinceCenterEmployeeTable.COLUMN_PROVINCE_CENTER, retailStoreProvinceCenterId, options, getProvinceCenterEmployeeMapper(), start, count);
  		//analyzeProvinceCenterEmployeeByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeProvinceCenterEmployeeByProvinceCenter(SmartList<ProvinceCenterEmployee> resultList, String retailStoreProvinceCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(ProvinceCenterEmployee.PROVINCE_CENTER_PROPERTY, retailStoreProvinceCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countProvinceCenterEmployeeByProvinceCenter(String retailStoreProvinceCenterId,Map<String,Object> options){
@@ -409,21 +413,24 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	public Map<String, Integer> countProvinceCenterEmployeeByProvinceCenterIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ProvinceCenterEmployeeTable.COLUMN_PROVINCE_CENTER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ProvinceCenterEmployee saveProvinceCenterEmployee(ProvinceCenterEmployee  provinceCenterEmployee){
+    
+
 		
 		if(!provinceCenterEmployee.isChanged()){
 			return provinceCenterEmployee;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(provinceCenterEmployee);
 		String SQL=this.getSaveProvinceCenterEmployeeSQL(provinceCenterEmployee);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveProvinceCenterEmployeeParameters(provinceCenterEmployee);
@@ -434,6 +441,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		}
 
 		provinceCenterEmployee.incVersion();
+		provinceCenterEmployee.afterSave();
 		return provinceCenterEmployee;
 
 	}
@@ -451,6 +459,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		for(ProvinceCenterEmployee provinceCenterEmployee:provinceCenterEmployeeList){
 			if(provinceCenterEmployee.isChanged()){
 				provinceCenterEmployee.incVersion();
+				provinceCenterEmployee.afterSave();
 			}
 
 
@@ -554,26 +563,22 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  	protected Object[] prepareProvinceCenterEmployeeUpdateParameters(ProvinceCenterEmployee provinceCenterEmployee){
  		Object[] parameters = new Object[9];
  
- 		
  		parameters[0] = provinceCenterEmployee.getName();
- 		
  		
  		parameters[1] = provinceCenterEmployee.getMobile();
  		
- 		
  		parameters[2] = provinceCenterEmployee.getEmail();
- 		
  		
  		parameters[3] = provinceCenterEmployee.getFounded();
  		
  		if(provinceCenterEmployee.getDepartment() != null){
  			parameters[4] = provinceCenterEmployee.getDepartment().getId();
  		}
- 
+    
  		if(provinceCenterEmployee.getProvinceCenter() != null){
  			parameters[5] = provinceCenterEmployee.getProvinceCenter().getId();
  		}
- 
+    
  		parameters[6] = provinceCenterEmployee.nextVersion();
  		parameters[7] = provinceCenterEmployee.getId();
  		parameters[8] = provinceCenterEmployee.getVersion();
@@ -588,26 +593,20 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
         }
 		parameters[0] =  provinceCenterEmployee.getId();
  
- 		
  		parameters[1] = provinceCenterEmployee.getName();
- 		
  		
  		parameters[2] = provinceCenterEmployee.getMobile();
  		
- 		
  		parameters[3] = provinceCenterEmployee.getEmail();
- 		
  		
  		parameters[4] = provinceCenterEmployee.getFounded();
  		
  		if(provinceCenterEmployee.getDepartment() != null){
  			parameters[5] = provinceCenterEmployee.getDepartment().getId();
-
  		}
  		
  		if(provinceCenterEmployee.getProvinceCenter() != null){
  			parameters[6] = provinceCenterEmployee.getProvinceCenter().getId();
-
  		}
  		
 
@@ -615,8 +614,6 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  	}
 
 	protected ProvinceCenterEmployee saveInternalProvinceCenterEmployee(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options){
-
-		saveProvinceCenterEmployee(provinceCenterEmployee);
 
  		if(isSaveDepartmentEnabled(options)){
 	 		saveDepartment(provinceCenterEmployee, options);
@@ -626,6 +623,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	 		saveProvinceCenter(provinceCenterEmployee, options);
  		}
  
+   saveProvinceCenterEmployee(provinceCenterEmployee);
 		
 		return provinceCenterEmployee;
 
@@ -637,6 +635,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	
 
  	protected ProvinceCenterEmployee saveDepartment(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(provinceCenterEmployee.getDepartment() == null){
  			return provinceCenterEmployee;//do nothing when it is null
@@ -646,14 +645,10 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		return provinceCenterEmployee;
 
  	}
-
-
-
-
-
  
 
  	protected ProvinceCenterEmployee saveProvinceCenter(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(provinceCenterEmployee.getProvinceCenter() == null){
  			return provinceCenterEmployee;//do nothing when it is null
@@ -663,11 +658,6 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
  		return provinceCenterEmployee;
 
  	}
-
-
-
-
-
  
 
 	
@@ -675,10 +665,10 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 		
 
 	public ProvinceCenterEmployee present(ProvinceCenterEmployee provinceCenterEmployee,Map<String, Object> options){
-	
+
 
 		return provinceCenterEmployee;
-	
+
 	}
 		
 
@@ -730,6 +720,10 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ProvinceCenterEmployee> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getProvinceCenterEmployeeMapper());
   }
@@ -765,6 +759,15 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmBaseDAOImpl 
 
 	
 
+  @Override
+  public List<ProvinceCenterEmployee> search(ProvinceCenterEmployeeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ProvinceCenterEmployeeMapper mapper() {
+    return getProvinceCenterEmployeeMapper();
+  }
 }
 
 

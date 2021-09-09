@@ -15,16 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = CompanyTrainingBase
 const testValues = {};
-/*
-const testValues = {
-  title: '入职培训',
-  timeStart: '2018-12-05',
-  durationHours: '3',
-  companyId: 'RSCC000001',
-  instructorId: 'I000001',
-  trainingCourseTypeId: 'TCT000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -38,9 +31,20 @@ class CompanyTrainingCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = CompanyTrainingBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +55,7 @@ class CompanyTrainingCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -59,7 +63,7 @@ class CompanyTrainingCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -67,10 +71,10 @@ class CompanyTrainingCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,16 +83,16 @@ class CompanyTrainingCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {CompanyTrainingService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -98,9 +102,9 @@ class CompanyTrainingCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -109,7 +113,7 @@ class CompanyTrainingCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -121,25 +125,25 @@ class CompanyTrainingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('company_training')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.title} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +153,7 @@ class CompanyTrainingCreateFormBody extends Component {
                   {getFieldDecorator('timeStart', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.timeStart}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.timeStart}/>
                   )}
                 </Form.Item>
               </Col>
@@ -159,91 +163,91 @@ class CompanyTrainingCreateFormBody extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.durationHours} />
+                    <SmallTextInput minLength={0} maxLength={3} size="large"  placeholder={fieldLabels.durationHours} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.company} {...formItemLayout}>
                   {getFieldDecorator('companyId', {
                   	initialValue: tryinit('company'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('company')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"company_training"} 
-		                 targetType={"retail_store_country_center"} 
-                 
+		                 listType={"company_training"}
+		                 targetType={"retail_store_country_center"}
+
                     requestFunction={CompanyTrainingService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.instructor} {...formItemLayout}>
                   {getFieldDecorator('instructorId', {
                   	initialValue: tryinit('instructor'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('instructor')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"company_training"} 
-		                 targetType={"instructor"} 
-                 
+		                 listType={"company_training"}
+		                 targetType={"instructor"}
+
                     requestFunction={CompanyTrainingService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.trainingCourseType} {...formItemLayout}>
                   {getFieldDecorator('trainingCourseTypeId', {
                   	initialValue: tryinit('trainingCourseType'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('trainingCourseType')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"company_training"} 
-		                 targetType={"training_course_type"} 
-                 
+		                 listType={"company_training"}
+		                 targetType={"training_course_type"}
+
                     requestFunction={CompanyTrainingService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -258,7 +262,7 @@ class CompanyTrainingCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

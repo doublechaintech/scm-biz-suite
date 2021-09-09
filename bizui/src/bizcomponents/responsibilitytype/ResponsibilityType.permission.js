@@ -31,7 +31,7 @@ const internalSummaryOf = (responsibilityType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{responsibilityType.id}</Description> 
+<Description term="ID">{responsibilityType.id}</Description> 
 <Description term="代码">{responsibilityType.code}</Description> 
 <Description term="基本描述">{responsibilityType.baseDescription}</Description> 
 <Description term="详细描述">{responsibilityType.detailDescription}</Description> 
@@ -60,7 +60,7 @@ class ResponsibilityTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  responsibilityType = this.props.responsibilityType
     const { id,displayName, employeeCount } = responsibilityType
-    const  returnURL = `/responsibilityType/${id}/dashboard`
+    const  returnURL = `/responsibilityType/${id}/workbench`
     const cardsData = {cardsName:"责任类型",cardsFor: "responsibilityType",cardsSource: responsibilityType,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class ResponsibilityTypePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

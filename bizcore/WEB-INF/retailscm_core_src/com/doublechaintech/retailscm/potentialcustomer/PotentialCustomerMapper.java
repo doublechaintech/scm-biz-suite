@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.potentialcustomer;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,28 +10,31 @@ import com.doublechaintech.retailscm.citypartner.CityPartner;
 import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
 
 public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
-	
+
 	protected PotentialCustomer internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		PotentialCustomer potentialCustomer = getPotentialCustomer();		
-		 		
- 		setId(potentialCustomer, rs, rowNumber); 		
- 		setName(potentialCustomer, rs, rowNumber); 		
- 		setMobile(potentialCustomer, rs, rowNumber); 		
- 		setCityServiceCenter(potentialCustomer, rs, rowNumber); 		
- 		setCityPartner(potentialCustomer, rs, rowNumber); 		
- 		setDescription(potentialCustomer, rs, rowNumber); 		
- 		setLastUpdateTime(potentialCustomer, rs, rowNumber); 		
+		PotentialCustomer potentialCustomer = getPotentialCustomer();
+		
+ 		setId(potentialCustomer, rs, rowNumber);
+ 		setName(potentialCustomer, rs, rowNumber);
+ 		setMobile(potentialCustomer, rs, rowNumber);
+ 		setCityServiceCenter(potentialCustomer, rs, rowNumber);
+ 		setCityPartner(potentialCustomer, rs, rowNumber);
+ 		setDescription(potentialCustomer, rs, rowNumber);
+ 		setLastUpdateTime(potentialCustomer, rs, rowNumber);
  		setVersion(potentialCustomer, rs, rowNumber);
 
+    
 		return potentialCustomer;
 	}
-	
+
 	protected PotentialCustomer getPotentialCustomer(){
-		return new PotentialCustomer();
-	}		
+	  PotentialCustomer entity = new PotentialCustomer();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(PotentialCustomerTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
 		}
 		
 		potentialCustomer.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(PotentialCustomerTable.COLUMN_NAME);
@@ -55,10 +62,13 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
 		}
 		
 		potentialCustomer.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setMobile(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String mobile = rs.getString(PotentialCustomerTable.COLUMN_MOBILE);
@@ -69,10 +79,18 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
 		}
 		
 		potentialCustomer.setMobile(mobile);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setCityServiceCenter(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCityServiceCenterId = rs.getString(PotentialCustomerTable.COLUMN_CITY_SERVICE_CENTER);
+ 		String retailStoreCityServiceCenterId;
+ 		try{
+ 		  retailStoreCityServiceCenterId = rs.getString(PotentialCustomerTable.COLUMN_CITY_SERVICE_CENTER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCityServiceCenterId == null){
  			return;
  		}
@@ -83,14 +101,19 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
  		if( retailStoreCityServiceCenter != null ){
  			//if the root object 'potentialCustomer' already have the property, just set the id for it;
  			retailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
- 			
+
  			return;
  		}
  		potentialCustomer.setCityServiceCenter(createEmptyCityServiceCenter(retailStoreCityServiceCenterId));
  	}
- 	 		
+ 	
  	protected void setCityPartner(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
- 		String cityPartnerId = rs.getString(PotentialCustomerTable.COLUMN_CITY_PARTNER);
+ 		String cityPartnerId;
+ 		try{
+ 		  cityPartnerId = rs.getString(PotentialCustomerTable.COLUMN_CITY_PARTNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( cityPartnerId == null){
  			return;
  		}
@@ -101,14 +124,14 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
  		if( cityPartner != null ){
  			//if the root object 'potentialCustomer' already have the property, just set the id for it;
  			cityPartner.setId(cityPartnerId);
- 			
+
  			return;
  		}
  		potentialCustomer.setCityPartner(createEmptyCityPartner(cityPartnerId));
  	}
  	
 	protected void setDescription(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(PotentialCustomerTable.COLUMN_DESCRIPTION);
@@ -119,10 +142,13 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
 		}
 		
 		potentialCustomer.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(PotentialCustomerTable.COLUMN_LAST_UPDATE_TIME);
@@ -133,10 +159,13 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
 		}
 		
 		potentialCustomer.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(PotentialCustomer potentialCustomer, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(PotentialCustomerTable.COLUMN_VERSION);
@@ -147,9 +176,12 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
 		}
 		
 		potentialCustomer.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCityServiceCenter  createEmptyCityServiceCenter(String retailStoreCityServiceCenterId){
  		RetailStoreCityServiceCenter retailStoreCityServiceCenter = new RetailStoreCityServiceCenter();

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.damagespace;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,29 +9,32 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.warehouse.Warehouse;
 
 public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
-	
+
 	protected DamageSpace internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		DamageSpace damageSpace = getDamageSpace();		
-		 		
- 		setId(damageSpace, rs, rowNumber); 		
- 		setLocation(damageSpace, rs, rowNumber); 		
- 		setContactNumber(damageSpace, rs, rowNumber); 		
- 		setTotalArea(damageSpace, rs, rowNumber); 		
- 		setLatitude(damageSpace, rs, rowNumber); 		
- 		setLongitude(damageSpace, rs, rowNumber); 		
- 		setWarehouse(damageSpace, rs, rowNumber); 		
- 		setLastUpdateTime(damageSpace, rs, rowNumber); 		
+		DamageSpace damageSpace = getDamageSpace();
+		
+ 		setId(damageSpace, rs, rowNumber);
+ 		setLocation(damageSpace, rs, rowNumber);
+ 		setContactNumber(damageSpace, rs, rowNumber);
+ 		setTotalArea(damageSpace, rs, rowNumber);
+ 		setLatitude(damageSpace, rs, rowNumber);
+ 		setLongitude(damageSpace, rs, rowNumber);
+ 		setWarehouse(damageSpace, rs, rowNumber);
+ 		setLastUpdateTime(damageSpace, rs, rowNumber);
  		setVersion(damageSpace, rs, rowNumber);
 
+    
 		return damageSpace;
 	}
-	
+
 	protected DamageSpace getDamageSpace(){
-		return new DamageSpace();
-	}		
+	  DamageSpace entity = new DamageSpace();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(DamageSpaceTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLocation(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String location = rs.getString(DamageSpaceTable.COLUMN_LOCATION);
@@ -55,10 +62,13 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setLocation(location);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setContactNumber(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String contactNumber = rs.getString(DamageSpaceTable.COLUMN_CONTACT_NUMBER);
@@ -69,10 +79,13 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setContactNumber(contactNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTotalArea(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String totalArea = rs.getString(DamageSpaceTable.COLUMN_TOTAL_AREA);
@@ -83,10 +96,13 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setTotalArea(totalArea);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLatitude(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(DamageSpaceTable.COLUMN_LATITUDE);
@@ -97,10 +113,13 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(DamageSpaceTable.COLUMN_LONGITUDE);
@@ -111,10 +130,18 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setWarehouse(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
- 		String warehouseId = rs.getString(DamageSpaceTable.COLUMN_WAREHOUSE);
+ 		String warehouseId;
+ 		try{
+ 		  warehouseId = rs.getString(DamageSpaceTable.COLUMN_WAREHOUSE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( warehouseId == null){
  			return;
  		}
@@ -125,14 +152,14 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
  		if( warehouse != null ){
  			//if the root object 'damageSpace' already have the property, just set the id for it;
  			warehouse.setId(warehouseId);
- 			
+
  			return;
  		}
  		damageSpace.setWarehouse(createEmptyWarehouse(warehouseId));
  	}
  	
 	protected void setLastUpdateTime(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(DamageSpaceTable.COLUMN_LAST_UPDATE_TIME);
@@ -143,10 +170,13 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(DamageSpaceTable.COLUMN_VERSION);
@@ -157,9 +187,12 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
 		}
 		
 		damageSpace.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Warehouse  createEmptyWarehouse(String warehouseId){
  		Warehouse warehouse = new Warehouse();

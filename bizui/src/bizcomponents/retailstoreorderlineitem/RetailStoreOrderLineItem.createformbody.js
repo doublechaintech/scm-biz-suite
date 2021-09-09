@@ -15,16 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = RetailStoreOrderLineItemBase
 const testValues = {};
-/*
-const testValues = {
-  skuId: 'SKU',
-  skuName: '大瓶可乐',
-  amount: '3.09',
-  quantity: '7937',
-  unitOfMeasurement: '件',
-  bizOrderId: 'RSO000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -38,9 +31,20 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = RetailStoreOrderLineItemBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +55,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -59,7 +63,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -67,10 +71,10 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,16 +83,16 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {RetailStoreOrderLineItemService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -98,9 +102,9 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -109,7 +113,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -121,25 +125,25 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_line_item')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.skuId} {...formItemLayout}>
                   {getFieldDecorator('skuId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.skuId} />
+                    <SmallTextInput minLength={1} maxLength={12} size="large"  placeholder={fieldLabels.skuId} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +153,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('skuName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.skuName} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.skuName} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +163,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.amount} />
                   )}
                 </Form.Item>
               </Col>
@@ -169,7 +173,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.quantity} />
+                    <SmallTextInput minLength={0} maxLength={10000} size="large"  placeholder={fieldLabels.quantity} />
                   )}
                 </Form.Item>
               </Col>
@@ -179,39 +183,39 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('unitOfMeasurement', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.unitOfMeasurement} />
+                    <SmallTextInput minLength={0} maxLength={8} size="large"  placeholder={fieldLabels.unitOfMeasurement} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
                   {getFieldDecorator('bizOrderId', {
                   	initialValue: tryinit('bizOrder'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('bizOrder')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store_order_line_item"} 
-		                 targetType={"retail_store_order"} 
-                 
+		                 listType={"retail_store_order_line_item"}
+		                 targetType={"retail_store_order"}
+
                     requestFunction={RetailStoreOrderLineItemService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -226,7 +230,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

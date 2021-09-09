@@ -7,7 +7,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <context:property-placeholder location="${prj_config_file:classpath*:/META-INF/infra.properties}"/>
+    <context:property-placeholder location="${prj_config_file:classpath*:/META-INF/infra.properties}"
+                                  ignore-unresolvable="true"/>
 
     <!-- to use environment property file, make sure you have defined ‘env_conf_file’
         in your resin.conf. for example: <jvm-arg>-Denv_conf_file=/bettbio_env_conf/dev/bettbio_ad_env.properties</jvm-arg> -->

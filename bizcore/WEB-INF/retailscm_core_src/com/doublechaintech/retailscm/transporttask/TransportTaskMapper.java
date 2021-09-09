@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.transporttask;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -11,31 +12,34 @@ import com.doublechaintech.retailscm.truckdriver.TruckDriver;
 import com.doublechaintech.retailscm.transportfleet.TransportFleet;
 
 public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
-	
+
 	protected TransportTask internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		TransportTask transportTask = getTransportTask();		
-		 		
- 		setId(transportTask, rs, rowNumber); 		
- 		setName(transportTask, rs, rowNumber); 		
- 		setStart(transportTask, rs, rowNumber); 		
- 		setBeginTime(transportTask, rs, rowNumber); 		
- 		setEnd(transportTask, rs, rowNumber); 		
- 		setDriver(transportTask, rs, rowNumber); 		
- 		setTruck(transportTask, rs, rowNumber); 		
- 		setBelongsTo(transportTask, rs, rowNumber); 		
- 		setLatitude(transportTask, rs, rowNumber); 		
- 		setLongitude(transportTask, rs, rowNumber); 		
+		TransportTask transportTask = getTransportTask();
+		
+ 		setId(transportTask, rs, rowNumber);
+ 		setName(transportTask, rs, rowNumber);
+ 		setStart(transportTask, rs, rowNumber);
+ 		setBeginTime(transportTask, rs, rowNumber);
+ 		setEnd(transportTask, rs, rowNumber);
+ 		setDriver(transportTask, rs, rowNumber);
+ 		setTruck(transportTask, rs, rowNumber);
+ 		setBelongsTo(transportTask, rs, rowNumber);
+ 		setLatitude(transportTask, rs, rowNumber);
+ 		setLongitude(transportTask, rs, rowNumber);
  		setVersion(transportTask, rs, rowNumber);
 
+    
 		return transportTask;
 	}
-	
+
 	protected TransportTask getTransportTask(){
-		return new TransportTask();
-	}		
+	  TransportTask entity = new TransportTask();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(TransportTaskTable.COLUMN_ID);
@@ -46,10 +50,13 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
 		}
 		
 		transportTask.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(TransportTaskTable.COLUMN_NAME);
@@ -60,10 +67,13 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
 		}
 		
 		transportTask.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setStart(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String start = rs.getString(TransportTaskTable.COLUMN_START);
@@ -74,10 +84,13 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
 		}
 		
 		transportTask.setStart(start);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setBeginTime(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date beginTime = rs.getDate(TransportTaskTable.COLUMN_BEGIN_TIME);
@@ -88,10 +101,18 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
 		}
 		
 		transportTask.setBeginTime(beginTime);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setEnd(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreId = rs.getString(TransportTaskTable.COLUMN_END);
+ 		String retailStoreId;
+ 		try{
+ 		  retailStoreId = rs.getString(TransportTaskTable.COLUMN_END);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreId == null){
  			return;
  		}
@@ -102,14 +123,19 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
  		if( retailStore != null ){
  			//if the root object 'transportTask' already have the property, just set the id for it;
  			retailStore.setId(retailStoreId);
- 			
+
  			return;
  		}
  		transportTask.setEnd(createEmptyEnd(retailStoreId));
  	}
- 	 		
+ 	
  	protected void setDriver(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
- 		String truckDriverId = rs.getString(TransportTaskTable.COLUMN_DRIVER);
+ 		String truckDriverId;
+ 		try{
+ 		  truckDriverId = rs.getString(TransportTaskTable.COLUMN_DRIVER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( truckDriverId == null){
  			return;
  		}
@@ -120,14 +146,19 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
  		if( truckDriver != null ){
  			//if the root object 'transportTask' already have the property, just set the id for it;
  			truckDriver.setId(truckDriverId);
- 			
+
  			return;
  		}
  		transportTask.setDriver(createEmptyDriver(truckDriverId));
  	}
- 	 		
+ 	
  	protected void setTruck(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
- 		String transportTruckId = rs.getString(TransportTaskTable.COLUMN_TRUCK);
+ 		String transportTruckId;
+ 		try{
+ 		  transportTruckId = rs.getString(TransportTaskTable.COLUMN_TRUCK);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( transportTruckId == null){
  			return;
  		}
@@ -138,14 +169,19 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
  		if( transportTruck != null ){
  			//if the root object 'transportTask' already have the property, just set the id for it;
  			transportTruck.setId(transportTruckId);
- 			
+
  			return;
  		}
  		transportTask.setTruck(createEmptyTruck(transportTruckId));
  	}
- 	 		
+ 	
  	protected void setBelongsTo(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
- 		String transportFleetId = rs.getString(TransportTaskTable.COLUMN_BELONGS_TO);
+ 		String transportFleetId;
+ 		try{
+ 		  transportFleetId = rs.getString(TransportTaskTable.COLUMN_BELONGS_TO);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( transportFleetId == null){
  			return;
  		}
@@ -156,14 +192,14 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
  		if( transportFleet != null ){
  			//if the root object 'transportTask' already have the property, just set the id for it;
  			transportFleet.setId(transportFleetId);
- 			
+
  			return;
  		}
  		transportTask.setBelongsTo(createEmptyBelongsTo(transportFleetId));
  	}
  	
 	protected void setLatitude(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(TransportTaskTable.COLUMN_LATITUDE);
@@ -174,10 +210,13 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
 		}
 		
 		transportTask.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(TransportTaskTable.COLUMN_LONGITUDE);
@@ -188,10 +227,13 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
 		}
 		
 		transportTask.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(TransportTask transportTask, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(TransportTaskTable.COLUMN_VERSION);
@@ -202,9 +244,12 @@ public class TransportTaskMapper extends BaseRowMapper<TransportTask>{
 		}
 		
 		transportTask.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStore  createEmptyEnd(String retailStoreId){
  		RetailStore retailStore = new RetailStore();

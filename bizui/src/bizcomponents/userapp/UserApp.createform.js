@@ -16,18 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  title: '审车平台',
-  appIcon: 'users',
-  fullAccess: '1',
-  permission: 'MXWR',
-  objectType: 'CarInspectionPlatform',
-  objectId: 'CIP000001',
-  location: '/link/to/app',
-  secUserId: 'SU000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -41,9 +29,15 @@ class UserAppCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -54,7 +48,7 @@ class UserAppCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -68,8 +62,8 @@ class UserAppCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -78,13 +72,13 @@ class UserAppCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = UserAppBase
     const {UserAppService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -109,10 +103,10 @@ class UserAppCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addUserApp`,
@@ -120,10 +114,10 @@ class UserAppCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'userApp',listName:appLocaleName(userContext,"List") },
@@ -169,10 +163,10 @@ class UserAppCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -184,7 +178,7 @@ class UserAppCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -195,7 +189,7 @@ class UserAppCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -205,7 +199,7 @@ class UserAppCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('user_app')}</div>)
@@ -217,7 +211,7 @@ class UserAppCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('user_app')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<UserAppCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -233,7 +227,7 @@ class UserAppCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

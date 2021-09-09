@@ -4,10 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
@@ -44,6 +41,7 @@ public class TaskUtil {
 	}
 	protected static Map<String, Boolean> runningFlags = new HashMap<>();
 	protected static Map<String, AtomicLong> jvmLocks = new HashMap<>();
+	protected static Map<String, Semaphore> jvmTempLocks = new HashMap<>();
 	protected static Thread jvmLockCleanupThread = null;
 	protected static final long IDLE_PERIOD_IN_MS = 10*DateTimeUtil.MINUTE_IN_MS;
 	protected static ExecutorService executor = Executors.newCachedThreadPool();
@@ -61,6 +59,34 @@ public class TaskUtil {
 			jvmLocks.put(key, ts);
 			return ts;
 		}
+	}
+
+	public static String waitLockByKey(BaseUserContext ctx, String key, long waitTime) throws InterruptedException {
+		Semaphore obj = null;
+		synchronized (jvmTempLocks) {
+			obj = jvmTempLocks.get(key);
+			if (obj == null) {
+				obj = new Semaphore(1,true);
+				jvmTempLocks.put(key, obj);
+				System.out.print("初始化信号量");
+			}else{
+				System.out.print("等待信号量");
+			}
+		}
+		obj.acquire();
+		return key;
+	}
+
+	public static Object releaseLockByKey(BaseUserContext ctx, String key) throws InterruptedException {
+		Semaphore obj = null;
+		synchronized (jvmTempLocks) {
+			obj = jvmTempLocks.get(key);
+		}
+		if (obj != null){
+			obj.release();
+		}
+
+		return key;
 	}
 
 	private static void ensureJvmLockCleanTask(BaseUserContext ctx) {

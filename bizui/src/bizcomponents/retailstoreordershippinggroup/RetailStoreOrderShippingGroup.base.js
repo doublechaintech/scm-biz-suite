@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Row, Tag, Button,Table} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -21,6 +21,8 @@ const {
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
+	defaultRenderNumberCell,
+	defaultFormatNumber,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -32,21 +34,54 @@ const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
+const renderNumberCell=defaultRenderNumberCell
+const formatNumber = defaultFormatNumber
+
+const renderImageListCell=(imageList, record)=>{
+	const userContext = null;
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+}
 
 
 
-const menuData = {menuName: window.trans('retail_store_order_shipping_group'), menuFor: "retailStoreOrderShippingGroup",
+
+const menuData = {menuName: window.trans('retail_store_order_shipping_group'), menuFor: "retailStoreOrderShippingGroup",  internalName: "retail_store_order_shipping_group",
   		subItems: [
-  
+
   		],
 }
 
 
-const settingMenuData = {menuName: window.trans('retail_store_order_shipping_group'), menuFor: "retailStoreOrderShippingGroup",
+const settingMenuData = {menuName: window.trans('retail_store_order_shipping_group'), menuFor: "retailStoreOrderShippingGroup",  internalName: "retail_store_order_shipping_group",
   		subItems: [
-  
+
   		],
 }
+
+
+const mergedSubItems=()=>{
+
+    const result = []
+    menuData.subItems.forEach(item=>{
+        result.push({...item, for: "menu"})
+    })
+    settingMenuData.subItems.forEach(item=>{
+        result.push({...item, for: "setting"})
+    })
+    return result
+}
+const universalMenuData = {...menuData, subItems: mergedSubItems()}
+
+
 
 const fieldLabels = {
   id: window.trans('retail_store_order_shipping_group.id'),
@@ -65,7 +100,7 @@ const displayColumns = [
 ]
 
 
-const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(universalMenuData,targetObject,searchTerm)
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -95,7 +130,7 @@ const renderTextItem=(value, label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 const renderImageItem=(value,label, targetComponent)=>{
@@ -103,7 +138,7 @@ const renderImageItem=(value,label, targetComponent)=>{
 	if(!value){
 		return appLocaleName(userContext,"NotAssigned")
 	}
-	
+
 	return <ImagePreview title={label} imageLocation={value}/>
 }
 
@@ -135,63 +170,116 @@ const renderReferenceItem=(value,label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 
-const renderItemOfList=(retailStoreOrderShippingGroup, targetComponent, columCount, listName)=>{
-  
+
+const renderImageList=(imageList,label, targetComponent)=>{
+	const userContext = null
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	// return JSON.stringify(imageList)
+/*
+	the data looks like this
+	{"id":"1601","title":"cover_images01",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images010016/400/200/grey/"},
+	{"id":"1602","title":"cover_images02",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images020016/400/200/grey/"}
+*/
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+
+}
+
+
+const renderActionList=(retailStoreOrderShippingGroup, targetObject, columCount, listName)=>{
+
+	if(!retailStoreOrderShippingGroup){
+		return null
+	}
+	if(!retailStoreOrderShippingGroup.actionList){
+		return null
+	}
+	if(retailStoreOrderShippingGroup.actionList.length === 0){
+		return null
+	}
+	return (
+		<div className={styles.overlay}>
+
+			<div className={styles.overlayContent}>
+			{retailStoreOrderShippingGroup.actionList.map(action=>(<Link key={action.id} to={{pathname: action.actionPath.substring(1), state: {ownerId:targetObject.id,action,selectedRows:[retailStoreOrderShippingGroup]}}} >
+				<span className={styles.overlayText}>{action.actionName}</span>
+				</Link> ))}
+			</div>
+
+		</div>
+		)
+
+}
+
+const renderItemOfList=(retailStoreOrderShippingGroup, targetObject, columCount, listName)=>{
+
   if(!retailStoreOrderShippingGroup){
   	return null
   }
   if(!retailStoreOrderShippingGroup.id){
   	return null
   }
-  
-  
+
+
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`${listName}-${retailStoreOrderShippingGroup.id}`} style={{marginTop:"10px"}}>
-		
+     <Row key={`${listName}-${retailStoreOrderShippingGroup.id}`} className={styles.itemDesc}>
+
 	<Col span={4}>
-		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+		<Avatar size={90} className={styles.avarta} style={{ backgroundColor: genColor()}}>
 			{leftChars(retailStoreOrderShippingGroup.displayName)}
 		</Avatar>
 	</Col>
 	<Col span={20}>
 	  
-	  
-	 
-	
+
+
+
       <DescriptionList  key={retailStoreOrderShippingGroup.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreOrderShippingGroup.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{retailStoreOrderShippingGroup.name}</Description> 
         <Description term={fieldLabels.bizOrder}>{renderReferenceItem(retailStoreOrderShippingGroup.bizOrder)}</Description>
 
-        <Description term={fieldLabels.amount}><div style={{"color":"red"}}>{retailStoreOrderShippingGroup.amount}</div></Description> 
-	
-        
+        <Description term={fieldLabels.amount}><div style={{"color":"red"}}>{formatNumber(retailStoreOrderShippingGroup.amount,2)}</div></Description> 
+
+
       </DescriptionList>
      </Col>
-    </Card>
+      {renderActionList(retailStoreOrderShippingGroup,targetObject)}
+    </Row>
 	)
 
 }
-	
+
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, amount, bizOrderId} = formValuesToPack
+	const {name, bizOrderId, amount} = formValuesToPack
 	const bizOrder = {id: bizOrderId, version: 2^31}
-	const data = {name, amount, bizOrder}
+	const data = {name, bizOrder, amount}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {name, amount, bizOrder} = objectToUnpack
+	const {name, bizOrder, amount} = objectToUnpack
 	const bizOrderId = bizOrder ? bizOrder.id : null
-	const data = {name, amount, bizOrderId}
+	const data = {name, bizOrderId, amount}
 	return data
 }
-const stepOf=(targetComponent, title, content, position, index)=>{
+
+
+const stepOf=(targetComponent, title, content, position, index, initValue)=>{
+	const isMultipleEvent=false
 	return {
 		title,
 		content,
@@ -199,8 +287,13 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		packFunction: packFormValuesToObject,
 		unpackFunction: unpackObjectToFormValues,
 		index,
+		initValue,
+		isMultipleEvent,
       }
 }
-const RetailStoreOrderShippingGroupBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+
+
+
+const RetailStoreOrderShippingGroupBase={unpackObjectToFormValues, menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreOrderShippingGroupBase
 

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.loginhistory;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 
 	protected SecUserDAO secUserDAO;
 	public void setSecUserDAO(SecUserDAO secUserDAO){
- 	
+
  		if(secUserDAO == null){
  			throw new IllegalStateException("Do not try to set secUserDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		if(this.secUserDAO == null){
  			throw new IllegalStateException("The secUserDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.secUserDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return LoginHistoryTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractSecUserEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, LoginHistoryTokens.SECUSER);
  	}
 
  	protected boolean isSaveSecUserEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, LoginHistoryTokens.SECUSER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		return new LoginHistoryMapper();
 	}
 
-	
-	
+
+
 	protected LoginHistory extractLoginHistory(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			LoginHistory loginHistory = loadSingleObject(accessKey, getLoginHistoryMapper());
@@ -229,25 +231,26 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 
 	}
 
-	
-	
+
+
 
 	protected LoginHistory loadInternalLoginHistory(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		LoginHistory loginHistory = extractLoginHistory(accessKey, loadOptions);
- 	
+
  		if(isExtractSecUserEnabled(loadOptions)){
 	 		extractSecUser(loginHistory, loadOptions);
  		}
  
 		
 		return loginHistory;
-		
+
 	}
 
-	 
+	
 
  	protected LoginHistory extractSecUser(LoginHistory loginHistory, Map<String,Object> options) throws Exception{
+  
 
 		if(loginHistory.getSecUser() == null){
 			return loginHistory;
@@ -260,41 +263,41 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		if(secUser != null){
 			loginHistory.setSecUser(secUser);
 		}
-		
- 		
+
+
  		return loginHistory;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<LoginHistory> findLoginHistoryBySecUser(String secUserId,Map<String,Object> options){
- 	
+
   		SmartList<LoginHistory> resultList = queryWith(LoginHistoryTable.COLUMN_SEC_USER, secUserId, options, getLoginHistoryMapper());
 		// analyzeLoginHistoryBySecUser(resultList, secUserId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<LoginHistory> findLoginHistoryBySecUser(String secUserId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<LoginHistory> resultList =  queryWithRange(LoginHistoryTable.COLUMN_SEC_USER, secUserId, options, getLoginHistoryMapper(), start, count);
  		//analyzeLoginHistoryBySecUser(resultList, secUserId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeLoginHistoryBySecUser(SmartList<LoginHistory> resultList, String secUserId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(LoginHistory.SEC_USER_PROPERTY, secUserId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem loginTimeStatsItem = new StatsItem();
 		//LoginHistory.LOGIN_TIME_PROPERTY
@@ -302,11 +305,11 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		loginTimeStatsItem.setInternalName(formatKeyForDateLine(LoginHistory.LOGIN_TIME_PROPERTY));
 		loginTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(LoginHistory.LOGIN_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(loginTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countLoginHistoryBySecUser(String secUserId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	public Map<String, Integer> countLoginHistoryBySecUserIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(LoginHistoryTable.COLUMN_SEC_USER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected LoginHistory saveLoginHistory(LoginHistory  loginHistory){
+    
+
 		
 		if(!loginHistory.isChanged()){
 			return loginHistory;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(loginHistory);
 		String SQL=this.getSaveLoginHistorySQL(loginHistory);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveLoginHistoryParameters(loginHistory);
@@ -342,6 +348,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		}
 
 		loginHistory.incVersion();
+		loginHistory.afterSave();
 		return loginHistory;
 
 	}
@@ -359,6 +366,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		for(LoginHistory loginHistory:loginHistoryList){
 			if(loginHistory.isChanged()){
 				loginHistory.incVersion();
+				loginHistory.afterSave();
 			}
 
 
@@ -462,19 +470,16 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  	protected Object[] prepareLoginHistoryUpdateParameters(LoginHistory loginHistory){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = loginHistory.getLoginTime();
  		
- 		
  		parameters[1] = loginHistory.getFromIp();
- 		
  		
  		parameters[2] = loginHistory.getDescription();
  		
  		if(loginHistory.getSecUser() != null){
  			parameters[3] = loginHistory.getSecUser().getId();
  		}
- 
+    
  		parameters[4] = loginHistory.nextVersion();
  		parameters[5] = loginHistory.getId();
  		parameters[6] = loginHistory.getVersion();
@@ -489,18 +494,14 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
         }
 		parameters[0] =  loginHistory.getId();
  
- 		
  		parameters[1] = loginHistory.getLoginTime();
  		
- 		
  		parameters[2] = loginHistory.getFromIp();
- 		
  		
  		parameters[3] = loginHistory.getDescription();
  		
  		if(loginHistory.getSecUser() != null){
  			parameters[4] = loginHistory.getSecUser().getId();
-
  		}
  		
 
@@ -509,12 +510,11 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 
 	protected LoginHistory saveInternalLoginHistory(LoginHistory loginHistory, Map<String,Object> options){
 
-		saveLoginHistory(loginHistory);
-
  		if(isSaveSecUserEnabled(options)){
 	 		saveSecUser(loginHistory, options);
  		}
  
+   saveLoginHistory(loginHistory);
 		
 		return loginHistory;
 
@@ -526,6 +526,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	
 
  	protected LoginHistory saveSecUser(LoginHistory loginHistory, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(loginHistory.getSecUser() == null){
  			return loginHistory;//do nothing when it is null
@@ -535,11 +536,6 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
  		return loginHistory;
 
  	}
-
-
-
-
-
  
 
 	
@@ -547,10 +543,10 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 		
 
 	public LoginHistory present(LoginHistory loginHistory,Map<String, Object> options){
-	
+
 
 		return loginHistory;
-	
+
 	}
 		
 
@@ -602,6 +598,10 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<LoginHistory> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getLoginHistoryMapper());
   }
@@ -637,6 +637,15 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmBaseDAOImpl implements
 
 	
 
+  @Override
+  public List<LoginHistory> search(LoginHistoryRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected LoginHistoryMapper mapper() {
+    return getLoginHistoryMapper();
+  }
 }
 
 

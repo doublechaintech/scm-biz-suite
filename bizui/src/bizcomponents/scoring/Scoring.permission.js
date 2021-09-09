@@ -31,7 +31,7 @@ const internalSummaryOf = (scoring,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{scoring.id}</Description> 
+<Description term="ID">{scoring.id}</Description> 
 <Description term="由谁打分">{scoring.scoredBy}</Description> 
 <Description term="分数">{scoring.score}</Description> 
 <Description term="评论">{scoring.comment}</Description> 
@@ -60,7 +60,7 @@ class ScoringPermission extends Component {
     // eslint-disable-next-line max-len
     const  scoring = this.props.scoring
     const { id,displayName, employeeCompanyTrainingCount } = scoring
-    const  returnURL = `/scoring/${id}/dashboard`
+    const  returnURL = `/scoring/${id}/workbench`
     const cardsData = {cardsName:"评分",cardsFor: "scoring",cardsSource: scoring,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class ScoringPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

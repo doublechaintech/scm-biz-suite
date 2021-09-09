@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.payingoff;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface PayingOffManager extends BaseManager{
 
 		
 
+  List<PayingOff> searchPayingOffList(RetailscmUserContext ctx, PayingOffRequest pRequest);
+  PayingOff searchPayingOff(RetailscmUserContext ctx, PayingOffRequest pRequest);
 	public PayingOff createPayingOff(RetailscmUserContext userContext, String who,String paidForId,Date paidTime,BigDecimal amount) throws Exception;
 	public PayingOff updatePayingOff(RetailscmUserContext userContext,String payingOffId, int payingOffVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public PayingOff loadPayingOff(RetailscmUserContext userContext, String payingOffId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface PayingOffManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String payingOffId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, PayingOff newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, PayingOff updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface PayingOffManager extends BaseManager{
 	public Object listByPaidFor(RetailscmUserContext userContext,String paidForId) throws Exception;
 	public Object listPageByPaidFor(RetailscmUserContext userContext,String paidForId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

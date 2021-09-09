@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.pagetype;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -25,9 +26,7 @@ import com.doublechaintech.retailscm.RetailscmUserContext;
 
 
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
-import com.doublechaintech.retailscm.page.Page;
 
-import com.doublechaintech.retailscm.page.PageDAO;
 import com.doublechaintech.retailscm.mobileapp.MobileAppDAO;
 
 
@@ -41,7 +40,7 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 
 	protected MobileAppDAO mobileAppDAO;
 	public void setMobileAppDAO(MobileAppDAO mobileAppDAO){
- 	
+
  		if(mobileAppDAO == null){
  			throw new IllegalStateException("Do not try to set mobileAppDAO to null.");
  		}
@@ -51,25 +50,10 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
  		if(this.mobileAppDAO == null){
  			throw new IllegalStateException("The mobileAppDAO is not configured yet, please config it some where.");
  		}
- 		
-	 	return this.mobileAppDAO;
- 	}	
 
-	protected PageDAO pageDAO;
-	public void setPageDAO(PageDAO pageDAO){
- 	
- 		if(pageDAO == null){
- 			throw new IllegalStateException("Do not try to set pageDAO to null.");
- 		}
-	 	this.pageDAO = pageDAO;
+	 	return this.mobileAppDAO;
  	}
- 	public PageDAO getPageDAO(){
- 		if(this.pageDAO == null){
- 			throw new IllegalStateException("The pageDAO is not configured yet, please config it some where.");
- 		}
- 		
-	 	return this.pageDAO;
- 	}	
+
 
 
 	/*
@@ -127,13 +111,6 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 		PageType newPageType = loadInternalPageType(accessKey, options);
 		newPageType.setVersion(0);
 		
-		
- 		
- 		if(isSavePageListEnabled(options)){
- 			for(Page item: newPageType.getPageList()){
- 				item.setVersion(0);
- 			}
- 		}
 		
 
 
@@ -220,44 +197,30 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return PageTypeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractMobileAppEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, PageTypeTokens.MOBILEAPP);
  	}
 
  	protected boolean isSaveMobileAppEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, PageTypeTokens.MOBILEAPP);
  	}
- 	
 
- 	
+
+
  
-		
-	
-	protected boolean isExtractPageListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,PageTypeTokens.PAGE_LIST);
- 	}
- 	protected boolean isAnalyzePageListEnabled(Map<String,Object> options){		 		
- 		return PageTypeTokens.of(options).analyzePageListEnabled();
- 	}
-	
-	protected boolean isSavePageListEnabled(Map<String,Object> options){
-		return checkOptions(options, PageTypeTokens.PAGE_LIST);
-		
- 	}
- 	
 		
 
 	
@@ -266,8 +229,8 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 		return new PageTypeMapper();
 	}
 
-	
-	
+
+
 	protected PageType extractPageType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			PageType pageType = loadSingleObject(accessKey, getPageTypeMapper());
@@ -278,35 +241,26 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 
 	}
 
-	
-	
+
+
 
 	protected PageType loadInternalPageType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		PageType pageType = extractPageType(accessKey, loadOptions);
- 	
+
  		if(isExtractMobileAppEnabled(loadOptions)){
 	 		extractMobileApp(pageType, loadOptions);
  		}
  
 		
-		if(isExtractPageListEnabled(loadOptions)){
-	 		extractPageList(pageType, loadOptions);
- 		}	
- 		
- 		
- 		if(isAnalyzePageListEnabled(loadOptions)){
-	 		analyzePageList(pageType, loadOptions);
- 		}
- 		
-		
 		return pageType;
-		
+
 	}
 
-	 
+	
 
  	protected PageType extractMobileApp(PageType pageType, Map<String,Object> options) throws Exception{
+  
 
 		if(pageType.getMobileApp() == null){
 			return pageType;
@@ -319,87 +273,37 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 		if(mobileApp != null){
 			pageType.setMobileApp(mobileApp);
 		}
-		
- 		
+
+
  		return pageType;
  	}
- 		
+
  
 		
-	protected void enhancePageList(SmartList<Page> pageList,Map<String,Object> options){
-		//extract multiple list from difference sources
-		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-	}
-	
-	protected PageType extractPageList(PageType pageType, Map<String,Object> options){
-		
-		
-		if(pageType == null){
-			return null;
-		}
-		if(pageType.getId() == null){
-			return pageType;
-		}
 
-		
-		
-		SmartList<Page> pageList = getPageDAO().findPageByPageType(pageType.getId(),options);
-		if(pageList != null){
-			enhancePageList(pageList,options);
-			pageType.setPageList(pageList);
-		}
-		
-		return pageType;
-	
-	}	
-	
-	protected PageType analyzePageList(PageType pageType, Map<String,Object> options){
-		
-		
-		if(pageType == null){
-			return null;
-		}
-		if(pageType.getId() == null){
-			return pageType;
-		}
-
-		
-		
-		SmartList<Page> pageList = pageType.getPageList();
-		if(pageList != null){
-			getPageDAO().analyzePageByPageType(pageList, pageType.getId(), options);
-			
-		}
-		
-		return pageType;
-	
-	}	
-	
-		
-		
-  	
+ 
  	public SmartList<PageType> findPageTypeByMobileApp(String mobileAppId,Map<String,Object> options){
- 	
+
   		SmartList<PageType> resultList = queryWith(PageTypeTable.COLUMN_MOBILE_APP, mobileAppId, options, getPageTypeMapper());
 		// analyzePageTypeByMobileApp(resultList, mobileAppId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<PageType> findPageTypeByMobileApp(String mobileAppId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<PageType> resultList =  queryWithRange(PageTypeTable.COLUMN_MOBILE_APP, mobileAppId, options, getPageTypeMapper(), start, count);
  		//analyzePageTypeByMobileApp(resultList, mobileAppId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzePageTypeByMobileApp(SmartList<PageType> resultList, String mobileAppId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countPageTypeByMobileApp(String mobileAppId,Map<String,Object> options){
@@ -410,21 +314,24 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 	public Map<String, Integer> countPageTypeByMobileAppIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(PageTypeTable.COLUMN_MOBILE_APP, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected PageType savePageType(PageType  pageType){
+    
+
 		
 		if(!pageType.isChanged()){
 			return pageType;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(pageType);
 		String SQL=this.getSavePageTypeSQL(pageType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSavePageTypeParameters(pageType);
@@ -435,6 +342,7 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 		}
 
 		pageType.incVersion();
+		pageType.afterSave();
 		return pageType;
 
 	}
@@ -452,6 +360,7 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 		for(PageType pageType:pageTypeList){
 			if(pageType.isChanged()){
 				pageType.incVersion();
+				pageType.afterSave();
 			}
 
 
@@ -555,17 +464,14 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
  	protected Object[] preparePageTypeUpdateParameters(PageType pageType){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = pageType.getName();
- 		
  		
  		parameters[1] = pageType.getCode();
  		
  		if(pageType.getMobileApp() != null){
  			parameters[2] = pageType.getMobileApp().getId();
  		}
- 
- 		
+    
  		parameters[3] = pageType.getFooterTab();
  		
  		parameters[4] = pageType.nextVersion();
@@ -582,17 +488,13 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
         }
 		parameters[0] =  pageType.getId();
  
- 		
  		parameters[1] = pageType.getName();
- 		
  		
  		parameters[2] = pageType.getCode();
  		
  		if(pageType.getMobileApp() != null){
  			parameters[3] = pageType.getMobileApp().getId();
-
  		}
- 		
  		
  		parameters[4] = pageType.getFooterTab();
  		
@@ -602,19 +504,11 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 
 	protected PageType saveInternalPageType(PageType pageType, Map<String,Object> options){
 
-		savePageType(pageType);
-
  		if(isSaveMobileAppEnabled(options)){
 	 		saveMobileApp(pageType, options);
  		}
  
-		
-		if(isSavePageListEnabled(options)){
-	 		savePageList(pageType, options);
-	 		//removePageList(pageType, options);
-	 		//Not delete the record
-
- 		}
+   savePageType(pageType);
 		
 		return pageType;
 
@@ -626,6 +520,7 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 	
 
  	protected PageType saveMobileApp(PageType pageType, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(pageType.getMobileApp() == null){
  			return pageType;//do nothing when it is null
@@ -635,182 +530,18 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
  		return pageType;
 
  	}
-
-
-
-
-
  
 
 	
-	public PageType planToRemovePageList(PageType pageType, String pageIds[], Map<String,Object> options)throws Exception{
-
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(Page.PAGE_TYPE_PROPERTY, pageType.getId());
-		key.put(Page.ID_PROPERTY, pageIds);
-
-		SmartList<Page> externalPageList = getPageDAO().
-				findPageWithKey(key, options);
-		if(externalPageList == null){
-			return pageType;
-		}
-		if(externalPageList.isEmpty()){
-			return pageType;
-		}
-
-		for(Page pageItem: externalPageList){
-
-			pageItem.clearFromAll();
-		}
-
-
-		SmartList<Page> pageList = pageType.getPageList();
-		pageList.addAllToRemoveList(externalPageList);
-		return pageType;
-
-	}
-
-
-	//disconnect PageType with mobile_app in Page
-	public PageType planToRemovePageListWithMobileApp(PageType pageType, String mobileAppId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(Page.PAGE_TYPE_PROPERTY, pageType.getId());
-		key.put(Page.MOBILE_APP_PROPERTY, mobileAppId);
-
-		SmartList<Page> externalPageList = getPageDAO().
-				findPageWithKey(key, options);
-		if(externalPageList == null){
-			return pageType;
-		}
-		if(externalPageList.isEmpty()){
-			return pageType;
-		}
-
-		for(Page pageItem: externalPageList){
-			pageItem.clearMobileApp();
-			pageItem.clearPageType();
-
-		}
-
-
-		SmartList<Page> pageList = pageType.getPageList();
-		pageList.addAllToRemoveList(externalPageList);
-		return pageType;
-	}
-
-	public int countPageListWithMobileApp(String pageTypeId, String mobileAppId, Map<String,Object> options)throws Exception{
-				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
-		//the list will not be null here, empty, maybe
-		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
-
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(Page.PAGE_TYPE_PROPERTY, pageTypeId);
-		key.put(Page.MOBILE_APP_PROPERTY, mobileAppId);
-
-		int count = getPageDAO().countPageWithKey(key, options);
-		return count;
-	}
-	
-
-		
-	protected PageType savePageList(PageType pageType, Map<String,Object> options){
-
-
-
-
-		SmartList<Page> pageList = pageType.getPageList();
-		if(pageList == null){
-			//null list means nothing
-			return pageType;
-		}
-		SmartList<Page> mergedUpdatePageList = new SmartList<Page>();
-
-
-		mergedUpdatePageList.addAll(pageList);
-		if(pageList.getToRemoveList() != null){
-			//ensures the toRemoveList is not null
-			mergedUpdatePageList.addAll(pageList.getToRemoveList());
-			pageList.removeAll(pageList.getToRemoveList());
-			//OK for now, need fix later
-		}
-
-		//adding new size can improve performance
-
-		getPageDAO().savePageList(mergedUpdatePageList,options);
-
-		if(pageList.getToRemoveList() != null){
-			pageList.removeAll(pageList.getToRemoveList());
-		}
-
-
-		return pageType;
-
-	}
-
-	protected PageType removePageList(PageType pageType, Map<String,Object> options){
-
-
-		SmartList<Page> pageList = pageType.getPageList();
-		if(pageList == null){
-			return pageType;
-		}
-
-		SmartList<Page> toRemovePageList = pageList.getToRemoveList();
-
-		if(toRemovePageList == null){
-			return pageType;
-		}
-		if(toRemovePageList.isEmpty()){
-			return pageType;// Does this mean delete all from the parent object?
-		}
-		//Call DAO to remove the list
-
-		getPageDAO().removePageList(toRemovePageList,options);
-
-		return pageType;
-
-	}
-
-
-
-
-
-
-
 
 		
 
 	public PageType present(PageType pageType,Map<String, Object> options){
-	
-		presentPageList(pageType,options);
+
 
 		return pageType;
-	
+
 	}
-		
-	//Using java8 feature to reduce the code significantly
- 	protected PageType presentPageList(
-			PageType pageType,
-			Map<String, Object> options) {
-
-		SmartList<Page> pageList = pageType.getPageList();		
-				SmartList<Page> newList= presentSubList(pageType.getId(),
-				pageList,
-				options,
-				getPageDAO()::countPageByPageType,
-				getPageDAO()::findPageByPageType
-				);
-
-		
-		pageType.setPageList(newList);
-		
-
-		return pageType;
-	}			
 		
 
 	
@@ -831,29 +562,6 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 		this.enhanceListInternal(pageTypeList, this.getPageTypeMapper());
 	}
 
-	
-	// 需要一个加载引用我的对象的enhance方法:Page的pageType的PageList
-	public SmartList<Page> loadOurPageList(RetailscmUserContext userContext, List<PageType> us, Map<String,Object> options) throws Exception{
-		if (us == null || us.isEmpty()){
-			return new SmartList<>();
-		}
-		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(Page.PAGE_TYPE_PROPERTY, ids.toArray(new String[ids.size()]));
-		SmartList<Page> loadedObjs = userContext.getDAOGroup().getPageDAO().findPageWithKey(key, options);
-		Map<String, List<Page>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPageType().getId()));
-		us.forEach(it->{
-			String id = it.getId();
-			List<Page> loadedList = loadedMap.get(id);
-			if (loadedList == null || loadedList.isEmpty()) {
-				return;
-			}
-			SmartList<Page> loadedSmartList = new SmartList<>();
-			loadedSmartList.addAll(loadedList);
-			it.setPageList(loadedSmartList);
-		});
-		return loadedObjs;
-	}
 	
 
 	@Override
@@ -890,6 +598,10 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<PageType> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getPageTypeMapper());
   }
@@ -925,6 +637,15 @@ public class PageTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Pag
 
 	
 
+  @Override
+  public List<PageType> search(PageTypeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected PageTypeMapper mapper() {
+    return getPageTypeMapper();
+  }
 }
 
 

@@ -132,8 +132,8 @@ componentDidMount() {
       const {listName} = owner
      
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'name'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'code'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'keyAlg'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'signAlg'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'domain'))
 
      
@@ -203,8 +203,8 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label={fieldLabels.name}>
-           {getFieldDecorator('name')(
+         <FormItem label={fieldLabels.keyAlg}>
+           {getFieldDecorator('keyAlg')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
@@ -261,16 +261,16 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label={fieldLabels.name}>
-              {getFieldDecorator('name')(
+            <FormItem label={fieldLabels.keyAlg}>
+              {getFieldDecorator('keyAlg')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label={fieldLabels.code}>
-              {getFieldDecorator('code')(
+            <FormItem label={fieldLabels.signAlg}>
+              {getFieldDecorator('signAlg')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>

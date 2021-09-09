@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.potentialcustomercontact;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -10,30 +11,33 @@ import com.doublechaintech.retailscm.citypartner.CityPartner;
 import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPerson;
 
 public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCustomerContact>{
-	
+
 	protected PotentialCustomerContact internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		PotentialCustomerContact potentialCustomerContact = getPotentialCustomerContact();		
-		 		
- 		setId(potentialCustomerContact, rs, rowNumber); 		
- 		setName(potentialCustomerContact, rs, rowNumber); 		
- 		setContactDate(potentialCustomerContact, rs, rowNumber); 		
- 		setContactMethod(potentialCustomerContact, rs, rowNumber); 		
- 		setPotentialCustomer(potentialCustomerContact, rs, rowNumber); 		
- 		setCityPartner(potentialCustomerContact, rs, rowNumber); 		
- 		setContactTo(potentialCustomerContact, rs, rowNumber); 		
- 		setDescription(potentialCustomerContact, rs, rowNumber); 		
- 		setLastUpdateTime(potentialCustomerContact, rs, rowNumber); 		
+		PotentialCustomerContact potentialCustomerContact = getPotentialCustomerContact();
+		
+ 		setId(potentialCustomerContact, rs, rowNumber);
+ 		setName(potentialCustomerContact, rs, rowNumber);
+ 		setContactDate(potentialCustomerContact, rs, rowNumber);
+ 		setContactMethod(potentialCustomerContact, rs, rowNumber);
+ 		setPotentialCustomer(potentialCustomerContact, rs, rowNumber);
+ 		setCityPartner(potentialCustomerContact, rs, rowNumber);
+ 		setContactTo(potentialCustomerContact, rs, rowNumber);
+ 		setDescription(potentialCustomerContact, rs, rowNumber);
+ 		setLastUpdateTime(potentialCustomerContact, rs, rowNumber);
  		setVersion(potentialCustomerContact, rs, rowNumber);
 
+    
 		return potentialCustomerContact;
 	}
-	
+
 	protected PotentialCustomerContact getPotentialCustomerContact(){
-		return new PotentialCustomerContact();
-	}		
+	  PotentialCustomerContact entity = new PotentialCustomerContact();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(PotentialCustomerContactTable.COLUMN_ID);
@@ -44,10 +48,13 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
 		}
 		
 		potentialCustomerContact.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(PotentialCustomerContactTable.COLUMN_NAME);
@@ -58,10 +65,13 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
 		}
 		
 		potentialCustomerContact.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setContactDate(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date contactDate = rs.getDate(PotentialCustomerContactTable.COLUMN_CONTACT_DATE);
@@ -72,10 +82,13 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
 		}
 		
 		potentialCustomerContact.setContactDate(contactDate);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setContactMethod(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String contactMethod = rs.getString(PotentialCustomerContactTable.COLUMN_CONTACT_METHOD);
@@ -86,10 +99,18 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
 		}
 		
 		potentialCustomerContact.setContactMethod(contactMethod);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setPotentialCustomer(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
- 		String potentialCustomerId = rs.getString(PotentialCustomerContactTable.COLUMN_POTENTIAL_CUSTOMER);
+ 		String potentialCustomerId;
+ 		try{
+ 		  potentialCustomerId = rs.getString(PotentialCustomerContactTable.COLUMN_POTENTIAL_CUSTOMER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( potentialCustomerId == null){
  			return;
  		}
@@ -100,14 +121,19 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
  		if( potentialCustomer != null ){
  			//if the root object 'potentialCustomerContact' already have the property, just set the id for it;
  			potentialCustomer.setId(potentialCustomerId);
- 			
+
  			return;
  		}
  		potentialCustomerContact.setPotentialCustomer(createEmptyPotentialCustomer(potentialCustomerId));
  	}
- 	 		
+ 	
  	protected void setCityPartner(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
- 		String cityPartnerId = rs.getString(PotentialCustomerContactTable.COLUMN_CITY_PARTNER);
+ 		String cityPartnerId;
+ 		try{
+ 		  cityPartnerId = rs.getString(PotentialCustomerContactTable.COLUMN_CITY_PARTNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( cityPartnerId == null){
  			return;
  		}
@@ -118,14 +144,19 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
  		if( cityPartner != null ){
  			//if the root object 'potentialCustomerContact' already have the property, just set the id for it;
  			cityPartner.setId(cityPartnerId);
- 			
+
  			return;
  		}
  		potentialCustomerContact.setCityPartner(createEmptyCityPartner(cityPartnerId));
  	}
- 	 		
+ 	
  	protected void setContactTo(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
- 		String potentialCustomerContactPersonId = rs.getString(PotentialCustomerContactTable.COLUMN_CONTACT_TO);
+ 		String potentialCustomerContactPersonId;
+ 		try{
+ 		  potentialCustomerContactPersonId = rs.getString(PotentialCustomerContactTable.COLUMN_CONTACT_TO);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( potentialCustomerContactPersonId == null){
  			return;
  		}
@@ -136,14 +167,14 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
  		if( potentialCustomerContactPerson != null ){
  			//if the root object 'potentialCustomerContact' already have the property, just set the id for it;
  			potentialCustomerContactPerson.setId(potentialCustomerContactPersonId);
- 			
+
  			return;
  		}
  		potentialCustomerContact.setContactTo(createEmptyContactTo(potentialCustomerContactPersonId));
  	}
  	
 	protected void setDescription(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(PotentialCustomerContactTable.COLUMN_DESCRIPTION);
@@ -154,10 +185,13 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
 		}
 		
 		potentialCustomerContact.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(PotentialCustomerContactTable.COLUMN_LAST_UPDATE_TIME);
@@ -168,10 +202,13 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
 		}
 		
 		potentialCustomerContact.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(PotentialCustomerContact potentialCustomerContact, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(PotentialCustomerContactTable.COLUMN_VERSION);
@@ -182,9 +219,12 @@ public class PotentialCustomerContactMapper extends BaseRowMapper<PotentialCusto
 		}
 		
 		potentialCustomerContact.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected PotentialCustomer  createEmptyPotentialCustomer(String potentialCustomerId){
  		PotentialCustomer potentialCustomer = new PotentialCustomer();

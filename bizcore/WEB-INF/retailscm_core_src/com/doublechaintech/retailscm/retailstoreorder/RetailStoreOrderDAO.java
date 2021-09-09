@@ -54,6 +54,7 @@ public interface RetailStoreOrderDAO extends BaseDAO{
 	public void delete(String retailStoreOrderId, int version) throws Exception;
 	public RetailStoreOrder disconnectFromAll(String retailStoreOrderId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public RetailStoreOrderLineItemDAO getRetailStoreOrderLineItemDAO();
 		
@@ -118,9 +119,10 @@ public interface RetailStoreOrderDAO extends BaseDAO{
 	public int countGoodsListWithBizOrder(String retailStoreOrderId, String bizOrderId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<RetailStoreOrder> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreOrder> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreOrder> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreOrder executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByBuyer(String retailStoreId, Map<String,Object> options);
@@ -151,6 +153,8 @@ public interface RetailStoreOrderDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Goods的retailStoreOrder的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStoreOrder> search(RetailStoreOrderRequest pRequest);
 }
 
 

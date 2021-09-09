@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}productManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}productManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}productService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const ProductService = { view,
   load,
+  analyze,
   addSku,
   updateSku,
   removeSkuList,
   requestCandidateParentCategory,
-  transferToAnotherParentCategory, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherParentCategory, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ProductService
 

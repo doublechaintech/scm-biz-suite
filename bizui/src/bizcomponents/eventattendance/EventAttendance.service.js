@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}eventAttendanceManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}eventAttendanceManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -69,6 +74,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}eventAttendanceService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -88,9 +101,10 @@ const  processRequest = (data) => {
 
 const EventAttendanceService = { view,
   load,
+  analyze,
   requestCandidatePotentialCustomer,
   requestCandidateCityEvent,
   transferToAnotherPotentialCustomer,
-  transferToAnotherCityEvent, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCityEvent, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default EventAttendanceService
 

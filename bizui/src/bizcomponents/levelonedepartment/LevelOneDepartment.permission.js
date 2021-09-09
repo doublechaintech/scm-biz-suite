@@ -31,7 +31,7 @@ const internalSummaryOf = (levelOneDepartment,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelOneDepartment.id}</Description> 
+<Description term="ID">{levelOneDepartment.id}</Description> 
 <Description term="名称">{levelOneDepartment.name}</Description> 
 <Description term="描述">{levelOneDepartment.description}</Description> 
 <Description term="经理">{levelOneDepartment.manager}</Description> 
@@ -61,7 +61,7 @@ class LevelOneDepartmentPermission extends Component {
     // eslint-disable-next-line max-len
     const  levelOneDepartment = this.props.levelOneDepartment
     const { id,displayName, levelTwoDepartmentCount } = levelOneDepartment
-    const  returnURL = `/levelOneDepartment/${id}/dashboard`
+    const  returnURL = `/levelOneDepartment/${id}/workbench`
     const cardsData = {cardsName:"一级部门",cardsFor: "levelOneDepartment",cardsSource: levelOneDepartment,displayName,returnURL,
   		subItems: [
     
@@ -74,10 +74,10 @@ class LevelOneDepartmentPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

@@ -1,44 +1,27 @@
 
 package com.doublechaintech.retailscm.supplierspace;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.damagespace.DamageSpace;import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.storagespace.StorageSpace;import com.doublechaintech.retailscm.supplierspace.SupplierSpace;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;import com.doublechaintech.retailscm.warehouse.CandidateWarehouse;import com.doublechaintech.retailscm.warehouse.Warehouse;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.warehouse.Warehouse;
-import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
-
-import com.doublechaintech.retailscm.warehouse.CandidateWarehouse;
-
-import com.doublechaintech.retailscm.supplierspace.SupplierSpace;
-import com.doublechaintech.retailscm.damagespace.DamageSpace;
-import com.doublechaintech.retailscm.storagespace.StorageSpace;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager implements SupplierSpaceManager, BusinessHandler{
@@ -81,6 +64,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws SupplierSpaceManagerException{
 
 		Message message = new Message();
@@ -91,138 +75,192 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 
- 	protected SupplierSpace saveSupplierSpace(RetailscmUserContext userContext, SupplierSpace supplierSpace, String [] tokensExpr) throws Exception{	
+ 	protected SupplierSpace saveSupplierSpace(RetailscmUserContext userContext, SupplierSpace supplierSpace, String [] tokensExpr) throws Exception{
  		//return getSupplierSpaceDAO().save(supplierSpace, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveSupplierSpace(userContext, supplierSpace, tokens);
  	}
- 	
- 	protected SupplierSpace saveSupplierSpaceDetail(RetailscmUserContext userContext, SupplierSpace supplierSpace) throws Exception{	
 
- 		
+ 	protected SupplierSpace saveSupplierSpaceDetail(RetailscmUserContext userContext, SupplierSpace supplierSpace) throws Exception{
+
+
  		return saveSupplierSpace(userContext, supplierSpace, allTokens());
  	}
- 	
- 	public SupplierSpace loadSupplierSpace(RetailscmUserContext userContext, String supplierSpaceId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public SupplierSpace loadSupplierSpace(RetailscmUserContext userContext, String supplierSpaceId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SupplierSpaceManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		SupplierSpace supplierSpace = loadSupplierSpace( userContext, supplierSpaceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,supplierSpace, tokens);
  	}
- 	
- 	
- 	 public SupplierSpace searchSupplierSpace(RetailscmUserContext userContext, String supplierSpaceId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public SupplierSpace searchSupplierSpace(RetailscmUserContext userContext, String supplierSpaceId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SupplierSpaceManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		SupplierSpace supplierSpace = loadSupplierSpace( userContext, supplierSpaceId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,supplierSpace, tokens);
  	}
- 	
- 	
+
+
 
  	protected SupplierSpace present(RetailscmUserContext userContext, SupplierSpace supplierSpace, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,supplierSpace,tokens);
-		
-		
+    
+
 		SupplierSpace  supplierSpaceToPresent = supplierSpaceDaoOf(userContext).present(supplierSpace, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = supplierSpaceToPresent.collectRefercencesFromLists();
 		supplierSpaceDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,supplierSpace,tokens);
-		
+
 		return  supplierSpaceToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public SupplierSpace loadSupplierSpaceDetail(RetailscmUserContext userContext, String supplierSpaceId) throws Exception{	
+
+
+
+ 	public SupplierSpace loadSupplierSpaceDetail(RetailscmUserContext userContext, String supplierSpaceId) throws Exception{
  		SupplierSpace supplierSpace = loadSupplierSpace( userContext, supplierSpaceId, allTokens());
  		return present(userContext,supplierSpace, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String supplierSpaceId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String supplierSpaceId) throws Exception{
  		SupplierSpace supplierSpace = loadSupplierSpace( userContext, supplierSpaceId, viewTokens());
- 		return present(userContext,supplierSpace, allTokens());
-		
- 	}
- 	protected SupplierSpace saveSupplierSpace(RetailscmUserContext userContext, SupplierSpace supplierSpace, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, supplierSpace);
+ 		return present(userContext,supplierSpace, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String supplierSpaceId) throws Exception{
+		SupplierSpace supplierSpace = loadSupplierSpace( userContext, supplierSpaceId, viewTokens());
+		supplierSpace.summarySuffix();
+		markVisited(userContext, supplierSpace);
+ 		return present(userContext,supplierSpace, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String supplierSpaceId) throws Exception{
+		SupplierSpace supplierSpace = loadSupplierSpace( userContext, supplierSpaceId, analyzeTokens());
+		markVisited(userContext, supplierSpace);
+		return present(userContext,supplierSpace, analyzeTokens());
+
+	}
+ 	protected SupplierSpace saveSupplierSpace(RetailscmUserContext userContext, SupplierSpace supplierSpace, Map<String,Object>tokens) throws Exception{
+ 	
  		return supplierSpaceDaoOf(userContext).save(supplierSpace, tokens);
  	}
- 	protected SupplierSpace loadSupplierSpace(RetailscmUserContext userContext, String supplierSpaceId, Map<String,Object>tokens) throws Exception{	
+ 	protected SupplierSpace loadSupplierSpace(RetailscmUserContext userContext, String supplierSpaceId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SupplierSpaceManagerException.class);
 
- 
+
+
  		return supplierSpaceDaoOf(userContext).load(supplierSpaceId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, SupplierSpace supplierSpace, Map<String, Object> tokens){
 		super.addActions(userContext, supplierSpace, tokens);
-		
+
 		addAction(userContext, supplierSpace, tokens,"@create","createSupplierSpace","createSupplierSpace/","main","primary");
 		addAction(userContext, supplierSpace, tokens,"@update","updateSupplierSpace","updateSupplierSpace/"+supplierSpace.getId()+"/","main","primary");
 		addAction(userContext, supplierSpace, tokens,"@copy","cloneSupplierSpace","cloneSupplierSpace/"+supplierSpace.getId()+"/","main","primary");
-		
+
 		addAction(userContext, supplierSpace, tokens,"supplier_space.transfer_to_warehouse","transferToAnotherWarehouse","transferToAnotherWarehouse/"+supplierSpace.getId()+"/","main","primary");
 		addAction(userContext, supplierSpace, tokens,"supplier_space.addGoodsShelf","addGoodsShelf","addGoodsShelf/"+supplierSpace.getId()+"/","goodsShelfList","primary");
 		addAction(userContext, supplierSpace, tokens,"supplier_space.removeGoodsShelf","removeGoodsShelf","removeGoodsShelf/"+supplierSpace.getId()+"/","goodsShelfList","primary");
 		addAction(userContext, supplierSpace, tokens,"supplier_space.updateGoodsShelf","updateGoodsShelf","updateGoodsShelf/"+supplierSpace.getId()+"/","goodsShelfList","primary");
 		addAction(userContext, supplierSpace, tokens,"supplier_space.copyGoodsShelfFrom","copyGoodsShelfFrom","copyGoodsShelfFrom/"+supplierSpace.getId()+"/","goodsShelfList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, SupplierSpace supplierSpace, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<SupplierSpace> searchSupplierSpaceList(RetailscmUserContext ctx, SupplierSpaceRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<SupplierSpace> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public SupplierSpace searchSupplierSpace(RetailscmUserContext ctx, SupplierSpaceRequest pRequest){
+    pRequest.limit(0, 1);
+    List<SupplierSpace> list = searchSupplierSpaceList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public SupplierSpace createSupplierSpace(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,String warehouseId,BigDecimal latitude,BigDecimal longitude) throws Exception
-	//public SupplierSpace createSupplierSpace(RetailscmUserContext userContext,String location, String contactNumber, String totalArea, String warehouseId, BigDecimal latitude, BigDecimal longitude) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkLocationOfSupplierSpace(location);
 		checkerOf(userContext).checkContactNumberOfSupplierSpace(contactNumber);
 		checkerOf(userContext).checkTotalAreaOfSupplierSpace(totalArea);
 		checkerOf(userContext).checkLatitudeOfSupplierSpace(latitude);
 		checkerOf(userContext).checkLongitudeOfSupplierSpace(longitude);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
+
 
 
 		SupplierSpace supplierSpace=createNewSupplierSpace();	
@@ -256,46 +294,48 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
 		checkerOf(userContext).checkVersionOfSupplierSpace( supplierSpaceVersion);
-		
+
 
 		if(SupplierSpace.LOCATION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLocationOfSupplierSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(SupplierSpace.CONTACT_NUMBER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkContactNumberOfSupplierSpace(parseString(newValueExpr));
 		
-			
+
 		}
 		if(SupplierSpace.TOTAL_AREA_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTotalAreaOfSupplierSpace(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(SupplierSpace.LATITUDE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLatitudeOfSupplierSpace(parseBigDecimal(newValueExpr));
 		
-			
+
 		}
 		if(SupplierSpace.LONGITUDE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLongitudeOfSupplierSpace(parseBigDecimal(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
+
 
 
 	}
@@ -324,6 +364,8 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			if (supplierSpace.isChanged()){
 			supplierSpace.updateLastUpdateTime(userContext.now());
 			}
+
+      //checkerOf(userContext).checkAndFixSupplierSpace(supplierSpace);
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, options);
 			return supplierSpace;
 
@@ -390,10 +432,16 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 	protected Map<String,Object> allTokens(){
 		return SupplierSpaceTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortGoodsShelfListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortGoodsShelfListWith(GoodsShelf.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -405,6 +453,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
  		checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
  		checkerOf(userContext).checkIdOfWarehouse(anotherWarehouseId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
 
  	}
@@ -412,16 +461,17 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
  	{
  		checkParamsForTransferingAnotherWarehouse(userContext, supplierSpaceId,anotherWarehouseId);
  
-		SupplierSpace supplierSpace = loadSupplierSpace(userContext, supplierSpaceId, allTokens());	
+		SupplierSpace supplierSpace = loadSupplierSpace(userContext, supplierSpaceId, allTokens());
 		synchronized(supplierSpace){
 			//will be good when the supplierSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			Warehouse warehouse = loadWarehouse(userContext, anotherWarehouseId, emptyOptions());		
-			supplierSpace.updateWarehouse(warehouse);		
+			Warehouse warehouse = loadWarehouse(userContext, anotherWarehouseId, emptyOptions());
+			supplierSpace.updateWarehouse(warehouse);
+			supplierSpace.updateLastUpdateTime(userContext.now());
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, emptyOptions());
-			
+
 			return present(userContext,supplierSpace, allTokens());
-			
+
 		}
 
  	}
@@ -454,8 +504,9 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
  	protected Warehouse loadWarehouse(RetailscmUserContext userContext, String newWarehouseId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return warehouseDaoOf(userContext).load(newWarehouseId, options);
+ 	  
  	}
  	
 
@@ -501,45 +552,6 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 
 
-	//disconnect SupplierSpace with storage_space in GoodsShelf
-	protected SupplierSpace breakWithGoodsShelfByStorageSpace(RetailscmUserContext userContext, String supplierSpaceId, String storageSpaceId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			SupplierSpace supplierSpace = loadSupplierSpace(userContext, supplierSpaceId, allTokens());
-
-			synchronized(supplierSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				supplierSpaceDaoOf(userContext).planToRemoveGoodsShelfListWithStorageSpace(supplierSpace, storageSpaceId, this.emptyOptions());
-
-				supplierSpace = saveSupplierSpace(userContext, supplierSpace, tokens().withGoodsShelfList().done());
-				return supplierSpace;
-			}
-	}
-	//disconnect SupplierSpace with damage_space in GoodsShelf
-	protected SupplierSpace breakWithGoodsShelfByDamageSpace(RetailscmUserContext userContext, String supplierSpaceId, String damageSpaceId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			SupplierSpace supplierSpace = loadSupplierSpace(userContext, supplierSpaceId, allTokens());
-
-			synchronized(supplierSpace){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				supplierSpaceDaoOf(userContext).planToRemoveGoodsShelfListWithDamageSpace(supplierSpace, damageSpaceId, this.emptyOptions());
-
-				supplierSpace = saveSupplierSpace(userContext, supplierSpace, tokens().withGoodsShelfList().done());
-				return supplierSpace;
-			}
-	}
-
-
-
 
 
 
@@ -547,20 +559,21 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
 				checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
 
-		
+
 		checkerOf(userContext).checkLocationOfGoodsShelf(location);
-		
+
 		checkerOf(userContext).checkStorageSpaceIdOfGoodsShelf(storageSpaceId);
-		
+
 		checkerOf(userContext).checkDamageSpaceIdOfGoodsShelf(damageSpaceId);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
+
 
 
 	}
 	public  SupplierSpace addGoodsShelf(RetailscmUserContext userContext, String supplierSpaceId, String location, String storageSpaceId, String damageSpaceId, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingGoodsShelf(userContext,supplierSpaceId,location, storageSpaceId, damageSpaceId,tokensExpr);
 
 		GoodsShelf goodsShelf = createGoodsShelf(userContext,location, storageSpaceId, damageSpaceId);
@@ -583,7 +596,9 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 
 		checkerOf(userContext).checkLocationOfGoodsShelf( location);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
+
 
 	}
 	public  SupplierSpace updateGoodsShelfProperties(RetailscmUserContext userContext, String supplierSpaceId, String id,String location, String [] tokensExpr) throws Exception
@@ -655,6 +670,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
 
 	}
@@ -681,7 +697,9 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfSupplierSpace( supplierSpaceId);
 		checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfId);
 		checkerOf(userContext).checkVersionOfGoodsShelf(goodsShelfVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
+
 
 	}
 	public  SupplierSpace removeGoodsShelf(RetailscmUserContext userContext, String supplierSpaceId,
@@ -708,7 +726,9 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfSupplierSpace( supplierSpaceId);
 		checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfId);
 		checkerOf(userContext).checkVersionOfGoodsShelf(goodsShelfVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
+
 
 	}
 	public  SupplierSpace copyGoodsShelfFrom(RetailscmUserContext userContext, String supplierSpaceId,
@@ -736,7 +756,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 	protected void checkParamsForUpdatingGoodsShelf(RetailscmUserContext userContext, String supplierSpaceId, String goodsShelfId, int goodsShelfVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfSupplierSpace(supplierSpaceId);
 		checkerOf(userContext).checkIdOfGoodsShelf(goodsShelfId);
 		checkerOf(userContext).checkVersionOfGoodsShelf(goodsShelfVersion);
@@ -747,7 +767,9 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SupplierSpaceManagerException.class);
+
 
 	}
 
@@ -778,6 +800,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			goodsShelf.changeProperty(property, newValueExpr);
 			goodsShelf.updateLastUpdateTime(userContext.now());
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, tokens().withGoodsShelfList().done());
+			goodsShelfManagerOf(userContext).onUpdated(userContext, goodsShelf, this, "updateGoodsShelf");
 			return present(userContext,supplierSpace, mergedAllTokens(tokensExpr));
 		}
 
@@ -810,112 +833,13 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -938,28 +862,21 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, SupplierSpace.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, SupplierSpace.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1005,7 +922,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String supplierSpaceId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getSupplierSpaceDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		SupplierSpace merchantObj = (SupplierSpace) this.view(userContext, supplierSpaceId);
     String merchantObjId = supplierSpaceId;
     String linkToUrl =	"supplierSpaceManager/wxappview/" + merchantObjId + "/";
@@ -1117,8 +1034,6 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		sections.add(goodsShelfListSection);
 
 		result.put("goodsShelfListSection", ListofUtils.toShortList(merchantObj.getGoodsShelfList(), "goodsShelf"));
-		vscope.field("goodsShelfListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( GoodsShelf.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1133,8 +1048,19 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

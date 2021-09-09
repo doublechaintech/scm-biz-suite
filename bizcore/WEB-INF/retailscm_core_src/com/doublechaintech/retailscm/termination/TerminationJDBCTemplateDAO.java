@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.termination;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected TerminationReasonDAO terminationReasonDAO;
 	public void setTerminationReasonDAO(TerminationReasonDAO terminationReasonDAO){
- 	
+
  		if(terminationReasonDAO == null){
  			throw new IllegalStateException("Do not try to set terminationReasonDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.terminationReasonDAO == null){
  			throw new IllegalStateException("The terminationReasonDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.terminationReasonDAO;
- 	}	
+ 	}
 
 	protected TerminationTypeDAO terminationTypeDAO;
 	public void setTerminationTypeDAO(TerminationTypeDAO terminationTypeDAO){
- 	
+
  		if(terminationTypeDAO == null){
  			throw new IllegalStateException("Do not try to set terminationTypeDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.terminationTypeDAO == null){
  			throw new IllegalStateException("The terminationTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.terminationTypeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -203,43 +205,43 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return TerminationTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractReasonEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TerminationTokens.REASON);
  	}
 
  	protected boolean isSaveReasonEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TerminationTokens.REASON);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractTypeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TerminationTokens.TYPE);
  	}
 
  	protected boolean isSaveTypeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TerminationTokens.TYPE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -249,8 +251,8 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		return new TerminationMapper();
 	}
 
-	
-	
+
+
 	protected Termination extractTermination(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Termination termination = loadSingleObject(accessKey, getTerminationMapper());
@@ -261,29 +263,30 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	}
 
-	
-	
+
+
 
 	protected Termination loadInternalTermination(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Termination termination = extractTermination(accessKey, loadOptions);
- 	
+
  		if(isExtractReasonEnabled(loadOptions)){
 	 		extractReason(termination, loadOptions);
  		}
-  	
+ 
  		if(isExtractTypeEnabled(loadOptions)){
 	 		extractType(termination, loadOptions);
  		}
  
 		
 		return termination;
-		
+
 	}
 
-	 
+	
 
  	protected Termination extractReason(Termination termination, Map<String,Object> options) throws Exception{
+  
 
 		if(termination.getReason() == null){
 			return termination;
@@ -296,14 +299,15 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(reason != null){
 			termination.setReason(reason);
 		}
-		
- 		
+
+
  		return termination;
  	}
- 		
-  
+
+ 
 
  	protected Termination extractType(Termination termination, Map<String,Object> options) throws Exception{
+  
 
 		if(termination.getType() == null){
 			return termination;
@@ -316,46 +320,46 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(type != null){
 			termination.setType(type);
 		}
-		
- 		
+
+
  		return termination;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<Termination> findTerminationByReason(String terminationReasonId,Map<String,Object> options){
- 	
+
   		SmartList<Termination> resultList = queryWith(TerminationTable.COLUMN_REASON, terminationReasonId, options, getTerminationMapper());
 		// analyzeTerminationByReason(resultList, terminationReasonId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Termination> findTerminationByReason(String terminationReasonId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Termination> resultList =  queryWithRange(TerminationTable.COLUMN_REASON, terminationReasonId, options, getTerminationMapper(), start, count);
  		//analyzeTerminationByReason(resultList, terminationReasonId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTerminationByReason(SmartList<Termination> resultList, String terminationReasonId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Termination.REASON_PROPERTY, terminationReasonId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTerminationByReason(String terminationReasonId,Map<String,Object> options){
@@ -366,39 +370,39 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	public Map<String, Integer> countTerminationByReasonIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TerminationTable.COLUMN_REASON, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<Termination> findTerminationByType(String terminationTypeId,Map<String,Object> options){
- 	
+
   		SmartList<Termination> resultList = queryWith(TerminationTable.COLUMN_TYPE, terminationTypeId, options, getTerminationMapper());
 		// analyzeTerminationByType(resultList, terminationTypeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Termination> findTerminationByType(String terminationTypeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Termination> resultList =  queryWithRange(TerminationTable.COLUMN_TYPE, terminationTypeId, options, getTerminationMapper(), start, count);
  		//analyzeTerminationByType(resultList, terminationTypeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTerminationByType(SmartList<Termination> resultList, String terminationTypeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Termination.TYPE_PROPERTY, terminationTypeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTerminationByType(String terminationTypeId,Map<String,Object> options){
@@ -409,21 +413,24 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	public Map<String, Integer> countTerminationByTypeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TerminationTable.COLUMN_TYPE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Termination saveTermination(Termination  termination){
+    
+
 		
 		if(!termination.isChanged()){
 			return termination;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(termination);
 		String SQL=this.getSaveTerminationSQL(termination);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTerminationParameters(termination);
@@ -434,6 +441,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		termination.incVersion();
+		termination.afterSave();
 		return termination;
 
 	}
@@ -451,6 +459,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		for(Termination termination:terminationList){
 			if(termination.isChanged()){
 				termination.incVersion();
+				termination.afterSave();
 			}
 
 
@@ -557,12 +566,11 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(termination.getReason() != null){
  			parameters[0] = termination.getReason().getId();
  		}
- 
+    
  		if(termination.getType() != null){
  			parameters[1] = termination.getType().getId();
  		}
- 
- 		
+    
  		parameters[2] = termination.getComment();
  		
  		parameters[3] = termination.nextVersion();
@@ -581,14 +589,11 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  
  		if(termination.getReason() != null){
  			parameters[1] = termination.getReason().getId();
-
  		}
  		
  		if(termination.getType() != null){
  			parameters[2] = termination.getType().getId();
-
  		}
- 		
  		
  		parameters[3] = termination.getComment();
  		
@@ -598,8 +603,6 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected Termination saveInternalTermination(Termination termination, Map<String,Object> options){
 
-		saveTermination(termination);
-
  		if(isSaveReasonEnabled(options)){
 	 		saveReason(termination, options);
  		}
@@ -608,6 +611,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 		saveType(termination, options);
  		}
  
+   saveTermination(termination);
 		
 		return termination;
 
@@ -619,6 +623,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 
  	protected Termination saveReason(Termination termination, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(termination.getReason() == null){
  			return termination;//do nothing when it is null
@@ -628,14 +633,10 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		return termination;
 
  	}
-
-
-
-
-
  
 
  	protected Termination saveType(Termination termination, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(termination.getType() == null){
  			return termination;//do nothing when it is null
@@ -645,11 +646,6 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		return termination;
 
  	}
-
-
-
-
-
  
 
 	
@@ -657,10 +653,10 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 
 	public Termination present(Termination termination,Map<String, Object> options){
-	
+
 
 		return termination;
-	
+
 	}
 		
 
@@ -712,6 +708,10 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Termination> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTerminationMapper());
   }
@@ -747,6 +747,15 @@ public class TerminationJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	
 
+  @Override
+  public List<Termination> search(TerminationRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected TerminationMapper mapper() {
+    return getTerminationMapper();
+  }
 }
 
 

@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}trainingCourseTypeManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}trainingCourseTypeManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}trainingCourseTypeService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const TrainingCourseTypeService = { view,
   load,
+  analyze,
   addCompanyTraining,
   updateCompanyTraining,
   removeCompanyTrainingList,
   requestCandidateCompany,
-  transferToAnotherCompany, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCompany, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default TrainingCourseTypeService
 

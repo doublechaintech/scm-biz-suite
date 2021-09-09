@@ -8,16 +8,14 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.UserContext;
-import com.doublechaintech.retailscm.UserContextImpl;
+import com.doublechaintech.retailscm.*;
 import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.terapico.utils.*;
 
 
 public abstract class BaseIamService {
-	private static final Map<String, Object> EO = new HashMap<>();
+	public static final Map<String, Object> EO = new HashMap<>();
 	// 按照配置的顺序决定先用哪个id-handler,所以用LinkedHashMap
 	protected LinkedHashMap<String, IdentificationHandler> idHandlers;
 	// user time-to-live in seconds. By default it's 1 week.
@@ -60,6 +58,21 @@ public abstract class BaseIamService {
     getTokenKey(userContext);
     String cacheKey = getLoginInfoCacheKey(userContext);
     userContext.removeFromCache(cacheKey);
+
+    // 生成 anonymous jwtToken
+    userContext.setTokenId("anonymous"+RandomUtil.randomNumAndChars(12));
+    String tokenKey = userContext.tokenId();
+    String userId = "anonymous";
+    String userUploadHome = makeUserUploadHomeWhenLogged(null, null);
+    String envType =
+            userContext.isProductEnvironment() ? "product" : userContext.getEnvironmentName();
+    String jToken = JWTUtil.getJwtToken(userId, userUploadHome, envType, tokenKey);
+    // cache
+    Map<String, Object> loginInfo = MapUtil.put("tokenKey", tokenKey).into_map();
+    userContext.putToCache(getLoginInfoCacheKey(userContext), loginInfo, getUserTtlInSecond());
+    // set to header
+    userContext.setResponseHeader(JWTUtil.HEADER_NAME, jToken);
+
     return logOutResult;
 	}
 	/**
@@ -72,6 +85,7 @@ public abstract class BaseIamService {
 		// 先交给业务模块去处理此种情况,万一皆大欢喜了,就正常处理了
 		bizHandler.onAuthenticateNewUserLogged(userContext, loginContext, loginResult, idHandler, bizHandler);
 		if (loginResult.hasSecUser()) {
+		  idHandler.bindWithSecUser(userContext, loginContext);
 			// 业务模块将secUser正常归位了,就按正常的处理
 			onAuthenticateUserLogged(userContext, loginContext, loginResult, idHandler, bizHandler);
 			return;
@@ -91,28 +105,36 @@ public abstract class BaseIamService {
 		// 选一个token key
 		String tokenKey = userContext.tokenId();
 		if (!isLoginClientSupportSession(userContext, loginContext, idHandler, bizHandler)) {
-			tokenKey = "token_"+RandomUtil.randomNumAndChars(20);
-			((UserContextImpl)userContext).setTokenId(tokenKey);
+      if (TextUtil.isBlank(userContext.tokenId())) {
+        tokenKey = "token_"+RandomUtil.randomNumAndChars(20);
+        ((UserContextImpl)userContext).setTokenId(tokenKey);
+			}
 		}
 		// 生成 jwtToken
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		String userId = secUser.getId();
-		String userUploadHome = makeUserUploadHomeWhenLogged(secUser, userApp);
-		String envType = userContext.isProductEnvironment()?"product":userContext.getEnvironmentName();
-		String jToken = JWTUtil.getJwtToken(userId, userUploadHome, envType, tokenKey);
-		// cache
-		userContext.putToCache(this.getUserKey(userContext), secUser, getUserTtlInSecond());
-		userContext.putToCache(this.getCurrentAppKey(userContext), userApp, getUserTtlInSecond());
-		Map<String, Object> loginInfo = MapUtil.putIf(secUser!=null, "secUser", secUser.getId())
-				.putIf(userApp != null, "userApp", userApp.getId())
-				.put("tokenKey", tokenKey)
-				.putIf("additionalInfo", loginResult.getLoginContext().getLoginTarget().getAdditionalInfo())
-				.into_map();
-		userContext.putToCache(getLoginInfoCacheKey(userContext), loginInfo, getUserTtlInSecond());
-		// set to header
-		userContext.setResponseHeader(JWTUtil.HEADER_NAME, jToken);
-		// cookie 不用设置,默认在JSP的场景下,由jsp自己处理. 现在JSP不是推荐的C端技术
+    SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
+    userContext.setSecUser(secUser);
+    UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
+    userContext.setUserApp(userApp);
+    String userId = secUser==null?"anonymous":secUser.getId();
+    String userUploadHome = makeUserUploadHomeWhenLogged(secUser, userApp);
+    String envType = userContext.isProductEnvironment() ? "product" : userContext.getEnvironmentName();
+    String jToken = JWTUtil.getJwtToken(userId, userUploadHome, envType, tokenKey);
+    // cache
+    userContext.putToCache(this.getUserKey(userContext), secUser, getUserTtlInSecond());
+    userContext.putToCache(this.getCurrentAppKey(userContext), userApp, getUserTtlInSecond());
+    Map<String, Object> loginInfo = new HashMap<>();
+    if (secUser != null){
+      loginInfo.put("secUser", secUser.getId());
+    }
+    if (userApp != null){
+      loginInfo.put("userApp", userApp.getId());
+    }
+    loginInfo.put("tokenKey", tokenKey);
+    loginInfo.put("additionalInfo", loginResult.getLoginContext().getLoginTarget().getAdditionalInfo());
+    userContext.putToCache(getLoginInfoCacheKey(userContext), loginInfo, getUserTtlInSecond());
+    // set to header
+    userContext.setResponseHeader(JWTUtil.HEADER_NAME, jToken);
+    // cookie 不用设置,默认在JSP的场景下,由jsp自己处理. 现在JSP不是推荐的C端技术
 	}
 
 	// 为兼容旧版本secUser登录接口
@@ -138,12 +160,12 @@ public abstract class BaseIamService {
 	 */
 	protected String makeUserUploadHomeWhenLogged(SecUser secUser, UserApp userApp) {
 		if (userApp == null && secUser == null) {
-			return "upload/anonymuse";
+			return "upload/retailscm/anonymous";
 		}
 		if (secUser != null) {
-			return String.format("upload/%s/%s", SecUser.INTERNAL_TYPE, secUser.getId());
+			return String.format("upload/retailscm/%s/%s", SecUser.INTERNAL_TYPE, secUser.getId());
 		}
-		return String.format("upload/%s/%s", userApp.getObjectType(), userApp.getObjectId());
+		return String.format("upload/retailscm/%s/%s", userApp.getAppType(), userApp.getAppId());
 	}
 
 	/** 判断登录渠道的客户端,是否支持 session
@@ -176,6 +198,40 @@ public abstract class BaseIamService {
 	 * @return
 	 */
 	protected IdentificationHandler selectIdentificationHandler(RetailscmUserContextImpl userContext, LoginContext loginContext) {
+	  if (loginContext.getLoginMethod().equals(LoginMethod.ID_4_DEBUG)){
+        return new IdentificationHandler() {
+
+          @Override
+          public LoginResult authenticate(
+              RetailscmUserContext userContext, LoginContext loginContext) {
+            LoginResult result = new LoginResult();
+            result.setLoginContext(loginContext);
+            result.setAuthenticated(true);
+            result.setSuccess(true);
+            result.setNewUser(false);
+
+            String id = loginContext.getLoginData().getLoginId();
+            int idx = id.indexOf("_");
+            String objType = id.substring(0, idx);
+            String objId = id.substring(idx + 1);
+
+            UserApp userApp = RetailscmUserContextImpl.getUserAppByBindedEntity(userContext, BaseEntity.pretendToBe(objType, objId));
+            if (userApp == null){
+              throw new ErrorMessageException("输入的"+id+"没有对应的userApp被创建");
+            }
+            loginContext.getLoginTarget().setUserApp(userApp);
+            loginContext.getLoginTarget().setSecUser(userApp.getSecUser());
+
+            return result;
+          }
+
+          @Override
+          public void bindWithSecUser(RetailscmUserContext userContext, LoginContext loginContext)
+              throws Exception {
+            // nothing to do
+          }
+        };
+      }
 		if (idHandlers == null) {
 			throw new RuntimeException("您必须首先初始化IamService的idHandlers");
 		}
@@ -264,37 +320,45 @@ public abstract class BaseIamService {
 	}
 	public SecUser tryToLoadSecUser(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo){
 		if(loginInfo == null) {
+		  userContext.removeFromCache(getUserKey(userContext));
 			return null;
 		}
 		String secUserId = (String) loginInfo.get("secUser");
 		if (TextUtil.isBlank(secUserId)) {
+		  userContext.removeFromCache(getUserKey(userContext));
 			return null;
 		}
 		try {
 			return userContext.getDAOGroup().getSecUserDAO().load(secUserId, EO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("加载用户出错:"+e.getMessage(), e);
+			// throw new RuntimeException("加载用户出错:"+e.getMessage(), e);
+			userContext.removeFromCache(getUserKey(userContext));
+			return null;
 		}
 	}
 	public UserApp tryToLoadUserApp(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo){
 		if(loginInfo == null) {
+		  userContext.removeFromCache(getCurrentAppKey(userContext));
 			return null;
 		}
 
 		String userAppId = (String) loginInfo.get("userApp");
 		if (TextUtil.isBlank(userAppId)) {
+		  userContext.removeFromCache(getCurrentAppKey(userContext));
 			return null;
 		}
 		try {
 			return userContext.getDAOGroup().getUserAppDAO().load(userAppId, EO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("加载用户出错:"+e.getMessage(), e);
+			// throw new RuntimeException("加载用户出错:"+e.getMessage(), e);
+			userContext.removeFromCache(getCurrentAppKey(userContext));
+			return null;
 		}
 	}
 	/** 当checkAccess() 没有找到secUser时调用
-	 * @param loginInfo2 */
+	 * @param loginInfo */
 	public void onCheckAccessWhenAnonymousFound(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo) {
 		if (loginInfo != null && loginInfo.get("tokenKey") != null) {
 			return;
@@ -302,8 +366,10 @@ public abstract class BaseIamService {
 		// 选一个token key
 		String tokenKey = userContext.tokenId();
 		if (!isLoginClientSupportSession(userContext, null, null, null)) {
-			tokenKey = "token_" + RandomUtil.randomNumAndChars(20);
-			((UserContextImpl) userContext).setTokenId(tokenKey);
+		  if (TextUtil.isBlank(tokenKey)) {
+			  tokenKey = "token_" + RandomUtil.randomNumAndChars(20);
+			  ((UserContextImpl) userContext).setTokenId(tokenKey);
+      }
 		}
 		// 生成 anonymous jwtToken
 		String userId = "anonymous";
@@ -317,156 +383,41 @@ public abstract class BaseIamService {
 		userContext.setResponseHeader(JWTUtil.HEADER_NAME, jToken);
 	}
 
-//	// //////////////////////////////////////////////////
-//	// 登录用的例子
-//	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-//			throws IllegalAccessException {
-//		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl) baseUserContext;
-//		String tokenKey = getTokenKey(userContext);
-//		fixUserContextTokenId(userContext, tokenKey);
-//
-//		String cacheKey = this.getLoginInfoCacheKey(userContext);
-//		Map<String, Object> loginInfo = userContext.getCachedObject(cacheKey, Map.class);
-//
-//		SecUser secUser = tryToLoadSecUser(userContext, loginInfo);
-//		UserApp userApp = tryToLoadUserApp(userContext, loginInfo);
-//		if (userApp != null) {
-//			userApp.setSecUser(secUser);
-//		}
-//
-//		boolean checkAccessPassed = false;
-//		if (secUser != null) {
-//			if (userApp != null) {
-//				checkAccessPassed = onSecUserAppFoundWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-//			}else {
-//				checkAccessPassed = onSecUserFoundWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-//			}
-//		}else {
-//			checkAccessPassed = onSecUserNotFoundWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-//		}
-//		if (checkAccessPassed) {
-//
-//		}
-//		return accessOK();
-//	}
-//
-//
-//	protected boolean onSecUserNotFoundWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-//			SecUser secUser, UserApp userApp) {
-//		return false;
-//	}
-//	protected boolean onSecUserFoundWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-//			SecUser secUser, UserApp userApp) {
-//		return true;
-//	}
-//	protected boolean onSecUserAppFoundWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-//			SecUser secUser, UserApp userApp) {
-//		return true;
-//	}
-//	protected SecUser tryToLoadSecUser(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo){
-//		if(loginInfo == null) {
-//			return null;
-//		}
-//		String secUserId = (String) loginInfo.get("secUser");
-//		if (TextUtil.isBlank(secUserId)) {
-//			return null;
-//		}
-//		try {
-//			return userContext.getDAOGroup().getSecUserDAO().load(secUserId, EO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("加载用户出错:"+e.getMessage(), e);
-//		}
-//	}
-//	protected UserApp tryToLoadUserApp(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo){
-//		if(loginInfo == null) {
-//			return null;
-//		}
-//
-//		String userAppId = (String) loginInfo.get("userApp");
-//		if (TextUtil.isBlank(userAppId)) {
-//			return null;
-//		}
-//		try {
-//			return userContext.getDAOGroup().getUserAppDAO().load(userAppId, EO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("加载用户出错:"+e.getMessage(), e);
-//		}
-//	}
-//
-//
-//
-//
-//	public Object exampleLoginByAccountPassword(RetailscmUserContextImpl userContext, String acct, String password) throws Exception {
-//
-//		BusinessHandler bizHandler = new BusinessHandler() {
-//			public void onAuthenticationFailed(RetailscmUserContextImpl userContext, LoginContext loginContext,
-//					LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-//					throws Exception {
-//				onFailExample(userContext, loginContext, loginResult, idHandler, bizHandler);
-//			}
-//			public void onAuthenticateNewUserLogged(RetailscmUserContextImpl userContext, LoginContext loginContext,
-//					LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-//					throws Exception {
-//				onNewExample(userContext, loginContext, loginResult, idHandler, bizHandler);
-//			}
-//			public void onAuthenticateUserLogged(RetailscmUserContextImpl userContext, LoginContext loginContext,
-//					LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-//					throws Exception {
-//				onSuccessExample(userContext, loginContext, loginResult, idHandler, bizHandler);
-//			}
-//		};
-//
-//
-//		// 下面演示了如何构造一个LoginContext
-//		LoginChannel loginChannel = new LoginChannel();
-//		loginChannel.setClientName("dev_test");
-//		loginChannel.setServiceBeanName(this.getBeanName());
-//		loginChannel.setServiceMethodName("exampleLoginByAccountPassword");
-//
-//		LoginData loginData = new LoginData();
-//		loginData.setLoginId(acct);
-//		loginData.setPassword(password);
-//
-//		LoginContext loginContext = new LoginContext();
-//		loginContext.setLoginChannel(loginChannel);
-//		loginContext.setLoginData(loginData);
-//		loginContext.setLoginMethod(LoginMethod.PASSWORD);
-//
-//		// 调用登录处理
-//		LoginResult loginResult = this.doLogin(userContext, loginContext, bizHandler);
-//
-//		// 根据登录结果
-//		if (loginResult.isSuccess()) {
-//			return loginResult.getLoginContext().getLoginTarget().getUserApp();
-//		}
-//		if (loginResult.isNewUser()) {
-//			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-//		}
-//		return new LoginForm();
-//	}
-//
-//	protected Object onFailExample(RetailscmUserContextImpl userContext, LoginContext loginContext, LoginResult loginResult,
-//			IdentificationHandler idHandler, BusinessHandler bizHandler) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	protected Object onNewExample(RetailscmUserContextImpl userContext, LoginContext loginContext, LoginResult loginResult,
-//			IdentificationHandler idHandler, BusinessHandler bizHandler) {
-//		// 新用户来了,我也不知道该干嘛,所以报错
-//		loginResult.setSuccess(false);
-//		loginResult.setMessage("新用户自己去登录");
-//		return null;
-//	}
-//	protected Object onSuccessExample(RetailscmUserContextImpl userContext, LoginContext loginContext, LoginResult loginResult,
-//			IdentificationHandler idHandler, BusinessHandler bizHandler) {
-//		// 成功了就直接记载第一个userApp
-//		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-//		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppBySecUser(secUser.getId(), EO);
-//		loginResult.getLoginContext().getLoginTarget().setUserApp(userApps.first().updateSecUser(secUser));
-//		return null;
-//	}
+	public Object forceLoginAs(RetailscmUserContextImpl userContext, BaseEntity loginTarget, BusinessHandler bizHandler) throws Exception {
+      if (userContext.isProductEnvironment()) {
+        throw new Exception("只有测试环境才可使用此方法");
+      }
+      UserApp userApp = RetailscmUserContextImpl.getUserAppByBindedEntity(userContext, loginTarget);
+      if (userApp == null){
+        throw new Exception(loginTarget.fullId()+"还没有绑定userApp");
+      }
+      SecUser secUser = userApp.getSecUser();
+      LoginResult loginResult = new LoginResult();
+
+      LoginContext loginContext = new LoginContext();
+      loginContext.setLoginChannel(LoginChannel.of("debug", null, "testLogin"));
+      LoginTarget lgTarget = new LoginTarget();
+      lgTarget.setUserApp(userApp);
+      lgTarget.setSecUser(secUser);
+      loginContext.setLoginTarget(lgTarget);
+      loginResult.setLoginContext(loginContext);
+      loginResult.setSuccess(true);
+      loginResult.setAuthenticated(true);
+      loginResult.setMessage("测试登录");
+      loginResult.setNewUser(false);
+
+      onAuthenticateUserLogged(userContext, loginContext, loginResult, null, bizHandler);
+      return loginResult;
+    }
+
+    public void selectUserApp(RetailscmUserContext userContext, UserApp userApp) throws Exception {
+      RetailscmUserContextImpl ctx = (RetailscmUserContextImpl)userContext;
+      String key = getLoginInfoCacheKey(ctx);
+      Map<String, Object> loginInfo = ctx.getCachedObject(key, Map.class);
+      loginInfo.put("userApp", userApp.getId());
+      ctx.putToCache(key, loginInfo, getUserTtlInSecond());
+    }
+
 }
 
 

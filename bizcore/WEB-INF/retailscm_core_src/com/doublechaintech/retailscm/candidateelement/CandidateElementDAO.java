@@ -44,13 +44,15 @@ public interface CandidateElementDAO extends BaseDAO{
 	public void delete(String candidateElementId, int version) throws Exception;
 	public CandidateElement disconnectFromAll(String candidateElementId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<CandidateElement> queryList(String sql, Object ... parmeters);
+	public SmartList<CandidateElement> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<CandidateElement> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateCandidateElement executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<CandidateElement> findCandidateElementByContainer(String candidateContainerId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface CandidateElementDAO extends BaseDAO{
 
 
  
+
+	List<CandidateElement> search(CandidateElementRequest pRequest);
 }
 
 

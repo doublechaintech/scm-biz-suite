@@ -1,40 +1,27 @@
 
 package com.doublechaintech.retailscm.candidatecontainer;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.candidatecontainer.CandidateContainer;import com.doublechaintech.retailscm.candidateelement.CandidateElement;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.candidateelement.CandidateElement;
-
-
-import com.doublechaintech.retailscm.candidatecontainer.CandidateContainer;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager implements CandidateContainerManager, BusinessHandler{
@@ -60,6 +47,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws CandidateContainerManagerException{
 
 		Message message = new Message();
@@ -70,133 +58,187 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 
 
 
- 	protected CandidateContainer saveCandidateContainer(RetailscmUserContext userContext, CandidateContainer candidateContainer, String [] tokensExpr) throws Exception{	
+ 	protected CandidateContainer saveCandidateContainer(RetailscmUserContext userContext, CandidateContainer candidateContainer, String [] tokensExpr) throws Exception{
  		//return getCandidateContainerDAO().save(candidateContainer, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveCandidateContainer(userContext, candidateContainer, tokens);
  	}
- 	
- 	protected CandidateContainer saveCandidateContainerDetail(RetailscmUserContext userContext, CandidateContainer candidateContainer) throws Exception{	
 
- 		
+ 	protected CandidateContainer saveCandidateContainerDetail(RetailscmUserContext userContext, CandidateContainer candidateContainer) throws Exception{
+
+
  		return saveCandidateContainer(userContext, candidateContainer, allTokens());
  	}
- 	
- 	public CandidateContainer loadCandidateContainer(RetailscmUserContext userContext, String candidateContainerId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public CandidateContainer loadCandidateContainer(RetailscmUserContext userContext, String candidateContainerId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfCandidateContainer(candidateContainerId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( CandidateContainerManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		CandidateContainer candidateContainer = loadCandidateContainer( userContext, candidateContainerId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,candidateContainer, tokens);
  	}
- 	
- 	
- 	 public CandidateContainer searchCandidateContainer(RetailscmUserContext userContext, String candidateContainerId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public CandidateContainer searchCandidateContainer(RetailscmUserContext userContext, String candidateContainerId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfCandidateContainer(candidateContainerId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( CandidateContainerManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		CandidateContainer candidateContainer = loadCandidateContainer( userContext, candidateContainerId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,candidateContainer, tokens);
  	}
- 	
- 	
+
+
 
  	protected CandidateContainer present(RetailscmUserContext userContext, CandidateContainer candidateContainer, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,candidateContainer,tokens);
-		
-		
+    
+
 		CandidateContainer  candidateContainerToPresent = candidateContainerDaoOf(userContext).present(candidateContainer, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = candidateContainerToPresent.collectRefercencesFromLists();
 		candidateContainerDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,candidateContainer,tokens);
-		
+
 		return  candidateContainerToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public CandidateContainer loadCandidateContainerDetail(RetailscmUserContext userContext, String candidateContainerId) throws Exception{	
+
+
+
+ 	public CandidateContainer loadCandidateContainerDetail(RetailscmUserContext userContext, String candidateContainerId) throws Exception{
  		CandidateContainer candidateContainer = loadCandidateContainer( userContext, candidateContainerId, allTokens());
  		return present(userContext,candidateContainer, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String candidateContainerId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String candidateContainerId) throws Exception{
  		CandidateContainer candidateContainer = loadCandidateContainer( userContext, candidateContainerId, viewTokens());
- 		return present(userContext,candidateContainer, allTokens());
-		
- 	}
- 	protected CandidateContainer saveCandidateContainer(RetailscmUserContext userContext, CandidateContainer candidateContainer, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, candidateContainer);
+ 		return present(userContext,candidateContainer, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String candidateContainerId) throws Exception{
+		CandidateContainer candidateContainer = loadCandidateContainer( userContext, candidateContainerId, viewTokens());
+		candidateContainer.summarySuffix();
+		markVisited(userContext, candidateContainer);
+ 		return present(userContext,candidateContainer, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String candidateContainerId) throws Exception{
+		CandidateContainer candidateContainer = loadCandidateContainer( userContext, candidateContainerId, analyzeTokens());
+		markVisited(userContext, candidateContainer);
+		return present(userContext,candidateContainer, analyzeTokens());
+
+	}
+ 	protected CandidateContainer saveCandidateContainer(RetailscmUserContext userContext, CandidateContainer candidateContainer, Map<String,Object>tokens) throws Exception{
+ 	
  		return candidateContainerDaoOf(userContext).save(candidateContainer, tokens);
  	}
- 	protected CandidateContainer loadCandidateContainer(RetailscmUserContext userContext, String candidateContainerId, Map<String,Object>tokens) throws Exception{	
+ 	protected CandidateContainer loadCandidateContainer(RetailscmUserContext userContext, String candidateContainerId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfCandidateContainer(candidateContainerId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( CandidateContainerManagerException.class);
 
- 
+
+
  		return candidateContainerDaoOf(userContext).load(candidateContainerId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, CandidateContainer candidateContainer, Map<String, Object> tokens){
 		super.addActions(userContext, candidateContainer, tokens);
-		
+
 		addAction(userContext, candidateContainer, tokens,"@create","createCandidateContainer","createCandidateContainer/","main","primary");
 		addAction(userContext, candidateContainer, tokens,"@update","updateCandidateContainer","updateCandidateContainer/"+candidateContainer.getId()+"/","main","primary");
 		addAction(userContext, candidateContainer, tokens,"@copy","cloneCandidateContainer","cloneCandidateContainer/"+candidateContainer.getId()+"/","main","primary");
-		
+
 		addAction(userContext, candidateContainer, tokens,"candidate_container.addCandidateElement","addCandidateElement","addCandidateElement/"+candidateContainer.getId()+"/","candidateElementList","primary");
 		addAction(userContext, candidateContainer, tokens,"candidate_container.removeCandidateElement","removeCandidateElement","removeCandidateElement/"+candidateContainer.getId()+"/","candidateElementList","primary");
 		addAction(userContext, candidateContainer, tokens,"candidate_container.updateCandidateElement","updateCandidateElement","updateCandidateElement/"+candidateContainer.getId()+"/","candidateElementList","primary");
 		addAction(userContext, candidateContainer, tokens,"candidate_container.copyCandidateElementFrom","copyCandidateElementFrom","copyCandidateElementFrom/"+candidateContainer.getId()+"/","candidateElementList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, CandidateContainer candidateContainer, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<CandidateContainer> searchCandidateContainerList(RetailscmUserContext ctx, CandidateContainerRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<CandidateContainer> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public CandidateContainer searchCandidateContainer(RetailscmUserContext ctx, CandidateContainerRequest pRequest){
+    pRequest.limit(0, 1);
+    List<CandidateContainer> list = searchCandidateContainerList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public CandidateContainer createCandidateContainer(RetailscmUserContext userContext, String name) throws Exception
-	//public CandidateContainer createCandidateContainer(RetailscmUserContext userContext,String name) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfCandidateContainer(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
+
 
 
 		CandidateContainer candidateContainer=createNewCandidateContainer();	
@@ -220,20 +262,22 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfCandidateContainer(candidateContainerId);
 		checkerOf(userContext).checkVersionOfCandidateContainer( candidateContainerVersion);
-		
+
 
 		if(CandidateContainer.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfCandidateContainer(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
+
 
 
 	}
@@ -262,6 +306,8 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 			if (candidateContainer.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixCandidateContainer(candidateContainer);
 			candidateContainer = saveCandidateContainer(userContext, candidateContainer, options);
 			return candidateContainer;
 
@@ -328,10 +374,16 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> allTokens(){
 		return CandidateContainerTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortCandidateElementListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortCandidateElementListWith(CandidateElement.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -383,27 +435,25 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 
 
 
-
-
-
 	protected void checkParamsForAddingCandidateElement(RetailscmUserContext userContext, String candidateContainerId, String name, String type, String image,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfCandidateContainer(candidateContainerId);
 
-		
+
 		checkerOf(userContext).checkNameOfCandidateElement(name);
-		
+
 		checkerOf(userContext).checkTypeOfCandidateElement(type);
-		
+
 		checkerOf(userContext).checkImageOfCandidateElement(image);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
+
 
 
 	}
 	public  CandidateContainer addCandidateElement(RetailscmUserContext userContext, String candidateContainerId, String name, String type, String image, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingCandidateElement(userContext,candidateContainerId,name, type, image,tokensExpr);
 
 		CandidateElement candidateElement = createCandidateElement(userContext,name, type, image);
@@ -428,7 +478,9 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkTypeOfCandidateElement( type);
 		checkerOf(userContext).checkImageOfCandidateElement( image);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
+
 
 	}
 	public  CandidateContainer updateCandidateElementProperties(RetailscmUserContext userContext, String candidateContainerId, String id,String name,String type,String image, String [] tokensExpr) throws Exception
@@ -497,6 +549,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 			checkerOf(userContext).checkIdOfCandidateElement(candidateElementIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
 
 	}
@@ -523,7 +576,9 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfCandidateContainer( candidateContainerId);
 		checkerOf(userContext).checkIdOfCandidateElement(candidateElementId);
 		checkerOf(userContext).checkVersionOfCandidateElement(candidateElementVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
+
 
 	}
 	public  CandidateContainer removeCandidateElement(RetailscmUserContext userContext, String candidateContainerId,
@@ -550,7 +605,9 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		checkerOf(userContext).checkIdOfCandidateContainer( candidateContainerId);
 		checkerOf(userContext).checkIdOfCandidateElement(candidateElementId);
 		checkerOf(userContext).checkVersionOfCandidateElement(candidateElementVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
+
 
 	}
 	public  CandidateContainer copyCandidateElementFrom(RetailscmUserContext userContext, String candidateContainerId,
@@ -578,7 +635,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 	protected void checkParamsForUpdatingCandidateElement(RetailscmUserContext userContext, String candidateContainerId, String candidateElementId, int candidateElementVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfCandidateContainer(candidateContainerId);
 		checkerOf(userContext).checkIdOfCandidateElement(candidateElementId);
 		checkerOf(userContext).checkVersionOfCandidateElement(candidateElementVersion);
@@ -597,7 +654,9 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(CandidateContainerManagerException.class);
+
 
 	}
 
@@ -628,6 +687,7 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 			candidateElement.changeProperty(property, newValueExpr);
 			
 			candidateContainer = saveCandidateContainer(userContext, candidateContainer, tokens().withCandidateElementList().done());
+			candidateElementManagerOf(userContext).onUpdated(userContext, candidateElement, this, "updateCandidateElement");
 			return present(userContext,candidateContainer, mergedAllTokens(tokensExpr));
 		}
 
@@ -660,116 +720,13 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-    if (methodName.equals("ensureModelInDB")){
-      return false;
-    }
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -792,28 +749,21 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, CandidateContainer.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, CandidateContainer.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -834,11 +784,11 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String candidateContainerId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getCandidateContainerDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		CandidateContainer merchantObj = (CandidateContainer) this.view(userContext, candidateContainerId);
     String merchantObjId = candidateContainerId;
     String linkToUrl =	"candidateContainerManager/wxappview/" + merchantObjId + "/";
-    String pageTitle = "候选人容器"+"详情";
+    String pageTitle = "候选容器"+"详情";
 		Map result = new HashMap();
 		List propList = new ArrayList();
 		List sections = new ArrayList();
@@ -880,8 +830,6 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		sections.add(candidateElementListSection);
 
 		result.put("candidateElementListSection", ListofUtils.toShortList(merchantObj.getCandidateElementList(), "candidateElement"));
-		vscope.field("candidateElementListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( CandidateElement.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -896,8 +844,19 @@ public class CandidateContainerManagerImpl extends CustomRetailscmCheckerManager
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

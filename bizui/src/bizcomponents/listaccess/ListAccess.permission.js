@@ -31,14 +31,9 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{listAccess.id}</Description> 
+<Description term="ID">{listAccess.id}</Description> 
 <Description term="名称">{listAccess.name}</Description> 
 <Description term="内部名称">{listAccess.internalName}</Description> 
-<Description term="读权限">{listAccess.readPermission}</Description> 
-<Description term="创建权限">{listAccess.createPermission}</Description> 
-<Description term="删除权限">{listAccess.deletePermission}</Description> 
-<Description term="更新权限">{listAccess.updatePermission}</Description> 
-<Description term="执行权限">{listAccess.executionPermission}</Description> 
 	
       </DescriptionList>
 	)
@@ -64,8 +59,8 @@ class ListAccessPermission extends Component {
     // eslint-disable-next-line max-len
     const  listAccess = this.props.listAccess
     const { id,displayName,  } = listAccess
-    const  returnURL = `/listAccess/${id}/dashboard`
-    const cardsData = {cardsName:"访问列表",cardsFor: "listAccess",cardsSource: listAccess,displayName,returnURL,
+    const  returnURL = `/listAccess/${id}/workbench`
+    const cardsData = {cardsName:"列表访问控制",cardsFor: "listAccess",cardsSource: listAccess,displayName,returnURL,
   		subItems: [
     
       	],
@@ -77,10 +72,10 @@ class ListAccessPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

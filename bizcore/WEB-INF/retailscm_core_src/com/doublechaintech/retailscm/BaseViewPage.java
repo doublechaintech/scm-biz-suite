@@ -3,14 +3,10 @@ package com.doublechaintech.retailscm;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.Callable;
+import java.util.function.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,26 +14,38 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.terapico.caf.viewcomponent.BaseViewComponent;
-import com.terapico.caf.viewcomponent.ButtonViewComponent;
-import com.terapico.caf.viewcomponent.FilterTabsViewComponent;
-import com.terapico.caf.viewcomponent.PopupViewComponent;
+import com.terapico.caf.viewcomponent.*;
 import com.terapico.caf.viewpage.SerializeScope;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.TextUtil;
+import com.terapico.utils.*;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class BaseViewPage extends HashMap<String, Object> {
 	public static final String X_EMPTY_MESSAGE = "emptyMessage";
 	public static final String X_NEXT_PAGE_URL = "nextPageUrl";
-	private static final boolean OBJECT_HASHCODE = false;
+	public static final String[] EMPTY_STRING_ARRAY = new String[0];
+	protected static final boolean OBJECT_HASHCODE = false;
 	protected static final AtomicInteger listSeq = new AtomicInteger(0);
+	protected String[] getMayRequestUrls() {
+    return EMPTY_STRING_ARRAY;
+  }
   protected static int getListSeq(){
     int x = listSeq.getAndAdd(1);
     if (x > 10000000){
       listSeq.set(1);
     }
     return x;
+  }
+
+  protected <T> T orNull(Callable<T> call) {
+      return RetailscmBaseUtils.orNull(call);
+  }
+
+  protected <T> T ifNull(T call, T defaultValue) {
+      return RetailscmBaseUtils.ifNull(call, defaultValue);
+  }
+
+  protected <T> T orElse(Callable<T> call, T defaultValue) {
+       return RetailscmBaseUtils.orElse(call, defaultValue);
   }
 
 	public static Map<String, Object> makeToast(String content, int duration, String type) {
@@ -108,11 +116,13 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	public void assemblerContent(RetailscmUserContext userContext, String requestName) throws Exception {
 		setPageTitle("尚未实现");
 	}
-	public Map<String, Object> doRender(RetailscmUserContext userContext) {
+	public Object doRender(RetailscmUserContext userContext) {
 		this.userContext = userContext;
 		beforeDoRendering();
 		doRendering();
-		this.userContext.forceResponseXClassHeader(this.getClass().getName());
+    if (userContext.getResponseHeadder("X-Class") == null) {
+      userContext.forceResponseXClassHeader(this.getClass().getName());
+    }
 		afterDoRendering();
 		return this;
 	}
@@ -218,7 +228,11 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	protected void doRendering() {
 		SerializeScope srlScope = getSerializeScope();
 		ensureDataPool();
-		addFieldToOwner(this, null, "pageTitle", this.getPageTitle());
+		if (userContext.isProductEnvironment()) {
+      addFieldToOwner(this, null, "pageTitle", this.getPageTitle());
+    } else {
+      addFieldToOwner(this, null, "pageTitle", "当前:" + this.getPageTitle());
+    }
 		doRenderingMap(this, srlScope, dataPool, "/");
 	}
 
@@ -566,6 +580,9 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	protected void forceResponseAsListOfPage() {
 		userContext.forceResponseXClassHeader("com.terapico.appview.ListOfPage");
 	}
+	protected void forceResponseAsDetailPage() {
+    userContext.forceResponseXClassHeader("com.terapico.appview.DetailPage");
+  }
 
 	protected FilterTabsViewComponent createTabs(List<KeyValuePair> codeNameList, String filter, String baseUrl) {
 		FilterTabsViewComponent tabs = new FilterTabsViewComponent();
@@ -575,7 +592,163 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		tabs.setActiveTab(filter);
 		return tabs;
 	}
+
+	protected void addTab(String code, String title, String linkToUrl, boolean selected) {
+      addTab(code, title, null, linkToUrl, selected);
+  }
+  protected void addTab(String code, String title, String tips, String linkToUrl, boolean selected) {
+      ensureDataPool();
+      List<Map<String, Object>> tabs = (List<Map<String, Object>>) dataPool.get("tabs");
+      if (tabs == null){
+          tabs = new ArrayList<>();
+          set("tabs", tabs);
+      }
+      tabs.add(MapUtil.put("title", title)
+              .put("code", code)
+              .putIf(selected,"selected", selected)
+              .putIf("tips", tips)
+              .put("linkToUrl", linkToUrl)
+              .into_map()		);
+  }
+
+  protected void debug(String format, Object ... params) {
+      debug_on(1, format, params);
+  }
+
+  protected void debug_on(int upLevel, String format, Object ... params) {
+      StackTraceElement st = new Throwable().getStackTrace()[upLevel + 1];
+      if (format != null){
+          format = String.format("[%s:%d] %s", st.getFileName(), st.getLineNumber(), format);
+          System.out.printf((format) + "%n", params);
+          return;
+      }
+
+      StringBuilder sb = new StringBuilder(String.format("[%s:%d] ", st.getFileName(), st.getLineNumber()));
+      if (params != null && params.length > 0) {
+          sb.append(Arrays.asList(params).toString());
+      }
+      System.out.println(sb.toString());
+  }
+
+  protected void error(String format, Object ... params) throws RetailscmException {
+      error_on(1, format, params);
+  }
+
+  protected void error_on(int upLevel, String format, Object ... params) throws RetailscmException {
+      StackTraceElement st = new Throwable().getStackTrace()[upLevel + 1];
+      if (format != null){
+          format = String.format("[%s:%d] %s", st.getFileName(), st.getLineNumber(), format);
+          String message = String.format((format) + "%n", params);
+          throw new RetailscmException(message);
+      }
+
+      StringBuilder sb = new StringBuilder(String.format("[%s:%d] ", st.getFileName(), st.getLineNumber()));
+      if (params != null && params.length > 0) {
+          sb.append(Arrays.asList(params).toString());
+      }
+      throw new RetailscmException(sb.toString());
+  }
+
+  protected <T extends BaseEntity> void assembleList(
+        String listName,
+        SmartList<T> list,
+        Function<T, Object> itemMaker,
+        String emptyMessage,
+        String nextPageUrl) {
+      assembleList(listName, list, (item, idx) -> itemMaker.apply(item), emptyMessage, nextPageUrl);
+    }
+    protected <T extends BaseEntity> void assembleList(
+            String listName,
+            SmartList<T> list,
+            Function<T, Object> itemMaker,
+            String emptyMessage,
+            String nextPageUrl, boolean putInContainer) {
+      assembleList(listName, list, (item, idx) -> itemMaker.apply(item), emptyMessage, nextPageUrl, putInContainer);
+    }
+
+    protected <T extends BaseEntity> void assembleList(String listName, SmartList<T> list,
+            BiFunction<T, Integer, Object> itemMaker,
+            String emptyMessage,String nextPageUrl) {
+        assembleList(listName, list, itemMaker, emptyMessage, nextPageUrl, true);
+    }
+  protected <T extends BaseEntity> void assembleList(String listName, SmartList<T> list, BiFunction<T, Integer, Object> itemMaker,
+                                                     String emptyMessage, String nextPageUrl,boolean putInContainer) {
+      if (list == null || list.isEmpty()){
+          put(listName+"Meta", MapUtil.put(BaseViewPage.X_EMPTY_MESSAGE, emptyMessage)
+                  .put("hasNextPage", false).put(X_NEXT_PAGE_URL, "")
+                  .into_map()
+          );
+          put(BaseViewPage.X_EMPTY_MESSAGE, emptyMessage);
+          put(listName, new ArrayList<>());
+          return;
+      }
+      // Meta
+      if (list.size() > list.getRowsPerPage()) {
+          put(listName+"Meta", MapUtil.put("hasNextPage", true)
+                  .put(X_NEXT_PAGE_URL, nextPageUrl)
+                  .into_map()
+          );
+          CollectionUtils.shortList(list, list.getRowsPerPage());
+      }else{
+          put(listName+"Meta", MapUtil.put("hasNextPage", false).put(X_NEXT_PAGE_URL, "").into_map());
+      }
+
+      List<Object> idList = new ArrayList<>();
+      for (int i = 0; i < list.size(); i++) {
+        T baseEntity = list.get(i);
+        Object obj = itemMaker.apply(baseEntity, i);
+        if (obj == null){
+          continue;
+        }
+        if (putInContainer) {
+          String key = baseEntity.fullId();
+          idList.add(MapUtil.put("id", key).into_map());
+          this.addToDataContainer(key, obj);
+        } else if (obj instanceof List) {
+          idList.addAll((List<?>) obj);
+        }else {
+          idList.add(obj);
+        }
+      }
+      set(listName, idList);
+  }
+    protected VComponentAction addFooterAction(String title, String code, String linkToUrl) {
+        return addAction(title, code, linkToUrl, "footer");
+    }
+
+    protected VComponentAction addAction(String title, String code, String linkToUrl) {
+        return addAction(title, code, linkToUrl, null);
+    }
+    protected VComponentAction addAction(String title, String code, String linkToUrl, String group) {
+      VComponentAction action =
+          new VComponentAction().title(title).code(code).linkToUrl(linkToUrl).group(group);
+      List<VComponentAction> footActionList = (List<VComponentAction>) this.get("actionList");
+      return addAction(action);
+    }
+
+    protected <T> T addAction(T action) {
+      List<T> footActionList = (List<T>) this.get("actionList");
+      if (footActionList == null) {
+        footActionList = new ArrayList<>();
+        this.put("actionList", footActionList);
+      }
+      footActionList.add(action);
+      return action;
+    }
+
+    protected void addDummyActions() {
+      String[] dummyLinks = getMayRequestUrls();
+      if (dummyLinks == null || dummyLinks.length == 0) {
+        return;
+      }
+      for (int i = 0; i < dummyLinks.length; i++) {
+        String dummyLink = dummyLinks[i];
+        int pos = dummyLink.indexOf(":");
+        addFooterAction(dummyLink.substring(0, pos)+"X", "a"+i, dummyLink.substring(pos+1));
+      }
+    }
 }
+
 
 
 

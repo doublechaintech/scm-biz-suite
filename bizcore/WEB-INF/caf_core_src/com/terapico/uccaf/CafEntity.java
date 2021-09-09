@@ -1,5 +1,8 @@
 package com.terapico.uccaf;
 
+import com.terapico.caf.baseelement.MemberMetaInfo;
+
+import java.util.List;
 import java.util.Map;
 
 public interface CafEntity {
@@ -10,4 +13,7 @@ public interface CafEntity {
 	public Object  valueByKey(String key);
 	int getVersion();
 	String getInternalType();
+	String viewSuffix();
+	default List<MemberMetaInfo> getMemberMetaInfoList(){return null;};
 }
+

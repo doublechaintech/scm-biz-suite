@@ -31,7 +31,7 @@ const internalSummaryOf = (potentialCustomerContactPerson,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{potentialCustomerContactPerson.id}</Description> 
+<Description term="ID">{potentialCustomerContactPerson.id}</Description> 
 <Description term="名称">{potentialCustomerContactPerson.name}</Description> 
 <Description term="手机">{potentialCustomerContactPerson.mobile}</Description> 
 <Description term="描述">{potentialCustomerContactPerson.description}</Description> 
@@ -60,7 +60,7 @@ class PotentialCustomerContactPersonPermission extends Component {
     // eslint-disable-next-line max-len
     const  potentialCustomerContactPerson = this.props.potentialCustomerContactPerson
     const { id,displayName, potentialCustomerContactCount } = potentialCustomerContactPerson
-    const  returnURL = `/potentialCustomerContactPerson/${id}/dashboard`
+    const  returnURL = `/potentialCustomerContactPerson/${id}/workbench`
     const cardsData = {cardsName:"潜在客户联络人",cardsFor: "potentialCustomerContactPerson",cardsSource: potentialCustomerContactPerson,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class PotentialCustomerContactPersonPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

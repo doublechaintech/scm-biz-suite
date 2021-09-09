@@ -44,13 +44,15 @@ public interface ProductSupplyDurationDAO extends BaseDAO{
 	public void delete(String productSupplyDurationId, int version) throws Exception;
 	public ProductSupplyDuration disconnectFromAll(String productSupplyDurationId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<ProductSupplyDuration> queryList(String sql, Object ... parmeters);
+	public SmartList<ProductSupplyDuration> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<ProductSupplyDuration> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateProductSupplyDuration executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<ProductSupplyDuration> findProductSupplyDurationByProduct(String supplierProductId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface ProductSupplyDurationDAO extends BaseDAO{
 
 
  
+
+	List<ProductSupplyDuration> search(ProductSupplyDurationRequest pRequest);
 }
 
 

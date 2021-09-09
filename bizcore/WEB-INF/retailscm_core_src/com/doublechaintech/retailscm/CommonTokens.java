@@ -20,6 +20,26 @@ public class CommonTokens {
 		ensureOptions();
 		return options;
 	}
+
+	protected boolean isViewGroupOneOf(String viewGroupName, String candiatesViewGroups[]){
+		return isOneOf(viewGroupName,candiatesViewGroups);
+	}
+
+	protected boolean isOneOf(String value, String candiates[]){
+		if(value==null){
+			return false;
+		}
+		if(candiates==null){
+			return false;
+		}
+		for(String candidate:candiates){
+		  if(value.equals(candidate)){
+			  return true;
+		  	}
+	  	}
+	  	return false;
+	}
+
 	public CommonTokens merge(CommonTokens tokens){
 		Set<Entry<String, Object>> entrySet = tokens.options.entrySet();
 		

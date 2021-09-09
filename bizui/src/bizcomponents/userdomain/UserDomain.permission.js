@@ -31,7 +31,7 @@ const internalSummaryOf = (userDomain,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{userDomain.id}</Description> 
+<Description term="ID">{userDomain.id}</Description> 
 <Description term="名称">{userDomain.name}</Description> 
 	
       </DescriptionList>
@@ -57,11 +57,11 @@ class UserDomainPermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  userDomain = this.props.userDomain
-    const { id,displayName, userWhiteListCount, secUserCount, publicKeyTypeCount } = userDomain
-    const  returnURL = `/userDomain/${id}/dashboard`
+    const { id,displayName, userAllowListCount, secUserCount, publicKeyTypeCount } = userDomain
+    const  returnURL = `/userDomain/${id}/workbench`
     const cardsData = {cardsName:"用户域",cardsFor: "userDomain",cardsSource: userDomain,displayName,returnURL,
   		subItems: [
-{name: 'userWhiteListList', displayName:'用户白名单',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList', data: userDomain.userWhiteListList},
+{name: 'userAllowListList', displayName:'用户权限列表',type:'userAllowList',count:userAllowListCount,addFunction: true, role: 'userAllowList', data: userDomain.userAllowListList},
     
       	],
   	};
@@ -72,10 +72,10 @@ class UserDomainPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

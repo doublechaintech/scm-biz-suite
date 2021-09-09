@@ -1,5 +1,7 @@
 package com.terapico.utils;
 
+import com.terapico.caf.DateTime;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -26,6 +28,9 @@ public class DateTimeBuilder {
 	}
 	public Date getDate() {
 		return Date.from(workingDate.atZone(zoneId).toInstant());
+	}
+	public DateTime getDateTime() {
+		return DateTime.fromDate(getDate());
 	}
 	public LocalDateTime getLocalDateTime() {
 		return workingDate;

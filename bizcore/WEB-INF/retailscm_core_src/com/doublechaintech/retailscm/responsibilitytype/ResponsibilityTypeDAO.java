@@ -46,6 +46,7 @@ public interface ResponsibilityTypeDAO extends BaseDAO{
 	public void delete(String responsibilityTypeId, int version) throws Exception;
 	public ResponsibilityType disconnectFromAll(String responsibilityTypeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeDAO getEmployeeDAO();
 		
@@ -73,9 +74,10 @@ public interface ResponsibilityTypeDAO extends BaseDAO{
 	public int countEmployeeListWithCurrentSalaryGrade(String responsibilityTypeId, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<ResponsibilityType> queryList(String sql, Object ... parmeters);
+	public SmartList<ResponsibilityType> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<ResponsibilityType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateResponsibilityType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -89,6 +91,8 @@ public interface ResponsibilityTypeDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Employee的responsibleFor的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<ResponsibilityType> us, Map<String,Object> options) throws Exception;
 	
+
+	List<ResponsibilityType> search(ResponsibilityTypeRequest pRequest);
 }
 
 
