@@ -44,13 +44,15 @@ public interface RetailStoreOrderShippingGroupDAO extends BaseDAO{
 	public void delete(String retailStoreOrderShippingGroupId, int version) throws Exception;
 	public RetailStoreOrderShippingGroup disconnectFromAll(String retailStoreOrderShippingGroupId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<RetailStoreOrderShippingGroup> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreOrderShippingGroup> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreOrderShippingGroup> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreOrderShippingGroup executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreOrderShippingGroup> findRetailStoreOrderShippingGroupByBizOrder(String retailStoreOrderId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface RetailStoreOrderShippingGroupDAO extends BaseDAO{
 
 
  
+
+	List<RetailStoreOrderShippingGroup> search(RetailStoreOrderShippingGroupRequest pRequest);
 }
 
 

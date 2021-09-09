@@ -6,383 +6,761 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+
+
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterDAO;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterTokens;
+
 import com.doublechaintech.retailscm.catalog.Catalog;
+
+
 import com.doublechaintech.retailscm.catalog.CatalogDAO;
 import com.doublechaintech.retailscm.catalog.CatalogTokens;
+
 import com.doublechaintech.retailscm.levelonecategory.LevelOneCategory;
+
+
 import com.doublechaintech.retailscm.levelonecategory.LevelOneCategoryDAO;
 import com.doublechaintech.retailscm.levelonecategory.LevelOneCategoryTokens;
+
 import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategory;
+
+
 import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategoryDAO;
 import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategoryTokens;
+
 import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategory;
+
+
 import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategoryDAO;
 import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategoryTokens;
+
 import com.doublechaintech.retailscm.product.Product;
+
+
 import com.doublechaintech.retailscm.product.ProductDAO;
 import com.doublechaintech.retailscm.product.ProductTokens;
+
 import com.doublechaintech.retailscm.sku.Sku;
+
+
 import com.doublechaintech.retailscm.sku.SkuDAO;
 import com.doublechaintech.retailscm.sku.SkuTokens;
+
 import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenter;
+
+
 import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenterDAO;
 import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenterTokens;
+
 import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartment;
+
+
 import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartmentDAO;
 import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartmentTokens;
+
 import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmployee;
+
+
 import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmployeeDAO;
 import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmployeeTokens;
+
 import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
+
+
 import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenterDAO;
 import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenterTokens;
+
 import com.doublechaintech.retailscm.citypartner.CityPartner;
+
+
 import com.doublechaintech.retailscm.citypartner.CityPartnerDAO;
 import com.doublechaintech.retailscm.citypartner.CityPartnerTokens;
+
 import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;
+
+
 import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerDAO;
 import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerTokens;
+
 import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPerson;
+
+
 import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPersonDAO;
 import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPersonTokens;
+
 import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContact;
+
+
 import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContactDAO;
 import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContactTokens;
+
 import com.doublechaintech.retailscm.cityevent.CityEvent;
+
+
 import com.doublechaintech.retailscm.cityevent.CityEventDAO;
 import com.doublechaintech.retailscm.cityevent.CityEventTokens;
+
 import com.doublechaintech.retailscm.eventattendance.EventAttendance;
+
+
 import com.doublechaintech.retailscm.eventattendance.EventAttendanceDAO;
 import com.doublechaintech.retailscm.eventattendance.EventAttendanceTokens;
+
 import com.doublechaintech.retailscm.retailstore.RetailStore;
+
+
 import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 import com.doublechaintech.retailscm.retailstore.RetailStoreTokens;
+
 import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreation;
+
+
 import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreationDAO;
 import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreationTokens;
+
 import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;
+
+
 import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitationDAO;
 import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitationTokens;
+
 import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;
+
+
 import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchisingDAO;
 import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchisingTokens;
+
 import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecoration;
+
+
 import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecorationDAO;
 import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecorationTokens;
+
 import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpening;
+
+
 import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpeningDAO;
 import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpeningTokens;
+
 import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;
+
+
 import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosingDAO;
 import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosingTokens;
+
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
+
+
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberTokens;
+
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
+
+
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrderTokens;
+
 import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItem;
+
+
 import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItemDAO;
 import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItemTokens;
+
 import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroup;
+
+
 import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroupDAO;
 import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroupTokens;
+
 import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroup;
+
+
 import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroupDAO;
 import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroupTokens;
+
 import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustment;
+
+
 import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustmentDAO;
 import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustmentTokens;
+
 import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCoupon;
+
+
 import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCouponDAO;
 import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCouponTokens;
+
 import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;
+
+
 import com.doublechaintech.retailscm.memberwishlist.MemberWishlistDAO;
 import com.doublechaintech.retailscm.memberwishlist.MemberWishlistTokens;
+
 import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPoint;
+
+
 import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPointDAO;
 import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPointTokens;
+
 import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemption;
+
+
 import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemptionDAO;
 import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemptionTokens;
+
 import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProduct;
+
+
 import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProductDAO;
 import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProductTokens;
+
 import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddress;
+
+
 import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddressDAO;
 import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddressTokens;
+
 import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;
+
+
 import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCardDAO;
 import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCardTokens;
+
 import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecord;
+
+
 import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecordDAO;
 import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecordTokens;
+
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
+
+
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierDAO;
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierTokens;
+
 import com.doublechaintech.retailscm.supplierproduct.SupplierProduct;
+
+
 import com.doublechaintech.retailscm.supplierproduct.SupplierProductDAO;
 import com.doublechaintech.retailscm.supplierproduct.SupplierProductTokens;
+
 import com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDuration;
+
+
 import com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDurationDAO;
 import com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDurationTokens;
+
 import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
+
+
 import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
 import com.doublechaintech.retailscm.supplyorder.SupplyOrderTokens;
+
 import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItem;
+
+
 import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemDAO;
 import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemTokens;
+
 import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroup;
+
+
 import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroupDAO;
 import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroupTokens;
+
 import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroup;
+
+
 import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroupDAO;
 import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroupTokens;
+
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
+
+
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderDAO;
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderTokens;
+
 import com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItem;
+
+
 import com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItemDAO;
 import com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItemTokens;
+
 import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroup;
+
+
 import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroupDAO;
 import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroupTokens;
+
 import com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroup;
+
+
 import com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroupDAO;
 import com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroupTokens;
+
 import com.doublechaintech.retailscm.warehouse.Warehouse;
+
+
 import com.doublechaintech.retailscm.warehouse.WarehouseDAO;
 import com.doublechaintech.retailscm.warehouse.WarehouseTokens;
+
 import com.doublechaintech.retailscm.storagespace.StorageSpace;
+
+
 import com.doublechaintech.retailscm.storagespace.StorageSpaceDAO;
 import com.doublechaintech.retailscm.storagespace.StorageSpaceTokens;
+
 import com.doublechaintech.retailscm.smartpallet.SmartPallet;
+
+
 import com.doublechaintech.retailscm.smartpallet.SmartPalletDAO;
 import com.doublechaintech.retailscm.smartpallet.SmartPalletTokens;
+
 import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
+
+
 import com.doublechaintech.retailscm.goodsshelf.GoodsShelfDAO;
 import com.doublechaintech.retailscm.goodsshelf.GoodsShelfTokens;
+
 import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCount;
+
+
 import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountDAO;
 import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountTokens;
+
 import com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrack;
+
+
 import com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrackDAO;
 import com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrackTokens;
+
 import com.doublechaintech.retailscm.goodsallocation.GoodsAllocation;
+
+
 import com.doublechaintech.retailscm.goodsallocation.GoodsAllocationDAO;
 import com.doublechaintech.retailscm.goodsallocation.GoodsAllocationTokens;
+
 import com.doublechaintech.retailscm.goods.Goods;
+
+
 import com.doublechaintech.retailscm.goods.GoodsDAO;
 import com.doublechaintech.retailscm.goods.GoodsTokens;
+
 import com.doublechaintech.retailscm.goodsmovement.GoodsMovement;
+
+
 import com.doublechaintech.retailscm.goodsmovement.GoodsMovementDAO;
 import com.doublechaintech.retailscm.goodsmovement.GoodsMovementTokens;
+
 import com.doublechaintech.retailscm.supplierspace.SupplierSpace;
+
+
 import com.doublechaintech.retailscm.supplierspace.SupplierSpaceDAO;
 import com.doublechaintech.retailscm.supplierspace.SupplierSpaceTokens;
+
 import com.doublechaintech.retailscm.receivingspace.ReceivingSpace;
+
+
 import com.doublechaintech.retailscm.receivingspace.ReceivingSpaceDAO;
 import com.doublechaintech.retailscm.receivingspace.ReceivingSpaceTokens;
+
 import com.doublechaintech.retailscm.shippingspace.ShippingSpace;
+
+
 import com.doublechaintech.retailscm.shippingspace.ShippingSpaceDAO;
 import com.doublechaintech.retailscm.shippingspace.ShippingSpaceTokens;
+
 import com.doublechaintech.retailscm.damagespace.DamageSpace;
+
+
 import com.doublechaintech.retailscm.damagespace.DamageSpaceDAO;
 import com.doublechaintech.retailscm.damagespace.DamageSpaceTokens;
+
 import com.doublechaintech.retailscm.warehouseasset.WarehouseAsset;
+
+
 import com.doublechaintech.retailscm.warehouseasset.WarehouseAssetDAO;
 import com.doublechaintech.retailscm.warehouseasset.WarehouseAssetTokens;
+
 import com.doublechaintech.retailscm.transportfleet.TransportFleet;
+
+
 import com.doublechaintech.retailscm.transportfleet.TransportFleetDAO;
 import com.doublechaintech.retailscm.transportfleet.TransportFleetTokens;
+
 import com.doublechaintech.retailscm.transporttruck.TransportTruck;
+
+
 import com.doublechaintech.retailscm.transporttruck.TransportTruckDAO;
 import com.doublechaintech.retailscm.transporttruck.TransportTruckTokens;
+
 import com.doublechaintech.retailscm.truckdriver.TruckDriver;
+
+
 import com.doublechaintech.retailscm.truckdriver.TruckDriverDAO;
 import com.doublechaintech.retailscm.truckdriver.TruckDriverTokens;
+
 import com.doublechaintech.retailscm.transporttask.TransportTask;
+
+
 import com.doublechaintech.retailscm.transporttask.TransportTaskDAO;
 import com.doublechaintech.retailscm.transporttask.TransportTaskTokens;
+
 import com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrack;
+
+
 import com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrackDAO;
 import com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrackTokens;
+
 import com.doublechaintech.retailscm.accountset.AccountSet;
+
+
 import com.doublechaintech.retailscm.accountset.AccountSetDAO;
 import com.doublechaintech.retailscm.accountset.AccountSetTokens;
+
 import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;
+
+
 import com.doublechaintech.retailscm.accountingsubject.AccountingSubjectDAO;
 import com.doublechaintech.retailscm.accountingsubject.AccountingSubjectTokens;
+
 import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
+
+
 import com.doublechaintech.retailscm.accountingperiod.AccountingPeriodDAO;
 import com.doublechaintech.retailscm.accountingperiod.AccountingPeriodTokens;
+
 import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType;
+
+
 import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTypeDAO;
 import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTypeTokens;
+
 import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
+
+
 import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
 import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentTokens;
+
 import com.doublechaintech.retailscm.originalvoucher.OriginalVoucher;
+
+
 import com.doublechaintech.retailscm.originalvoucher.OriginalVoucherDAO;
 import com.doublechaintech.retailscm.originalvoucher.OriginalVoucherTokens;
+
 import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;
+
+
 import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLineDAO;
 import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLineTokens;
+
 import com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartment;
+
+
 import com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartmentDAO;
 import com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartmentTokens;
+
 import com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartment;
+
+
 import com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartmentDAO;
 import com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartmentTokens;
+
 import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartment;
+
+
 import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartmentDAO;
 import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartmentTokens;
+
 import com.doublechaintech.retailscm.skilltype.SkillType;
+
+
 import com.doublechaintech.retailscm.skilltype.SkillTypeDAO;
 import com.doublechaintech.retailscm.skilltype.SkillTypeTokens;
+
 import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityType;
+
+
 import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityTypeDAO;
 import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityTypeTokens;
+
 import com.doublechaintech.retailscm.terminationreason.TerminationReason;
+
+
 import com.doublechaintech.retailscm.terminationreason.TerminationReasonDAO;
 import com.doublechaintech.retailscm.terminationreason.TerminationReasonTokens;
+
 import com.doublechaintech.retailscm.terminationtype.TerminationType;
+
+
 import com.doublechaintech.retailscm.terminationtype.TerminationTypeDAO;
 import com.doublechaintech.retailscm.terminationtype.TerminationTypeTokens;
+
 import com.doublechaintech.retailscm.occupationtype.OccupationType;
+
+
 import com.doublechaintech.retailscm.occupationtype.OccupationTypeDAO;
 import com.doublechaintech.retailscm.occupationtype.OccupationTypeTokens;
+
 import com.doublechaintech.retailscm.leavetype.LeaveType;
+
+
 import com.doublechaintech.retailscm.leavetype.LeaveTypeDAO;
 import com.doublechaintech.retailscm.leavetype.LeaveTypeTokens;
+
 import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
+
+
 import com.doublechaintech.retailscm.salarygrade.SalaryGradeDAO;
 import com.doublechaintech.retailscm.salarygrade.SalaryGradeTokens;
+
 import com.doublechaintech.retailscm.interviewtype.InterviewType;
+
+
 import com.doublechaintech.retailscm.interviewtype.InterviewTypeDAO;
 import com.doublechaintech.retailscm.interviewtype.InterviewTypeTokens;
+
 import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;
+
+
 import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseTypeDAO;
 import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseTypeTokens;
+
 import com.doublechaintech.retailscm.publicholiday.PublicHoliday;
+
+
 import com.doublechaintech.retailscm.publicholiday.PublicHolidayDAO;
 import com.doublechaintech.retailscm.publicholiday.PublicHolidayTokens;
+
 import com.doublechaintech.retailscm.termination.Termination;
+
+
 import com.doublechaintech.retailscm.termination.TerminationDAO;
 import com.doublechaintech.retailscm.termination.TerminationTokens;
+
 import com.doublechaintech.retailscm.view.View;
+
+
 import com.doublechaintech.retailscm.view.ViewDAO;
 import com.doublechaintech.retailscm.view.ViewTokens;
+
 import com.doublechaintech.retailscm.employee.Employee;
+
+
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 import com.doublechaintech.retailscm.employee.EmployeeTokens;
+
 import com.doublechaintech.retailscm.instructor.Instructor;
+
+
 import com.doublechaintech.retailscm.instructor.InstructorDAO;
 import com.doublechaintech.retailscm.instructor.InstructorTokens;
+
 import com.doublechaintech.retailscm.companytraining.CompanyTraining;
+
+
 import com.doublechaintech.retailscm.companytraining.CompanyTrainingDAO;
 import com.doublechaintech.retailscm.companytraining.CompanyTrainingTokens;
+
 import com.doublechaintech.retailscm.scoring.Scoring;
+
+
 import com.doublechaintech.retailscm.scoring.ScoringDAO;
 import com.doublechaintech.retailscm.scoring.ScoringTokens;
+
 import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTraining;
+
+
 import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrainingDAO;
 import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrainingTokens;
+
 import com.doublechaintech.retailscm.employeeskill.EmployeeSkill;
+
+
 import com.doublechaintech.retailscm.employeeskill.EmployeeSkillDAO;
 import com.doublechaintech.retailscm.employeeskill.EmployeeSkillTokens;
+
 import com.doublechaintech.retailscm.employeeperformance.EmployeePerformance;
+
+
 import com.doublechaintech.retailscm.employeeperformance.EmployeePerformanceDAO;
 import com.doublechaintech.retailscm.employeeperformance.EmployeePerformanceTokens;
+
 import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperience;
+
+
 import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperienceDAO;
 import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperienceTokens;
+
 import com.doublechaintech.retailscm.employeeleave.EmployeeLeave;
+
+
 import com.doublechaintech.retailscm.employeeleave.EmployeeLeaveDAO;
 import com.doublechaintech.retailscm.employeeleave.EmployeeLeaveTokens;
+
 import com.doublechaintech.retailscm.employeeinterview.EmployeeInterview;
+
+
 import com.doublechaintech.retailscm.employeeinterview.EmployeeInterviewDAO;
 import com.doublechaintech.retailscm.employeeinterview.EmployeeInterviewTokens;
+
 import com.doublechaintech.retailscm.employeeattendance.EmployeeAttendance;
+
+
 import com.doublechaintech.retailscm.employeeattendance.EmployeeAttendanceDAO;
 import com.doublechaintech.retailscm.employeeattendance.EmployeeAttendanceTokens;
+
 import com.doublechaintech.retailscm.employeequalifier.EmployeeQualifier;
+
+
 import com.doublechaintech.retailscm.employeequalifier.EmployeeQualifierDAO;
 import com.doublechaintech.retailscm.employeequalifier.EmployeeQualifierTokens;
+
 import com.doublechaintech.retailscm.employeeeducation.EmployeeEducation;
+
+
 import com.doublechaintech.retailscm.employeeeducation.EmployeeEducationDAO;
 import com.doublechaintech.retailscm.employeeeducation.EmployeeEducationTokens;
+
 import com.doublechaintech.retailscm.employeeaward.EmployeeAward;
+
+
 import com.doublechaintech.retailscm.employeeaward.EmployeeAwardDAO;
 import com.doublechaintech.retailscm.employeeaward.EmployeeAwardTokens;
+
 import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheet;
+
+
 import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheetDAO;
 import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheetTokens;
+
 import com.doublechaintech.retailscm.payingoff.PayingOff;
+
+
 import com.doublechaintech.retailscm.payingoff.PayingOffDAO;
 import com.doublechaintech.retailscm.payingoff.PayingOffTokens;
+
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
+
+
 import com.doublechaintech.retailscm.mobileapp.MobileAppDAO;
 import com.doublechaintech.retailscm.mobileapp.MobileAppTokens;
+
 import com.doublechaintech.retailscm.page.Page;
+
+
 import com.doublechaintech.retailscm.page.PageDAO;
 import com.doublechaintech.retailscm.page.PageTokens;
+
 import com.doublechaintech.retailscm.pagetype.PageType;
+
+
 import com.doublechaintech.retailscm.pagetype.PageTypeDAO;
 import com.doublechaintech.retailscm.pagetype.PageTypeTokens;
+
 import com.doublechaintech.retailscm.slide.Slide;
+
+
 import com.doublechaintech.retailscm.slide.SlideDAO;
 import com.doublechaintech.retailscm.slide.SlideTokens;
+
 import com.doublechaintech.retailscm.uiaction.UiAction;
+
+
 import com.doublechaintech.retailscm.uiaction.UiActionDAO;
 import com.doublechaintech.retailscm.uiaction.UiActionTokens;
+
 import com.doublechaintech.retailscm.section.Section;
+
+
 import com.doublechaintech.retailscm.section.SectionDAO;
 import com.doublechaintech.retailscm.section.SectionTokens;
+
 import com.doublechaintech.retailscm.userdomain.UserDomain;
+
+
 import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
 import com.doublechaintech.retailscm.userdomain.UserDomainTokens;
+
 import com.doublechaintech.retailscm.userallowlist.UserAllowList;
+
+
 import com.doublechaintech.retailscm.userallowlist.UserAllowListDAO;
 import com.doublechaintech.retailscm.userallowlist.UserAllowListTokens;
+
 import com.doublechaintech.retailscm.secuser.SecUser;
+
+
 import com.doublechaintech.retailscm.secuser.SecUserDAO;
 import com.doublechaintech.retailscm.secuser.SecUserTokens;
+
 import com.doublechaintech.retailscm.userapp.UserApp;
+
+
 import com.doublechaintech.retailscm.userapp.UserAppDAO;
 import com.doublechaintech.retailscm.userapp.UserAppTokens;
+
 import com.doublechaintech.retailscm.quicklink.QuickLink;
+
+
 import com.doublechaintech.retailscm.quicklink.QuickLinkDAO;
 import com.doublechaintech.retailscm.quicklink.QuickLinkTokens;
+
 import com.doublechaintech.retailscm.listaccess.ListAccess;
+
+
 import com.doublechaintech.retailscm.listaccess.ListAccessDAO;
 import com.doublechaintech.retailscm.listaccess.ListAccessTokens;
+
 import com.doublechaintech.retailscm.loginhistory.LoginHistory;
+
+
 import com.doublechaintech.retailscm.loginhistory.LoginHistoryDAO;
 import com.doublechaintech.retailscm.loginhistory.LoginHistoryTokens;
+
 import com.doublechaintech.retailscm.candidatecontainer.CandidateContainer;
+
+
 import com.doublechaintech.retailscm.candidatecontainer.CandidateContainerDAO;
 import com.doublechaintech.retailscm.candidatecontainer.CandidateContainerTokens;
+
 import com.doublechaintech.retailscm.candidateelement.CandidateElement;
+
+
 import com.doublechaintech.retailscm.candidateelement.CandidateElementDAO;
 import com.doublechaintech.retailscm.candidateelement.CandidateElementTokens;
+
 import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
+
+
 import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityDAO;
 import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentityTokens;
+
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
+
+
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityDAO;
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityTokens;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityTokens;
+
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
+
+
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityDAO;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityTokens;
+
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
+
+
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeDAO;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyTypeTokens;
+
 import com.doublechaintech.retailscm.treenode.TreeNode;
+
+
 import com.doublechaintech.retailscm.treenode.TreeNodeDAO;
 import com.doublechaintech.retailscm.treenode.TreeNodeTokens;
+
 
 public class DAOGroup {
 
@@ -632,7 +1010,7 @@ public class DAOGroup {
 
 	protected WechatMiniappIdentityDAO wechatMiniappIdentityDAO;
 
-	protected KeypairIdentityDAO keypairIdentityDAO;
+	protected KeyPairIdentityDAO keyPairIdentityDAO;
 
 	protected PublicKeyTypeDAO publicKeyTypeDAO;
 
@@ -1624,11 +2002,11 @@ public class DAOGroup {
 	}
 
 
-	public KeypairIdentityDAO getKeypairIdentityDAO(){
-		return this.keypairIdentityDAO;
+	public KeyPairIdentityDAO getKeyPairIdentityDAO(){
+		return this.keyPairIdentityDAO;
 	}
-	public void setKeypairIdentityDAO(KeypairIdentityDAO dao){
-		this.keypairIdentityDAO = dao;
+	public void setKeyPairIdentityDAO(KeyPairIdentityDAO dao){
+		this.keyPairIdentityDAO = dao;
 	}
 
 
@@ -4981,30 +5359,30 @@ public class DAOGroup {
 			}
 		});
 
-		internalLoaderMap.put("KeypairIdentity", new BasicLoader() {
+		internalLoaderMap.put("KeyPairIdentity", new BasicLoader() {
 			@Override
 			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
-				return daoGoup.getKeypairIdentityDAO().load(id, KeypairIdentityTokens.withoutLists());
+				return daoGoup.getKeyPairIdentityDAO().load(id, KeyPairIdentityTokens.withoutLists());
 			}
 			@Override
 			public void enhanceList(DAOGroup daoGoup, List list) throws Exception {
-				daoGoup.getKeypairIdentityDAO().enhanceList((List<KeypairIdentity>)list);
+				daoGoup.getKeyPairIdentityDAO().enhanceList((List<KeyPairIdentity>)list);
 			}
 			@Override
 			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getKeypairIdentityDAO().load(id, tokens);
+				return daoGoup.getKeyPairIdentityDAO().load(id, tokens);
 			}
 			@Override
 			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
-				return daoGoup.getKeypairIdentityDAO().present((KeypairIdentity)data, tokens);
+				return daoGoup.getKeyPairIdentityDAO().present((KeyPairIdentity)data, tokens);
 			}
 			@Override
-			public SmartList<KeypairIdentity> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
-				return daoGoup.getKeypairIdentityDAO().queryList(sql, parmeters);
+			public SmartList<KeyPairIdentity> queryList(DAOGroup daoGoup, String sql, Object ... parmeters) throws Exception {
+				return daoGoup.getKeyPairIdentityDAO().queryList(sql, parmeters);
 			}
       @Override
 			public List<BaseEntity> wrapperList(DAOGroup daoGoup, List<String> ids) throws Exception{
-				return ids.stream().map(id-> (BaseEntity)KeypairIdentity.withId(id)).collect(Collectors.toList());
+				return ids.stream().map(id-> (BaseEntity)KeyPairIdentity.withId(id)).collect(Collectors.toList());
 			}
 		});
 

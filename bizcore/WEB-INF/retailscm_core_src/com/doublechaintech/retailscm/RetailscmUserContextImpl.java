@@ -31,6 +31,24 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
 
     protected double longitude;
     protected double latitude;
+    protected SecUser secUser;
+    protected UserApp userApp;
+
+    public SecUser getSecUser() {
+      return secUser;
+    }
+
+    public void setSecUser(SecUser secUser) {
+      this.secUser = secUser;
+    }
+
+    public UserApp getUserApp() {
+      return userApp;
+    }
+
+    public void setUserApp(UserApp userApp) {
+      this.userApp = userApp;
+    }
 
     static final String RESOURCE_PATH = "com.doublechaintech.retailscm.RetailscmResources";
     static final String CUSTOM_RESOURCE_PATH = "com.doublechaintech.retailscm.RetailscmCustomResources";
@@ -131,7 +149,7 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
     public static SmartList<UserApp> getUserAppByName(RetailscmUserContext userContext,SecUser secUser,String objectName) {
         MultipleAccessKey key=new MultipleAccessKey();
         key.put(UserApp.SEC_USER_PROPERTY,secUser.getId());
-        key.put(UserApp.OBJECT_TYPE_PROPERTY,objectName);
+        key.put(UserApp.APP_TYPE_PROPERTY,objectName);
         SmartList<UserApp>appList=userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key,UserAppTokens.all());
         filterInvalidApps(appList);
         if(CollectionUtils.isEmpty(appList)){
@@ -156,8 +174,8 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
 
     public static UserApp getUserAppByBindedEntity(RetailscmUserContext userContext, BaseEntity userAppBindedObject) {
 		    MultipleAccessKey key = new MultipleAccessKey();
-		    key.put(UserApp.OBJECT_TYPE_PROPERTY, userAppBindedObject.getInternalType());
-		    key.put(UserApp.OBJECT_ID_PROPERTY, userAppBindedObject.getId());
+		    key.put(UserApp.APP_TYPE_PROPERTY, userAppBindedObject.getInternalType());
+		    key.put(UserApp.APP_ID_PROPERTY, userAppBindedObject.getId());
 		    SmartList<UserApp> apps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key,
 				UserAppTokens.all());
 		    if (apps == null) {
@@ -177,6 +195,30 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
         }
 		    return apps.get(0);
     }
+
+    public static UserApp getUserAppByBoundCtx(RetailscmUserContext userContext, BaseEntity userAppBindedObject) {
+    		    MultipleAccessKey key = new MultipleAccessKey();
+    		    key.put(UserApp.CTX_TYPE_PROPERTY, userAppBindedObject.getInternalType());
+    		    key.put(UserApp.CTX_ID_PROPERTY, userAppBindedObject.getId());
+    		    SmartList<UserApp> apps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key,
+    				UserAppTokens.all());
+    		    if (apps == null) {
+    		        return null;
+    		    }
+    		    Iterator<UserApp> it = apps.iterator();
+    		    while (it.hasNext()) {
+                // 过滤掉无效的app
+                UserApp app = it.next();
+                if (app.getSecUser() == null) {
+                    it.remove();
+                    continue;
+                }
+            }
+            if (apps.isEmpty()) {
+                return null;
+            }
+    		    return apps.get(0);
+        }
 
 	  private RetailscmObjectChecker checker;
 
@@ -356,6 +398,11 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
             return getLastViewPage();
         }
         return getPreviousViewPage();
+    }
+
+    @Override
+    public <T extends BaseEntity> T reloadEntity(T stubEntity) throws Exception {
+      return (T) getDAOGroup().loadBasicData(stubEntity.getInternalType(), stubEntity.getId());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.terapico.utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -34,7 +35,7 @@ public class MapUtil {
 		}
 		private void ensuerMapInstance() {
 			if (mapInstance == null) {
-				mapInstance = new HashMap<String, Object>();
+				mapInstance = new LinkedHashMap<String, Object>();
 			}
 		}
 		public Map<String, Object> into_map() {
@@ -75,6 +76,22 @@ public class MapUtil {
 			return null;
 		}
 		return getByPathOf((Map<String, Object>) objData, keyTokens, idx+1);
+	}
+
+	public static void putByPath(Map<String, Object> result, List<String> paths, Object value) {
+		if (paths.size() == 1){
+			String name = paths.get(0);
+			result.put(name, value);
+			return;
+		}
+
+		String name = paths.remove(0);
+		Map<String,Object> subMap = (Map<String, Object>) result.get(name);
+		if (subMap == null){
+			subMap = new HashMap<>();
+			result.put(name, subMap);
+		}
+		putByPath(subMap, paths, value);
 	}
 
 	protected static final Pattern ptnListToken = Pattern.compile("([a-zA-Z0-9_$#]+)\\[(\\d+)\\]");

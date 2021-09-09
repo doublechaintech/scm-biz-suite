@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstorememberaddress;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
 
 public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMemberAddress>{
-	
+
 	protected RetailStoreMemberAddress internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStoreMemberAddress retailStoreMemberAddress = getRetailStoreMemberAddress();		
-		 		
- 		setId(retailStoreMemberAddress, rs, rowNumber); 		
- 		setName(retailStoreMemberAddress, rs, rowNumber); 		
- 		setOwner(retailStoreMemberAddress, rs, rowNumber); 		
- 		setMobilePhone(retailStoreMemberAddress, rs, rowNumber); 		
- 		setAddress(retailStoreMemberAddress, rs, rowNumber); 		
+		RetailStoreMemberAddress retailStoreMemberAddress = getRetailStoreMemberAddress();
+		
+ 		setId(retailStoreMemberAddress, rs, rowNumber);
+ 		setName(retailStoreMemberAddress, rs, rowNumber);
+ 		setOwner(retailStoreMemberAddress, rs, rowNumber);
+ 		setMobilePhone(retailStoreMemberAddress, rs, rowNumber);
+ 		setAddress(retailStoreMemberAddress, rs, rowNumber);
  		setVersion(retailStoreMemberAddress, rs, rowNumber);
 
+    
 		return retailStoreMemberAddress;
 	}
-	
+
 	protected RetailStoreMemberAddress getRetailStoreMemberAddress(){
-		return new RetailStoreMemberAddress();
-	}		
+	  RetailStoreMemberAddress entity = new RetailStoreMemberAddress();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStoreMemberAddress retailStoreMemberAddress, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreMemberAddressTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMem
 		}
 		
 		retailStoreMemberAddress.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(RetailStoreMemberAddress retailStoreMemberAddress, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(RetailStoreMemberAddressTable.COLUMN_NAME);
@@ -52,10 +59,18 @@ public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMem
 		}
 		
 		retailStoreMemberAddress.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setOwner(RetailStoreMemberAddress retailStoreMemberAddress, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreMemberId = rs.getString(RetailStoreMemberAddressTable.COLUMN_OWNER);
+ 		String retailStoreMemberId;
+ 		try{
+ 		  retailStoreMemberId = rs.getString(RetailStoreMemberAddressTable.COLUMN_OWNER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreMemberId == null){
  			return;
  		}
@@ -66,14 +81,14 @@ public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMem
  		if( retailStoreMember != null ){
  			//if the root object 'retailStoreMemberAddress' already have the property, just set the id for it;
  			retailStoreMember.setId(retailStoreMemberId);
- 			
+
  			return;
  		}
  		retailStoreMemberAddress.setOwner(createEmptyOwner(retailStoreMemberId));
  	}
  	
 	protected void setMobilePhone(RetailStoreMemberAddress retailStoreMemberAddress, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String mobilePhone = rs.getString(RetailStoreMemberAddressTable.COLUMN_MOBILE_PHONE);
@@ -84,10 +99,13 @@ public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMem
 		}
 		
 		retailStoreMemberAddress.setMobilePhone(mobilePhone);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAddress(RetailStoreMemberAddress retailStoreMemberAddress, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String address = rs.getString(RetailStoreMemberAddressTable.COLUMN_ADDRESS);
@@ -98,10 +116,13 @@ public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMem
 		}
 		
 		retailStoreMemberAddress.setAddress(address);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(RetailStoreMemberAddress retailStoreMemberAddress, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreMemberAddressTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMem
 		}
 		
 		retailStoreMemberAddress.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreMember  createEmptyOwner(String retailStoreMemberId){
  		RetailStoreMember retailStoreMember = new RetailStoreMember();

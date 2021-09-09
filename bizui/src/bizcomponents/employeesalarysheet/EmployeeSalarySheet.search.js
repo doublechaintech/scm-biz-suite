@@ -65,45 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { EmployeeAssociateForm } = GlobalComponents
-  const { SalaryGradeAssociateForm } = GlobalComponents
-  const { PayingOffAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <EmployeeAssociateForm 
-	visible={currentAssociateModal==='employee'} 
-	data={{employeeSalarySheetList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'employee')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'employee')}/> <SalaryGradeAssociateForm 
-	visible={currentAssociateModal==='currentSalaryGrade'} 
-	data={{employeeSalarySheetList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> <PayingOffAssociateForm 
-	visible={currentAssociateModal==='payingOff'} 
-	data={{employeeSalarySheetList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'payingOff')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'payingOff')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class EmployeeSalarySheetSearch extends PureComponent {
   state = {
@@ -138,7 +99,7 @@ class EmployeeSalarySheetSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {EmployeeSalarySheetTable} = GlobalComponents;
     const {EmployeeSalarySheetSearchForm} = GlobalComponents;
     const {EmployeeSalarySheetModalTable} = GlobalComponents;
@@ -190,7 +151,7 @@ class EmployeeSalarySheetSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,EmployeeSalarySheetModalTable,"employeeSalarySheetIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

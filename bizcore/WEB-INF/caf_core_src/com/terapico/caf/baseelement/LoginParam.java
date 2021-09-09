@@ -8,6 +8,7 @@ import com.terapico.utils.MapUtil;
 public class LoginParam implements RemoteInitiable {
 	public static final String MOBILE_VCODE = "mobile_vcode";
 	public static final String WECHAT_APP = "wechat_app";
+	public static final String WECHAT_MOBILE = "wechat_mobile";
 	public static final String WECHAT_WORK_APP = "wechat_work_app";
 	public static final String ACCOUNT_PASSWORD = "account_password";
 	
@@ -18,6 +19,12 @@ public class LoginParam implements RemoteInitiable {
 	String mobile;
 	String verifyCode;
 	String password;
+	String encryptedData;
+	String iv;
+	boolean simulation = false;
+	boolean forceAuthenSuccess = false;
+	Object forceAuthenResult = null;
+	Map<String, Object> extraData;
 	
 	
 	public String getPassword() {
@@ -76,6 +83,30 @@ public class LoginParam implements RemoteInitiable {
 		this.verifyCode = verifyCode;
 	}
 
+	public String getEncryptedData() {
+		return encryptedData;
+	}
+
+	public void setEncryptedData(String encryptedData) {
+		this.encryptedData = encryptedData;
+	}
+
+	public String getIv() {
+		return iv;
+	}
+
+	public void setIv(String iv) {
+		this.iv = iv;
+	}
+
+	public Map<String, Object> getExtraData() {
+		return extraData;
+	}
+
+	public void setExtraData(Map<String, Object> extraData) {
+		this.extraData = extraData;
+	}
+
 	public Map<String, Object> toMap() {
 		return MapUtil.put("loginMethod", loginMethod)
 				.putIf("id", id)
@@ -83,7 +114,32 @@ public class LoginParam implements RemoteInitiable {
 				.putIf("code", code)
 				.putIf("mobile", mobile)
 				.putIf("verifyCode", verifyCode)
+				.putIf("encryptedData", encryptedData)
+				.putIf("iv", iv)
 				.into_map();
 	}
 
+	public boolean isSimulation() {
+		return simulation;
+	}
+
+	public void setSimulation(boolean simulation) {
+		this.simulation = simulation;
+	}
+
+	public boolean isForceAuthenSuccess() {
+		return forceAuthenSuccess;
+	}
+
+	public void setForceAuthenSuccess(boolean forceAuthenSuccess) {
+		this.forceAuthenSuccess = forceAuthenSuccess;
+	}
+
+	public Object getForceAuthenResult() {
+		return forceAuthenResult;
+	}
+
+	public void setForceAuthenResult(Object forceAuthenResult) {
+		this.forceAuthenResult = forceAuthenResult;
+	}
 }

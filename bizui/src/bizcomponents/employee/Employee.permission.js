@@ -31,7 +31,7 @@ const internalSummaryOf = (employee,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employee.id}</Description> 
+<Description term="ID">{employee.id}</Description> 
 <Description term="头衔">{employee.title}</Description> 
 <Description term="姓">{employee.familyName}</Description> 
 <Description term="名">{employee.givenName}</Description> 
@@ -40,7 +40,7 @@ const internalSummaryOf = (employee,targetComponent) =>{
 <Description term="地址">{employee.address}</Description> 
 <Description term="手机">{employee.cellPhone}</Description> 
 <Description term="工资账户">{employee.salaryAccount}</Description> 
-<Description term="最后更新时间">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -66,7 +66,7 @@ class EmployeePermission extends Component {
     // eslint-disable-next-line max-len
     const  employee = this.props.employee
     const { id,displayName, employeeCompanyTrainingCount, employeeSkillCount, employeePerformanceCount, employeeWorkExperienceCount, employeeLeaveCount, employeeInterviewCount, employeeAttendanceCount, employeeQualifierCount, employeeEducationCount, employeeAwardCount, employeeSalarySheetCount, payingOffCount } = employee
-    const  returnURL = `/employee/${id}/dashboard`
+    const  returnURL = `/employee/${id}/workbench`
     const cardsData = {cardsName:"员工",cardsFor: "employee",cardsSource: employee,displayName,returnURL,
   		subItems: [
     
@@ -79,10 +79,10 @@ class EmployeePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

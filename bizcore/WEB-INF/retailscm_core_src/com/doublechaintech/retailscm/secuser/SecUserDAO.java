@@ -11,8 +11,8 @@ import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
 import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
@@ -23,7 +23,7 @@ import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity
 import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
 import com.doublechaintech.retailscm.userapp.UserAppDAO;
 import com.doublechaintech.retailscm.loginhistory.LoginHistoryDAO;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityDAO;
 
 
 public interface SecUserDAO extends BaseDAO{
@@ -72,6 +72,7 @@ public interface SecUserDAO extends BaseDAO{
 	public void delete(String secUserId, int version) throws Exception;
 	public SecUser disconnectFromAll(String secUserId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public UserAppDAO getUserAppDAO();
 		
@@ -81,7 +82,7 @@ public interface SecUserDAO extends BaseDAO{
 		
 	public WechatMiniappIdentityDAO getWechatMiniappIdentityDAO();
 		
-	public KeypairIdentityDAO getKeypairIdentityDAO();
+	public KeyPairIdentityDAO getKeyPairIdentityDAO();
 		
 	
  	public SmartList<SecUser> requestCandidateSecUserForUserApp(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
@@ -92,7 +93,7 @@ public interface SecUserDAO extends BaseDAO{
 		
  	public SmartList<SecUser> requestCandidateSecUserForWechatMiniappIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
 		
- 	public SmartList<SecUser> requestCandidateSecUserForKeypairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
+ 	public SmartList<SecUser> requestCandidateSecUserForKeyPairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
 		
 	
 	public SecUser planToRemoveUserAppList(SecUser secUser, String userAppIds[], Map<String,Object> options)throws Exception;
@@ -107,17 +108,18 @@ public interface SecUserDAO extends BaseDAO{
 	public SecUser planToRemoveWechatMiniappIdentityList(SecUser secUser, String wechatMiniappIdentityIds[], Map<String,Object> options)throws Exception;
 
 
-	public SecUser planToRemoveKeypairIdentityList(SecUser secUser, String keypairIdentityIds[], Map<String,Object> options)throws Exception;
+	public SecUser planToRemoveKeyPairIdentityList(SecUser secUser, String keyPairIdentityIds[], Map<String,Object> options)throws Exception;
 
 
-	//disconnect SecUser with key_type in KeypairIdentity
-	public SecUser planToRemoveKeypairIdentityListWithKeyType(SecUser secUser, String keyTypeId, Map<String,Object> options)throws Exception;
-	public int countKeypairIdentityListWithKeyType(String secUserId, String keyTypeId, Map<String,Object> options)throws Exception;
+	//disconnect SecUser with key_type in KeyPairIdentity
+	public SecUser planToRemoveKeyPairIdentityListWithKeyType(SecUser secUser, String keyTypeId, Map<String,Object> options)throws Exception;
+	public int countKeyPairIdentityListWithKeyType(String secUserId, String keyTypeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<SecUser> queryList(String sql, Object ... parmeters);
+	public SmartList<SecUser> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SecUser> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSecUser executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SecUser> findSecUserByDomain(String userDomainId, Map<String,Object> options);
@@ -140,9 +142,11 @@ public interface SecUserDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:WechatMiniappIdentity的secUser的WechatMiniappIdentityList
 	public SmartList<WechatMiniappIdentity> loadOurWechatMiniappIdentityList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception;
 	
-	// 需要一个加载引用我的对象的enhance方法:KeypairIdentity的secUser的KeypairIdentityList
-	public SmartList<KeypairIdentity> loadOurKeypairIdentityList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception;
+	// 需要一个加载引用我的对象的enhance方法:KeyPairIdentity的secUser的KeyPairIdentityList
+	public SmartList<KeyPairIdentity> loadOurKeyPairIdentityList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception;
 	
+
+	List<SecUser> search(SecUserRequest pRequest);
 }
 
 

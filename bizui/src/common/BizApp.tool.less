@@ -1,34 +1,34 @@
-@import "~antd/lib/style/themes/default.less";
+@import '~antd/lib/style/themes/default.less';
 @menu-collapsed-width: 40px;
 
 .header {
   padding: 0 12px 0 0;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   position: relative;
 }
 .left {
   float: left;
   color: white;
- //padding-top: 6px;
+  //padding-top: 6px;
 }
 .right {
   float: right;
- //padding-top: 6px;
+  //padding-top: 6px;
 }
 .menuLink {
   color: white;
   font-size: 15px;
   padding-left: 5px;
   padding-right: 5px;
- //padding-top: 6px;
+  //padding-top: 6px;
 }
 .breadcrumbLink {
   color: black;
   font-size: 15px;
   padding-left: 5px;
   padding-right: 5px;
- //padding-top: 6px;
+  //padding-top: 6px;
 }
 
 .logo {
@@ -37,7 +37,7 @@
   line-height: 30px;
   padding-left: 5px;
   padding-right: 5px;
-  transition: all .3s;
+  transition: all 0.3s;
   //background: #002140;
   overflow: hidden;
   img {
@@ -56,11 +56,9 @@
   }
 }
 
-
-
 :global(.ant-layout-sider-collapsed) .logo {
   padding-left: 24px;
-  
+
   > a {
     width: 32px;
   }
@@ -70,7 +68,7 @@
   font-size: 20px;
   line-height: 64px;
   cursor: pointer;
-  transition: all .3s;
+  transition: all 0.3s;
   padding: 0 24px;
   &:hover {
     background: @primary-1;
@@ -90,7 +88,7 @@
     cursor: pointer;
     padding: 0 12px;
     display: inline-block;
-    transition: all .3s;
+    transition: all 0.3s;
     height: 100%;
     > i {
       font-size: 16px;
@@ -112,7 +110,7 @@
     .avatar {
       margin: 20px 8px 20px 0;
       color: @primary-color;
-      background: rgba(255, 255, 255, .85);
+      background: rgba(255, 255, 255, 0.85);
       vertical-align: middle;
     }
   }
@@ -144,32 +142,26 @@
     text-overflow: clip;
     padding: 0 20px !important;
   }
-
-
-
 }
 
 .sider {
   min-height: 100vh;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
   position: relative;
   z-index: 0;
   overflow: auto;
 }
 
 .searchBox {
-   
   :global {
-    .ant-input{
+    .ant-input {
       padding-left: 16px;
-      background:#001529;
-      color:white;
+      background: #001529;
+      color: white;
     }
-    .ant-input-search-enter-button{
-      color:white;
+    .ant-input-search-enter-button {
+      color: white;
       background: grey;
-
     }
-    
   }
 }

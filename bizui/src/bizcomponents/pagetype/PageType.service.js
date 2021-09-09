@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}pageTypeManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}pageTypeManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -45,28 +50,6 @@ const transferToAnotherMobileApp = (id, parameters) => {
 
 
 
-const addPage = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageTypeManager/addPage/pageTypeId/pageTitle/linkToUrl/displayOrder/mobileAppId/tokensExpr/`
-  const pageTypeId = targetObjectId
-  const requestParameters = { ...parameters, pageTypeId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const updatePage = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageTypeManager/updatePageProperties/pageTypeId/id/pageTitle/linkToUrl/displayOrder/tokensExpr/`
-  const pageTypeId = targetObjectId
-  const requestParameters = { ...parameters, pageTypeId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const removePageList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}pageTypeManager/removePageList/pageTypeId/pageIds/tokensExpr/`
-  const requestParameters = { ...parameters, pageTypeId: targetObjectId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-
-
 // Filter this out when no functions
 
 const  listFunctions = () => {
@@ -75,6 +58,14 @@ const  listFunctions = () => {
   })
 }
 
+
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}pageTypeService/init/`,
+    data,
+  })
+}
 
 const  saveRequest = (data) => {
 
@@ -95,10 +86,8 @@ const  processRequest = (data) => {
 
 const PageTypeService = { view,
   load,
-  addPage,
-  updatePage,
-  removePageList,
+  analyze,
   requestCandidateMobileApp,
-  transferToAnotherMobileApp, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherMobileApp, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default PageTypeService
 

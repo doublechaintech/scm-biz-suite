@@ -48,13 +48,15 @@ public interface PotentialCustomerContactDAO extends BaseDAO{
 	public void delete(String potentialCustomerContactId, int version) throws Exception;
 	public PotentialCustomerContact disconnectFromAll(String potentialCustomerContactId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<PotentialCustomerContact> queryList(String sql, Object ... parmeters);
+	public SmartList<PotentialCustomerContact> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<PotentialCustomerContact> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidatePotentialCustomerContact executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByPotentialCustomer(String potentialCustomerId, Map<String,Object> options);
@@ -81,6 +83,8 @@ public interface PotentialCustomerContactDAO extends BaseDAO{
 
 
  
+
+	List<PotentialCustomerContact> search(PotentialCustomerContactRequest pRequest);
 }
 
 

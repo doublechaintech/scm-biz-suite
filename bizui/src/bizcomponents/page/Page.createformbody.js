@@ -15,15 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = PageBase
 const testValues = {};
-/*
-const testValues = {
-  pageTitle: '首页',
-  linkToUrl: '首页',
-  displayOrder: '1',
-  pageTypeId: 'home',
-  mobileAppId: 'MA000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -37,9 +31,20 @@ class PageCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = PageBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -50,7 +55,7 @@ class PageCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -58,7 +63,7 @@ class PageCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -66,10 +71,10 @@ class PageCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -78,16 +83,16 @@ class PageCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {PageService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -97,9 +102,9 @@ class PageCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -108,7 +113,7 @@ class PageCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -120,25 +125,25 @@ class PageCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('page')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.pageTitle} {...formItemLayout}>
                   {getFieldDecorator('pageTitle', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.pageTitle} />
+                    <SmallTextInput minLength={1} maxLength={10} size="large"  placeholder={fieldLabels.pageTitle} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +153,7 @@ class PageCreateFormBody extends Component {
                   {getFieldDecorator('linkToUrl', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.linkToUrl} />
+                    <SmallTextInput minLength={0} maxLength={512} size="large"  placeholder={fieldLabels.linkToUrl} />
                   )}
                 </Form.Item>
               </Col>
@@ -158,65 +163,65 @@ class PageCreateFormBody extends Component {
                   {getFieldDecorator('displayOrder', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
+                    <SmallTextInput minLength={0} maxLength={10000} size="large"  placeholder={fieldLabels.displayOrder} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.pageType} {...formItemLayout}>
                   {getFieldDecorator('pageTypeId', {
                   	initialValue: tryinit('pageType'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('pageType')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"page"} 
-		                 targetType={"page_type"} 
-                 
+		                 listType={"page"}
+		                 targetType={"page_type"}
+
                     requestFunction={PageService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.mobileApp} {...formItemLayout}>
                   {getFieldDecorator('mobileAppId', {
                   	initialValue: tryinit('mobileApp'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('mobileApp')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"page"} 
-		                 targetType={"mobile_app"} 
-                 
+		                 listType={"page"}
+		                 targetType={"mobile_app"}
+
                     requestFunction={PageService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -231,7 +236,7 @@ class PageCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

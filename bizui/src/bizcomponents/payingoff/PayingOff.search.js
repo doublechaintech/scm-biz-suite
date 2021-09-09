@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { EmployeeAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <EmployeeAssociateForm 
-	visible={currentAssociateModal==='paidFor'} 
-	data={{payingOffList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'paidFor')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'paidFor')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class PayingOffSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class PayingOffSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {PayingOffTable} = GlobalComponents;
     const {PayingOffSearchForm} = GlobalComponents;
     const {PayingOffModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class PayingOffSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,PayingOffModalTable,"payingOffIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

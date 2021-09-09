@@ -3,7 +3,7 @@ package com.doublechaintech.retailscm;
 public class Page extends BaseEntity{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	String title;
@@ -42,7 +42,7 @@ public class Page extends BaseEntity{
 		this.link = link;
 	}
 	public String toString(){
-		
+
 		if(link.isEmpty()){
 			return title;
 		}
@@ -52,6 +52,6 @@ public class Page extends BaseEntity{
 		return title;
 		//return title+"("+link+")";
 	}
-	
+
 }
 

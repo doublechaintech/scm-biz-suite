@@ -57,7 +57,7 @@ const naviBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -68,7 +68,7 @@ const searchBarResponsiveStyle = {
   md: 4,
   lg: 8,
   xl: 8,
-  
+
 };
 
 const userBarResponsiveStyle = {
@@ -77,7 +77,7 @@ const userBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -103,13 +103,26 @@ const query = {
   },
 }
 
-
+/*
 const currentAppName=()=>{
 
   const targetApp = sessionObject('targetApp')
   return targetApp.title
 
 }
+*/
+
+const currentAppName=()=>{
+
+  const sysConfig=window.sysConfig
+  const targetApp = sessionObject('targetApp')
+  const {logo}=sysConfig()
+  return <span><img width="25px" src={logo} style={{marginRight:"10px"}}/>{targetApp.title}</span>
+
+}
+
+
+
 
 
 class WarehouseBizApp extends React.PureComponent {
@@ -149,47 +162,77 @@ constructor(props) {
     }
     return keys
   }
-  
+
  getNavMenuItems = (targetObject, style, customTheme) => {
-  
+
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
     const mode =style || "inline"
-    const theme = customTheme || "light" 
+    const theme = customTheme || "light"
 	const {objectId}=targetApp;
   	const userContext = null
+  	const viewGroupIconNameOf=window.viewGroupIconNameOf
     return (
 	  <Menu
         theme="dark"
         mode="inline"
-        
+
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        
-       >
-           
 
-             <Menu.Item key="dashboard">
-               <Link to={`/warehouse/${this.props.warehouse.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
-             </Menu.Item>
-           
-        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+       >
+
+       <Menu.Item key="workbench">
+        <Link to={`/warehouse/${this.props.warehouse.id}/workbench`}><Icon type="solution" style={{marginRight:"20px"}}/><span>工作台</span></Link>
+      </Menu.Item>
+
+        
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('warehouse',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
         )}
         )}
 
-       		
-        
+
+
            </Menu>
     )
   }
-  
+
+  getSelectedRows=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.selectedRows){
+      return null
+    }
+    if(state.selectedRows.length === 0){
+      return null
+    }
+    return state.selectedRows[0]
+
+  }
+
+  getOwnerId=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.ownerId){
+      return null
+    }
+
+    return state.ownerId
+
+  }
 
 
 
@@ -203,25 +246,26 @@ constructor(props) {
       data: state._warehouse.storageSpaceList,
       metaInfo: state._warehouse.storageSpaceListMetaInfo,
       count: state._warehouse.storageSpaceCount,
-      returnURL: `/warehouse/${state._warehouse.id}/dashboard`,
+      returnURL: `/warehouse/${state._warehouse.id}/workbench`,
       currentPage: state._warehouse.storageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.storageSpaceSearchFormParameters,
       searchParameters: {...state._warehouse.searchParameters},
       expandForm: state._warehouse.expandForm,
       loading: state._warehouse.loading,
       partialList: state._warehouse.partialList,
-      owner: { type: '_warehouse', id: state._warehouse.id, 
-      referenceName: 'warehouse', 
-      listName: 'storageSpaceList', ref:state._warehouse, 
+      owner: { type: '_warehouse', id: state._warehouse.id,
+      referenceName: 'warehouse',
+      listName: 'storageSpaceList', ref:state._warehouse,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(StorageSpaceSearch)
   }
-  
+
   getStorageSpaceCreateForm = () => {
    	const {StorageSpaceCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "storageSpace",
       data: state._warehouse.storageSpaceList,
       metaInfo: state._warehouse.storageSpaceListMetaInfo,
@@ -230,18 +274,18 @@ constructor(props) {
       currentPage: state._warehouse.storageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.storageSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), referenceName: 'warehouse', listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(StorageSpaceCreateForm)
   }
-  
+
   getStorageSpaceUpdateForm = () => {
     const userContext = null
   	const {StorageSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "storageSpace",
-      currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._warehouse.currentUpdateIndex || 0,
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(StorageSpaceUpdateForm)
   }
 
@@ -255,25 +299,26 @@ constructor(props) {
       data: state._warehouse.smartPalletList,
       metaInfo: state._warehouse.smartPalletListMetaInfo,
       count: state._warehouse.smartPalletCount,
-      returnURL: `/warehouse/${state._warehouse.id}/dashboard`,
+      returnURL: `/warehouse/${state._warehouse.id}/workbench`,
       currentPage: state._warehouse.smartPalletCurrentPageNumber,
       searchFormParameters: state._warehouse.smartPalletSearchFormParameters,
       searchParameters: {...state._warehouse.searchParameters},
       expandForm: state._warehouse.expandForm,
       loading: state._warehouse.loading,
       partialList: state._warehouse.partialList,
-      owner: { type: '_warehouse', id: state._warehouse.id, 
-      referenceName: 'warehouse', 
-      listName: 'smartPalletList', ref:state._warehouse, 
+      owner: { type: '_warehouse', id: state._warehouse.id,
+      referenceName: 'warehouse',
+      listName: 'smartPalletList', ref:state._warehouse,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SmartPalletSearch)
   }
-  
+
   getSmartPalletCreateForm = () => {
    	const {SmartPalletCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "smartPallet",
       data: state._warehouse.smartPalletList,
       metaInfo: state._warehouse.smartPalletListMetaInfo,
@@ -282,18 +327,18 @@ constructor(props) {
       currentPage: state._warehouse.smartPalletCurrentPageNumber,
       searchFormParameters: state._warehouse.smartPalletSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'smartPalletList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), referenceName: 'warehouse', listName: 'smartPalletList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SmartPalletCreateForm)
   }
-  
+
   getSmartPalletUpdateForm = () => {
     const userContext = null
   	const {SmartPalletUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "smartPallet",
-      currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'smartPalletList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._warehouse.currentUpdateIndex || 0,
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), listName: 'smartPalletList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SmartPalletUpdateForm)
   }
 
@@ -307,25 +352,26 @@ constructor(props) {
       data: state._warehouse.supplierSpaceList,
       metaInfo: state._warehouse.supplierSpaceListMetaInfo,
       count: state._warehouse.supplierSpaceCount,
-      returnURL: `/warehouse/${state._warehouse.id}/dashboard`,
+      returnURL: `/warehouse/${state._warehouse.id}/workbench`,
       currentPage: state._warehouse.supplierSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.supplierSpaceSearchFormParameters,
       searchParameters: {...state._warehouse.searchParameters},
       expandForm: state._warehouse.expandForm,
       loading: state._warehouse.loading,
       partialList: state._warehouse.partialList,
-      owner: { type: '_warehouse', id: state._warehouse.id, 
-      referenceName: 'warehouse', 
-      listName: 'supplierSpaceList', ref:state._warehouse, 
+      owner: { type: '_warehouse', id: state._warehouse.id,
+      referenceName: 'warehouse',
+      listName: 'supplierSpaceList', ref:state._warehouse,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplierSpaceSearch)
   }
-  
+
   getSupplierSpaceCreateForm = () => {
    	const {SupplierSpaceCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "supplierSpace",
       data: state._warehouse.supplierSpaceList,
       metaInfo: state._warehouse.supplierSpaceListMetaInfo,
@@ -334,18 +380,18 @@ constructor(props) {
       currentPage: state._warehouse.supplierSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.supplierSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), referenceName: 'warehouse', listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SupplierSpaceCreateForm)
   }
-  
+
   getSupplierSpaceUpdateForm = () => {
     const userContext = null
   	const {SupplierSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "supplierSpace",
-      currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._warehouse.currentUpdateIndex || 0,
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplierSpaceUpdateForm)
   }
 
@@ -359,25 +405,26 @@ constructor(props) {
       data: state._warehouse.receivingSpaceList,
       metaInfo: state._warehouse.receivingSpaceListMetaInfo,
       count: state._warehouse.receivingSpaceCount,
-      returnURL: `/warehouse/${state._warehouse.id}/dashboard`,
+      returnURL: `/warehouse/${state._warehouse.id}/workbench`,
       currentPage: state._warehouse.receivingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.receivingSpaceSearchFormParameters,
       searchParameters: {...state._warehouse.searchParameters},
       expandForm: state._warehouse.expandForm,
       loading: state._warehouse.loading,
       partialList: state._warehouse.partialList,
-      owner: { type: '_warehouse', id: state._warehouse.id, 
-      referenceName: 'warehouse', 
-      listName: 'receivingSpaceList', ref:state._warehouse, 
+      owner: { type: '_warehouse', id: state._warehouse.id,
+      referenceName: 'warehouse',
+      listName: 'receivingSpaceList', ref:state._warehouse,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ReceivingSpaceSearch)
   }
-  
+
   getReceivingSpaceCreateForm = () => {
    	const {ReceivingSpaceCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "receivingSpace",
       data: state._warehouse.receivingSpaceList,
       metaInfo: state._warehouse.receivingSpaceListMetaInfo,
@@ -386,18 +433,18 @@ constructor(props) {
       currentPage: state._warehouse.receivingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.receivingSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), referenceName: 'warehouse', listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ReceivingSpaceCreateForm)
   }
-  
+
   getReceivingSpaceUpdateForm = () => {
     const userContext = null
   	const {ReceivingSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "receivingSpace",
-      currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._warehouse.currentUpdateIndex || 0,
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ReceivingSpaceUpdateForm)
   }
 
@@ -411,25 +458,26 @@ constructor(props) {
       data: state._warehouse.shippingSpaceList,
       metaInfo: state._warehouse.shippingSpaceListMetaInfo,
       count: state._warehouse.shippingSpaceCount,
-      returnURL: `/warehouse/${state._warehouse.id}/dashboard`,
+      returnURL: `/warehouse/${state._warehouse.id}/workbench`,
       currentPage: state._warehouse.shippingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.shippingSpaceSearchFormParameters,
       searchParameters: {...state._warehouse.searchParameters},
       expandForm: state._warehouse.expandForm,
       loading: state._warehouse.loading,
       partialList: state._warehouse.partialList,
-      owner: { type: '_warehouse', id: state._warehouse.id, 
-      referenceName: 'warehouse', 
-      listName: 'shippingSpaceList', ref:state._warehouse, 
+      owner: { type: '_warehouse', id: state._warehouse.id,
+      referenceName: 'warehouse',
+      listName: 'shippingSpaceList', ref:state._warehouse,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ShippingSpaceSearch)
   }
-  
+
   getShippingSpaceCreateForm = () => {
    	const {ShippingSpaceCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "shippingSpace",
       data: state._warehouse.shippingSpaceList,
       metaInfo: state._warehouse.shippingSpaceListMetaInfo,
@@ -438,18 +486,18 @@ constructor(props) {
       currentPage: state._warehouse.shippingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.shippingSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), referenceName: 'warehouse', listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ShippingSpaceCreateForm)
   }
-  
+
   getShippingSpaceUpdateForm = () => {
     const userContext = null
   	const {ShippingSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "shippingSpace",
-      currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._warehouse.currentUpdateIndex || 0,
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ShippingSpaceUpdateForm)
   }
 
@@ -463,25 +511,26 @@ constructor(props) {
       data: state._warehouse.damageSpaceList,
       metaInfo: state._warehouse.damageSpaceListMetaInfo,
       count: state._warehouse.damageSpaceCount,
-      returnURL: `/warehouse/${state._warehouse.id}/dashboard`,
+      returnURL: `/warehouse/${state._warehouse.id}/workbench`,
       currentPage: state._warehouse.damageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.damageSpaceSearchFormParameters,
       searchParameters: {...state._warehouse.searchParameters},
       expandForm: state._warehouse.expandForm,
       loading: state._warehouse.loading,
       partialList: state._warehouse.partialList,
-      owner: { type: '_warehouse', id: state._warehouse.id, 
-      referenceName: 'warehouse', 
-      listName: 'damageSpaceList', ref:state._warehouse, 
+      owner: { type: '_warehouse', id: state._warehouse.id,
+      referenceName: 'warehouse',
+      listName: 'damageSpaceList', ref:state._warehouse,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(DamageSpaceSearch)
   }
-  
+
   getDamageSpaceCreateForm = () => {
    	const {DamageSpaceCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "damageSpace",
       data: state._warehouse.damageSpaceList,
       metaInfo: state._warehouse.damageSpaceListMetaInfo,
@@ -490,18 +539,18 @@ constructor(props) {
       currentPage: state._warehouse.damageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.damageSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), referenceName: 'warehouse', listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(DamageSpaceCreateForm)
   }
-  
+
   getDamageSpaceUpdateForm = () => {
     const userContext = null
   	const {DamageSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "damageSpace",
-      currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._warehouse.currentUpdateIndex || 0,
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(DamageSpaceUpdateForm)
   }
 
@@ -515,25 +564,26 @@ constructor(props) {
       data: state._warehouse.warehouseAssetList,
       metaInfo: state._warehouse.warehouseAssetListMetaInfo,
       count: state._warehouse.warehouseAssetCount,
-      returnURL: `/warehouse/${state._warehouse.id}/dashboard`,
+      returnURL: `/warehouse/${state._warehouse.id}/workbench`,
       currentPage: state._warehouse.warehouseAssetCurrentPageNumber,
       searchFormParameters: state._warehouse.warehouseAssetSearchFormParameters,
       searchParameters: {...state._warehouse.searchParameters},
       expandForm: state._warehouse.expandForm,
       loading: state._warehouse.loading,
       partialList: state._warehouse.partialList,
-      owner: { type: '_warehouse', id: state._warehouse.id, 
-      referenceName: 'owner', 
-      listName: 'warehouseAssetList', ref:state._warehouse, 
+      owner: { type: '_warehouse', id: state._warehouse.id,
+      referenceName: 'owner',
+      listName: 'warehouseAssetList', ref:state._warehouse,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(WarehouseAssetSearch)
   }
-  
+
   getWarehouseAssetCreateForm = () => {
    	const {WarehouseAssetCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "warehouseAsset",
       data: state._warehouse.warehouseAssetList,
       metaInfo: state._warehouse.warehouseAssetListMetaInfo,
@@ -542,18 +592,18 @@ constructor(props) {
       currentPage: state._warehouse.warehouseAssetCurrentPageNumber,
       searchFormParameters: state._warehouse.warehouseAssetSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'owner', listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), referenceName: 'owner', listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(WarehouseAssetCreateForm)
   }
-  
+
   getWarehouseAssetUpdateForm = () => {
     const userContext = null
   	const {WarehouseAssetUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "warehouseAsset",
-      currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._warehouse.currentUpdateIndex || 0,
+      owner: { type: '_warehouse', id: state._warehouse.id || this.getOwnerId(), listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(WarehouseAssetUpdateForm)
   }
 
@@ -568,8 +618,8 @@ constructor(props) {
       owner: { type: '_warehouse', id: state._warehouse.id, listName: 'nolist', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ChangeRequestStepForm)
   }
-  
- 
+
+
 
   getPageTitle = () => {
     // const { location } = this.props
@@ -577,63 +627,66 @@ constructor(props) {
     const title = '双链小超全流程供应链系统'
     return title
   }
- 
+
   buildRouters = () =>{
-  	const {WarehouseDashboard} = GlobalComponents
+    const {WarehouseWorkbench} = GlobalComponents
+
+    const {WarehouseDashboard} = GlobalComponents
   	const {WarehousePermission} = GlobalComponents
   	const {WarehouseProfile} = GlobalComponents
-  	
-  	
-  	const routers=[
-  	{path:"/warehouse/:id/dashboard", component: WarehouseDashboard},
+
+
+    const routers=[
+    {path:"/warehouse/:id/workbench", component: WarehouseWorkbench},
+    {path:"/warehouse/:id/dashboard", component: WarehouseDashboard},
   	{path:"/warehouse/:id/profile", component: WarehouseProfile},
   	{path:"/warehouse/:id/permission", component: WarehousePermission},
-  	
-  	
-  	
+
+
+
   	{path:"/warehouse/:id/list/storageSpaceList", component: this.getStorageSpaceSearch()},
   	{path:"/warehouse/:id/list/storageSpaceCreateForm", component: this.getStorageSpaceCreateForm()},
   	{path:"/warehouse/:id/list/storageSpaceUpdateForm", component: this.getStorageSpaceUpdateForm()},
-   	
+ 
   	{path:"/warehouse/:id/list/smartPalletList", component: this.getSmartPalletSearch()},
   	{path:"/warehouse/:id/list/smartPalletCreateForm", component: this.getSmartPalletCreateForm()},
   	{path:"/warehouse/:id/list/smartPalletUpdateForm", component: this.getSmartPalletUpdateForm()},
-   	
+ 
   	{path:"/warehouse/:id/list/supplierSpaceList", component: this.getSupplierSpaceSearch()},
   	{path:"/warehouse/:id/list/supplierSpaceCreateForm", component: this.getSupplierSpaceCreateForm()},
   	{path:"/warehouse/:id/list/supplierSpaceUpdateForm", component: this.getSupplierSpaceUpdateForm()},
-   	
+ 
   	{path:"/warehouse/:id/list/receivingSpaceList", component: this.getReceivingSpaceSearch()},
   	{path:"/warehouse/:id/list/receivingSpaceCreateForm", component: this.getReceivingSpaceCreateForm()},
   	{path:"/warehouse/:id/list/receivingSpaceUpdateForm", component: this.getReceivingSpaceUpdateForm()},
-   	
+ 
   	{path:"/warehouse/:id/list/shippingSpaceList", component: this.getShippingSpaceSearch()},
   	{path:"/warehouse/:id/list/shippingSpaceCreateForm", component: this.getShippingSpaceCreateForm()},
   	{path:"/warehouse/:id/list/shippingSpaceUpdateForm", component: this.getShippingSpaceUpdateForm()},
-   	
+ 
   	{path:"/warehouse/:id/list/damageSpaceList", component: this.getDamageSpaceSearch()},
   	{path:"/warehouse/:id/list/damageSpaceCreateForm", component: this.getDamageSpaceCreateForm()},
   	{path:"/warehouse/:id/list/damageSpaceUpdateForm", component: this.getDamageSpaceUpdateForm()},
-   	
+ 
   	{path:"/warehouse/:id/list/warehouseAssetList", component: this.getWarehouseAssetSearch()},
   	{path:"/warehouse/:id/list/warehouseAssetCreateForm", component: this.getWarehouseAssetCreateForm()},
   	{path:"/warehouse/:id/list/warehouseAssetUpdateForm", component: this.getWarehouseAssetUpdateForm()},
-     	
- 	 
+ 
+
   	]
-  	
+
   	const {extraRoutesFunc} = this.props;
   	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
   	const finalRoutes = routers.concat(extraRoutes)
-    
+
   	return (<Switch>
-             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
+             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}
   	  	</Switch>)
-  	
-  
+
+
   }
- 
- 
+
+
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
     this.setState({
@@ -647,7 +700,7 @@ constructor(props) {
        payload: !collapsed,
      })
    }
-   
+
    toggleSwitchText=()=>{
     const { collapsed } = this.props
     if(collapsed){
@@ -656,17 +709,17 @@ constructor(props) {
     return "关闭菜单"
 
    }
-   
+
     logout = () => {
-   
+
     console.log("log out called")
     this.props.dispatch({ type: 'launcher/signOut' })
   }
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     
-  
+
+
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
@@ -677,10 +730,10 @@ constructor(props) {
      	if(value.length < 10){
      		return value
      	}
-     
+
      	return value.substring(0,10)+"..."
-     	
-     	
+
+
      }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
@@ -697,18 +750,18 @@ constructor(props) {
      }
      const breadcrumbMenu=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <Menu mode="vertical"> 
+      return ( <Menu mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
       </Menu>)
-  
+
 
      }
      const breadcrumbBar=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <div mode="vertical"> 
+      return ( <div mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
       </div>)
-  
+
 
      }
 
@@ -717,21 +770,21 @@ constructor(props) {
       const { dispatch} = this.props
       const {name,link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
-	
-     }  
+
+     }
 
 	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
       const { dispatch} = this.props
       const {link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
-	
+
      }
 
      const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
 
       return (
-     <Tag 
-      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+     <Tag
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"}
       	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
         <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
         	{renderBreadcrumbText(breadcrumbMenuItem.name)}
@@ -739,9 +792,9 @@ constructor(props) {
       </Tag>)
 
      }
-     
-     
-     
+
+
+
      const { Search } = Input;
      const showSearchResult=()=>{
 
@@ -760,51 +813,51 @@ constructor(props) {
     }
 
     const {searchLocalData}=GlobalComponents.WarehouseBase
-	
+
     const renderMenuSwitch=()=>{
       const  text = collapsed?"开启左侧菜单":"关闭左侧菜单"
       const icon = collapsed?"pic-left":"pic-center"
-     
+
       return (
 
         <Tooltip placement="bottom" title={text}>
-       
-      
+
+
       <a  className={styles.menuLink} onClick={()=>this.toggle()} style={{marginLeft:"20px",minHeight:"20px"}}>
-        <Icon type={icon} style={{marginRight:"10px"}}/> 
+        <Icon type={icon} style={{marginRight:"10px"}}/>
       </a>  </Tooltip>)
 
      }
-     
-     
+
+
        const layout = (
      <Layout>
  		<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          
+
         <Row type="flex" justify="start" align="bottom">
-        
+
         <Col {...naviBarResponsiveStyle} >
           <a className={styles.menuLink}  style={{fontSize:"20px"}}>{currentAppName()}</a>
- 
+
         </Col>
-        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
-         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  >
+         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处"
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
           </Col>
-          <Col  {...userBarResponsiveStyle}  > 
+          <Col  {...userBarResponsiveStyle}  >
           <Row>
           <Col  span={10}  > </Col>
           <Col  span={2}  >  {renderMenuSwitch()}</Col>
-          <Col  span={6}  > 
+          <Col  span={6}  >
 	          <Dropdown overlay={<SwitchAppMenu {...this.props} />} style={{marginRight:"100px"}} className={styles.right}>
                 <a  className={styles.menuLink} >
-                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用 
+                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用
                 </a>
               </Dropdown>
-          </Col>  
+          </Col>
 
-          <Col  span={6}  >  
+          <Col  span={6}  >
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
                 <a  className={styles.menuLink}>
                 <Icon type="user" style={{marginRight:"5px"}}/>账户
@@ -813,22 +866,22 @@ constructor(props) {
             </Col>
 
           </Row>
-            </Col>  
+            </Col>
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
-        
-       
+
+
        <Layout>
-      
+
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.warehouse,this.state.searchKeyword)}</div>
 
       )}
        </Layout>
-        
-         
+
+
          <Layout>
        <Sider
           trigger={null}
@@ -839,16 +892,16 @@ constructor(props) {
           collapsedWidth={50}
           className={styles.sider}
         >
-         
+
          {this.getNavMenuItems(this.props.warehouse,"inline","dark")}
-       
+
         </Sider>
-        
+
          <Layout>
          <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
-        
+
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-           
+
            {this.buildRouters()}
            </Content>
           </Layout>

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.wechatminiappidentity;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected SecUserDAO secUserDAO;
 	public void setSecUserDAO(SecUserDAO secUserDAO){
- 	
+
  		if(secUserDAO == null){
  			throw new IllegalStateException("Do not try to set secUserDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		if(this.secUserDAO == null){
  			throw new IllegalStateException("The secUserDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.secUserDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return WechatMiniappIdentityTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractSecUserEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, WechatMiniappIdentityTokens.SECUSER);
  	}
 
  	protected boolean isSaveSecUserEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, WechatMiniappIdentityTokens.SECUSER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		return new WechatMiniappIdentityMapper();
 	}
 
-	
-	
+
+
 	protected WechatMiniappIdentity extractWechatMiniappIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			WechatMiniappIdentity wechatMiniappIdentity = loadSingleObject(accessKey, getWechatMiniappIdentityMapper());
@@ -229,25 +231,26 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	}
 
-	
-	
+
+
 
 	protected WechatMiniappIdentity loadInternalWechatMiniappIdentity(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		WechatMiniappIdentity wechatMiniappIdentity = extractWechatMiniappIdentity(accessKey, loadOptions);
- 	
+
  		if(isExtractSecUserEnabled(loadOptions)){
 	 		extractSecUser(wechatMiniappIdentity, loadOptions);
  		}
  
 		
 		return wechatMiniappIdentity;
-		
+
 	}
 
-	 
+	
 
  	protected WechatMiniappIdentity extractSecUser(WechatMiniappIdentity wechatMiniappIdentity, Map<String,Object> options) throws Exception{
+  
 
 		if(wechatMiniappIdentity.getSecUser() == null){
 			return wechatMiniappIdentity;
@@ -260,41 +263,41 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		if(secUser != null){
 			wechatMiniappIdentity.setSecUser(secUser);
 		}
-		
- 		
+
+
  		return wechatMiniappIdentity;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<WechatMiniappIdentity> findWechatMiniappIdentityBySecUser(String secUserId,Map<String,Object> options){
- 	
+
   		SmartList<WechatMiniappIdentity> resultList = queryWith(WechatMiniappIdentityTable.COLUMN_SEC_USER, secUserId, options, getWechatMiniappIdentityMapper());
 		// analyzeWechatMiniappIdentityBySecUser(resultList, secUserId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<WechatMiniappIdentity> findWechatMiniappIdentityBySecUser(String secUserId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<WechatMiniappIdentity> resultList =  queryWithRange(WechatMiniappIdentityTable.COLUMN_SEC_USER, secUserId, options, getWechatMiniappIdentityMapper(), start, count);
  		//analyzeWechatMiniappIdentityBySecUser(resultList, secUserId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeWechatMiniappIdentityBySecUser(SmartList<WechatMiniappIdentity> resultList, String secUserId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(WechatMiniappIdentity.SEC_USER_PROPERTY, secUserId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem createTimeStatsItem = new StatsItem();
 		//WechatMiniappIdentity.CREATE_TIME_PROPERTY
@@ -302,11 +305,11 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		createTimeStatsItem.setInternalName(formatKeyForDateLine(WechatMiniappIdentity.CREATE_TIME_PROPERTY));
 		createTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(WechatMiniappIdentity.CREATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(createTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countWechatMiniappIdentityBySecUser(String secUserId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	public Map<String, Integer> countWechatMiniappIdentityBySecUserIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(WechatMiniappIdentityTable.COLUMN_SEC_USER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected WechatMiniappIdentity saveWechatMiniappIdentity(WechatMiniappIdentity  wechatMiniappIdentity){
+    
+
 		
 		if(!wechatMiniappIdentity.isChanged()){
 			return wechatMiniappIdentity;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(wechatMiniappIdentity);
 		String SQL=this.getSaveWechatMiniappIdentitySQL(wechatMiniappIdentity);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveWechatMiniappIdentityParameters(wechatMiniappIdentity);
@@ -342,6 +348,7 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		}
 
 		wechatMiniappIdentity.incVersion();
+		wechatMiniappIdentity.afterSave();
 		return wechatMiniappIdentity;
 
 	}
@@ -359,6 +366,7 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		for(WechatMiniappIdentity wechatMiniappIdentity:wechatMiniappIdentityList){
 			if(wechatMiniappIdentity.isChanged()){
 				wechatMiniappIdentity.incVersion();
+				wechatMiniappIdentity.afterSave();
 			}
 
 
@@ -460,54 +468,49 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		return prepareWechatMiniappIdentityCreateParameters(wechatMiniappIdentity);
  	}
  	protected Object[] prepareWechatMiniappIdentityUpdateParameters(WechatMiniappIdentity wechatMiniappIdentity){
- 		Object[] parameters = new Object[8];
+ 		Object[] parameters = new Object[9];
  
- 		
  		parameters[0] = wechatMiniappIdentity.getOpenId();
- 		
  		
  		parameters[1] = wechatMiniappIdentity.getAppId();
  		
+ 		parameters[2] = wechatMiniappIdentity.getUnionId();
+ 		
  		if(wechatMiniappIdentity.getSecUser() != null){
- 			parameters[2] = wechatMiniappIdentity.getSecUser().getId();
+ 			parameters[3] = wechatMiniappIdentity.getSecUser().getId();
  		}
- 
+    
+ 		parameters[4] = wechatMiniappIdentity.getCreateTime();
  		
- 		parameters[3] = wechatMiniappIdentity.getCreateTime();
+ 		parameters[5] = wechatMiniappIdentity.getLastLoginTime();
  		
- 		
- 		parameters[4] = wechatMiniappIdentity.getLastLoginTime();
- 		
- 		parameters[5] = wechatMiniappIdentity.nextVersion();
- 		parameters[6] = wechatMiniappIdentity.getId();
- 		parameters[7] = wechatMiniappIdentity.getVersion();
+ 		parameters[6] = wechatMiniappIdentity.nextVersion();
+ 		parameters[7] = wechatMiniappIdentity.getId();
+ 		parameters[8] = wechatMiniappIdentity.getVersion();
 
  		return parameters;
  	}
  	protected Object[] prepareWechatMiniappIdentityCreateParameters(WechatMiniappIdentity wechatMiniappIdentity){
-		Object[] parameters = new Object[6];
+		Object[] parameters = new Object[7];
         if(wechatMiniappIdentity.getId() == null){
           String newWechatMiniappIdentityId=getNextId();
           wechatMiniappIdentity.setId(newWechatMiniappIdentityId);
         }
 		parameters[0] =  wechatMiniappIdentity.getId();
  
- 		
  		parameters[1] = wechatMiniappIdentity.getOpenId();
- 		
  		
  		parameters[2] = wechatMiniappIdentity.getAppId();
  		
+ 		parameters[3] = wechatMiniappIdentity.getUnionId();
+ 		
  		if(wechatMiniappIdentity.getSecUser() != null){
- 			parameters[3] = wechatMiniappIdentity.getSecUser().getId();
-
+ 			parameters[4] = wechatMiniappIdentity.getSecUser().getId();
  		}
  		
+ 		parameters[5] = wechatMiniappIdentity.getCreateTime();
  		
- 		parameters[4] = wechatMiniappIdentity.getCreateTime();
- 		
- 		
- 		parameters[5] = wechatMiniappIdentity.getLastLoginTime();
+ 		parameters[6] = wechatMiniappIdentity.getLastLoginTime();
  		
 
  		return parameters;
@@ -515,12 +518,11 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected WechatMiniappIdentity saveInternalWechatMiniappIdentity(WechatMiniappIdentity wechatMiniappIdentity, Map<String,Object> options){
 
-		saveWechatMiniappIdentity(wechatMiniappIdentity);
-
  		if(isSaveSecUserEnabled(options)){
 	 		saveSecUser(wechatMiniappIdentity, options);
  		}
  
+   saveWechatMiniappIdentity(wechatMiniappIdentity);
 		
 		return wechatMiniappIdentity;
 
@@ -532,6 +534,7 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	
 
  	protected WechatMiniappIdentity saveSecUser(WechatMiniappIdentity wechatMiniappIdentity, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(wechatMiniappIdentity.getSecUser() == null){
  			return wechatMiniappIdentity;//do nothing when it is null
@@ -541,11 +544,6 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		return wechatMiniappIdentity;
 
  	}
-
-
-
-
-
  
 
 	
@@ -553,10 +551,10 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		
 
 	public WechatMiniappIdentity present(WechatMiniappIdentity wechatMiniappIdentity,Map<String, Object> options){
-	
+
 
 		return wechatMiniappIdentity;
-	
+
 	}
 		
 
@@ -608,6 +606,10 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<WechatMiniappIdentity> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getWechatMiniappIdentityMapper());
   }
@@ -643,6 +645,15 @@ public class WechatMiniappIdentityJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	
 
+  @Override
+  public List<WechatMiniappIdentity> search(WechatMiniappIdentityRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected WechatMiniappIdentityMapper mapper() {
+    return getWechatMiniappIdentityMapper();
+  }
 }
 
 

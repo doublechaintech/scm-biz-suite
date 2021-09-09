@@ -46,6 +46,7 @@ public interface SupplierProductDAO extends BaseDAO{
 	public void delete(String supplierProductId, int version) throws Exception;
 	public SupplierProduct disconnectFromAll(String supplierProductId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public ProductSupplyDurationDAO getProductSupplyDurationDAO();
 		
@@ -57,9 +58,10 @@ public interface SupplierProductDAO extends BaseDAO{
 
 
 
-	public SmartList<SupplierProduct> queryList(String sql, Object ... parmeters);
+	public SmartList<SupplierProduct> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SupplierProduct> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSupplierProduct executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SupplierProduct> findSupplierProductBySupplier(String goodsSupplierId, Map<String,Object> options);
@@ -73,6 +75,8 @@ public interface SupplierProductDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:ProductSupplyDuration的product的ProductSupplyDurationList
 	public SmartList<ProductSupplyDuration> loadOurProductSupplyDurationList(RetailscmUserContext userContext, List<SupplierProduct> us, Map<String,Object> options) throws Exception;
 	
+
+	List<SupplierProduct> search(SupplierProductRequest pRequest);
 }
 
 

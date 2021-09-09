@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './EmployeeSalarySheet.updateform.less'
 import EmployeeSalarySheetBase from './EmployeeSalarySheet.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -102,13 +104,13 @@ class EmployeeSalarySheetUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const employeeSalarySheetId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, employeeSalarySheetId, ...imagesValues }
 
-        
+        const parameters = { ...values, employeeSalarySheetId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -123,7 +125,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -133,12 +135,12 @@ class EmployeeSalarySheetUpdateForm extends Component {
 
         const { owner } = this.props
         const employeeSalarySheetId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, employeeSalarySheetId, ...imagesValues }
+
+        const parameters = { ...values, employeeSalarySheetId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -160,11 +162,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextEmployeeSalarySheetUpdateRow`,
@@ -178,7 +180,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -186,7 +188,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'employeeSalarySheet',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -229,7 +231,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -243,12 +245,12 @@ class EmployeeSalarySheetUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}工资单: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -258,7 +260,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -266,8 +268,8 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -278,8 +280,8 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.baseSalary,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.baseSalary} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.baseSalary} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -290,8 +292,8 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.bonus,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.bonus} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.bonus} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -302,8 +304,8 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.reward,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.reward} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.reward} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -314,8 +316,8 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.personalTax,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.personalTax} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.personalTax} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -326,8 +328,8 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.socialSecurity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.socialSecurity} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.socialSecurity} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -338,8 +340,8 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.housingFound,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.housingFound} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.housingFound} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -350,17 +352,17 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.jobInsurance,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.jobInsurance} />
-                    
+                    <SmallTextInput size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder={fieldLabels.jobInsurance} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

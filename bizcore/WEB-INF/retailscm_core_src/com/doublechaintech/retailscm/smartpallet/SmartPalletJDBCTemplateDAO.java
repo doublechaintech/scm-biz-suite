@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.smartpallet;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected WarehouseDAO warehouseDAO;
 	public void setWarehouseDAO(WarehouseDAO warehouseDAO){
- 	
+
  		if(warehouseDAO == null){
  			throw new IllegalStateException("Do not try to set warehouseDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.warehouseDAO == null){
  			throw new IllegalStateException("The warehouseDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.warehouseDAO;
- 	}	
+ 	}
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		newSmartPallet.setVersion(0);
 		
 		
- 		
+
  		if(isSaveGoodsListEnabled(options)){
  			for(Goods item: newSmartPallet.getGoodsList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SmartPalletTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractWarehouseEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SmartPalletTokens.WAREHOUSE);
  	}
 
  	protected boolean isSaveWarehouseEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SmartPalletTokens.WAREHOUSE);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
  		return checkOptions(options,SmartPalletTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){
  		return SmartPalletTokens.of(options).analyzeGoodsListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, SmartPalletTokens.GOODS_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		return new SmartPalletMapper();
 	}
 
-	
-	
+
+
 	protected SmartPallet extractSmartPallet(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			SmartPallet smartPallet = loadSingleObject(accessKey, getSmartPalletMapper());
@@ -268,13 +270,13 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	}
 
-	
-	
+
+
 
 	protected SmartPallet loadInternalSmartPallet(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		SmartPallet smartPallet = extractSmartPallet(accessKey, loadOptions);
- 	
+
  		if(isExtractWarehouseEnabled(loadOptions)){
 	 		extractWarehouse(smartPallet, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(smartPallet, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
 	 		analyzeGoodsList(smartPallet, loadOptions);
@@ -291,12 +293,13 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
 		
 		return smartPallet;
-		
+
 	}
 
-	 
+	
 
  	protected SmartPallet extractWarehouse(SmartPallet smartPallet, Map<String,Object> options) throws Exception{
+  
 
 		if(smartPallet.getWarehouse() == null){
 			return smartPallet;
@@ -309,21 +312,21 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(warehouse != null){
 			smartPallet.setWarehouse(warehouse);
 		}
-		
- 		
+
+
  		return smartPallet;
  	}
- 		
+
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SmartPallet extractGoodsList(SmartPallet smartPallet, Map<String,Object> options){
-		
-		
+    
+
 		if(smartPallet == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return smartPallet;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = getGoodsDAO().findGoodsBySmartPallet(smartPallet.getId(),options);
 		if(goodsList != null){
 			enhanceGoodsList(goodsList,options);
 			smartPallet.setGoodsList(goodsList);
 		}
-		
+
 		return smartPallet;
-	
-	}	
-	
+  
+	}
+
 	protected SmartPallet analyzeGoodsList(SmartPallet smartPallet, Map<String,Object> options){
-		
-		
+     
 		if(smartPallet == null){
 			return null;
 		}
@@ -353,47 +355,47 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return smartPallet;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 		if(goodsList != null){
 			getGoodsDAO().analyzeGoodsBySmartPallet(goodsList, smartPallet.getId(), options);
-			
+
 		}
-		
+
 		return smartPallet;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<SmartPallet> findSmartPalletByWarehouse(String warehouseId,Map<String,Object> options){
- 	
+
   		SmartList<SmartPallet> resultList = queryWith(SmartPalletTable.COLUMN_WAREHOUSE, warehouseId, options, getSmartPalletMapper());
 		// analyzeSmartPalletByWarehouse(resultList, warehouseId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<SmartPallet> findSmartPalletByWarehouse(String warehouseId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<SmartPallet> resultList =  queryWithRange(SmartPalletTable.COLUMN_WAREHOUSE, warehouseId, options, getSmartPalletMapper(), start, count);
  		//analyzeSmartPalletByWarehouse(resultList, warehouseId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSmartPalletByWarehouse(SmartList<SmartPallet> resultList, String warehouseId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SmartPallet.WAREHOUSE_PROPERTY, warehouseId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//SmartPallet.LAST_UPDATE_TIME_PROPERTY
@@ -401,11 +403,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SmartPallet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SmartPallet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSmartPalletByWarehouse(String warehouseId,Map<String,Object> options){
@@ -416,21 +418,24 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	public Map<String, Integer> countSmartPalletByWarehouseIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SmartPalletTable.COLUMN_WAREHOUSE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected SmartPallet saveSmartPallet(SmartPallet  smartPallet){
+    
+
 		
 		if(!smartPallet.isChanged()){
 			return smartPallet;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(smartPallet);
 		String SQL=this.getSaveSmartPalletSQL(smartPallet);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSmartPalletParameters(smartPallet);
@@ -441,6 +446,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		smartPallet.incVersion();
+		smartPallet.afterSave();
 		return smartPallet;
 
 	}
@@ -458,6 +464,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		for(SmartPallet smartPallet:smartPalletList){
 			if(smartPallet.isChanged()){
 				smartPallet.incVersion();
+				smartPallet.afterSave();
 			}
 
 
@@ -561,26 +568,20 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  	protected Object[] prepareSmartPalletUpdateParameters(SmartPallet smartPallet){
  		Object[] parameters = new Object[10];
  
- 		
  		parameters[0] = smartPallet.getLocation();
- 		
  		
  		parameters[1] = smartPallet.getContactNumber();
  		
- 		
  		parameters[2] = smartPallet.getTotalArea();
  		
- 		
  		parameters[3] = smartPallet.getLatitude();
- 		
  		
  		parameters[4] = smartPallet.getLongitude();
  		
  		if(smartPallet.getWarehouse() != null){
  			parameters[5] = smartPallet.getWarehouse().getId();
  		}
- 
- 		
+    
  		parameters[6] = smartPallet.getLastUpdateTime();
  		
  		parameters[7] = smartPallet.nextVersion();
@@ -597,26 +598,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
         }
 		parameters[0] =  smartPallet.getId();
  
- 		
  		parameters[1] = smartPallet.getLocation();
- 		
  		
  		parameters[2] = smartPallet.getContactNumber();
  		
- 		
  		parameters[3] = smartPallet.getTotalArea();
  		
- 		
  		parameters[4] = smartPallet.getLatitude();
- 		
  		
  		parameters[5] = smartPallet.getLongitude();
  		
  		if(smartPallet.getWarehouse() != null){
  			parameters[6] = smartPallet.getWarehouse().getId();
-
  		}
- 		
  		
  		parameters[7] = smartPallet.getLastUpdateTime();
  		
@@ -626,12 +620,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected SmartPallet saveInternalSmartPallet(SmartPallet smartPallet, Map<String,Object> options){
 
-		saveSmartPallet(smartPallet);
-
  		if(isSaveWarehouseEnabled(options)){
 	 		saveWarehouse(smartPallet, options);
  		}
  
+   saveSmartPallet(smartPallet);
 		
 		if(isSaveGoodsListEnabled(options)){
 	 		saveGoodsList(smartPallet, options);
@@ -650,6 +643,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 
  	protected SmartPallet saveWarehouse(SmartPallet smartPallet, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(smartPallet.getWarehouse() == null){
  			return smartPallet;//do nothing when it is null
@@ -659,11 +653,6 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		return smartPallet;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1050,7 +1039,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected SmartPallet saveGoodsList(SmartPallet smartPallet, Map<String,Object> options){
-
+    
 
 
 
@@ -1117,19 +1106,19 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 
 	public SmartPallet present(SmartPallet smartPallet,Map<String, Object> options){
-	
+
 		presentGoodsList(smartPallet,options);
 
 		return smartPallet;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SmartPallet presentGoodsList(
 			SmartPallet smartPallet,
 			Map<String, Object> options) {
-
-		SmartList<Goods> goodsList = smartPallet.getGoodsList();		
+    
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
 				SmartList<Goods> newList= presentSubList(smartPallet.getId(),
 				goodsList,
 				options,
@@ -1137,12 +1126,12 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				getGoodsDAO()::findGoodsBySmartPallet
 				);
 
-		
+
 		smartPallet.setGoodsList(newList);
-		
+
 
 		return smartPallet;
-	}			
+	}
 		
 
 	
@@ -1166,6 +1155,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的smartPallet的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SmartPallet> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1222,6 +1212,10 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<SmartPallet> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSmartPalletMapper());
   }
@@ -1257,6 +1251,15 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	
 
+  @Override
+  public List<SmartPallet> search(SmartPalletRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SmartPalletMapper mapper() {
+    return getSmartPalletMapper();
+  }
 }
 
 

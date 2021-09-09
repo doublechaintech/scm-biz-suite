@@ -31,7 +31,7 @@ const internalSummaryOf = (memberWishlist,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberWishlist.id}</Description> 
+<Description term="ID">{memberWishlist.id}</Description> 
 <Description term="名称">{memberWishlist.name}</Description> 
 	
       </DescriptionList>
@@ -58,7 +58,7 @@ class MemberWishlistPermission extends Component {
     // eslint-disable-next-line max-len
     const  memberWishlist = this.props.memberWishlist
     const { id,displayName, memberWishlistProductCount } = memberWishlist
-    const  returnURL = `/memberWishlist/${id}/dashboard`
+    const  returnURL = `/memberWishlist/${id}/workbench`
     const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",cardsSource: memberWishlist,displayName,returnURL,
   		subItems: [
     
@@ -71,10 +71,10 @@ class MemberWishlistPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

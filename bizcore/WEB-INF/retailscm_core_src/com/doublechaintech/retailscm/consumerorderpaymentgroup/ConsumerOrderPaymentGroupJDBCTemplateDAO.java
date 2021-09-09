@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.consumerorderpaymentgroup;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	protected ConsumerOrderDAO consumerOrderDAO;
 	public void setConsumerOrderDAO(ConsumerOrderDAO consumerOrderDAO){
- 	
+
  		if(consumerOrderDAO == null){
  			throw new IllegalStateException("Do not try to set consumerOrderDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
  		if(this.consumerOrderDAO == null){
  			throw new IllegalStateException("The consumerOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.consumerOrderDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ConsumerOrderPaymentGroupTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ConsumerOrderPaymentGroupTokens.BIZORDER);
  	}
 
  	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ConsumerOrderPaymentGroupTokens.BIZORDER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 		return new ConsumerOrderPaymentGroupMapper();
 	}
 
-	
-	
+
+
 	protected ConsumerOrderPaymentGroup extractConsumerOrderPaymentGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ConsumerOrderPaymentGroup consumerOrderPaymentGroup = loadSingleObject(accessKey, getConsumerOrderPaymentGroupMapper());
@@ -229,25 +231,26 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	}
 
-	
-	
+
+
 
 	protected ConsumerOrderPaymentGroup loadInternalConsumerOrderPaymentGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ConsumerOrderPaymentGroup consumerOrderPaymentGroup = extractConsumerOrderPaymentGroup(accessKey, loadOptions);
- 	
+
  		if(isExtractBizOrderEnabled(loadOptions)){
 	 		extractBizOrder(consumerOrderPaymentGroup, loadOptions);
  		}
  
 		
 		return consumerOrderPaymentGroup;
-		
+
 	}
 
-	 
+	
 
  	protected ConsumerOrderPaymentGroup extractBizOrder(ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String,Object> options) throws Exception{
+  
 
 		if(consumerOrderPaymentGroup.getBizOrder() == null){
 			return consumerOrderPaymentGroup;
@@ -260,37 +263,37 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(bizOrder != null){
 			consumerOrderPaymentGroup.setBizOrder(bizOrder);
 		}
-		
- 		
+
+
  		return consumerOrderPaymentGroup;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(String consumerOrderId,Map<String,Object> options){
- 	
+
   		SmartList<ConsumerOrderPaymentGroup> resultList = queryWith(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPaymentGroupMapper());
 		// analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ConsumerOrderPaymentGroup> resultList =  queryWithRange(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPaymentGroupMapper(), start, count);
  		//analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeConsumerOrderPaymentGroupByBizOrder(SmartList<ConsumerOrderPaymentGroup> resultList, String consumerOrderId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countConsumerOrderPaymentGroupByBizOrder(String consumerOrderId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 	public Map<String, Integer> countConsumerOrderPaymentGroupByBizOrderIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ConsumerOrderPaymentGroup saveConsumerOrderPaymentGroup(ConsumerOrderPaymentGroup  consumerOrderPaymentGroup){
+    
+
 		
 		if(!consumerOrderPaymentGroup.isChanged()){
 			return consumerOrderPaymentGroup;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(consumerOrderPaymentGroup);
 		String SQL=this.getSaveConsumerOrderPaymentGroupSQL(consumerOrderPaymentGroup);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveConsumerOrderPaymentGroupParameters(consumerOrderPaymentGroup);
@@ -326,6 +332,7 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 
 		consumerOrderPaymentGroup.incVersion();
+		consumerOrderPaymentGroup.afterSave();
 		return consumerOrderPaymentGroup;
 
 	}
@@ -343,6 +350,7 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 		for(ConsumerOrderPaymentGroup consumerOrderPaymentGroup:consumerOrderPaymentGroupList){
 			if(consumerOrderPaymentGroup.isChanged()){
 				consumerOrderPaymentGroup.incVersion();
+				consumerOrderPaymentGroup.afterSave();
 			}
 
 
@@ -446,14 +454,12 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
  	protected Object[] prepareConsumerOrderPaymentGroupUpdateParameters(ConsumerOrderPaymentGroup consumerOrderPaymentGroup){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = consumerOrderPaymentGroup.getName();
  		
  		if(consumerOrderPaymentGroup.getBizOrder() != null){
  			parameters[1] = consumerOrderPaymentGroup.getBizOrder().getId();
  		}
- 
- 		
+    
  		parameters[2] = consumerOrderPaymentGroup.getCardNumber();
  		
  		parameters[3] = consumerOrderPaymentGroup.nextVersion();
@@ -470,14 +476,11 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
         }
 		parameters[0] =  consumerOrderPaymentGroup.getId();
  
- 		
  		parameters[1] = consumerOrderPaymentGroup.getName();
  		
  		if(consumerOrderPaymentGroup.getBizOrder() != null){
  			parameters[2] = consumerOrderPaymentGroup.getBizOrder().getId();
-
  		}
- 		
  		
  		parameters[3] = consumerOrderPaymentGroup.getCardNumber();
  		
@@ -487,12 +490,11 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	protected ConsumerOrderPaymentGroup saveInternalConsumerOrderPaymentGroup(ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String,Object> options){
 
-		saveConsumerOrderPaymentGroup(consumerOrderPaymentGroup);
-
  		if(isSaveBizOrderEnabled(options)){
 	 		saveBizOrder(consumerOrderPaymentGroup, options);
  		}
  
+   saveConsumerOrderPaymentGroup(consumerOrderPaymentGroup);
 		
 		return consumerOrderPaymentGroup;
 
@@ -504,6 +506,7 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 	
 
  	protected ConsumerOrderPaymentGroup saveBizOrder(ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(consumerOrderPaymentGroup.getBizOrder() == null){
  			return consumerOrderPaymentGroup;//do nothing when it is null
@@ -513,11 +516,6 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
  		return consumerOrderPaymentGroup;
 
  	}
-
-
-
-
-
  
 
 	
@@ -525,10 +523,10 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 		
 
 	public ConsumerOrderPaymentGroup present(ConsumerOrderPaymentGroup consumerOrderPaymentGroup,Map<String, Object> options){
-	
+
 
 		return consumerOrderPaymentGroup;
-	
+
 	}
 		
 
@@ -580,6 +578,10 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ConsumerOrderPaymentGroup> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getConsumerOrderPaymentGroupMapper());
   }
@@ -615,6 +617,15 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	
 
+  @Override
+  public List<ConsumerOrderPaymentGroup> search(ConsumerOrderPaymentGroupRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ConsumerOrderPaymentGroupMapper mapper() {
+    return getConsumerOrderPaymentGroupMapper();
+  }
 }
 
 

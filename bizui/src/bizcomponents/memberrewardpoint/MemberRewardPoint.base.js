@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Row, Tag, Button,Table} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -21,6 +21,8 @@ const {
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
+	defaultRenderNumberCell,
+	defaultFormatNumber,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -32,21 +34,54 @@ const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
+const renderNumberCell=defaultRenderNumberCell
+const formatNumber = defaultFormatNumber
+
+const renderImageListCell=(imageList, record)=>{
+	const userContext = null;
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+}
 
 
 
-const menuData = {menuName: window.trans('member_reward_point'), menuFor: "memberRewardPoint",
+
+const menuData = {menuName: window.trans('member_reward_point'), menuFor: "memberRewardPoint",  internalName: "member_reward_point",
   		subItems: [
-  
+
   		],
 }
 
 
-const settingMenuData = {menuName: window.trans('member_reward_point'), menuFor: "memberRewardPoint",
+const settingMenuData = {menuName: window.trans('member_reward_point'), menuFor: "memberRewardPoint",  internalName: "member_reward_point",
   		subItems: [
-  
+
   		],
 }
+
+
+const mergedSubItems=()=>{
+
+    const result = []
+    menuData.subItems.forEach(item=>{
+        result.push({...item, for: "menu"})
+    })
+    settingMenuData.subItems.forEach(item=>{
+        result.push({...item, for: "setting"})
+    })
+    return result
+}
+const universalMenuData = {...menuData, subItems: mergedSubItems()}
+
+
 
 const fieldLabels = {
   id: window.trans('member_reward_point.id'),
@@ -59,13 +94,13 @@ const fieldLabels = {
 const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '6', render: (text, record)=>renderTextCell(text,record,'memberRewardPoint') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '10',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.point, dataIndex: 'point', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
+  { title: fieldLabels.point, dataIndex: 'point', className:'money', render: (text, record) => renderNumberCell(text, record, 0), sorter: true  },
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
 
 
-const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(universalMenuData,targetObject,searchTerm)
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -95,7 +130,7 @@ const renderTextItem=(value, label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 const renderImageItem=(value,label, targetComponent)=>{
@@ -103,7 +138,7 @@ const renderImageItem=(value,label, targetComponent)=>{
 	if(!value){
 		return appLocaleName(userContext,"NotAssigned")
 	}
-	
+
 	return <ImagePreview title={label} imageLocation={value}/>
 }
 
@@ -135,50 +170,100 @@ const renderReferenceItem=(value,label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 
-const renderItemOfList=(memberRewardPoint, targetComponent, columCount, listName)=>{
-  
+
+const renderImageList=(imageList,label, targetComponent)=>{
+	const userContext = null
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	// return JSON.stringify(imageList)
+/*
+	the data looks like this
+	{"id":"1601","title":"cover_images01",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images010016/400/200/grey/"},
+	{"id":"1602","title":"cover_images02",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images020016/400/200/grey/"}
+*/
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+
+}
+
+
+const renderActionList=(memberRewardPoint, targetObject, columCount, listName)=>{
+
+	if(!memberRewardPoint){
+		return null
+	}
+	if(!memberRewardPoint.actionList){
+		return null
+	}
+	if(memberRewardPoint.actionList.length === 0){
+		return null
+	}
+	return (
+		<div className={styles.overlay}>
+
+			<div className={styles.overlayContent}>
+			{memberRewardPoint.actionList.map(action=>(<Link key={action.id} to={{pathname: action.actionPath.substring(1), state: {ownerId:targetObject.id,action,selectedRows:[memberRewardPoint]}}} >
+				<span className={styles.overlayText}>{action.actionName}</span>
+				</Link> ))}
+			</div>
+
+		</div>
+		)
+
+}
+
+const renderItemOfList=(memberRewardPoint, targetObject, columCount, listName)=>{
+
   if(!memberRewardPoint){
   	return null
   }
   if(!memberRewardPoint.id){
   	return null
   }
-  
-  
+
+
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`${listName}-${memberRewardPoint.id}`} style={{marginTop:"10px"}}>
-		
+     <Row key={`${listName}-${memberRewardPoint.id}`} className={styles.itemDesc}>
+
 	<Col span={4}>
-		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+		<Avatar size={90} className={styles.avarta} style={{ backgroundColor: genColor()}}>
 			{leftChars(memberRewardPoint.displayName)}
 		</Avatar>
 	</Col>
 	<Col span={20}>
 	  
-	  
-	 
-	
+
+
+
       <DescriptionList  key={memberRewardPoint.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{memberRewardPoint.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{memberRewardPoint.name}</Description> 
-        <Description term={fieldLabels.point}><div style={{"color":"red"}}>{memberRewardPoint.point}</div></Description> 
+        <Description term={fieldLabels.point}><div style={{"color":"red"}}>{formatNumber(memberRewardPoint.point,0)}</div></Description> 
         <Description term={fieldLabels.owner}>{renderReferenceItem(memberRewardPoint.owner)}</Description>
 
-	
-        
+
+
       </DescriptionList>
      </Col>
-    </Card>
+      {renderActionList(memberRewardPoint,targetObject)}
+    </Row>
 	)
 
 }
-	
+
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, point, ownerId} = formValuesToPack
 	const owner = {id: ownerId, version: 2^31}
@@ -191,7 +276,10 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const data = {name, point, ownerId}
 	return data
 }
-const stepOf=(targetComponent, title, content, position, index)=>{
+
+
+const stepOf=(targetComponent, title, content, position, index, initValue)=>{
+	const isMultipleEvent=false
 	return {
 		title,
 		content,
@@ -199,8 +287,13 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		packFunction: packFormValuesToObject,
 		unpackFunction: unpackObjectToFormValues,
 		index,
+		initValue,
+		isMultipleEvent,
       }
 }
-const MemberRewardPointBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+
+
+
+const MemberRewardPointBase={unpackObjectToFormValues, menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default MemberRewardPointBase
 

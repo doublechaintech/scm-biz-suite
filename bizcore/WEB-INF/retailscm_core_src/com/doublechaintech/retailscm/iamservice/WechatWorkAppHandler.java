@@ -16,7 +16,7 @@ import me.chanjar.weixin.cp.bean.WxCpMaJsCode2SessionResult;
 public class WechatWorkAppHandler extends BaseIdentificationHandler {
 
 	protected WxCpService wxService;
-	
+
 	public WxCpService getWxService() {
 		return wxService;
 	}
@@ -42,26 +42,26 @@ public class WechatWorkAppHandler extends BaseIdentificationHandler {
 			Map<String, String> additionalInfo = (Map<String, String>) result.getLoginContext().getLoginTarget().getAdditionalInfo();
 			String userId = additionalInfo.get("userId");
 			SmartList<WechatWorkappIdentity> rcdList = getIdentifyRecords(userContext, result.getLoginContext());
-			if (rcdList == null) {
+			if (rcdList == null || rcdList.isEmpty()) {
 				result.setAuthenticated(true);
 				result.setSuccess(false);
 				result.setMessage("企业微信用户"+userId+"未注册");
 				return result;
 			}
-			
+
 			if (rcdList.size() > 1) {
 				result.setAuthenticated(false);	// 虽然知道你是个微信用户,但是我还是不知道你是哪位
 				result.setSuccess(false);
 				result.setMessage("企业微信用户"+userId+"关联了多个用户,无法确定唯一身份,请用其他方式登录或联系管理员处理账号.");
 				return result;
 			}
-			
+
 			SecUser secUser = userContext.getDAOGroup().getSecUserDAO().load(rcdList.first().getSecUser().getId(), EO);
 			result.getLoginContext().getLoginTarget().setSecUser(secUser);
 			result.setAuthenticated(true);
 			result.setSuccess(true);
 			return result.authenticated("企业微信用户验证成功");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return result.withError("企业微信认证失败:"+e.getMessage());
@@ -88,10 +88,10 @@ public class WechatWorkAppHandler extends BaseIdentificationHandler {
 		String userId = sessionInfo.getUserId();
         String userSessionKey = sessionInfo.getSessionKey();
         String corpId = wxService.getWxCpConfigStorage().getCorpId();
-        
+
         String cacheKey = this.getWehatSessionKeyCacheKey(userContext, corpId, userId);
 		userContext.putToCache(cacheKey, userSessionKey, (int) (1*DateTimeUtil.HOUR_IN_MS/DateTimeUtil.SECOND_IN_MS));
-		
+
 		Map<String, String> additionalInfo = MapUtil.put("userId", userId).put("sessionKey", userSessionKey)
 				.put("corpId", corpId).into_map(String.class);
 		result.getLoginContext().getLoginTarget().setAdditionalInfo(additionalInfo);
@@ -119,7 +119,6 @@ public class WechatWorkAppHandler extends BaseIdentificationHandler {
 	}
 
 }
-
 
 
 

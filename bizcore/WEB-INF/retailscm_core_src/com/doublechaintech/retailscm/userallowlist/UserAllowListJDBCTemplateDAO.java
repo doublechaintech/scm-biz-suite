@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.userallowlist;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected UserDomainDAO userDomainDAO;
 	public void setUserDomainDAO(UserDomainDAO userDomainDAO){
- 	
+
  		if(userDomainDAO == null){
  			throw new IllegalStateException("Do not try to set userDomainDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.userDomainDAO == null){
  			throw new IllegalStateException("The userDomainDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.userDomainDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return UserAllowListTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractDomainEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, UserAllowListTokens.DOMAIN);
  	}
 
  	protected boolean isSaveDomainEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, UserAllowListTokens.DOMAIN);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new UserAllowListMapper();
 	}
 
-	
-	
+
+
 	protected UserAllowList extractUserAllowList(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			UserAllowList userAllowList = loadSingleObject(accessKey, getUserAllowListMapper());
@@ -229,25 +231,26 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected UserAllowList loadInternalUserAllowList(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		UserAllowList userAllowList = extractUserAllowList(accessKey, loadOptions);
- 	
+
  		if(isExtractDomainEnabled(loadOptions)){
 	 		extractDomain(userAllowList, loadOptions);
  		}
  
 		
 		return userAllowList;
-		
+
 	}
 
-	 
+	
 
  	protected UserAllowList extractDomain(UserAllowList userAllowList, Map<String,Object> options) throws Exception{
+  
 
 		if(userAllowList.getDomain() == null){
 			return userAllowList;
@@ -260,37 +263,37 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(domain != null){
 			userAllowList.setDomain(domain);
 		}
-		
- 		
+
+
  		return userAllowList;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<UserAllowList> findUserAllowListByDomain(String userDomainId,Map<String,Object> options){
- 	
+
   		SmartList<UserAllowList> resultList = queryWith(UserAllowListTable.COLUMN_DOMAIN, userDomainId, options, getUserAllowListMapper());
 		// analyzeUserAllowListByDomain(resultList, userDomainId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<UserAllowList> findUserAllowListByDomain(String userDomainId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<UserAllowList> resultList =  queryWithRange(UserAllowListTable.COLUMN_DOMAIN, userDomainId, options, getUserAllowListMapper(), start, count);
  		//analyzeUserAllowListByDomain(resultList, userDomainId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeUserAllowListByDomain(SmartList<UserAllowList> resultList, String userDomainId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countUserAllowListByDomain(String userDomainId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countUserAllowListByDomainIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(UserAllowListTable.COLUMN_DOMAIN, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected UserAllowList saveUserAllowList(UserAllowList  userAllowList){
+    
+
 		
 		if(!userAllowList.isChanged()){
 			return userAllowList;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(userAllowList);
 		String SQL=this.getSaveUserAllowListSQL(userAllowList);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveUserAllowListParameters(userAllowList);
@@ -326,6 +332,7 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		userAllowList.incVersion();
+		userAllowList.afterSave();
 		return userAllowList;
 
 	}
@@ -343,6 +350,7 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(UserAllowList userAllowList:userAllowListList){
 			if(userAllowList.isChanged()){
 				userAllowList.incVersion();
+				userAllowList.afterSave();
 			}
 
 
@@ -446,16 +454,14 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	protected Object[] prepareUserAllowListUpdateParameters(UserAllowList userAllowList){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = userAllowList.getUserIdentity();
- 		
  		
  		parameters[1] = userAllowList.getUserSpecialFunctions();
  		
  		if(userAllowList.getDomain() != null){
  			parameters[2] = userAllowList.getDomain().getId();
  		}
- 
+    
  		parameters[3] = userAllowList.nextVersion();
  		parameters[4] = userAllowList.getId();
  		parameters[5] = userAllowList.getVersion();
@@ -470,15 +476,12 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
         }
 		parameters[0] =  userAllowList.getId();
  
- 		
  		parameters[1] = userAllowList.getUserIdentity();
- 		
  		
  		parameters[2] = userAllowList.getUserSpecialFunctions();
  		
  		if(userAllowList.getDomain() != null){
  			parameters[3] = userAllowList.getDomain().getId();
-
  		}
  		
 
@@ -487,12 +490,11 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected UserAllowList saveInternalUserAllowList(UserAllowList userAllowList, Map<String,Object> options){
 
-		saveUserAllowList(userAllowList);
-
  		if(isSaveDomainEnabled(options)){
 	 		saveDomain(userAllowList, options);
  		}
  
+   saveUserAllowList(userAllowList);
 		
 		return userAllowList;
 
@@ -504,6 +506,7 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected UserAllowList saveDomain(UserAllowList userAllowList, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(userAllowList.getDomain() == null){
  			return userAllowList;//do nothing when it is null
@@ -513,11 +516,6 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return userAllowList;
 
  	}
-
-
-
-
-
  
 
 	
@@ -525,10 +523,10 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public UserAllowList present(UserAllowList userAllowList,Map<String, Object> options){
-	
+
 
 		return userAllowList;
-	
+
 	}
 		
 
@@ -580,6 +578,10 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<UserAllowList> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getUserAllowListMapper());
   }
@@ -615,6 +617,15 @@ public class UserAllowListJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<UserAllowList> search(UserAllowListRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected UserAllowListMapper mapper() {
+    return getUserAllowListMapper();
+  }
 }
 
 

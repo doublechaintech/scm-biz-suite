@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.transporttasktrack;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected TransportTaskDAO transportTaskDAO;
 	public void setTransportTaskDAO(TransportTaskDAO transportTaskDAO){
- 	
+
  		if(transportTaskDAO == null){
  			throw new IllegalStateException("Do not try to set transportTaskDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(this.transportTaskDAO == null){
  			throw new IllegalStateException("The transportTaskDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.transportTaskDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return TransportTaskTrackTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractMovementEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TransportTaskTrackTokens.MOVEMENT);
  	}
 
  	protected boolean isSaveMovementEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TransportTaskTrackTokens.MOVEMENT);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		return new TransportTaskTrackMapper();
 	}
 
-	
-	
+
+
 	protected TransportTaskTrack extractTransportTaskTrack(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			TransportTaskTrack transportTaskTrack = loadSingleObject(accessKey, getTransportTaskTrackMapper());
@@ -229,25 +231,26 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	}
 
-	
-	
+
+
 
 	protected TransportTaskTrack loadInternalTransportTaskTrack(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		TransportTaskTrack transportTaskTrack = extractTransportTaskTrack(accessKey, loadOptions);
- 	
+
  		if(isExtractMovementEnabled(loadOptions)){
 	 		extractMovement(transportTaskTrack, loadOptions);
  		}
  
 		
 		return transportTaskTrack;
-		
+
 	}
 
-	 
+	
 
  	protected TransportTaskTrack extractMovement(TransportTaskTrack transportTaskTrack, Map<String,Object> options) throws Exception{
+  
 
 		if(transportTaskTrack.getMovement() == null){
 			return transportTaskTrack;
@@ -260,37 +263,37 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(movement != null){
 			transportTaskTrack.setMovement(movement);
 		}
-		
- 		
+
+
  		return transportTaskTrack;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<TransportTaskTrack> findTransportTaskTrackByMovement(String transportTaskId,Map<String,Object> options){
- 	
+
   		SmartList<TransportTaskTrack> resultList = queryWith(TransportTaskTrackTable.COLUMN_MOVEMENT, transportTaskId, options, getTransportTaskTrackMapper());
 		// analyzeTransportTaskTrackByMovement(resultList, transportTaskId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TransportTaskTrack> findTransportTaskTrackByMovement(String transportTaskId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TransportTaskTrack> resultList =  queryWithRange(TransportTaskTrackTable.COLUMN_MOVEMENT, transportTaskId, options, getTransportTaskTrackMapper(), start, count);
  		//analyzeTransportTaskTrackByMovement(resultList, transportTaskId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTransportTaskTrackByMovement(SmartList<TransportTaskTrack> resultList, String transportTaskId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTransportTaskTrackByMovement(String transportTaskId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	public Map<String, Integer> countTransportTaskTrackByMovementIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TransportTaskTrackTable.COLUMN_MOVEMENT, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected TransportTaskTrack saveTransportTaskTrack(TransportTaskTrack  transportTaskTrack){
+    
+
 		
 		if(!transportTaskTrack.isChanged()){
 			return transportTaskTrack;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(transportTaskTrack);
 		String SQL=this.getSaveTransportTaskTrackSQL(transportTaskTrack);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTransportTaskTrackParameters(transportTaskTrack);
@@ -326,6 +332,7 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 
 		transportTaskTrack.incVersion();
+		transportTaskTrack.afterSave();
 		return transportTaskTrack;
 
 	}
@@ -343,6 +350,7 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		for(TransportTaskTrack transportTaskTrack:transportTaskTrackList){
 			if(transportTaskTrack.isChanged()){
 				transportTaskTrack.incVersion();
+				transportTaskTrack.afterSave();
 			}
 
 
@@ -446,19 +454,16 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  	protected Object[] prepareTransportTaskTrackUpdateParameters(TransportTaskTrack transportTaskTrack){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = transportTaskTrack.getTrackTime();
  		
- 		
  		parameters[1] = transportTaskTrack.getLatitude();
- 		
  		
  		parameters[2] = transportTaskTrack.getLongitude();
  		
  		if(transportTaskTrack.getMovement() != null){
  			parameters[3] = transportTaskTrack.getMovement().getId();
  		}
- 
+    
  		parameters[4] = transportTaskTrack.nextVersion();
  		parameters[5] = transportTaskTrack.getId();
  		parameters[6] = transportTaskTrack.getVersion();
@@ -473,18 +478,14 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
         }
 		parameters[0] =  transportTaskTrack.getId();
  
- 		
  		parameters[1] = transportTaskTrack.getTrackTime();
  		
- 		
  		parameters[2] = transportTaskTrack.getLatitude();
- 		
  		
  		parameters[3] = transportTaskTrack.getLongitude();
  		
  		if(transportTaskTrack.getMovement() != null){
  			parameters[4] = transportTaskTrack.getMovement().getId();
-
  		}
  		
 
@@ -493,12 +494,11 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected TransportTaskTrack saveInternalTransportTaskTrack(TransportTaskTrack transportTaskTrack, Map<String,Object> options){
 
-		saveTransportTaskTrack(transportTaskTrack);
-
  		if(isSaveMovementEnabled(options)){
 	 		saveMovement(transportTaskTrack, options);
  		}
  
+   saveTransportTaskTrack(transportTaskTrack);
 		
 		return transportTaskTrack;
 
@@ -510,6 +510,7 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	
 
  	protected TransportTaskTrack saveMovement(TransportTaskTrack transportTaskTrack, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(transportTaskTrack.getMovement() == null){
  			return transportTaskTrack;//do nothing when it is null
@@ -519,11 +520,6 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		return transportTaskTrack;
 
  	}
-
-
-
-
-
  
 
 	
@@ -531,10 +527,10 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		
 
 	public TransportTaskTrack present(TransportTaskTrack transportTaskTrack,Map<String, Object> options){
-	
+
 
 		return transportTaskTrack;
-	
+
 	}
 		
 
@@ -586,6 +582,10 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<TransportTaskTrack> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTransportTaskTrackMapper());
   }
@@ -621,6 +621,15 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	
 
+  @Override
+  public List<TransportTaskTrack> search(TransportTaskTrackRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected TransportTaskTrackMapper mapper() {
+    return getTransportTaskTrackMapper();
+  }
 }
 
 

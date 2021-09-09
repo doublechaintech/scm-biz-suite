@@ -46,6 +46,7 @@ public interface CatalogDAO extends BaseDAO{
 	public void delete(String catalogId, int version) throws Exception;
 	public Catalog disconnectFromAll(String catalogId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public LevelOneCategoryDAO getLevelOneCategoryDAO();
 		
@@ -57,9 +58,10 @@ public interface CatalogDAO extends BaseDAO{
 
 
 
-	public SmartList<Catalog> queryList(String sql, Object ... parmeters);
+	public SmartList<Catalog> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Catalog> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateCatalog executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Catalog> findCatalogByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -73,6 +75,8 @@ public interface CatalogDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:LevelOneCategory的catalog的LevelOneCategoryList
 	public SmartList<LevelOneCategory> loadOurLevelOneCategoryList(RetailscmUserContext userContext, List<Catalog> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Catalog> search(CatalogRequest pRequest);
 }
 
 

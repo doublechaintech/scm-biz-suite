@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.memberwishlistproduct;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected MemberWishlistDAO memberWishlistDAO;
 	public void setMemberWishlistDAO(MemberWishlistDAO memberWishlistDAO){
- 	
+
  		if(memberWishlistDAO == null){
  			throw new IllegalStateException("Do not try to set memberWishlistDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		if(this.memberWishlistDAO == null){
  			throw new IllegalStateException("The memberWishlistDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.memberWishlistDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return MemberWishlistProductTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, MemberWishlistProductTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, MemberWishlistProductTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		return new MemberWishlistProductMapper();
 	}
 
-	
-	
+
+
 	protected MemberWishlistProduct extractMemberWishlistProduct(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			MemberWishlistProduct memberWishlistProduct = loadSingleObject(accessKey, getMemberWishlistProductMapper());
@@ -229,25 +231,26 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	}
 
-	
-	
+
+
 
 	protected MemberWishlistProduct loadInternalMemberWishlistProduct(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		MemberWishlistProduct memberWishlistProduct = extractMemberWishlistProduct(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(memberWishlistProduct, loadOptions);
  		}
  
 		
 		return memberWishlistProduct;
-		
+
 	}
 
-	 
+	
 
  	protected MemberWishlistProduct extractOwner(MemberWishlistProduct memberWishlistProduct, Map<String,Object> options) throws Exception{
+  
 
 		if(memberWishlistProduct.getOwner() == null){
 			return memberWishlistProduct;
@@ -260,37 +263,37 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		if(owner != null){
 			memberWishlistProduct.setOwner(owner);
 		}
-		
- 		
+
+
  		return memberWishlistProduct;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<MemberWishlistProduct> findMemberWishlistProductByOwner(String memberWishlistId,Map<String,Object> options){
- 	
+
   		SmartList<MemberWishlistProduct> resultList = queryWith(MemberWishlistProductTable.COLUMN_OWNER, memberWishlistId, options, getMemberWishlistProductMapper());
 		// analyzeMemberWishlistProductByOwner(resultList, memberWishlistId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<MemberWishlistProduct> findMemberWishlistProductByOwner(String memberWishlistId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<MemberWishlistProduct> resultList =  queryWithRange(MemberWishlistProductTable.COLUMN_OWNER, memberWishlistId, options, getMemberWishlistProductMapper(), start, count);
  		//analyzeMemberWishlistProductByOwner(resultList, memberWishlistId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeMemberWishlistProductByOwner(SmartList<MemberWishlistProduct> resultList, String memberWishlistId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countMemberWishlistProductByOwner(String memberWishlistId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	public Map<String, Integer> countMemberWishlistProductByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(MemberWishlistProductTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected MemberWishlistProduct saveMemberWishlistProduct(MemberWishlistProduct  memberWishlistProduct){
+    
+
 		
 		if(!memberWishlistProduct.isChanged()){
 			return memberWishlistProduct;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(memberWishlistProduct);
 		String SQL=this.getSaveMemberWishlistProductSQL(memberWishlistProduct);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveMemberWishlistProductParameters(memberWishlistProduct);
@@ -326,6 +332,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		}
 
 		memberWishlistProduct.incVersion();
+		memberWishlistProduct.afterSave();
 		return memberWishlistProduct;
 
 	}
@@ -343,6 +350,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		for(MemberWishlistProduct memberWishlistProduct:memberWishlistProductList){
 			if(memberWishlistProduct.isChanged()){
 				memberWishlistProduct.incVersion();
+				memberWishlistProduct.afterSave();
 			}
 
 
@@ -446,13 +454,12 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  	protected Object[] prepareMemberWishlistProductUpdateParameters(MemberWishlistProduct memberWishlistProduct){
  		Object[] parameters = new Object[5];
  
- 		
  		parameters[0] = memberWishlistProduct.getName();
  		
  		if(memberWishlistProduct.getOwner() != null){
  			parameters[1] = memberWishlistProduct.getOwner().getId();
  		}
- 
+    
  		parameters[2] = memberWishlistProduct.nextVersion();
  		parameters[3] = memberWishlistProduct.getId();
  		parameters[4] = memberWishlistProduct.getVersion();
@@ -467,12 +474,10 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
         }
 		parameters[0] =  memberWishlistProduct.getId();
  
- 		
  		parameters[1] = memberWishlistProduct.getName();
  		
  		if(memberWishlistProduct.getOwner() != null){
  			parameters[2] = memberWishlistProduct.getOwner().getId();
-
  		}
  		
 
@@ -481,12 +486,11 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected MemberWishlistProduct saveInternalMemberWishlistProduct(MemberWishlistProduct memberWishlistProduct, Map<String,Object> options){
 
-		saveMemberWishlistProduct(memberWishlistProduct);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(memberWishlistProduct, options);
  		}
  
+   saveMemberWishlistProduct(memberWishlistProduct);
 		
 		return memberWishlistProduct;
 
@@ -498,6 +502,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	
 
  	protected MemberWishlistProduct saveOwner(MemberWishlistProduct memberWishlistProduct, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(memberWishlistProduct.getOwner() == null){
  			return memberWishlistProduct;//do nothing when it is null
@@ -507,11 +512,6 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		return memberWishlistProduct;
 
  	}
-
-
-
-
-
  
 
 	
@@ -519,10 +519,10 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		
 
 	public MemberWishlistProduct present(MemberWishlistProduct memberWishlistProduct,Map<String, Object> options){
-	
+
 
 		return memberWishlistProduct;
-	
+
 	}
 		
 
@@ -574,6 +574,10 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<MemberWishlistProduct> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getMemberWishlistProductMapper());
   }
@@ -609,6 +613,15 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	
 
+  @Override
+  public List<MemberWishlistProduct> search(MemberWishlistProductRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected MemberWishlistProductMapper mapper() {
+    return getMemberWishlistProductMapper();
+  }
 }
 
 

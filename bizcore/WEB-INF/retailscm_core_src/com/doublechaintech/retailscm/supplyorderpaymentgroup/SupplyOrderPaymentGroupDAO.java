@@ -44,13 +44,15 @@ public interface SupplyOrderPaymentGroupDAO extends BaseDAO{
 	public void delete(String supplyOrderPaymentGroupId, int version) throws Exception;
 	public SupplyOrderPaymentGroup disconnectFromAll(String supplyOrderPaymentGroupId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<SupplyOrderPaymentGroup> queryList(String sql, Object ... parmeters);
+	public SmartList<SupplyOrderPaymentGroup> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SupplyOrderPaymentGroup> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSupplyOrderPaymentGroup executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SupplyOrderPaymentGroup> findSupplyOrderPaymentGroupByBizOrder(String supplyOrderId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface SupplyOrderPaymentGroupDAO extends BaseDAO{
 
 
  
+
+	List<SupplyOrderPaymentGroup> search(SupplyOrderPaymentGroupRequest pRequest);
 }
 
 

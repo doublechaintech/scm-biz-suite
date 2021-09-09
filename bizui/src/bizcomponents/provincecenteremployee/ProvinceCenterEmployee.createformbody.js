@@ -15,16 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = ProvinceCenterEmployeeBase
 const testValues = {};
-/*
-const testValues = {
-  name: '刘强',
-  mobile: '13999998888',
-  email: 'wangdehong@yatang.cn',
-  founded: '2018-04-28',
-  departmentId: 'PCD000001',
-  provinceCenterId: 'RSPC000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -38,9 +31,20 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = ProvinceCenterEmployeeBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +55,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -59,7 +63,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -67,10 +71,10 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,16 +83,16 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {ProvinceCenterEmployeeService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -98,9 +102,9 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -109,7 +113,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -121,25 +125,25 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('province_center_employee')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={1} maxLength={12} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +153,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.mobile} />
+                    <SmallTextInput minLength={5} maxLength={44} size="large"  placeholder={fieldLabels.mobile} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +163,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.email} />
+                    <SmallTextInput minLength={9} maxLength={80} size="large"  placeholder={fieldLabels.email} />
                   )}
                 </Form.Item>
               </Col>
@@ -169,65 +173,65 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.department} {...formItemLayout}>
                   {getFieldDecorator('departmentId', {
                   	initialValue: tryinit('department'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('department')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"province_center_employee"} 
-		                 targetType={"province_center_department"} 
-                 
+		                 listType={"province_center_employee"}
+		                 targetType={"province_center_department"}
+
                     requestFunction={ProvinceCenterEmployeeService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.provinceCenter} {...formItemLayout}>
                   {getFieldDecorator('provinceCenterId', {
                   	initialValue: tryinit('provinceCenter'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('provinceCenter')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"province_center_employee"} 
-		                 targetType={"retail_store_province_center"} 
-                 
+		                 listType={"province_center_employee"}
+		                 targetType={"retail_store_province_center"}
+
                     requestFunction={ProvinceCenterEmployeeService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -242,7 +246,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

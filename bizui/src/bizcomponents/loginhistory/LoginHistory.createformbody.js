@@ -15,13 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = LoginHistoryBase
 const testValues = {};
-/*
-const testValues = {
-  fromIp: '192.168.1.1',
-  description: '登陆成功',
-  secUserId: 'SU000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -35,9 +31,20 @@ class LoginHistoryCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = LoginHistoryBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -48,7 +55,7 @@ class LoginHistoryCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -56,7 +63,7 @@ class LoginHistoryCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -64,10 +71,10 @@ class LoginHistoryCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -76,16 +83,16 @@ class LoginHistoryCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {LoginHistoryService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -95,9 +102,9 @@ class LoginHistoryCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -106,7 +113,7 @@ class LoginHistoryCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -118,25 +125,25 @@ class LoginHistoryCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('login_history')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.fromIp} {...formItemLayout}>
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.fromIp} />
+                    <SmallTextInput minLength={5} maxLength={44} size="large"  placeholder={fieldLabels.fromIp} />
                   )}
                 </Form.Item>
               </Col>
@@ -146,39 +153,39 @@ class LoginHistoryCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.description} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.secUser} {...formItemLayout}>
                   {getFieldDecorator('secUserId', {
                   	initialValue: tryinit('secUser'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('secUser')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"login_history"} 
-		                 targetType={"sec_user"} 
-                 
+		                 listType={"login_history"}
+		                 targetType={"sec_user"}
+
                     requestFunction={LoginHistoryService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -193,7 +200,7 @@ class LoginHistoryCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

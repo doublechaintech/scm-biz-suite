@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.responsibilitytype;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface ResponsibilityTypeManager extends BaseManager{
 
 		
 
+  List<ResponsibilityType> searchResponsibilityTypeList(RetailscmUserContext ctx, ResponsibilityTypeRequest pRequest);
+  ResponsibilityType searchResponsibilityType(RetailscmUserContext ctx, ResponsibilityTypeRequest pRequest);
 	public ResponsibilityType createResponsibilityType(RetailscmUserContext userContext, String code,String companyId,String baseDescription,String detailDescription) throws Exception;
 	public ResponsibilityType updateResponsibilityType(RetailscmUserContext userContext,String responsibilityTypeId, int responsibilityTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public ResponsibilityType loadResponsibilityType(RetailscmUserContext userContext, String responsibilityTypeId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface ResponsibilityTypeManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String responsibilityTypeId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, ResponsibilityType newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, ResponsibilityType updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface ResponsibilityTypeManager extends BaseManager{
 	public Object listByCompany(RetailscmUserContext userContext,String companyId) throws Exception;
 	public Object listPageByCompany(RetailscmUserContext userContext,String companyId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

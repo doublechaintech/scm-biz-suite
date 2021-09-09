@@ -31,14 +31,14 @@ const internalSummaryOf = (receivingSpace,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{receivingSpace.id}</Description> 
+<Description term="ID">{receivingSpace.id}</Description> 
 <Description term="位置">{receivingSpace.location}</Description> 
 <Description term="联系电话">{receivingSpace.contactNumber}</Description> 
 <Description term="描述">{receivingSpace.description}</Description> 
 <Description term="总面积">{receivingSpace.totalArea}</Description> 
 <Description term="纬度">{receivingSpace.latitude}</Description> 
 <Description term="经度">{receivingSpace.longitude}</Description> 
-<Description term="最后更新时间">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -64,7 +64,7 @@ class ReceivingSpacePermission extends Component {
     // eslint-disable-next-line max-len
     const  receivingSpace = this.props.receivingSpace
     const { id,displayName, goodsCount } = receivingSpace
-    const  returnURL = `/receivingSpace/${id}/dashboard`
+    const  returnURL = `/receivingSpace/${id}/workbench`
     const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",cardsSource: receivingSpace,displayName,returnURL,
   		subItems: [
     
@@ -77,10 +77,10 @@ class ReceivingSpacePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

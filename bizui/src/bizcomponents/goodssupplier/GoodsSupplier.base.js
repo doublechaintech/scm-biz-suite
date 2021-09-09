@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Row, Tag, Button,Table} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -21,6 +21,8 @@ const {
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
+	defaultRenderNumberCell,
+	defaultFormatNumber,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -32,24 +34,57 @@ const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
+const renderNumberCell=defaultRenderNumberCell
+const formatNumber = defaultFormatNumber
+
+const renderImageListCell=(imageList, record)=>{
+	const userContext = null;
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+}
 
 
 
-const menuData = {menuName: window.trans('goods_supplier'), menuFor: "goodsSupplier",
+
+const menuData = {menuName: window.trans('goods_supplier'), menuFor: "goodsSupplier",  internalName: "goods_supplier",
   		subItems: [
   {name: 'supplierProductList', displayName: window.mtrans('supplier_product','goods_supplier.supplier_product_list',false), type:'supplierProduct',icon:'product-hunt',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'supplyOrderList', displayName: window.mtrans('supply_order','goods_supplier.supply_order_list',false), type:'supplyOrder',icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'accountSetList', displayName: window.mtrans('account_set','goods_supplier.account_set_list',false), type:'accountSet',icon:'headset',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  
+
   		],
 }
 
 
-const settingMenuData = {menuName: window.trans('goods_supplier'), menuFor: "goodsSupplier",
+const settingMenuData = {menuName: window.trans('goods_supplier'), menuFor: "goodsSupplier",  internalName: "goods_supplier",
   		subItems: [
-  
+
   		],
 }
+
+
+const mergedSubItems=()=>{
+
+    const result = []
+    menuData.subItems.forEach(item=>{
+        result.push({...item, for: "menu"})
+    })
+    settingMenuData.subItems.forEach(item=>{
+        result.push({...item, for: "setting"})
+    })
+    return result
+}
+const universalMenuData = {...menuData, subItems: mergedSubItems()}
+
+
 
 const fieldLabels = {
   id: window.trans('goods_supplier.id'),
@@ -74,7 +109,7 @@ const displayColumns = [
 ]
 
 
-const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(universalMenuData,targetObject,searchTerm)
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -104,7 +139,7 @@ const renderTextItem=(value, label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 const renderImageItem=(value,label, targetComponent)=>{
@@ -112,7 +147,7 @@ const renderImageItem=(value,label, targetComponent)=>{
 	if(!value){
 		return appLocaleName(userContext,"NotAssigned")
 	}
-	
+
 	return <ImagePreview title={label} imageLocation={value}/>
 }
 
@@ -144,35 +179,84 @@ const renderReferenceItem=(value,label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 
-const renderItemOfList=(goodsSupplier, targetComponent, columCount, listName)=>{
-  
+
+const renderImageList=(imageList,label, targetComponent)=>{
+	const userContext = null
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	// return JSON.stringify(imageList)
+/*
+	the data looks like this
+	{"id":"1601","title":"cover_images01",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images010016/400/200/grey/"},
+	{"id":"1602","title":"cover_images02",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images020016/400/200/grey/"}
+*/
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+
+}
+
+
+const renderActionList=(goodsSupplier, targetObject, columCount, listName)=>{
+
+	if(!goodsSupplier){
+		return null
+	}
+	if(!goodsSupplier.actionList){
+		return null
+	}
+	if(goodsSupplier.actionList.length === 0){
+		return null
+	}
+	return (
+		<div className={styles.overlay}>
+
+			<div className={styles.overlayContent}>
+			{goodsSupplier.actionList.map(action=>(<Link key={action.id} to={{pathname: action.actionPath.substring(1), state: {ownerId:targetObject.id,action,selectedRows:[goodsSupplier]}}} >
+				<span className={styles.overlayText}>{action.actionName}</span>
+				</Link> ))}
+			</div>
+
+		</div>
+		)
+
+}
+
+const renderItemOfList=(goodsSupplier, targetObject, columCount, listName)=>{
+
   if(!goodsSupplier){
   	return null
   }
   if(!goodsSupplier.id){
   	return null
   }
-  
-  
+
+
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`${listName}-${goodsSupplier.id}`} style={{marginTop:"10px"}}>
-		
+     <Row key={`${listName}-${goodsSupplier.id}`} className={styles.itemDesc}>
+
 	<Col span={4}>
-		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+		<Avatar size={90} className={styles.avarta} style={{ backgroundColor: genColor()}}>
 			{leftChars(goodsSupplier.displayName)}
 		</Avatar>
 	</Col>
 	<Col span={20}>
 	  
-	  
-	 
-	
+
+
+
       <DescriptionList  key={goodsSupplier.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{goodsSupplier.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{goodsSupplier.name}</Description> 
@@ -180,28 +264,32 @@ const renderItemOfList=(goodsSupplier, targetComponent, columCount, listName)=>{
         <Description term={fieldLabels.contactNumber} style={{wordBreak: 'break-all'}}>{goodsSupplier.contactNumber}</Description> 
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{goodsSupplier.description}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
-	
-        
+
+
       </DescriptionList>
      </Col>
-    </Card>
+      {renderActionList(goodsSupplier,targetObject)}
+    </Row>
 	)
 
 }
-	
+
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, supplyProduct, contactNumber, description, belongToId} = formValuesToPack
+	const {name, supplyProduct, belongToId, contactNumber, description, lastUpdateTime} = formValuesToPack
 	const belongTo = {id: belongToId, version: 2^31}
-	const data = {name, supplyProduct, contactNumber, description, belongTo}
+	const data = {name, supplyProduct, belongTo, contactNumber, description, lastUpdateTime:moment(lastUpdateTime).valueOf()}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {name, supplyProduct, contactNumber, description, belongTo} = objectToUnpack
+	const {name, supplyProduct, belongTo, contactNumber, description, lastUpdateTime} = objectToUnpack
 	const belongToId = belongTo ? belongTo.id : null
-	const data = {name, supplyProduct, contactNumber, description, belongToId}
+	const data = {name, supplyProduct, belongToId, contactNumber, description, lastUpdateTime:moment(lastUpdateTime)}
 	return data
 }
-const stepOf=(targetComponent, title, content, position, index)=>{
+
+
+const stepOf=(targetComponent, title, content, position, index, initValue)=>{
+	const isMultipleEvent=false
 	return {
 		title,
 		content,
@@ -209,8 +297,13 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		packFunction: packFormValuesToObject,
 		unpackFunction: unpackObjectToFormValues,
 		index,
+		initValue,
+		isMultipleEvent,
       }
 }
-const GoodsSupplierBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+
+
+
+const GoodsSupplierBase={unpackObjectToFormValues, menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default GoodsSupplierBase
 

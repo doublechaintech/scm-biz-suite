@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.retailstore;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;
 import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;
@@ -39,12 +36,12 @@ import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCit
 @JsonSerialize(using = RetailStoreSerializer.class)
 public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String TELEPHONE_PROPERTY             = "telephone"         ;
@@ -74,40 +71,161 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TELEPHONE_PROPERTY, "telephone", "电话")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(OWNER_PROPERTY, "owner", "业主")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(RETAIL_STORE_COUNTRY_CENTER_PROPERTY, "retail_store_country_center", "双链小超全国运营中心")
+        .withType("retail_store_country_center", RetailStoreCountryCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CITY_SERVICE_CENTER_PROPERTY, "retail_store_city_service_center", "城市服务中心")
+        .withType("retail_store_city_service_center", RetailStoreCityServiceCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CREATION_PROPERTY, "retail_store_creation", "创建")
+        .withType("retail_store_creation", RetailStoreCreation.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(INVESTMENT_INVITATION_PROPERTY, "retail_store_investment_invitation", "招商")
+        .withType("retail_store_investment_invitation", RetailStoreInvestmentInvitation.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(FRANCHISING_PROPERTY, "retail_store_franchising", "加盟")
+        .withType("retail_store_franchising", RetailStoreFranchising.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DECORATION_PROPERTY, "retail_store_decoration", "装修")
+        .withType("retail_store_decoration", RetailStoreDecoration.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(OPENING_PROPERTY, "retail_store_opening", "开业")
+        .withType("retail_store_opening", RetailStoreOpening.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CLOSING_PROPERTY, "retail_store_closing", "关闭")
+        .withType("retail_store_closing", RetailStoreClosing.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(FOUNDED_PROPERTY, "founded", "成立")
+        .withType("date_past", "Date"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LATITUDE_PROPERTY, "latitude", "纬度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LONGITUDE_PROPERTY, "longitude", "经度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DESCRIPTION_PROPERTY, "description", "描述")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
+        .withType("date_time_update", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(CONSUMER_ORDER_LIST, "store", "消费者的订单列表")
+        .withType("consumer_order", ConsumerOrder.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(RETAIL_STORE_ORDER_LIST, "buyer", "零售店订购单")
+        .withType("retail_store_order", RetailStoreOrder.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(GOODS_LIST, "retailStore", "商品列表")
+        .withType("goods", Goods.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(TRANSPORT_TASK_LIST, "end", "运输任务列表")
+        .withType("transport_task", TransportTask.class));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(ACCOUNT_SET_LIST, "retailStore", "帐户设置列表")
+        .withType("account_set", AccountSet.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,TELEPHONE_PROPERTY ,OWNER_PROPERTY ,RETAIL_STORE_COUNTRY_CENTER_PROPERTY ,CITY_SERVICE_CENTER_PROPERTY ,CREATION_PROPERTY ,INVESTMENT_INVITATION_PROPERTY ,FRANCHISING_PROPERTY ,DECORATION_PROPERTY ,OPENING_PROPERTY ,CLOSING_PROPERTY ,FOUNDED_PROPERTY ,LATITUDE_PROPERTY ,LONGITUDE_PROPERTY ,DESCRIPTION_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(CONSUMER_ORDER_LIST, "store");
+    	
+    	    refers.put(RETAIL_STORE_ORDER_LIST, "buyer");
+    	
+    	    refers.put(GOODS_LIST, "retailStore");
+    	
+    	    refers.put(TRANSPORT_TASK_LIST, "end");
+    	
+    	    refers.put(ACCOUNT_SET_LIST, "retailStore");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(CONSUMER_ORDER_LIST, ConsumerOrder.class);
+        	
+        	    refers.put(RETAIL_STORE_ORDER_LIST, RetailStoreOrder.class);
+        	
+        	    refers.put(GOODS_LIST, Goods.class);
+        	
+        	    refers.put(TRANSPORT_TASK_LIST, TransportTask.class);
+        	
+        	    refers.put(ACCOUNT_SET_LIST, AccountSet.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(RETAIL_STORE_COUNTRY_CENTER_PROPERTY, RetailStoreCountryCenter.class);
+parents.put(CITY_SERVICE_CENTER_PROPERTY, RetailStoreCityServiceCenter.class);
+parents.put(CREATION_PROPERTY, RetailStoreCreation.class);
+parents.put(INVESTMENT_INVITATION_PROPERTY, RetailStoreInvestmentInvitation.class);
+parents.put(FRANCHISING_PROPERTY, RetailStoreFranchising.class);
+parents.put(DECORATION_PROPERTY, RetailStoreDecoration.class);
+parents.put(OPENING_PROPERTY, RetailStoreOpening.class);
+parents.put(CLOSING_PROPERTY, RetailStoreClosing.class);
+
+    return parents;
+  }
+
+  public RetailStore want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public RetailStore wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mTelephone          ;
-	protected		String              	mOwner              ;
-	protected		RetailStoreCountryCenter	mRetailStoreCountryCenter;
-	protected		RetailStoreCityServiceCenter	mCityServiceCenter  ;
-	protected		RetailStoreCreation 	mCreation           ;
-	protected		RetailStoreInvestmentInvitation	mInvestmentInvitation;
-	protected		RetailStoreFranchising	mFranchising        ;
-	protected		RetailStoreDecoration	mDecoration         ;
-	protected		RetailStoreOpening  	mOpening            ;
-	protected		RetailStoreClosing  	mClosing            ;
-	protected		Date                	mFounded            ;
-	protected		BigDecimal          	mLatitude           ;
-	protected		BigDecimal          	mLongitude          ;
-	protected		String              	mDescription        ;
-	protected		DateTime            	mLastUpdateTime     ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		String              	telephone           ;
+	protected		String              	owner               ;
+	protected		RetailStoreCountryCenter	retailStoreCountryCenter;
+	protected		RetailStoreCityServiceCenter	cityServiceCenter   ;
+	protected		RetailStoreCreation 	creation            ;
+	protected		RetailStoreInvestmentInvitation	investmentInvitation;
+	protected		RetailStoreFranchising	franchising         ;
+	protected		RetailStoreDecoration	decoration          ;
+	protected		RetailStoreOpening  	opening             ;
+	protected		RetailStoreClosing  	closing             ;
+	protected		Date                	founded             ;
+	protected		BigDecimal          	latitude            ;
+	protected		BigDecimal          	longitude           ;
+	protected		String              	description         ;
+	protected		DateTime            	lastUpdateTime      ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<ConsumerOrder>	mConsumerOrderList  ;
 	protected		SmartList<RetailStoreOrder>	mRetailStoreOrderList;
@@ -115,8 +233,8 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 	protected		SmartList<TransportTask>	mTransportTaskList  ;
 	protected		SmartList<AccountSet>	mAccountSetList     ;
 
-	
-		
+
+
 	public 	RetailStore(){
 		// lazy load for all the properties
 	}
@@ -124,12 +242,30 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		RetailStore retailStore = new RetailStore();
 		retailStore.setId(id);
 		retailStore.setVersion(Integer.MAX_VALUE);
+		retailStore.setChecked(true);
 		return retailStore;
 	}
 	public 	static RetailStore refById(String id){
 		return withId(id);
 	}
-	
+
+  public RetailStore limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public RetailStore limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static RetailStore searchExample(){
+    RetailStore retailStore = new RetailStore();
+    		retailStore.setVersion(UNSET_INT);
+
+    return retailStore;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setRetailStoreCountryCenter( null );
@@ -142,9 +278,10 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		setClosing( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -310,7 +447,7 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -383,340 +520,582 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public RetailStore updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public RetailStore addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public RetailStore updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public RetailStore addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setTelephone(String telephone){
-		this.mTelephone = trimString(telephone);;
-	}
+	public void setTelephone(String telephone){String oldTelephone = this.telephone;String newTelephone = trimString(telephone);this.telephone = newTelephone;}
+	public String telephone(){
+doLoad();
+return getTelephone();
+}
 	public String getTelephone(){
-		return this.mTelephone;
+		return this.telephone;
 	}
-	public RetailStore updateTelephone(String telephone){
-		this.mTelephone = trimString(telephone);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateTelephone(String telephone){String oldTelephone = this.telephone;String newTelephone = trimString(telephone);if(!shouldReplaceBy(newTelephone, oldTelephone)){return this;}this.telephone = newTelephone;addPropertyChange(TELEPHONE_PROPERTY, oldTelephone, newTelephone);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByTelephone(boolean asc){
+doAddOrderBy(TELEPHONE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createTelephoneCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(TELEPHONE_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreTelephoneCriteria(){super.ignoreSearchProperty(TELEPHONE_PROPERTY);
+return this;
+}
+	public RetailStore addTelephoneCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createTelephoneCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeTelephone(String telephone){
 		if(telephone != null) { setTelephone(telephone);}
 	}
+
 	
-	
-	public void setOwner(String owner){
-		this.mOwner = trimString(owner);;
-	}
+	public void setOwner(String owner){String oldOwner = this.owner;String newOwner = trimString(owner);this.owner = newOwner;}
+	public String owner(){
+doLoad();
+return getOwner();
+}
 	public String getOwner(){
-		return this.mOwner;
+		return this.owner;
 	}
-	public RetailStore updateOwner(String owner){
-		this.mOwner = trimString(owner);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateOwner(String owner){String oldOwner = this.owner;String newOwner = trimString(owner);if(!shouldReplaceBy(newOwner, oldOwner)){return this;}this.owner = newOwner;addPropertyChange(OWNER_PROPERTY, oldOwner, newOwner);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByOwner(boolean asc){
+doAddOrderBy(OWNER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createOwnerCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(OWNER_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreOwnerCriteria(){super.ignoreSearchProperty(OWNER_PROPERTY);
+return this;
+}
+	public RetailStore addOwnerCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createOwnerCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeOwner(String owner){
 		if(owner != null) { setOwner(owner);}
 	}
+
 	
-	
-	public void setRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter){
-		this.mRetailStoreCountryCenter = retailStoreCountryCenter;;
-	}
+	public void setRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter){RetailStoreCountryCenter oldRetailStoreCountryCenter = this.retailStoreCountryCenter;RetailStoreCountryCenter newRetailStoreCountryCenter = retailStoreCountryCenter;this.retailStoreCountryCenter = newRetailStoreCountryCenter;}
+	public RetailStoreCountryCenter retailStoreCountryCenter(){
+doLoad();
+return getRetailStoreCountryCenter();
+}
 	public RetailStoreCountryCenter getRetailStoreCountryCenter(){
-		return this.mRetailStoreCountryCenter;
+		return this.retailStoreCountryCenter;
 	}
-	public RetailStore updateRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter){
-		this.mRetailStoreCountryCenter = retailStoreCountryCenter;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter){RetailStoreCountryCenter oldRetailStoreCountryCenter = this.retailStoreCountryCenter;RetailStoreCountryCenter newRetailStoreCountryCenter = retailStoreCountryCenter;if(!shouldReplaceBy(newRetailStoreCountryCenter, oldRetailStoreCountryCenter)){return this;}this.retailStoreCountryCenter = newRetailStoreCountryCenter;addPropertyChange(RETAIL_STORE_COUNTRY_CENTER_PROPERTY, oldRetailStoreCountryCenter, newRetailStoreCountryCenter);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByRetailStoreCountryCenter(boolean asc){
+doAddOrderBy(RETAIL_STORE_COUNTRY_CENTER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createRetailStoreCountryCenterCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(RETAIL_STORE_COUNTRY_CENTER_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreRetailStoreCountryCenterCriteria(){super.ignoreSearchProperty(RETAIL_STORE_COUNTRY_CENTER_PROPERTY);
+return this;
+}
+	public RetailStore addRetailStoreCountryCenterCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createRetailStoreCountryCenterCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter){
 		if(retailStoreCountryCenter != null) { setRetailStoreCountryCenter(retailStoreCountryCenter);}
 	}
-	
+
 	
 	public void clearRetailStoreCountryCenter(){
 		setRetailStoreCountryCenter ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
-		this.mCityServiceCenter = cityServiceCenter;;
-	}
+	public void setCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){RetailStoreCityServiceCenter oldCityServiceCenter = this.cityServiceCenter;RetailStoreCityServiceCenter newCityServiceCenter = cityServiceCenter;this.cityServiceCenter = newCityServiceCenter;}
+	public RetailStoreCityServiceCenter cityServiceCenter(){
+doLoad();
+return getCityServiceCenter();
+}
 	public RetailStoreCityServiceCenter getCityServiceCenter(){
-		return this.mCityServiceCenter;
+		return this.cityServiceCenter;
 	}
-	public RetailStore updateCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
-		this.mCityServiceCenter = cityServiceCenter;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){RetailStoreCityServiceCenter oldCityServiceCenter = this.cityServiceCenter;RetailStoreCityServiceCenter newCityServiceCenter = cityServiceCenter;if(!shouldReplaceBy(newCityServiceCenter, oldCityServiceCenter)){return this;}this.cityServiceCenter = newCityServiceCenter;addPropertyChange(CITY_SERVICE_CENTER_PROPERTY, oldCityServiceCenter, newCityServiceCenter);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByCityServiceCenter(boolean asc){
+doAddOrderBy(CITY_SERVICE_CENTER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCityServiceCenterCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CITY_SERVICE_CENTER_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreCityServiceCenterCriteria(){super.ignoreSearchProperty(CITY_SERVICE_CENTER_PROPERTY);
+return this;
+}
+	public RetailStore addCityServiceCenterCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCityServiceCenterCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
 		if(cityServiceCenter != null) { setCityServiceCenter(cityServiceCenter);}
 	}
-	
+
 	
 	public void clearCityServiceCenter(){
 		setCityServiceCenter ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setCreation(RetailStoreCreation creation){
-		this.mCreation = creation;;
-	}
+	public void setCreation(RetailStoreCreation creation){RetailStoreCreation oldCreation = this.creation;RetailStoreCreation newCreation = creation;this.creation = newCreation;}
+	public RetailStoreCreation creation(){
+doLoad();
+return getCreation();
+}
 	public RetailStoreCreation getCreation(){
-		return this.mCreation;
+		return this.creation;
 	}
-	public RetailStore updateCreation(RetailStoreCreation creation){
-		this.mCreation = creation;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateCreation(RetailStoreCreation creation){RetailStoreCreation oldCreation = this.creation;RetailStoreCreation newCreation = creation;if(!shouldReplaceBy(newCreation, oldCreation)){return this;}this.creation = newCreation;addPropertyChange(CREATION_PROPERTY, oldCreation, newCreation);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByCreation(boolean asc){
+doAddOrderBy(CREATION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCreationCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CREATION_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreCreationCriteria(){super.ignoreSearchProperty(CREATION_PROPERTY);
+return this;
+}
+	public RetailStore addCreationCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCreationCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCreation(RetailStoreCreation creation){
 		if(creation != null) { setCreation(creation);}
 	}
-	
+
 	
 	public void clearCreation(){
 		setCreation ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setInvestmentInvitation(RetailStoreInvestmentInvitation investmentInvitation){
-		this.mInvestmentInvitation = investmentInvitation;;
-	}
+	public void setInvestmentInvitation(RetailStoreInvestmentInvitation investmentInvitation){RetailStoreInvestmentInvitation oldInvestmentInvitation = this.investmentInvitation;RetailStoreInvestmentInvitation newInvestmentInvitation = investmentInvitation;this.investmentInvitation = newInvestmentInvitation;}
+	public RetailStoreInvestmentInvitation investmentInvitation(){
+doLoad();
+return getInvestmentInvitation();
+}
 	public RetailStoreInvestmentInvitation getInvestmentInvitation(){
-		return this.mInvestmentInvitation;
+		return this.investmentInvitation;
 	}
-	public RetailStore updateInvestmentInvitation(RetailStoreInvestmentInvitation investmentInvitation){
-		this.mInvestmentInvitation = investmentInvitation;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateInvestmentInvitation(RetailStoreInvestmentInvitation investmentInvitation){RetailStoreInvestmentInvitation oldInvestmentInvitation = this.investmentInvitation;RetailStoreInvestmentInvitation newInvestmentInvitation = investmentInvitation;if(!shouldReplaceBy(newInvestmentInvitation, oldInvestmentInvitation)){return this;}this.investmentInvitation = newInvestmentInvitation;addPropertyChange(INVESTMENT_INVITATION_PROPERTY, oldInvestmentInvitation, newInvestmentInvitation);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByInvestmentInvitation(boolean asc){
+doAddOrderBy(INVESTMENT_INVITATION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createInvestmentInvitationCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(INVESTMENT_INVITATION_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreInvestmentInvitationCriteria(){super.ignoreSearchProperty(INVESTMENT_INVITATION_PROPERTY);
+return this;
+}
+	public RetailStore addInvestmentInvitationCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createInvestmentInvitationCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeInvestmentInvitation(RetailStoreInvestmentInvitation investmentInvitation){
 		if(investmentInvitation != null) { setInvestmentInvitation(investmentInvitation);}
 	}
-	
+
 	
 	public void clearInvestmentInvitation(){
 		setInvestmentInvitation ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setFranchising(RetailStoreFranchising franchising){
-		this.mFranchising = franchising;;
-	}
+	public void setFranchising(RetailStoreFranchising franchising){RetailStoreFranchising oldFranchising = this.franchising;RetailStoreFranchising newFranchising = franchising;this.franchising = newFranchising;}
+	public RetailStoreFranchising franchising(){
+doLoad();
+return getFranchising();
+}
 	public RetailStoreFranchising getFranchising(){
-		return this.mFranchising;
+		return this.franchising;
 	}
-	public RetailStore updateFranchising(RetailStoreFranchising franchising){
-		this.mFranchising = franchising;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateFranchising(RetailStoreFranchising franchising){RetailStoreFranchising oldFranchising = this.franchising;RetailStoreFranchising newFranchising = franchising;if(!shouldReplaceBy(newFranchising, oldFranchising)){return this;}this.franchising = newFranchising;addPropertyChange(FRANCHISING_PROPERTY, oldFranchising, newFranchising);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByFranchising(boolean asc){
+doAddOrderBy(FRANCHISING_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createFranchisingCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(FRANCHISING_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreFranchisingCriteria(){super.ignoreSearchProperty(FRANCHISING_PROPERTY);
+return this;
+}
+	public RetailStore addFranchisingCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createFranchisingCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeFranchising(RetailStoreFranchising franchising){
 		if(franchising != null) { setFranchising(franchising);}
 	}
-	
+
 	
 	public void clearFranchising(){
 		setFranchising ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setDecoration(RetailStoreDecoration decoration){
-		this.mDecoration = decoration;;
-	}
+	public void setDecoration(RetailStoreDecoration decoration){RetailStoreDecoration oldDecoration = this.decoration;RetailStoreDecoration newDecoration = decoration;this.decoration = newDecoration;}
+	public RetailStoreDecoration decoration(){
+doLoad();
+return getDecoration();
+}
 	public RetailStoreDecoration getDecoration(){
-		return this.mDecoration;
+		return this.decoration;
 	}
-	public RetailStore updateDecoration(RetailStoreDecoration decoration){
-		this.mDecoration = decoration;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateDecoration(RetailStoreDecoration decoration){RetailStoreDecoration oldDecoration = this.decoration;RetailStoreDecoration newDecoration = decoration;if(!shouldReplaceBy(newDecoration, oldDecoration)){return this;}this.decoration = newDecoration;addPropertyChange(DECORATION_PROPERTY, oldDecoration, newDecoration);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByDecoration(boolean asc){
+doAddOrderBy(DECORATION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDecorationCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DECORATION_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreDecorationCriteria(){super.ignoreSearchProperty(DECORATION_PROPERTY);
+return this;
+}
+	public RetailStore addDecorationCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDecorationCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDecoration(RetailStoreDecoration decoration){
 		if(decoration != null) { setDecoration(decoration);}
 	}
-	
+
 	
 	public void clearDecoration(){
 		setDecoration ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setOpening(RetailStoreOpening opening){
-		this.mOpening = opening;;
-	}
+	public void setOpening(RetailStoreOpening opening){RetailStoreOpening oldOpening = this.opening;RetailStoreOpening newOpening = opening;this.opening = newOpening;}
+	public RetailStoreOpening opening(){
+doLoad();
+return getOpening();
+}
 	public RetailStoreOpening getOpening(){
-		return this.mOpening;
+		return this.opening;
 	}
-	public RetailStore updateOpening(RetailStoreOpening opening){
-		this.mOpening = opening;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateOpening(RetailStoreOpening opening){RetailStoreOpening oldOpening = this.opening;RetailStoreOpening newOpening = opening;if(!shouldReplaceBy(newOpening, oldOpening)){return this;}this.opening = newOpening;addPropertyChange(OPENING_PROPERTY, oldOpening, newOpening);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByOpening(boolean asc){
+doAddOrderBy(OPENING_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createOpeningCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(OPENING_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreOpeningCriteria(){super.ignoreSearchProperty(OPENING_PROPERTY);
+return this;
+}
+	public RetailStore addOpeningCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createOpeningCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeOpening(RetailStoreOpening opening){
 		if(opening != null) { setOpening(opening);}
 	}
-	
+
 	
 	public void clearOpening(){
 		setOpening ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setClosing(RetailStoreClosing closing){
-		this.mClosing = closing;;
-	}
+	public void setClosing(RetailStoreClosing closing){RetailStoreClosing oldClosing = this.closing;RetailStoreClosing newClosing = closing;this.closing = newClosing;}
+	public RetailStoreClosing closing(){
+doLoad();
+return getClosing();
+}
 	public RetailStoreClosing getClosing(){
-		return this.mClosing;
+		return this.closing;
 	}
-	public RetailStore updateClosing(RetailStoreClosing closing){
-		this.mClosing = closing;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateClosing(RetailStoreClosing closing){RetailStoreClosing oldClosing = this.closing;RetailStoreClosing newClosing = closing;if(!shouldReplaceBy(newClosing, oldClosing)){return this;}this.closing = newClosing;addPropertyChange(CLOSING_PROPERTY, oldClosing, newClosing);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByClosing(boolean asc){
+doAddOrderBy(CLOSING_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createClosingCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CLOSING_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreClosingCriteria(){super.ignoreSearchProperty(CLOSING_PROPERTY);
+return this;
+}
+	public RetailStore addClosingCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createClosingCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeClosing(RetailStoreClosing closing){
 		if(closing != null) { setClosing(closing);}
 	}
-	
+
 	
 	public void clearClosing(){
 		setClosing ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setFounded(Date founded){
-		this.mFounded = founded;;
-	}
+	public void setFounded(Date founded){Date oldFounded = this.founded;Date newFounded = founded;this.founded = newFounded;}
+	public Date founded(){
+doLoad();
+return getFounded();
+}
 	public Date getFounded(){
-		return this.mFounded;
+		return this.founded;
 	}
-	public RetailStore updateFounded(Date founded){
-		this.mFounded = founded;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateFounded(Date founded){Date oldFounded = this.founded;Date newFounded = founded;if(!shouldReplaceBy(newFounded, oldFounded)){return this;}this.founded = newFounded;addPropertyChange(FOUNDED_PROPERTY, oldFounded, newFounded);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByFounded(boolean asc){
+doAddOrderBy(FOUNDED_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createFoundedCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(FOUNDED_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreFoundedCriteria(){super.ignoreSearchProperty(FOUNDED_PROPERTY);
+return this;
+}
+	public RetailStore addFoundedCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createFoundedCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeFounded(Date founded){
 		setFounded(founded);
 	}
+
 	
-	
-	public void setLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-	}
+	public void setLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;this.latitude = newLatitude;}
+	public BigDecimal latitude(){
+doLoad();
+return getLatitude();
+}
 	public BigDecimal getLatitude(){
-		return this.mLatitude;
+		return this.latitude;
 	}
-	public RetailStore updateLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;if(!shouldReplaceBy(newLatitude, oldLatitude)){return this;}this.latitude = newLatitude;addPropertyChange(LATITUDE_PROPERTY, oldLatitude, newLatitude);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByLatitude(boolean asc){
+doAddOrderBy(LATITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLatitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LATITUDE_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreLatitudeCriteria(){super.ignoreSearchProperty(LATITUDE_PROPERTY);
+return this;
+}
+	public RetailStore addLatitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLatitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLatitude(BigDecimal latitude){
 		setLatitude(latitude);
 	}
+
 	
-	
-	public void setLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-	}
+	public void setLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;this.longitude = newLongitude;}
+	public BigDecimal longitude(){
+doLoad();
+return getLongitude();
+}
 	public BigDecimal getLongitude(){
-		return this.mLongitude;
+		return this.longitude;
 	}
-	public RetailStore updateLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;if(!shouldReplaceBy(newLongitude, oldLongitude)){return this;}this.longitude = newLongitude;addPropertyChange(LONGITUDE_PROPERTY, oldLongitude, newLongitude);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByLongitude(boolean asc){
+doAddOrderBy(LONGITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLongitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LONGITUDE_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreLongitudeCriteria(){super.ignoreSearchProperty(LONGITUDE_PROPERTY);
+return this;
+}
+	public RetailStore addLongitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLongitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLongitude(BigDecimal longitude){
 		setLongitude(longitude);
 	}
+
 	
-	
-	public void setDescription(String description){
-		this.mDescription = trimString(description);;
-	}
+	public void setDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);this.description = newDescription;}
+	public String description(){
+doLoad();
+return getDescription();
+}
 	public String getDescription(){
-		return this.mDescription;
+		return this.description;
 	}
-	public RetailStore updateDescription(String description){
-		this.mDescription = trimString(description);;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);if(!shouldReplaceBy(newDescription, oldDescription)){return this;}this.description = newDescription;addPropertyChange(DESCRIPTION_PROPERTY, oldDescription, newDescription);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByDescription(boolean asc){
+doAddOrderBy(DESCRIPTION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDescriptionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DESCRIPTION_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreDescriptionCriteria(){super.ignoreSearchProperty(DESCRIPTION_PROPERTY);
+return this;
+}
+	public RetailStore addDescriptionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDescriptionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDescription(String description){
 		if(description != null) { setDescription(description);}
 	}
+
 	
-	
-	public void setLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-	}
+	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
+	public DateTime lastUpdateTime(){
+doLoad();
+return getLastUpdateTime();
+}
 	public DateTime getLastUpdateTime(){
-		return this.mLastUpdateTime;
+		return this.lastUpdateTime;
 	}
-	public RetailStore updateLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;if(!shouldReplaceBy(newLastUpdateTime, oldLastUpdateTime)){return this;}this.lastUpdateTime = newLastUpdateTime;addPropertyChange(LAST_UPDATE_TIME_PROPERTY, oldLastUpdateTime, newLastUpdateTime);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByLastUpdateTime(boolean asc){
+doAddOrderBy(LAST_UPDATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_UPDATE_TIME_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreLastUpdateTimeCriteria(){super.ignoreSearchProperty(LAST_UPDATE_TIME_PROPERTY);
+return this;
+}
+	public RetailStore addLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastUpdateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastUpdateTime(DateTime lastUpdateTime){
 		setLastUpdateTime(lastUpdateTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public RetailStore updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public RetailStore updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public RetailStore orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public RetailStore ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public RetailStore addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<ConsumerOrder> getConsumerOrderList(){
@@ -725,9 +1104,18 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			this.mConsumerOrderList.setListInternalName (CONSUMER_ORDER_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mConsumerOrderList;	
+
+		return this.mConsumerOrderList;
 	}
+
+  public  SmartList<ConsumerOrder> consumerOrderList(){
+    
+    doLoadChild(CONSUMER_ORDER_LIST);
+    
+    return getConsumerOrderList();
+  }
+
+
 	public  void setConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList){
 		for( ConsumerOrder consumerOrder:consumerOrderList){
 			consumerOrder.setStore(this);
@@ -735,18 +1123,20 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		this.mConsumerOrderList = consumerOrderList;
 		this.mConsumerOrderList.setListInternalName (CONSUMER_ORDER_LIST );
-		
+
 	}
-	
-	public  void addConsumerOrder(ConsumerOrder consumerOrder){
+
+	public  RetailStore addConsumerOrder(ConsumerOrder consumerOrder){
 		consumerOrder.setStore(this);
 		getConsumerOrderList().add(consumerOrder);
+		return this;
 	}
-	public  void addConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList){
+	public  RetailStore addConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList){
 		for( ConsumerOrder consumerOrder:consumerOrderList){
 			consumerOrder.setStore(this);
 		}
 		getConsumerOrderList().addAll(consumerOrderList);
+		return this;
 	}
 	public  void mergeConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList){
 		if(consumerOrderList==null){
@@ -756,45 +1146,45 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addConsumerOrderList( consumerOrderList );
-		
+
 	}
 	public  ConsumerOrder removeConsumerOrder(ConsumerOrder consumerOrderIndex){
-		
+
 		int index = getConsumerOrderList().indexOf(consumerOrderIndex);
         if(index < 0){
         	String message = "ConsumerOrder("+consumerOrderIndex.getId()+") with version='"+consumerOrderIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        ConsumerOrder consumerOrder = getConsumerOrderList().get(index);        
+        ConsumerOrder consumerOrder = getConsumerOrderList().get(index);
         // consumerOrder.clearStore(); //disconnect with Store
         consumerOrder.clearFromAll(); //disconnect with Store
-		
+
 		boolean result = getConsumerOrderList().planToRemove(consumerOrder);
         if(!result){
         	String message = "ConsumerOrder("+consumerOrderIndex.getId()+") with version='"+consumerOrderIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return consumerOrder;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithConsumerOrder(ConsumerOrder consumerOrder){
-		
+
 		if(consumerOrder == null){
 			return;
 		}
 		consumerOrder.setStore(null);
 		//getConsumerOrderList().remove();
-	
+
 	}
-	
+
 	public  boolean hasConsumerOrder(ConsumerOrder consumerOrder){
-	
+
 		return getConsumerOrderList().contains(consumerOrder);
-  
+
 	}
-	
+
 	public void copyConsumerOrderFrom(ConsumerOrder consumerOrder) {
 
 		ConsumerOrder consumerOrderInList = findTheConsumerOrder(consumerOrder);
@@ -804,26 +1194,26 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		getConsumerOrderList().add(newConsumerOrder);
 		addItemToFlexiableObject(COPIED_CHILD, newConsumerOrder);
 	}
-	
+
 	public  ConsumerOrder findTheConsumerOrder(ConsumerOrder consumerOrder){
-		
+
 		int index =  getConsumerOrderList().indexOf(consumerOrder);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "ConsumerOrder("+consumerOrder.getId()+") with version='"+consumerOrder.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getConsumerOrderList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpConsumerOrderList(){
 		getConsumerOrderList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<RetailStoreOrder> getRetailStoreOrderList(){
@@ -832,9 +1222,18 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			this.mRetailStoreOrderList.setListInternalName (RETAIL_STORE_ORDER_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mRetailStoreOrderList;	
+
+		return this.mRetailStoreOrderList;
 	}
+
+  public  SmartList<RetailStoreOrder> retailStoreOrderList(){
+    
+    doLoadChild(RETAIL_STORE_ORDER_LIST);
+    
+    return getRetailStoreOrderList();
+  }
+
+
 	public  void setRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList){
 		for( RetailStoreOrder retailStoreOrder:retailStoreOrderList){
 			retailStoreOrder.setBuyer(this);
@@ -842,18 +1241,20 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		this.mRetailStoreOrderList = retailStoreOrderList;
 		this.mRetailStoreOrderList.setListInternalName (RETAIL_STORE_ORDER_LIST );
-		
+
 	}
-	
-	public  void addRetailStoreOrder(RetailStoreOrder retailStoreOrder){
+
+	public  RetailStore addRetailStoreOrder(RetailStoreOrder retailStoreOrder){
 		retailStoreOrder.setBuyer(this);
 		getRetailStoreOrderList().add(retailStoreOrder);
+		return this;
 	}
-	public  void addRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList){
+	public  RetailStore addRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList){
 		for( RetailStoreOrder retailStoreOrder:retailStoreOrderList){
 			retailStoreOrder.setBuyer(this);
 		}
 		getRetailStoreOrderList().addAll(retailStoreOrderList);
+		return this;
 	}
 	public  void mergeRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList){
 		if(retailStoreOrderList==null){
@@ -863,45 +1264,45 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addRetailStoreOrderList( retailStoreOrderList );
-		
+
 	}
 	public  RetailStoreOrder removeRetailStoreOrder(RetailStoreOrder retailStoreOrderIndex){
-		
+
 		int index = getRetailStoreOrderList().indexOf(retailStoreOrderIndex);
         if(index < 0){
         	String message = "RetailStoreOrder("+retailStoreOrderIndex.getId()+") with version='"+retailStoreOrderIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        RetailStoreOrder retailStoreOrder = getRetailStoreOrderList().get(index);        
+        RetailStoreOrder retailStoreOrder = getRetailStoreOrderList().get(index);
         // retailStoreOrder.clearBuyer(); //disconnect with Buyer
         retailStoreOrder.clearFromAll(); //disconnect with Buyer
-		
+
 		boolean result = getRetailStoreOrderList().planToRemove(retailStoreOrder);
         if(!result){
         	String message = "RetailStoreOrder("+retailStoreOrderIndex.getId()+") with version='"+retailStoreOrderIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return retailStoreOrder;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithRetailStoreOrder(RetailStoreOrder retailStoreOrder){
-		
+
 		if(retailStoreOrder == null){
 			return;
 		}
 		retailStoreOrder.setBuyer(null);
 		//getRetailStoreOrderList().remove();
-	
+
 	}
-	
+
 	public  boolean hasRetailStoreOrder(RetailStoreOrder retailStoreOrder){
-	
+
 		return getRetailStoreOrderList().contains(retailStoreOrder);
-  
+
 	}
-	
+
 	public void copyRetailStoreOrderFrom(RetailStoreOrder retailStoreOrder) {
 
 		RetailStoreOrder retailStoreOrderInList = findTheRetailStoreOrder(retailStoreOrder);
@@ -911,26 +1312,26 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		getRetailStoreOrderList().add(newRetailStoreOrder);
 		addItemToFlexiableObject(COPIED_CHILD, newRetailStoreOrder);
 	}
-	
+
 	public  RetailStoreOrder findTheRetailStoreOrder(RetailStoreOrder retailStoreOrder){
-		
+
 		int index =  getRetailStoreOrderList().indexOf(retailStoreOrder);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "RetailStoreOrder("+retailStoreOrder.getId()+") with version='"+retailStoreOrder.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getRetailStoreOrderList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpRetailStoreOrderList(){
 		getRetailStoreOrderList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<Goods> getGoodsList(){
@@ -939,9 +1340,18 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			this.mGoodsList.setListInternalName (GOODS_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mGoodsList;	
+
+		return this.mGoodsList;
 	}
+
+  public  SmartList<Goods> goodsList(){
+    
+    doLoadChild(GOODS_LIST);
+    
+    return getGoodsList();
+  }
+
+
 	public  void setGoodsList(SmartList<Goods> goodsList){
 		for( Goods goods:goodsList){
 			goods.setRetailStore(this);
@@ -949,18 +1359,20 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		this.mGoodsList = goodsList;
 		this.mGoodsList.setListInternalName (GOODS_LIST );
-		
+
 	}
-	
-	public  void addGoods(Goods goods){
+
+	public  RetailStore addGoods(Goods goods){
 		goods.setRetailStore(this);
 		getGoodsList().add(goods);
+		return this;
 	}
-	public  void addGoodsList(SmartList<Goods> goodsList){
+	public  RetailStore addGoodsList(SmartList<Goods> goodsList){
 		for( Goods goods:goodsList){
 			goods.setRetailStore(this);
 		}
 		getGoodsList().addAll(goodsList);
+		return this;
 	}
 	public  void mergeGoodsList(SmartList<Goods> goodsList){
 		if(goodsList==null){
@@ -970,45 +1382,45 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addGoodsList( goodsList );
-		
+
 	}
 	public  Goods removeGoods(Goods goodsIndex){
-		
+
 		int index = getGoodsList().indexOf(goodsIndex);
         if(index < 0){
         	String message = "Goods("+goodsIndex.getId()+") with version='"+goodsIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        Goods goods = getGoodsList().get(index);        
+        Goods goods = getGoodsList().get(index);
         // goods.clearRetailStore(); //disconnect with RetailStore
         goods.clearFromAll(); //disconnect with RetailStore
-		
+
 		boolean result = getGoodsList().planToRemove(goods);
         if(!result){
         	String message = "Goods("+goodsIndex.getId()+") with version='"+goodsIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return goods;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithGoods(Goods goods){
-		
+
 		if(goods == null){
 			return;
 		}
 		goods.setRetailStore(null);
 		//getGoodsList().remove();
-	
+
 	}
-	
+
 	public  boolean hasGoods(Goods goods){
-	
+
 		return getGoodsList().contains(goods);
-  
+
 	}
-	
+
 	public void copyGoodsFrom(Goods goods) {
 
 		Goods goodsInList = findTheGoods(goods);
@@ -1018,26 +1430,26 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		getGoodsList().add(newGoods);
 		addItemToFlexiableObject(COPIED_CHILD, newGoods);
 	}
-	
+
 	public  Goods findTheGoods(Goods goods){
-		
+
 		int index =  getGoodsList().indexOf(goods);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "Goods("+goods.getId()+") with version='"+goods.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getGoodsList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpGoodsList(){
 		getGoodsList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<TransportTask> getTransportTaskList(){
@@ -1046,9 +1458,18 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			this.mTransportTaskList.setListInternalName (TRANSPORT_TASK_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mTransportTaskList;	
+
+		return this.mTransportTaskList;
 	}
+
+  public  SmartList<TransportTask> transportTaskList(){
+    
+    doLoadChild(TRANSPORT_TASK_LIST);
+    
+    return getTransportTaskList();
+  }
+
+
 	public  void setTransportTaskList(SmartList<TransportTask> transportTaskList){
 		for( TransportTask transportTask:transportTaskList){
 			transportTask.setEnd(this);
@@ -1056,18 +1477,20 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		this.mTransportTaskList = transportTaskList;
 		this.mTransportTaskList.setListInternalName (TRANSPORT_TASK_LIST );
-		
+
 	}
-	
-	public  void addTransportTask(TransportTask transportTask){
+
+	public  RetailStore addTransportTask(TransportTask transportTask){
 		transportTask.setEnd(this);
 		getTransportTaskList().add(transportTask);
+		return this;
 	}
-	public  void addTransportTaskList(SmartList<TransportTask> transportTaskList){
+	public  RetailStore addTransportTaskList(SmartList<TransportTask> transportTaskList){
 		for( TransportTask transportTask:transportTaskList){
 			transportTask.setEnd(this);
 		}
 		getTransportTaskList().addAll(transportTaskList);
+		return this;
 	}
 	public  void mergeTransportTaskList(SmartList<TransportTask> transportTaskList){
 		if(transportTaskList==null){
@@ -1077,45 +1500,45 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addTransportTaskList( transportTaskList );
-		
+
 	}
 	public  TransportTask removeTransportTask(TransportTask transportTaskIndex){
-		
+
 		int index = getTransportTaskList().indexOf(transportTaskIndex);
         if(index < 0){
         	String message = "TransportTask("+transportTaskIndex.getId()+") with version='"+transportTaskIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        TransportTask transportTask = getTransportTaskList().get(index);        
+        TransportTask transportTask = getTransportTaskList().get(index);
         // transportTask.clearEnd(); //disconnect with End
         transportTask.clearFromAll(); //disconnect with End
-		
+
 		boolean result = getTransportTaskList().planToRemove(transportTask);
         if(!result){
         	String message = "TransportTask("+transportTaskIndex.getId()+") with version='"+transportTaskIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return transportTask;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithTransportTask(TransportTask transportTask){
-		
+
 		if(transportTask == null){
 			return;
 		}
 		transportTask.setEnd(null);
 		//getTransportTaskList().remove();
-	
+
 	}
-	
+
 	public  boolean hasTransportTask(TransportTask transportTask){
-	
+
 		return getTransportTaskList().contains(transportTask);
-  
+
 	}
-	
+
 	public void copyTransportTaskFrom(TransportTask transportTask) {
 
 		TransportTask transportTaskInList = findTheTransportTask(transportTask);
@@ -1125,26 +1548,26 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		getTransportTaskList().add(newTransportTask);
 		addItemToFlexiableObject(COPIED_CHILD, newTransportTask);
 	}
-	
+
 	public  TransportTask findTheTransportTask(TransportTask transportTask){
-		
+
 		int index =  getTransportTaskList().indexOf(transportTask);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "TransportTask("+transportTask.getId()+") with version='"+transportTask.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getTransportTaskList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpTransportTaskList(){
 		getTransportTaskList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public  SmartList<AccountSet> getAccountSetList(){
@@ -1153,9 +1576,18 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			this.mAccountSetList.setListInternalName (ACCOUNT_SET_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mAccountSetList;	
+
+		return this.mAccountSetList;
 	}
+
+  public  SmartList<AccountSet> accountSetList(){
+    
+    doLoadChild(ACCOUNT_SET_LIST);
+    
+    return getAccountSetList();
+  }
+
+
 	public  void setAccountSetList(SmartList<AccountSet> accountSetList){
 		for( AccountSet accountSet:accountSetList){
 			accountSet.setRetailStore(this);
@@ -1163,18 +1595,20 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		this.mAccountSetList = accountSetList;
 		this.mAccountSetList.setListInternalName (ACCOUNT_SET_LIST );
-		
+
 	}
-	
-	public  void addAccountSet(AccountSet accountSet){
+
+	public  RetailStore addAccountSet(AccountSet accountSet){
 		accountSet.setRetailStore(this);
 		getAccountSetList().add(accountSet);
+		return this;
 	}
-	public  void addAccountSetList(SmartList<AccountSet> accountSetList){
+	public  RetailStore addAccountSetList(SmartList<AccountSet> accountSetList){
 		for( AccountSet accountSet:accountSetList){
 			accountSet.setRetailStore(this);
 		}
 		getAccountSetList().addAll(accountSetList);
+		return this;
 	}
 	public  void mergeAccountSetList(SmartList<AccountSet> accountSetList){
 		if(accountSetList==null){
@@ -1184,45 +1618,45 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addAccountSetList( accountSetList );
-		
+
 	}
 	public  AccountSet removeAccountSet(AccountSet accountSetIndex){
-		
+
 		int index = getAccountSetList().indexOf(accountSetIndex);
         if(index < 0){
         	String message = "AccountSet("+accountSetIndex.getId()+") with version='"+accountSetIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        AccountSet accountSet = getAccountSetList().get(index);        
+        AccountSet accountSet = getAccountSetList().get(index);
         // accountSet.clearRetailStore(); //disconnect with RetailStore
         accountSet.clearFromAll(); //disconnect with RetailStore
-		
+
 		boolean result = getAccountSetList().planToRemove(accountSet);
         if(!result){
         	String message = "AccountSet("+accountSetIndex.getId()+") with version='"+accountSetIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return accountSet;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithAccountSet(AccountSet accountSet){
-		
+
 		if(accountSet == null){
 			return;
 		}
 		accountSet.setRetailStore(null);
 		//getAccountSetList().remove();
-	
+
 	}
-	
+
 	public  boolean hasAccountSet(AccountSet accountSet){
-	
+
 		return getAccountSetList().contains(accountSet);
-  
+
 	}
-	
+
 	public void copyAccountSetFrom(AccountSet accountSet) {
 
 		AccountSet accountSetInList = findTheAccountSet(accountSet);
@@ -1232,26 +1666,26 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		getAccountSetList().add(newAccountSet);
 		addItemToFlexiableObject(COPIED_CHILD, newAccountSet);
 	}
-	
+
 	public  AccountSet findTheAccountSet(AccountSet accountSet){
-		
+
 		int index =  getAccountSetList().indexOf(accountSet);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "AccountSet("+accountSet.getId()+") with version='"+accountSet.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getAccountSetList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpAccountSetList(){
 		getAccountSetList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
@@ -1265,11 +1699,11 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		addToEntityList(this, entityList, getOpening(), internalType);
 		addToEntityList(this, entityList, getClosing(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getConsumerOrderList(), internalType);
 		collectFromList(this, entityList, getRetailStoreOrderList(), internalType);
@@ -1279,21 +1713,21 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getConsumerOrderList());
 		listOfList.add( getRetailStoreOrderList());
 		listOfList.add( getGoodsList());
 		listOfList.add( getTransportTaskList());
 		listOfList.add( getAccountSetList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -1346,16 +1780,16 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStore){
-		
-		
+
+
 			RetailStore dest =(RetailStore)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setTelephone(getTelephone());
@@ -1385,13 +1819,13 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStore){
-		
-			
+
+
 			RetailStore dest =(RetailStore)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeTelephone(getTelephone());
@@ -1420,15 +1854,15 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof RetailStore){
-		
-			
+
+
 			RetailStore dest =(RetailStore)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeTelephone(getTelephone());
@@ -1446,6 +1880,69 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getTelephone(), getOwner(), getRetailStoreCountryCenter(), getCityServiceCenter(), getCreation(), getInvestmentInvitation(), getFranchising(), getDecoration(), getOpening(), getClosing(), getFounded(), getLatitude(), getLongitude(), getDescription(), getLastUpdateTime(), getVersion()};
 	}
+
+
+	public static RetailStore createWith(RetailscmUserContext userContext, ThrowingFunction<RetailStore,RetailStore,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<RetailStore> customCreator = mapper.findCustomCreator(RetailStore.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    RetailStore result = new RetailStore();
+    result.setName(mapper.tryToGet(RetailStore.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setTelephone(mapper.tryToGet(RetailStore.class, TELEPHONE_PROPERTY, String.class,
+        1, false, result.getTelephone(), params));
+    result.setOwner(mapper.tryToGet(RetailStore.class, OWNER_PROPERTY, String.class,
+        2, false, result.getOwner(), params));
+    result.setRetailStoreCountryCenter(mapper.tryToGet(RetailStore.class, RETAIL_STORE_COUNTRY_CENTER_PROPERTY, RetailStoreCountryCenter.class,
+        0, true, result.getRetailStoreCountryCenter(), params));
+    result.setCityServiceCenter(mapper.tryToGet(RetailStore.class, CITY_SERVICE_CENTER_PROPERTY, RetailStoreCityServiceCenter.class,
+        0, true, result.getCityServiceCenter(), params));
+    result.setCreation(mapper.tryToGet(RetailStore.class, CREATION_PROPERTY, RetailStoreCreation.class,
+        0, true, result.getCreation(), params));
+    result.setInvestmentInvitation(mapper.tryToGet(RetailStore.class, INVESTMENT_INVITATION_PROPERTY, RetailStoreInvestmentInvitation.class,
+        0, true, result.getInvestmentInvitation(), params));
+    result.setFranchising(mapper.tryToGet(RetailStore.class, FRANCHISING_PROPERTY, RetailStoreFranchising.class,
+        0, true, result.getFranchising(), params));
+    result.setDecoration(mapper.tryToGet(RetailStore.class, DECORATION_PROPERTY, RetailStoreDecoration.class,
+        0, true, result.getDecoration(), params));
+    result.setOpening(mapper.tryToGet(RetailStore.class, OPENING_PROPERTY, RetailStoreOpening.class,
+        0, true, result.getOpening(), params));
+    result.setClosing(mapper.tryToGet(RetailStore.class, CLOSING_PROPERTY, RetailStoreClosing.class,
+        0, true, result.getClosing(), params));
+    result.setFounded(mapper.tryToGet(RetailStore.class, FOUNDED_PROPERTY, Date.class,
+        0, true, result.getFounded(), params));
+    result.setLatitude(mapper.tryToGet(RetailStore.class, LATITUDE_PROPERTY, BigDecimal.class,
+        0, false, result.getLatitude(), params));
+    result.setLongitude(mapper.tryToGet(RetailStore.class, LONGITUDE_PROPERTY, BigDecimal.class,
+        1, false, result.getLongitude(), params));
+    result.setDescription(mapper.tryToGet(RetailStore.class, DESCRIPTION_PROPERTY, String.class,
+        3, false, result.getDescription(), params));
+     result.setLastUpdateTime(userContext.now());
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixRetailStore(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      RetailStoreTokens tokens = mapper.findParamByClass(params, RetailStoreTokens.class);
+      if (tokens == null) {
+        tokens = RetailStoreTokens.start();
+      }
+      result = userContext.getManagerGroup().getRetailStoreManager().internalSaveRetailStore(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -1488,7 +1985,7 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

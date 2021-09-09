@@ -8,6 +8,8 @@
 <fmt:setLocale value="zh_CN"/>
 <c:set var="ignoreListAccessControl" value="${true}"/>
 
+
+
 <fmt:setLocale value="zh_CN"/>
 <c:set var="ownerBeanName" value="secUser" scope="request"/>
 <c:set var="ownerClassName" value="SecUser" scope="request"/>

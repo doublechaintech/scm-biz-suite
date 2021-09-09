@@ -31,7 +31,7 @@ const internalSummaryOf = (retailStoreMemberGiftCard,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCard.id}</Description> 
+<Description term="ID">{retailStoreMemberGiftCard.id}</Description> 
 <Description term="名称">{retailStoreMemberGiftCard.name}</Description> 
 <Description term="数">{retailStoreMemberGiftCard.number}</Description> 
 <Description term="保持">{retailStoreMemberGiftCard.remain}</Description> 
@@ -60,7 +60,7 @@ class RetailStoreMemberGiftCardPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberGiftCard = this.props.retailStoreMemberGiftCard
     const { id,displayName, retailStoreMemberGiftCardConsumeRecordCount } = retailStoreMemberGiftCard
-    const  returnURL = `/retailStoreMemberGiftCard/${id}/dashboard`
+    const  returnURL = `/retailStoreMemberGiftCard/${id}/workbench`
     const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class RetailStoreMemberGiftCardPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

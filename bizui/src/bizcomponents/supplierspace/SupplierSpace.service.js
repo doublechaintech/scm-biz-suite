@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}supplierSpaceManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}supplierSpaceManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplierSpaceService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const SupplierSpaceService = { view,
   load,
+  analyze,
   addGoodsShelf,
   updateGoodsShelf,
   removeGoodsShelfList,
   requestCandidateWarehouse,
-  transferToAnotherWarehouse, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherWarehouse, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default SupplierSpaceService
 

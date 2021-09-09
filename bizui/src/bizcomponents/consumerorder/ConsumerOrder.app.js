@@ -57,7 +57,7 @@ const naviBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -68,7 +68,7 @@ const searchBarResponsiveStyle = {
   md: 4,
   lg: 8,
   xl: 8,
-  
+
 };
 
 const userBarResponsiveStyle = {
@@ -77,7 +77,7 @@ const userBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -103,13 +103,26 @@ const query = {
   },
 }
 
-
+/*
 const currentAppName=()=>{
 
   const targetApp = sessionObject('targetApp')
   return targetApp.title
 
 }
+*/
+
+const currentAppName=()=>{
+
+  const sysConfig=window.sysConfig
+  const targetApp = sessionObject('targetApp')
+  const {logo}=sysConfig()
+  return <span><img width="25px" src={logo} style={{marginRight:"10px"}}/>{targetApp.title}</span>
+
+}
+
+
+
 
 
 class ConsumerOrderBizApp extends React.PureComponent {
@@ -149,47 +162,77 @@ constructor(props) {
     }
     return keys
   }
-  
+
  getNavMenuItems = (targetObject, style, customTheme) => {
-  
+
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
     const mode =style || "inline"
-    const theme = customTheme || "light" 
+    const theme = customTheme || "light"
 	const {objectId}=targetApp;
   	const userContext = null
+  	const viewGroupIconNameOf=window.viewGroupIconNameOf
     return (
 	  <Menu
         theme="dark"
         mode="inline"
-        
+
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        
-       >
-           
 
-             <Menu.Item key="dashboard">
-               <Link to={`/consumerOrder/${this.props.consumerOrder.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
-             </Menu.Item>
-           
-        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+       >
+
+       <Menu.Item key="workbench">
+        <Link to={`/consumerOrder/${this.props.consumerOrder.id}/workbench`}><Icon type="solution" style={{marginRight:"20px"}}/><span>工作台</span></Link>
+      </Menu.Item>
+
+        
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('consumer_order',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
         )}
         )}
 
-       		
-        
+
+
            </Menu>
     )
   }
-  
+
+  getSelectedRows=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.selectedRows){
+      return null
+    }
+    if(state.selectedRows.length === 0){
+      return null
+    }
+    return state.selectedRows[0]
+
+  }
+
+  getOwnerId=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.ownerId){
+      return null
+    }
+
+    return state.ownerId
+
+  }
 
 
 
@@ -203,25 +246,26 @@ constructor(props) {
       data: state._consumerOrder.consumerOrderLineItemList,
       metaInfo: state._consumerOrder.consumerOrderLineItemListMetaInfo,
       count: state._consumerOrder.consumerOrderLineItemCount,
-      returnURL: `/consumerOrder/${state._consumerOrder.id}/dashboard`,
+      returnURL: `/consumerOrder/${state._consumerOrder.id}/workbench`,
       currentPage: state._consumerOrder.consumerOrderLineItemCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderLineItemSearchFormParameters,
       searchParameters: {...state._consumerOrder.searchParameters},
       expandForm: state._consumerOrder.expandForm,
       loading: state._consumerOrder.loading,
       partialList: state._consumerOrder.partialList,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, 
-      referenceName: 'bizOrder', 
-      listName: 'consumerOrderLineItemList', ref:state._consumerOrder, 
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id,
+      referenceName: 'bizOrder',
+      listName: 'consumerOrderLineItemList', ref:state._consumerOrder,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderLineItemSearch)
   }
-  
+
   getConsumerOrderLineItemCreateForm = () => {
    	const {ConsumerOrderLineItemCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "consumerOrderLineItem",
       data: state._consumerOrder.consumerOrderLineItemList,
       metaInfo: state._consumerOrder.consumerOrderLineItemListMetaInfo,
@@ -230,18 +274,18 @@ constructor(props) {
       currentPage: state._consumerOrder.consumerOrderLineItemCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderLineItemSearchFormParameters,
       loading: state._consumerOrder.loading,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, referenceName: 'bizOrder', listName: 'consumerOrderLineItemList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), referenceName: 'bizOrder', listName: 'consumerOrderLineItemList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ConsumerOrderLineItemCreateForm)
   }
-  
+
   getConsumerOrderLineItemUpdateForm = () => {
     const userContext = null
   	const {ConsumerOrderLineItemUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._consumerOrder.selectedRows,
       role: "consumerOrderLineItem",
-      currentUpdateIndex: state._consumerOrder.currentUpdateIndex,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, listName: 'consumerOrderLineItemList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._consumerOrder.currentUpdateIndex || 0,
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), listName: 'consumerOrderLineItemList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderLineItemUpdateForm)
   }
 
@@ -255,25 +299,26 @@ constructor(props) {
       data: state._consumerOrder.consumerOrderShippingGroupList,
       metaInfo: state._consumerOrder.consumerOrderShippingGroupListMetaInfo,
       count: state._consumerOrder.consumerOrderShippingGroupCount,
-      returnURL: `/consumerOrder/${state._consumerOrder.id}/dashboard`,
+      returnURL: `/consumerOrder/${state._consumerOrder.id}/workbench`,
       currentPage: state._consumerOrder.consumerOrderShippingGroupCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderShippingGroupSearchFormParameters,
       searchParameters: {...state._consumerOrder.searchParameters},
       expandForm: state._consumerOrder.expandForm,
       loading: state._consumerOrder.loading,
       partialList: state._consumerOrder.partialList,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, 
-      referenceName: 'bizOrder', 
-      listName: 'consumerOrderShippingGroupList', ref:state._consumerOrder, 
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id,
+      referenceName: 'bizOrder',
+      listName: 'consumerOrderShippingGroupList', ref:state._consumerOrder,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderShippingGroupSearch)
   }
-  
+
   getConsumerOrderShippingGroupCreateForm = () => {
    	const {ConsumerOrderShippingGroupCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "consumerOrderShippingGroup",
       data: state._consumerOrder.consumerOrderShippingGroupList,
       metaInfo: state._consumerOrder.consumerOrderShippingGroupListMetaInfo,
@@ -282,18 +327,18 @@ constructor(props) {
       currentPage: state._consumerOrder.consumerOrderShippingGroupCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderShippingGroupSearchFormParameters,
       loading: state._consumerOrder.loading,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, referenceName: 'bizOrder', listName: 'consumerOrderShippingGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), referenceName: 'bizOrder', listName: 'consumerOrderShippingGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ConsumerOrderShippingGroupCreateForm)
   }
-  
+
   getConsumerOrderShippingGroupUpdateForm = () => {
     const userContext = null
   	const {ConsumerOrderShippingGroupUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._consumerOrder.selectedRows,
       role: "consumerOrderShippingGroup",
-      currentUpdateIndex: state._consumerOrder.currentUpdateIndex,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, listName: 'consumerOrderShippingGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._consumerOrder.currentUpdateIndex || 0,
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), listName: 'consumerOrderShippingGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderShippingGroupUpdateForm)
   }
 
@@ -307,25 +352,26 @@ constructor(props) {
       data: state._consumerOrder.consumerOrderPaymentGroupList,
       metaInfo: state._consumerOrder.consumerOrderPaymentGroupListMetaInfo,
       count: state._consumerOrder.consumerOrderPaymentGroupCount,
-      returnURL: `/consumerOrder/${state._consumerOrder.id}/dashboard`,
+      returnURL: `/consumerOrder/${state._consumerOrder.id}/workbench`,
       currentPage: state._consumerOrder.consumerOrderPaymentGroupCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderPaymentGroupSearchFormParameters,
       searchParameters: {...state._consumerOrder.searchParameters},
       expandForm: state._consumerOrder.expandForm,
       loading: state._consumerOrder.loading,
       partialList: state._consumerOrder.partialList,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, 
-      referenceName: 'bizOrder', 
-      listName: 'consumerOrderPaymentGroupList', ref:state._consumerOrder, 
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id,
+      referenceName: 'bizOrder',
+      listName: 'consumerOrderPaymentGroupList', ref:state._consumerOrder,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderPaymentGroupSearch)
   }
-  
+
   getConsumerOrderPaymentGroupCreateForm = () => {
    	const {ConsumerOrderPaymentGroupCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "consumerOrderPaymentGroup",
       data: state._consumerOrder.consumerOrderPaymentGroupList,
       metaInfo: state._consumerOrder.consumerOrderPaymentGroupListMetaInfo,
@@ -334,18 +380,18 @@ constructor(props) {
       currentPage: state._consumerOrder.consumerOrderPaymentGroupCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderPaymentGroupSearchFormParameters,
       loading: state._consumerOrder.loading,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, referenceName: 'bizOrder', listName: 'consumerOrderPaymentGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), referenceName: 'bizOrder', listName: 'consumerOrderPaymentGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ConsumerOrderPaymentGroupCreateForm)
   }
-  
+
   getConsumerOrderPaymentGroupUpdateForm = () => {
     const userContext = null
   	const {ConsumerOrderPaymentGroupUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._consumerOrder.selectedRows,
       role: "consumerOrderPaymentGroup",
-      currentUpdateIndex: state._consumerOrder.currentUpdateIndex,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, listName: 'consumerOrderPaymentGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._consumerOrder.currentUpdateIndex || 0,
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), listName: 'consumerOrderPaymentGroupList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderPaymentGroupUpdateForm)
   }
 
@@ -359,25 +405,26 @@ constructor(props) {
       data: state._consumerOrder.consumerOrderPriceAdjustmentList,
       metaInfo: state._consumerOrder.consumerOrderPriceAdjustmentListMetaInfo,
       count: state._consumerOrder.consumerOrderPriceAdjustmentCount,
-      returnURL: `/consumerOrder/${state._consumerOrder.id}/dashboard`,
+      returnURL: `/consumerOrder/${state._consumerOrder.id}/workbench`,
       currentPage: state._consumerOrder.consumerOrderPriceAdjustmentCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderPriceAdjustmentSearchFormParameters,
       searchParameters: {...state._consumerOrder.searchParameters},
       expandForm: state._consumerOrder.expandForm,
       loading: state._consumerOrder.loading,
       partialList: state._consumerOrder.partialList,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, 
-      referenceName: 'bizOrder', 
-      listName: 'consumerOrderPriceAdjustmentList', ref:state._consumerOrder, 
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id,
+      referenceName: 'bizOrder',
+      listName: 'consumerOrderPriceAdjustmentList', ref:state._consumerOrder,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderPriceAdjustmentSearch)
   }
-  
+
   getConsumerOrderPriceAdjustmentCreateForm = () => {
    	const {ConsumerOrderPriceAdjustmentCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "consumerOrderPriceAdjustment",
       data: state._consumerOrder.consumerOrderPriceAdjustmentList,
       metaInfo: state._consumerOrder.consumerOrderPriceAdjustmentListMetaInfo,
@@ -386,18 +433,18 @@ constructor(props) {
       currentPage: state._consumerOrder.consumerOrderPriceAdjustmentCurrentPageNumber,
       searchFormParameters: state._consumerOrder.consumerOrderPriceAdjustmentSearchFormParameters,
       loading: state._consumerOrder.loading,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, referenceName: 'bizOrder', listName: 'consumerOrderPriceAdjustmentList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), referenceName: 'bizOrder', listName: 'consumerOrderPriceAdjustmentList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ConsumerOrderPriceAdjustmentCreateForm)
   }
-  
+
   getConsumerOrderPriceAdjustmentUpdateForm = () => {
     const userContext = null
   	const {ConsumerOrderPriceAdjustmentUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._consumerOrder.selectedRows,
       role: "consumerOrderPriceAdjustment",
-      currentUpdateIndex: state._consumerOrder.currentUpdateIndex,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, listName: 'consumerOrderPriceAdjustmentList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._consumerOrder.currentUpdateIndex || 0,
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), listName: 'consumerOrderPriceAdjustmentList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderPriceAdjustmentUpdateForm)
   }
 
@@ -411,25 +458,26 @@ constructor(props) {
       data: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordList,
       metaInfo: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordListMetaInfo,
       count: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordCount,
-      returnURL: `/consumerOrder/${state._consumerOrder.id}/dashboard`,
+      returnURL: `/consumerOrder/${state._consumerOrder.id}/workbench`,
       currentPage: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordCurrentPageNumber,
       searchFormParameters: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordSearchFormParameters,
       searchParameters: {...state._consumerOrder.searchParameters},
       expandForm: state._consumerOrder.expandForm,
       loading: state._consumerOrder.loading,
       partialList: state._consumerOrder.partialList,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, 
-      referenceName: 'bizOrder', 
-      listName: 'retailStoreMemberGiftCardConsumeRecordList', ref:state._consumerOrder, 
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id,
+      referenceName: 'bizOrder',
+      listName: 'retailStoreMemberGiftCardConsumeRecordList', ref:state._consumerOrder,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberGiftCardConsumeRecordSearch)
   }
-  
+
   getRetailStoreMemberGiftCardConsumeRecordCreateForm = () => {
    	const {RetailStoreMemberGiftCardConsumeRecordCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "retailStoreMemberGiftCardConsumeRecord",
       data: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordList,
       metaInfo: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordListMetaInfo,
@@ -438,18 +486,18 @@ constructor(props) {
       currentPage: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordCurrentPageNumber,
       searchFormParameters: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordSearchFormParameters,
       loading: state._consumerOrder.loading,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, referenceName: 'bizOrder', listName: 'retailStoreMemberGiftCardConsumeRecordList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), referenceName: 'bizOrder', listName: 'retailStoreMemberGiftCardConsumeRecordList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberGiftCardConsumeRecordCreateForm)
   }
-  
+
   getRetailStoreMemberGiftCardConsumeRecordUpdateForm = () => {
     const userContext = null
   	const {RetailStoreMemberGiftCardConsumeRecordUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._consumerOrder.selectedRows,
       role: "retailStoreMemberGiftCardConsumeRecord",
-      currentUpdateIndex: state._consumerOrder.currentUpdateIndex,
-      owner: { type: '_consumerOrder', id: state._consumerOrder.id, listName: 'retailStoreMemberGiftCardConsumeRecordList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._consumerOrder.currentUpdateIndex || 0,
+      owner: { type: '_consumerOrder', id: state._consumerOrder.id || this.getOwnerId(), listName: 'retailStoreMemberGiftCardConsumeRecordList', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberGiftCardConsumeRecordUpdateForm)
   }
 
@@ -464,8 +512,8 @@ constructor(props) {
       owner: { type: '_consumerOrder', id: state._consumerOrder.id, listName: 'nolist', ref:state._consumerOrder, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ChangeRequestStepForm)
   }
-  
- 
+
+
 
   getPageTitle = () => {
     // const { location } = this.props
@@ -473,55 +521,58 @@ constructor(props) {
     const title = '双链小超全流程供应链系统'
     return title
   }
- 
+
   buildRouters = () =>{
-  	const {ConsumerOrderDashboard} = GlobalComponents
+    const {ConsumerOrderWorkbench} = GlobalComponents
+
+    const {ConsumerOrderDashboard} = GlobalComponents
   	const {ConsumerOrderPermission} = GlobalComponents
   	const {ConsumerOrderProfile} = GlobalComponents
-  	
-  	
-  	const routers=[
-  	{path:"/consumerOrder/:id/dashboard", component: ConsumerOrderDashboard},
+
+
+    const routers=[
+    {path:"/consumerOrder/:id/workbench", component: ConsumerOrderWorkbench},
+    {path:"/consumerOrder/:id/dashboard", component: ConsumerOrderDashboard},
   	{path:"/consumerOrder/:id/profile", component: ConsumerOrderProfile},
   	{path:"/consumerOrder/:id/permission", component: ConsumerOrderPermission},
-  	
-  	
-  	
+
+
+
   	{path:"/consumerOrder/:id/list/consumerOrderLineItemList", component: this.getConsumerOrderLineItemSearch()},
   	{path:"/consumerOrder/:id/list/consumerOrderLineItemCreateForm", component: this.getConsumerOrderLineItemCreateForm()},
   	{path:"/consumerOrder/:id/list/consumerOrderLineItemUpdateForm", component: this.getConsumerOrderLineItemUpdateForm()},
-   	
+ 
   	{path:"/consumerOrder/:id/list/consumerOrderShippingGroupList", component: this.getConsumerOrderShippingGroupSearch()},
   	{path:"/consumerOrder/:id/list/consumerOrderShippingGroupCreateForm", component: this.getConsumerOrderShippingGroupCreateForm()},
   	{path:"/consumerOrder/:id/list/consumerOrderShippingGroupUpdateForm", component: this.getConsumerOrderShippingGroupUpdateForm()},
-   	
+ 
   	{path:"/consumerOrder/:id/list/consumerOrderPaymentGroupList", component: this.getConsumerOrderPaymentGroupSearch()},
   	{path:"/consumerOrder/:id/list/consumerOrderPaymentGroupCreateForm", component: this.getConsumerOrderPaymentGroupCreateForm()},
   	{path:"/consumerOrder/:id/list/consumerOrderPaymentGroupUpdateForm", component: this.getConsumerOrderPaymentGroupUpdateForm()},
-   	
+ 
   	{path:"/consumerOrder/:id/list/consumerOrderPriceAdjustmentList", component: this.getConsumerOrderPriceAdjustmentSearch()},
   	{path:"/consumerOrder/:id/list/consumerOrderPriceAdjustmentCreateForm", component: this.getConsumerOrderPriceAdjustmentCreateForm()},
   	{path:"/consumerOrder/:id/list/consumerOrderPriceAdjustmentUpdateForm", component: this.getConsumerOrderPriceAdjustmentUpdateForm()},
-   	
+ 
   	{path:"/consumerOrder/:id/list/retailStoreMemberGiftCardConsumeRecordList", component: this.getRetailStoreMemberGiftCardConsumeRecordSearch()},
   	{path:"/consumerOrder/:id/list/retailStoreMemberGiftCardConsumeRecordCreateForm", component: this.getRetailStoreMemberGiftCardConsumeRecordCreateForm()},
   	{path:"/consumerOrder/:id/list/retailStoreMemberGiftCardConsumeRecordUpdateForm", component: this.getRetailStoreMemberGiftCardConsumeRecordUpdateForm()},
-     	
- 	 
+ 
+
   	]
-  	
+
   	const {extraRoutesFunc} = this.props;
   	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
   	const finalRoutes = routers.concat(extraRoutes)
-    
+
   	return (<Switch>
-             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
+             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}
   	  	</Switch>)
-  	
-  
+
+
   }
- 
- 
+
+
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
     this.setState({
@@ -535,7 +586,7 @@ constructor(props) {
        payload: !collapsed,
      })
    }
-   
+
    toggleSwitchText=()=>{
     const { collapsed } = this.props
     if(collapsed){
@@ -544,17 +595,17 @@ constructor(props) {
     return "关闭菜单"
 
    }
-   
+
     logout = () => {
-   
+
     console.log("log out called")
     this.props.dispatch({ type: 'launcher/signOut' })
   }
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     
-  
+
+
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
@@ -565,10 +616,10 @@ constructor(props) {
      	if(value.length < 10){
      		return value
      	}
-     
+
      	return value.substring(0,10)+"..."
-     	
-     	
+
+
      }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
@@ -585,18 +636,18 @@ constructor(props) {
      }
      const breadcrumbMenu=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <Menu mode="vertical"> 
+      return ( <Menu mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
       </Menu>)
-  
+
 
      }
      const breadcrumbBar=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <div mode="vertical"> 
+      return ( <div mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
       </div>)
-  
+
 
      }
 
@@ -605,21 +656,21 @@ constructor(props) {
       const { dispatch} = this.props
       const {name,link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
-	
-     }  
+
+     }
 
 	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
       const { dispatch} = this.props
       const {link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
-	
+
      }
 
      const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
 
       return (
-     <Tag 
-      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+     <Tag
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"}
       	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
         <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
         	{renderBreadcrumbText(breadcrumbMenuItem.name)}
@@ -627,9 +678,9 @@ constructor(props) {
       </Tag>)
 
      }
-     
-     
-     
+
+
+
      const { Search } = Input;
      const showSearchResult=()=>{
 
@@ -648,51 +699,51 @@ constructor(props) {
     }
 
     const {searchLocalData}=GlobalComponents.ConsumerOrderBase
-	
+
     const renderMenuSwitch=()=>{
       const  text = collapsed?"开启左侧菜单":"关闭左侧菜单"
       const icon = collapsed?"pic-left":"pic-center"
-     
+
       return (
 
         <Tooltip placement="bottom" title={text}>
-       
-      
+
+
       <a  className={styles.menuLink} onClick={()=>this.toggle()} style={{marginLeft:"20px",minHeight:"20px"}}>
-        <Icon type={icon} style={{marginRight:"10px"}}/> 
+        <Icon type={icon} style={{marginRight:"10px"}}/>
       </a>  </Tooltip>)
 
      }
-     
-     
+
+
        const layout = (
      <Layout>
  		<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          
+
         <Row type="flex" justify="start" align="bottom">
-        
+
         <Col {...naviBarResponsiveStyle} >
           <a className={styles.menuLink}  style={{fontSize:"20px"}}>{currentAppName()}</a>
- 
+
         </Col>
-        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
-         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  >
+         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处"
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
           </Col>
-          <Col  {...userBarResponsiveStyle}  > 
+          <Col  {...userBarResponsiveStyle}  >
           <Row>
           <Col  span={10}  > </Col>
           <Col  span={2}  >  {renderMenuSwitch()}</Col>
-          <Col  span={6}  > 
+          <Col  span={6}  >
 	          <Dropdown overlay={<SwitchAppMenu {...this.props} />} style={{marginRight:"100px"}} className={styles.right}>
                 <a  className={styles.menuLink} >
-                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用 
+                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用
                 </a>
               </Dropdown>
-          </Col>  
+          </Col>
 
-          <Col  span={6}  >  
+          <Col  span={6}  >
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
                 <a  className={styles.menuLink}>
                 <Icon type="user" style={{marginRight:"5px"}}/>账户
@@ -701,22 +752,22 @@ constructor(props) {
             </Col>
 
           </Row>
-            </Col>  
+            </Col>
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
-        
-       
+
+
        <Layout>
-      
+
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.consumerOrder,this.state.searchKeyword)}</div>
 
       )}
        </Layout>
-        
-         
+
+
          <Layout>
        <Sider
           trigger={null}
@@ -727,16 +778,16 @@ constructor(props) {
           collapsedWidth={50}
           className={styles.sider}
         >
-         
+
          {this.getNavMenuItems(this.props.consumerOrder,"inline","dark")}
-       
+
         </Sider>
-        
+
          <Layout>
          <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
-        
+
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-           
+
            {this.buildRouters()}
            </Content>
           </Layout>

@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.retailstoremember;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface RetailStoreMemberManager extends BaseManager{
 
 		
 
+  List<RetailStoreMember> searchRetailStoreMemberList(RetailscmUserContext ctx, RetailStoreMemberRequest pRequest);
+  RetailStoreMember searchRetailStoreMember(RetailscmUserContext ctx, RetailStoreMemberRequest pRequest);
 	public RetailStoreMember createRetailStoreMember(RetailscmUserContext userContext, String name,String mobilePhone,String ownerId) throws Exception;
 	public RetailStoreMember updateRetailStoreMember(RetailscmUserContext userContext,String retailStoreMemberId, int retailStoreMemberVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreMember loadRetailStoreMember(RetailscmUserContext userContext, String retailStoreMemberId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface RetailStoreMemberManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String retailStoreMemberId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, RetailStoreMember newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, RetailStoreMember updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -105,6 +113,9 @@ public interface RetailStoreMemberManager extends BaseManager{
 	public Object listByOwner(RetailscmUserContext userContext,String ownerId) throws Exception;
 	public Object listPageByOwner(RetailscmUserContext userContext,String ownerId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

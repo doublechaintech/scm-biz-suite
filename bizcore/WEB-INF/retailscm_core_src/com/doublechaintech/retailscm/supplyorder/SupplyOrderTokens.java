@@ -2,14 +2,27 @@
 package com.doublechaintech.retailscm.supplyorder;
 import com.doublechaintech.retailscm.CommonTokens;
 import java.util.Map;
+import java.util.Objects;
+
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterTokens;
+import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierTokens;
+import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemTokens;
+import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroupTokens;
+import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroupTokens;
+import com.doublechaintech.retailscm.goods.GoodsTokens;
+
+
+
+
+
 public class SupplyOrderTokens extends CommonTokens{
 
 	static final String ALL="__all__"; //do not assign this to common users.
 	static final String SELF="__self__";
 	static final String OWNER_OBJECT_NAME="supplyOrder";
-	
+
 	public static boolean checkOptions(Map<String,Object> options, String optionToCheck){
-		
+
 		if(options==null){
  			return false; //completely no option here
  		}
@@ -22,18 +35,18 @@ public class SupplyOrderTokens extends CommonTokens{
 		if(ownerObject ==  null){
 			return false;
 		}
-		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner? 
-			return false; 
+		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner?
+			return false;
 		}
-		
+
  		if(options.containsKey(optionToCheck)){
  			//options.remove(optionToCheck);
- 			//consume the key, can not use any more to extract the data with the same token.			
+ 			//consume the key, can not use any more to extract the data with the same token.
  			return true;
  		}
- 		
+
  		return false;
-	
+
 	}
 	protected SupplyOrderTokens(){
 		//ensure not initialized outside the class
@@ -42,42 +55,88 @@ public class SupplyOrderTokens extends CommonTokens{
 		//ensure not initialized outside the class
 		SupplyOrderTokens tokens = new SupplyOrderTokens(options);
 		return tokens;
-		
+
 	}
 	protected SupplyOrderTokens(Map<String,Object> options){
 		this.options = options;
 	}
-	
+
 	public SupplyOrderTokens merge(String [] tokens){
 		this.parseTokens(tokens);
 		return this;
 	}
-	
+
 	public static SupplyOrderTokens mergeAll(String [] tokens){
-		
+
 		return allTokens().merge(tokens);
 	}
-	
+
 	protected SupplyOrderTokens setOwnerObject(String objectName){
 		ensureOptions();
 		addSimpleOptions(getOwnerObjectKey(), objectName);
 		return this;
 	}
-	
-	
-	
-	
+
+
+
+
 	public static SupplyOrderTokens start(){
 		return new SupplyOrderTokens().setOwnerObject(OWNER_OBJECT_NAME);
 	}
-	
-	public SupplyOrderTokens withTokenFromListName(String listName){		
+
+	public SupplyOrderTokens withTokenFromListName(String listName){
 		addSimpleOptions(listName);
 		return this;
 	}
-	
-	protected static SupplyOrderTokens allTokens(){
-		
+
+  public static SupplyOrderTokens loadGroupTokens(String... groupNames){
+    SupplyOrderTokens tokens = start();
+    if (groupNames == null || groupNames.length == 0){
+      return allTokens();
+    }
+    addToken(tokens, BUYER, groupNames, new String[]{"default"});addToken(tokens, SELLER, groupNames, new String[]{"default"});
+
+  
+     addToken(tokens, SUPPLY_ORDER_LINE_ITEM_LIST, groupNames, new String[]{"default"});
+    
+     addToken(tokens, SUPPLY_ORDER_SHIPPING_GROUP_LIST, groupNames, new String[]{"default"});
+    
+     addToken(tokens, SUPPLY_ORDER_PAYMENT_GROUP_LIST, groupNames, new String[]{"default"});
+    
+     addToken(tokens, GOODS_LIST, groupNames, new String[]{"default"});
+    
+    return tokens;
+  }
+
+  private static void addToken(SupplyOrderTokens pTokens, String pTokenName, String[] pGroupNames, String[] fieldGroups) {
+    if (pGroupNames == null || fieldGroups == null){
+      return;
+    }
+
+    for (String groupName: pGroupNames){
+      for(String g: fieldGroups){
+        if( Objects.equals(groupName, g)){
+          pTokens.addSimpleOptions(pTokenName);
+          break;
+        }
+      }
+    }
+  }
+
+	public static SupplyOrderTokens filterWithTokenViewGroups(String []viewGroups){
+
+		return start()
+			.withBuyer()
+			.withSeller()
+			.withSupplyOrderLineItemListIfViewGroupInclude(viewGroups)
+			.withSupplyOrderShippingGroupListIfViewGroupInclude(viewGroups)
+			.withSupplyOrderPaymentGroupListIfViewGroupInclude(viewGroups)
+			.withGoodsListIfViewGroupInclude(viewGroups);
+
+	}
+
+	public static SupplyOrderTokens allTokens(){
+
 		return start()
 			.withBuyer()
 			.withSeller()
@@ -85,16 +144,16 @@ public class SupplyOrderTokens extends CommonTokens{
 			.withSupplyOrderShippingGroupList()
 			.withSupplyOrderPaymentGroupList()
 			.withGoodsList();
-	
+
 	}
 	public static SupplyOrderTokens withoutListsTokens(){
-		
+
 		return start()
 			.withBuyer()
 			.withSeller();
-	
+
 	}
-	
+
 	public static Map <String,Object> all(){
 		return allTokens().done();
 	}
@@ -104,8 +163,8 @@ public class SupplyOrderTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
-	
-	public SupplyOrderTokens analyzeAllLists(){		
+
+	public SupplyOrderTokens analyzeAllLists(){
 		addSimpleOptions(ALL_LISTS_ANALYZE);
 		return this;
 	}
@@ -114,309 +173,381 @@ public class SupplyOrderTokens extends CommonTokens{
 	public String getBuyer(){
 		return BUYER;
 	}
-	public SupplyOrderTokens withBuyer(){		
+	//
+	public SupplyOrderTokens withBuyer(){
 		addSimpleOptions(BUYER);
 		return this;
 	}
-	
+
+	public RetailStoreCountryCenterTokens withBuyerTokens(){
+		//addSimpleOptions(BUYER);
+		return RetailStoreCountryCenterTokens.start();
+	}
+
 	
 	protected static final String SELLER = "seller";
 	public String getSeller(){
 		return SELLER;
 	}
-	public SupplyOrderTokens withSeller(){		
+	//
+	public SupplyOrderTokens withSeller(){
 		addSimpleOptions(SELLER);
 		return this;
 	}
-	
+
+	public GoodsSupplierTokens withSellerTokens(){
+		//addSimpleOptions(SELLER);
+		return GoodsSupplierTokens.start();
+	}
+
 	
 	protected static final String SUPPLY_ORDER_LINE_ITEM_LIST = "supplyOrderLineItemList";
 	public String getSupplyOrderLineItemList(){
 		return SUPPLY_ORDER_LINE_ITEM_LIST;
 	}
-	public SupplyOrderTokens withSupplyOrderLineItemList(){		
+
+
+
+	public SupplyOrderTokens withSupplyOrderLineItemListIfViewGroupInclude(String [] viewGroups){
+
+		if(isViewGroupOneOf("__no_group",viewGroups)){
+			addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST);
+		}
+		return this;
+	}
+
+
+	public SupplyOrderTokens withSupplyOrderLineItemList(){
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST);
 		return this;
 	}
-	public SupplyOrderTokens analyzeSupplyOrderLineItemList(){		
+
+	public SupplyOrderLineItemTokens withSupplyOrderLineItemListTokens(){
+		//addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST);
+		return SupplyOrderLineItemTokens.start();
+	}
+
+	public SupplyOrderTokens analyzeSupplyOrderLineItemList(){
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeSupplyOrderLineItemListEnabled(){		
-		
+	public boolean analyzeSupplyOrderLineItemListEnabled(){
+
 		if(checkOptions(this.options(), SUPPLY_ORDER_LINE_ITEM_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public SupplyOrderTokens extractMoreFromSupplyOrderLineItemList(String idsSeperatedWithComma){		
+	public SupplyOrderTokens extractMoreFromSupplyOrderLineItemList(String idsSeperatedWithComma){
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
-	
-	
-	
-	
+
 	private int supplyOrderLineItemListSortCounter = 0;
-	public SupplyOrderTokens sortSupplyOrderLineItemListWith(String field, String descOrAsc){		
+	public SupplyOrderTokens sortSupplyOrderLineItemListWith(String field, String descOrAsc){
 		addSortMoreOptions(SUPPLY_ORDER_LINE_ITEM_LIST,supplyOrderLineItemListSortCounter++, field, descOrAsc);
 		return this;
 	}
 	private int supplyOrderLineItemListSearchCounter = 0;
-	public SupplyOrderTokens searchSupplyOrderLineItemListWith(String field, String verb, String value){		
-		
+	public SupplyOrderTokens searchSupplyOrderLineItemListWith(String field, String verb, String value){
+
 		withSupplyOrderLineItemList();
 		addSearchMoreOptions(SUPPLY_ORDER_LINE_ITEM_LIST,supplyOrderLineItemListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens searchAllTextOfSupplyOrderLineItemList(String verb, String value){	
+
+
+
+	public SupplyOrderTokens searchAllTextOfSupplyOrderLineItemList(String verb, String value){
 		String field = "id|skuId|skuName|unitOfMeasurement";
 		addSearchMoreOptions(SUPPLY_ORDER_LINE_ITEM_LIST,supplyOrderLineItemListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens rowsPerPageOfSupplyOrderLineItemList(int rowsPerPage){		
+
+
+
+	public SupplyOrderTokens rowsPerPageOfSupplyOrderLineItemList(int rowsPerPage){
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public SupplyOrderTokens currentPageNumberOfSupplyOrderLineItemList(int currentPageNumber){		
+	public SupplyOrderTokens currentPageNumberOfSupplyOrderLineItemList(int currentPageNumber){
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public SupplyOrderTokens retainColumnsOfSupplyOrderLineItemList(String[] columns){		
+	public SupplyOrderTokens retainColumnsOfSupplyOrderLineItemList(String[] columns){
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public SupplyOrderTokens excludeColumnsOfSupplyOrderLineItemList(String[] columns){		
+	public SupplyOrderTokens excludeColumnsOfSupplyOrderLineItemList(String[] columns){
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+"ExcludeColumns",columns);
 		return this;
 	}
-	
-	
+
+
 		
 	protected static final String SUPPLY_ORDER_SHIPPING_GROUP_LIST = "supplyOrderShippingGroupList";
 	public String getSupplyOrderShippingGroupList(){
 		return SUPPLY_ORDER_SHIPPING_GROUP_LIST;
 	}
-	public SupplyOrderTokens withSupplyOrderShippingGroupList(){		
+
+
+
+	public SupplyOrderTokens withSupplyOrderShippingGroupListIfViewGroupInclude(String [] viewGroups){
+
+		if(isViewGroupOneOf("__no_group",viewGroups)){
+			addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST);
+		}
+		return this;
+	}
+
+
+	public SupplyOrderTokens withSupplyOrderShippingGroupList(){
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST);
 		return this;
 	}
-	public SupplyOrderTokens analyzeSupplyOrderShippingGroupList(){		
+
+	public SupplyOrderShippingGroupTokens withSupplyOrderShippingGroupListTokens(){
+		//addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST);
+		return SupplyOrderShippingGroupTokens.start();
+	}
+
+	public SupplyOrderTokens analyzeSupplyOrderShippingGroupList(){
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeSupplyOrderShippingGroupListEnabled(){		
-		
+	public boolean analyzeSupplyOrderShippingGroupListEnabled(){
+
 		if(checkOptions(this.options(), SUPPLY_ORDER_SHIPPING_GROUP_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public SupplyOrderTokens extractMoreFromSupplyOrderShippingGroupList(String idsSeperatedWithComma){		
+	public SupplyOrderTokens extractMoreFromSupplyOrderShippingGroupList(String idsSeperatedWithComma){
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
-	
-	
-	
-	
+
 	private int supplyOrderShippingGroupListSortCounter = 0;
-	public SupplyOrderTokens sortSupplyOrderShippingGroupListWith(String field, String descOrAsc){		
+	public SupplyOrderTokens sortSupplyOrderShippingGroupListWith(String field, String descOrAsc){
 		addSortMoreOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST,supplyOrderShippingGroupListSortCounter++, field, descOrAsc);
 		return this;
 	}
 	private int supplyOrderShippingGroupListSearchCounter = 0;
-	public SupplyOrderTokens searchSupplyOrderShippingGroupListWith(String field, String verb, String value){		
-		
+	public SupplyOrderTokens searchSupplyOrderShippingGroupListWith(String field, String verb, String value){
+
 		withSupplyOrderShippingGroupList();
 		addSearchMoreOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST,supplyOrderShippingGroupListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens searchAllTextOfSupplyOrderShippingGroupList(String verb, String value){	
+
+
+
+	public SupplyOrderTokens searchAllTextOfSupplyOrderShippingGroupList(String verb, String value){
 		String field = "id|name";
 		addSearchMoreOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST,supplyOrderShippingGroupListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens rowsPerPageOfSupplyOrderShippingGroupList(int rowsPerPage){		
+
+
+
+	public SupplyOrderTokens rowsPerPageOfSupplyOrderShippingGroupList(int rowsPerPage){
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public SupplyOrderTokens currentPageNumberOfSupplyOrderShippingGroupList(int currentPageNumber){		
+	public SupplyOrderTokens currentPageNumberOfSupplyOrderShippingGroupList(int currentPageNumber){
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public SupplyOrderTokens retainColumnsOfSupplyOrderShippingGroupList(String[] columns){		
+	public SupplyOrderTokens retainColumnsOfSupplyOrderShippingGroupList(String[] columns){
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public SupplyOrderTokens excludeColumnsOfSupplyOrderShippingGroupList(String[] columns){		
+	public SupplyOrderTokens excludeColumnsOfSupplyOrderShippingGroupList(String[] columns){
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+"ExcludeColumns",columns);
 		return this;
 	}
-	
-	
+
+
 		
 	protected static final String SUPPLY_ORDER_PAYMENT_GROUP_LIST = "supplyOrderPaymentGroupList";
 	public String getSupplyOrderPaymentGroupList(){
 		return SUPPLY_ORDER_PAYMENT_GROUP_LIST;
 	}
-	public SupplyOrderTokens withSupplyOrderPaymentGroupList(){		
+
+
+
+	public SupplyOrderTokens withSupplyOrderPaymentGroupListIfViewGroupInclude(String [] viewGroups){
+
+		if(isViewGroupOneOf("__no_group",viewGroups)){
+			addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST);
+		}
+		return this;
+	}
+
+
+	public SupplyOrderTokens withSupplyOrderPaymentGroupList(){
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST);
 		return this;
 	}
-	public SupplyOrderTokens analyzeSupplyOrderPaymentGroupList(){		
+
+	public SupplyOrderPaymentGroupTokens withSupplyOrderPaymentGroupListTokens(){
+		//addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST);
+		return SupplyOrderPaymentGroupTokens.start();
+	}
+
+	public SupplyOrderTokens analyzeSupplyOrderPaymentGroupList(){
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeSupplyOrderPaymentGroupListEnabled(){		
-		
+	public boolean analyzeSupplyOrderPaymentGroupListEnabled(){
+
 		if(checkOptions(this.options(), SUPPLY_ORDER_PAYMENT_GROUP_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public SupplyOrderTokens extractMoreFromSupplyOrderPaymentGroupList(String idsSeperatedWithComma){		
+	public SupplyOrderTokens extractMoreFromSupplyOrderPaymentGroupList(String idsSeperatedWithComma){
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
-	
-	
-	
-	
+
 	private int supplyOrderPaymentGroupListSortCounter = 0;
-	public SupplyOrderTokens sortSupplyOrderPaymentGroupListWith(String field, String descOrAsc){		
+	public SupplyOrderTokens sortSupplyOrderPaymentGroupListWith(String field, String descOrAsc){
 		addSortMoreOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST,supplyOrderPaymentGroupListSortCounter++, field, descOrAsc);
 		return this;
 	}
 	private int supplyOrderPaymentGroupListSearchCounter = 0;
-	public SupplyOrderTokens searchSupplyOrderPaymentGroupListWith(String field, String verb, String value){		
-		
+	public SupplyOrderTokens searchSupplyOrderPaymentGroupListWith(String field, String verb, String value){
+
 		withSupplyOrderPaymentGroupList();
 		addSearchMoreOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST,supplyOrderPaymentGroupListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens searchAllTextOfSupplyOrderPaymentGroupList(String verb, String value){	
+
+
+
+	public SupplyOrderTokens searchAllTextOfSupplyOrderPaymentGroupList(String verb, String value){
 		String field = "id|name|cardNumber";
 		addSearchMoreOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST,supplyOrderPaymentGroupListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens rowsPerPageOfSupplyOrderPaymentGroupList(int rowsPerPage){		
+
+
+
+	public SupplyOrderTokens rowsPerPageOfSupplyOrderPaymentGroupList(int rowsPerPage){
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public SupplyOrderTokens currentPageNumberOfSupplyOrderPaymentGroupList(int currentPageNumber){		
+	public SupplyOrderTokens currentPageNumberOfSupplyOrderPaymentGroupList(int currentPageNumber){
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public SupplyOrderTokens retainColumnsOfSupplyOrderPaymentGroupList(String[] columns){		
+	public SupplyOrderTokens retainColumnsOfSupplyOrderPaymentGroupList(String[] columns){
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public SupplyOrderTokens excludeColumnsOfSupplyOrderPaymentGroupList(String[] columns){		
+	public SupplyOrderTokens excludeColumnsOfSupplyOrderPaymentGroupList(String[] columns){
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+"ExcludeColumns",columns);
 		return this;
 	}
-	
-	
+
+
 		
 	protected static final String GOODS_LIST = "goodsList";
 	public String getGoodsList(){
 		return GOODS_LIST;
 	}
-	public SupplyOrderTokens withGoodsList(){		
+
+
+
+	public SupplyOrderTokens withGoodsListIfViewGroupInclude(String [] viewGroups){
+
+		if(isViewGroupOneOf("__no_group",viewGroups)){
+			addSimpleOptions(GOODS_LIST);
+		}
+		return this;
+	}
+
+
+	public SupplyOrderTokens withGoodsList(){
 		addSimpleOptions(GOODS_LIST);
 		return this;
 	}
-	public SupplyOrderTokens analyzeGoodsList(){		
+
+	public GoodsTokens withGoodsListTokens(){
+		//addSimpleOptions(GOODS_LIST);
+		return GoodsTokens.start();
+	}
+
+	public SupplyOrderTokens analyzeGoodsList(){
 		addSimpleOptions(GOODS_LIST+".anaylze");
 		return this;
 	}
-	public boolean analyzeGoodsListEnabled(){		
-		
+	public boolean analyzeGoodsListEnabled(){
+
 		if(checkOptions(this.options(), GOODS_LIST+".anaylze")){
 			return true; //most of the case, should call here
 		}
 		//if not true, then query for global setting
 		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
-	public SupplyOrderTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
+	public SupplyOrderTokens extractMoreFromGoodsList(String idsSeperatedWithComma){
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
 	}
-	
-	
-	
-	
+
 	private int goodsListSortCounter = 0;
-	public SupplyOrderTokens sortGoodsListWith(String field, String descOrAsc){		
+	public SupplyOrderTokens sortGoodsListWith(String field, String descOrAsc){
 		addSortMoreOptions(GOODS_LIST,goodsListSortCounter++, field, descOrAsc);
 		return this;
 	}
 	private int goodsListSearchCounter = 0;
-	public SupplyOrderTokens searchGoodsListWith(String field, String verb, String value){		
-		
+	public SupplyOrderTokens searchGoodsListWith(String field, String verb, String value){
+
 		withGoodsList();
 		addSearchMoreOptions(GOODS_LIST,goodsListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens searchAllTextOfGoodsList(String verb, String value){	
+
+
+
+	public SupplyOrderTokens searchAllTextOfGoodsList(String verb, String value){
 		String field = "id|name|rfid|uom";
 		addSearchMoreOptions(GOODS_LIST,goodsListSearchCounter++, field, verb, value);
 		return this;
 	}
-	
-	
-	
-	public SupplyOrderTokens rowsPerPageOfGoodsList(int rowsPerPage){		
+
+
+
+	public SupplyOrderTokens rowsPerPageOfGoodsList(int rowsPerPage){
 		addSimpleOptions(GOODS_LIST+"RowsPerPage",rowsPerPage);
 		return this;
 	}
-	public SupplyOrderTokens currentPageNumberOfGoodsList(int currentPageNumber){		
+	public SupplyOrderTokens currentPageNumberOfGoodsList(int currentPageNumber){
 		addSimpleOptions(GOODS_LIST+"CurrentPage",currentPageNumber);
 		return this;
 	}
-	public SupplyOrderTokens retainColumnsOfGoodsList(String[] columns){		
+	public SupplyOrderTokens retainColumnsOfGoodsList(String[] columns){
 		addSimpleOptions(GOODS_LIST+"RetainColumns",columns);
 		return this;
 	}
-	public SupplyOrderTokens excludeColumnsOfGoodsList(String[] columns){		
+	public SupplyOrderTokens excludeColumnsOfGoodsList(String[] columns){
 		addSimpleOptions(GOODS_LIST+"ExcludeColumns",columns);
 		return this;
 	}
-	
-	
+
+
 		
-	
+
 	public  SupplyOrderTokens searchEntireObjectText(String verb, String value){
-		
-		searchAllTextOfSupplyOrderLineItemList(verb, value);	
-		searchAllTextOfSupplyOrderShippingGroupList(verb, value);	
-		searchAllTextOfSupplyOrderPaymentGroupList(verb, value);	
-		searchAllTextOfGoodsList(verb, value);	
+	
+		searchAllTextOfSupplyOrderLineItemList(verb, value);
+		searchAllTextOfSupplyOrderShippingGroupList(verb, value);
+		searchAllTextOfSupplyOrderPaymentGroupList(verb, value);
+		searchAllTextOfGoodsList(verb, value);
 		return this;
 	}
 }

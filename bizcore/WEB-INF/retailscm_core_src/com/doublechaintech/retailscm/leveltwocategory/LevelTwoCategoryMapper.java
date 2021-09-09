@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.leveltwocategory;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,24 +9,27 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.levelonecategory.LevelOneCategory;
 
 public class LevelTwoCategoryMapper extends BaseRowMapper<LevelTwoCategory>{
-	
+
 	protected LevelTwoCategory internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		LevelTwoCategory levelTwoCategory = getLevelTwoCategory();		
-		 		
- 		setId(levelTwoCategory, rs, rowNumber); 		
- 		setParentCategory(levelTwoCategory, rs, rowNumber); 		
- 		setName(levelTwoCategory, rs, rowNumber); 		
+		LevelTwoCategory levelTwoCategory = getLevelTwoCategory();
+		
+ 		setId(levelTwoCategory, rs, rowNumber);
+ 		setParentCategory(levelTwoCategory, rs, rowNumber);
+ 		setName(levelTwoCategory, rs, rowNumber);
  		setVersion(levelTwoCategory, rs, rowNumber);
 
+    
 		return levelTwoCategory;
 	}
-	
+
 	protected LevelTwoCategory getLevelTwoCategory(){
-		return new LevelTwoCategory();
-	}		
+	  LevelTwoCategory entity = new LevelTwoCategory();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(LevelTwoCategory levelTwoCategory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(LevelTwoCategoryTable.COLUMN_ID);
@@ -36,10 +40,18 @@ public class LevelTwoCategoryMapper extends BaseRowMapper<LevelTwoCategory>{
 		}
 		
 		levelTwoCategory.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setParentCategory(LevelTwoCategory levelTwoCategory, ResultSet rs, int rowNumber) throws SQLException{
- 		String levelOneCategoryId = rs.getString(LevelTwoCategoryTable.COLUMN_PARENT_CATEGORY);
+ 		String levelOneCategoryId;
+ 		try{
+ 		  levelOneCategoryId = rs.getString(LevelTwoCategoryTable.COLUMN_PARENT_CATEGORY);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( levelOneCategoryId == null){
  			return;
  		}
@@ -50,14 +62,14 @@ public class LevelTwoCategoryMapper extends BaseRowMapper<LevelTwoCategory>{
  		if( levelOneCategory != null ){
  			//if the root object 'levelTwoCategory' already have the property, just set the id for it;
  			levelOneCategory.setId(levelOneCategoryId);
- 			
+
  			return;
  		}
  		levelTwoCategory.setParentCategory(createEmptyParentCategory(levelOneCategoryId));
  	}
  	
 	protected void setName(LevelTwoCategory levelTwoCategory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(LevelTwoCategoryTable.COLUMN_NAME);
@@ -68,10 +80,13 @@ public class LevelTwoCategoryMapper extends BaseRowMapper<LevelTwoCategory>{
 		}
 		
 		levelTwoCategory.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(LevelTwoCategory levelTwoCategory, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(LevelTwoCategoryTable.COLUMN_VERSION);
@@ -82,9 +97,12 @@ public class LevelTwoCategoryMapper extends BaseRowMapper<LevelTwoCategory>{
 		}
 		
 		levelTwoCategory.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected LevelOneCategory  createEmptyParentCategory(String levelOneCategoryId){
  		LevelOneCategory levelOneCategory = new LevelOneCategory();

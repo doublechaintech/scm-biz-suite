@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.leavetype;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface LeaveTypeManager extends BaseManager{
 
 		
 
+  List<LeaveType> searchLeaveTypeList(RetailscmUserContext ctx, LeaveTypeRequest pRequest);
+  LeaveType searchLeaveType(RetailscmUserContext ctx, LeaveTypeRequest pRequest);
 	public LeaveType createLeaveType(RetailscmUserContext userContext, String code,String companyId,String description,String detailDescription) throws Exception;
 	public LeaveType updateLeaveType(RetailscmUserContext userContext,String leaveTypeId, int leaveTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LeaveType loadLeaveType(RetailscmUserContext userContext, String leaveTypeId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface LeaveTypeManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String leaveTypeId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, LeaveType newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, LeaveType updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface LeaveTypeManager extends BaseManager{
 	public Object listByCompany(RetailscmUserContext userContext,String companyId) throws Exception;
 	public Object listPageByCompany(RetailscmUserContext userContext,String companyId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

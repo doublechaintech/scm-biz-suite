@@ -62,6 +62,7 @@ public interface GoodsDAO extends BaseDAO{
 	public void delete(String goodsId, int version) throws Exception;
 	public Goods disconnectFromAll(String goodsId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public GoodsMovementDAO getGoodsMovementDAO();
 		
@@ -73,9 +74,10 @@ public interface GoodsDAO extends BaseDAO{
 
 
 
-	public SmartList<Goods> queryList(String sql, Object ... parmeters);
+	public SmartList<Goods> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Goods> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateGoods executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Goods> findGoodsBySku(String skuId, Map<String,Object> options);
@@ -153,6 +155,8 @@ public interface GoodsDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:GoodsMovement的goods的GoodsMovementList
 	public SmartList<GoodsMovement> loadOurGoodsMovementList(RetailscmUserContext userContext, List<Goods> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Goods> search(GoodsRequest pRequest);
 }
 
 

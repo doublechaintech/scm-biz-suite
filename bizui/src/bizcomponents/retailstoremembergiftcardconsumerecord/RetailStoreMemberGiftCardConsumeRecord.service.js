@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreMemberGiftCardConsumeRecordManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreMemberGiftCardConsumeRecordManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -69,6 +74,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberGiftCardConsumeRecordService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -88,9 +101,10 @@ const  processRequest = (data) => {
 
 const RetailStoreMemberGiftCardConsumeRecordService = { view,
   load,
+  analyze,
   requestCandidateOwner,
   requestCandidateBizOrder,
   transferToAnotherOwner,
-  transferToAnotherBizOrder, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBizOrder, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreMemberGiftCardConsumeRecordService
 

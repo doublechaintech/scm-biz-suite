@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.transporttasktrack;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.transporttask.TransportTask;
 
 public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
-	
+
 	protected TransportTaskTrack internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		TransportTaskTrack transportTaskTrack = getTransportTaskTrack();		
-		 		
- 		setId(transportTaskTrack, rs, rowNumber); 		
- 		setTrackTime(transportTaskTrack, rs, rowNumber); 		
- 		setLatitude(transportTaskTrack, rs, rowNumber); 		
- 		setLongitude(transportTaskTrack, rs, rowNumber); 		
- 		setMovement(transportTaskTrack, rs, rowNumber); 		
+		TransportTaskTrack transportTaskTrack = getTransportTaskTrack();
+		
+ 		setId(transportTaskTrack, rs, rowNumber);
+ 		setTrackTime(transportTaskTrack, rs, rowNumber);
+ 		setLatitude(transportTaskTrack, rs, rowNumber);
+ 		setLongitude(transportTaskTrack, rs, rowNumber);
+ 		setMovement(transportTaskTrack, rs, rowNumber);
  		setVersion(transportTaskTrack, rs, rowNumber);
 
+    
 		return transportTaskTrack;
 	}
-	
+
 	protected TransportTaskTrack getTransportTaskTrack(){
-		return new TransportTaskTrack();
-	}		
+	  TransportTaskTrack entity = new TransportTaskTrack();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(TransportTaskTrack transportTaskTrack, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(TransportTaskTrackTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
 		}
 		
 		transportTaskTrack.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTrackTime(TransportTaskTrack transportTaskTrack, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date trackTime = rs.getDate(TransportTaskTrackTable.COLUMN_TRACK_TIME);
@@ -52,10 +59,13 @@ public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
 		}
 		
 		transportTaskTrack.setTrackTime(trackTime);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLatitude(TransportTaskTrack transportTaskTrack, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(TransportTaskTrackTable.COLUMN_LATITUDE);
@@ -66,10 +76,13 @@ public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
 		}
 		
 		transportTaskTrack.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(TransportTaskTrack transportTaskTrack, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(TransportTaskTrackTable.COLUMN_LONGITUDE);
@@ -80,10 +93,18 @@ public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
 		}
 		
 		transportTaskTrack.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setMovement(TransportTaskTrack transportTaskTrack, ResultSet rs, int rowNumber) throws SQLException{
- 		String transportTaskId = rs.getString(TransportTaskTrackTable.COLUMN_MOVEMENT);
+ 		String transportTaskId;
+ 		try{
+ 		  transportTaskId = rs.getString(TransportTaskTrackTable.COLUMN_MOVEMENT);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( transportTaskId == null){
  			return;
  		}
@@ -94,14 +115,14 @@ public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
  		if( transportTask != null ){
  			//if the root object 'transportTaskTrack' already have the property, just set the id for it;
  			transportTask.setId(transportTaskId);
- 			
+
  			return;
  		}
  		transportTaskTrack.setMovement(createEmptyMovement(transportTaskId));
  	}
  	
 	protected void setVersion(TransportTaskTrack transportTaskTrack, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(TransportTaskTrackTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
 		}
 		
 		transportTaskTrack.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected TransportTask  createEmptyMovement(String transportTaskId){
  		TransportTask transportTask = new TransportTask();

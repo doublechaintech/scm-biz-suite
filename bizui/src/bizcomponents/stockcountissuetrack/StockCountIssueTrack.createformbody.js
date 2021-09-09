@@ -15,14 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = StockCountIssueTrackBase
 const testValues = {};
-/*
-const testValues = {
-  title: '盘点差错',
-  countTime: '2018-09-24',
-  summary: '发现错误已经修正完成',
-  stockCountId: 'GSSC000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -36,9 +31,20 @@ class StockCountIssueTrackCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = StockCountIssueTrackBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -49,7 +55,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -57,7 +63,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -65,10 +71,10 @@ class StockCountIssueTrackCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -77,16 +83,16 @@ class StockCountIssueTrackCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {StockCountIssueTrackService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -96,9 +102,9 @@ class StockCountIssueTrackCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -107,7 +113,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -119,25 +125,25 @@ class StockCountIssueTrackCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('stock_count_issue_track')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.title} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +153,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
                   {getFieldDecorator('countTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.countTime}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.countTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -157,39 +163,39 @@ class StockCountIssueTrackCreateFormBody extends Component {
                   {getFieldDecorator('summary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.summary} />
+                    <SmallTextInput minLength={3} maxLength={40} size="large"  placeholder={fieldLabels.summary} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.stockCount} {...formItemLayout}>
                   {getFieldDecorator('stockCountId', {
                   	initialValue: tryinit('stockCount'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('stockCount')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"stock_count_issue_track"} 
-		                 targetType={"goods_shelf_stock_count"} 
-                 
+		                 listType={"stock_count_issue_track"}
+		                 targetType={"goods_shelf_stock_count"}
+
                     requestFunction={StockCountIssueTrackService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -204,7 +210,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

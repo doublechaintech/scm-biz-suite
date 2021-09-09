@@ -15,7 +15,9 @@ import org.springframework.jdbc.core.RowMapper;
 public abstract class BaseRowMapper<T> implements RowMapper<T> {
 
 	public final T mapRow(ResultSet rs, int rowNumber) throws SQLException {
-		return internalMapRow(rs, rowNumber);
+      T t = internalMapRow(rs, rowNumber);
+      Beans.dbUtil().cache(t);
+      return t;
 	}
 	protected DateTime convertToDateTime(Date date){
 		DateTime dateTime = new DateTime();
@@ -26,7 +28,7 @@ public abstract class BaseRowMapper<T> implements RowMapper<T> {
 		return Images.fromString(dataInDb);
 	}
 	protected abstract T internalMapRow(ResultSet rs, int rowNumber) throws SQLException;
-	
+
 
 	protected String readFullClob(ResultSet rs, String columnName, int rowNumber) throws IOException, SQLException {
 
@@ -36,7 +38,7 @@ public abstract class BaseRowMapper<T> implements RowMapper<T> {
 		final Reader reader = clobObject.getCharacterStream();
 		final BufferedReader br = new BufferedReader(reader);
 		int b = br.read();
-		
+
 		while (eof() != b) {
 			sb.append((char) b);
 			b = br.read();

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.terminationreason;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected TerminationDAO terminationDAO;
 	public void setTerminationDAO(TerminationDAO terminationDAO){
- 	
+
  		if(terminationDAO == null){
  			throw new IllegalStateException("Do not try to set terminationDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.terminationDAO == null){
  			throw new IllegalStateException("The terminationDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.terminationDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		newTerminationReason.setVersion(0);
 		
 		
- 		
+
  		if(isSaveTerminationListEnabled(options)){
  			for(Termination item: newTerminationReason.getTerminationList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return TerminationReasonTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCompanyEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TerminationReasonTokens.COMPANY);
  	}
 
  	protected boolean isSaveCompanyEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TerminationReasonTokens.COMPANY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){
  		return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST);
  	}
- 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){
  		return TerminationReasonTokens.of(options).analyzeTerminationListEnabled();
  	}
-	
+
 	protected boolean isSaveTerminationListEnabled(Map<String,Object> options){
 		return checkOptions(options, TerminationReasonTokens.TERMINATION_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		return new TerminationReasonMapper();
 	}
 
-	
-	
+
+
 	protected TerminationReason extractTerminationReason(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			TerminationReason terminationReason = loadSingleObject(accessKey, getTerminationReasonMapper());
@@ -268,13 +270,13 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	}
 
-	
-	
+
+
 
 	protected TerminationReason loadInternalTerminationReason(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		TerminationReason terminationReason = extractTerminationReason(accessKey, loadOptions);
- 	
+
  		if(isExtractCompanyEnabled(loadOptions)){
 	 		extractCompany(terminationReason, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractTerminationListEnabled(loadOptions)){
 	 		extractTerminationList(terminationReason, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeTerminationListEnabled(loadOptions)){
 	 		analyzeTerminationList(terminationReason, loadOptions);
@@ -291,12 +293,13 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		
 		
 		return terminationReason;
-		
+
 	}
 
-	 
+	
 
  	protected TerminationReason extractCompany(TerminationReason terminationReason, Map<String,Object> options) throws Exception{
+  
 
 		if(terminationReason.getCompany() == null){
 			return terminationReason;
@@ -309,21 +312,21 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(company != null){
 			terminationReason.setCompany(company);
 		}
-		
- 		
+
+
  		return terminationReason;
  	}
- 		
+
  
 		
 	protected void enhanceTerminationList(SmartList<Termination> terminationList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected TerminationReason extractTerminationList(TerminationReason terminationReason, Map<String,Object> options){
-		
-		
+    
+
 		if(terminationReason == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return terminationReason;
 		}
 
-		
-		
+
+
 		SmartList<Termination> terminationList = getTerminationDAO().findTerminationByReason(terminationReason.getId(),options);
 		if(terminationList != null){
 			enhanceTerminationList(terminationList,options);
 			terminationReason.setTerminationList(terminationList);
 		}
-		
+
 		return terminationReason;
-	
-	}	
-	
+  
+	}
+
 	protected TerminationReason analyzeTerminationList(TerminationReason terminationReason, Map<String,Object> options){
-		
-		
+     
 		if(terminationReason == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return terminationReason;
 		}
 
-		
-		
+
+
 		SmartList<Termination> terminationList = terminationReason.getTerminationList();
 		if(terminationList != null){
 			getTerminationDAO().analyzeTerminationByReason(terminationList, terminationReason.getId(), options);
-			
+
 		}
-		
+
 		return terminationReason;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<TerminationReason> findTerminationReasonByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<TerminationReason> resultList = queryWith(TerminationReasonTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationReasonMapper());
 		// analyzeTerminationReasonByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TerminationReason> findTerminationReasonByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TerminationReason> resultList =  queryWithRange(TerminationReasonTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationReasonMapper(), start, count);
  		//analyzeTerminationReasonByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTerminationReasonByCompany(SmartList<TerminationReason> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTerminationReasonByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countTerminationReasonByCompanyIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TerminationReasonTable.COLUMN_COMPANY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected TerminationReason saveTerminationReason(TerminationReason  terminationReason){
+    
+
 		
 		if(!terminationReason.isChanged()){
 			return terminationReason;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(terminationReason);
 		String SQL=this.getSaveTerminationReasonSQL(terminationReason);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTerminationReasonParameters(terminationReason);
@@ -425,6 +430,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 
 		terminationReason.incVersion();
+		terminationReason.afterSave();
 		return terminationReason;
 
 	}
@@ -442,6 +448,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		for(TerminationReason terminationReason:terminationReasonList){
 			if(terminationReason.isChanged()){
 				terminationReason.incVersion();
+				terminationReason.afterSave();
 			}
 
 
@@ -545,14 +552,12 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  	protected Object[] prepareTerminationReasonUpdateParameters(TerminationReason terminationReason){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = terminationReason.getCode();
  		
  		if(terminationReason.getCompany() != null){
  			parameters[1] = terminationReason.getCompany().getId();
  		}
- 
- 		
+    
  		parameters[2] = terminationReason.getDescription();
  		
  		parameters[3] = terminationReason.nextVersion();
@@ -569,14 +574,11 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
         }
 		parameters[0] =  terminationReason.getId();
  
- 		
  		parameters[1] = terminationReason.getCode();
  		
  		if(terminationReason.getCompany() != null){
  			parameters[2] = terminationReason.getCompany().getId();
-
  		}
- 		
  		
  		parameters[3] = terminationReason.getDescription();
  		
@@ -586,12 +588,11 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected TerminationReason saveInternalTerminationReason(TerminationReason terminationReason, Map<String,Object> options){
 
-		saveTerminationReason(terminationReason);
-
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(terminationReason, options);
  		}
  
+   saveTerminationReason(terminationReason);
 		
 		if(isSaveTerminationListEnabled(options)){
 	 		saveTerminationList(terminationReason, options);
@@ -610,6 +611,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 
  	protected TerminationReason saveCompany(TerminationReason terminationReason, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(terminationReason.getCompany() == null){
  			return terminationReason;//do nothing when it is null
@@ -619,11 +621,6 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return terminationReason;
 
  	}
-
-
-
-
-
  
 
 	
@@ -702,7 +699,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected TerminationReason saveTerminationList(TerminationReason terminationReason, Map<String,Object> options){
-
+    
 
 
 
@@ -769,19 +766,19 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 
 	public TerminationReason present(TerminationReason terminationReason,Map<String, Object> options){
-	
+
 		presentTerminationList(terminationReason,options);
 
 		return terminationReason;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected TerminationReason presentTerminationList(
 			TerminationReason terminationReason,
 			Map<String, Object> options) {
-
-		SmartList<Termination> terminationList = terminationReason.getTerminationList();		
+    
+		SmartList<Termination> terminationList = terminationReason.getTerminationList();
 				SmartList<Termination> newList= presentSubList(terminationReason.getId(),
 				terminationList,
 				options,
@@ -789,12 +786,12 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getTerminationDAO()::findTerminationByReason
 				);
 
-		
+
 		terminationReason.setTerminationList(newList);
-		
+
 
 		return terminationReason;
-	}			
+	}
 		
 
 	
@@ -818,6 +815,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:Termination的reason的TerminationList
 	public SmartList<Termination> loadOurTerminationList(RetailscmUserContext userContext, List<TerminationReason> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -874,6 +872,10 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<TerminationReason> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTerminationReasonMapper());
   }
@@ -909,6 +911,15 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	
 
+  @Override
+  public List<TerminationReason> search(TerminationReasonRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected TerminationReasonMapper mapper() {
+    return getTerminationReasonMapper();
+  }
 }
 
 

@@ -31,9 +31,9 @@ const internalSummaryOf = (loginHistory,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{loginHistory.id}</Description> 
+<Description term="ID">{loginHistory.id}</Description> 
 <Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="从IP">{loginHistory.fromIp}</Description> 
+<Description term="来自IP">{loginHistory.fromIp}</Description> 
 <Description term="描述">{loginHistory.description}</Description> 
 	
       </DescriptionList>
@@ -60,7 +60,7 @@ class LoginHistoryPermission extends Component {
     // eslint-disable-next-line max-len
     const  loginHistory = this.props.loginHistory
     const { id,displayName,  } = loginHistory
-    const  returnURL = `/loginHistory/${id}/dashboard`
+    const  returnURL = `/loginHistory/${id}/workbench`
     const cardsData = {cardsName:"登录历史",cardsFor: "loginHistory",cardsSource: loginHistory,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class LoginHistoryPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

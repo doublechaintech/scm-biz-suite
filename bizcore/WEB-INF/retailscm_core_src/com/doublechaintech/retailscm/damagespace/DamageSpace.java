@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.damagespace;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.warehouse.Warehouse;
 import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
 
@@ -28,12 +25,12 @@ import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
 @JsonSerialize(using = DamageSpaceSerializer.class)
 public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String LOCATION_PROPERTY              = "location"          ;
 	public static final String CONTACT_NUMBER_PROPERTY        = "contactNumber"     ;
@@ -50,36 +47,104 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LOCATION_PROPERTY, "location", "位置")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CONTACT_NUMBER_PROPERTY, "contact_number", "联系电话")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TOTAL_AREA_PROPERTY, "total_area", "总面积")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LATITUDE_PROPERTY, "latitude", "纬度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LONGITUDE_PROPERTY, "longitude", "经度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(WAREHOUSE_PROPERTY, "warehouse", "仓库")
+        .withType("warehouse", Warehouse.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
+        .withType("date_time_update", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(GOODS_SHELF_LIST, "damageSpace", "货架列表")
+        .withType("goods_shelf", GoodsShelf.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,LOCATION_PROPERTY ,CONTACT_NUMBER_PROPERTY ,TOTAL_AREA_PROPERTY ,LATITUDE_PROPERTY ,LONGITUDE_PROPERTY ,WAREHOUSE_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(GOODS_SHELF_LIST, "damageSpace");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(GOODS_SHELF_LIST, GoodsShelf.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(WAREHOUSE_PROPERTY, Warehouse.class);
+
+    return parents;
+  }
+
+  public DamageSpace want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public DamageSpace wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getLocation();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mLocation           ;
-	protected		String              	mContactNumber      ;
-	protected		String              	mTotalArea          ;
-	protected		BigDecimal          	mLatitude           ;
-	protected		BigDecimal          	mLongitude          ;
-	protected		Warehouse           	mWarehouse          ;
-	protected		DateTime            	mLastUpdateTime     ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	location            ;
+	protected		String              	contactNumber       ;
+	protected		String              	totalArea           ;
+	protected		BigDecimal          	latitude            ;
+	protected		BigDecimal          	longitude           ;
+	protected		Warehouse           	warehouse           ;
+	protected		DateTime            	lastUpdateTime      ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<GoodsShelf>	mGoodsShelfList     ;
 
-	
-		
+
+
 	public 	DamageSpace(){
 		// lazy load for all the properties
 	}
@@ -87,20 +152,39 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		DamageSpace damageSpace = new DamageSpace();
 		damageSpace.setId(id);
 		damageSpace.setVersion(Integer.MAX_VALUE);
+		damageSpace.setChecked(true);
 		return damageSpace;
 	}
 	public 	static DamageSpace refById(String id){
 		return withId(id);
 	}
-	
+
+  public DamageSpace limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public DamageSpace limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static DamageSpace searchExample(){
+    DamageSpace damageSpace = new DamageSpace();
+    		damageSpace.setVersion(UNSET_INT);
+
+    return damageSpace;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setWarehouse( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -228,7 +312,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(LOCATION_PROPERTY.equals(property)){
 			return getLocation();
 		}
@@ -258,161 +342,279 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public DamageSpace updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public DamageSpace addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setLocation(String location){
-		this.mLocation = trimString(location);;
-	}
+	public void setLocation(String location){String oldLocation = this.location;String newLocation = trimString(location);this.location = newLocation;}
+	public String location(){
+doLoad();
+return getLocation();
+}
 	public String getLocation(){
-		return this.mLocation;
+		return this.location;
 	}
-	public DamageSpace updateLocation(String location){
-		this.mLocation = trimString(location);;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateLocation(String location){String oldLocation = this.location;String newLocation = trimString(location);if(!shouldReplaceBy(newLocation, oldLocation)){return this;}this.location = newLocation;addPropertyChange(LOCATION_PROPERTY, oldLocation, newLocation);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByLocation(boolean asc){
+doAddOrderBy(LOCATION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLocationCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LOCATION_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreLocationCriteria(){super.ignoreSearchProperty(LOCATION_PROPERTY);
+return this;
+}
+	public DamageSpace addLocationCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLocationCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLocation(String location){
 		if(location != null) { setLocation(location);}
 	}
+
 	
-	
-	public void setContactNumber(String contactNumber){
-		this.mContactNumber = trimString(contactNumber);;
-	}
+	public void setContactNumber(String contactNumber){String oldContactNumber = this.contactNumber;String newContactNumber = trimString(contactNumber);this.contactNumber = newContactNumber;}
+	public String contactNumber(){
+doLoad();
+return getContactNumber();
+}
 	public String getContactNumber(){
-		return this.mContactNumber;
+		return this.contactNumber;
 	}
-	public DamageSpace updateContactNumber(String contactNumber){
-		this.mContactNumber = trimString(contactNumber);;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateContactNumber(String contactNumber){String oldContactNumber = this.contactNumber;String newContactNumber = trimString(contactNumber);if(!shouldReplaceBy(newContactNumber, oldContactNumber)){return this;}this.contactNumber = newContactNumber;addPropertyChange(CONTACT_NUMBER_PROPERTY, oldContactNumber, newContactNumber);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByContactNumber(boolean asc){
+doAddOrderBy(CONTACT_NUMBER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createContactNumberCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CONTACT_NUMBER_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreContactNumberCriteria(){super.ignoreSearchProperty(CONTACT_NUMBER_PROPERTY);
+return this;
+}
+	public DamageSpace addContactNumberCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createContactNumberCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeContactNumber(String contactNumber){
 		if(contactNumber != null) { setContactNumber(contactNumber);}
 	}
+
 	
-	
-	public void setTotalArea(String totalArea){
-		this.mTotalArea = trimString(totalArea);;
-	}
+	public void setTotalArea(String totalArea){String oldTotalArea = this.totalArea;String newTotalArea = trimString(totalArea);this.totalArea = newTotalArea;}
+	public String totalArea(){
+doLoad();
+return getTotalArea();
+}
 	public String getTotalArea(){
-		return this.mTotalArea;
+		return this.totalArea;
 	}
-	public DamageSpace updateTotalArea(String totalArea){
-		this.mTotalArea = trimString(totalArea);;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateTotalArea(String totalArea){String oldTotalArea = this.totalArea;String newTotalArea = trimString(totalArea);if(!shouldReplaceBy(newTotalArea, oldTotalArea)){return this;}this.totalArea = newTotalArea;addPropertyChange(TOTAL_AREA_PROPERTY, oldTotalArea, newTotalArea);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByTotalArea(boolean asc){
+doAddOrderBy(TOTAL_AREA_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createTotalAreaCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(TOTAL_AREA_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreTotalAreaCriteria(){super.ignoreSearchProperty(TOTAL_AREA_PROPERTY);
+return this;
+}
+	public DamageSpace addTotalAreaCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createTotalAreaCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeTotalArea(String totalArea){
 		if(totalArea != null) { setTotalArea(totalArea);}
 	}
+
 	
-	
-	public void setLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-	}
+	public void setLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;this.latitude = newLatitude;}
+	public BigDecimal latitude(){
+doLoad();
+return getLatitude();
+}
 	public BigDecimal getLatitude(){
-		return this.mLatitude;
+		return this.latitude;
 	}
-	public DamageSpace updateLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;if(!shouldReplaceBy(newLatitude, oldLatitude)){return this;}this.latitude = newLatitude;addPropertyChange(LATITUDE_PROPERTY, oldLatitude, newLatitude);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByLatitude(boolean asc){
+doAddOrderBy(LATITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLatitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LATITUDE_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreLatitudeCriteria(){super.ignoreSearchProperty(LATITUDE_PROPERTY);
+return this;
+}
+	public DamageSpace addLatitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLatitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLatitude(BigDecimal latitude){
 		setLatitude(latitude);
 	}
+
 	
-	
-	public void setLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-	}
+	public void setLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;this.longitude = newLongitude;}
+	public BigDecimal longitude(){
+doLoad();
+return getLongitude();
+}
 	public BigDecimal getLongitude(){
-		return this.mLongitude;
+		return this.longitude;
 	}
-	public DamageSpace updateLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;if(!shouldReplaceBy(newLongitude, oldLongitude)){return this;}this.longitude = newLongitude;addPropertyChange(LONGITUDE_PROPERTY, oldLongitude, newLongitude);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByLongitude(boolean asc){
+doAddOrderBy(LONGITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLongitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LONGITUDE_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreLongitudeCriteria(){super.ignoreSearchProperty(LONGITUDE_PROPERTY);
+return this;
+}
+	public DamageSpace addLongitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLongitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLongitude(BigDecimal longitude){
 		setLongitude(longitude);
 	}
+
 	
-	
-	public void setWarehouse(Warehouse warehouse){
-		this.mWarehouse = warehouse;;
-	}
+	public void setWarehouse(Warehouse warehouse){Warehouse oldWarehouse = this.warehouse;Warehouse newWarehouse = warehouse;this.warehouse = newWarehouse;}
+	public Warehouse warehouse(){
+doLoad();
+return getWarehouse();
+}
 	public Warehouse getWarehouse(){
-		return this.mWarehouse;
+		return this.warehouse;
 	}
-	public DamageSpace updateWarehouse(Warehouse warehouse){
-		this.mWarehouse = warehouse;;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateWarehouse(Warehouse warehouse){Warehouse oldWarehouse = this.warehouse;Warehouse newWarehouse = warehouse;if(!shouldReplaceBy(newWarehouse, oldWarehouse)){return this;}this.warehouse = newWarehouse;addPropertyChange(WAREHOUSE_PROPERTY, oldWarehouse, newWarehouse);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByWarehouse(boolean asc){
+doAddOrderBy(WAREHOUSE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createWarehouseCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(WAREHOUSE_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreWarehouseCriteria(){super.ignoreSearchProperty(WAREHOUSE_PROPERTY);
+return this;
+}
+	public DamageSpace addWarehouseCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createWarehouseCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeWarehouse(Warehouse warehouse){
 		if(warehouse != null) { setWarehouse(warehouse);}
 	}
-	
+
 	
 	public void clearWarehouse(){
 		setWarehouse ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-	}
+	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
+	public DateTime lastUpdateTime(){
+doLoad();
+return getLastUpdateTime();
+}
 	public DateTime getLastUpdateTime(){
-		return this.mLastUpdateTime;
+		return this.lastUpdateTime;
 	}
-	public DamageSpace updateLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;if(!shouldReplaceBy(newLastUpdateTime, oldLastUpdateTime)){return this;}this.lastUpdateTime = newLastUpdateTime;addPropertyChange(LAST_UPDATE_TIME_PROPERTY, oldLastUpdateTime, newLastUpdateTime);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByLastUpdateTime(boolean asc){
+doAddOrderBy(LAST_UPDATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_UPDATE_TIME_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreLastUpdateTimeCriteria(){super.ignoreSearchProperty(LAST_UPDATE_TIME_PROPERTY);
+return this;
+}
+	public DamageSpace addLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastUpdateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastUpdateTime(DateTime lastUpdateTime){
 		setLastUpdateTime(lastUpdateTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public DamageSpace updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public DamageSpace updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public DamageSpace orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public DamageSpace ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public DamageSpace addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<GoodsShelf> getGoodsShelfList(){
@@ -421,9 +623,18 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 			this.mGoodsShelfList.setListInternalName (GOODS_SHELF_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mGoodsShelfList;	
+
+		return this.mGoodsShelfList;
 	}
+
+  public  SmartList<GoodsShelf> goodsShelfList(){
+    
+    doLoadChild(GOODS_SHELF_LIST);
+    
+    return getGoodsShelfList();
+  }
+
+
 	public  void setGoodsShelfList(SmartList<GoodsShelf> goodsShelfList){
 		for( GoodsShelf goodsShelf:goodsShelfList){
 			goodsShelf.setDamageSpace(this);
@@ -431,18 +642,20 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 
 		this.mGoodsShelfList = goodsShelfList;
 		this.mGoodsShelfList.setListInternalName (GOODS_SHELF_LIST );
-		
+
 	}
-	
-	public  void addGoodsShelf(GoodsShelf goodsShelf){
+
+	public  DamageSpace addGoodsShelf(GoodsShelf goodsShelf){
 		goodsShelf.setDamageSpace(this);
 		getGoodsShelfList().add(goodsShelf);
+		return this;
 	}
-	public  void addGoodsShelfList(SmartList<GoodsShelf> goodsShelfList){
+	public  DamageSpace addGoodsShelfList(SmartList<GoodsShelf> goodsShelfList){
 		for( GoodsShelf goodsShelf:goodsShelfList){
 			goodsShelf.setDamageSpace(this);
 		}
 		getGoodsShelfList().addAll(goodsShelfList);
+		return this;
 	}
 	public  void mergeGoodsShelfList(SmartList<GoodsShelf> goodsShelfList){
 		if(goodsShelfList==null){
@@ -452,45 +665,45 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 			return;
 		}
 		addGoodsShelfList( goodsShelfList );
-		
+
 	}
 	public  GoodsShelf removeGoodsShelf(GoodsShelf goodsShelfIndex){
-		
+
 		int index = getGoodsShelfList().indexOf(goodsShelfIndex);
         if(index < 0){
         	String message = "GoodsShelf("+goodsShelfIndex.getId()+") with version='"+goodsShelfIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        GoodsShelf goodsShelf = getGoodsShelfList().get(index);        
+        GoodsShelf goodsShelf = getGoodsShelfList().get(index);
         // goodsShelf.clearDamageSpace(); //disconnect with DamageSpace
         goodsShelf.clearFromAll(); //disconnect with DamageSpace
-		
+
 		boolean result = getGoodsShelfList().planToRemove(goodsShelf);
         if(!result){
         	String message = "GoodsShelf("+goodsShelfIndex.getId()+") with version='"+goodsShelfIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return goodsShelf;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithGoodsShelf(GoodsShelf goodsShelf){
-		
+
 		if(goodsShelf == null){
 			return;
 		}
 		goodsShelf.setDamageSpace(null);
 		//getGoodsShelfList().remove();
-	
+
 	}
-	
+
 	public  boolean hasGoodsShelf(GoodsShelf goodsShelf){
-	
+
 		return getGoodsShelfList().contains(goodsShelf);
-  
+
 	}
-	
+
 	public void copyGoodsShelfFrom(GoodsShelf goodsShelf) {
 
 		GoodsShelf goodsShelfInList = findTheGoodsShelf(goodsShelf);
@@ -500,53 +713,53 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		getGoodsShelfList().add(newGoodsShelf);
 		addItemToFlexiableObject(COPIED_CHILD, newGoodsShelf);
 	}
-	
+
 	public  GoodsShelf findTheGoodsShelf(GoodsShelf goodsShelf){
-		
+
 		int index =  getGoodsShelfList().indexOf(goodsShelf);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "GoodsShelf("+goodsShelf.getId()+") with version='"+goodsShelf.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getGoodsShelfList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpGoodsShelfList(){
 		getGoodsShelfList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getWarehouse(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getGoodsShelfList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getGoodsShelfList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -570,16 +783,16 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof DamageSpace){
-		
-		
+
+
 			DamageSpace dest =(DamageSpace)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setLocation(getLocation());
 			dest.setContactNumber(getContactNumber());
@@ -596,13 +809,13 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof DamageSpace){
-		
-			
+
+
 			DamageSpace dest =(DamageSpace)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeLocation(getLocation());
 			dest.mergeContactNumber(getContactNumber());
@@ -618,15 +831,15 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof DamageSpace){
-		
-			
+
+
 			DamageSpace dest =(DamageSpace)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeLocation(getLocation());
 			dest.mergeContactNumber(getContactNumber());
@@ -642,6 +855,51 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getLocation(), getContactNumber(), getTotalArea(), getLatitude(), getLongitude(), getWarehouse(), getLastUpdateTime(), getVersion()};
 	}
+
+
+	public static DamageSpace createWith(RetailscmUserContext userContext, ThrowingFunction<DamageSpace,DamageSpace,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<DamageSpace> customCreator = mapper.findCustomCreator(DamageSpace.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    DamageSpace result = new DamageSpace();
+    result.setLocation(mapper.tryToGet(DamageSpace.class, LOCATION_PROPERTY, String.class,
+        0, false, result.getLocation(), params));
+    result.setContactNumber(mapper.tryToGet(DamageSpace.class, CONTACT_NUMBER_PROPERTY, String.class,
+        1, false, result.getContactNumber(), params));
+    result.setTotalArea(mapper.tryToGet(DamageSpace.class, TOTAL_AREA_PROPERTY, String.class,
+        2, false, result.getTotalArea(), params));
+    result.setLatitude(mapper.tryToGet(DamageSpace.class, LATITUDE_PROPERTY, BigDecimal.class,
+        0, false, result.getLatitude(), params));
+    result.setLongitude(mapper.tryToGet(DamageSpace.class, LONGITUDE_PROPERTY, BigDecimal.class,
+        1, false, result.getLongitude(), params));
+    result.setWarehouse(mapper.tryToGet(DamageSpace.class, WAREHOUSE_PROPERTY, Warehouse.class,
+        0, true, result.getWarehouse(), params));
+     result.setLastUpdateTime(userContext.now());
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixDamageSpace(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      DamageSpaceTokens tokens = mapper.findParamByClass(params, DamageSpaceTokens.class);
+      if (tokens == null) {
+        tokens = DamageSpaceTokens.start();
+      }
+      result = userContext.getManagerGroup().getDamageSpaceManager().internalSaveDamageSpace(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -661,7 +919,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

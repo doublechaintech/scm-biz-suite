@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { EmployeeAssociateForm } = GlobalComponents
-  const { LeaveTypeAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <EmployeeAssociateForm 
-	visible={currentAssociateModal==='who'} 
-	data={{employeeLeaveList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'who')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'who')}/> <LeaveTypeAssociateForm 
-	visible={currentAssociateModal==='type'} 
-	data={{employeeLeaveList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'type')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'type')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class EmployeeLeaveSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class EmployeeLeaveSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {EmployeeLeaveTable} = GlobalComponents;
     const {EmployeeLeaveSearchForm} = GlobalComponents;
     const {EmployeeLeaveModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class EmployeeLeaveSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,EmployeeLeaveModalTable,"employeeLeaveIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

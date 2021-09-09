@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.stockcountissuetrack;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	protected GoodsShelfStockCountDAO goodsShelfStockCountDAO;
 	public void setGoodsShelfStockCountDAO(GoodsShelfStockCountDAO goodsShelfStockCountDAO){
- 	
+
  		if(goodsShelfStockCountDAO == null){
  			throw new IllegalStateException("Do not try to set goodsShelfStockCountDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  		if(this.goodsShelfStockCountDAO == null){
  			throw new IllegalStateException("The goodsShelfStockCountDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsShelfStockCountDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return StockCountIssueTrackTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractStockCountEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, StockCountIssueTrackTokens.STOCKCOUNT);
  	}
 
  	protected boolean isSaveStockCountEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, StockCountIssueTrackTokens.STOCKCOUNT);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		return new StockCountIssueTrackMapper();
 	}
 
-	
-	
+
+
 	protected StockCountIssueTrack extractStockCountIssueTrack(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			StockCountIssueTrack stockCountIssueTrack = loadSingleObject(accessKey, getStockCountIssueTrackMapper());
@@ -229,25 +231,26 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	}
 
-	
-	
+
+
 
 	protected StockCountIssueTrack loadInternalStockCountIssueTrack(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		StockCountIssueTrack stockCountIssueTrack = extractStockCountIssueTrack(accessKey, loadOptions);
- 	
+
  		if(isExtractStockCountEnabled(loadOptions)){
 	 		extractStockCount(stockCountIssueTrack, loadOptions);
  		}
  
 		
 		return stockCountIssueTrack;
-		
+
 	}
 
-	 
+	
 
  	protected StockCountIssueTrack extractStockCount(StockCountIssueTrack stockCountIssueTrack, Map<String,Object> options) throws Exception{
+  
 
 		if(stockCountIssueTrack.getStockCount() == null){
 			return stockCountIssueTrack;
@@ -260,37 +263,37 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		if(stockCount != null){
 			stockCountIssueTrack.setStockCount(stockCount);
 		}
-		
- 		
+
+
  		return stockCountIssueTrack;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<StockCountIssueTrack> findStockCountIssueTrackByStockCount(String goodsShelfStockCountId,Map<String,Object> options){
- 	
+
   		SmartList<StockCountIssueTrack> resultList = queryWith(StockCountIssueTrackTable.COLUMN_STOCK_COUNT, goodsShelfStockCountId, options, getStockCountIssueTrackMapper());
 		// analyzeStockCountIssueTrackByStockCount(resultList, goodsShelfStockCountId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<StockCountIssueTrack> findStockCountIssueTrackByStockCount(String goodsShelfStockCountId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<StockCountIssueTrack> resultList =  queryWithRange(StockCountIssueTrackTable.COLUMN_STOCK_COUNT, goodsShelfStockCountId, options, getStockCountIssueTrackMapper(), start, count);
  		//analyzeStockCountIssueTrackByStockCount(resultList, goodsShelfStockCountId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeStockCountIssueTrackByStockCount(SmartList<StockCountIssueTrack> resultList, String goodsShelfStockCountId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countStockCountIssueTrackByStockCount(String goodsShelfStockCountId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	public Map<String, Integer> countStockCountIssueTrackByStockCountIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(StockCountIssueTrackTable.COLUMN_STOCK_COUNT, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected StockCountIssueTrack saveStockCountIssueTrack(StockCountIssueTrack  stockCountIssueTrack){
+    
+
 		
 		if(!stockCountIssueTrack.isChanged()){
 			return stockCountIssueTrack;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(stockCountIssueTrack);
 		String SQL=this.getSaveStockCountIssueTrackSQL(stockCountIssueTrack);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveStockCountIssueTrackParameters(stockCountIssueTrack);
@@ -326,6 +332,7 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		}
 
 		stockCountIssueTrack.incVersion();
+		stockCountIssueTrack.afterSave();
 		return stockCountIssueTrack;
 
 	}
@@ -343,6 +350,7 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		for(StockCountIssueTrack stockCountIssueTrack:stockCountIssueTrackList){
 			if(stockCountIssueTrack.isChanged()){
 				stockCountIssueTrack.incVersion();
+				stockCountIssueTrack.afterSave();
 			}
 
 
@@ -446,19 +454,16 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  	protected Object[] prepareStockCountIssueTrackUpdateParameters(StockCountIssueTrack stockCountIssueTrack){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = stockCountIssueTrack.getTitle();
  		
- 		
  		parameters[1] = stockCountIssueTrack.getCountTime();
- 		
  		
  		parameters[2] = stockCountIssueTrack.getSummary();
  		
  		if(stockCountIssueTrack.getStockCount() != null){
  			parameters[3] = stockCountIssueTrack.getStockCount().getId();
  		}
- 
+    
  		parameters[4] = stockCountIssueTrack.nextVersion();
  		parameters[5] = stockCountIssueTrack.getId();
  		parameters[6] = stockCountIssueTrack.getVersion();
@@ -473,18 +478,14 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
         }
 		parameters[0] =  stockCountIssueTrack.getId();
  
- 		
  		parameters[1] = stockCountIssueTrack.getTitle();
  		
- 		
  		parameters[2] = stockCountIssueTrack.getCountTime();
- 		
  		
  		parameters[3] = stockCountIssueTrack.getSummary();
  		
  		if(stockCountIssueTrack.getStockCount() != null){
  			parameters[4] = stockCountIssueTrack.getStockCount().getId();
-
  		}
  		
 
@@ -493,12 +494,11 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	protected StockCountIssueTrack saveInternalStockCountIssueTrack(StockCountIssueTrack stockCountIssueTrack, Map<String,Object> options){
 
-		saveStockCountIssueTrack(stockCountIssueTrack);
-
  		if(isSaveStockCountEnabled(options)){
 	 		saveStockCount(stockCountIssueTrack, options);
  		}
  
+   saveStockCountIssueTrack(stockCountIssueTrack);
 		
 		return stockCountIssueTrack;
 
@@ -510,6 +510,7 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	
 
  	protected StockCountIssueTrack saveStockCount(StockCountIssueTrack stockCountIssueTrack, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(stockCountIssueTrack.getStockCount() == null){
  			return stockCountIssueTrack;//do nothing when it is null
@@ -519,11 +520,6 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
  		return stockCountIssueTrack;
 
  	}
-
-
-
-
-
  
 
 	
@@ -531,10 +527,10 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 		
 
 	public StockCountIssueTrack present(StockCountIssueTrack stockCountIssueTrack,Map<String, Object> options){
-	
+
 
 		return stockCountIssueTrack;
-	
+
 	}
 		
 
@@ -586,6 +582,10 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<StockCountIssueTrack> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getStockCountIssueTrackMapper());
   }
@@ -621,6 +621,15 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmBaseDAOImpl im
 
 	
 
+  @Override
+  public List<StockCountIssueTrack> search(StockCountIssueTrackRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected StockCountIssueTrackMapper mapper() {
+    return getStockCountIssueTrackMapper();
+  }
 }
 
 

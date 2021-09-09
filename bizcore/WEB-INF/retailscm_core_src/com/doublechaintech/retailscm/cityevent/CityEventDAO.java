@@ -46,6 +46,7 @@ public interface CityEventDAO extends BaseDAO{
 	public void delete(String cityEventId, int version) throws Exception;
 	public CityEvent disconnectFromAll(String cityEventId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EventAttendanceDAO getEventAttendanceDAO();
 		
@@ -61,9 +62,10 @@ public interface CityEventDAO extends BaseDAO{
 	public int countEventAttendanceListWithPotentialCustomer(String cityEventId, String potentialCustomerId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<CityEvent> queryList(String sql, Object ... parmeters);
+	public SmartList<CityEvent> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<CityEvent> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateCityEvent executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<CityEvent> findCityEventByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
@@ -77,6 +79,8 @@ public interface CityEventDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:EventAttendance的cityEvent的EventAttendanceList
 	public SmartList<EventAttendance> loadOurEventAttendanceList(RetailscmUserContext userContext, List<CityEvent> us, Map<String,Object> options) throws Exception;
 	
+
+	List<CityEvent> search(CityEventRequest pRequest);
 }
 
 

@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}cityEventManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}cityEventManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}cityEventService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const CityEventService = { view,
   load,
+  analyze,
   addEventAttendance,
   updateEventAttendance,
   removeEventAttendanceList,
   requestCandidateCityServiceCenter,
-  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCityServiceCenter, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default CityEventService
 

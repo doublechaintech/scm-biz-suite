@@ -31,7 +31,7 @@ const internalSummaryOf = (section,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{section.id}</Description> 
+<Description term="ID">{section.id}</Description> 
 <Description term="头衔">{section.title}</Description> 
 <Description term="短暂的">{section.brief}</Description> 
 <Description term="图标"><ImagePreview imageTitle="图标" imageLocation={section.icon}/></Description> 
@@ -63,7 +63,7 @@ class SectionPermission extends Component {
     // eslint-disable-next-line max-len
     const  section = this.props.section
     const { id,displayName,  } = section
-    const  returnURL = `/section/${id}/dashboard`
+    const  returnURL = `/section/${id}/workbench`
     const cardsData = {cardsName:"板块",cardsFor: "section",cardsSource: section,displayName,returnURL,
   		subItems: [
     
@@ -76,10 +76,10 @@ class SectionPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

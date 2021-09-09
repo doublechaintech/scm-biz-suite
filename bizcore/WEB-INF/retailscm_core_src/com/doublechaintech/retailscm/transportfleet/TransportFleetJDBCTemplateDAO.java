@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.transportfleet;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -55,13 +56,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected TransportTruckDAO transportTruckDAO;
 	public void setTransportTruckDAO(TransportTruckDAO transportTruckDAO){
- 	
+
  		if(transportTruckDAO == null){
  			throw new IllegalStateException("Do not try to set transportTruckDAO to null.");
  		}
@@ -71,13 +72,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.transportTruckDAO == null){
  			throw new IllegalStateException("The transportTruckDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.transportTruckDAO;
- 	}	
+ 	}
 
 	protected TruckDriverDAO truckDriverDAO;
 	public void setTruckDriverDAO(TruckDriverDAO truckDriverDAO){
- 	
+
  		if(truckDriverDAO == null){
  			throw new IllegalStateException("Do not try to set truckDriverDAO to null.");
  		}
@@ -87,13 +88,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.truckDriverDAO == null){
  			throw new IllegalStateException("The truckDriverDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.truckDriverDAO;
- 	}	
+ 	}
 
 	protected TransportTaskDAO transportTaskDAO;
 	public void setTransportTaskDAO(TransportTaskDAO transportTaskDAO){
- 	
+
  		if(transportTaskDAO == null){
  			throw new IllegalStateException("Do not try to set transportTaskDAO to null.");
  		}
@@ -103,9 +104,10 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.transportTaskDAO == null){
  			throw new IllegalStateException("The transportTaskDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.transportTaskDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -159,21 +161,21 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		newTransportFleet.setVersion(0);
 		
 		
- 		
+
  		if(isSaveTransportTruckListEnabled(options)){
  			for(TransportTruck item: newTransportFleet.getTransportTruckList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveTruckDriverListEnabled(options)){
  			for(TruckDriver item: newTransportFleet.getTruckDriverList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveTransportTaskListEnabled(options)){
  			for(TransportTask item: newTransportFleet.getTransportTaskList()){
  				item.setVersion(0);
@@ -260,72 +262,72 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return TransportFleetTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TransportFleetTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TransportFleetTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractTransportTruckListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTransportTruckListEnabled(Map<String,Object> options){
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTruckListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTransportTruckListEnabled(Map<String,Object> options){
  		return TransportFleetTokens.of(options).analyzeTransportTruckListEnabled();
  	}
-	
+
 	protected boolean isSaveTransportTruckListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportFleetTokens.TRANSPORT_TRUCK_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractTruckDriverListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTruckDriverListEnabled(Map<String,Object> options){
  		return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST);
  	}
- 	protected boolean isAnalyzeTruckDriverListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTruckDriverListEnabled(Map<String,Object> options){
  		return TransportFleetTokens.of(options).analyzeTruckDriverListEnabled();
  	}
-	
+
 	protected boolean isSaveTruckDriverListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportFleetTokens.TRUCK_DRIVER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){
  		return TransportFleetTokens.of(options).analyzeTransportTaskListEnabled();
  	}
-	
+
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportFleetTokens.TRANSPORT_TASK_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -334,8 +336,8 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		return new TransportFleetMapper();
 	}
 
-	
-	
+
+
 	protected TransportFleet extractTransportFleet(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			TransportFleet transportFleet = loadSingleObject(accessKey, getTransportFleetMapper());
@@ -346,13 +348,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	}
 
-	
-	
+
+
 
 	protected TransportFleet loadInternalTransportFleet(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		TransportFleet transportFleet = extractTransportFleet(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(transportFleet, loadOptions);
  		}
@@ -360,8 +362,8 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 		if(isExtractTransportTruckListEnabled(loadOptions)){
 	 		extractTransportTruckList(transportFleet, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeTransportTruckListEnabled(loadOptions)){
 	 		analyzeTransportTruckList(transportFleet, loadOptions);
@@ -370,8 +372,8 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 		if(isExtractTruckDriverListEnabled(loadOptions)){
 	 		extractTruckDriverList(transportFleet, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeTruckDriverListEnabled(loadOptions)){
 	 		analyzeTruckDriverList(transportFleet, loadOptions);
@@ -380,8 +382,8 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 		if(isExtractTransportTaskListEnabled(loadOptions)){
 	 		extractTransportTaskList(transportFleet, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeTransportTaskListEnabled(loadOptions)){
 	 		analyzeTransportTaskList(transportFleet, loadOptions);
@@ -389,12 +391,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		
 		
 		return transportFleet;
-		
+
 	}
 
-	 
+	
 
  	protected TransportFleet extractOwner(TransportFleet transportFleet, Map<String,Object> options) throws Exception{
+  
 
 		if(transportFleet.getOwner() == null){
 			return transportFleet;
@@ -407,21 +410,21 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(owner != null){
 			transportFleet.setOwner(owner);
 		}
-		
- 		
+
+
  		return transportFleet;
  	}
- 		
+
  
 		
 	protected void enhanceTransportTruckList(SmartList<TransportTruck> transportTruckList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected TransportFleet extractTransportTruckList(TransportFleet transportFleet, Map<String,Object> options){
-		
-		
+    
+
 		if(transportFleet == null){
 			return null;
 		}
@@ -429,21 +432,20 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return transportFleet;
 		}
 
-		
-		
+
+
 		SmartList<TransportTruck> transportTruckList = getTransportTruckDAO().findTransportTruckByOwner(transportFleet.getId(),options);
 		if(transportTruckList != null){
 			enhanceTransportTruckList(transportTruckList,options);
 			transportFleet.setTransportTruckList(transportTruckList);
 		}
-		
+
 		return transportFleet;
-	
-	}	
-	
+  
+	}
+
 	protected TransportFleet analyzeTransportTruckList(TransportFleet transportFleet, Map<String,Object> options){
-		
-		
+     
 		if(transportFleet == null){
 			return null;
 		}
@@ -451,27 +453,27 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return transportFleet;
 		}
 
-		
-		
+
+
 		SmartList<TransportTruck> transportTruckList = transportFleet.getTransportTruckList();
 		if(transportTruckList != null){
 			getTransportTruckDAO().analyzeTransportTruckByOwner(transportTruckList, transportFleet.getId(), options);
-			
+
 		}
-		
+
 		return transportFleet;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceTruckDriverList(SmartList<TruckDriver> truckDriverList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected TransportFleet extractTruckDriverList(TransportFleet transportFleet, Map<String,Object> options){
-		
-		
+    
+
 		if(transportFleet == null){
 			return null;
 		}
@@ -479,21 +481,20 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return transportFleet;
 		}
 
-		
-		
+
+
 		SmartList<TruckDriver> truckDriverList = getTruckDriverDAO().findTruckDriverByBelongsTo(transportFleet.getId(),options);
 		if(truckDriverList != null){
 			enhanceTruckDriverList(truckDriverList,options);
 			transportFleet.setTruckDriverList(truckDriverList);
 		}
-		
+
 		return transportFleet;
-	
-	}	
-	
+  
+	}
+
 	protected TransportFleet analyzeTruckDriverList(TransportFleet transportFleet, Map<String,Object> options){
-		
-		
+     
 		if(transportFleet == null){
 			return null;
 		}
@@ -501,27 +502,27 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return transportFleet;
 		}
 
-		
-		
+
+
 		SmartList<TruckDriver> truckDriverList = transportFleet.getTruckDriverList();
 		if(truckDriverList != null){
 			getTruckDriverDAO().analyzeTruckDriverByBelongsTo(truckDriverList, transportFleet.getId(), options);
-			
+
 		}
-		
+
 		return transportFleet;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceTransportTaskList(SmartList<TransportTask> transportTaskList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected TransportFleet extractTransportTaskList(TransportFleet transportFleet, Map<String,Object> options){
-		
-		
+    
+
 		if(transportFleet == null){
 			return null;
 		}
@@ -529,21 +530,20 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return transportFleet;
 		}
 
-		
-		
+
+
 		SmartList<TransportTask> transportTaskList = getTransportTaskDAO().findTransportTaskByBelongsTo(transportFleet.getId(),options);
 		if(transportTaskList != null){
 			enhanceTransportTaskList(transportTaskList,options);
 			transportFleet.setTransportTaskList(transportTaskList);
 		}
-		
+
 		return transportFleet;
-	
-	}	
-	
+  
+	}
+
 	protected TransportFleet analyzeTransportTaskList(TransportFleet transportFleet, Map<String,Object> options){
-		
-		
+     
 		if(transportFleet == null){
 			return null;
 		}
@@ -551,47 +551,47 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 			return transportFleet;
 		}
 
-		
-		
+
+
 		SmartList<TransportTask> transportTaskList = transportFleet.getTransportTaskList();
 		if(transportTaskList != null){
 			getTransportTaskDAO().analyzeTransportTaskByBelongsTo(transportTaskList, transportFleet.getId(), options);
-			
+
 		}
-		
+
 		return transportFleet;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<TransportFleet> findTransportFleetByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<TransportFleet> resultList = queryWith(TransportFleetTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getTransportFleetMapper());
 		// analyzeTransportFleetByOwner(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TransportFleet> findTransportFleetByOwner(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TransportFleet> resultList =  queryWithRange(TransportFleetTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getTransportFleetMapper(), start, count);
  		//analyzeTransportFleetByOwner(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTransportFleetByOwner(SmartList<TransportFleet> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportFleet.OWNER_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//TransportFleet.LAST_UPDATE_TIME_PROPERTY
@@ -599,11 +599,11 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(TransportFleet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(TransportFleet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTransportFleetByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -614,21 +614,24 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	public Map<String, Integer> countTransportFleetByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TransportFleetTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected TransportFleet saveTransportFleet(TransportFleet  transportFleet){
+    
+
 		
 		if(!transportFleet.isChanged()){
 			return transportFleet;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(transportFleet);
 		String SQL=this.getSaveTransportFleetSQL(transportFleet);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTransportFleetParameters(transportFleet);
@@ -639,6 +642,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 
 		transportFleet.incVersion();
+		transportFleet.afterSave();
 		return transportFleet;
 
 	}
@@ -656,6 +660,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		for(TransportFleet transportFleet:transportFleetList){
 			if(transportFleet.isChanged()){
 				transportFleet.incVersion();
+				transportFleet.afterSave();
 			}
 
 
@@ -759,17 +764,14 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  	protected Object[] prepareTransportFleetUpdateParameters(TransportFleet transportFleet){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = transportFleet.getName();
- 		
  		
  		parameters[1] = transportFleet.getContactNumber();
  		
  		if(transportFleet.getOwner() != null){
  			parameters[2] = transportFleet.getOwner().getId();
  		}
- 
- 		
+    
  		parameters[3] = transportFleet.getLastUpdateTime();
  		
  		parameters[4] = transportFleet.nextVersion();
@@ -786,17 +788,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
         }
 		parameters[0] =  transportFleet.getId();
  
- 		
  		parameters[1] = transportFleet.getName();
- 		
  		
  		parameters[2] = transportFleet.getContactNumber();
  		
  		if(transportFleet.getOwner() != null){
  			parameters[3] = transportFleet.getOwner().getId();
-
  		}
- 		
  		
  		parameters[4] = transportFleet.getLastUpdateTime();
  		
@@ -806,12 +804,11 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected TransportFleet saveInternalTransportFleet(TransportFleet transportFleet, Map<String,Object> options){
 
-		saveTransportFleet(transportFleet);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(transportFleet, options);
  		}
  
+   saveTransportFleet(transportFleet);
 		
 		if(isSaveTransportTruckListEnabled(options)){
 	 		saveTransportTruckList(transportFleet, options);
@@ -844,6 +841,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 
  	protected TransportFleet saveOwner(TransportFleet transportFleet, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(transportFleet.getOwner() == null){
  			return transportFleet;//do nothing when it is null
@@ -853,11 +851,6 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		return transportFleet;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1080,7 +1073,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 		
 	protected TransportFleet saveTransportTruckList(TransportFleet transportFleet, Map<String,Object> options){
-
+    
 
 
 
@@ -1146,7 +1139,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 		
 	protected TransportFleet saveTruckDriverList(TransportFleet transportFleet, Map<String,Object> options){
-
+    
 
 
 
@@ -1212,7 +1205,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 		
 	protected TransportFleet saveTransportTaskList(TransportFleet transportFleet, Map<String,Object> options){
-
+    
 
 
 
@@ -1279,21 +1272,21 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 
 	public TransportFleet present(TransportFleet transportFleet,Map<String, Object> options){
-	
+
 		presentTransportTruckList(transportFleet,options);
 		presentTruckDriverList(transportFleet,options);
 		presentTransportTaskList(transportFleet,options);
 
 		return transportFleet;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected TransportFleet presentTransportTruckList(
 			TransportFleet transportFleet,
 			Map<String, Object> options) {
-
-		SmartList<TransportTruck> transportTruckList = transportFleet.getTransportTruckList();		
+    
+		SmartList<TransportTruck> transportTruckList = transportFleet.getTransportTruckList();
 				SmartList<TransportTruck> newList= presentSubList(transportFleet.getId(),
 				transportTruckList,
 				options,
@@ -1301,19 +1294,19 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				getTransportTruckDAO()::findTransportTruckByOwner
 				);
 
-		
+
 		transportFleet.setTransportTruckList(newList);
-		
+
 
 		return transportFleet;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected TransportFleet presentTruckDriverList(
 			TransportFleet transportFleet,
 			Map<String, Object> options) {
-
-		SmartList<TruckDriver> truckDriverList = transportFleet.getTruckDriverList();		
+    
+		SmartList<TruckDriver> truckDriverList = transportFleet.getTruckDriverList();
 				SmartList<TruckDriver> newList= presentSubList(transportFleet.getId(),
 				truckDriverList,
 				options,
@@ -1321,19 +1314,19 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				getTruckDriverDAO()::findTruckDriverByBelongsTo
 				);
 
-		
+
 		transportFleet.setTruckDriverList(newList);
-		
+
 
 		return transportFleet;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected TransportFleet presentTransportTaskList(
 			TransportFleet transportFleet,
 			Map<String, Object> options) {
-
-		SmartList<TransportTask> transportTaskList = transportFleet.getTransportTaskList();		
+    
+		SmartList<TransportTask> transportTaskList = transportFleet.getTransportTaskList();
 				SmartList<TransportTask> newList= presentSubList(transportFleet.getId(),
 				transportTaskList,
 				options,
@@ -1341,12 +1334,12 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 				getTransportTaskDAO()::findTransportTaskByBelongsTo
 				);
 
-		
+
 		transportFleet.setTransportTaskList(newList);
-		
+
 
 		return transportFleet;
-	}			
+	}
 		
 
 	
@@ -1382,6 +1375,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 	// 需要一个加载引用我的对象的enhance方法:TransportTruck的owner的TransportTruckList
 	public SmartList<TransportTruck> loadOurTransportTruckList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1405,6 +1399,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 	// 需要一个加载引用我的对象的enhance方法:TruckDriver的belongsTo的TruckDriverList
 	public SmartList<TruckDriver> loadOurTruckDriverList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1428,6 +1423,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 	// 需要一个加载引用我的对象的enhance方法:TransportTask的belongsTo的TransportTaskList
 	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1484,6 +1480,10 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<TransportFleet> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTransportFleetMapper());
   }
@@ -1519,6 +1519,15 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	
 
+  @Override
+  public List<TransportFleet> search(TransportFleetRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected TransportFleetMapper mapper() {
+    return getTransportFleetMapper();
+  }
 }
 
 

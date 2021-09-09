@@ -52,6 +52,7 @@ public interface PotentialCustomerDAO extends BaseDAO{
 	public void delete(String potentialCustomerId, int version) throws Exception;
 	public PotentialCustomer disconnectFromAll(String potentialCustomerId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public PotentialCustomerContactPersonDAO getPotentialCustomerContactPersonDAO();
 		
@@ -89,9 +90,10 @@ public interface PotentialCustomerDAO extends BaseDAO{
 	public int countEventAttendanceListWithCityEvent(String potentialCustomerId, String cityEventId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<PotentialCustomer> queryList(String sql, Object ... parmeters);
+	public SmartList<PotentialCustomer> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<PotentialCustomer> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidatePotentialCustomer executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
@@ -119,6 +121,8 @@ public interface PotentialCustomerDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:EventAttendance的potentialCustomer的EventAttendanceList
 	public SmartList<EventAttendance> loadOurEventAttendanceList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception;
 	
+
+	List<PotentialCustomer> search(PotentialCustomerRequest pRequest);
 }
 
 

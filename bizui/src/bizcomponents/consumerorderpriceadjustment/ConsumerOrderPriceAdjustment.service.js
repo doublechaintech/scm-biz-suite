@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}consumerOrderPriceAdjustmentManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}consumerOrderPriceAdjustmentManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}consumerOrderPriceAdjustmentService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const ConsumerOrderPriceAdjustmentService = { view,
   load,
+  analyze,
   requestCandidateBizOrder,
-  transferToAnotherBizOrder, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBizOrder, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ConsumerOrderPriceAdjustmentService
 

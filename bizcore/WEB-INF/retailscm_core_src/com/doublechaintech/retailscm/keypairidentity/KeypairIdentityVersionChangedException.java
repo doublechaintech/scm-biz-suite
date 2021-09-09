@@ -2,9 +2,9 @@
 package com.doublechaintech.retailscm.keypairidentity;
 import com.doublechaintech.retailscm.EntityNotFoundException;
 
-public class KeypairIdentityVersionChangedException extends KeypairIdentityManagerException {
+public class KeyPairIdentityVersionChangedException extends KeyPairIdentityManagerException {
 	private static final long serialVersionUID = 1L;
-	public KeypairIdentityVersionChangedException(String string) {
+	public KeyPairIdentityVersionChangedException(String string) {
 		super(string);
 	}
 

@@ -76,6 +76,7 @@ public interface EmployeeDAO extends BaseDAO{
 	public void delete(String employeeId, int version) throws Exception;
 	public Employee disconnectFromAll(String employeeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeCompanyTrainingDAO getEmployeeCompanyTrainingDAO();
 		
@@ -192,9 +193,10 @@ public interface EmployeeDAO extends BaseDAO{
 
 
 
-	public SmartList<Employee> queryList(String sql, Object ... parmeters);
+	public SmartList<Employee> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Employee> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployee executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Employee> findEmployeeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -273,6 +275,8 @@ public interface EmployeeDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:PayingOff的paidFor的PayingOffList
 	public SmartList<PayingOff> loadOurPayingOffList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Employee> search(EmployeeRequest pRequest);
 }
 
 

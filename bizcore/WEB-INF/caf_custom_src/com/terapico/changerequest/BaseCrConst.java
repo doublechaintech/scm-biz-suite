@@ -12,5 +12,7 @@ public interface BaseCrConst {
   String ACTION_DELETE_RECORD = "deleteRecord";
   String ACTION_COMMIT = "commit";
 
+  String ACTION_REFRESH_ON_CHANGE = "onChange";
+
   String NEXT_COMMIT = "to_commit";
 }

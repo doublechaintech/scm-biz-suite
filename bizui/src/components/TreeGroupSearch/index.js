@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Tree, Input, Tabs, Radio, Menu, Dropdown } from 'antd';
 
 const { Search } = Input;
@@ -6,73 +6,59 @@ const { Search } = Input;
 const { TabPane } = Tabs;
 
 const subList = (listData, searchValue) => {
-  console.log("subList", listData)
-  return listData.filter(item => item.name && item.name.indexOf(searchValue) >= 0)
-}
-const allKeys = (listData) => {
-  return listData.map(item => item.id)
-}
-
-
-
+  console.log('subList', listData);
+  return listData.filter(item => item.name && item.name.indexOf(searchValue) >= 0);
+};
+const allKeys = listData => {
+  return listData.map(item => item.id);
+};
 
 const genTree = (listData, searchValue) => {
-
   const parentNodes = [];
-  const rootTree = { children: [] }
-  subList(listData, searchValue)
-    .map(item => {
-
-      const { valuesOfGroupBy } = item
-      const child = { title: item.name, key: item.id }
-      const { length } = valuesOfGroupBy
-      if (valuesOfGroupBy && length === 0) {
-        // no parent node, the child it self is the root 
-        rootTree.children.push(child)
-        return
+  const rootTree = { children: [] };
+  subList(listData, searchValue).map(item => {
+    const { valuesOfGroupBy } = item;
+    const child = { title: item.name, key: item.id };
+    const { length } = valuesOfGroupBy;
+    if (valuesOfGroupBy && length === 0) {
+      // no parent node, the child it self is the root
+      rootTree.children.push(child);
+      return;
+    }
+    const itemParentNodes = [];
+    itemParentNodes.push(rootTree);
+    // enrich all ancestors
+    valuesOfGroupBy.forEach((groupItem, index) => {
+      const key = `${groupItem}-${index}`;
+      const itemParentNode = parentNodes[key];
+      if (!itemParentNode) {
+        // if there are no node registered, then add it
+        const newRootItem = { title: groupItem, key, level: index, children: [] };
+        parentNodes[key] = newRootItem;
+        itemParentNodes.push(newRootItem);
+        return;
       }
-      const itemParentNodes = []
-      itemParentNodes.push(rootTree)
-      // enrich all ancestors
-      valuesOfGroupBy.forEach((groupItem, index) => {
-        const key = `${groupItem}-${index}`
-        const itemParentNode = parentNodes[key]
-        if (!itemParentNode) {
-          // if there are no node registered, then add it
-          const newRootItem = { title: groupItem, key, level: index, children: [] }
-          parentNodes[key] = newRootItem
-          itemParentNodes.push(newRootItem)
-          return
-        }
-        // found! then push to parent nodes
-        itemParentNodes.push(itemParentNode)
+      // found! then push to parent nodes
+      itemParentNodes.push(itemParentNode);
+    });
+    itemParentNodes.push(child);
 
+    // connect to all the ancestors
+    itemParentNodes.forEach((node, index) => {
+      if (index > 0) {
+        const prev = itemParentNodes[index - 1];
+        const current = itemParentNodes[index];
+        if (prev.children.filter(childItem => childItem.key === current.key).length === 0) {
+          prev.children.push(current);
+        }
       }
-      )
-      itemParentNodes.push(child)
+    });
+    return { ...item, itemParentNodes };
+    // ensure parent nodes
+  });
 
-
-      // connect to all the ancestors
-      itemParentNodes.forEach((node, index) => {
-
-        if (index > 0) {
-          const prev = itemParentNodes[index - 1]
-          const current = itemParentNodes[index]
-          if (prev.children.filter(childItem => childItem.key === current.key).length === 0) {
-            prev.children.push(current)
-          }
-        }
-      })
-      return { ...item, itemParentNodes }
-      // ensure parent nodes
-
-
-    })
-
-  return rootTree.children
-
-
-}
+  return rootTree.children;
+};
 
 /*
 
@@ -83,15 +69,14 @@ const genTree = (listData, searchValue) => {
 
 */
 
-const globalVars = { values: [],selectedTab:"" }
+const globalVars = { values: [], selectedTab: '' };
 const leftChars = (value, left) => {
-  const chars = left || 4
+  const chars = left || 4;
   if (!value) {
-    return "N/A"
+    return 'N/A';
   }
   return value.substring(0, chars);
-}
-
+};
 
 export default class TreeGroupSearch extends React.Component {
   state = {
@@ -103,31 +88,29 @@ export default class TreeGroupSearch extends React.Component {
   };
 
   componentDidMount() {
-
-    const { candidateValues } = this.state
+    const { candidateValues } = this.state;
     if (candidateValues.length > 0) {
       return;
     }
 
     this.mounted = true;
-    const { callbackFunction, callbackParameters } = this.props
+    const { callbackFunction, callbackParameters } = this.props;
     if (!callbackFunction || !callbackParameters) {
-      return
+      return;
     }
 
-    const future = callbackFunction(callbackParameters)
-    const { extraTargetTypes } = this.props
-    const defaultKey = globalVars.selectedTab || this.state.selectedTab || extraTargetTypes[0]
+    const future = callbackFunction(callbackParameters);
+    const { extraTargetTypes } = this.props;
+    const defaultKey = globalVars.selectedTab || this.state.selectedTab || extraTargetTypes[0];
     future.then(data => {
       if (this.mounted) {
-        console.log("data==========>", data)
-        const candidateValues = data
-        globalVars.values = data
-        globalVars.selectedTab = defaultKey
-        this.setState({ candidateValues, expandedKeys: allKeys(data),selectedTab:defaultKey})
+        console.log('data==========>', data);
+        const candidateValues = data;
+        globalVars.values = data;
+        globalVars.selectedTab = defaultKey;
+        this.setState({ candidateValues, expandedKeys: allKeys(data), selectedTab: defaultKey });
       }
-    })
-
+    });
   }
 
   componentWillUnmount() {
@@ -143,12 +126,10 @@ export default class TreeGroupSearch extends React.Component {
 
   onChange = e => {
     const { value } = e.target;
-    const { candidateValues } = this.state
-    const expandedKeys = subList(candidateValues, value)
-      .map(item => {
-
-        return item.id;
-      })
+    const { candidateValues } = this.state;
+    const expandedKeys = subList(candidateValues, value).map(item => {
+      return item.id;
+    });
     this.setState({
       expandedKeys,
       searchValue: value,
@@ -160,130 +141,103 @@ export default class TreeGroupSearch extends React.Component {
     console.log('selected', selectedKeys, info);
   };
 
-
   onTabChange = (activeKey, info) => {
     console.log('onTabChange to', activeKey);
-    globalVars.selectedTab = activeKey
-    this.setState({ selectedTab: activeKey })
-  }
+    globalVars.selectedTab = activeKey;
+    this.setState({ selectedTab: activeKey });
+  };
 
   showTreeGroupView = () => {
+    const { extraTargetTypes } = this.props;
+    const { selectedTab } = this.state;
 
-    const { extraTargetTypes } = this.props
-    const {selectedTab} = this.state
-
-    
-    console.log("extraTargetTypes", extraTargetTypes)
+    console.log('extraTargetTypes', extraTargetTypes);
     return (
       <div style={{ height: '100%' }}>
         <Search style={{ marginBottom: 4 }} placeholder="搜索分类" onChange={this.onChange} />
-        <Tabs tabBarGutter={0} defaultActiveKey={selectedTab} size={"small"} tabBarStyle={{ fontSize: "10px" }} onChange={this.onTabChange}>
-
+        <Tabs
+          tabBarGutter={0}
+          defaultActiveKey={selectedTab}
+          size={'small'}
+          tabBarStyle={{ fontSize: '10px' }}
+          onChange={this.onTabChange}
+        >
           {extraTargetTypes.map(item => (
-            <TabPane tab={<div style={{ fontSize: "12px" }}>{leftChars(item)}</div>} key={item} >
+            <TabPane tab={<div style={{ fontSize: '12px' }}>{leftChars(item)}</div>} key={item}>
               {this.showTreeData()}
-            </TabPane>)
-
-          )}
-
-
-
+            </TabPane>
+          ))}
         </Tabs>
-
-
-      </div>)
-
-  }
-
+      </div>
+    );
+  };
 
   showTreeGroupView3 = () => {
+    const { extraTargetTypes } = this.props;
 
-    const { extraTargetTypes } = this.props
-
-
-    const defaultKey = this.state.selectedTab || extraTargetTypes[0]
-    console.log("extraTargetTypes", extraTargetTypes)
+    const defaultKey = this.state.selectedTab || extraTargetTypes[0];
+    console.log('extraTargetTypes', extraTargetTypes);
     return (
       <div style={{ height: '100%' }}>
         <Search style={{ marginBottom: 4 }} placeholder="搜索分类" onChange={this.onChange} />
-
         <Dropdown overlay={menu}>
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
             Hover me
           </a>
-        </Dropdown>,
-
-        {this.showTreeData()}
-
-
-      </div>)
-
-  }
+        </Dropdown>
+        ,{this.showTreeData()}
+      </div>
+    );
+  };
 
   showTreeData = () => {
     const { searchValue, expandedKeys, autoExpandParent, candidateValues } = this.state;
-    const { handleSelectNode } = this.props
-    const treeData = genTree(candidateValues, searchValue)
-    const onSelectNode = handleSelectNode || this.onSelect
+    const { handleSelectNode } = this.props;
+    const treeData = genTree(candidateValues, searchValue);
+    const onSelectNode = handleSelectNode || this.onSelect;
 
     if (treeData && treeData.length > 0) {
-      return (<Tree
-        defaultExpandAll
-        onExpand={this.onExpand}
-        expandedKeys={expandedKeys}
-        autoExpandParent={autoExpandParent}
-        onSelect={onSelectNode}
-        treeData={treeData}
-      />)
-
+      return (
+        <Tree
+          defaultExpandAll
+          onExpand={this.onExpand}
+          expandedKeys={expandedKeys}
+          autoExpandParent={autoExpandParent}
+          onSelect={onSelectNode}
+          treeData={treeData}
+        />
+      );
     }
 
-    return <div>请重新输入搜索条件</div>
-
-  }
-
+    return <div>请重新输入搜索条件</div>;
+  };
 
   showSingleTreeView = () => {
+    return (
+      <div style={{ marginRight: '10px', minHeight: '700px' }}>
+        <Search style={{ marginBottom: 8 }} placeholder="搜索分类" onChange={this.onChange} />
 
-
-
-    return (<div style={{ marginRight: "10px", minHeight: '700px' }}>
-      <Search style={{ marginBottom: 8 }} placeholder="搜索分类" onChange={this.onChange} />
-
-      {this.showTreeData()}
-
-
-    </div>)
-
-  }
+        {this.showTreeData()}
+      </div>
+    );
+  };
 
   showTreeViewOrGroup = () => {
-
-
-
-    const { extraTargetTypes } = this.props
+    const { extraTargetTypes } = this.props;
 
     if (extraTargetTypes && extraTargetTypes.length === 1) {
-
-      return this.showSingleTreeView()
-
+      return this.showSingleTreeView();
     }
 
-    return this.showTreeGroupView()
-
-
-
-
-  }
-
+    return this.showTreeGroupView();
+  };
 
   render() {
     const { candidateValues } = this.state;
     if (candidateValues && candidateValues.length < 0) {
-      return <div>请等待</div>
+      return <div>请等待</div>;
     }
 
     return this.showTreeViewOrGroup();
   }
 }
-

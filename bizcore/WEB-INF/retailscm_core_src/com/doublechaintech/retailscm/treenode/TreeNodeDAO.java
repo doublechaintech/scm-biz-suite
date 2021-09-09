@@ -42,15 +42,19 @@ public interface TreeNodeDAO extends BaseDAO{
 	public void delete(String treeNodeId, int version) throws Exception;
 	public TreeNode disconnectFromAll(String treeNodeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<TreeNode> queryList(String sql, Object ... parmeters);
+	public SmartList<TreeNode> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<TreeNode> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateTreeNode executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
+
+	List<TreeNode> search(TreeNodeRequest pRequest);
 }
 
 

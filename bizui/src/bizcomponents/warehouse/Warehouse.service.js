@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}warehouseManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}warehouseManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -208,6 +213,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}warehouseService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -227,6 +240,7 @@ const  processRequest = (data) => {
 
 const WarehouseService = { view,
   load,
+  analyze,
   addStorageSpace,
   addSmartPallet,
   addSupplierSpace,
@@ -249,6 +263,6 @@ const WarehouseService = { view,
   removeDamageSpaceList,
   removeWarehouseAssetList,
   requestCandidateOwner,
-  transferToAnotherOwner, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherOwner, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default WarehouseService
 

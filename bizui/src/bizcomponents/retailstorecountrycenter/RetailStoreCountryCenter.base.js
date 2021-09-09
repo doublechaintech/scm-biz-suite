@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Row, Tag, Button,Table} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -21,6 +21,8 @@ const {
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
+	defaultRenderNumberCell,
+	defaultFormatNumber,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -32,10 +34,27 @@ const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
+const renderNumberCell=defaultRenderNumberCell
+const formatNumber = defaultFormatNumber
+
+const renderImageListCell=(imageList, record)=>{
+	const userContext = null;
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+}
 
 
 
-const menuData = {menuName: window.trans('retail_store_country_center'), menuFor: "retailStoreCountryCenter",
+
+const menuData = {menuName: window.trans('retail_store_country_center'), menuFor: "retailStoreCountryCenter",  internalName: "retail_store_country_center",
   		subItems: [
   {name: 'catalogList', displayName: window.mtrans('catalog','retail_store_country_center.catalog_list',false), type:'catalog',icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '产品管理'},
   {name: 'retailStoreProvinceCenterList', displayName: window.mtrans('retail_store_province_center','retail_store_country_center.retail_store_province_center_list',false), type:'retailStoreProvinceCenter',icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '组织机构'},
@@ -51,12 +70,12 @@ const menuData = {menuName: window.trans('retail_store_country_center'), menuFor
   {name: 'employeeList', displayName: window.mtrans('employee','retail_store_country_center.employee_list',false), type:'employee',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
   {name: 'instructorList', displayName: window.mtrans('instructor','retail_store_country_center.instructor_list',false), type:'instructor',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
   {name: 'companyTrainingList', displayName: window.mtrans('company_training','retail_store_country_center.company_training_list',false), type:'companyTraining',icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  
+
   		],
 }
 
 
-const settingMenuData = {menuName: window.trans('retail_store_country_center'), menuFor: "retailStoreCountryCenter",
+const settingMenuData = {menuName: window.trans('retail_store_country_center'), menuFor: "retailStoreCountryCenter",  internalName: "retail_store_country_center",
   		subItems: [
   {name: 'skillTypeList', displayName: window.mtrans('skill_type','retail_store_country_center.skill_type_list',false), type:'skillType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
   {name: 'responsibilityTypeList', displayName: window.mtrans('responsibility_type','retail_store_country_center.responsibility_type_list',false), type:'responsibilityType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
@@ -68,9 +87,25 @@ const settingMenuData = {menuName: window.trans('retail_store_country_center'), 
   {name: 'interviewTypeList', displayName: window.mtrans('interview_type','retail_store_country_center.interview_type_list',false), type:'interviewType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
   {name: 'trainingCourseTypeList', displayName: window.mtrans('training_course_type','retail_store_country_center.training_course_type_list',false), type:'trainingCourseType', icon:'discourse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
   {name: 'publicHolidayList', displayName: window.mtrans('public_holiday','retail_store_country_center.public_holiday_list',false), type:'publicHoliday', icon:'galactic-republic',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  
+
   		],
 }
+
+
+const mergedSubItems=()=>{
+
+    const result = []
+    menuData.subItems.forEach(item=>{
+        result.push({...item, for: "menu"})
+    })
+    settingMenuData.subItems.forEach(item=>{
+        result.push({...item, for: "setting"})
+    })
+    return result
+}
+const universalMenuData = {...menuData, subItems: mergedSubItems()}
+
+
 
 const fieldLabels = {
   id: window.trans('retail_store_country_center.id'),
@@ -99,7 +134,7 @@ const displayColumns = [
 ]
 
 
-const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(universalMenuData,targetObject,searchTerm)
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -129,7 +164,7 @@ const renderTextItem=(value, label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 const renderImageItem=(value,label, targetComponent)=>{
@@ -137,7 +172,7 @@ const renderImageItem=(value,label, targetComponent)=>{
 	if(!value){
 		return appLocaleName(userContext,"NotAssigned")
 	}
-	
+
 	return <ImagePreview title={label} imageLocation={value}/>
 }
 
@@ -169,35 +204,84 @@ const renderReferenceItem=(value,label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 
-const renderItemOfList=(retailStoreCountryCenter, targetComponent, columCount, listName)=>{
-  
+
+const renderImageList=(imageList,label, targetComponent)=>{
+	const userContext = null
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	// return JSON.stringify(imageList)
+/*
+	the data looks like this
+	{"id":"1601","title":"cover_images01",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images010016/400/200/grey/"},
+	{"id":"1602","title":"cover_images02",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images020016/400/200/grey/"}
+*/
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+
+}
+
+
+const renderActionList=(retailStoreCountryCenter, targetObject, columCount, listName)=>{
+
+	if(!retailStoreCountryCenter){
+		return null
+	}
+	if(!retailStoreCountryCenter.actionList){
+		return null
+	}
+	if(retailStoreCountryCenter.actionList.length === 0){
+		return null
+	}
+	return (
+		<div className={styles.overlay}>
+
+			<div className={styles.overlayContent}>
+			{retailStoreCountryCenter.actionList.map(action=>(<Link key={action.id} to={{pathname: action.actionPath.substring(1), state: {ownerId:targetObject.id,action,selectedRows:[retailStoreCountryCenter]}}} >
+				<span className={styles.overlayText}>{action.actionName}</span>
+				</Link> ))}
+			</div>
+
+		</div>
+		)
+
+}
+
+const renderItemOfList=(retailStoreCountryCenter, targetObject, columCount, listName)=>{
+
   if(!retailStoreCountryCenter){
   	return null
   }
   if(!retailStoreCountryCenter.id){
   	return null
   }
-  
-  
+
+
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`${listName}-${retailStoreCountryCenter.id}`} style={{marginTop:"10px"}}>
-		
+     <Row key={`${listName}-${retailStoreCountryCenter.id}`} className={styles.itemDesc}>
+
 	<Col span={4}>
-		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+		<Avatar size={90} className={styles.avarta} style={{ backgroundColor: genColor()}}>
 			{leftChars(retailStoreCountryCenter.displayName)}
 		</Avatar>
 	</Col>
 	<Col span={20}>
 	  
-	  
-	 
-	
+
+
+
       <DescriptionList  key={retailStoreCountryCenter.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.name}</Description> 
@@ -208,15 +292,16 @@ const renderItemOfList=(retailStoreCountryCenter, targetComponent, columCount, l
         <Description term={fieldLabels.operatedBy} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.operatedBy}</Description> 
         <Description term={fieldLabels.legalRepresentative} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.legalRepresentative}</Description> 
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.description}</Description> 
-	
-        
+
+
       </DescriptionList>
      </Col>
-    </Card>
+      {renderActionList(retailStoreCountryCenter,targetObject)}
+    </Row>
 	)
 
 }
-	
+
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, serviceNumber, founded, webSite, address, operatedBy, legalRepresentative, description} = formValuesToPack
 
@@ -229,7 +314,10 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const data = {name, serviceNumber, founded:moment(founded), webSite, address, operatedBy, legalRepresentative, description}
 	return data
 }
-const stepOf=(targetComponent, title, content, position, index)=>{
+
+
+const stepOf=(targetComponent, title, content, position, index, initValue)=>{
+	const isMultipleEvent=false
 	return {
 		title,
 		content,
@@ -237,8 +325,13 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		packFunction: packFormValuesToObject,
 		unpackFunction: unpackObjectToFormValues,
 		index,
+		initValue,
+		isMultipleEvent,
       }
 }
-const RetailStoreCountryCenterBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+
+
+
+const RetailStoreCountryCenterBase={unpackObjectToFormValues, menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreCountryCenterBase
 

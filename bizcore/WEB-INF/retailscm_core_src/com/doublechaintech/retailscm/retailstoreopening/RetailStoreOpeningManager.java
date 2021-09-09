@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.retailstoreopening;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface RetailStoreOpeningManager extends BaseManager{
 
 		
 
+  List<RetailStoreOpening> searchRetailStoreOpeningList(RetailscmUserContext ctx, RetailStoreOpeningRequest pRequest);
+  RetailStoreOpening searchRetailStoreOpening(RetailscmUserContext ctx, RetailStoreOpeningRequest pRequest);
 	public RetailStoreOpening createRetailStoreOpening(RetailscmUserContext userContext, String comment) throws Exception;
 	public RetailStoreOpening updateRetailStoreOpening(RetailscmUserContext userContext,String retailStoreOpeningId, int retailStoreOpeningVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreOpening loadRetailStoreOpening(RetailscmUserContext userContext, String retailStoreOpeningId, String [] tokensExpr) throws Exception;
@@ -26,6 +32,8 @@ public interface RetailStoreOpeningManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String retailStoreOpeningId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, RetailStoreOpening newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, RetailStoreOpening updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -39,6 +47,9 @@ public interface RetailStoreOpeningManager extends BaseManager{
 	/*
 
 	*/
+
+
+
 
 
 

@@ -16,4 +16,5 @@ public interface BaseUserContext {
 	public Object getFromContextLocalStorage(String key);
 	public void putIntoContextLocalStorage(String key, Object value);
 	public void log(String message);
+	public boolean shouldSendExceptionEmail();
 }

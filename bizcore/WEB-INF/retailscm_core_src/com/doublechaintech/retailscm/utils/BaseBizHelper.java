@@ -1,20 +1,17 @@
 package com.doublechaintech.retailscm.utils;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.CustomRetailscmUserContextImpl;
+import com.doublechaintech.retailscm.*;
 import com.doublechaintech.retailscm.secuser.SecUserCustomManagerImpl;
-import com.terapico.utils.TextUtil;
+import com.terapico.utils.*;
 
 public class BaseBizHelper {
 	protected CustomRetailscmUserContextImpl userContext;
@@ -68,27 +65,27 @@ public class BaseBizHelper {
 		}
 		return (T)cache.remove(key);
 	}
-	protected <T> T withCache(String key, Supplier<T> s) {
-		T obj = cached(key);
-		if (obj != null) {
-			return obj;
-		}
-		obj = s.get();
-		return cache(key, obj);
-	}
-	protected <T> T withCacheNotNull(String key, Supplier<T> s) {
+	protected <T> T withCache(String key, Callable<T> callable) throws Exception {
     T obj = cached(key);
     if (obj != null) {
       return obj;
     }
-    obj = s.get();
-    if (obj == null){
-      return null;
-    }
-    if (obj instanceof List && ((List) obj).isEmpty()){
+    obj = callable.call();
+    return cache(key, obj);
+  }
+	protected <T> T withCacheNotNull(String key, Callable<T> callable) throws Exception {
+    T obj = cached(key);
+    if (obj != null) {
       return obj;
     }
-    if (obj instanceof Map && ((Map) obj).isEmpty()){
+    obj = callable.call();
+    if (obj == null) {
+      return null;
+    }
+    if (obj instanceof List && ((List) obj).isEmpty()) {
+      return obj;
+    }
+    if (obj instanceof Map && ((Map) obj).isEmpty()) {
       return obj;
     }
 
@@ -113,8 +110,41 @@ public class BaseBizHelper {
 		throw new UnsupportedOperationException("方法未实现");
 	}
 
-}
+  protected void debug(Object format, Object ... params){
+    if (this.getUserContext().isProductEnvironment()){
+      return;
+    }
+    String tag = String.format("[DEBUG-%20s]: ", this.getClass().getSimpleName());
+    if(format instanceof String){
+      System.out.println(String.format(tag+format,params));
+      return;
+    }
+    if (format != null) {
+      if (params == null){
+        System.out.println(tag + format);
+      }else{
+        System.out.println(tag + format+", params:" + Arrays.asList(params));
+      }
+      return;
+    }
 
+    if (params == null){
+      System.out.println(tag + " [null]" );
+    }else{
+      System.out.println(tag + Arrays.asList(params));
+    }
+  }
+
+  protected <R> R ifNull(R val, R other){
+    return RetailscmBaseUtils.ifNull(val, other);
+  }
+  protected <R> R orNull(Callable<R> callable){
+    return RetailscmBaseUtils.orNull(callable);
+  }
+  protected <R> R orElse(Callable<R> callable, R defaulVal){
+    return RetailscmBaseUtils.orElse(callable, defaulVal);
+  }
+}
 
 
 

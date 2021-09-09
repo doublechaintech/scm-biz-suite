@@ -58,6 +58,7 @@ public interface RetailStoreMemberDAO extends BaseDAO{
 	public void delete(String retailStoreMemberId, int version) throws Exception;
 	public RetailStoreMember disconnectFromAll(String retailStoreMemberId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public ConsumerOrderDAO getConsumerOrderDAO();
 		
@@ -115,9 +116,10 @@ public interface RetailStoreMemberDAO extends BaseDAO{
 
 
 
-	public SmartList<RetailStoreMember> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreMember> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreMember> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreMember executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreMember> findRetailStoreMemberByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -149,6 +151,8 @@ public interface RetailStoreMemberDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberGiftCard的owner的RetailStoreMemberGiftCardList
 	public SmartList<RetailStoreMemberGiftCard> loadOurRetailStoreMemberGiftCardList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStoreMember> search(RetailStoreMemberRequest pRequest);
 }
 
 

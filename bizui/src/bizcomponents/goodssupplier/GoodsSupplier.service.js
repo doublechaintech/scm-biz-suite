@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}goodsSupplierManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}goodsSupplierManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -120,6 +125,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsSupplierService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -139,6 +152,7 @@ const  processRequest = (data) => {
 
 const GoodsSupplierService = { view,
   load,
+  analyze,
   addSupplierProduct,
   addSupplyOrder,
   addAccountSet,
@@ -149,6 +163,6 @@ const GoodsSupplierService = { view,
   removeSupplyOrderList,
   removeAccountSetList,
   requestCandidateBelongTo,
-  transferToAnotherBelongTo, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBelongTo, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default GoodsSupplierService
 

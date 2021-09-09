@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}originalVoucherManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}originalVoucherManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}originalVoucherService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const OriginalVoucherService = { view,
   load,
+  analyze,
   requestCandidateBelongsTo,
-  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBelongsTo, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default OriginalVoucherService
 

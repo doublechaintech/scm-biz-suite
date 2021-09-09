@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.instructor;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected CompanyTrainingDAO companyTrainingDAO;
 	public void setCompanyTrainingDAO(CompanyTrainingDAO companyTrainingDAO){
- 	
+
  		if(companyTrainingDAO == null){
  			throw new IllegalStateException("Do not try to set companyTrainingDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		if(this.companyTrainingDAO == null){
  			throw new IllegalStateException("The companyTrainingDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.companyTrainingDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		newInstructor.setVersion(0);
 		
 		
- 		
+
  		if(isSaveCompanyTrainingListEnabled(options)){
  			for(CompanyTraining item: newInstructor.getCompanyTrainingList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return InstructorTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCompanyEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, InstructorTokens.COMPANY);
  	}
 
  	protected boolean isSaveCompanyEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, InstructorTokens.COMPANY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){
  		return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){
  		return InstructorTokens.of(options).analyzeCompanyTrainingListEnabled();
  	}
-	
+
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, InstructorTokens.COMPANY_TRAINING_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		return new InstructorMapper();
 	}
 
-	
-	
+
+
 	protected Instructor extractInstructor(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Instructor instructor = loadSingleObject(accessKey, getInstructorMapper());
@@ -268,13 +270,13 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 
 	}
 
-	
-	
+
+
 
 	protected Instructor loadInternalInstructor(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Instructor instructor = extractInstructor(accessKey, loadOptions);
- 	
+
  		if(isExtractCompanyEnabled(loadOptions)){
 	 		extractCompany(instructor, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		
 		if(isExtractCompanyTrainingListEnabled(loadOptions)){
 	 		extractCompanyTrainingList(instructor, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeCompanyTrainingListEnabled(loadOptions)){
 	 		analyzeCompanyTrainingList(instructor, loadOptions);
@@ -291,12 +293,13 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		
 		
 		return instructor;
-		
+
 	}
 
-	 
+	
 
  	protected Instructor extractCompany(Instructor instructor, Map<String,Object> options) throws Exception{
+  
 
 		if(instructor.getCompany() == null){
 			return instructor;
@@ -309,21 +312,21 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		if(company != null){
 			instructor.setCompany(company);
 		}
-		
- 		
+
+
  		return instructor;
  	}
- 		
+
  
 		
 	protected void enhanceCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected Instructor extractCompanyTrainingList(Instructor instructor, Map<String,Object> options){
-		
-		
+    
+
 		if(instructor == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 			return instructor;
 		}
 
-		
-		
+
+
 		SmartList<CompanyTraining> companyTrainingList = getCompanyTrainingDAO().findCompanyTrainingByInstructor(instructor.getId(),options);
 		if(companyTrainingList != null){
 			enhanceCompanyTrainingList(companyTrainingList,options);
 			instructor.setCompanyTrainingList(companyTrainingList);
 		}
-		
+
 		return instructor;
-	
-	}	
-	
+  
+	}
+
 	protected Instructor analyzeCompanyTrainingList(Instructor instructor, Map<String,Object> options){
-		
-		
+     
 		if(instructor == null){
 			return null;
 		}
@@ -353,47 +355,47 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 			return instructor;
 		}
 
-		
-		
+
+
 		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
 		if(companyTrainingList != null){
 			getCompanyTrainingDAO().analyzeCompanyTrainingByInstructor(companyTrainingList, instructor.getId(), options);
-			
+
 		}
-		
+
 		return instructor;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<Instructor> findInstructorByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<Instructor> resultList = queryWith(InstructorTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInstructorMapper());
 		// analyzeInstructorByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Instructor> findInstructorByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Instructor> resultList =  queryWithRange(InstructorTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInstructorMapper(), start, count);
  		//analyzeInstructorByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeInstructorByCompany(SmartList<Instructor> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Instructor.COMPANY_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Instructor.LAST_UPDATE_TIME_PROPERTY
@@ -401,11 +403,11 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Instructor.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Instructor.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countInstructorByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -416,21 +418,24 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	public Map<String, Integer> countInstructorByCompanyIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(InstructorTable.COLUMN_COMPANY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Instructor saveInstructor(Instructor  instructor){
+    
+
 		
 		if(!instructor.isChanged()){
 			return instructor;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(instructor);
 		String SQL=this.getSaveInstructorSQL(instructor);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveInstructorParameters(instructor);
@@ -441,6 +446,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		}
 
 		instructor.incVersion();
+		instructor.afterSave();
 		return instructor;
 
 	}
@@ -458,6 +464,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		for(Instructor instructor:instructorList){
 			if(instructor.isChanged()){
 				instructor.incVersion();
+				instructor.afterSave();
 			}
 
 
@@ -561,28 +568,21 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  	protected Object[] prepareInstructorUpdateParameters(Instructor instructor){
  		Object[] parameters = new Object[11];
  
- 		
  		parameters[0] = instructor.getTitle();
- 		
  		
  		parameters[1] = instructor.getFamilyName();
  		
- 		
  		parameters[2] = instructor.getGivenName();
  		
- 		
  		parameters[3] = instructor.getCellPhone();
- 		
  		
  		parameters[4] = instructor.getEmail();
  		
  		if(instructor.getCompany() != null){
  			parameters[5] = instructor.getCompany().getId();
  		}
- 
- 		
+    
  		parameters[6] = instructor.getIntroduction();
- 		
  		
  		parameters[7] = instructor.getLastUpdateTime();
  		
@@ -600,29 +600,21 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
         }
 		parameters[0] =  instructor.getId();
  
- 		
  		parameters[1] = instructor.getTitle();
- 		
  		
  		parameters[2] = instructor.getFamilyName();
  		
- 		
  		parameters[3] = instructor.getGivenName();
  		
- 		
  		parameters[4] = instructor.getCellPhone();
- 		
  		
  		parameters[5] = instructor.getEmail();
  		
  		if(instructor.getCompany() != null){
  			parameters[6] = instructor.getCompany().getId();
-
  		}
  		
- 		
  		parameters[7] = instructor.getIntroduction();
- 		
  		
  		parameters[8] = instructor.getLastUpdateTime();
  		
@@ -632,12 +624,11 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 
 	protected Instructor saveInternalInstructor(Instructor instructor, Map<String,Object> options){
 
-		saveInstructor(instructor);
-
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(instructor, options);
  		}
  
+   saveInstructor(instructor);
 		
 		if(isSaveCompanyTrainingListEnabled(options)){
 	 		saveCompanyTrainingList(instructor, options);
@@ -656,6 +647,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	
 
  	protected Instructor saveCompany(Instructor instructor, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(instructor.getCompany() == null){
  			return instructor;//do nothing when it is null
@@ -665,11 +657,6 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
  		return instructor;
 
  	}
-
-
-
-
-
  
 
 	
@@ -792,7 +779,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 
 		
 	protected Instructor saveCompanyTrainingList(Instructor instructor, Map<String,Object> options){
-
+    
 
 
 
@@ -859,19 +846,19 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 		
 
 	public Instructor present(Instructor instructor,Map<String, Object> options){
-	
+
 		presentCompanyTrainingList(instructor,options);
 
 		return instructor;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected Instructor presentCompanyTrainingList(
 			Instructor instructor,
 			Map<String, Object> options) {
-
-		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();		
+    
+		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
 				SmartList<CompanyTraining> newList= presentSubList(instructor.getId(),
 				companyTrainingList,
 				options,
@@ -879,12 +866,12 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 				getCompanyTrainingDAO()::findCompanyTrainingByInstructor
 				);
 
-		
+
 		instructor.setCompanyTrainingList(newList);
-		
+
 
 		return instructor;
-	}			
+	}
 		
 
 	
@@ -908,6 +895,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	
 	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的instructor的CompanyTrainingList
 	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<Instructor> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -964,6 +952,10 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Instructor> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getInstructorMapper());
   }
@@ -999,6 +991,15 @@ public class InstructorJDBCTemplateDAO extends RetailscmBaseDAOImpl implements I
 
 	
 
+  @Override
+  public List<Instructor> search(InstructorRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected InstructorMapper mapper() {
+    return getInstructorMapper();
+  }
 }
 
 

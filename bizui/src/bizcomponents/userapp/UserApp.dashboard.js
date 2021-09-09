@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
-import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+import BaseTool from '../../common/Base.tool'
+import { Tag, Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
-import {
-  ChartCard, yuan, MiniArea, MiniBar, MiniProgress, Field, Bar, Pie, TimelineChart,
-} from '../../components/Charts'
+import {TagCloud} from '../../components/Charts'
 import Trend from '../../components/Trend'
 import NumberInfo from '../../components/NumberInfo'
 import { getTimeDistance } from '../../utils/utils'
@@ -30,7 +29,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
 
+const {defaultFormatNumber} = BaseTool
 
+const formatNumber = defaultFormatNumber
 
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
@@ -43,8 +44,9 @@ const imageList =(userApp)=>{return [
 
 const internalImageListOf = (userApp) =>defaultImageListOf(userApp,imageList)
 
-const optionList =(userApp)=>{return [ 
-	]}
+const optionList =(userApp)=>{return [
+	  {"title":'完全访问',"value":userApp.fullAccess,"parameterName":"fullAccess"},
+]}
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
@@ -53,7 +55,7 @@ const internalSettingListOf = (userApp) =>defaultSettingListOf(userApp, optionLi
 const internalLargeTextOf = (userApp) =>{
 
 	return null
-	
+
 
 }
 
@@ -68,7 +70,7 @@ const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
         <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
-       
+
         <Button>
         <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
       </Button>
@@ -101,41 +103,63 @@ const renderSettingMenu = (cardsData,targetComponent) =>{
 }
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
+
+
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
 
-const internalSummaryOf = (userApp,targetComponent) =>{
-	
-	
+const internalSummaryOf = (cardsData,targetComponent) =>{
+
+	 const quickFunctions = targetComponent.props.quickFunctions || internalQuickFunctions
+	const userApp = cardsData.cardsSource
 	const {UserAppService} = GlobalComponents
 	const userContext = null
 	return (
+	<div>
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号" style={{wordBreak: 'break-all'}}>{userApp.id}</Description> 
-<Description term="头衔" style={{wordBreak: 'break-all'}}>{userApp.title}</Description> 
-<Description term="SEC的用户">{userApp.secUser==null?appLocaleName(userContext,"NotAssigned"):`${userApp.secUser.displayName}(${userApp.secUser.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"SEC的用户","secUser",UserAppService.requestCandidateSecUser,
-	      UserAppService.transferToAnotherSecUser,"anotherSecUserId",userApp.secUser?userApp.secUser.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
+<Description term="ID" style={{wordBreak: 'break-all'}}>{userApp.id}</Description> 
+<Description term="标题" style={{wordBreak: 'break-all'}}>{userApp.title}</Description> 
+<Description term="系统用户">{userApp.secUser==null?appLocaleName(userContext,"NotAssigned"):`${userApp.secUser.displayName}(${userApp.secUser.id})`}
 </Description>
-<Description term="应用程序图标" style={{wordBreak: 'break-all'}}>{userApp.appIcon}</Description> 
-<Description term="完全访问" style={{wordBreak: 'break-all'}}>{userApp.fullAccess}</Description> 
-<Description term="许可" style={{wordBreak: 'break-all'}}>{userApp.permission}</Description> 
-<Description term="对象类型" style={{wordBreak: 'break-all'}}>{userApp.objectType}</Description> 
-<Description term="对象ID" style={{wordBreak: 'break-all'}}>{userApp.objectId}</Description> 
+<Description term="图标" style={{wordBreak: 'break-all'}}>{userApp.appIcon}</Description> 
+<Description term="权限" style={{wordBreak: 'break-all'}}>{userApp.permission}</Description> 
+<Description term="对象类型" style={{wordBreak: 'break-all'}}>{userApp.appType}</Description> 
+<Description term="对象ID" style={{wordBreak: 'break-all'}}>{userApp.appId}</Description> 
+<Description term="上下文类型" style={{wordBreak: 'break-all'}}>{userApp.ctxType}</Description> 
+<Description term="上下文类型" style={{wordBreak: 'break-all'}}>{userApp.ctxId}</Description> 
 <Description term="位置" style={{wordBreak: 'break-all'}}>{userApp.location}</Description> 
-	
-        {buildTransferModal(userApp,targetComponent)}
+
+       
       </DescriptionList>
+      <div>{quickFunctions(cardsData)}</div>
+      </div>
 	)
 
 }
+
+
+const renderTagCloud=(cardsData)=>{
+
+
+  if(cardsData.subItems.length<10){
+    return null
+  }
+
+  const tagValue = cardsData.subItems.map(item=>({name:item.displayName, value: item.count}))
+
+  return <div >
+      <div style={{verticalAlign:"middle",textAlign:"center",backgroundColor:"rgba(0, 0, 0, 0.65)",color:"white",fontWeight:"bold",height:"40px"}}>
+       <span style={{display:"inline-block",marginTop:"10px"}}>{`${cardsData.displayName}画像`}</span>
+      </div>
+      <TagCloud data={tagValue} height={200} style={{backgroundColor:"white"}}/>
+    </div>
+
+
+}
+
 
 const internalQuickFunctions = defaultQuickFunctions
 
@@ -149,7 +173,7 @@ class UserAppDashboard extends Component {
     targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
-    transferTargetParameterName:"",  
+    transferTargetParameterName:"",
     defaultType: 'userApp'
 
 
@@ -157,7 +181,7 @@ class UserAppDashboard extends Component {
   componentDidMount() {
 
   }
-  
+
 
   render() {
     // eslint-disable-next-line max-len
@@ -166,20 +190,20 @@ class UserAppDashboard extends Component {
       return null
     }
     const returnURL = this.props.returnURL
-    
+
     const cardsData = {cardsName:window.trans('user_app'),cardsFor: "userApp",
     	cardsSource: this.props.userApp,returnURL,displayName,
   		subItems: [
 {name: 'quickLinkList', displayName: window.mtrans('quick_link','user_app.quick_link_list',false) ,viewGroup:'__no_group', type:'quickLink',count:quickLinkCount,addFunction: true, role: 'quickLink', metaInfo: quickLinkListMetaInfo, renderItem: GlobalComponents.QuickLinkBase.renderItemOfList},
 {name: 'listAccessList', displayName: window.mtrans('list_access','user_app.list_access_list',false) ,viewGroup:'__no_group', type:'listAccess',count:listAccessCount,addFunction: true, role: 'listAccess', metaInfo: listAccessListMetaInfo, renderItem: GlobalComponents.ListAccessBase.renderItemOfList},
-    
+
       	],
    		subSettingItems: [
-    
-      	],     	
-      	
+
+      	],
+
   	};
-    
+
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
     const imageListOf = this.props.imageListOf || internalImageListOf
@@ -191,27 +215,28 @@ class UserAppDashboard extends Component {
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
-    
+    // {quickFunctions(cardsData)}
     return (
 
       <PageHeaderLayout
         title={renderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+
+
        
-        {renderExtraHeader(cardsData.cardsSource)}
-        
-        {quickFunctions(cardsData)} 
-        {imageListOf(cardsData.cardsSource)}  
-        {renderAnalytics(cardsData.cardsSource)}
-        {settingListOf(cardsData.cardsSource)}
-        {renderSubjectList(cardsData)}       
-        {largeTextOf(cardsData.cardsSource)}
-        {renderExtraFooter(cardsData.cardsSource)}
-  		
+     <Col span={24} style={{marginRight:"20px", backgroundColor: "white"}}>
+      {renderTagCloud(cardsData)}
+
+      {imageListOf(cardsData.cardsSource)}
+      {renderAnalytics(cardsData.cardsSource)}
+      {settingListOf(cardsData.cardsSource)}
+
+	   </Col>
+
+		 
       </PageHeaderLayout>
-    
+
     )
   }
 }
@@ -219,6 +244,6 @@ class UserAppDashboard extends Component {
 export default connect(state => ({
   userApp: state._userApp,
   returnURL: state.breadcrumb.returnURL,
-  
+
 }))(Form.create()(UserAppDashboard))
 

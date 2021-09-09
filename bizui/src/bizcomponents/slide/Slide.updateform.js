@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './Slide.updateform.less'
 import SlideBase from './Slide.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -36,9 +40,7 @@ class SlideUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -104,13 +106,13 @@ class SlideUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const slideId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, slideId, ...imagesValues }
 
-        
+        const parameters = { ...values, slideId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -125,7 +127,7 @@ class SlideUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -135,12 +137,12 @@ class SlideUpdateForm extends Component {
 
         const { owner } = this.props
         const slideId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, slideId, ...imagesValues }
+
+        const parameters = { ...values, slideId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -162,11 +164,11 @@ class SlideUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextSlideUpdateRow`,
@@ -180,7 +182,7 @@ class SlideUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -188,7 +190,7 @@ class SlideUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'slide',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -231,7 +233,7 @@ class SlideUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -245,12 +247,12 @@ class SlideUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}轮播内容: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -260,7 +262,7 @@ class SlideUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -268,8 +270,8 @@ class SlideUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -280,8 +282,8 @@ class SlideUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.name} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -292,8 +294,8 @@ class SlideUpdateForm extends Component {
                     initialValue: selectedRow.displayOrder,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.displayOrder} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.displayOrder} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -304,17 +306,17 @@ class SlideUpdateForm extends Component {
                     initialValue: selectedRow.linkToUrl,
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.linkToUrl} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.linkToUrl} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>
@@ -332,21 +334,23 @@ class SlideUpdateForm extends Component {
             <Row gutter={16}>
 
               <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={window.trans('slide')}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleChange(event, 'imageUrl')}
-                  fileList={convertedImagesValues.imageUrl}
-                />
+              <Form.Item>
+                  {getFieldDecorator('imageUrl', {
+                  	initialValue: selectedRow.imageUrl,
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.imageUrl}/>
+                )} </Form.Item>
               </Col>
 
               <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={window.trans('slide')}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleChange(event, 'videoUrl')}
-                  fileList={convertedImagesValues.videoUrl}
-                />
+              <Form.Item>
+                  {getFieldDecorator('videoUrl', {
+                  	initialValue: selectedRow.videoUrl,
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.videoUrl}/>
+                )} </Form.Item>
               </Col>
 
             </Row>

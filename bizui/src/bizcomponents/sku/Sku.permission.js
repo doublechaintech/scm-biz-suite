@@ -31,7 +31,7 @@ const internalSummaryOf = (sku,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{sku.id}</Description> 
+<Description term="ID">{sku.id}</Description> 
 <Description term="名称">{sku.name}</Description> 
 <Description term="大小">{sku.size}</Description> 
 <Description term="条码">{sku.barcode}</Description> 
@@ -64,7 +64,7 @@ class SkuPermission extends Component {
     // eslint-disable-next-line max-len
     const  sku = this.props.sku
     const { id,displayName, goodsCount } = sku
-    const  returnURL = `/sku/${id}/dashboard`
+    const  returnURL = `/sku/${id}/workbench`
     const cardsData = {cardsName:"SKU",cardsFor: "sku",cardsSource: sku,displayName,returnURL,
   		subItems: [
     
@@ -77,10 +77,10 @@ class SkuPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

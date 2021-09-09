@@ -1,46 +1,27 @@
 
 package com.doublechaintech.retailscm.page;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.mobileapp.CandidateMobileApp;import com.doublechaintech.retailscm.mobileapp.MobileApp;import com.doublechaintech.retailscm.page.Page;import com.doublechaintech.retailscm.pagetype.CandidatePageType;import com.doublechaintech.retailscm.pagetype.PageType;import com.doublechaintech.retailscm.section.Section;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.slide.Slide;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.uiaction.UiAction;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.slide.Slide;
-import com.doublechaintech.retailscm.section.Section;
-import com.doublechaintech.retailscm.uiaction.UiAction;
-import com.doublechaintech.retailscm.mobileapp.MobileApp;
-import com.doublechaintech.retailscm.pagetype.PageType;
-
-import com.doublechaintech.retailscm.mobileapp.CandidateMobileApp;
-import com.doublechaintech.retailscm.pagetype.CandidatePageType;
-
-import com.doublechaintech.retailscm.page.Page;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class PageManagerImpl extends CustomRetailscmCheckerManager implements PageManager, BusinessHandler{
@@ -83,6 +64,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws PageManagerException{
 
 		Message message = new Message();
@@ -93,107 +75,138 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 
 
- 	protected Page savePage(RetailscmUserContext userContext, Page page, String [] tokensExpr) throws Exception{	
+ 	protected Page savePage(RetailscmUserContext userContext, Page page, String [] tokensExpr) throws Exception{
  		//return getPageDAO().save(page, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return savePage(userContext, page, tokens);
  	}
- 	
- 	protected Page savePageDetail(RetailscmUserContext userContext, Page page) throws Exception{	
 
- 		
+ 	protected Page savePageDetail(RetailscmUserContext userContext, Page page) throws Exception{
+
+
  		return savePage(userContext, page, allTokens());
  	}
- 	
- 	public Page loadPage(RetailscmUserContext userContext, String pageId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public Page loadPage(RetailscmUserContext userContext, String pageId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfPage(pageId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PageManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		Page page = loadPage( userContext, pageId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,page, tokens);
  	}
- 	
- 	
- 	 public Page searchPage(RetailscmUserContext userContext, String pageId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public Page searchPage(RetailscmUserContext userContext, String pageId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfPage(pageId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PageManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		Page page = loadPage( userContext, pageId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,page, tokens);
  	}
- 	
- 	
+
+
 
  	protected Page present(RetailscmUserContext userContext, Page page, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,page,tokens);
-		
-		
+    
+
 		Page  pageToPresent = pageDaoOf(userContext).present(page, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = pageToPresent.collectRefercencesFromLists();
 		pageDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,page,tokens);
-		
+
 		return  pageToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public Page loadPageDetail(RetailscmUserContext userContext, String pageId) throws Exception{	
+
+
+
+ 	public Page loadPageDetail(RetailscmUserContext userContext, String pageId) throws Exception{
  		Page page = loadPage( userContext, pageId, allTokens());
  		return present(userContext,page, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String pageId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String pageId) throws Exception{
  		Page page = loadPage( userContext, pageId, viewTokens());
- 		return present(userContext,page, allTokens());
-		
- 	}
- 	protected Page savePage(RetailscmUserContext userContext, Page page, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, page);
+ 		return present(userContext,page, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String pageId) throws Exception{
+		Page page = loadPage( userContext, pageId, viewTokens());
+		page.summarySuffix();
+		markVisited(userContext, page);
+ 		return present(userContext,page, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String pageId) throws Exception{
+		Page page = loadPage( userContext, pageId, analyzeTokens());
+		markVisited(userContext, page);
+		return present(userContext,page, analyzeTokens());
+
+	}
+ 	protected Page savePage(RetailscmUserContext userContext, Page page, Map<String,Object>tokens) throws Exception{
+ 	
  		return pageDaoOf(userContext).save(page, tokens);
  	}
- 	protected Page loadPage(RetailscmUserContext userContext, String pageId, Map<String,Object>tokens) throws Exception{	
+ 	protected Page loadPage(RetailscmUserContext userContext, String pageId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfPage(pageId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( PageManagerException.class);
 
- 
+
+
  		return pageDaoOf(userContext).load(pageId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, Page page, Map<String, Object> tokens){
 		super.addActions(userContext, page, tokens);
-		
+
 		addAction(userContext, page, tokens,"@create","createPage","createPage/","main","primary");
 		addAction(userContext, page, tokens,"@update","updatePage","updatePage/"+page.getId()+"/","main","primary");
 		addAction(userContext, page, tokens,"@copy","clonePage","clonePage/"+page.getId()+"/","main","primary");
-		
+
 		addAction(userContext, page, tokens,"page.transfer_to_page_type","transferToAnotherPageType","transferToAnotherPageType/"+page.getId()+"/","main","primary");
 		addAction(userContext, page, tokens,"page.transfer_to_mobile_app","transferToAnotherMobileApp","transferToAnotherMobileApp/"+page.getId()+"/","main","primary");
 		addAction(userContext, page, tokens,"page.addSlide","addSlide","addSlide/"+page.getId()+"/","slideList","primary");
@@ -208,30 +221,53 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		addAction(userContext, page, tokens,"page.removeSection","removeSection","removeSection/"+page.getId()+"/","sectionList","primary");
 		addAction(userContext, page, tokens,"page.updateSection","updateSection","updateSection/"+page.getId()+"/","sectionList","primary");
 		addAction(userContext, page, tokens,"page.copySectionFrom","copySectionFrom","copySectionFrom/"+page.getId()+"/","sectionList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, Page page, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<Page> searchPageList(RetailscmUserContext ctx, PageRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<Page> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public Page searchPage(RetailscmUserContext ctx, PageRequest pRequest){
+    pRequest.limit(0, 1);
+    List<Page> list = searchPageList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public Page createPage(RetailscmUserContext userContext, String pageTitle,String linkToUrl,String pageTypeId,int displayOrder,String mobileAppId) throws Exception
-	//public Page createPage(RetailscmUserContext userContext,String pageTitle, String linkToUrl, String pageTypeId, int displayOrder, String mobileAppId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkPageTitleOfPage(pageTitle);
 		checkerOf(userContext).checkLinkToUrlOfPage(linkToUrl);
 		checkerOf(userContext).checkDisplayOrderOfPage(displayOrder);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 
 		Page page=createNewPage();	
@@ -267,36 +303,38 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkVersionOfPage( pageVersion);
-		
+
 
 		if(Page.PAGE_TITLE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkPageTitleOfPage(parseString(newValueExpr));
 		
-			
+
 		}
 		if(Page.LINK_TO_URL_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLinkToUrlOfPage(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(Page.DISPLAY_ORDER_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkDisplayOrderOfPage(parseInt(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 
 	}
@@ -325,6 +363,8 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			if (page.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixPage(page);
 			page = savePage(userContext, page, options);
 			return page;
 
@@ -391,12 +431,18 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 	protected Map<String,Object> allTokens(){
 		return PageTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortSlideListWith("id","desc")
-		.sortUiActionListWith("id","desc")
-		.sortSectionListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortSlideListWith(Slide.ID_PROPERTY,sortDesc())
+		.sortUiActionListWith(UiAction.ID_PROPERTY,sortDesc())
+		.sortSectionListWith(Section.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -408,6 +454,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
  		checkerOf(userContext).checkIdOfPage(pageId);
  		checkerOf(userContext).checkIdOfPageType(anotherPageTypeId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
  	}
@@ -415,16 +462,17 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
  	{
  		checkParamsForTransferingAnotherPageType(userContext, pageId,anotherPageTypeId);
  
-		Page page = loadPage(userContext, pageId, allTokens());	
+		Page page = loadPage(userContext, pageId, allTokens());
 		synchronized(page){
 			//will be good when the page loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			PageType pageType = loadPageType(userContext, anotherPageTypeId, emptyOptions());		
-			page.updatePageType(pageType);		
+			PageType pageType = loadPageType(userContext, anotherPageTypeId, emptyOptions());
+			page.updatePageType(pageType);
+			
 			page = savePage(userContext, page, emptyOptions());
-			
+
 			return present(userContext,page, allTokens());
-			
+
 		}
 
  	}
@@ -436,6 +484,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
  		checkerOf(userContext).checkIdOfPage(pageId);
  		checkerOf(userContext).checkCodeOfPageType( anotherCode);
+
  		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
  	}
@@ -484,6 +533,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
  		checkerOf(userContext).checkIdOfPage(pageId);
  		checkerOf(userContext).checkIdOfMobileApp(anotherMobileAppId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
  	}
@@ -491,16 +541,17 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
  	{
  		checkParamsForTransferingAnotherMobileApp(userContext, pageId,anotherMobileAppId);
  
-		Page page = loadPage(userContext, pageId, allTokens());	
+		Page page = loadPage(userContext, pageId, allTokens());
 		synchronized(page){
 			//will be good when the page loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			MobileApp mobileApp = loadMobileApp(userContext, anotherMobileAppId, emptyOptions());		
-			page.updateMobileApp(mobileApp);		
+			MobileApp mobileApp = loadMobileApp(userContext, anotherMobileAppId, emptyOptions());
+			page.updateMobileApp(mobileApp);
+			
 			page = savePage(userContext, page, emptyOptions());
-			
+
 			return present(userContext,page, allTokens());
-			
+
 		}
 
  	}
@@ -533,8 +584,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
  	protected PageType loadPageType(RetailscmUserContext userContext, String newPageTypeId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return pageTypeDaoOf(userContext).load(newPageTypeId, options);
+ 	  
  	}
  	
  	protected PageType loadPageTypeWithCode(RetailscmUserContext userContext, String newCode, Map<String,Object> options) throws Exception
@@ -550,8 +602,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
  	protected MobileApp loadMobileApp(RetailscmUserContext userContext, String newMobileAppId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return mobileAppDaoOf(userContext).load(newMobileAppId, options);
+ 	  
  	}
  	
 
@@ -600,31 +653,29 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 
 
-
-
-
 	protected void checkParamsForAddingSlide(RetailscmUserContext userContext, String pageId, String name, int displayOrder, String imageUrl, String videoUrl, String linkToUrl,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfPage(pageId);
 
-		
+
 		checkerOf(userContext).checkNameOfSlide(name);
-		
+
 		checkerOf(userContext).checkDisplayOrderOfSlide(displayOrder);
-		
+
 		checkerOf(userContext).checkImageUrlOfSlide(imageUrl);
-		
+
 		checkerOf(userContext).checkVideoUrlOfSlide(videoUrl);
-		
+
 		checkerOf(userContext).checkLinkToUrlOfSlide(linkToUrl);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 
 	}
 	public  Page addSlide(RetailscmUserContext userContext, String pageId, String name, int displayOrder, String imageUrl, String videoUrl, String linkToUrl, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingSlide(userContext,pageId,name, displayOrder, imageUrl, videoUrl, linkToUrl,tokensExpr);
 
 		Slide slide = createSlide(userContext,name, displayOrder, imageUrl, videoUrl, linkToUrl);
@@ -651,7 +702,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkVideoUrlOfSlide( videoUrl);
 		checkerOf(userContext).checkLinkToUrlOfSlide( linkToUrl);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page updateSlideProperties(RetailscmUserContext userContext, String pageId, String id,String name,int displayOrder,String imageUrl,String videoUrl,String linkToUrl, String [] tokensExpr) throws Exception
@@ -724,6 +777,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			checkerOf(userContext).checkIdOfSlide(slideIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
 	}
@@ -750,7 +804,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage( pageId);
 		checkerOf(userContext).checkIdOfSlide(slideId);
 		checkerOf(userContext).checkVersionOfSlide(slideVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page removeSlide(RetailscmUserContext userContext, String pageId,
@@ -777,7 +833,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage( pageId);
 		checkerOf(userContext).checkIdOfSlide(slideId);
 		checkerOf(userContext).checkVersionOfSlide(slideVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page copySlideFrom(RetailscmUserContext userContext, String pageId,
@@ -805,7 +863,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 	protected void checkParamsForUpdatingSlide(RetailscmUserContext userContext, String pageId, String slideId, int slideVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkIdOfSlide(slideId);
 		checkerOf(userContext).checkVersionOfSlide(slideVersion);
@@ -832,7 +890,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 
@@ -863,6 +923,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			slide.changeProperty(property, newValueExpr);
 			
 			page = savePage(userContext, page, tokens().withSlideList().done());
+			slideManagerOf(userContext).onUpdated(userContext, slide, this, "updateSlide");
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 
@@ -883,30 +944,31 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 				checkerOf(userContext).checkIdOfPage(pageId);
 
-		
+
 		checkerOf(userContext).checkCodeOfUiAction(code);
-		
+
 		checkerOf(userContext).checkIconOfUiAction(icon);
-		
+
 		checkerOf(userContext).checkTitleOfUiAction(title);
-		
+
 		checkerOf(userContext).checkDisplayOrderOfUiAction(displayOrder);
-		
+
 		checkerOf(userContext).checkBriefOfUiAction(brief);
-		
+
 		checkerOf(userContext).checkImageUrlOfUiAction(imageUrl);
-		
+
 		checkerOf(userContext).checkLinkToUrlOfUiAction(linkToUrl);
-		
+
 		checkerOf(userContext).checkExtraDataOfUiAction(extraData);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 
 	}
 	public  Page addUiAction(RetailscmUserContext userContext, String pageId, String code, String icon, String title, int displayOrder, String brief, String imageUrl, String linkToUrl, String extraData, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingUiAction(userContext,pageId,code, icon, title, displayOrder, brief, imageUrl, linkToUrl, extraData,tokensExpr);
 
 		UiAction uiAction = createUiAction(userContext,code, icon, title, displayOrder, brief, imageUrl, linkToUrl, extraData);
@@ -936,7 +998,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkLinkToUrlOfUiAction( linkToUrl);
 		checkerOf(userContext).checkExtraDataOfUiAction( extraData);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page updateUiActionProperties(RetailscmUserContext userContext, String pageId, String id,String code,String icon,String title,int displayOrder,String brief,String imageUrl,String linkToUrl,String extraData, String [] tokensExpr) throws Exception
@@ -1015,6 +1079,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			checkerOf(userContext).checkIdOfUiAction(uiActionIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
 	}
@@ -1041,7 +1106,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage( pageId);
 		checkerOf(userContext).checkIdOfUiAction(uiActionId);
 		checkerOf(userContext).checkVersionOfUiAction(uiActionVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page removeUiAction(RetailscmUserContext userContext, String pageId,
@@ -1068,7 +1135,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage( pageId);
 		checkerOf(userContext).checkIdOfUiAction(uiActionId);
 		checkerOf(userContext).checkVersionOfUiAction(uiActionVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page copyUiActionFrom(RetailscmUserContext userContext, String pageId,
@@ -1096,7 +1165,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 	protected void checkParamsForUpdatingUiAction(RetailscmUserContext userContext, String pageId, String uiActionId, int uiActionVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkIdOfUiAction(uiActionId);
 		checkerOf(userContext).checkVersionOfUiAction(uiActionVersion);
@@ -1135,7 +1204,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 
@@ -1166,6 +1237,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			uiAction.changeProperty(property, newValueExpr);
 			
 			page = savePage(userContext, page, tokens().withUiActionList().done());
+			uiActionManagerOf(userContext).onUpdated(userContext, uiAction, this, "updateUiAction");
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 
@@ -1186,26 +1258,27 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 
 				checkerOf(userContext).checkIdOfPage(pageId);
 
-		
+
 		checkerOf(userContext).checkTitleOfSection(title);
-		
+
 		checkerOf(userContext).checkBriefOfSection(brief);
-		
+
 		checkerOf(userContext).checkIconOfSection(icon);
-		
+
 		checkerOf(userContext).checkDisplayOrderOfSection(displayOrder);
-		
+
 		checkerOf(userContext).checkViewGroupOfSection(viewGroup);
-		
+
 		checkerOf(userContext).checkLinkToUrlOfSection(linkToUrl);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 
 	}
 	public  Page addSection(RetailscmUserContext userContext, String pageId, String title, String brief, String icon, int displayOrder, String viewGroup, String linkToUrl, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingSection(userContext,pageId,title, brief, icon, displayOrder, viewGroup, linkToUrl,tokensExpr);
 
 		Section section = createSection(userContext,title, brief, icon, displayOrder, viewGroup, linkToUrl);
@@ -1233,7 +1306,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkViewGroupOfSection( viewGroup);
 		checkerOf(userContext).checkLinkToUrlOfSection( linkToUrl);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page updateSectionProperties(RetailscmUserContext userContext, String pageId, String id,String title,String brief,String icon,int displayOrder,String viewGroup,String linkToUrl, String [] tokensExpr) throws Exception
@@ -1308,6 +1383,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			checkerOf(userContext).checkIdOfSection(sectionIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
 
 	}
@@ -1334,7 +1410,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage( pageId);
 		checkerOf(userContext).checkIdOfSection(sectionId);
 		checkerOf(userContext).checkVersionOfSection(sectionVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page removeSection(RetailscmUserContext userContext, String pageId,
@@ -1361,7 +1439,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		checkerOf(userContext).checkIdOfPage( pageId);
 		checkerOf(userContext).checkIdOfSection(sectionId);
 		checkerOf(userContext).checkVersionOfSection(sectionVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 	public  Page copySectionFrom(RetailscmUserContext userContext, String pageId,
@@ -1389,7 +1469,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 	protected void checkParamsForUpdatingSection(RetailscmUserContext userContext, String pageId, String sectionId, int sectionVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkIdOfSection(sectionId);
 		checkerOf(userContext).checkVersionOfSection(sectionVersion);
@@ -1420,7 +1500,9 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(PageManagerException.class);
+
 
 	}
 
@@ -1451,6 +1533,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 			section.changeProperty(property, newValueExpr);
 			
 			page = savePage(userContext, page, tokens().withSectionList().done());
+			sectionManagerOf(userContext).onUpdated(userContext, section, this, "updateSection");
 			return present(userContext,page, mergedAllTokens(tokensExpr));
 		}
 
@@ -1483,112 +1566,13 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1611,28 +1595,21 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, Page.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, Page.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1703,7 +1680,7 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String pageId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getPageDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		Page merchantObj = (Page) this.view(userContext, pageId);
     String merchantObjId = pageId;
     String linkToUrl =	"pageManager/wxappview/" + merchantObjId + "/";
@@ -1793,8 +1770,6 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		sections.add(slideListSection);
 
 		result.put("slideListSection", ListofUtils.toShortList(merchantObj.getSlideList(), "slide"));
-		vscope.field("slideListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( Slide.class.getName(), null));
 
 		//处理Section：uiActionListSection
 		Map uiActionListSection = ListofUtils.buildSection(
@@ -1809,8 +1784,6 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		sections.add(uiActionListSection);
 
 		result.put("uiActionListSection", ListofUtils.toShortList(merchantObj.getUiActionList(), "uiAction"));
-		vscope.field("uiActionListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( UiAction.class.getName(), null));
 
 		//处理Section：sectionListSection
 		Map sectionListSection = ListofUtils.buildSection(
@@ -1825,8 +1798,6 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		sections.add(sectionListSection);
 
 		result.put("sectionListSection", ListofUtils.toShortList(merchantObj.getSectionList(), "section"));
-		vscope.field("sectionListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( Section.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1841,8 +1812,19 @@ public class PageManagerImpl extends CustomRetailscmCheckerManager implements Pa
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.supplyorder;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -49,7 +50,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -59,13 +60,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected GoodsSupplierDAO goodsSupplierDAO;
 	public void setGoodsSupplierDAO(GoodsSupplierDAO goodsSupplierDAO){
- 	
+
  		if(goodsSupplierDAO == null){
  			throw new IllegalStateException("Do not try to set goodsSupplierDAO to null.");
  		}
@@ -75,13 +76,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.goodsSupplierDAO == null){
  			throw new IllegalStateException("The goodsSupplierDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsSupplierDAO;
- 	}	
+ 	}
 
 	protected SupplyOrderLineItemDAO supplyOrderLineItemDAO;
 	public void setSupplyOrderLineItemDAO(SupplyOrderLineItemDAO supplyOrderLineItemDAO){
- 	
+
  		if(supplyOrderLineItemDAO == null){
  			throw new IllegalStateException("Do not try to set supplyOrderLineItemDAO to null.");
  		}
@@ -91,13 +92,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.supplyOrderLineItemDAO == null){
  			throw new IllegalStateException("The supplyOrderLineItemDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplyOrderLineItemDAO;
- 	}	
+ 	}
 
 	protected SupplyOrderShippingGroupDAO supplyOrderShippingGroupDAO;
 	public void setSupplyOrderShippingGroupDAO(SupplyOrderShippingGroupDAO supplyOrderShippingGroupDAO){
- 	
+
  		if(supplyOrderShippingGroupDAO == null){
  			throw new IllegalStateException("Do not try to set supplyOrderShippingGroupDAO to null.");
  		}
@@ -107,13 +108,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.supplyOrderShippingGroupDAO == null){
  			throw new IllegalStateException("The supplyOrderShippingGroupDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplyOrderShippingGroupDAO;
- 	}	
+ 	}
 
 	protected SupplyOrderPaymentGroupDAO supplyOrderPaymentGroupDAO;
 	public void setSupplyOrderPaymentGroupDAO(SupplyOrderPaymentGroupDAO supplyOrderPaymentGroupDAO){
- 	
+
  		if(supplyOrderPaymentGroupDAO == null){
  			throw new IllegalStateException("Do not try to set supplyOrderPaymentGroupDAO to null.");
  		}
@@ -123,13 +124,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.supplyOrderPaymentGroupDAO == null){
  			throw new IllegalStateException("The supplyOrderPaymentGroupDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplyOrderPaymentGroupDAO;
- 	}	
+ 	}
 
 	protected GoodsDAO goodsDAO;
 	public void setGoodsDAO(GoodsDAO goodsDAO){
- 	
+
  		if(goodsDAO == null){
  			throw new IllegalStateException("Do not try to set goodsDAO to null.");
  		}
@@ -139,9 +140,10 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(this.goodsDAO == null){
  			throw new IllegalStateException("The goodsDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.goodsDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -195,28 +197,28 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		newSupplyOrder.setVersion(0);
 		
 		
- 		
+
  		if(isSaveSupplyOrderLineItemListEnabled(options)){
  			for(SupplyOrderLineItem item: newSupplyOrder.getSupplyOrderLineItemList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSupplyOrderShippingGroupListEnabled(options)){
  			for(SupplyOrderShippingGroup item: newSupplyOrder.getSupplyOrderShippingGroupList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSupplyOrderPaymentGroupListEnabled(options)){
  			for(SupplyOrderPaymentGroup item: newSupplyOrder.getSupplyOrderPaymentGroupList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveGoodsListEnabled(options)){
  			for(Goods item: newSupplyOrder.getGoodsList()){
  				item.setVersion(0);
@@ -303,100 +305,100 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SupplyOrderTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBuyerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SupplyOrderTokens.BUYER);
  	}
 
  	protected boolean isSaveBuyerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SupplyOrderTokens.BUYER);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractSellerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SupplyOrderTokens.SELLER);
  	}
 
  	protected boolean isSaveSellerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SupplyOrderTokens.SELLER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractSupplyOrderLineItemListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSupplyOrderLineItemListEnabled(Map<String,Object> options){
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_LINE_ITEM_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderLineItemListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSupplyOrderLineItemListEnabled(Map<String,Object> options){
  		return SupplyOrderTokens.of(options).analyzeSupplyOrderLineItemListEnabled();
  	}
-	
+
 	protected boolean isSaveSupplyOrderLineItemListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderTokens.SUPPLY_ORDER_LINE_ITEM_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSupplyOrderShippingGroupListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSupplyOrderShippingGroupListEnabled(Map<String,Object> options){
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_SHIPPING_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderShippingGroupListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSupplyOrderShippingGroupListEnabled(Map<String,Object> options){
  		return SupplyOrderTokens.of(options).analyzeSupplyOrderShippingGroupListEnabled();
  	}
-	
+
 	protected boolean isSaveSupplyOrderShippingGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderTokens.SUPPLY_ORDER_SHIPPING_GROUP_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_PAYMENT_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){
  		return SupplyOrderTokens.of(options).analyzeSupplyOrderPaymentGroupListEnabled();
  	}
-	
+
 	protected boolean isSaveSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderTokens.SUPPLY_ORDER_PAYMENT_GROUP_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
  		return checkOptions(options,SupplyOrderTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){
  		return SupplyOrderTokens.of(options).analyzeGoodsListEnabled();
  	}
-	
+
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderTokens.GOODS_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -405,8 +407,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		return new SupplyOrderMapper();
 	}
 
-	
-	
+
+
 	protected SupplyOrder extractSupplyOrder(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			SupplyOrder supplyOrder = loadSingleObject(accessKey, getSupplyOrderMapper());
@@ -417,17 +419,17 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	}
 
-	
-	
+
+
 
 	protected SupplyOrder loadInternalSupplyOrder(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		SupplyOrder supplyOrder = extractSupplyOrder(accessKey, loadOptions);
- 	
+
  		if(isExtractBuyerEnabled(loadOptions)){
 	 		extractBuyer(supplyOrder, loadOptions);
  		}
-  	
+ 
  		if(isExtractSellerEnabled(loadOptions)){
 	 		extractSeller(supplyOrder, loadOptions);
  		}
@@ -435,8 +437,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 		if(isExtractSupplyOrderLineItemListEnabled(loadOptions)){
 	 		extractSupplyOrderLineItemList(supplyOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSupplyOrderLineItemListEnabled(loadOptions)){
 	 		analyzeSupplyOrderLineItemList(supplyOrder, loadOptions);
@@ -445,8 +447,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 		if(isExtractSupplyOrderShippingGroupListEnabled(loadOptions)){
 	 		extractSupplyOrderShippingGroupList(supplyOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSupplyOrderShippingGroupListEnabled(loadOptions)){
 	 		analyzeSupplyOrderShippingGroupList(supplyOrder, loadOptions);
@@ -455,8 +457,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 		if(isExtractSupplyOrderPaymentGroupListEnabled(loadOptions)){
 	 		extractSupplyOrderPaymentGroupList(supplyOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSupplyOrderPaymentGroupListEnabled(loadOptions)){
 	 		analyzeSupplyOrderPaymentGroupList(supplyOrder, loadOptions);
@@ -465,8 +467,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(supplyOrder, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
 	 		analyzeGoodsList(supplyOrder, loadOptions);
@@ -474,12 +476,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
 		
 		return supplyOrder;
-		
+
 	}
 
-	 
+	
 
  	protected SupplyOrder extractBuyer(SupplyOrder supplyOrder, Map<String,Object> options) throws Exception{
+  
 
 		if(supplyOrder.getBuyer() == null){
 			return supplyOrder;
@@ -492,14 +495,15 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(buyer != null){
 			supplyOrder.setBuyer(buyer);
 		}
-		
- 		
+
+
  		return supplyOrder;
  	}
- 		
-  
+
+ 
 
  	protected SupplyOrder extractSeller(SupplyOrder supplyOrder, Map<String,Object> options) throws Exception{
+  
 
 		if(supplyOrder.getSeller() == null){
 			return supplyOrder;
@@ -512,21 +516,21 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		if(seller != null){
 			supplyOrder.setSeller(seller);
 		}
-		
- 		
+
+
  		return supplyOrder;
  	}
- 		
+
  
 		
 	protected void enhanceSupplyOrderLineItemList(SmartList<SupplyOrderLineItem> supplyOrderLineItemList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SupplyOrder extractSupplyOrderLineItemList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(supplyOrder == null){
 			return null;
 		}
@@ -534,21 +538,20 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrderLineItem> supplyOrderLineItemList = getSupplyOrderLineItemDAO().findSupplyOrderLineItemByBizOrder(supplyOrder.getId(),options);
 		if(supplyOrderLineItemList != null){
 			enhanceSupplyOrderLineItemList(supplyOrderLineItemList,options);
 			supplyOrder.setSupplyOrderLineItemList(supplyOrderLineItemList);
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+  
+	}
+
 	protected SupplyOrder analyzeSupplyOrderLineItemList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+     
 		if(supplyOrder == null){
 			return null;
 		}
@@ -556,27 +559,27 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrderLineItem> supplyOrderLineItemList = supplyOrder.getSupplyOrderLineItemList();
 		if(supplyOrderLineItemList != null){
 			getSupplyOrderLineItemDAO().analyzeSupplyOrderLineItemByBizOrder(supplyOrderLineItemList, supplyOrder.getId(), options);
-			
+
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSupplyOrderShippingGroupList(SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SupplyOrder extractSupplyOrderShippingGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(supplyOrder == null){
 			return null;
 		}
@@ -584,21 +587,20 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList = getSupplyOrderShippingGroupDAO().findSupplyOrderShippingGroupByBizOrder(supplyOrder.getId(),options);
 		if(supplyOrderShippingGroupList != null){
 			enhanceSupplyOrderShippingGroupList(supplyOrderShippingGroupList,options);
 			supplyOrder.setSupplyOrderShippingGroupList(supplyOrderShippingGroupList);
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+  
+	}
+
 	protected SupplyOrder analyzeSupplyOrderShippingGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+     
 		if(supplyOrder == null){
 			return null;
 		}
@@ -606,27 +608,27 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList = supplyOrder.getSupplyOrderShippingGroupList();
 		if(supplyOrderShippingGroupList != null){
 			getSupplyOrderShippingGroupDAO().analyzeSupplyOrderShippingGroupByBizOrder(supplyOrderShippingGroupList, supplyOrder.getId(), options);
-			
+
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSupplyOrderPaymentGroupList(SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SupplyOrder extractSupplyOrderPaymentGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(supplyOrder == null){
 			return null;
 		}
@@ -634,21 +636,20 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList = getSupplyOrderPaymentGroupDAO().findSupplyOrderPaymentGroupByBizOrder(supplyOrder.getId(),options);
 		if(supplyOrderPaymentGroupList != null){
 			enhanceSupplyOrderPaymentGroupList(supplyOrderPaymentGroupList,options);
 			supplyOrder.setSupplyOrderPaymentGroupList(supplyOrderPaymentGroupList);
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+  
+	}
+
 	protected SupplyOrder analyzeSupplyOrderPaymentGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+     
 		if(supplyOrder == null){
 			return null;
 		}
@@ -656,27 +657,27 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList = supplyOrder.getSupplyOrderPaymentGroupList();
 		if(supplyOrderPaymentGroupList != null){
 			getSupplyOrderPaymentGroupDAO().analyzeSupplyOrderPaymentGroupByBizOrder(supplyOrderPaymentGroupList, supplyOrder.getId(), options);
-			
+
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SupplyOrder extractGoodsList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+    
+
 		if(supplyOrder == null){
 			return null;
 		}
@@ -684,21 +685,20 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = getGoodsDAO().findGoodsByBizOrder(supplyOrder.getId(),options);
 		if(goodsList != null){
 			enhanceGoodsList(goodsList,options);
 			supplyOrder.setGoodsList(goodsList);
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+  
+	}
+
 	protected SupplyOrder analyzeGoodsList(SupplyOrder supplyOrder, Map<String,Object> options){
-		
-		
+     
 		if(supplyOrder == null){
 			return null;
 		}
@@ -706,47 +706,47 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 			return supplyOrder;
 		}
 
-		
-		
+
+
 		SmartList<Goods> goodsList = supplyOrder.getGoodsList();
 		if(goodsList != null){
 			getGoodsDAO().analyzeGoodsByBizOrder(goodsList, supplyOrder.getId(), options);
-			
+
 		}
-		
+
 		return supplyOrder;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<SupplyOrder> findSupplyOrderByBuyer(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_BUYER, retailStoreCountryCenterId, options, getSupplyOrderMapper());
 		// analyzeSupplyOrderByBuyer(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<SupplyOrder> findSupplyOrderByBuyer(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_BUYER, retailStoreCountryCenterId, options, getSupplyOrderMapper(), start, count);
  		//analyzeSupplyOrderByBuyer(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSupplyOrderByBuyer(SmartList<SupplyOrder> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.BUYER_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//SupplyOrder.LAST_UPDATE_TIME_PROPERTY
@@ -754,11 +754,11 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SupplyOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SupplyOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSupplyOrderByBuyer(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -769,34 +769,34 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	public Map<String, Integer> countSupplyOrderByBuyerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SupplyOrderTable.COLUMN_BUYER, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<SupplyOrder> findSupplyOrderBySeller(String goodsSupplierId,Map<String,Object> options){
- 	
+
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_SELLER, goodsSupplierId, options, getSupplyOrderMapper());
 		// analyzeSupplyOrderBySeller(resultList, goodsSupplierId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<SupplyOrder> findSupplyOrderBySeller(String goodsSupplierId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_SELLER, goodsSupplierId, options, getSupplyOrderMapper(), start, count);
  		//analyzeSupplyOrderBySeller(resultList, goodsSupplierId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSupplyOrderBySeller(SmartList<SupplyOrder> resultList, String goodsSupplierId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.SELLER_PROPERTY, goodsSupplierId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//SupplyOrder.LAST_UPDATE_TIME_PROPERTY
@@ -804,11 +804,11 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SupplyOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SupplyOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSupplyOrderBySeller(String goodsSupplierId,Map<String,Object> options){
@@ -819,21 +819,24 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	public Map<String, Integer> countSupplyOrderBySellerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SupplyOrderTable.COLUMN_SELLER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected SupplyOrder saveSupplyOrder(SupplyOrder  supplyOrder){
+    
+
 		
 		if(!supplyOrder.isChanged()){
 			return supplyOrder;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(supplyOrder);
 		String SQL=this.getSaveSupplyOrderSQL(supplyOrder);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSupplyOrderParameters(supplyOrder);
@@ -844,6 +847,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		}
 
 		supplyOrder.incVersion();
+		supplyOrder.afterSave();
 		return supplyOrder;
 
 	}
@@ -861,6 +865,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		for(SupplyOrder supplyOrder:supplyOrderList){
 			if(supplyOrder.isChanged()){
 				supplyOrder.incVersion();
+				supplyOrder.afterSave();
 			}
 
 
@@ -967,17 +972,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		if(supplyOrder.getBuyer() != null){
  			parameters[0] = supplyOrder.getBuyer().getId();
  		}
- 
+    
  		if(supplyOrder.getSeller() != null){
  			parameters[1] = supplyOrder.getSeller().getId();
  		}
- 
- 		
+    
  		parameters[2] = supplyOrder.getTitle();
  		
- 		
  		parameters[3] = supplyOrder.getTotalAmount();
- 		
  		
  		parameters[4] = supplyOrder.getLastUpdateTime();
  		
@@ -997,20 +999,15 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  
  		if(supplyOrder.getBuyer() != null){
  			parameters[1] = supplyOrder.getBuyer().getId();
-
  		}
  		
  		if(supplyOrder.getSeller() != null){
  			parameters[2] = supplyOrder.getSeller().getId();
-
  		}
- 		
  		
  		parameters[3] = supplyOrder.getTitle();
  		
- 		
  		parameters[4] = supplyOrder.getTotalAmount();
- 		
  		
  		parameters[5] = supplyOrder.getLastUpdateTime();
  		
@@ -1020,8 +1017,6 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	protected SupplyOrder saveInternalSupplyOrder(SupplyOrder supplyOrder, Map<String,Object> options){
 
-		saveSupplyOrder(supplyOrder);
-
  		if(isSaveBuyerEnabled(options)){
 	 		saveBuyer(supplyOrder, options);
  		}
@@ -1030,6 +1025,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	 		saveSeller(supplyOrder, options);
  		}
  
+   saveSupplyOrder(supplyOrder);
 		
 		if(isSaveSupplyOrderLineItemListEnabled(options)){
 	 		saveSupplyOrderLineItemList(supplyOrder, options);
@@ -1069,6 +1065,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 
  	protected SupplyOrder saveBuyer(SupplyOrder supplyOrder, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(supplyOrder.getBuyer() == null){
  			return supplyOrder;//do nothing when it is null
@@ -1078,14 +1075,10 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		return supplyOrder;
 
  	}
-
-
-
-
-
  
 
  	protected SupplyOrder saveSeller(SupplyOrder supplyOrder, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(supplyOrder.getSeller() == null){
  			return supplyOrder;//do nothing when it is null
@@ -1095,11 +1088,6 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		return supplyOrder;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1570,7 +1558,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected SupplyOrder saveSupplyOrderLineItemList(SupplyOrder supplyOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1636,7 +1624,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected SupplyOrder saveSupplyOrderShippingGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1702,7 +1690,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected SupplyOrder saveSupplyOrderPaymentGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1768,7 +1756,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 		
 	protected SupplyOrder saveGoodsList(SupplyOrder supplyOrder, Map<String,Object> options){
-
+    
 
 
 
@@ -1835,22 +1823,22 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 		
 
 	public SupplyOrder present(SupplyOrder supplyOrder,Map<String, Object> options){
-	
+
 		presentSupplyOrderLineItemList(supplyOrder,options);
 		presentSupplyOrderShippingGroupList(supplyOrder,options);
 		presentSupplyOrderPaymentGroupList(supplyOrder,options);
 		presentGoodsList(supplyOrder,options);
 
 		return supplyOrder;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SupplyOrder presentSupplyOrderLineItemList(
 			SupplyOrder supplyOrder,
 			Map<String, Object> options) {
-
-		SmartList<SupplyOrderLineItem> supplyOrderLineItemList = supplyOrder.getSupplyOrderLineItemList();		
+    
+		SmartList<SupplyOrderLineItem> supplyOrderLineItemList = supplyOrder.getSupplyOrderLineItemList();
 				SmartList<SupplyOrderLineItem> newList= presentSubList(supplyOrder.getId(),
 				supplyOrderLineItemList,
 				options,
@@ -1858,19 +1846,19 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				getSupplyOrderLineItemDAO()::findSupplyOrderLineItemByBizOrder
 				);
 
-		
+
 		supplyOrder.setSupplyOrderLineItemList(newList);
-		
+
 
 		return supplyOrder;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SupplyOrder presentSupplyOrderShippingGroupList(
 			SupplyOrder supplyOrder,
 			Map<String, Object> options) {
-
-		SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList = supplyOrder.getSupplyOrderShippingGroupList();		
+    
+		SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList = supplyOrder.getSupplyOrderShippingGroupList();
 				SmartList<SupplyOrderShippingGroup> newList= presentSubList(supplyOrder.getId(),
 				supplyOrderShippingGroupList,
 				options,
@@ -1878,19 +1866,19 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				getSupplyOrderShippingGroupDAO()::findSupplyOrderShippingGroupByBizOrder
 				);
 
-		
+
 		supplyOrder.setSupplyOrderShippingGroupList(newList);
-		
+
 
 		return supplyOrder;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SupplyOrder presentSupplyOrderPaymentGroupList(
 			SupplyOrder supplyOrder,
 			Map<String, Object> options) {
-
-		SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList = supplyOrder.getSupplyOrderPaymentGroupList();		
+    
+		SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList = supplyOrder.getSupplyOrderPaymentGroupList();
 				SmartList<SupplyOrderPaymentGroup> newList= presentSubList(supplyOrder.getId(),
 				supplyOrderPaymentGroupList,
 				options,
@@ -1898,19 +1886,19 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				getSupplyOrderPaymentGroupDAO()::findSupplyOrderPaymentGroupByBizOrder
 				);
 
-		
+
 		supplyOrder.setSupplyOrderPaymentGroupList(newList);
-		
+
 
 		return supplyOrder;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SupplyOrder presentGoodsList(
 			SupplyOrder supplyOrder,
 			Map<String, Object> options) {
-
-		SmartList<Goods> goodsList = supplyOrder.getGoodsList();		
+    
+		SmartList<Goods> goodsList = supplyOrder.getGoodsList();
 				SmartList<Goods> newList= presentSubList(supplyOrder.getId(),
 				goodsList,
 				options,
@@ -1918,12 +1906,12 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 				getGoodsDAO()::findGoodsByBizOrder
 				);
 
-		
+
 		supplyOrder.setGoodsList(newList);
-		
+
 
 		return supplyOrder;
-	}			
+	}
 		
 
 	
@@ -1965,6 +1953,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 	// 需要一个加载引用我的对象的enhance方法:SupplyOrderLineItem的bizOrder的SupplyOrderLineItemList
 	public SmartList<SupplyOrderLineItem> loadOurSupplyOrderLineItemList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1988,6 +1977,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 	// 需要一个加载引用我的对象的enhance方法:SupplyOrderShippingGroup的bizOrder的SupplyOrderShippingGroupList
 	public SmartList<SupplyOrderShippingGroup> loadOurSupplyOrderShippingGroupList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2011,6 +2001,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 	// 需要一个加载引用我的对象的enhance方法:SupplyOrderPaymentGroup的bizOrder的SupplyOrderPaymentGroupList
 	public SmartList<SupplyOrderPaymentGroup> loadOurSupplyOrderPaymentGroupList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2034,6 +2025,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	
 	// 需要一个加载引用我的对象的enhance方法:Goods的bizOrder的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2090,6 +2082,10 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<SupplyOrder> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSupplyOrderMapper());
   }
@@ -2125,6 +2121,15 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
 
 	
 
+  @Override
+  public List<SupplyOrder> search(SupplyOrderRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SupplyOrderMapper mapper() {
+    return getSupplyOrderMapper();
+  }
 }
 
 

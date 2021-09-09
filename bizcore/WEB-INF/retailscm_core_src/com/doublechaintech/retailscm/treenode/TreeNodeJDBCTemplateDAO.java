@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.treenode;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -34,6 +35,7 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
 public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements TreeNodeDAO{
+
 
 
 	/*
@@ -167,13 +169,13 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return TreeNodeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
@@ -185,8 +187,8 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 		return new TreeNodeMapper();
 	}
 
-	
-	
+
+
 	protected TreeNode extractTreeNode(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			TreeNode treeNode = loadSingleObject(accessKey, getTreeNodeMapper());
@@ -197,35 +199,38 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 
 	}
 
-	
-	
+
+
 
 	protected TreeNode loadInternalTreeNode(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		TreeNode treeNode = extractTreeNode(accessKey, loadOptions);
 
 		
 		return treeNode;
-		
+
 	}
 
 	
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected TreeNode saveTreeNode(TreeNode  treeNode){
+    
+
 		
 		if(!treeNode.isChanged()){
 			return treeNode;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(treeNode);
 		String SQL=this.getSaveTreeNodeSQL(treeNode);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTreeNodeParameters(treeNode);
@@ -236,6 +241,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 		}
 
 		treeNode.incVersion();
+		treeNode.afterSave();
 		return treeNode;
 
 	}
@@ -253,6 +259,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 		for(TreeNode treeNode:treeNodeList){
 			if(treeNode.isChanged()){
 				treeNode.incVersion();
+				treeNode.afterSave();
 			}
 
 
@@ -356,15 +363,11 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
  	protected Object[] prepareTreeNodeUpdateParameters(TreeNode treeNode){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = treeNode.getNodeId();
- 		
  		
  		parameters[1] = treeNode.getNodeType();
  		
- 		
  		parameters[2] = treeNode.getLeftValue();
- 		
  		
  		parameters[3] = treeNode.getRightValue();
  		
@@ -382,15 +385,11 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
         }
 		parameters[0] =  treeNode.getId();
  
- 		
  		parameters[1] = treeNode.getNodeId();
- 		
  		
  		parameters[2] = treeNode.getNodeType();
  		
- 		
  		parameters[3] = treeNode.getLeftValue();
- 		
  		
  		parameters[4] = treeNode.getRightValue();
  		
@@ -400,8 +399,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 
 	protected TreeNode saveInternalTreeNode(TreeNode treeNode, Map<String,Object> options){
 
-		saveTreeNode(treeNode);
-
+   saveTreeNode(treeNode);
 		
 		return treeNode;
 
@@ -417,10 +415,10 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 		
 
 	public TreeNode present(TreeNode treeNode,Map<String, Object> options){
-	
+
 
 		return treeNode;
-	
+
 	}
 		
 
@@ -472,6 +470,10 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<TreeNode> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTreeNodeMapper());
   }
@@ -511,13 +513,13 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -526,19 +528,19 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -546,7 +548,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -557,7 +559,7 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -566,27 +568,36 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<TreeNode> search(TreeNodeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected TreeNodeMapper mapper() {
+    return getTreeNodeMapper();
+  }
 }
 
 

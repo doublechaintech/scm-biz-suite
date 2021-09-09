@@ -46,6 +46,7 @@ public interface SkuDAO extends BaseDAO{
 	public void delete(String skuId, int version) throws Exception;
 	public Sku disconnectFromAll(String skuId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public GoodsDAO getGoodsDAO();
 		
@@ -89,9 +90,10 @@ public interface SkuDAO extends BaseDAO{
 	public int countGoodsListWithRetailStoreOrder(String skuId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<Sku> queryList(String sql, Object ... parmeters);
+	public SmartList<Sku> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Sku> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSku executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Sku> findSkuByProduct(String productId, Map<String,Object> options);
@@ -105,6 +107,8 @@ public interface SkuDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Goods的sku的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<Sku> us, Map<String,Object> options) throws Exception;
 	
+
+	List<Sku> search(SkuRequest pRequest);
 }
 
 

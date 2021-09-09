@@ -4,3 +4,18 @@ public class CandidatesUtil extends RetailscmCandidatesUtil{
 	
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

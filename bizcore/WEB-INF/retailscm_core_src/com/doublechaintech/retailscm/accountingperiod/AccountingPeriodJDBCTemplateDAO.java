@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.accountingperiod;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	protected AccountSetDAO accountSetDAO;
 	public void setAccountSetDAO(AccountSetDAO accountSetDAO){
- 	
+
  		if(accountSetDAO == null){
  			throw new IllegalStateException("Do not try to set accountSetDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.accountSetDAO == null){
  			throw new IllegalStateException("The accountSetDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountSetDAO;
- 	}	
+ 	}
 
 	protected AccountingDocumentDAO accountingDocumentDAO;
 	public void setAccountingDocumentDAO(AccountingDocumentDAO accountingDocumentDAO){
- 	
+
  		if(accountingDocumentDAO == null){
  			throw new IllegalStateException("Do not try to set accountingDocumentDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		if(this.accountingDocumentDAO == null){
  			throw new IllegalStateException("The accountingDocumentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.accountingDocumentDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		newAccountingPeriod.setVersion(0);
 		
 		
- 		
+
  		if(isSaveAccountingDocumentListEnabled(options)){
  			for(AccountingDocument item: newAccountingPeriod.getAccountingDocumentList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return AccountingPeriodTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractAccountSetEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, AccountingPeriodTokens.ACCOUNTSET);
  	}
 
  	protected boolean isSaveAccountSetEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, AccountingPeriodTokens.ACCOUNTSET);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){
  		return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST);
  	}
- 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){
  		return AccountingPeriodTokens.of(options).analyzeAccountingDocumentListEnabled();
  	}
-	
+
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		return new AccountingPeriodMapper();
 	}
 
-	
-	
+
+
 	protected AccountingPeriod extractAccountingPeriod(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			AccountingPeriod accountingPeriod = loadSingleObject(accessKey, getAccountingPeriodMapper());
@@ -268,13 +270,13 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	}
 
-	
-	
+
+
 
 	protected AccountingPeriod loadInternalAccountingPeriod(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		AccountingPeriod accountingPeriod = extractAccountingPeriod(accessKey, loadOptions);
- 	
+
  		if(isExtractAccountSetEnabled(loadOptions)){
 	 		extractAccountSet(accountingPeriod, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		
 		if(isExtractAccountingDocumentListEnabled(loadOptions)){
 	 		extractAccountingDocumentList(accountingPeriod, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
 	 		analyzeAccountingDocumentList(accountingPeriod, loadOptions);
@@ -291,12 +293,13 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		
 		
 		return accountingPeriod;
-		
+
 	}
 
-	 
+	
 
  	protected AccountingPeriod extractAccountSet(AccountingPeriod accountingPeriod, Map<String,Object> options) throws Exception{
+  
 
 		if(accountingPeriod.getAccountSet() == null){
 			return accountingPeriod;
@@ -309,21 +312,21 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		if(accountSet != null){
 			accountingPeriod.setAccountSet(accountSet);
 		}
-		
- 		
+
+
  		return accountingPeriod;
  	}
- 		
+
  
 		
 	protected void enhanceAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected AccountingPeriod extractAccountingDocumentList(AccountingPeriod accountingPeriod, Map<String,Object> options){
-		
-		
+    
+
 		if(accountingPeriod == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return accountingPeriod;
 		}
 
-		
-		
+
+
 		SmartList<AccountingDocument> accountingDocumentList = getAccountingDocumentDAO().findAccountingDocumentByAccountingPeriod(accountingPeriod.getId(),options);
 		if(accountingDocumentList != null){
 			enhanceAccountingDocumentList(accountingDocumentList,options);
 			accountingPeriod.setAccountingDocumentList(accountingDocumentList);
 		}
-		
+
 		return accountingPeriod;
-	
-	}	
-	
+  
+	}
+
 	protected AccountingPeriod analyzeAccountingDocumentList(AccountingPeriod accountingPeriod, Map<String,Object> options){
-		
-		
+     
 		if(accountingPeriod == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 			return accountingPeriod;
 		}
 
-		
-		
+
+
 		SmartList<AccountingDocument> accountingDocumentList = accountingPeriod.getAccountingDocumentList();
 		if(accountingDocumentList != null){
 			getAccountingDocumentDAO().analyzeAccountingDocumentByAccountingPeriod(accountingDocumentList, accountingPeriod.getId(), options);
-			
+
 		}
-		
+
 		return accountingPeriod;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<AccountingPeriod> findAccountingPeriodByAccountSet(String accountSetId,Map<String,Object> options){
- 	
+
   		SmartList<AccountingPeriod> resultList = queryWith(AccountingPeriodTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingPeriodMapper());
 		// analyzeAccountingPeriodByAccountSet(resultList, accountSetId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<AccountingPeriod> findAccountingPeriodByAccountSet(String accountSetId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<AccountingPeriod> resultList =  queryWithRange(AccountingPeriodTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingPeriodMapper(), start, count);
  		//analyzeAccountingPeriodByAccountSet(resultList, accountSetId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeAccountingPeriodByAccountSet(SmartList<AccountingPeriod> resultList, String accountSetId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countAccountingPeriodByAccountSet(String accountSetId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	public Map<String, Integer> countAccountingPeriodByAccountSetIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(AccountingPeriodTable.COLUMN_ACCOUNT_SET, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected AccountingPeriod saveAccountingPeriod(AccountingPeriod  accountingPeriod){
+    
+
 		
 		if(!accountingPeriod.isChanged()){
 			return accountingPeriod;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(accountingPeriod);
 		String SQL=this.getSaveAccountingPeriodSQL(accountingPeriod);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveAccountingPeriodParameters(accountingPeriod);
@@ -425,6 +430,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		}
 
 		accountingPeriod.incVersion();
+		accountingPeriod.afterSave();
 		return accountingPeriod;
 
 	}
@@ -442,6 +448,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		for(AccountingPeriod accountingPeriod:accountingPeriodList){
 			if(accountingPeriod.isChanged()){
 				accountingPeriod.incVersion();
+				accountingPeriod.afterSave();
 			}
 
 
@@ -545,19 +552,16 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  	protected Object[] prepareAccountingPeriodUpdateParameters(AccountingPeriod accountingPeriod){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = accountingPeriod.getName();
  		
- 		
  		parameters[1] = accountingPeriod.getStartDate();
- 		
  		
  		parameters[2] = accountingPeriod.getEndDate();
  		
  		if(accountingPeriod.getAccountSet() != null){
  			parameters[3] = accountingPeriod.getAccountSet().getId();
  		}
- 
+    
  		parameters[4] = accountingPeriod.nextVersion();
  		parameters[5] = accountingPeriod.getId();
  		parameters[6] = accountingPeriod.getVersion();
@@ -572,18 +576,14 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
         }
 		parameters[0] =  accountingPeriod.getId();
  
- 		
  		parameters[1] = accountingPeriod.getName();
  		
- 		
  		parameters[2] = accountingPeriod.getStartDate();
- 		
  		
  		parameters[3] = accountingPeriod.getEndDate();
  		
  		if(accountingPeriod.getAccountSet() != null){
  			parameters[4] = accountingPeriod.getAccountSet().getId();
-
  		}
  		
 
@@ -592,12 +592,11 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	protected AccountingPeriod saveInternalAccountingPeriod(AccountingPeriod accountingPeriod, Map<String,Object> options){
 
-		saveAccountingPeriod(accountingPeriod);
-
  		if(isSaveAccountSetEnabled(options)){
 	 		saveAccountSet(accountingPeriod, options);
  		}
  
+   saveAccountingPeriod(accountingPeriod);
 		
 		if(isSaveAccountingDocumentListEnabled(options)){
 	 		saveAccountingDocumentList(accountingPeriod, options);
@@ -616,6 +615,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	
 
  	protected AccountingPeriod saveAccountSet(AccountingPeriod accountingPeriod, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(accountingPeriod.getAccountSet() == null){
  			return accountingPeriod;//do nothing when it is null
@@ -625,11 +625,6 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		return accountingPeriod;
 
  	}
-
-
-
-
-
  
 
 	
@@ -708,7 +703,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 		
 	protected AccountingPeriod saveAccountingDocumentList(AccountingPeriod accountingPeriod, Map<String,Object> options){
-
+    
 
 
 
@@ -775,19 +770,19 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 		
 
 	public AccountingPeriod present(AccountingPeriod accountingPeriod,Map<String, Object> options){
-	
+
 		presentAccountingDocumentList(accountingPeriod,options);
 
 		return accountingPeriod;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected AccountingPeriod presentAccountingDocumentList(
 			AccountingPeriod accountingPeriod,
 			Map<String, Object> options) {
-
-		SmartList<AccountingDocument> accountingDocumentList = accountingPeriod.getAccountingDocumentList();		
+    
+		SmartList<AccountingDocument> accountingDocumentList = accountingPeriod.getAccountingDocumentList();
 				SmartList<AccountingDocument> newList= presentSubList(accountingPeriod.getId(),
 				accountingDocumentList,
 				options,
@@ -795,12 +790,12 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 				getAccountingDocumentDAO()::findAccountingDocumentByAccountingPeriod
 				);
 
-		
+
 		accountingPeriod.setAccountingDocumentList(newList);
-		
+
 
 		return accountingPeriod;
-	}			
+	}
 		
 
 	
@@ -824,6 +819,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	
 	// 需要一个加载引用我的对象的enhance方法:AccountingDocument的accountingPeriod的AccountingDocumentList
 	public SmartList<AccountingDocument> loadOurAccountingDocumentList(RetailscmUserContext userContext, List<AccountingPeriod> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -880,6 +876,10 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<AccountingPeriod> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getAccountingPeriodMapper());
   }
@@ -915,6 +915,15 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
 
 	
 
+  @Override
+  public List<AccountingPeriod> search(AccountingPeriodRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected AccountingPeriodMapper mapper() {
+    return getAccountingPeriodMapper();
+  }
 }
 
 

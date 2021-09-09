@@ -31,12 +31,12 @@ const internalSummaryOf = (goodsSupplier,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsSupplier.id}</Description> 
+<Description term="ID">{goodsSupplier.id}</Description> 
 <Description term="名称">{goodsSupplier.name}</Description> 
 <Description term="供应产品">{goodsSupplier.supplyProduct}</Description> 
 <Description term="联系电话">{goodsSupplier.contactNumber}</Description> 
 <Description term="描述">{goodsSupplier.description}</Description> 
-<Description term="最后更新时间">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -62,7 +62,7 @@ class GoodsSupplierPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsSupplier = this.props.goodsSupplier
     const { id,displayName, supplierProductCount, supplyOrderCount, accountSetCount } = goodsSupplier
-    const  returnURL = `/goodsSupplier/${id}/dashboard`
+    const  returnURL = `/goodsSupplier/${id}/workbench`
     const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",cardsSource: goodsSupplier,displayName,returnURL,
   		subItems: [
     
@@ -75,10 +75,10 @@ class GoodsSupplierPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './RetailStoreMemberAddress.updateform.less'
 import RetailStoreMemberAddressBase from './RetailStoreMemberAddress.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -102,13 +104,13 @@ class RetailStoreMemberAddressUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const retailStoreMemberAddressId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, retailStoreMemberAddressId, ...imagesValues }
 
-        
+        const parameters = { ...values, retailStoreMemberAddressId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -123,7 +125,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -133,12 +135,12 @@ class RetailStoreMemberAddressUpdateForm extends Component {
 
         const { owner } = this.props
         const retailStoreMemberAddressId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, retailStoreMemberAddressId, ...imagesValues }
+
+        const parameters = { ...values, retailStoreMemberAddressId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -160,11 +162,11 @@ class RetailStoreMemberAddressUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextRetailStoreMemberAddressUpdateRow`,
@@ -178,7 +180,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -186,7 +188,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'retailStoreMemberAddress',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -229,7 +231,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -243,12 +245,12 @@ class RetailStoreMemberAddressUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}零售店会员地址: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -258,7 +260,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -266,8 +268,8 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -278,8 +280,8 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.name} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -290,8 +292,8 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.mobilePhone,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.mobilePhone} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.mobilePhone} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -302,17 +304,17 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.address,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.address} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.address} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

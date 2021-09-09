@@ -46,6 +46,7 @@ public interface PotentialCustomerContactPersonDAO extends BaseDAO{
 	public void delete(String potentialCustomerContactPersonId, int version) throws Exception;
 	public PotentialCustomerContactPerson disconnectFromAll(String potentialCustomerContactPersonId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public PotentialCustomerContactDAO getPotentialCustomerContactDAO();
 		
@@ -65,9 +66,10 @@ public interface PotentialCustomerContactPersonDAO extends BaseDAO{
 	public int countPotentialCustomerContactListWithCityPartner(String potentialCustomerContactPersonId, String cityPartnerId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<PotentialCustomerContactPerson> queryList(String sql, Object ... parmeters);
+	public SmartList<PotentialCustomerContactPerson> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<PotentialCustomerContactPerson> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidatePotentialCustomerContactPerson executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<PotentialCustomerContactPerson> findPotentialCustomerContactPersonByPotentialCustomer(String potentialCustomerId, Map<String,Object> options);
@@ -81,6 +83,8 @@ public interface PotentialCustomerContactPersonDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContact的contactTo的PotentialCustomerContactList
 	public SmartList<PotentialCustomerContact> loadOurPotentialCustomerContactList(RetailscmUserContext userContext, List<PotentialCustomerContactPerson> us, Map<String,Object> options) throws Exception;
 	
+
+	List<PotentialCustomerContactPerson> search(PotentialCustomerContactPersonRequest pRequest);
 }
 
 

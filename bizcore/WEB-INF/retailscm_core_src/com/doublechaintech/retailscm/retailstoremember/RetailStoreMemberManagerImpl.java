@@ -1,49 +1,27 @@
 
 package com.doublechaintech.retailscm.retailstoremember;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPoint;import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemption;import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;import com.doublechaintech.retailscm.retailstore.RetailStore;import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddress;import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCoupon;import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPoint;
-import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemption;
-import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCoupon;
-import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;
-import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
-import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
-import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddress;
-import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;
-
-import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
-import com.doublechaintech.retailscm.retailstore.RetailStore;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager implements RetailStoreMemberManager, BusinessHandler{
@@ -86,6 +64,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws RetailStoreMemberManagerException{
 
 		Message message = new Message();
@@ -96,107 +75,138 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 
 
- 	protected RetailStoreMember saveRetailStoreMember(RetailscmUserContext userContext, RetailStoreMember retailStoreMember, String [] tokensExpr) throws Exception{	
+ 	protected RetailStoreMember saveRetailStoreMember(RetailscmUserContext userContext, RetailStoreMember retailStoreMember, String [] tokensExpr) throws Exception{
  		//return getRetailStoreMemberDAO().save(retailStoreMember, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveRetailStoreMember(userContext, retailStoreMember, tokens);
  	}
- 	
- 	protected RetailStoreMember saveRetailStoreMemberDetail(RetailscmUserContext userContext, RetailStoreMember retailStoreMember) throws Exception{	
 
- 		
+ 	protected RetailStoreMember saveRetailStoreMemberDetail(RetailscmUserContext userContext, RetailStoreMember retailStoreMember) throws Exception{
+
+
  		return saveRetailStoreMember(userContext, retailStoreMember, allTokens());
  	}
- 	
- 	public RetailStoreMember loadRetailStoreMember(RetailscmUserContext userContext, String retailStoreMemberId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public RetailStoreMember loadRetailStoreMember(RetailscmUserContext userContext, String retailStoreMemberId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreMemberManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		RetailStoreMember retailStoreMember = loadRetailStoreMember( userContext, retailStoreMemberId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,retailStoreMember, tokens);
  	}
- 	
- 	
- 	 public RetailStoreMember searchRetailStoreMember(RetailscmUserContext userContext, String retailStoreMemberId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public RetailStoreMember searchRetailStoreMember(RetailscmUserContext userContext, String retailStoreMemberId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreMemberManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		RetailStoreMember retailStoreMember = loadRetailStoreMember( userContext, retailStoreMemberId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,retailStoreMember, tokens);
  	}
- 	
- 	
+
+
 
  	protected RetailStoreMember present(RetailscmUserContext userContext, RetailStoreMember retailStoreMember, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,retailStoreMember,tokens);
-		
-		
+    
+
 		RetailStoreMember  retailStoreMemberToPresent = retailStoreMemberDaoOf(userContext).present(retailStoreMember, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = retailStoreMemberToPresent.collectRefercencesFromLists();
 		retailStoreMemberDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,retailStoreMember,tokens);
-		
+
 		return  retailStoreMemberToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public RetailStoreMember loadRetailStoreMemberDetail(RetailscmUserContext userContext, String retailStoreMemberId) throws Exception{	
+
+
+
+ 	public RetailStoreMember loadRetailStoreMemberDetail(RetailscmUserContext userContext, String retailStoreMemberId) throws Exception{
  		RetailStoreMember retailStoreMember = loadRetailStoreMember( userContext, retailStoreMemberId, allTokens());
  		return present(userContext,retailStoreMember, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String retailStoreMemberId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String retailStoreMemberId) throws Exception{
  		RetailStoreMember retailStoreMember = loadRetailStoreMember( userContext, retailStoreMemberId, viewTokens());
- 		return present(userContext,retailStoreMember, allTokens());
-		
- 	}
- 	protected RetailStoreMember saveRetailStoreMember(RetailscmUserContext userContext, RetailStoreMember retailStoreMember, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, retailStoreMember);
+ 		return present(userContext,retailStoreMember, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String retailStoreMemberId) throws Exception{
+		RetailStoreMember retailStoreMember = loadRetailStoreMember( userContext, retailStoreMemberId, viewTokens());
+		retailStoreMember.summarySuffix();
+		markVisited(userContext, retailStoreMember);
+ 		return present(userContext,retailStoreMember, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String retailStoreMemberId) throws Exception{
+		RetailStoreMember retailStoreMember = loadRetailStoreMember( userContext, retailStoreMemberId, analyzeTokens());
+		markVisited(userContext, retailStoreMember);
+		return present(userContext,retailStoreMember, analyzeTokens());
+
+	}
+ 	protected RetailStoreMember saveRetailStoreMember(RetailscmUserContext userContext, RetailStoreMember retailStoreMember, Map<String,Object>tokens) throws Exception{
+ 	
  		return retailStoreMemberDaoOf(userContext).save(retailStoreMember, tokens);
  	}
- 	protected RetailStoreMember loadRetailStoreMember(RetailscmUserContext userContext, String retailStoreMemberId, Map<String,Object>tokens) throws Exception{	
+ 	protected RetailStoreMember loadRetailStoreMember(RetailscmUserContext userContext, String retailStoreMemberId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( RetailStoreMemberManagerException.class);
 
- 
+
+
  		return retailStoreMemberDaoOf(userContext).load(retailStoreMemberId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, RetailStoreMember retailStoreMember, Map<String, Object> tokens){
 		super.addActions(userContext, retailStoreMember, tokens);
-		
+
 		addAction(userContext, retailStoreMember, tokens,"@create","createRetailStoreMember","createRetailStoreMember/","main","primary");
 		addAction(userContext, retailStoreMember, tokens,"@update","updateRetailStoreMember","updateRetailStoreMember/"+retailStoreMember.getId()+"/","main","primary");
 		addAction(userContext, retailStoreMember, tokens,"@copy","cloneRetailStoreMember","cloneRetailStoreMember/"+retailStoreMember.getId()+"/","main","primary");
-		
+
 		addAction(userContext, retailStoreMember, tokens,"retail_store_member.transfer_to_owner","transferToAnotherOwner","transferToAnotherOwner/"+retailStoreMember.getId()+"/","main","primary");
 		addAction(userContext, retailStoreMember, tokens,"retail_store_member.addConsumerOrder","addConsumerOrder","addConsumerOrder/"+retailStoreMember.getId()+"/","consumerOrderList","primary");
 		addAction(userContext, retailStoreMember, tokens,"retail_store_member.removeConsumerOrder","removeConsumerOrder","removeConsumerOrder/"+retailStoreMember.getId()+"/","consumerOrderList","primary");
@@ -226,29 +236,52 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		addAction(userContext, retailStoreMember, tokens,"retail_store_member.removeRetailStoreMemberGiftCard","removeRetailStoreMemberGiftCard","removeRetailStoreMemberGiftCard/"+retailStoreMember.getId()+"/","retailStoreMemberGiftCardList","primary");
 		addAction(userContext, retailStoreMember, tokens,"retail_store_member.updateRetailStoreMemberGiftCard","updateRetailStoreMemberGiftCard","updateRetailStoreMemberGiftCard/"+retailStoreMember.getId()+"/","retailStoreMemberGiftCardList","primary");
 		addAction(userContext, retailStoreMember, tokens,"retail_store_member.copyRetailStoreMemberGiftCardFrom","copyRetailStoreMemberGiftCardFrom","copyRetailStoreMemberGiftCardFrom/"+retailStoreMember.getId()+"/","retailStoreMemberGiftCardList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, RetailStoreMember retailStoreMember, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<RetailStoreMember> searchRetailStoreMemberList(RetailscmUserContext ctx, RetailStoreMemberRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<RetailStoreMember> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public RetailStoreMember searchRetailStoreMember(RetailscmUserContext ctx, RetailStoreMemberRequest pRequest){
+    pRequest.limit(0, 1);
+    List<RetailStoreMember> list = searchRetailStoreMemberList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public RetailStoreMember createRetailStoreMember(RetailscmUserContext userContext, String name,String mobilePhone,String ownerId) throws Exception
-	//public RetailStoreMember createRetailStoreMember(RetailscmUserContext userContext,String name, String mobilePhone, String ownerId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfRetailStoreMember(name);
 		checkerOf(userContext).checkMobilePhoneOfRetailStoreMember(mobilePhone);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 		RetailStoreMember retailStoreMember=createNewRetailStoreMember();	
@@ -278,28 +311,30 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkVersionOfRetailStoreMember( retailStoreMemberVersion);
-		
+
 
 		if(RetailStoreMember.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfRetailStoreMember(parseString(newValueExpr));
 		
-			
+
 		}
 		if(RetailStoreMember.MOBILE_PHONE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkMobilePhoneOfRetailStoreMember(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
@@ -328,6 +363,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			if (retailStoreMember.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixRetailStoreMember(retailStoreMember);
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, options);
 			return retailStoreMember;
 
@@ -394,16 +431,22 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected Map<String,Object> allTokens(){
 		return RetailStoreMemberTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortConsumerOrderListWith("id","desc")
-		.sortRetailStoreMemberCouponListWith("id","desc")
-		.sortMemberWishlistListWith("id","desc")
-		.sortMemberRewardPointListWith("id","desc")
-		.sortMemberRewardPointRedemptionListWith("id","desc")
-		.sortRetailStoreMemberAddressListWith("id","desc")
-		.sortRetailStoreMemberGiftCardListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortConsumerOrderListWith(ConsumerOrder.ID_PROPERTY,sortDesc())
+		.sortRetailStoreMemberCouponListWith(RetailStoreMemberCoupon.ID_PROPERTY,sortDesc())
+		.sortMemberWishlistListWith(MemberWishlist.ID_PROPERTY,sortDesc())
+		.sortMemberRewardPointListWith(MemberRewardPoint.ID_PROPERTY,sortDesc())
+		.sortMemberRewardPointRedemptionListWith(MemberRewardPointRedemption.ID_PROPERTY,sortDesc())
+		.sortRetailStoreMemberAddressListWith(RetailStoreMemberAddress.ID_PROPERTY,sortDesc())
+		.sortRetailStoreMemberGiftCardListWith(RetailStoreMemberGiftCard.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -415,6 +458,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
  		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
  		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(anotherOwnerId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
  	}
@@ -422,16 +466,17 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
  	{
  		checkParamsForTransferingAnotherOwner(userContext, retailStoreMemberId,anotherOwnerId);
  
-		RetailStoreMember retailStoreMember = loadRetailStoreMember(userContext, retailStoreMemberId, allTokens());	
+		RetailStoreMember retailStoreMember = loadRetailStoreMember(userContext, retailStoreMemberId, allTokens());
 		synchronized(retailStoreMember){
 			//will be good when the retailStoreMember loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStoreCountryCenter owner = loadRetailStoreCountryCenter(userContext, anotherOwnerId, emptyOptions());		
-			retailStoreMember.updateOwner(owner);		
+			RetailStoreCountryCenter owner = loadRetailStoreCountryCenter(userContext, anotherOwnerId, emptyOptions());
+			retailStoreMember.updateOwner(owner);
+			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, emptyOptions());
-			
+
 			return present(userContext,retailStoreMember, allTokens());
-			
+
 		}
 
  	}
@@ -464,8 +509,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
  	protected RetailStoreCountryCenter loadRetailStoreCountryCenter(RetailscmUserContext userContext, String newOwnerId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreCountryCenterDaoOf(userContext).load(newOwnerId, options);
+ 	  
  	}
  	
 
@@ -511,27 +557,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	}
 
 
-	//disconnect RetailStoreMember with store in ConsumerOrder
-	protected RetailStoreMember breakWithConsumerOrderByStore(RetailscmUserContext userContext, String retailStoreMemberId, String storeId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			RetailStoreMember retailStoreMember = loadRetailStoreMember(userContext, retailStoreMemberId, allTokens());
-
-			synchronized(retailStoreMember){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				retailStoreMemberDaoOf(userContext).planToRemoveConsumerOrderListWithStore(retailStoreMember, storeId, this.emptyOptions());
-
-				retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withConsumerOrderList().done());
-				return retailStoreMember;
-			}
-	}
-
-
-
 
 
 
@@ -539,18 +564,19 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 				checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 
-		
+
 		checkerOf(userContext).checkTitleOfConsumerOrder(title);
-		
+
 		checkerOf(userContext).checkStoreIdOfConsumerOrder(storeId);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
 	public  RetailStoreMember addConsumerOrder(RetailscmUserContext userContext, String retailStoreMemberId, String title, String storeId, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingConsumerOrder(userContext,retailStoreMemberId,title, storeId,tokensExpr);
 
 		ConsumerOrder consumerOrder = createConsumerOrder(userContext,title, storeId);
@@ -573,7 +599,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkerOf(userContext).checkTitleOfConsumerOrder( title);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember updateConsumerOrderProperties(RetailscmUserContext userContext, String retailStoreMemberId, String id,String title, String [] tokensExpr) throws Exception
@@ -642,6 +670,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -668,7 +697,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkVersionOfConsumerOrder(consumerOrderVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember removeConsumerOrder(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -695,7 +726,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkVersionOfConsumerOrder(consumerOrderVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember copyConsumerOrderFrom(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -723,7 +756,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected void checkParamsForUpdatingConsumerOrder(RetailscmUserContext userContext, String retailStoreMemberId, String consumerOrderId, int consumerOrderVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkVersionOfConsumerOrder(consumerOrderVersion);
@@ -734,7 +767,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 
@@ -765,6 +800,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			consumerOrder.changeProperty(property, newValueExpr);
 			consumerOrder.updateLastUpdateTime(userContext.now());
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withConsumerOrderList().done());
+			consumerOrderManagerOf(userContext).onUpdated(userContext, consumerOrder, this, "updateConsumerOrder");
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -785,18 +821,19 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 				checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 
-		
+
 		checkerOf(userContext).checkNameOfRetailStoreMemberCoupon(name);
-		
+
 		checkerOf(userContext).checkNumberOfRetailStoreMemberCoupon(number);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
 	public  RetailStoreMember addRetailStoreMemberCoupon(RetailscmUserContext userContext, String retailStoreMemberId, String name, String number, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingRetailStoreMemberCoupon(userContext,retailStoreMemberId,name, number,tokensExpr);
 
 		RetailStoreMemberCoupon retailStoreMemberCoupon = createRetailStoreMemberCoupon(userContext,name, number);
@@ -820,7 +857,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkNameOfRetailStoreMemberCoupon( name);
 		checkerOf(userContext).checkNumberOfRetailStoreMemberCoupon( number);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember updateRetailStoreMemberCouponProperties(RetailscmUserContext userContext, String retailStoreMemberId, String id,String name,String number, String [] tokensExpr) throws Exception
@@ -888,6 +927,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			checkerOf(userContext).checkIdOfRetailStoreMemberCoupon(retailStoreMemberCouponIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -914,7 +954,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberCoupon(retailStoreMemberCouponId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberCoupon(retailStoreMemberCouponVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember removeRetailStoreMemberCoupon(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -941,7 +983,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberCoupon(retailStoreMemberCouponId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberCoupon(retailStoreMemberCouponVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember copyRetailStoreMemberCouponFrom(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -969,7 +1013,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected void checkParamsForUpdatingRetailStoreMemberCoupon(RetailscmUserContext userContext, String retailStoreMemberId, String retailStoreMemberCouponId, int retailStoreMemberCouponVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberCoupon(retailStoreMemberCouponId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberCoupon(retailStoreMemberCouponVersion);
@@ -984,7 +1028,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 
@@ -1015,6 +1061,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMemberCoupon.changeProperty(property, newValueExpr);
 			retailStoreMemberCoupon.updateLastUpdateTime(userContext.now());
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberCouponList().done());
+			retailStoreMemberCouponManagerOf(userContext).onUpdated(userContext, retailStoreMemberCoupon, this, "updateRetailStoreMemberCoupon");
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1035,16 +1082,17 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 				checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 
-		
+
 		checkerOf(userContext).checkNameOfMemberWishlist(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
 	public  RetailStoreMember addMemberWishlist(RetailscmUserContext userContext, String retailStoreMemberId, String name, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingMemberWishlist(userContext,retailStoreMemberId,name,tokensExpr);
 
 		MemberWishlist memberWishlist = createMemberWishlist(userContext,name);
@@ -1067,7 +1115,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 		checkerOf(userContext).checkNameOfMemberWishlist( name);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember updateMemberWishlistProperties(RetailscmUserContext userContext, String retailStoreMemberId, String id,String name, String [] tokensExpr) throws Exception
@@ -1132,6 +1182,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1158,7 +1209,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 		checkerOf(userContext).checkVersionOfMemberWishlist(memberWishlistVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember removeMemberWishlist(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1185,7 +1238,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 		checkerOf(userContext).checkVersionOfMemberWishlist(memberWishlistVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember copyMemberWishlistFrom(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1213,7 +1268,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected void checkParamsForUpdatingMemberWishlist(RetailscmUserContext userContext, String retailStoreMemberId, String memberWishlistId, int memberWishlistVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberWishlist(memberWishlistId);
 		checkerOf(userContext).checkVersionOfMemberWishlist(memberWishlistVersion);
@@ -1224,7 +1279,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 
@@ -1255,6 +1312,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			memberWishlist.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberWishlistList().done());
+			memberWishlistManagerOf(userContext).onUpdated(userContext, memberWishlist, this, "updateMemberWishlist");
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1275,18 +1333,19 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 				checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 
-		
+
 		checkerOf(userContext).checkNameOfMemberRewardPoint(name);
-		
+
 		checkerOf(userContext).checkPointOfMemberRewardPoint(point);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
 	public  RetailStoreMember addMemberRewardPoint(RetailscmUserContext userContext, String retailStoreMemberId, String name, int point, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingMemberRewardPoint(userContext,retailStoreMemberId,name, point,tokensExpr);
 
 		MemberRewardPoint memberRewardPoint = createMemberRewardPoint(userContext,name, point);
@@ -1310,7 +1369,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkNameOfMemberRewardPoint( name);
 		checkerOf(userContext).checkPointOfMemberRewardPoint( point);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember updateMemberRewardPointProperties(RetailscmUserContext userContext, String retailStoreMemberId, String id,String name,int point, String [] tokensExpr) throws Exception
@@ -1377,6 +1438,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			checkerOf(userContext).checkIdOfMemberRewardPoint(memberRewardPointIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1403,7 +1465,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPoint(memberRewardPointId);
 		checkerOf(userContext).checkVersionOfMemberRewardPoint(memberRewardPointVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember removeMemberRewardPoint(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1430,7 +1494,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPoint(memberRewardPointId);
 		checkerOf(userContext).checkVersionOfMemberRewardPoint(memberRewardPointVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember copyMemberRewardPointFrom(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1458,7 +1524,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected void checkParamsForUpdatingMemberRewardPoint(RetailscmUserContext userContext, String retailStoreMemberId, String memberRewardPointId, int memberRewardPointVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPoint(memberRewardPointId);
 		checkerOf(userContext).checkVersionOfMemberRewardPoint(memberRewardPointVersion);
@@ -1473,7 +1539,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 
@@ -1504,6 +1572,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			memberRewardPoint.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointList().done());
+			memberRewardPointManagerOf(userContext).onUpdated(userContext, memberRewardPoint, this, "updateMemberRewardPoint");
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1524,18 +1593,19 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 				checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 
-		
+
 		checkerOf(userContext).checkNameOfMemberRewardPointRedemption(name);
-		
+
 		checkerOf(userContext).checkPointOfMemberRewardPointRedemption(point);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
 	public  RetailStoreMember addMemberRewardPointRedemption(RetailscmUserContext userContext, String retailStoreMemberId, String name, int point, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingMemberRewardPointRedemption(userContext,retailStoreMemberId,name, point,tokensExpr);
 
 		MemberRewardPointRedemption memberRewardPointRedemption = createMemberRewardPointRedemption(userContext,name, point);
@@ -1559,7 +1629,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkNameOfMemberRewardPointRedemption( name);
 		checkerOf(userContext).checkPointOfMemberRewardPointRedemption( point);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember updateMemberRewardPointRedemptionProperties(RetailscmUserContext userContext, String retailStoreMemberId, String id,String name,int point, String [] tokensExpr) throws Exception
@@ -1626,6 +1698,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			checkerOf(userContext).checkIdOfMemberRewardPointRedemption(memberRewardPointRedemptionIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1652,7 +1725,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPointRedemption(memberRewardPointRedemptionId);
 		checkerOf(userContext).checkVersionOfMemberRewardPointRedemption(memberRewardPointRedemptionVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember removeMemberRewardPointRedemption(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1679,7 +1754,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPointRedemption(memberRewardPointRedemptionId);
 		checkerOf(userContext).checkVersionOfMemberRewardPointRedemption(memberRewardPointRedemptionVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember copyMemberRewardPointRedemptionFrom(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1707,7 +1784,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected void checkParamsForUpdatingMemberRewardPointRedemption(RetailscmUserContext userContext, String retailStoreMemberId, String memberRewardPointRedemptionId, int memberRewardPointRedemptionVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfMemberRewardPointRedemption(memberRewardPointRedemptionId);
 		checkerOf(userContext).checkVersionOfMemberRewardPointRedemption(memberRewardPointRedemptionVersion);
@@ -1722,7 +1799,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 
@@ -1753,6 +1832,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			memberRewardPointRedemption.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withMemberRewardPointRedemptionList().done());
+			memberRewardPointRedemptionManagerOf(userContext).onUpdated(userContext, memberRewardPointRedemption, this, "updateMemberRewardPointRedemption");
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -1773,20 +1853,21 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 				checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 
-		
+
 		checkerOf(userContext).checkNameOfRetailStoreMemberAddress(name);
-		
+
 		checkerOf(userContext).checkMobilePhoneOfRetailStoreMemberAddress(mobilePhone);
-		
+
 		checkerOf(userContext).checkAddressOfRetailStoreMemberAddress(address);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
 	public  RetailStoreMember addRetailStoreMemberAddress(RetailscmUserContext userContext, String retailStoreMemberId, String name, String mobilePhone, String address, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingRetailStoreMemberAddress(userContext,retailStoreMemberId,name, mobilePhone, address,tokensExpr);
 
 		RetailStoreMemberAddress retailStoreMemberAddress = createRetailStoreMemberAddress(userContext,name, mobilePhone, address);
@@ -1811,7 +1892,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkMobilePhoneOfRetailStoreMemberAddress( mobilePhone);
 		checkerOf(userContext).checkAddressOfRetailStoreMemberAddress( address);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember updateRetailStoreMemberAddressProperties(RetailscmUserContext userContext, String retailStoreMemberId, String id,String name,String mobilePhone,String address, String [] tokensExpr) throws Exception
@@ -1880,6 +1963,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			checkerOf(userContext).checkIdOfRetailStoreMemberAddress(retailStoreMemberAddressIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -1906,7 +1990,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberAddress(retailStoreMemberAddressId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberAddress(retailStoreMemberAddressVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember removeRetailStoreMemberAddress(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1933,7 +2019,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberAddress(retailStoreMemberAddressId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberAddress(retailStoreMemberAddressVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember copyRetailStoreMemberAddressFrom(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -1961,7 +2049,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected void checkParamsForUpdatingRetailStoreMemberAddress(RetailscmUserContext userContext, String retailStoreMemberId, String retailStoreMemberAddressId, int retailStoreMemberAddressVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberAddress(retailStoreMemberAddressId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberAddress(retailStoreMemberAddressVersion);
@@ -1980,7 +2068,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 
@@ -2011,6 +2101,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMemberAddress.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberAddressList().done());
+			retailStoreMemberAddressManagerOf(userContext).onUpdated(userContext, retailStoreMemberAddress, this, "updateRetailStoreMemberAddress");
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -2031,20 +2122,21 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 
 				checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 
-		
+
 		checkerOf(userContext).checkNameOfRetailStoreMemberGiftCard(name);
-		
+
 		checkerOf(userContext).checkNumberOfRetailStoreMemberGiftCard(number);
-		
+
 		checkerOf(userContext).checkRemainOfRetailStoreMemberGiftCard(remain);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 
 	}
 	public  RetailStoreMember addRetailStoreMemberGiftCard(RetailscmUserContext userContext, String retailStoreMemberId, String name, String number, BigDecimal remain, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingRetailStoreMemberGiftCard(userContext,retailStoreMemberId,name, number, remain,tokensExpr);
 
 		RetailStoreMemberGiftCard retailStoreMemberGiftCard = createRetailStoreMemberGiftCard(userContext,name, number, remain);
@@ -2069,7 +2161,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkNumberOfRetailStoreMemberGiftCard( number);
 		checkerOf(userContext).checkRemainOfRetailStoreMemberGiftCard( remain);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember updateRetailStoreMemberGiftCardProperties(RetailscmUserContext userContext, String retailStoreMemberId, String id,String name,String number,BigDecimal remain, String [] tokensExpr) throws Exception
@@ -2138,6 +2232,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			checkerOf(userContext).checkIdOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
 
 	}
@@ -2164,7 +2259,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember removeRetailStoreMemberGiftCard(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -2191,7 +2288,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		checkerOf(userContext).checkIdOfRetailStoreMember( retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 	public  RetailStoreMember copyRetailStoreMemberGiftCardFrom(RetailscmUserContext userContext, String retailStoreMemberId,
@@ -2219,7 +2318,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	protected void checkParamsForUpdatingRetailStoreMemberGiftCard(RetailscmUserContext userContext, String retailStoreMemberId, String retailStoreMemberGiftCardId, int retailStoreMemberGiftCardVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfRetailStoreMember(retailStoreMemberId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardVersion);
@@ -2238,7 +2337,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
+
 
 	}
 
@@ -2269,6 +2370,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			retailStoreMemberGiftCard.changeProperty(property, newValueExpr);
 			
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, tokens().withRetailStoreMemberGiftCardList().done());
+			retailStoreMemberGiftCardManagerOf(userContext).onUpdated(userContext, retailStoreMemberGiftCard, this, "updateRetailStoreMemberGiftCard");
 			return present(userContext,retailStoreMember, mergedAllTokens(tokensExpr));
 		}
 
@@ -2301,112 +2403,13 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -2429,28 +2432,21 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, RetailStoreMember.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, RetailStoreMember.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -2496,7 +2492,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String retailStoreMemberId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getRetailStoreMemberDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		RetailStoreMember merchantObj = (RetailStoreMember) this.view(userContext, retailStoreMemberId);
     String merchantObjId = retailStoreMemberId;
     String linkToUrl =	"retailStoreMemberManager/wxappview/" + merchantObjId + "/";
@@ -2564,8 +2560,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		sections.add(consumerOrderListSection);
 
 		result.put("consumerOrderListSection", ListofUtils.toShortList(merchantObj.getConsumerOrderList(), "consumerOrder"));
-		vscope.field("consumerOrderListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( ConsumerOrder.class.getName(), null));
 
 		//处理Section：retailStoreMemberCouponListSection
 		Map retailStoreMemberCouponListSection = ListofUtils.buildSection(
@@ -2580,8 +2574,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		sections.add(retailStoreMemberCouponListSection);
 
 		result.put("retailStoreMemberCouponListSection", ListofUtils.toShortList(merchantObj.getRetailStoreMemberCouponList(), "retailStoreMemberCoupon"));
-		vscope.field("retailStoreMemberCouponListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( RetailStoreMemberCoupon.class.getName(), null));
 
 		//处理Section：memberWishlistListSection
 		Map memberWishlistListSection = ListofUtils.buildSection(
@@ -2596,8 +2588,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		sections.add(memberWishlistListSection);
 
 		result.put("memberWishlistListSection", ListofUtils.toShortList(merchantObj.getMemberWishlistList(), "memberWishlist"));
-		vscope.field("memberWishlistListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( MemberWishlist.class.getName(), null));
 
 		//处理Section：memberRewardPointListSection
 		Map memberRewardPointListSection = ListofUtils.buildSection(
@@ -2612,8 +2602,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		sections.add(memberRewardPointListSection);
 
 		result.put("memberRewardPointListSection", ListofUtils.toShortList(merchantObj.getMemberRewardPointList(), "memberRewardPoint"));
-		vscope.field("memberRewardPointListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( MemberRewardPoint.class.getName(), null));
 
 		//处理Section：memberRewardPointRedemptionListSection
 		Map memberRewardPointRedemptionListSection = ListofUtils.buildSection(
@@ -2628,8 +2616,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		sections.add(memberRewardPointRedemptionListSection);
 
 		result.put("memberRewardPointRedemptionListSection", ListofUtils.toShortList(merchantObj.getMemberRewardPointRedemptionList(), "memberRewardPointRedemption"));
-		vscope.field("memberRewardPointRedemptionListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( MemberRewardPointRedemption.class.getName(), null));
 
 		//处理Section：retailStoreMemberAddressListSection
 		Map retailStoreMemberAddressListSection = ListofUtils.buildSection(
@@ -2644,8 +2630,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		sections.add(retailStoreMemberAddressListSection);
 
 		result.put("retailStoreMemberAddressListSection", ListofUtils.toShortList(merchantObj.getRetailStoreMemberAddressList(), "retailStoreMemberAddress"));
-		vscope.field("retailStoreMemberAddressListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( RetailStoreMemberAddress.class.getName(), null));
 
 		//处理Section：retailStoreMemberGiftCardListSection
 		Map retailStoreMemberGiftCardListSection = ListofUtils.buildSection(
@@ -2660,8 +2644,6 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		sections.add(retailStoreMemberGiftCardListSection);
 
 		result.put("retailStoreMemberGiftCardListSection", ListofUtils.toShortList(merchantObj.getRetailStoreMemberGiftCardList(), "retailStoreMemberGiftCard"));
-		vscope.field("retailStoreMemberGiftCardListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( RetailStoreMemberGiftCard.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -2676,8 +2658,19 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

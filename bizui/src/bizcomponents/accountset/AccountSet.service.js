@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}accountSetManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}accountSetManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -150,6 +155,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountSetService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -169,6 +182,7 @@ const  processRequest = (data) => {
 
 const AccountSetService = { view,
   load,
+  analyze,
   addAccountingSubject,
   addAccountingPeriod,
   addAccountingDocumentType,
@@ -183,6 +197,6 @@ const AccountSetService = { view,
   requestCandidateGoodsSupplier,
   transferToAnotherCountryCenter,
   transferToAnotherRetailStore,
-  transferToAnotherGoodsSupplier, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherGoodsSupplier, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default AccountSetService
 

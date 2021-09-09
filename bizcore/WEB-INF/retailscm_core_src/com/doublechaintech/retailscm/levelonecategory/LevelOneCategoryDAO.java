@@ -46,6 +46,7 @@ public interface LevelOneCategoryDAO extends BaseDAO{
 	public void delete(String levelOneCategoryId, int version) throws Exception;
 	public LevelOneCategory disconnectFromAll(String levelOneCategoryId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public LevelTwoCategoryDAO getLevelTwoCategoryDAO();
 		
@@ -57,9 +58,10 @@ public interface LevelOneCategoryDAO extends BaseDAO{
 
 
 
-	public SmartList<LevelOneCategory> queryList(String sql, Object ... parmeters);
+	public SmartList<LevelOneCategory> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<LevelOneCategory> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateLevelOneCategory executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<LevelOneCategory> findLevelOneCategoryByCatalog(String catalogId, Map<String,Object> options);
@@ -73,6 +75,8 @@ public interface LevelOneCategoryDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:LevelTwoCategory的parentCategory的LevelTwoCategoryList
 	public SmartList<LevelTwoCategory> loadOurLevelTwoCategoryList(RetailscmUserContext userContext, List<LevelOneCategory> us, Map<String,Object> options) throws Exception;
 	
+
+	List<LevelOneCategory> search(LevelOneCategoryRequest pRequest);
 }
 
 

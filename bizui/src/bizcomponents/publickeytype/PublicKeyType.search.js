@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { UserDomainAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <UserDomainAssociateForm 
-	visible={currentAssociateModal==='domain'} 
-	data={{publicKeyTypeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'domain')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'domain')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class PublicKeyTypeSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class PublicKeyTypeSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {PublicKeyTypeTable} = GlobalComponents;
     const {PublicKeyTypeSearchForm} = GlobalComponents;
     const {PublicKeyTypeModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class PublicKeyTypeSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,PublicKeyTypeModalTable,"publicKeyTypeIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

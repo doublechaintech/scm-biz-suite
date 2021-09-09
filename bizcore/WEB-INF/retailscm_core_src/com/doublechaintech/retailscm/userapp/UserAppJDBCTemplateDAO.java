@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.userapp;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 
 	protected SecUserDAO secUserDAO;
 	public void setSecUserDAO(SecUserDAO secUserDAO){
- 	
+
  		if(secUserDAO == null){
  			throw new IllegalStateException("Do not try to set secUserDAO to null.");
  		}
@@ -53,13 +54,13 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
  		if(this.secUserDAO == null){
  			throw new IllegalStateException("The secUserDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.secUserDAO;
- 	}	
+ 	}
 
 	protected QuickLinkDAO quickLinkDAO;
 	public void setQuickLinkDAO(QuickLinkDAO quickLinkDAO){
- 	
+
  		if(quickLinkDAO == null){
  			throw new IllegalStateException("Do not try to set quickLinkDAO to null.");
  		}
@@ -69,13 +70,13 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
  		if(this.quickLinkDAO == null){
  			throw new IllegalStateException("The quickLinkDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.quickLinkDAO;
- 	}	
+ 	}
 
 	protected ListAccessDAO listAccessDAO;
 	public void setListAccessDAO(ListAccessDAO listAccessDAO){
- 	
+
  		if(listAccessDAO == null){
  			throw new IllegalStateException("Do not try to set listAccessDAO to null.");
  		}
@@ -85,9 +86,10 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
  		if(this.listAccessDAO == null){
  			throw new IllegalStateException("The listAccessDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.listAccessDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -141,14 +143,14 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		newUserApp.setVersion(0);
 		
 		
- 		
+
  		if(isSaveQuickLinkListEnabled(options)){
  			for(QuickLink item: newUserApp.getQuickLinkList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveListAccessListEnabled(options)){
  			for(ListAccess item: newUserApp.getListAccessList()){
  				item.setVersion(0);
@@ -235,58 +237,58 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return UserAppTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractSecUserEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, UserAppTokens.SECUSER);
  	}
 
  	protected boolean isSaveSecUserEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, UserAppTokens.SECUSER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractQuickLinkListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractQuickLinkListEnabled(Map<String,Object> options){
  		return checkOptions(options,UserAppTokens.QUICK_LINK_LIST);
  	}
- 	protected boolean isAnalyzeQuickLinkListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeQuickLinkListEnabled(Map<String,Object> options){
  		return UserAppTokens.of(options).analyzeQuickLinkListEnabled();
  	}
-	
+
 	protected boolean isSaveQuickLinkListEnabled(Map<String,Object> options){
 		return checkOptions(options, UserAppTokens.QUICK_LINK_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractListAccessListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractListAccessListEnabled(Map<String,Object> options){
  		return checkOptions(options,UserAppTokens.LIST_ACCESS_LIST);
  	}
- 	protected boolean isAnalyzeListAccessListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeListAccessListEnabled(Map<String,Object> options){
  		return UserAppTokens.of(options).analyzeListAccessListEnabled();
  	}
-	
+
 	protected boolean isSaveListAccessListEnabled(Map<String,Object> options){
 		return checkOptions(options, UserAppTokens.LIST_ACCESS_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -295,8 +297,8 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		return new UserAppMapper();
 	}
 
-	
-	
+
+
 	protected UserApp extractUserApp(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			UserApp userApp = loadSingleObject(accessKey, getUserAppMapper());
@@ -307,13 +309,13 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 
 	}
 
-	
-	
+
+
 
 	protected UserApp loadInternalUserApp(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		UserApp userApp = extractUserApp(accessKey, loadOptions);
- 	
+
  		if(isExtractSecUserEnabled(loadOptions)){
 	 		extractSecUser(userApp, loadOptions);
  		}
@@ -321,8 +323,8 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		
 		if(isExtractQuickLinkListEnabled(loadOptions)){
 	 		extractQuickLinkList(userApp, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeQuickLinkListEnabled(loadOptions)){
 	 		analyzeQuickLinkList(userApp, loadOptions);
@@ -331,8 +333,8 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		
 		if(isExtractListAccessListEnabled(loadOptions)){
 	 		extractListAccessList(userApp, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeListAccessListEnabled(loadOptions)){
 	 		analyzeListAccessList(userApp, loadOptions);
@@ -340,12 +342,13 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
  		
 		
 		return userApp;
-		
+
 	}
 
-	 
+	
 
  	protected UserApp extractSecUser(UserApp userApp, Map<String,Object> options) throws Exception{
+  
 
 		if(userApp.getSecUser() == null){
 			return userApp;
@@ -358,21 +361,21 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		if(secUser != null){
 			userApp.setSecUser(secUser);
 		}
-		
- 		
+
+
  		return userApp;
  	}
- 		
+
  
 		
 	protected void enhanceQuickLinkList(SmartList<QuickLink> quickLinkList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected UserApp extractQuickLinkList(UserApp userApp, Map<String,Object> options){
-		
-		
+    
+
 		if(userApp == null){
 			return null;
 		}
@@ -380,21 +383,20 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 			return userApp;
 		}
 
-		
-		
+
+
 		SmartList<QuickLink> quickLinkList = getQuickLinkDAO().findQuickLinkByApp(userApp.getId(),options);
 		if(quickLinkList != null){
 			enhanceQuickLinkList(quickLinkList,options);
 			userApp.setQuickLinkList(quickLinkList);
 		}
-		
+
 		return userApp;
-	
-	}	
-	
+  
+	}
+
 	protected UserApp analyzeQuickLinkList(UserApp userApp, Map<String,Object> options){
-		
-		
+     
 		if(userApp == null){
 			return null;
 		}
@@ -402,27 +404,27 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 			return userApp;
 		}
 
-		
-		
+
+
 		SmartList<QuickLink> quickLinkList = userApp.getQuickLinkList();
 		if(quickLinkList != null){
 			getQuickLinkDAO().analyzeQuickLinkByApp(quickLinkList, userApp.getId(), options);
-			
+
 		}
-		
+
 		return userApp;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceListAccessList(SmartList<ListAccess> listAccessList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected UserApp extractListAccessList(UserApp userApp, Map<String,Object> options){
-		
-		
+    
+
 		if(userApp == null){
 			return null;
 		}
@@ -430,21 +432,20 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 			return userApp;
 		}
 
-		
-		
+
+
 		SmartList<ListAccess> listAccessList = getListAccessDAO().findListAccessByApp(userApp.getId(),options);
 		if(listAccessList != null){
 			enhanceListAccessList(listAccessList,options);
 			userApp.setListAccessList(listAccessList);
 		}
-		
+
 		return userApp;
-	
-	}	
-	
+  
+	}
+
 	protected UserApp analyzeListAccessList(UserApp userApp, Map<String,Object> options){
-		
-		
+     
 		if(userApp == null){
 			return null;
 		}
@@ -452,43 +453,43 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 			return userApp;
 		}
 
-		
-		
+
+
 		SmartList<ListAccess> listAccessList = userApp.getListAccessList();
 		if(listAccessList != null){
 			getListAccessDAO().analyzeListAccessByApp(listAccessList, userApp.getId(), options);
-			
+
 		}
-		
+
 		return userApp;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<UserApp> findUserAppBySecUser(String secUserId,Map<String,Object> options){
- 	
+
   		SmartList<UserApp> resultList = queryWith(UserAppTable.COLUMN_SEC_USER, secUserId, options, getUserAppMapper());
 		// analyzeUserAppBySecUser(resultList, secUserId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<UserApp> findUserAppBySecUser(String secUserId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<UserApp> resultList =  queryWithRange(UserAppTable.COLUMN_SEC_USER, secUserId, options, getUserAppMapper(), start, count);
  		//analyzeUserAppBySecUser(resultList, secUserId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeUserAppBySecUser(SmartList<UserApp> resultList, String secUserId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countUserAppBySecUser(String secUserId,Map<String,Object> options){
@@ -499,21 +500,24 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 	public Map<String, Integer> countUserAppBySecUserIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(UserAppTable.COLUMN_SEC_USER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected UserApp saveUserApp(UserApp  userApp){
+    
+
 		
 		if(!userApp.isChanged()){
 			return userApp;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(userApp);
 		String SQL=this.getSaveUserAppSQL(userApp);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveUserAppParameters(userApp);
@@ -524,6 +528,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		}
 
 		userApp.incVersion();
+		userApp.afterSave();
 		return userApp;
 
 	}
@@ -541,6 +546,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		for(UserApp userApp:userAppList){
 			if(userApp.isChanged()){
 				userApp.incVersion();
+				userApp.afterSave();
 			}
 
 
@@ -642,72 +648,65 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
  		return prepareUserAppCreateParameters(userApp);
  	}
  	protected Object[] prepareUserAppUpdateParameters(UserApp userApp){
- 		Object[] parameters = new Object[11];
+ 		Object[] parameters = new Object[13];
  
- 		
  		parameters[0] = userApp.getTitle();
  		
  		if(userApp.getSecUser() != null){
  			parameters[1] = userApp.getSecUser().getId();
  		}
- 
- 		
+    
  		parameters[2] = userApp.getAppIcon();
- 		
  		
  		parameters[3] = userApp.getFullAccess();
  		
- 		
  		parameters[4] = userApp.getPermission();
  		
+ 		parameters[5] = userApp.getAppType();
  		
- 		parameters[5] = userApp.getObjectType();
+ 		parameters[6] = userApp.getAppId();
  		
+ 		parameters[7] = userApp.getCtxType();
  		
- 		parameters[6] = userApp.getObjectId();
+ 		parameters[8] = userApp.getCtxId();
  		
+ 		parameters[9] = userApp.getLocation();
  		
- 		parameters[7] = userApp.getLocation();
- 		
- 		parameters[8] = userApp.nextVersion();
- 		parameters[9] = userApp.getId();
- 		parameters[10] = userApp.getVersion();
+ 		parameters[10] = userApp.nextVersion();
+ 		parameters[11] = userApp.getId();
+ 		parameters[12] = userApp.getVersion();
 
  		return parameters;
  	}
  	protected Object[] prepareUserAppCreateParameters(UserApp userApp){
-		Object[] parameters = new Object[9];
+		Object[] parameters = new Object[11];
         if(userApp.getId() == null){
           String newUserAppId=getNextId();
           userApp.setId(newUserAppId);
         }
 		parameters[0] =  userApp.getId();
  
- 		
  		parameters[1] = userApp.getTitle();
  		
  		if(userApp.getSecUser() != null){
  			parameters[2] = userApp.getSecUser().getId();
-
  		}
- 		
  		
  		parameters[3] = userApp.getAppIcon();
  		
- 		
  		parameters[4] = userApp.getFullAccess();
- 		
  		
  		parameters[5] = userApp.getPermission();
  		
+ 		parameters[6] = userApp.getAppType();
  		
- 		parameters[6] = userApp.getObjectType();
+ 		parameters[7] = userApp.getAppId();
  		
+ 		parameters[8] = userApp.getCtxType();
  		
- 		parameters[7] = userApp.getObjectId();
+ 		parameters[9] = userApp.getCtxId();
  		
- 		
- 		parameters[8] = userApp.getLocation();
+ 		parameters[10] = userApp.getLocation();
  		
 
  		return parameters;
@@ -715,12 +714,11 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 
 	protected UserApp saveInternalUserApp(UserApp userApp, Map<String,Object> options){
 
-		saveUserApp(userApp);
-
  		if(isSaveSecUserEnabled(options)){
 	 		saveSecUser(userApp, options);
  		}
  
+   saveUserApp(userApp);
 		
 		if(isSaveQuickLinkListEnabled(options)){
 	 		saveQuickLinkList(userApp, options);
@@ -746,6 +744,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 	
 
  	protected UserApp saveSecUser(UserApp userApp, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(userApp.getSecUser() == null){
  			return userApp;//do nothing when it is null
@@ -755,11 +754,6 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
  		return userApp;
 
  	}
-
-
-
-
-
  
 
 	
@@ -822,7 +816,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 
 		
 	protected UserApp saveQuickLinkList(UserApp userApp, Map<String,Object> options){
-
+    
 
 
 
@@ -888,7 +882,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 
 		
 	protected UserApp saveListAccessList(UserApp userApp, Map<String,Object> options){
-
+    
 
 
 
@@ -955,20 +949,20 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 		
 
 	public UserApp present(UserApp userApp,Map<String, Object> options){
-	
+
 		presentQuickLinkList(userApp,options);
 		presentListAccessList(userApp,options);
 
 		return userApp;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected UserApp presentQuickLinkList(
 			UserApp userApp,
 			Map<String, Object> options) {
-
-		SmartList<QuickLink> quickLinkList = userApp.getQuickLinkList();		
+    
+		SmartList<QuickLink> quickLinkList = userApp.getQuickLinkList();
 				SmartList<QuickLink> newList= presentSubList(userApp.getId(),
 				quickLinkList,
 				options,
@@ -976,19 +970,19 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 				getQuickLinkDAO()::findQuickLinkByApp
 				);
 
-		
+
 		userApp.setQuickLinkList(newList);
-		
+
 
 		return userApp;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected UserApp presentListAccessList(
 			UserApp userApp,
 			Map<String, Object> options) {
-
-		SmartList<ListAccess> listAccessList = userApp.getListAccessList();		
+    
+		SmartList<ListAccess> listAccessList = userApp.getListAccessList();
 				SmartList<ListAccess> newList= presentSubList(userApp.getId(),
 				listAccessList,
 				options,
@@ -996,12 +990,12 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 				getListAccessDAO()::findListAccessByApp
 				);
 
-		
+
 		userApp.setListAccessList(newList);
-		
+
 
 		return userApp;
-	}			
+	}
 		
 
 	
@@ -1031,6 +1025,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 	
 	// 需要一个加载引用我的对象的enhance方法:QuickLink的app的QuickLinkList
 	public SmartList<QuickLink> loadOurQuickLinkList(RetailscmUserContext userContext, List<UserApp> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1054,6 +1049,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 	
 	// 需要一个加载引用我的对象的enhance方法:ListAccess的app的ListAccessList
 	public SmartList<ListAccess> loadOurListAccessList(RetailscmUserContext userContext, List<UserApp> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1110,6 +1106,10 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<UserApp> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getUserAppMapper());
   }
@@ -1145,6 +1145,15 @@ public class UserAppJDBCTemplateDAO extends RetailscmBaseDAOImpl implements User
 
 	
 
+  @Override
+  public List<UserApp> search(UserAppRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected UserAppMapper mapper() {
+    return getUserAppMapper();
+  }
 }
 
 

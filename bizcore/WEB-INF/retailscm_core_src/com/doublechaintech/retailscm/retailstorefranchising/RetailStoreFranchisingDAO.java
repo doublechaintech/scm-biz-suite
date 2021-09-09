@@ -44,6 +44,7 @@ public interface RetailStoreFranchisingDAO extends BaseDAO{
 	public void delete(String retailStoreFranchisingId, int version) throws Exception;
 	public RetailStoreFranchising disconnectFromAll(String retailStoreFranchisingId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public RetailStoreDAO getRetailStoreDAO();
 		
@@ -83,14 +84,17 @@ public interface RetailStoreFranchisingDAO extends BaseDAO{
 	public int countRetailStoreListWithClosing(String retailStoreFranchisingId, String closingId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<RetailStoreFranchising> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreFranchising> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreFranchising> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreFranchising executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的franchising的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreFranchising> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStoreFranchising> search(RetailStoreFranchisingRequest pRequest);
 }
 
 

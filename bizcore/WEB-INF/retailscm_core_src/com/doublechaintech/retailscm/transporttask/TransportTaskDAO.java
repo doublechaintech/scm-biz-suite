@@ -54,6 +54,7 @@ public interface TransportTaskDAO extends BaseDAO{
 	public void delete(String transportTaskId, int version) throws Exception;
 	public TransportTask disconnectFromAll(String transportTaskId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public GoodsDAO getGoodsDAO();
 		
@@ -104,9 +105,10 @@ public interface TransportTaskDAO extends BaseDAO{
 
 
 
-	public SmartList<TransportTask> queryList(String sql, Object ... parmeters);
+	public SmartList<TransportTask> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<TransportTask> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateTransportTask executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<TransportTask> findTransportTaskByEnd(String retailStoreId, Map<String,Object> options);
@@ -147,6 +149,8 @@ public interface TransportTaskDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:TransportTaskTrack的movement的TransportTaskTrackList
 	public SmartList<TransportTaskTrack> loadOurTransportTaskTrackList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception;
 	
+
+	List<TransportTask> search(TransportTaskRequest pRequest);
 }
 
 

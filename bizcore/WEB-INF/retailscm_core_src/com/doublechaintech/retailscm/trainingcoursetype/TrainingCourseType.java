@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.trainingcoursetype;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 import com.doublechaintech.retailscm.companytraining.CompanyTraining;
 
@@ -28,12 +25,12 @@ import com.doublechaintech.retailscm.companytraining.CompanyTraining;
 @JsonSerialize(using = TrainingCourseTypeSerializer.class)
 public class TrainingCourseType extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String CODE_PROPERTY                  = "code"              ;
 	public static final String COMPANY_PROPERTY               = "company"           ;
@@ -47,33 +44,95 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CODE_PROPERTY, "code", "代码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(COMPANY_PROPERTY, "retail_store_country_center", "公司")
+        .withType("retail_store_country_center", RetailStoreCountryCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DESCRIPTION_PROPERTY, "description", "描述")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(COMPANY_TRAINING_LIST, "trainingCourseType", "公司培训名单")
+        .withType("company_training", CompanyTraining.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,CODE_PROPERTY ,COMPANY_PROPERTY ,NAME_PROPERTY ,DESCRIPTION_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(COMPANY_TRAINING_LIST, "trainingCourseType");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(COMPANY_TRAINING_LIST, CompanyTraining.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(COMPANY_PROPERTY, RetailStoreCountryCenter.class);
+
+    return parents;
+  }
+
+  public TrainingCourseType want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public TrainingCourseType wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getCode();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mCode               ;
-	protected		RetailStoreCountryCenter	mCompany            ;
-	protected		String              	mName               ;
-	protected		String              	mDescription        ;
-	protected		int                 	mVersion            ;
-	
+
+	protected		String              	id                  ;
+	protected		String              	code                ;
+	protected		RetailStoreCountryCenter	company             ;
+	protected		String              	name                ;
+	protected		String              	description         ;
+	protected		int                 	version             ;
+
 	
 	protected		SmartList<CompanyTraining>	mCompanyTrainingList;
 
-	
-		
+
+
 	public 	TrainingCourseType(){
 		// lazy load for all the properties
 	}
@@ -81,20 +140,39 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		TrainingCourseType trainingCourseType = new TrainingCourseType();
 		trainingCourseType.setId(id);
 		trainingCourseType.setVersion(Integer.MAX_VALUE);
+		trainingCourseType.setChecked(true);
 		return trainingCourseType;
 	}
 	public 	static TrainingCourseType refById(String id){
 		return withId(id);
 	}
-	
+
+  public TrainingCourseType limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public TrainingCourseType limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static TrainingCourseType searchExample(){
+    TrainingCourseType trainingCourseType = new TrainingCourseType();
+    		trainingCourseType.setVersion(UNSET_INT);
+
+    return trainingCourseType;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCompany( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -165,7 +243,7 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(CODE_PROPERTY.equals(property)){
 			return getCode();
 		}
@@ -186,113 +264,192 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public TrainingCourseType updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public TrainingCourseType updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public TrainingCourseType orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public TrainingCourseType ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public TrainingCourseType addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setCode(String code){
-		this.mCode = trimString(code);;
-	}
+	public void setCode(String code){String oldCode = this.code;String newCode = trimString(code);this.code = newCode;}
+	public String code(){
+doLoad();
+return getCode();
+}
 	public String getCode(){
-		return this.mCode;
+		return this.code;
 	}
-	public TrainingCourseType updateCode(String code){
-		this.mCode = trimString(code);;
-		this.changed = true;
-		return this;
-	}
+	public TrainingCourseType updateCode(String code){String oldCode = this.code;String newCode = trimString(code);if(!shouldReplaceBy(newCode, oldCode)){return this;}this.code = newCode;addPropertyChange(CODE_PROPERTY, oldCode, newCode);this.changed = true;setChecked(false);return this;}
+	public TrainingCourseType orderByCode(boolean asc){
+doAddOrderBy(CODE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCodeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CODE_PROPERTY, operator, parameters);
+}
+	public TrainingCourseType ignoreCodeCriteria(){super.ignoreSearchProperty(CODE_PROPERTY);
+return this;
+}
+	public TrainingCourseType addCodeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCodeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCode(String code){
 		if(code != null) { setCode(code);}
 	}
+
 	
-	
-	public void setCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-	}
+	public void setCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;this.company = newCompany;}
+	public RetailStoreCountryCenter company(){
+doLoad();
+return getCompany();
+}
 	public RetailStoreCountryCenter getCompany(){
-		return this.mCompany;
+		return this.company;
 	}
-	public TrainingCourseType updateCompany(RetailStoreCountryCenter company){
-		this.mCompany = company;;
-		this.changed = true;
-		return this;
-	}
+	public TrainingCourseType updateCompany(RetailStoreCountryCenter company){RetailStoreCountryCenter oldCompany = this.company;RetailStoreCountryCenter newCompany = company;if(!shouldReplaceBy(newCompany, oldCompany)){return this;}this.company = newCompany;addPropertyChange(COMPANY_PROPERTY, oldCompany, newCompany);this.changed = true;setChecked(false);return this;}
+	public TrainingCourseType orderByCompany(boolean asc){
+doAddOrderBy(COMPANY_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCompanyCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(COMPANY_PROPERTY, operator, parameters);
+}
+	public TrainingCourseType ignoreCompanyCriteria(){super.ignoreSearchProperty(COMPANY_PROPERTY);
+return this;
+}
+	public TrainingCourseType addCompanyCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCompanyCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCompany(RetailStoreCountryCenter company){
 		if(company != null) { setCompany(company);}
 	}
-	
+
 	
 	public void clearCompany(){
 		setCompany ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public TrainingCourseType updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public TrainingCourseType updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public TrainingCourseType orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public TrainingCourseType ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public TrainingCourseType addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setDescription(String description){
-		this.mDescription = trimString(description);;
-	}
+	public void setDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);this.description = newDescription;}
+	public String description(){
+doLoad();
+return getDescription();
+}
 	public String getDescription(){
-		return this.mDescription;
+		return this.description;
 	}
-	public TrainingCourseType updateDescription(String description){
-		this.mDescription = trimString(description);;
-		this.changed = true;
-		return this;
-	}
+	public TrainingCourseType updateDescription(String description){String oldDescription = this.description;String newDescription = trimString(description);if(!shouldReplaceBy(newDescription, oldDescription)){return this;}this.description = newDescription;addPropertyChange(DESCRIPTION_PROPERTY, oldDescription, newDescription);this.changed = true;setChecked(false);return this;}
+	public TrainingCourseType orderByDescription(boolean asc){
+doAddOrderBy(DESCRIPTION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDescriptionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DESCRIPTION_PROPERTY, operator, parameters);
+}
+	public TrainingCourseType ignoreDescriptionCriteria(){super.ignoreSearchProperty(DESCRIPTION_PROPERTY);
+return this;
+}
+	public TrainingCourseType addDescriptionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDescriptionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDescription(String description){
 		if(description != null) { setDescription(description);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public TrainingCourseType updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public TrainingCourseType updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public TrainingCourseType orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public TrainingCourseType ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public TrainingCourseType addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public  SmartList<CompanyTraining> getCompanyTrainingList(){
@@ -301,9 +458,18 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 			this.mCompanyTrainingList.setListInternalName (COMPANY_TRAINING_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mCompanyTrainingList;	
+
+		return this.mCompanyTrainingList;
 	}
+
+  public  SmartList<CompanyTraining> companyTrainingList(){
+    
+    doLoadChild(COMPANY_TRAINING_LIST);
+    
+    return getCompanyTrainingList();
+  }
+
+
 	public  void setCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList){
 		for( CompanyTraining companyTraining:companyTrainingList){
 			companyTraining.setTrainingCourseType(this);
@@ -311,18 +477,20 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 
 		this.mCompanyTrainingList = companyTrainingList;
 		this.mCompanyTrainingList.setListInternalName (COMPANY_TRAINING_LIST );
-		
+
 	}
-	
-	public  void addCompanyTraining(CompanyTraining companyTraining){
+
+	public  TrainingCourseType addCompanyTraining(CompanyTraining companyTraining){
 		companyTraining.setTrainingCourseType(this);
 		getCompanyTrainingList().add(companyTraining);
+		return this;
 	}
-	public  void addCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList){
+	public  TrainingCourseType addCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList){
 		for( CompanyTraining companyTraining:companyTrainingList){
 			companyTraining.setTrainingCourseType(this);
 		}
 		getCompanyTrainingList().addAll(companyTrainingList);
+		return this;
 	}
 	public  void mergeCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList){
 		if(companyTrainingList==null){
@@ -332,45 +500,45 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 			return;
 		}
 		addCompanyTrainingList( companyTrainingList );
-		
+
 	}
 	public  CompanyTraining removeCompanyTraining(CompanyTraining companyTrainingIndex){
-		
+
 		int index = getCompanyTrainingList().indexOf(companyTrainingIndex);
         if(index < 0){
         	String message = "CompanyTraining("+companyTrainingIndex.getId()+") with version='"+companyTrainingIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        CompanyTraining companyTraining = getCompanyTrainingList().get(index);        
+        CompanyTraining companyTraining = getCompanyTrainingList().get(index);
         // companyTraining.clearTrainingCourseType(); //disconnect with TrainingCourseType
         companyTraining.clearFromAll(); //disconnect with TrainingCourseType
-		
+
 		boolean result = getCompanyTrainingList().planToRemove(companyTraining);
         if(!result){
         	String message = "CompanyTraining("+companyTrainingIndex.getId()+") with version='"+companyTrainingIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
         return companyTraining;
-        
-	
+
+
 	}
 	//断舍离
 	public  void breakWithCompanyTraining(CompanyTraining companyTraining){
-		
+
 		if(companyTraining == null){
 			return;
 		}
 		companyTraining.setTrainingCourseType(null);
 		//getCompanyTrainingList().remove();
-	
+
 	}
-	
+
 	public  boolean hasCompanyTraining(CompanyTraining companyTraining){
-	
+
 		return getCompanyTrainingList().contains(companyTraining);
-  
+
 	}
-	
+
 	public void copyCompanyTrainingFrom(CompanyTraining companyTraining) {
 
 		CompanyTraining companyTrainingInList = findTheCompanyTraining(companyTraining);
@@ -380,53 +548,53 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		getCompanyTrainingList().add(newCompanyTraining);
 		addItemToFlexiableObject(COPIED_CHILD, newCompanyTraining);
 	}
-	
+
 	public  CompanyTraining findTheCompanyTraining(CompanyTraining companyTraining){
-		
+
 		int index =  getCompanyTrainingList().indexOf(companyTraining);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
  			String message = "CompanyTraining("+companyTraining.getId()+") with version='"+companyTraining.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
+
 		return  getCompanyTrainingList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
+
 	public  void cleanUpCompanyTrainingList(){
 		getCompanyTrainingList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getCompany(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 		collectFromList(this, entityList, getCompanyTrainingList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
+
 		listOfList.add( getCompanyTrainingList());
-			
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -447,16 +615,16 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TrainingCourseType){
-		
-		
+
+
 			TrainingCourseType dest =(TrainingCourseType)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setCode(getCode());
 			dest.setCompany(getCompany());
@@ -470,13 +638,13 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TrainingCourseType){
-		
-			
+
+
 			TrainingCourseType dest =(TrainingCourseType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeCompany(getCompany());
@@ -489,15 +657,15 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TrainingCourseType){
-		
-			
+
+
 			TrainingCourseType dest =(TrainingCourseType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeCode(getCode());
 			dest.mergeName(getName());
@@ -510,6 +678,46 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getCode(), getCompany(), getName(), getDescription(), getVersion()};
 	}
+
+
+	public static TrainingCourseType createWith(RetailscmUserContext userContext, ThrowingFunction<TrainingCourseType,TrainingCourseType,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<TrainingCourseType> customCreator = mapper.findCustomCreator(TrainingCourseType.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    TrainingCourseType result = new TrainingCourseType();
+    result.setCode(mapper.tryToGet(TrainingCourseType.class, CODE_PROPERTY, String.class,
+        0, false, result.getCode(), params));
+    result.setCompany(mapper.tryToGet(TrainingCourseType.class, COMPANY_PROPERTY, RetailStoreCountryCenter.class,
+        0, true, result.getCompany(), params));
+    result.setName(mapper.tryToGet(TrainingCourseType.class, NAME_PROPERTY, String.class,
+        1, false, result.getName(), params));
+    result.setDescription(mapper.tryToGet(TrainingCourseType.class, DESCRIPTION_PROPERTY, String.class,
+        2, false, result.getDescription(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixTrainingCourseType(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      TrainingCourseTypeTokens tokens = mapper.findParamByClass(params, TrainingCourseTypeTokens.class);
+      if (tokens == null) {
+        tokens = TrainingCourseTypeTokens.start();
+      }
+      result = userContext.getManagerGroup().getTrainingCourseTypeManager().internalSaveTrainingCourseType(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -526,7 +734,7 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

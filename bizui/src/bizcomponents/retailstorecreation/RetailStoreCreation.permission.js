@@ -31,7 +31,7 @@ const internalSummaryOf = (retailStoreCreation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreCreation.id}</Description> 
+<Description term="ID">{retailStoreCreation.id}</Description> 
 <Description term="评论">{retailStoreCreation.comment}</Description> 
 	
       </DescriptionList>
@@ -58,7 +58,7 @@ class RetailStoreCreationPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreCreation = this.props.retailStoreCreation
     const { id,displayName, retailStoreCount } = retailStoreCreation
-    const  returnURL = `/retailStoreCreation/${id}/dashboard`
+    const  returnURL = `/retailStoreCreation/${id}/workbench`
     const cardsData = {cardsName:"双链小超的创作",cardsFor: "retailStoreCreation",cardsSource: retailStoreCreation,displayName,returnURL,
   		subItems: [
     
@@ -71,10 +71,10 @@ class RetailStoreCreationPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

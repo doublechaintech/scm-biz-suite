@@ -16,7 +16,7 @@ public class RetailscmCommonListOfViewPage extends BaseViewPage{
 	protected SerializeScope scope;
 	protected String displayMode;
 	protected String linkToUrl;
-	
+
 
 	public String getLinkToUrl() {
 		return linkToUrl;
@@ -83,8 +83,7 @@ public class RetailscmCommonListOfViewPage extends BaseViewPage{
 	protected SerializeScope getSerializeScope() {
 		SerializeScope itemScope = this.getScope();
 		if (itemScope == null) {
-			itemScope = RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope(getClassOfList().getName(), getContainerObject().getClass().getName()).clone();
+			itemScope = SerializeScope.EXCLUDE();
 		}
 		return SerializeScope.INCLUDE()
 				.field(BaseViewPage.X_EMPTY_MESSAGE)

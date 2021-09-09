@@ -31,7 +31,7 @@ const internalSummaryOf = (eventAttendance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{eventAttendance.id}</Description> 
+<Description term="ID">{eventAttendance.id}</Description> 
 <Description term="名称">{eventAttendance.name}</Description> 
 <Description term="描述">{eventAttendance.description}</Description> 
 	
@@ -59,7 +59,7 @@ class EventAttendancePermission extends Component {
     // eslint-disable-next-line max-len
     const  eventAttendance = this.props.eventAttendance
     const { id,displayName,  } = eventAttendance
-    const  returnURL = `/eventAttendance/${id}/dashboard`
+    const  returnURL = `/eventAttendance/${id}/workbench`
     const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",cardsSource: eventAttendance,displayName,returnURL,
   		subItems: [
     
@@ -72,10 +72,10 @@ class EventAttendancePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

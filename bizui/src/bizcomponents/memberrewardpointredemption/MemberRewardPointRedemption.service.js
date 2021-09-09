@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}memberRewardPointRedemptionManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}memberRewardPointRedemptionManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}memberRewardPointRedemptionService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const MemberRewardPointRedemptionService = { view,
   load,
+  analyze,
   requestCandidateOwner,
-  transferToAnotherOwner, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherOwner, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default MemberRewardPointRedemptionService
 

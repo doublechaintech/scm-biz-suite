@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
-import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+import BaseTool from '../../common/Base.tool'
+import { Tag, Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
-import {
-  ChartCard, yuan, MiniArea, MiniBar, MiniProgress, Field, Bar, Pie, TimelineChart,
-} from '../../components/Charts'
+import {TagCloud} from '../../components/Charts'
 import Trend from '../../components/Trend'
 import NumberInfo from '../../components/NumberInfo'
 import { getTimeDistance } from '../../utils/utils'
@@ -30,7 +29,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
 
+const {defaultFormatNumber} = BaseTool
 
+const formatNumber = defaultFormatNumber
 
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
@@ -43,7 +44,7 @@ const imageList =(transportTaskTrack)=>{return [
 
 const internalImageListOf = (transportTaskTrack) =>defaultImageListOf(transportTaskTrack,imageList)
 
-const optionList =(transportTaskTrack)=>{return [ 
+const optionList =(transportTaskTrack)=>{return [
 	]}
 
 const buildTransferModal = defaultBuildTransferModal
@@ -53,7 +54,7 @@ const internalSettingListOf = (transportTaskTrack) =>defaultSettingListOf(transp
 const internalLargeTextOf = (transportTaskTrack) =>{
 
 	return null
-	
+
 
 }
 
@@ -68,7 +69,7 @@ const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
         <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
-       
+
         <Button>
         <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
       </Button>
@@ -101,37 +102,58 @@ const renderSettingMenu = (cardsData,targetComponent) =>{
 }
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
+
+
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
 
-const internalSummaryOf = (transportTaskTrack,targetComponent) =>{
-	
-	
+const internalSummaryOf = (cardsData,targetComponent) =>{
+
+	 const quickFunctions = targetComponent.props.quickFunctions || internalQuickFunctions
+	const transportTaskTrack = cardsData.cardsSource
 	const {TransportTaskTrackService} = GlobalComponents
 	const userContext = null
 	return (
+	<div>
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号" style={{wordBreak: 'break-all'}}>{transportTaskTrack.id}</Description> 
+<Description term="ID" style={{wordBreak: 'break-all'}}>{transportTaskTrack.id}</Description> 
 <Description term="跟踪时间">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
 <Description term="纬度" style={{wordBreak: 'break-all'}}>{transportTaskTrack.latitude}</Description> 
 <Description term="经度" style={{wordBreak: 'break-all'}}>{transportTaskTrack.longitude}</Description> 
 <Description term="运动">{transportTaskTrack.movement==null?appLocaleName(userContext,"NotAssigned"):`${transportTaskTrack.movement.displayName}(${transportTaskTrack.movement.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"运动","transportTask",TransportTaskTrackService.requestCandidateMovement,
-	      TransportTaskTrackService.transferToAnotherMovement,"anotherMovementId",transportTaskTrack.movement?transportTaskTrack.movement.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
-	
-        {buildTransferModal(transportTaskTrack,targetComponent)}
+
+       
       </DescriptionList>
+      <div>{quickFunctions(cardsData)}</div>
+      </div>
 	)
 
 }
+
+
+const renderTagCloud=(cardsData)=>{
+
+
+  if(cardsData.subItems.length<10){
+    return null
+  }
+
+  const tagValue = cardsData.subItems.map(item=>({name:item.displayName, value: item.count}))
+
+  return <div >
+      <div style={{verticalAlign:"middle",textAlign:"center",backgroundColor:"rgba(0, 0, 0, 0.65)",color:"white",fontWeight:"bold",height:"40px"}}>
+       <span style={{display:"inline-block",marginTop:"10px"}}>{`${cardsData.displayName}画像`}</span>
+      </div>
+      <TagCloud data={tagValue} height={200} style={{backgroundColor:"white"}}/>
+    </div>
+
+
+}
+
 
 const internalQuickFunctions = defaultQuickFunctions
 
@@ -145,7 +167,7 @@ class TransportTaskTrackDashboard extends Component {
     targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
-    transferTargetParameterName:"",  
+    transferTargetParameterName:"",
     defaultType: 'transportTaskTrack'
 
 
@@ -153,7 +175,7 @@ class TransportTaskTrackDashboard extends Component {
   componentDidMount() {
 
   }
-  
+
 
   render() {
     // eslint-disable-next-line max-len
@@ -162,18 +184,18 @@ class TransportTaskTrackDashboard extends Component {
       return null
     }
     const returnURL = this.props.returnURL
-    
+
     const cardsData = {cardsName:window.trans('transport_task_track'),cardsFor: "transportTaskTrack",
     	cardsSource: this.props.transportTaskTrack,returnURL,displayName,
   		subItems: [
-    
+
       	],
    		subSettingItems: [
-    
-      	],     	
-      	
+
+      	],
+
   	};
-    
+
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
     const imageListOf = this.props.imageListOf || internalImageListOf
@@ -185,27 +207,18 @@ class TransportTaskTrackDashboard extends Component {
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
-    
+    // {quickFunctions(cardsData)}
     return (
 
       <PageHeaderLayout
         title={renderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+
+
        
-        {renderExtraHeader(cardsData.cardsSource)}
-        
-        {quickFunctions(cardsData)} 
-        {imageListOf(cardsData.cardsSource)}  
-        {renderAnalytics(cardsData.cardsSource)}
-        {settingListOf(cardsData.cardsSource)}
-        {renderSubjectList(cardsData)}       
-        {largeTextOf(cardsData.cardsSource)}
-        {renderExtraFooter(cardsData.cardsSource)}
-  		
       </PageHeaderLayout>
-    
+
     )
   }
 }
@@ -213,6 +226,6 @@ class TransportTaskTrackDashboard extends Component {
 export default connect(state => ({
   transportTaskTrack: state._transportTaskTrack,
   returnURL: state.breadcrumb.returnURL,
-  
+
 }))(Form.create()(TransportTaskTrackDashboard))
 

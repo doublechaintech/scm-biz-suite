@@ -1,42 +1,27 @@
 
 package com.doublechaintech.retailscm.mobileapp;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.mobileapp.MobileApp;import com.doublechaintech.retailscm.page.Page;import com.doublechaintech.retailscm.pagetype.PageType;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.pagetype.PageType;
-import com.doublechaintech.retailscm.page.Page;
-
-
-import com.doublechaintech.retailscm.mobileapp.MobileApp;
-import com.doublechaintech.retailscm.pagetype.PageType;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implements MobileAppManager, BusinessHandler{
@@ -79,6 +64,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws MobileAppManagerException{
 
 		Message message = new Message();
@@ -89,107 +75,138 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 
 
 
- 	protected MobileApp saveMobileApp(RetailscmUserContext userContext, MobileApp mobileApp, String [] tokensExpr) throws Exception{	
+ 	protected MobileApp saveMobileApp(RetailscmUserContext userContext, MobileApp mobileApp, String [] tokensExpr) throws Exception{
  		//return getMobileAppDAO().save(mobileApp, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveMobileApp(userContext, mobileApp, tokens);
  	}
- 	
- 	protected MobileApp saveMobileAppDetail(RetailscmUserContext userContext, MobileApp mobileApp) throws Exception{	
 
- 		
+ 	protected MobileApp saveMobileAppDetail(RetailscmUserContext userContext, MobileApp mobileApp) throws Exception{
+
+
  		return saveMobileApp(userContext, mobileApp, allTokens());
  	}
- 	
- 	public MobileApp loadMobileApp(RetailscmUserContext userContext, String mobileAppId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public MobileApp loadMobileApp(RetailscmUserContext userContext, String mobileAppId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( MobileAppManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		MobileApp mobileApp = loadMobileApp( userContext, mobileAppId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,mobileApp, tokens);
  	}
- 	
- 	
- 	 public MobileApp searchMobileApp(RetailscmUserContext userContext, String mobileAppId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public MobileApp searchMobileApp(RetailscmUserContext userContext, String mobileAppId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( MobileAppManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		MobileApp mobileApp = loadMobileApp( userContext, mobileAppId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,mobileApp, tokens);
  	}
- 	
- 	
+
+
 
  	protected MobileApp present(RetailscmUserContext userContext, MobileApp mobileApp, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,mobileApp,tokens);
-		
-		
+    
+
 		MobileApp  mobileAppToPresent = mobileAppDaoOf(userContext).present(mobileApp, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = mobileAppToPresent.collectRefercencesFromLists();
 		mobileAppDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,mobileApp,tokens);
-		
+
 		return  mobileAppToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public MobileApp loadMobileAppDetail(RetailscmUserContext userContext, String mobileAppId) throws Exception{	
+
+
+
+ 	public MobileApp loadMobileAppDetail(RetailscmUserContext userContext, String mobileAppId) throws Exception{
  		MobileApp mobileApp = loadMobileApp( userContext, mobileAppId, allTokens());
  		return present(userContext,mobileApp, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String mobileAppId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String mobileAppId) throws Exception{
  		MobileApp mobileApp = loadMobileApp( userContext, mobileAppId, viewTokens());
- 		return present(userContext,mobileApp, allTokens());
-		
- 	}
- 	protected MobileApp saveMobileApp(RetailscmUserContext userContext, MobileApp mobileApp, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, mobileApp);
+ 		return present(userContext,mobileApp, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String mobileAppId) throws Exception{
+		MobileApp mobileApp = loadMobileApp( userContext, mobileAppId, viewTokens());
+		mobileApp.summarySuffix();
+		markVisited(userContext, mobileApp);
+ 		return present(userContext,mobileApp, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String mobileAppId) throws Exception{
+		MobileApp mobileApp = loadMobileApp( userContext, mobileAppId, analyzeTokens());
+		markVisited(userContext, mobileApp);
+		return present(userContext,mobileApp, analyzeTokens());
+
+	}
+ 	protected MobileApp saveMobileApp(RetailscmUserContext userContext, MobileApp mobileApp, Map<String,Object>tokens) throws Exception{
+ 	
  		return mobileAppDaoOf(userContext).save(mobileApp, tokens);
  	}
- 	protected MobileApp loadMobileApp(RetailscmUserContext userContext, String mobileAppId, Map<String,Object>tokens) throws Exception{	
+ 	protected MobileApp loadMobileApp(RetailscmUserContext userContext, String mobileAppId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( MobileAppManagerException.class);
 
- 
+
+
  		return mobileAppDaoOf(userContext).load(mobileAppId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, MobileApp mobileApp, Map<String, Object> tokens){
 		super.addActions(userContext, mobileApp, tokens);
-		
+
 		addAction(userContext, mobileApp, tokens,"@create","createMobileApp","createMobileApp/","main","primary");
 		addAction(userContext, mobileApp, tokens,"@update","updateMobileApp","updateMobileApp/"+mobileApp.getId()+"/","main","primary");
 		addAction(userContext, mobileApp, tokens,"@copy","cloneMobileApp","cloneMobileApp/"+mobileApp.getId()+"/","main","primary");
-		
+
 		addAction(userContext, mobileApp, tokens,"mobile_app.addPage","addPage","addPage/"+mobileApp.getId()+"/","pageList","primary");
 		addAction(userContext, mobileApp, tokens,"mobile_app.removePage","removePage","removePage/"+mobileApp.getId()+"/","pageList","primary");
 		addAction(userContext, mobileApp, tokens,"mobile_app.updatePage","updatePage","updatePage/"+mobileApp.getId()+"/","pageList","primary");
@@ -198,28 +215,51 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		addAction(userContext, mobileApp, tokens,"mobile_app.removePageType","removePageType","removePageType/"+mobileApp.getId()+"/","pageTypeList","primary");
 		addAction(userContext, mobileApp, tokens,"mobile_app.updatePageType","updatePageType","updatePageType/"+mobileApp.getId()+"/","pageTypeList","primary");
 		addAction(userContext, mobileApp, tokens,"mobile_app.copyPageTypeFrom","copyPageTypeFrom","copyPageTypeFrom/"+mobileApp.getId()+"/","pageTypeList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, MobileApp mobileApp, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<MobileApp> searchMobileAppList(RetailscmUserContext ctx, MobileAppRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<MobileApp> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public MobileApp searchMobileApp(RetailscmUserContext ctx, MobileAppRequest pRequest){
+    pRequest.limit(0, 1);
+    List<MobileApp> list = searchMobileAppList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public MobileApp createMobileApp(RetailscmUserContext userContext, String name) throws Exception
-	//public MobileApp createMobileApp(RetailscmUserContext userContext,String name) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfMobileApp(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 
 		MobileApp mobileApp=createNewMobileApp();	
@@ -243,20 +283,22 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
 		checkerOf(userContext).checkVersionOfMobileApp( mobileAppVersion);
-		
+
 
 		if(MobileApp.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfMobileApp(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 
 	}
@@ -285,6 +327,8 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			if (mobileApp.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixMobileApp(mobileApp);
 			mobileApp = saveMobileApp(userContext, mobileApp, options);
 			return mobileApp;
 
@@ -351,11 +395,17 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected Map<String,Object> allTokens(){
 		return MobileAppTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortPageListWith("id","desc")
-		.sortPageTypeListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortPageListWith(Page.ID_PROPERTY,sortDesc())
+		.sortPageTypeListWith(PageType.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -404,27 +454,6 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 	}
 
 
-	//disconnect MobileApp with page_type in Page
-	protected MobileApp breakWithPageByPageType(RetailscmUserContext userContext, String mobileAppId, String pageTypeId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			MobileApp mobileApp = loadMobileApp(userContext, mobileAppId, allTokens());
-
-			synchronized(mobileApp){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				mobileAppDaoOf(userContext).planToRemovePageListWithPageType(mobileApp, pageTypeId, this.emptyOptions());
-
-				mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageList().done());
-				return mobileApp;
-			}
-	}
-
-
-
 
 
 
@@ -432,22 +461,23 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 
 				checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
 
-		
+
 		checkerOf(userContext).checkPageTitleOfPage(pageTitle);
-		
+
 		checkerOf(userContext).checkLinkToUrlOfPage(linkToUrl);
-		
+
 		checkerOf(userContext).checkPageTypeIdOfPage(pageTypeId);
-		
+
 		checkerOf(userContext).checkDisplayOrderOfPage(displayOrder);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 
 	}
 	public  MobileApp addPage(RetailscmUserContext userContext, String mobileAppId, String pageTitle, String linkToUrl, String pageTypeId, int displayOrder, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingPage(userContext,mobileAppId,pageTitle, linkToUrl, pageTypeId, displayOrder,tokensExpr);
 
 		Page page = createPage(userContext,pageTitle, linkToUrl, pageTypeId, displayOrder);
@@ -472,7 +502,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkLinkToUrlOfPage( linkToUrl);
 		checkerOf(userContext).checkDisplayOrderOfPage( displayOrder);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 	public  MobileApp updatePageProperties(RetailscmUserContext userContext, String mobileAppId, String id,String pageTitle,String linkToUrl,int displayOrder, String [] tokensExpr) throws Exception
@@ -544,6 +576,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			checkerOf(userContext).checkIdOfPage(pageIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
 
 	}
@@ -570,7 +603,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfMobileApp( mobileAppId);
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkVersionOfPage(pageVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 	public  MobileApp removePage(RetailscmUserContext userContext, String mobileAppId,
@@ -597,7 +632,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfMobileApp( mobileAppId);
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkVersionOfPage(pageVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 	public  MobileApp copyPageFrom(RetailscmUserContext userContext, String mobileAppId,
@@ -625,7 +662,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected void checkParamsForUpdatingPage(RetailscmUserContext userContext, String mobileAppId, String pageId, int pageVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
 		checkerOf(userContext).checkIdOfPage(pageId);
 		checkerOf(userContext).checkVersionOfPage(pageVersion);
@@ -644,7 +681,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 
@@ -675,6 +714,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			page.changeProperty(property, newValueExpr);
 			
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageList().done());
+			pageManagerOf(userContext).onUpdated(userContext, page, this, "updatePage");
 			return present(userContext,mobileApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -695,20 +735,21 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 
 				checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
 
-		
+
 		checkerOf(userContext).checkNameOfPageType(name);
-		
+
 		checkerOf(userContext).checkCodeOfPageType(code);
-		
+
 		checkerOf(userContext).checkFooterTabOfPageType(footerTab);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 
 	}
 	public  MobileApp addPageType(RetailscmUserContext userContext, String mobileAppId, String name, String code, boolean footerTab, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingPageType(userContext,mobileAppId,name, code, footerTab,tokensExpr);
 
 		PageType pageType = createPageType(userContext,name, code, footerTab);
@@ -733,7 +774,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkCodeOfPageType( code);
 		checkerOf(userContext).checkFooterTabOfPageType( footerTab);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 	public  MobileApp updatePageTypeProperties(RetailscmUserContext userContext, String mobileAppId, String id,String name,String code,boolean footerTab, String [] tokensExpr) throws Exception
@@ -802,6 +845,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			checkerOf(userContext).checkIdOfPageType(pageTypeIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
 
 	}
@@ -828,7 +872,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfMobileApp( mobileAppId);
 		checkerOf(userContext).checkIdOfPageType(pageTypeId);
 		checkerOf(userContext).checkVersionOfPageType(pageTypeVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 	public  MobileApp removePageType(RetailscmUserContext userContext, String mobileAppId,
@@ -855,7 +901,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfMobileApp( mobileAppId);
 		checkerOf(userContext).checkIdOfPageType(pageTypeId);
 		checkerOf(userContext).checkVersionOfPageType(pageTypeVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 	public  MobileApp copyPageTypeFrom(RetailscmUserContext userContext, String mobileAppId,
@@ -883,7 +931,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected void checkParamsForUpdatingPageType(RetailscmUserContext userContext, String mobileAppId, String pageTypeId, int pageTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfMobileApp(mobileAppId);
 		checkerOf(userContext).checkIdOfPageType(pageTypeId);
 		checkerOf(userContext).checkVersionOfPageType(pageTypeVersion);
@@ -902,7 +950,9 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(MobileAppManagerException.class);
+
 
 	}
 
@@ -933,6 +983,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 			pageType.changeProperty(property, newValueExpr);
 			
 			mobileApp = saveMobileApp(userContext, mobileApp, tokens().withPageTypeList().done());
+			pageTypeManagerOf(userContext).onUpdated(userContext, pageType, this, "updatePageType");
 			return present(userContext,mobileApp, mergedAllTokens(tokensExpr));
 		}
 
@@ -965,116 +1016,13 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-    if (methodName.equals("ensureModelInDB")){
-      return false;
-    }
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1097,28 +1045,21 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, MobileApp.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, MobileApp.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1139,7 +1080,7 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String mobileAppId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getMobileAppDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		MobileApp merchantObj = (MobileApp) this.view(userContext, mobileAppId);
     String merchantObjId = mobileAppId;
     String linkToUrl =	"mobileAppManager/wxappview/" + merchantObjId + "/";
@@ -1185,8 +1126,6 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		sections.add(pageListSection);
 
 		result.put("pageListSection", ListofUtils.toShortList(merchantObj.getPageList(), "page"));
-		vscope.field("pageListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( Page.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1201,8 +1140,19 @@ public class MobileAppManagerImpl extends CustomRetailscmCheckerManager implemen
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

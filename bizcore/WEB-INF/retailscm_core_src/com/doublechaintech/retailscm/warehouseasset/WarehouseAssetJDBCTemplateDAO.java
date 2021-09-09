@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.warehouseasset;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected WarehouseDAO warehouseDAO;
 	public void setWarehouseDAO(WarehouseDAO warehouseDAO){
- 	
+
  		if(warehouseDAO == null){
  			throw new IllegalStateException("Do not try to set warehouseDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		if(this.warehouseDAO == null){
  			throw new IllegalStateException("The warehouseDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.warehouseDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return WarehouseAssetTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, WarehouseAssetTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, WarehouseAssetTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		return new WarehouseAssetMapper();
 	}
 
-	
-	
+
+
 	protected WarehouseAsset extractWarehouseAsset(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			WarehouseAsset warehouseAsset = loadSingleObject(accessKey, getWarehouseAssetMapper());
@@ -229,25 +231,26 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	}
 
-	
-	
+
+
 
 	protected WarehouseAsset loadInternalWarehouseAsset(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		WarehouseAsset warehouseAsset = extractWarehouseAsset(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(warehouseAsset, loadOptions);
  		}
  
 		
 		return warehouseAsset;
-		
+
 	}
 
-	 
+	
 
  	protected WarehouseAsset extractOwner(WarehouseAsset warehouseAsset, Map<String,Object> options) throws Exception{
+  
 
 		if(warehouseAsset.getOwner() == null){
 			return warehouseAsset;
@@ -260,41 +263,41 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		if(owner != null){
 			warehouseAsset.setOwner(owner);
 		}
-		
- 		
+
+
  		return warehouseAsset;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<WarehouseAsset> findWarehouseAssetByOwner(String warehouseId,Map<String,Object> options){
- 	
+
   		SmartList<WarehouseAsset> resultList = queryWith(WarehouseAssetTable.COLUMN_OWNER, warehouseId, options, getWarehouseAssetMapper());
 		// analyzeWarehouseAssetByOwner(resultList, warehouseId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<WarehouseAsset> findWarehouseAssetByOwner(String warehouseId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<WarehouseAsset> resultList =  queryWithRange(WarehouseAssetTable.COLUMN_OWNER, warehouseId, options, getWarehouseAssetMapper(), start, count);
  		//analyzeWarehouseAssetByOwner(resultList, warehouseId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeWarehouseAssetByOwner(SmartList<WarehouseAsset> resultList, String warehouseId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(WarehouseAsset.OWNER_PROPERTY, warehouseId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//WarehouseAsset.LAST_UPDATE_TIME_PROPERTY
@@ -302,11 +305,11 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(WarehouseAsset.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(WarehouseAsset.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countWarehouseAssetByOwner(String warehouseId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	public Map<String, Integer> countWarehouseAssetByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(WarehouseAssetTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected WarehouseAsset saveWarehouseAsset(WarehouseAsset  warehouseAsset){
+    
+
 		
 		if(!warehouseAsset.isChanged()){
 			return warehouseAsset;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(warehouseAsset);
 		String SQL=this.getSaveWarehouseAssetSQL(warehouseAsset);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveWarehouseAssetParameters(warehouseAsset);
@@ -342,6 +348,7 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		}
 
 		warehouseAsset.incVersion();
+		warehouseAsset.afterSave();
 		return warehouseAsset;
 
 	}
@@ -359,6 +366,7 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		for(WarehouseAsset warehouseAsset:warehouseAssetList){
 			if(warehouseAsset.isChanged()){
 				warehouseAsset.incVersion();
+				warehouseAsset.afterSave();
 			}
 
 
@@ -462,17 +470,14 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  	protected Object[] prepareWarehouseAssetUpdateParameters(WarehouseAsset warehouseAsset){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = warehouseAsset.getName();
- 		
  		
  		parameters[1] = warehouseAsset.getPosition();
  		
  		if(warehouseAsset.getOwner() != null){
  			parameters[2] = warehouseAsset.getOwner().getId();
  		}
- 
- 		
+    
  		parameters[3] = warehouseAsset.getLastUpdateTime();
  		
  		parameters[4] = warehouseAsset.nextVersion();
@@ -489,17 +494,13 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
         }
 		parameters[0] =  warehouseAsset.getId();
  
- 		
  		parameters[1] = warehouseAsset.getName();
- 		
  		
  		parameters[2] = warehouseAsset.getPosition();
  		
  		if(warehouseAsset.getOwner() != null){
  			parameters[3] = warehouseAsset.getOwner().getId();
-
  		}
- 		
  		
  		parameters[4] = warehouseAsset.getLastUpdateTime();
  		
@@ -509,12 +510,11 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	protected WarehouseAsset saveInternalWarehouseAsset(WarehouseAsset warehouseAsset, Map<String,Object> options){
 
-		saveWarehouseAsset(warehouseAsset);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(warehouseAsset, options);
  		}
  
+   saveWarehouseAsset(warehouseAsset);
 		
 		return warehouseAsset;
 
@@ -526,6 +526,7 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	
 
  	protected WarehouseAsset saveOwner(WarehouseAsset warehouseAsset, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(warehouseAsset.getOwner() == null){
  			return warehouseAsset;//do nothing when it is null
@@ -535,11 +536,6 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		return warehouseAsset;
 
  	}
-
-
-
-
-
  
 
 	
@@ -547,10 +543,10 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 		
 
 	public WarehouseAsset present(WarehouseAsset warehouseAsset,Map<String, Object> options){
-	
+
 
 		return warehouseAsset;
-	
+
 	}
 		
 
@@ -602,6 +598,10 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<WarehouseAsset> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getWarehouseAssetMapper());
   }
@@ -637,6 +637,15 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
 
 	
 
+  @Override
+  public List<WarehouseAsset> search(WarehouseAssetRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected WarehouseAssetMapper mapper() {
+    return getWarehouseAssetMapper();
+  }
 }
 
 

@@ -31,10 +31,10 @@ const internalSummaryOf = (candidateElement,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{candidateElement.id}</Description> 
-<Description term="名称">{candidateElement.name}</Description> 
+<Description term="ID">{candidateElement.id}</Description> 
+<Description term="标题">{candidateElement.name}</Description> 
 <Description term="类型">{candidateElement.type}</Description> 
-<Description term="图片"><ImagePreview imageTitle="图片" imageLocation={candidateElement.image}/></Description> 
+<Description term="图像"><ImagePreview imageTitle="图像" imageLocation={candidateElement.image}/></Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class CandidateElementPermission extends Component {
     // eslint-disable-next-line max-len
     const  candidateElement = this.props.candidateElement
     const { id,displayName,  } = candidateElement
-    const  returnURL = `/candidateElement/${id}/dashboard`
+    const  returnURL = `/candidateElement/${id}/workbench`
     const cardsData = {cardsName:"候选人元素",cardsFor: "candidateElement",cardsSource: candidateElement,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class CandidateElementPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

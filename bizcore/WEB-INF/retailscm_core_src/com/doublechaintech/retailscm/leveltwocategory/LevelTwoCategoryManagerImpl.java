@@ -1,42 +1,27 @@
 
 package com.doublechaintech.retailscm.leveltwocategory;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.levelonecategory.CandidateLevelOneCategory;import com.doublechaintech.retailscm.levelonecategory.LevelOneCategory;import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategory;import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategory;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategory;
-import com.doublechaintech.retailscm.levelonecategory.LevelOneCategory;
-
-import com.doublechaintech.retailscm.levelonecategory.CandidateLevelOneCategory;
-
-import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategory;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager implements LevelTwoCategoryManager, BusinessHandler{
@@ -79,6 +64,7 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws LevelTwoCategoryManagerException{
 
 		Message message = new Message();
@@ -89,134 +75,188 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 
 
 
- 	protected LevelTwoCategory saveLevelTwoCategory(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory, String [] tokensExpr) throws Exception{	
+ 	protected LevelTwoCategory saveLevelTwoCategory(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory, String [] tokensExpr) throws Exception{
  		//return getLevelTwoCategoryDAO().save(levelTwoCategory, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveLevelTwoCategory(userContext, levelTwoCategory, tokens);
  	}
- 	
- 	protected LevelTwoCategory saveLevelTwoCategoryDetail(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory) throws Exception{	
 
- 		
+ 	protected LevelTwoCategory saveLevelTwoCategoryDetail(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory) throws Exception{
+
+
  		return saveLevelTwoCategory(userContext, levelTwoCategory, allTokens());
  	}
- 	
- 	public LevelTwoCategory loadLevelTwoCategory(RetailscmUserContext userContext, String levelTwoCategoryId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public LevelTwoCategory loadLevelTwoCategory(RetailscmUserContext userContext, String levelTwoCategoryId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfLevelTwoCategory(levelTwoCategoryId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( LevelTwoCategoryManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory( userContext, levelTwoCategoryId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,levelTwoCategory, tokens);
  	}
- 	
- 	
- 	 public LevelTwoCategory searchLevelTwoCategory(RetailscmUserContext userContext, String levelTwoCategoryId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public LevelTwoCategory searchLevelTwoCategory(RetailscmUserContext userContext, String levelTwoCategoryId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfLevelTwoCategory(levelTwoCategoryId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( LevelTwoCategoryManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory( userContext, levelTwoCategoryId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,levelTwoCategory, tokens);
  	}
- 	
- 	
+
+
 
  	protected LevelTwoCategory present(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,levelTwoCategory,tokens);
-		
-		
+    
+
 		LevelTwoCategory  levelTwoCategoryToPresent = levelTwoCategoryDaoOf(userContext).present(levelTwoCategory, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = levelTwoCategoryToPresent.collectRefercencesFromLists();
 		levelTwoCategoryDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,levelTwoCategory,tokens);
-		
+
 		return  levelTwoCategoryToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public LevelTwoCategory loadLevelTwoCategoryDetail(RetailscmUserContext userContext, String levelTwoCategoryId) throws Exception{	
+
+
+
+ 	public LevelTwoCategory loadLevelTwoCategoryDetail(RetailscmUserContext userContext, String levelTwoCategoryId) throws Exception{
  		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory( userContext, levelTwoCategoryId, allTokens());
  		return present(userContext,levelTwoCategory, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String levelTwoCategoryId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String levelTwoCategoryId) throws Exception{
  		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory( userContext, levelTwoCategoryId, viewTokens());
- 		return present(userContext,levelTwoCategory, allTokens());
-		
- 	}
- 	protected LevelTwoCategory saveLevelTwoCategory(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, levelTwoCategory);
+ 		return present(userContext,levelTwoCategory, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String levelTwoCategoryId) throws Exception{
+		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory( userContext, levelTwoCategoryId, viewTokens());
+		levelTwoCategory.summarySuffix();
+		markVisited(userContext, levelTwoCategory);
+ 		return present(userContext,levelTwoCategory, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String levelTwoCategoryId) throws Exception{
+		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory( userContext, levelTwoCategoryId, analyzeTokens());
+		markVisited(userContext, levelTwoCategory);
+		return present(userContext,levelTwoCategory, analyzeTokens());
+
+	}
+ 	protected LevelTwoCategory saveLevelTwoCategory(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory, Map<String,Object>tokens) throws Exception{
+ 	
  		return levelTwoCategoryDaoOf(userContext).save(levelTwoCategory, tokens);
  	}
- 	protected LevelTwoCategory loadLevelTwoCategory(RetailscmUserContext userContext, String levelTwoCategoryId, Map<String,Object>tokens) throws Exception{	
+ 	protected LevelTwoCategory loadLevelTwoCategory(RetailscmUserContext userContext, String levelTwoCategoryId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfLevelTwoCategory(levelTwoCategoryId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( LevelTwoCategoryManagerException.class);
 
- 
+
+
  		return levelTwoCategoryDaoOf(userContext).load(levelTwoCategoryId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory, Map<String, Object> tokens){
 		super.addActions(userContext, levelTwoCategory, tokens);
-		
+
 		addAction(userContext, levelTwoCategory, tokens,"@create","createLevelTwoCategory","createLevelTwoCategory/","main","primary");
 		addAction(userContext, levelTwoCategory, tokens,"@update","updateLevelTwoCategory","updateLevelTwoCategory/"+levelTwoCategory.getId()+"/","main","primary");
 		addAction(userContext, levelTwoCategory, tokens,"@copy","cloneLevelTwoCategory","cloneLevelTwoCategory/"+levelTwoCategory.getId()+"/","main","primary");
-		
+
 		addAction(userContext, levelTwoCategory, tokens,"level_two_category.transfer_to_parent_category","transferToAnotherParentCategory","transferToAnotherParentCategory/"+levelTwoCategory.getId()+"/","main","primary");
 		addAction(userContext, levelTwoCategory, tokens,"level_two_category.addLevelThreeCategory","addLevelThreeCategory","addLevelThreeCategory/"+levelTwoCategory.getId()+"/","levelThreeCategoryList","primary");
 		addAction(userContext, levelTwoCategory, tokens,"level_two_category.removeLevelThreeCategory","removeLevelThreeCategory","removeLevelThreeCategory/"+levelTwoCategory.getId()+"/","levelThreeCategoryList","primary");
 		addAction(userContext, levelTwoCategory, tokens,"level_two_category.updateLevelThreeCategory","updateLevelThreeCategory","updateLevelThreeCategory/"+levelTwoCategory.getId()+"/","levelThreeCategoryList","primary");
 		addAction(userContext, levelTwoCategory, tokens,"level_two_category.copyLevelThreeCategoryFrom","copyLevelThreeCategoryFrom","copyLevelThreeCategoryFrom/"+levelTwoCategory.getId()+"/","levelThreeCategoryList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, LevelTwoCategory levelTwoCategory, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<LevelTwoCategory> searchLevelTwoCategoryList(RetailscmUserContext ctx, LevelTwoCategoryRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<LevelTwoCategory> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public LevelTwoCategory searchLevelTwoCategory(RetailscmUserContext ctx, LevelTwoCategoryRequest pRequest){
+    pRequest.limit(0, 1);
+    List<LevelTwoCategory> list = searchLevelTwoCategoryList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public LevelTwoCategory createLevelTwoCategory(RetailscmUserContext userContext, String parentCategoryId,String name) throws Exception
-	//public LevelTwoCategory createLevelTwoCategory(RetailscmUserContext userContext,String parentCategoryId, String name) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfLevelTwoCategory(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
+
 
 
 		LevelTwoCategory levelTwoCategory=createNewLevelTwoCategory();	
@@ -245,22 +285,24 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfLevelTwoCategory(levelTwoCategoryId);
 		checkerOf(userContext).checkVersionOfLevelTwoCategory( levelTwoCategoryVersion);
-		
-		
+
+
 
 		
 		if(LevelTwoCategory.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfLevelTwoCategory(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
+
 
 
 	}
@@ -289,6 +331,8 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 			if (levelTwoCategory.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixLevelTwoCategory(levelTwoCategory);
 			levelTwoCategory = saveLevelTwoCategory(userContext, levelTwoCategory, options);
 			return levelTwoCategory;
 
@@ -355,10 +399,16 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 	protected Map<String,Object> allTokens(){
 		return LevelTwoCategoryTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortLevelThreeCategoryListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortLevelThreeCategoryListWith(LevelThreeCategory.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -370,6 +420,7 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 
  		checkerOf(userContext).checkIdOfLevelTwoCategory(levelTwoCategoryId);
  		checkerOf(userContext).checkIdOfLevelOneCategory(anotherParentCategoryId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
 
  	}
@@ -377,16 +428,17 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
  	{
  		checkParamsForTransferingAnotherParentCategory(userContext, levelTwoCategoryId,anotherParentCategoryId);
  
-		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory(userContext, levelTwoCategoryId, allTokens());	
+		LevelTwoCategory levelTwoCategory = loadLevelTwoCategory(userContext, levelTwoCategoryId, allTokens());
 		synchronized(levelTwoCategory){
 			//will be good when the levelTwoCategory loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			LevelOneCategory parentCategory = loadLevelOneCategory(userContext, anotherParentCategoryId, emptyOptions());		
-			levelTwoCategory.updateParentCategory(parentCategory);		
+			LevelOneCategory parentCategory = loadLevelOneCategory(userContext, anotherParentCategoryId, emptyOptions());
+			levelTwoCategory.updateParentCategory(parentCategory);
+			
 			levelTwoCategory = saveLevelTwoCategory(userContext, levelTwoCategory, emptyOptions());
-			
+
 			return present(userContext,levelTwoCategory, allTokens());
-			
+
 		}
 
  	}
@@ -419,8 +471,9 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 
  	protected LevelOneCategory loadLevelOneCategory(RetailscmUserContext userContext, String newParentCategoryId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return levelOneCategoryDaoOf(userContext).load(newParentCategoryId, options);
+ 	  
  	}
  	
 
@@ -469,23 +522,21 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 
 
 
-
-
-
 	protected void checkParamsForAddingLevelThreeCategory(RetailscmUserContext userContext, String levelTwoCategoryId, String name,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfLevelTwoCategory(levelTwoCategoryId);
 
-		
+
 		checkerOf(userContext).checkNameOfLevelThreeCategory(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
+
 
 
 	}
 	public  LevelTwoCategory addLevelThreeCategory(RetailscmUserContext userContext, String levelTwoCategoryId, String name, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingLevelThreeCategory(userContext,levelTwoCategoryId,name,tokensExpr);
 
 		LevelThreeCategory levelThreeCategory = createLevelThreeCategory(userContext,name);
@@ -508,7 +559,9 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 
 		checkerOf(userContext).checkNameOfLevelThreeCategory( name);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
+
 
 	}
 	public  LevelTwoCategory updateLevelThreeCategoryProperties(RetailscmUserContext userContext, String levelTwoCategoryId, String id,String name, String [] tokensExpr) throws Exception
@@ -573,6 +626,7 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 			checkerOf(userContext).checkIdOfLevelThreeCategory(levelThreeCategoryIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
 
 	}
@@ -599,7 +653,9 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 		checkerOf(userContext).checkIdOfLevelTwoCategory( levelTwoCategoryId);
 		checkerOf(userContext).checkIdOfLevelThreeCategory(levelThreeCategoryId);
 		checkerOf(userContext).checkVersionOfLevelThreeCategory(levelThreeCategoryVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
+
 
 	}
 	public  LevelTwoCategory removeLevelThreeCategory(RetailscmUserContext userContext, String levelTwoCategoryId,
@@ -626,7 +682,9 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 		checkerOf(userContext).checkIdOfLevelTwoCategory( levelTwoCategoryId);
 		checkerOf(userContext).checkIdOfLevelThreeCategory(levelThreeCategoryId);
 		checkerOf(userContext).checkVersionOfLevelThreeCategory(levelThreeCategoryVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
+
 
 	}
 	public  LevelTwoCategory copyLevelThreeCategoryFrom(RetailscmUserContext userContext, String levelTwoCategoryId,
@@ -654,7 +712,7 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 	protected void checkParamsForUpdatingLevelThreeCategory(RetailscmUserContext userContext, String levelTwoCategoryId, String levelThreeCategoryId, int levelThreeCategoryVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfLevelTwoCategory(levelTwoCategoryId);
 		checkerOf(userContext).checkIdOfLevelThreeCategory(levelThreeCategoryId);
 		checkerOf(userContext).checkVersionOfLevelThreeCategory(levelThreeCategoryVersion);
@@ -665,7 +723,9 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(LevelTwoCategoryManagerException.class);
+
 
 	}
 
@@ -696,6 +756,7 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 			levelThreeCategory.changeProperty(property, newValueExpr);
 			
 			levelTwoCategory = saveLevelTwoCategory(userContext, levelTwoCategory, tokens().withLevelThreeCategoryList().done());
+			levelThreeCategoryManagerOf(userContext).onUpdated(userContext, levelThreeCategory, this, "updateLevelThreeCategory");
 			return present(userContext,levelTwoCategory, mergedAllTokens(tokensExpr));
 		}
 
@@ -728,112 +789,13 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -856,28 +818,21 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, LevelTwoCategory.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, LevelTwoCategory.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -923,7 +878,7 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String levelTwoCategoryId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getLevelTwoCategoryDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		LevelTwoCategory merchantObj = (LevelTwoCategory) this.view(userContext, levelTwoCategoryId);
     String merchantObjId = levelTwoCategoryId;
     String linkToUrl =	"levelTwoCategoryManager/wxappview/" + merchantObjId + "/";
@@ -980,8 +935,6 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 		sections.add(levelThreeCategoryListSection);
 
 		result.put("levelThreeCategoryListSection", ListofUtils.toShortList(merchantObj.getLevelThreeCategoryList(), "levelThreeCategory"));
-		vscope.field("levelThreeCategoryListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( LevelThreeCategory.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -996,8 +949,19 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

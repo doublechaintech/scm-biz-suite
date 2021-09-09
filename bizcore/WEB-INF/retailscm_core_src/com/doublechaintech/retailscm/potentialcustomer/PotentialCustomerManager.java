@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.potentialcustomer;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface PotentialCustomerManager extends BaseManager{
 
 		
 
+  List<PotentialCustomer> searchPotentialCustomerList(RetailscmUserContext ctx, PotentialCustomerRequest pRequest);
+  PotentialCustomer searchPotentialCustomer(RetailscmUserContext ctx, PotentialCustomerRequest pRequest);
 	public PotentialCustomer createPotentialCustomer(RetailscmUserContext userContext, String name,String mobile,String cityServiceCenterId,String cityPartnerId,String description) throws Exception;
 	public PotentialCustomer updatePotentialCustomer(RetailscmUserContext userContext,String potentialCustomerId, int potentialCustomerVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public PotentialCustomer loadPotentialCustomer(RetailscmUserContext userContext, String potentialCustomerId, String [] tokensExpr) throws Exception;
@@ -28,6 +34,8 @@ public interface PotentialCustomerManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String potentialCustomerId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, PotentialCustomer newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, PotentialCustomer updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -69,6 +77,9 @@ public interface PotentialCustomerManager extends BaseManager{
 	public Object listByCityPartner(RetailscmUserContext userContext,String cityPartnerId) throws Exception;
 	public Object listPageByCityPartner(RetailscmUserContext userContext,String cityPartnerId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

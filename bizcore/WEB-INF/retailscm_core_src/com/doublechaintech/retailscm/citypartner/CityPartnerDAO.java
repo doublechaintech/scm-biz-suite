@@ -48,6 +48,7 @@ public interface CityPartnerDAO extends BaseDAO{
 	public void delete(String cityPartnerId, int version) throws Exception;
 	public CityPartner disconnectFromAll(String cityPartnerId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public PotentialCustomerDAO getPotentialCustomerDAO();
 		
@@ -78,9 +79,10 @@ public interface CityPartnerDAO extends BaseDAO{
 	public int countPotentialCustomerContactListWithContactTo(String cityPartnerId, String contactToId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<CityPartner> queryList(String sql, Object ... parmeters);
+	public SmartList<CityPartner> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<CityPartner> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateCityPartner executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<CityPartner> findCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId, Map<String,Object> options);
@@ -97,6 +99,8 @@ public interface CityPartnerDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContact的cityPartner的PotentialCustomerContactList
 	public SmartList<PotentialCustomerContact> loadOurPotentialCustomerContactList(RetailscmUserContext userContext, List<CityPartner> us, Map<String,Object> options) throws Exception;
 	
+
+	List<CityPartner> search(CityPartnerRequest pRequest);
 }
 
 

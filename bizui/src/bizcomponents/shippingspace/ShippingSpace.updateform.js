@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './ShippingSpace.updateform.less'
 import ShippingSpaceBase from './ShippingSpace.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class ShippingSpaceUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -103,13 +105,13 @@ class ShippingSpaceUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const shippingSpaceId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, shippingSpaceId, ...imagesValues }
 
-        
+        const parameters = { ...values, shippingSpaceId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -124,7 +126,7 @@ class ShippingSpaceUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -134,12 +136,12 @@ class ShippingSpaceUpdateForm extends Component {
 
         const { owner } = this.props
         const shippingSpaceId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, shippingSpaceId, ...imagesValues }
+
+        const parameters = { ...values, shippingSpaceId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -161,11 +163,11 @@ class ShippingSpaceUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextShippingSpaceUpdateRow`,
@@ -179,7 +181,7 @@ class ShippingSpaceUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -187,7 +189,7 @@ class ShippingSpaceUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'shippingSpace',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -230,7 +232,7 @@ class ShippingSpaceUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -244,12 +246,12 @@ class ShippingSpaceUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}发货区: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -259,7 +261,7 @@ class ShippingSpaceUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -267,8 +269,8 @@ class ShippingSpaceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -279,8 +281,8 @@ class ShippingSpaceUpdateForm extends Component {
                     initialValue: selectedRow.location,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.location} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.location} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -291,8 +293,8 @@ class ShippingSpaceUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.contactNumber} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -303,8 +305,8 @@ class ShippingSpaceUpdateForm extends Component {
                     initialValue: selectedRow.totalArea,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.totalArea} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.totalArea} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -315,8 +317,8 @@ class ShippingSpaceUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.latitude} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.latitude} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -327,8 +329,8 @@ class ShippingSpaceUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.longitude} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.longitude} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -339,17 +341,17 @@ class ShippingSpaceUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.description} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.description} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

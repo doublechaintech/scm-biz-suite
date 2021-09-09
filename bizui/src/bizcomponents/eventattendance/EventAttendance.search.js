@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { PotentialCustomerAssociateForm } = GlobalComponents
-  const { CityEventAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <PotentialCustomerAssociateForm 
-	visible={currentAssociateModal==='potentialCustomer'} 
-	data={{eventAttendanceList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'potentialCustomer')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'potentialCustomer')}/> <CityEventAssociateForm 
-	visible={currentAssociateModal==='cityEvent'} 
-	data={{eventAttendanceList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'cityEvent')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'cityEvent')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class EventAttendanceSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class EventAttendanceSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {EventAttendanceTable} = GlobalComponents;
     const {EventAttendanceSearchForm} = GlobalComponents;
     const {EventAttendanceModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class EventAttendanceSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,EventAttendanceModalTable,"eventAttendanceIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

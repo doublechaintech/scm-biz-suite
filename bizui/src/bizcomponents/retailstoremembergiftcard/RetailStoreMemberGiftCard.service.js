@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreMemberGiftCardManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreMemberGiftCardManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberGiftCardService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const RetailStoreMemberGiftCardService = { view,
   load,
+  analyze,
   addRetailStoreMemberGiftCardConsumeRecord,
   updateRetailStoreMemberGiftCardConsumeRecord,
   removeRetailStoreMemberGiftCardConsumeRecordList,
   requestCandidateOwner,
-  transferToAnotherOwner, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherOwner, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreMemberGiftCardService
 

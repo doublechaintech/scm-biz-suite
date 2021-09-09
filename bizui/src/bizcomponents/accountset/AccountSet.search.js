@@ -65,45 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
-  const { RetailStoreAssociateForm } = GlobalComponents
-  const { GoodsSupplierAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='countryCenter'} 
-	data={{accountSetList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'countryCenter')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'countryCenter')}/> <RetailStoreAssociateForm 
-	visible={currentAssociateModal==='retailStore'} 
-	data={{accountSetList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'retailStore')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'retailStore')}/> <GoodsSupplierAssociateForm 
-	visible={currentAssociateModal==='goodsSupplier'} 
-	data={{accountSetList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'goodsSupplier')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'goodsSupplier')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class AccountSetSearch extends PureComponent {
   state = {
@@ -138,7 +99,7 @@ class AccountSetSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {AccountSetTable} = GlobalComponents;
     const {AccountSetSearchForm} = GlobalComponents;
     const {AccountSetModalTable} = GlobalComponents;
@@ -190,7 +151,7 @@ class AccountSetSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,AccountSetModalTable,"accountSetIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

@@ -1,40 +1,27 @@
 
 package com.doublechaintech.retailscm.userallowlist;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.userdomain.CandidateUserDomain;import com.doublechaintech.retailscm.userdomain.UserDomain;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.userdomain.UserDomain;
-
-import com.doublechaintech.retailscm.userdomain.CandidateUserDomain;
-
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager implements UserAllowListManager, BusinessHandler{
@@ -60,6 +47,7 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws UserAllowListManagerException{
 
 		Message message = new Message();
@@ -70,131 +58,185 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 
- 	protected UserAllowList saveUserAllowList(RetailscmUserContext userContext, UserAllowList userAllowList, String [] tokensExpr) throws Exception{	
+ 	protected UserAllowList saveUserAllowList(RetailscmUserContext userContext, UserAllowList userAllowList, String [] tokensExpr) throws Exception{
  		//return getUserAllowListDAO().save(userAllowList, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveUserAllowList(userContext, userAllowList, tokens);
  	}
- 	
- 	protected UserAllowList saveUserAllowListDetail(RetailscmUserContext userContext, UserAllowList userAllowList) throws Exception{	
 
- 		
+ 	protected UserAllowList saveUserAllowListDetail(RetailscmUserContext userContext, UserAllowList userAllowList) throws Exception{
+
+
  		return saveUserAllowList(userContext, userAllowList, allTokens());
  	}
- 	
- 	public UserAllowList loadUserAllowList(RetailscmUserContext userContext, String userAllowListId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public UserAllowList loadUserAllowList(RetailscmUserContext userContext, String userAllowListId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserAllowListManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		UserAllowList userAllowList = loadUserAllowList( userContext, userAllowListId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,userAllowList, tokens);
  	}
- 	
- 	
- 	 public UserAllowList searchUserAllowList(RetailscmUserContext userContext, String userAllowListId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public UserAllowList searchUserAllowList(RetailscmUserContext userContext, String userAllowListId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserAllowListManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		UserAllowList userAllowList = loadUserAllowList( userContext, userAllowListId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,userAllowList, tokens);
  	}
- 	
- 	
+
+
 
  	protected UserAllowList present(RetailscmUserContext userContext, UserAllowList userAllowList, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,userAllowList,tokens);
-		
-		
+    
+
 		UserAllowList  userAllowListToPresent = userAllowListDaoOf(userContext).present(userAllowList, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = userAllowListToPresent.collectRefercencesFromLists();
 		userAllowListDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,userAllowList,tokens);
-		
+
 		return  userAllowListToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public UserAllowList loadUserAllowListDetail(RetailscmUserContext userContext, String userAllowListId) throws Exception{	
+
+
+
+ 	public UserAllowList loadUserAllowListDetail(RetailscmUserContext userContext, String userAllowListId) throws Exception{
  		UserAllowList userAllowList = loadUserAllowList( userContext, userAllowListId, allTokens());
  		return present(userContext,userAllowList, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String userAllowListId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String userAllowListId) throws Exception{
  		UserAllowList userAllowList = loadUserAllowList( userContext, userAllowListId, viewTokens());
- 		return present(userContext,userAllowList, allTokens());
-		
- 	}
- 	protected UserAllowList saveUserAllowList(RetailscmUserContext userContext, UserAllowList userAllowList, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, userAllowList);
+ 		return present(userContext,userAllowList, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String userAllowListId) throws Exception{
+		UserAllowList userAllowList = loadUserAllowList( userContext, userAllowListId, viewTokens());
+		userAllowList.summarySuffix();
+		markVisited(userContext, userAllowList);
+ 		return present(userContext,userAllowList, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String userAllowListId) throws Exception{
+		UserAllowList userAllowList = loadUserAllowList( userContext, userAllowListId, analyzeTokens());
+		markVisited(userContext, userAllowList);
+		return present(userContext,userAllowList, analyzeTokens());
+
+	}
+ 	protected UserAllowList saveUserAllowList(RetailscmUserContext userContext, UserAllowList userAllowList, Map<String,Object>tokens) throws Exception{
+ 	
  		return userAllowListDaoOf(userContext).save(userAllowList, tokens);
  	}
- 	protected UserAllowList loadUserAllowList(RetailscmUserContext userContext, String userAllowListId, Map<String,Object>tokens) throws Exception{	
+ 	protected UserAllowList loadUserAllowList(RetailscmUserContext userContext, String userAllowListId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserAllowListManagerException.class);
 
- 
+
+
  		return userAllowListDaoOf(userContext).load(userAllowListId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, UserAllowList userAllowList, Map<String, Object> tokens){
 		super.addActions(userContext, userAllowList, tokens);
-		
+
 		addAction(userContext, userAllowList, tokens,"@create","createUserAllowList","createUserAllowList/","main","primary");
 		addAction(userContext, userAllowList, tokens,"@update","updateUserAllowList","updateUserAllowList/"+userAllowList.getId()+"/","main","primary");
 		addAction(userContext, userAllowList, tokens,"@copy","cloneUserAllowList","cloneUserAllowList/"+userAllowList.getId()+"/","main","primary");
-		
+
 		addAction(userContext, userAllowList, tokens,"user_allow_list.transfer_to_domain","transferToAnotherDomain","transferToAnotherDomain/"+userAllowList.getId()+"/","main","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, UserAllowList userAllowList, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<UserAllowList> searchUserAllowListList(RetailscmUserContext ctx, UserAllowListRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<UserAllowList> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public UserAllowList searchUserAllowList(RetailscmUserContext ctx, UserAllowListRequest pRequest){
+    pRequest.limit(0, 1);
+    List<UserAllowList> list = searchUserAllowListList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public UserAllowList createUserAllowList(RetailscmUserContext userContext, String userIdentity,String userSpecialFunctions,String domainId) throws Exception
-	//public UserAllowList createUserAllowList(RetailscmUserContext userContext,String userIdentity, String userSpecialFunctions, String domainId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkUserIdentityOfUserAllowList(userIdentity);
 		checkerOf(userContext).checkUserSpecialFunctionsOfUserAllowList(userSpecialFunctions);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAllowListManagerException.class);
+
 
 
 		UserAllowList userAllowList=createNewUserAllowList();	
@@ -224,28 +266,30 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
 		checkerOf(userContext).checkVersionOfUserAllowList( userAllowListVersion);
-		
+
 
 		if(UserAllowList.USER_IDENTITY_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkUserIdentityOfUserAllowList(parseString(newValueExpr));
 		
-			
+
 		}
 		if(UserAllowList.USER_SPECIAL_FUNCTIONS_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkUserSpecialFunctionsOfUserAllowList(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserAllowListManagerException.class);
+
 
 
 	}
@@ -274,6 +318,8 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 			if (userAllowList.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixUserAllowList(userAllowList);
 			userAllowList = saveUserAllowList(userContext, userAllowList, options);
 			return userAllowList;
 
@@ -340,9 +386,15 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 	protected Map<String,Object> allTokens(){
 		return UserAllowListTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.analyzeAllLists().done();
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -354,6 +406,7 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 
  		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
  		checkerOf(userContext).checkIdOfUserDomain(anotherDomainId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(UserAllowListManagerException.class);
 
  	}
@@ -361,16 +414,17 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
  	{
  		checkParamsForTransferingAnotherDomain(userContext, userAllowListId,anotherDomainId);
  
-		UserAllowList userAllowList = loadUserAllowList(userContext, userAllowListId, allTokens());	
+		UserAllowList userAllowList = loadUserAllowList(userContext, userAllowListId, allTokens());
 		synchronized(userAllowList){
 			//will be good when the userAllowList loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			UserDomain domain = loadUserDomain(userContext, anotherDomainId, emptyOptions());		
-			userAllowList.updateDomain(domain);		
+			UserDomain domain = loadUserDomain(userContext, anotherDomainId, emptyOptions());
+			userAllowList.updateDomain(domain);
+			
 			userAllowList = saveUserAllowList(userContext, userAllowList, emptyOptions());
-			
+
 			return present(userContext,userAllowList, allTokens());
-			
+
 		}
 
  	}
@@ -403,8 +457,9 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 
  	protected UserDomain loadUserDomain(RetailscmUserContext userContext, String newDomainId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return userDomainDaoOf(userContext).load(newDomainId, options);
+ 	  
  	}
  	
 
@@ -453,9 +508,6 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 
-
-
-
 	public void onNewInstanceCreated(RetailscmUserContext userContext, UserAllowList newCreated) throws Exception{
 		ensureRelationInGraph(userContext, newCreated);
 		sendCreationEvent(userContext, newCreated);
@@ -472,112 +524,50 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
     );
   }
 
+  protected String getRootUserDomainId(RetailscmUserContext ctx) {
+    return "UD000001";
+  }
+
+  public UserAllowList updateUserRole(RetailscmUserContext ctx, String userIdentity, String roleName, boolean add) throws Exception {
+    UserAllowList rcd = getByIdentity(ctx, userIdentity);
+    String roleSeg = ";"+roleName+";";
+    if (rcd == null){
+      // 指定记录不存在
+      if (!add) {
+        return null;
+      }
+      return this.createUserAllowList(ctx,userIdentity, roleSeg, getRootUserDomainId(ctx));
+    }
+    // 记录存在
+    String oldRoles = rcd.getUserSpecialFunctions();
+    if (oldRoles.contains(roleSeg) == add){
+      // 如果'已包含' 和 '要赋予' 一致, 那么就什么都不用做
+      return rcd;
+    }
+    if (add){
+      rcd.updateUserSpecialFunctions(oldRoles+roleName+";");
+    }else{
+      rcd.updateUserSpecialFunctions(oldRoles.replace(roleSeg,";"));
+    }
+    return internalSaveUserAllowList(ctx, rcd, EO);
+  }
+
+  public UserAllowList getByIdentity(RetailscmUserContext ctx, String userIdentity){
+      String sql = "select * from " + UserAllowListTable.TABLE_NAME+" where "
+              + UserAllowListTable.COLUMN_USER_IDENTITY+"=? and "
+              + UserAllowListTable.COLUMN_DOMAIN+" is not null";
+
+      SmartList<UserAllowList> list = daoOf(ctx).queryList(sql, userIdentity);
+      return list.first();
+    }
+
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -600,28 +590,21 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, UserAllowList.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, UserAllowList.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -647,7 +630,7 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 		page.setContainerObject(UserDomain.withId(domainId));
 		page.setRequestBeanName(this.getBeanName());
 		page.setDataList((SmartList)list);
-		page.setPageTitle("用户允许列表列表");
+		page.setPageTitle("用户权限列表列表");
 		page.setRequestName("listByDomain");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
@@ -667,11 +650,11 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String userAllowListId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getUserAllowListDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		UserAllowList merchantObj = (UserAllowList) this.view(userContext, userAllowListId);
     String merchantObjId = userAllowListId;
     String linkToUrl =	"userAllowListManager/wxappview/" + merchantObjId + "/";
-    String pageTitle = "用户允许列表"+"详情";
+    String pageTitle = "用户权限列表"+"详情";
 		Map result = new HashMap();
 		List propList = new ArrayList();
 		List sections = new ArrayList();
@@ -690,8 +673,8 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "2-userIdentity")
 				    .put("fieldName", "userIdentity")
-				    .put("label", "用户身份")
-				    .put("type", "text")
+				    .put("label", "用户标识")
+				    .put("type", "mobile")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
 				    .into_map()
@@ -701,7 +684,7 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 		propList.add(
 				MapUtil.put("id", "3-userSpecialFunctions")
 				    .put("fieldName", "userSpecialFunctions")
-				    .put("label", "用户特殊功能")
+				    .put("label", "用户特权")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -735,8 +718,19 @@ public class UserAllowListManagerImpl extends CustomRetailscmCheckerManager impl
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

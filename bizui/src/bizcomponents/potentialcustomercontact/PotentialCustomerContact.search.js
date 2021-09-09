@@ -65,45 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { PotentialCustomerAssociateForm } = GlobalComponents
-  const { CityPartnerAssociateForm } = GlobalComponents
-  const { PotentialCustomerContactPersonAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <PotentialCustomerAssociateForm 
-	visible={currentAssociateModal==='potentialCustomer'} 
-	data={{potentialCustomerContactList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'potentialCustomer')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'potentialCustomer')}/> <CityPartnerAssociateForm 
-	visible={currentAssociateModal==='cityPartner'} 
-	data={{potentialCustomerContactList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'cityPartner')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'cityPartner')}/> <PotentialCustomerContactPersonAssociateForm 
-	visible={currentAssociateModal==='contactTo'} 
-	data={{potentialCustomerContactList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'contactTo')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'contactTo')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class PotentialCustomerContactSearch extends PureComponent {
   state = {
@@ -138,7 +99,7 @@ class PotentialCustomerContactSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {PotentialCustomerContactTable} = GlobalComponents;
     const {PotentialCustomerContactSearchForm} = GlobalComponents;
     const {PotentialCustomerContactModalTable} = GlobalComponents;
@@ -190,7 +151,7 @@ class PotentialCustomerContactSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,PotentialCustomerContactModalTable,"potentialCustomerContactIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

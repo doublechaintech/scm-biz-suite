@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.warehouseasset;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.warehouse.Warehouse;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.warehouse.Warehouse;
 @JsonSerialize(using = WarehouseAssetSerializer.class)
 public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String POSITION_PROPERTY              = "position"          ;
@@ -45,32 +42,87 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(POSITION_PROPERTY, "position", "位置")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(OWNER_PROPERTY, "warehouse", "业主")
+        .withType("warehouse", Warehouse.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
+        .withType("date_time_update", DateTime.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,POSITION_PROPERTY ,OWNER_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(OWNER_PROPERTY, Warehouse.class);
+
+    return parents;
+  }
+
+  public WarehouseAsset want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public WarehouseAsset wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mPosition           ;
-	protected		Warehouse           	mOwner              ;
-	protected		DateTime            	mLastUpdateTime     ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		String              	position            ;
+	protected		Warehouse           	owner               ;
+	protected		DateTime            	lastUpdateTime      ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	WarehouseAsset(){
 		// lazy load for all the properties
 	}
@@ -78,20 +130,39 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		WarehouseAsset warehouseAsset = new WarehouseAsset();
 		warehouseAsset.setId(id);
 		warehouseAsset.setVersion(Integer.MAX_VALUE);
+		warehouseAsset.setChecked(true);
 		return warehouseAsset;
 	}
 	public 	static WarehouseAsset refById(String id){
 		return withId(id);
 	}
-	
+
+  public WarehouseAsset limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public WarehouseAsset limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static WarehouseAsset searchExample(){
+    WarehouseAsset warehouseAsset = new WarehouseAsset();
+    		warehouseAsset.setVersion(UNSET_INT);
+
+    return warehouseAsset;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setOwner( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -162,7 +233,7 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -179,138 +250,217 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public WarehouseAsset updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public WarehouseAsset updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public WarehouseAsset orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public WarehouseAsset ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public WarehouseAsset addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public WarehouseAsset updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public WarehouseAsset updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public WarehouseAsset orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public WarehouseAsset ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public WarehouseAsset addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setPosition(String position){
-		this.mPosition = trimString(position);;
-	}
+	public void setPosition(String position){String oldPosition = this.position;String newPosition = trimString(position);this.position = newPosition;}
+	public String position(){
+doLoad();
+return getPosition();
+}
 	public String getPosition(){
-		return this.mPosition;
+		return this.position;
 	}
-	public WarehouseAsset updatePosition(String position){
-		this.mPosition = trimString(position);;
-		this.changed = true;
-		return this;
-	}
+	public WarehouseAsset updatePosition(String position){String oldPosition = this.position;String newPosition = trimString(position);if(!shouldReplaceBy(newPosition, oldPosition)){return this;}this.position = newPosition;addPropertyChange(POSITION_PROPERTY, oldPosition, newPosition);this.changed = true;setChecked(false);return this;}
+	public WarehouseAsset orderByPosition(boolean asc){
+doAddOrderBy(POSITION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createPositionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(POSITION_PROPERTY, operator, parameters);
+}
+	public WarehouseAsset ignorePositionCriteria(){super.ignoreSearchProperty(POSITION_PROPERTY);
+return this;
+}
+	public WarehouseAsset addPositionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createPositionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergePosition(String position){
 		if(position != null) { setPosition(position);}
 	}
+
 	
-	
-	public void setOwner(Warehouse owner){
-		this.mOwner = owner;;
-	}
+	public void setOwner(Warehouse owner){Warehouse oldOwner = this.owner;Warehouse newOwner = owner;this.owner = newOwner;}
+	public Warehouse owner(){
+doLoad();
+return getOwner();
+}
 	public Warehouse getOwner(){
-		return this.mOwner;
+		return this.owner;
 	}
-	public WarehouseAsset updateOwner(Warehouse owner){
-		this.mOwner = owner;;
-		this.changed = true;
-		return this;
-	}
+	public WarehouseAsset updateOwner(Warehouse owner){Warehouse oldOwner = this.owner;Warehouse newOwner = owner;if(!shouldReplaceBy(newOwner, oldOwner)){return this;}this.owner = newOwner;addPropertyChange(OWNER_PROPERTY, oldOwner, newOwner);this.changed = true;setChecked(false);return this;}
+	public WarehouseAsset orderByOwner(boolean asc){
+doAddOrderBy(OWNER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createOwnerCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(OWNER_PROPERTY, operator, parameters);
+}
+	public WarehouseAsset ignoreOwnerCriteria(){super.ignoreSearchProperty(OWNER_PROPERTY);
+return this;
+}
+	public WarehouseAsset addOwnerCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createOwnerCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeOwner(Warehouse owner){
 		if(owner != null) { setOwner(owner);}
 	}
-	
+
 	
 	public void clearOwner(){
 		setOwner ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-	}
+	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
+	public DateTime lastUpdateTime(){
+doLoad();
+return getLastUpdateTime();
+}
 	public DateTime getLastUpdateTime(){
-		return this.mLastUpdateTime;
+		return this.lastUpdateTime;
 	}
-	public WarehouseAsset updateLastUpdateTime(DateTime lastUpdateTime){
-		this.mLastUpdateTime = lastUpdateTime;;
-		this.changed = true;
-		return this;
-	}
+	public WarehouseAsset updateLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;if(!shouldReplaceBy(newLastUpdateTime, oldLastUpdateTime)){return this;}this.lastUpdateTime = newLastUpdateTime;addPropertyChange(LAST_UPDATE_TIME_PROPERTY, oldLastUpdateTime, newLastUpdateTime);this.changed = true;setChecked(false);return this;}
+	public WarehouseAsset orderByLastUpdateTime(boolean asc){
+doAddOrderBy(LAST_UPDATE_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LAST_UPDATE_TIME_PROPERTY, operator, parameters);
+}
+	public WarehouseAsset ignoreLastUpdateTimeCriteria(){super.ignoreSearchProperty(LAST_UPDATE_TIME_PROPERTY);
+return this;
+}
+	public WarehouseAsset addLastUpdateTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLastUpdateTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLastUpdateTime(DateTime lastUpdateTime){
 		setLastUpdateTime(lastUpdateTime);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public WarehouseAsset updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public WarehouseAsset updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public WarehouseAsset orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public WarehouseAsset ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public WarehouseAsset addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getOwner(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -326,16 +476,16 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof WarehouseAsset){
-		
-		
+
+
 			WarehouseAsset dest =(WarehouseAsset)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setPosition(getPosition());
@@ -348,13 +498,13 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof WarehouseAsset){
-		
-			
+
+
 			WarehouseAsset dest =(WarehouseAsset)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergePosition(getPosition());
@@ -366,15 +516,15 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof WarehouseAsset){
-		
-			
+
+
 			WarehouseAsset dest =(WarehouseAsset)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergePosition(getPosition());
@@ -387,6 +537,45 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getPosition(), getOwner(), getLastUpdateTime(), getVersion()};
 	}
+
+
+	public static WarehouseAsset createWith(RetailscmUserContext userContext, ThrowingFunction<WarehouseAsset,WarehouseAsset,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<WarehouseAsset> customCreator = mapper.findCustomCreator(WarehouseAsset.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    WarehouseAsset result = new WarehouseAsset();
+    result.setName(mapper.tryToGet(WarehouseAsset.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setPosition(mapper.tryToGet(WarehouseAsset.class, POSITION_PROPERTY, String.class,
+        1, false, result.getPosition(), params));
+    result.setOwner(mapper.tryToGet(WarehouseAsset.class, OWNER_PROPERTY, Warehouse.class,
+        0, true, result.getOwner(), params));
+     result.setLastUpdateTime(userContext.now());
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixWarehouseAsset(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      WarehouseAssetTokens tokens = mapper.findParamByClass(params, WarehouseAssetTokens.class);
+      if (tokens == null) {
+        tokens = WarehouseAssetTokens.start();
+      }
+      result = userContext.getManagerGroup().getWarehouseAssetManager().internalSaveWarehouseAsset(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -403,7 +592,7 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

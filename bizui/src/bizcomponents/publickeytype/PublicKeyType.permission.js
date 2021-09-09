@@ -31,9 +31,9 @@ const internalSummaryOf = (publicKeyType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{publicKeyType.id}</Description> 
-<Description term="名称">{publicKeyType.name}</Description> 
-<Description term="代码">{publicKeyType.code}</Description> 
+<Description term="ID">{publicKeyType.id}</Description> 
+<Description term="加密算法">{publicKeyType.keyAlg}</Description> 
+<Description term="签名算法">{publicKeyType.signAlg}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,9 +58,9 @@ class PublicKeyTypePermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  publicKeyType = this.props.publicKeyType
-    const { id,displayName, keypairIdentifyCount } = publicKeyType
-    const  returnURL = `/publicKeyType/${id}/dashboard`
-    const cardsData = {cardsName:"公共密钥类型",cardsFor: "publicKeyType",cardsSource: publicKeyType,displayName,returnURL,
+    const { id,displayName, keyPairIdentityCount } = publicKeyType
+    const  returnURL = `/publicKeyType/${id}/workbench`
+    const cardsData = {cardsName:"公钥类型",cardsFor: "publicKeyType",cardsSource: publicKeyType,displayName,returnURL,
   		subItems: [
     
       	],
@@ -72,10 +72,10 @@ class PublicKeyTypePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

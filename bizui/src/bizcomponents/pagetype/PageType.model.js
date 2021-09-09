@@ -37,6 +37,22 @@ export default {
     },
   },
   effects: {
+
+    *analyze({ payload }, { call, put, select }){
+      yield put({ type: 'showLoading', payload })
+      const link = payload.pathname
+      const {PageTypeService} = GlobalComponents;
+      const data = yield call(PageTypeService.analyze, payload.id)
+      
+      const displayName = payload.displayName||data.displayName
+      
+      
+      yield put({ type: 'breadcrumb/gotoLink', payload: { displayName,link }} )
+      
+
+      yield put({ type: 'updateState', payload: data })
+      
+    },
     *view({ payload }, { call, put, select }) { 
     
       const cachedData = yield select(state => state._pageType)
@@ -112,75 +128,6 @@ export default {
     *goback({ payload }, { put }) {
       const { id, type,listName } = payload
       yield put(routerRedux.push(`/pageType/${id}/list/${type}List/${listName}`))
-    },
-
-
-
-
-    *addPage({ payload }, { call, put }) {
-      const userContext = null
-      const {PageTypeService} = GlobalComponents;
-
-      const { id, role, parameters, continueNext } = payload
-      console.log('get form parameters', parameters)
-      const data = yield call(PageTypeService.addPage, id, parameters)
-      if (hasError(data)) {
-        handleServerError(data)
-        return
-      }
-      const newPlayload = { ...payload, ...data }
-      yield put({ type: 'updateState', payload: newPlayload })
-      // yield put(routerRedux.push(`/pageType/${id}/list/${role}CreateForm'))
-      notifySuccess(userContext)
-      if (continueNext) {
-        return
-      }
-      const partialList = true
-      const newState = {...data, partialList}
-      const location = { pathname: `/pageType/${id}/list/PageList/页面+${appLocaleName(userContext,'List')}`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updatePage({ payload }, { call, put }) {
-      const userContext = null
-      const {PageTypeService} = GlobalComponents;      
-      const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
-      console.log('get form parameters', parameters)
-      const data = yield call(PageTypeService.updatePage, id, parameters)
-      if (hasError(data)) {
-        handleServerError(data)
-        return
-      }
-      const partialList = true
-      
-      const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
-      yield put({ type: 'updateState', payload: newPlayload })
-      notifySuccess(userContext)
-      
-      if (continueNext) {
-        return
-      }
-      const location = { pathname: `/pageType/${id}/list/PageList/页面列表`, state: newPlayload }
-      yield put(routerRedux.push(location))
-    },
-    *gotoNextPageUpdateRow({ payload }, { call, put }) {
-      const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
-      const newPlayload = { ...payload, selectedRows, currentUpdateIndex }
-      yield put({ type: 'updateState', payload: newPlayload })
-    },
-    *removePageList({ payload }, { call, put }) {
-     const userContext = null
-      const {PageTypeService} = GlobalComponents; 
-      const { id, role, parameters, continueNext } = payload
-      console.log('get form parameters', parameters)
-      const data = yield call(PageTypeService.removePageList, id, parameters)
-      if (hasError(data)) {
-        handleServerError(data)
-        return
-      }
-      const newPlayload = { ...payload, ...data }
-
-      yield put({ type: 'updateState', payload: newPlayload })
-      notifySuccess(userContext)
     },
 
   },

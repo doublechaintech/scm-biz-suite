@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Row, Tag, Button,Table} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -21,6 +21,8 @@ const {
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
+	defaultRenderNumberCell,
+	defaultFormatNumber,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -32,10 +34,27 @@ const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
+const renderNumberCell=defaultRenderNumberCell
+const formatNumber = defaultFormatNumber
+
+const renderImageListCell=(imageList, record)=>{
+	const userContext = null;
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+}
 
 
 
-const menuData = {menuName: window.trans('employee'), menuFor: "employee",
+
+const menuData = {menuName: window.trans('employee'), menuFor: "employee",  internalName: "employee",
   		subItems: [
   {name: 'employeeCompanyTrainingList', displayName: window.mtrans('employee_company_training','employee.employee_company_training_list',false), type:'employeeCompanyTraining',icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'employeeSkillList', displayName: window.mtrans('employee_skill','employee.employee_skill_list',false), type:'employeeSkill',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
@@ -49,16 +68,32 @@ const menuData = {menuName: window.trans('employee'), menuFor: "employee",
   {name: 'employeeAwardList', displayName: window.mtrans('employee_award','employee.employee_award_list',false), type:'employeeAward',icon:'award',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'employeeSalarySheetList', displayName: window.mtrans('employee_salary_sheet','employee.employee_salary_sheet_list',false), type:'employeeSalarySheet',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'payingOffList', displayName: window.mtrans('paying_off','employee.paying_off_list',false), type:'payingOff',icon:'coffee',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  
+
   		],
 }
 
 
-const settingMenuData = {menuName: window.trans('employee'), menuFor: "employee",
+const settingMenuData = {menuName: window.trans('employee'), menuFor: "employee",  internalName: "employee",
   		subItems: [
-  
+
   		],
 }
+
+
+const mergedSubItems=()=>{
+
+    const result = []
+    menuData.subItems.forEach(item=>{
+        result.push({...item, for: "menu"})
+    })
+    settingMenuData.subItems.forEach(item=>{
+        result.push({...item, for: "setting"})
+    })
+    return result
+}
+const universalMenuData = {...menuData, subItems: mergedSubItems()}
+
+
 
 const fieldLabels = {
   id: window.trans('employee.id'),
@@ -99,7 +134,7 @@ const displayColumns = [
 ]
 
 
-const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(universalMenuData,targetObject,searchTerm)
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -129,7 +164,7 @@ const renderTextItem=(value, label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 const renderImageItem=(value,label, targetComponent)=>{
@@ -137,7 +172,7 @@ const renderImageItem=(value,label, targetComponent)=>{
 	if(!value){
 		return appLocaleName(userContext,"NotAssigned")
 	}
-	
+
 	return <ImagePreview title={label} imageLocation={value}/>
 }
 
@@ -169,35 +204,84 @@ const renderReferenceItem=(value,label, targetComponent)=>{
 	if(!value.displayName){
 		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
 	}
-	
+
 	return <Tag color='blue' title={`${value.displayName}(${value.id})`}>{leftChars(value.displayName)}</Tag>
 }
 
-const renderItemOfList=(employee, targetComponent, columCount, listName)=>{
-  
+
+const renderImageList=(imageList,label, targetComponent)=>{
+	const userContext = null
+	if(!imageList){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(imageList.length === 0){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	// return JSON.stringify(imageList)
+/*
+	the data looks like this
+	{"id":"1601","title":"cover_images01",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images010016/400/200/grey/"},
+	{"id":"1602","title":"cover_images02",
+	"imageUrl":"https://demo.doublechaintech.com/demodata/imageManager/genImage/cover_images020016/400/200/grey/"}
+*/
+	return (<span>{
+		imageList.map(item=>(<img width="40px" key={item.id} title={item.title} src={item.imageUrl}/>))
+		}</span>)
+
+}
+
+
+const renderActionList=(employee, targetObject, columCount, listName)=>{
+
+	if(!employee){
+		return null
+	}
+	if(!employee.actionList){
+		return null
+	}
+	if(employee.actionList.length === 0){
+		return null
+	}
+	return (
+		<div className={styles.overlay}>
+
+			<div className={styles.overlayContent}>
+			{employee.actionList.map(action=>(<Link key={action.id} to={{pathname: action.actionPath.substring(1), state: {ownerId:targetObject.id,action,selectedRows:[employee]}}} >
+				<span className={styles.overlayText}>{action.actionName}</span>
+				</Link> ))}
+			</div>
+
+		</div>
+		)
+
+}
+
+const renderItemOfList=(employee, targetObject, columCount, listName)=>{
+
   if(!employee){
   	return null
   }
   if(!employee.id){
   	return null
   }
-  
-  
+
+
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={`${listName}-${employee.id}`} style={{marginTop:"10px"}}>
-		
+     <Row key={`${listName}-${employee.id}`} className={styles.itemDesc}>
+
 	<Col span={4}>
-		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+		<Avatar size={90} className={styles.avarta} style={{ backgroundColor: genColor()}}>
 			{leftChars(employee.displayName)}
 		</Avatar>
 	</Col>
 	<Col span={20}>
 	  
-	  
-	 
-	
+
+
+
       <DescriptionList  key={employee.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employee.id}</Description> 
         <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{employee.title}</Description> 
@@ -217,36 +301,40 @@ const renderItemOfList=(employee, targetComponent, columCount, listName)=>{
 
         <Description term={fieldLabels.salaryAccount} style={{wordBreak: 'break-all'}}>{employee.salaryAccount}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(employee.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
-	
-        
+
+
       </DescriptionList>
      </Col>
-    </Card>
+      {renderActionList(employee,targetObject)}
+    </Row>
 	)
 
 }
-	
+
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {title, familyName, givenName, email, city, address, cellPhone, salaryAccount, companyId, departmentId, occupationId, responsibleForId, currentSalaryGradeId} = formValuesToPack
+	const {companyId, title, departmentId, familyName, givenName, email, city, address, cellPhone, occupationId, responsibleForId, currentSalaryGradeId, salaryAccount, lastUpdateTime} = formValuesToPack
 	const company = {id: companyId, version: 2^31}
 	const department = {id: departmentId, version: 2^31}
 	const occupation = {id: occupationId, version: 2^31}
 	const responsibleFor = {id: responsibleForId, version: 2^31}
 	const currentSalaryGrade = {id: currentSalaryGradeId, version: 2^31}
-	const data = {title, familyName, givenName, email, city, address, cellPhone, salaryAccount, company, department, occupation, responsibleFor, currentSalaryGrade}
+	const data = {company, title, department, familyName, givenName, email, city, address, cellPhone, occupation, responsibleFor, currentSalaryGrade, salaryAccount, lastUpdateTime:moment(lastUpdateTime).valueOf()}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {title, familyName, givenName, email, city, address, cellPhone, salaryAccount, company, department, occupation, responsibleFor, currentSalaryGrade} = objectToUnpack
+	const {company, title, department, familyName, givenName, email, city, address, cellPhone, occupation, responsibleFor, currentSalaryGrade, salaryAccount, lastUpdateTime} = objectToUnpack
 	const companyId = company ? company.id : null
 	const departmentId = department ? department.id : null
 	const occupationId = occupation ? occupation.id : null
 	const responsibleForId = responsibleFor ? responsibleFor.id : null
 	const currentSalaryGradeId = currentSalaryGrade ? currentSalaryGrade.id : null
-	const data = {title, familyName, givenName, email, city, address, cellPhone, salaryAccount, companyId, departmentId, occupationId, responsibleForId, currentSalaryGradeId}
+	const data = {companyId, title, departmentId, familyName, givenName, email, city, address, cellPhone, occupationId, responsibleForId, currentSalaryGradeId, salaryAccount, lastUpdateTime:moment(lastUpdateTime)}
 	return data
 }
-const stepOf=(targetComponent, title, content, position, index)=>{
+
+
+const stepOf=(targetComponent, title, content, position, index, initValue)=>{
+	const isMultipleEvent=false
 	return {
 		title,
 		content,
@@ -254,8 +342,13 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		packFunction: packFormValuesToObject,
 		unpackFunction: unpackObjectToFormValues,
 		index,
+		initValue,
+		isMultipleEvent,
       }
 }
-const EmployeeBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+
+
+
+const EmployeeBase={unpackObjectToFormValues, menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeBase
 

@@ -44,13 +44,15 @@ public interface SectionDAO extends BaseDAO{
 	public void delete(String sectionId, int version) throws Exception;
 	public Section disconnectFromAll(String sectionId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<Section> queryList(String sql, Object ... parmeters);
+	public SmartList<Section> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Section> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSection executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Section> findSectionByPage(String pageId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface SectionDAO extends BaseDAO{
 
 
  
+
+	List<Section> search(SectionRequest pRequest);
 }
 
 

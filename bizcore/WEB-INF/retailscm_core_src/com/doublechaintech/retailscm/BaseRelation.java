@@ -442,8 +442,8 @@ public class BaseRelation{
 		String [] wechatMiniappIdentityRelatedObjectNames = {"sec_user:SecUser"};
 		addRelationIndex("WechatMiniappIdentity",wechatMiniappIdentityRelatedObjectNames);
 
-		String [] keypairIdentityRelatedObjectNames = {"key_type:PublicKeyType","sec_user:SecUser"};
-		addRelationIndex("KeypairIdentity",keypairIdentityRelatedObjectNames);
+		String [] keyPairIdentityRelatedObjectNames = {"key_type:PublicKeyType","sec_user:SecUser"};
+		addRelationIndex("KeyPairIdentity",keyPairIdentityRelatedObjectNames);
 
 		String [] publicKeyTypeRelatedObjectNames = {"domain:UserDomain"};
 		addRelationIndex("PublicKeyType",publicKeyTypeRelatedObjectNames);
@@ -627,8 +627,8 @@ public class BaseRelation{
 		addGenericRelation("CandidateElement"                      ,TRUST_CHAIN_READ,"container");
 		addGenericRelation("WechatWorkappIdentity"                 ,TRUST_CHAIN_READ,"secUser");
 		addGenericRelation("WechatMiniappIdentity"                 ,TRUST_CHAIN_READ,"secUser");
-		addGenericRelation("KeypairIdentity"                       ,TRUST_CHAIN_READ,"keyType");
-		addGenericRelation("KeypairIdentity"                       ,TRUST_CHAIN_READ,"secUser");
+		addGenericRelation("KeyPairIdentity"                       ,TRUST_CHAIN_READ,"keyType");
+		addGenericRelation("KeyPairIdentity"                       ,TRUST_CHAIN_READ,"secUser");
 		addGenericRelation("PublicKeyType"                         ,TRUST_CHAIN_READ,"domain");
 	
 	}

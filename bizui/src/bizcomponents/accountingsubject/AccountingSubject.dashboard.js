@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
-import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+import BaseTool from '../../common/Base.tool'
+import { Tag, Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
-import {
-  ChartCard, yuan, MiniArea, MiniBar, MiniProgress, Field, Bar, Pie, TimelineChart,
-} from '../../components/Charts'
+import {TagCloud} from '../../components/Charts'
 import Trend from '../../components/Trend'
 import NumberInfo from '../../components/NumberInfo'
 import { getTimeDistance } from '../../utils/utils'
@@ -30,7 +29,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
 
+const {defaultFormatNumber} = BaseTool
 
+const formatNumber = defaultFormatNumber
 
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
@@ -43,7 +44,7 @@ const imageList =(accountingSubject)=>{return [
 
 const internalImageListOf = (accountingSubject) =>defaultImageListOf(accountingSubject,imageList)
 
-const optionList =(accountingSubject)=>{return [ 
+const optionList =(accountingSubject)=>{return [
 	]}
 
 const buildTransferModal = defaultBuildTransferModal
@@ -53,7 +54,7 @@ const internalSettingListOf = (accountingSubject) =>defaultSettingListOf(account
 const internalLargeTextOf = (accountingSubject) =>{
 
 	return null
-	
+
 
 }
 
@@ -68,7 +69,7 @@ const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
         <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
-       
+
         <Button>
         <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
       </Button>
@@ -101,38 +102,59 @@ const renderSettingMenu = (cardsData,targetComponent) =>{
 }
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
+
+
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
 
-const internalSummaryOf = (accountingSubject,targetComponent) =>{
-	
-	
+const internalSummaryOf = (cardsData,targetComponent) =>{
+
+	 const quickFunctions = targetComponent.props.quickFunctions || internalQuickFunctions
+	const accountingSubject = cardsData.cardsSource
 	const {AccountingSubjectService} = GlobalComponents
 	const userContext = null
 	return (
+	<div>
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingSubject.id}</Description> 
+<Description term="ID" style={{wordBreak: 'break-all'}}>{accountingSubject.id}</Description> 
 <Description term="会计科目代码" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectCode}</Description> 
 <Description term="会计科目名称" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectName}</Description> 
 <Description term="会计科目类别代码" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectClassCode}</Description> 
 <Description term="会计科目类别名称" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectClassName}</Description> 
 <Description term="账套">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"账套","accountSet",AccountingSubjectService.requestCandidateAccountSet,
-	      AccountingSubjectService.transferToAnotherAccountSet,"anotherAccountSetId",accountingSubject.accountSet?accountingSubject.accountSet.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
-	
-        {buildTransferModal(accountingSubject,targetComponent)}
+
+       
       </DescriptionList>
+      <div>{quickFunctions(cardsData)}</div>
+      </div>
 	)
 
 }
+
+
+const renderTagCloud=(cardsData)=>{
+
+
+  if(cardsData.subItems.length<10){
+    return null
+  }
+
+  const tagValue = cardsData.subItems.map(item=>({name:item.displayName, value: item.count}))
+
+  return <div >
+      <div style={{verticalAlign:"middle",textAlign:"center",backgroundColor:"rgba(0, 0, 0, 0.65)",color:"white",fontWeight:"bold",height:"40px"}}>
+       <span style={{display:"inline-block",marginTop:"10px"}}>{`${cardsData.displayName}画像`}</span>
+      </div>
+      <TagCloud data={tagValue} height={200} style={{backgroundColor:"white"}}/>
+    </div>
+
+
+}
+
 
 const internalQuickFunctions = defaultQuickFunctions
 
@@ -146,7 +168,7 @@ class AccountingSubjectDashboard extends Component {
     targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
-    transferTargetParameterName:"",  
+    transferTargetParameterName:"",
     defaultType: 'accountingSubject'
 
 
@@ -154,7 +176,7 @@ class AccountingSubjectDashboard extends Component {
   componentDidMount() {
 
   }
-  
+
 
   render() {
     // eslint-disable-next-line max-len
@@ -163,19 +185,19 @@ class AccountingSubjectDashboard extends Component {
       return null
     }
     const returnURL = this.props.returnURL
-    
+
     const cardsData = {cardsName:window.trans('accounting_subject'),cardsFor: "accountingSubject",
     	cardsSource: this.props.accountingSubject,returnURL,displayName,
   		subItems: [
 {name: 'accountingDocumentLineList', displayName: window.mtrans('accounting_document_line','accounting_subject.accounting_document_line_list',false) ,viewGroup:'__no_group', type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
-    
+
       	],
    		subSettingItems: [
-    
-      	],     	
-      	
+
+      	],
+
   	};
-    
+
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
     const imageListOf = this.props.imageListOf || internalImageListOf
@@ -187,27 +209,28 @@ class AccountingSubjectDashboard extends Component {
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
-    
+    // {quickFunctions(cardsData)}
     return (
 
       <PageHeaderLayout
         title={renderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+
+
        
-        {renderExtraHeader(cardsData.cardsSource)}
-        
-        {quickFunctions(cardsData)} 
-        {imageListOf(cardsData.cardsSource)}  
-        {renderAnalytics(cardsData.cardsSource)}
-        {settingListOf(cardsData.cardsSource)}
-        {renderSubjectList(cardsData)}       
-        {largeTextOf(cardsData.cardsSource)}
-        {renderExtraFooter(cardsData.cardsSource)}
-  		
+     <Col span={24} style={{marginRight:"20px", backgroundColor: "white"}}>
+      {renderTagCloud(cardsData)}
+
+      {imageListOf(cardsData.cardsSource)}
+      {renderAnalytics(cardsData.cardsSource)}
+      {settingListOf(cardsData.cardsSource)}
+
+	   </Col>
+
+		 
       </PageHeaderLayout>
-    
+
     )
   }
 }
@@ -215,6 +238,6 @@ class AccountingSubjectDashboard extends Component {
 export default connect(state => ({
   accountingSubject: state._accountingSubject,
   returnURL: state.breadcrumb.returnURL,
-  
+
 }))(Form.create()(AccountingSubjectDashboard))
 

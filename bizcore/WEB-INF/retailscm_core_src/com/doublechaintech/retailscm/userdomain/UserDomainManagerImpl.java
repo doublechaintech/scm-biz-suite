@@ -1,42 +1,27 @@
 
 package com.doublechaintech.retailscm.userdomain;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.publickeytype.PublicKeyType;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userallowlist.UserAllowList;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.userdomain.UserDomain;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userallowlist.UserAllowList;
-import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
-
-
-import com.doublechaintech.retailscm.userdomain.UserDomain;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class UserDomainManagerImpl extends CustomRetailscmCheckerManager implements UserDomainManager, BusinessHandler{
@@ -62,6 +47,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws UserDomainManagerException{
 
 		Message message = new Message();
@@ -72,107 +58,138 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 
 
 
- 	protected UserDomain saveUserDomain(RetailscmUserContext userContext, UserDomain userDomain, String [] tokensExpr) throws Exception{	
+ 	protected UserDomain saveUserDomain(RetailscmUserContext userContext, UserDomain userDomain, String [] tokensExpr) throws Exception{
  		//return getUserDomainDAO().save(userDomain, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveUserDomain(userContext, userDomain, tokens);
  	}
- 	
- 	protected UserDomain saveUserDomainDetail(RetailscmUserContext userContext, UserDomain userDomain) throws Exception{	
 
- 		
+ 	protected UserDomain saveUserDomainDetail(RetailscmUserContext userContext, UserDomain userDomain) throws Exception{
+
+
  		return saveUserDomain(userContext, userDomain, allTokens());
  	}
- 	
- 	public UserDomain loadUserDomain(RetailscmUserContext userContext, String userDomainId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public UserDomain loadUserDomain(RetailscmUserContext userContext, String userDomainId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserDomainManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		UserDomain userDomain = loadUserDomain( userContext, userDomainId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,userDomain, tokens);
  	}
- 	
- 	
- 	 public UserDomain searchUserDomain(RetailscmUserContext userContext, String userDomainId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public UserDomain searchUserDomain(RetailscmUserContext userContext, String userDomainId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserDomainManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		UserDomain userDomain = loadUserDomain( userContext, userDomainId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,userDomain, tokens);
  	}
- 	
- 	
+
+
 
  	protected UserDomain present(RetailscmUserContext userContext, UserDomain userDomain, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,userDomain,tokens);
-		
-		
+    
+
 		UserDomain  userDomainToPresent = userDomainDaoOf(userContext).present(userDomain, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = userDomainToPresent.collectRefercencesFromLists();
 		userDomainDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,userDomain,tokens);
-		
+
 		return  userDomainToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public UserDomain loadUserDomainDetail(RetailscmUserContext userContext, String userDomainId) throws Exception{	
+
+
+
+ 	public UserDomain loadUserDomainDetail(RetailscmUserContext userContext, String userDomainId) throws Exception{
  		UserDomain userDomain = loadUserDomain( userContext, userDomainId, allTokens());
  		return present(userContext,userDomain, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String userDomainId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String userDomainId) throws Exception{
  		UserDomain userDomain = loadUserDomain( userContext, userDomainId, viewTokens());
- 		return present(userContext,userDomain, allTokens());
-		
- 	}
- 	protected UserDomain saveUserDomain(RetailscmUserContext userContext, UserDomain userDomain, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, userDomain);
+ 		return present(userContext,userDomain, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String userDomainId) throws Exception{
+		UserDomain userDomain = loadUserDomain( userContext, userDomainId, viewTokens());
+		userDomain.summarySuffix();
+		markVisited(userContext, userDomain);
+ 		return present(userContext,userDomain, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String userDomainId) throws Exception{
+		UserDomain userDomain = loadUserDomain( userContext, userDomainId, analyzeTokens());
+		markVisited(userContext, userDomain);
+		return present(userContext,userDomain, analyzeTokens());
+
+	}
+ 	protected UserDomain saveUserDomain(RetailscmUserContext userContext, UserDomain userDomain, Map<String,Object>tokens) throws Exception{
+ 	
  		return userDomainDaoOf(userContext).save(userDomain, tokens);
  	}
- 	protected UserDomain loadUserDomain(RetailscmUserContext userContext, String userDomainId, Map<String,Object>tokens) throws Exception{	
+ 	protected UserDomain loadUserDomain(RetailscmUserContext userContext, String userDomainId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( UserDomainManagerException.class);
 
- 
+
+
  		return userDomainDaoOf(userContext).load(userDomainId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, UserDomain userDomain, Map<String, Object> tokens){
 		super.addActions(userContext, userDomain, tokens);
-		
+
 		addAction(userContext, userDomain, tokens,"@create","createUserDomain","createUserDomain/","main","primary");
 		addAction(userContext, userDomain, tokens,"@update","updateUserDomain","updateUserDomain/"+userDomain.getId()+"/","main","primary");
 		addAction(userContext, userDomain, tokens,"@copy","cloneUserDomain","cloneUserDomain/"+userDomain.getId()+"/","main","primary");
-		
+
 		addAction(userContext, userDomain, tokens,"user_domain.addUserAllowList","addUserAllowList","addUserAllowList/"+userDomain.getId()+"/","userAllowListList","primary");
 		addAction(userContext, userDomain, tokens,"user_domain.removeUserAllowList","removeUserAllowList","removeUserAllowList/"+userDomain.getId()+"/","userAllowListList","primary");
 		addAction(userContext, userDomain, tokens,"user_domain.updateUserAllowList","updateUserAllowList","updateUserAllowList/"+userDomain.getId()+"/","userAllowListList","primary");
@@ -185,28 +202,51 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		addAction(userContext, userDomain, tokens,"user_domain.removePublicKeyType","removePublicKeyType","removePublicKeyType/"+userDomain.getId()+"/","publicKeyTypeList","primary");
 		addAction(userContext, userDomain, tokens,"user_domain.updatePublicKeyType","updatePublicKeyType","updatePublicKeyType/"+userDomain.getId()+"/","publicKeyTypeList","primary");
 		addAction(userContext, userDomain, tokens,"user_domain.copyPublicKeyTypeFrom","copyPublicKeyTypeFrom","copyPublicKeyTypeFrom/"+userDomain.getId()+"/","publicKeyTypeList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, UserDomain userDomain, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<UserDomain> searchUserDomainList(RetailscmUserContext ctx, UserDomainRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<UserDomain> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public UserDomain searchUserDomain(RetailscmUserContext ctx, UserDomainRequest pRequest){
+    pRequest.limit(0, 1);
+    List<UserDomain> list = searchUserDomainList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public UserDomain createUserDomain(RetailscmUserContext userContext, String name) throws Exception
-	//public UserDomain createUserDomain(RetailscmUserContext userContext,String name) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkNameOfUserDomain(name);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 
 		UserDomain userDomain=createNewUserDomain();	
@@ -230,20 +270,22 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 		checkerOf(userContext).checkVersionOfUserDomain( userDomainVersion);
-		
+
 
 		if(UserDomain.NAME_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkNameOfUserDomain(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 
 	}
@@ -272,6 +314,8 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			if (userDomain.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixUserDomain(userDomain);
 			userDomain = saveUserDomain(userContext, userDomain, options);
 			return userDomain;
 
@@ -338,12 +382,18 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 	protected Map<String,Object> allTokens(){
 		return UserDomainTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortUserAllowListListWith("id","desc")
-		.sortSecUserListWith("id","desc")
-		.sortPublicKeyTypeListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortUserAllowListListWith(UserAllowList.ID_PROPERTY,sortDesc())
+		.sortSecUserListWith(SecUser.ID_PROPERTY,sortDesc())
+		.sortPublicKeyTypeListWith(PublicKeyType.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -395,25 +445,23 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 
 
 
-
-
-
 	protected void checkParamsForAddingUserAllowList(RetailscmUserContext userContext, String userDomainId, String userIdentity, String userSpecialFunctions,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 
-		
+
 		checkerOf(userContext).checkUserIdentityOfUserAllowList(userIdentity);
-		
+
 		checkerOf(userContext).checkUserSpecialFunctionsOfUserAllowList(userSpecialFunctions);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 
 	}
 	public  UserDomain addUserAllowList(RetailscmUserContext userContext, String userDomainId, String userIdentity, String userSpecialFunctions, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingUserAllowList(userContext,userDomainId,userIdentity, userSpecialFunctions,tokensExpr);
 
 		UserAllowList userAllowList = createUserAllowList(userContext,userIdentity, userSpecialFunctions);
@@ -437,7 +485,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkUserIdentityOfUserAllowList( userIdentity);
 		checkerOf(userContext).checkUserSpecialFunctionsOfUserAllowList( userSpecialFunctions);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain updateUserAllowListProperties(RetailscmUserContext userContext, String userDomainId, String id,String userIdentity,String userSpecialFunctions, String [] tokensExpr) throws Exception
@@ -504,6 +554,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			checkerOf(userContext).checkIdOfUserAllowList(userAllowListIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
 
 	}
@@ -530,7 +581,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkIdOfUserDomain( userDomainId);
 		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
 		checkerOf(userContext).checkVersionOfUserAllowList(userAllowListVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain removeUserAllowList(RetailscmUserContext userContext, String userDomainId,
@@ -557,7 +610,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkIdOfUserDomain( userDomainId);
 		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
 		checkerOf(userContext).checkVersionOfUserAllowList(userAllowListVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain copyUserAllowListFrom(RetailscmUserContext userContext, String userDomainId,
@@ -585,7 +640,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 	protected void checkParamsForUpdatingUserAllowList(RetailscmUserContext userContext, String userDomainId, String userAllowListId, int userAllowListVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 		checkerOf(userContext).checkIdOfUserAllowList(userAllowListId);
 		checkerOf(userContext).checkVersionOfUserAllowList(userAllowListVersion);
@@ -600,7 +655,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 
@@ -631,6 +688,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			userAllowList.changeProperty(property, newValueExpr);
 			
 			userDomain = saveUserDomain(userContext, userDomain, tokens().withUserAllowListList().done());
+			userAllowListManagerOf(userContext).onUpdated(userContext, userAllowList, this, "updateUserAllowList");
 			return present(userContext,userDomain, mergedAllTokens(tokensExpr));
 		}
 
@@ -651,34 +709,35 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 
 				checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 
-		
+
 		checkerOf(userContext).checkLoginOfSecUser(login);
-		
+
 		checkerOf(userContext).checkMobileOfSecUser(mobile);
-		
+
 		checkerOf(userContext).checkEmailOfSecUser(email);
-		
+
 		checkerOf(userContext).checkPwdOfSecUser(pwd);
-		
+
 		checkerOf(userContext).checkWeixinOpenidOfSecUser(weixinOpenid);
-		
+
 		checkerOf(userContext).checkWeixinAppidOfSecUser(weixinAppid);
-		
+
 		checkerOf(userContext).checkAccessTokenOfSecUser(accessToken);
-		
+
 		checkerOf(userContext).checkVerificationCodeOfSecUser(verificationCode);
-		
+
 		checkerOf(userContext).checkVerificationCodeExpireOfSecUser(verificationCodeExpire);
-		
+
 		checkerOf(userContext).checkLastLoginTimeOfSecUser(lastLoginTime);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 
 	}
 	public  UserDomain addSecUser(RetailscmUserContext userContext, String userDomainId, String login, String mobile, String email, String pwd, String weixinOpenid, String weixinAppid, String accessToken, int verificationCode, DateTime verificationCodeExpire, DateTime lastLoginTime, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingSecUser(userContext,userDomainId,login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime,tokensExpr);
 
 		SecUser secUser = createSecUser(userContext,login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime);
@@ -710,7 +769,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkVerificationCodeExpireOfSecUser( verificationCodeExpire);
 		checkerOf(userContext).checkLastLoginTimeOfSecUser( lastLoginTime);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain updateSecUserProperties(RetailscmUserContext userContext, String userDomainId, String id,String login,String mobile,String email,String pwd,String weixinOpenid,String weixinAppid,String accessToken,int verificationCode,DateTime verificationCodeExpire,DateTime lastLoginTime, String [] tokensExpr) throws Exception
@@ -793,6 +854,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			checkerOf(userContext).checkIdOfSecUser(secUserIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
 
 	}
@@ -819,7 +881,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkIdOfUserDomain( userDomainId);
 		checkerOf(userContext).checkIdOfSecUser(secUserId);
 		checkerOf(userContext).checkVersionOfSecUser(secUserVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain removeSecUser(RetailscmUserContext userContext, String userDomainId,
@@ -846,7 +910,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkIdOfUserDomain( userDomainId);
 		checkerOf(userContext).checkIdOfSecUser(secUserId);
 		checkerOf(userContext).checkVersionOfSecUser(secUserVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain copySecUserFrom(RetailscmUserContext userContext, String userDomainId,
@@ -874,7 +940,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 	protected void checkParamsForUpdatingSecUser(RetailscmUserContext userContext, String userDomainId, String secUserId, int secUserVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 		checkerOf(userContext).checkIdOfSecUser(secUserId);
 		checkerOf(userContext).checkVersionOfSecUser(secUserVersion);
@@ -921,7 +987,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 
@@ -952,6 +1020,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			secUser.changeProperty(property, newValueExpr);
 			
 			userDomain = saveUserDomain(userContext, userDomain, tokens().withSecUserList().done());
+			secUserManagerOf(userContext).onUpdated(userContext, secUser, this, "updateSecUser");
 			return present(userContext,userDomain, mergedAllTokens(tokensExpr));
 		}
 
@@ -968,25 +1037,26 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 
 
 
-	protected void checkParamsForAddingPublicKeyType(RetailscmUserContext userContext, String userDomainId, String name, String code,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingPublicKeyType(RetailscmUserContext userContext, String userDomainId, String keyAlg, String signAlg,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 
-		
-		checkerOf(userContext).checkNameOfPublicKeyType(name);
-		
-		checkerOf(userContext).checkCodeOfPublicKeyType(code);
-	
+
+		checkerOf(userContext).checkKeyAlgOfPublicKeyType(keyAlg);
+
+		checkerOf(userContext).checkSignAlgOfPublicKeyType(signAlg);
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
 
 
+
 	}
-	public  UserDomain addPublicKeyType(RetailscmUserContext userContext, String userDomainId, String name, String code, String [] tokensExpr) throws Exception
+	public  UserDomain addPublicKeyType(RetailscmUserContext userContext, String userDomainId, String keyAlg, String signAlg, String [] tokensExpr) throws Exception
 	{
+		checkParamsForAddingPublicKeyType(userContext,userDomainId,keyAlg, signAlg,tokensExpr);
 
-		checkParamsForAddingPublicKeyType(userContext,userDomainId,name, code,tokensExpr);
-
-		PublicKeyType publicKeyType = createPublicKeyType(userContext,name, code);
+		PublicKeyType publicKeyType = createPublicKeyType(userContext,keyAlg, signAlg);
 
 		UserDomain userDomain = loadUserDomain(userContext, userDomainId, emptyOptions());
 		synchronized(userDomain){
@@ -999,20 +1069,22 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			return present(userContext,userDomain, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingPublicKeyTypeProperties(RetailscmUserContext userContext, String userDomainId,String id,String name,String code,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingPublicKeyTypeProperties(RetailscmUserContext userContext, String userDomainId,String id,String keyAlg,String signAlg,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 		checkerOf(userContext).checkIdOfPublicKeyType(id);
 
-		checkerOf(userContext).checkNameOfPublicKeyType( name);
-		checkerOf(userContext).checkCodeOfPublicKeyType( code);
+		checkerOf(userContext).checkKeyAlgOfPublicKeyType( keyAlg);
+		checkerOf(userContext).checkSignAlgOfPublicKeyType( signAlg);
+
 
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
 
+
 	}
-	public  UserDomain updatePublicKeyTypeProperties(RetailscmUserContext userContext, String userDomainId, String id,String name,String code, String [] tokensExpr) throws Exception
+	public  UserDomain updatePublicKeyTypeProperties(RetailscmUserContext userContext, String userDomainId, String id,String keyAlg,String signAlg, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingPublicKeyTypeProperties(userContext,userDomainId,id,name,code,tokensExpr);
+		checkParamsForUpdatingPublicKeyTypeProperties(userContext,userDomainId,id,keyAlg,signAlg,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
@@ -1026,9 +1098,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		}
 
 		PublicKeyType item = userDomainToUpdate.getPublicKeyTypeList().first();
-		beforeUpdatePublicKeyTypeProperties(userContext,item, userDomainId,id,name,code,tokensExpr);
-		item.updateName( name );
-		item.updateCode( code );
+		beforeUpdatePublicKeyTypeProperties(userContext,item, userDomainId,id,keyAlg,signAlg,tokensExpr);
+		item.updateKeyAlg( keyAlg );
+		item.updateSignAlg( signAlg );
 
 
 		//checkParamsForAddingPublicKeyType(userContext,userDomainId,name, code, used,tokensExpr);
@@ -1038,18 +1110,18 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		}
 	}
 
-	protected  void beforeUpdatePublicKeyTypeProperties(RetailscmUserContext userContext, PublicKeyType item, String userDomainId, String id,String name,String code, String [] tokensExpr)
+	protected  void beforeUpdatePublicKeyTypeProperties(RetailscmUserContext userContext, PublicKeyType item, String userDomainId, String id,String keyAlg,String signAlg, String [] tokensExpr)
 						throws Exception {
 			// by default, nothing to do
 	}
 
-	protected PublicKeyType createPublicKeyType(RetailscmUserContext userContext, String name, String code) throws Exception{
+	protected PublicKeyType createPublicKeyType(RetailscmUserContext userContext, String keyAlg, String signAlg) throws Exception{
 
 		PublicKeyType publicKeyType = new PublicKeyType();
 		
 		
-		publicKeyType.setName(name);		
-		publicKeyType.setCode(code);
+		publicKeyType.setKeyAlg(keyAlg);		
+		publicKeyType.setSignAlg(signAlg);
 	
 		
 		return publicKeyType;
@@ -1073,6 +1145,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		for(String publicKeyTypeIdItem: publicKeyTypeIds){
 			checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeIdItem);
 		}
+
 
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
 
@@ -1100,7 +1173,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkIdOfUserDomain( userDomainId);
 		checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeId);
 		checkerOf(userContext).checkVersionOfPublicKeyType(publicKeyTypeVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain removePublicKeyType(RetailscmUserContext userContext, String userDomainId,
@@ -1127,7 +1202,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		checkerOf(userContext).checkIdOfUserDomain( userDomainId);
 		checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeId);
 		checkerOf(userContext).checkVersionOfPublicKeyType(publicKeyTypeVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 	public  UserDomain copyPublicKeyTypeFrom(RetailscmUserContext userContext, String userDomainId,
@@ -1155,22 +1232,24 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 	protected void checkParamsForUpdatingPublicKeyType(RetailscmUserContext userContext, String userDomainId, String publicKeyTypeId, int publicKeyTypeVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfUserDomain(userDomainId);
 		checkerOf(userContext).checkIdOfPublicKeyType(publicKeyTypeId);
 		checkerOf(userContext).checkVersionOfPublicKeyType(publicKeyTypeVersion);
 
 
-		if(PublicKeyType.NAME_PROPERTY.equals(property)){
-			checkerOf(userContext).checkNameOfPublicKeyType(parseString(newValueExpr));
+		if(PublicKeyType.KEY_ALG_PROPERTY.equals(property)){
+			checkerOf(userContext).checkKeyAlgOfPublicKeyType(parseString(newValueExpr));
 		}
 		
-		if(PublicKeyType.CODE_PROPERTY.equals(property)){
-			checkerOf(userContext).checkCodeOfPublicKeyType(parseString(newValueExpr));
+		if(PublicKeyType.SIGN_ALG_PROPERTY.equals(property)){
+			checkerOf(userContext).checkSignAlgOfPublicKeyType(parseString(newValueExpr));
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(UserDomainManagerException.class);
+
 
 	}
 
@@ -1201,6 +1280,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			publicKeyType.changeProperty(property, newValueExpr);
 			
 			userDomain = saveUserDomain(userContext, userDomain, tokens().withPublicKeyTypeList().done());
+			publicKeyTypeManagerOf(userContext).onUpdated(userContext, publicKeyType, this, "updatePublicKeyType");
 			return present(userContext,userDomain, mergedAllTokens(tokensExpr));
 		}
 
@@ -1233,116 +1313,13 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-    if (methodName.equals("ensureModelInDB")){
-      return false;
-    }
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -1365,28 +1342,21 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, UserDomain.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, UserDomain.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -1407,7 +1377,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String userDomainId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getUserDomainDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		UserDomain merchantObj = (UserDomain) this.view(userContext, userDomainId);
     String merchantObjId = userDomainId;
     String linkToUrl =	"userDomainManager/wxappview/" + merchantObjId + "/";
@@ -1453,8 +1423,6 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		sections.add(secUserListSection);
 
 		result.put("secUserListSection", ListofUtils.toShortList(merchantObj.getSecUserList(), "secUser"));
-		vscope.field("secUserListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( SecUser.class.getName(), null));
 
 		//处理Section：publicKeyTypeListSection
 		Map publicKeyTypeListSection = ListofUtils.buildSection(
@@ -1469,8 +1437,6 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		sections.add(publicKeyTypeListSection);
 
 		result.put("publicKeyTypeListSection", ListofUtils.toShortList(merchantObj.getPublicKeyTypeList(), "publicKeyType"));
-		vscope.field("publicKeyTypeListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( PublicKeyType.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1485,8 +1451,19 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

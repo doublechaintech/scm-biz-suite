@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.supplyordershippinggroup;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,25 +9,28 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
 
 public class SupplyOrderShippingGroupMapper extends BaseRowMapper<SupplyOrderShippingGroup>{
-	
+
 	protected SupplyOrderShippingGroup internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		SupplyOrderShippingGroup supplyOrderShippingGroup = getSupplyOrderShippingGroup();		
-		 		
- 		setId(supplyOrderShippingGroup, rs, rowNumber); 		
- 		setName(supplyOrderShippingGroup, rs, rowNumber); 		
- 		setBizOrder(supplyOrderShippingGroup, rs, rowNumber); 		
- 		setAmount(supplyOrderShippingGroup, rs, rowNumber); 		
+		SupplyOrderShippingGroup supplyOrderShippingGroup = getSupplyOrderShippingGroup();
+		
+ 		setId(supplyOrderShippingGroup, rs, rowNumber);
+ 		setName(supplyOrderShippingGroup, rs, rowNumber);
+ 		setBizOrder(supplyOrderShippingGroup, rs, rowNumber);
+ 		setAmount(supplyOrderShippingGroup, rs, rowNumber);
  		setVersion(supplyOrderShippingGroup, rs, rowNumber);
 
+    
 		return supplyOrderShippingGroup;
 	}
-	
+
 	protected SupplyOrderShippingGroup getSupplyOrderShippingGroup(){
-		return new SupplyOrderShippingGroup();
-	}		
+	  SupplyOrderShippingGroup entity = new SupplyOrderShippingGroup();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(SupplyOrderShippingGroup supplyOrderShippingGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(SupplyOrderShippingGroupTable.COLUMN_ID);
@@ -37,10 +41,13 @@ public class SupplyOrderShippingGroupMapper extends BaseRowMapper<SupplyOrderShi
 		}
 		
 		supplyOrderShippingGroup.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(SupplyOrderShippingGroup supplyOrderShippingGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(SupplyOrderShippingGroupTable.COLUMN_NAME);
@@ -51,10 +58,18 @@ public class SupplyOrderShippingGroupMapper extends BaseRowMapper<SupplyOrderShi
 		}
 		
 		supplyOrderShippingGroup.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setBizOrder(SupplyOrderShippingGroup supplyOrderShippingGroup, ResultSet rs, int rowNumber) throws SQLException{
- 		String supplyOrderId = rs.getString(SupplyOrderShippingGroupTable.COLUMN_BIZ_ORDER);
+ 		String supplyOrderId;
+ 		try{
+ 		  supplyOrderId = rs.getString(SupplyOrderShippingGroupTable.COLUMN_BIZ_ORDER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( supplyOrderId == null){
  			return;
  		}
@@ -65,14 +80,14 @@ public class SupplyOrderShippingGroupMapper extends BaseRowMapper<SupplyOrderShi
  		if( supplyOrder != null ){
  			//if the root object 'supplyOrderShippingGroup' already have the property, just set the id for it;
  			supplyOrder.setId(supplyOrderId);
- 			
+
  			return;
  		}
  		supplyOrderShippingGroup.setBizOrder(createEmptyBizOrder(supplyOrderId));
  	}
  	
 	protected void setAmount(SupplyOrderShippingGroup supplyOrderShippingGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal amount = rs.getBigDecimal(SupplyOrderShippingGroupTable.COLUMN_AMOUNT);
@@ -83,10 +98,13 @@ public class SupplyOrderShippingGroupMapper extends BaseRowMapper<SupplyOrderShi
 		}
 		
 		supplyOrderShippingGroup.setAmount(amount);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(SupplyOrderShippingGroup supplyOrderShippingGroup, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(SupplyOrderShippingGroupTable.COLUMN_VERSION);
@@ -97,9 +115,12 @@ public class SupplyOrderShippingGroupMapper extends BaseRowMapper<SupplyOrderShi
 		}
 		
 		supplyOrderShippingGroup.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected SupplyOrder  createEmptyBizOrder(String supplyOrderId){
  		SupplyOrder supplyOrder = new SupplyOrder();

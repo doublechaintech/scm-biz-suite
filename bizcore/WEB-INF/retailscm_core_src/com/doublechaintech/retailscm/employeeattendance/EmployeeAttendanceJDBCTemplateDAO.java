@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeeattendance;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeAttendanceTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeAttendanceTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeAttendanceTokens.EMPLOYEE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		return new EmployeeAttendanceMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeAttendance extractEmployeeAttendance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeAttendance employeeAttendance = loadSingleObject(accessKey, getEmployeeAttendanceMapper());
@@ -229,25 +231,26 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeAttendance loadInternalEmployeeAttendance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeAttendance employeeAttendance = extractEmployeeAttendance(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeAttendance, loadOptions);
  		}
  
 		
 		return employeeAttendance;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeAttendance extractEmployee(EmployeeAttendance employeeAttendance, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeAttendance.getEmployee() == null){
 			return employeeAttendance;
@@ -260,37 +263,37 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(employee != null){
 			employeeAttendance.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeAttendance;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeAttendance> findEmployeeAttendanceByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeAttendance> resultList = queryWith(EmployeeAttendanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAttendanceMapper());
 		// analyzeEmployeeAttendanceByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeAttendance> findEmployeeAttendanceByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeAttendance> resultList =  queryWithRange(EmployeeAttendanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAttendanceMapper(), start, count);
  		//analyzeEmployeeAttendanceByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeAttendanceByEmployee(SmartList<EmployeeAttendance> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeAttendanceByEmployee(String employeeId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	public Map<String, Integer> countEmployeeAttendanceByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeAttendanceTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeAttendance saveEmployeeAttendance(EmployeeAttendance  employeeAttendance){
+    
+
 		
 		if(!employeeAttendance.isChanged()){
 			return employeeAttendance;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeAttendance);
 		String SQL=this.getSaveEmployeeAttendanceSQL(employeeAttendance);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeAttendanceParameters(employeeAttendance);
@@ -326,6 +332,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 
 		employeeAttendance.incVersion();
+		employeeAttendance.afterSave();
 		return employeeAttendance;
 
 	}
@@ -343,6 +350,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		for(EmployeeAttendance employeeAttendance:employeeAttendanceList){
 			if(employeeAttendance.isChanged()){
 				employeeAttendance.incVersion();
+				employeeAttendance.afterSave();
 			}
 
 
@@ -449,16 +457,12 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(employeeAttendance.getEmployee() != null){
  			parameters[0] = employeeAttendance.getEmployee().getId();
  		}
- 
- 		
+    
  		parameters[1] = employeeAttendance.getEnterTime();
- 		
  		
  		parameters[2] = employeeAttendance.getLeaveTime();
  		
- 		
  		parameters[3] = employeeAttendance.getDurationHours();
- 		
  		
  		parameters[4] = employeeAttendance.getRemark();
  		
@@ -478,18 +482,13 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  
  		if(employeeAttendance.getEmployee() != null){
  			parameters[1] = employeeAttendance.getEmployee().getId();
-
  		}
- 		
  		
  		parameters[2] = employeeAttendance.getEnterTime();
  		
- 		
  		parameters[3] = employeeAttendance.getLeaveTime();
  		
- 		
  		parameters[4] = employeeAttendance.getDurationHours();
- 		
  		
  		parameters[5] = employeeAttendance.getRemark();
  		
@@ -499,12 +498,11 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected EmployeeAttendance saveInternalEmployeeAttendance(EmployeeAttendance employeeAttendance, Map<String,Object> options){
 
-		saveEmployeeAttendance(employeeAttendance);
-
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeAttendance, options);
  		}
  
+   saveEmployeeAttendance(employeeAttendance);
 		
 		return employeeAttendance;
 
@@ -516,6 +514,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	
 
  	protected EmployeeAttendance saveEmployee(EmployeeAttendance employeeAttendance, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeAttendance.getEmployee() == null){
  			return employeeAttendance;//do nothing when it is null
@@ -525,11 +524,6 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		return employeeAttendance;
 
  	}
-
-
-
-
-
  
 
 	
@@ -537,10 +531,10 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		
 
 	public EmployeeAttendance present(EmployeeAttendance employeeAttendance,Map<String, Object> options){
-	
+
 
 		return employeeAttendance;
-	
+
 	}
 		
 
@@ -592,6 +586,10 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeAttendance> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeAttendanceMapper());
   }
@@ -627,6 +625,15 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	
 
+  @Override
+  public List<EmployeeAttendance> search(EmployeeAttendanceRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeAttendanceMapper mapper() {
+    return getEmployeeAttendanceMapper();
+  }
 }
 
 

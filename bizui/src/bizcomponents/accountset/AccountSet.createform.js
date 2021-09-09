@@ -16,21 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  name: '账套2017',
-  yearSet: '2017年',
-  effectiveDate: '2018-06-07',
-  accountingSystem: '企业会计制度',
-  domesticCurrencyCode: 'RMB',
-  domesticCurrencyName: '人民币',
-  openingBank: '招商银行',
-  accountNumber: '3326 5805 0548 85',
-  countryCenterId: 'RSCC000001',
-  retailStoreId: 'RS000001',
-  goodsSupplierId: 'GS000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -44,9 +29,15 @@ class AccountSetCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -57,7 +48,7 @@ class AccountSetCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -71,8 +62,8 @@ class AccountSetCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -81,13 +72,13 @@ class AccountSetCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = AccountSetBase
     const {AccountSetService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -112,10 +103,10 @@ class AccountSetCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addAccountSet`,
@@ -123,10 +114,10 @@ class AccountSetCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'accountSet',listName:appLocaleName(userContext,"List") },
@@ -172,10 +163,10 @@ class AccountSetCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -187,7 +178,7 @@ class AccountSetCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -198,7 +189,7 @@ class AccountSetCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -208,7 +199,7 @@ class AccountSetCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('account_set')}</div>)
@@ -220,7 +211,7 @@ class AccountSetCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('account_set')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<AccountSetCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -236,7 +227,7 @@ class AccountSetCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

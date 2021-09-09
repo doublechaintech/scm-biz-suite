@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
-import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+import BaseTool from '../../common/Base.tool'
+import { Tag, Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
-import {
-  ChartCard, yuan, MiniArea, MiniBar, MiniProgress, Field, Bar, Pie, TimelineChart,
-} from '../../components/Charts'
+import {TagCloud} from '../../components/Charts'
 import Trend from '../../components/Trend'
 import NumberInfo from '../../components/NumberInfo'
 import { getTimeDistance } from '../../utils/utils'
@@ -30,7 +29,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
 
+const {defaultFormatNumber} = BaseTool
 
+const formatNumber = defaultFormatNumber
 
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
@@ -43,7 +44,7 @@ const imageList =(warehouse)=>{return [
 
 const internalImageListOf = (warehouse) =>defaultImageListOf(warehouse,imageList)
 
-const optionList =(warehouse)=>{return [ 
+const optionList =(warehouse)=>{return [
 	]}
 
 const buildTransferModal = defaultBuildTransferModal
@@ -53,7 +54,7 @@ const internalSettingListOf = (warehouse) =>defaultSettingListOf(warehouse, opti
 const internalLargeTextOf = (warehouse) =>{
 
 	return null
-	
+
 
 }
 
@@ -68,7 +69,7 @@ const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
         <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
-       
+
         <Button>
         <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
       </Button>
@@ -101,34 +102,59 @@ const renderSettingMenu = (cardsData,targetComponent) =>{
 }
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
+
+
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
 
-const internalSummaryOf = (warehouse,targetComponent) =>{
-	
-	
+const internalSummaryOf = (cardsData,targetComponent) =>{
+
+	 const quickFunctions = targetComponent.props.quickFunctions || internalQuickFunctions
+	const warehouse = cardsData.cardsSource
 	const {WarehouseService} = GlobalComponents
 	const userContext = null
 	return (
+	<div>
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号" style={{wordBreak: 'break-all'}}>{warehouse.id}</Description> 
+<Description term="ID" style={{wordBreak: 'break-all'}}>{warehouse.id}</Description> 
 <Description term="位置" style={{wordBreak: 'break-all'}}>{warehouse.location}</Description> 
 <Description term="联系电话" style={{wordBreak: 'break-all'}}>{warehouse.contactNumber}</Description> 
 <Description term="总面积" style={{wordBreak: 'break-all'}}>{warehouse.totalArea}</Description> 
 <Description term="纬度" style={{wordBreak: 'break-all'}}>{warehouse.latitude}</Description> 
 <Description term="经度" style={{wordBreak: 'break-all'}}>{warehouse.longitude}</Description> 
-<Description term="最后更新时间">{ moment(warehouse.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
-	
-        {buildTransferModal(warehouse,targetComponent)}
+<Description term="更新于">{ moment(warehouse.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
+
+       
       </DescriptionList>
+      <div>{quickFunctions(cardsData)}</div>
+      </div>
 	)
 
 }
+
+
+const renderTagCloud=(cardsData)=>{
+
+
+  if(cardsData.subItems.length<10){
+    return null
+  }
+
+  const tagValue = cardsData.subItems.map(item=>({name:item.displayName, value: item.count}))
+
+  return <div >
+      <div style={{verticalAlign:"middle",textAlign:"center",backgroundColor:"rgba(0, 0, 0, 0.65)",color:"white",fontWeight:"bold",height:"40px"}}>
+       <span style={{display:"inline-block",marginTop:"10px"}}>{`${cardsData.displayName}画像`}</span>
+      </div>
+      <TagCloud data={tagValue} height={200} style={{backgroundColor:"white"}}/>
+    </div>
+
+
+}
+
 
 const internalQuickFunctions = defaultQuickFunctions
 
@@ -142,7 +168,7 @@ class WarehouseDashboard extends Component {
     targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
-    transferTargetParameterName:"",  
+    transferTargetParameterName:"",
     defaultType: 'warehouse'
 
 
@@ -150,7 +176,7 @@ class WarehouseDashboard extends Component {
   componentDidMount() {
 
   }
-  
+
 
   render() {
     // eslint-disable-next-line max-len
@@ -159,7 +185,7 @@ class WarehouseDashboard extends Component {
       return null
     }
     const returnURL = this.props.returnURL
-    
+
     const cardsData = {cardsName:window.trans('warehouse'),cardsFor: "warehouse",
     	cardsSource: this.props.warehouse,returnURL,displayName,
   		subItems: [
@@ -170,14 +196,14 @@ class WarehouseDashboard extends Component {
 {name: 'shippingSpaceList', displayName: window.mtrans('shipping_space','warehouse.shipping_space_list',false) ,viewGroup:'__no_group', type:'shippingSpace',count:shippingSpaceCount,addFunction: true, role: 'shippingSpace', metaInfo: shippingSpaceListMetaInfo, renderItem: GlobalComponents.ShippingSpaceBase.renderItemOfList},
 {name: 'damageSpaceList', displayName: window.mtrans('damage_space','warehouse.damage_space_list',false) ,viewGroup:'__no_group', type:'damageSpace',count:damageSpaceCount,addFunction: true, role: 'damageSpace', metaInfo: damageSpaceListMetaInfo, renderItem: GlobalComponents.DamageSpaceBase.renderItemOfList},
 {name: 'warehouseAssetList', displayName: window.mtrans('warehouse_asset','warehouse.warehouse_asset_list',false) ,viewGroup:'__no_group', type:'warehouseAsset',count:warehouseAssetCount,addFunction: true, role: 'warehouseAsset', metaInfo: warehouseAssetListMetaInfo, renderItem: GlobalComponents.WarehouseAssetBase.renderItemOfList},
-    
+
       	],
    		subSettingItems: [
-    
-      	],     	
-      	
+
+      	],
+
   	};
-    
+
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
     const imageListOf = this.props.imageListOf || internalImageListOf
@@ -189,27 +215,28 @@ class WarehouseDashboard extends Component {
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
-    
+    // {quickFunctions(cardsData)}
     return (
 
       <PageHeaderLayout
         title={renderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+
+
        
-        {renderExtraHeader(cardsData.cardsSource)}
-        
-        {quickFunctions(cardsData)} 
-        {imageListOf(cardsData.cardsSource)}  
-        {renderAnalytics(cardsData.cardsSource)}
-        {settingListOf(cardsData.cardsSource)}
-        {renderSubjectList(cardsData)}       
-        {largeTextOf(cardsData.cardsSource)}
-        {renderExtraFooter(cardsData.cardsSource)}
-  		
+     <Col span={24} style={{marginRight:"20px", backgroundColor: "white"}}>
+      {renderTagCloud(cardsData)}
+
+      {imageListOf(cardsData.cardsSource)}
+      {renderAnalytics(cardsData.cardsSource)}
+      {settingListOf(cardsData.cardsSource)}
+
+	   </Col>
+
+		 
       </PageHeaderLayout>
-    
+
     )
   }
 }
@@ -217,6 +244,6 @@ class WarehouseDashboard extends Component {
 export default connect(state => ({
   warehouse: state._warehouse,
   returnURL: state.breadcrumb.returnURL,
-  
+
 }))(Form.create()(WarehouseDashboard))
 

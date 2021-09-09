@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.terminationtype;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected TerminationDAO terminationDAO;
 	public void setTerminationDAO(TerminationDAO terminationDAO){
- 	
+
  		if(terminationDAO == null){
  			throw new IllegalStateException("Do not try to set terminationDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.terminationDAO == null){
  			throw new IllegalStateException("The terminationDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.terminationDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		newTerminationType.setVersion(0);
 		
 		
- 		
+
  		if(isSaveTerminationListEnabled(options)){
  			for(Termination item: newTerminationType.getTerminationList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return TerminationTypeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCompanyEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, TerminationTypeTokens.COMPANY);
  	}
 
  	protected boolean isSaveCompanyEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, TerminationTypeTokens.COMPANY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){
  		return checkOptions(options,TerminationTypeTokens.TERMINATION_LIST);
  	}
- 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){
  		return TerminationTypeTokens.of(options).analyzeTerminationListEnabled();
  	}
-	
+
 	protected boolean isSaveTerminationListEnabled(Map<String,Object> options){
 		return checkOptions(options, TerminationTypeTokens.TERMINATION_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		return new TerminationTypeMapper();
 	}
 
-	
-	
+
+
 	protected TerminationType extractTerminationType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			TerminationType terminationType = loadSingleObject(accessKey, getTerminationTypeMapper());
@@ -268,13 +270,13 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	}
 
-	
-	
+
+
 
 	protected TerminationType loadInternalTerminationType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		TerminationType terminationType = extractTerminationType(accessKey, loadOptions);
- 	
+
  		if(isExtractCompanyEnabled(loadOptions)){
 	 		extractCompany(terminationType, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		
 		if(isExtractTerminationListEnabled(loadOptions)){
 	 		extractTerminationList(terminationType, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeTerminationListEnabled(loadOptions)){
 	 		analyzeTerminationList(terminationType, loadOptions);
@@ -291,12 +293,13 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		
 		
 		return terminationType;
-		
+
 	}
 
-	 
+	
 
  	protected TerminationType extractCompany(TerminationType terminationType, Map<String,Object> options) throws Exception{
+  
 
 		if(terminationType.getCompany() == null){
 			return terminationType;
@@ -309,21 +312,21 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(company != null){
 			terminationType.setCompany(company);
 		}
-		
- 		
+
+
  		return terminationType;
  	}
- 		
+
  
 		
 	protected void enhanceTerminationList(SmartList<Termination> terminationList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected TerminationType extractTerminationList(TerminationType terminationType, Map<String,Object> options){
-		
-		
+    
+
 		if(terminationType == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return terminationType;
 		}
 
-		
-		
+
+
 		SmartList<Termination> terminationList = getTerminationDAO().findTerminationByType(terminationType.getId(),options);
 		if(terminationList != null){
 			enhanceTerminationList(terminationList,options);
 			terminationType.setTerminationList(terminationList);
 		}
-		
+
 		return terminationType;
-	
-	}	
-	
+  
+	}
+
 	protected TerminationType analyzeTerminationList(TerminationType terminationType, Map<String,Object> options){
-		
-		
+     
 		if(terminationType == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 			return terminationType;
 		}
 
-		
-		
+
+
 		SmartList<Termination> terminationList = terminationType.getTerminationList();
 		if(terminationList != null){
 			getTerminationDAO().analyzeTerminationByType(terminationList, terminationType.getId(), options);
-			
+
 		}
-		
+
 		return terminationType;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<TerminationType> findTerminationTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<TerminationType> resultList = queryWith(TerminationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationTypeMapper());
 		// analyzeTerminationTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<TerminationType> findTerminationTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<TerminationType> resultList =  queryWithRange(TerminationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationTypeMapper(), start, count);
  		//analyzeTerminationTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeTerminationTypeByCompany(SmartList<TerminationType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countTerminationTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	public Map<String, Integer> countTerminationTypeByCompanyIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(TerminationTypeTable.COLUMN_COMPANY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected TerminationType saveTerminationType(TerminationType  terminationType){
+    
+
 		
 		if(!terminationType.isChanged()){
 			return terminationType;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(terminationType);
 		String SQL=this.getSaveTerminationTypeSQL(terminationType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveTerminationTypeParameters(terminationType);
@@ -425,6 +430,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 
 		terminationType.incVersion();
+		terminationType.afterSave();
 		return terminationType;
 
 	}
@@ -442,6 +448,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		for(TerminationType terminationType:terminationTypeList){
 			if(terminationType.isChanged()){
 				terminationType.incVersion();
+				terminationType.afterSave();
 			}
 
 
@@ -545,16 +552,13 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  	protected Object[] prepareTerminationTypeUpdateParameters(TerminationType terminationType){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = terminationType.getCode();
  		
  		if(terminationType.getCompany() != null){
  			parameters[1] = terminationType.getCompany().getId();
  		}
- 
- 		
+    
  		parameters[2] = terminationType.getBaseDescription();
- 		
  		
  		parameters[3] = terminationType.getDetailDescription();
  		
@@ -572,17 +576,13 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
         }
 		parameters[0] =  terminationType.getId();
  
- 		
  		parameters[1] = terminationType.getCode();
  		
  		if(terminationType.getCompany() != null){
  			parameters[2] = terminationType.getCompany().getId();
-
  		}
  		
- 		
  		parameters[3] = terminationType.getBaseDescription();
- 		
  		
  		parameters[4] = terminationType.getDetailDescription();
  		
@@ -592,12 +592,11 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	protected TerminationType saveInternalTerminationType(TerminationType terminationType, Map<String,Object> options){
 
-		saveTerminationType(terminationType);
-
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(terminationType, options);
  		}
  
+   saveTerminationType(terminationType);
 		
 		if(isSaveTerminationListEnabled(options)){
 	 		saveTerminationList(terminationType, options);
@@ -616,6 +615,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	
 
  	protected TerminationType saveCompany(TerminationType terminationType, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(terminationType.getCompany() == null){
  			return terminationType;//do nothing when it is null
@@ -625,11 +625,6 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		return terminationType;
 
  	}
-
-
-
-
-
  
 
 	
@@ -708,7 +703,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 		
 	protected TerminationType saveTerminationList(TerminationType terminationType, Map<String,Object> options){
-
+    
 
 
 
@@ -775,19 +770,19 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		
 
 	public TerminationType present(TerminationType terminationType,Map<String, Object> options){
-	
+
 		presentTerminationList(terminationType,options);
 
 		return terminationType;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected TerminationType presentTerminationList(
 			TerminationType terminationType,
 			Map<String, Object> options) {
-
-		SmartList<Termination> terminationList = terminationType.getTerminationList();		
+    
+		SmartList<Termination> terminationList = terminationType.getTerminationList();
 				SmartList<Termination> newList= presentSubList(terminationType.getId(),
 				terminationList,
 				options,
@@ -795,12 +790,12 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 				getTerminationDAO()::findTerminationByType
 				);
 
-		
+
 		terminationType.setTerminationList(newList);
-		
+
 
 		return terminationType;
-	}			
+	}
 		
 
 	
@@ -824,6 +819,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	
 	// 需要一个加载引用我的对象的enhance方法:Termination的type的TerminationList
 	public SmartList<Termination> loadOurTerminationList(RetailscmUserContext userContext, List<TerminationType> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -880,6 +876,10 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<TerminationType> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTerminationTypeMapper());
   }
@@ -915,6 +915,15 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	
 
+  @Override
+  public List<TerminationType> search(TerminationTypeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected TerminationTypeMapper mapper() {
+    return getTerminationTypeMapper();
+  }
 }
 
 

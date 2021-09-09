@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.payingoff;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.employee.Employee;
 
 public class PayingOffMapper extends BaseRowMapper<PayingOff>{
-	
+
 	protected PayingOff internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		PayingOff payingOff = getPayingOff();		
-		 		
- 		setId(payingOff, rs, rowNumber); 		
- 		setWho(payingOff, rs, rowNumber); 		
- 		setPaidFor(payingOff, rs, rowNumber); 		
- 		setPaidTime(payingOff, rs, rowNumber); 		
- 		setAmount(payingOff, rs, rowNumber); 		
+		PayingOff payingOff = getPayingOff();
+		
+ 		setId(payingOff, rs, rowNumber);
+ 		setWho(payingOff, rs, rowNumber);
+ 		setPaidFor(payingOff, rs, rowNumber);
+ 		setPaidTime(payingOff, rs, rowNumber);
+ 		setAmount(payingOff, rs, rowNumber);
  		setVersion(payingOff, rs, rowNumber);
 
+    
 		return payingOff;
 	}
-	
+
 	protected PayingOff getPayingOff(){
-		return new PayingOff();
-	}		
+	  PayingOff entity = new PayingOff();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(PayingOff payingOff, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(PayingOffTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class PayingOffMapper extends BaseRowMapper<PayingOff>{
 		}
 		
 		payingOff.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setWho(PayingOff payingOff, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String who = rs.getString(PayingOffTable.COLUMN_WHO);
@@ -52,10 +59,18 @@ public class PayingOffMapper extends BaseRowMapper<PayingOff>{
 		}
 		
 		payingOff.setWho(who);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setPaidFor(PayingOff payingOff, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(PayingOffTable.COLUMN_PAID_FOR);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(PayingOffTable.COLUMN_PAID_FOR);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -66,14 +81,14 @@ public class PayingOffMapper extends BaseRowMapper<PayingOff>{
  		if( employee != null ){
  			//if the root object 'payingOff' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		payingOff.setPaidFor(createEmptyPaidFor(employeeId));
  	}
  	
 	protected void setPaidTime(PayingOff payingOff, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date paidTime = rs.getDate(PayingOffTable.COLUMN_PAID_TIME);
@@ -84,10 +99,13 @@ public class PayingOffMapper extends BaseRowMapper<PayingOff>{
 		}
 		
 		payingOff.setPaidTime(paidTime);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAmount(PayingOff payingOff, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal amount = rs.getBigDecimal(PayingOffTable.COLUMN_AMOUNT);
@@ -98,10 +116,13 @@ public class PayingOffMapper extends BaseRowMapper<PayingOff>{
 		}
 		
 		payingOff.setAmount(amount);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(PayingOff payingOff, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(PayingOffTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class PayingOffMapper extends BaseRowMapper<PayingOff>{
 		}
 		
 		payingOff.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyPaidFor(String employeeId){
  		Employee employee = new Employee();

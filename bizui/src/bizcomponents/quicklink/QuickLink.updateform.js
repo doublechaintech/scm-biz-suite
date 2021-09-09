@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './QuickLink.updateform.less'
 import QuickLinkBase from './QuickLink.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -35,9 +39,7 @@ class QuickLinkUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -104,13 +106,13 @@ class QuickLinkUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const quickLinkId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, quickLinkId, ...imagesValues }
 
-        
+        const parameters = { ...values, quickLinkId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -125,7 +127,7 @@ class QuickLinkUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -135,12 +137,12 @@ class QuickLinkUpdateForm extends Component {
 
         const { owner } = this.props
         const quickLinkId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, quickLinkId, ...imagesValues }
+
+        const parameters = { ...values, quickLinkId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -162,11 +164,11 @@ class QuickLinkUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextQuickLinkUpdateRow`,
@@ -180,7 +182,7 @@ class QuickLinkUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -188,7 +190,7 @@ class QuickLinkUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'quickLink',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -231,7 +233,7 @@ class QuickLinkUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -245,12 +247,12 @@ class QuickLinkUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}快速链接: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -260,7 +262,7 @@ class QuickLinkUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -268,8 +270,8 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -280,8 +282,8 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.name} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -292,8 +294,8 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.icon,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.icon} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.icon} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -304,17 +306,17 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.linkTarget,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.linkTarget} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.linkTarget} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>
@@ -332,12 +334,13 @@ class QuickLinkUpdateForm extends Component {
             <Row gutter={16}>
 
               <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={window.trans('quick_link')}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleChange(event, 'imagePath')}
-                  fileList={convertedImagesValues.imagePath}
-                />
+              <Form.Item>
+                  {getFieldDecorator('imagePath', {
+                  	initialValue: selectedRow.imagePath,
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.imagePath}/>
+                )} </Form.Item>
               </Col>
 
             </Row>

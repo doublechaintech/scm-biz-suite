@@ -1,49 +1,27 @@
 
 package com.doublechaintech.retailscm.consumerorder;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItem;import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroup;import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustment;import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroup;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.retailstore.CandidateRetailStore;import com.doublechaintech.retailscm.retailstore.RetailStore;import com.doublechaintech.retailscm.retailstoremember.CandidateRetailStoreMember;import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecord;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroup;
-import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
-import com.doublechaintech.retailscm.retailstore.RetailStore;
-import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustment;
-import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroup;
-import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItem;
-import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecord;
-
-import com.doublechaintech.retailscm.retailstoremember.CandidateRetailStoreMember;
-import com.doublechaintech.retailscm.retailstore.CandidateRetailStore;
-
-import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
-import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager implements ConsumerOrderManager, BusinessHandler{
@@ -86,6 +64,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws ConsumerOrderManagerException{
 
 		Message message = new Message();
@@ -96,107 +75,138 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 
- 	protected ConsumerOrder saveConsumerOrder(RetailscmUserContext userContext, ConsumerOrder consumerOrder, String [] tokensExpr) throws Exception{	
+ 	protected ConsumerOrder saveConsumerOrder(RetailscmUserContext userContext, ConsumerOrder consumerOrder, String [] tokensExpr) throws Exception{
  		//return getConsumerOrderDAO().save(consumerOrder, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveConsumerOrder(userContext, consumerOrder, tokens);
  	}
- 	
- 	protected ConsumerOrder saveConsumerOrderDetail(RetailscmUserContext userContext, ConsumerOrder consumerOrder) throws Exception{	
 
- 		
+ 	protected ConsumerOrder saveConsumerOrderDetail(RetailscmUserContext userContext, ConsumerOrder consumerOrder) throws Exception{
+
+
  		return saveConsumerOrder(userContext, consumerOrder, allTokens());
  	}
- 	
- 	public ConsumerOrder loadConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public ConsumerOrder loadConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( ConsumerOrderManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		ConsumerOrder consumerOrder = loadConsumerOrder( userContext, consumerOrderId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,consumerOrder, tokens);
  	}
- 	
- 	
- 	 public ConsumerOrder searchConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public ConsumerOrder searchConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( ConsumerOrderManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		ConsumerOrder consumerOrder = loadConsumerOrder( userContext, consumerOrderId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,consumerOrder, tokens);
  	}
- 	
- 	
+
+
 
  	protected ConsumerOrder present(RetailscmUserContext userContext, ConsumerOrder consumerOrder, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,consumerOrder,tokens);
-		
-		
+    
+
 		ConsumerOrder  consumerOrderToPresent = consumerOrderDaoOf(userContext).present(consumerOrder, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = consumerOrderToPresent.collectRefercencesFromLists();
 		consumerOrderDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,consumerOrder,tokens);
-		
+
 		return  consumerOrderToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public ConsumerOrder loadConsumerOrderDetail(RetailscmUserContext userContext, String consumerOrderId) throws Exception{	
+
+
+
+ 	public ConsumerOrder loadConsumerOrderDetail(RetailscmUserContext userContext, String consumerOrderId) throws Exception{
  		ConsumerOrder consumerOrder = loadConsumerOrder( userContext, consumerOrderId, allTokens());
  		return present(userContext,consumerOrder, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String consumerOrderId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String consumerOrderId) throws Exception{
  		ConsumerOrder consumerOrder = loadConsumerOrder( userContext, consumerOrderId, viewTokens());
- 		return present(userContext,consumerOrder, allTokens());
-		
- 	}
- 	protected ConsumerOrder saveConsumerOrder(RetailscmUserContext userContext, ConsumerOrder consumerOrder, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, consumerOrder);
+ 		return present(userContext,consumerOrder, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String consumerOrderId) throws Exception{
+		ConsumerOrder consumerOrder = loadConsumerOrder( userContext, consumerOrderId, viewTokens());
+		consumerOrder.summarySuffix();
+		markVisited(userContext, consumerOrder);
+ 		return present(userContext,consumerOrder, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String consumerOrderId) throws Exception{
+		ConsumerOrder consumerOrder = loadConsumerOrder( userContext, consumerOrderId, analyzeTokens());
+		markVisited(userContext, consumerOrder);
+		return present(userContext,consumerOrder, analyzeTokens());
+
+	}
+ 	protected ConsumerOrder saveConsumerOrder(RetailscmUserContext userContext, ConsumerOrder consumerOrder, Map<String,Object>tokens) throws Exception{
+ 	
  		return consumerOrderDaoOf(userContext).save(consumerOrder, tokens);
  	}
- 	protected ConsumerOrder loadConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, Map<String,Object>tokens) throws Exception{	
+ 	protected ConsumerOrder loadConsumerOrder(RetailscmUserContext userContext, String consumerOrderId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( ConsumerOrderManagerException.class);
 
- 
+
+
  		return consumerOrderDaoOf(userContext).load(consumerOrderId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, ConsumerOrder consumerOrder, Map<String, Object> tokens){
 		super.addActions(userContext, consumerOrder, tokens);
-		
+
 		addAction(userContext, consumerOrder, tokens,"@create","createConsumerOrder","createConsumerOrder/","main","primary");
 		addAction(userContext, consumerOrder, tokens,"@update","updateConsumerOrder","updateConsumerOrder/"+consumerOrder.getId()+"/","main","primary");
 		addAction(userContext, consumerOrder, tokens,"@copy","cloneConsumerOrder","cloneConsumerOrder/"+consumerOrder.getId()+"/","main","primary");
-		
+
 		addAction(userContext, consumerOrder, tokens,"consumer_order.transfer_to_consumer","transferToAnotherConsumer","transferToAnotherConsumer/"+consumerOrder.getId()+"/","main","primary");
 		addAction(userContext, consumerOrder, tokens,"consumer_order.transfer_to_store","transferToAnotherStore","transferToAnotherStore/"+consumerOrder.getId()+"/","main","primary");
 		addAction(userContext, consumerOrder, tokens,"consumer_order.addConsumerOrderLineItem","addConsumerOrderLineItem","addConsumerOrderLineItem/"+consumerOrder.getId()+"/","consumerOrderLineItemList","primary");
@@ -219,28 +229,51 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		addAction(userContext, consumerOrder, tokens,"consumer_order.removeRetailStoreMemberGiftCardConsumeRecord","removeRetailStoreMemberGiftCardConsumeRecord","removeRetailStoreMemberGiftCardConsumeRecord/"+consumerOrder.getId()+"/","retailStoreMemberGiftCardConsumeRecordList","primary");
 		addAction(userContext, consumerOrder, tokens,"consumer_order.updateRetailStoreMemberGiftCardConsumeRecord","updateRetailStoreMemberGiftCardConsumeRecord","updateRetailStoreMemberGiftCardConsumeRecord/"+consumerOrder.getId()+"/","retailStoreMemberGiftCardConsumeRecordList","primary");
 		addAction(userContext, consumerOrder, tokens,"consumer_order.copyRetailStoreMemberGiftCardConsumeRecordFrom","copyRetailStoreMemberGiftCardConsumeRecordFrom","copyRetailStoreMemberGiftCardConsumeRecordFrom/"+consumerOrder.getId()+"/","retailStoreMemberGiftCardConsumeRecordList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, ConsumerOrder consumerOrder, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<ConsumerOrder> searchConsumerOrderList(RetailscmUserContext ctx, ConsumerOrderRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<ConsumerOrder> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public ConsumerOrder searchConsumerOrder(RetailscmUserContext ctx, ConsumerOrderRequest pRequest){
+    pRequest.limit(0, 1);
+    List<ConsumerOrder> list = searchConsumerOrderList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public ConsumerOrder createConsumerOrder(RetailscmUserContext userContext, String title,String consumerId,String storeId) throws Exception
-	//public ConsumerOrder createConsumerOrder(RetailscmUserContext userContext,String title, String consumerId, String storeId) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkTitleOfConsumerOrder(title);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 
 		ConsumerOrder consumerOrder=createNewConsumerOrder();	
@@ -275,24 +308,26 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkVersionOfConsumerOrder( consumerOrderVersion);
-		
+
 
 		if(ConsumerOrder.TITLE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTitleOfConsumerOrder(parseString(newValueExpr));
 		
-			
-		}		
 
-				
+		}
 
 		
-	
+
+		
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 
 	}
@@ -321,6 +356,8 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			if (consumerOrder.isChanged()){
 			consumerOrder.updateLastUpdateTime(userContext.now());
 			}
+
+      //checkerOf(userContext).checkAndFixConsumerOrder(consumerOrder);
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, options);
 			return consumerOrder;
 
@@ -387,14 +424,20 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	protected Map<String,Object> allTokens(){
 		return ConsumerOrderTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortConsumerOrderLineItemListWith("id","desc")
-		.sortConsumerOrderShippingGroupListWith("id","desc")
-		.sortConsumerOrderPaymentGroupListWith("id","desc")
-		.sortConsumerOrderPriceAdjustmentListWith("id","desc")
-		.sortRetailStoreMemberGiftCardConsumeRecordListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortConsumerOrderLineItemListWith(ConsumerOrderLineItem.ID_PROPERTY,sortDesc())
+		.sortConsumerOrderShippingGroupListWith(ConsumerOrderShippingGroup.ID_PROPERTY,sortDesc())
+		.sortConsumerOrderPaymentGroupListWith(ConsumerOrderPaymentGroup.ID_PROPERTY,sortDesc())
+		.sortConsumerOrderPriceAdjustmentListWith(ConsumerOrderPriceAdjustment.ID_PROPERTY,sortDesc())
+		.sortRetailStoreMemberGiftCardConsumeRecordListWith(RetailStoreMemberGiftCardConsumeRecord.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -406,6 +449,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
  		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
  		checkerOf(userContext).checkIdOfRetailStoreMember(anotherConsumerId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
  	}
@@ -413,16 +457,17 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
  	{
  		checkParamsForTransferingAnotherConsumer(userContext, consumerOrderId,anotherConsumerId);
  
-		ConsumerOrder consumerOrder = loadConsumerOrder(userContext, consumerOrderId, allTokens());	
+		ConsumerOrder consumerOrder = loadConsumerOrder(userContext, consumerOrderId, allTokens());
 		synchronized(consumerOrder){
 			//will be good when the consumerOrder loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStoreMember consumer = loadRetailStoreMember(userContext, anotherConsumerId, emptyOptions());		
-			consumerOrder.updateConsumer(consumer);		
+			RetailStoreMember consumer = loadRetailStoreMember(userContext, anotherConsumerId, emptyOptions());
+			consumerOrder.updateConsumer(consumer);
+			consumerOrder.updateLastUpdateTime(userContext.now());
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, emptyOptions());
-			
+
 			return present(userContext,consumerOrder, allTokens());
-			
+
 		}
 
  	}
@@ -455,6 +500,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
  		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
  		checkerOf(userContext).checkIdOfRetailStore(anotherStoreId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
  	}
@@ -462,16 +508,17 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
  	{
  		checkParamsForTransferingAnotherStore(userContext, consumerOrderId,anotherStoreId);
  
-		ConsumerOrder consumerOrder = loadConsumerOrder(userContext, consumerOrderId, allTokens());	
+		ConsumerOrder consumerOrder = loadConsumerOrder(userContext, consumerOrderId, allTokens());
 		synchronized(consumerOrder){
 			//will be good when the consumerOrder loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStore store = loadRetailStore(userContext, anotherStoreId, emptyOptions());		
-			consumerOrder.updateStore(store);		
+			RetailStore store = loadRetailStore(userContext, anotherStoreId, emptyOptions());
+			consumerOrder.updateStore(store);
+			consumerOrder.updateLastUpdateTime(userContext.now());
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, emptyOptions());
-			
+
 			return present(userContext,consumerOrder, allTokens());
-			
+
 		}
 
  	}
@@ -504,8 +551,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
  	protected RetailStoreMember loadRetailStoreMember(RetailscmUserContext userContext, String newConsumerId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreMemberDaoOf(userContext).load(newConsumerId, options);
+ 	  
  	}
  	
 
@@ -514,8 +562,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
  	protected RetailStore loadRetailStore(RetailscmUserContext userContext, String newStoreId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreDaoOf(userContext).load(newStoreId, options);
+ 	  
  	}
  	
 
@@ -561,27 +610,6 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 
 
-	//disconnect ConsumerOrder with owner in RetailStoreMemberGiftCardConsumeRecord
-	protected ConsumerOrder breakWithRetailStoreMemberGiftCardConsumeRecordByOwner(RetailscmUserContext userContext, String consumerOrderId, String ownerId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			ConsumerOrder consumerOrder = loadConsumerOrder(userContext, consumerOrderId, allTokens());
-
-			synchronized(consumerOrder){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				consumerOrderDaoOf(userContext).planToRemoveRetailStoreMemberGiftCardConsumeRecordListWithOwner(consumerOrder, ownerId, this.emptyOptions());
-
-				consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withRetailStoreMemberGiftCardConsumeRecordList().done());
-				return consumerOrder;
-			}
-	}
-
-
-
 
 
 
@@ -589,24 +617,25 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 				checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 
-		
+
 		checkerOf(userContext).checkSkuIdOfConsumerOrderLineItem(skuId);
-		
+
 		checkerOf(userContext).checkSkuNameOfConsumerOrderLineItem(skuName);
-		
+
 		checkerOf(userContext).checkPriceOfConsumerOrderLineItem(price);
-		
+
 		checkerOf(userContext).checkQuantityOfConsumerOrderLineItem(quantity);
-		
+
 		checkerOf(userContext).checkAmountOfConsumerOrderLineItem(amount);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 
 	}
 	public  ConsumerOrder addConsumerOrderLineItem(RetailscmUserContext userContext, String consumerOrderId, String skuId, String skuName, BigDecimal price, BigDecimal quantity, BigDecimal amount, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingConsumerOrderLineItem(userContext,consumerOrderId,skuId, skuName, price, quantity, amount,tokensExpr);
 
 		ConsumerOrderLineItem consumerOrderLineItem = createConsumerOrderLineItem(userContext,skuId, skuName, price, quantity, amount);
@@ -633,7 +662,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkQuantityOfConsumerOrderLineItem( quantity);
 		checkerOf(userContext).checkAmountOfConsumerOrderLineItem( amount);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder updateConsumerOrderLineItemProperties(RetailscmUserContext userContext, String consumerOrderId, String id,String skuId,String skuName,BigDecimal price,BigDecimal quantity,BigDecimal amount, String [] tokensExpr) throws Exception
@@ -707,6 +738,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			checkerOf(userContext).checkIdOfConsumerOrderLineItem(consumerOrderLineItemIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -733,7 +765,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderLineItem(consumerOrderLineItemId);
 		checkerOf(userContext).checkVersionOfConsumerOrderLineItem(consumerOrderLineItemVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder removeConsumerOrderLineItem(RetailscmUserContext userContext, String consumerOrderId,
@@ -760,7 +794,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderLineItem(consumerOrderLineItemId);
 		checkerOf(userContext).checkVersionOfConsumerOrderLineItem(consumerOrderLineItemVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder copyConsumerOrderLineItemFrom(RetailscmUserContext userContext, String consumerOrderId,
@@ -788,7 +824,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	protected void checkParamsForUpdatingConsumerOrderLineItem(RetailscmUserContext userContext, String consumerOrderId, String consumerOrderLineItemId, int consumerOrderLineItemVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderLineItem(consumerOrderLineItemId);
 		checkerOf(userContext).checkVersionOfConsumerOrderLineItem(consumerOrderLineItemVersion);
@@ -815,7 +851,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 
@@ -846,6 +884,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrderLineItem.changeProperty(property, newValueExpr);
 			consumerOrderLineItem.updateLastUpdateTime(userContext.now());
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderLineItemList().done());
+			consumerOrderLineItemManagerOf(userContext).onUpdated(userContext, consumerOrderLineItem, this, "updateConsumerOrderLineItem");
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -866,18 +905,19 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 				checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 
-		
+
 		checkerOf(userContext).checkNameOfConsumerOrderShippingGroup(name);
-		
+
 		checkerOf(userContext).checkAmountOfConsumerOrderShippingGroup(amount);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 
 	}
 	public  ConsumerOrder addConsumerOrderShippingGroup(RetailscmUserContext userContext, String consumerOrderId, String name, BigDecimal amount, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingConsumerOrderShippingGroup(userContext,consumerOrderId,name, amount,tokensExpr);
 
 		ConsumerOrderShippingGroup consumerOrderShippingGroup = createConsumerOrderShippingGroup(userContext,name, amount);
@@ -901,7 +941,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkNameOfConsumerOrderShippingGroup( name);
 		checkerOf(userContext).checkAmountOfConsumerOrderShippingGroup( amount);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder updateConsumerOrderShippingGroupProperties(RetailscmUserContext userContext, String consumerOrderId, String id,String name,BigDecimal amount, String [] tokensExpr) throws Exception
@@ -968,6 +1010,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			checkerOf(userContext).checkIdOfConsumerOrderShippingGroup(consumerOrderShippingGroupIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -994,7 +1037,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderShippingGroup(consumerOrderShippingGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderShippingGroup(consumerOrderShippingGroupVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder removeConsumerOrderShippingGroup(RetailscmUserContext userContext, String consumerOrderId,
@@ -1021,7 +1066,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderShippingGroup(consumerOrderShippingGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderShippingGroup(consumerOrderShippingGroupVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder copyConsumerOrderShippingGroupFrom(RetailscmUserContext userContext, String consumerOrderId,
@@ -1049,7 +1096,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	protected void checkParamsForUpdatingConsumerOrderShippingGroup(RetailscmUserContext userContext, String consumerOrderId, String consumerOrderShippingGroupId, int consumerOrderShippingGroupVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderShippingGroup(consumerOrderShippingGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderShippingGroup(consumerOrderShippingGroupVersion);
@@ -1064,7 +1111,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 
@@ -1095,6 +1144,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrderShippingGroup.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderShippingGroupList().done());
+			consumerOrderShippingGroupManagerOf(userContext).onUpdated(userContext, consumerOrderShippingGroup, this, "updateConsumerOrderShippingGroup");
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1115,18 +1165,19 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 				checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 
-		
+
 		checkerOf(userContext).checkNameOfConsumerOrderPaymentGroup(name);
-		
+
 		checkerOf(userContext).checkCardNumberOfConsumerOrderPaymentGroup(cardNumber);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 
 	}
 	public  ConsumerOrder addConsumerOrderPaymentGroup(RetailscmUserContext userContext, String consumerOrderId, String name, String cardNumber, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingConsumerOrderPaymentGroup(userContext,consumerOrderId,name, cardNumber,tokensExpr);
 
 		ConsumerOrderPaymentGroup consumerOrderPaymentGroup = createConsumerOrderPaymentGroup(userContext,name, cardNumber);
@@ -1150,7 +1201,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkNameOfConsumerOrderPaymentGroup( name);
 		checkerOf(userContext).checkCardNumberOfConsumerOrderPaymentGroup( cardNumber);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder updateConsumerOrderPaymentGroupProperties(RetailscmUserContext userContext, String consumerOrderId, String id,String name,String cardNumber, String [] tokensExpr) throws Exception
@@ -1217,6 +1270,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			checkerOf(userContext).checkIdOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -1243,7 +1297,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder removeConsumerOrderPaymentGroup(RetailscmUserContext userContext, String consumerOrderId,
@@ -1270,7 +1326,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder copyConsumerOrderPaymentGroupFrom(RetailscmUserContext userContext, String consumerOrderId,
@@ -1298,7 +1356,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	protected void checkParamsForUpdatingConsumerOrderPaymentGroup(RetailscmUserContext userContext, String consumerOrderId, String consumerOrderPaymentGroupId, int consumerOrderPaymentGroupVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupVersion);
@@ -1313,7 +1371,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 
@@ -1344,6 +1404,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrderPaymentGroup.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPaymentGroupList().done());
+			consumerOrderPaymentGroupManagerOf(userContext).onUpdated(userContext, consumerOrderPaymentGroup, this, "updateConsumerOrderPaymentGroup");
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1364,20 +1425,21 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 				checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 
-		
+
 		checkerOf(userContext).checkNameOfConsumerOrderPriceAdjustment(name);
-		
+
 		checkerOf(userContext).checkAmountOfConsumerOrderPriceAdjustment(amount);
-		
+
 		checkerOf(userContext).checkProviderOfConsumerOrderPriceAdjustment(provider);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 
 	}
 	public  ConsumerOrder addConsumerOrderPriceAdjustment(RetailscmUserContext userContext, String consumerOrderId, String name, BigDecimal amount, String provider, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingConsumerOrderPriceAdjustment(userContext,consumerOrderId,name, amount, provider,tokensExpr);
 
 		ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment = createConsumerOrderPriceAdjustment(userContext,name, amount, provider);
@@ -1402,7 +1464,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkAmountOfConsumerOrderPriceAdjustment( amount);
 		checkerOf(userContext).checkProviderOfConsumerOrderPriceAdjustment( provider);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder updateConsumerOrderPriceAdjustmentProperties(RetailscmUserContext userContext, String consumerOrderId, String id,String name,BigDecimal amount,String provider, String [] tokensExpr) throws Exception
@@ -1471,6 +1535,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			checkerOf(userContext).checkIdOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -1497,7 +1562,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder removeConsumerOrderPriceAdjustment(RetailscmUserContext userContext, String consumerOrderId,
@@ -1524,7 +1591,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder copyConsumerOrderPriceAdjustmentFrom(RetailscmUserContext userContext, String consumerOrderId,
@@ -1552,7 +1621,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	protected void checkParamsForUpdatingConsumerOrderPriceAdjustment(RetailscmUserContext userContext, String consumerOrderId, String consumerOrderPriceAdjustmentId, int consumerOrderPriceAdjustmentVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentId);
 		checkerOf(userContext).checkVersionOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentVersion);
@@ -1571,7 +1640,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 
@@ -1602,6 +1673,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			consumerOrderPriceAdjustment.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withConsumerOrderPriceAdjustmentList().done());
+			consumerOrderPriceAdjustmentManagerOf(userContext).onUpdated(userContext, consumerOrderPriceAdjustment, this, "updateConsumerOrderPriceAdjustment");
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1622,22 +1694,23 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 
 				checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 
-		
+
 		checkerOf(userContext).checkOccureTimeOfRetailStoreMemberGiftCardConsumeRecord(occureTime);
-		
+
 		checkerOf(userContext).checkOwnerIdOfRetailStoreMemberGiftCardConsumeRecord(ownerId);
-		
+
 		checkerOf(userContext).checkNumberOfRetailStoreMemberGiftCardConsumeRecord(number);
-		
+
 		checkerOf(userContext).checkAmountOfRetailStoreMemberGiftCardConsumeRecord(amount);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 
 	}
 	public  ConsumerOrder addRetailStoreMemberGiftCardConsumeRecord(RetailscmUserContext userContext, String consumerOrderId, Date occureTime, String ownerId, String number, BigDecimal amount, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingRetailStoreMemberGiftCardConsumeRecord(userContext,consumerOrderId,occureTime, ownerId, number, amount,tokensExpr);
 
 		RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord = createRetailStoreMemberGiftCardConsumeRecord(userContext,occureTime, ownerId, number, amount);
@@ -1662,7 +1735,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkNumberOfRetailStoreMemberGiftCardConsumeRecord( number);
 		checkerOf(userContext).checkAmountOfRetailStoreMemberGiftCardConsumeRecord( amount);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder updateRetailStoreMemberGiftCardConsumeRecordProperties(RetailscmUserContext userContext, String consumerOrderId, String id,Date occureTime,String number,BigDecimal amount, String [] tokensExpr) throws Exception
@@ -1734,6 +1809,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			checkerOf(userContext).checkIdOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
 
 	}
@@ -1760,7 +1836,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder removeRetailStoreMemberGiftCardConsumeRecord(RetailscmUserContext userContext, String consumerOrderId,
@@ -1787,7 +1865,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkIdOfConsumerOrder( consumerOrderId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 	public  ConsumerOrder copyRetailStoreMemberGiftCardConsumeRecordFrom(RetailscmUserContext userContext, String consumerOrderId,
@@ -1815,7 +1895,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	protected void checkParamsForUpdatingRetailStoreMemberGiftCardConsumeRecord(RetailscmUserContext userContext, String consumerOrderId, String retailStoreMemberGiftCardConsumeRecordId, int retailStoreMemberGiftCardConsumeRecordVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfConsumerOrder(consumerOrderId);
 		checkerOf(userContext).checkIdOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordId);
 		checkerOf(userContext).checkVersionOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordVersion);
@@ -1834,7 +1914,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
+
 
 	}
 
@@ -1865,6 +1947,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			retailStoreMemberGiftCardConsumeRecord.changeProperty(property, newValueExpr);
 			
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, tokens().withRetailStoreMemberGiftCardConsumeRecordList().done());
+			retailStoreMemberGiftCardConsumeRecordManagerOf(userContext).onUpdated(userContext, retailStoreMemberGiftCardConsumeRecord, this, "updateRetailStoreMemberGiftCardConsumeRecord");
 			return present(userContext,consumerOrder, mergedAllTokens(tokensExpr));
 		}
 
@@ -1897,112 +1980,13 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -2025,28 +2009,21 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, ConsumerOrder.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, ConsumerOrder.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -2117,7 +2094,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String consumerOrderId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getConsumerOrderDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		ConsumerOrder merchantObj = (ConsumerOrder) this.view(userContext, consumerOrderId);
     String merchantObjId = consumerOrderId;
     String linkToUrl =	"consumerOrderManager/wxappview/" + merchantObjId + "/";
@@ -2196,8 +2173,6 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		sections.add(consumerOrderLineItemListSection);
 
 		result.put("consumerOrderLineItemListSection", ListofUtils.toShortList(merchantObj.getConsumerOrderLineItemList(), "consumerOrderLineItem"));
-		vscope.field("consumerOrderLineItemListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( ConsumerOrderLineItem.class.getName(), null));
 
 		//处理Section：consumerOrderShippingGroupListSection
 		Map consumerOrderShippingGroupListSection = ListofUtils.buildSection(
@@ -2212,8 +2187,6 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		sections.add(consumerOrderShippingGroupListSection);
 
 		result.put("consumerOrderShippingGroupListSection", ListofUtils.toShortList(merchantObj.getConsumerOrderShippingGroupList(), "consumerOrderShippingGroup"));
-		vscope.field("consumerOrderShippingGroupListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( ConsumerOrderShippingGroup.class.getName(), null));
 
 		//处理Section：consumerOrderPaymentGroupListSection
 		Map consumerOrderPaymentGroupListSection = ListofUtils.buildSection(
@@ -2228,8 +2201,6 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		sections.add(consumerOrderPaymentGroupListSection);
 
 		result.put("consumerOrderPaymentGroupListSection", ListofUtils.toShortList(merchantObj.getConsumerOrderPaymentGroupList(), "consumerOrderPaymentGroup"));
-		vscope.field("consumerOrderPaymentGroupListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( ConsumerOrderPaymentGroup.class.getName(), null));
 
 		//处理Section：consumerOrderPriceAdjustmentListSection
 		Map consumerOrderPriceAdjustmentListSection = ListofUtils.buildSection(
@@ -2244,8 +2215,6 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		sections.add(consumerOrderPriceAdjustmentListSection);
 
 		result.put("consumerOrderPriceAdjustmentListSection", ListofUtils.toShortList(merchantObj.getConsumerOrderPriceAdjustmentList(), "consumerOrderPriceAdjustment"));
-		vscope.field("consumerOrderPriceAdjustmentListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( ConsumerOrderPriceAdjustment.class.getName(), null));
 
 		//处理Section：retailStoreMemberGiftCardConsumeRecordListSection
 		Map retailStoreMemberGiftCardConsumeRecordListSection = ListofUtils.buildSection(
@@ -2260,8 +2229,6 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		sections.add(retailStoreMemberGiftCardConsumeRecordListSection);
 
 		result.put("retailStoreMemberGiftCardConsumeRecordListSection", ListofUtils.toShortList(merchantObj.getRetailStoreMemberGiftCardConsumeRecordList(), "retailStoreMemberGiftCardConsumeRecord"));
-		vscope.field("retailStoreMemberGiftCardConsumeRecordListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( RetailStoreMemberGiftCardConsumeRecord.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -2276,8 +2243,19 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

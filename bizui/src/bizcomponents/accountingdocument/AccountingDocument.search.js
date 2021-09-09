@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { AccountingPeriodAssociateForm } = GlobalComponents
-  const { AccountingDocumentTypeAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <AccountingPeriodAssociateForm 
-	visible={currentAssociateModal==='accountingPeriod'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')}/> <AccountingDocumentTypeAssociateForm 
-	visible={currentAssociateModal==='documentType'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'documentType')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'documentType')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class AccountingDocumentSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class AccountingDocumentSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {AccountingDocumentTable} = GlobalComponents;
     const {AccountingDocumentSearchForm} = GlobalComponents;
     const {AccountingDocumentModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class AccountingDocumentSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,AccountingDocumentModalTable,"accountingDocumentIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

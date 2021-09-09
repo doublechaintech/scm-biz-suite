@@ -31,7 +31,7 @@ const internalSummaryOf = (supplierProduct,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplierProduct.id}</Description> 
+<Description term="ID">{supplierProduct.id}</Description> 
 <Description term="品名">{supplierProduct.productName}</Description> 
 <Description term="产品描述">{supplierProduct.productDescription}</Description> 
 <Description term="产品单元">{supplierProduct.productUnit}</Description> 
@@ -60,7 +60,7 @@ class SupplierProductPermission extends Component {
     // eslint-disable-next-line max-len
     const  supplierProduct = this.props.supplierProduct
     const { id,displayName, productSupplyDurationCount } = supplierProduct
-    const  returnURL = `/supplierProduct/${id}/dashboard`
+    const  returnURL = `/supplierProduct/${id}/workbench`
     const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",cardsSource: supplierProduct,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class SupplierProductPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

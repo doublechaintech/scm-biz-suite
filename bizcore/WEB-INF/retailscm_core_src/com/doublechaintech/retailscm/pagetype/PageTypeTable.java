@@ -43,7 +43,7 @@ public class PageTypeTable{
                 new String[]{"name","varchar(40)","","名称","",""},
                 new String[]{"code","varchar(40)","","代码","",""},
                 new String[]{"mobile_app","varchar(48)","","手机应用程序","mobile_app_data","id"},
-                new String[]{"footer_tab","tinyint","","页脚选项卡","",""},
+                new String[]{"footer_tab","bool","","页脚选项卡","",""},
                 new String[]{"version","int","","版本","",""}
             }, "页面类型", new String[]{
                 "create unique index idx4id_ver_of_page_type on page_type_data (id, version);",

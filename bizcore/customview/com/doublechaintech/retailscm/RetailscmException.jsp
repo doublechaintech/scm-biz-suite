@@ -8,6 +8,8 @@
 <c:set var="ignoreListAccessControl" value="${true}"/>
 
 
+
+
     <c:if test="${not empty result.errorMessageList}" >
     <ul>
     	<c:forEach var="item" items="${result.errorMessageList}">
@@ -18,8 +20,6 @@
     	</c:forEach>
     	</ul>
     </c:if>
-
-
 
 
 

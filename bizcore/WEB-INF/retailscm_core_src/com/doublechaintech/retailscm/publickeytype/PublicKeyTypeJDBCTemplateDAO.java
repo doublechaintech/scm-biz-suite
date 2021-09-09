@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.publickeytype;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -24,11 +25,11 @@ import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
 
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
 
 import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityDAO;
 
 
 
@@ -41,7 +42,7 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected UserDomainDAO userDomainDAO;
 	public void setUserDomainDAO(UserDomainDAO userDomainDAO){
- 	
+
  		if(userDomainDAO == null){
  			throw new IllegalStateException("Do not try to set userDomainDAO to null.");
  		}
@@ -51,25 +52,26 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		if(this.userDomainDAO == null){
  			throw new IllegalStateException("The userDomainDAO is not configured yet, please config it some where.");
  		}
- 		
-	 	return this.userDomainDAO;
- 	}	
 
-	protected KeypairIdentityDAO keypairIdentityDAO;
-	public void setKeypairIdentityDAO(KeypairIdentityDAO keypairIdentityDAO){
- 	
- 		if(keypairIdentityDAO == null){
- 			throw new IllegalStateException("Do not try to set keypairIdentityDAO to null.");
- 		}
-	 	this.keypairIdentityDAO = keypairIdentityDAO;
+	 	return this.userDomainDAO;
  	}
- 	public KeypairIdentityDAO getKeypairIdentityDAO(){
- 		if(this.keypairIdentityDAO == null){
- 			throw new IllegalStateException("The keypairIdentityDAO is not configured yet, please config it some where.");
+
+	protected KeyPairIdentityDAO keyPairIdentityDAO;
+	public void setKeyPairIdentityDAO(KeyPairIdentityDAO keyPairIdentityDAO){
+
+ 		if(keyPairIdentityDAO == null){
+ 			throw new IllegalStateException("Do not try to set keyPairIdentityDAO to null.");
  		}
- 		
-	 	return this.keypairIdentityDAO;
- 	}	
+	 	this.keyPairIdentityDAO = keyPairIdentityDAO;
+ 	}
+ 	public KeyPairIdentityDAO getKeyPairIdentityDAO(){
+ 		if(this.keyPairIdentityDAO == null){
+ 			throw new IllegalStateException("The keyPairIdentityDAO is not configured yet, please config it some where.");
+ 		}
+
+	 	return this.keyPairIdentityDAO;
+ 	}
+
 
 
 	/*
@@ -123,9 +125,9 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		newPublicKeyType.setVersion(0);
 		
 		
- 		
- 		if(isSaveKeypairIdentityListEnabled(options)){
- 			for(KeypairIdentity item: newPublicKeyType.getKeypairIdentityList()){
+
+ 		if(isSaveKeyPairIdentityListEnabled(options)){
+ 			for(KeyPairIdentity item: newPublicKeyType.getKeyPairIdentityList()){
  				item.setVersion(0);
  			}
  		}
@@ -210,44 +212,44 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return PublicKeyTypeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractDomainEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, PublicKeyTypeTokens.DOMAIN);
  	}
 
  	protected boolean isSaveDomainEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, PublicKeyTypeTokens.DOMAIN);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractKeypairIdentityListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,PublicKeyTypeTokens.KEYPAIR_IDENTITY_LIST);
+
+	protected boolean isExtractKeyPairIdentityListEnabled(Map<String,Object> options){
+ 		return checkOptions(options,PublicKeyTypeTokens.KEY_PAIR_IDENTITY_LIST);
  	}
- 	protected boolean isAnalyzeKeypairIdentityListEnabled(Map<String,Object> options){		 		
- 		return PublicKeyTypeTokens.of(options).analyzeKeypairIdentityListEnabled();
+ 	protected boolean isAnalyzeKeyPairIdentityListEnabled(Map<String,Object> options){
+ 		return PublicKeyTypeTokens.of(options).analyzeKeyPairIdentityListEnabled();
  	}
-	
-	protected boolean isSaveKeypairIdentityListEnabled(Map<String,Object> options){
-		return checkOptions(options, PublicKeyTypeTokens.KEYPAIR_IDENTITY_LIST);
-		
+
+	protected boolean isSaveKeyPairIdentityListEnabled(Map<String,Object> options){
+		return checkOptions(options, PublicKeyTypeTokens.KEY_PAIR_IDENTITY_LIST);
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		return new PublicKeyTypeMapper();
 	}
 
-	
-	
+
+
 	protected PublicKeyType extractPublicKeyType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			PublicKeyType publicKeyType = loadSingleObject(accessKey, getPublicKeyTypeMapper());
@@ -268,35 +270,36 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	
-	
+
+
 
 	protected PublicKeyType loadInternalPublicKeyType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		PublicKeyType publicKeyType = extractPublicKeyType(accessKey, loadOptions);
- 	
+
  		if(isExtractDomainEnabled(loadOptions)){
 	 		extractDomain(publicKeyType, loadOptions);
  		}
  
 		
-		if(isExtractKeypairIdentityListEnabled(loadOptions)){
-	 		extractKeypairIdentityList(publicKeyType, loadOptions);
- 		}	
+		if(isExtractKeyPairIdentityListEnabled(loadOptions)){
+	 		extractKeyPairIdentityList(publicKeyType, loadOptions);
+ 		}
+
  		
- 		
- 		if(isAnalyzeKeypairIdentityListEnabled(loadOptions)){
-	 		analyzeKeypairIdentityList(publicKeyType, loadOptions);
+ 		if(isAnalyzeKeyPairIdentityListEnabled(loadOptions)){
+	 		analyzeKeyPairIdentityList(publicKeyType, loadOptions);
  		}
  		
 		
 		return publicKeyType;
-		
+
 	}
 
-	 
+	
 
  	protected PublicKeyType extractDomain(PublicKeyType publicKeyType, Map<String,Object> options) throws Exception{
+  
 
 		if(publicKeyType.getDomain() == null){
 			return publicKeyType;
@@ -309,21 +312,21 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		if(domain != null){
 			publicKeyType.setDomain(domain);
 		}
-		
- 		
+
+
  		return publicKeyType;
  	}
- 		
+
  
 		
-	protected void enhanceKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList,Map<String,Object> options){
+	protected void enhanceKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
-	protected PublicKeyType extractKeypairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
-		
-		
+
+	protected PublicKeyType extractKeyPairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
+    
+
 		if(publicKeyType == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return publicKeyType;
 		}
 
-		
-		
-		SmartList<KeypairIdentity> keypairIdentityList = getKeypairIdentityDAO().findKeypairIdentityByKeyType(publicKeyType.getId(),options);
-		if(keypairIdentityList != null){
-			enhanceKeypairIdentityList(keypairIdentityList,options);
-			publicKeyType.setKeypairIdentityList(keypairIdentityList);
+
+
+		SmartList<KeyPairIdentity> keyPairIdentityList = getKeyPairIdentityDAO().findKeyPairIdentityByKeyType(publicKeyType.getId(),options);
+		if(keyPairIdentityList != null){
+			enhanceKeyPairIdentityList(keyPairIdentityList,options);
+			publicKeyType.setKeyPairIdentityList(keyPairIdentityList);
 		}
-		
+
 		return publicKeyType;
-	
-	}	
-	
-	protected PublicKeyType analyzeKeypairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
-		
-		
+  
+	}
+
+	protected PublicKeyType analyzeKeyPairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
+     
 		if(publicKeyType == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 			return publicKeyType;
 		}
 
-		
-		
-		SmartList<KeypairIdentity> keypairIdentityList = publicKeyType.getKeypairIdentityList();
-		if(keypairIdentityList != null){
-			getKeypairIdentityDAO().analyzeKeypairIdentityByKeyType(keypairIdentityList, publicKeyType.getId(), options);
-			
+
+
+		SmartList<KeyPairIdentity> keyPairIdentityList = publicKeyType.getKeyPairIdentityList();
+		if(keyPairIdentityList != null){
+			getKeyPairIdentityDAO().analyzeKeyPairIdentityByKeyType(keyPairIdentityList, publicKeyType.getId(), options);
+
 		}
-		
+
 		return publicKeyType;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<PublicKeyType> findPublicKeyTypeByDomain(String userDomainId,Map<String,Object> options){
- 	
+
   		SmartList<PublicKeyType> resultList = queryWith(PublicKeyTypeTable.COLUMN_DOMAIN, userDomainId, options, getPublicKeyTypeMapper());
 		// analyzePublicKeyTypeByDomain(resultList, userDomainId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<PublicKeyType> findPublicKeyTypeByDomain(String userDomainId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<PublicKeyType> resultList =  queryWithRange(PublicKeyTypeTable.COLUMN_DOMAIN, userDomainId, options, getPublicKeyTypeMapper(), start, count);
  		//analyzePublicKeyTypeByDomain(resultList, userDomainId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzePublicKeyTypeByDomain(SmartList<PublicKeyType> resultList, String userDomainId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countPublicKeyTypeByDomain(String userDomainId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	public Map<String, Integer> countPublicKeyTypeByDomainIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(PublicKeyTypeTable.COLUMN_DOMAIN, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected PublicKeyType savePublicKeyType(PublicKeyType  publicKeyType){
+    
+
 		
 		if(!publicKeyType.isChanged()){
 			return publicKeyType;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(publicKeyType);
 		String SQL=this.getSavePublicKeyTypeSQL(publicKeyType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSavePublicKeyTypeParameters(publicKeyType);
@@ -425,6 +430,7 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		}
 
 		publicKeyType.incVersion();
+		publicKeyType.afterSave();
 		return publicKeyType;
 
 	}
@@ -442,6 +448,7 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		for(PublicKeyType publicKeyType:publicKeyTypeList){
 			if(publicKeyType.isChanged()){
 				publicKeyType.incVersion();
+				publicKeyType.afterSave();
 			}
 
 
@@ -545,16 +552,14 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  	protected Object[] preparePublicKeyTypeUpdateParameters(PublicKeyType publicKeyType){
  		Object[] parameters = new Object[6];
  
+ 		parameters[0] = publicKeyType.getKeyAlg();
  		
- 		parameters[0] = publicKeyType.getName();
- 		
- 		
- 		parameters[1] = publicKeyType.getCode();
+ 		parameters[1] = publicKeyType.getSignAlg();
  		
  		if(publicKeyType.getDomain() != null){
  			parameters[2] = publicKeyType.getDomain().getId();
  		}
- 
+    
  		parameters[3] = publicKeyType.nextVersion();
  		parameters[4] = publicKeyType.getId();
  		parameters[5] = publicKeyType.getVersion();
@@ -569,15 +574,12 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
         }
 		parameters[0] =  publicKeyType.getId();
  
+ 		parameters[1] = publicKeyType.getKeyAlg();
  		
- 		parameters[1] = publicKeyType.getName();
- 		
- 		
- 		parameters[2] = publicKeyType.getCode();
+ 		parameters[2] = publicKeyType.getSignAlg();
  		
  		if(publicKeyType.getDomain() != null){
  			parameters[3] = publicKeyType.getDomain().getId();
-
  		}
  		
 
@@ -586,16 +588,15 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	protected PublicKeyType saveInternalPublicKeyType(PublicKeyType publicKeyType, Map<String,Object> options){
 
-		savePublicKeyType(publicKeyType);
-
  		if(isSaveDomainEnabled(options)){
 	 		saveDomain(publicKeyType, options);
  		}
  
+   savePublicKeyType(publicKeyType);
 		
-		if(isSaveKeypairIdentityListEnabled(options)){
-	 		saveKeypairIdentityList(publicKeyType, options);
-	 		//removeKeypairIdentityList(publicKeyType, options);
+		if(isSaveKeyPairIdentityListEnabled(options)){
+	 		saveKeyPairIdentityList(publicKeyType, options);
+	 		//removeKeyPairIdentityList(publicKeyType, options);
 	 		//Not delete the record
 
  		}
@@ -610,6 +611,7 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	
 
  	protected PublicKeyType saveDomain(PublicKeyType publicKeyType, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(publicKeyType.getDomain() == null){
  			return publicKeyType;//do nothing when it is null
@@ -619,115 +621,110 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
  		return publicKeyType;
 
  	}
-
-
-
-
-
  
 
 	
-	public PublicKeyType planToRemoveKeypairIdentityList(PublicKeyType publicKeyType, String keypairIdentityIds[], Map<String,Object> options)throws Exception{
+	public PublicKeyType planToRemoveKeyPairIdentityList(PublicKeyType publicKeyType, String keyPairIdentityIds[], Map<String,Object> options)throws Exception{
 
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.KEY_TYPE_PROPERTY, publicKeyType.getId());
-		key.put(KeypairIdentity.ID_PROPERTY, keypairIdentityIds);
+		key.put(KeyPairIdentity.KEY_TYPE_PROPERTY, publicKeyType.getId());
+		key.put(KeyPairIdentity.ID_PROPERTY, keyPairIdentityIds);
 
-		SmartList<KeypairIdentity> externalKeypairIdentityList = getKeypairIdentityDAO().
-				findKeypairIdentityWithKey(key, options);
-		if(externalKeypairIdentityList == null){
+		SmartList<KeyPairIdentity> externalKeyPairIdentityList = getKeyPairIdentityDAO().
+				findKeyPairIdentityWithKey(key, options);
+		if(externalKeyPairIdentityList == null){
 			return publicKeyType;
 		}
-		if(externalKeypairIdentityList.isEmpty()){
+		if(externalKeyPairIdentityList.isEmpty()){
 			return publicKeyType;
 		}
 
-		for(KeypairIdentity keypairIdentityItem: externalKeypairIdentityList){
+		for(KeyPairIdentity keyPairIdentityItem: externalKeyPairIdentityList){
 
-			keypairIdentityItem.clearFromAll();
+			keyPairIdentityItem.clearFromAll();
 		}
 
 
-		SmartList<KeypairIdentity> keypairIdentityList = publicKeyType.getKeypairIdentityList();
-		keypairIdentityList.addAllToRemoveList(externalKeypairIdentityList);
+		SmartList<KeyPairIdentity> keyPairIdentityList = publicKeyType.getKeyPairIdentityList();
+		keyPairIdentityList.addAllToRemoveList(externalKeyPairIdentityList);
 		return publicKeyType;
 
 	}
 
 
-	//disconnect PublicKeyType with sec_user in KeypairIdentity
-	public PublicKeyType planToRemoveKeypairIdentityListWithSecUser(PublicKeyType publicKeyType, String secUserId, Map<String,Object> options)throws Exception{
+	//disconnect PublicKeyType with sec_user in KeyPairIdentity
+	public PublicKeyType planToRemoveKeyPairIdentityListWithSecUser(PublicKeyType publicKeyType, String secUserId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
 
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.KEY_TYPE_PROPERTY, publicKeyType.getId());
-		key.put(KeypairIdentity.SEC_USER_PROPERTY, secUserId);
+		key.put(KeyPairIdentity.KEY_TYPE_PROPERTY, publicKeyType.getId());
+		key.put(KeyPairIdentity.SEC_USER_PROPERTY, secUserId);
 
-		SmartList<KeypairIdentity> externalKeypairIdentityList = getKeypairIdentityDAO().
-				findKeypairIdentityWithKey(key, options);
-		if(externalKeypairIdentityList == null){
+		SmartList<KeyPairIdentity> externalKeyPairIdentityList = getKeyPairIdentityDAO().
+				findKeyPairIdentityWithKey(key, options);
+		if(externalKeyPairIdentityList == null){
 			return publicKeyType;
 		}
-		if(externalKeypairIdentityList.isEmpty()){
+		if(externalKeyPairIdentityList.isEmpty()){
 			return publicKeyType;
 		}
 
-		for(KeypairIdentity keypairIdentityItem: externalKeypairIdentityList){
-			keypairIdentityItem.clearSecUser();
-			keypairIdentityItem.clearKeyType();
+		for(KeyPairIdentity keyPairIdentityItem: externalKeyPairIdentityList){
+			keyPairIdentityItem.clearSecUser();
+			keyPairIdentityItem.clearKeyType();
 
 		}
 
 
-		SmartList<KeypairIdentity> keypairIdentityList = publicKeyType.getKeypairIdentityList();
-		keypairIdentityList.addAllToRemoveList(externalKeypairIdentityList);
+		SmartList<KeyPairIdentity> keyPairIdentityList = publicKeyType.getKeyPairIdentityList();
+		keyPairIdentityList.addAllToRemoveList(externalKeyPairIdentityList);
 		return publicKeyType;
 	}
 
-	public int countKeypairIdentityListWithSecUser(String publicKeyTypeId, String secUserId, Map<String,Object> options)throws Exception{
+	public int countKeyPairIdentityListWithSecUser(String publicKeyTypeId, String secUserId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
 
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.KEY_TYPE_PROPERTY, publicKeyTypeId);
-		key.put(KeypairIdentity.SEC_USER_PROPERTY, secUserId);
+		key.put(KeyPairIdentity.KEY_TYPE_PROPERTY, publicKeyTypeId);
+		key.put(KeyPairIdentity.SEC_USER_PROPERTY, secUserId);
 
-		int count = getKeypairIdentityDAO().countKeypairIdentityWithKey(key, options);
+		int count = getKeyPairIdentityDAO().countKeyPairIdentityWithKey(key, options);
 		return count;
 	}
 	
 
 		
-	protected PublicKeyType saveKeypairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
+	protected PublicKeyType saveKeyPairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
+    
 
 
 
-
-		SmartList<KeypairIdentity> keypairIdentityList = publicKeyType.getKeypairIdentityList();
-		if(keypairIdentityList == null){
+		SmartList<KeyPairIdentity> keyPairIdentityList = publicKeyType.getKeyPairIdentityList();
+		if(keyPairIdentityList == null){
 			//null list means nothing
 			return publicKeyType;
 		}
-		SmartList<KeypairIdentity> mergedUpdateKeypairIdentityList = new SmartList<KeypairIdentity>();
+		SmartList<KeyPairIdentity> mergedUpdateKeyPairIdentityList = new SmartList<KeyPairIdentity>();
 
 
-		mergedUpdateKeypairIdentityList.addAll(keypairIdentityList);
-		if(keypairIdentityList.getToRemoveList() != null){
+		mergedUpdateKeyPairIdentityList.addAll(keyPairIdentityList);
+		if(keyPairIdentityList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
-			mergedUpdateKeypairIdentityList.addAll(keypairIdentityList.getToRemoveList());
-			keypairIdentityList.removeAll(keypairIdentityList.getToRemoveList());
+			mergedUpdateKeyPairIdentityList.addAll(keyPairIdentityList.getToRemoveList());
+			keyPairIdentityList.removeAll(keyPairIdentityList.getToRemoveList());
 			//OK for now, need fix later
 		}
 
 		//adding new size can improve performance
 
-		getKeypairIdentityDAO().saveKeypairIdentityList(mergedUpdateKeypairIdentityList,options);
+		getKeyPairIdentityDAO().saveKeyPairIdentityList(mergedUpdateKeyPairIdentityList,options);
 
-		if(keypairIdentityList.getToRemoveList() != null){
-			keypairIdentityList.removeAll(keypairIdentityList.getToRemoveList());
+		if(keyPairIdentityList.getToRemoveList() != null){
+			keyPairIdentityList.removeAll(keyPairIdentityList.getToRemoveList());
 		}
 
 
@@ -735,25 +732,25 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	}
 
-	protected PublicKeyType removeKeypairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
+	protected PublicKeyType removeKeyPairIdentityList(PublicKeyType publicKeyType, Map<String,Object> options){
 
 
-		SmartList<KeypairIdentity> keypairIdentityList = publicKeyType.getKeypairIdentityList();
-		if(keypairIdentityList == null){
+		SmartList<KeyPairIdentity> keyPairIdentityList = publicKeyType.getKeyPairIdentityList();
+		if(keyPairIdentityList == null){
 			return publicKeyType;
 		}
 
-		SmartList<KeypairIdentity> toRemoveKeypairIdentityList = keypairIdentityList.getToRemoveList();
+		SmartList<KeyPairIdentity> toRemoveKeyPairIdentityList = keyPairIdentityList.getToRemoveList();
 
-		if(toRemoveKeypairIdentityList == null){
+		if(toRemoveKeyPairIdentityList == null){
 			return publicKeyType;
 		}
-		if(toRemoveKeypairIdentityList.isEmpty()){
+		if(toRemoveKeyPairIdentityList.isEmpty()){
 			return publicKeyType;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
 
-		getKeypairIdentityDAO().removeKeypairIdentityList(toRemoveKeypairIdentityList,options);
+		getKeyPairIdentityDAO().removeKeyPairIdentityList(toRemoveKeyPairIdentityList,options);
 
 		return publicKeyType;
 
@@ -769,39 +766,39 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 		
 
 	public PublicKeyType present(PublicKeyType publicKeyType,Map<String, Object> options){
-	
-		presentKeypairIdentityList(publicKeyType,options);
+
+		presentKeyPairIdentityList(publicKeyType,options);
 
 		return publicKeyType;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
- 	protected PublicKeyType presentKeypairIdentityList(
+ 	protected PublicKeyType presentKeyPairIdentityList(
 			PublicKeyType publicKeyType,
 			Map<String, Object> options) {
-
-		SmartList<KeypairIdentity> keypairIdentityList = publicKeyType.getKeypairIdentityList();		
-				SmartList<KeypairIdentity> newList= presentSubList(publicKeyType.getId(),
-				keypairIdentityList,
+    
+		SmartList<KeyPairIdentity> keyPairIdentityList = publicKeyType.getKeyPairIdentityList();
+				SmartList<KeyPairIdentity> newList= presentSubList(publicKeyType.getId(),
+				keyPairIdentityList,
 				options,
-				getKeypairIdentityDAO()::countKeypairIdentityByKeyType,
-				getKeypairIdentityDAO()::findKeypairIdentityByKeyType
+				getKeyPairIdentityDAO()::countKeyPairIdentityByKeyType,
+				getKeyPairIdentityDAO()::findKeyPairIdentityByKeyType
 				);
 
-		
-		publicKeyType.setKeypairIdentityList(newList);
-		
+
+		publicKeyType.setKeyPairIdentityList(newList);
+
 
 		return publicKeyType;
-	}			
+	}
 		
 
 	
-    public SmartList<PublicKeyType> requestCandidatePublicKeyTypeForKeypairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception {
+    public SmartList<PublicKeyType> requestCandidatePublicKeyTypeForKeyPairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception {
         // NOTE: by default, ignore owner info, just return all by filter key.
 		// You need override this method if you have different candidate-logic
-		return findAllCandidateByFilter(PublicKeyTypeTable.COLUMN_NAME, PublicKeyTypeTable.COLUMN_DOMAIN, filterKey, pageNo, pageSize, getPublicKeyTypeMapper());
+		return findAllCandidateByFilter(PublicKeyTypeTable.COLUMN_KEY_ALG, PublicKeyTypeTable.COLUMN_DOMAIN, filterKey, pageNo, pageSize, getPublicKeyTypeMapper());
     }
 		
 
@@ -816,25 +813,26 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
 	
-	// 需要一个加载引用我的对象的enhance方法:KeypairIdentity的keyType的KeypairIdentityList
-	public SmartList<KeypairIdentity> loadOurKeypairIdentityList(RetailscmUserContext userContext, List<PublicKeyType> us, Map<String,Object> options) throws Exception{
+	// 需要一个加载引用我的对象的enhance方法:KeyPairIdentity的keyType的KeyPairIdentityList
+	public SmartList<KeyPairIdentity> loadOurKeyPairIdentityList(RetailscmUserContext userContext, List<PublicKeyType> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
 		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.KEY_TYPE_PROPERTY, ids.toArray(new String[ids.size()]));
-		SmartList<KeypairIdentity> loadedObjs = userContext.getDAOGroup().getKeypairIdentityDAO().findKeypairIdentityWithKey(key, options);
-		Map<String, List<KeypairIdentity>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getKeyType().getId()));
+		key.put(KeyPairIdentity.KEY_TYPE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<KeyPairIdentity> loadedObjs = userContext.getDAOGroup().getKeyPairIdentityDAO().findKeyPairIdentityWithKey(key, options);
+		Map<String, List<KeyPairIdentity>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getKeyType().getId()));
 		us.forEach(it->{
 			String id = it.getId();
-			List<KeypairIdentity> loadedList = loadedMap.get(id);
+			List<KeyPairIdentity> loadedList = loadedMap.get(id);
 			if (loadedList == null || loadedList.isEmpty()) {
 				return;
 			}
-			SmartList<KeypairIdentity> loadedSmartList = new SmartList<>();
+			SmartList<KeyPairIdentity> loadedSmartList = new SmartList<>();
 			loadedSmartList.addAll(loadedList);
-			it.setKeypairIdentityList(loadedSmartList);
+			it.setKeyPairIdentityList(loadedSmartList);
 		});
 		return loadedObjs;
 	}
@@ -874,6 +872,10 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<PublicKeyType> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getPublicKeyTypeMapper());
   }
@@ -909,6 +911,15 @@ public class PublicKeyTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
 
 	
 
+  @Override
+  public List<PublicKeyType> search(PublicKeyTypeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected PublicKeyTypeMapper mapper() {
+    return getPublicKeyTypeMapper();
+  }
 }
 
 

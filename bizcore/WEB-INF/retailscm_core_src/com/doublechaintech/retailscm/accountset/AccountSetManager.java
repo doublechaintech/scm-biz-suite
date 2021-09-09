@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.accountset;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface AccountSetManager extends BaseManager{
 
 		
 
+  List<AccountSet> searchAccountSetList(RetailscmUserContext ctx, AccountSetRequest pRequest);
+  AccountSet searchAccountSet(RetailscmUserContext ctx, AccountSetRequest pRequest);
 	public AccountSet createAccountSet(RetailscmUserContext userContext, String name,String yearSet,Date effectiveDate,String accountingSystem,String domesticCurrencyCode,String domesticCurrencyName,String openingBank,String accountNumber,String countryCenterId,String retailStoreId,String goodsSupplierId) throws Exception;
 	public AccountSet updateAccountSet(RetailscmUserContext userContext,String accountSetId, int accountSetVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public AccountSet loadAccountSet(RetailscmUserContext userContext, String accountSetId, String [] tokensExpr) throws Exception;
@@ -29,6 +35,8 @@ public interface AccountSetManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String accountSetId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, AccountSet newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, AccountSet updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -73,6 +81,9 @@ public interface AccountSetManager extends BaseManager{
 	public Object listByGoodsSupplier(RetailscmUserContext userContext,String goodsSupplierId) throws Exception;
 	public Object listPageByGoodsSupplier(RetailscmUserContext userContext,String goodsSupplierId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

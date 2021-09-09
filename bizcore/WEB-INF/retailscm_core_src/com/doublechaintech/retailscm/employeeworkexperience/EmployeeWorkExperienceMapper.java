@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employeeworkexperience;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,27 +9,30 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.employee.Employee;
 
 public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExperience>{
-	
+
 	protected EmployeeWorkExperience internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeWorkExperience employeeWorkExperience = getEmployeeWorkExperience();		
-		 		
- 		setId(employeeWorkExperience, rs, rowNumber); 		
- 		setEmployee(employeeWorkExperience, rs, rowNumber); 		
- 		setStart(employeeWorkExperience, rs, rowNumber); 		
- 		setEnd(employeeWorkExperience, rs, rowNumber); 		
- 		setCompany(employeeWorkExperience, rs, rowNumber); 		
- 		setDescription(employeeWorkExperience, rs, rowNumber); 		
+		EmployeeWorkExperience employeeWorkExperience = getEmployeeWorkExperience();
+		
+ 		setId(employeeWorkExperience, rs, rowNumber);
+ 		setEmployee(employeeWorkExperience, rs, rowNumber);
+ 		setStart(employeeWorkExperience, rs, rowNumber);
+ 		setEnd(employeeWorkExperience, rs, rowNumber);
+ 		setCompany(employeeWorkExperience, rs, rowNumber);
+ 		setDescription(employeeWorkExperience, rs, rowNumber);
  		setVersion(employeeWorkExperience, rs, rowNumber);
 
+    
 		return employeeWorkExperience;
 	}
-	
+
 	protected EmployeeWorkExperience getEmployeeWorkExperience(){
-		return new EmployeeWorkExperience();
-	}		
+	  EmployeeWorkExperience entity = new EmployeeWorkExperience();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(EmployeeWorkExperience employeeWorkExperience, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeWorkExperienceTable.COLUMN_ID);
@@ -39,10 +43,18 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
 		}
 		
 		employeeWorkExperience.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setEmployee(EmployeeWorkExperience employeeWorkExperience, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId = rs.getString(EmployeeWorkExperienceTable.COLUMN_EMPLOYEE);
+ 		String employeeId;
+ 		try{
+ 		  employeeId = rs.getString(EmployeeWorkExperienceTable.COLUMN_EMPLOYEE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( employeeId == null){
  			return;
  		}
@@ -53,14 +65,14 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
  		if( employee != null ){
  			//if the root object 'employeeWorkExperience' already have the property, just set the id for it;
  			employee.setId(employeeId);
- 			
+
  			return;
  		}
  		employeeWorkExperience.setEmployee(createEmptyEmployee(employeeId));
  	}
  	
 	protected void setStart(EmployeeWorkExperience employeeWorkExperience, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date start = rs.getDate(EmployeeWorkExperienceTable.COLUMN_START);
@@ -71,10 +83,13 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
 		}
 		
 		employeeWorkExperience.setStart(start);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setEnd(EmployeeWorkExperience employeeWorkExperience, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date end = rs.getDate(EmployeeWorkExperienceTable.COLUMN_END);
@@ -85,10 +100,13 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
 		}
 		
 		employeeWorkExperience.setEnd(end);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCompany(EmployeeWorkExperience employeeWorkExperience, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String company = rs.getString(EmployeeWorkExperienceTable.COLUMN_COMPANY);
@@ -99,10 +117,13 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
 		}
 		
 		employeeWorkExperience.setCompany(company);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDescription(EmployeeWorkExperience employeeWorkExperience, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(EmployeeWorkExperienceTable.COLUMN_DESCRIPTION);
@@ -113,10 +134,13 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
 		}
 		
 		employeeWorkExperience.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(EmployeeWorkExperience employeeWorkExperience, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeWorkExperienceTable.COLUMN_VERSION);
@@ -127,9 +151,12 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
 		}
 		
 		employeeWorkExperience.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Employee  createEmptyEmployee(String employeeId){
  		Employee employee = new Employee();

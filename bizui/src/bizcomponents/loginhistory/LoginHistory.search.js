@@ -59,35 +59,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { SecUserAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <SecUserAssociateForm 
-	visible={currentAssociateModal==='secUser'} 
-	data={{loginHistoryList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'secUser')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'secUser')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class LoginHistorySearch extends PureComponent {
   state = {
@@ -122,7 +93,7 @@ class LoginHistorySearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {LoginHistoryTable} = GlobalComponents;
     const {LoginHistorySearchForm} = GlobalComponents;
     const {LoginHistoryModalTable} = GlobalComponents;
@@ -174,7 +145,7 @@ class LoginHistorySearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,LoginHistoryModalTable,"loginHistoryIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

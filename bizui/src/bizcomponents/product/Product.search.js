@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { LevelThreeCategoryAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <LevelThreeCategoryAssociateForm 
-	visible={currentAssociateModal==='parentCategory'} 
-	data={{productList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'parentCategory')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'parentCategory')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class ProductSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class ProductSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {ProductTable} = GlobalComponents;
     const {ProductSearchForm} = GlobalComponents;
     const {ProductModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class ProductSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,ProductModalTable,"productIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

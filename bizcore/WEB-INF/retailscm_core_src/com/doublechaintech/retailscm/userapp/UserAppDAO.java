@@ -48,6 +48,7 @@ public interface UserAppDAO extends BaseDAO{
 	public void delete(String userAppId, int version) throws Exception;
 	public UserApp disconnectFromAll(String userAppId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public QuickLinkDAO getQuickLinkDAO();
 		
@@ -66,9 +67,10 @@ public interface UserAppDAO extends BaseDAO{
 
 
 
-	public SmartList<UserApp> queryList(String sql, Object ... parmeters);
+	public SmartList<UserApp> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<UserApp> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateUserApp executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<UserApp> findUserAppBySecUser(String secUserId, Map<String,Object> options);
@@ -85,6 +87,8 @@ public interface UserAppDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:ListAccess的app的ListAccessList
 	public SmartList<ListAccess> loadOurListAccessList(RetailscmUserContext userContext, List<UserApp> us, Map<String,Object> options) throws Exception;
 	
+
+	List<UserApp> search(UserAppRequest pRequest);
 }
 
 

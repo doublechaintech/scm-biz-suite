@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCityServiceCenterAssociateForm } = GlobalComponents
-  const { CityPartnerAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCityServiceCenterAssociateForm 
-	visible={currentAssociateModal==='cityServiceCenter'} 
-	data={{potentialCustomerList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'cityServiceCenter')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'cityServiceCenter')}/> <CityPartnerAssociateForm 
-	visible={currentAssociateModal==='cityPartner'} 
-	data={{potentialCustomerList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'cityPartner')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'cityPartner')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class PotentialCustomerSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class PotentialCustomerSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {PotentialCustomerTable} = GlobalComponents;
     const {PotentialCustomerSearchForm} = GlobalComponents;
     const {PotentialCustomerModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class PotentialCustomerSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,PotentialCustomerModalTable,"potentialCustomerIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

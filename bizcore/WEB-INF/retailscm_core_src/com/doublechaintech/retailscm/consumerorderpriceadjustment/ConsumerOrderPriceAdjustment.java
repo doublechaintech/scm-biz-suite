@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.consumerorderpriceadjustment;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
 @JsonSerialize(using = ConsumerOrderPriceAdjustmentSerializer.class)
 public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String BIZ_ORDER_PROPERTY             = "bizOrder"          ;
@@ -45,32 +42,87 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(BIZ_ORDER_PROPERTY, "consumer_order", "订单")
+        .withType("consumer_order", ConsumerOrder.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(AMOUNT_PROPERTY, "amount", "金额")
+        .withType("money", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(PROVIDER_PROPERTY, "provider", "供应商")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,BIZ_ORDER_PROPERTY ,AMOUNT_PROPERTY ,PROVIDER_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(BIZ_ORDER_PROPERTY, ConsumerOrder.class);
+
+    return parents;
+  }
+
+  public ConsumerOrderPriceAdjustment want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public ConsumerOrderPriceAdjustment wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		ConsumerOrder       	mBizOrder           ;
-	protected		BigDecimal          	mAmount             ;
-	protected		String              	mProvider           ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		ConsumerOrder       	bizOrder            ;
+	protected		BigDecimal          	amount              ;
+	protected		String              	provider            ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	ConsumerOrderPriceAdjustment(){
 		// lazy load for all the properties
 	}
@@ -78,20 +130,39 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment = new ConsumerOrderPriceAdjustment();
 		consumerOrderPriceAdjustment.setId(id);
 		consumerOrderPriceAdjustment.setVersion(Integer.MAX_VALUE);
+		consumerOrderPriceAdjustment.setChecked(true);
 		return consumerOrderPriceAdjustment;
 	}
 	public 	static ConsumerOrderPriceAdjustment refById(String id){
 		return withId(id);
 	}
-	
+
+  public ConsumerOrderPriceAdjustment limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public ConsumerOrderPriceAdjustment limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static ConsumerOrderPriceAdjustment searchExample(){
+    ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment = new ConsumerOrderPriceAdjustment();
+    		consumerOrderPriceAdjustment.setVersion(UNSET_INT);
+
+    return consumerOrderPriceAdjustment;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setBizOrder( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -162,7 +233,7 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -179,138 +250,217 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public ConsumerOrderPriceAdjustment updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public ConsumerOrderPriceAdjustment updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public ConsumerOrderPriceAdjustment orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public ConsumerOrderPriceAdjustment ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public ConsumerOrderPriceAdjustment addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public ConsumerOrderPriceAdjustment updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public ConsumerOrderPriceAdjustment updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public ConsumerOrderPriceAdjustment orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public ConsumerOrderPriceAdjustment ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public ConsumerOrderPriceAdjustment addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setBizOrder(ConsumerOrder bizOrder){
-		this.mBizOrder = bizOrder;;
-	}
+	public void setBizOrder(ConsumerOrder bizOrder){ConsumerOrder oldBizOrder = this.bizOrder;ConsumerOrder newBizOrder = bizOrder;this.bizOrder = newBizOrder;}
+	public ConsumerOrder bizOrder(){
+doLoad();
+return getBizOrder();
+}
 	public ConsumerOrder getBizOrder(){
-		return this.mBizOrder;
+		return this.bizOrder;
 	}
-	public ConsumerOrderPriceAdjustment updateBizOrder(ConsumerOrder bizOrder){
-		this.mBizOrder = bizOrder;;
-		this.changed = true;
-		return this;
-	}
+	public ConsumerOrderPriceAdjustment updateBizOrder(ConsumerOrder bizOrder){ConsumerOrder oldBizOrder = this.bizOrder;ConsumerOrder newBizOrder = bizOrder;if(!shouldReplaceBy(newBizOrder, oldBizOrder)){return this;}this.bizOrder = newBizOrder;addPropertyChange(BIZ_ORDER_PROPERTY, oldBizOrder, newBizOrder);this.changed = true;setChecked(false);return this;}
+	public ConsumerOrderPriceAdjustment orderByBizOrder(boolean asc){
+doAddOrderBy(BIZ_ORDER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createBizOrderCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(BIZ_ORDER_PROPERTY, operator, parameters);
+}
+	public ConsumerOrderPriceAdjustment ignoreBizOrderCriteria(){super.ignoreSearchProperty(BIZ_ORDER_PROPERTY);
+return this;
+}
+	public ConsumerOrderPriceAdjustment addBizOrderCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createBizOrderCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeBizOrder(ConsumerOrder bizOrder){
 		if(bizOrder != null) { setBizOrder(bizOrder);}
 	}
-	
+
 	
 	public void clearBizOrder(){
 		setBizOrder ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setAmount(BigDecimal amount){
-		this.mAmount = amount;;
-	}
+	public void setAmount(BigDecimal amount){BigDecimal oldAmount = this.amount;BigDecimal newAmount = amount;this.amount = newAmount;}
+	public BigDecimal amount(){
+doLoad();
+return getAmount();
+}
 	public BigDecimal getAmount(){
-		return this.mAmount;
+		return this.amount;
 	}
-	public ConsumerOrderPriceAdjustment updateAmount(BigDecimal amount){
-		this.mAmount = amount;;
-		this.changed = true;
-		return this;
-	}
+	public ConsumerOrderPriceAdjustment updateAmount(BigDecimal amount){BigDecimal oldAmount = this.amount;BigDecimal newAmount = amount;if(!shouldReplaceBy(newAmount, oldAmount)){return this;}this.amount = newAmount;addPropertyChange(AMOUNT_PROPERTY, oldAmount, newAmount);this.changed = true;setChecked(false);return this;}
+	public ConsumerOrderPriceAdjustment orderByAmount(boolean asc){
+doAddOrderBy(AMOUNT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createAmountCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(AMOUNT_PROPERTY, operator, parameters);
+}
+	public ConsumerOrderPriceAdjustment ignoreAmountCriteria(){super.ignoreSearchProperty(AMOUNT_PROPERTY);
+return this;
+}
+	public ConsumerOrderPriceAdjustment addAmountCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createAmountCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeAmount(BigDecimal amount){
 		setAmount(amount);
 	}
+
 	
-	
-	public void setProvider(String provider){
-		this.mProvider = trimString(provider);;
-	}
+	public void setProvider(String provider){String oldProvider = this.provider;String newProvider = trimString(provider);this.provider = newProvider;}
+	public String provider(){
+doLoad();
+return getProvider();
+}
 	public String getProvider(){
-		return this.mProvider;
+		return this.provider;
 	}
-	public ConsumerOrderPriceAdjustment updateProvider(String provider){
-		this.mProvider = trimString(provider);;
-		this.changed = true;
-		return this;
-	}
+	public ConsumerOrderPriceAdjustment updateProvider(String provider){String oldProvider = this.provider;String newProvider = trimString(provider);if(!shouldReplaceBy(newProvider, oldProvider)){return this;}this.provider = newProvider;addPropertyChange(PROVIDER_PROPERTY, oldProvider, newProvider);this.changed = true;setChecked(false);return this;}
+	public ConsumerOrderPriceAdjustment orderByProvider(boolean asc){
+doAddOrderBy(PROVIDER_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createProviderCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(PROVIDER_PROPERTY, operator, parameters);
+}
+	public ConsumerOrderPriceAdjustment ignoreProviderCriteria(){super.ignoreSearchProperty(PROVIDER_PROPERTY);
+return this;
+}
+	public ConsumerOrderPriceAdjustment addProviderCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createProviderCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeProvider(String provider){
 		if(provider != null) { setProvider(provider);}
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public ConsumerOrderPriceAdjustment updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public ConsumerOrderPriceAdjustment updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public ConsumerOrderPriceAdjustment orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public ConsumerOrderPriceAdjustment ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public ConsumerOrderPriceAdjustment addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getBizOrder(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -326,16 +476,16 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof ConsumerOrderPriceAdjustment){
-		
-		
+
+
 			ConsumerOrderPriceAdjustment dest =(ConsumerOrderPriceAdjustment)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setBizOrder(getBizOrder());
@@ -348,13 +498,13 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof ConsumerOrderPriceAdjustment){
-		
-			
+
+
 			ConsumerOrderPriceAdjustment dest =(ConsumerOrderPriceAdjustment)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeBizOrder(getBizOrder());
@@ -366,15 +516,15 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof ConsumerOrderPriceAdjustment){
-		
-			
+
+
 			ConsumerOrderPriceAdjustment dest =(ConsumerOrderPriceAdjustment)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeAmount(getAmount());
@@ -387,6 +537,46 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getBizOrder(), getAmount(), getProvider(), getVersion()};
 	}
+
+
+	public static ConsumerOrderPriceAdjustment createWith(RetailscmUserContext userContext, ThrowingFunction<ConsumerOrderPriceAdjustment,ConsumerOrderPriceAdjustment,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<ConsumerOrderPriceAdjustment> customCreator = mapper.findCustomCreator(ConsumerOrderPriceAdjustment.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    ConsumerOrderPriceAdjustment result = new ConsumerOrderPriceAdjustment();
+    result.setName(mapper.tryToGet(ConsumerOrderPriceAdjustment.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setBizOrder(mapper.tryToGet(ConsumerOrderPriceAdjustment.class, BIZ_ORDER_PROPERTY, ConsumerOrder.class,
+        0, true, result.getBizOrder(), params));
+    result.setAmount(mapper.tryToGet(ConsumerOrderPriceAdjustment.class, AMOUNT_PROPERTY, BigDecimal.class,
+        0, true, result.getAmount(), params));
+    result.setProvider(mapper.tryToGet(ConsumerOrderPriceAdjustment.class, PROVIDER_PROPERTY, String.class,
+        1, false, result.getProvider(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixConsumerOrderPriceAdjustment(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      ConsumerOrderPriceAdjustmentTokens tokens = mapper.findParamByClass(params, ConsumerOrderPriceAdjustmentTokens.class);
+      if (tokens == null) {
+        tokens = ConsumerOrderPriceAdjustmentTokens.start();
+      }
+      result = userContext.getManagerGroup().getConsumerOrderPriceAdjustmentManager().internalSaveConsumerOrderPriceAdjustment(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -403,7 +593,7 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

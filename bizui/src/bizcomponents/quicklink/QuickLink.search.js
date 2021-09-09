@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { UserAppAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <UserAppAssociateForm 
-	visible={currentAssociateModal==='app'} 
-	data={{quickLinkList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'app')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'app')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class QuickLinkSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class QuickLinkSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {QuickLinkTable} = GlobalComponents;
     const {QuickLinkSearchForm} = GlobalComponents;
     const {QuickLinkModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class QuickLinkSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,QuickLinkModalTable,"quickLinkIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

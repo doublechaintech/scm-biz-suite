@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.supplyorderlineitem;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,28 +9,31 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
 
 public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem>{
-	
+
 	protected SupplyOrderLineItem internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		SupplyOrderLineItem supplyOrderLineItem = getSupplyOrderLineItem();		
-		 		
- 		setId(supplyOrderLineItem, rs, rowNumber); 		
- 		setBizOrder(supplyOrderLineItem, rs, rowNumber); 		
- 		setSkuId(supplyOrderLineItem, rs, rowNumber); 		
- 		setSkuName(supplyOrderLineItem, rs, rowNumber); 		
- 		setAmount(supplyOrderLineItem, rs, rowNumber); 		
- 		setQuantity(supplyOrderLineItem, rs, rowNumber); 		
- 		setUnitOfMeasurement(supplyOrderLineItem, rs, rowNumber); 		
+		SupplyOrderLineItem supplyOrderLineItem = getSupplyOrderLineItem();
+		
+ 		setId(supplyOrderLineItem, rs, rowNumber);
+ 		setBizOrder(supplyOrderLineItem, rs, rowNumber);
+ 		setSkuId(supplyOrderLineItem, rs, rowNumber);
+ 		setSkuName(supplyOrderLineItem, rs, rowNumber);
+ 		setAmount(supplyOrderLineItem, rs, rowNumber);
+ 		setQuantity(supplyOrderLineItem, rs, rowNumber);
+ 		setUnitOfMeasurement(supplyOrderLineItem, rs, rowNumber);
  		setVersion(supplyOrderLineItem, rs, rowNumber);
 
+    
 		return supplyOrderLineItem;
 	}
-	
+
 	protected SupplyOrderLineItem getSupplyOrderLineItem(){
-		return new SupplyOrderLineItem();
-	}		
+	  SupplyOrderLineItem entity = new SupplyOrderLineItem();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(SupplyOrderLineItemTable.COLUMN_ID);
@@ -40,10 +44,18 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
 		}
 		
 		supplyOrderLineItem.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setBizOrder(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
- 		String supplyOrderId = rs.getString(SupplyOrderLineItemTable.COLUMN_BIZ_ORDER);
+ 		String supplyOrderId;
+ 		try{
+ 		  supplyOrderId = rs.getString(SupplyOrderLineItemTable.COLUMN_BIZ_ORDER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( supplyOrderId == null){
  			return;
  		}
@@ -54,14 +66,14 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
  		if( supplyOrder != null ){
  			//if the root object 'supplyOrderLineItem' already have the property, just set the id for it;
  			supplyOrder.setId(supplyOrderId);
- 			
+
  			return;
  		}
  		supplyOrderLineItem.setBizOrder(createEmptyBizOrder(supplyOrderId));
  	}
  	
 	protected void setSkuId(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String skuId = rs.getString(SupplyOrderLineItemTable.COLUMN_SKU_ID);
@@ -72,10 +84,13 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
 		}
 		
 		supplyOrderLineItem.setSkuId(skuId);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setSkuName(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String skuName = rs.getString(SupplyOrderLineItemTable.COLUMN_SKU_NAME);
@@ -86,10 +101,13 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
 		}
 		
 		supplyOrderLineItem.setSkuName(skuName);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAmount(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal amount = rs.getBigDecimal(SupplyOrderLineItemTable.COLUMN_AMOUNT);
@@ -100,10 +118,13 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
 		}
 		
 		supplyOrderLineItem.setAmount(amount);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setQuantity(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer quantity = rs.getInt(SupplyOrderLineItemTable.COLUMN_QUANTITY);
@@ -114,10 +135,13 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
 		}
 		
 		supplyOrderLineItem.setQuantity(quantity);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setUnitOfMeasurement(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String unitOfMeasurement = rs.getString(SupplyOrderLineItemTable.COLUMN_UNIT_OF_MEASUREMENT);
@@ -128,10 +152,13 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
 		}
 		
 		supplyOrderLineItem.setUnitOfMeasurement(unitOfMeasurement);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(SupplyOrderLineItem supplyOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(SupplyOrderLineItemTable.COLUMN_VERSION);
@@ -142,9 +169,12 @@ public class SupplyOrderLineItemMapper extends BaseRowMapper<SupplyOrderLineItem
 		}
 		
 		supplyOrderLineItem.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected SupplyOrder  createEmptyBizOrder(String supplyOrderId){
  		SupplyOrder supplyOrder = new SupplyOrder();

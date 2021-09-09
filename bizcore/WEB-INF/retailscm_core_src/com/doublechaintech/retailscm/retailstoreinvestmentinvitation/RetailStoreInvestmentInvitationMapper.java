@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstoreinvestmentinvitation;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -7,23 +8,26 @@ import java.math.BigDecimal;
 import com.doublechaintech.retailscm.BaseRowMapper;
 
 public class RetailStoreInvestmentInvitationMapper extends BaseRowMapper<RetailStoreInvestmentInvitation>{
-	
+
 	protected RetailStoreInvestmentInvitation internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStoreInvestmentInvitation retailStoreInvestmentInvitation = getRetailStoreInvestmentInvitation();		
-		 		
- 		setId(retailStoreInvestmentInvitation, rs, rowNumber); 		
- 		setComment(retailStoreInvestmentInvitation, rs, rowNumber); 		
+		RetailStoreInvestmentInvitation retailStoreInvestmentInvitation = getRetailStoreInvestmentInvitation();
+		
+ 		setId(retailStoreInvestmentInvitation, rs, rowNumber);
+ 		setComment(retailStoreInvestmentInvitation, rs, rowNumber);
  		setVersion(retailStoreInvestmentInvitation, rs, rowNumber);
 
+    
 		return retailStoreInvestmentInvitation;
 	}
-	
+
 	protected RetailStoreInvestmentInvitation getRetailStoreInvestmentInvitation(){
-		return new RetailStoreInvestmentInvitation();
-	}		
+	  RetailStoreInvestmentInvitation entity = new RetailStoreInvestmentInvitation();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreInvestmentInvitationTable.COLUMN_ID);
@@ -34,10 +38,13 @@ public class RetailStoreInvestmentInvitationMapper extends BaseRowMapper<RetailS
 		}
 		
 		retailStoreInvestmentInvitation.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setComment(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String comment = rs.getString(RetailStoreInvestmentInvitationTable.COLUMN_COMMENT);
@@ -48,10 +55,13 @@ public class RetailStoreInvestmentInvitationMapper extends BaseRowMapper<RetailS
 		}
 		
 		retailStoreInvestmentInvitation.setComment(comment);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreInvestmentInvitationTable.COLUMN_VERSION);
@@ -62,9 +72,12 @@ public class RetailStoreInvestmentInvitationMapper extends BaseRowMapper<RetailS
 		}
 		
 		retailStoreInvestmentInvitation.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
 }
 

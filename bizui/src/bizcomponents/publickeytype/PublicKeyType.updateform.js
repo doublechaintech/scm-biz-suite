@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './PublicKeyType.updateform.less'
 import PublicKeyTypeBase from './PublicKeyType.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class PublicKeyTypeUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -102,13 +104,13 @@ class PublicKeyTypeUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const publicKeyTypeId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, publicKeyTypeId, ...imagesValues }
 
-        
+        const parameters = { ...values, publicKeyTypeId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -123,7 +125,7 @@ class PublicKeyTypeUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -133,12 +135,12 @@ class PublicKeyTypeUpdateForm extends Component {
 
         const { owner } = this.props
         const publicKeyTypeId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, publicKeyTypeId, ...imagesValues }
+
+        const parameters = { ...values, publicKeyTypeId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -160,11 +162,11 @@ class PublicKeyTypeUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextPublicKeyTypeUpdateRow`,
@@ -178,7 +180,7 @@ class PublicKeyTypeUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -186,7 +188,7 @@ class PublicKeyTypeUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'publicKeyType',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -229,7 +231,7 @@ class PublicKeyTypeUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -243,12 +245,12 @@ class PublicKeyTypeUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}公共密钥类型: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}公钥类型: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -258,7 +260,7 @@ class PublicKeyTypeUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -266,41 +268,41 @@ class PublicKeyTypeUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    initialValue: selectedRow.name,
+                <Form.Item label={fieldLabels.keyAlg} {...formItemLayout}>
+                  {getFieldDecorator('keyAlg', {
+                    initialValue: selectedRow.keyAlg,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.keyAlg} />
+
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.code} {...formItemLayout}>
-                  {getFieldDecorator('code', {
-                    initialValue: selectedRow.code,
+                <Form.Item label={fieldLabels.signAlg} {...formItemLayout}>
+                  {getFieldDecorator('signAlg', {
+                    initialValue: selectedRow.signAlg,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.code} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.signAlg} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

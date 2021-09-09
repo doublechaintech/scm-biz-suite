@@ -1,43 +1,27 @@
 
 package com.doublechaintech.retailscm.skilltype;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.employee.Employee;import com.doublechaintech.retailscm.employeeskill.EmployeeSkill;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.skilltype.SkillType;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
-import com.doublechaintech.retailscm.employeeskill.EmployeeSkill;
-
-import com.doublechaintech.retailscm.retailstorecountrycenter.CandidateRetailStoreCountryCenter;
-
-import com.doublechaintech.retailscm.skilltype.SkillType;
-import com.doublechaintech.retailscm.employee.Employee;
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implements SkillTypeManager, BusinessHandler{
@@ -80,6 +64,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws SkillTypeManagerException{
 
 		Message message = new Message();
@@ -90,135 +75,189 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
 
 
- 	protected SkillType saveSkillType(RetailscmUserContext userContext, SkillType skillType, String [] tokensExpr) throws Exception{	
+ 	protected SkillType saveSkillType(RetailscmUserContext userContext, SkillType skillType, String [] tokensExpr) throws Exception{
  		//return getSkillTypeDAO().save(skillType, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveSkillType(userContext, skillType, tokens);
  	}
- 	
- 	protected SkillType saveSkillTypeDetail(RetailscmUserContext userContext, SkillType skillType) throws Exception{	
 
- 		
+ 	protected SkillType saveSkillTypeDetail(RetailscmUserContext userContext, SkillType skillType) throws Exception{
+
+
  		return saveSkillType(userContext, skillType, allTokens());
  	}
- 	
- 	public SkillType loadSkillType(RetailscmUserContext userContext, String skillTypeId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public SkillType loadSkillType(RetailscmUserContext userContext, String skillTypeId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SkillTypeManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		SkillType skillType = loadSkillType( userContext, skillTypeId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,skillType, tokens);
  	}
- 	
- 	
- 	 public SkillType searchSkillType(RetailscmUserContext userContext, String skillTypeId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public SkillType searchSkillType(RetailscmUserContext userContext, String skillTypeId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SkillTypeManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		SkillType skillType = loadSkillType( userContext, skillTypeId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,skillType, tokens);
  	}
- 	
- 	
+
+
 
  	protected SkillType present(RetailscmUserContext userContext, SkillType skillType, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,skillType,tokens);
-		
-		
+    
+
 		SkillType  skillTypeToPresent = skillTypeDaoOf(userContext).present(skillType, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = skillTypeToPresent.collectRefercencesFromLists();
 		skillTypeDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,skillType,tokens);
-		
+
 		return  skillTypeToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public SkillType loadSkillTypeDetail(RetailscmUserContext userContext, String skillTypeId) throws Exception{	
+
+
+
+ 	public SkillType loadSkillTypeDetail(RetailscmUserContext userContext, String skillTypeId) throws Exception{
  		SkillType skillType = loadSkillType( userContext, skillTypeId, allTokens());
  		return present(userContext,skillType, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String skillTypeId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String skillTypeId) throws Exception{
  		SkillType skillType = loadSkillType( userContext, skillTypeId, viewTokens());
- 		return present(userContext,skillType, allTokens());
-		
- 	}
- 	protected SkillType saveSkillType(RetailscmUserContext userContext, SkillType skillType, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, skillType);
+ 		return present(userContext,skillType, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String skillTypeId) throws Exception{
+		SkillType skillType = loadSkillType( userContext, skillTypeId, viewTokens());
+		skillType.summarySuffix();
+		markVisited(userContext, skillType);
+ 		return present(userContext,skillType, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String skillTypeId) throws Exception{
+		SkillType skillType = loadSkillType( userContext, skillTypeId, analyzeTokens());
+		markVisited(userContext, skillType);
+		return present(userContext,skillType, analyzeTokens());
+
+	}
+ 	protected SkillType saveSkillType(RetailscmUserContext userContext, SkillType skillType, Map<String,Object>tokens) throws Exception{
+ 	
  		return skillTypeDaoOf(userContext).save(skillType, tokens);
  	}
- 	protected SkillType loadSkillType(RetailscmUserContext userContext, String skillTypeId, Map<String,Object>tokens) throws Exception{	
+ 	protected SkillType loadSkillType(RetailscmUserContext userContext, String skillTypeId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( SkillTypeManagerException.class);
 
- 
+
+
  		return skillTypeDaoOf(userContext).load(skillTypeId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, SkillType skillType, Map<String, Object> tokens){
 		super.addActions(userContext, skillType, tokens);
-		
+
 		addAction(userContext, skillType, tokens,"@create","createSkillType","createSkillType/","main","primary");
 		addAction(userContext, skillType, tokens,"@update","updateSkillType","updateSkillType/"+skillType.getId()+"/","main","primary");
 		addAction(userContext, skillType, tokens,"@copy","cloneSkillType","cloneSkillType/"+skillType.getId()+"/","main","primary");
-		
+
 		addAction(userContext, skillType, tokens,"skill_type.transfer_to_company","transferToAnotherCompany","transferToAnotherCompany/"+skillType.getId()+"/","main","primary");
 		addAction(userContext, skillType, tokens,"skill_type.addEmployeeSkill","addEmployeeSkill","addEmployeeSkill/"+skillType.getId()+"/","employeeSkillList","primary");
 		addAction(userContext, skillType, tokens,"skill_type.removeEmployeeSkill","removeEmployeeSkill","removeEmployeeSkill/"+skillType.getId()+"/","employeeSkillList","primary");
 		addAction(userContext, skillType, tokens,"skill_type.updateEmployeeSkill","updateEmployeeSkill","updateEmployeeSkill/"+skillType.getId()+"/","employeeSkillList","primary");
 		addAction(userContext, skillType, tokens,"skill_type.copyEmployeeSkillFrom","copyEmployeeSkillFrom","copyEmployeeSkillFrom/"+skillType.getId()+"/","employeeSkillList","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, SkillType skillType, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<SkillType> searchSkillTypeList(RetailscmUserContext ctx, SkillTypeRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<SkillType> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public SkillType searchSkillType(RetailscmUserContext ctx, SkillTypeRequest pRequest){
+    pRequest.limit(0, 1);
+    List<SkillType> list = searchSkillTypeList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public SkillType createSkillType(RetailscmUserContext userContext, String code,String companyId,String description) throws Exception
-	//public SkillType createSkillType(RetailscmUserContext userContext,String code, String companyId, String description) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkCodeOfSkillType(code);
 		checkerOf(userContext).checkDescriptionOfSkillType(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
+
 
 
 		SkillType skillType=createNewSkillType();	
@@ -248,28 +287,30 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
 		checkerOf(userContext).checkVersionOfSkillType( skillTypeVersion);
-		
+
 
 		if(SkillType.CODE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkCodeOfSkillType(parseString(newValueExpr));
 		
-			
-		}		
+
+		}
 
 		
 		if(SkillType.DESCRIPTION_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkDescriptionOfSkillType(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
+
 
 
 	}
@@ -298,6 +339,8 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			if (skillType.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixSkillType(skillType);
 			skillType = saveSkillType(userContext, skillType, options);
 			return skillType;
 
@@ -364,10 +407,16 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected Map<String,Object> allTokens(){
 		return SkillTypeTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.sortEmployeeSkillListWith("id","desc")
-		.analyzeAllLists().done();
+		.sortEmployeeSkillListWith(EmployeeSkill.ID_PROPERTY,sortDesc())
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -379,6 +428,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
  		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
  		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(anotherCompanyId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
 
  	}
@@ -386,16 +436,17 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
  	{
  		checkParamsForTransferingAnotherCompany(userContext, skillTypeId,anotherCompanyId);
  
-		SkillType skillType = loadSkillType(userContext, skillTypeId, allTokens());	
+		SkillType skillType = loadSkillType(userContext, skillTypeId, allTokens());
 		synchronized(skillType){
 			//will be good when the skillType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			RetailStoreCountryCenter company = loadRetailStoreCountryCenter(userContext, anotherCompanyId, emptyOptions());		
-			skillType.updateCompany(company);		
+			RetailStoreCountryCenter company = loadRetailStoreCountryCenter(userContext, anotherCompanyId, emptyOptions());
+			skillType.updateCompany(company);
+			
 			skillType = saveSkillType(userContext, skillType, emptyOptions());
-			
+
 			return present(userContext,skillType, allTokens());
-			
+
 		}
 
  	}
@@ -428,8 +479,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
  	protected RetailStoreCountryCenter loadRetailStoreCountryCenter(RetailscmUserContext userContext, String newCompanyId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return retailStoreCountryCenterDaoOf(userContext).load(newCompanyId, options);
+ 	  
  	}
  	
 
@@ -475,27 +527,6 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	}
 
 
-	//disconnect SkillType with employee in EmployeeSkill
-	protected SkillType breakWithEmployeeSkillByEmployee(RetailscmUserContext userContext, String skillTypeId, String employeeId,  String [] tokensExpr)
-		 throws Exception{
-
-			//TODO add check code here
-
-			SkillType skillType = loadSkillType(userContext, skillTypeId, allTokens());
-
-			synchronized(skillType){
-				//Will be good when the thread loaded from this JVM process cache.
-				//Also good when there is a RAM based DAO implementation
-
-				skillTypeDaoOf(userContext).planToRemoveEmployeeSkillListWithEmployee(skillType, employeeId, this.emptyOptions());
-
-				skillType = saveSkillType(userContext, skillType, tokens().withEmployeeSkillList().done());
-				return skillType;
-			}
-	}
-
-
-
 
 
 
@@ -503,18 +534,19 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
 				checkerOf(userContext).checkIdOfSkillType(skillTypeId);
 
-		
+
 		checkerOf(userContext).checkEmployeeIdOfEmployeeSkill(employeeId);
-		
+
 		checkerOf(userContext).checkDescriptionOfEmployeeSkill(description);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
+
 
 
 	}
 	public  SkillType addEmployeeSkill(RetailscmUserContext userContext, String skillTypeId, String employeeId, String description, String [] tokensExpr) throws Exception
 	{
-
 		checkParamsForAddingEmployeeSkill(userContext,skillTypeId,employeeId, description,tokensExpr);
 
 		EmployeeSkill employeeSkill = createEmployeeSkill(userContext,employeeId, description);
@@ -537,7 +569,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 
 		checkerOf(userContext).checkDescriptionOfEmployeeSkill( description);
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
+
 
 	}
 	public  SkillType updateEmployeeSkillProperties(RetailscmUserContext userContext, String skillTypeId, String id,String description, String [] tokensExpr) throws Exception
@@ -605,6 +639,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			checkerOf(userContext).checkIdOfEmployeeSkill(employeeSkillIdItem);
 		}
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
 
 	}
@@ -631,7 +666,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfSkillType( skillTypeId);
 		checkerOf(userContext).checkIdOfEmployeeSkill(employeeSkillId);
 		checkerOf(userContext).checkVersionOfEmployeeSkill(employeeSkillVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
+
 
 	}
 	public  SkillType removeEmployeeSkill(RetailscmUserContext userContext, String skillTypeId,
@@ -658,7 +695,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkIdOfSkillType( skillTypeId);
 		checkerOf(userContext).checkIdOfEmployeeSkill(employeeSkillId);
 		checkerOf(userContext).checkVersionOfEmployeeSkill(employeeSkillVersion);
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
+
 
 	}
 	public  SkillType copyEmployeeSkillFrom(RetailscmUserContext userContext, String skillTypeId,
@@ -686,7 +725,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected void checkParamsForUpdatingEmployeeSkill(RetailscmUserContext userContext, String skillTypeId, String employeeSkillId, int employeeSkillVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception{
 		
 
-		
+
 		checkerOf(userContext).checkIdOfSkillType(skillTypeId);
 		checkerOf(userContext).checkIdOfEmployeeSkill(employeeSkillId);
 		checkerOf(userContext).checkVersionOfEmployeeSkill(employeeSkillVersion);
@@ -697,7 +736,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		}
 		
 
+
 		checkerOf(userContext).throwExceptionIfHasErrors(SkillTypeManagerException.class);
+
 
 	}
 
@@ -728,6 +769,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			employeeSkill.changeProperty(property, newValueExpr);
 			
 			skillType = saveSkillType(userContext, skillType, tokens().withEmployeeSkillList().done());
+			employeeSkillManagerOf(userContext).onUpdated(userContext, employeeSkill, this, "updateEmployeeSkill");
 			return present(userContext,skillType, mergedAllTokens(tokensExpr));
 		}
 
@@ -760,112 +802,13 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -888,28 +831,21 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, SkillType.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, SkillType.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -955,7 +891,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String skillTypeId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getSkillTypeDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		SkillType merchantObj = (SkillType) this.view(userContext, skillTypeId);
     String merchantObjId = skillTypeId;
     String linkToUrl =	"skillTypeManager/wxappview/" + merchantObjId + "/";
@@ -1023,8 +959,6 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		sections.add(employeeSkillListSection);
 
 		result.put("employeeSkillListSection", ListofUtils.toShortList(merchantObj.getEmployeeSkillList(), "employeeSkill"));
-		vscope.field("employeeSkillListSection", RetailscmListOfViewScope.getInstance()
-					.getListOfViewScope( EmployeeSkill.class.getName(), null));
 
 		result.put("propList", propList);
 		result.put("sectionList", sections);
@@ -1039,8 +973,19 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

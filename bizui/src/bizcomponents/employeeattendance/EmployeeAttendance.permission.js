@@ -31,7 +31,7 @@ const internalSummaryOf = (employeeAttendance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeAttendance.id}</Description> 
+<Description term="ID">{employeeAttendance.id}</Description> 
 <Description term="进入时间">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
 <Description term="离开的时候">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
 <Description term="持续时间">{employeeAttendance.durationHours}</Description> 
@@ -61,7 +61,7 @@ class EmployeeAttendancePermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeAttendance = this.props.employeeAttendance
     const { id,displayName,  } = employeeAttendance
-    const  returnURL = `/employeeAttendance/${id}/dashboard`
+    const  returnURL = `/employeeAttendance/${id}/workbench`
     const cardsData = {cardsName:"员工考勤",cardsFor: "employeeAttendance",cardsSource: employeeAttendance,displayName,returnURL,
   		subItems: [
     
@@ -74,10 +74,10 @@ class EmployeeAttendancePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

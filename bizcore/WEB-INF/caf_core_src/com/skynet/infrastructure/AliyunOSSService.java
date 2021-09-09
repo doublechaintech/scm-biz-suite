@@ -47,10 +47,11 @@ public class AliyunOSSService implements StorageService {
         return testossByHome(userHome);
     }
 
+    // replaceAll()方法使用的是pattern, userHome中会出现特殊ID,例如$SU000001, 所以换成 replace, 目前的配置 replace 可以正常工作
     public Map<String, Object> testossByHome(String userHome) {
         // String roleSessionName = userContext.communityUserId();
         String ossPolicy = config.getPolicy();
-        String userPolicy = ossPolicy.replaceAll("BUCKET_ID", config.getOssBucket()).replaceAll("USER_HOME", userHome);
+        String userPolicy = ossPolicy.replace("BUCKET_ID", config.getOssBucket()).replace("USER_HOME", userHome);
 
         // 此处必须为 HTTPS
         ProtocolType protocolType = ProtocolType.HTTPS;

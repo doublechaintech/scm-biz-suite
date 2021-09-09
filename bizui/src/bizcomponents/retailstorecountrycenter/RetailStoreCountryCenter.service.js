@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreCountryCenterManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreCountryCenterManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -567,6 +572,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreCountryCenterService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -586,6 +599,7 @@ const  processRequest = (data) => {
 
 const RetailStoreCountryCenterService = { view,
   load,
+  analyze,
   addCatalog,
   addRetailStoreProvinceCenter,
   addRetailStore,
@@ -657,6 +671,6 @@ const RetailStoreCountryCenterService = { view,
   removePublicHolidayList,
   removeEmployeeList,
   removeInstructorList,
-  removeCompanyTrainingList, listFunctions, saveRequest, processRequest, queryCandidates}
+  removeCompanyTrainingList, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreCountryCenterService
 

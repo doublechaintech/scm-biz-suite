@@ -11,11 +11,11 @@ import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
 
 import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityDAO;
 
 
 public interface PublicKeyTypeDAO extends BaseDAO{
@@ -46,24 +46,26 @@ public interface PublicKeyTypeDAO extends BaseDAO{
 	public void delete(String publicKeyTypeId, int version) throws Exception;
 	public PublicKeyType disconnectFromAll(String publicKeyTypeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
-	public KeypairIdentityDAO getKeypairIdentityDAO();
+	public KeyPairIdentityDAO getKeyPairIdentityDAO();
 		
 	
- 	public SmartList<PublicKeyType> requestCandidatePublicKeyTypeForKeypairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
+ 	public SmartList<PublicKeyType> requestCandidatePublicKeyTypeForKeyPairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
 		
 	
-	public PublicKeyType planToRemoveKeypairIdentityList(PublicKeyType publicKeyType, String keypairIdentityIds[], Map<String,Object> options)throws Exception;
+	public PublicKeyType planToRemoveKeyPairIdentityList(PublicKeyType publicKeyType, String keyPairIdentityIds[], Map<String,Object> options)throws Exception;
 
 
-	//disconnect PublicKeyType with sec_user in KeypairIdentity
-	public PublicKeyType planToRemoveKeypairIdentityListWithSecUser(PublicKeyType publicKeyType, String secUserId, Map<String,Object> options)throws Exception;
-	public int countKeypairIdentityListWithSecUser(String publicKeyTypeId, String secUserId, Map<String,Object> options)throws Exception;
+	//disconnect PublicKeyType with sec_user in KeyPairIdentity
+	public PublicKeyType planToRemoveKeyPairIdentityListWithSecUser(PublicKeyType publicKeyType, String secUserId, Map<String,Object> options)throws Exception;
+	public int countKeyPairIdentityListWithSecUser(String publicKeyTypeId, String secUserId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<PublicKeyType> queryList(String sql, Object ... parmeters);
+	public SmartList<PublicKeyType> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<PublicKeyType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidatePublicKeyType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<PublicKeyType> findPublicKeyTypeByDomain(String userDomainId, Map<String,Object> options);
@@ -74,9 +76,11 @@ public interface PublicKeyTypeDAO extends BaseDAO{
 
 
  
-	// 需要一个加载引用我的对象的enhance方法:KeypairIdentity的keyType的KeypairIdentityList
-	public SmartList<KeypairIdentity> loadOurKeypairIdentityList(RetailscmUserContext userContext, List<PublicKeyType> us, Map<String,Object> options) throws Exception;
+	// 需要一个加载引用我的对象的enhance方法:KeyPairIdentity的keyType的KeyPairIdentityList
+	public SmartList<KeyPairIdentity> loadOurKeyPairIdentityList(RetailscmUserContext userContext, List<PublicKeyType> us, Map<String,Object> options) throws Exception;
 	
+
+	List<PublicKeyType> search(PublicKeyTypeRequest pRequest);
 }
 
 

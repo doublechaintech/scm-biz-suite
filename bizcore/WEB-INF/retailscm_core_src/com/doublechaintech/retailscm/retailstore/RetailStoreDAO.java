@@ -68,6 +68,7 @@ public interface RetailStoreDAO extends BaseDAO{
 	public void delete(String retailStoreId, int version) throws Exception;
 	public RetailStore disconnectFromAll(String retailStoreId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public ConsumerOrderDAO getConsumerOrderDAO();
 		
@@ -167,9 +168,10 @@ public interface RetailStoreDAO extends BaseDAO{
 	public int countAccountSetListWithGoodsSupplier(String retailStoreId, String goodsSupplierId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<RetailStore> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStore> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStore> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStore executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStore> findRetailStoreByRetailStoreCountryCenter(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -251,6 +253,8 @@ public interface RetailStoreDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:AccountSet的retailStore的AccountSetList
 	public SmartList<AccountSet> loadOurAccountSetList(RetailscmUserContext userContext, List<RetailStore> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStore> search(RetailStoreRequest pRequest);
 }
 
 

@@ -31,7 +31,7 @@ const internalSummaryOf = (retailStoreMemberGiftCardConsumeRecord,targetComponen
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
+<Description term="ID">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
 <Description term="发生时间">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
 <Description term="数">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
 <Description term="金额">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
@@ -60,7 +60,7 @@ class RetailStoreMemberGiftCardConsumeRecordPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberGiftCardConsumeRecord = this.props.retailStoreMemberGiftCardConsumeRecord
     const { id,displayName,  } = retailStoreMemberGiftCardConsumeRecord
-    const  returnURL = `/retailStoreMemberGiftCardConsumeRecord/${id}/dashboard`
+    const  returnURL = `/retailStoreMemberGiftCardConsumeRecord/${id}/workbench`
     const cardsData = {cardsName:"零售门店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: retailStoreMemberGiftCardConsumeRecord,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class RetailStoreMemberGiftCardConsumeRecordPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

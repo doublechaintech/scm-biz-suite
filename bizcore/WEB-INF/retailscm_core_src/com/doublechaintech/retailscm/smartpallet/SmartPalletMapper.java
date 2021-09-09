@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.smartpallet;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,29 +9,32 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.warehouse.Warehouse;
 
 public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
-	
+
 	protected SmartPallet internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		SmartPallet smartPallet = getSmartPallet();		
-		 		
- 		setId(smartPallet, rs, rowNumber); 		
- 		setLocation(smartPallet, rs, rowNumber); 		
- 		setContactNumber(smartPallet, rs, rowNumber); 		
- 		setTotalArea(smartPallet, rs, rowNumber); 		
- 		setLatitude(smartPallet, rs, rowNumber); 		
- 		setLongitude(smartPallet, rs, rowNumber); 		
- 		setWarehouse(smartPallet, rs, rowNumber); 		
- 		setLastUpdateTime(smartPallet, rs, rowNumber); 		
+		SmartPallet smartPallet = getSmartPallet();
+		
+ 		setId(smartPallet, rs, rowNumber);
+ 		setLocation(smartPallet, rs, rowNumber);
+ 		setContactNumber(smartPallet, rs, rowNumber);
+ 		setTotalArea(smartPallet, rs, rowNumber);
+ 		setLatitude(smartPallet, rs, rowNumber);
+ 		setLongitude(smartPallet, rs, rowNumber);
+ 		setWarehouse(smartPallet, rs, rowNumber);
+ 		setLastUpdateTime(smartPallet, rs, rowNumber);
  		setVersion(smartPallet, rs, rowNumber);
 
+    
 		return smartPallet;
 	}
-	
+
 	protected SmartPallet getSmartPallet(){
-		return new SmartPallet();
-	}		
+	  SmartPallet entity = new SmartPallet();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(SmartPalletTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLocation(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String location = rs.getString(SmartPalletTable.COLUMN_LOCATION);
@@ -55,10 +62,13 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setLocation(location);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setContactNumber(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String contactNumber = rs.getString(SmartPalletTable.COLUMN_CONTACT_NUMBER);
@@ -69,10 +79,13 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setContactNumber(contactNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTotalArea(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String totalArea = rs.getString(SmartPalletTable.COLUMN_TOTAL_AREA);
@@ -83,10 +96,13 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setTotalArea(totalArea);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLatitude(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(SmartPalletTable.COLUMN_LATITUDE);
@@ -97,10 +113,13 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(SmartPalletTable.COLUMN_LONGITUDE);
@@ -111,10 +130,18 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setWarehouse(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
- 		String warehouseId = rs.getString(SmartPalletTable.COLUMN_WAREHOUSE);
+ 		String warehouseId;
+ 		try{
+ 		  warehouseId = rs.getString(SmartPalletTable.COLUMN_WAREHOUSE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( warehouseId == null){
  			return;
  		}
@@ -125,14 +152,14 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
  		if( warehouse != null ){
  			//if the root object 'smartPallet' already have the property, just set the id for it;
  			warehouse.setId(warehouseId);
- 			
+
  			return;
  		}
  		smartPallet.setWarehouse(createEmptyWarehouse(warehouseId));
  	}
  	
 	protected void setLastUpdateTime(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(SmartPalletTable.COLUMN_LAST_UPDATE_TIME);
@@ -143,10 +170,13 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(SmartPalletTable.COLUMN_VERSION);
@@ -157,9 +187,12 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
 		}
 		
 		smartPallet.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Warehouse  createEmptyWarehouse(String warehouseId){
  		Warehouse warehouse = new Warehouse();

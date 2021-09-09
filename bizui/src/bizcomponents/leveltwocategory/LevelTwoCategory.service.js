@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}levelTwoCategoryManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}levelTwoCategoryManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelTwoCategoryService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const LevelTwoCategoryService = { view,
   load,
+  analyze,
   addLevelThreeCategory,
   updateLevelThreeCategory,
   removeLevelThreeCategoryList,
   requestCandidateParentCategory,
-  transferToAnotherParentCategory, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherParentCategory, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default LevelTwoCategoryService
 

@@ -15,13 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = EmployeeInterviewBase
 const testValues = {};
-/*
-const testValues = {
-  remark: '结果不错，面试通过！',
-  employeeId: 'E000001',
-  interviewTypeId: 'IT000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -35,9 +31,20 @@ class EmployeeInterviewCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = EmployeeInterviewBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -48,7 +55,7 @@ class EmployeeInterviewCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -56,7 +63,7 @@ class EmployeeInterviewCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -64,10 +71,10 @@ class EmployeeInterviewCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -76,16 +83,16 @@ class EmployeeInterviewCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {EmployeeInterviewService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -95,9 +102,9 @@ class EmployeeInterviewCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -106,7 +113,7 @@ class EmployeeInterviewCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -118,83 +125,83 @@ class EmployeeInterviewCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_interview')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.remark} {...formItemLayout}>
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.remark} />
+                    <SmallTextInput minLength={3} maxLength={40} size="large"  placeholder={fieldLabels.remark} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('employee')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"employee_interview"} 
-		                 targetType={"employee"} 
-                 
+		                 listType={"employee_interview"}
+		                 targetType={"employee"}
+
                     requestFunction={EmployeeInterviewService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.interviewType} {...formItemLayout}>
                   {getFieldDecorator('interviewTypeId', {
                   	initialValue: tryinit('interviewType'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('interviewType')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"employee_interview"} 
-		                 targetType={"interview_type"} 
-                 
+		                 listType={"employee_interview"}
+		                 targetType={"interview_type"}
+
                     requestFunction={EmployeeInterviewService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -209,7 +216,7 @@ class EmployeeInterviewCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

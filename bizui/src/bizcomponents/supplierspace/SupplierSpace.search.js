@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { WarehouseAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <WarehouseAssociateForm 
-	visible={currentAssociateModal==='warehouse'} 
-	data={{supplierSpaceList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'warehouse')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'warehouse')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class SupplierSpaceSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class SupplierSpaceSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {SupplierSpaceTable} = GlobalComponents;
     const {SupplierSpaceSearchForm} = GlobalComponents;
     const {SupplierSpaceModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class SupplierSpaceSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,SupplierSpaceModalTable,"supplierSpaceIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

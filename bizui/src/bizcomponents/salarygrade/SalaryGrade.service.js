@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}salaryGradeManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}salaryGradeManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -98,6 +103,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}salaryGradeService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -117,6 +130,7 @@ const  processRequest = (data) => {
 
 const SalaryGradeService = { view,
   load,
+  analyze,
   addEmployee,
   addEmployeeSalarySheet,
   updateEmployee,
@@ -124,6 +138,6 @@ const SalaryGradeService = { view,
   removeEmployeeList,
   removeEmployeeSalarySheetList,
   requestCandidateCompany,
-  transferToAnotherCompany, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCompany, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default SalaryGradeService
 

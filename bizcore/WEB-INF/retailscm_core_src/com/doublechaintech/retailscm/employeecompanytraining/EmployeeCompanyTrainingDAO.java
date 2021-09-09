@@ -48,13 +48,15 @@ public interface EmployeeCompanyTrainingDAO extends BaseDAO{
 	public void delete(String employeeCompanyTrainingId, int version) throws Exception;
 	public EmployeeCompanyTraining disconnectFromAll(String employeeCompanyTrainingId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<EmployeeCompanyTraining> queryList(String sql, Object ... parmeters);
+	public SmartList<EmployeeCompanyTraining> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<EmployeeCompanyTraining> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateEmployeeCompanyTraining executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByEmployee(String employeeId, Map<String,Object> options);
@@ -81,6 +83,8 @@ public interface EmployeeCompanyTrainingDAO extends BaseDAO{
 
 
  
+
+	List<EmployeeCompanyTraining> search(EmployeeCompanyTrainingRequest pRequest);
 }
 
 

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.supplierspace;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,29 +9,32 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.warehouse.Warehouse;
 
 public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
-	
+
 	protected SupplierSpace internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		SupplierSpace supplierSpace = getSupplierSpace();		
-		 		
- 		setId(supplierSpace, rs, rowNumber); 		
- 		setLocation(supplierSpace, rs, rowNumber); 		
- 		setContactNumber(supplierSpace, rs, rowNumber); 		
- 		setTotalArea(supplierSpace, rs, rowNumber); 		
- 		setWarehouse(supplierSpace, rs, rowNumber); 		
- 		setLatitude(supplierSpace, rs, rowNumber); 		
- 		setLongitude(supplierSpace, rs, rowNumber); 		
- 		setLastUpdateTime(supplierSpace, rs, rowNumber); 		
+		SupplierSpace supplierSpace = getSupplierSpace();
+		
+ 		setId(supplierSpace, rs, rowNumber);
+ 		setLocation(supplierSpace, rs, rowNumber);
+ 		setContactNumber(supplierSpace, rs, rowNumber);
+ 		setTotalArea(supplierSpace, rs, rowNumber);
+ 		setWarehouse(supplierSpace, rs, rowNumber);
+ 		setLatitude(supplierSpace, rs, rowNumber);
+ 		setLongitude(supplierSpace, rs, rowNumber);
+ 		setLastUpdateTime(supplierSpace, rs, rowNumber);
  		setVersion(supplierSpace, rs, rowNumber);
 
+    
 		return supplierSpace;
 	}
-	
+
 	protected SupplierSpace getSupplierSpace(){
-		return new SupplierSpace();
-	}		
+	  SupplierSpace entity = new SupplierSpace();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(SupplierSpaceTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLocation(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String location = rs.getString(SupplierSpaceTable.COLUMN_LOCATION);
@@ -55,10 +62,13 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setLocation(location);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setContactNumber(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String contactNumber = rs.getString(SupplierSpaceTable.COLUMN_CONTACT_NUMBER);
@@ -69,10 +79,13 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setContactNumber(contactNumber);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTotalArea(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String totalArea = rs.getString(SupplierSpaceTable.COLUMN_TOTAL_AREA);
@@ -83,10 +96,18 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setTotalArea(totalArea);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setWarehouse(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
- 		String warehouseId = rs.getString(SupplierSpaceTable.COLUMN_WAREHOUSE);
+ 		String warehouseId;
+ 		try{
+ 		  warehouseId = rs.getString(SupplierSpaceTable.COLUMN_WAREHOUSE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( warehouseId == null){
  			return;
  		}
@@ -97,14 +118,14 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
  		if( warehouse != null ){
  			//if the root object 'supplierSpace' already have the property, just set the id for it;
  			warehouse.setId(warehouseId);
- 			
+
  			return;
  		}
  		supplierSpace.setWarehouse(createEmptyWarehouse(warehouseId));
  	}
  	
 	protected void setLatitude(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(SupplierSpaceTable.COLUMN_LATITUDE);
@@ -115,10 +136,13 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(SupplierSpaceTable.COLUMN_LONGITUDE);
@@ -129,10 +153,13 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(SupplierSpaceTable.COLUMN_LAST_UPDATE_TIME);
@@ -143,10 +170,13 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(SupplierSpaceTable.COLUMN_VERSION);
@@ -157,9 +187,12 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Warehouse  createEmptyWarehouse(String warehouseId){
  		Warehouse warehouse = new Warehouse();

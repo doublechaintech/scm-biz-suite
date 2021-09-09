@@ -1,18 +1,30 @@
 package com.terapico.caf.appview;
 
 import com.terapico.changerequest.CRSpec;
+import com.terapico.utils.CollectionUtils;
+import com.terapico.utils.MapUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CRGroupData {
+  protected String id;
   protected String name; // : person_info.male,       > group的命名保证整个CR中不重复即可
   protected String title; // : 男方信息
   protected boolean hidden; //
   protected List<CRFieldData> fieldList;
   protected List<CRAction> actionList;
   protected Map<String, CRAction> actions;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;
@@ -106,5 +118,40 @@ public class CRGroupData {
 
   public CRFieldSelector ensureField(String fieldId, String fieldName) {
     return new CRFieldSelector(this, fieldId, fieldName, true);
+  }
+
+  public void addPreviousExistsInList(List<Object> existsRecordList) {
+    if (existsRecordList == null || existsRecordList.isEmpty()) {
+      return;
+    }
+    CRFieldData data = makeCrFieldDataByExistsList(existsRecordList);
+    fieldList.add(0, data);
+  }
+
+
+  public void addNextExistsInList(List<Object> existsRecordList) {
+    if (existsRecordList == null || existsRecordList.isEmpty()) {
+      return;
+    }
+    CRFieldData data = makeCrFieldDataByExistsList(existsRecordList);
+    fieldList.add(data);
+  }
+
+  protected CRFieldData makeCrFieldDataByExistsList(List<Object> existsRecordList) {
+    CRFieldData data = new CRFieldData();
+    data.setDisabled(true);
+    data.setType("display-field");
+
+    data.setValue(
+            MapUtil.put(
+                    "kids",
+                    CollectionUtils.toList(
+                            MapUtil.put("id", 1)
+                                    .put("type", "listof")
+                                    .put("list", existsRecordList)
+                                    .into_map())
+            ).into_map());
+    data.setRequired(false);
+    return data;
   }
 }

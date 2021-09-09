@@ -34,9 +34,9 @@ public class LoginHistoryTable{
         RetailscmBaseUtils.ensureTable(userContext, result, "login_history_data", new String[][]{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
                 new String[]{"login_time","datetime","","登录时间","",""},
-                new String[]{"from_ip","varchar(44)","","从IP","",""},
+                new String[]{"from_ip","varchar(44)","","来自IP","",""},
                 new String[]{"description","varchar(16)","","描述","",""},
-                new String[]{"sec_user","varchar(48)","","安全用户","sec_user_data","id"},
+                new String[]{"sec_user","varchar(48)","","系统用户","sec_user_data","id"},
                 new String[]{"version","int","","版本","",""}
             }, "登录历史", new String[]{
                 "create unique index idx4id_ver_of_login_history on login_history_data (id, version);",

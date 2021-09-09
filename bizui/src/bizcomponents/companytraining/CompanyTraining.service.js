@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}companyTrainingManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}companyTrainingManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -106,6 +111,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}companyTrainingService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -125,6 +138,7 @@ const  processRequest = (data) => {
 
 const CompanyTrainingService = { view,
   load,
+  analyze,
   addEmployeeCompanyTraining,
   updateEmployeeCompanyTraining,
   removeEmployeeCompanyTrainingList,
@@ -133,6 +147,6 @@ const CompanyTrainingService = { view,
   requestCandidateTrainingCourseType,
   transferToAnotherCompany,
   transferToAnotherInstructor,
-  transferToAnotherTrainingCourseType, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherTrainingCourseType, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default CompanyTrainingService
 

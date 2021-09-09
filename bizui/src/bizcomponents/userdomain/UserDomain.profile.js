@@ -53,11 +53,11 @@ class UserDomainProfile extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  userDomain = this.props.userDomain;
-    const { id,displayName, userWhiteListCount, secUserCount, publicKeyTypeCount } = userDomain
+    const { id,displayName, userAllowListCount, secUserCount, publicKeyTypeCount } = userDomain
     const  returnURL = `/userDomain/${id}/dashboard`
     const cardsData = {cardsName:"用户域",cardsFor: "userDomain",cardsSource: userDomain,displayName,returnURL,
   		subItems: [
-{name: 'userWhiteListList', displayName:'用户白名单',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList',  renderItem: GlobalComponents.UserWhiteListBase.renderItemOfList},
+{name: 'userAllowListList', displayName:'用户权限列表',type:'userAllowList',count:userAllowListCount,addFunction: true, role: 'userAllowList',  renderItem: GlobalComponents.UserAllowListBase.renderItemOfList},
      
       	],
   	};

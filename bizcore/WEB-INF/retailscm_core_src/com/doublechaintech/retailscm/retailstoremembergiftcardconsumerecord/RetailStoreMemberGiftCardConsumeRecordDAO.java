@@ -46,13 +46,15 @@ public interface RetailStoreMemberGiftCardConsumeRecordDAO extends BaseDAO{
 	public void delete(String retailStoreMemberGiftCardConsumeRecordId, int version) throws Exception;
 	public RetailStoreMemberGiftCardConsumeRecord disconnectFromAll(String retailStoreMemberGiftCardConsumeRecordId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<RetailStoreMemberGiftCardConsumeRecord> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreMemberGiftCardConsumeRecord> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreMemberGiftCardConsumeRecord> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreMemberGiftCardConsumeRecord executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreMemberGiftCardConsumeRecord> findRetailStoreMemberGiftCardConsumeRecordByOwner(String retailStoreMemberGiftCardId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface RetailStoreMemberGiftCardConsumeRecordDAO extends BaseDAO{
 
 
  
+
+	List<RetailStoreMemberGiftCardConsumeRecord> search(RetailStoreMemberGiftCardConsumeRecordRequest pRequest);
 }
 
 

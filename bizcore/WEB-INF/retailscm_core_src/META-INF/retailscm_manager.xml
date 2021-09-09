@@ -515,9 +515,9 @@
 
 	<bean id="wechatMiniappIdentityManager" class="com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentityManagerImpl" parent="wechatMiniappIdentityManagerBase" ></bean>
 	
-	<bean id="keypairIdentityManagerBase" class="com.doublechaintech.retailscm.keypairidentity.KeypairIdentityManagerImpl"/>
+	<bean id="keyPairIdentityManagerBase" class="com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityManagerImpl"/>
 
-	<bean id="keypairIdentityManager" class="com.doublechaintech.retailscm.keypairidentity.KeypairIdentityManagerImpl" parent="keypairIdentityManagerBase" ></bean>
+	<bean id="keyPairIdentityManager" class="com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityManagerImpl" parent="keyPairIdentityManagerBase" ></bean>
 	
 	<bean id="publicKeyTypeManagerBase" class="com.doublechaintech.retailscm.publickeytype.PublicKeyTypeManagerImpl"/>
 
@@ -652,7 +652,7 @@
 		<property name="candidateElementManager" ref="candidateElementManager"/>
 		<property name="wechatWorkappIdentityManager" ref="wechatWorkappIdentityManager"/>
 		<property name="wechatMiniappIdentityManager" ref="wechatMiniappIdentityManager"/>
-		<property name="keypairIdentityManager" ref="keypairIdentityManager"/>
+		<property name="keyPairIdentityManager" ref="keyPairIdentityManager"/>
 		<property name="publicKeyTypeManager" ref="publicKeyTypeManager"/>
 		<property name="treeNodeManager" ref="treeNodeManager"/>
 	</bean>
@@ -660,6 +660,10 @@
 
 	
 
+ 
+ 
+
+ 
 </beans>
 
 

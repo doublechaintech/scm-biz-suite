@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.section;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 
 	protected PageDAO pageDAO;
 	public void setPageDAO(PageDAO pageDAO){
- 	
+
  		if(pageDAO == null){
  			throw new IllegalStateException("Do not try to set pageDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
  		if(this.pageDAO == null){
  			throw new IllegalStateException("The pageDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.pageDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SectionTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractPageEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SectionTokens.PAGE);
  	}
 
  	protected boolean isSavePageEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SectionTokens.PAGE);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 		return new SectionMapper();
 	}
 
-	
-	
+
+
 	protected Section extractSection(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			Section section = loadSingleObject(accessKey, getSectionMapper());
@@ -229,25 +231,26 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 
 	}
 
-	
-	
+
+
 
 	protected Section loadInternalSection(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		Section section = extractSection(accessKey, loadOptions);
- 	
+
  		if(isExtractPageEnabled(loadOptions)){
 	 		extractPage(section, loadOptions);
  		}
  
 		
 		return section;
-		
+
 	}
 
-	 
+	
 
  	protected Section extractPage(Section section, Map<String,Object> options) throws Exception{
+  
 
 		if(section.getPage() == null){
 			return section;
@@ -260,37 +263,37 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 		if(page != null){
 			section.setPage(page);
 		}
-		
- 		
+
+
  		return section;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<Section> findSectionByPage(String pageId,Map<String,Object> options){
- 	
+
   		SmartList<Section> resultList = queryWith(SectionTable.COLUMN_PAGE, pageId, options, getSectionMapper());
 		// analyzeSectionByPage(resultList, pageId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<Section> findSectionByPage(String pageId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<Section> resultList =  queryWithRange(SectionTable.COLUMN_PAGE, pageId, options, getSectionMapper(), start, count);
  		//analyzeSectionByPage(resultList, pageId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSectionByPage(SmartList<Section> resultList, String pageId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSectionByPage(String pageId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 	public Map<String, Integer> countSectionByPageIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SectionTable.COLUMN_PAGE, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected Section saveSection(Section  section){
+    
+
 		
 		if(!section.isChanged()){
 			return section;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(section);
 		String SQL=this.getSaveSectionSQL(section);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSectionParameters(section);
@@ -326,6 +332,7 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 		}
 
 		section.incVersion();
+		section.afterSave();
 		return section;
 
 	}
@@ -343,6 +350,7 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 		for(Section section:sectionList){
 			if(section.isChanged()){
 				section.incVersion();
+				section.afterSave();
 			}
 
 
@@ -446,28 +454,22 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
  	protected Object[] prepareSectionUpdateParameters(Section section){
  		Object[] parameters = new Object[10];
  
- 		
  		parameters[0] = section.getTitle();
- 		
  		
  		parameters[1] = section.getBrief();
  		
- 		
  		parameters[2] = section.getIcon();
- 		
  		
  		parameters[3] = section.getDisplayOrder();
  		
- 		
  		parameters[4] = section.getViewGroup();
- 		
  		
  		parameters[5] = section.getLinkToUrl();
  		
  		if(section.getPage() != null){
  			parameters[6] = section.getPage().getId();
  		}
- 
+    
  		parameters[7] = section.nextVersion();
  		parameters[8] = section.getId();
  		parameters[9] = section.getVersion();
@@ -482,27 +484,20 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
         }
 		parameters[0] =  section.getId();
  
- 		
  		parameters[1] = section.getTitle();
- 		
  		
  		parameters[2] = section.getBrief();
  		
- 		
  		parameters[3] = section.getIcon();
- 		
  		
  		parameters[4] = section.getDisplayOrder();
  		
- 		
  		parameters[5] = section.getViewGroup();
- 		
  		
  		parameters[6] = section.getLinkToUrl();
  		
  		if(section.getPage() != null){
  			parameters[7] = section.getPage().getId();
-
  		}
  		
 
@@ -511,12 +506,11 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 
 	protected Section saveInternalSection(Section section, Map<String,Object> options){
 
-		saveSection(section);
-
  		if(isSavePageEnabled(options)){
 	 		savePage(section, options);
  		}
  
+   saveSection(section);
 		
 		return section;
 
@@ -528,6 +522,7 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 	
 
  	protected Section savePage(Section section, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(section.getPage() == null){
  			return section;//do nothing when it is null
@@ -537,11 +532,6 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
  		return section;
 
  	}
-
-
-
-
-
  
 
 	
@@ -549,10 +539,10 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 		
 
 	public Section present(Section section,Map<String, Object> options){
-	
+
 
 		return section;
-	
+
 	}
 		
 
@@ -604,6 +594,10 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<Section> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSectionMapper());
   }
@@ -639,6 +633,15 @@ public class SectionJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Sect
 
 	
 
+  @Override
+  public List<Section> search(SectionRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SectionMapper mapper() {
+    return getSectionMapper();
+  }
 }
 
 

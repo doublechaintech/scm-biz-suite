@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstoremember;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -63,13 +64,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected ConsumerOrderDAO consumerOrderDAO;
 	public void setConsumerOrderDAO(ConsumerOrderDAO consumerOrderDAO){
- 	
+
  		if(consumerOrderDAO == null){
  			throw new IllegalStateException("Do not try to set consumerOrderDAO to null.");
  		}
@@ -79,13 +80,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.consumerOrderDAO == null){
  			throw new IllegalStateException("The consumerOrderDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.consumerOrderDAO;
- 	}	
+ 	}
 
 	protected RetailStoreMemberCouponDAO retailStoreMemberCouponDAO;
 	public void setRetailStoreMemberCouponDAO(RetailStoreMemberCouponDAO retailStoreMemberCouponDAO){
- 	
+
  		if(retailStoreMemberCouponDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberCouponDAO to null.");
  		}
@@ -95,13 +96,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.retailStoreMemberCouponDAO == null){
  			throw new IllegalStateException("The retailStoreMemberCouponDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberCouponDAO;
- 	}	
+ 	}
 
 	protected MemberWishlistDAO memberWishlistDAO;
 	public void setMemberWishlistDAO(MemberWishlistDAO memberWishlistDAO){
- 	
+
  		if(memberWishlistDAO == null){
  			throw new IllegalStateException("Do not try to set memberWishlistDAO to null.");
  		}
@@ -111,13 +112,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.memberWishlistDAO == null){
  			throw new IllegalStateException("The memberWishlistDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.memberWishlistDAO;
- 	}	
+ 	}
 
 	protected MemberRewardPointDAO memberRewardPointDAO;
 	public void setMemberRewardPointDAO(MemberRewardPointDAO memberRewardPointDAO){
- 	
+
  		if(memberRewardPointDAO == null){
  			throw new IllegalStateException("Do not try to set memberRewardPointDAO to null.");
  		}
@@ -127,13 +128,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.memberRewardPointDAO == null){
  			throw new IllegalStateException("The memberRewardPointDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.memberRewardPointDAO;
- 	}	
+ 	}
 
 	protected MemberRewardPointRedemptionDAO memberRewardPointRedemptionDAO;
 	public void setMemberRewardPointRedemptionDAO(MemberRewardPointRedemptionDAO memberRewardPointRedemptionDAO){
- 	
+
  		if(memberRewardPointRedemptionDAO == null){
  			throw new IllegalStateException("Do not try to set memberRewardPointRedemptionDAO to null.");
  		}
@@ -143,13 +144,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.memberRewardPointRedemptionDAO == null){
  			throw new IllegalStateException("The memberRewardPointRedemptionDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.memberRewardPointRedemptionDAO;
- 	}	
+ 	}
 
 	protected RetailStoreMemberAddressDAO retailStoreMemberAddressDAO;
 	public void setRetailStoreMemberAddressDAO(RetailStoreMemberAddressDAO retailStoreMemberAddressDAO){
- 	
+
  		if(retailStoreMemberAddressDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberAddressDAO to null.");
  		}
@@ -159,13 +160,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.retailStoreMemberAddressDAO == null){
  			throw new IllegalStateException("The retailStoreMemberAddressDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberAddressDAO;
- 	}	
+ 	}
 
 	protected RetailStoreMemberGiftCardDAO retailStoreMemberGiftCardDAO;
 	public void setRetailStoreMemberGiftCardDAO(RetailStoreMemberGiftCardDAO retailStoreMemberGiftCardDAO){
- 	
+
  		if(retailStoreMemberGiftCardDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreMemberGiftCardDAO to null.");
  		}
@@ -175,9 +176,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		if(this.retailStoreMemberGiftCardDAO == null){
  			throw new IllegalStateException("The retailStoreMemberGiftCardDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreMemberGiftCardDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -231,49 +233,49 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		newRetailStoreMember.setVersion(0);
 		
 		
- 		
+
  		if(isSaveConsumerOrderListEnabled(options)){
  			for(ConsumerOrder item: newRetailStoreMember.getConsumerOrderList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreMemberCouponListEnabled(options)){
  			for(RetailStoreMemberCoupon item: newRetailStoreMember.getRetailStoreMemberCouponList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveMemberWishlistListEnabled(options)){
  			for(MemberWishlist item: newRetailStoreMember.getMemberWishlistList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveMemberRewardPointListEnabled(options)){
  			for(MemberRewardPoint item: newRetailStoreMember.getMemberRewardPointList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveMemberRewardPointRedemptionListEnabled(options)){
  			for(MemberRewardPointRedemption item: newRetailStoreMember.getMemberRewardPointRedemptionList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreMemberAddressListEnabled(options)){
  			for(RetailStoreMemberAddress item: newRetailStoreMember.getRetailStoreMemberAddressList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreMemberGiftCardListEnabled(options)){
  			for(RetailStoreMemberGiftCard item: newRetailStoreMember.getRetailStoreMemberGiftCardList()){
  				item.setVersion(0);
@@ -360,128 +362,128 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreMemberTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractOwnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreMemberTokens.OWNER);
  	}
 
  	protected boolean isSaveOwnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreMemberTokens.OWNER);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreMemberTokens.CONSUMER_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){
  		return RetailStoreMemberTokens.of(options).analyzeConsumerOrderListEnabled();
  	}
-	
+
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.CONSUMER_ORDER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreMemberCouponListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreMemberCouponListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberCouponListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreMemberCouponListEnabled(Map<String,Object> options){
  		return RetailStoreMemberTokens.of(options).analyzeRetailStoreMemberCouponListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreMemberCouponListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractMemberWishlistListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractMemberWishlistListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_WISHLIST_LIST);
  	}
- 	protected boolean isAnalyzeMemberWishlistListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeMemberWishlistListEnabled(Map<String,Object> options){
  		return RetailStoreMemberTokens.of(options).analyzeMemberWishlistListEnabled();
  	}
-	
+
 	protected boolean isSaveMemberWishlistListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.MEMBER_WISHLIST_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractMemberRewardPointListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractMemberRewardPointListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST);
  	}
- 	protected boolean isAnalyzeMemberRewardPointListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeMemberRewardPointListEnabled(Map<String,Object> options){
  		return RetailStoreMemberTokens.of(options).analyzeMemberRewardPointListEnabled();
  	}
-	
+
 	protected boolean isSaveMemberRewardPointListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractMemberRewardPointRedemptionListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractMemberRewardPointRedemptionListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST);
  	}
- 	protected boolean isAnalyzeMemberRewardPointRedemptionListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeMemberRewardPointRedemptionListEnabled(Map<String,Object> options){
  		return RetailStoreMemberTokens.of(options).analyzeMemberRewardPointRedemptionListEnabled();
  	}
-	
+
 	protected boolean isSaveMemberRewardPointRedemptionListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreMemberAddressListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreMemberAddressListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberAddressListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreMemberAddressListEnabled(Map<String,Object> options){
  		return RetailStoreMemberTokens.of(options).analyzeRetailStoreMemberAddressListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreMemberAddressListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){
  		return RetailStoreMemberTokens.of(options).analyzeRetailStoreMemberGiftCardListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -490,8 +492,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		return new RetailStoreMemberMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreMember extractRetailStoreMember(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreMember retailStoreMember = loadSingleObject(accessKey, getRetailStoreMemberMapper());
@@ -502,13 +504,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreMember loadInternalRetailStoreMember(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreMember retailStoreMember = extractRetailStoreMember(accessKey, loadOptions);
- 	
+
  		if(isExtractOwnerEnabled(loadOptions)){
 	 		extractOwner(retailStoreMember, loadOptions);
  		}
@@ -516,8 +518,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractConsumerOrderListEnabled(loadOptions)){
 	 		extractConsumerOrderList(retailStoreMember, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeConsumerOrderListEnabled(loadOptions)){
 	 		analyzeConsumerOrderList(retailStoreMember, loadOptions);
@@ -526,8 +528,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractRetailStoreMemberCouponListEnabled(loadOptions)){
 	 		extractRetailStoreMemberCouponList(retailStoreMember, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreMemberCouponListEnabled(loadOptions)){
 	 		analyzeRetailStoreMemberCouponList(retailStoreMember, loadOptions);
@@ -536,8 +538,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractMemberWishlistListEnabled(loadOptions)){
 	 		extractMemberWishlistList(retailStoreMember, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeMemberWishlistListEnabled(loadOptions)){
 	 		analyzeMemberWishlistList(retailStoreMember, loadOptions);
@@ -546,8 +548,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractMemberRewardPointListEnabled(loadOptions)){
 	 		extractMemberRewardPointList(retailStoreMember, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeMemberRewardPointListEnabled(loadOptions)){
 	 		analyzeMemberRewardPointList(retailStoreMember, loadOptions);
@@ -556,8 +558,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractMemberRewardPointRedemptionListEnabled(loadOptions)){
 	 		extractMemberRewardPointRedemptionList(retailStoreMember, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeMemberRewardPointRedemptionListEnabled(loadOptions)){
 	 		analyzeMemberRewardPointRedemptionList(retailStoreMember, loadOptions);
@@ -566,8 +568,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractRetailStoreMemberAddressListEnabled(loadOptions)){
 	 		extractRetailStoreMemberAddressList(retailStoreMember, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreMemberAddressListEnabled(loadOptions)){
 	 		analyzeRetailStoreMemberAddressList(retailStoreMember, loadOptions);
@@ -576,8 +578,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 		if(isExtractRetailStoreMemberGiftCardListEnabled(loadOptions)){
 	 		extractRetailStoreMemberGiftCardList(retailStoreMember, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreMemberGiftCardListEnabled(loadOptions)){
 	 		analyzeRetailStoreMemberGiftCardList(retailStoreMember, loadOptions);
@@ -585,12 +587,13 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		
 		
 		return retailStoreMember;
-		
+
 	}
 
-	 
+	
 
  	protected RetailStoreMember extractOwner(RetailStoreMember retailStoreMember, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreMember.getOwner() == null){
 			return retailStoreMember;
@@ -603,21 +606,21 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		if(owner != null){
 			retailStoreMember.setOwner(owner);
 		}
-		
- 		
+
+
  		return retailStoreMember;
  	}
- 		
+
  
 		
 	protected void enhanceConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreMember extractConsumerOrderList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -625,21 +628,20 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<ConsumerOrder> consumerOrderList = getConsumerOrderDAO().findConsumerOrderByConsumer(retailStoreMember.getId(),options);
 		if(consumerOrderList != null){
 			enhanceConsumerOrderList(consumerOrderList,options);
 			retailStoreMember.setConsumerOrderList(consumerOrderList);
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreMember analyzeConsumerOrderList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -647,27 +649,27 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<ConsumerOrder> consumerOrderList = retailStoreMember.getConsumerOrderList();
 		if(consumerOrderList != null){
 			getConsumerOrderDAO().analyzeConsumerOrderByConsumer(consumerOrderList, retailStoreMember.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreMemberCouponList(SmartList<RetailStoreMemberCoupon> retailStoreMemberCouponList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreMember extractRetailStoreMemberCouponList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -675,21 +677,20 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMemberCoupon> retailStoreMemberCouponList = getRetailStoreMemberCouponDAO().findRetailStoreMemberCouponByOwner(retailStoreMember.getId(),options);
 		if(retailStoreMemberCouponList != null){
 			enhanceRetailStoreMemberCouponList(retailStoreMemberCouponList,options);
 			retailStoreMember.setRetailStoreMemberCouponList(retailStoreMemberCouponList);
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreMember analyzeRetailStoreMemberCouponList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -697,27 +698,27 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMemberCoupon> retailStoreMemberCouponList = retailStoreMember.getRetailStoreMemberCouponList();
 		if(retailStoreMemberCouponList != null){
 			getRetailStoreMemberCouponDAO().analyzeRetailStoreMemberCouponByOwner(retailStoreMemberCouponList, retailStoreMember.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceMemberWishlistList(SmartList<MemberWishlist> memberWishlistList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreMember extractMemberWishlistList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -725,21 +726,20 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<MemberWishlist> memberWishlistList = getMemberWishlistDAO().findMemberWishlistByOwner(retailStoreMember.getId(),options);
 		if(memberWishlistList != null){
 			enhanceMemberWishlistList(memberWishlistList,options);
 			retailStoreMember.setMemberWishlistList(memberWishlistList);
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreMember analyzeMemberWishlistList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -747,27 +747,27 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<MemberWishlist> memberWishlistList = retailStoreMember.getMemberWishlistList();
 		if(memberWishlistList != null){
 			getMemberWishlistDAO().analyzeMemberWishlistByOwner(memberWishlistList, retailStoreMember.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceMemberRewardPointList(SmartList<MemberRewardPoint> memberRewardPointList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreMember extractMemberRewardPointList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -775,21 +775,20 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<MemberRewardPoint> memberRewardPointList = getMemberRewardPointDAO().findMemberRewardPointByOwner(retailStoreMember.getId(),options);
 		if(memberRewardPointList != null){
 			enhanceMemberRewardPointList(memberRewardPointList,options);
 			retailStoreMember.setMemberRewardPointList(memberRewardPointList);
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreMember analyzeMemberRewardPointList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -797,27 +796,27 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<MemberRewardPoint> memberRewardPointList = retailStoreMember.getMemberRewardPointList();
 		if(memberRewardPointList != null){
 			getMemberRewardPointDAO().analyzeMemberRewardPointByOwner(memberRewardPointList, retailStoreMember.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceMemberRewardPointRedemptionList(SmartList<MemberRewardPointRedemption> memberRewardPointRedemptionList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreMember extractMemberRewardPointRedemptionList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -825,21 +824,20 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<MemberRewardPointRedemption> memberRewardPointRedemptionList = getMemberRewardPointRedemptionDAO().findMemberRewardPointRedemptionByOwner(retailStoreMember.getId(),options);
 		if(memberRewardPointRedemptionList != null){
 			enhanceMemberRewardPointRedemptionList(memberRewardPointRedemptionList,options);
 			retailStoreMember.setMemberRewardPointRedemptionList(memberRewardPointRedemptionList);
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreMember analyzeMemberRewardPointRedemptionList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -847,27 +845,27 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<MemberRewardPointRedemption> memberRewardPointRedemptionList = retailStoreMember.getMemberRewardPointRedemptionList();
 		if(memberRewardPointRedemptionList != null){
 			getMemberRewardPointRedemptionDAO().analyzeMemberRewardPointRedemptionByOwner(memberRewardPointRedemptionList, retailStoreMember.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreMemberAddressList(SmartList<RetailStoreMemberAddress> retailStoreMemberAddressList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreMember extractRetailStoreMemberAddressList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -875,21 +873,20 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMemberAddress> retailStoreMemberAddressList = getRetailStoreMemberAddressDAO().findRetailStoreMemberAddressByOwner(retailStoreMember.getId(),options);
 		if(retailStoreMemberAddressList != null){
 			enhanceRetailStoreMemberAddressList(retailStoreMemberAddressList,options);
 			retailStoreMember.setRetailStoreMemberAddressList(retailStoreMemberAddressList);
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreMember analyzeRetailStoreMemberAddressList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -897,27 +894,27 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMemberAddress> retailStoreMemberAddressList = retailStoreMember.getRetailStoreMemberAddressList();
 		if(retailStoreMemberAddressList != null){
 			getRetailStoreMemberAddressDAO().analyzeRetailStoreMemberAddressByOwner(retailStoreMemberAddressList, retailStoreMember.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreMemberGiftCardList(SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreMember extractRetailStoreMemberGiftCardList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -925,21 +922,20 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList = getRetailStoreMemberGiftCardDAO().findRetailStoreMemberGiftCardByOwner(retailStoreMember.getId(),options);
 		if(retailStoreMemberGiftCardList != null){
 			enhanceRetailStoreMemberGiftCardList(retailStoreMemberGiftCardList,options);
 			retailStoreMember.setRetailStoreMemberGiftCardList(retailStoreMemberGiftCardList);
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreMember analyzeRetailStoreMemberGiftCardList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreMember == null){
 			return null;
 		}
@@ -947,43 +943,43 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 			return retailStoreMember;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList = retailStoreMember.getRetailStoreMemberGiftCardList();
 		if(retailStoreMemberGiftCardList != null){
 			getRetailStoreMemberGiftCardDAO().analyzeRetailStoreMemberGiftCardByOwner(retailStoreMemberGiftCardList, retailStoreMember.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreMember;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<RetailStoreMember> findRetailStoreMemberByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreMember> resultList = queryWith(RetailStoreMemberTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getRetailStoreMemberMapper());
 		// analyzeRetailStoreMemberByOwner(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreMember> findRetailStoreMemberByOwner(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreMember> resultList =  queryWithRange(RetailStoreMemberTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getRetailStoreMemberMapper(), start, count);
  		//analyzeRetailStoreMemberByOwner(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreMemberByOwner(SmartList<RetailStoreMember> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreMemberByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -994,21 +990,24 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	public Map<String, Integer> countRetailStoreMemberByOwnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreMemberTable.COLUMN_OWNER, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreMember saveRetailStoreMember(RetailStoreMember  retailStoreMember){
+    
+
 		
 		if(!retailStoreMember.isChanged()){
 			return retailStoreMember;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreMember);
 		String SQL=this.getSaveRetailStoreMemberSQL(retailStoreMember);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreMemberParameters(retailStoreMember);
@@ -1019,6 +1018,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		}
 
 		retailStoreMember.incVersion();
+		retailStoreMember.afterSave();
 		return retailStoreMember;
 
 	}
@@ -1036,6 +1036,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		for(RetailStoreMember retailStoreMember:retailStoreMemberList){
 			if(retailStoreMember.isChanged()){
 				retailStoreMember.incVersion();
+				retailStoreMember.afterSave();
 			}
 
 
@@ -1139,16 +1140,14 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  	protected Object[] prepareRetailStoreMemberUpdateParameters(RetailStoreMember retailStoreMember){
  		Object[] parameters = new Object[6];
  
- 		
  		parameters[0] = retailStoreMember.getName();
- 		
  		
  		parameters[1] = retailStoreMember.getMobilePhone();
  		
  		if(retailStoreMember.getOwner() != null){
  			parameters[2] = retailStoreMember.getOwner().getId();
  		}
- 
+    
  		parameters[3] = retailStoreMember.nextVersion();
  		parameters[4] = retailStoreMember.getId();
  		parameters[5] = retailStoreMember.getVersion();
@@ -1163,15 +1162,12 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
         }
 		parameters[0] =  retailStoreMember.getId();
  
- 		
  		parameters[1] = retailStoreMember.getName();
- 		
  		
  		parameters[2] = retailStoreMember.getMobilePhone();
  		
  		if(retailStoreMember.getOwner() != null){
  			parameters[3] = retailStoreMember.getOwner().getId();
-
  		}
  		
 
@@ -1180,12 +1176,11 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	protected RetailStoreMember saveInternalRetailStoreMember(RetailStoreMember retailStoreMember, Map<String,Object> options){
 
-		saveRetailStoreMember(retailStoreMember);
-
  		if(isSaveOwnerEnabled(options)){
 	 		saveOwner(retailStoreMember, options);
  		}
  
+   saveRetailStoreMember(retailStoreMember);
 		
 		if(isSaveConsumerOrderListEnabled(options)){
 	 		saveConsumerOrderList(retailStoreMember, options);
@@ -1246,6 +1241,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 
  	protected RetailStoreMember saveOwner(RetailStoreMember retailStoreMember, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreMember.getOwner() == null){
  			return retailStoreMember;//do nothing when it is null
@@ -1255,11 +1251,6 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
  		return retailStoreMember;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1506,7 +1497,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected RetailStoreMember saveConsumerOrderList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-
+    
 
 
 
@@ -1572,7 +1563,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected RetailStoreMember saveRetailStoreMemberCouponList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-
+    
 
 
 
@@ -1638,7 +1629,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected RetailStoreMember saveMemberWishlistList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-
+    
 
 
 
@@ -1704,7 +1695,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected RetailStoreMember saveMemberRewardPointList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-
+    
 
 
 
@@ -1770,7 +1761,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected RetailStoreMember saveMemberRewardPointRedemptionList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-
+    
 
 
 
@@ -1836,7 +1827,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected RetailStoreMember saveRetailStoreMemberAddressList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-
+    
 
 
 
@@ -1902,7 +1893,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 		
 	protected RetailStoreMember saveRetailStoreMemberGiftCardList(RetailStoreMember retailStoreMember, Map<String,Object> options){
-
+    
 
 
 
@@ -1969,7 +1960,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		
 
 	public RetailStoreMember present(RetailStoreMember retailStoreMember,Map<String, Object> options){
-	
+
 		presentConsumerOrderList(retailStoreMember,options);
 		presentRetailStoreMemberCouponList(retailStoreMember,options);
 		presentMemberWishlistList(retailStoreMember,options);
@@ -1979,15 +1970,15 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 		presentRetailStoreMemberGiftCardList(retailStoreMember,options);
 
 		return retailStoreMember;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreMember presentConsumerOrderList(
 			RetailStoreMember retailStoreMember,
 			Map<String, Object> options) {
-
-		SmartList<ConsumerOrder> consumerOrderList = retailStoreMember.getConsumerOrderList();		
+    
+		SmartList<ConsumerOrder> consumerOrderList = retailStoreMember.getConsumerOrderList();
 				SmartList<ConsumerOrder> newList= presentSubList(retailStoreMember.getId(),
 				consumerOrderList,
 				options,
@@ -1995,19 +1986,19 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getConsumerOrderDAO()::findConsumerOrderByConsumer
 				);
 
-		
+
 		retailStoreMember.setConsumerOrderList(newList);
-		
+
 
 		return retailStoreMember;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreMember presentRetailStoreMemberCouponList(
 			RetailStoreMember retailStoreMember,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreMemberCoupon> retailStoreMemberCouponList = retailStoreMember.getRetailStoreMemberCouponList();		
+    
+		SmartList<RetailStoreMemberCoupon> retailStoreMemberCouponList = retailStoreMember.getRetailStoreMemberCouponList();
 				SmartList<RetailStoreMemberCoupon> newList= presentSubList(retailStoreMember.getId(),
 				retailStoreMemberCouponList,
 				options,
@@ -2015,19 +2006,19 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getRetailStoreMemberCouponDAO()::findRetailStoreMemberCouponByOwner
 				);
 
-		
+
 		retailStoreMember.setRetailStoreMemberCouponList(newList);
-		
+
 
 		return retailStoreMember;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreMember presentMemberWishlistList(
 			RetailStoreMember retailStoreMember,
 			Map<String, Object> options) {
-
-		SmartList<MemberWishlist> memberWishlistList = retailStoreMember.getMemberWishlistList();		
+    
+		SmartList<MemberWishlist> memberWishlistList = retailStoreMember.getMemberWishlistList();
 				SmartList<MemberWishlist> newList= presentSubList(retailStoreMember.getId(),
 				memberWishlistList,
 				options,
@@ -2035,19 +2026,19 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getMemberWishlistDAO()::findMemberWishlistByOwner
 				);
 
-		
+
 		retailStoreMember.setMemberWishlistList(newList);
-		
+
 
 		return retailStoreMember;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreMember presentMemberRewardPointList(
 			RetailStoreMember retailStoreMember,
 			Map<String, Object> options) {
-
-		SmartList<MemberRewardPoint> memberRewardPointList = retailStoreMember.getMemberRewardPointList();		
+    
+		SmartList<MemberRewardPoint> memberRewardPointList = retailStoreMember.getMemberRewardPointList();
 				SmartList<MemberRewardPoint> newList= presentSubList(retailStoreMember.getId(),
 				memberRewardPointList,
 				options,
@@ -2055,19 +2046,19 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getMemberRewardPointDAO()::findMemberRewardPointByOwner
 				);
 
-		
+
 		retailStoreMember.setMemberRewardPointList(newList);
-		
+
 
 		return retailStoreMember;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreMember presentMemberRewardPointRedemptionList(
 			RetailStoreMember retailStoreMember,
 			Map<String, Object> options) {
-
-		SmartList<MemberRewardPointRedemption> memberRewardPointRedemptionList = retailStoreMember.getMemberRewardPointRedemptionList();		
+    
+		SmartList<MemberRewardPointRedemption> memberRewardPointRedemptionList = retailStoreMember.getMemberRewardPointRedemptionList();
 				SmartList<MemberRewardPointRedemption> newList= presentSubList(retailStoreMember.getId(),
 				memberRewardPointRedemptionList,
 				options,
@@ -2075,19 +2066,19 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getMemberRewardPointRedemptionDAO()::findMemberRewardPointRedemptionByOwner
 				);
 
-		
+
 		retailStoreMember.setMemberRewardPointRedemptionList(newList);
-		
+
 
 		return retailStoreMember;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreMember presentRetailStoreMemberAddressList(
 			RetailStoreMember retailStoreMember,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreMemberAddress> retailStoreMemberAddressList = retailStoreMember.getRetailStoreMemberAddressList();		
+    
+		SmartList<RetailStoreMemberAddress> retailStoreMemberAddressList = retailStoreMember.getRetailStoreMemberAddressList();
 				SmartList<RetailStoreMemberAddress> newList= presentSubList(retailStoreMember.getId(),
 				retailStoreMemberAddressList,
 				options,
@@ -2095,19 +2086,19 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getRetailStoreMemberAddressDAO()::findRetailStoreMemberAddressByOwner
 				);
 
-		
+
 		retailStoreMember.setRetailStoreMemberAddressList(newList);
-		
+
 
 		return retailStoreMember;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreMember presentRetailStoreMemberGiftCardList(
 			RetailStoreMember retailStoreMember,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList = retailStoreMember.getRetailStoreMemberGiftCardList();		
+    
+		SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList = retailStoreMember.getRetailStoreMemberGiftCardList();
 				SmartList<RetailStoreMemberGiftCard> newList= presentSubList(retailStoreMember.getId(),
 				retailStoreMemberGiftCardList,
 				options,
@@ -2115,12 +2106,12 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 				getRetailStoreMemberGiftCardDAO()::findRetailStoreMemberGiftCardByOwner
 				);
 
-		
+
 		retailStoreMember.setRetailStoreMemberGiftCardList(newList);
-		
+
 
 		return retailStoreMember;
-	}			
+	}
 		
 
 	
@@ -2180,6 +2171,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:ConsumerOrder的consumer的ConsumerOrderList
 	public SmartList<ConsumerOrder> loadOurConsumerOrderList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2203,6 +2195,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberCoupon的owner的RetailStoreMemberCouponList
 	public SmartList<RetailStoreMemberCoupon> loadOurRetailStoreMemberCouponList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2226,6 +2219,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:MemberWishlist的owner的MemberWishlistList
 	public SmartList<MemberWishlist> loadOurMemberWishlistList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2249,6 +2243,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:MemberRewardPoint的owner的MemberRewardPointList
 	public SmartList<MemberRewardPoint> loadOurMemberRewardPointList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2272,6 +2267,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:MemberRewardPointRedemption的owner的MemberRewardPointRedemptionList
 	public SmartList<MemberRewardPointRedemption> loadOurMemberRewardPointRedemptionList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2295,6 +2291,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberAddress的owner的RetailStoreMemberAddressList
 	public SmartList<RetailStoreMemberAddress> loadOurRetailStoreMemberAddressList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2318,6 +2315,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberGiftCard的owner的RetailStoreMemberGiftCardList
 	public SmartList<RetailStoreMemberGiftCard> loadOurRetailStoreMemberGiftCardList(RetailscmUserContext userContext, List<RetailStoreMember> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -2374,6 +2372,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreMember> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreMemberMapper());
   }
@@ -2409,6 +2411,15 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmBaseDAOImpl imple
 
 	
 
+  @Override
+  public List<RetailStoreMember> search(RetailStoreMemberRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreMemberMapper mapper() {
+    return getRetailStoreMemberMapper();
+  }
 }
 
 

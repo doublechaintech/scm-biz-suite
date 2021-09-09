@@ -52,6 +52,7 @@ public interface RetailStoreCityServiceCenterDAO extends BaseDAO{
 	public void delete(String retailStoreCityServiceCenterId, int version) throws Exception;
 	public RetailStoreCityServiceCenter disconnectFromAll(String retailStoreCityServiceCenterId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public CityPartnerDAO getCityPartnerDAO();
 		
@@ -116,9 +117,10 @@ public interface RetailStoreCityServiceCenterDAO extends BaseDAO{
 	public int countRetailStoreListWithClosing(String retailStoreCityServiceCenterId, String closingId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<RetailStoreCityServiceCenter> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreCityServiceCenter> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreCityServiceCenter> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreCityServiceCenter executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreCityServiceCenter> findRetailStoreCityServiceCenterByBelongsTo(String retailStoreProvinceCenterId, Map<String,Object> options);
@@ -141,6 +143,8 @@ public interface RetailStoreCityServiceCenterDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的cityServiceCenter的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStoreCityServiceCenter> search(RetailStoreCityServiceCenterRequest pRequest);
 }
 
 

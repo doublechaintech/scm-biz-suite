@@ -31,13 +31,13 @@ const internalSummaryOf = (consumerOrderLineItem,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderLineItem.id}</Description> 
+<Description term="ID">{consumerOrderLineItem.id}</Description> 
 <Description term="产品ID">{consumerOrderLineItem.skuId}</Description> 
 <Description term="产品名称">{consumerOrderLineItem.skuName}</Description> 
 <Description term="价格">{consumerOrderLineItem.price}</Description> 
 <Description term="数量">{consumerOrderLineItem.quantity}</Description> 
 <Description term="金额">{consumerOrderLineItem.amount}</Description> 
-<Description term="最后更新时间">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -63,7 +63,7 @@ class ConsumerOrderLineItemPermission extends Component {
     // eslint-disable-next-line max-len
     const  consumerOrderLineItem = this.props.consumerOrderLineItem
     const { id,displayName,  } = consumerOrderLineItem
-    const  returnURL = `/consumerOrderLineItem/${id}/dashboard`
+    const  returnURL = `/consumerOrderLineItem/${id}/workbench`
     const cardsData = {cardsName:"消费者订单行项目",cardsFor: "consumerOrderLineItem",cardsSource: consumerOrderLineItem,displayName,returnURL,
   		subItems: [
     
@@ -76,10 +76,10 @@ class ConsumerOrderLineItemPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

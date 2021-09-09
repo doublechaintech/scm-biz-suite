@@ -1,19 +1,16 @@
 
 package com.doublechaintech.retailscm.transporttasktrack;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.transporttask.TransportTask;
 
 
@@ -27,12 +24,12 @@ import com.doublechaintech.retailscm.transporttask.TransportTask;
 @JsonSerialize(using = TransportTaskTrackSerializer.class)
 public class TransportTaskTrack extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String TRACK_TIME_PROPERTY            = "trackTime"         ;
 	public static final String LATITUDE_PROPERTY              = "latitude"          ;
@@ -45,32 +42,87 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TRACK_TIME_PROPERTY, "track_time", "跟踪时间")
+        .withType("date_past", "Date"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LATITUDE_PROPERTY, "latitude", "纬度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(LONGITUDE_PROPERTY, "longitude", "经度")
+        .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(MOVEMENT_PROPERTY, "transport_task", "运动")
+        .withType("transport_task", TransportTask.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,TRACK_TIME_PROPERTY ,LATITUDE_PROPERTY ,LONGITUDE_PROPERTY ,MOVEMENT_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(MOVEMENT_PROPERTY, TransportTask.class);
+
+    return parents;
+  }
+
+  public TransportTaskTrack want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public TransportTaskTrack wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getId();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		Date                	mTrackTime          ;
-	protected		BigDecimal          	mLatitude           ;
-	protected		BigDecimal          	mLongitude          ;
-	protected		TransportTask       	mMovement           ;
-	protected		int                 	mVersion            ;
-	
-	
+
+	protected		String              	id                  ;
+	protected		Date                	trackTime           ;
+	protected		BigDecimal          	latitude            ;
+	protected		BigDecimal          	longitude           ;
+	protected		TransportTask       	movement            ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	TransportTaskTrack(){
 		// lazy load for all the properties
 	}
@@ -78,20 +130,39 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		TransportTaskTrack transportTaskTrack = new TransportTaskTrack();
 		transportTaskTrack.setId(id);
 		transportTaskTrack.setVersion(Integer.MAX_VALUE);
+		transportTaskTrack.setChecked(true);
 		return transportTaskTrack;
 	}
 	public 	static TransportTaskTrack refById(String id){
 		return withId(id);
 	}
-	
+
+  public TransportTaskTrack limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public TransportTaskTrack limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static TransportTaskTrack searchExample(){
+    TransportTaskTrack transportTaskTrack = new TransportTaskTrack();
+    		transportTaskTrack.setVersion(UNSET_INT);
+
+    return transportTaskTrack;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setMovement( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -162,7 +233,7 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(TRACK_TIME_PROPERTY.equals(property)){
 			return getTrackTime();
 		}
@@ -179,138 +250,217 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public TransportTaskTrack updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public TransportTaskTrack updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public TransportTaskTrack orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public TransportTaskTrack ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public TransportTaskTrack addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setTrackTime(Date trackTime){
-		this.mTrackTime = trackTime;;
-	}
+	public void setTrackTime(Date trackTime){Date oldTrackTime = this.trackTime;Date newTrackTime = trackTime;this.trackTime = newTrackTime;}
+	public Date trackTime(){
+doLoad();
+return getTrackTime();
+}
 	public Date getTrackTime(){
-		return this.mTrackTime;
+		return this.trackTime;
 	}
-	public TransportTaskTrack updateTrackTime(Date trackTime){
-		this.mTrackTime = trackTime;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTaskTrack updateTrackTime(Date trackTime){Date oldTrackTime = this.trackTime;Date newTrackTime = trackTime;if(!shouldReplaceBy(newTrackTime, oldTrackTime)){return this;}this.trackTime = newTrackTime;addPropertyChange(TRACK_TIME_PROPERTY, oldTrackTime, newTrackTime);this.changed = true;setChecked(false);return this;}
+	public TransportTaskTrack orderByTrackTime(boolean asc){
+doAddOrderBy(TRACK_TIME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createTrackTimeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(TRACK_TIME_PROPERTY, operator, parameters);
+}
+	public TransportTaskTrack ignoreTrackTimeCriteria(){super.ignoreSearchProperty(TRACK_TIME_PROPERTY);
+return this;
+}
+	public TransportTaskTrack addTrackTimeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createTrackTimeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeTrackTime(Date trackTime){
 		setTrackTime(trackTime);
 	}
+
 	
-	
-	public void setLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-	}
+	public void setLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;this.latitude = newLatitude;}
+	public BigDecimal latitude(){
+doLoad();
+return getLatitude();
+}
 	public BigDecimal getLatitude(){
-		return this.mLatitude;
+		return this.latitude;
 	}
-	public TransportTaskTrack updateLatitude(BigDecimal latitude){
-		this.mLatitude = latitude;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTaskTrack updateLatitude(BigDecimal latitude){BigDecimal oldLatitude = this.latitude;BigDecimal newLatitude = latitude;if(!shouldReplaceBy(newLatitude, oldLatitude)){return this;}this.latitude = newLatitude;addPropertyChange(LATITUDE_PROPERTY, oldLatitude, newLatitude);this.changed = true;setChecked(false);return this;}
+	public TransportTaskTrack orderByLatitude(boolean asc){
+doAddOrderBy(LATITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLatitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LATITUDE_PROPERTY, operator, parameters);
+}
+	public TransportTaskTrack ignoreLatitudeCriteria(){super.ignoreSearchProperty(LATITUDE_PROPERTY);
+return this;
+}
+	public TransportTaskTrack addLatitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLatitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLatitude(BigDecimal latitude){
 		setLatitude(latitude);
 	}
+
 	
-	
-	public void setLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-	}
+	public void setLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;this.longitude = newLongitude;}
+	public BigDecimal longitude(){
+doLoad();
+return getLongitude();
+}
 	public BigDecimal getLongitude(){
-		return this.mLongitude;
+		return this.longitude;
 	}
-	public TransportTaskTrack updateLongitude(BigDecimal longitude){
-		this.mLongitude = longitude;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTaskTrack updateLongitude(BigDecimal longitude){BigDecimal oldLongitude = this.longitude;BigDecimal newLongitude = longitude;if(!shouldReplaceBy(newLongitude, oldLongitude)){return this;}this.longitude = newLongitude;addPropertyChange(LONGITUDE_PROPERTY, oldLongitude, newLongitude);this.changed = true;setChecked(false);return this;}
+	public TransportTaskTrack orderByLongitude(boolean asc){
+doAddOrderBy(LONGITUDE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createLongitudeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(LONGITUDE_PROPERTY, operator, parameters);
+}
+	public TransportTaskTrack ignoreLongitudeCriteria(){super.ignoreSearchProperty(LONGITUDE_PROPERTY);
+return this;
+}
+	public TransportTaskTrack addLongitudeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createLongitudeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeLongitude(BigDecimal longitude){
 		setLongitude(longitude);
 	}
+
 	
-	
-	public void setMovement(TransportTask movement){
-		this.mMovement = movement;;
-	}
+	public void setMovement(TransportTask movement){TransportTask oldMovement = this.movement;TransportTask newMovement = movement;this.movement = newMovement;}
+	public TransportTask movement(){
+doLoad();
+return getMovement();
+}
 	public TransportTask getMovement(){
-		return this.mMovement;
+		return this.movement;
 	}
-	public TransportTaskTrack updateMovement(TransportTask movement){
-		this.mMovement = movement;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTaskTrack updateMovement(TransportTask movement){TransportTask oldMovement = this.movement;TransportTask newMovement = movement;if(!shouldReplaceBy(newMovement, oldMovement)){return this;}this.movement = newMovement;addPropertyChange(MOVEMENT_PROPERTY, oldMovement, newMovement);this.changed = true;setChecked(false);return this;}
+	public TransportTaskTrack orderByMovement(boolean asc){
+doAddOrderBy(MOVEMENT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createMovementCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(MOVEMENT_PROPERTY, operator, parameters);
+}
+	public TransportTaskTrack ignoreMovementCriteria(){super.ignoreSearchProperty(MOVEMENT_PROPERTY);
+return this;
+}
+	public TransportTaskTrack addMovementCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createMovementCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeMovement(TransportTask movement){
 		if(movement != null) { setMovement(movement);}
 	}
-	
+
 	
 	public void clearMovement(){
 		setMovement ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public TransportTaskTrack updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public TransportTaskTrack updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public TransportTaskTrack orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public TransportTaskTrack ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public TransportTaskTrack addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getMovement(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -326,16 +476,16 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TransportTaskTrack){
-		
-		
+
+
 			TransportTaskTrack dest =(TransportTaskTrack)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setTrackTime(getTrackTime());
 			dest.setLatitude(getLatitude());
@@ -348,13 +498,13 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TransportTaskTrack){
-		
-			
+
+
 			TransportTaskTrack dest =(TransportTaskTrack)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeTrackTime(getTrackTime());
 			dest.mergeLatitude(getLatitude());
@@ -366,15 +516,15 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof TransportTaskTrack){
-		
-			
+
+
 			TransportTaskTrack dest =(TransportTaskTrack)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeTrackTime(getTrackTime());
 			dest.mergeLatitude(getLatitude());
@@ -387,6 +537,46 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getTrackTime(), getLatitude(), getLongitude(), getMovement(), getVersion()};
 	}
+
+
+	public static TransportTaskTrack createWith(RetailscmUserContext userContext, ThrowingFunction<TransportTaskTrack,TransportTaskTrack,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<TransportTaskTrack> customCreator = mapper.findCustomCreator(TransportTaskTrack.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    TransportTaskTrack result = new TransportTaskTrack();
+    result.setTrackTime(mapper.tryToGet(TransportTaskTrack.class, TRACK_TIME_PROPERTY, Date.class,
+        0, true, result.getTrackTime(), params));
+    result.setLatitude(mapper.tryToGet(TransportTaskTrack.class, LATITUDE_PROPERTY, BigDecimal.class,
+        0, false, result.getLatitude(), params));
+    result.setLongitude(mapper.tryToGet(TransportTaskTrack.class, LONGITUDE_PROPERTY, BigDecimal.class,
+        1, false, result.getLongitude(), params));
+    result.setMovement(mapper.tryToGet(TransportTaskTrack.class, MOVEMENT_PROPERTY, TransportTask.class,
+        0, true, result.getMovement(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixTransportTaskTrack(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      TransportTaskTrackTokens tokens = mapper.findParamByClass(params, TransportTaskTrackTokens.class);
+      if (tokens == null) {
+        tokens = TransportTaskTrackTokens.start();
+      }
+      result = userContext.getManagerGroup().getTransportTaskTrackManager().internalSaveTransportTaskTrack(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -403,7 +593,7 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

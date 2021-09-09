@@ -46,13 +46,15 @@ public interface AccountingDocumentLineDAO extends BaseDAO{
 	public void delete(String accountingDocumentLineId, int version) throws Exception;
 	public AccountingDocumentLine disconnectFromAll(String accountingDocumentLineId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<AccountingDocumentLine> queryList(String sql, Object ... parmeters);
+	public SmartList<AccountingDocumentLine> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<AccountingDocumentLine> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateAccountingDocumentLine executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByBelongsTo(String accountingDocumentId, Map<String,Object> options);
@@ -71,6 +73,8 @@ public interface AccountingDocumentLineDAO extends BaseDAO{
 
 
  
+
+	List<AccountingDocumentLine> search(AccountingDocumentLineRequest pRequest);
 }
 
 

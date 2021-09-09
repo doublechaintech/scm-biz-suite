@@ -50,6 +50,7 @@ public interface TransportFleetDAO extends BaseDAO{
 	public void delete(String transportFleetId, int version) throws Exception;
 	public TransportFleet disconnectFromAll(String transportFleetId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public TransportTruckDAO getTransportTruckDAO();
 		
@@ -87,9 +88,10 @@ public interface TransportFleetDAO extends BaseDAO{
 	public int countTransportTaskListWithTruck(String transportFleetId, String truckId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<TransportFleet> queryList(String sql, Object ... parmeters);
+	public SmartList<TransportFleet> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<TransportFleet> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateTransportFleet executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<TransportFleet> findTransportFleetByOwner(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -109,6 +111,8 @@ public interface TransportFleetDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:TransportTask的belongsTo的TransportTaskList
 	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception;
 	
+
+	List<TransportFleet> search(TransportFleetRequest pRequest);
 }
 
 

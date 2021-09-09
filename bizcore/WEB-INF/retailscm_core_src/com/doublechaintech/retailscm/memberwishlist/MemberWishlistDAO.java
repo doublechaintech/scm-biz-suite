@@ -46,6 +46,7 @@ public interface MemberWishlistDAO extends BaseDAO{
 	public void delete(String memberWishlistId, int version) throws Exception;
 	public MemberWishlist disconnectFromAll(String memberWishlistId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public MemberWishlistProductDAO getMemberWishlistProductDAO();
 		
@@ -57,9 +58,10 @@ public interface MemberWishlistDAO extends BaseDAO{
 
 
 
-	public SmartList<MemberWishlist> queryList(String sql, Object ... parmeters);
+	public SmartList<MemberWishlist> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<MemberWishlist> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateMemberWishlist executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<MemberWishlist> findMemberWishlistByOwner(String retailStoreMemberId, Map<String,Object> options);
@@ -73,6 +75,8 @@ public interface MemberWishlistDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:MemberWishlistProduct的owner的MemberWishlistProductList
 	public SmartList<MemberWishlistProduct> loadOurMemberWishlistProductList(RetailscmUserContext userContext, List<MemberWishlist> us, Map<String,Object> options) throws Exception;
 	
+
+	List<MemberWishlist> search(MemberWishlistRequest pRequest);
 }
 
 

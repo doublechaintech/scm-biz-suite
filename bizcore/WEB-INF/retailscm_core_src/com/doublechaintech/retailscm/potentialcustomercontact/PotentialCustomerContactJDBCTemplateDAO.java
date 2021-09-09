@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.potentialcustomercontact;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	protected PotentialCustomerDAO potentialCustomerDAO;
 	public void setPotentialCustomerDAO(PotentialCustomerDAO potentialCustomerDAO){
- 	
+
  		if(potentialCustomerDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerDAO to null.");
  		}
@@ -53,13 +54,13 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.potentialCustomerDAO == null){
  			throw new IllegalStateException("The potentialCustomerDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerDAO;
- 	}	
+ 	}
 
 	protected CityPartnerDAO cityPartnerDAO;
 	public void setCityPartnerDAO(CityPartnerDAO cityPartnerDAO){
- 	
+
  		if(cityPartnerDAO == null){
  			throw new IllegalStateException("Do not try to set cityPartnerDAO to null.");
  		}
@@ -69,13 +70,13 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.cityPartnerDAO == null){
  			throw new IllegalStateException("The cityPartnerDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.cityPartnerDAO;
- 	}	
+ 	}
 
 	protected PotentialCustomerContactPersonDAO potentialCustomerContactPersonDAO;
 	public void setPotentialCustomerContactPersonDAO(PotentialCustomerContactPersonDAO potentialCustomerContactPersonDAO){
- 	
+
  		if(potentialCustomerContactPersonDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerContactPersonDAO to null.");
  		}
@@ -85,9 +86,10 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  		if(this.potentialCustomerContactPersonDAO == null){
  			throw new IllegalStateException("The potentialCustomerContactPersonDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerContactPersonDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -221,57 +223,57 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return PotentialCustomerContactTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractPotentialCustomerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, PotentialCustomerContactTokens.POTENTIALCUSTOMER);
  	}
 
  	protected boolean isSavePotentialCustomerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, PotentialCustomerContactTokens.POTENTIALCUSTOMER);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractCityPartnerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, PotentialCustomerContactTokens.CITYPARTNER);
  	}
 
  	protected boolean isSaveCityPartnerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, PotentialCustomerContactTokens.CITYPARTNER);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractContactToEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, PotentialCustomerContactTokens.CONTACTTO);
  	}
 
  	protected boolean isSaveContactToEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, PotentialCustomerContactTokens.CONTACTTO);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -281,8 +283,8 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		return new PotentialCustomerContactMapper();
 	}
 
-	
-	
+
+
 	protected PotentialCustomerContact extractPotentialCustomerContact(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			PotentialCustomerContact potentialCustomerContact = loadSingleObject(accessKey, getPotentialCustomerContactMapper());
@@ -293,33 +295,34 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	}
 
-	
-	
+
+
 
 	protected PotentialCustomerContact loadInternalPotentialCustomerContact(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		PotentialCustomerContact potentialCustomerContact = extractPotentialCustomerContact(accessKey, loadOptions);
- 	
+
  		if(isExtractPotentialCustomerEnabled(loadOptions)){
 	 		extractPotentialCustomer(potentialCustomerContact, loadOptions);
  		}
-  	
+ 
  		if(isExtractCityPartnerEnabled(loadOptions)){
 	 		extractCityPartner(potentialCustomerContact, loadOptions);
  		}
-  	
+ 
  		if(isExtractContactToEnabled(loadOptions)){
 	 		extractContactTo(potentialCustomerContact, loadOptions);
  		}
  
 		
 		return potentialCustomerContact;
-		
+
 	}
 
-	 
+	
 
  	protected PotentialCustomerContact extractPotentialCustomer(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options) throws Exception{
+  
 
 		if(potentialCustomerContact.getPotentialCustomer() == null){
 			return potentialCustomerContact;
@@ -332,14 +335,15 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(potentialCustomer != null){
 			potentialCustomerContact.setPotentialCustomer(potentialCustomer);
 		}
-		
- 		
+
+
  		return potentialCustomerContact;
  	}
- 		
-  
+
+ 
 
  	protected PotentialCustomerContact extractCityPartner(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options) throws Exception{
+  
 
 		if(potentialCustomerContact.getCityPartner() == null){
 			return potentialCustomerContact;
@@ -352,14 +356,15 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(cityPartner != null){
 			potentialCustomerContact.setCityPartner(cityPartner);
 		}
-		
- 		
+
+
  		return potentialCustomerContact;
  	}
- 		
-  
+
+ 
 
  	protected PotentialCustomerContact extractContactTo(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options) throws Exception{
+  
 
 		if(potentialCustomerContact.getContactTo() == null){
 			return potentialCustomerContact;
@@ -372,41 +377,41 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		if(contactTo != null){
 			potentialCustomerContact.setContactTo(contactTo);
 		}
-		
- 		
+
+
  		return potentialCustomerContact;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
- 	
+
   		SmartList<PotentialCustomerContact> resultList = queryWith(PotentialCustomerContactTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactMapper());
 		// analyzePotentialCustomerContactByPotentialCustomer(resultList, potentialCustomerId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByPotentialCustomer(String potentialCustomerId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<PotentialCustomerContact> resultList =  queryWithRange(PotentialCustomerContactTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactMapper(), start, count);
  		//analyzePotentialCustomerContactByPotentialCustomer(resultList, potentialCustomerId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzePotentialCustomerContactByPotentialCustomer(SmartList<PotentialCustomerContact> resultList, String potentialCustomerId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomerContact.POTENTIAL_CUSTOMER_PROPERTY, potentialCustomerId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
@@ -414,11 +419,11 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countPotentialCustomerContactByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
@@ -429,34 +434,34 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public Map<String, Integer> countPotentialCustomerContactByPotentialCustomerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(PotentialCustomerContactTable.COLUMN_POTENTIAL_CUSTOMER, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByCityPartner(String cityPartnerId,Map<String,Object> options){
- 	
+
   		SmartList<PotentialCustomerContact> resultList = queryWith(PotentialCustomerContactTable.COLUMN_CITY_PARTNER, cityPartnerId, options, getPotentialCustomerContactMapper());
 		// analyzePotentialCustomerContactByCityPartner(resultList, cityPartnerId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByCityPartner(String cityPartnerId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<PotentialCustomerContact> resultList =  queryWithRange(PotentialCustomerContactTable.COLUMN_CITY_PARTNER, cityPartnerId, options, getPotentialCustomerContactMapper(), start, count);
  		//analyzePotentialCustomerContactByCityPartner(resultList, cityPartnerId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzePotentialCustomerContactByCityPartner(SmartList<PotentialCustomerContact> resultList, String cityPartnerId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomerContact.CITY_PARTNER_PROPERTY, cityPartnerId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
@@ -464,11 +469,11 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countPotentialCustomerContactByCityPartner(String cityPartnerId,Map<String,Object> options){
@@ -479,34 +484,34 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public Map<String, Integer> countPotentialCustomerContactByCityPartnerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(PotentialCustomerContactTable.COLUMN_CITY_PARTNER, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByContactTo(String potentialCustomerContactPersonId,Map<String,Object> options){
- 	
+
   		SmartList<PotentialCustomerContact> resultList = queryWith(PotentialCustomerContactTable.COLUMN_CONTACT_TO, potentialCustomerContactPersonId, options, getPotentialCustomerContactMapper());
 		// analyzePotentialCustomerContactByContactTo(resultList, potentialCustomerContactPersonId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByContactTo(String potentialCustomerContactPersonId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<PotentialCustomerContact> resultList =  queryWithRange(PotentialCustomerContactTable.COLUMN_CONTACT_TO, potentialCustomerContactPersonId, options, getPotentialCustomerContactMapper(), start, count);
  		//analyzePotentialCustomerContactByContactTo(resultList, potentialCustomerContactPersonId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzePotentialCustomerContactByContactTo(SmartList<PotentialCustomerContact> resultList, String potentialCustomerContactPersonId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomerContact.CONTACT_TO_PROPERTY, potentialCustomerContactPersonId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
@@ -514,11 +519,11 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countPotentialCustomerContactByContactTo(String potentialCustomerContactPersonId,Map<String,Object> options){
@@ -529,21 +534,24 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 	public Map<String, Integer> countPotentialCustomerContactByContactToIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(PotentialCustomerContactTable.COLUMN_CONTACT_TO, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected PotentialCustomerContact savePotentialCustomerContact(PotentialCustomerContact  potentialCustomerContact){
+    
+
 		
 		if(!potentialCustomerContact.isChanged()){
 			return potentialCustomerContact;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(potentialCustomerContact);
 		String SQL=this.getSavePotentialCustomerContactSQL(potentialCustomerContact);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSavePotentialCustomerContactParameters(potentialCustomerContact);
@@ -554,6 +562,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		}
 
 		potentialCustomerContact.incVersion();
+		potentialCustomerContact.afterSave();
 		return potentialCustomerContact;
 
 	}
@@ -571,6 +580,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		for(PotentialCustomerContact potentialCustomerContact:potentialCustomerContactList){
 			if(potentialCustomerContact.isChanged()){
 				potentialCustomerContact.incVersion();
+				potentialCustomerContact.afterSave();
 			}
 
 
@@ -674,30 +684,25 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  	protected Object[] preparePotentialCustomerContactUpdateParameters(PotentialCustomerContact potentialCustomerContact){
  		Object[] parameters = new Object[11];
  
- 		
  		parameters[0] = potentialCustomerContact.getName();
  		
- 		
  		parameters[1] = potentialCustomerContact.getContactDate();
- 		
  		
  		parameters[2] = potentialCustomerContact.getContactMethod();
  		
  		if(potentialCustomerContact.getPotentialCustomer() != null){
  			parameters[3] = potentialCustomerContact.getPotentialCustomer().getId();
  		}
- 
+    
  		if(potentialCustomerContact.getCityPartner() != null){
  			parameters[4] = potentialCustomerContact.getCityPartner().getId();
  		}
- 
+    
  		if(potentialCustomerContact.getContactTo() != null){
  			parameters[5] = potentialCustomerContact.getContactTo().getId();
  		}
- 
- 		
+    
  		parameters[6] = potentialCustomerContact.getDescription();
- 		
  		
  		parameters[7] = potentialCustomerContact.getLastUpdateTime();
  		
@@ -715,33 +720,25 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
         }
 		parameters[0] =  potentialCustomerContact.getId();
  
- 		
  		parameters[1] = potentialCustomerContact.getName();
  		
- 		
  		parameters[2] = potentialCustomerContact.getContactDate();
- 		
  		
  		parameters[3] = potentialCustomerContact.getContactMethod();
  		
  		if(potentialCustomerContact.getPotentialCustomer() != null){
  			parameters[4] = potentialCustomerContact.getPotentialCustomer().getId();
-
  		}
  		
  		if(potentialCustomerContact.getCityPartner() != null){
  			parameters[5] = potentialCustomerContact.getCityPartner().getId();
-
  		}
  		
  		if(potentialCustomerContact.getContactTo() != null){
  			parameters[6] = potentialCustomerContact.getContactTo().getId();
-
  		}
  		
- 		
  		parameters[7] = potentialCustomerContact.getDescription();
- 		
  		
  		parameters[8] = potentialCustomerContact.getLastUpdateTime();
  		
@@ -750,8 +747,6 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  	}
 
 	protected PotentialCustomerContact saveInternalPotentialCustomerContact(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options){
-
-		savePotentialCustomerContact(potentialCustomerContact);
 
  		if(isSavePotentialCustomerEnabled(options)){
 	 		savePotentialCustomer(potentialCustomerContact, options);
@@ -765,6 +760,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 	 		saveContactTo(potentialCustomerContact, options);
  		}
  
+   savePotentialCustomerContact(potentialCustomerContact);
 		
 		return potentialCustomerContact;
 
@@ -776,6 +772,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 	
 
  	protected PotentialCustomerContact savePotentialCustomer(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(potentialCustomerContact.getPotentialCustomer() == null){
  			return potentialCustomerContact;//do nothing when it is null
@@ -785,14 +782,10 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  		return potentialCustomerContact;
 
  	}
-
-
-
-
-
  
 
  	protected PotentialCustomerContact saveCityPartner(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(potentialCustomerContact.getCityPartner() == null){
  			return potentialCustomerContact;//do nothing when it is null
@@ -802,14 +795,10 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  		return potentialCustomerContact;
 
  	}
-
-
-
-
-
  
 
  	protected PotentialCustomerContact saveContactTo(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(potentialCustomerContact.getContactTo() == null){
  			return potentialCustomerContact;//do nothing when it is null
@@ -819,11 +808,6 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
  		return potentialCustomerContact;
 
  	}
-
-
-
-
-
  
 
 	
@@ -831,10 +815,10 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 		
 
 	public PotentialCustomerContact present(PotentialCustomerContact potentialCustomerContact,Map<String, Object> options){
-	
+
 
 		return potentialCustomerContact;
-	
+
 	}
 		
 
@@ -886,6 +870,10 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<PotentialCustomerContact> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getPotentialCustomerContactMapper());
   }
@@ -921,6 +909,15 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmBaseDAOImp
 
 	
 
+  @Override
+  public List<PotentialCustomerContact> search(PotentialCustomerContactRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected PotentialCustomerContactMapper mapper() {
+    return getPotentialCustomerContactMapper();
+  }
 }
 
 

@@ -16,21 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  login: 'login',
-  mobile: '13900000001',
-  email: 'suddy_chang@163.com',
-  pwd: 'C183EC89F92A462CF45B95504792EC4625E847C90536EEFE512D1C9DB8602E95',
-  weixinOpenid: 'wx123456789abcdefghijklmn',
-  weixinAppid: 'wxapp12098410239840',
-  accessToken: 'jwt_token_12345678',
-  verificationCode: '0',
-  verificationCodeExpire: '2020-04-24 14:27:02',
-  lastLoginTime: '2020-04-16 09:30:25',
-  domainId: 'UD000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -44,9 +29,15 @@ class SecUserCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -57,7 +48,7 @@ class SecUserCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -71,8 +62,8 @@ class SecUserCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -81,13 +72,13 @@ class SecUserCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = SecUserBase
     const {SecUserService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -112,10 +103,10 @@ class SecUserCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addSecUser`,
@@ -123,10 +114,10 @@ class SecUserCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'secUser',listName:appLocaleName(userContext,"List") },
@@ -172,10 +163,10 @@ class SecUserCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -187,7 +178,7 @@ class SecUserCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -198,7 +189,7 @@ class SecUserCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -208,7 +199,7 @@ class SecUserCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('sec_user')}</div>)
@@ -220,7 +211,7 @@ class SecUserCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('sec_user')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<SecUserCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -236,7 +227,7 @@ class SecUserCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

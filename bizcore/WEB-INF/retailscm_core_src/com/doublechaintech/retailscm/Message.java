@@ -1,6 +1,6 @@
 package com.doublechaintech.retailscm;
 public class Message {
-	
+
 	public String getLevel() {
 		return level;
 	}
@@ -23,9 +23,9 @@ public class Message {
 
 	protected String body;
 	protected String level; //level is info, success, warning and danger as well
-	protected String subject; 
-	//subject is like 
-	
+	protected String subject;
+	//subject is like
+
 	public String getBody() {
 		return body;
 	}
@@ -33,18 +33,18 @@ public class Message {
 	public void setBody(String messageBody) {
 		this.body = messageBody;
 	}
-	
+
 	protected String sourcePosition;
 	protected Object[] parameters;
 
 	public String getSourcePosition() {
 		return sourcePosition;
 	}
-	
+
 	public void setSourcePosition(String sourcePosition) {
 		this.sourcePosition = sourcePosition;
 	}
-	
+
 	public Object[] getParameters() {
 		return parameters;
 	}
@@ -70,7 +70,7 @@ public class Message {
 		}
 		 parameters[0] = newValue;
 	}
-	
+
 	protected String propertyKey;
 	public String getPropertyKey() {
 	    return propertyKey;
@@ -96,7 +96,7 @@ public class Message {
 		}
 		return sb.toString();
 	}
-	
+
 }
 
 

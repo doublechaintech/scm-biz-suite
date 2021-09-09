@@ -50,6 +50,7 @@ public interface RetailStoreProvinceCenterDAO extends BaseDAO{
 	public void delete(String retailStoreProvinceCenterId, int version) throws Exception;
 	public RetailStoreProvinceCenter disconnectFromAll(String retailStoreProvinceCenterId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public ProvinceCenterDepartmentDAO getProvinceCenterDepartmentDAO();
 		
@@ -79,9 +80,10 @@ public interface RetailStoreProvinceCenterDAO extends BaseDAO{
 
 
 
-	public SmartList<RetailStoreProvinceCenter> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreProvinceCenter> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreProvinceCenter> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreProvinceCenter executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreProvinceCenter> findRetailStoreProvinceCenterByCountry(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -101,6 +103,8 @@ public interface RetailStoreProvinceCenterDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreCityServiceCenter的belongsTo的RetailStoreCityServiceCenterList
 	public SmartList<RetailStoreCityServiceCenter> loadOurRetailStoreCityServiceCenterList(RetailscmUserContext userContext, List<RetailStoreProvinceCenter> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStoreProvinceCenter> search(RetailStoreProvinceCenterRequest pRequest);
 }
 
 

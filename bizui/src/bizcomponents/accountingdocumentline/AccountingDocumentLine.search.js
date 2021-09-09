@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { AccountingDocumentAssociateForm } = GlobalComponents
-  const { AccountingSubjectAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <AccountingDocumentAssociateForm 
-	visible={currentAssociateModal==='belongsTo'} 
-	data={{accountingDocumentLineList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> <AccountingSubjectAssociateForm 
-	visible={currentAssociateModal==='accountingSubject'} 
-	data={{accountingDocumentLineList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'accountingSubject')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'accountingSubject')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class AccountingDocumentLineSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class AccountingDocumentLineSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {AccountingDocumentLineTable} = GlobalComponents;
     const {AccountingDocumentLineSearchForm} = GlobalComponents;
     const {AccountingDocumentLineModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class AccountingDocumentLineSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,AccountingDocumentLineModalTable,"accountingDocumentLineIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

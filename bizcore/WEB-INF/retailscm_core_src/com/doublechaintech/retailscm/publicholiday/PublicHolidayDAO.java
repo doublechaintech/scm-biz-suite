@@ -44,13 +44,15 @@ public interface PublicHolidayDAO extends BaseDAO{
 	public void delete(String publicHolidayId, int version) throws Exception;
 	public PublicHoliday disconnectFromAll(String publicHolidayId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<PublicHoliday> queryList(String sql, Object ... parmeters);
+	public SmartList<PublicHoliday> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<PublicHoliday> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidatePublicHoliday executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<PublicHoliday> findPublicHolidayByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface PublicHolidayDAO extends BaseDAO{
 
 
  
+
+	List<PublicHoliday> search(PublicHolidayRequest pRequest);
 }
 
 

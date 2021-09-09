@@ -57,7 +57,7 @@ const naviBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -68,7 +68,7 @@ const searchBarResponsiveStyle = {
   md: 4,
   lg: 8,
   xl: 8,
-  
+
 };
 
 const userBarResponsiveStyle = {
@@ -77,7 +77,7 @@ const userBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -103,13 +103,26 @@ const query = {
   },
 }
 
-
+/*
 const currentAppName=()=>{
 
   const targetApp = sessionObject('targetApp')
   return targetApp.title
 
 }
+*/
+
+const currentAppName=()=>{
+
+  const sysConfig=window.sysConfig
+  const targetApp = sessionObject('targetApp')
+  const {logo}=sysConfig()
+  return <span><img width="25px" src={logo} style={{marginRight:"10px"}}/>{targetApp.title}</span>
+
+}
+
+
+
 
 
 class TransportTaskBizApp extends React.PureComponent {
@@ -149,47 +162,77 @@ constructor(props) {
     }
     return keys
   }
-  
+
  getNavMenuItems = (targetObject, style, customTheme) => {
-  
+
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
     const mode =style || "inline"
-    const theme = customTheme || "light" 
+    const theme = customTheme || "light"
 	const {objectId}=targetApp;
   	const userContext = null
+  	const viewGroupIconNameOf=window.viewGroupIconNameOf
     return (
 	  <Menu
         theme="dark"
         mode="inline"
-        
+
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        
-       >
-           
 
-             <Menu.Item key="dashboard">
-               <Link to={`/transportTask/${this.props.transportTask.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
-             </Menu.Item>
-           
-        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+       >
+
+       <Menu.Item key="workbench">
+        <Link to={`/transportTask/${this.props.transportTask.id}/workbench`}><Icon type="solution" style={{marginRight:"20px"}}/><span>工作台</span></Link>
+      </Menu.Item>
+
+        
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('transport_task',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
         )}
         )}
 
-       		
-        
+
+
            </Menu>
     )
   }
-  
+
+  getSelectedRows=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.selectedRows){
+      return null
+    }
+    if(state.selectedRows.length === 0){
+      return null
+    }
+    return state.selectedRows[0]
+
+  }
+
+  getOwnerId=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.ownerId){
+      return null
+    }
+
+    return state.ownerId
+
+  }
 
 
 
@@ -203,25 +246,26 @@ constructor(props) {
       data: state._transportTask.goodsList,
       metaInfo: state._transportTask.goodsListMetaInfo,
       count: state._transportTask.goodsCount,
-      returnURL: `/transportTask/${state._transportTask.id}/dashboard`,
+      returnURL: `/transportTask/${state._transportTask.id}/workbench`,
       currentPage: state._transportTask.goodsCurrentPageNumber,
       searchFormParameters: state._transportTask.goodsSearchFormParameters,
       searchParameters: {...state._transportTask.searchParameters},
       expandForm: state._transportTask.expandForm,
       loading: state._transportTask.loading,
       partialList: state._transportTask.partialList,
-      owner: { type: '_transportTask', id: state._transportTask.id, 
-      referenceName: 'transportTask', 
-      listName: 'goodsList', ref:state._transportTask, 
+      owner: { type: '_transportTask', id: state._transportTask.id,
+      referenceName: 'transportTask',
+      listName: 'goodsList', ref:state._transportTask,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(GoodsSearch)
   }
-  
+
   getGoodsCreateForm = () => {
    	const {GoodsCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "goods",
       data: state._transportTask.goodsList,
       metaInfo: state._transportTask.goodsListMetaInfo,
@@ -230,18 +274,18 @@ constructor(props) {
       currentPage: state._transportTask.goodsCurrentPageNumber,
       searchFormParameters: state._transportTask.goodsSearchFormParameters,
       loading: state._transportTask.loading,
-      owner: { type: '_transportTask', id: state._transportTask.id, referenceName: 'transportTask', listName: 'goodsList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_transportTask', id: state._transportTask.id || this.getOwnerId(), referenceName: 'transportTask', listName: 'goodsList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(GoodsCreateForm)
   }
-  
+
   getGoodsUpdateForm = () => {
     const userContext = null
   	const {GoodsUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._transportTask.selectedRows,
       role: "goods",
-      currentUpdateIndex: state._transportTask.currentUpdateIndex,
-      owner: { type: '_transportTask', id: state._transportTask.id, listName: 'goodsList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._transportTask.currentUpdateIndex || 0,
+      owner: { type: '_transportTask', id: state._transportTask.id || this.getOwnerId(), listName: 'goodsList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(GoodsUpdateForm)
   }
 
@@ -255,25 +299,26 @@ constructor(props) {
       data: state._transportTask.transportTaskTrackList,
       metaInfo: state._transportTask.transportTaskTrackListMetaInfo,
       count: state._transportTask.transportTaskTrackCount,
-      returnURL: `/transportTask/${state._transportTask.id}/dashboard`,
+      returnURL: `/transportTask/${state._transportTask.id}/workbench`,
       currentPage: state._transportTask.transportTaskTrackCurrentPageNumber,
       searchFormParameters: state._transportTask.transportTaskTrackSearchFormParameters,
       searchParameters: {...state._transportTask.searchParameters},
       expandForm: state._transportTask.expandForm,
       loading: state._transportTask.loading,
       partialList: state._transportTask.partialList,
-      owner: { type: '_transportTask', id: state._transportTask.id, 
-      referenceName: 'movement', 
-      listName: 'transportTaskTrackList', ref:state._transportTask, 
+      owner: { type: '_transportTask', id: state._transportTask.id,
+      referenceName: 'movement',
+      listName: 'transportTaskTrackList', ref:state._transportTask,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TransportTaskTrackSearch)
   }
-  
+
   getTransportTaskTrackCreateForm = () => {
    	const {TransportTaskTrackCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "transportTaskTrack",
       data: state._transportTask.transportTaskTrackList,
       metaInfo: state._transportTask.transportTaskTrackListMetaInfo,
@@ -282,18 +327,18 @@ constructor(props) {
       currentPage: state._transportTask.transportTaskTrackCurrentPageNumber,
       searchFormParameters: state._transportTask.transportTaskTrackSearchFormParameters,
       loading: state._transportTask.loading,
-      owner: { type: '_transportTask', id: state._transportTask.id, referenceName: 'movement', listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_transportTask', id: state._transportTask.id || this.getOwnerId(), referenceName: 'movement', listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(TransportTaskTrackCreateForm)
   }
-  
+
   getTransportTaskTrackUpdateForm = () => {
     const userContext = null
   	const {TransportTaskTrackUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._transportTask.selectedRows,
       role: "transportTaskTrack",
-      currentUpdateIndex: state._transportTask.currentUpdateIndex,
-      owner: { type: '_transportTask', id: state._transportTask.id, listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._transportTask.currentUpdateIndex || 0,
+      owner: { type: '_transportTask', id: state._transportTask.id || this.getOwnerId(), listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TransportTaskTrackUpdateForm)
   }
 
@@ -308,8 +353,8 @@ constructor(props) {
       owner: { type: '_transportTask', id: state._transportTask.id, listName: 'nolist', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ChangeRequestStepForm)
   }
-  
- 
+
+
 
   getPageTitle = () => {
     // const { location } = this.props
@@ -317,43 +362,46 @@ constructor(props) {
     const title = '双链小超全流程供应链系统'
     return title
   }
- 
+
   buildRouters = () =>{
-  	const {TransportTaskDashboard} = GlobalComponents
+    const {TransportTaskWorkbench} = GlobalComponents
+
+    const {TransportTaskDashboard} = GlobalComponents
   	const {TransportTaskPermission} = GlobalComponents
   	const {TransportTaskProfile} = GlobalComponents
-  	
-  	
-  	const routers=[
-  	{path:"/transportTask/:id/dashboard", component: TransportTaskDashboard},
+
+
+    const routers=[
+    {path:"/transportTask/:id/workbench", component: TransportTaskWorkbench},
+    {path:"/transportTask/:id/dashboard", component: TransportTaskDashboard},
   	{path:"/transportTask/:id/profile", component: TransportTaskProfile},
   	{path:"/transportTask/:id/permission", component: TransportTaskPermission},
-  	
-  	
-  	
+
+
+
   	{path:"/transportTask/:id/list/goodsList", component: this.getGoodsSearch()},
   	{path:"/transportTask/:id/list/goodsCreateForm", component: this.getGoodsCreateForm()},
   	{path:"/transportTask/:id/list/goodsUpdateForm", component: this.getGoodsUpdateForm()},
-   	
+ 
   	{path:"/transportTask/:id/list/transportTaskTrackList", component: this.getTransportTaskTrackSearch()},
   	{path:"/transportTask/:id/list/transportTaskTrackCreateForm", component: this.getTransportTaskTrackCreateForm()},
   	{path:"/transportTask/:id/list/transportTaskTrackUpdateForm", component: this.getTransportTaskTrackUpdateForm()},
-     	
- 	 
+ 
+
   	]
-  	
+
   	const {extraRoutesFunc} = this.props;
   	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
   	const finalRoutes = routers.concat(extraRoutes)
-    
+
   	return (<Switch>
-             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
+             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}
   	  	</Switch>)
-  	
-  
+
+
   }
- 
- 
+
+
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
     this.setState({
@@ -367,7 +415,7 @@ constructor(props) {
        payload: !collapsed,
      })
    }
-   
+
    toggleSwitchText=()=>{
     const { collapsed } = this.props
     if(collapsed){
@@ -376,17 +424,17 @@ constructor(props) {
     return "关闭菜单"
 
    }
-   
+
     logout = () => {
-   
+
     console.log("log out called")
     this.props.dispatch({ type: 'launcher/signOut' })
   }
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     
-  
+
+
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
@@ -397,10 +445,10 @@ constructor(props) {
      	if(value.length < 10){
      		return value
      	}
-     
+
      	return value.substring(0,10)+"..."
-     	
-     	
+
+
      }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
@@ -417,18 +465,18 @@ constructor(props) {
      }
      const breadcrumbMenu=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <Menu mode="vertical"> 
+      return ( <Menu mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
       </Menu>)
-  
+
 
      }
      const breadcrumbBar=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <div mode="vertical"> 
+      return ( <div mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
       </div>)
-  
+
 
      }
 
@@ -437,21 +485,21 @@ constructor(props) {
       const { dispatch} = this.props
       const {name,link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
-	
-     }  
+
+     }
 
 	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
       const { dispatch} = this.props
       const {link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
-	
+
      }
 
      const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
 
       return (
-     <Tag 
-      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+     <Tag
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"}
       	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
         <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
         	{renderBreadcrumbText(breadcrumbMenuItem.name)}
@@ -459,9 +507,9 @@ constructor(props) {
       </Tag>)
 
      }
-     
-     
-     
+
+
+
      const { Search } = Input;
      const showSearchResult=()=>{
 
@@ -480,51 +528,51 @@ constructor(props) {
     }
 
     const {searchLocalData}=GlobalComponents.TransportTaskBase
-	
+
     const renderMenuSwitch=()=>{
       const  text = collapsed?"开启左侧菜单":"关闭左侧菜单"
       const icon = collapsed?"pic-left":"pic-center"
-     
+
       return (
 
         <Tooltip placement="bottom" title={text}>
-       
-      
+
+
       <a  className={styles.menuLink} onClick={()=>this.toggle()} style={{marginLeft:"20px",minHeight:"20px"}}>
-        <Icon type={icon} style={{marginRight:"10px"}}/> 
+        <Icon type={icon} style={{marginRight:"10px"}}/>
       </a>  </Tooltip>)
 
      }
-     
-     
+
+
        const layout = (
      <Layout>
  		<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          
+
         <Row type="flex" justify="start" align="bottom">
-        
+
         <Col {...naviBarResponsiveStyle} >
           <a className={styles.menuLink}  style={{fontSize:"20px"}}>{currentAppName()}</a>
- 
+
         </Col>
-        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
-         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  >
+         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处"
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
           </Col>
-          <Col  {...userBarResponsiveStyle}  > 
+          <Col  {...userBarResponsiveStyle}  >
           <Row>
           <Col  span={10}  > </Col>
           <Col  span={2}  >  {renderMenuSwitch()}</Col>
-          <Col  span={6}  > 
+          <Col  span={6}  >
 	          <Dropdown overlay={<SwitchAppMenu {...this.props} />} style={{marginRight:"100px"}} className={styles.right}>
                 <a  className={styles.menuLink} >
-                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用 
+                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用
                 </a>
               </Dropdown>
-          </Col>  
+          </Col>
 
-          <Col  span={6}  >  
+          <Col  span={6}  >
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
                 <a  className={styles.menuLink}>
                 <Icon type="user" style={{marginRight:"5px"}}/>账户
@@ -533,22 +581,22 @@ constructor(props) {
             </Col>
 
           </Row>
-            </Col>  
+            </Col>
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
-        
-       
+
+
        <Layout>
-      
+
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.transportTask,this.state.searchKeyword)}</div>
 
       )}
        </Layout>
-        
-         
+
+
          <Layout>
        <Sider
           trigger={null}
@@ -559,16 +607,16 @@ constructor(props) {
           collapsedWidth={50}
           className={styles.sider}
         >
-         
+
          {this.getNavMenuItems(this.props.transportTask,"inline","dark")}
-       
+
         </Sider>
-        
+
          <Layout>
          <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
-        
+
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-           
+
            {this.buildRouters()}
            </Content>
           </Layout>

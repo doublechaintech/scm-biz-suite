@@ -16,15 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  name: '供应链部',
-  description: '主要执行集团信息系统建设，维护，规划',
-  manager: '刘强',
-  founded: '2019-03-30',
-  belongsToId: 'RSCC000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -38,9 +29,15 @@ class LevelOneDepartmentCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +48,7 @@ class LevelOneDepartmentCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -65,8 +62,8 @@ class LevelOneDepartmentCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -75,13 +72,13 @@ class LevelOneDepartmentCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = LevelOneDepartmentBase
     const {LevelOneDepartmentService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -106,10 +103,10 @@ class LevelOneDepartmentCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addLevelOneDepartment`,
@@ -117,10 +114,10 @@ class LevelOneDepartmentCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'levelOneDepartment',listName:appLocaleName(userContext,"List") },
@@ -166,10 +163,10 @@ class LevelOneDepartmentCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -181,7 +178,7 @@ class LevelOneDepartmentCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -192,7 +189,7 @@ class LevelOneDepartmentCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -202,7 +199,7 @@ class LevelOneDepartmentCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('level_one_department')}</div>)
@@ -214,7 +211,7 @@ class LevelOneDepartmentCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('level_one_department')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<LevelOneDepartmentCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -230,7 +227,7 @@ class LevelOneDepartmentCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

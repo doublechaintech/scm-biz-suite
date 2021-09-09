@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}pageManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}pageManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -135,6 +140,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}pageService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -154,6 +167,7 @@ const  processRequest = (data) => {
 
 const PageService = { view,
   load,
+  analyze,
   addSlide,
   addUiAction,
   addSection,
@@ -166,6 +180,6 @@ const PageService = { view,
   requestCandidatePageType,
   requestCandidateMobileApp,
   transferToAnotherPageType,
-  transferToAnotherMobileApp, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherMobileApp, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default PageService
 

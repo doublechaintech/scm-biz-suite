@@ -44,13 +44,15 @@ public interface MemberWishlistProductDAO extends BaseDAO{
 	public void delete(String memberWishlistProductId, int version) throws Exception;
 	public MemberWishlistProduct disconnectFromAll(String memberWishlistProductId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<MemberWishlistProduct> queryList(String sql, Object ... parmeters);
+	public SmartList<MemberWishlistProduct> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<MemberWishlistProduct> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateMemberWishlistProduct executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<MemberWishlistProduct> findMemberWishlistProductByOwner(String memberWishlistId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface MemberWishlistProductDAO extends BaseDAO{
 
 
  
+
+	List<MemberWishlistProduct> search(MemberWishlistProductRequest pRequest);
 }
 
 

@@ -44,13 +44,15 @@ public interface TransportTaskTrackDAO extends BaseDAO{
 	public void delete(String transportTaskTrackId, int version) throws Exception;
 	public TransportTaskTrack disconnectFromAll(String transportTaskTrackId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<TransportTaskTrack> queryList(String sql, Object ... parmeters);
+	public SmartList<TransportTaskTrack> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<TransportTaskTrack> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateTransportTaskTrack executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<TransportTaskTrack> findTransportTaskTrackByMovement(String transportTaskId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface TransportTaskTrackDAO extends BaseDAO{
 
 
  
+
+	List<TransportTaskTrack> search(TransportTaskTrackRequest pRequest);
 }
 
 

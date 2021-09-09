@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.userdomain;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 
 	protected UserAllowListDAO userAllowListDAO;
 	public void setUserAllowListDAO(UserAllowListDAO userAllowListDAO){
- 	
+
  		if(userAllowListDAO == null){
  			throw new IllegalStateException("Do not try to set userAllowListDAO to null.");
  		}
@@ -53,13 +54,13 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
  		if(this.userAllowListDAO == null){
  			throw new IllegalStateException("The userAllowListDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.userAllowListDAO;
- 	}	
+ 	}
 
 	protected SecUserDAO secUserDAO;
 	public void setSecUserDAO(SecUserDAO secUserDAO){
- 	
+
  		if(secUserDAO == null){
  			throw new IllegalStateException("Do not try to set secUserDAO to null.");
  		}
@@ -69,13 +70,13 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
  		if(this.secUserDAO == null){
  			throw new IllegalStateException("The secUserDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.secUserDAO;
- 	}	
+ 	}
 
 	protected PublicKeyTypeDAO publicKeyTypeDAO;
 	public void setPublicKeyTypeDAO(PublicKeyTypeDAO publicKeyTypeDAO){
- 	
+
  		if(publicKeyTypeDAO == null){
  			throw new IllegalStateException("Do not try to set publicKeyTypeDAO to null.");
  		}
@@ -85,9 +86,10 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
  		if(this.publicKeyTypeDAO == null){
  			throw new IllegalStateException("The publicKeyTypeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.publicKeyTypeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -141,21 +143,21 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		newUserDomain.setVersion(0);
 		
 		
- 		
+
  		if(isSaveUserAllowListListEnabled(options)){
  			for(UserAllowList item: newUserDomain.getUserAllowListList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveSecUserListEnabled(options)){
  			for(SecUser item: newUserDomain.getSecUserList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSavePublicKeyTypeListEnabled(options)){
  			for(PublicKeyType item: newUserDomain.getPublicKeyTypeList()){
  				item.setVersion(0);
@@ -242,58 +244,58 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return UserDomainTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
 
 		
-	
-	protected boolean isExtractUserAllowListListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractUserAllowListListEnabled(Map<String,Object> options){
  		return checkOptions(options,UserDomainTokens.USER_ALLOW_LIST_LIST);
  	}
- 	protected boolean isAnalyzeUserAllowListListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeUserAllowListListEnabled(Map<String,Object> options){
  		return UserDomainTokens.of(options).analyzeUserAllowListListEnabled();
  	}
-	
+
 	protected boolean isSaveUserAllowListListEnabled(Map<String,Object> options){
 		return checkOptions(options, UserDomainTokens.USER_ALLOW_LIST_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){
  		return checkOptions(options,UserDomainTokens.SEC_USER_LIST);
  	}
- 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){
  		return UserDomainTokens.of(options).analyzeSecUserListEnabled();
  	}
-	
+
 	protected boolean isSaveSecUserListEnabled(Map<String,Object> options){
 		return checkOptions(options, UserDomainTokens.SEC_USER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractPublicKeyTypeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPublicKeyTypeListEnabled(Map<String,Object> options){
  		return checkOptions(options,UserDomainTokens.PUBLIC_KEY_TYPE_LIST);
  	}
- 	protected boolean isAnalyzePublicKeyTypeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePublicKeyTypeListEnabled(Map<String,Object> options){
  		return UserDomainTokens.of(options).analyzePublicKeyTypeListEnabled();
  	}
-	
+
 	protected boolean isSavePublicKeyTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, UserDomainTokens.PUBLIC_KEY_TYPE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -302,8 +304,8 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		return new UserDomainMapper();
 	}
 
-	
-	
+
+
 	protected UserDomain extractUserDomain(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			UserDomain userDomain = loadSingleObject(accessKey, getUserDomainMapper());
@@ -314,24 +316,24 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 
 	}
 
-	
-	
+
+
 
 	protected UserDomain loadInternalUserDomain(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		UserDomain userDomain = extractUserDomain(accessKey, loadOptions);
 
 		
 		if(isExtractUserAllowListListEnabled(loadOptions)){
 	 		extractUserAllowListList(userDomain, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractSecUserListEnabled(loadOptions)){
 	 		extractSecUserList(userDomain, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeSecUserListEnabled(loadOptions)){
 	 		analyzeSecUserList(userDomain, loadOptions);
@@ -340,8 +342,8 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		
 		if(isExtractPublicKeyTypeListEnabled(loadOptions)){
 	 		extractPublicKeyTypeList(userDomain, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzePublicKeyTypeListEnabled(loadOptions)){
 	 		analyzePublicKeyTypeList(userDomain, loadOptions);
@@ -349,7 +351,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
  		
 		
 		return userDomain;
-		
+
 	}
 
 	
@@ -358,10 +360,10 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected UserDomain extractUserAllowListList(UserDomain userDomain, Map<String,Object> options){
-		
-		
+    
+
 		if(userDomain == null){
 			return null;
 		}
@@ -369,21 +371,20 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 			return userDomain;
 		}
 
-		
-		
+
+
 		SmartList<UserAllowList> userAllowListList = getUserAllowListDAO().findUserAllowListByDomain(userDomain.getId(),options);
 		if(userAllowListList != null){
 			enhanceUserAllowListList(userAllowListList,options);
 			userDomain.setUserAllowListList(userAllowListList);
 		}
-		
+
 		return userDomain;
-	
-	}	
-	
+  
+	}
+
 	protected UserDomain analyzeUserAllowListList(UserDomain userDomain, Map<String,Object> options){
-		
-		
+     
 		if(userDomain == null){
 			return null;
 		}
@@ -391,27 +392,27 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 			return userDomain;
 		}
 
-		
-		
+
+
 		SmartList<UserAllowList> userAllowListList = userDomain.getUserAllowListList();
 		if(userAllowListList != null){
 			getUserAllowListDAO().analyzeUserAllowListByDomain(userAllowListList, userDomain.getId(), options);
-			
+
 		}
-		
+
 		return userDomain;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceSecUserList(SmartList<SecUser> secUserList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected UserDomain extractSecUserList(UserDomain userDomain, Map<String,Object> options){
-		
-		
+    
+
 		if(userDomain == null){
 			return null;
 		}
@@ -419,21 +420,20 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 			return userDomain;
 		}
 
-		
-		
+
+
 		SmartList<SecUser> secUserList = getSecUserDAO().findSecUserByDomain(userDomain.getId(),options);
 		if(secUserList != null){
 			enhanceSecUserList(secUserList,options);
 			userDomain.setSecUserList(secUserList);
 		}
-		
+
 		return userDomain;
-	
-	}	
-	
+  
+	}
+
 	protected UserDomain analyzeSecUserList(UserDomain userDomain, Map<String,Object> options){
-		
-		
+     
 		if(userDomain == null){
 			return null;
 		}
@@ -441,27 +441,27 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 			return userDomain;
 		}
 
-		
-		
+
+
 		SmartList<SecUser> secUserList = userDomain.getSecUserList();
 		if(secUserList != null){
 			getSecUserDAO().analyzeSecUserByDomain(secUserList, userDomain.getId(), options);
-			
+
 		}
-		
+
 		return userDomain;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhancePublicKeyTypeList(SmartList<PublicKeyType> publicKeyTypeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected UserDomain extractPublicKeyTypeList(UserDomain userDomain, Map<String,Object> options){
-		
-		
+    
+
 		if(userDomain == null){
 			return null;
 		}
@@ -469,21 +469,20 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 			return userDomain;
 		}
 
-		
-		
+
+
 		SmartList<PublicKeyType> publicKeyTypeList = getPublicKeyTypeDAO().findPublicKeyTypeByDomain(userDomain.getId(),options);
 		if(publicKeyTypeList != null){
 			enhancePublicKeyTypeList(publicKeyTypeList,options);
 			userDomain.setPublicKeyTypeList(publicKeyTypeList);
 		}
-		
+
 		return userDomain;
-	
-	}	
-	
+  
+	}
+
 	protected UserDomain analyzePublicKeyTypeList(UserDomain userDomain, Map<String,Object> options){
-		
-		
+     
 		if(userDomain == null){
 			return null;
 		}
@@ -491,34 +490,37 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 			return userDomain;
 		}
 
-		
-		
+
+
 		SmartList<PublicKeyType> publicKeyTypeList = userDomain.getPublicKeyTypeList();
 		if(publicKeyTypeList != null){
 			getPublicKeyTypeDAO().analyzePublicKeyTypeByDomain(publicKeyTypeList, userDomain.getId(), options);
-			
+
 		}
-		
+
 		return userDomain;
-	
-	}	
-	
+    
+	}
+
 		
-		
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected UserDomain saveUserDomain(UserDomain  userDomain){
+    
+
 		
 		if(!userDomain.isChanged()){
 			return userDomain;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(userDomain);
 		String SQL=this.getSaveUserDomainSQL(userDomain);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveUserDomainParameters(userDomain);
@@ -529,6 +531,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		}
 
 		userDomain.incVersion();
+		userDomain.afterSave();
 		return userDomain;
 
 	}
@@ -546,6 +549,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		for(UserDomain userDomain:userDomainList){
 			if(userDomain.isChanged()){
 				userDomain.incVersion();
+				userDomain.afterSave();
 			}
 
 
@@ -649,7 +653,6 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
  	protected Object[] prepareUserDomainUpdateParameters(UserDomain userDomain){
  		Object[] parameters = new Object[4];
  
- 		
  		parameters[0] = userDomain.getName();
  		
  		parameters[1] = userDomain.nextVersion();
@@ -666,7 +669,6 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
         }
 		parameters[0] =  userDomain.getId();
  
- 		
  		parameters[1] = userDomain.getName();
  		
 
@@ -675,8 +677,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 
 	protected UserDomain saveInternalUserDomain(UserDomain userDomain, Map<String,Object> options){
 
-		saveUserDomain(userDomain);
-
+   saveUserDomain(userDomain);
 		
 		if(isSaveUserAllowListListEnabled(options)){
 	 		saveUserAllowListList(userDomain, options);
@@ -796,7 +797,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 
 		
 	protected UserDomain saveUserAllowListList(UserDomain userDomain, Map<String,Object> options){
-
+    
 
 
 
@@ -862,7 +863,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 
 		
 	protected UserDomain saveSecUserList(UserDomain userDomain, Map<String,Object> options){
-
+    
 
 
 
@@ -928,7 +929,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 
 		
 	protected UserDomain savePublicKeyTypeList(UserDomain userDomain, Map<String,Object> options){
-
+    
 
 
 
@@ -995,21 +996,21 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		
 
 	public UserDomain present(UserDomain userDomain,Map<String, Object> options){
-	
+
 		presentUserAllowListList(userDomain,options);
 		presentSecUserList(userDomain,options);
 		presentPublicKeyTypeList(userDomain,options);
 
 		return userDomain;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected UserDomain presentUserAllowListList(
 			UserDomain userDomain,
 			Map<String, Object> options) {
-
-		SmartList<UserAllowList> userAllowListList = userDomain.getUserAllowListList();		
+    
+		SmartList<UserAllowList> userAllowListList = userDomain.getUserAllowListList();
 				SmartList<UserAllowList> newList= presentSubList(userDomain.getId(),
 				userAllowListList,
 				options,
@@ -1017,19 +1018,19 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 				getUserAllowListDAO()::findUserAllowListByDomain
 				);
 
-		
+
 		userDomain.setUserAllowListList(newList);
-		
+
 
 		return userDomain;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected UserDomain presentSecUserList(
 			UserDomain userDomain,
 			Map<String, Object> options) {
-
-		SmartList<SecUser> secUserList = userDomain.getSecUserList();		
+    
+		SmartList<SecUser> secUserList = userDomain.getSecUserList();
 				SmartList<SecUser> newList= presentSubList(userDomain.getId(),
 				secUserList,
 				options,
@@ -1037,19 +1038,19 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 				getSecUserDAO()::findSecUserByDomain
 				);
 
-		
+
 		userDomain.setSecUserList(newList);
-		
+
 
 		return userDomain;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected UserDomain presentPublicKeyTypeList(
 			UserDomain userDomain,
 			Map<String, Object> options) {
-
-		SmartList<PublicKeyType> publicKeyTypeList = userDomain.getPublicKeyTypeList();		
+    
+		SmartList<PublicKeyType> publicKeyTypeList = userDomain.getPublicKeyTypeList();
 				SmartList<PublicKeyType> newList= presentSubList(userDomain.getId(),
 				publicKeyTypeList,
 				options,
@@ -1057,12 +1058,12 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 				getPublicKeyTypeDAO()::findPublicKeyTypeByDomain
 				);
 
-		
+
 		userDomain.setPublicKeyTypeList(newList);
-		
+
 
 		return userDomain;
-	}			
+	}
 		
 
 	
@@ -1098,6 +1099,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	
 	// 需要一个加载引用我的对象的enhance方法:UserAllowList的domain的UserAllowListList
 	public SmartList<UserAllowList> loadOurUserAllowListList(RetailscmUserContext userContext, List<UserDomain> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1121,6 +1123,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	
 	// 需要一个加载引用我的对象的enhance方法:SecUser的domain的SecUserList
 	public SmartList<SecUser> loadOurSecUserList(RetailscmUserContext userContext, List<UserDomain> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1144,6 +1147,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	
 	// 需要一个加载引用我的对象的enhance方法:PublicKeyType的domain的PublicKeyTypeList
 	public SmartList<PublicKeyType> loadOurPublicKeyTypeList(RetailscmUserContext userContext, List<UserDomain> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1200,6 +1204,10 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<UserDomain> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getUserDomainMapper());
   }
@@ -1239,13 +1247,13 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 		if (params == null || params.length == 0) {
 			return new HashMap<>();
 		}
-		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
 		if (result == null || result.isEmpty()) {
 			return new HashMap<>();
 		}
 		Map<String, Integer> cntMap = new HashMap<>();
 		for (Map<String, Object> data : result) {
-			String key = (String) data.get("id");
+			String key = String.valueOf(data.get("id"));
 			Number value = (Number) data.get("count");
 			cntMap.put(key, value.intValue());
 		}
@@ -1254,19 +1262,19 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	}
 
 	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
 		return cnt;
 	}
 
 	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
 		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
 		return cnt == null ? BigDecimal.ZERO : cnt;
 	}
 
 	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
 		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
 		return result;
 	}
@@ -1274,7 +1282,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
 		Map<String, Object> result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+			result = this.getJdbcTemplate().queryForMap(sql, params);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -1285,7 +1293,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
 		T result = null;
 		try {
-			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			// 空结果，返回null
 		}
@@ -1294,27 +1302,36 @@ public class UserDomainJDBCTemplateDAO extends RetailscmBaseDAOImpl implements U
 	}
 
 	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
 		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
 		return result;
 	}
 
 	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplateObject().update(sql, params);
+		int result = getJdbcTemplate().update(sql, params);
 		logSQLAndParameters("updateBySql", sql, params, result + " items");
 		return result;
 	}
 
 	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplateObject().query(sql, args, callback);
+		getJdbcTemplate().query(sql, args, callback);
 	}
 
 	public void executeSql(String sql) {
 		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplateObject().execute(sql);
+		getJdbcTemplate().execute(sql);
 	}
 
 
+  @Override
+  public List<UserDomain> search(UserDomainRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected UserDomainMapper mapper() {
+    return getUserDomainMapper();
+  }
 }
 
 

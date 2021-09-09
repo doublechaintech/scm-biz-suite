@@ -1,42 +1,27 @@
 
 package com.doublechaintech.retailscm.termination;
 
-import java.util.*;
-import java.math.BigDecimal;
-import com.terapico.caf.baseelement.PlainText;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.terapico.caf.Password;
-import com.terapico.utils.MapUtil;
-import com.terapico.utils.ListofUtils;
-import com.terapico.utils.TextUtil;
-import com.terapico.caf.BlobObject;
-import com.terapico.caf.viewpage.SerializeScope;
 
-import com.doublechaintech.retailscm.*;
-import com.doublechaintech.retailscm.utils.ModelAssurance;
-import com.doublechaintech.retailscm.tree.*;
-import com.doublechaintech.retailscm.treenode.*;
-import com.doublechaintech.retailscm.RetailscmUserContextImpl;
-import com.doublechaintech.retailscm.iamservice.*;
-import com.doublechaintech.retailscm.services.IamService;
-import com.doublechaintech.retailscm.secuser.SecUser;
-import com.doublechaintech.retailscm.userapp.UserApp;
-import com.doublechaintech.retailscm.BaseViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import com.doublechaintech.retailscm.*;import com.doublechaintech.retailscm.BaseViewPage;import com.doublechaintech.retailscm.RetailscmUserContextImpl;import com.doublechaintech.retailscm.iamservice.*;import com.doublechaintech.retailscm.secuser.SecUser;import com.doublechaintech.retailscm.services.IamService;import com.doublechaintech.retailscm.terminationreason.CandidateTerminationReason;import com.doublechaintech.retailscm.terminationreason.TerminationReason;import com.doublechaintech.retailscm.terminationtype.CandidateTerminationType;import com.doublechaintech.retailscm.terminationtype.TerminationType;import com.doublechaintech.retailscm.tree.*;import com.doublechaintech.retailscm.treenode.*;import com.doublechaintech.retailscm.userapp.UserApp;import com.doublechaintech.retailscm.utils.ModelAssurance;
+import com.terapico.caf.BlobObject;import com.terapico.caf.DateTime;import com.terapico.caf.Images;import com.terapico.caf.Password;import com.terapico.caf.baseelement.PlainText;import com.terapico.caf.viewpage.SerializeScope;
 import com.terapico.uccaf.BaseUserContext;
-
-
-
-import com.doublechaintech.retailscm.terminationtype.TerminationType;
-import com.doublechaintech.retailscm.terminationreason.TerminationReason;
-
-import com.doublechaintech.retailscm.terminationtype.CandidateTerminationType;
-import com.doublechaintech.retailscm.terminationreason.CandidateTerminationReason;
-
-
-
-
-
+import com.terapico.utils.*;
+import java.math.BigDecimal;
+import java.util.*;
+import com.doublechaintech.retailscm.search.Searcher;
 
 
 public class TerminationManagerImpl extends CustomRetailscmCheckerManager implements TerminationManager, BusinessHandler{
@@ -62,6 +47,7 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 	}
 
 
+
 	protected void throwExceptionWithMessage(String value) throws TerminationManagerException{
 
 		Message message = new Message();
@@ -72,131 +58,185 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 
 
 
- 	protected Termination saveTermination(RetailscmUserContext userContext, Termination termination, String [] tokensExpr) throws Exception{	
+ 	protected Termination saveTermination(RetailscmUserContext userContext, Termination termination, String [] tokensExpr) throws Exception{
  		//return getTerminationDAO().save(termination, tokens);
- 		
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		return saveTermination(userContext, termination, tokens);
  	}
- 	
- 	protected Termination saveTerminationDetail(RetailscmUserContext userContext, Termination termination) throws Exception{	
 
- 		
+ 	protected Termination saveTerminationDetail(RetailscmUserContext userContext, Termination termination) throws Exception{
+
+
  		return saveTermination(userContext, termination, allTokens());
  	}
- 	
- 	public Termination loadTermination(RetailscmUserContext userContext, String terminationId, String [] tokensExpr) throws Exception{				
- 
+
+ 	public Termination loadTermination(RetailscmUserContext userContext, String terminationId, String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfTermination(terminationId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TerminationManagerException.class);
 
- 			
+
+
  		Map<String,Object>tokens = parseTokens(tokensExpr);
- 		
+
  		Termination termination = loadTermination( userContext, terminationId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,termination, tokens);
  	}
- 	
- 	
- 	 public Termination searchTermination(RetailscmUserContext userContext, String terminationId, String textToSearch,String [] tokensExpr) throws Exception{				
- 
+
+
+ 	 public Termination searchTermination(RetailscmUserContext userContext, String terminationId, String textToSearch,String [] tokensExpr) throws Exception{
+
  		checkerOf(userContext).checkIdOfTermination(terminationId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TerminationManagerException.class);
 
- 		
+
+
  		Map<String,Object>tokens = tokens().allTokens().searchEntireObjectText(tokens().startsWith(), textToSearch).initWithArray(tokensExpr);
- 		
+
  		Termination termination = loadTermination( userContext, terminationId, tokens);
  		//do some calc before sent to customer?
  		return present(userContext,termination, tokens);
  	}
- 	
- 	
+
+
 
  	protected Termination present(RetailscmUserContext userContext, Termination termination, Map<String, Object> tokens) throws Exception {
-		
-		
+
+
 		addActions(userContext,termination,tokens);
-		
-		
+    
+
 		Termination  terminationToPresent = terminationDaoOf(userContext).present(termination, tokens);
-		
+
 		List<BaseEntity> entityListToNaming = terminationToPresent.collectRefercencesFromLists();
 		terminationDaoOf(userContext).alias(entityListToNaming);
-		
-		
+
+
 		renderActionForList(userContext,termination,tokens);
-		
+
 		return  terminationToPresent;
-		
-		
+
+
 	}
- 
- 	
- 	
- 	public Termination loadTerminationDetail(RetailscmUserContext userContext, String terminationId) throws Exception{	
+
+
+
+ 	public Termination loadTerminationDetail(RetailscmUserContext userContext, String terminationId) throws Exception{
  		Termination termination = loadTermination( userContext, terminationId, allTokens());
  		return present(userContext,termination, allTokens());
-		
+
  	}
- 	
- 	public Object view(RetailscmUserContext userContext, String terminationId) throws Exception{	
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+		
+        UserApp userApp=(UserApp) targetUserApp;
+        return this.view ((RetailscmUserContext)userContext,userApp.getAppId());
+        
+    }
+
+	
+
+
+ 	public Object view(RetailscmUserContext userContext, String terminationId) throws Exception{
  		Termination termination = loadTermination( userContext, terminationId, viewTokens());
- 		return present(userContext,termination, allTokens());
-		
- 	}
- 	protected Termination saveTermination(RetailscmUserContext userContext, Termination termination, Map<String,Object>tokens) throws Exception{	
+ 		markVisited(userContext, termination);
+ 		return present(userContext,termination, viewTokens());
+
+	 }
+	 public Object summaryView(RetailscmUserContext userContext, String terminationId) throws Exception{
+		Termination termination = loadTermination( userContext, terminationId, viewTokens());
+		termination.summarySuffix();
+		markVisited(userContext, termination);
+ 		return present(userContext,termination, summaryTokens());
+
+	}
+	 public Object analyze(RetailscmUserContext userContext, String terminationId) throws Exception{
+		Termination termination = loadTermination( userContext, terminationId, analyzeTokens());
+		markVisited(userContext, termination);
+		return present(userContext,termination, analyzeTokens());
+
+	}
+ 	protected Termination saveTermination(RetailscmUserContext userContext, Termination termination, Map<String,Object>tokens) throws Exception{
+ 	
  		return terminationDaoOf(userContext).save(termination, tokens);
  	}
- 	protected Termination loadTermination(RetailscmUserContext userContext, String terminationId, Map<String,Object>tokens) throws Exception{	
+ 	protected Termination loadTermination(RetailscmUserContext userContext, String terminationId, Map<String,Object>tokens) throws Exception{
 		checkerOf(userContext).checkIdOfTermination(terminationId);
+
 		checkerOf(userContext).throwExceptionIfHasErrors( TerminationManagerException.class);
 
- 
+
+
  		return terminationDaoOf(userContext).load(terminationId, tokens);
  	}
 
 	
 
 
- 	
 
 
- 	
- 	
+
+
+
  	protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, Termination termination, Map<String, Object> tokens){
 		super.addActions(userContext, termination, tokens);
-		
+
 		addAction(userContext, termination, tokens,"@create","createTermination","createTermination/","main","primary");
 		addAction(userContext, termination, tokens,"@update","updateTermination","updateTermination/"+termination.getId()+"/","main","primary");
 		addAction(userContext, termination, tokens,"@copy","cloneTermination","cloneTermination/"+termination.getId()+"/","main","primary");
-		
+
 		addAction(userContext, termination, tokens,"termination.transfer_to_reason","transferToAnotherReason","transferToAnotherReason/"+termination.getId()+"/","main","primary");
 		addAction(userContext, termination, tokens,"termination.transfer_to_type","transferToAnotherType","transferToAnotherType/"+termination.getId()+"/","main","primary");
-	
-		
-		
+
+
+
+
+
+
 	}// end method of protected<T extends BaseEntity> void addActions(RetailscmUserContext userContext, Termination termination, Map<String, Object> tokens){
-	
- 	
- 	
- 
- 	
- 	
+
+
+
+
+
+
+
+
+  @Override
+  public List<Termination> searchTerminationList(RetailscmUserContext ctx, TerminationRequest pRequest){
+      pRequest.setUserContext(ctx);
+      List<Termination> list = daoOf(ctx).search(pRequest);
+      Searcher.enhance(list, pRequest);
+      return list;
+  }
+
+  @Override
+  public Termination searchTermination(RetailscmUserContext ctx, TerminationRequest pRequest){
+    pRequest.limit(0, 1);
+    List<Termination> list = searchTerminationList(ctx, pRequest);
+    if (list == null || list.isEmpty()){
+      return null;
+    }
+    return list.get(0);
+  }
 
 	public Termination createTermination(RetailscmUserContext userContext, String reasonId,String typeId,String comment) throws Exception
-	//public Termination createTermination(RetailscmUserContext userContext,String reasonId, String typeId, String comment) throws Exception
 	{
 
-		
 
-		
+
+
 
 		checkerOf(userContext).checkCommentOfTermination(comment);
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TerminationManagerException.class);
+
 
 
 		Termination termination=createNewTermination();	
@@ -230,24 +270,26 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 	{
 		
 
-		
-		
+
+
 		checkerOf(userContext).checkIdOfTermination(terminationId);
 		checkerOf(userContext).checkVersionOfTermination( terminationVersion);
-		
-		
 
-				
+
+
+		
 
 		
 		if(Termination.COMMENT_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkCommentOfTermination(parseString(newValueExpr));
 		
-			
+
 		}
-	
+
+
 		checkerOf(userContext).throwExceptionIfHasErrors(TerminationManagerException.class);
+
 
 
 	}
@@ -276,6 +318,8 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 			if (termination.isChanged()){
 			
 			}
+
+      //checkerOf(userContext).checkAndFixTermination(termination);
 			termination = saveTermination(userContext, termination, options);
 			return termination;
 
@@ -342,9 +386,15 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 	protected Map<String,Object> allTokens(){
 		return TerminationTokens.all();
 	}
+	protected Map<String,Object> analyzeTokens(){
+		return tokens().allTokens().analyzeAllLists().done();
+	}
+	protected Map<String,Object> summaryTokens(){
+		return tokens().allTokens().done();
+	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.analyzeAllLists().done();
+		.done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){
@@ -356,6 +406,7 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 
  		checkerOf(userContext).checkIdOfTermination(terminationId);
  		checkerOf(userContext).checkIdOfTerminationReason(anotherReasonId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(TerminationManagerException.class);
 
  	}
@@ -363,16 +414,17 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
  	{
  		checkParamsForTransferingAnotherReason(userContext, terminationId,anotherReasonId);
  
-		Termination termination = loadTermination(userContext, terminationId, allTokens());	
+		Termination termination = loadTermination(userContext, terminationId, allTokens());
 		synchronized(termination){
 			//will be good when the termination loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			TerminationReason reason = loadTerminationReason(userContext, anotherReasonId, emptyOptions());		
-			termination.updateReason(reason);		
+			TerminationReason reason = loadTerminationReason(userContext, anotherReasonId, emptyOptions());
+			termination.updateReason(reason);
+			
 			termination = saveTermination(userContext, termination, emptyOptions());
-			
+
 			return present(userContext,termination, allTokens());
-			
+
 		}
 
  	}
@@ -405,6 +457,7 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 
  		checkerOf(userContext).checkIdOfTermination(terminationId);
  		checkerOf(userContext).checkIdOfTerminationType(anotherTypeId);//check for optional reference
+
  		checkerOf(userContext).throwExceptionIfHasErrors(TerminationManagerException.class);
 
  	}
@@ -412,16 +465,17 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
  	{
  		checkParamsForTransferingAnotherType(userContext, terminationId,anotherTypeId);
  
-		Termination termination = loadTermination(userContext, terminationId, allTokens());	
+		Termination termination = loadTermination(userContext, terminationId, allTokens());
 		synchronized(termination){
 			//will be good when the termination loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
-			TerminationType type = loadTerminationType(userContext, anotherTypeId, emptyOptions());		
-			termination.updateType(type);		
+			TerminationType type = loadTerminationType(userContext, anotherTypeId, emptyOptions());
+			termination.updateType(type);
+			
 			termination = saveTermination(userContext, termination, emptyOptions());
-			
+
 			return present(userContext,termination, allTokens());
-			
+
 		}
 
  	}
@@ -454,8 +508,9 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 
  	protected TerminationReason loadTerminationReason(RetailscmUserContext userContext, String newReasonId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return terminationReasonDaoOf(userContext).load(newReasonId, options);
+ 	  
  	}
  	
 
@@ -464,8 +519,9 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 
  	protected TerminationType loadTerminationType(RetailscmUserContext userContext, String newTypeId, Map<String,Object> options) throws Exception
  	{
-
+    
  		return terminationTypeDaoOf(userContext).load(newTypeId, options);
+ 	  
  	}
  	
 
@@ -514,9 +570,6 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 
 
 
-
-
-
 	public void onNewInstanceCreated(RetailscmUserContext userContext, Termination newCreated) throws Exception{
 		ensureRelationInGraph(userContext, newCreated);
 		sendCreationEvent(userContext, newCreated);
@@ -533,112 +586,13 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
     );
   }
 
+
+
 	// -----------------------------------//  登录部分处理 \\-----------------------------------
-	// 手机号+短信验证码 登录
-	public Object loginByMobile(RetailscmUserContextImpl userContext, String mobile, String verifyCode) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByMobile");
-		LoginData loginData = new LoginData();
-		loginData.setMobile(mobile);
-		loginData.setVerifyCode(verifyCode);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 账号+密码登录
-	public Object loginByPassword(RetailscmUserContextImpl userContext, String loginId, Password password) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
-		LoginData loginData = new LoginData();
-		loginData.setLoginId(loginId);
-		loginData.setPassword(password.getClearTextPassword());
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 微信小程序登录
-	public Object loginByWechatMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 企业微信小程序登录
-	public Object loginByWechatWorkMiniProgram(RetailscmUserContextImpl userContext, String code) throws Exception {
-		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
-				"loginByWechatWorkMiniProgram");
-		LoginData loginData = new LoginData();
-		loginData.setCode(code);
-
-		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
-		return processLoginRequest(userContext, loginContext);
-	}
-	// 调用登录处理
-	protected Object processLoginRequest(RetailscmUserContextImpl userContext, LoginContext loginContext) throws Exception {
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		LoginResult loginResult = iamService.doLogin(userContext, loginContext, this);
-		// 根据登录结果
-		if (!loginResult.isAuthenticated()) {
-			throw new Exception(loginResult.getMessage());
-		}
-		if (loginResult.isSuccess()) {
-			return onLoginSuccess(userContext, loginResult);
-		}
-		if (loginResult.isNewUser()) {
-			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
-		}
-		return new LoginForm();
-	}
-
 	@Override
-	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
-			throws IllegalAccessException {
-		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
-		IamService iamService = (IamService) userContext.getBean("iamService");
-		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
-
-		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
-		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
-		if (userApp != null) {
-			userApp.setSecUser(secUser);
-		}
-		if (secUser == null) {
-			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
-		}
-		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
-		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
-			return accessOK();
-		}
-
-		return super.checkAccess(baseUserContext, methodName, parameters);
-	}
-
-	// 判断哪些接口需要登录后才能执行. 默认除了loginBy开头的,其他都要登录
-	protected boolean isMethodNeedLogin(RetailscmUserContextImpl userContext, String methodName, Object[] parameters) {
-		if (methodName.startsWith("loginBy")) {
-			return false;
-		}
-		if (methodName.startsWith("logout")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
-	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContextImpl userContext, Map<String, Object> loginInfo,
-			SecUser secUser, UserApp userApp) throws IllegalAccessException{
-	}
-
-
-
-	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
-		// by default, return the view of this object
-		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
-		return this.view(userContext, userApp.getObjectId());
-	}
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    return this;
+  }
 
 	public void onAuthenticationFailed(RetailscmUserContext userContext, LoginContext loginContext,
 			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
@@ -661,28 +615,21 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 		//   UserApp uerApp = userAppManagerOf(userContext).createUserApp(userContext, secUser.getId(), ...
 		// Also, set it into loginContext:
 		//   loginContext.getLoginTarget().setUserApp(userApp);
+		// and in most case, this should be considered as "login success"
+		//   loginResult.setSuccess(true);
+		//
 		// Since many of detailed info were depending business requirement, So,
 		throw new Exception("请重载函数onAuthenticateNewUserLogged()以处理新用户登录");
 	}
-	public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
-			LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
-			throws Exception {
-		// by default, find the correct user-app
-		SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
-		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
-		key.put(UserApp.OBJECT_TYPE_PROPERTY, Termination.INTERNAL_TYPE);
-		SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
-		if (userApps == null || userApps.isEmpty()) {
-			throw new Exception("您的账号未关联销售人员,请联系客服处理账号异常.");
-		}
-		UserApp userApp = userApps.first();
-		userApp.setSecUser(secUser);
-		loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
-		BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getObjectType(), userApp.getObjectId());
-		((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
-	}
+	protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    MultipleAccessKey key = new MultipleAccessKey();
+    key.put(UserApp.SEC_USER_PROPERTY, secUser.getId());
+    key.put(UserApp.APP_TYPE_PROPERTY, Termination.INTERNAL_TYPE);
+    SmartList<UserApp> userApps = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, EO);
+    return userApps;
+  }
 	// -----------------------------------\\  登录部分处理 //-----------------------------------
+
 
 
 	// -----------------------------------// list-of-view 处理 \\-----------------------------------
@@ -753,7 +700,7 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 	 * @throws Exception
 	 */
  	public Object wxappview(RetailscmUserContext userContext, String terminationId) throws Exception{
-	  SerializeScope vscope = RetailscmViewScope.getInstance().getTerminationDetailScope().clone();
+    SerializeScope vscope = SerializeScope.EXCLUDE().nothing();
 		Termination merchantObj = (Termination) this.view(userContext, terminationId);
     String merchantObjId = terminationId;
     String linkToUrl =	"terminationManager/wxappview/" + merchantObjId + "/";
@@ -821,8 +768,19 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 		return BaseViewPage.serialize(result, vscope);
 	}
 
+  
+
+
+
+
+
+
+
+
 
 
 }
+
+
 
 

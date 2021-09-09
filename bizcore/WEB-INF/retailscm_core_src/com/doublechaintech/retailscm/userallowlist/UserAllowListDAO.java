@@ -44,13 +44,15 @@ public interface UserAllowListDAO extends BaseDAO{
 	public void delete(String userAllowListId, int version) throws Exception;
 	public UserAllowList disconnectFromAll(String userAllowListId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<UserAllowList> queryList(String sql, Object ... parmeters);
+	public SmartList<UserAllowList> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<UserAllowList> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateUserAllowList executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<UserAllowList> findUserAllowListByDomain(String userDomainId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface UserAllowListDAO extends BaseDAO{
 
 
  
+
+	List<UserAllowList> search(UserAllowListRequest pRequest);
 }
 
 

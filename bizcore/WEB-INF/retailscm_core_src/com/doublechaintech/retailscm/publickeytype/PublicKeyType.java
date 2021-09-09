@@ -1,20 +1,17 @@
 
 package com.doublechaintech.retailscm.publickeytype;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
+import com.terapico.caf.baseelement.MemberMetaInfo;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
 
 
@@ -28,50 +25,110 @@ import com.doublechaintech.retailscm.userdomain.UserDomain;
 @JsonSerialize(using = PublicKeyTypeSerializer.class)
 public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 
-	
 
 
 
 
-	
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
-	public static final String NAME_PROPERTY                  = "name"              ;
-	public static final String CODE_PROPERTY                  = "code"              ;
+	public static final String KEY_ALG_PROPERTY               = "keyAlg"            ;
+	public static final String SIGN_ALG_PROPERTY              = "signAlg"           ;
 	public static final String DOMAIN_PROPERTY                = "domain"            ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
-	public static final String KEYPAIR_IDENTITY_LIST                    = "keypairIdentityList";
+	public static final String KEY_PAIR_IDENTITY_LIST                   = "keyPairIdentityList";
 
 	public static final String INTERNAL_TYPE="PublicKeyType";
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(KEY_ALG_PROPERTY, "key_alg", "加密算法")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(SIGN_ALG_PROPERTY, "sign_alg", "签名算法")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(DOMAIN_PROPERTY, "user_domain", "域")
+        .withType("user_domain", UserDomain.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+  memberMetaInfoList.add(MemberMetaInfo.referBy(KEY_PAIR_IDENTITY_LIST, "keyType", "密钥对身份列表")
+        .withType("key_pair_identity", KeyPairIdentity.class));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,KEY_ALG_PROPERTY ,SIGN_ALG_PROPERTY ,DOMAIN_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    	    refers.put(KEY_PAIR_IDENTITY_LIST, "keyType");
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+        	    refers.put(KEY_PAIR_IDENTITY_LIST, KeyPairIdentity.class);
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(DOMAIN_PROPERTY, UserDomain.class);
+
+    return parents;
+  }
+
+  public PublicKeyType want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public PublicKeyType wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
-		String displayName = getName();
+
+		String displayName = getKeyAlg();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mCode               ;
-	protected		UserDomain          	mDomain             ;
-	protected		int                 	mVersion            ;
-	
-	
-	protected		SmartList<KeypairIdentity>	mKeypairIdentityList;
+
+	protected		String              	id                  ;
+	protected		String              	keyAlg              ;
+	protected		String              	signAlg             ;
+	protected		UserDomain          	domain              ;
+	protected		int                 	version             ;
 
 	
-		
+	protected		SmartList<KeyPairIdentity>	mKeyPairIdentityList;
+
+
+
 	public 	PublicKeyType(){
 		// lazy load for all the properties
 	}
@@ -79,61 +136,80 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 		PublicKeyType publicKeyType = new PublicKeyType();
 		publicKeyType.setId(id);
 		publicKeyType.setVersion(Integer.MAX_VALUE);
+		publicKeyType.setChecked(true);
 		return publicKeyType;
 	}
 	public 	static PublicKeyType refById(String id){
 		return withId(id);
 	}
-	
+
+  public PublicKeyType limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public PublicKeyType limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static PublicKeyType searchExample(){
+    PublicKeyType publicKeyType = new PublicKeyType();
+    		publicKeyType.setVersion(UNSET_INT);
+
+    return publicKeyType;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setDomain( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
      	
-		if(NAME_PROPERTY.equals(property)){
-			changeNameProperty(newValueExpr);
+		if(KEY_ALG_PROPERTY.equals(property)){
+			changeKeyAlgProperty(newValueExpr);
 		}
-		if(CODE_PROPERTY.equals(property)){
-			changeCodeProperty(newValueExpr);
+		if(SIGN_ALG_PROPERTY.equals(property)){
+			changeSignAlgProperty(newValueExpr);
 		}
 
       
 	}
     
     
-	protected void changeNameProperty(String newValueExpr){
+	protected void changeKeyAlgProperty(String newValueExpr){
 	
-		String oldValue = getName();
+		String oldValue = getKeyAlg();
 		String newValue = parseString(newValueExpr);
 		if(equalsString(oldValue , newValue)){
 			return;//they can be both null, or exact the same object, this is much faster than equals function
 		}
 		//they are surely different each other
-		updateName(newValue);
-		this.onChangeProperty(NAME_PROPERTY, oldValue, newValue);
+		updateKeyAlg(newValue);
+		this.onChangeProperty(KEY_ALG_PROPERTY, oldValue, newValue);
 		return;
    
 	}
 			
 			
 			
-	protected void changeCodeProperty(String newValueExpr){
+	protected void changeSignAlgProperty(String newValueExpr){
 	
-		String oldValue = getCode();
+		String oldValue = getSignAlg();
 		String newValue = parseString(newValueExpr);
 		if(equalsString(oldValue , newValue)){
 			return;//they can be both null, or exact the same object, this is much faster than equals function
 		}
 		//they are surely different each other
-		updateCode(newValue);
-		this.onChangeProperty(CODE_PROPERTY, oldValue, newValue);
+		updateSignAlg(newValue);
+		this.onChangeProperty(SIGN_ALG_PROPERTY, oldValue, newValue);
 		return;
    
 	}
@@ -144,261 +220,338 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
-		if(NAME_PROPERTY.equals(property)){
-			return getName();
+
+		if(KEY_ALG_PROPERTY.equals(property)){
+			return getKeyAlg();
 		}
-		if(CODE_PROPERTY.equals(property)){
-			return getCode();
+		if(SIGN_ALG_PROPERTY.equals(property)){
+			return getSignAlg();
 		}
 		if(DOMAIN_PROPERTY.equals(property)){
 			return getDomain();
 		}
-		if(KEYPAIR_IDENTITY_LIST.equals(property)){
-			List<BaseEntity> list = getKeypairIdentityList().stream().map(item->item).collect(Collectors.toList());
+		if(KEY_PAIR_IDENTITY_LIST.equals(property)){
+			List<BaseEntity> list = getKeyPairIdentityList().stream().map(item->item).collect(Collectors.toList());
 			return list;
 		}
 
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public PublicKeyType updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public PublicKeyType updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public PublicKeyType orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public PublicKeyType ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public PublicKeyType addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
+	public void setKeyAlg(String keyAlg){String oldKeyAlg = this.keyAlg;String newKeyAlg = trimString(keyAlg);this.keyAlg = newKeyAlg;}
+	public String keyAlg(){
+doLoad();
+return getKeyAlg();
+}
+	public String getKeyAlg(){
+		return this.keyAlg;
+	}
+	public PublicKeyType updateKeyAlg(String keyAlg){String oldKeyAlg = this.keyAlg;String newKeyAlg = trimString(keyAlg);if(!shouldReplaceBy(newKeyAlg, oldKeyAlg)){return this;}this.keyAlg = newKeyAlg;addPropertyChange(KEY_ALG_PROPERTY, oldKeyAlg, newKeyAlg);this.changed = true;setChecked(false);return this;}
+	public PublicKeyType orderByKeyAlg(boolean asc){
+doAddOrderBy(KEY_ALG_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createKeyAlgCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(KEY_ALG_PROPERTY, operator, parameters);
+}
+	public PublicKeyType ignoreKeyAlgCriteria(){super.ignoreSearchProperty(KEY_ALG_PROPERTY);
+return this;
+}
+	public PublicKeyType addKeyAlgCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createKeyAlgCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
+	public void mergeKeyAlg(String keyAlg){
+		if(keyAlg != null) { setKeyAlg(keyAlg);}
+	}
+
 	
-	public void setName(String name){
-		this.mName = trimString(name);;
+	public void setSignAlg(String signAlg){String oldSignAlg = this.signAlg;String newSignAlg = trimString(signAlg);this.signAlg = newSignAlg;}
+	public String signAlg(){
+doLoad();
+return getSignAlg();
+}
+	public String getSignAlg(){
+		return this.signAlg;
 	}
-	public String getName(){
-		return this.mName;
+	public PublicKeyType updateSignAlg(String signAlg){String oldSignAlg = this.signAlg;String newSignAlg = trimString(signAlg);if(!shouldReplaceBy(newSignAlg, oldSignAlg)){return this;}this.signAlg = newSignAlg;addPropertyChange(SIGN_ALG_PROPERTY, oldSignAlg, newSignAlg);this.changed = true;setChecked(false);return this;}
+	public PublicKeyType orderBySignAlg(boolean asc){
+doAddOrderBy(SIGN_ALG_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createSignAlgCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(SIGN_ALG_PROPERTY, operator, parameters);
+}
+	public PublicKeyType ignoreSignAlgCriteria(){super.ignoreSearchProperty(SIGN_ALG_PROPERTY);
+return this;
+}
+	public PublicKeyType addSignAlgCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createSignAlgCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
+	public void mergeSignAlg(String signAlg){
+		if(signAlg != null) { setSignAlg(signAlg);}
 	}
-	public PublicKeyType updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
-	public void mergeName(String name){
-		if(name != null) { setName(name);}
-	}
+
 	
-	
-	public void setCode(String code){
-		this.mCode = trimString(code);;
-	}
-	public String getCode(){
-		return this.mCode;
-	}
-	public PublicKeyType updateCode(String code){
-		this.mCode = trimString(code);;
-		this.changed = true;
-		return this;
-	}
-	public void mergeCode(String code){
-		if(code != null) { setCode(code);}
-	}
-	
-	
-	public void setDomain(UserDomain domain){
-		this.mDomain = domain;;
-	}
+	public void setDomain(UserDomain domain){UserDomain oldDomain = this.domain;UserDomain newDomain = domain;this.domain = newDomain;}
+	public UserDomain domain(){
+doLoad();
+return getDomain();
+}
 	public UserDomain getDomain(){
-		return this.mDomain;
+		return this.domain;
 	}
-	public PublicKeyType updateDomain(UserDomain domain){
-		this.mDomain = domain;;
-		this.changed = true;
-		return this;
-	}
+	public PublicKeyType updateDomain(UserDomain domain){UserDomain oldDomain = this.domain;UserDomain newDomain = domain;if(!shouldReplaceBy(newDomain, oldDomain)){return this;}this.domain = newDomain;addPropertyChange(DOMAIN_PROPERTY, oldDomain, newDomain);this.changed = true;setChecked(false);return this;}
+	public PublicKeyType orderByDomain(boolean asc){
+doAddOrderBy(DOMAIN_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createDomainCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(DOMAIN_PROPERTY, operator, parameters);
+}
+	public PublicKeyType ignoreDomainCriteria(){super.ignoreSearchProperty(DOMAIN_PROPERTY);
+return this;
+}
+	public PublicKeyType addDomainCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createDomainCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeDomain(UserDomain domain){
 		if(domain != null) { setDomain(domain);}
 	}
-	
+
 	
 	public void clearDomain(){
 		setDomain ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public PublicKeyType updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public PublicKeyType updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public PublicKeyType orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public PublicKeyType ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public PublicKeyType addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
+
 	
 
-	public  SmartList<KeypairIdentity> getKeypairIdentityList(){
-		if(this.mKeypairIdentityList == null){
-			this.mKeypairIdentityList = new SmartList<KeypairIdentity>();
-			this.mKeypairIdentityList.setListInternalName (KEYPAIR_IDENTITY_LIST );
+	public  SmartList<KeyPairIdentity> getKeyPairIdentityList(){
+		if(this.mKeyPairIdentityList == null){
+			this.mKeyPairIdentityList = new SmartList<KeyPairIdentity>();
+			this.mKeyPairIdentityList.setListInternalName (KEY_PAIR_IDENTITY_LIST );
 			//有名字，便于做权限控制
 		}
-		
-		return this.mKeypairIdentityList;	
+
+		return this.mKeyPairIdentityList;
 	}
-	public  void setKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
-		for( KeypairIdentity keypairIdentity:keypairIdentityList){
-			keypairIdentity.setKeyType(this);
+
+  public  SmartList<KeyPairIdentity> keyPairIdentityList(){
+    
+    doLoadChild(KEY_PAIR_IDENTITY_LIST);
+    
+    return getKeyPairIdentityList();
+  }
+
+
+	public  void setKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList){
+		for( KeyPairIdentity keyPairIdentity:keyPairIdentityList){
+			keyPairIdentity.setKeyType(this);
 		}
 
-		this.mKeypairIdentityList = keypairIdentityList;
-		this.mKeypairIdentityList.setListInternalName (KEYPAIR_IDENTITY_LIST );
-		
+		this.mKeyPairIdentityList = keyPairIdentityList;
+		this.mKeyPairIdentityList.setListInternalName (KEY_PAIR_IDENTITY_LIST );
+
 	}
-	
-	public  void addKeypairIdentity(KeypairIdentity keypairIdentity){
-		keypairIdentity.setKeyType(this);
-		getKeypairIdentityList().add(keypairIdentity);
+
+	public  PublicKeyType addKeyPairIdentity(KeyPairIdentity keyPairIdentity){
+		keyPairIdentity.setKeyType(this);
+		getKeyPairIdentityList().add(keyPairIdentity);
+		return this;
 	}
-	public  void addKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
-		for( KeypairIdentity keypairIdentity:keypairIdentityList){
-			keypairIdentity.setKeyType(this);
+	public  PublicKeyType addKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList){
+		for( KeyPairIdentity keyPairIdentity:keyPairIdentityList){
+			keyPairIdentity.setKeyType(this);
 		}
-		getKeypairIdentityList().addAll(keypairIdentityList);
+		getKeyPairIdentityList().addAll(keyPairIdentityList);
+		return this;
 	}
-	public  void mergeKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList){
-		if(keypairIdentityList==null){
+	public  void mergeKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList){
+		if(keyPairIdentityList==null){
 			return;
 		}
-		if(keypairIdentityList.isEmpty()){
+		if(keyPairIdentityList.isEmpty()){
 			return;
 		}
-		addKeypairIdentityList( keypairIdentityList );
-		
+		addKeyPairIdentityList( keyPairIdentityList );
+
 	}
-	public  KeypairIdentity removeKeypairIdentity(KeypairIdentity keypairIdentityIndex){
-		
-		int index = getKeypairIdentityList().indexOf(keypairIdentityIndex);
+	public  KeyPairIdentity removeKeyPairIdentity(KeyPairIdentity keyPairIdentityIndex){
+
+		int index = getKeyPairIdentityList().indexOf(keyPairIdentityIndex);
         if(index < 0){
-        	String message = "KeypairIdentity("+keypairIdentityIndex.getId()+") with version='"+keypairIdentityIndex.getVersion()+"' NOT found!";
+        	String message = "KeyPairIdentity("+keyPairIdentityIndex.getId()+") with version='"+keyPairIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        KeypairIdentity keypairIdentity = getKeypairIdentityList().get(index);        
-        // keypairIdentity.clearKeyType(); //disconnect with KeyType
-        keypairIdentity.clearFromAll(); //disconnect with KeyType
-		
-		boolean result = getKeypairIdentityList().planToRemove(keypairIdentity);
+        KeyPairIdentity keyPairIdentity = getKeyPairIdentityList().get(index);
+        // keyPairIdentity.clearKeyType(); //disconnect with KeyType
+        keyPairIdentity.clearFromAll(); //disconnect with KeyType
+
+		boolean result = getKeyPairIdentityList().planToRemove(keyPairIdentity);
         if(!result){
-        	String message = "KeypairIdentity("+keypairIdentityIndex.getId()+") with version='"+keypairIdentityIndex.getVersion()+"' NOT found!";
+        	String message = "KeyPairIdentity("+keyPairIdentityIndex.getId()+") with version='"+keyPairIdentityIndex.getVersion()+"' NOT found!";
             throw new IllegalStateException(message);
         }
-        return keypairIdentity;
-        
-	
+        return keyPairIdentity;
+
+
 	}
 	//断舍离
-	public  void breakWithKeypairIdentity(KeypairIdentity keypairIdentity){
-		
-		if(keypairIdentity == null){
+	public  void breakWithKeyPairIdentity(KeyPairIdentity keyPairIdentity){
+
+		if(keyPairIdentity == null){
 			return;
 		}
-		keypairIdentity.setKeyType(null);
-		//getKeypairIdentityList().remove();
-	
-	}
-	
-	public  boolean hasKeypairIdentity(KeypairIdentity keypairIdentity){
-	
-		return getKeypairIdentityList().contains(keypairIdentity);
-  
-	}
-	
-	public void copyKeypairIdentityFrom(KeypairIdentity keypairIdentity) {
+		keyPairIdentity.setKeyType(null);
+		//getKeyPairIdentityList().remove();
 
-		KeypairIdentity keypairIdentityInList = findTheKeypairIdentity(keypairIdentity);
-		KeypairIdentity newKeypairIdentity = new KeypairIdentity();
-		keypairIdentityInList.copyTo(newKeypairIdentity);
-		newKeypairIdentity.setVersion(0);//will trigger copy
-		getKeypairIdentityList().add(newKeypairIdentity);
-		addItemToFlexiableObject(COPIED_CHILD, newKeypairIdentity);
 	}
-	
-	public  KeypairIdentity findTheKeypairIdentity(KeypairIdentity keypairIdentity){
-		
-		int index =  getKeypairIdentityList().indexOf(keypairIdentity);
+
+	public  boolean hasKeyPairIdentity(KeyPairIdentity keyPairIdentity){
+
+		return getKeyPairIdentityList().contains(keyPairIdentity);
+
+	}
+
+	public void copyKeyPairIdentityFrom(KeyPairIdentity keyPairIdentity) {
+
+		KeyPairIdentity keyPairIdentityInList = findTheKeyPairIdentity(keyPairIdentity);
+		KeyPairIdentity newKeyPairIdentity = new KeyPairIdentity();
+		keyPairIdentityInList.copyTo(newKeyPairIdentity);
+		newKeyPairIdentity.setVersion(0);//will trigger copy
+		getKeyPairIdentityList().add(newKeyPairIdentity);
+		addItemToFlexiableObject(COPIED_CHILD, newKeyPairIdentity);
+	}
+
+	public  KeyPairIdentity findTheKeyPairIdentity(KeyPairIdentity keyPairIdentity){
+
+		int index =  getKeyPairIdentityList().indexOf(keyPairIdentity);
 		//The input parameter must have the same id and version number.
 		if(index < 0){
- 			String message = "KeypairIdentity("+keypairIdentity.getId()+") with version='"+keypairIdentity.getVersion()+"' NOT found!";
+ 			String message = "KeyPairIdentity("+keyPairIdentity.getId()+") with version='"+keyPairIdentity.getVersion()+"' NOT found!";
 			throw new IllegalStateException(message);
 		}
-		
-		return  getKeypairIdentityList().get(index);
+
+		return  getKeyPairIdentityList().get(index);
 		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
 	}
-	
-	public  void cleanUpKeypairIdentityList(){
-		getKeypairIdentityList().clear();
+
+	public  void cleanUpKeyPairIdentityList(){
+		getKeyPairIdentityList().clear();
 	}
-	
-	
-	
+
+
+
 
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getDomain(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
-		collectFromList(this, entityList, getKeypairIdentityList(), internalType);
+		collectFromList(this, entityList, getKeyPairIdentityList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-		listOfList.add( getKeypairIdentityList());
-			
+
+		listOfList.add( getKeyPairIdentityList());
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
 		appendKeyValuePair(result, ID_PROPERTY, getId());
-		appendKeyValuePair(result, NAME_PROPERTY, getName());
-		appendKeyValuePair(result, CODE_PROPERTY, getCode());
+		appendKeyValuePair(result, KEY_ALG_PROPERTY, getKeyAlg());
+		appendKeyValuePair(result, SIGN_ALG_PROPERTY, getSignAlg());
 		appendKeyValuePair(result, DOMAIN_PROPERTY, getDomain());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
-		appendKeyValuePair(result, KEYPAIR_IDENTITY_LIST, getKeypairIdentityList());
-		if(!getKeypairIdentityList().isEmpty()){
-			appendKeyValuePair(result, "keypairIdentityCount", getKeypairIdentityList().getTotalCount());
-			appendKeyValuePair(result, "keypairIdentityCurrentPageNumber", getKeypairIdentityList().getCurrentPageNumber());
+		appendKeyValuePair(result, KEY_PAIR_IDENTITY_LIST, getKeyPairIdentityList());
+		if(!getKeyPairIdentityList().isEmpty()){
+			appendKeyValuePair(result, "keyPairIdentityCount", getKeyPairIdentityList().getTotalCount());
+			appendKeyValuePair(result, "keyPairIdentityCurrentPageNumber", getKeyPairIdentityList().getCurrentPageNumber());
 		}
 
 		if (this.valueByKey("valuesOfGroupBy") != null) {
@@ -406,73 +559,111 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof PublicKeyType){
-		
-		
+
+
 			PublicKeyType dest =(PublicKeyType)baseDest;
-		
+
 			dest.setId(getId());
-			dest.setName(getName());
-			dest.setCode(getCode());
+			dest.setKeyAlg(getKeyAlg());
+			dest.setSignAlg(getSignAlg());
 			dest.setDomain(getDomain());
 			dest.setVersion(getVersion());
-			dest.setKeypairIdentityList(getKeypairIdentityList());
+			dest.setKeyPairIdentityList(getKeyPairIdentityList());
 
 		}
 		super.copyTo(baseDest);
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof PublicKeyType){
-		
-			
+
+
 			PublicKeyType dest =(PublicKeyType)baseDest;
-		
+
 			dest.mergeId(getId());
-			dest.mergeName(getName());
-			dest.mergeCode(getCode());
+			dest.mergeKeyAlg(getKeyAlg());
+			dest.mergeSignAlg(getSignAlg());
 			dest.mergeDomain(getDomain());
 			dest.mergeVersion(getVersion());
-			dest.mergeKeypairIdentityList(getKeypairIdentityList());
+			dest.mergeKeyPairIdentityList(getKeyPairIdentityList());
 
 		}
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof PublicKeyType){
-		
-			
+
+
 			PublicKeyType dest =(PublicKeyType)baseDest;
-		
+
 			dest.mergeId(getId());
-			dest.mergeName(getName());
-			dest.mergeCode(getCode());
+			dest.mergeKeyAlg(getKeyAlg());
+			dest.mergeSignAlg(getSignAlg());
 			dest.mergeVersion(getVersion());
 
 		}
 		return baseDest;
 	}
 	public Object[] toFlatArray(){
-		return new Object[]{getId(), getName(), getCode(), getDomain(), getVersion()};
+		return new Object[]{getId(), getKeyAlg(), getSignAlg(), getDomain(), getVersion()};
 	}
+
+
+	public static PublicKeyType createWith(RetailscmUserContext userContext, ThrowingFunction<PublicKeyType,PublicKeyType,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<PublicKeyType> customCreator = mapper.findCustomCreator(PublicKeyType.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    PublicKeyType result = new PublicKeyType();
+    result.setKeyAlg(mapper.tryToGet(PublicKeyType.class, KEY_ALG_PROPERTY, String.class,
+        0, false, result.getKeyAlg(), params));
+    result.setSignAlg(mapper.tryToGet(PublicKeyType.class, SIGN_ALG_PROPERTY, String.class,
+        1, false, result.getSignAlg(), params));
+    result.setDomain(mapper.tryToGet(PublicKeyType.class, DOMAIN_PROPERTY, UserDomain.class,
+        0, true, result.getDomain(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixPublicKeyType(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      PublicKeyTypeTokens tokens = mapper.findParamByClass(params, PublicKeyTypeTokens.class);
+      if (tokens == null) {
+        tokens = PublicKeyTypeTokens.start();
+      }
+      result = userContext.getManagerGroup().getPublicKeyTypeManager().internalSavePublicKeyType(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
 		stringBuilder.append("PublicKeyType{");
 		stringBuilder.append("\tid='"+getId()+"';");
-		stringBuilder.append("\tname='"+getName()+"';");
-		stringBuilder.append("\tcode='"+getCode()+"';");
+		stringBuilder.append("\tkeyAlg='"+getKeyAlg()+"';");
+		stringBuilder.append("\tsignAlg='"+getSignAlg()+"';");
 		if(getDomain() != null ){
  			stringBuilder.append("\tdomain='UserDomain("+getDomain().getId()+")';");
  		}
@@ -481,7 +672,7 @@ public class PublicKeyType extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

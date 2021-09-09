@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { PageTypeAssociateForm } = GlobalComponents
-  const { MobileAppAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <PageTypeAssociateForm 
-	visible={currentAssociateModal==='pageType'} 
-	data={{pageList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'pageType')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'pageType')}/> <MobileAppAssociateForm 
-	visible={currentAssociateModal==='mobileApp'} 
-	data={{pageList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'mobileApp')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'mobileApp')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class PageSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class PageSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {PageTable} = GlobalComponents;
     const {PageSearchForm} = GlobalComponents;
     const {PageModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class PageSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,PageModalTable,"pageIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

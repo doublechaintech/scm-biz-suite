@@ -16,25 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  name: '中和社区小超',
-  telephone: '028 87654321',
-  owner: '吕刚',
-  founded: '2019-07-22',
-  latitude: '39.900367716514914',
-  longitude: '129.89720943792224',
-  description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
-  retailStoreCountryCenterId: 'RSCC000001',
-  cityServiceCenterId: 'RSCSC000001',
-  creationId: 'RSC000001',
-  investmentInvitationId: 'RSII000001',
-  franchisingId: 'RSF000001',
-  decorationId: 'RSD000001',
-  openingId: 'RSO000001',
-  closingId: 'RSC000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -48,9 +29,15 @@ class RetailStoreCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -61,7 +48,7 @@ class RetailStoreCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -75,8 +62,8 @@ class RetailStoreCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -85,13 +72,13 @@ class RetailStoreCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = RetailStoreBase
     const {RetailStoreService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -116,10 +103,10 @@ class RetailStoreCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addRetailStore`,
@@ -127,10 +114,10 @@ class RetailStoreCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'retailStore',listName:appLocaleName(userContext,"List") },
@@ -176,10 +163,10 @@ class RetailStoreCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -191,7 +178,7 @@ class RetailStoreCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -202,7 +189,7 @@ class RetailStoreCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -212,7 +199,7 @@ class RetailStoreCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store')}</div>)
@@ -224,7 +211,7 @@ class RetailStoreCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<RetailStoreCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -240,7 +227,7 @@ class RetailStoreCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

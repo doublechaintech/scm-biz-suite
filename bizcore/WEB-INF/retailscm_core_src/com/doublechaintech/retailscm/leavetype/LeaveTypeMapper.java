@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.leavetype;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,26 +9,29 @@ import com.doublechaintech.retailscm.BaseRowMapper;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
 
 public class LeaveTypeMapper extends BaseRowMapper<LeaveType>{
-	
+
 	protected LeaveType internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		LeaveType leaveType = getLeaveType();		
-		 		
- 		setId(leaveType, rs, rowNumber); 		
- 		setCode(leaveType, rs, rowNumber); 		
- 		setCompany(leaveType, rs, rowNumber); 		
- 		setDescription(leaveType, rs, rowNumber); 		
- 		setDetailDescription(leaveType, rs, rowNumber); 		
+		LeaveType leaveType = getLeaveType();
+		
+ 		setId(leaveType, rs, rowNumber);
+ 		setCode(leaveType, rs, rowNumber);
+ 		setCompany(leaveType, rs, rowNumber);
+ 		setDescription(leaveType, rs, rowNumber);
+ 		setDetailDescription(leaveType, rs, rowNumber);
  		setVersion(leaveType, rs, rowNumber);
 
+    
 		return leaveType;
 	}
-	
+
 	protected LeaveType getLeaveType(){
-		return new LeaveType();
-	}		
+	  LeaveType entity = new LeaveType();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(LeaveType leaveType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(LeaveTypeTable.COLUMN_ID);
@@ -38,10 +42,13 @@ public class LeaveTypeMapper extends BaseRowMapper<LeaveType>{
 		}
 		
 		leaveType.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCode(LeaveType leaveType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String code = rs.getString(LeaveTypeTable.COLUMN_CODE);
@@ -52,10 +59,18 @@ public class LeaveTypeMapper extends BaseRowMapper<LeaveType>{
 		}
 		
 		leaveType.setCode(code);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setCompany(LeaveType leaveType, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(LeaveTypeTable.COLUMN_COMPANY);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(LeaveTypeTable.COLUMN_COMPANY);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -66,14 +81,14 @@ public class LeaveTypeMapper extends BaseRowMapper<LeaveType>{
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'leaveType' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		leaveType.setCompany(createEmptyCompany(retailStoreCountryCenterId));
  	}
  	
 	protected void setDescription(LeaveType leaveType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(LeaveTypeTable.COLUMN_DESCRIPTION);
@@ -84,10 +99,13 @@ public class LeaveTypeMapper extends BaseRowMapper<LeaveType>{
 		}
 		
 		leaveType.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDetailDescription(LeaveType leaveType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String detailDescription = rs.getString(LeaveTypeTable.COLUMN_DETAIL_DESCRIPTION);
@@ -98,10 +116,13 @@ public class LeaveTypeMapper extends BaseRowMapper<LeaveType>{
 		}
 		
 		leaveType.setDetailDescription(detailDescription);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(LeaveType leaveType, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(LeaveTypeTable.COLUMN_VERSION);
@@ -112,9 +133,12 @@ public class LeaveTypeMapper extends BaseRowMapper<LeaveType>{
 		}
 		
 		leaveType.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyCompany(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

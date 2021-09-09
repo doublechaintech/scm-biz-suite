@@ -48,6 +48,7 @@ public interface SalaryGradeDAO extends BaseDAO{
 	public void delete(String salaryGradeId, int version) throws Exception;
 	public SalaryGrade disconnectFromAll(String salaryGradeId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public EmployeeDAO getEmployeeDAO();
 		
@@ -90,9 +91,10 @@ public interface SalaryGradeDAO extends BaseDAO{
 	public int countEmployeeSalarySheetListWithPayingOff(String salaryGradeId, String payingOffId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<SalaryGrade> queryList(String sql, Object ... parmeters);
+	public SmartList<SalaryGrade> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SalaryGrade> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSalaryGrade executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SalaryGrade> findSalaryGradeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -109,6 +111,8 @@ public interface SalaryGradeDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:EmployeeSalarySheet的currentSalaryGrade的EmployeeSalarySheetList
 	public SmartList<EmployeeSalarySheet> loadOurEmployeeSalarySheetList(RetailscmUserContext userContext, List<SalaryGrade> us, Map<String,Object> options) throws Exception;
 	
+
+	List<SalaryGrade> search(SalaryGradeRequest pRequest);
 }
 
 

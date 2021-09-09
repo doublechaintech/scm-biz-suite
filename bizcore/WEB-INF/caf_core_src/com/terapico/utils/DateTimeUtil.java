@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class DateTimeUtil {
 	/**
-	 * 
+	 *
 	 * <ul>
 	 * <li>EarlierThan: 时间段1开始了,时间段2还没开始.</li>
 	 * <li>EndIn: 时间段1早于时间段2开始, 在时间段2期间结束. </li>
@@ -20,7 +20,7 @@ public class DateTimeUtil {
 	 * <li>StartIn: 时间段1在时间段2内开始,在时间段2结束后才结束.</li>
 	 * <li>After: 时间段1在时间段2结束后才开始.</li>
 	 * <li>Contains: 时间段1包含整个时间段2.</li>
-	 * 
+	 *
 	 * @author clariones
 	 *
 	 */
@@ -49,12 +49,12 @@ public class DateTimeUtil {
 	public static final DateTimeFormatter DAY_TIME_FORMAT_SS = DateTimeFormatter.ofPattern("yyyy-M-d'T'H:m:s.SSS'Z'");
 	public static final DateTimeFormatter YEAR_MONTH_FORMAT = DateTimeFormatter.ofPattern("yyyy-M");
 	public static final DateTimeFormatter YEAR_MONTH_FORMAT_BY_SLASH = DateTimeFormatter.ofPattern("yyyy/M");
-	
+
 	public static final String HOUR_MINUTE_FORMAT = "H:m";
 	public static final String HOUR_MINUTE_SECOND_FORMAT = "H:m:s";
 	public static final String HOUR_MINUTE_SECOND_SS_FORMAT = "H:m:s.S";
-	public static final String DATE_HOUR_MINUTE_FORMAT = "yyyy-MM-dd H:m:s";
-	
+	public static final String DATE_HOUR_MINUTE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
 	private static final DateTimeFormatter[] allFormats = new DateTimeFormatter[] { DAY_FORMAT, DAY_TIME_FORMAT,
 			DAY_TIME_FORMAT_S, DAY_TIME_MINUTE_FORMAT, DAY_TIME_MINUTE_FORMAT_S, DAY_TIME_FORMAT_SS, YEAR_MONTH_FORMAT,
 			DAY_FORMAT_BY_SLASH, DAY_TIME_MINUTE_FORMAT_BY_SLASH, YEAR_MONTH_FORMAT_BY_SLASH};
@@ -63,13 +63,13 @@ public class DateTimeUtil {
 	static {
 		// 2019 年
 		ChinaHolidayPatch.put("2019-01-01", true); // 元旦
-		ChinaHolidayPatch.put("2019-02-02", false); 
-		ChinaHolidayPatch.put("2019-02-03", false); 
+		ChinaHolidayPatch.put("2019-02-02", false);
+		ChinaHolidayPatch.put("2019-02-03", false);
 		ChinaHolidayPatch.put("2019-02-04", true); // 春节
-		ChinaHolidayPatch.put("2019-02-05", true); 
-		ChinaHolidayPatch.put("2019-02-06", true); 
-		ChinaHolidayPatch.put("2019-02-07", true); 
-		ChinaHolidayPatch.put("2019-02-08", true); 
+		ChinaHolidayPatch.put("2019-02-05", true);
+		ChinaHolidayPatch.put("2019-02-06", true);
+		ChinaHolidayPatch.put("2019-02-07", true);
+		ChinaHolidayPatch.put("2019-02-08", true);
 		ChinaHolidayPatch.put("2019-04-05", true); // 清明
 		ChinaHolidayPatch.put("2019-04-28", false);
 		ChinaHolidayPatch.put("2019-05-01", true); // 5.1
@@ -99,15 +99,43 @@ public class DateTimeUtil {
 		ChinaHolidayPatch.put("2020-06-25", true);	// 端午
 		ChinaHolidayPatch.put("2020-06-26", true);
 		ChinaHolidayPatch.put("2020-06-28", false);
+		ChinaHolidayPatch.put("2020-09-27", false);
 		ChinaHolidayPatch.put("2020-10-01", true); // 国庆-中秋
 		ChinaHolidayPatch.put("2020-10-02", true);
 		ChinaHolidayPatch.put("2020-10-05", true);
 		ChinaHolidayPatch.put("2020-10-06", true);
 		ChinaHolidayPatch.put("2020-10-07", true);
+		ChinaHolidayPatch.put("2020-10-08", true);
 		ChinaHolidayPatch.put("2020-10-10", false);
-		
+		// 2021年
+		ChinaHolidayPatch.put("2021-01-01", true); // 元旦
+		ChinaHolidayPatch.put("2021-02-07", false); // 春节调休
+		ChinaHolidayPatch.put("2021-02-11", true);
+		ChinaHolidayPatch.put("2021-02-12", true);
+		ChinaHolidayPatch.put("2021-02-15", true);
+		ChinaHolidayPatch.put("2021-02-16", true);
+		ChinaHolidayPatch.put("2021-02-17", true);
+		ChinaHolidayPatch.put("2021-02-20", false);
+		ChinaHolidayPatch.put("2021-04-05", true); // 清明
+		ChinaHolidayPatch.put("2021-04-25", false); // 5.1调休
+		ChinaHolidayPatch.put("2021-05-03", true); // 5.1
+		ChinaHolidayPatch.put("2021-05-04", true);
+		ChinaHolidayPatch.put("2021-05-05", true);
+		ChinaHolidayPatch.put("2021-05-08", false);
+		ChinaHolidayPatch.put("2021-06-14", true); 	// 端午
+		ChinaHolidayPatch.put("2021-09-18", false);  // 中秋
+		ChinaHolidayPatch.put("2021-09-20", true);
+		ChinaHolidayPatch.put("2021-09-21", true);
+		ChinaHolidayPatch.put("2021-09-26", false);	// 中秋
+		ChinaHolidayPatch.put("2021-10-01", true); // 国庆-中秋
+		ChinaHolidayPatch.put("2021-10-04", true);
+		ChinaHolidayPatch.put("2021-10-05", true);
+		ChinaHolidayPatch.put("2021-10-06", true);
+		ChinaHolidayPatch.put("2021-10-07", true);
+		ChinaHolidayPatch.put("2021-10-09", false);
+
 	}
-	
+
 	public static String toStringAsDay(Date date) {
 		if (date == null) {
 			return null;
@@ -144,8 +172,8 @@ public class DateTimeUtil {
 		}
 		return null;
 	}
-	
-	
+
+
 	public static Date parseInputTime(String valueOf) {
 		if (valueOf == null) {
 			return null;
@@ -234,7 +262,7 @@ public class DateTimeUtil {
 		Duration duration = Duration.between(d1, d2);
 		return (int) duration.toHours();
 	}
-	
+
 	public static int calcDifferMinutes(Date startTime, Date endTime) {
 		LocalDateTime d1 = toLocalDateTime(startTime);
 		LocalDateTime d2 = toLocalDateTime(endTime);
@@ -248,11 +276,11 @@ public class DateTimeUtil {
 		Duration duration = Duration.between(d1, d2);
 		return duration.getSeconds();
 	}
-	
+
 	public static long calcDifferMS(Date startTime, Date endTime) {
 		return endTime.getTime() - startTime.getTime();
 	}
-	
+
 	public static Date getDate(String dateString) {
 		return parseInputDateTime(dateString);
 	}
@@ -275,7 +303,7 @@ public class DateTimeUtil {
 	public static Date toEndOfLastMonth(Date date) {
 		return toEndOfDay(toDate(toLocalDateTime(date).plusMonths(-1).with(TemporalAdjusters.lastDayOfMonth())));
 	}
-	
+
 	public static boolean isSameYear(Date date1, Date date2) {
 		Calendar cald1 = Calendar.getInstance();
 		Calendar cald2 = Calendar.getInstance();
@@ -388,7 +416,7 @@ public class DateTimeUtil {
 	public static Date getFirstDayOfThisMonth() {
 		return toStartOfMonth(new Date());
 	}
-	
+
 	public static boolean isChineseHoliday(Date date) {
 		return isHoliday(ChinaHolidayPatch, date);
 	}
@@ -404,7 +432,7 @@ public class DateTimeUtil {
 		int d = c.get(Calendar.DAY_OF_WEEK);
 		return d == Calendar.SATURDAY || d == Calendar.SUNDAY;
 	}
-	
+
 	public static DateTimeBuilder standOn(Date date) {
 		return new DateTimeBuilder(date);
 	}
@@ -448,11 +476,11 @@ public class DateTimeUtil {
 
 	public static void main(String[] args) {
 		System.out.print(parseInputTime("1:3"));
-		
+
 //		DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
 //		String date = "12:30";
 //		LocalDateTime dateTime = LocalDateTime.parse(date, format);
 //		System.out.println(dateTime);
 	}
-	
+
 }

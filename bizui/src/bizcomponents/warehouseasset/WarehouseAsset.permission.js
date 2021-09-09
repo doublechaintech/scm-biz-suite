@@ -31,10 +31,10 @@ const internalSummaryOf = (warehouseAsset,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{warehouseAsset.id}</Description> 
+<Description term="ID">{warehouseAsset.id}</Description> 
 <Description term="名称">{warehouseAsset.name}</Description> 
 <Description term="位置">{warehouseAsset.position}</Description> 
-<Description term="最后更新时间">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class WarehouseAssetPermission extends Component {
     // eslint-disable-next-line max-len
     const  warehouseAsset = this.props.warehouseAsset
     const { id,displayName,  } = warehouseAsset
-    const  returnURL = `/warehouseAsset/${id}/dashboard`
+    const  returnURL = `/warehouseAsset/${id}/workbench`
     const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class WarehouseAssetPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

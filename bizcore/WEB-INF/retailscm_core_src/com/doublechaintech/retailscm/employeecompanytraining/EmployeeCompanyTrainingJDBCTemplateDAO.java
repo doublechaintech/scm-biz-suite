@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.employeecompanytraining;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -53,13 +54,13 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
 
 	protected CompanyTrainingDAO companyTrainingDAO;
 	public void setCompanyTrainingDAO(CompanyTrainingDAO companyTrainingDAO){
- 	
+
  		if(companyTrainingDAO == null){
  			throw new IllegalStateException("Do not try to set companyTrainingDAO to null.");
  		}
@@ -69,13 +70,13 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		if(this.companyTrainingDAO == null){
  			throw new IllegalStateException("The companyTrainingDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.companyTrainingDAO;
- 	}	
+ 	}
 
 	protected ScoringDAO scoringDAO;
 	public void setScoringDAO(ScoringDAO scoringDAO){
- 	
+
  		if(scoringDAO == null){
  			throw new IllegalStateException("Do not try to set scoringDAO to null.");
  		}
@@ -85,9 +86,10 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		if(this.scoringDAO == null){
  			throw new IllegalStateException("The scoringDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.scoringDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -221,57 +223,57 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EmployeeCompanyTrainingTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeCompanyTrainingTokens.EMPLOYEE);
  	}
 
  	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeCompanyTrainingTokens.EMPLOYEE);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractTrainingEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeCompanyTrainingTokens.TRAINING);
  	}
 
  	protected boolean isSaveTrainingEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeCompanyTrainingTokens.TRAINING);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractScoringEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EmployeeCompanyTrainingTokens.SCORING);
  	}
 
  	protected boolean isSaveScoringEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EmployeeCompanyTrainingTokens.SCORING);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -281,8 +283,8 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		return new EmployeeCompanyTrainingMapper();
 	}
 
-	
-	
+
+
 	protected EmployeeCompanyTraining extractEmployeeCompanyTraining(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EmployeeCompanyTraining employeeCompanyTraining = loadSingleObject(accessKey, getEmployeeCompanyTrainingMapper());
@@ -293,33 +295,34 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 
 	}
 
-	
-	
+
+
 
 	protected EmployeeCompanyTraining loadInternalEmployeeCompanyTraining(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EmployeeCompanyTraining employeeCompanyTraining = extractEmployeeCompanyTraining(accessKey, loadOptions);
- 	
+
  		if(isExtractEmployeeEnabled(loadOptions)){
 	 		extractEmployee(employeeCompanyTraining, loadOptions);
  		}
-  	
+ 
  		if(isExtractTrainingEnabled(loadOptions)){
 	 		extractTraining(employeeCompanyTraining, loadOptions);
  		}
-  	
+ 
  		if(isExtractScoringEnabled(loadOptions)){
 	 		extractScoring(employeeCompanyTraining, loadOptions);
  		}
  
 		
 		return employeeCompanyTraining;
-		
+
 	}
 
-	 
+	
 
  	protected EmployeeCompanyTraining extractEmployee(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeCompanyTraining.getEmployee() == null){
 			return employeeCompanyTraining;
@@ -332,14 +335,15 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		if(employee != null){
 			employeeCompanyTraining.setEmployee(employee);
 		}
-		
- 		
+
+
  		return employeeCompanyTraining;
  	}
- 		
-  
+
+ 
 
  	protected EmployeeCompanyTraining extractTraining(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeCompanyTraining.getTraining() == null){
 			return employeeCompanyTraining;
@@ -352,14 +356,15 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		if(training != null){
 			employeeCompanyTraining.setTraining(training);
 		}
-		
- 		
+
+
  		return employeeCompanyTraining;
  	}
- 		
-  
+
+ 
 
  	protected EmployeeCompanyTraining extractScoring(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options) throws Exception{
+  
 
 		if(employeeCompanyTraining.getScoring() == null){
 			return employeeCompanyTraining;
@@ -372,46 +377,46 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		if(scoring != null){
 			employeeCompanyTraining.setScoring(scoring);
 		}
-		
- 		
+
+
  		return employeeCompanyTraining;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByEmployee(String employeeId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeCompanyTraining> resultList = queryWith(EmployeeCompanyTrainingTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeCompanyTrainingMapper());
 		// analyzeEmployeeCompanyTrainingByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByEmployee(String employeeId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeCompanyTraining> resultList =  queryWithRange(EmployeeCompanyTrainingTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeCompanyTrainingMapper(), start, count);
  		//analyzeEmployeeCompanyTrainingByEmployee(resultList, employeeId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeCompanyTrainingByEmployee(SmartList<EmployeeCompanyTraining> resultList, String employeeId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, employeeId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeCompanyTrainingByEmployee(String employeeId,Map<String,Object> options){
@@ -422,39 +427,39 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	public Map<String, Integer> countEmployeeCompanyTrainingByEmployeeIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeCompanyTrainingTable.COLUMN_EMPLOYEE, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByTraining(String companyTrainingId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeCompanyTraining> resultList = queryWith(EmployeeCompanyTrainingTable.COLUMN_TRAINING, companyTrainingId, options, getEmployeeCompanyTrainingMapper());
 		// analyzeEmployeeCompanyTrainingByTraining(resultList, companyTrainingId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByTraining(String companyTrainingId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeCompanyTraining> resultList =  queryWithRange(EmployeeCompanyTrainingTable.COLUMN_TRAINING, companyTrainingId, options, getEmployeeCompanyTrainingMapper(), start, count);
  		//analyzeEmployeeCompanyTrainingByTraining(resultList, companyTrainingId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeCompanyTrainingByTraining(SmartList<EmployeeCompanyTraining> resultList, String companyTrainingId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeCompanyTraining.TRAINING_PROPERTY, companyTrainingId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeCompanyTrainingByTraining(String companyTrainingId,Map<String,Object> options){
@@ -465,39 +470,39 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	public Map<String, Integer> countEmployeeCompanyTrainingByTrainingIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeCompanyTrainingTable.COLUMN_TRAINING, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByScoring(String scoringId,Map<String,Object> options){
- 	
+
   		SmartList<EmployeeCompanyTraining> resultList = queryWith(EmployeeCompanyTrainingTable.COLUMN_SCORING, scoringId, options, getEmployeeCompanyTrainingMapper());
 		// analyzeEmployeeCompanyTrainingByScoring(resultList, scoringId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByScoring(String scoringId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EmployeeCompanyTraining> resultList =  queryWithRange(EmployeeCompanyTrainingTable.COLUMN_SCORING, scoringId, options, getEmployeeCompanyTrainingMapper(), start, count);
  		//analyzeEmployeeCompanyTrainingByScoring(resultList, scoringId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEmployeeCompanyTrainingByScoring(SmartList<EmployeeCompanyTraining> resultList, String scoringId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeCompanyTraining.SCORING_PROPERTY, scoringId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEmployeeCompanyTrainingByScoring(String scoringId,Map<String,Object> options){
@@ -508,21 +513,24 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	public Map<String, Integer> countEmployeeCompanyTrainingByScoringIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EmployeeCompanyTrainingTable.COLUMN_SCORING, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EmployeeCompanyTraining saveEmployeeCompanyTraining(EmployeeCompanyTraining  employeeCompanyTraining){
+    
+
 		
 		if(!employeeCompanyTraining.isChanged()){
 			return employeeCompanyTraining;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(employeeCompanyTraining);
 		String SQL=this.getSaveEmployeeCompanyTrainingSQL(employeeCompanyTraining);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEmployeeCompanyTrainingParameters(employeeCompanyTraining);
@@ -533,6 +541,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		}
 
 		employeeCompanyTraining.incVersion();
+		employeeCompanyTraining.afterSave();
 		return employeeCompanyTraining;
 
 	}
@@ -550,6 +559,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		for(EmployeeCompanyTraining employeeCompanyTraining:employeeCompanyTrainingList){
 			if(employeeCompanyTraining.isChanged()){
 				employeeCompanyTraining.incVersion();
+				employeeCompanyTraining.afterSave();
 			}
 
 
@@ -656,15 +666,15 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		if(employeeCompanyTraining.getEmployee() != null){
  			parameters[0] = employeeCompanyTraining.getEmployee().getId();
  		}
- 
+    
  		if(employeeCompanyTraining.getTraining() != null){
  			parameters[1] = employeeCompanyTraining.getTraining().getId();
  		}
- 
+    
  		if(employeeCompanyTraining.getScoring() != null){
  			parameters[2] = employeeCompanyTraining.getScoring().getId();
  		}
- 
+    
  		parameters[3] = employeeCompanyTraining.nextVersion();
  		parameters[4] = employeeCompanyTraining.getId();
  		parameters[5] = employeeCompanyTraining.getVersion();
@@ -681,17 +691,14 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  
  		if(employeeCompanyTraining.getEmployee() != null){
  			parameters[1] = employeeCompanyTraining.getEmployee().getId();
-
  		}
  		
  		if(employeeCompanyTraining.getTraining() != null){
  			parameters[2] = employeeCompanyTraining.getTraining().getId();
-
  		}
  		
  		if(employeeCompanyTraining.getScoring() != null){
  			parameters[3] = employeeCompanyTraining.getScoring().getId();
-
  		}
  		
 
@@ -699,8 +706,6 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  	}
 
 	protected EmployeeCompanyTraining saveInternalEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
-
-		saveEmployeeCompanyTraining(employeeCompanyTraining);
 
  		if(isSaveEmployeeEnabled(options)){
 	 		saveEmployee(employeeCompanyTraining, options);
@@ -714,6 +719,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	 		saveScoring(employeeCompanyTraining, options);
  		}
  
+   saveEmployeeCompanyTraining(employeeCompanyTraining);
 		
 		return employeeCompanyTraining;
 
@@ -725,6 +731,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	
 
  	protected EmployeeCompanyTraining saveEmployee(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeCompanyTraining.getEmployee() == null){
  			return employeeCompanyTraining;//do nothing when it is null
@@ -734,14 +741,10 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		return employeeCompanyTraining;
 
  	}
-
-
-
-
-
  
 
  	protected EmployeeCompanyTraining saveTraining(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeCompanyTraining.getTraining() == null){
  			return employeeCompanyTraining;//do nothing when it is null
@@ -751,14 +754,10 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		return employeeCompanyTraining;
 
  	}
-
-
-
-
-
  
 
  	protected EmployeeCompanyTraining saveScoring(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(employeeCompanyTraining.getScoring() == null){
  			return employeeCompanyTraining;//do nothing when it is null
@@ -768,11 +767,6 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
  		return employeeCompanyTraining;
 
  	}
-
-
-
-
-
  
 
 	
@@ -780,10 +774,10 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 		
 
 	public EmployeeCompanyTraining present(EmployeeCompanyTraining employeeCompanyTraining,Map<String, Object> options){
-	
+
 
 		return employeeCompanyTraining;
-	
+
 	}
 		
 
@@ -835,6 +829,10 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EmployeeCompanyTraining> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeCompanyTrainingMapper());
   }
@@ -870,6 +868,15 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmBaseDAOImpl
 
 	
 
+  @Override
+  public List<EmployeeCompanyTraining> search(EmployeeCompanyTrainingRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EmployeeCompanyTrainingMapper mapper() {
+    return getEmployeeCompanyTrainingMapper();
+  }
 }
 
 

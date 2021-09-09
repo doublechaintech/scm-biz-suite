@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstoreprovincecenter;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -55,13 +56,13 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected ProvinceCenterDepartmentDAO provinceCenterDepartmentDAO;
 	public void setProvinceCenterDepartmentDAO(ProvinceCenterDepartmentDAO provinceCenterDepartmentDAO){
- 	
+
  		if(provinceCenterDepartmentDAO == null){
  			throw new IllegalStateException("Do not try to set provinceCenterDepartmentDAO to null.");
  		}
@@ -71,13 +72,13 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		if(this.provinceCenterDepartmentDAO == null){
  			throw new IllegalStateException("The provinceCenterDepartmentDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.provinceCenterDepartmentDAO;
- 	}	
+ 	}
 
 	protected ProvinceCenterEmployeeDAO provinceCenterEmployeeDAO;
 	public void setProvinceCenterEmployeeDAO(ProvinceCenterEmployeeDAO provinceCenterEmployeeDAO){
- 	
+
  		if(provinceCenterEmployeeDAO == null){
  			throw new IllegalStateException("Do not try to set provinceCenterEmployeeDAO to null.");
  		}
@@ -87,13 +88,13 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		if(this.provinceCenterEmployeeDAO == null){
  			throw new IllegalStateException("The provinceCenterEmployeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.provinceCenterEmployeeDAO;
- 	}	
+ 	}
 
 	protected RetailStoreCityServiceCenterDAO retailStoreCityServiceCenterDAO;
 	public void setRetailStoreCityServiceCenterDAO(RetailStoreCityServiceCenterDAO retailStoreCityServiceCenterDAO){
- 	
+
  		if(retailStoreCityServiceCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCityServiceCenterDAO to null.");
  		}
@@ -103,9 +104,10 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		if(this.retailStoreCityServiceCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCityServiceCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCityServiceCenterDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -159,21 +161,21 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		newRetailStoreProvinceCenter.setVersion(0);
 		
 		
- 		
+
  		if(isSaveProvinceCenterDepartmentListEnabled(options)){
  			for(ProvinceCenterDepartment item: newRetailStoreProvinceCenter.getProvinceCenterDepartmentList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveProvinceCenterEmployeeListEnabled(options)){
  			for(ProvinceCenterEmployee item: newRetailStoreProvinceCenter.getProvinceCenterEmployeeList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreCityServiceCenterListEnabled(options)){
  			for(RetailStoreCityServiceCenter item: newRetailStoreProvinceCenter.getRetailStoreCityServiceCenterList()){
  				item.setVersion(0);
@@ -260,72 +262,72 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreProvinceCenterTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCountryEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreProvinceCenterTokens.COUNTRY);
  	}
 
  	protected boolean isSaveCountryEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreProvinceCenterTokens.COUNTRY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractProvinceCenterDepartmentListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractProvinceCenterDepartmentListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST);
  	}
- 	protected boolean isAnalyzeProvinceCenterDepartmentListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeProvinceCenterDepartmentListEnabled(Map<String,Object> options){
  		return RetailStoreProvinceCenterTokens.of(options).analyzeProvinceCenterDepartmentListEnabled();
  	}
-	
+
 	protected boolean isSaveProvinceCenterDepartmentListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractProvinceCenterEmployeeListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){
  		return RetailStoreProvinceCenterTokens.of(options).analyzeProvinceCenterEmployeeListEnabled();
  	}
-	
+
 	protected boolean isSaveProvinceCenterEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){
  		return RetailStoreProvinceCenterTokens.of(options).analyzeRetailStoreCityServiceCenterListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -334,8 +336,8 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		return new RetailStoreProvinceCenterMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreProvinceCenter extractRetailStoreProvinceCenter(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreProvinceCenter retailStoreProvinceCenter = loadSingleObject(accessKey, getRetailStoreProvinceCenterMapper());
@@ -346,13 +348,13 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreProvinceCenter loadInternalRetailStoreProvinceCenter(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreProvinceCenter retailStoreProvinceCenter = extractRetailStoreProvinceCenter(accessKey, loadOptions);
- 	
+
  		if(isExtractCountryEnabled(loadOptions)){
 	 		extractCountry(retailStoreProvinceCenter, loadOptions);
  		}
@@ -360,14 +362,14 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		
 		if(isExtractProvinceCenterDepartmentListEnabled(loadOptions)){
 	 		extractProvinceCenterDepartmentList(retailStoreProvinceCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
 		
 		if(isExtractProvinceCenterEmployeeListEnabled(loadOptions)){
 	 		extractProvinceCenterEmployeeList(retailStoreProvinceCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeProvinceCenterEmployeeListEnabled(loadOptions)){
 	 		analyzeProvinceCenterEmployeeList(retailStoreProvinceCenter, loadOptions);
@@ -376,8 +378,8 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		
 		if(isExtractRetailStoreCityServiceCenterListEnabled(loadOptions)){
 	 		extractRetailStoreCityServiceCenterList(retailStoreProvinceCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreCityServiceCenterListEnabled(loadOptions)){
 	 		analyzeRetailStoreCityServiceCenterList(retailStoreProvinceCenter, loadOptions);
@@ -385,12 +387,13 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		
 		
 		return retailStoreProvinceCenter;
-		
+
 	}
 
-	 
+	
 
  	protected RetailStoreProvinceCenter extractCountry(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreProvinceCenter.getCountry() == null){
 			return retailStoreProvinceCenter;
@@ -403,21 +406,21 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		if(country != null){
 			retailStoreProvinceCenter.setCountry(country);
 		}
-		
- 		
+
+
  		return retailStoreProvinceCenter;
  	}
- 		
+
  
 		
 	protected void enhanceProvinceCenterDepartmentList(SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreProvinceCenter extractProvinceCenterDepartmentList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreProvinceCenter == null){
 			return null;
 		}
@@ -425,21 +428,20 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;
 		}
 
-		
-		
+
+
 		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = getProvinceCenterDepartmentDAO().findProvinceCenterDepartmentByProvinceCenter(retailStoreProvinceCenter.getId(),options);
 		if(provinceCenterDepartmentList != null){
 			enhanceProvinceCenterDepartmentList(provinceCenterDepartmentList,options);
 			retailStoreProvinceCenter.setProvinceCenterDepartmentList(provinceCenterDepartmentList);
 		}
-		
+
 		return retailStoreProvinceCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreProvinceCenter analyzeProvinceCenterDepartmentList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreProvinceCenter == null){
 			return null;
 		}
@@ -447,27 +449,27 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;
 		}
 
-		
-		
+
+
 		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = retailStoreProvinceCenter.getProvinceCenterDepartmentList();
 		if(provinceCenterDepartmentList != null){
 			getProvinceCenterDepartmentDAO().analyzeProvinceCenterDepartmentByProvinceCenter(provinceCenterDepartmentList, retailStoreProvinceCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreProvinceCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceProvinceCenterEmployeeList(SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreProvinceCenter extractProvinceCenterEmployeeList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreProvinceCenter == null){
 			return null;
 		}
@@ -475,21 +477,20 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;
 		}
 
-		
-		
+
+
 		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = getProvinceCenterEmployeeDAO().findProvinceCenterEmployeeByProvinceCenter(retailStoreProvinceCenter.getId(),options);
 		if(provinceCenterEmployeeList != null){
 			enhanceProvinceCenterEmployeeList(provinceCenterEmployeeList,options);
 			retailStoreProvinceCenter.setProvinceCenterEmployeeList(provinceCenterEmployeeList);
 		}
-		
+
 		return retailStoreProvinceCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreProvinceCenter analyzeProvinceCenterEmployeeList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreProvinceCenter == null){
 			return null;
 		}
@@ -497,27 +498,27 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;
 		}
 
-		
-		
+
+
 		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();
 		if(provinceCenterEmployeeList != null){
 			getProvinceCenterEmployeeDAO().analyzeProvinceCenterEmployeeByProvinceCenter(provinceCenterEmployeeList, retailStoreProvinceCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreProvinceCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreCityServiceCenterList(SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreProvinceCenter extractRetailStoreCityServiceCenterList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreProvinceCenter == null){
 			return null;
 		}
@@ -525,21 +526,20 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = getRetailStoreCityServiceCenterDAO().findRetailStoreCityServiceCenterByBelongsTo(retailStoreProvinceCenter.getId(),options);
 		if(retailStoreCityServiceCenterList != null){
 			enhanceRetailStoreCityServiceCenterList(retailStoreCityServiceCenterList,options);
 			retailStoreProvinceCenter.setRetailStoreCityServiceCenterList(retailStoreCityServiceCenterList);
 		}
-		
+
 		return retailStoreProvinceCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreProvinceCenter analyzeRetailStoreCityServiceCenterList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreProvinceCenter == null){
 			return null;
 		}
@@ -547,47 +547,47 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 			return retailStoreProvinceCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = retailStoreProvinceCenter.getRetailStoreCityServiceCenterList();
 		if(retailStoreCityServiceCenterList != null){
 			getRetailStoreCityServiceCenterDAO().analyzeRetailStoreCityServiceCenterByBelongsTo(retailStoreCityServiceCenterList, retailStoreProvinceCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreProvinceCenter;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<RetailStoreProvinceCenter> findRetailStoreProvinceCenterByCountry(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreProvinceCenter> resultList = queryWith(RetailStoreProvinceCenterTable.COLUMN_COUNTRY, retailStoreCountryCenterId, options, getRetailStoreProvinceCenterMapper());
 		// analyzeRetailStoreProvinceCenterByCountry(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreProvinceCenter> findRetailStoreProvinceCenterByCountry(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreProvinceCenter> resultList =  queryWithRange(RetailStoreProvinceCenterTable.COLUMN_COUNTRY, retailStoreCountryCenterId, options, getRetailStoreProvinceCenterMapper(), start, count);
  		//analyzeRetailStoreProvinceCenterByCountry(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreProvinceCenterByCountry(SmartList<RetailStoreProvinceCenter> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreProvinceCenter.COUNTRY_PROPERTY, retailStoreCountryCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY
@@ -595,11 +595,11 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreProvinceCenterByCountry(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -610,21 +610,24 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	public Map<String, Integer> countRetailStoreProvinceCenterByCountryIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreProvinceCenterTable.COLUMN_COUNTRY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreProvinceCenter saveRetailStoreProvinceCenter(RetailStoreProvinceCenter  retailStoreProvinceCenter){
+    
+
 		
 		if(!retailStoreProvinceCenter.isChanged()){
 			return retailStoreProvinceCenter;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreProvinceCenter);
 		String SQL=this.getSaveRetailStoreProvinceCenterSQL(retailStoreProvinceCenter);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreProvinceCenterParameters(retailStoreProvinceCenter);
@@ -635,6 +638,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		}
 
 		retailStoreProvinceCenter.incVersion();
+		retailStoreProvinceCenter.afterSave();
 		return retailStoreProvinceCenter;
 
 	}
@@ -652,6 +656,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		for(RetailStoreProvinceCenter retailStoreProvinceCenter:retailStoreProvinceCenterList){
 			if(retailStoreProvinceCenter.isChanged()){
 				retailStoreProvinceCenter.incVersion();
+				retailStoreProvinceCenter.afterSave();
 			}
 
 
@@ -755,17 +760,14 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  	protected Object[] prepareRetailStoreProvinceCenterUpdateParameters(RetailStoreProvinceCenter retailStoreProvinceCenter){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = retailStoreProvinceCenter.getName();
- 		
  		
  		parameters[1] = retailStoreProvinceCenter.getFounded();
  		
  		if(retailStoreProvinceCenter.getCountry() != null){
  			parameters[2] = retailStoreProvinceCenter.getCountry().getId();
  		}
- 
- 		
+    
  		parameters[3] = retailStoreProvinceCenter.getLastUpdateTime();
  		
  		parameters[4] = retailStoreProvinceCenter.nextVersion();
@@ -782,17 +784,13 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
         }
 		parameters[0] =  retailStoreProvinceCenter.getId();
  
- 		
  		parameters[1] = retailStoreProvinceCenter.getName();
- 		
  		
  		parameters[2] = retailStoreProvinceCenter.getFounded();
  		
  		if(retailStoreProvinceCenter.getCountry() != null){
  			parameters[3] = retailStoreProvinceCenter.getCountry().getId();
-
  		}
- 		
  		
  		parameters[4] = retailStoreProvinceCenter.getLastUpdateTime();
  		
@@ -802,12 +800,11 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	protected RetailStoreProvinceCenter saveInternalRetailStoreProvinceCenter(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
 
-		saveRetailStoreProvinceCenter(retailStoreProvinceCenter);
-
  		if(isSaveCountryEnabled(options)){
 	 		saveCountry(retailStoreProvinceCenter, options);
  		}
  
+   saveRetailStoreProvinceCenter(retailStoreProvinceCenter);
 		
 		if(isSaveProvinceCenterDepartmentListEnabled(options)){
 	 		saveProvinceCenterDepartmentList(retailStoreProvinceCenter, options);
@@ -840,6 +837,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	
 
  	protected RetailStoreProvinceCenter saveCountry(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreProvinceCenter.getCountry() == null){
  			return retailStoreProvinceCenter;//do nothing when it is null
@@ -849,11 +847,6 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
  		return retailStoreProvinceCenter;
 
  	}
-
-
-
-
-
  
 
 	
@@ -988,7 +981,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 		
 	protected RetailStoreProvinceCenter saveProvinceCenterDepartmentList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -1054,7 +1047,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 		
 	protected RetailStoreProvinceCenter saveProvinceCenterEmployeeList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -1120,7 +1113,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 		
 	protected RetailStoreProvinceCenter saveRetailStoreCityServiceCenterList(RetailStoreProvinceCenter retailStoreProvinceCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -1187,21 +1180,21 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 		
 
 	public RetailStoreProvinceCenter present(RetailStoreProvinceCenter retailStoreProvinceCenter,Map<String, Object> options){
-	
+
 		presentProvinceCenterDepartmentList(retailStoreProvinceCenter,options);
 		presentProvinceCenterEmployeeList(retailStoreProvinceCenter,options);
 		presentRetailStoreCityServiceCenterList(retailStoreProvinceCenter,options);
 
 		return retailStoreProvinceCenter;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreProvinceCenter presentProvinceCenterDepartmentList(
 			RetailStoreProvinceCenter retailStoreProvinceCenter,
 			Map<String, Object> options) {
-
-		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = retailStoreProvinceCenter.getProvinceCenterDepartmentList();		
+    
+		SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList = retailStoreProvinceCenter.getProvinceCenterDepartmentList();
 				SmartList<ProvinceCenterDepartment> newList= presentSubList(retailStoreProvinceCenter.getId(),
 				provinceCenterDepartmentList,
 				options,
@@ -1209,19 +1202,19 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 				getProvinceCenterDepartmentDAO()::findProvinceCenterDepartmentByProvinceCenter
 				);
 
-		
+
 		retailStoreProvinceCenter.setProvinceCenterDepartmentList(newList);
-		
+
 
 		return retailStoreProvinceCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreProvinceCenter presentProvinceCenterEmployeeList(
 			RetailStoreProvinceCenter retailStoreProvinceCenter,
 			Map<String, Object> options) {
-
-		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();		
+    
+		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = retailStoreProvinceCenter.getProvinceCenterEmployeeList();
 				SmartList<ProvinceCenterEmployee> newList= presentSubList(retailStoreProvinceCenter.getId(),
 				provinceCenterEmployeeList,
 				options,
@@ -1229,19 +1222,19 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 				getProvinceCenterEmployeeDAO()::findProvinceCenterEmployeeByProvinceCenter
 				);
 
-		
+
 		retailStoreProvinceCenter.setProvinceCenterEmployeeList(newList);
-		
+
 
 		return retailStoreProvinceCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreProvinceCenter presentRetailStoreCityServiceCenterList(
 			RetailStoreProvinceCenter retailStoreProvinceCenter,
 			Map<String, Object> options) {
-
-		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = retailStoreProvinceCenter.getRetailStoreCityServiceCenterList();		
+    
+		SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = retailStoreProvinceCenter.getRetailStoreCityServiceCenterList();
 				SmartList<RetailStoreCityServiceCenter> newList= presentSubList(retailStoreProvinceCenter.getId(),
 				retailStoreCityServiceCenterList,
 				options,
@@ -1249,12 +1242,12 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 				getRetailStoreCityServiceCenterDAO()::findRetailStoreCityServiceCenterByBelongsTo
 				);
 
-		
+
 		retailStoreProvinceCenter.setRetailStoreCityServiceCenterList(newList);
-		
+
 
 		return retailStoreProvinceCenter;
-	}			
+	}
 		
 
 	
@@ -1290,6 +1283,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	
 	// 需要一个加载引用我的对象的enhance方法:ProvinceCenterDepartment的provinceCenter的ProvinceCenterDepartmentList
 	public SmartList<ProvinceCenterDepartment> loadOurProvinceCenterDepartmentList(RetailscmUserContext userContext, List<RetailStoreProvinceCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1313,6 +1307,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	
 	// 需要一个加载引用我的对象的enhance方法:ProvinceCenterEmployee的provinceCenter的ProvinceCenterEmployeeList
 	public SmartList<ProvinceCenterEmployee> loadOurProvinceCenterEmployeeList(RetailscmUserContext userContext, List<RetailStoreProvinceCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1336,6 +1331,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStoreCityServiceCenter的belongsTo的RetailStoreCityServiceCenterList
 	public SmartList<RetailStoreCityServiceCenter> loadOurRetailStoreCityServiceCenterList(RetailscmUserContext userContext, List<RetailStoreProvinceCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1392,6 +1388,10 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreProvinceCenter> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreProvinceCenterMapper());
   }
@@ -1427,6 +1427,15 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmBaseDAOIm
 
 	
 
+  @Override
+  public List<RetailStoreProvinceCenter> search(RetailStoreProvinceCenterRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreProvinceCenterMapper mapper() {
+    return getRetailStoreProvinceCenterMapper();
+  }
 }
 
 

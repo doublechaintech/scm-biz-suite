@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCityServiceCenterAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCityServiceCenterAssociateForm 
-	visible={currentAssociateModal==='cityServiceCenter'} 
-	data={{cityPartnerList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'cityServiceCenter')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'cityServiceCenter')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class CityPartnerSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class CityPartnerSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {CityPartnerTable} = GlobalComponents;
     const {CityPartnerSearchForm} = GlobalComponents;
     const {CityPartnerModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class CityPartnerSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,CityPartnerModalTable,"cityPartnerIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

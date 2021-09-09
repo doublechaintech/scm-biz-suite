@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.levelonecategory;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface LevelOneCategoryManager extends BaseManager{
 
 		
 
+  List<LevelOneCategory> searchLevelOneCategoryList(RetailscmUserContext ctx, LevelOneCategoryRequest pRequest);
+  LevelOneCategory searchLevelOneCategory(RetailscmUserContext ctx, LevelOneCategoryRequest pRequest);
 	public LevelOneCategory createLevelOneCategory(RetailscmUserContext userContext, String catalogId,String name) throws Exception;
 	public LevelOneCategory updateLevelOneCategory(RetailscmUserContext userContext,String levelOneCategoryId, int levelOneCategoryVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public LevelOneCategory loadLevelOneCategory(RetailscmUserContext userContext, String levelOneCategoryId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface LevelOneCategoryManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String levelOneCategoryId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, LevelOneCategory newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, LevelOneCategory updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface LevelOneCategoryManager extends BaseManager{
 	public Object listByCatalog(RetailscmUserContext userContext,String catalogId) throws Exception;
 	public Object listPageByCatalog(RetailscmUserContext userContext,String catalogId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

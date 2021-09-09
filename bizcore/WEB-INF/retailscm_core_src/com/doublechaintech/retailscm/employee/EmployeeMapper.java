@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.employee;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -12,36 +13,39 @@ import com.doublechaintech.retailscm.occupationtype.OccupationType;
 import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
 
 public class EmployeeMapper extends BaseRowMapper<Employee>{
-	
+
 	protected Employee internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		Employee employee = getEmployee();		
-		 		
- 		setId(employee, rs, rowNumber); 		
- 		setCompany(employee, rs, rowNumber); 		
- 		setTitle(employee, rs, rowNumber); 		
- 		setDepartment(employee, rs, rowNumber); 		
- 		setFamilyName(employee, rs, rowNumber); 		
- 		setGivenName(employee, rs, rowNumber); 		
- 		setEmail(employee, rs, rowNumber); 		
- 		setCity(employee, rs, rowNumber); 		
- 		setAddress(employee, rs, rowNumber); 		
- 		setCellPhone(employee, rs, rowNumber); 		
- 		setOccupation(employee, rs, rowNumber); 		
- 		setResponsibleFor(employee, rs, rowNumber); 		
- 		setCurrentSalaryGrade(employee, rs, rowNumber); 		
- 		setSalaryAccount(employee, rs, rowNumber); 		
- 		setLastUpdateTime(employee, rs, rowNumber); 		
+		Employee employee = getEmployee();
+		
+ 		setId(employee, rs, rowNumber);
+ 		setCompany(employee, rs, rowNumber);
+ 		setTitle(employee, rs, rowNumber);
+ 		setDepartment(employee, rs, rowNumber);
+ 		setFamilyName(employee, rs, rowNumber);
+ 		setGivenName(employee, rs, rowNumber);
+ 		setEmail(employee, rs, rowNumber);
+ 		setCity(employee, rs, rowNumber);
+ 		setAddress(employee, rs, rowNumber);
+ 		setCellPhone(employee, rs, rowNumber);
+ 		setOccupation(employee, rs, rowNumber);
+ 		setResponsibleFor(employee, rs, rowNumber);
+ 		setCurrentSalaryGrade(employee, rs, rowNumber);
+ 		setSalaryAccount(employee, rs, rowNumber);
+ 		setLastUpdateTime(employee, rs, rowNumber);
  		setVersion(employee, rs, rowNumber);
 
+    
 		return employee;
 	}
-	
+
 	protected Employee getEmployee(){
-		return new Employee();
-	}		
+	  Employee entity = new Employee();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(EmployeeTable.COLUMN_ID);
@@ -52,10 +56,18 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setCompany(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(EmployeeTable.COLUMN_COMPANY);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(EmployeeTable.COLUMN_COMPANY);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -66,14 +78,14 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'employee' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		employee.setCompany(createEmptyCompany(retailStoreCountryCenterId));
  	}
  	
 	protected void setTitle(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String title = rs.getString(EmployeeTable.COLUMN_TITLE);
@@ -84,10 +96,18 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setTitle(title);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setDepartment(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
- 		String levelThreeDepartmentId = rs.getString(EmployeeTable.COLUMN_DEPARTMENT);
+ 		String levelThreeDepartmentId;
+ 		try{
+ 		  levelThreeDepartmentId = rs.getString(EmployeeTable.COLUMN_DEPARTMENT);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( levelThreeDepartmentId == null){
  			return;
  		}
@@ -98,14 +118,14 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
  		if( levelThreeDepartment != null ){
  			//if the root object 'employee' already have the property, just set the id for it;
  			levelThreeDepartment.setId(levelThreeDepartmentId);
- 			
+
  			return;
  		}
  		employee.setDepartment(createEmptyDepartment(levelThreeDepartmentId));
  	}
  	
 	protected void setFamilyName(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String familyName = rs.getString(EmployeeTable.COLUMN_FAMILY_NAME);
@@ -116,10 +136,13 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setFamilyName(familyName);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setGivenName(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String givenName = rs.getString(EmployeeTable.COLUMN_GIVEN_NAME);
@@ -130,10 +153,13 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setGivenName(givenName);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setEmail(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String email = rs.getString(EmployeeTable.COLUMN_EMAIL);
@@ -144,10 +170,13 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setEmail(email);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCity(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String city = rs.getString(EmployeeTable.COLUMN_CITY);
@@ -158,10 +187,13 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setCity(city);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setAddress(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String address = rs.getString(EmployeeTable.COLUMN_ADDRESS);
@@ -172,10 +204,13 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setAddress(address);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setCellPhone(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String cellPhone = rs.getString(EmployeeTable.COLUMN_CELL_PHONE);
@@ -186,10 +221,18 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setCellPhone(cellPhone);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setOccupation(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
- 		String occupationTypeId = rs.getString(EmployeeTable.COLUMN_OCCUPATION);
+ 		String occupationTypeId;
+ 		try{
+ 		  occupationTypeId = rs.getString(EmployeeTable.COLUMN_OCCUPATION);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( occupationTypeId == null){
  			return;
  		}
@@ -200,14 +243,19 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
  		if( occupationType != null ){
  			//if the root object 'employee' already have the property, just set the id for it;
  			occupationType.setId(occupationTypeId);
- 			
+
  			return;
  		}
  		employee.setOccupation(createEmptyOccupation(occupationTypeId));
  	}
- 	 		
+ 	
  	protected void setResponsibleFor(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
- 		String responsibilityTypeId = rs.getString(EmployeeTable.COLUMN_RESPONSIBLE_FOR);
+ 		String responsibilityTypeId;
+ 		try{
+ 		  responsibilityTypeId = rs.getString(EmployeeTable.COLUMN_RESPONSIBLE_FOR);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( responsibilityTypeId == null){
  			return;
  		}
@@ -218,14 +266,19 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
  		if( responsibilityType != null ){
  			//if the root object 'employee' already have the property, just set the id for it;
  			responsibilityType.setId(responsibilityTypeId);
- 			
+
  			return;
  		}
  		employee.setResponsibleFor(createEmptyResponsibleFor(responsibilityTypeId));
  	}
- 	 		
+ 	
  	protected void setCurrentSalaryGrade(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
- 		String salaryGradeId = rs.getString(EmployeeTable.COLUMN_CURRENT_SALARY_GRADE);
+ 		String salaryGradeId;
+ 		try{
+ 		  salaryGradeId = rs.getString(EmployeeTable.COLUMN_CURRENT_SALARY_GRADE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( salaryGradeId == null){
  			return;
  		}
@@ -236,14 +289,14 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
  		if( salaryGrade != null ){
  			//if the root object 'employee' already have the property, just set the id for it;
  			salaryGrade.setId(salaryGradeId);
- 			
+
  			return;
  		}
  		employee.setCurrentSalaryGrade(createEmptyCurrentSalaryGrade(salaryGradeId));
  	}
  	
 	protected void setSalaryAccount(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String salaryAccount = rs.getString(EmployeeTable.COLUMN_SALARY_ACCOUNT);
@@ -254,10 +307,13 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setSalaryAccount(salaryAccount);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(EmployeeTable.COLUMN_LAST_UPDATE_TIME);
@@ -268,10 +324,13 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(Employee employee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(EmployeeTable.COLUMN_VERSION);
@@ -282,9 +341,12 @@ public class EmployeeMapper extends BaseRowMapper<Employee>{
 		}
 		
 		employee.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyCompany(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

@@ -15,14 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = QuickLinkBase
 const testValues = {};
-/*
-const testValues = {
-  name: '列表',
-  icon: 'facebook',
-  linkTarget: '列表',
-  appId: 'UA000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
   'imagePath',
@@ -37,9 +32,20 @@ class QuickLinkCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = QuickLinkBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -50,7 +56,7 @@ class QuickLinkCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -58,7 +64,7 @@ class QuickLinkCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -66,10 +72,10 @@ class QuickLinkCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -78,16 +84,16 @@ class QuickLinkCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {QuickLinkService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -97,9 +103,9 @@ class QuickLinkCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -108,7 +114,7 @@ class QuickLinkCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -120,25 +126,25 @@ class QuickLinkCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('quick_link')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={1} maxLength={200} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +154,7 @@ class QuickLinkCreateFormBody extends Component {
                   {getFieldDecorator('icon', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.icon} />
+                    <SmallTextInput minLength={1} maxLength={200} size="large"  placeholder={fieldLabels.icon} />
                   )}
                 </Form.Item>
               </Col>
@@ -158,39 +164,39 @@ class QuickLinkCreateFormBody extends Component {
                   {getFieldDecorator('linkTarget', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.linkTarget} />
+                    <SmallTextInput minLength={1} maxLength={200} size="large"  placeholder={fieldLabels.linkTarget} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.app} {...formItemLayout}>
                   {getFieldDecorator('appId', {
                   	initialValue: tryinit('app'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('app')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"quick_link"} 
-		                 targetType={"user_app"} 
-                 
+		                 listType={"quick_link"}
+		                 targetType={"user_app"}
+
                     requestFunction={QuickLinkService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -205,26 +211,28 @@ class QuickLinkCreateFormBody extends Component {
 
        <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
           <Form >
-            <Row gutter={16}>     
-           
+            <Row gutter={16}>
 
-              <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={fieldLabels.imagePath}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleImageChange(event, 'imagePath')}
-                  fileList={convertedImagesValues.imagePath}
-                />
-              </Col>
+
+          <Col lg={6} md={6} sm={6}></Col>
+          <Col lg={12} md={12} sm={12}>
+              <Form.Item>
+                  {getFieldDecorator('imagePath', {
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.imagePath}/>
+                )} </Form.Item>
+
+              </Col><Col lg={6} md={6} sm={6}></Col>
 
              </Row>
           </Form>
         </Card>
-         
 
 
 
-      
+
+
        </div>
     )
   }

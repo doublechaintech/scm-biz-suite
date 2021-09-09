@@ -2,14 +2,22 @@
 package com.doublechaintech.retailscm.memberrewardpointredemption;
 import com.doublechaintech.retailscm.CommonTokens;
 import java.util.Map;
+import java.util.Objects;
+
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberTokens;
+
+
+
+
+
 public class MemberRewardPointRedemptionTokens extends CommonTokens{
 
 	static final String ALL="__all__"; //do not assign this to common users.
 	static final String SELF="__self__";
 	static final String OWNER_OBJECT_NAME="memberRewardPointRedemption";
-	
+
 	public static boolean checkOptions(Map<String,Object> options, String optionToCheck){
-		
+
 		if(options==null){
  			return false; //completely no option here
  		}
@@ -22,18 +30,18 @@ public class MemberRewardPointRedemptionTokens extends CommonTokens{
 		if(ownerObject ==  null){
 			return false;
 		}
-		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner? 
-			return false; 
+		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner?
+			return false;
 		}
-		
+
  		if(options.containsKey(optionToCheck)){
  			//options.remove(optionToCheck);
- 			//consume the key, can not use any more to extract the data with the same token.			
+ 			//consume the key, can not use any more to extract the data with the same token.
  			return true;
  		}
- 		
+
  		return false;
-	
+
 	}
 	protected MemberRewardPointRedemptionTokens(){
 		//ensure not initialized outside the class
@@ -42,53 +50,86 @@ public class MemberRewardPointRedemptionTokens extends CommonTokens{
 		//ensure not initialized outside the class
 		MemberRewardPointRedemptionTokens tokens = new MemberRewardPointRedemptionTokens(options);
 		return tokens;
-		
+
 	}
 	protected MemberRewardPointRedemptionTokens(Map<String,Object> options){
 		this.options = options;
 	}
-	
+
 	public MemberRewardPointRedemptionTokens merge(String [] tokens){
 		this.parseTokens(tokens);
 		return this;
 	}
-	
+
 	public static MemberRewardPointRedemptionTokens mergeAll(String [] tokens){
-		
+
 		return allTokens().merge(tokens);
 	}
-	
+
 	protected MemberRewardPointRedemptionTokens setOwnerObject(String objectName){
 		ensureOptions();
 		addSimpleOptions(getOwnerObjectKey(), objectName);
 		return this;
 	}
-	
-	
-	
-	
+
+
+
+
 	public static MemberRewardPointRedemptionTokens start(){
 		return new MemberRewardPointRedemptionTokens().setOwnerObject(OWNER_OBJECT_NAME);
 	}
-	
-	public MemberRewardPointRedemptionTokens withTokenFromListName(String listName){		
+
+	public MemberRewardPointRedemptionTokens withTokenFromListName(String listName){
 		addSimpleOptions(listName);
 		return this;
 	}
-	
-	protected static MemberRewardPointRedemptionTokens allTokens(){
-		
+
+  public static MemberRewardPointRedemptionTokens loadGroupTokens(String... groupNames){
+    MemberRewardPointRedemptionTokens tokens = start();
+    if (groupNames == null || groupNames.length == 0){
+      return allTokens();
+    }
+    addToken(tokens, OWNER, groupNames, new String[]{"default"});
+
+  
+    return tokens;
+  }
+
+  private static void addToken(MemberRewardPointRedemptionTokens pTokens, String pTokenName, String[] pGroupNames, String[] fieldGroups) {
+    if (pGroupNames == null || fieldGroups == null){
+      return;
+    }
+
+    for (String groupName: pGroupNames){
+      for(String g: fieldGroups){
+        if( Objects.equals(groupName, g)){
+          pTokens.addSimpleOptions(pTokenName);
+          break;
+        }
+      }
+    }
+  }
+
+	public static MemberRewardPointRedemptionTokens filterWithTokenViewGroups(String []viewGroups){
+
 		return start()
 			.withOwner();
-	
+
+	}
+
+	public static MemberRewardPointRedemptionTokens allTokens(){
+
+		return start()
+			.withOwner();
+
 	}
 	public static MemberRewardPointRedemptionTokens withoutListsTokens(){
-		
+
 		return start()
 			.withOwner();
-	
+
 	}
-	
+
 	public static Map <String,Object> all(){
 		return allTokens().done();
 	}
@@ -98,8 +139,8 @@ public class MemberRewardPointRedemptionTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
-	
-	public MemberRewardPointRedemptionTokens analyzeAllLists(){		
+
+	public MemberRewardPointRedemptionTokens analyzeAllLists(){
 		addSimpleOptions(ALL_LISTS_ANALYZE);
 		return this;
 	}
@@ -108,15 +149,21 @@ public class MemberRewardPointRedemptionTokens extends CommonTokens{
 	public String getOwner(){
 		return OWNER;
 	}
-	public MemberRewardPointRedemptionTokens withOwner(){		
+	//
+	public MemberRewardPointRedemptionTokens withOwner(){
 		addSimpleOptions(OWNER);
 		return this;
 	}
+
+	public RetailStoreMemberTokens withOwnerTokens(){
+		//addSimpleOptions(OWNER);
+		return RetailStoreMemberTokens.start();
+	}
+
 	
-	
-	
+
 	public  MemberRewardPointRedemptionTokens searchEntireObjectText(String verb, String value){
-		
+	
 		return this;
 	}
 }

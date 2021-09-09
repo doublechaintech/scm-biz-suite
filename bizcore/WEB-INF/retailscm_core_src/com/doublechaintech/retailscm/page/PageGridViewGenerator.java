@@ -5,20 +5,20 @@ import com.doublechaintech.retailscm.AccessKey;
 import com.doublechaintech.retailscm.BaseGridViewGenerator;
 
 public class PageGridViewGenerator extends BaseGridViewGenerator{
-	
-	
+
+
 
 	private static final long serialVersionUID = 1L;
-	
-	
-	
+
+
+
 	protected void throwExceptionIfListNotFount(String listName) {
 		String message=String.format("List '%s' is not found for Page", listName);
 		throw new IllegalArgumentException(message);
 	}
-	
+
 	protected String [] getHeaderKeys(String listName) {
-		
+
 		if(Page.SLIDE_LIST.equals(listName)){
 			return new String[]{"id","name","display_order","image_url","video_url","link_to_url","page","version"};
 		}
@@ -28,11 +28,11 @@ public class PageGridViewGenerator extends BaseGridViewGenerator{
 		if(Page.SECTION_LIST.equals(listName)){
 			return new String[]{"id","title","brief","icon","display_order","view_group","link_to_url","page","version"};
 		}
-		
+
 		throwExceptionIfListNotFount(listName);
 		return new String[]{}; // place holder, code will never go here!!!
-		
-		
+
+
 	}
 	protected String  getObjectKey(String listName) {
 		if(Page.SLIDE_LIST.equals(listName)){
@@ -44,7 +44,7 @@ public class PageGridViewGenerator extends BaseGridViewGenerator{
 		if(Page.SECTION_LIST.equals(listName)){
 			return "section";
 		}
-		
+
 
 		throwExceptionIfListNotFount(listName);
 		return ""; // place holder, code will never go here!!!

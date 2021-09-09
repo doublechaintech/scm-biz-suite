@@ -31,7 +31,7 @@ const internalSummaryOf = (transportTruck,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTruck.id}</Description> 
+<Description term="ID">{transportTruck.id}</Description> 
 <Description term="名称">{transportTruck.name}</Description> 
 <Description term="车牌号码">{transportTruck.plateNumber}</Description> 
 <Description term="联系电话">{transportTruck.contactNumber}</Description> 
@@ -65,7 +65,7 @@ class TransportTruckPermission extends Component {
     // eslint-disable-next-line max-len
     const  transportTruck = this.props.transportTruck
     const { id,displayName, transportTaskCount } = transportTruck
-    const  returnURL = `/transportTruck/${id}/dashboard`
+    const  returnURL = `/transportTruck/${id}/workbench`
     const cardsData = {cardsName:"运输车",cardsFor: "transportTruck",cardsSource: transportTruck,displayName,returnURL,
   		subItems: [
     
@@ -78,10 +78,10 @@ class TransportTruckPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

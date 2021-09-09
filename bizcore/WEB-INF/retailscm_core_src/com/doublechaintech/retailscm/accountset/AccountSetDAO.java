@@ -54,6 +54,7 @@ public interface AccountSetDAO extends BaseDAO{
 	public void delete(String accountSetId, int version) throws Exception;
 	public AccountSet disconnectFromAll(String accountSetId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public AccountingSubjectDAO getAccountingSubjectDAO();
 		
@@ -79,9 +80,10 @@ public interface AccountSetDAO extends BaseDAO{
 
 
 
-	public SmartList<AccountSet> queryList(String sql, Object ... parmeters);
+	public SmartList<AccountSet> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<AccountSet> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateAccountSet executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<AccountSet> findAccountSetByCountryCenter(String retailStoreCountryCenterId, Map<String,Object> options);
@@ -117,6 +119,8 @@ public interface AccountSetDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:AccountingDocumentType的accountingPeriod的AccountingDocumentTypeList
 	public SmartList<AccountingDocumentType> loadOurAccountingDocumentTypeList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception;
 	
+
+	List<AccountSet> search(AccountSetRequest pRequest);
 }
 
 

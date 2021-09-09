@@ -31,7 +31,7 @@ const internalSummaryOf = (consumerOrderPriceAdjustment,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
+<Description term="ID">{consumerOrderPriceAdjustment.id}</Description> 
 <Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
 <Description term="金额">{consumerOrderPriceAdjustment.amount}</Description> 
 <Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
@@ -60,7 +60,7 @@ class ConsumerOrderPriceAdjustmentPermission extends Component {
     // eslint-disable-next-line max-len
     const  consumerOrderPriceAdjustment = this.props.consumerOrderPriceAdjustment
     const { id,displayName,  } = consumerOrderPriceAdjustment
-    const  returnURL = `/consumerOrderPriceAdjustment/${id}/dashboard`
+    const  returnURL = `/consumerOrderPriceAdjustment/${id}/workbench`
     const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class ConsumerOrderPriceAdjustmentPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

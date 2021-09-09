@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.retailstore;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -15,38 +16,41 @@ import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCit
 import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;
 
 public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
-	
+
 	protected RetailStore internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		RetailStore retailStore = getRetailStore();		
-		 		
- 		setId(retailStore, rs, rowNumber); 		
- 		setName(retailStore, rs, rowNumber); 		
- 		setTelephone(retailStore, rs, rowNumber); 		
- 		setOwner(retailStore, rs, rowNumber); 		
- 		setRetailStoreCountryCenter(retailStore, rs, rowNumber); 		
- 		setCityServiceCenter(retailStore, rs, rowNumber); 		
- 		setCreation(retailStore, rs, rowNumber); 		
- 		setInvestmentInvitation(retailStore, rs, rowNumber); 		
- 		setFranchising(retailStore, rs, rowNumber); 		
- 		setDecoration(retailStore, rs, rowNumber); 		
- 		setOpening(retailStore, rs, rowNumber); 		
- 		setClosing(retailStore, rs, rowNumber); 		
- 		setFounded(retailStore, rs, rowNumber); 		
- 		setLatitude(retailStore, rs, rowNumber); 		
- 		setLongitude(retailStore, rs, rowNumber); 		
- 		setDescription(retailStore, rs, rowNumber); 		
- 		setLastUpdateTime(retailStore, rs, rowNumber); 		
+		RetailStore retailStore = getRetailStore();
+		
+ 		setId(retailStore, rs, rowNumber);
+ 		setName(retailStore, rs, rowNumber);
+ 		setTelephone(retailStore, rs, rowNumber);
+ 		setOwner(retailStore, rs, rowNumber);
+ 		setRetailStoreCountryCenter(retailStore, rs, rowNumber);
+ 		setCityServiceCenter(retailStore, rs, rowNumber);
+ 		setCreation(retailStore, rs, rowNumber);
+ 		setInvestmentInvitation(retailStore, rs, rowNumber);
+ 		setFranchising(retailStore, rs, rowNumber);
+ 		setDecoration(retailStore, rs, rowNumber);
+ 		setOpening(retailStore, rs, rowNumber);
+ 		setClosing(retailStore, rs, rowNumber);
+ 		setFounded(retailStore, rs, rowNumber);
+ 		setLatitude(retailStore, rs, rowNumber);
+ 		setLongitude(retailStore, rs, rowNumber);
+ 		setDescription(retailStore, rs, rowNumber);
+ 		setLastUpdateTime(retailStore, rs, rowNumber);
  		setVersion(retailStore, rs, rowNumber);
 
+    
 		return retailStore;
 	}
-	
+
 	protected RetailStore getRetailStore(){
-		return new RetailStore();
-	}		
+	  RetailStore entity = new RetailStore();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(RetailStoreTable.COLUMN_ID);
@@ -57,10 +61,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(RetailStoreTable.COLUMN_NAME);
@@ -71,10 +78,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setTelephone(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String telephone = rs.getString(RetailStoreTable.COLUMN_TELEPHONE);
@@ -85,10 +95,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setTelephone(telephone);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setOwner(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String owner = rs.getString(RetailStoreTable.COLUMN_OWNER);
@@ -99,10 +112,18 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setOwner(owner);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setRetailStoreCountryCenter(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCountryCenterId = rs.getString(RetailStoreTable.COLUMN_RETAIL_STORE_COUNTRY_CENTER);
+ 		String retailStoreCountryCenterId;
+ 		try{
+ 		  retailStoreCountryCenterId = rs.getString(RetailStoreTable.COLUMN_RETAIL_STORE_COUNTRY_CENTER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCountryCenterId == null){
  			return;
  		}
@@ -113,14 +134,19 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreCountryCenter != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
- 			
+
  			return;
  		}
  		retailStore.setRetailStoreCountryCenter(createEmptyRetailStoreCountryCenter(retailStoreCountryCenterId));
  	}
- 	 		
+ 	
  	protected void setCityServiceCenter(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCityServiceCenterId = rs.getString(RetailStoreTable.COLUMN_CITY_SERVICE_CENTER);
+ 		String retailStoreCityServiceCenterId;
+ 		try{
+ 		  retailStoreCityServiceCenterId = rs.getString(RetailStoreTable.COLUMN_CITY_SERVICE_CENTER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCityServiceCenterId == null){
  			return;
  		}
@@ -131,14 +157,19 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreCityServiceCenter != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
- 			
+
  			return;
  		}
  		retailStore.setCityServiceCenter(createEmptyCityServiceCenter(retailStoreCityServiceCenterId));
  	}
- 	 		
+ 	
  	protected void setCreation(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreCreationId = rs.getString(RetailStoreTable.COLUMN_CREATION);
+ 		String retailStoreCreationId;
+ 		try{
+ 		  retailStoreCreationId = rs.getString(RetailStoreTable.COLUMN_CREATION);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreCreationId == null){
  			return;
  		}
@@ -149,14 +180,19 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreCreation != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreCreation.setId(retailStoreCreationId);
- 			
+
  			return;
  		}
  		retailStore.setCreation(createEmptyCreation(retailStoreCreationId));
  	}
- 	 		
+ 	
  	protected void setInvestmentInvitation(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreInvestmentInvitationId = rs.getString(RetailStoreTable.COLUMN_INVESTMENT_INVITATION);
+ 		String retailStoreInvestmentInvitationId;
+ 		try{
+ 		  retailStoreInvestmentInvitationId = rs.getString(RetailStoreTable.COLUMN_INVESTMENT_INVITATION);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreInvestmentInvitationId == null){
  			return;
  		}
@@ -167,14 +203,19 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreInvestmentInvitation != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreInvestmentInvitation.setId(retailStoreInvestmentInvitationId);
- 			
+
  			return;
  		}
  		retailStore.setInvestmentInvitation(createEmptyInvestmentInvitation(retailStoreInvestmentInvitationId));
  	}
- 	 		
+ 	
  	protected void setFranchising(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreFranchisingId = rs.getString(RetailStoreTable.COLUMN_FRANCHISING);
+ 		String retailStoreFranchisingId;
+ 		try{
+ 		  retailStoreFranchisingId = rs.getString(RetailStoreTable.COLUMN_FRANCHISING);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreFranchisingId == null){
  			return;
  		}
@@ -185,14 +226,19 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreFranchising != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreFranchising.setId(retailStoreFranchisingId);
- 			
+
  			return;
  		}
  		retailStore.setFranchising(createEmptyFranchising(retailStoreFranchisingId));
  	}
- 	 		
+ 	
  	protected void setDecoration(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreDecorationId = rs.getString(RetailStoreTable.COLUMN_DECORATION);
+ 		String retailStoreDecorationId;
+ 		try{
+ 		  retailStoreDecorationId = rs.getString(RetailStoreTable.COLUMN_DECORATION);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreDecorationId == null){
  			return;
  		}
@@ -203,14 +249,19 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreDecoration != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreDecoration.setId(retailStoreDecorationId);
- 			
+
  			return;
  		}
  		retailStore.setDecoration(createEmptyDecoration(retailStoreDecorationId));
  	}
- 	 		
+ 	
  	protected void setOpening(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreOpeningId = rs.getString(RetailStoreTable.COLUMN_OPENING);
+ 		String retailStoreOpeningId;
+ 		try{
+ 		  retailStoreOpeningId = rs.getString(RetailStoreTable.COLUMN_OPENING);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreOpeningId == null){
  			return;
  		}
@@ -221,14 +272,19 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreOpening != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreOpening.setId(retailStoreOpeningId);
- 			
+
  			return;
  		}
  		retailStore.setOpening(createEmptyOpening(retailStoreOpeningId));
  	}
- 	 		
+ 	
  	protected void setClosing(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreClosingId = rs.getString(RetailStoreTable.COLUMN_CLOSING);
+ 		String retailStoreClosingId;
+ 		try{
+ 		  retailStoreClosingId = rs.getString(RetailStoreTable.COLUMN_CLOSING);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreClosingId == null){
  			return;
  		}
@@ -239,14 +295,14 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreClosing != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
  			retailStoreClosing.setId(retailStoreClosingId);
- 			
+
  			return;
  		}
  		retailStore.setClosing(createEmptyClosing(retailStoreClosingId));
  	}
  	
 	protected void setFounded(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date founded = rs.getDate(RetailStoreTable.COLUMN_FOUNDED);
@@ -257,10 +313,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setFounded(founded);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLatitude(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal latitude = rs.getBigDecimal(RetailStoreTable.COLUMN_LATITUDE);
@@ -271,10 +330,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setLatitude(latitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLongitude(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		BigDecimal longitude = rs.getBigDecimal(RetailStoreTable.COLUMN_LONGITUDE);
@@ -285,10 +347,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setDescription(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String description = rs.getString(RetailStoreTable.COLUMN_DESCRIPTION);
@@ -299,10 +364,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setDescription(description);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setLastUpdateTime(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date lastUpdateTime = rs.getTimestamp(RetailStoreTable.COLUMN_LAST_UPDATE_TIME);
@@ -313,10 +381,13 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setVersion(RetailStore retailStore, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(RetailStoreTable.COLUMN_VERSION);
@@ -327,9 +398,12 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
 		}
 		
 		retailStore.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected RetailStoreCountryCenter  createEmptyRetailStoreCountryCenter(String retailStoreCountryCenterId){
  		RetailStoreCountryCenter retailStoreCountryCenter = new RetailStoreCountryCenter();

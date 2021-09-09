@@ -44,13 +44,15 @@ public interface RetailStoreMemberCouponDAO extends BaseDAO{
 	public void delete(String retailStoreMemberCouponId, int version) throws Exception;
 	public RetailStoreMemberCoupon disconnectFromAll(String retailStoreMemberCouponId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<RetailStoreMemberCoupon> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreMemberCoupon> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreMemberCoupon> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreMemberCoupon executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<RetailStoreMemberCoupon> findRetailStoreMemberCouponByOwner(String retailStoreMemberId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface RetailStoreMemberCouponDAO extends BaseDAO{
 
 
  
+
+	List<RetailStoreMemberCoupon> search(RetailStoreMemberCouponRequest pRequest);
 }
 
 

@@ -90,6 +90,7 @@ public interface RetailStoreCountryCenterDAO extends BaseDAO{
 	public void delete(String retailStoreCountryCenterId, int version) throws Exception;
 	public RetailStoreCountryCenter disconnectFromAll(String retailStoreCountryCenterId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public CatalogDAO getCatalogDAO();
 		
@@ -330,9 +331,10 @@ public interface RetailStoreCountryCenterDAO extends BaseDAO{
 	public int countCompanyTrainingListWithTrainingCourseType(String retailStoreCountryCenterId, String trainingCourseTypeId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<RetailStoreCountryCenter> queryList(String sql, Object ... parmeters);
+	public SmartList<RetailStoreCountryCenter> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<RetailStoreCountryCenter> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateRetailStoreCountryCenter executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
 	// 需要一个加载引用我的对象的enhance方法:Catalog的owner的CatalogList
@@ -407,6 +409,8 @@ public interface RetailStoreCountryCenterDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的company的CompanyTrainingList
 	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
 	
+
+	List<RetailStoreCountryCenter> search(RetailStoreCountryCenterRequest pRequest);
 }
 
 

@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.goods;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -16,36 +17,39 @@ import com.doublechaintech.retailscm.transporttask.TransportTask;
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
 
 public class GoodsMapper extends BaseRowMapper<Goods>{
-	
+
 	protected Goods internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		Goods goods = getGoods();		
-		 		
- 		setId(goods, rs, rowNumber); 		
- 		setName(goods, rs, rowNumber); 		
- 		setRfid(goods, rs, rowNumber); 		
- 		setUom(goods, rs, rowNumber); 		
- 		setMaxPackage(goods, rs, rowNumber); 		
- 		setExpireTime(goods, rs, rowNumber); 		
- 		setSku(goods, rs, rowNumber); 		
- 		setReceivingSpace(goods, rs, rowNumber); 		
- 		setGoodsAllocation(goods, rs, rowNumber); 		
- 		setSmartPallet(goods, rs, rowNumber); 		
- 		setShippingSpace(goods, rs, rowNumber); 		
- 		setTransportTask(goods, rs, rowNumber); 		
- 		setRetailStore(goods, rs, rowNumber); 		
- 		setBizOrder(goods, rs, rowNumber); 		
- 		setRetailStoreOrder(goods, rs, rowNumber); 		
+		Goods goods = getGoods();
+		
+ 		setId(goods, rs, rowNumber);
+ 		setName(goods, rs, rowNumber);
+ 		setRfid(goods, rs, rowNumber);
+ 		setUom(goods, rs, rowNumber);
+ 		setMaxPackage(goods, rs, rowNumber);
+ 		setExpireTime(goods, rs, rowNumber);
+ 		setSku(goods, rs, rowNumber);
+ 		setReceivingSpace(goods, rs, rowNumber);
+ 		setGoodsAllocation(goods, rs, rowNumber);
+ 		setSmartPallet(goods, rs, rowNumber);
+ 		setShippingSpace(goods, rs, rowNumber);
+ 		setTransportTask(goods, rs, rowNumber);
+ 		setRetailStore(goods, rs, rowNumber);
+ 		setBizOrder(goods, rs, rowNumber);
+ 		setRetailStoreOrder(goods, rs, rowNumber);
  		setVersion(goods, rs, rowNumber);
 
+    
 		return goods;
 	}
-	
+
 	protected Goods getGoods(){
-		return new Goods();
-	}		
+	  Goods entity = new Goods();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(GoodsTable.COLUMN_ID);
@@ -56,10 +60,13 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
 		}
 		
 		goods.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(GoodsTable.COLUMN_NAME);
@@ -70,10 +77,13 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
 		}
 		
 		goods.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setRfid(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String rfid = rs.getString(GoodsTable.COLUMN_RFID);
@@ -84,10 +94,13 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
 		}
 		
 		goods.setRfid(rfid);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setUom(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String uom = rs.getString(GoodsTable.COLUMN_UOM);
@@ -98,10 +111,13 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
 		}
 		
 		goods.setUom(uom);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setMaxPackage(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer maxPackage = rs.getInt(GoodsTable.COLUMN_MAX_PACKAGE);
@@ -112,10 +128,13 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
 		}
 		
 		goods.setMaxPackage(maxPackage);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setExpireTime(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date expireTime = rs.getDate(GoodsTable.COLUMN_EXPIRE_TIME);
@@ -126,10 +145,18 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
 		}
 		
 		goods.setExpireTime(expireTime);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setSku(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String skuId = rs.getString(GoodsTable.COLUMN_SKU);
+ 		String skuId;
+ 		try{
+ 		  skuId = rs.getString(GoodsTable.COLUMN_SKU);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( skuId == null){
  			return;
  		}
@@ -140,14 +167,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( sku != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			sku.setId(skuId);
- 			
+
  			return;
  		}
  		goods.setSku(createEmptySku(skuId));
  	}
- 	 		
+ 	
  	protected void setReceivingSpace(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String receivingSpaceId = rs.getString(GoodsTable.COLUMN_RECEIVING_SPACE);
+ 		String receivingSpaceId;
+ 		try{
+ 		  receivingSpaceId = rs.getString(GoodsTable.COLUMN_RECEIVING_SPACE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( receivingSpaceId == null){
  			return;
  		}
@@ -158,14 +190,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( receivingSpace != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			receivingSpace.setId(receivingSpaceId);
- 			
+
  			return;
  		}
  		goods.setReceivingSpace(createEmptyReceivingSpace(receivingSpaceId));
  	}
- 	 		
+ 	
  	protected void setGoodsAllocation(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String goodsAllocationId = rs.getString(GoodsTable.COLUMN_GOODS_ALLOCATION);
+ 		String goodsAllocationId;
+ 		try{
+ 		  goodsAllocationId = rs.getString(GoodsTable.COLUMN_GOODS_ALLOCATION);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( goodsAllocationId == null){
  			return;
  		}
@@ -176,14 +213,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( goodsAllocation != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			goodsAllocation.setId(goodsAllocationId);
- 			
+
  			return;
  		}
  		goods.setGoodsAllocation(createEmptyGoodsAllocation(goodsAllocationId));
  	}
- 	 		
+ 	
  	protected void setSmartPallet(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String smartPalletId = rs.getString(GoodsTable.COLUMN_SMART_PALLET);
+ 		String smartPalletId;
+ 		try{
+ 		  smartPalletId = rs.getString(GoodsTable.COLUMN_SMART_PALLET);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( smartPalletId == null){
  			return;
  		}
@@ -194,14 +236,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( smartPallet != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			smartPallet.setId(smartPalletId);
- 			
+
  			return;
  		}
  		goods.setSmartPallet(createEmptySmartPallet(smartPalletId));
  	}
- 	 		
+ 	
  	protected void setShippingSpace(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String shippingSpaceId = rs.getString(GoodsTable.COLUMN_SHIPPING_SPACE);
+ 		String shippingSpaceId;
+ 		try{
+ 		  shippingSpaceId = rs.getString(GoodsTable.COLUMN_SHIPPING_SPACE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( shippingSpaceId == null){
  			return;
  		}
@@ -212,14 +259,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( shippingSpace != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			shippingSpace.setId(shippingSpaceId);
- 			
+
  			return;
  		}
  		goods.setShippingSpace(createEmptyShippingSpace(shippingSpaceId));
  	}
- 	 		
+ 	
  	protected void setTransportTask(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String transportTaskId = rs.getString(GoodsTable.COLUMN_TRANSPORT_TASK);
+ 		String transportTaskId;
+ 		try{
+ 		  transportTaskId = rs.getString(GoodsTable.COLUMN_TRANSPORT_TASK);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( transportTaskId == null){
  			return;
  		}
@@ -230,14 +282,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( transportTask != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			transportTask.setId(transportTaskId);
- 			
+
  			return;
  		}
  		goods.setTransportTask(createEmptyTransportTask(transportTaskId));
  	}
- 	 		
+ 	
  	protected void setRetailStore(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreId = rs.getString(GoodsTable.COLUMN_RETAIL_STORE);
+ 		String retailStoreId;
+ 		try{
+ 		  retailStoreId = rs.getString(GoodsTable.COLUMN_RETAIL_STORE);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreId == null){
  			return;
  		}
@@ -248,14 +305,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( retailStore != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			retailStore.setId(retailStoreId);
- 			
+
  			return;
  		}
  		goods.setRetailStore(createEmptyRetailStore(retailStoreId));
  	}
- 	 		
+ 	
  	protected void setBizOrder(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String supplyOrderId = rs.getString(GoodsTable.COLUMN_BIZ_ORDER);
+ 		String supplyOrderId;
+ 		try{
+ 		  supplyOrderId = rs.getString(GoodsTable.COLUMN_BIZ_ORDER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( supplyOrderId == null){
  			return;
  		}
@@ -266,14 +328,19 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( supplyOrder != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			supplyOrder.setId(supplyOrderId);
- 			
+
  			return;
  		}
  		goods.setBizOrder(createEmptyBizOrder(supplyOrderId));
  	}
- 	 		
+ 	
  	protected void setRetailStoreOrder(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreOrderId = rs.getString(GoodsTable.COLUMN_RETAIL_STORE_ORDER);
+ 		String retailStoreOrderId;
+ 		try{
+ 		  retailStoreOrderId = rs.getString(GoodsTable.COLUMN_RETAIL_STORE_ORDER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreOrderId == null){
  			return;
  		}
@@ -284,14 +351,14 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
  		if( retailStoreOrder != null ){
  			//if the root object 'goods' already have the property, just set the id for it;
  			retailStoreOrder.setId(retailStoreOrderId);
- 			
+
  			return;
  		}
  		goods.setRetailStoreOrder(createEmptyRetailStoreOrder(retailStoreOrderId));
  	}
  	
 	protected void setVersion(Goods goods, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(GoodsTable.COLUMN_VERSION);
@@ -302,9 +369,12 @@ public class GoodsMapper extends BaseRowMapper<Goods>{
 		}
 		
 		goods.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected Sku  createEmptySku(String skuId){
  		Sku sku = new Sku();

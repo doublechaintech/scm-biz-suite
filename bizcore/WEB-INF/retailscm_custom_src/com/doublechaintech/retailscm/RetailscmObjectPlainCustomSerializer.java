@@ -9,3 +9,13 @@ public class RetailscmObjectPlainCustomSerializer<T extends BaseEntity> extends 
 
 
 
+
+
+
+
+
+
+
+
+
+

@@ -11,13 +11,8 @@ import java.text.Format;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.io.IOException;
-import java.util.HashMap;
 import java.net.URLEncoder;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
@@ -29,6 +24,8 @@ import com.skynet.infrastructure.EventService;
 import com.skynet.infrastructure.graphservice.GraphServiceImpl;
 import com.skynet.infrastructure.TokenTool;
 import com.doublechaintech.retailscm.userapp.UserApp;
+import com.doublechaintech.retailscm.secuser.SecUser;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.doublechaintech.retailscm.listaccess.ListAccess;
 import org.springframework.beans.factory.BeanNameAware;
@@ -36,11 +33,102 @@ import java.math.BigDecimal;
 
 import com.terapico.uccaf.AccessControledService;
 import com.terapico.uccaf.BaseUserContext;
+import java.util.concurrent.Callable;
+
+
+import com.doublechaintech.retailscm.iamservice.*;
+import com.doublechaintech.retailscm.services.IamService;
+import com.terapico.caf.Password;
+
 
 public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 
 
 	protected		String 					beanName;
+
+
+
+
+
+	//用户定制token的时候使用常数，而不是直接使用字符串来过滤，排序
+
+	public String verbIs() {
+		return "is";
+	}
+
+
+	public String verbNOT() {
+		return "not";
+	}
+
+	public String verbEQ() {
+		return "eq";
+	}
+	public String verbEQUALS() {
+		return verbEQ() ;
+	}
+	public String verbGT() {
+		return "gt";
+	}
+	public String verbGTE() {
+		return "gte";
+	}
+	public String verbLessThan() {
+		return verbLT();
+	}
+	public String verbLT() {
+		return "lt";
+	}
+	public String verbLTE() {
+		return "lte";
+	}
+	public String verbLessThanOrEquals() {
+		return verbLTE();
+	}
+	public String verbContains() {
+		return "contains";
+	}
+
+	public String verbEndsWith() {
+		return "endsWith";
+	}
+	public String verbStartsWith() {
+		return "startsWith";
+	}
+	public String sortDesc() {
+		return "desc";
+	}
+	public String sortAsc() {
+		return "asc";
+	}
+	public String filterRange() {
+		return "range";
+	}
+	public String filterBetween() {
+		return "between";
+	}
+	public String filterOneOf() {
+		return "oneof";
+	}
+	public String filterNoneof() {
+		return "noneof";
+	}
+	public String thisWeekExpr() {
+		return "thisweek";
+	}
+	public String thisMonthExpr() {
+		return "thismonth";
+	}
+	public String thisYearExpr() {
+		return "thisyear";
+	}
+	public String todayExpr() {
+		return "today";
+	}
+	public String pastExpr() {
+		return "past";
+	}
+
 
 
 	protected void renderActionForList(UserContext userContext, BaseEntity objectToRender, Map<String, Object> tokens) {
@@ -54,7 +142,7 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 
 
 	protected void renderItemAction(BaseEntity entity , String role, BaseEntity parent) {
-		String path=String.format("#/%s/%s/dashboard", entity.getPresentType(),entity.getId());
+		String path=String.format("#/%s/%s/workbench", entity.getPresentType(),entity.getId());
 		Action action = new Action().withActionName("详情").withActionGroup("custom")
 				.withActionPath(path);
 		entity.addAction(action);
@@ -84,6 +172,91 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		return generator.exportExcel("file",blocks);
 
 	}
+
+	protected String beanNameFromUserApp(BaseUserContext userContext,UserApp userApp){
+
+		String target = userApp.getAppType();
+        String lowerCase = target.substring(0,1).toLowerCase()+target.substring(1);
+        return lowerCase+"Manager";
+
+	}
+
+	protected SecUser cachedUser(RetailscmUserContext userContext)
+    {
+        return (SecUser)userContext.getCachedObject(this.getUserKey(userContext), SecUser.class);
+    }
+
+	public Optional<UserApp> findOutUserApp(RetailscmUserContext userContext, String userAppId) throws Exception {
+		SecUser user = cachedUser(userContext);
+		if(user==null){
+			throw new IllegalStateException("对不起，你的会话过期，请重新登录");
+		}
+		List<UserApp> userApps = user.getUserAppList();
+		for (UserApp userApp : userApps) {
+			if (userApp.getId().equals(userAppId)) {
+				return Optional.of(userApp);
+
+			}
+		}
+		return Optional.ofNullable(null);
+	}
+
+
+
+	public Object prepareContextForUserApp(BaseUserContext userContext,Object targetUserApp) throws Exception{
+
+        throw new IllegalAccessException("Method BaseManagerImpl.prepareContextForUserApp Access Denied");
+
+    }
+	protected UserApp updateCurrentApp(BaseUserContext baseUserContext, UserApp userApp){
+		if(baseUserContext == null){
+			throw new IllegalStateException("Not able to get a context from");
+		}
+		UserContext userContext = (UserContext)baseUserContext;
+
+		String currentUserAppKey = this.getCurrentAppKey(userContext);
+		userContext.putIntoContextLocalStorage(currentUserAppKey, userApp);
+		userContext.putToCache(currentUserAppKey,userApp,86400);
+		return userApp;
+	}
+
+	public Object accessUserApp(BaseUserContext userContext,String targetUserAppId) throws Exception{
+		RetailscmUserContext dmosUserContext=(RetailscmUserContext)userContext;
+		dmosUserContext.log("trying to access user app " + targetUserAppId);
+
+		Optional<UserApp> opUserApp = findOutUserApp(dmosUserContext,targetUserAppId);
+		if(!opUserApp.isPresent()){
+			throw new IllegalStateException("未找到 " + targetUserAppId + "对应的UserApp");
+		}
+
+
+
+
+
+		UserApp userApp=(UserApp)opUserApp.get();
+		String beanName = beanNameFromUserApp(userContext,userApp);
+		Object targetBean = dmosUserContext.getBean(beanName);
+
+		if(targetBean==null){
+			throw new IllegalAccessException("Not able to find for bean name " + beanName);
+		}
+
+		if(!(targetBean instanceof AccessControledService)){
+
+			throw new IllegalAccessException("A bean without implement AccessControledService not allowed to be accessed");
+
+		}
+		AccessControledService targetService = (AccessControledService)targetBean;
+
+		return targetService.prepareContextForUserApp(userContext,userApp);
+
+
+
+
+	}
+
+
+
 	protected void fixBlocks(UserContext userContext,List<Block> blocks) {
 		BaseGridViewGenerator generator= gridViewGenerator();
 
@@ -122,6 +295,12 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		return (UserApp) remoteObject;
 
 	}
+
+	protected void markVisited(UserContext userContext, BaseEntity visited) {
+    String key = userContext.tokenId()+"_visit_"+visited.getInternalType();
+    userContext.putToCache(key, visited.getId(), 365*24*60*60);
+  }
+
 	public static String getSystemInternalName() {
 		return "retailscm";
 	}
@@ -203,12 +382,12 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 	protected Object accessOK(){
 		return null;
 	}
-	protected Object accessFail(String message){
+	protected Object accessFail(UserContext userContext,String message){
 		LoginForm form =  new LoginForm();
 		form.addErrorMessage(message, null);
 		return form;
 	}
-	public Object checkAccess(BaseUserContext baseUserContext,String methodName, Object[] parameters) throws IllegalAccessException{
+	public Object checkBasicAccess(BaseUserContext baseUserContext,String methodName, Object[] parameters) throws IllegalAccessException{
 		if(baseUserContext == null){
 			return accessOK();
 		}
@@ -221,7 +400,7 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		UserApp app = this.currentApp(baseUserContext);
 		if(app == null){
 			userContext.log("app is null!");
-			return accessFail("没有选择App");
+			return accessFail(userContext, "没有选择App");
 		}
 		//userContext.log("trying to log all access list");
 		//for(ObjectAccess oa:app.getObjectAccessList()){
@@ -233,8 +412,8 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		if(true){
 			return accessOK();//暂时不适用graph来确定权限
 		}
-		String sourceType = app.getObjectType();//temp here
-		String sourceId = app.getObjectId();//temp here
+		String sourceType = app.getAppType();//temp here
+		String sourceId = app.getAppId();//temp here
 
 
 
@@ -250,7 +429,7 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 					return accessOK();
 				}
 
-				return accessFail("你直接访问"+sourceType+"("+sourceId+") 失败，你不具有"+operation+"权限" );
+				return accessFail(userContext,"你直接访问"+sourceType+"("+sourceId+") 失败，你不具有"+operation+"权限" );
 
 			}
 		}
@@ -270,7 +449,7 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return accessFail(message );
+		return accessFail(userContext,message );
 
 
 	}
@@ -990,8 +1169,21 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 	}
 
 	public void onAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters) {
-		// by default, nothing to do
+		RetailscmUserContextImpl ctx = (RetailscmUserContextImpl) baseUserContext;
+    ctx.setOwnerBeanName(this.getBeanName());
 	}
+	public void afterInvoke(BaseUserContext baseUserContext, String methodName, Object[] parameters, boolean success, Object result, Throwable throwable) {
+  	RetailscmBizUserContextImpl ctx = (RetailscmBizUserContextImpl) baseUserContext;
+    if (throwable != null) {
+      if (throwable instanceof ErrorMessageException) {
+        ctx.preventExceptionEmail();
+      } else if (throwable instanceof ErrorOccurredException) {
+        ctx.preventExceptionEmail();
+      }
+      return;
+    }
+    ctx.postProcessing();
+  }
 	protected void checkMoneyAmount(BigDecimal value, double min, double max,
 			String propertyKey, List<Message> messageList) {
 		checkDoubleRange(value.doubleValue(), min, max, propertyKey, messageList);
@@ -1043,12 +1235,18 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 	}
 
 
-
-
 	protected AccessInfo convertToAccessInfo(ListAccess listAccess) {
 
 		AccessInfo accessInfo = new AccessInfo();
+		if(!isExplicitListAccess()){
+			//无需显式声明权限，则有读权限
+			accessInfo.setReadPermission(true);
+			return accessInfo;
+		}
 
+		if(listAccess==null){
+		  return accessInfo;//all fasle
+		}
 
 		accessInfo.setInternalName(listAccess.getInternalName());
 		accessInfo.setReadPermission(listAccess.getReadPermission());
@@ -1057,115 +1255,328 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		accessInfo.setUpdatePermission(listAccess.getUpdatePermission());
 		accessInfo.setExecutionPermission(listAccess.getExecutionPermission());
 
-
-
-
 		return accessInfo;
+	  }
 
-	}
-	public void enforceAccess(BaseUserContext baseUserContext, Object targetObject) {
-		if(baseUserContext == null){
-			return ;
+
+	  public void enforceAccess(BaseUserContext baseUserContext, Object targetObject) {
+		if (baseUserContext == null) {
+		  return;
 		}
 
-		UserContext userContext = (UserContext)baseUserContext;
+		UserContext userContext = (UserContext) baseUserContext;
 
 		this.applyAccessList(userContext, targetObject);
+	  }
 
-	}
-	protected Map<String, ListAccess> toMap(SmartList<ListAccess> listAccessList){
+	  protected Map<String, ListAccess> toMap(SmartList<ListAccess> listAccessList) {
 
 		Map<String, ListAccess> map = new HashMap<String, ListAccess>();
 
-		for(ListAccess listAccess: listAccessList) {
+		for (ListAccess listAccess : listAccessList) {
 
-			map.put(listAccess.getInternalName(), listAccess);
-
+		  map.put(listAccess.getInternalName(), listAccess);
 		}
 
 		return map;
+	  }
 
-	}
-	protected void applyAccessList(UserContext userContext, Object targetObject) {
+	  protected boolean isExplicitListAccess(){
+		return false;
+	  }
+	  protected void applyAccessList(UserContext userContext, Object targetObject) {
 
-		if(!(targetObject instanceof BaseEntity)) {
+		if (!(targetObject instanceof BaseEntity)) {
 
-			userContext.log("no applied to target object "+targetObject.getClass().getName());
-			return;
+		  userContext.log("no applied to target object " + targetObject.getClass().getName());
+		  return;
 		}
 
-		BaseEntity entity = (BaseEntity)targetObject;
+		BaseEntity entity = (BaseEntity) targetObject;
 
 		UserApp app = currentApp(userContext);
 
-		if(app==null) {
-			userContext.log("no app");
-			return;
+		if (app == null) {
+		  userContext.log("no app");
+		  return;
 		}
 
 		List<SmartList<?>> allLists = entity.getAllRelatedLists();
 
-
-		if(allLists==null) {
-			userContext.log("no list");
-			return;
+		if (allLists == null) {
+		  userContext.log("no list");
+		  return;
 		}
 
-		if(!app.getObjectType().equalsIgnoreCase(entity.getInternalType())) {
-			userContext.log("no match type");
-			return;
+		if (!app.getAppType().equalsIgnoreCase(entity.getInternalType())) {
+		  userContext.log("no match type");
+		  return;
 		}
-		if(!app.getObjectId().equals(entity.getId())) {
-			userContext.log("no match id");
-			return;
+		if (!app.getAppId().equals(entity.getId())) {
+		  userContext.log("no match id");
+		  return;
 		}
 		SmartList<ListAccess> listAccessList = app.getListAccessList();
-		//then apply to the list;
+		// then apply to the list;
 		Map<String, ListAccess> accessListMap = toMap(listAccessList);
 
+		for (SmartList<?> list : allLists) {
 
+		  String listName = list.getListInternalName();
+		  userContext.log("---------------" + list.getListInternalName() + "");
 
+		  ListAccess listAccess = accessListMap.get(listName);
+		  // AccessInfo
+		  SmartListMetaInfo metaInfo = new SmartListMetaInfo();
 
-		for(SmartList<?> list:allLists) {
+		  AccessInfo accessInfo = convertToAccessInfo(listAccess);
+		  userContext.log(list.getListInternalName() + " has read permission: " + accessInfo.getReadPermission());
+		  metaInfo.setAccessInfo(accessInfo);
 
-			String listName = list.getListInternalName();
-			userContext.log("---------------"+list.getListInternalName()+"");
+		  list.setMetaInfo(metaInfo);
 
-			ListAccess listAccess = accessListMap.get(listName);
-			if(listAccess==null) {
-				continue;
-			}
-			//AccessInfo
-			SmartListMetaInfo metaInfo = new SmartListMetaInfo();
+		  if (!accessInfo.getReadPermission()) {
 
-			AccessInfo accessInfo = convertToAccessInfo(listAccess);
-			userContext.log(list.getListInternalName()+""+accessInfo.getReadPermission());
-			metaInfo.setAccessInfo(accessInfo);
-
-			list.setMetaInfo(metaInfo);
-
-			if(!accessInfo.getReadPermission()) {
-
-
-				list.clear();
-			}
-
-
-
+			list.clear();
+		  }
 		}
 
-
-
-		userContext.log(" match done" + allLists.size());
-
-	}
+		userContext.log(" All list size: " + allLists.size());
+	  }
 
 	protected long parseLong(String longExpr) {
 		return Long.valueOf(longExpr);
 	}
 
 
+  protected void throwException(String message, Throwable e, boolean rollback, boolean sendMonitorEmail) {
+    if (rollback){
+      if (sendMonitorEmail){
+        throw new FatalOccurredException(message, e);
+      }else{
+        throw new ErrorOccurredException(message, e);
+      }
+    }else{
+      if (sendMonitorEmail){
+        throw new FatalMessageException(message, e);
+      }else{
+        throw new ErrorMessageException(message, e);
+      }
+    }
+  }
 
+
+  /** 发出一个错误消息. 这个实际上是一个RuntimeException的子类, 但是不导致事务回滚(因为是 message 为主), 而是发送监控邮件 */
+  protected void fatalMessage(String message){
+    throwException(message, null, false, true);
+  }
+  protected void fatalMessage(Throwable throwable){
+    throwException(throwable.getMessage(), throwable, false, true);
+  }
+  /** 发生了一个错误, 会同时发送一个错误消息. 这个是一个RuntimeException的子类, 并且导致事务回滚(因为是 error 为主),并发送监控邮件 */
+  protected void fatalOccurred(String message){
+    throwException(message, null, true, true);
+  }
+  protected void fatalOccurred(Throwable throwable){
+    throwException(throwable.getMessage(), throwable, true, true);
+  }
+
+  /** 发出一个错误消息. 这个实际上是一个RuntimeException的子类, 但是不导致事务回滚(因为是 message 为主). 但是不发送监控邮件 */
+  protected void errorMessage(String message){
+    throwException(message, null, false, false);
+  }
+  protected void errorMessage(Throwable throwable){
+    throwException(throwable.getMessage(), throwable, false, false);
+  }
+  /** 发生了一个错误, 会同时发送一个错误消息. 这个是一个RuntimeException的子类, 并且导致事务回滚(因为是 error 为主) 但是不发送监控邮件*/
+  protected void errorOccurred(String message){
+    throwException(message, null, true, false);
+  }
+  protected void errorOccurred(Throwable throwable){
+    throwException(throwable.getMessage(), throwable, true, false);
+  }
+
+  protected <T> T orNull(Callable<T> call) {
+		return RetailscmBaseUtils.orNull(call);
+	}
+
+	protected <T> T ifNull(T call, T defaultValue) {
+		return RetailscmBaseUtils.ifNull(call, defaultValue);
+	}
+
+	protected <T> T orElse(Callable<T> call, T defaultValue) {
+		return RetailscmBaseUtils.orElse(call, defaultValue);
+	}
+
+
+	// -----------------------------------//  登录部分处理 \\-----------------------------------
+	// 调试时直接使用ID登录, 注意是 fullId
+	public Object loginById4Debug(RetailscmUserContext userContext, String fullId)
+            throws Exception {
+      LoginChannel loginChannel =
+              LoginChannel.of(
+                      RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginById");
+      LoginData loginData = new LoginData();
+      loginData.setLoginId(fullId);
+
+      LoginContext loginContext = LoginContext.of(LoginMethod.ID_4_DEBUG, loginChannel, loginData);
+      return processLoginRequest(userContext, loginContext);
+    }
+	// 手机号+短信验证码 登录
+	public Object loginByMobile(RetailscmUserContext userContext, String mobile, String verifyCode) throws Exception {
+		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
+				"loginByMobile");
+		LoginData loginData = new LoginData();
+		loginData.setMobile(mobile);
+		loginData.setVerifyCode(verifyCode);
+
+		LoginContext loginContext = LoginContext.of(LoginMethod.MOBILE, loginChannel, loginData);
+		return processLoginRequest(userContext, loginContext);
+	}
+	// 账号+密码登录
+	public Object loginByPassword(RetailscmUserContext userContext, String loginId, Password password) throws Exception {
+		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(), "loginByPassword");
+		LoginData loginData = new LoginData();
+		loginData.setLoginId(loginId);
+		loginData.setPassword(password.getClearTextPassword());
+
+		LoginContext loginContext = LoginContext.of(LoginMethod.PASSWORD, loginChannel, loginData);
+		return processLoginRequest(userContext, loginContext);
+	}
+	// 微信小程序登录
+	public Object loginByWechatMiniProgram(RetailscmUserContext userContext, String code) throws Exception {
+		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
+				"loginByWechatMiniProgram");
+		LoginData loginData = new LoginData();
+		loginData.setCode(code);
+
+		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_MINIPROGRAM, loginChannel, loginData);
+		return processLoginRequest(userContext, loginContext);
+	}
+	// 微信小程序获取手机号快速登录
+  public Object loginByWechatMobile(RetailscmUserContext userContext, String code, String encryptedData, String iv)
+          throws Exception {
+    LoginChannel loginChannel =
+            LoginChannel.of(
+                    RetailscmBaseUtils.getRequestAppType(userContext),
+                    this.getBeanName(),
+                    "loginByWechatMobile");
+    LoginData loginData = new LoginData();
+    loginData.setCode(code);
+    loginData.setEncryptedData(encryptedData);
+    loginData.setIv(iv);
+
+    LoginContext loginContext =
+            LoginContext.of(LoginMethod.WECHAT_MOBILE, loginChannel, loginData);
+    return processLoginRequest(userContext, loginContext);
+  }
+	// 企业微信小程序登录
+	public Object loginByWechatWorkMiniProgram(RetailscmUserContext userContext, String code) throws Exception {
+		LoginChannel loginChannel = LoginChannel.of(RetailscmBaseUtils.getRequestAppType(userContext), this.getBeanName(),
+				"loginByWechatWorkMiniProgram");
+		LoginData loginData = new LoginData();
+		loginData.setCode(code);
+
+		LoginContext loginContext = LoginContext.of(LoginMethod.WECHAT_WORK_MINIPROGRAM, loginChannel, loginData);
+		return processLoginRequest(userContext, loginContext);
+	}
+	// 调用登录处理
+	protected Object processLoginRequest(RetailscmUserContext baseUserContext, LoginContext loginContext) throws Exception {
+		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
+
+		IamService iamService = (IamService) userContext.getBean("iamService");
+		LoginResult loginResult = iamService.doLogin(userContext, loginContext, getLoginProcessBizHandler(userContext));
+		// 根据登录结果
+		if (!loginResult.isAuthenticated()) {
+			throw new Exception(loginResult.getMessage());
+		}
+		if (loginResult.isSuccess()) {
+			return onLoginSuccess(userContext, loginResult);
+		}
+		if (loginResult.isNewUser()) {
+			throw new Exception("请联系你的上级,先为你创建账号,然后再来登录.");
+		}
+		return new LoginForm();
+	}
+
+	@Override
+	public Object checkAccess(BaseUserContext baseUserContext, String methodName, Object[] parameters)
+			throws IllegalAccessException {
+		RetailscmUserContextImpl userContext = (RetailscmUserContextImpl)baseUserContext;
+		IamService iamService = (IamService) userContext.getBean("iamService");
+		Map<String, Object> loginInfo = iamService.getCachedLoginInfo(userContext);
+
+		SecUser secUser = iamService.tryToLoadSecUser(userContext, loginInfo);
+		UserApp userApp = iamService.tryToLoadUserApp(userContext, loginInfo);
+		userContext.setSecUser(secUser);
+         userContext.setUserApp(userApp);
+		if (userApp != null) {
+			userApp.setSecUser(secUser);
+		}
+		if (secUser == null) {
+			iamService.onCheckAccessWhenAnonymousFound(userContext, loginInfo);
+		}
+		afterSecUserAppLoadedWhenCheckAccess(userContext, loginInfo, secUser, userApp);
+		if (!isMethodNeedLogin(userContext, methodName, parameters)) {
+			return accessOK();
+		}
+
+		return checkBasicAccess(baseUserContext, methodName, parameters);
+	}
+
+	// 判断哪些接口需要登录后才能执行. 默认除了几个特别的,其他都要登录
+	protected boolean isMethodNeedLogin(RetailscmUserContext userContext, String methodName, Object[] parameters) {
+		if (methodName.startsWith("loginBy")) {
+			return false;
+		}
+		if (methodName.startsWith("logout")) {
+			return false;
+		}
+    if (methodName.startsWith("ensureModelInDB")){
+      return false;
+    }
+		return true;
+	}
+
+	// 在checkAccess中加载了secUser和userApp后会调用此方法,用于定制化的用户数据加载. 默认什么也不做
+	protected void afterSecUserAppLoadedWhenCheckAccess(RetailscmUserContext userContext, Map<String, Object> loginInfo,
+			SecUser secUser, UserApp userApp) throws IllegalAccessException{
+	}
+
+	protected Object onLoginSuccess(RetailscmUserContext userContext, LoginResult loginResult) throws Exception {
+		// by default, return the view of this object
+		UserApp userApp = loginResult.getLoginContext().getLoginTarget().getUserApp();
+		return this.view(userContext, userApp.getAppId());
+	}
+
+  public void onAuthenticateUserLogged(RetailscmUserContext userContext, LoginContext loginContext,
+      LoginResult loginResult, IdentificationHandler idHandler, BusinessHandler bizHandler)
+      throws Exception {
+    // by default, find the correct user-app
+    SecUser secUser = loginResult.getLoginContext().getLoginTarget().getSecUser();
+    SmartList<UserApp> userApps = getRelatedUserAppList(userContext, secUser);
+    if (userApps == null || userApps.isEmpty()) {
+      throw new Exception("您的账号未关联系统账号,请联系客服处理账号异常.");
+    }
+    UserApp userApp = userApps.first();
+    userApp.setSecUser(secUser);
+    loginResult.getLoginContext().getLoginTarget().setUserApp(userApp);
+    BaseEntity app = userContext.getDAOGroup().loadBasicData(userApp.getAppType(), userApp.getAppId());
+    ((RetailscmBizUserContextImpl)userContext).setCurrentUserInfo(app);
+  }
+
+  public Object view(RetailscmUserContext userContext, String id) throws Exception {
+    throw new UnsupportedOperationException("view 接口尚未实现");
+  }
+  protected BusinessHandler getLoginProcessBizHandler(RetailscmUserContextImpl userContext) {
+    throw new UnsupportedOperationException("getLoginProcessBizHandler 接口尚未实现");
+  }
+  protected SmartList<UserApp> getRelatedUserAppList(RetailscmUserContext userContext, SecUser secUser) {
+    throw new UnsupportedOperationException("getRelatedUserAppList 接口尚未实现");
+  }
+
+
+	// -----------------------------------\\  登录部分处理 //-----------------------------------
 
 
 }

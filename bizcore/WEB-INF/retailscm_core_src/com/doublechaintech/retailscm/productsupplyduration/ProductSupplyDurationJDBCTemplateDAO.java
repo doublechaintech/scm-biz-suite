@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.productsupplyduration;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected SupplierProductDAO supplierProductDAO;
 	public void setSupplierProductDAO(SupplierProductDAO supplierProductDAO){
- 	
+
  		if(supplierProductDAO == null){
  			throw new IllegalStateException("Do not try to set supplierProductDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		if(this.supplierProductDAO == null){
  			throw new IllegalStateException("The supplierProductDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.supplierProductDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ProductSupplyDurationTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractProductEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ProductSupplyDurationTokens.PRODUCT);
  	}
 
  	protected boolean isSaveProductEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ProductSupplyDurationTokens.PRODUCT);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		return new ProductSupplyDurationMapper();
 	}
 
-	
-	
+
+
 	protected ProductSupplyDuration extractProductSupplyDuration(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ProductSupplyDuration productSupplyDuration = loadSingleObject(accessKey, getProductSupplyDurationMapper());
@@ -229,25 +231,26 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	}
 
-	
-	
+
+
 
 	protected ProductSupplyDuration loadInternalProductSupplyDuration(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ProductSupplyDuration productSupplyDuration = extractProductSupplyDuration(accessKey, loadOptions);
- 	
+
  		if(isExtractProductEnabled(loadOptions)){
 	 		extractProduct(productSupplyDuration, loadOptions);
  		}
  
 		
 		return productSupplyDuration;
-		
+
 	}
 
-	 
+	
 
  	protected ProductSupplyDuration extractProduct(ProductSupplyDuration productSupplyDuration, Map<String,Object> options) throws Exception{
+  
 
 		if(productSupplyDuration.getProduct() == null){
 			return productSupplyDuration;
@@ -260,37 +263,37 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		if(product != null){
 			productSupplyDuration.setProduct(product);
 		}
-		
- 		
+
+
  		return productSupplyDuration;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<ProductSupplyDuration> findProductSupplyDurationByProduct(String supplierProductId,Map<String,Object> options){
- 	
+
   		SmartList<ProductSupplyDuration> resultList = queryWith(ProductSupplyDurationTable.COLUMN_PRODUCT, supplierProductId, options, getProductSupplyDurationMapper());
 		// analyzeProductSupplyDurationByProduct(resultList, supplierProductId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ProductSupplyDuration> findProductSupplyDurationByProduct(String supplierProductId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ProductSupplyDuration> resultList =  queryWithRange(ProductSupplyDurationTable.COLUMN_PRODUCT, supplierProductId, options, getProductSupplyDurationMapper(), start, count);
  		//analyzeProductSupplyDurationByProduct(resultList, supplierProductId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeProductSupplyDurationByProduct(SmartList<ProductSupplyDuration> resultList, String supplierProductId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countProductSupplyDurationByProduct(String supplierProductId,Map<String,Object> options){
@@ -301,21 +304,24 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	public Map<String, Integer> countProductSupplyDurationByProductIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ProductSupplyDurationTable.COLUMN_PRODUCT, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ProductSupplyDuration saveProductSupplyDuration(ProductSupplyDuration  productSupplyDuration){
+    
+
 		
 		if(!productSupplyDuration.isChanged()){
 			return productSupplyDuration;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(productSupplyDuration);
 		String SQL=this.getSaveProductSupplyDurationSQL(productSupplyDuration);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveProductSupplyDurationParameters(productSupplyDuration);
@@ -326,6 +332,7 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		}
 
 		productSupplyDuration.incVersion();
+		productSupplyDuration.afterSave();
 		return productSupplyDuration;
 
 	}
@@ -343,6 +350,7 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		for(ProductSupplyDuration productSupplyDuration:productSupplyDurationList){
 			if(productSupplyDuration.isChanged()){
 				productSupplyDuration.incVersion();
+				productSupplyDuration.afterSave();
 			}
 
 
@@ -446,19 +454,16 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  	protected Object[] prepareProductSupplyDurationUpdateParameters(ProductSupplyDuration productSupplyDuration){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = productSupplyDuration.getQuantity();
  		
- 		
  		parameters[1] = productSupplyDuration.getDuration();
- 		
  		
  		parameters[2] = productSupplyDuration.getPrice();
  		
  		if(productSupplyDuration.getProduct() != null){
  			parameters[3] = productSupplyDuration.getProduct().getId();
  		}
- 
+    
  		parameters[4] = productSupplyDuration.nextVersion();
  		parameters[5] = productSupplyDuration.getId();
  		parameters[6] = productSupplyDuration.getVersion();
@@ -473,18 +478,14 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
         }
 		parameters[0] =  productSupplyDuration.getId();
  
- 		
  		parameters[1] = productSupplyDuration.getQuantity();
  		
- 		
  		parameters[2] = productSupplyDuration.getDuration();
- 		
  		
  		parameters[3] = productSupplyDuration.getPrice();
  		
  		if(productSupplyDuration.getProduct() != null){
  			parameters[4] = productSupplyDuration.getProduct().getId();
-
  		}
  		
 
@@ -493,12 +494,11 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	protected ProductSupplyDuration saveInternalProductSupplyDuration(ProductSupplyDuration productSupplyDuration, Map<String,Object> options){
 
-		saveProductSupplyDuration(productSupplyDuration);
-
  		if(isSaveProductEnabled(options)){
 	 		saveProduct(productSupplyDuration, options);
  		}
  
+   saveProductSupplyDuration(productSupplyDuration);
 		
 		return productSupplyDuration;
 
@@ -510,6 +510,7 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	
 
  	protected ProductSupplyDuration saveProduct(ProductSupplyDuration productSupplyDuration, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(productSupplyDuration.getProduct() == null){
  			return productSupplyDuration;//do nothing when it is null
@@ -519,11 +520,6 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
  		return productSupplyDuration;
 
  	}
-
-
-
-
-
  
 
 	
@@ -531,10 +527,10 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 		
 
 	public ProductSupplyDuration present(ProductSupplyDuration productSupplyDuration,Map<String, Object> options){
-	
+
 
 		return productSupplyDuration;
-	
+
 	}
 		
 
@@ -586,6 +582,10 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ProductSupplyDuration> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getProductSupplyDurationMapper());
   }
@@ -621,6 +621,15 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmBaseDAOImpl i
 
 	
 
+  @Override
+  public List<ProductSupplyDuration> search(ProductSupplyDurationRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ProductSupplyDurationMapper mapper() {
+    return getProductSupplyDurationMapper();
+  }
 }
 
 

@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreMemberAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreMemberAssociateForm 
-	visible={currentAssociateModal==='owner'} 
-	data={{retailStoreMemberGiftCardList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'owner')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'owner')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class RetailStoreMemberGiftCardSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class RetailStoreMemberGiftCardSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {RetailStoreMemberGiftCardTable} = GlobalComponents;
     const {RetailStoreMemberGiftCardSearchForm} = GlobalComponents;
     const {RetailStoreMemberGiftCardModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class RetailStoreMemberGiftCardSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,RetailStoreMemberGiftCardModalTable,"retailStoreMemberGiftCardIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

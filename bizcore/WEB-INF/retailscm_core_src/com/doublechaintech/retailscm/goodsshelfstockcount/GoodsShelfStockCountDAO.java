@@ -46,6 +46,7 @@ public interface GoodsShelfStockCountDAO extends BaseDAO{
 	public void delete(String goodsShelfStockCountId, int version) throws Exception;
 	public GoodsShelfStockCount disconnectFromAll(String goodsShelfStockCountId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public StockCountIssueTrackDAO getStockCountIssueTrackDAO();
 		
@@ -57,9 +58,10 @@ public interface GoodsShelfStockCountDAO extends BaseDAO{
 
 
 
-	public SmartList<GoodsShelfStockCount> queryList(String sql, Object ... parmeters);
+	public SmartList<GoodsShelfStockCount> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<GoodsShelfStockCount> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateGoodsShelfStockCount executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<GoodsShelfStockCount> findGoodsShelfStockCountByShelf(String goodsShelfId, Map<String,Object> options);
@@ -73,6 +75,8 @@ public interface GoodsShelfStockCountDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:StockCountIssueTrack的stockCount的StockCountIssueTrackList
 	public SmartList<StockCountIssueTrack> loadOurStockCountIssueTrackList(RetailscmUserContext userContext, List<GoodsShelfStockCount> us, Map<String,Object> options) throws Exception;
 	
+
+	List<GoodsShelfStockCount> search(GoodsShelfStockCountRequest pRequest);
 }
 
 

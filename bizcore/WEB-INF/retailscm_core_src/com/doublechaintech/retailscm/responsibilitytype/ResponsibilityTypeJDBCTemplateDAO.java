@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.responsibilitytype;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
 	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO retailStoreCountryCenterDAO){
- 	
+
  		if(retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreCountryCenterDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(this.retailStoreCountryCenterDAO == null){
  			throw new IllegalStateException("The retailStoreCountryCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreCountryCenterDAO;
- 	}	
+ 	}
 
 	protected EmployeeDAO employeeDAO;
 	public void setEmployeeDAO(EmployeeDAO employeeDAO){
- 	
+
  		if(employeeDAO == null){
  			throw new IllegalStateException("Do not try to set employeeDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		if(this.employeeDAO == null){
  			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.employeeDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -123,7 +125,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		newResponsibilityType.setVersion(0);
 		
 		
- 		
+
  		if(isSaveEmployeeListEnabled(options)){
  			for(Employee item: newResponsibilityType.getEmployeeList()){
  				item.setVersion(0);
@@ -210,44 +212,44 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return ResponsibilityTypeTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractCompanyEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, ResponsibilityTypeTokens.COMPANY);
  	}
 
  	protected boolean isSaveCompanyEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, ResponsibilityTypeTokens.COMPANY);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
  		return checkOptions(options,ResponsibilityTypeTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){
  		return ResponsibilityTypeTokens.of(options).analyzeEmployeeListEnabled();
  	}
-	
+
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, ResponsibilityTypeTokens.EMPLOYEE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -256,8 +258,8 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		return new ResponsibilityTypeMapper();
 	}
 
-	
-	
+
+
 	protected ResponsibilityType extractResponsibilityType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			ResponsibilityType responsibilityType = loadSingleObject(accessKey, getResponsibilityTypeMapper());
@@ -268,13 +270,13 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	}
 
-	
-	
+
+
 
 	protected ResponsibilityType loadInternalResponsibilityType(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		ResponsibilityType responsibilityType = extractResponsibilityType(accessKey, loadOptions);
- 	
+
  		if(isExtractCompanyEnabled(loadOptions)){
 	 		extractCompany(responsibilityType, loadOptions);
  		}
@@ -282,8 +284,8 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(responsibilityType, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
 	 		analyzeEmployeeList(responsibilityType, loadOptions);
@@ -291,12 +293,13 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		
 		
 		return responsibilityType;
-		
+
 	}
 
-	 
+	
 
  	protected ResponsibilityType extractCompany(ResponsibilityType responsibilityType, Map<String,Object> options) throws Exception{
+  
 
 		if(responsibilityType.getCompany() == null){
 			return responsibilityType;
@@ -309,21 +312,21 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		if(company != null){
 			responsibilityType.setCompany(company);
 		}
-		
- 		
+
+
  		return responsibilityType;
  	}
- 		
+
  
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected ResponsibilityType extractEmployeeList(ResponsibilityType responsibilityType, Map<String,Object> options){
-		
-		
+    
+
 		if(responsibilityType == null){
 			return null;
 		}
@@ -331,21 +334,20 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return responsibilityType;
 		}
 
-		
-		
+
+
 		SmartList<Employee> employeeList = getEmployeeDAO().findEmployeeByResponsibleFor(responsibilityType.getId(),options);
 		if(employeeList != null){
 			enhanceEmployeeList(employeeList,options);
 			responsibilityType.setEmployeeList(employeeList);
 		}
-		
+
 		return responsibilityType;
-	
-	}	
-	
+  
+	}
+
 	protected ResponsibilityType analyzeEmployeeList(ResponsibilityType responsibilityType, Map<String,Object> options){
-		
-		
+     
 		if(responsibilityType == null){
 			return null;
 		}
@@ -353,43 +355,43 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 			return responsibilityType;
 		}
 
-		
-		
+
+
 		SmartList<Employee> employeeList = responsibilityType.getEmployeeList();
 		if(employeeList != null){
 			getEmployeeDAO().analyzeEmployeeByResponsibleFor(employeeList, responsibilityType.getId(), options);
-			
+
 		}
-		
+
 		return responsibilityType;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
- 	
+
   		SmartList<ResponsibilityType> resultList = queryWith(ResponsibilityTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getResponsibilityTypeMapper());
 		// analyzeResponsibilityTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<ResponsibilityType> resultList =  queryWithRange(ResponsibilityTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getResponsibilityTypeMapper(), start, count);
  		//analyzeResponsibilityTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeResponsibilityTypeByCompany(SmartList<ResponsibilityType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countResponsibilityTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
@@ -400,21 +402,24 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	public Map<String, Integer> countResponsibilityTypeByCompanyIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(ResponsibilityTypeTable.COLUMN_COMPANY, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected ResponsibilityType saveResponsibilityType(ResponsibilityType  responsibilityType){
+    
+
 		
 		if(!responsibilityType.isChanged()){
 			return responsibilityType;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(responsibilityType);
 		String SQL=this.getSaveResponsibilityTypeSQL(responsibilityType);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveResponsibilityTypeParameters(responsibilityType);
@@ -425,6 +430,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		}
 
 		responsibilityType.incVersion();
+		responsibilityType.afterSave();
 		return responsibilityType;
 
 	}
@@ -442,6 +448,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		for(ResponsibilityType responsibilityType:responsibilityTypeList){
 			if(responsibilityType.isChanged()){
 				responsibilityType.incVersion();
+				responsibilityType.afterSave();
 			}
 
 
@@ -545,16 +552,13 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  	protected Object[] prepareResponsibilityTypeUpdateParameters(ResponsibilityType responsibilityType){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = responsibilityType.getCode();
  		
  		if(responsibilityType.getCompany() != null){
  			parameters[1] = responsibilityType.getCompany().getId();
  		}
- 
- 		
+    
  		parameters[2] = responsibilityType.getBaseDescription();
- 		
  		
  		parameters[3] = responsibilityType.getDetailDescription();
  		
@@ -572,17 +576,13 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
         }
 		parameters[0] =  responsibilityType.getId();
  
- 		
  		parameters[1] = responsibilityType.getCode();
  		
  		if(responsibilityType.getCompany() != null){
  			parameters[2] = responsibilityType.getCompany().getId();
-
  		}
  		
- 		
  		parameters[3] = responsibilityType.getBaseDescription();
- 		
  		
  		parameters[4] = responsibilityType.getDetailDescription();
  		
@@ -592,12 +592,11 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	protected ResponsibilityType saveInternalResponsibilityType(ResponsibilityType responsibilityType, Map<String,Object> options){
 
-		saveResponsibilityType(responsibilityType);
-
  		if(isSaveCompanyEnabled(options)){
 	 		saveCompany(responsibilityType, options);
  		}
  
+   saveResponsibilityType(responsibilityType);
 		
 		if(isSaveEmployeeListEnabled(options)){
 	 		saveEmployeeList(responsibilityType, options);
@@ -616,6 +615,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	
 
  	protected ResponsibilityType saveCompany(ResponsibilityType responsibilityType, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(responsibilityType.getCompany() == null){
  			return responsibilityType;//do nothing when it is null
@@ -625,11 +625,6 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
  		return responsibilityType;
 
  	}
-
-
-
-
-
  
 
 	
@@ -840,7 +835,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 		
 	protected ResponsibilityType saveEmployeeList(ResponsibilityType responsibilityType, Map<String,Object> options){
-
+    
 
 
 
@@ -907,19 +902,19 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 		
 
 	public ResponsibilityType present(ResponsibilityType responsibilityType,Map<String, Object> options){
-	
+
 		presentEmployeeList(responsibilityType,options);
 
 		return responsibilityType;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected ResponsibilityType presentEmployeeList(
 			ResponsibilityType responsibilityType,
 			Map<String, Object> options) {
-
-		SmartList<Employee> employeeList = responsibilityType.getEmployeeList();		
+    
+		SmartList<Employee> employeeList = responsibilityType.getEmployeeList();
 				SmartList<Employee> newList= presentSubList(responsibilityType.getId(),
 				employeeList,
 				options,
@@ -927,12 +922,12 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 				getEmployeeDAO()::findEmployeeByResponsibleFor
 				);
 
-		
+
 		responsibilityType.setEmployeeList(newList);
-		
+
 
 		return responsibilityType;
-	}			
+	}
 		
 
 	
@@ -956,6 +951,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	
 	// 需要一个加载引用我的对象的enhance方法:Employee的responsibleFor的EmployeeList
 	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<ResponsibilityType> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1012,6 +1008,10 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<ResponsibilityType> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getResponsibilityTypeMapper());
   }
@@ -1047,6 +1047,15 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmBaseDAOImpl impl
 
 	
 
+  @Override
+  public List<ResponsibilityType> search(ResponsibilityTypeRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected ResponsibilityTypeMapper mapper() {
+    return getResponsibilityTypeMapper();
+  }
 }
 
 

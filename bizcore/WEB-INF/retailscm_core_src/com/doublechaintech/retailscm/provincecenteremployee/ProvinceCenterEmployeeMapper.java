@@ -1,5 +1,6 @@
 
 package com.doublechaintech.retailscm.provincecenteremployee;
+import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,28 +10,31 @@ import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepa
 import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenter;
 
 public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEmployee>{
-	
+
 	protected ProvinceCenterEmployee internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		ProvinceCenterEmployee provinceCenterEmployee = getProvinceCenterEmployee();		
-		 		
- 		setId(provinceCenterEmployee, rs, rowNumber); 		
- 		setName(provinceCenterEmployee, rs, rowNumber); 		
- 		setMobile(provinceCenterEmployee, rs, rowNumber); 		
- 		setEmail(provinceCenterEmployee, rs, rowNumber); 		
- 		setFounded(provinceCenterEmployee, rs, rowNumber); 		
- 		setDepartment(provinceCenterEmployee, rs, rowNumber); 		
- 		setProvinceCenter(provinceCenterEmployee, rs, rowNumber); 		
+		ProvinceCenterEmployee provinceCenterEmployee = getProvinceCenterEmployee();
+		
+ 		setId(provinceCenterEmployee, rs, rowNumber);
+ 		setName(provinceCenterEmployee, rs, rowNumber);
+ 		setMobile(provinceCenterEmployee, rs, rowNumber);
+ 		setEmail(provinceCenterEmployee, rs, rowNumber);
+ 		setFounded(provinceCenterEmployee, rs, rowNumber);
+ 		setDepartment(provinceCenterEmployee, rs, rowNumber);
+ 		setProvinceCenter(provinceCenterEmployee, rs, rowNumber);
  		setVersion(provinceCenterEmployee, rs, rowNumber);
 
+    
 		return provinceCenterEmployee;
 	}
-	
+
 	protected ProvinceCenterEmployee getProvinceCenterEmployee(){
-		return new ProvinceCenterEmployee();
-	}		
+	  ProvinceCenterEmployee entity = new ProvinceCenterEmployee();
+	  Beans.dbUtil().markEnhanced(entity);
+		return entity;
+	}
 		
 	protected void setId(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String id = rs.getString(ProvinceCenterEmployeeTable.COLUMN_ID);
@@ -41,10 +45,13 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
 		}
 		
 		provinceCenterEmployee.setId(id);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setName(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String name = rs.getString(ProvinceCenterEmployeeTable.COLUMN_NAME);
@@ -55,10 +62,13 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
 		}
 		
 		provinceCenterEmployee.setName(name);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setMobile(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String mobile = rs.getString(ProvinceCenterEmployeeTable.COLUMN_MOBILE);
@@ -69,10 +79,13 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
 		}
 		
 		provinceCenterEmployee.setMobile(mobile);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setEmail(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		String email = rs.getString(ProvinceCenterEmployeeTable.COLUMN_EMAIL);
@@ -83,10 +96,13 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
 		}
 		
 		provinceCenterEmployee.setEmail(email);
+		}catch (SQLException e){
+
+    }
 	}
 		
 	protected void setFounded(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Date founded = rs.getDate(ProvinceCenterEmployeeTable.COLUMN_FOUNDED);
@@ -97,10 +113,18 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
 		}
 		
 		provinceCenterEmployee.setFounded(founded);
+		}catch (SQLException e){
+
+    }
 	}
-		 		
+		
  	protected void setDepartment(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
- 		String provinceCenterDepartmentId = rs.getString(ProvinceCenterEmployeeTable.COLUMN_DEPARTMENT);
+ 		String provinceCenterDepartmentId;
+ 		try{
+ 		  provinceCenterDepartmentId = rs.getString(ProvinceCenterEmployeeTable.COLUMN_DEPARTMENT);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( provinceCenterDepartmentId == null){
  			return;
  		}
@@ -111,14 +135,19 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
  		if( provinceCenterDepartment != null ){
  			//if the root object 'provinceCenterEmployee' already have the property, just set the id for it;
  			provinceCenterDepartment.setId(provinceCenterDepartmentId);
- 			
+
  			return;
  		}
  		provinceCenterEmployee.setDepartment(createEmptyDepartment(provinceCenterDepartmentId));
  	}
- 	 		
+ 	
  	protected void setProvinceCenter(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
- 		String retailStoreProvinceCenterId = rs.getString(ProvinceCenterEmployeeTable.COLUMN_PROVINCE_CENTER);
+ 		String retailStoreProvinceCenterId;
+ 		try{
+ 		  retailStoreProvinceCenterId = rs.getString(ProvinceCenterEmployeeTable.COLUMN_PROVINCE_CENTER);
+ 		}catch(SQLException e){
+ 		  return;
+ 		}
  		if( retailStoreProvinceCenterId == null){
  			return;
  		}
@@ -129,14 +158,14 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
  		if( retailStoreProvinceCenter != null ){
  			//if the root object 'provinceCenterEmployee' already have the property, just set the id for it;
  			retailStoreProvinceCenter.setId(retailStoreProvinceCenterId);
- 			
+
  			return;
  		}
  		provinceCenterEmployee.setProvinceCenter(createEmptyProvinceCenter(retailStoreProvinceCenterId));
  	}
  	
 	protected void setVersion(ProvinceCenterEmployee provinceCenterEmployee, ResultSet rs, int rowNumber) throws SQLException{
-	
+    try{
 		//there will be issue when the type is double/int/long
 		
 		Integer version = rs.getInt(ProvinceCenterEmployeeTable.COLUMN_VERSION);
@@ -147,9 +176,12 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
 		}
 		
 		provinceCenterEmployee.setVersion(version);
+		}catch (SQLException e){
+
+    }
 	}
 		
-		
+
 
  	protected ProvinceCenterDepartment  createEmptyDepartment(String provinceCenterDepartmentId){
  		ProvinceCenterDepartment provinceCenterDepartment = new ProvinceCenterDepartment();

@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.retailstorecityservicecenter;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 	protected RetailStoreProvinceCenterDAO retailStoreProvinceCenterDAO;
 	public void setRetailStoreProvinceCenterDAO(RetailStoreProvinceCenterDAO retailStoreProvinceCenterDAO){
- 	
+
  		if(retailStoreProvinceCenterDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreProvinceCenterDAO to null.");
  		}
@@ -57,13 +58,13 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  		if(this.retailStoreProvinceCenterDAO == null){
  			throw new IllegalStateException("The retailStoreProvinceCenterDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreProvinceCenterDAO;
- 	}	
+ 	}
 
 	protected CityPartnerDAO cityPartnerDAO;
 	public void setCityPartnerDAO(CityPartnerDAO cityPartnerDAO){
- 	
+
  		if(cityPartnerDAO == null){
  			throw new IllegalStateException("Do not try to set cityPartnerDAO to null.");
  		}
@@ -73,13 +74,13 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  		if(this.cityPartnerDAO == null){
  			throw new IllegalStateException("The cityPartnerDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.cityPartnerDAO;
- 	}	
+ 	}
 
 	protected PotentialCustomerDAO potentialCustomerDAO;
 	public void setPotentialCustomerDAO(PotentialCustomerDAO potentialCustomerDAO){
- 	
+
  		if(potentialCustomerDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerDAO to null.");
  		}
@@ -89,13 +90,13 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  		if(this.potentialCustomerDAO == null){
  			throw new IllegalStateException("The potentialCustomerDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerDAO;
- 	}	
+ 	}
 
 	protected CityEventDAO cityEventDAO;
 	public void setCityEventDAO(CityEventDAO cityEventDAO){
- 	
+
  		if(cityEventDAO == null){
  			throw new IllegalStateException("Do not try to set cityEventDAO to null.");
  		}
@@ -105,13 +106,13 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  		if(this.cityEventDAO == null){
  			throw new IllegalStateException("The cityEventDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.cityEventDAO;
- 	}	
+ 	}
 
 	protected RetailStoreDAO retailStoreDAO;
 	public void setRetailStoreDAO(RetailStoreDAO retailStoreDAO){
- 	
+
  		if(retailStoreDAO == null){
  			throw new IllegalStateException("Do not try to set retailStoreDAO to null.");
  		}
@@ -121,9 +122,10 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  		if(this.retailStoreDAO == null){
  			throw new IllegalStateException("The retailStoreDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.retailStoreDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -177,28 +179,28 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		newRetailStoreCityServiceCenter.setVersion(0);
 		
 		
- 		
+
  		if(isSaveCityPartnerListEnabled(options)){
  			for(CityPartner item: newRetailStoreCityServiceCenter.getCityPartnerList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSavePotentialCustomerListEnabled(options)){
  			for(PotentialCustomer item: newRetailStoreCityServiceCenter.getPotentialCustomerList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveCityEventListEnabled(options)){
  			for(CityEvent item: newRetailStoreCityServiceCenter.getCityEventList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveRetailStoreListEnabled(options)){
  			for(RetailStore item: newRetailStoreCityServiceCenter.getRetailStoreList()){
  				item.setVersion(0);
@@ -285,86 +287,86 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return RetailStoreCityServiceCenterTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractBelongsToEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, RetailStoreCityServiceCenterTokens.BELONGSTO);
  	}
 
  	protected boolean isSaveBelongsToEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, RetailStoreCityServiceCenterTokens.BELONGSTO);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractCityPartnerListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractCityPartnerListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST);
  	}
- 	protected boolean isAnalyzeCityPartnerListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeCityPartnerListEnabled(Map<String,Object> options){
  		return RetailStoreCityServiceCenterTokens.of(options).analyzeCityPartnerListEnabled();
  	}
-	
+
 	protected boolean isSaveCityPartnerListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){
  		return RetailStoreCityServiceCenterTokens.of(options).analyzePotentialCustomerListEnabled();
  	}
-	
+
 	protected boolean isSavePotentialCustomerListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractCityEventListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractCityEventListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST);
  	}
- 	protected boolean isAnalyzeCityEventListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeCityEventListEnabled(Map<String,Object> options){
  		return RetailStoreCityServiceCenterTokens.of(options).analyzeCityEventListEnabled();
  	}
-	
+
 	protected boolean isSaveCityEventListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){
  		return RetailStoreCityServiceCenterTokens.of(options).analyzeRetailStoreListEnabled();
  	}
-	
+
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST);
-		
+
  	}
- 	
+
 		
 
 	
@@ -373,8 +375,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		return new RetailStoreCityServiceCenterMapper();
 	}
 
-	
-	
+
+
 	protected RetailStoreCityServiceCenter extractRetailStoreCityServiceCenter(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			RetailStoreCityServiceCenter retailStoreCityServiceCenter = loadSingleObject(accessKey, getRetailStoreCityServiceCenterMapper());
@@ -385,13 +387,13 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 	}
 
-	
-	
+
+
 
 	protected RetailStoreCityServiceCenter loadInternalRetailStoreCityServiceCenter(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		RetailStoreCityServiceCenter retailStoreCityServiceCenter = extractRetailStoreCityServiceCenter(accessKey, loadOptions);
- 	
+
  		if(isExtractBelongsToEnabled(loadOptions)){
 	 		extractBelongsTo(retailStoreCityServiceCenter, loadOptions);
  		}
@@ -399,8 +401,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		
 		if(isExtractCityPartnerListEnabled(loadOptions)){
 	 		extractCityPartnerList(retailStoreCityServiceCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeCityPartnerListEnabled(loadOptions)){
 	 		analyzeCityPartnerList(retailStoreCityServiceCenter, loadOptions);
@@ -409,8 +411,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		
 		if(isExtractPotentialCustomerListEnabled(loadOptions)){
 	 		extractPotentialCustomerList(retailStoreCityServiceCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzePotentialCustomerListEnabled(loadOptions)){
 	 		analyzePotentialCustomerList(retailStoreCityServiceCenter, loadOptions);
@@ -419,8 +421,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		
 		if(isExtractCityEventListEnabled(loadOptions)){
 	 		extractCityEventList(retailStoreCityServiceCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeCityEventListEnabled(loadOptions)){
 	 		analyzeCityEventList(retailStoreCityServiceCenter, loadOptions);
@@ -429,8 +431,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreCityServiceCenter, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
 	 		analyzeRetailStoreList(retailStoreCityServiceCenter, loadOptions);
@@ -438,12 +440,13 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  		
 		
 		return retailStoreCityServiceCenter;
-		
+
 	}
 
-	 
+	
 
  	protected RetailStoreCityServiceCenter extractBelongsTo(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options) throws Exception{
+  
 
 		if(retailStoreCityServiceCenter.getBelongsTo() == null){
 			return retailStoreCityServiceCenter;
@@ -456,21 +459,21 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		if(belongsTo != null){
 			retailStoreCityServiceCenter.setBelongsTo(belongsTo);
 		}
-		
- 		
+
+
  		return retailStoreCityServiceCenter;
  	}
- 		
+
  
 		
 	protected void enhanceCityPartnerList(SmartList<CityPartner> cityPartnerList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCityServiceCenter extractCityPartnerList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -478,21 +481,20 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<CityPartner> cityPartnerList = getCityPartnerDAO().findCityPartnerByCityServiceCenter(retailStoreCityServiceCenter.getId(),options);
 		if(cityPartnerList != null){
 			enhanceCityPartnerList(cityPartnerList,options);
 			retailStoreCityServiceCenter.setCityPartnerList(cityPartnerList);
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCityServiceCenter analyzeCityPartnerList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -500,27 +502,27 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<CityPartner> cityPartnerList = retailStoreCityServiceCenter.getCityPartnerList();
 		if(cityPartnerList != null){
 			getCityPartnerDAO().analyzeCityPartnerByCityServiceCenter(cityPartnerList, retailStoreCityServiceCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhancePotentialCustomerList(SmartList<PotentialCustomer> potentialCustomerList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCityServiceCenter extractPotentialCustomerList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -528,21 +530,20 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomer> potentialCustomerList = getPotentialCustomerDAO().findPotentialCustomerByCityServiceCenter(retailStoreCityServiceCenter.getId(),options);
 		if(potentialCustomerList != null){
 			enhancePotentialCustomerList(potentialCustomerList,options);
 			retailStoreCityServiceCenter.setPotentialCustomerList(potentialCustomerList);
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCityServiceCenter analyzePotentialCustomerList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -550,27 +551,27 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<PotentialCustomer> potentialCustomerList = retailStoreCityServiceCenter.getPotentialCustomerList();
 		if(potentialCustomerList != null){
 			getPotentialCustomerDAO().analyzePotentialCustomerByCityServiceCenter(potentialCustomerList, retailStoreCityServiceCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceCityEventList(SmartList<CityEvent> cityEventList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCityServiceCenter extractCityEventList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -578,21 +579,20 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<CityEvent> cityEventList = getCityEventDAO().findCityEventByCityServiceCenter(retailStoreCityServiceCenter.getId(),options);
 		if(cityEventList != null){
 			enhanceCityEventList(cityEventList,options);
 			retailStoreCityServiceCenter.setCityEventList(cityEventList);
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCityServiceCenter analyzeCityEventList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -600,27 +600,27 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<CityEvent> cityEventList = retailStoreCityServiceCenter.getCityEventList();
 		if(cityEventList != null){
 			getCityEventDAO().analyzeCityEventByCityServiceCenter(cityEventList, retailStoreCityServiceCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected RetailStoreCityServiceCenter extractRetailStoreList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+    
+
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -628,21 +628,20 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStore> retailStoreList = getRetailStoreDAO().findRetailStoreByCityServiceCenter(retailStoreCityServiceCenter.getId(),options);
 		if(retailStoreList != null){
 			enhanceRetailStoreList(retailStoreList,options);
 			retailStoreCityServiceCenter.setRetailStoreList(retailStoreList);
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+  
+	}
+
 	protected RetailStoreCityServiceCenter analyzeRetailStoreList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-		
-		
+     
 		if(retailStoreCityServiceCenter == null){
 			return null;
 		}
@@ -650,47 +649,47 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 			return retailStoreCityServiceCenter;
 		}
 
-		
-		
+
+
 		SmartList<RetailStore> retailStoreList = retailStoreCityServiceCenter.getRetailStoreList();
 		if(retailStoreList != null){
 			getRetailStoreDAO().analyzeRetailStoreByCityServiceCenter(retailStoreList, retailStoreCityServiceCenter.getId(), options);
-			
+
 		}
-		
+
 		return retailStoreCityServiceCenter;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<RetailStoreCityServiceCenter> findRetailStoreCityServiceCenterByBelongsTo(String retailStoreProvinceCenterId,Map<String,Object> options){
- 	
+
   		SmartList<RetailStoreCityServiceCenter> resultList = queryWith(RetailStoreCityServiceCenterTable.COLUMN_BELONGS_TO, retailStoreProvinceCenterId, options, getRetailStoreCityServiceCenterMapper());
 		// analyzeRetailStoreCityServiceCenterByBelongsTo(resultList, retailStoreProvinceCenterId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<RetailStoreCityServiceCenter> findRetailStoreCityServiceCenterByBelongsTo(String retailStoreProvinceCenterId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<RetailStoreCityServiceCenter> resultList =  queryWithRange(RetailStoreCityServiceCenterTable.COLUMN_BELONGS_TO, retailStoreProvinceCenterId, options, getRetailStoreCityServiceCenterMapper(), start, count);
  		//analyzeRetailStoreCityServiceCenterByBelongsTo(resultList, retailStoreProvinceCenterId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeRetailStoreCityServiceCenterByBelongsTo(SmartList<RetailStoreCityServiceCenter> resultList, String retailStoreProvinceCenterId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreCityServiceCenter.BELONGS_TO_PROPERTY, retailStoreProvinceCenterId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY
@@ -698,11 +697,11 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countRetailStoreCityServiceCenterByBelongsTo(String retailStoreProvinceCenterId,Map<String,Object> options){
@@ -713,21 +712,24 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	public Map<String, Integer> countRetailStoreCityServiceCenterByBelongsToIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(RetailStoreCityServiceCenterTable.COLUMN_BELONGS_TO, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected RetailStoreCityServiceCenter saveRetailStoreCityServiceCenter(RetailStoreCityServiceCenter  retailStoreCityServiceCenter){
+    
+
 		
 		if(!retailStoreCityServiceCenter.isChanged()){
 			return retailStoreCityServiceCenter;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(retailStoreCityServiceCenter);
 		String SQL=this.getSaveRetailStoreCityServiceCenterSQL(retailStoreCityServiceCenter);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveRetailStoreCityServiceCenterParameters(retailStoreCityServiceCenter);
@@ -738,6 +740,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		}
 
 		retailStoreCityServiceCenter.incVersion();
+		retailStoreCityServiceCenter.afterSave();
 		return retailStoreCityServiceCenter;
 
 	}
@@ -755,6 +758,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		for(RetailStoreCityServiceCenter retailStoreCityServiceCenter:retailStoreCityServiceCenterList){
 			if(retailStoreCityServiceCenter.isChanged()){
 				retailStoreCityServiceCenter.incVersion();
+				retailStoreCityServiceCenter.afterSave();
 			}
 
 
@@ -858,17 +862,14 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  	protected Object[] prepareRetailStoreCityServiceCenterUpdateParameters(RetailStoreCityServiceCenter retailStoreCityServiceCenter){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = retailStoreCityServiceCenter.getName();
- 		
  		
  		parameters[1] = retailStoreCityServiceCenter.getFounded();
  		
  		if(retailStoreCityServiceCenter.getBelongsTo() != null){
  			parameters[2] = retailStoreCityServiceCenter.getBelongsTo().getId();
  		}
- 
- 		
+    
  		parameters[3] = retailStoreCityServiceCenter.getLastUpdateTime();
  		
  		parameters[4] = retailStoreCityServiceCenter.nextVersion();
@@ -885,17 +886,13 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
         }
 		parameters[0] =  retailStoreCityServiceCenter.getId();
  
- 		
  		parameters[1] = retailStoreCityServiceCenter.getName();
- 		
  		
  		parameters[2] = retailStoreCityServiceCenter.getFounded();
  		
  		if(retailStoreCityServiceCenter.getBelongsTo() != null){
  			parameters[3] = retailStoreCityServiceCenter.getBelongsTo().getId();
-
  		}
- 		
  		
  		parameters[4] = retailStoreCityServiceCenter.getLastUpdateTime();
  		
@@ -905,12 +902,11 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 	protected RetailStoreCityServiceCenter saveInternalRetailStoreCityServiceCenter(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
 
-		saveRetailStoreCityServiceCenter(retailStoreCityServiceCenter);
-
  		if(isSaveBelongsToEnabled(options)){
 	 		saveBelongsTo(retailStoreCityServiceCenter, options);
  		}
  
+   saveRetailStoreCityServiceCenter(retailStoreCityServiceCenter);
 		
 		if(isSaveCityPartnerListEnabled(options)){
 	 		saveCityPartnerList(retailStoreCityServiceCenter, options);
@@ -950,6 +946,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	
 
  	protected RetailStoreCityServiceCenter saveBelongsTo(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(retailStoreCityServiceCenter.getBelongsTo() == null){
  			return retailStoreCityServiceCenter;//do nothing when it is null
@@ -959,11 +956,6 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
  		return retailStoreCityServiceCenter;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1434,7 +1426,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 		
 	protected RetailStoreCityServiceCenter saveCityPartnerList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -1500,7 +1492,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 		
 	protected RetailStoreCityServiceCenter savePotentialCustomerList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -1566,7 +1558,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 		
 	protected RetailStoreCityServiceCenter saveCityEventList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -1632,7 +1624,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 		
 	protected RetailStoreCityServiceCenter saveRetailStoreList(RetailStoreCityServiceCenter retailStoreCityServiceCenter, Map<String,Object> options){
-
+    
 
 
 
@@ -1699,22 +1691,22 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 		
 
 	public RetailStoreCityServiceCenter present(RetailStoreCityServiceCenter retailStoreCityServiceCenter,Map<String, Object> options){
-	
+
 		presentCityPartnerList(retailStoreCityServiceCenter,options);
 		presentPotentialCustomerList(retailStoreCityServiceCenter,options);
 		presentCityEventList(retailStoreCityServiceCenter,options);
 		presentRetailStoreList(retailStoreCityServiceCenter,options);
 
 		return retailStoreCityServiceCenter;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCityServiceCenter presentCityPartnerList(
 			RetailStoreCityServiceCenter retailStoreCityServiceCenter,
 			Map<String, Object> options) {
-
-		SmartList<CityPartner> cityPartnerList = retailStoreCityServiceCenter.getCityPartnerList();		
+    
+		SmartList<CityPartner> cityPartnerList = retailStoreCityServiceCenter.getCityPartnerList();
 				SmartList<CityPartner> newList= presentSubList(retailStoreCityServiceCenter.getId(),
 				cityPartnerList,
 				options,
@@ -1722,19 +1714,19 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 				getCityPartnerDAO()::findCityPartnerByCityServiceCenter
 				);
 
-		
+
 		retailStoreCityServiceCenter.setCityPartnerList(newList);
-		
+
 
 		return retailStoreCityServiceCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCityServiceCenter presentPotentialCustomerList(
 			RetailStoreCityServiceCenter retailStoreCityServiceCenter,
 			Map<String, Object> options) {
-
-		SmartList<PotentialCustomer> potentialCustomerList = retailStoreCityServiceCenter.getPotentialCustomerList();		
+    
+		SmartList<PotentialCustomer> potentialCustomerList = retailStoreCityServiceCenter.getPotentialCustomerList();
 				SmartList<PotentialCustomer> newList= presentSubList(retailStoreCityServiceCenter.getId(),
 				potentialCustomerList,
 				options,
@@ -1742,19 +1734,19 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 				getPotentialCustomerDAO()::findPotentialCustomerByCityServiceCenter
 				);
 
-		
+
 		retailStoreCityServiceCenter.setPotentialCustomerList(newList);
-		
+
 
 		return retailStoreCityServiceCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCityServiceCenter presentCityEventList(
 			RetailStoreCityServiceCenter retailStoreCityServiceCenter,
 			Map<String, Object> options) {
-
-		SmartList<CityEvent> cityEventList = retailStoreCityServiceCenter.getCityEventList();		
+    
+		SmartList<CityEvent> cityEventList = retailStoreCityServiceCenter.getCityEventList();
 				SmartList<CityEvent> newList= presentSubList(retailStoreCityServiceCenter.getId(),
 				cityEventList,
 				options,
@@ -1762,19 +1754,19 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 				getCityEventDAO()::findCityEventByCityServiceCenter
 				);
 
-		
+
 		retailStoreCityServiceCenter.setCityEventList(newList);
-		
+
 
 		return retailStoreCityServiceCenter;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected RetailStoreCityServiceCenter presentRetailStoreList(
 			RetailStoreCityServiceCenter retailStoreCityServiceCenter,
 			Map<String, Object> options) {
-
-		SmartList<RetailStore> retailStoreList = retailStoreCityServiceCenter.getRetailStoreList();		
+    
+		SmartList<RetailStore> retailStoreList = retailStoreCityServiceCenter.getRetailStoreList();
 				SmartList<RetailStore> newList= presentSubList(retailStoreCityServiceCenter.getId(),
 				retailStoreList,
 				options,
@@ -1782,12 +1774,12 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 				getRetailStoreDAO()::findRetailStoreByCityServiceCenter
 				);
 
-		
+
 		retailStoreCityServiceCenter.setRetailStoreList(newList);
-		
+
 
 		return retailStoreCityServiceCenter;
-	}			
+	}
 		
 
 	
@@ -1829,6 +1821,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	
 	// 需要一个加载引用我的对象的enhance方法:CityPartner的cityServiceCenter的CityPartnerList
 	public SmartList<CityPartner> loadOurCityPartnerList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1852,6 +1845,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	
 	// 需要一个加载引用我的对象的enhance方法:PotentialCustomer的cityServiceCenter的PotentialCustomerList
 	public SmartList<PotentialCustomer> loadOurPotentialCustomerList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1875,6 +1869,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	
 	// 需要一个加载引用我的对象的enhance方法:CityEvent的cityServiceCenter的CityEventList
 	public SmartList<CityEvent> loadOurCityEventList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1898,6 +1893,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	
 	// 需要一个加载引用我的对象的enhance方法:RetailStore的cityServiceCenter的RetailStoreList
 	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1954,6 +1950,10 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<RetailStoreCityServiceCenter> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreCityServiceCenterMapper());
   }
@@ -1989,6 +1989,15 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmBaseDA
 
 	
 
+  @Override
+  public List<RetailStoreCityServiceCenter> search(RetailStoreCityServiceCenterRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected RetailStoreCityServiceCenterMapper mapper() {
+    return getRetailStoreCityServiceCenterMapper();
+  }
 }
 
 

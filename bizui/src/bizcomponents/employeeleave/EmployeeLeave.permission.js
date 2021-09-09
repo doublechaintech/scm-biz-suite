@@ -31,7 +31,7 @@ const internalSummaryOf = (employeeLeave,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeLeave.id}</Description> 
+<Description term="ID">{employeeLeave.id}</Description> 
 <Description term="请假时长">{employeeLeave.leaveDurationHour}</Description> 
 <Description term="备注">{employeeLeave.remark}</Description> 
 	
@@ -59,7 +59,7 @@ class EmployeeLeavePermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeLeave = this.props.employeeLeave
     const { id,displayName,  } = employeeLeave
-    const  returnURL = `/employeeLeave/${id}/dashboard`
+    const  returnURL = `/employeeLeave/${id}/workbench`
     const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",cardsSource: employeeLeave,displayName,returnURL,
   		subItems: [
     
@@ -72,10 +72,10 @@ class EmployeeLeavePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

@@ -55,7 +55,7 @@ class TreeNodeProfile extends Component {
     const  treeNode = this.props.treeNode;
     const { id,displayName,  } = treeNode
     const  returnURL = `/treeNode/${id}/dashboard`
-    const cardsData = {cardsName:"树节点",cardsFor: "treeNode",cardsSource: treeNode,displayName,returnURL,
+    const cardsData = {cardsName:"节点",cardsFor: "treeNode",cardsSource: treeNode,displayName,returnURL,
   		subItems: [
      
       	],

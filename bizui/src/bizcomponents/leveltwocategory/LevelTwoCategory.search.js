@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { LevelOneCategoryAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <LevelOneCategoryAssociateForm 
-	visible={currentAssociateModal==='parentCategory'} 
-	data={{levelTwoCategoryList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'parentCategory')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'parentCategory')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class LevelTwoCategorySearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class LevelTwoCategorySearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {LevelTwoCategoryTable} = GlobalComponents;
     const {LevelTwoCategorySearchForm} = GlobalComponents;
     const {LevelTwoCategoryModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class LevelTwoCategorySearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,LevelTwoCategoryModalTable,"levelTwoCategoryIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

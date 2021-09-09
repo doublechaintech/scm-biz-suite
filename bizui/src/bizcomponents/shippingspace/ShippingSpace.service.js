@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}shippingSpaceManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}shippingSpaceManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}shippingSpaceService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const ShippingSpaceService = { view,
   load,
+  analyze,
   addGoods,
   updateGoods,
   removeGoodsList,
   requestCandidateWarehouse,
-  transferToAnotherWarehouse, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherWarehouse, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ShippingSpaceService
 

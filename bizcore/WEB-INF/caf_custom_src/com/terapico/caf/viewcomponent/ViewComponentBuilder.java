@@ -6,10 +6,24 @@ import java.util.List;
 public class ViewComponentBuilder<T extends BaseVC> {
   protected T vComponet;
 
+  public static ViewComponentBuilder<VComponentActionGroup> actionGroup() {
+    ViewComponentBuilder<VComponentActionGroup> me =
+        new ViewComponentBuilder<VComponentActionGroup>();
+    me.vComponet = new VComponentActionGroup();
+    return me;
+  }
+
   public static ViewComponentBuilder<VComponentCardInList> cardInList() {
     ViewComponentBuilder<VComponentCardInList> me =
         new ViewComponentBuilder<VComponentCardInList>();
     me.vComponet = new VComponentCardInList();
+    return me;
+  }
+
+  public static ViewComponentBuilder<VComponentInfoListItem> infoListItem() {
+    ViewComponentBuilder<VComponentInfoListItem> me =
+        new ViewComponentBuilder<VComponentInfoListItem>();
+    me.vComponet = new VComponentInfoListItem();
     return me;
   }
 
@@ -68,6 +82,21 @@ public class ViewComponentBuilder<T extends BaseVC> {
     return this;
   }
 
+  public ViewComponentBuilder<T> withIcon(String icon) {
+    vComponet.setAttribute("icon", icon);
+    return this;
+  }
+
+  public ViewComponentBuilder<T> withDisplayMode(String displayMode) {
+    vComponet.setAttribute("displayMode", displayMode);
+    return this;
+  }
+
+  public ViewComponentBuilder<T> withActionList(List<VComponentAction> actionList) {
+    vComponet.setAttribute("actionList", actionList);
+    return this;
+  }
+
   public ViewComponentBuilder<T> withImageUrl(String imageUrl) {
     vComponet.setAttribute("imageUrl", imageUrl);
     return this;
@@ -75,11 +104,6 @@ public class ViewComponentBuilder<T extends BaseVC> {
 
   public ViewComponentBuilder<T> withStatus(String status) {
     vComponet.setAttribute("status", status);
-    return this;
-  }
-
-  public ViewComponentBuilder<T> withDisplayMode(String displayMode) {
-    vComponet.setAttribute("displayMode", displayMode);
     return this;
   }
 
@@ -93,8 +117,28 @@ public class ViewComponentBuilder<T extends BaseVC> {
     return this;
   }
 
-  public ViewComponentBuilder<T> withActionList(List<VComponentAction> actionList) {
-    vComponet.setAttribute("actionList", actionList);
+  public ViewComponentBuilder<T> withFlag(String flag) {
+    vComponet.setAttribute("flag", flag);
+    return this;
+  }
+
+  public ViewComponentBuilder<T> withLevel(String level) {
+    vComponet.setAttribute("level", level);
+    return this;
+  }
+
+  public ViewComponentBuilder<T> withMode(String mode) {
+    vComponet.setAttribute("mode", mode);
+    return this;
+  }
+
+  public ViewComponentBuilder<T> withInfoList(List<VComponentInfoListItem> infoList) {
+    vComponet.setAttribute("infoList", infoList);
+    return this;
+  }
+
+  public ViewComponentBuilder<T> withValue(String value) {
+    vComponet.setAttribute("value", value);
     return this;
   }
 
@@ -113,11 +157,6 @@ public class ViewComponentBuilder<T extends BaseVC> {
     return this;
   }
 
-  public ViewComponentBuilder<T> withIcon(String icon) {
-    vComponet.setAttribute("icon", icon);
-    return this;
-  }
-
   public ViewComponentBuilder<T> withDisabled(Boolean disabled) {
     vComponet.setAttribute("disabled", disabled);
     return this;
@@ -128,8 +167,18 @@ public class ViewComponentBuilder<T extends BaseVC> {
     return this;
   }
 
+  public ViewComponentBuilder<T> withConfirm(String confirm) {
+    vComponet.setAttribute("confirm", confirm);
+    return this;
+  }
+
   public ViewComponentBuilder<T> withViewGroup(String viewGroup) {
     vComponet.setAttribute("viewGroup", viewGroup);
+    return this;
+  }
+
+  public ViewComponentBuilder<T> withHorizontal(Boolean horizontal) {
+    vComponet.setAttribute("horizontal", horizontal);
     return this;
   }
 

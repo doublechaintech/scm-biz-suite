@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.secuser;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -24,8 +25,8 @@ import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
 
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
 import com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentity;
 import com.doublechaintech.retailscm.userapp.UserApp;
 import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity;
 import com.doublechaintech.retailscm.userdomain.UserDomain;
@@ -36,7 +37,7 @@ import com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity
 import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
 import com.doublechaintech.retailscm.userapp.UserAppDAO;
 import com.doublechaintech.retailscm.loginhistory.LoginHistoryDAO;
-import com.doublechaintech.retailscm.keypairidentity.KeypairIdentityDAO;
+import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentityDAO;
 
 
 
@@ -49,7 +50,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 	protected UserDomainDAO userDomainDAO;
 	public void setUserDomainDAO(UserDomainDAO userDomainDAO){
- 	
+
  		if(userDomainDAO == null){
  			throw new IllegalStateException("Do not try to set userDomainDAO to null.");
  		}
@@ -59,13 +60,13 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
  		if(this.userDomainDAO == null){
  			throw new IllegalStateException("The userDomainDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.userDomainDAO;
- 	}	
+ 	}
 
 	protected UserAppDAO userAppDAO;
 	public void setUserAppDAO(UserAppDAO userAppDAO){
- 	
+
  		if(userAppDAO == null){
  			throw new IllegalStateException("Do not try to set userAppDAO to null.");
  		}
@@ -75,13 +76,13 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
  		if(this.userAppDAO == null){
  			throw new IllegalStateException("The userAppDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.userAppDAO;
- 	}	
+ 	}
 
 	protected LoginHistoryDAO loginHistoryDAO;
 	public void setLoginHistoryDAO(LoginHistoryDAO loginHistoryDAO){
- 	
+
  		if(loginHistoryDAO == null){
  			throw new IllegalStateException("Do not try to set loginHistoryDAO to null.");
  		}
@@ -91,13 +92,13 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
  		if(this.loginHistoryDAO == null){
  			throw new IllegalStateException("The loginHistoryDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.loginHistoryDAO;
- 	}	
+ 	}
 
 	protected WechatWorkappIdentityDAO wechatWorkappIdentityDAO;
 	public void setWechatWorkappIdentityDAO(WechatWorkappIdentityDAO wechatWorkappIdentityDAO){
- 	
+
  		if(wechatWorkappIdentityDAO == null){
  			throw new IllegalStateException("Do not try to set wechatWorkappIdentityDAO to null.");
  		}
@@ -107,13 +108,13 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
  		if(this.wechatWorkappIdentityDAO == null){
  			throw new IllegalStateException("The wechatWorkappIdentityDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.wechatWorkappIdentityDAO;
- 	}	
+ 	}
 
 	protected WechatMiniappIdentityDAO wechatMiniappIdentityDAO;
 	public void setWechatMiniappIdentityDAO(WechatMiniappIdentityDAO wechatMiniappIdentityDAO){
- 	
+
  		if(wechatMiniappIdentityDAO == null){
  			throw new IllegalStateException("Do not try to set wechatMiniappIdentityDAO to null.");
  		}
@@ -123,25 +124,26 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
  		if(this.wechatMiniappIdentityDAO == null){
  			throw new IllegalStateException("The wechatMiniappIdentityDAO is not configured yet, please config it some where.");
  		}
- 		
-	 	return this.wechatMiniappIdentityDAO;
- 	}	
 
-	protected KeypairIdentityDAO keypairIdentityDAO;
-	public void setKeypairIdentityDAO(KeypairIdentityDAO keypairIdentityDAO){
- 	
- 		if(keypairIdentityDAO == null){
- 			throw new IllegalStateException("Do not try to set keypairIdentityDAO to null.");
- 		}
-	 	this.keypairIdentityDAO = keypairIdentityDAO;
+	 	return this.wechatMiniappIdentityDAO;
  	}
- 	public KeypairIdentityDAO getKeypairIdentityDAO(){
- 		if(this.keypairIdentityDAO == null){
- 			throw new IllegalStateException("The keypairIdentityDAO is not configured yet, please config it some where.");
+
+	protected KeyPairIdentityDAO keyPairIdentityDAO;
+	public void setKeyPairIdentityDAO(KeyPairIdentityDAO keyPairIdentityDAO){
+
+ 		if(keyPairIdentityDAO == null){
+ 			throw new IllegalStateException("Do not try to set keyPairIdentityDAO to null.");
  		}
- 		
-	 	return this.keypairIdentityDAO;
- 	}	
+	 	this.keyPairIdentityDAO = keyPairIdentityDAO;
+ 	}
+ 	public KeyPairIdentityDAO getKeyPairIdentityDAO(){
+ 		if(this.keyPairIdentityDAO == null){
+ 			throw new IllegalStateException("The keyPairIdentityDAO is not configured yet, please config it some where.");
+ 		}
+
+	 	return this.keyPairIdentityDAO;
+ 	}
+
 
 
 	/*
@@ -210,37 +212,37 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		newSecUser.setVersion(0);
 		
 		
- 		
+
  		if(isSaveUserAppListEnabled(options)){
  			for(UserApp item: newSecUser.getUserAppList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveLoginHistoryListEnabled(options)){
  			for(LoginHistory item: newSecUser.getLoginHistoryList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveWechatWorkappIdentityListEnabled(options)){
  			for(WechatWorkappIdentity item: newSecUser.getWechatWorkappIdentityList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
+
  		if(isSaveWechatMiniappIdentityListEnabled(options)){
  			for(WechatMiniappIdentity item: newSecUser.getWechatMiniappIdentityList()){
  				item.setVersion(0);
  			}
  		}
 		
- 		
- 		if(isSaveKeypairIdentityListEnabled(options)){
- 			for(KeypairIdentity item: newSecUser.getKeypairIdentityList()){
+
+ 		if(isSaveKeyPairIdentityListEnabled(options)){
+ 			for(KeyPairIdentity item: newSecUser.getKeyPairIdentityList()){
  				item.setVersion(0);
  			}
  		}
@@ -340,100 +342,100 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return SecUserTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractDomainEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, SecUserTokens.DOMAIN);
  	}
 
  	protected boolean isSaveDomainEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, SecUserTokens.DOMAIN);
  	}
- 	
 
- 	
+
+
  
 		
-	
-	protected boolean isExtractUserAppListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractUserAppListEnabled(Map<String,Object> options){
  		return checkOptions(options,SecUserTokens.USER_APP_LIST);
  	}
- 	protected boolean isAnalyzeUserAppListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeUserAppListEnabled(Map<String,Object> options){
  		return SecUserTokens.of(options).analyzeUserAppListEnabled();
  	}
-	
+
 	protected boolean isSaveUserAppListEnabled(Map<String,Object> options){
 		return checkOptions(options, SecUserTokens.USER_APP_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractLoginHistoryListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractLoginHistoryListEnabled(Map<String,Object> options){
  		return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST);
  	}
- 	protected boolean isAnalyzeLoginHistoryListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeLoginHistoryListEnabled(Map<String,Object> options){
  		return SecUserTokens.of(options).analyzeLoginHistoryListEnabled();
  	}
-	
+
 	protected boolean isSaveLoginHistoryListEnabled(Map<String,Object> options){
 		return checkOptions(options, SecUserTokens.LOGIN_HISTORY_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractWechatWorkappIdentityListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractWechatWorkappIdentityListEnabled(Map<String,Object> options){
  		return checkOptions(options,SecUserTokens.WECHAT_WORKAPP_IDENTITY_LIST);
  	}
- 	protected boolean isAnalyzeWechatWorkappIdentityListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeWechatWorkappIdentityListEnabled(Map<String,Object> options){
  		return SecUserTokens.of(options).analyzeWechatWorkappIdentityListEnabled();
  	}
-	
+
 	protected boolean isSaveWechatWorkappIdentityListEnabled(Map<String,Object> options){
 		return checkOptions(options, SecUserTokens.WECHAT_WORKAPP_IDENTITY_LIST);
-		
+
  	}
- 	
+
 		
-	
-	protected boolean isExtractWechatMiniappIdentityListEnabled(Map<String,Object> options){		
+
+	protected boolean isExtractWechatMiniappIdentityListEnabled(Map<String,Object> options){
  		return checkOptions(options,SecUserTokens.WECHAT_MINIAPP_IDENTITY_LIST);
  	}
- 	protected boolean isAnalyzeWechatMiniappIdentityListEnabled(Map<String,Object> options){		 		
+ 	protected boolean isAnalyzeWechatMiniappIdentityListEnabled(Map<String,Object> options){
  		return SecUserTokens.of(options).analyzeWechatMiniappIdentityListEnabled();
  	}
-	
+
 	protected boolean isSaveWechatMiniappIdentityListEnabled(Map<String,Object> options){
 		return checkOptions(options, SecUserTokens.WECHAT_MINIAPP_IDENTITY_LIST);
+
+ 	}
+
 		
+
+	protected boolean isExtractKeyPairIdentityListEnabled(Map<String,Object> options){
+ 		return checkOptions(options,SecUserTokens.KEY_PAIR_IDENTITY_LIST);
  	}
- 	
-		
-	
-	protected boolean isExtractKeypairIdentityListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SecUserTokens.KEYPAIR_IDENTITY_LIST);
+ 	protected boolean isAnalyzeKeyPairIdentityListEnabled(Map<String,Object> options){
+ 		return SecUserTokens.of(options).analyzeKeyPairIdentityListEnabled();
  	}
- 	protected boolean isAnalyzeKeypairIdentityListEnabled(Map<String,Object> options){		 		
- 		return SecUserTokens.of(options).analyzeKeypairIdentityListEnabled();
+
+	protected boolean isSaveKeyPairIdentityListEnabled(Map<String,Object> options){
+		return checkOptions(options, SecUserTokens.KEY_PAIR_IDENTITY_LIST);
+
  	}
-	
-	protected boolean isSaveKeypairIdentityListEnabled(Map<String,Object> options){
-		return checkOptions(options, SecUserTokens.KEYPAIR_IDENTITY_LIST);
-		
- 	}
- 	
+
 		
 
 	
@@ -442,8 +444,8 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		return new SecUserMapper();
 	}
 
-	
-	
+
+
 	protected SecUser extractSecUser(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			SecUser secUser = loadSingleObject(accessKey, getSecUserMapper());
@@ -454,13 +456,13 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 	}
 
-	
-	
+
+
 
 	protected SecUser loadInternalSecUser(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		SecUser secUser = extractSecUser(accessKey, loadOptions);
- 	
+
  		if(isExtractDomainEnabled(loadOptions)){
 	 		extractDomain(secUser, loadOptions);
  		}
@@ -468,8 +470,8 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		
 		if(isExtractUserAppListEnabled(loadOptions)){
 	 		extractUserAppList(secUser, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeUserAppListEnabled(loadOptions)){
 	 		analyzeUserAppList(secUser, loadOptions);
@@ -478,8 +480,8 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		
 		if(isExtractLoginHistoryListEnabled(loadOptions)){
 	 		extractLoginHistoryList(secUser, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeLoginHistoryListEnabled(loadOptions)){
 	 		analyzeLoginHistoryList(secUser, loadOptions);
@@ -488,8 +490,8 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		
 		if(isExtractWechatWorkappIdentityListEnabled(loadOptions)){
 	 		extractWechatWorkappIdentityList(secUser, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeWechatWorkappIdentityListEnabled(loadOptions)){
 	 		analyzeWechatWorkappIdentityList(secUser, loadOptions);
@@ -498,31 +500,32 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		
 		if(isExtractWechatMiniappIdentityListEnabled(loadOptions)){
 	 		extractWechatMiniappIdentityList(secUser, loadOptions);
- 		}	
- 		
+ 		}
+
  		
  		if(isAnalyzeWechatMiniappIdentityListEnabled(loadOptions)){
 	 		analyzeWechatMiniappIdentityList(secUser, loadOptions);
  		}
  		
 		
-		if(isExtractKeypairIdentityListEnabled(loadOptions)){
-	 		extractKeypairIdentityList(secUser, loadOptions);
- 		}	
+		if(isExtractKeyPairIdentityListEnabled(loadOptions)){
+	 		extractKeyPairIdentityList(secUser, loadOptions);
+ 		}
+
  		
- 		
- 		if(isAnalyzeKeypairIdentityListEnabled(loadOptions)){
-	 		analyzeKeypairIdentityList(secUser, loadOptions);
+ 		if(isAnalyzeKeyPairIdentityListEnabled(loadOptions)){
+	 		analyzeKeyPairIdentityList(secUser, loadOptions);
  		}
  		
 		
 		return secUser;
-		
+
 	}
 
-	 
+	
 
  	protected SecUser extractDomain(SecUser secUser, Map<String,Object> options) throws Exception{
+  
 
 		if(secUser.getDomain() == null){
 			return secUser;
@@ -535,21 +538,21 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		if(domain != null){
 			secUser.setDomain(domain);
 		}
-		
- 		
+
+
  		return secUser;
  	}
- 		
+
  
 		
 	protected void enhanceUserAppList(SmartList<UserApp> userAppList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SecUser extractUserAppList(SecUser secUser, Map<String,Object> options){
-		
-		
+    
+
 		if(secUser == null){
 			return null;
 		}
@@ -557,21 +560,20 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<UserApp> userAppList = getUserAppDAO().findUserAppBySecUser(secUser.getId(),options);
 		if(userAppList != null){
 			enhanceUserAppList(userAppList,options);
 			secUser.setUserAppList(userAppList);
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+  
+	}
+
 	protected SecUser analyzeUserAppList(SecUser secUser, Map<String,Object> options){
-		
-		
+     
 		if(secUser == null){
 			return null;
 		}
@@ -579,27 +581,27 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<UserApp> userAppList = secUser.getUserAppList();
 		if(userAppList != null){
 			getUserAppDAO().analyzeUserAppBySecUser(userAppList, secUser.getId(), options);
-			
+
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceLoginHistoryList(SmartList<LoginHistory> loginHistoryList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SecUser extractLoginHistoryList(SecUser secUser, Map<String,Object> options){
-		
-		
+    
+
 		if(secUser == null){
 			return null;
 		}
@@ -607,21 +609,20 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<LoginHistory> loginHistoryList = getLoginHistoryDAO().findLoginHistoryBySecUser(secUser.getId(),options);
 		if(loginHistoryList != null){
 			enhanceLoginHistoryList(loginHistoryList,options);
 			secUser.setLoginHistoryList(loginHistoryList);
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+  
+	}
+
 	protected SecUser analyzeLoginHistoryList(SecUser secUser, Map<String,Object> options){
-		
-		
+     
 		if(secUser == null){
 			return null;
 		}
@@ -629,27 +630,27 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<LoginHistory> loginHistoryList = secUser.getLoginHistoryList();
 		if(loginHistoryList != null){
 			getLoginHistoryDAO().analyzeLoginHistoryBySecUser(loginHistoryList, secUser.getId(), options);
-			
+
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceWechatWorkappIdentityList(SmartList<WechatWorkappIdentity> wechatWorkappIdentityList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SecUser extractWechatWorkappIdentityList(SecUser secUser, Map<String,Object> options){
-		
-		
+    
+
 		if(secUser == null){
 			return null;
 		}
@@ -657,21 +658,20 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<WechatWorkappIdentity> wechatWorkappIdentityList = getWechatWorkappIdentityDAO().findWechatWorkappIdentityBySecUser(secUser.getId(),options);
 		if(wechatWorkappIdentityList != null){
 			enhanceWechatWorkappIdentityList(wechatWorkappIdentityList,options);
 			secUser.setWechatWorkappIdentityList(wechatWorkappIdentityList);
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+  
+	}
+
 	protected SecUser analyzeWechatWorkappIdentityList(SecUser secUser, Map<String,Object> options){
-		
-		
+     
 		if(secUser == null){
 			return null;
 		}
@@ -679,27 +679,27 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<WechatWorkappIdentity> wechatWorkappIdentityList = secUser.getWechatWorkappIdentityList();
 		if(wechatWorkappIdentityList != null){
 			getWechatWorkappIdentityDAO().analyzeWechatWorkappIdentityBySecUser(wechatWorkappIdentityList, secUser.getId(), options);
-			
+
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+    
+	}
+
 		
 	protected void enhanceWechatMiniappIdentityList(SmartList<WechatMiniappIdentity> wechatMiniappIdentityList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
+
 	protected SecUser extractWechatMiniappIdentityList(SecUser secUser, Map<String,Object> options){
-		
-		
+    
+
 		if(secUser == null){
 			return null;
 		}
@@ -707,21 +707,20 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<WechatMiniappIdentity> wechatMiniappIdentityList = getWechatMiniappIdentityDAO().findWechatMiniappIdentityBySecUser(secUser.getId(),options);
 		if(wechatMiniappIdentityList != null){
 			enhanceWechatMiniappIdentityList(wechatMiniappIdentityList,options);
 			secUser.setWechatMiniappIdentityList(wechatMiniappIdentityList);
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+  
+	}
+
 	protected SecUser analyzeWechatMiniappIdentityList(SecUser secUser, Map<String,Object> options){
-		
-		
+     
 		if(secUser == null){
 			return null;
 		}
@@ -729,27 +728,27 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
+
+
 		SmartList<WechatMiniappIdentity> wechatMiniappIdentityList = secUser.getWechatMiniappIdentityList();
 		if(wechatMiniappIdentityList != null){
 			getWechatMiniappIdentityDAO().analyzeWechatMiniappIdentityBySecUser(wechatMiniappIdentityList, secUser.getId(), options);
-			
+
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+    
+	}
+
 		
-	protected void enhanceKeypairIdentityList(SmartList<KeypairIdentity> keypairIdentityList,Map<String,Object> options){
+	protected void enhanceKeyPairIdentityList(SmartList<KeyPairIdentity> keyPairIdentityList,Map<String,Object> options){
 		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
 	}
-	
-	protected SecUser extractKeypairIdentityList(SecUser secUser, Map<String,Object> options){
-		
-		
+
+	protected SecUser extractKeyPairIdentityList(SecUser secUser, Map<String,Object> options){
+    
+
 		if(secUser == null){
 			return null;
 		}
@@ -757,21 +756,20 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
-		SmartList<KeypairIdentity> keypairIdentityList = getKeypairIdentityDAO().findKeypairIdentityBySecUser(secUser.getId(),options);
-		if(keypairIdentityList != null){
-			enhanceKeypairIdentityList(keypairIdentityList,options);
-			secUser.setKeypairIdentityList(keypairIdentityList);
+
+
+		SmartList<KeyPairIdentity> keyPairIdentityList = getKeyPairIdentityDAO().findKeyPairIdentityBySecUser(secUser.getId(),options);
+		if(keyPairIdentityList != null){
+			enhanceKeyPairIdentityList(keyPairIdentityList,options);
+			secUser.setKeyPairIdentityList(keyPairIdentityList);
 		}
-		
+
 		return secUser;
-	
-	}	
-	
-	protected SecUser analyzeKeypairIdentityList(SecUser secUser, Map<String,Object> options){
-		
-		
+  
+	}
+
+	protected SecUser analyzeKeyPairIdentityList(SecUser secUser, Map<String,Object> options){
+     
 		if(secUser == null){
 			return null;
 		}
@@ -779,47 +777,47 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 			return secUser;
 		}
 
-		
-		
-		SmartList<KeypairIdentity> keypairIdentityList = secUser.getKeypairIdentityList();
-		if(keypairIdentityList != null){
-			getKeypairIdentityDAO().analyzeKeypairIdentityBySecUser(keypairIdentityList, secUser.getId(), options);
-			
+
+
+		SmartList<KeyPairIdentity> keyPairIdentityList = secUser.getKeyPairIdentityList();
+		if(keyPairIdentityList != null){
+			getKeyPairIdentityDAO().analyzeKeyPairIdentityBySecUser(keyPairIdentityList, secUser.getId(), options);
+
 		}
-		
+
 		return secUser;
-	
-	}	
-	
+    
+	}
+
 		
-		
-  	
+
+ 
  	public SmartList<SecUser> findSecUserByDomain(String userDomainId,Map<String,Object> options){
- 	
+
   		SmartList<SecUser> resultList = queryWith(SecUserTable.COLUMN_DOMAIN, userDomainId, options, getSecUserMapper());
 		// analyzeSecUserByDomain(resultList, userDomainId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<SecUser> findSecUserByDomain(String userDomainId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<SecUser> resultList =  queryWithRange(SecUserTable.COLUMN_DOMAIN, userDomainId, options, getSecUserMapper(), start, count);
  		//analyzeSecUserByDomain(resultList, userDomainId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeSecUserByDomain(SmartList<SecUser> resultList, String userDomainId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SecUser.DOMAIN_PROPERTY, userDomainId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem verificationCodeExpireStatsItem = new StatsItem();
 		//SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY
@@ -827,11 +825,11 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		verificationCodeExpireStatsItem.setInternalName(formatKeyForDateLine(SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY));
 		verificationCodeExpireStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY),filterKey,emptyOptions));
 		info.addItem(verificationCodeExpireStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countSecUserByDomain(String userDomainId,Map<String,Object> options){
@@ -842,21 +840,24 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	public Map<String, Integer> countSecUserByDomainIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(SecUserTable.COLUMN_DOMAIN, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected SecUser saveSecUser(SecUser  secUser){
+    
+
 		
 		if(!secUser.isChanged()){
 			return secUser;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(secUser);
 		String SQL=this.getSaveSecUserSQL(secUser);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveSecUserParameters(secUser);
@@ -867,6 +868,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		}
 
 		secUser.incVersion();
+		secUser.afterSave();
 		return secUser;
 
 	}
@@ -884,6 +886,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		for(SecUser secUser:secUserList){
 			if(secUser.isChanged()){
 				secUser.incVersion();
+				secUser.afterSave();
 			}
 
 
@@ -987,40 +990,30 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
  	protected Object[] prepareSecUserUpdateParameters(SecUser secUser){
  		Object[] parameters = new Object[14];
  
- 		
  		parameters[0] = secUser.getLogin();
- 		
  		
  		parameters[1] = secUser.getMobile();
  		
- 		
  		parameters[2] = secUser.getEmail();
- 		
  		
  		parameters[3] = secUser.getPwd();
  		
- 		
  		parameters[4] = secUser.getWeixinOpenid();
- 		
  		
  		parameters[5] = secUser.getWeixinAppid();
  		
- 		
  		parameters[6] = secUser.getAccessToken();
- 		
  		
  		parameters[7] = secUser.getVerificationCode();
  		
- 		
  		parameters[8] = secUser.getVerificationCodeExpire();
- 		
  		
  		parameters[9] = secUser.getLastLoginTime();
  		
  		if(secUser.getDomain() != null){
  			parameters[10] = secUser.getDomain().getId();
  		}
- 
+    
  		parameters[11] = secUser.nextVersion();
  		parameters[12] = secUser.getId();
  		parameters[13] = secUser.getVersion();
@@ -1035,39 +1028,28 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
         }
 		parameters[0] =  secUser.getId();
  
- 		
  		parameters[1] = secUser.getLogin();
- 		
  		
  		parameters[2] = secUser.getMobile();
  		
- 		
  		parameters[3] = secUser.getEmail();
- 		
  		
  		parameters[4] = secUser.getPwd();
  		
- 		
  		parameters[5] = secUser.getWeixinOpenid();
- 		
  		
  		parameters[6] = secUser.getWeixinAppid();
  		
- 		
  		parameters[7] = secUser.getAccessToken();
- 		
  		
  		parameters[8] = secUser.getVerificationCode();
  		
- 		
  		parameters[9] = secUser.getVerificationCodeExpire();
- 		
  		
  		parameters[10] = secUser.getLastLoginTime();
  		
  		if(secUser.getDomain() != null){
  			parameters[11] = secUser.getDomain().getId();
-
  		}
  		
 
@@ -1076,12 +1058,11 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 	protected SecUser saveInternalSecUser(SecUser secUser, Map<String,Object> options){
 
-		saveSecUser(secUser);
-
  		if(isSaveDomainEnabled(options)){
 	 		saveDomain(secUser, options);
  		}
  
+   saveSecUser(secUser);
 		
 		if(isSaveUserAppListEnabled(options)){
 	 		saveUserAppList(secUser, options);
@@ -1111,9 +1092,9 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
  		}
 		
-		if(isSaveKeypairIdentityListEnabled(options)){
-	 		saveKeypairIdentityList(secUser, options);
-	 		//removeKeypairIdentityList(secUser, options);
+		if(isSaveKeyPairIdentityListEnabled(options)){
+	 		saveKeyPairIdentityList(secUser, options);
+	 		//removeKeyPairIdentityList(secUser, options);
 	 		//Not delete the record
 
  		}
@@ -1128,6 +1109,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	
 
  	protected SecUser saveDomain(SecUser secUser, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(secUser.getDomain() == null){
  			return secUser;//do nothing when it is null
@@ -1137,11 +1119,6 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
  		return secUser;
 
  	}
-
-
-
-
-
  
 
 	
@@ -1257,82 +1234,82 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	}
 
 
-	public SecUser planToRemoveKeypairIdentityList(SecUser secUser, String keypairIdentityIds[], Map<String,Object> options)throws Exception{
+	public SecUser planToRemoveKeyPairIdentityList(SecUser secUser, String keyPairIdentityIds[], Map<String,Object> options)throws Exception{
 
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.SEC_USER_PROPERTY, secUser.getId());
-		key.put(KeypairIdentity.ID_PROPERTY, keypairIdentityIds);
+		key.put(KeyPairIdentity.SEC_USER_PROPERTY, secUser.getId());
+		key.put(KeyPairIdentity.ID_PROPERTY, keyPairIdentityIds);
 
-		SmartList<KeypairIdentity> externalKeypairIdentityList = getKeypairIdentityDAO().
-				findKeypairIdentityWithKey(key, options);
-		if(externalKeypairIdentityList == null){
+		SmartList<KeyPairIdentity> externalKeyPairIdentityList = getKeyPairIdentityDAO().
+				findKeyPairIdentityWithKey(key, options);
+		if(externalKeyPairIdentityList == null){
 			return secUser;
 		}
-		if(externalKeypairIdentityList.isEmpty()){
+		if(externalKeyPairIdentityList.isEmpty()){
 			return secUser;
 		}
 
-		for(KeypairIdentity keypairIdentityItem: externalKeypairIdentityList){
+		for(KeyPairIdentity keyPairIdentityItem: externalKeyPairIdentityList){
 
-			keypairIdentityItem.clearFromAll();
+			keyPairIdentityItem.clearFromAll();
 		}
 
 
-		SmartList<KeypairIdentity> keypairIdentityList = secUser.getKeypairIdentityList();
-		keypairIdentityList.addAllToRemoveList(externalKeypairIdentityList);
+		SmartList<KeyPairIdentity> keyPairIdentityList = secUser.getKeyPairIdentityList();
+		keyPairIdentityList.addAllToRemoveList(externalKeyPairIdentityList);
 		return secUser;
 
 	}
 
 
-	//disconnect SecUser with key_type in KeypairIdentity
-	public SecUser planToRemoveKeypairIdentityListWithKeyType(SecUser secUser, String keyTypeId, Map<String,Object> options)throws Exception{
+	//disconnect SecUser with key_type in KeyPairIdentity
+	public SecUser planToRemoveKeyPairIdentityListWithKeyType(SecUser secUser, String keyTypeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
 
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.SEC_USER_PROPERTY, secUser.getId());
-		key.put(KeypairIdentity.KEY_TYPE_PROPERTY, keyTypeId);
+		key.put(KeyPairIdentity.SEC_USER_PROPERTY, secUser.getId());
+		key.put(KeyPairIdentity.KEY_TYPE_PROPERTY, keyTypeId);
 
-		SmartList<KeypairIdentity> externalKeypairIdentityList = getKeypairIdentityDAO().
-				findKeypairIdentityWithKey(key, options);
-		if(externalKeypairIdentityList == null){
+		SmartList<KeyPairIdentity> externalKeyPairIdentityList = getKeyPairIdentityDAO().
+				findKeyPairIdentityWithKey(key, options);
+		if(externalKeyPairIdentityList == null){
 			return secUser;
 		}
-		if(externalKeypairIdentityList.isEmpty()){
+		if(externalKeyPairIdentityList.isEmpty()){
 			return secUser;
 		}
 
-		for(KeypairIdentity keypairIdentityItem: externalKeypairIdentityList){
-			keypairIdentityItem.clearKeyType();
-			keypairIdentityItem.clearSecUser();
+		for(KeyPairIdentity keyPairIdentityItem: externalKeyPairIdentityList){
+			keyPairIdentityItem.clearKeyType();
+			keyPairIdentityItem.clearSecUser();
 
 		}
 
 
-		SmartList<KeypairIdentity> keypairIdentityList = secUser.getKeypairIdentityList();
-		keypairIdentityList.addAllToRemoveList(externalKeypairIdentityList);
+		SmartList<KeyPairIdentity> keyPairIdentityList = secUser.getKeyPairIdentityList();
+		keyPairIdentityList.addAllToRemoveList(externalKeyPairIdentityList);
 		return secUser;
 	}
 
-	public int countKeypairIdentityListWithKeyType(String secUserId, String keyTypeId, Map<String,Object> options)throws Exception{
+	public int countKeyPairIdentityListWithKeyType(String secUserId, String keyTypeId, Map<String,Object> options)throws Exception{
 				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
 		//the list will not be null here, empty, maybe
 		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
 
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.SEC_USER_PROPERTY, secUserId);
-		key.put(KeypairIdentity.KEY_TYPE_PROPERTY, keyTypeId);
+		key.put(KeyPairIdentity.SEC_USER_PROPERTY, secUserId);
+		key.put(KeyPairIdentity.KEY_TYPE_PROPERTY, keyTypeId);
 
-		int count = getKeypairIdentityDAO().countKeypairIdentityWithKey(key, options);
+		int count = getKeyPairIdentityDAO().countKeyPairIdentityWithKey(key, options);
 		return count;
 	}
 	
 
 		
 	protected SecUser saveUserAppList(SecUser secUser, Map<String,Object> options){
-
+    
 
 
 
@@ -1398,7 +1375,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 		
 	protected SecUser saveLoginHistoryList(SecUser secUser, Map<String,Object> options){
-
+    
 
 
 
@@ -1464,7 +1441,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 		
 	protected SecUser saveWechatWorkappIdentityList(SecUser secUser, Map<String,Object> options){
-
+    
 
 
 
@@ -1530,7 +1507,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 		
 	protected SecUser saveWechatMiniappIdentityList(SecUser secUser, Map<String,Object> options){
-
+    
 
 
 
@@ -1595,33 +1572,33 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 
 		
-	protected SecUser saveKeypairIdentityList(SecUser secUser, Map<String,Object> options){
+	protected SecUser saveKeyPairIdentityList(SecUser secUser, Map<String,Object> options){
+    
 
 
 
-
-		SmartList<KeypairIdentity> keypairIdentityList = secUser.getKeypairIdentityList();
-		if(keypairIdentityList == null){
+		SmartList<KeyPairIdentity> keyPairIdentityList = secUser.getKeyPairIdentityList();
+		if(keyPairIdentityList == null){
 			//null list means nothing
 			return secUser;
 		}
-		SmartList<KeypairIdentity> mergedUpdateKeypairIdentityList = new SmartList<KeypairIdentity>();
+		SmartList<KeyPairIdentity> mergedUpdateKeyPairIdentityList = new SmartList<KeyPairIdentity>();
 
 
-		mergedUpdateKeypairIdentityList.addAll(keypairIdentityList);
-		if(keypairIdentityList.getToRemoveList() != null){
+		mergedUpdateKeyPairIdentityList.addAll(keyPairIdentityList);
+		if(keyPairIdentityList.getToRemoveList() != null){
 			//ensures the toRemoveList is not null
-			mergedUpdateKeypairIdentityList.addAll(keypairIdentityList.getToRemoveList());
-			keypairIdentityList.removeAll(keypairIdentityList.getToRemoveList());
+			mergedUpdateKeyPairIdentityList.addAll(keyPairIdentityList.getToRemoveList());
+			keyPairIdentityList.removeAll(keyPairIdentityList.getToRemoveList());
 			//OK for now, need fix later
 		}
 
 		//adding new size can improve performance
 
-		getKeypairIdentityDAO().saveKeypairIdentityList(mergedUpdateKeypairIdentityList,options);
+		getKeyPairIdentityDAO().saveKeyPairIdentityList(mergedUpdateKeyPairIdentityList,options);
 
-		if(keypairIdentityList.getToRemoveList() != null){
-			keypairIdentityList.removeAll(keypairIdentityList.getToRemoveList());
+		if(keyPairIdentityList.getToRemoveList() != null){
+			keyPairIdentityList.removeAll(keyPairIdentityList.getToRemoveList());
 		}
 
 
@@ -1629,25 +1606,25 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 	}
 
-	protected SecUser removeKeypairIdentityList(SecUser secUser, Map<String,Object> options){
+	protected SecUser removeKeyPairIdentityList(SecUser secUser, Map<String,Object> options){
 
 
-		SmartList<KeypairIdentity> keypairIdentityList = secUser.getKeypairIdentityList();
-		if(keypairIdentityList == null){
+		SmartList<KeyPairIdentity> keyPairIdentityList = secUser.getKeyPairIdentityList();
+		if(keyPairIdentityList == null){
 			return secUser;
 		}
 
-		SmartList<KeypairIdentity> toRemoveKeypairIdentityList = keypairIdentityList.getToRemoveList();
+		SmartList<KeyPairIdentity> toRemoveKeyPairIdentityList = keyPairIdentityList.getToRemoveList();
 
-		if(toRemoveKeypairIdentityList == null){
+		if(toRemoveKeyPairIdentityList == null){
 			return secUser;
 		}
-		if(toRemoveKeypairIdentityList.isEmpty()){
+		if(toRemoveKeyPairIdentityList.isEmpty()){
 			return secUser;// Does this mean delete all from the parent object?
 		}
 		//Call DAO to remove the list
 
-		getKeypairIdentityDAO().removeKeypairIdentityList(toRemoveKeypairIdentityList,options);
+		getKeyPairIdentityDAO().removeKeyPairIdentityList(toRemoveKeyPairIdentityList,options);
 
 		return secUser;
 
@@ -1663,23 +1640,23 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		
 
 	public SecUser present(SecUser secUser,Map<String, Object> options){
-	
+
 		presentUserAppList(secUser,options);
 		presentLoginHistoryList(secUser,options);
 		presentWechatWorkappIdentityList(secUser,options);
 		presentWechatMiniappIdentityList(secUser,options);
-		presentKeypairIdentityList(secUser,options);
+		presentKeyPairIdentityList(secUser,options);
 
 		return secUser;
-	
+
 	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SecUser presentUserAppList(
 			SecUser secUser,
 			Map<String, Object> options) {
-
-		SmartList<UserApp> userAppList = secUser.getUserAppList();		
+    
+		SmartList<UserApp> userAppList = secUser.getUserAppList();
 				SmartList<UserApp> newList= presentSubList(secUser.getId(),
 				userAppList,
 				options,
@@ -1687,19 +1664,19 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 				getUserAppDAO()::findUserAppBySecUser
 				);
 
-		
+
 		secUser.setUserAppList(newList);
-		
+
 
 		return secUser;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SecUser presentLoginHistoryList(
 			SecUser secUser,
 			Map<String, Object> options) {
-
-		SmartList<LoginHistory> loginHistoryList = secUser.getLoginHistoryList();		
+    
+		SmartList<LoginHistory> loginHistoryList = secUser.getLoginHistoryList();
 				SmartList<LoginHistory> newList= presentSubList(secUser.getId(),
 				loginHistoryList,
 				options,
@@ -1707,19 +1684,19 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 				getLoginHistoryDAO()::findLoginHistoryBySecUser
 				);
 
-		
+
 		secUser.setLoginHistoryList(newList);
-		
+
 
 		return secUser;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SecUser presentWechatWorkappIdentityList(
 			SecUser secUser,
 			Map<String, Object> options) {
-
-		SmartList<WechatWorkappIdentity> wechatWorkappIdentityList = secUser.getWechatWorkappIdentityList();		
+    
+		SmartList<WechatWorkappIdentity> wechatWorkappIdentityList = secUser.getWechatWorkappIdentityList();
 				SmartList<WechatWorkappIdentity> newList= presentSubList(secUser.getId(),
 				wechatWorkappIdentityList,
 				options,
@@ -1727,19 +1704,19 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 				getWechatWorkappIdentityDAO()::findWechatWorkappIdentityBySecUser
 				);
 
-		
+
 		secUser.setWechatWorkappIdentityList(newList);
-		
+
 
 		return secUser;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
  	protected SecUser presentWechatMiniappIdentityList(
 			SecUser secUser,
 			Map<String, Object> options) {
-
-		SmartList<WechatMiniappIdentity> wechatMiniappIdentityList = secUser.getWechatMiniappIdentityList();		
+    
+		SmartList<WechatMiniappIdentity> wechatMiniappIdentityList = secUser.getWechatMiniappIdentityList();
 				SmartList<WechatMiniappIdentity> newList= presentSubList(secUser.getId(),
 				wechatMiniappIdentityList,
 				options,
@@ -1747,32 +1724,32 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 				getWechatMiniappIdentityDAO()::findWechatMiniappIdentityBySecUser
 				);
 
-		
+
 		secUser.setWechatMiniappIdentityList(newList);
-		
+
 
 		return secUser;
-	}			
+	}
 		
 	//Using java8 feature to reduce the code significantly
- 	protected SecUser presentKeypairIdentityList(
+ 	protected SecUser presentKeyPairIdentityList(
 			SecUser secUser,
 			Map<String, Object> options) {
-
-		SmartList<KeypairIdentity> keypairIdentityList = secUser.getKeypairIdentityList();		
-				SmartList<KeypairIdentity> newList= presentSubList(secUser.getId(),
-				keypairIdentityList,
+    
+		SmartList<KeyPairIdentity> keyPairIdentityList = secUser.getKeyPairIdentityList();
+				SmartList<KeyPairIdentity> newList= presentSubList(secUser.getId(),
+				keyPairIdentityList,
 				options,
-				getKeypairIdentityDAO()::countKeypairIdentityBySecUser,
-				getKeypairIdentityDAO()::findKeypairIdentityBySecUser
+				getKeyPairIdentityDAO()::countKeyPairIdentityBySecUser,
+				getKeyPairIdentityDAO()::findKeyPairIdentityBySecUser
 				);
 
-		
-		secUser.setKeypairIdentityList(newList);
-		
+
+		secUser.setKeyPairIdentityList(newList);
+
 
 		return secUser;
-	}			
+	}
 		
 
 	
@@ -1800,7 +1777,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		return findAllCandidateByFilter(SecUserTable.COLUMN_LOGIN, SecUserTable.COLUMN_DOMAIN, filterKey, pageNo, pageSize, getSecUserMapper());
     }
 		
-    public SmartList<SecUser> requestCandidateSecUserForKeypairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception {
+    public SmartList<SecUser> requestCandidateSecUserForKeyPairIdentity(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception {
         // NOTE: by default, ignore owner info, just return all by filter key.
 		// You need override this method if you have different candidate-logic
 		return findAllCandidateByFilter(SecUserTable.COLUMN_LOGIN, SecUserTable.COLUMN_DOMAIN, filterKey, pageNo, pageSize, getSecUserMapper());
@@ -1820,6 +1797,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	
 	// 需要一个加载引用我的对象的enhance方法:UserApp的secUser的UserAppList
 	public SmartList<UserApp> loadOurUserAppList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1843,6 +1821,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	
 	// 需要一个加载引用我的对象的enhance方法:LoginHistory的secUser的LoginHistoryList
 	public SmartList<LoginHistory> loadOurLoginHistoryList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1866,6 +1845,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	
 	// 需要一个加载引用我的对象的enhance方法:WechatWorkappIdentity的secUser的WechatWorkappIdentityList
 	public SmartList<WechatWorkappIdentity> loadOurWechatWorkappIdentityList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1889,6 +1869,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	
 	// 需要一个加载引用我的对象的enhance方法:WechatMiniappIdentity的secUser的WechatMiniappIdentityList
 	public SmartList<WechatMiniappIdentity> loadOurWechatMiniappIdentityList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
@@ -1910,25 +1891,26 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 		return loadedObjs;
 	}
 	
-	// 需要一个加载引用我的对象的enhance方法:KeypairIdentity的secUser的KeypairIdentityList
-	public SmartList<KeypairIdentity> loadOurKeypairIdentityList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+	// 需要一个加载引用我的对象的enhance方法:KeyPairIdentity的secUser的KeyPairIdentityList
+	public SmartList<KeyPairIdentity> loadOurKeyPairIdentityList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		
 		if (us == null || us.isEmpty()){
 			return new SmartList<>();
 		}
 		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
 		MultipleAccessKey key = new MultipleAccessKey();
-		key.put(KeypairIdentity.SEC_USER_PROPERTY, ids.toArray(new String[ids.size()]));
-		SmartList<KeypairIdentity> loadedObjs = userContext.getDAOGroup().getKeypairIdentityDAO().findKeypairIdentityWithKey(key, options);
-		Map<String, List<KeypairIdentity>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSecUser().getId()));
+		key.put(KeyPairIdentity.SEC_USER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<KeyPairIdentity> loadedObjs = userContext.getDAOGroup().getKeyPairIdentityDAO().findKeyPairIdentityWithKey(key, options);
+		Map<String, List<KeyPairIdentity>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSecUser().getId()));
 		us.forEach(it->{
 			String id = it.getId();
-			List<KeypairIdentity> loadedList = loadedMap.get(id);
+			List<KeyPairIdentity> loadedList = loadedMap.get(id);
 			if (loadedList == null || loadedList.isEmpty()) {
 				return;
 			}
-			SmartList<KeypairIdentity> loadedSmartList = new SmartList<>();
+			SmartList<KeyPairIdentity> loadedSmartList = new SmartList<>();
 			loadedSmartList.addAll(loadedList);
-			it.setKeypairIdentityList(loadedSmartList);
+			it.setKeyPairIdentityList(loadedSmartList);
 		});
 		return loadedObjs;
 	}
@@ -1968,6 +1950,10 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<SecUser> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSecUserMapper());
   }
@@ -2003,6 +1989,15 @@ public class SecUserJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SecU
 
 	
 
+  @Override
+  public List<SecUser> search(SecUserRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected SecUserMapper mapper() {
+    return getSecUserMapper();
+  }
 }
 
 

@@ -16,14 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  title: '双链小超给双链供应链下的订单',
-  totalAmount: '2430973440.00',
-  buyerId: 'RS000001',
-  sellerId: 'RSCC000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -37,9 +29,15 @@ class RetailStoreOrderCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -50,7 +48,7 @@ class RetailStoreOrderCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -64,8 +62,8 @@ class RetailStoreOrderCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -74,13 +72,13 @@ class RetailStoreOrderCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = RetailStoreOrderBase
     const {RetailStoreOrderService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -105,10 +103,10 @@ class RetailStoreOrderCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addRetailStoreOrder`,
@@ -116,10 +114,10 @@ class RetailStoreOrderCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'retailStoreOrder',listName:appLocaleName(userContext,"List") },
@@ -165,10 +163,10 @@ class RetailStoreOrderCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -180,7 +178,7 @@ class RetailStoreOrderCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -191,7 +189,7 @@ class RetailStoreOrderCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -201,7 +199,7 @@ class RetailStoreOrderCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order')}</div>)
@@ -213,7 +211,7 @@ class RetailStoreOrderCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<RetailStoreOrderCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -229,7 +227,7 @@ class RetailStoreOrderCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

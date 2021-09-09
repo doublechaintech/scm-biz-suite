@@ -57,7 +57,7 @@ const naviBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -68,7 +68,7 @@ const searchBarResponsiveStyle = {
   md: 4,
   lg: 8,
   xl: 8,
-  
+
 };
 
 const userBarResponsiveStyle = {
@@ -77,7 +77,7 @@ const userBarResponsiveStyle = {
   md: 10,
   lg: 8,
   xl: 8,
-  
+
 };
 
 
@@ -103,13 +103,26 @@ const query = {
   },
 }
 
-
+/*
 const currentAppName=()=>{
 
   const targetApp = sessionObject('targetApp')
   return targetApp.title
 
 }
+*/
+
+const currentAppName=()=>{
+
+  const sysConfig=window.sysConfig
+  const targetApp = sessionObject('targetApp')
+  const {logo}=sysConfig()
+  return <span><img width="25px" src={logo} style={{marginRight:"10px"}}/>{targetApp.title}</span>
+
+}
+
+
+
 
 
 class RetailStoreProvinceCenterBizApp extends React.PureComponent {
@@ -149,47 +162,77 @@ constructor(props) {
     }
     return keys
   }
-  
+
  getNavMenuItems = (targetObject, style, customTheme) => {
-  
+
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
     const mode =style || "inline"
-    const theme = customTheme || "light" 
+    const theme = customTheme || "light"
 	const {objectId}=targetApp;
   	const userContext = null
+  	const viewGroupIconNameOf=window.viewGroupIconNameOf
     return (
 	  <Menu
         theme="dark"
         mode="inline"
-        
+
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        
-       >
-           
 
-             <Menu.Item key="dashboard">
-               <Link to={`/retailStoreProvinceCenter/${this.props.retailStoreProvinceCenter.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
-             </Menu.Item>
-           
-        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+       >
+
+       <Menu.Item key="workbench">
+        <Link to={`/retailStoreProvinceCenter/${this.props.retailStoreProvinceCenter.id}/workbench`}><Icon type="solution" style={{marginRight:"20px"}}/><span>工作台</span></Link>
+      </Menu.Item>
+
+        
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('retail_store_province_center',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
         )}
         )}
 
-       		
-        
+
+
            </Menu>
     )
   }
-  
+
+  getSelectedRows=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.selectedRows){
+      return null
+    }
+    if(state.selectedRows.length === 0){
+      return null
+    }
+    return state.selectedRows[0]
+
+  }
+
+  getOwnerId=()=>{
+    const {state} = this.props.location
+
+    if(!state){
+      return null
+    }
+    if(!state.ownerId){
+      return null
+    }
+
+    return state.ownerId
+
+  }
 
 
 
@@ -203,25 +246,26 @@ constructor(props) {
       data: state._retailStoreProvinceCenter.provinceCenterDepartmentList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterDepartmentListMetaInfo,
       count: state._retailStoreProvinceCenter.provinceCenterDepartmentCount,
-      returnURL: `/retailStoreProvinceCenter/${state._retailStoreProvinceCenter.id}/dashboard`,
+      returnURL: `/retailStoreProvinceCenter/${state._retailStoreProvinceCenter.id}/workbench`,
       currentPage: state._retailStoreProvinceCenter.provinceCenterDepartmentCurrentPageNumber,
       searchFormParameters: state._retailStoreProvinceCenter.provinceCenterDepartmentSearchFormParameters,
       searchParameters: {...state._retailStoreProvinceCenter.searchParameters},
       expandForm: state._retailStoreProvinceCenter.expandForm,
       loading: state._retailStoreProvinceCenter.loading,
       partialList: state._retailStoreProvinceCenter.partialList,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, 
-      referenceName: 'provinceCenter', 
-      listName: 'provinceCenterDepartmentList', ref:state._retailStoreProvinceCenter, 
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id,
+      referenceName: 'provinceCenter',
+      listName: 'provinceCenterDepartmentList', ref:state._retailStoreProvinceCenter,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ProvinceCenterDepartmentSearch)
   }
-  
+
   getProvinceCenterDepartmentCreateForm = () => {
    	const {ProvinceCenterDepartmentCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "provinceCenterDepartment",
       data: state._retailStoreProvinceCenter.provinceCenterDepartmentList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterDepartmentListMetaInfo,
@@ -230,18 +274,18 @@ constructor(props) {
       currentPage: state._retailStoreProvinceCenter.provinceCenterDepartmentCurrentPageNumber,
       searchFormParameters: state._retailStoreProvinceCenter.provinceCenterDepartmentSearchFormParameters,
       loading: state._retailStoreProvinceCenter.loading,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, referenceName: 'provinceCenter', listName: 'provinceCenterDepartmentList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id || this.getOwnerId(), referenceName: 'provinceCenter', listName: 'provinceCenterDepartmentList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ProvinceCenterDepartmentCreateForm)
   }
-  
+
   getProvinceCenterDepartmentUpdateForm = () => {
     const userContext = null
   	const {ProvinceCenterDepartmentUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreProvinceCenter.selectedRows,
       role: "provinceCenterDepartment",
-      currentUpdateIndex: state._retailStoreProvinceCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, listName: 'provinceCenterDepartmentList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreProvinceCenter.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id || this.getOwnerId(), listName: 'provinceCenterDepartmentList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ProvinceCenterDepartmentUpdateForm)
   }
 
@@ -255,25 +299,26 @@ constructor(props) {
       data: state._retailStoreProvinceCenter.provinceCenterEmployeeList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterEmployeeListMetaInfo,
       count: state._retailStoreProvinceCenter.provinceCenterEmployeeCount,
-      returnURL: `/retailStoreProvinceCenter/${state._retailStoreProvinceCenter.id}/dashboard`,
+      returnURL: `/retailStoreProvinceCenter/${state._retailStoreProvinceCenter.id}/workbench`,
       currentPage: state._retailStoreProvinceCenter.provinceCenterEmployeeCurrentPageNumber,
       searchFormParameters: state._retailStoreProvinceCenter.provinceCenterEmployeeSearchFormParameters,
       searchParameters: {...state._retailStoreProvinceCenter.searchParameters},
       expandForm: state._retailStoreProvinceCenter.expandForm,
       loading: state._retailStoreProvinceCenter.loading,
       partialList: state._retailStoreProvinceCenter.partialList,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, 
-      referenceName: 'provinceCenter', 
-      listName: 'provinceCenterEmployeeList', ref:state._retailStoreProvinceCenter, 
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id,
+      referenceName: 'provinceCenter',
+      listName: 'provinceCenterEmployeeList', ref:state._retailStoreProvinceCenter,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ProvinceCenterEmployeeSearch)
   }
-  
+
   getProvinceCenterEmployeeCreateForm = () => {
    	const {ProvinceCenterEmployeeCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "provinceCenterEmployee",
       data: state._retailStoreProvinceCenter.provinceCenterEmployeeList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterEmployeeListMetaInfo,
@@ -282,18 +327,18 @@ constructor(props) {
       currentPage: state._retailStoreProvinceCenter.provinceCenterEmployeeCurrentPageNumber,
       searchFormParameters: state._retailStoreProvinceCenter.provinceCenterEmployeeSearchFormParameters,
       loading: state._retailStoreProvinceCenter.loading,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, referenceName: 'provinceCenter', listName: 'provinceCenterEmployeeList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id || this.getOwnerId(), referenceName: 'provinceCenter', listName: 'provinceCenterEmployeeList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ProvinceCenterEmployeeCreateForm)
   }
-  
+
   getProvinceCenterEmployeeUpdateForm = () => {
     const userContext = null
   	const {ProvinceCenterEmployeeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreProvinceCenter.selectedRows,
       role: "provinceCenterEmployee",
-      currentUpdateIndex: state._retailStoreProvinceCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, listName: 'provinceCenterEmployeeList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreProvinceCenter.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id || this.getOwnerId(), listName: 'provinceCenterEmployeeList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ProvinceCenterEmployeeUpdateForm)
   }
 
@@ -307,25 +352,26 @@ constructor(props) {
       data: state._retailStoreProvinceCenter.retailStoreCityServiceCenterList,
       metaInfo: state._retailStoreProvinceCenter.retailStoreCityServiceCenterListMetaInfo,
       count: state._retailStoreProvinceCenter.retailStoreCityServiceCenterCount,
-      returnURL: `/retailStoreProvinceCenter/${state._retailStoreProvinceCenter.id}/dashboard`,
+      returnURL: `/retailStoreProvinceCenter/${state._retailStoreProvinceCenter.id}/workbench`,
       currentPage: state._retailStoreProvinceCenter.retailStoreCityServiceCenterCurrentPageNumber,
       searchFormParameters: state._retailStoreProvinceCenter.retailStoreCityServiceCenterSearchFormParameters,
       searchParameters: {...state._retailStoreProvinceCenter.searchParameters},
       expandForm: state._retailStoreProvinceCenter.expandForm,
       loading: state._retailStoreProvinceCenter.loading,
       partialList: state._retailStoreProvinceCenter.partialList,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, 
-      referenceName: 'belongsTo', 
-      listName: 'retailStoreCityServiceCenterList', ref:state._retailStoreProvinceCenter, 
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id,
+      referenceName: 'belongsTo',
+      listName: 'retailStoreCityServiceCenterList', ref:state._retailStoreProvinceCenter,
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreCityServiceCenterSearch)
   }
-  
+
   getRetailStoreCityServiceCenterCreateForm = () => {
    	const {RetailStoreCityServiceCenterCreateForm} = GlobalComponents;
    	const userContext = null
     return connect(state => ({
       rule: state.rule,
+      initValue: this.getSelectedRows(),
       role: "retailStoreCityServiceCenter",
       data: state._retailStoreProvinceCenter.retailStoreCityServiceCenterList,
       metaInfo: state._retailStoreProvinceCenter.retailStoreCityServiceCenterListMetaInfo,
@@ -334,18 +380,18 @@ constructor(props) {
       currentPage: state._retailStoreProvinceCenter.retailStoreCityServiceCenterCurrentPageNumber,
       searchFormParameters: state._retailStoreProvinceCenter.retailStoreCityServiceCenterSearchFormParameters,
       loading: state._retailStoreProvinceCenter.loading,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, referenceName: 'belongsTo', listName: 'retailStoreCityServiceCenterList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id || this.getOwnerId(), referenceName: 'belongsTo', listName: 'retailStoreCityServiceCenterList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreCityServiceCenterCreateForm)
   }
-  
+
   getRetailStoreCityServiceCenterUpdateForm = () => {
     const userContext = null
   	const {RetailStoreCityServiceCenterUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreProvinceCenter.selectedRows,
       role: "retailStoreCityServiceCenter",
-      currentUpdateIndex: state._retailStoreProvinceCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, listName: 'retailStoreCityServiceCenterList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+      currentUpdateIndex: state._retailStoreProvinceCenter.currentUpdateIndex || 0,
+      owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id || this.getOwnerId(), listName: 'retailStoreCityServiceCenterList', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreCityServiceCenterUpdateForm)
   }
 
@@ -360,8 +406,8 @@ constructor(props) {
       owner: { type: '_retailStoreProvinceCenter', id: state._retailStoreProvinceCenter.id, listName: 'nolist', ref:state._retailStoreProvinceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ChangeRequestStepForm)
   }
-  
- 
+
+
 
   getPageTitle = () => {
     // const { location } = this.props
@@ -369,47 +415,50 @@ constructor(props) {
     const title = '双链小超全流程供应链系统'
     return title
   }
- 
+
   buildRouters = () =>{
-  	const {RetailStoreProvinceCenterDashboard} = GlobalComponents
+    const {RetailStoreProvinceCenterWorkbench} = GlobalComponents
+
+    const {RetailStoreProvinceCenterDashboard} = GlobalComponents
   	const {RetailStoreProvinceCenterPermission} = GlobalComponents
   	const {RetailStoreProvinceCenterProfile} = GlobalComponents
-  	
-  	
-  	const routers=[
-  	{path:"/retailStoreProvinceCenter/:id/dashboard", component: RetailStoreProvinceCenterDashboard},
+
+
+    const routers=[
+    {path:"/retailStoreProvinceCenter/:id/workbench", component: RetailStoreProvinceCenterWorkbench},
+    {path:"/retailStoreProvinceCenter/:id/dashboard", component: RetailStoreProvinceCenterDashboard},
   	{path:"/retailStoreProvinceCenter/:id/profile", component: RetailStoreProvinceCenterProfile},
   	{path:"/retailStoreProvinceCenter/:id/permission", component: RetailStoreProvinceCenterPermission},
-  	
-  	
-  	
+
+
+
   	{path:"/retailStoreProvinceCenter/:id/list/provinceCenterDepartmentList", component: this.getProvinceCenterDepartmentSearch()},
   	{path:"/retailStoreProvinceCenter/:id/list/provinceCenterDepartmentCreateForm", component: this.getProvinceCenterDepartmentCreateForm()},
   	{path:"/retailStoreProvinceCenter/:id/list/provinceCenterDepartmentUpdateForm", component: this.getProvinceCenterDepartmentUpdateForm()},
-   	
+ 
   	{path:"/retailStoreProvinceCenter/:id/list/provinceCenterEmployeeList", component: this.getProvinceCenterEmployeeSearch()},
   	{path:"/retailStoreProvinceCenter/:id/list/provinceCenterEmployeeCreateForm", component: this.getProvinceCenterEmployeeCreateForm()},
   	{path:"/retailStoreProvinceCenter/:id/list/provinceCenterEmployeeUpdateForm", component: this.getProvinceCenterEmployeeUpdateForm()},
-   	
+ 
   	{path:"/retailStoreProvinceCenter/:id/list/retailStoreCityServiceCenterList", component: this.getRetailStoreCityServiceCenterSearch()},
   	{path:"/retailStoreProvinceCenter/:id/list/retailStoreCityServiceCenterCreateForm", component: this.getRetailStoreCityServiceCenterCreateForm()},
   	{path:"/retailStoreProvinceCenter/:id/list/retailStoreCityServiceCenterUpdateForm", component: this.getRetailStoreCityServiceCenterUpdateForm()},
-     	
- 	 
+ 
+
   	]
-  	
+
   	const {extraRoutesFunc} = this.props;
   	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
   	const finalRoutes = routers.concat(extraRoutes)
-    
+
   	return (<Switch>
-             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
+             {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}
   	  	</Switch>)
-  	
-  
+
+
   }
- 
- 
+
+
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
     this.setState({
@@ -423,7 +472,7 @@ constructor(props) {
        payload: !collapsed,
      })
    }
-   
+
    toggleSwitchText=()=>{
     const { collapsed } = this.props
     if(collapsed){
@@ -432,17 +481,17 @@ constructor(props) {
     return "关闭菜单"
 
    }
-   
+
     logout = () => {
-   
+
     console.log("log out called")
     this.props.dispatch({ type: 'launcher/signOut' })
   }
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     
-  
+
+
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
@@ -453,10 +502,10 @@ constructor(props) {
      	if(value.length < 10){
      		return value
      	}
-     
+
      	return value.substring(0,10)+"..."
-     	
-     	
+
+
      }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
@@ -473,18 +522,18 @@ constructor(props) {
      }
      const breadcrumbMenu=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <Menu mode="vertical"> 
+      return ( <Menu mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
       </Menu>)
-  
+
 
      }
      const breadcrumbBar=()=>{
       const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
-      return ( <div mode="vertical"> 
+      return ( <div mode="vertical">
       {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
       </div>)
-  
+
 
      }
 
@@ -493,21 +542,21 @@ constructor(props) {
       const { dispatch} = this.props
       const {name,link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
-	
-     }  
+
+     }
 
 	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
       const { dispatch} = this.props
       const {link} = breadcrumbMenuItem
       dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
-	
+
      }
 
      const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
 
       return (
-     <Tag 
-      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+     <Tag
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"}
       	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
         <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
         	{renderBreadcrumbText(breadcrumbMenuItem.name)}
@@ -515,9 +564,9 @@ constructor(props) {
       </Tag>)
 
      }
-     
-     
-     
+
+
+
      const { Search } = Input;
      const showSearchResult=()=>{
 
@@ -536,51 +585,51 @@ constructor(props) {
     }
 
     const {searchLocalData}=GlobalComponents.RetailStoreProvinceCenterBase
-	
+
     const renderMenuSwitch=()=>{
       const  text = collapsed?"开启左侧菜单":"关闭左侧菜单"
       const icon = collapsed?"pic-left":"pic-center"
-     
+
       return (
 
         <Tooltip placement="bottom" title={text}>
-       
-      
+
+
       <a  className={styles.menuLink} onClick={()=>this.toggle()} style={{marginLeft:"20px",minHeight:"20px"}}>
-        <Icon type={icon} style={{marginRight:"10px"}}/> 
+        <Icon type={icon} style={{marginRight:"10px"}}/>
       </a>  </Tooltip>)
 
      }
-     
-     
+
+
        const layout = (
      <Layout>
  		<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          
+
         <Row type="flex" justify="start" align="bottom">
-        
+
         <Col {...naviBarResponsiveStyle} >
           <a className={styles.menuLink}  style={{fontSize:"20px"}}>{currentAppName()}</a>
- 
+
         </Col>
-        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
-         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  >
+         <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处"
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
           </Col>
-          <Col  {...userBarResponsiveStyle}  > 
+          <Col  {...userBarResponsiveStyle}  >
           <Row>
           <Col  span={10}  > </Col>
           <Col  span={2}  >  {renderMenuSwitch()}</Col>
-          <Col  span={6}  > 
+          <Col  span={6}  >
 	          <Dropdown overlay={<SwitchAppMenu {...this.props} />} style={{marginRight:"100px"}} className={styles.right}>
                 <a  className={styles.menuLink} >
-                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用 
+                <Icon type="appstore" style={{marginRight:"5px"}}/>切换应用
                 </a>
               </Dropdown>
-          </Col>  
+          </Col>
 
-          <Col  span={6}  >  
+          <Col  span={6}  >
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
                 <a  className={styles.menuLink}>
                 <Icon type="user" style={{marginRight:"5px"}}/>账户
@@ -589,22 +638,22 @@ constructor(props) {
             </Col>
 
           </Row>
-            </Col>  
+            </Col>
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
-        
-       
+
+
        <Layout>
-      
+
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.retailStoreProvinceCenter,this.state.searchKeyword)}</div>
 
       )}
        </Layout>
-        
-         
+
+
          <Layout>
        <Sider
           trigger={null}
@@ -615,16 +664,16 @@ constructor(props) {
           collapsedWidth={50}
           className={styles.sider}
         >
-         
+
          {this.getNavMenuItems(this.props.retailStoreProvinceCenter,"inline","dark")}
-       
+
         </Sider>
-        
+
          <Layout>
          <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
-        
+
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-           
+
            {this.buildRouters()}
            </Content>
           </Layout>

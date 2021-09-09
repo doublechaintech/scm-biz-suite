@@ -44,13 +44,15 @@ public interface SlideDAO extends BaseDAO{
 	public void delete(String slideId, int version) throws Exception;
 	public Slide disconnectFromAll(String slideId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	
 	
 
-	public SmartList<Slide> queryList(String sql, Object ... parmeters);
+	public SmartList<Slide> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<Slide> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSlide executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<Slide> findSlideByPage(String pageId, Map<String,Object> options);
@@ -61,6 +63,8 @@ public interface SlideDAO extends BaseDAO{
 
 
  
+
+	List<Slide> search(SlideRequest pRequest);
 }
 
 

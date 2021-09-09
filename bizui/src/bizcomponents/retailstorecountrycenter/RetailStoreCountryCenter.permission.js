@@ -31,7 +31,7 @@ const internalSummaryOf = (retailStoreCountryCenter,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreCountryCenter.id}</Description> 
+<Description term="ID">{retailStoreCountryCenter.id}</Description> 
 <Description term="名称">{retailStoreCountryCenter.name}</Description> 
 <Description term="服务号码">{retailStoreCountryCenter.serviceNumber}</Description> 
 <Description term="成立">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
@@ -65,7 +65,7 @@ class RetailStoreCountryCenterPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreCountryCenter = this.props.retailStoreCountryCenter
     const { id,displayName, catalogCount, retailStoreProvinceCenterCount, retailStoreCount, retailStoreMemberCount, goodsSupplierCount, supplyOrderCount, retailStoreOrderCount, warehouseCount, transportFleetCount, accountSetCount, levelOneDepartmentCount, skillTypeCount, responsibilityTypeCount, terminationReasonCount, terminationTypeCount, occupationTypeCount, leaveTypeCount, salaryGradeCount, interviewTypeCount, trainingCourseTypeCount, publicHolidayCount, employeeCount, instructorCount, companyTrainingCount } = retailStoreCountryCenter
-    const  returnURL = `/retailStoreCountryCenter/${id}/dashboard`
+    const  returnURL = `/retailStoreCountryCenter/${id}/workbench`
     const cardsData = {cardsName:"双链小超全国运营中心",cardsFor: "retailStoreCountryCenter",cardsSource: retailStoreCountryCenter,displayName,returnURL,
   		subItems: [
 {name: 'skillTypeList', displayName:'技能类型',type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType', data: retailStoreCountryCenter.skillTypeList},
@@ -88,10 +88,10 @@ class RetailStoreCountryCenterPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

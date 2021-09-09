@@ -15,18 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = UserAppBase
 const testValues = {};
-/*
-const testValues = {
-  title: '审车平台',
-  appIcon: 'users',
-  fullAccess: '1',
-  permission: 'MXWR',
-  objectType: 'CarInspectionPlatform',
-  objectId: 'CIP000001',
-  location: '/link/to/app',
-  secUserId: 'SU000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -40,9 +31,20 @@ class UserAppCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = UserAppBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -53,7 +55,7 @@ class UserAppCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -61,7 +63,7 @@ class UserAppCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -69,10 +71,10 @@ class UserAppCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -81,16 +83,16 @@ class UserAppCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {UserAppService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -100,9 +102,9 @@ class UserAppCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -111,7 +113,7 @@ class UserAppCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -123,25 +125,25 @@ class UserAppCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('user_app')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.title} />
+                    <SmallTextInput minLength={1} maxLength={300} size="large"  placeholder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,17 +153,7 @@ class UserAppCreateFormBody extends Component {
                   {getFieldDecorator('appIcon', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.appIcon} />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.fullAccess} {...formItemLayout}>
-                  {getFieldDecorator('fullAccess', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large"  placeHolder={fieldLabels.fullAccess} />
+                    <SmallTextInput minLength={1} maxLength={20} size="large"  placeholder={fieldLabels.appIcon} />
                   )}
                 </Form.Item>
               </Col>
@@ -171,27 +163,47 @@ class UserAppCreateFormBody extends Component {
                   {getFieldDecorator('permission', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.permission} />
+                    <SmallTextInput minLength={1} maxLength={20} size="large"  placeholder={fieldLabels.permission} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.objectType} {...formItemLayout}>
-                  {getFieldDecorator('objectType', {
+                <Form.Item label={fieldLabels.appType} {...formItemLayout}>
+                  {getFieldDecorator('appType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.objectType} />
+                    <SmallTextInput minLength={1} maxLength={100} size="large"  placeholder={fieldLabels.appType} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.objectId} {...formItemLayout}>
-                  {getFieldDecorator('objectId', {
+                <Form.Item label={fieldLabels.appId} {...formItemLayout}>
+                  {getFieldDecorator('appId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.objectId} />
+                    <SmallTextInput minLength={1} maxLength={100} size="large"  placeholder={fieldLabels.appId} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.ctxType} {...formItemLayout}>
+                  {getFieldDecorator('ctxType', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <SmallTextInput minLength={1} maxLength={100} size="large"  placeholder={fieldLabels.ctxType} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.ctxId} {...formItemLayout}>
+                  {getFieldDecorator('ctxId', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <SmallTextInput minLength={1} maxLength={100} size="large"  placeholder={fieldLabels.ctxId} />
                   )}
                 </Form.Item>
               </Col>
@@ -201,39 +213,53 @@ class UserAppCreateFormBody extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.location} />
+                    <SmallTextInput minLength={0} maxLength={200} size="large"  placeholder={fieldLabels.location} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
+
+              <Col lg={24} md={12} sm={24}>
+                <Form.Item label={fieldLabels.fullAccess}  {...switchFormItemLayout}>
+                  {getFieldDecorator('fullAccess', {
+                    initialValue: false,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    valuePropName: 'checked'
+                  })(
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+                  )}
+                </Form.Item>
+              </Col>
+
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.secUser} {...formItemLayout}>
                   {getFieldDecorator('secUserId', {
                   	initialValue: tryinit('secUser'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('secUser')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"user_app"} 
-		                 targetType={"sec_user"} 
-                 
+		                 listType={"user_app"}
+		                 targetType={"sec_user"}
+
                     requestFunction={UserAppService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -248,7 +274,7 @@ class UserAppCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

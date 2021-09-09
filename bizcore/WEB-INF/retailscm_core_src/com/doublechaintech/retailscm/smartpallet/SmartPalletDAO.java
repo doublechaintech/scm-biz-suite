@@ -46,6 +46,7 @@ public interface SmartPalletDAO extends BaseDAO{
 	public void delete(String smartPalletId, int version) throws Exception;
 	public SmartPallet disconnectFromAll(String smartPalletId, int version) throws Exception;
 	public int deleteAll() throws Exception;
+	public void resetNextId();
 
 	public GoodsDAO getGoodsDAO();
 		
@@ -89,9 +90,10 @@ public interface SmartPalletDAO extends BaseDAO{
 	public int countGoodsListWithRetailStoreOrder(String smartPalletId, String retailStoreOrderId, Map<String,Object> options)throws Exception;
 	
 
-	public SmartList<SmartPallet> queryList(String sql, Object ... parmeters);
+	public SmartList<SmartPallet> queryList(String sql, Object ... parameters);
+	public List<String> queryIdList(String sql, Object ... parameters);
 	public Stream<SmartPallet> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parmeters);
+	public int count(String sql, Object ... parameters);
 	public CandidateSmartPallet executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
 
  	public SmartList<SmartPallet> findSmartPalletByWarehouse(String warehouseId, Map<String,Object> options);
@@ -105,6 +107,8 @@ public interface SmartPalletDAO extends BaseDAO{
 	// 需要一个加载引用我的对象的enhance方法:Goods的smartPallet的GoodsList
 	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SmartPallet> us, Map<String,Object> options) throws Exception;
 	
+
+	List<SmartPallet> search(SmartPalletRequest pRequest);
 }
 
 

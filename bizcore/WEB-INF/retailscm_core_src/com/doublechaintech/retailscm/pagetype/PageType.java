@@ -1,21 +1,17 @@
 
 package com.doublechaintech.retailscm.pagetype;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
-import com.terapico.caf.DateTime;
-import com.terapico.caf.Images;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.SmartList;
-import com.doublechaintech.retailscm.KeyValuePair;
+import com.terapico.caf.*;
+import com.doublechaintech.retailscm.search.*;
+import com.doublechaintech.retailscm.*;
+import com.doublechaintech.retailscm.utils.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.terapico.caf.baseelement.MemberMetaInfo;
 import com.doublechaintech.retailscm.mobileapp.MobileApp;
-import com.doublechaintech.retailscm.page.Page;
 
 
 
@@ -28,7 +24,7 @@ import com.doublechaintech.retailscm.page.Page;
 @JsonSerialize(using = PageTypeSerializer.class)
 public class PageType extends BaseEntity implements  java.io.Serializable{
 
-	
+
 
 
 
@@ -50,7 +46,16 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 		CODE_NAME_LIST.add(new KeyValuePair(SERVICE_CENTER, "功能大厅"));
 		CODE_NAME_LIST.add(new KeyValuePair(SIMPLE, "普通"));
 	}
-	
+  public static String getName(String code) {
+    return (String)
+        CODE_NAME_LIST.stream()
+            .filter(kv -> Objects.equals(code, kv.getKey()))
+            .map(KeyValuePair::getValue)
+            .findFirst()
+            .orElse(null);
+  }
+
+
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String CODE_PROPERTY                  = "code"              ;
@@ -58,39 +63,92 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 	public static final String FOOTER_TAB_PROPERTY            = "footerTab"         ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
-	public static final String PAGE_LIST                                = "pageList"          ;
 
 	public static final String INTERNAL_TYPE="PageType";
 	public String getInternalType(){
 		return INTERNAL_TYPE;
 	}
-	
+
+
+	protected static List<MemberMetaInfo> memberMetaInfoList = new ArrayList<>();
+  static{
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(ID_PROPERTY, "id", "ID")
+        .withType("id", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(NAME_PROPERTY, "name", "名称")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CODE_PROPERTY, "code", "代码")
+        .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(MOBILE_APP_PROPERTY, "mobile_app", "手机应用程序")
+        .withType("mobile_app", MobileApp.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(FOOTER_TAB_PROPERTY, "footer_tab", "页脚选项卡")
+        .withType("bool", "boolean"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
+        .withType("version", "int"));
+
+
+  }
+
+	public List<MemberMetaInfo> getMemberMetaInfoList(){return memberMetaInfoList;}
+
+
+  public String[] getPropertyNames(){
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,CODE_PROPERTY ,MOBILE_APP_PROPERTY ,FOOTER_TAB_PROPERTY ,VERSION_PROPERTY};
+  }
+
+  public Map<String, String> getReferProperties(){
+    Map<String, String> refers = new HashMap<>();
+    	
+    return refers;
+  }
+
+  public Map<String, Class> getReferTypes() {
+    Map<String, Class> refers = new HashMap<>();
+        	
+    return refers;
+  }
+
+  public Map<String, Class<? extends BaseEntity>> getParentProperties(){
+    Map<String, Class<? extends BaseEntity>> parents = new HashMap<>();
+    parents.put(MOBILE_APP_PROPERTY, MobileApp.class);
+
+    return parents;
+  }
+
+  public PageType want(Class<? extends BaseEntity>... classes) {
+      doWant(classes);
+      return this;
+    }
+
+  public PageType wants(Class<? extends BaseEntity>... classes) {
+    doWants(classes);
+    return this;
+  }
+
 	public String getDisplayName(){
-	
+
 		String displayName = getName();
 		if(displayName!=null){
 			return displayName;
 		}
-		
+
 		return super.getDisplayName();
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
-	
 
-	protected		String              	mId                 ;
-	protected		String              	mName               ;
-	protected		String              	mCode               ;
-	protected		MobileApp           	mMobileApp          ;
-	protected		boolean             	mFooterTab          ;
-	protected		int                 	mVersion            ;
-	
-	
-	protected		SmartList<Page>     	mPageList           ;
+
+	protected		String              	id                  ;
+	protected		String              	name                ;
+	protected		String              	code                ;
+	protected		MobileApp           	mobileApp           ;
+	protected		boolean             	footerTab           ;
+	protected		int                 	version             ;
 
 	
-		
+
+
+
 	public 	PageType(){
 		// lazy load for all the properties
 	}
@@ -98,20 +156,39 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 		PageType pageType = new PageType();
 		pageType.setId(id);
 		pageType.setVersion(Integer.MAX_VALUE);
+		pageType.setChecked(true);
 		return pageType;
 	}
 	public 	static PageType refById(String id){
 		return withId(id);
 	}
-	
+
+  public PageType limit(int count){
+    doAddLimit(0, count);
+    return this;
+  }
+
+  public PageType limit(int start, int count){
+    doAddLimit(start, count);
+    return this;
+  }
+
+  public static PageType searchExample(){
+    PageType pageType = new PageType();
+    		pageType.setVersion(UNSET_INT);
+
+    return pageType;
+  }
+
 	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setMobileApp( null );
 
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	
+
 	//Support for changing the property
 	
 	public void changeProperty(String property, String newValueExpr) {
@@ -182,7 +259,7 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 
 	
 	public Object propertyOf(String property) {
-     	
+
 		if(NAME_PROPERTY.equals(property)){
 			return getName();
 		}
@@ -195,255 +272,221 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 		if(FOOTER_TAB_PROPERTY.equals(property)){
 			return getFooterTab();
 		}
-		if(PAGE_LIST.equals(property)){
-			List<BaseEntity> list = getPageList().stream().map(item->item).collect(Collectors.toList());
-			return list;
-		}
 
     		//other property not include here
 		return super.propertyOf(property);
 	}
-    
-    
+
+ 
+
+
 
 
 	
-	
-	
-	public void setId(String id){
-		this.mId = trimString(id);;
-	}
+	public void setId(String id){String oldId = this.id;String newId = trimString(id);this.id = newId;}
+	public String id(){
+doLoad();
+return getId();
+}
 	public String getId(){
-		return this.mId;
+		return this.id;
 	}
-	public PageType updateId(String id){
-		this.mId = trimString(id);;
-		this.changed = true;
-		return this;
-	}
+	public PageType updateId(String id){String oldId = this.id;String newId = trimString(id);if(!shouldReplaceBy(newId, oldId)){return this;}this.id = newId;addPropertyChange(ID_PROPERTY, oldId, newId);this.changed = true;setChecked(false);return this;}
+	public PageType orderById(boolean asc){
+doAddOrderBy(ID_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createIdCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(ID_PROPERTY, operator, parameters);
+}
+	public PageType ignoreIdCriteria(){super.ignoreSearchProperty(ID_PROPERTY);
+return this;
+}
+	public PageType addIdCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createIdCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeId(String id){
 		if(id != null) { setId(id);}
 	}
+
 	
-	
-	public void setName(String name){
-		this.mName = trimString(name);;
-	}
+	public void setName(String name){String oldName = this.name;String newName = trimString(name);this.name = newName;}
+	public String name(){
+doLoad();
+return getName();
+}
 	public String getName(){
-		return this.mName;
+		return this.name;
 	}
-	public PageType updateName(String name){
-		this.mName = trimString(name);;
-		this.changed = true;
-		return this;
-	}
+	public PageType updateName(String name){String oldName = this.name;String newName = trimString(name);if(!shouldReplaceBy(newName, oldName)){return this;}this.name = newName;addPropertyChange(NAME_PROPERTY, oldName, newName);this.changed = true;setChecked(false);return this;}
+	public PageType orderByName(boolean asc){
+doAddOrderBy(NAME_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createNameCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(NAME_PROPERTY, operator, parameters);
+}
+	public PageType ignoreNameCriteria(){super.ignoreSearchProperty(NAME_PROPERTY);
+return this;
+}
+	public PageType addNameCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createNameCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeName(String name){
 		if(name != null) { setName(name);}
 	}
+
 	
-	
-	public void setCode(String code){
-		this.mCode = trimString(code);;
-	}
+	public void setCode(String code){String oldCode = this.code;String newCode = trimString(code);this.code = newCode;}
+	public String code(){
+doLoad();
+return getCode();
+}
 	public String getCode(){
-		return this.mCode;
+		return this.code;
 	}
-	public PageType updateCode(String code){
-		this.mCode = trimString(code);;
-		this.changed = true;
-		return this;
-	}
+	public PageType updateCode(String code){String oldCode = this.code;String newCode = trimString(code);if(!shouldReplaceBy(newCode, oldCode)){return this;}this.code = newCode;addPropertyChange(CODE_PROPERTY, oldCode, newCode);this.changed = true;setChecked(false);return this;}
+	public PageType orderByCode(boolean asc){
+doAddOrderBy(CODE_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createCodeCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CODE_PROPERTY, operator, parameters);
+}
+	public PageType ignoreCodeCriteria(){super.ignoreSearchProperty(CODE_PROPERTY);
+return this;
+}
+	public PageType addCodeCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createCodeCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeCode(String code){
 		if(code != null) { setCode(code);}
 	}
+
 	
-	
-	public void setMobileApp(MobileApp mobileApp){
-		this.mMobileApp = mobileApp;;
-	}
+	public void setMobileApp(MobileApp mobileApp){MobileApp oldMobileApp = this.mobileApp;MobileApp newMobileApp = mobileApp;this.mobileApp = newMobileApp;}
+	public MobileApp mobileApp(){
+doLoad();
+return getMobileApp();
+}
 	public MobileApp getMobileApp(){
-		return this.mMobileApp;
+		return this.mobileApp;
 	}
-	public PageType updateMobileApp(MobileApp mobileApp){
-		this.mMobileApp = mobileApp;;
-		this.changed = true;
-		return this;
-	}
+	public PageType updateMobileApp(MobileApp mobileApp){MobileApp oldMobileApp = this.mobileApp;MobileApp newMobileApp = mobileApp;if(!shouldReplaceBy(newMobileApp, oldMobileApp)){return this;}this.mobileApp = newMobileApp;addPropertyChange(MOBILE_APP_PROPERTY, oldMobileApp, newMobileApp);this.changed = true;setChecked(false);return this;}
+	public PageType orderByMobileApp(boolean asc){
+doAddOrderBy(MOBILE_APP_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createMobileAppCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(MOBILE_APP_PROPERTY, operator, parameters);
+}
+	public PageType ignoreMobileAppCriteria(){super.ignoreSearchProperty(MOBILE_APP_PROPERTY);
+return this;
+}
+	public PageType addMobileAppCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createMobileAppCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeMobileApp(MobileApp mobileApp){
 		if(mobileApp != null) { setMobileApp(mobileApp);}
 	}
-	
+
 	
 	public void clearMobileApp(){
 		setMobileApp ( null );
 		this.changed = true;
+		setChecked(false);
 	}
 	
-	public void setFooterTab(boolean footerTab){
-		this.mFooterTab = footerTab;;
-	}
+	public void setFooterTab(boolean footerTab){boolean oldFooterTab = this.footerTab;boolean newFooterTab = footerTab;this.footerTab = newFooterTab;}
+	public boolean footerTab(){
+doLoad();
+return getFooterTab();
+}
 	public boolean getFooterTab(){
-		return this.mFooterTab;
+		return this.footerTab;
 	}
-	public PageType updateFooterTab(boolean footerTab){
-		this.mFooterTab = footerTab;;
-		this.changed = true;
-		return this;
-	}
+	public PageType updateFooterTab(boolean footerTab){boolean oldFooterTab = this.footerTab;boolean newFooterTab = footerTab;if(!shouldReplaceBy(newFooterTab, oldFooterTab)){return this;}this.footerTab = newFooterTab;addPropertyChange(FOOTER_TAB_PROPERTY, oldFooterTab, newFooterTab);this.changed = true;setChecked(false);return this;}
+	public PageType orderByFooterTab(boolean asc){
+doAddOrderBy(FOOTER_TAB_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createFooterTabCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(FOOTER_TAB_PROPERTY, operator, parameters);
+}
+	public PageType ignoreFooterTabCriteria(){super.ignoreSearchProperty(FOOTER_TAB_PROPERTY);
+return this;
+}
+	public PageType addFooterTabCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createFooterTabCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeFooterTab(boolean footerTab){
 		setFooterTab(footerTab);
 	}
+
 	
-	
-	public void setVersion(int version){
-		this.mVersion = version;;
-	}
+	public void setVersion(int version){int oldVersion = this.version;int newVersion = version;this.version = newVersion;}
+	public int version(){
+doLoad();
+return getVersion();
+}
 	public int getVersion(){
-		return this.mVersion;
+		return this.version;
 	}
-	public PageType updateVersion(int version){
-		this.mVersion = version;;
-		this.changed = true;
-		return this;
-	}
+	public PageType updateVersion(int version){int oldVersion = this.version;int newVersion = version;if(!shouldReplaceBy(newVersion, oldVersion)){return this;}this.version = newVersion;addPropertyChange(VERSION_PROPERTY, oldVersion, newVersion);this.changed = true;setChecked(false);return this;}
+	public PageType orderByVersion(boolean asc){
+doAddOrderBy(VERSION_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createVersionCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(VERSION_PROPERTY, operator, parameters);
+}
+	public PageType ignoreVersionCriteria(){super.ignoreSearchProperty(VERSION_PROPERTY);
+return this;
+}
+	public PageType addVersionCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createVersionCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
 	public void mergeVersion(int version){
 		setVersion(version);
 	}
-	
-	
 
-	public  SmartList<Page> getPageList(){
-		if(this.mPageList == null){
-			this.mPageList = new SmartList<Page>();
-			this.mPageList.setListInternalName (PAGE_LIST );
-			//有名字，便于做权限控制
-		}
-		
-		return this.mPageList;	
-	}
-	public  void setPageList(SmartList<Page> pageList){
-		for( Page page:pageList){
-			page.setPageType(this);
-		}
-
-		this.mPageList = pageList;
-		this.mPageList.setListInternalName (PAGE_LIST );
-		
-	}
 	
-	public  void addPage(Page page){
-		page.setPageType(this);
-		getPageList().add(page);
-	}
-	public  void addPageList(SmartList<Page> pageList){
-		for( Page page:pageList){
-			page.setPageType(this);
-		}
-		getPageList().addAll(pageList);
-	}
-	public  void mergePageList(SmartList<Page> pageList){
-		if(pageList==null){
-			return;
-		}
-		if(pageList.isEmpty()){
-			return;
-		}
-		addPageList( pageList );
-		
-	}
-	public  Page removePage(Page pageIndex){
-		
-		int index = getPageList().indexOf(pageIndex);
-        if(index < 0){
-        	String message = "Page("+pageIndex.getId()+") with version='"+pageIndex.getVersion()+"' NOT found!";
-            throw new IllegalStateException(message);
-        }
-        Page page = getPageList().get(index);        
-        // page.clearPageType(); //disconnect with PageType
-        page.clearFromAll(); //disconnect with PageType
-		
-		boolean result = getPageList().planToRemove(page);
-        if(!result){
-        	String message = "Page("+pageIndex.getId()+") with version='"+pageIndex.getVersion()+"' NOT found!";
-            throw new IllegalStateException(message);
-        }
-        return page;
-        
-	
-	}
-	//断舍离
-	public  void breakWithPage(Page page){
-		
-		if(page == null){
-			return;
-		}
-		page.setPageType(null);
-		//getPageList().remove();
-	
-	}
-	
-	public  boolean hasPage(Page page){
-	
-		return getPageList().contains(page);
-  
-	}
-	
-	public void copyPageFrom(Page page) {
-
-		Page pageInList = findThePage(page);
-		Page newPage = new Page();
-		pageInList.copyTo(newPage);
-		newPage.setVersion(0);//will trigger copy
-		getPageList().add(newPage);
-		addItemToFlexiableObject(COPIED_CHILD, newPage);
-	}
-	
-	public  Page findThePage(Page page){
-		
-		int index =  getPageList().indexOf(page);
-		//The input parameter must have the same id and version number.
-		if(index < 0){
- 			String message = "Page("+page.getId()+") with version='"+page.getVersion()+"' NOT found!";
-			throw new IllegalStateException(message);
-		}
-		
-		return  getPageList().get(index);
-		//Performance issue when using LinkedList, but it is almost an ArrayList for sure!
-	}
-	
-	public  void cleanUpPageList(){
-		getPageList().clear();
-	}
-	
-	
-	
-
 
 	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
 
 		addToEntityList(this, entityList, getMobileApp(), internalType);
 
-		
+
 	}
-	
+
 	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
-		
+
 		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
-		collectFromList(this, entityList, getPageList(), internalType);
 
 		return entityList;
 	}
-	
+
 	public  List<SmartList<?>> getAllRelatedLists() {
 		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
-		
-		listOfList.add( getPageList());
-			
+
+
 
 		return listOfList;
 	}
 
-	
+
 	public List<KeyValuePair> keyValuePairOf(){
 		List<KeyValuePair> result =  super.keyValuePairOf();
 
@@ -453,68 +496,61 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 		appendKeyValuePair(result, MOBILE_APP_PROPERTY, getMobileApp());
 		appendKeyValuePair(result, FOOTER_TAB_PROPERTY, getFooterTab());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
-		appendKeyValuePair(result, PAGE_LIST, getPageList());
-		if(!getPageList().isEmpty()){
-			appendKeyValuePair(result, "pageCount", getPageList().getTotalCount());
-			appendKeyValuePair(result, "pageCurrentPageNumber", getPageList().getCurrentPageNumber());
-		}
 
 		if (this.valueByKey("valuesOfGroupBy") != null) {
 			appendKeyValuePair(result, "valuesOfGroupBy", this.valueByKey("valuesOfGroupBy"));
 		}
 		return result;
 	}
-	
-	
+
+
 	public BaseEntity copyTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof PageType){
-		
-		
+
+
 			PageType dest =(PageType)baseDest;
-		
+
 			dest.setId(getId());
 			dest.setName(getName());
 			dest.setCode(getCode());
 			dest.setMobileApp(getMobileApp());
 			dest.setFooterTab(getFooterTab());
 			dest.setVersion(getVersion());
-			dest.setPageList(getPageList());
 
 		}
 		super.copyTo(baseDest);
 		return baseDest;
 	}
 	public BaseEntity mergeDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof PageType){
-		
-			
+
+
 			PageType dest =(PageType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeCode(getCode());
 			dest.mergeMobileApp(getMobileApp());
 			dest.mergeFooterTab(getFooterTab());
 			dest.mergeVersion(getVersion());
-			dest.mergePageList(getPageList());
 
 		}
 		super.copyTo(baseDest);
 		return baseDest;
 	}
-	
+
 	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
-		
-		
+
+
 		if(baseDest instanceof PageType){
-		
-			
+
+
 			PageType dest =(PageType)baseDest;
-		
+
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeCode(getCode());
@@ -527,6 +563,46 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 	public Object[] toFlatArray(){
 		return new Object[]{getId(), getName(), getCode(), getMobileApp(), getFooterTab(), getVersion()};
 	}
+
+
+	public static PageType createWith(RetailscmUserContext userContext, ThrowingFunction<PageType,PageType,Exception> postHandler, Object ... inputs) throws Exception {
+
+    List<Object> params = inputs == null ? new ArrayList<>() : Arrays.asList(inputs);
+    CustomRetailscmPropertyMapper mapper = CustomRetailscmPropertyMapper.of(userContext);
+    CreationScene scene = mapper.findParamByClass(params, CreationScene.class);
+    RetailscmBeanCreator<PageType> customCreator = mapper.findCustomCreator(PageType.class, scene);
+    if (customCreator != null){
+      return customCreator.create(userContext, scene, postHandler, params);
+    }
+
+    PageType result = new PageType();
+    result.setName(mapper.tryToGet(PageType.class, NAME_PROPERTY, String.class,
+        0, false, result.getName(), params));
+    result.setCode(mapper.tryToGet(PageType.class, CODE_PROPERTY, String.class,
+        1, false, result.getCode(), params));
+    result.setMobileApp(mapper.tryToGet(PageType.class, MOBILE_APP_PROPERTY, MobileApp.class,
+        0, true, result.getMobileApp(), params));
+    result.setFooterTab(mapper.tryToGet(PageType.class, FOOTER_TAB_PROPERTY, boolean.class,
+        0, true, result.getFooterTab(), params));
+
+    if (postHandler != null) {
+      result = postHandler.apply(result);
+    }
+    if (result != null){
+      userContext.getChecker().checkAndFixPageType(result);
+      userContext.getChecker().throwExceptionIfHasErrors(IllegalArgumentException.class);
+
+      
+      PageTypeTokens tokens = mapper.findParamByClass(params, PageTypeTokens.class);
+      if (tokens == null) {
+        tokens = PageTypeTokens.start();
+      }
+      result = userContext.getManagerGroup().getPageTypeManager().internalSavePageType(userContext, result, tokens.done());
+      
+    }
+    return result;
+  }
+
 	public String toString(){
 		StringBuilder stringBuilder=new StringBuilder(128);
 
@@ -543,7 +619,7 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
 
 		return stringBuilder.toString();
 	}
-	
+
 	//provide number calculation function
 	
 

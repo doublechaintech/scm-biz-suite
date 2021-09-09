@@ -31,7 +31,7 @@ const internalSummaryOf = (goodsShelfStockCount,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsShelfStockCount.id}</Description> 
+<Description term="ID">{goodsShelfStockCount.id}</Description> 
 <Description term="头衔">{goodsShelfStockCount.title}</Description> 
 <Description term="计数时间">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
 <Description term="概览">{goodsShelfStockCount.summary}</Description> 
@@ -60,7 +60,7 @@ class GoodsShelfStockCountPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsShelfStockCount = this.props.goodsShelfStockCount
     const { id,displayName, stockCountIssueTrackCount } = goodsShelfStockCount
-    const  returnURL = `/goodsShelfStockCount/${id}/dashboard`
+    const  returnURL = `/goodsShelfStockCount/${id}/workbench`
     const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class GoodsShelfStockCountPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

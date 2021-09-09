@@ -31,7 +31,7 @@ const internalSummaryOf = (salaryGrade,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{salaryGrade.id}</Description> 
+<Description term="ID">{salaryGrade.id}</Description> 
 <Description term="代码">{salaryGrade.code}</Description> 
 <Description term="名称">{salaryGrade.name}</Description> 
 <Description term="详细描述">{salaryGrade.detailDescription}</Description> 
@@ -60,7 +60,7 @@ class SalaryGradePermission extends Component {
     // eslint-disable-next-line max-len
     const  salaryGrade = this.props.salaryGrade
     const { id,displayName, employeeCount, employeeSalarySheetCount } = salaryGrade
-    const  returnURL = `/salaryGrade/${id}/dashboard`
+    const  returnURL = `/salaryGrade/${id}/workbench`
     const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",cardsSource: salaryGrade,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class SalaryGradePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

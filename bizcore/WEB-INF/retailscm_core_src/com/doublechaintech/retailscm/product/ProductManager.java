@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.product;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.List;
 import com.terapico.caf.DateTime;
 import com.terapico.caf.Images;
 import com.doublechaintech.retailscm.RetailscmUserContext;
@@ -10,10 +11,15 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.BaseManager;
 import com.doublechaintech.retailscm.SmartList;
 
+
+
+
 public interface ProductManager extends BaseManager{
 
 		
 
+  List<Product> searchProductList(RetailscmUserContext ctx, ProductRequest pRequest);
+  Product searchProduct(RetailscmUserContext ctx, ProductRequest pRequest);
 	public Product createProduct(RetailscmUserContext userContext, String name,String parentCategoryId,String origin,String remark,String brand,String picture) throws Exception;
 	public Product updateProduct(RetailscmUserContext userContext,String productId, int productVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Product loadProduct(RetailscmUserContext userContext, String productId, String [] tokensExpr) throws Exception;
@@ -27,6 +33,8 @@ public interface ProductManager extends BaseManager{
 	public void delete(RetailscmUserContext userContext, String productId, int version) throws Exception;
 	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
 	public void onNewInstanceCreated(RetailscmUserContext userContext, Product newCreated)throws Exception;
+	public default void onUpdated(RetailscmUserContext userContext, Product updated, Object actor, String methodName) throws Exception {};
+
 
 	/*======================================================DATA MAINTENANCE===========================================================*/
 
@@ -45,6 +53,9 @@ public interface ProductManager extends BaseManager{
 	public Object listByParentCategory(RetailscmUserContext userContext,String parentCategoryId) throws Exception;
 	public Object listPageByParentCategory(RetailscmUserContext userContext,String parentCategoryId, int start, int count) throws Exception;
   
+
+
+
 
 }
 

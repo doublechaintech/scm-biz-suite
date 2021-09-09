@@ -61,15 +61,15 @@ public class SecUserTable{
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "sec_user_data", new String[][]{
                 new String[]{"id","varchar(48)"," not null","ID","",""},
-                new String[]{"login","varchar(256)","","登录","",""},
+                new String[]{"login","varchar(256)","","登录名","",""},
                 new String[]{"mobile","varchar(11)","","手机","",""},
-                new String[]{"email","varchar(256)","","电子邮件","",""},
-                new String[]{"pwd","varchar(64)","","PWD","",""},
-                new String[]{"weixin_openid","varchar(128)","","微信openid","",""},
-                new String[]{"weixin_appid","varchar(128)","","微信Appid","",""},
+                new String[]{"email","varchar(256)","","邮箱","",""},
+                new String[]{"pwd","varchar(64)","","密码","",""},
+                new String[]{"weixin_openid","varchar(128)","","微信openId","",""},
+                new String[]{"weixin_appid","varchar(128)","","微信应用ID","",""},
                 new String[]{"access_token","varchar(128)","","访问令牌","",""},
                 new String[]{"verification_code","int","","验证码","",""},
-                new String[]{"verification_code_expire","datetime","","验证码过期","",""},
+                new String[]{"verification_code_expire","datetime","","验证码有效期","",""},
                 new String[]{"last_login_time","datetime","","最后登录时间","",""},
                 new String[]{"domain","varchar(48)","","域","user_domain_data","id"},
                 new String[]{"version","int","","版本","",""}

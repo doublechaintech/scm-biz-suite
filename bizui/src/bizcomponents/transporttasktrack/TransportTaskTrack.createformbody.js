@@ -15,14 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = TransportTaskTrackBase
 const testValues = {};
-/*
-const testValues = {
-  trackTime: '2017-12-29',
-  latitude: '30.792748473051898',
-  longitude: '103.92290804975896',
-  movementId: 'TT000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -36,9 +31,20 @@ class TransportTaskTrackCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = TransportTaskTrackBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -49,7 +55,7 @@ class TransportTaskTrackCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -57,7 +63,7 @@ class TransportTaskTrackCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -65,10 +71,10 @@ class TransportTaskTrackCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -77,16 +83,16 @@ class TransportTaskTrackCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {TransportTaskTrackService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -96,9 +102,9 @@ class TransportTaskTrackCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -107,7 +113,7 @@ class TransportTaskTrackCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -119,25 +125,25 @@ class TransportTaskTrackCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_task_track')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.trackTime} {...formItemLayout}>
                   {getFieldDecorator('trackTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.trackTime}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.trackTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +153,7 @@ class TransportTaskTrackCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.latitude} />
+                    <SmallTextInput minLength={-90.0} maxLength={90.0} size="large"  placeholder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -157,39 +163,39 @@ class TransportTaskTrackCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.longitude} />
+                    <SmallTextInput minLength={-180.0} maxLength={180.0} size="large"  placeholder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.movement} {...formItemLayout}>
                   {getFieldDecorator('movementId', {
                   	initialValue: tryinit('movement'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('movement')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"transport_task_track"} 
-		                 targetType={"transport_task"} 
-                 
+		                 listType={"transport_task_track"}
+		                 targetType={"transport_task"}
+
                     requestFunction={TransportTaskTrackService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -204,7 +210,7 @@ class TransportTaskTrackCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

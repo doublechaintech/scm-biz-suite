@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.eventattendance;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	protected PotentialCustomerDAO potentialCustomerDAO;
 	public void setPotentialCustomerDAO(PotentialCustomerDAO potentialCustomerDAO){
- 	
+
  		if(potentialCustomerDAO == null){
  			throw new IllegalStateException("Do not try to set potentialCustomerDAO to null.");
  		}
@@ -51,13 +52,13 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.potentialCustomerDAO == null){
  			throw new IllegalStateException("The potentialCustomerDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.potentialCustomerDAO;
- 	}	
+ 	}
 
 	protected CityEventDAO cityEventDAO;
 	public void setCityEventDAO(CityEventDAO cityEventDAO){
- 	
+
  		if(cityEventDAO == null){
  			throw new IllegalStateException("Do not try to set cityEventDAO to null.");
  		}
@@ -67,9 +68,10 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		if(this.cityEventDAO == null){
  			throw new IllegalStateException("The cityEventDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.cityEventDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -203,43 +205,43 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return EventAttendanceTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractPotentialCustomerEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EventAttendanceTokens.POTENTIALCUSTOMER);
  	}
 
  	protected boolean isSavePotentialCustomerEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EventAttendanceTokens.POTENTIALCUSTOMER);
  	}
- 	
 
- 	
-  
+
+
+ 
 
  	protected boolean isExtractCityEventEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, EventAttendanceTokens.CITYEVENT);
  	}
 
  	protected boolean isSaveCityEventEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, EventAttendanceTokens.CITYEVENT);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -249,8 +251,8 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		return new EventAttendanceMapper();
 	}
 
-	
-	
+
+
 	protected EventAttendance extractEventAttendance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			EventAttendance eventAttendance = loadSingleObject(accessKey, getEventAttendanceMapper());
@@ -261,29 +263,30 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	}
 
-	
-	
+
+
 
 	protected EventAttendance loadInternalEventAttendance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		EventAttendance eventAttendance = extractEventAttendance(accessKey, loadOptions);
- 	
+
  		if(isExtractPotentialCustomerEnabled(loadOptions)){
 	 		extractPotentialCustomer(eventAttendance, loadOptions);
  		}
-  	
+ 
  		if(isExtractCityEventEnabled(loadOptions)){
 	 		extractCityEvent(eventAttendance, loadOptions);
  		}
  
 		
 		return eventAttendance;
-		
+
 	}
 
-	 
+	
 
  	protected EventAttendance extractPotentialCustomer(EventAttendance eventAttendance, Map<String,Object> options) throws Exception{
+  
 
 		if(eventAttendance.getPotentialCustomer() == null){
 			return eventAttendance;
@@ -296,14 +299,15 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(potentialCustomer != null){
 			eventAttendance.setPotentialCustomer(potentialCustomer);
 		}
-		
- 		
+
+
  		return eventAttendance;
  	}
- 		
-  
+
+ 
 
  	protected EventAttendance extractCityEvent(EventAttendance eventAttendance, Map<String,Object> options) throws Exception{
+  
 
 		if(eventAttendance.getCityEvent() == null){
 			return eventAttendance;
@@ -316,46 +320,46 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		if(cityEvent != null){
 			eventAttendance.setCityEvent(cityEvent);
 		}
-		
- 		
+
+
  		return eventAttendance;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<EventAttendance> findEventAttendanceByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
- 	
+
   		SmartList<EventAttendance> resultList = queryWith(EventAttendanceTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getEventAttendanceMapper());
 		// analyzeEventAttendanceByPotentialCustomer(resultList, potentialCustomerId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EventAttendance> findEventAttendanceByPotentialCustomer(String potentialCustomerId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EventAttendance> resultList =  queryWithRange(EventAttendanceTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getEventAttendanceMapper(), start, count);
  		//analyzeEventAttendanceByPotentialCustomer(resultList, potentialCustomerId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEventAttendanceByPotentialCustomer(SmartList<EventAttendance> resultList, String potentialCustomerId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EventAttendance.POTENTIAL_CUSTOMER_PROPERTY, potentialCustomerId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEventAttendanceByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
@@ -366,39 +370,39 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	public Map<String, Integer> countEventAttendanceByPotentialCustomerIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EventAttendanceTable.COLUMN_POTENTIAL_CUSTOMER, ids, options);
 	}
- 	
-  	
+
+ 
  	public SmartList<EventAttendance> findEventAttendanceByCityEvent(String cityEventId,Map<String,Object> options){
- 	
+
   		SmartList<EventAttendance> resultList = queryWith(EventAttendanceTable.COLUMN_CITY_EVENT, cityEventId, options, getEventAttendanceMapper());
 		// analyzeEventAttendanceByCityEvent(resultList, cityEventId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<EventAttendance> findEventAttendanceByCityEvent(String cityEventId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<EventAttendance> resultList =  queryWithRange(EventAttendanceTable.COLUMN_CITY_EVENT, cityEventId, options, getEventAttendanceMapper(), start, count);
  		//analyzeEventAttendanceByCityEvent(resultList, cityEventId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeEventAttendanceByCityEvent(SmartList<EventAttendance> resultList, String cityEventId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EventAttendance.CITY_EVENT_PROPERTY, cityEventId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
- 		
+
+ 
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countEventAttendanceByCityEvent(String cityEventId,Map<String,Object> options){
@@ -409,21 +413,24 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	public Map<String, Integer> countEventAttendanceByCityEventIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(EventAttendanceTable.COLUMN_CITY_EVENT, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected EventAttendance saveEventAttendance(EventAttendance  eventAttendance){
+    
+
 		
 		if(!eventAttendance.isChanged()){
 			return eventAttendance;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(eventAttendance);
 		String SQL=this.getSaveEventAttendanceSQL(eventAttendance);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveEventAttendanceParameters(eventAttendance);
@@ -434,6 +441,7 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		}
 
 		eventAttendance.incVersion();
+		eventAttendance.afterSave();
 		return eventAttendance;
 
 	}
@@ -451,6 +459,7 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		for(EventAttendance eventAttendance:eventAttendanceList){
 			if(eventAttendance.isChanged()){
 				eventAttendance.incVersion();
+				eventAttendance.afterSave();
 			}
 
 
@@ -554,18 +563,16 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  	protected Object[] prepareEventAttendanceUpdateParameters(EventAttendance eventAttendance){
  		Object[] parameters = new Object[7];
  
- 		
  		parameters[0] = eventAttendance.getName();
  		
  		if(eventAttendance.getPotentialCustomer() != null){
  			parameters[1] = eventAttendance.getPotentialCustomer().getId();
  		}
- 
+    
  		if(eventAttendance.getCityEvent() != null){
  			parameters[2] = eventAttendance.getCityEvent().getId();
  		}
- 
- 		
+    
  		parameters[3] = eventAttendance.getDescription();
  		
  		parameters[4] = eventAttendance.nextVersion();
@@ -582,19 +589,15 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
         }
 		parameters[0] =  eventAttendance.getId();
  
- 		
  		parameters[1] = eventAttendance.getName();
  		
  		if(eventAttendance.getPotentialCustomer() != null){
  			parameters[2] = eventAttendance.getPotentialCustomer().getId();
-
  		}
  		
  		if(eventAttendance.getCityEvent() != null){
  			parameters[3] = eventAttendance.getCityEvent().getId();
-
  		}
- 		
  		
  		parameters[4] = eventAttendance.getDescription();
  		
@@ -604,8 +607,6 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	protected EventAttendance saveInternalEventAttendance(EventAttendance eventAttendance, Map<String,Object> options){
 
-		saveEventAttendance(eventAttendance);
-
  		if(isSavePotentialCustomerEnabled(options)){
 	 		savePotentialCustomer(eventAttendance, options);
  		}
@@ -614,6 +615,7 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	 		saveCityEvent(eventAttendance, options);
  		}
  
+   saveEventAttendance(eventAttendance);
 		
 		return eventAttendance;
 
@@ -625,6 +627,7 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	
 
  	protected EventAttendance savePotentialCustomer(EventAttendance eventAttendance, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(eventAttendance.getPotentialCustomer() == null){
  			return eventAttendance;//do nothing when it is null
@@ -634,14 +637,10 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		return eventAttendance;
 
  	}
-
-
-
-
-
  
 
  	protected EventAttendance saveCityEvent(EventAttendance eventAttendance, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(eventAttendance.getCityEvent() == null){
  			return eventAttendance;//do nothing when it is null
@@ -651,11 +650,6 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
  		return eventAttendance;
 
  	}
-
-
-
-
-
  
 
 	
@@ -663,10 +657,10 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 		
 
 	public EventAttendance present(EventAttendance eventAttendance,Map<String, Object> options){
-	
+
 
 		return eventAttendance;
-	
+
 	}
 		
 
@@ -718,6 +712,10 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<EventAttendance> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEventAttendanceMapper());
   }
@@ -753,6 +751,15 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmBaseDAOImpl impleme
 
 	
 
+  @Override
+  public List<EventAttendance> search(EventAttendanceRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected EventAttendanceMapper mapper() {
+    return getEventAttendanceMapper();
+  }
 }
 
 

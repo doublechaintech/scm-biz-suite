@@ -1,6 +1,7 @@
 
 package com.doublechaintech.retailscm.quicklink;
 
+import com.doublechaintech.retailscm.Beans;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 
 	protected UserAppDAO userAppDAO;
 	public void setUserAppDAO(UserAppDAO userAppDAO){
- 	
+
  		if(userAppDAO == null){
  			throw new IllegalStateException("Do not try to set userAppDAO to null.");
  		}
@@ -49,9 +50,10 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
  		if(this.userAppDAO == null){
  			throw new IllegalStateException("The userAppDAO is not configured yet, please config it some where.");
  		}
- 		
+
 	 	return this.userAppDAO;
- 	}	
+ 	}
+
 
 
 	/*
@@ -185,29 +187,29 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 	}
 
 	
-	
-	
-	
+
+
+
 	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-	
+
  		return QuickLinkTokens.checkOptions(options, optionToCheck);
-	
+
 	}
 
- 
+
 
  	protected boolean isExtractAppEnabled(Map<String,Object> options){
- 		
+
 	 	return checkOptions(options, QuickLinkTokens.APP);
  	}
 
  	protected boolean isSaveAppEnabled(Map<String,Object> options){
-	 	
+
  		return checkOptions(options, QuickLinkTokens.APP);
  	}
- 	
 
- 	
+
+
  
 		
 
@@ -217,8 +219,8 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 		return new QuickLinkMapper();
 	}
 
-	
-	
+
+
 	protected QuickLink extractQuickLink(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
 		try{
 			QuickLink quickLink = loadSingleObject(accessKey, getQuickLinkMapper());
@@ -229,25 +231,26 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 
 	}
 
-	
-	
+
+
 
 	protected QuickLink loadInternalQuickLink(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		
+
 		QuickLink quickLink = extractQuickLink(accessKey, loadOptions);
- 	
+
  		if(isExtractAppEnabled(loadOptions)){
 	 		extractApp(quickLink, loadOptions);
  		}
  
 		
 		return quickLink;
-		
+
 	}
 
-	 
+	
 
  	protected QuickLink extractApp(QuickLink quickLink, Map<String,Object> options) throws Exception{
+  
 
 		if(quickLink.getApp() == null){
 			return quickLink;
@@ -260,41 +263,41 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 		if(app != null){
 			quickLink.setApp(app);
 		}
-		
- 		
+
+
  		return quickLink;
  	}
- 		
+
  
 		
-		
-  	
+
+ 
  	public SmartList<QuickLink> findQuickLinkByApp(String userAppId,Map<String,Object> options){
- 	
+
   		SmartList<QuickLink> resultList = queryWith(QuickLinkTable.COLUMN_APP, userAppId, options, getQuickLinkMapper());
 		// analyzeQuickLinkByApp(resultList, userAppId, options);
 		return resultList;
  	}
- 	 
- 
+ 	
+
  	public SmartList<QuickLink> findQuickLinkByApp(String userAppId, int start, int count,Map<String,Object> options){
- 		
+
  		SmartList<QuickLink> resultList =  queryWithRange(QuickLinkTable.COLUMN_APP, userAppId, options, getQuickLinkMapper(), start, count);
  		//analyzeQuickLinkByApp(resultList, userAppId, options);
  		return resultList;
- 		
+
  	}
  	public void analyzeQuickLinkByApp(SmartList<QuickLink> resultList, String userAppId, Map<String,Object> options){
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
-		
+
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(QuickLink.APP_PROPERTY, userAppId);
  		Map<String,Object> emptyOptions = new HashMap<String,Object>();
- 		
+
  		StatsInfo info = new StatsInfo();
- 		
+
  
 		StatsItem createTimeStatsItem = new StatsItem();
 		//QuickLink.CREATE_TIME_PROPERTY
@@ -302,11 +305,11 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 		createTimeStatsItem.setInternalName(formatKeyForDateLine(QuickLink.CREATE_TIME_PROPERTY));
 		createTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(QuickLink.CREATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(createTimeStatsItem);
- 				
+ 		
  		resultList.setStatsInfo(info);
 
- 	
- 		
+
+
  	}
  	@Override
  	public int countQuickLinkByApp(String userAppId,Map<String,Object> options){
@@ -317,21 +320,24 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 	public Map<String, Integer> countQuickLinkByAppIds(String[] ids, Map<String, Object> options) {
 		return countWithIds(QuickLinkTable.COLUMN_APP, ids, options);
 	}
- 	
- 	
-		
-		
-		
+
+ 
+
+
+
 
 	
 
 	protected QuickLink saveQuickLink(QuickLink  quickLink){
+    
+
 		
 		if(!quickLink.isChanged()){
 			return quickLink;
 		}
 		
 
+    Beans.dbUtil().cacheCleanUp(quickLink);
 		String SQL=this.getSaveQuickLinkSQL(quickLink);
 		//FIXME: how about when an item has been updated more than MAX_INT?
 		Object [] parameters = getSaveQuickLinkParameters(quickLink);
@@ -342,6 +348,7 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 		}
 
 		quickLink.incVersion();
+		quickLink.afterSave();
 		return quickLink;
 
 	}
@@ -359,6 +366,7 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 		for(QuickLink quickLink:quickLinkList){
 			if(quickLink.isChanged()){
 				quickLink.incVersion();
+				quickLink.afterSave();
 			}
 
 
@@ -462,25 +470,20 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
  	protected Object[] prepareQuickLinkUpdateParameters(QuickLink quickLink){
  		Object[] parameters = new Object[9];
  
- 		
  		parameters[0] = quickLink.getName();
- 		
  		
  		parameters[1] = quickLink.getIcon();
  		
- 		
  		parameters[2] = quickLink.getImagePath();
  		
- 		
  		parameters[3] = quickLink.getLinkTarget();
- 		
  		
  		parameters[4] = quickLink.getCreateTime();
  		
  		if(quickLink.getApp() != null){
  			parameters[5] = quickLink.getApp().getId();
  		}
- 
+    
  		parameters[6] = quickLink.nextVersion();
  		parameters[7] = quickLink.getId();
  		parameters[8] = quickLink.getVersion();
@@ -495,24 +498,18 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
         }
 		parameters[0] =  quickLink.getId();
  
- 		
  		parameters[1] = quickLink.getName();
- 		
  		
  		parameters[2] = quickLink.getIcon();
  		
- 		
  		parameters[3] = quickLink.getImagePath();
  		
- 		
  		parameters[4] = quickLink.getLinkTarget();
- 		
  		
  		parameters[5] = quickLink.getCreateTime();
  		
  		if(quickLink.getApp() != null){
  			parameters[6] = quickLink.getApp().getId();
-
  		}
  		
 
@@ -521,12 +518,11 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 
 	protected QuickLink saveInternalQuickLink(QuickLink quickLink, Map<String,Object> options){
 
-		saveQuickLink(quickLink);
-
  		if(isSaveAppEnabled(options)){
 	 		saveApp(quickLink, options);
  		}
  
+   saveQuickLink(quickLink);
 		
 		return quickLink;
 
@@ -538,6 +534,7 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 	
 
  	protected QuickLink saveApp(QuickLink quickLink, Map<String,Object> options){
+ 	
  		//Call inject DAO to execute this method
  		if(quickLink.getApp() == null){
  			return quickLink;//do nothing when it is null
@@ -547,11 +544,6 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
  		return quickLink;
 
  	}
-
-
-
-
-
  
 
 	
@@ -559,10 +551,10 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 		
 
 	public QuickLink present(QuickLink quickLink,Map<String, Object> options){
-	
+
 
 		return quickLink;
-	
+
 	}
 		
 
@@ -614,6 +606,10 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 	}
 
   @Override
+  public List<String> queryIdList(String sql, Object... parameters) {
+    return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
+  }
+  @Override
   public Stream<QuickLink> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getQuickLinkMapper());
   }
@@ -649,6 +645,15 @@ public class QuickLinkJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Qu
 
 	
 
+  @Override
+  public List<QuickLink> search(QuickLinkRequest pRequest) {
+    return searchInternal(pRequest);
+  }
+
+  @Override
+  protected QuickLinkMapper mapper() {
+    return getQuickLinkMapper();
+  }
 }
 
 
