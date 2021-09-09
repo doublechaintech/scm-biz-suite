@@ -65,55 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
-  const { LevelThreeDepartmentAssociateForm } = GlobalComponents
-  const { OccupationTypeAssociateForm } = GlobalComponents
-  const { ResponsibilityTypeAssociateForm } = GlobalComponents
-  const { SalaryGradeAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='company'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'company')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'company')}/> <LevelThreeDepartmentAssociateForm 
-	visible={currentAssociateModal==='department'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'department')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'department')}/> <OccupationTypeAssociateForm 
-	visible={currentAssociateModal==='occupation'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'occupation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'occupation')}/> <ResponsibilityTypeAssociateForm 
-	visible={currentAssociateModal==='responsibleFor'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'responsibleFor')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'responsibleFor')}/> <SalaryGradeAssociateForm 
-	visible={currentAssociateModal==='currentSalaryGrade'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class EmployeeSearch extends PureComponent {
   state = {
@@ -148,7 +99,7 @@ class EmployeeSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {EmployeeTable} = GlobalComponents;
     const {EmployeeSearchForm} = GlobalComponents;
     const {EmployeeModalTable} = GlobalComponents;
@@ -200,7 +151,7 @@ class EmployeeSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,EmployeeModalTable,"employeeIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

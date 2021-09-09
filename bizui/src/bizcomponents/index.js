@@ -4,11 +4,11 @@ import RetailStoreCountryCenterBase from './retailstorecountrycenter/RetailStore
 import RetailStoreCountryCenterBizApp from './retailstorecountrycenter/RetailStoreCountryCenter.app';
 import RetailStoreCountryCenterModel from './retailstorecountrycenter/RetailStoreCountryCenter.model';
 import RetailStoreCountryCenterDashboard from './retailstorecountrycenter/RetailStoreCountryCenter.dashboard';
+import RetailStoreCountryCenterWorkbench from './retailstorecountrycenter/RetailStoreCountryCenter.workbench';
 import RetailStoreCountryCenterModalTable from './retailstorecountrycenter/RetailStoreCountryCenter.modaltable';
 import RetailStoreCountryCenterSearch from './retailstorecountrycenter/RetailStoreCountryCenter.search';
 import RetailStoreCountryCenterSearchForm from './retailstorecountrycenter/RetailStoreCountryCenter.searchform';
 import RetailStoreCountryCenterCreateForm from './retailstorecountrycenter/RetailStoreCountryCenter.createform';
-import RetailStoreCountryCenterAssociateForm from './retailstorecountrycenter/RetailStoreCountryCenter.associateform';
 import RetailStoreCountryCenterTable from './retailstorecountrycenter/RetailStoreCountryCenter.table';
 import RetailStoreCountryCenterPermission from './retailstorecountrycenter/RetailStoreCountryCenter.permission';
 import RetailStoreCountryCenterProfile from './retailstorecountrycenter/RetailStoreCountryCenter.profile';
@@ -19,11 +19,11 @@ import CatalogBase from './catalog/Catalog.base';
 import CatalogBizApp from './catalog/Catalog.app';
 import CatalogModel from './catalog/Catalog.model';
 import CatalogDashboard from './catalog/Catalog.dashboard';
+import CatalogWorkbench from './catalog/Catalog.workbench';
 import CatalogModalTable from './catalog/Catalog.modaltable';
 import CatalogSearch from './catalog/Catalog.search';
 import CatalogSearchForm from './catalog/Catalog.searchform';
 import CatalogCreateForm from './catalog/Catalog.createform';
-import CatalogAssociateForm from './catalog/Catalog.associateform';
 import CatalogTable from './catalog/Catalog.table';
 import CatalogPermission from './catalog/Catalog.permission';
 import CatalogProfile from './catalog/Catalog.profile';
@@ -34,11 +34,11 @@ import LevelOneCategoryBase from './levelonecategory/LevelOneCategory.base';
 import LevelOneCategoryBizApp from './levelonecategory/LevelOneCategory.app';
 import LevelOneCategoryModel from './levelonecategory/LevelOneCategory.model';
 import LevelOneCategoryDashboard from './levelonecategory/LevelOneCategory.dashboard';
+import LevelOneCategoryWorkbench from './levelonecategory/LevelOneCategory.workbench';
 import LevelOneCategoryModalTable from './levelonecategory/LevelOneCategory.modaltable';
 import LevelOneCategorySearch from './levelonecategory/LevelOneCategory.search';
 import LevelOneCategorySearchForm from './levelonecategory/LevelOneCategory.searchform';
 import LevelOneCategoryCreateForm from './levelonecategory/LevelOneCategory.createform';
-import LevelOneCategoryAssociateForm from './levelonecategory/LevelOneCategory.associateform';
 import LevelOneCategoryTable from './levelonecategory/LevelOneCategory.table';
 import LevelOneCategoryPermission from './levelonecategory/LevelOneCategory.permission';
 import LevelOneCategoryProfile from './levelonecategory/LevelOneCategory.profile';
@@ -49,11 +49,11 @@ import LevelTwoCategoryBase from './leveltwocategory/LevelTwoCategory.base';
 import LevelTwoCategoryBizApp from './leveltwocategory/LevelTwoCategory.app';
 import LevelTwoCategoryModel from './leveltwocategory/LevelTwoCategory.model';
 import LevelTwoCategoryDashboard from './leveltwocategory/LevelTwoCategory.dashboard';
+import LevelTwoCategoryWorkbench from './leveltwocategory/LevelTwoCategory.workbench';
 import LevelTwoCategoryModalTable from './leveltwocategory/LevelTwoCategory.modaltable';
 import LevelTwoCategorySearch from './leveltwocategory/LevelTwoCategory.search';
 import LevelTwoCategorySearchForm from './leveltwocategory/LevelTwoCategory.searchform';
 import LevelTwoCategoryCreateForm from './leveltwocategory/LevelTwoCategory.createform';
-import LevelTwoCategoryAssociateForm from './leveltwocategory/LevelTwoCategory.associateform';
 import LevelTwoCategoryTable from './leveltwocategory/LevelTwoCategory.table';
 import LevelTwoCategoryPermission from './leveltwocategory/LevelTwoCategory.permission';
 import LevelTwoCategoryProfile from './leveltwocategory/LevelTwoCategory.profile';
@@ -64,11 +64,11 @@ import LevelThreeCategoryBase from './levelthreecategory/LevelThreeCategory.base
 import LevelThreeCategoryBizApp from './levelthreecategory/LevelThreeCategory.app';
 import LevelThreeCategoryModel from './levelthreecategory/LevelThreeCategory.model';
 import LevelThreeCategoryDashboard from './levelthreecategory/LevelThreeCategory.dashboard';
+import LevelThreeCategoryWorkbench from './levelthreecategory/LevelThreeCategory.workbench';
 import LevelThreeCategoryModalTable from './levelthreecategory/LevelThreeCategory.modaltable';
 import LevelThreeCategorySearch from './levelthreecategory/LevelThreeCategory.search';
 import LevelThreeCategorySearchForm from './levelthreecategory/LevelThreeCategory.searchform';
 import LevelThreeCategoryCreateForm from './levelthreecategory/LevelThreeCategory.createform';
-import LevelThreeCategoryAssociateForm from './levelthreecategory/LevelThreeCategory.associateform';
 import LevelThreeCategoryTable from './levelthreecategory/LevelThreeCategory.table';
 import LevelThreeCategoryPermission from './levelthreecategory/LevelThreeCategory.permission';
 import LevelThreeCategoryProfile from './levelthreecategory/LevelThreeCategory.profile';
@@ -79,11 +79,11 @@ import ProductBase from './product/Product.base';
 import ProductBizApp from './product/Product.app';
 import ProductModel from './product/Product.model';
 import ProductDashboard from './product/Product.dashboard';
+import ProductWorkbench from './product/Product.workbench';
 import ProductModalTable from './product/Product.modaltable';
 import ProductSearch from './product/Product.search';
 import ProductSearchForm from './product/Product.searchform';
 import ProductCreateForm from './product/Product.createform';
-import ProductAssociateForm from './product/Product.associateform';
 import ProductTable from './product/Product.table';
 import ProductPermission from './product/Product.permission';
 import ProductProfile from './product/Product.profile';
@@ -94,11 +94,11 @@ import SkuBase from './sku/Sku.base';
 import SkuBizApp from './sku/Sku.app';
 import SkuModel from './sku/Sku.model';
 import SkuDashboard from './sku/Sku.dashboard';
+import SkuWorkbench from './sku/Sku.workbench';
 import SkuModalTable from './sku/Sku.modaltable';
 import SkuSearch from './sku/Sku.search';
 import SkuSearchForm from './sku/Sku.searchform';
 import SkuCreateForm from './sku/Sku.createform';
-import SkuAssociateForm from './sku/Sku.associateform';
 import SkuTable from './sku/Sku.table';
 import SkuPermission from './sku/Sku.permission';
 import SkuProfile from './sku/Sku.profile';
@@ -109,11 +109,11 @@ import RetailStoreProvinceCenterBase from './retailstoreprovincecenter/RetailSto
 import RetailStoreProvinceCenterBizApp from './retailstoreprovincecenter/RetailStoreProvinceCenter.app';
 import RetailStoreProvinceCenterModel from './retailstoreprovincecenter/RetailStoreProvinceCenter.model';
 import RetailStoreProvinceCenterDashboard from './retailstoreprovincecenter/RetailStoreProvinceCenter.dashboard';
+import RetailStoreProvinceCenterWorkbench from './retailstoreprovincecenter/RetailStoreProvinceCenter.workbench';
 import RetailStoreProvinceCenterModalTable from './retailstoreprovincecenter/RetailStoreProvinceCenter.modaltable';
 import RetailStoreProvinceCenterSearch from './retailstoreprovincecenter/RetailStoreProvinceCenter.search';
 import RetailStoreProvinceCenterSearchForm from './retailstoreprovincecenter/RetailStoreProvinceCenter.searchform';
 import RetailStoreProvinceCenterCreateForm from './retailstoreprovincecenter/RetailStoreProvinceCenter.createform';
-import RetailStoreProvinceCenterAssociateForm from './retailstoreprovincecenter/RetailStoreProvinceCenter.associateform';
 import RetailStoreProvinceCenterTable from './retailstoreprovincecenter/RetailStoreProvinceCenter.table';
 import RetailStoreProvinceCenterPermission from './retailstoreprovincecenter/RetailStoreProvinceCenter.permission';
 import RetailStoreProvinceCenterProfile from './retailstoreprovincecenter/RetailStoreProvinceCenter.profile';
@@ -124,11 +124,11 @@ import ProvinceCenterDepartmentBase from './provincecenterdepartment/ProvinceCen
 import ProvinceCenterDepartmentBizApp from './provincecenterdepartment/ProvinceCenterDepartment.app';
 import ProvinceCenterDepartmentModel from './provincecenterdepartment/ProvinceCenterDepartment.model';
 import ProvinceCenterDepartmentDashboard from './provincecenterdepartment/ProvinceCenterDepartment.dashboard';
+import ProvinceCenterDepartmentWorkbench from './provincecenterdepartment/ProvinceCenterDepartment.workbench';
 import ProvinceCenterDepartmentModalTable from './provincecenterdepartment/ProvinceCenterDepartment.modaltable';
 import ProvinceCenterDepartmentSearch from './provincecenterdepartment/ProvinceCenterDepartment.search';
 import ProvinceCenterDepartmentSearchForm from './provincecenterdepartment/ProvinceCenterDepartment.searchform';
 import ProvinceCenterDepartmentCreateForm from './provincecenterdepartment/ProvinceCenterDepartment.createform';
-import ProvinceCenterDepartmentAssociateForm from './provincecenterdepartment/ProvinceCenterDepartment.associateform';
 import ProvinceCenterDepartmentTable from './provincecenterdepartment/ProvinceCenterDepartment.table';
 import ProvinceCenterDepartmentPermission from './provincecenterdepartment/ProvinceCenterDepartment.permission';
 import ProvinceCenterDepartmentProfile from './provincecenterdepartment/ProvinceCenterDepartment.profile';
@@ -139,11 +139,11 @@ import ProvinceCenterEmployeeBase from './provincecenteremployee/ProvinceCenterE
 import ProvinceCenterEmployeeBizApp from './provincecenteremployee/ProvinceCenterEmployee.app';
 import ProvinceCenterEmployeeModel from './provincecenteremployee/ProvinceCenterEmployee.model';
 import ProvinceCenterEmployeeDashboard from './provincecenteremployee/ProvinceCenterEmployee.dashboard';
+import ProvinceCenterEmployeeWorkbench from './provincecenteremployee/ProvinceCenterEmployee.workbench';
 import ProvinceCenterEmployeeModalTable from './provincecenteremployee/ProvinceCenterEmployee.modaltable';
 import ProvinceCenterEmployeeSearch from './provincecenteremployee/ProvinceCenterEmployee.search';
 import ProvinceCenterEmployeeSearchForm from './provincecenteremployee/ProvinceCenterEmployee.searchform';
 import ProvinceCenterEmployeeCreateForm from './provincecenteremployee/ProvinceCenterEmployee.createform';
-import ProvinceCenterEmployeeAssociateForm from './provincecenteremployee/ProvinceCenterEmployee.associateform';
 import ProvinceCenterEmployeeTable from './provincecenteremployee/ProvinceCenterEmployee.table';
 import ProvinceCenterEmployeePermission from './provincecenteremployee/ProvinceCenterEmployee.permission';
 import ProvinceCenterEmployeeProfile from './provincecenteremployee/ProvinceCenterEmployee.profile';
@@ -154,11 +154,11 @@ import RetailStoreCityServiceCenterBase from './retailstorecityservicecenter/Ret
 import RetailStoreCityServiceCenterBizApp from './retailstorecityservicecenter/RetailStoreCityServiceCenter.app';
 import RetailStoreCityServiceCenterModel from './retailstorecityservicecenter/RetailStoreCityServiceCenter.model';
 import RetailStoreCityServiceCenterDashboard from './retailstorecityservicecenter/RetailStoreCityServiceCenter.dashboard';
+import RetailStoreCityServiceCenterWorkbench from './retailstorecityservicecenter/RetailStoreCityServiceCenter.workbench';
 import RetailStoreCityServiceCenterModalTable from './retailstorecityservicecenter/RetailStoreCityServiceCenter.modaltable';
 import RetailStoreCityServiceCenterSearch from './retailstorecityservicecenter/RetailStoreCityServiceCenter.search';
 import RetailStoreCityServiceCenterSearchForm from './retailstorecityservicecenter/RetailStoreCityServiceCenter.searchform';
 import RetailStoreCityServiceCenterCreateForm from './retailstorecityservicecenter/RetailStoreCityServiceCenter.createform';
-import RetailStoreCityServiceCenterAssociateForm from './retailstorecityservicecenter/RetailStoreCityServiceCenter.associateform';
 import RetailStoreCityServiceCenterTable from './retailstorecityservicecenter/RetailStoreCityServiceCenter.table';
 import RetailStoreCityServiceCenterPermission from './retailstorecityservicecenter/RetailStoreCityServiceCenter.permission';
 import RetailStoreCityServiceCenterProfile from './retailstorecityservicecenter/RetailStoreCityServiceCenter.profile';
@@ -169,11 +169,11 @@ import CityPartnerBase from './citypartner/CityPartner.base';
 import CityPartnerBizApp from './citypartner/CityPartner.app';
 import CityPartnerModel from './citypartner/CityPartner.model';
 import CityPartnerDashboard from './citypartner/CityPartner.dashboard';
+import CityPartnerWorkbench from './citypartner/CityPartner.workbench';
 import CityPartnerModalTable from './citypartner/CityPartner.modaltable';
 import CityPartnerSearch from './citypartner/CityPartner.search';
 import CityPartnerSearchForm from './citypartner/CityPartner.searchform';
 import CityPartnerCreateForm from './citypartner/CityPartner.createform';
-import CityPartnerAssociateForm from './citypartner/CityPartner.associateform';
 import CityPartnerTable from './citypartner/CityPartner.table';
 import CityPartnerPermission from './citypartner/CityPartner.permission';
 import CityPartnerProfile from './citypartner/CityPartner.profile';
@@ -184,11 +184,11 @@ import PotentialCustomerBase from './potentialcustomer/PotentialCustomer.base';
 import PotentialCustomerBizApp from './potentialcustomer/PotentialCustomer.app';
 import PotentialCustomerModel from './potentialcustomer/PotentialCustomer.model';
 import PotentialCustomerDashboard from './potentialcustomer/PotentialCustomer.dashboard';
+import PotentialCustomerWorkbench from './potentialcustomer/PotentialCustomer.workbench';
 import PotentialCustomerModalTable from './potentialcustomer/PotentialCustomer.modaltable';
 import PotentialCustomerSearch from './potentialcustomer/PotentialCustomer.search';
 import PotentialCustomerSearchForm from './potentialcustomer/PotentialCustomer.searchform';
 import PotentialCustomerCreateForm from './potentialcustomer/PotentialCustomer.createform';
-import PotentialCustomerAssociateForm from './potentialcustomer/PotentialCustomer.associateform';
 import PotentialCustomerTable from './potentialcustomer/PotentialCustomer.table';
 import PotentialCustomerPermission from './potentialcustomer/PotentialCustomer.permission';
 import PotentialCustomerProfile from './potentialcustomer/PotentialCustomer.profile';
@@ -199,11 +199,11 @@ import PotentialCustomerContactPersonBase from './potentialcustomercontactperson
 import PotentialCustomerContactPersonBizApp from './potentialcustomercontactperson/PotentialCustomerContactPerson.app';
 import PotentialCustomerContactPersonModel from './potentialcustomercontactperson/PotentialCustomerContactPerson.model';
 import PotentialCustomerContactPersonDashboard from './potentialcustomercontactperson/PotentialCustomerContactPerson.dashboard';
+import PotentialCustomerContactPersonWorkbench from './potentialcustomercontactperson/PotentialCustomerContactPerson.workbench';
 import PotentialCustomerContactPersonModalTable from './potentialcustomercontactperson/PotentialCustomerContactPerson.modaltable';
 import PotentialCustomerContactPersonSearch from './potentialcustomercontactperson/PotentialCustomerContactPerson.search';
 import PotentialCustomerContactPersonSearchForm from './potentialcustomercontactperson/PotentialCustomerContactPerson.searchform';
 import PotentialCustomerContactPersonCreateForm from './potentialcustomercontactperson/PotentialCustomerContactPerson.createform';
-import PotentialCustomerContactPersonAssociateForm from './potentialcustomercontactperson/PotentialCustomerContactPerson.associateform';
 import PotentialCustomerContactPersonTable from './potentialcustomercontactperson/PotentialCustomerContactPerson.table';
 import PotentialCustomerContactPersonPermission from './potentialcustomercontactperson/PotentialCustomerContactPerson.permission';
 import PotentialCustomerContactPersonProfile from './potentialcustomercontactperson/PotentialCustomerContactPerson.profile';
@@ -214,11 +214,11 @@ import PotentialCustomerContactBase from './potentialcustomercontact/PotentialCu
 import PotentialCustomerContactBizApp from './potentialcustomercontact/PotentialCustomerContact.app';
 import PotentialCustomerContactModel from './potentialcustomercontact/PotentialCustomerContact.model';
 import PotentialCustomerContactDashboard from './potentialcustomercontact/PotentialCustomerContact.dashboard';
+import PotentialCustomerContactWorkbench from './potentialcustomercontact/PotentialCustomerContact.workbench';
 import PotentialCustomerContactModalTable from './potentialcustomercontact/PotentialCustomerContact.modaltable';
 import PotentialCustomerContactSearch from './potentialcustomercontact/PotentialCustomerContact.search';
 import PotentialCustomerContactSearchForm from './potentialcustomercontact/PotentialCustomerContact.searchform';
 import PotentialCustomerContactCreateForm from './potentialcustomercontact/PotentialCustomerContact.createform';
-import PotentialCustomerContactAssociateForm from './potentialcustomercontact/PotentialCustomerContact.associateform';
 import PotentialCustomerContactTable from './potentialcustomercontact/PotentialCustomerContact.table';
 import PotentialCustomerContactPermission from './potentialcustomercontact/PotentialCustomerContact.permission';
 import PotentialCustomerContactProfile from './potentialcustomercontact/PotentialCustomerContact.profile';
@@ -229,11 +229,11 @@ import CityEventBase from './cityevent/CityEvent.base';
 import CityEventBizApp from './cityevent/CityEvent.app';
 import CityEventModel from './cityevent/CityEvent.model';
 import CityEventDashboard from './cityevent/CityEvent.dashboard';
+import CityEventWorkbench from './cityevent/CityEvent.workbench';
 import CityEventModalTable from './cityevent/CityEvent.modaltable';
 import CityEventSearch from './cityevent/CityEvent.search';
 import CityEventSearchForm from './cityevent/CityEvent.searchform';
 import CityEventCreateForm from './cityevent/CityEvent.createform';
-import CityEventAssociateForm from './cityevent/CityEvent.associateform';
 import CityEventTable from './cityevent/CityEvent.table';
 import CityEventPermission from './cityevent/CityEvent.permission';
 import CityEventProfile from './cityevent/CityEvent.profile';
@@ -244,11 +244,11 @@ import EventAttendanceBase from './eventattendance/EventAttendance.base';
 import EventAttendanceBizApp from './eventattendance/EventAttendance.app';
 import EventAttendanceModel from './eventattendance/EventAttendance.model';
 import EventAttendanceDashboard from './eventattendance/EventAttendance.dashboard';
+import EventAttendanceWorkbench from './eventattendance/EventAttendance.workbench';
 import EventAttendanceModalTable from './eventattendance/EventAttendance.modaltable';
 import EventAttendanceSearch from './eventattendance/EventAttendance.search';
 import EventAttendanceSearchForm from './eventattendance/EventAttendance.searchform';
 import EventAttendanceCreateForm from './eventattendance/EventAttendance.createform';
-import EventAttendanceAssociateForm from './eventattendance/EventAttendance.associateform';
 import EventAttendanceTable from './eventattendance/EventAttendance.table';
 import EventAttendancePermission from './eventattendance/EventAttendance.permission';
 import EventAttendanceProfile from './eventattendance/EventAttendance.profile';
@@ -259,11 +259,11 @@ import RetailStoreBase from './retailstore/RetailStore.base';
 import RetailStoreBizApp from './retailstore/RetailStore.app';
 import RetailStoreModel from './retailstore/RetailStore.model';
 import RetailStoreDashboard from './retailstore/RetailStore.dashboard';
+import RetailStoreWorkbench from './retailstore/RetailStore.workbench';
 import RetailStoreModalTable from './retailstore/RetailStore.modaltable';
 import RetailStoreSearch from './retailstore/RetailStore.search';
 import RetailStoreSearchForm from './retailstore/RetailStore.searchform';
 import RetailStoreCreateForm from './retailstore/RetailStore.createform';
-import RetailStoreAssociateForm from './retailstore/RetailStore.associateform';
 import RetailStoreTable from './retailstore/RetailStore.table';
 import RetailStorePermission from './retailstore/RetailStore.permission';
 import RetailStoreProfile from './retailstore/RetailStore.profile';
@@ -274,11 +274,11 @@ import RetailStoreCreationBase from './retailstorecreation/RetailStoreCreation.b
 import RetailStoreCreationBizApp from './retailstorecreation/RetailStoreCreation.app';
 import RetailStoreCreationModel from './retailstorecreation/RetailStoreCreation.model';
 import RetailStoreCreationDashboard from './retailstorecreation/RetailStoreCreation.dashboard';
+import RetailStoreCreationWorkbench from './retailstorecreation/RetailStoreCreation.workbench';
 import RetailStoreCreationModalTable from './retailstorecreation/RetailStoreCreation.modaltable';
 import RetailStoreCreationSearch from './retailstorecreation/RetailStoreCreation.search';
 import RetailStoreCreationSearchForm from './retailstorecreation/RetailStoreCreation.searchform';
 import RetailStoreCreationCreateForm from './retailstorecreation/RetailStoreCreation.createform';
-import RetailStoreCreationAssociateForm from './retailstorecreation/RetailStoreCreation.associateform';
 import RetailStoreCreationTable from './retailstorecreation/RetailStoreCreation.table';
 import RetailStoreCreationPermission from './retailstorecreation/RetailStoreCreation.permission';
 import RetailStoreCreationProfile from './retailstorecreation/RetailStoreCreation.profile';
@@ -289,11 +289,11 @@ import RetailStoreInvestmentInvitationBase from './retailstoreinvestmentinvitati
 import RetailStoreInvestmentInvitationBizApp from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.app';
 import RetailStoreInvestmentInvitationModel from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.model';
 import RetailStoreInvestmentInvitationDashboard from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.dashboard';
+import RetailStoreInvestmentInvitationWorkbench from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.workbench';
 import RetailStoreInvestmentInvitationModalTable from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.modaltable';
 import RetailStoreInvestmentInvitationSearch from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.search';
 import RetailStoreInvestmentInvitationSearchForm from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.searchform';
 import RetailStoreInvestmentInvitationCreateForm from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.createform';
-import RetailStoreInvestmentInvitationAssociateForm from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.associateform';
 import RetailStoreInvestmentInvitationTable from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.table';
 import RetailStoreInvestmentInvitationPermission from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.permission';
 import RetailStoreInvestmentInvitationProfile from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.profile';
@@ -304,11 +304,11 @@ import RetailStoreFranchisingBase from './retailstorefranchising/RetailStoreFran
 import RetailStoreFranchisingBizApp from './retailstorefranchising/RetailStoreFranchising.app';
 import RetailStoreFranchisingModel from './retailstorefranchising/RetailStoreFranchising.model';
 import RetailStoreFranchisingDashboard from './retailstorefranchising/RetailStoreFranchising.dashboard';
+import RetailStoreFranchisingWorkbench from './retailstorefranchising/RetailStoreFranchising.workbench';
 import RetailStoreFranchisingModalTable from './retailstorefranchising/RetailStoreFranchising.modaltable';
 import RetailStoreFranchisingSearch from './retailstorefranchising/RetailStoreFranchising.search';
 import RetailStoreFranchisingSearchForm from './retailstorefranchising/RetailStoreFranchising.searchform';
 import RetailStoreFranchisingCreateForm from './retailstorefranchising/RetailStoreFranchising.createform';
-import RetailStoreFranchisingAssociateForm from './retailstorefranchising/RetailStoreFranchising.associateform';
 import RetailStoreFranchisingTable from './retailstorefranchising/RetailStoreFranchising.table';
 import RetailStoreFranchisingPermission from './retailstorefranchising/RetailStoreFranchising.permission';
 import RetailStoreFranchisingProfile from './retailstorefranchising/RetailStoreFranchising.profile';
@@ -319,11 +319,11 @@ import RetailStoreDecorationBase from './retailstoredecoration/RetailStoreDecora
 import RetailStoreDecorationBizApp from './retailstoredecoration/RetailStoreDecoration.app';
 import RetailStoreDecorationModel from './retailstoredecoration/RetailStoreDecoration.model';
 import RetailStoreDecorationDashboard from './retailstoredecoration/RetailStoreDecoration.dashboard';
+import RetailStoreDecorationWorkbench from './retailstoredecoration/RetailStoreDecoration.workbench';
 import RetailStoreDecorationModalTable from './retailstoredecoration/RetailStoreDecoration.modaltable';
 import RetailStoreDecorationSearch from './retailstoredecoration/RetailStoreDecoration.search';
 import RetailStoreDecorationSearchForm from './retailstoredecoration/RetailStoreDecoration.searchform';
 import RetailStoreDecorationCreateForm from './retailstoredecoration/RetailStoreDecoration.createform';
-import RetailStoreDecorationAssociateForm from './retailstoredecoration/RetailStoreDecoration.associateform';
 import RetailStoreDecorationTable from './retailstoredecoration/RetailStoreDecoration.table';
 import RetailStoreDecorationPermission from './retailstoredecoration/RetailStoreDecoration.permission';
 import RetailStoreDecorationProfile from './retailstoredecoration/RetailStoreDecoration.profile';
@@ -334,11 +334,11 @@ import RetailStoreOpeningBase from './retailstoreopening/RetailStoreOpening.base
 import RetailStoreOpeningBizApp from './retailstoreopening/RetailStoreOpening.app';
 import RetailStoreOpeningModel from './retailstoreopening/RetailStoreOpening.model';
 import RetailStoreOpeningDashboard from './retailstoreopening/RetailStoreOpening.dashboard';
+import RetailStoreOpeningWorkbench from './retailstoreopening/RetailStoreOpening.workbench';
 import RetailStoreOpeningModalTable from './retailstoreopening/RetailStoreOpening.modaltable';
 import RetailStoreOpeningSearch from './retailstoreopening/RetailStoreOpening.search';
 import RetailStoreOpeningSearchForm from './retailstoreopening/RetailStoreOpening.searchform';
 import RetailStoreOpeningCreateForm from './retailstoreopening/RetailStoreOpening.createform';
-import RetailStoreOpeningAssociateForm from './retailstoreopening/RetailStoreOpening.associateform';
 import RetailStoreOpeningTable from './retailstoreopening/RetailStoreOpening.table';
 import RetailStoreOpeningPermission from './retailstoreopening/RetailStoreOpening.permission';
 import RetailStoreOpeningProfile from './retailstoreopening/RetailStoreOpening.profile';
@@ -349,11 +349,11 @@ import RetailStoreClosingBase from './retailstoreclosing/RetailStoreClosing.base
 import RetailStoreClosingBizApp from './retailstoreclosing/RetailStoreClosing.app';
 import RetailStoreClosingModel from './retailstoreclosing/RetailStoreClosing.model';
 import RetailStoreClosingDashboard from './retailstoreclosing/RetailStoreClosing.dashboard';
+import RetailStoreClosingWorkbench from './retailstoreclosing/RetailStoreClosing.workbench';
 import RetailStoreClosingModalTable from './retailstoreclosing/RetailStoreClosing.modaltable';
 import RetailStoreClosingSearch from './retailstoreclosing/RetailStoreClosing.search';
 import RetailStoreClosingSearchForm from './retailstoreclosing/RetailStoreClosing.searchform';
 import RetailStoreClosingCreateForm from './retailstoreclosing/RetailStoreClosing.createform';
-import RetailStoreClosingAssociateForm from './retailstoreclosing/RetailStoreClosing.associateform';
 import RetailStoreClosingTable from './retailstoreclosing/RetailStoreClosing.table';
 import RetailStoreClosingPermission from './retailstoreclosing/RetailStoreClosing.permission';
 import RetailStoreClosingProfile from './retailstoreclosing/RetailStoreClosing.profile';
@@ -364,11 +364,11 @@ import RetailStoreMemberBase from './retailstoremember/RetailStoreMember.base';
 import RetailStoreMemberBizApp from './retailstoremember/RetailStoreMember.app';
 import RetailStoreMemberModel from './retailstoremember/RetailStoreMember.model';
 import RetailStoreMemberDashboard from './retailstoremember/RetailStoreMember.dashboard';
+import RetailStoreMemberWorkbench from './retailstoremember/RetailStoreMember.workbench';
 import RetailStoreMemberModalTable from './retailstoremember/RetailStoreMember.modaltable';
 import RetailStoreMemberSearch from './retailstoremember/RetailStoreMember.search';
 import RetailStoreMemberSearchForm from './retailstoremember/RetailStoreMember.searchform';
 import RetailStoreMemberCreateForm from './retailstoremember/RetailStoreMember.createform';
-import RetailStoreMemberAssociateForm from './retailstoremember/RetailStoreMember.associateform';
 import RetailStoreMemberTable from './retailstoremember/RetailStoreMember.table';
 import RetailStoreMemberPermission from './retailstoremember/RetailStoreMember.permission';
 import RetailStoreMemberProfile from './retailstoremember/RetailStoreMember.profile';
@@ -379,11 +379,11 @@ import ConsumerOrderBase from './consumerorder/ConsumerOrder.base';
 import ConsumerOrderBizApp from './consumerorder/ConsumerOrder.app';
 import ConsumerOrderModel from './consumerorder/ConsumerOrder.model';
 import ConsumerOrderDashboard from './consumerorder/ConsumerOrder.dashboard';
+import ConsumerOrderWorkbench from './consumerorder/ConsumerOrder.workbench';
 import ConsumerOrderModalTable from './consumerorder/ConsumerOrder.modaltable';
 import ConsumerOrderSearch from './consumerorder/ConsumerOrder.search';
 import ConsumerOrderSearchForm from './consumerorder/ConsumerOrder.searchform';
 import ConsumerOrderCreateForm from './consumerorder/ConsumerOrder.createform';
-import ConsumerOrderAssociateForm from './consumerorder/ConsumerOrder.associateform';
 import ConsumerOrderTable from './consumerorder/ConsumerOrder.table';
 import ConsumerOrderPermission from './consumerorder/ConsumerOrder.permission';
 import ConsumerOrderProfile from './consumerorder/ConsumerOrder.profile';
@@ -394,11 +394,11 @@ import ConsumerOrderLineItemBase from './consumerorderlineitem/ConsumerOrderLine
 import ConsumerOrderLineItemBizApp from './consumerorderlineitem/ConsumerOrderLineItem.app';
 import ConsumerOrderLineItemModel from './consumerorderlineitem/ConsumerOrderLineItem.model';
 import ConsumerOrderLineItemDashboard from './consumerorderlineitem/ConsumerOrderLineItem.dashboard';
+import ConsumerOrderLineItemWorkbench from './consumerorderlineitem/ConsumerOrderLineItem.workbench';
 import ConsumerOrderLineItemModalTable from './consumerorderlineitem/ConsumerOrderLineItem.modaltable';
 import ConsumerOrderLineItemSearch from './consumerorderlineitem/ConsumerOrderLineItem.search';
 import ConsumerOrderLineItemSearchForm from './consumerorderlineitem/ConsumerOrderLineItem.searchform';
 import ConsumerOrderLineItemCreateForm from './consumerorderlineitem/ConsumerOrderLineItem.createform';
-import ConsumerOrderLineItemAssociateForm from './consumerorderlineitem/ConsumerOrderLineItem.associateform';
 import ConsumerOrderLineItemTable from './consumerorderlineitem/ConsumerOrderLineItem.table';
 import ConsumerOrderLineItemPermission from './consumerorderlineitem/ConsumerOrderLineItem.permission';
 import ConsumerOrderLineItemProfile from './consumerorderlineitem/ConsumerOrderLineItem.profile';
@@ -409,11 +409,11 @@ import ConsumerOrderShippingGroupBase from './consumerordershippinggroup/Consume
 import ConsumerOrderShippingGroupBizApp from './consumerordershippinggroup/ConsumerOrderShippingGroup.app';
 import ConsumerOrderShippingGroupModel from './consumerordershippinggroup/ConsumerOrderShippingGroup.model';
 import ConsumerOrderShippingGroupDashboard from './consumerordershippinggroup/ConsumerOrderShippingGroup.dashboard';
+import ConsumerOrderShippingGroupWorkbench from './consumerordershippinggroup/ConsumerOrderShippingGroup.workbench';
 import ConsumerOrderShippingGroupModalTable from './consumerordershippinggroup/ConsumerOrderShippingGroup.modaltable';
 import ConsumerOrderShippingGroupSearch from './consumerordershippinggroup/ConsumerOrderShippingGroup.search';
 import ConsumerOrderShippingGroupSearchForm from './consumerordershippinggroup/ConsumerOrderShippingGroup.searchform';
 import ConsumerOrderShippingGroupCreateForm from './consumerordershippinggroup/ConsumerOrderShippingGroup.createform';
-import ConsumerOrderShippingGroupAssociateForm from './consumerordershippinggroup/ConsumerOrderShippingGroup.associateform';
 import ConsumerOrderShippingGroupTable from './consumerordershippinggroup/ConsumerOrderShippingGroup.table';
 import ConsumerOrderShippingGroupPermission from './consumerordershippinggroup/ConsumerOrderShippingGroup.permission';
 import ConsumerOrderShippingGroupProfile from './consumerordershippinggroup/ConsumerOrderShippingGroup.profile';
@@ -424,11 +424,11 @@ import ConsumerOrderPaymentGroupBase from './consumerorderpaymentgroup/ConsumerO
 import ConsumerOrderPaymentGroupBizApp from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.app';
 import ConsumerOrderPaymentGroupModel from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.model';
 import ConsumerOrderPaymentGroupDashboard from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.dashboard';
+import ConsumerOrderPaymentGroupWorkbench from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.workbench';
 import ConsumerOrderPaymentGroupModalTable from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.modaltable';
 import ConsumerOrderPaymentGroupSearch from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.search';
 import ConsumerOrderPaymentGroupSearchForm from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.searchform';
 import ConsumerOrderPaymentGroupCreateForm from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.createform';
-import ConsumerOrderPaymentGroupAssociateForm from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.associateform';
 import ConsumerOrderPaymentGroupTable from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.table';
 import ConsumerOrderPaymentGroupPermission from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.permission';
 import ConsumerOrderPaymentGroupProfile from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.profile';
@@ -439,11 +439,11 @@ import ConsumerOrderPriceAdjustmentBase from './consumerorderpriceadjustment/Con
 import ConsumerOrderPriceAdjustmentBizApp from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.app';
 import ConsumerOrderPriceAdjustmentModel from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.model';
 import ConsumerOrderPriceAdjustmentDashboard from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.dashboard';
+import ConsumerOrderPriceAdjustmentWorkbench from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.workbench';
 import ConsumerOrderPriceAdjustmentModalTable from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.modaltable';
 import ConsumerOrderPriceAdjustmentSearch from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.search';
 import ConsumerOrderPriceAdjustmentSearchForm from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.searchform';
 import ConsumerOrderPriceAdjustmentCreateForm from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.createform';
-import ConsumerOrderPriceAdjustmentAssociateForm from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.associateform';
 import ConsumerOrderPriceAdjustmentTable from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.table';
 import ConsumerOrderPriceAdjustmentPermission from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.permission';
 import ConsumerOrderPriceAdjustmentProfile from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.profile';
@@ -454,11 +454,11 @@ import RetailStoreMemberCouponBase from './retailstoremembercoupon/RetailStoreMe
 import RetailStoreMemberCouponBizApp from './retailstoremembercoupon/RetailStoreMemberCoupon.app';
 import RetailStoreMemberCouponModel from './retailstoremembercoupon/RetailStoreMemberCoupon.model';
 import RetailStoreMemberCouponDashboard from './retailstoremembercoupon/RetailStoreMemberCoupon.dashboard';
+import RetailStoreMemberCouponWorkbench from './retailstoremembercoupon/RetailStoreMemberCoupon.workbench';
 import RetailStoreMemberCouponModalTable from './retailstoremembercoupon/RetailStoreMemberCoupon.modaltable';
 import RetailStoreMemberCouponSearch from './retailstoremembercoupon/RetailStoreMemberCoupon.search';
 import RetailStoreMemberCouponSearchForm from './retailstoremembercoupon/RetailStoreMemberCoupon.searchform';
 import RetailStoreMemberCouponCreateForm from './retailstoremembercoupon/RetailStoreMemberCoupon.createform';
-import RetailStoreMemberCouponAssociateForm from './retailstoremembercoupon/RetailStoreMemberCoupon.associateform';
 import RetailStoreMemberCouponTable from './retailstoremembercoupon/RetailStoreMemberCoupon.table';
 import RetailStoreMemberCouponPermission from './retailstoremembercoupon/RetailStoreMemberCoupon.permission';
 import RetailStoreMemberCouponProfile from './retailstoremembercoupon/RetailStoreMemberCoupon.profile';
@@ -469,11 +469,11 @@ import MemberWishlistBase from './memberwishlist/MemberWishlist.base';
 import MemberWishlistBizApp from './memberwishlist/MemberWishlist.app';
 import MemberWishlistModel from './memberwishlist/MemberWishlist.model';
 import MemberWishlistDashboard from './memberwishlist/MemberWishlist.dashboard';
+import MemberWishlistWorkbench from './memberwishlist/MemberWishlist.workbench';
 import MemberWishlistModalTable from './memberwishlist/MemberWishlist.modaltable';
 import MemberWishlistSearch from './memberwishlist/MemberWishlist.search';
 import MemberWishlistSearchForm from './memberwishlist/MemberWishlist.searchform';
 import MemberWishlistCreateForm from './memberwishlist/MemberWishlist.createform';
-import MemberWishlistAssociateForm from './memberwishlist/MemberWishlist.associateform';
 import MemberWishlistTable from './memberwishlist/MemberWishlist.table';
 import MemberWishlistPermission from './memberwishlist/MemberWishlist.permission';
 import MemberWishlistProfile from './memberwishlist/MemberWishlist.profile';
@@ -484,11 +484,11 @@ import MemberRewardPointBase from './memberrewardpoint/MemberRewardPoint.base';
 import MemberRewardPointBizApp from './memberrewardpoint/MemberRewardPoint.app';
 import MemberRewardPointModel from './memberrewardpoint/MemberRewardPoint.model';
 import MemberRewardPointDashboard from './memberrewardpoint/MemberRewardPoint.dashboard';
+import MemberRewardPointWorkbench from './memberrewardpoint/MemberRewardPoint.workbench';
 import MemberRewardPointModalTable from './memberrewardpoint/MemberRewardPoint.modaltable';
 import MemberRewardPointSearch from './memberrewardpoint/MemberRewardPoint.search';
 import MemberRewardPointSearchForm from './memberrewardpoint/MemberRewardPoint.searchform';
 import MemberRewardPointCreateForm from './memberrewardpoint/MemberRewardPoint.createform';
-import MemberRewardPointAssociateForm from './memberrewardpoint/MemberRewardPoint.associateform';
 import MemberRewardPointTable from './memberrewardpoint/MemberRewardPoint.table';
 import MemberRewardPointPermission from './memberrewardpoint/MemberRewardPoint.permission';
 import MemberRewardPointProfile from './memberrewardpoint/MemberRewardPoint.profile';
@@ -499,11 +499,11 @@ import MemberRewardPointRedemptionBase from './memberrewardpointredemption/Membe
 import MemberRewardPointRedemptionBizApp from './memberrewardpointredemption/MemberRewardPointRedemption.app';
 import MemberRewardPointRedemptionModel from './memberrewardpointredemption/MemberRewardPointRedemption.model';
 import MemberRewardPointRedemptionDashboard from './memberrewardpointredemption/MemberRewardPointRedemption.dashboard';
+import MemberRewardPointRedemptionWorkbench from './memberrewardpointredemption/MemberRewardPointRedemption.workbench';
 import MemberRewardPointRedemptionModalTable from './memberrewardpointredemption/MemberRewardPointRedemption.modaltable';
 import MemberRewardPointRedemptionSearch from './memberrewardpointredemption/MemberRewardPointRedemption.search';
 import MemberRewardPointRedemptionSearchForm from './memberrewardpointredemption/MemberRewardPointRedemption.searchform';
 import MemberRewardPointRedemptionCreateForm from './memberrewardpointredemption/MemberRewardPointRedemption.createform';
-import MemberRewardPointRedemptionAssociateForm from './memberrewardpointredemption/MemberRewardPointRedemption.associateform';
 import MemberRewardPointRedemptionTable from './memberrewardpointredemption/MemberRewardPointRedemption.table';
 import MemberRewardPointRedemptionPermission from './memberrewardpointredemption/MemberRewardPointRedemption.permission';
 import MemberRewardPointRedemptionProfile from './memberrewardpointredemption/MemberRewardPointRedemption.profile';
@@ -514,11 +514,11 @@ import MemberWishlistProductBase from './memberwishlistproduct/MemberWishlistPro
 import MemberWishlistProductBizApp from './memberwishlistproduct/MemberWishlistProduct.app';
 import MemberWishlistProductModel from './memberwishlistproduct/MemberWishlistProduct.model';
 import MemberWishlistProductDashboard from './memberwishlistproduct/MemberWishlistProduct.dashboard';
+import MemberWishlistProductWorkbench from './memberwishlistproduct/MemberWishlistProduct.workbench';
 import MemberWishlistProductModalTable from './memberwishlistproduct/MemberWishlistProduct.modaltable';
 import MemberWishlistProductSearch from './memberwishlistproduct/MemberWishlistProduct.search';
 import MemberWishlistProductSearchForm from './memberwishlistproduct/MemberWishlistProduct.searchform';
 import MemberWishlistProductCreateForm from './memberwishlistproduct/MemberWishlistProduct.createform';
-import MemberWishlistProductAssociateForm from './memberwishlistproduct/MemberWishlistProduct.associateform';
 import MemberWishlistProductTable from './memberwishlistproduct/MemberWishlistProduct.table';
 import MemberWishlistProductPermission from './memberwishlistproduct/MemberWishlistProduct.permission';
 import MemberWishlistProductProfile from './memberwishlistproduct/MemberWishlistProduct.profile';
@@ -529,11 +529,11 @@ import RetailStoreMemberAddressBase from './retailstorememberaddress/RetailStore
 import RetailStoreMemberAddressBizApp from './retailstorememberaddress/RetailStoreMemberAddress.app';
 import RetailStoreMemberAddressModel from './retailstorememberaddress/RetailStoreMemberAddress.model';
 import RetailStoreMemberAddressDashboard from './retailstorememberaddress/RetailStoreMemberAddress.dashboard';
+import RetailStoreMemberAddressWorkbench from './retailstorememberaddress/RetailStoreMemberAddress.workbench';
 import RetailStoreMemberAddressModalTable from './retailstorememberaddress/RetailStoreMemberAddress.modaltable';
 import RetailStoreMemberAddressSearch from './retailstorememberaddress/RetailStoreMemberAddress.search';
 import RetailStoreMemberAddressSearchForm from './retailstorememberaddress/RetailStoreMemberAddress.searchform';
 import RetailStoreMemberAddressCreateForm from './retailstorememberaddress/RetailStoreMemberAddress.createform';
-import RetailStoreMemberAddressAssociateForm from './retailstorememberaddress/RetailStoreMemberAddress.associateform';
 import RetailStoreMemberAddressTable from './retailstorememberaddress/RetailStoreMemberAddress.table';
 import RetailStoreMemberAddressPermission from './retailstorememberaddress/RetailStoreMemberAddress.permission';
 import RetailStoreMemberAddressProfile from './retailstorememberaddress/RetailStoreMemberAddress.profile';
@@ -544,11 +544,11 @@ import RetailStoreMemberGiftCardBase from './retailstoremembergiftcard/RetailSto
 import RetailStoreMemberGiftCardBizApp from './retailstoremembergiftcard/RetailStoreMemberGiftCard.app';
 import RetailStoreMemberGiftCardModel from './retailstoremembergiftcard/RetailStoreMemberGiftCard.model';
 import RetailStoreMemberGiftCardDashboard from './retailstoremembergiftcard/RetailStoreMemberGiftCard.dashboard';
+import RetailStoreMemberGiftCardWorkbench from './retailstoremembergiftcard/RetailStoreMemberGiftCard.workbench';
 import RetailStoreMemberGiftCardModalTable from './retailstoremembergiftcard/RetailStoreMemberGiftCard.modaltable';
 import RetailStoreMemberGiftCardSearch from './retailstoremembergiftcard/RetailStoreMemberGiftCard.search';
 import RetailStoreMemberGiftCardSearchForm from './retailstoremembergiftcard/RetailStoreMemberGiftCard.searchform';
 import RetailStoreMemberGiftCardCreateForm from './retailstoremembergiftcard/RetailStoreMemberGiftCard.createform';
-import RetailStoreMemberGiftCardAssociateForm from './retailstoremembergiftcard/RetailStoreMemberGiftCard.associateform';
 import RetailStoreMemberGiftCardTable from './retailstoremembergiftcard/RetailStoreMemberGiftCard.table';
 import RetailStoreMemberGiftCardPermission from './retailstoremembergiftcard/RetailStoreMemberGiftCard.permission';
 import RetailStoreMemberGiftCardProfile from './retailstoremembergiftcard/RetailStoreMemberGiftCard.profile';
@@ -559,11 +559,11 @@ import RetailStoreMemberGiftCardConsumeRecordBase from './retailstoremembergiftc
 import RetailStoreMemberGiftCardConsumeRecordBizApp from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.app';
 import RetailStoreMemberGiftCardConsumeRecordModel from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.model';
 import RetailStoreMemberGiftCardConsumeRecordDashboard from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.dashboard';
+import RetailStoreMemberGiftCardConsumeRecordWorkbench from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.workbench';
 import RetailStoreMemberGiftCardConsumeRecordModalTable from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.modaltable';
 import RetailStoreMemberGiftCardConsumeRecordSearch from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.search';
 import RetailStoreMemberGiftCardConsumeRecordSearchForm from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.searchform';
 import RetailStoreMemberGiftCardConsumeRecordCreateForm from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.createform';
-import RetailStoreMemberGiftCardConsumeRecordAssociateForm from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.associateform';
 import RetailStoreMemberGiftCardConsumeRecordTable from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.table';
 import RetailStoreMemberGiftCardConsumeRecordPermission from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.permission';
 import RetailStoreMemberGiftCardConsumeRecordProfile from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.profile';
@@ -574,11 +574,11 @@ import GoodsSupplierBase from './goodssupplier/GoodsSupplier.base';
 import GoodsSupplierBizApp from './goodssupplier/GoodsSupplier.app';
 import GoodsSupplierModel from './goodssupplier/GoodsSupplier.model';
 import GoodsSupplierDashboard from './goodssupplier/GoodsSupplier.dashboard';
+import GoodsSupplierWorkbench from './goodssupplier/GoodsSupplier.workbench';
 import GoodsSupplierModalTable from './goodssupplier/GoodsSupplier.modaltable';
 import GoodsSupplierSearch from './goodssupplier/GoodsSupplier.search';
 import GoodsSupplierSearchForm from './goodssupplier/GoodsSupplier.searchform';
 import GoodsSupplierCreateForm from './goodssupplier/GoodsSupplier.createform';
-import GoodsSupplierAssociateForm from './goodssupplier/GoodsSupplier.associateform';
 import GoodsSupplierTable from './goodssupplier/GoodsSupplier.table';
 import GoodsSupplierPermission from './goodssupplier/GoodsSupplier.permission';
 import GoodsSupplierProfile from './goodssupplier/GoodsSupplier.profile';
@@ -589,11 +589,11 @@ import SupplierProductBase from './supplierproduct/SupplierProduct.base';
 import SupplierProductBizApp from './supplierproduct/SupplierProduct.app';
 import SupplierProductModel from './supplierproduct/SupplierProduct.model';
 import SupplierProductDashboard from './supplierproduct/SupplierProduct.dashboard';
+import SupplierProductWorkbench from './supplierproduct/SupplierProduct.workbench';
 import SupplierProductModalTable from './supplierproduct/SupplierProduct.modaltable';
 import SupplierProductSearch from './supplierproduct/SupplierProduct.search';
 import SupplierProductSearchForm from './supplierproduct/SupplierProduct.searchform';
 import SupplierProductCreateForm from './supplierproduct/SupplierProduct.createform';
-import SupplierProductAssociateForm from './supplierproduct/SupplierProduct.associateform';
 import SupplierProductTable from './supplierproduct/SupplierProduct.table';
 import SupplierProductPermission from './supplierproduct/SupplierProduct.permission';
 import SupplierProductProfile from './supplierproduct/SupplierProduct.profile';
@@ -604,11 +604,11 @@ import ProductSupplyDurationBase from './productsupplyduration/ProductSupplyDura
 import ProductSupplyDurationBizApp from './productsupplyduration/ProductSupplyDuration.app';
 import ProductSupplyDurationModel from './productsupplyduration/ProductSupplyDuration.model';
 import ProductSupplyDurationDashboard from './productsupplyduration/ProductSupplyDuration.dashboard';
+import ProductSupplyDurationWorkbench from './productsupplyduration/ProductSupplyDuration.workbench';
 import ProductSupplyDurationModalTable from './productsupplyduration/ProductSupplyDuration.modaltable';
 import ProductSupplyDurationSearch from './productsupplyduration/ProductSupplyDuration.search';
 import ProductSupplyDurationSearchForm from './productsupplyduration/ProductSupplyDuration.searchform';
 import ProductSupplyDurationCreateForm from './productsupplyduration/ProductSupplyDuration.createform';
-import ProductSupplyDurationAssociateForm from './productsupplyduration/ProductSupplyDuration.associateform';
 import ProductSupplyDurationTable from './productsupplyduration/ProductSupplyDuration.table';
 import ProductSupplyDurationPermission from './productsupplyduration/ProductSupplyDuration.permission';
 import ProductSupplyDurationProfile from './productsupplyduration/ProductSupplyDuration.profile';
@@ -619,11 +619,11 @@ import SupplyOrderBase from './supplyorder/SupplyOrder.base';
 import SupplyOrderBizApp from './supplyorder/SupplyOrder.app';
 import SupplyOrderModel from './supplyorder/SupplyOrder.model';
 import SupplyOrderDashboard from './supplyorder/SupplyOrder.dashboard';
+import SupplyOrderWorkbench from './supplyorder/SupplyOrder.workbench';
 import SupplyOrderModalTable from './supplyorder/SupplyOrder.modaltable';
 import SupplyOrderSearch from './supplyorder/SupplyOrder.search';
 import SupplyOrderSearchForm from './supplyorder/SupplyOrder.searchform';
 import SupplyOrderCreateForm from './supplyorder/SupplyOrder.createform';
-import SupplyOrderAssociateForm from './supplyorder/SupplyOrder.associateform';
 import SupplyOrderTable from './supplyorder/SupplyOrder.table';
 import SupplyOrderPermission from './supplyorder/SupplyOrder.permission';
 import SupplyOrderProfile from './supplyorder/SupplyOrder.profile';
@@ -634,11 +634,11 @@ import SupplyOrderLineItemBase from './supplyorderlineitem/SupplyOrderLineItem.b
 import SupplyOrderLineItemBizApp from './supplyorderlineitem/SupplyOrderLineItem.app';
 import SupplyOrderLineItemModel from './supplyorderlineitem/SupplyOrderLineItem.model';
 import SupplyOrderLineItemDashboard from './supplyorderlineitem/SupplyOrderLineItem.dashboard';
+import SupplyOrderLineItemWorkbench from './supplyorderlineitem/SupplyOrderLineItem.workbench';
 import SupplyOrderLineItemModalTable from './supplyorderlineitem/SupplyOrderLineItem.modaltable';
 import SupplyOrderLineItemSearch from './supplyorderlineitem/SupplyOrderLineItem.search';
 import SupplyOrderLineItemSearchForm from './supplyorderlineitem/SupplyOrderLineItem.searchform';
 import SupplyOrderLineItemCreateForm from './supplyorderlineitem/SupplyOrderLineItem.createform';
-import SupplyOrderLineItemAssociateForm from './supplyorderlineitem/SupplyOrderLineItem.associateform';
 import SupplyOrderLineItemTable from './supplyorderlineitem/SupplyOrderLineItem.table';
 import SupplyOrderLineItemPermission from './supplyorderlineitem/SupplyOrderLineItem.permission';
 import SupplyOrderLineItemProfile from './supplyorderlineitem/SupplyOrderLineItem.profile';
@@ -649,11 +649,11 @@ import SupplyOrderShippingGroupBase from './supplyordershippinggroup/SupplyOrder
 import SupplyOrderShippingGroupBizApp from './supplyordershippinggroup/SupplyOrderShippingGroup.app';
 import SupplyOrderShippingGroupModel from './supplyordershippinggroup/SupplyOrderShippingGroup.model';
 import SupplyOrderShippingGroupDashboard from './supplyordershippinggroup/SupplyOrderShippingGroup.dashboard';
+import SupplyOrderShippingGroupWorkbench from './supplyordershippinggroup/SupplyOrderShippingGroup.workbench';
 import SupplyOrderShippingGroupModalTable from './supplyordershippinggroup/SupplyOrderShippingGroup.modaltable';
 import SupplyOrderShippingGroupSearch from './supplyordershippinggroup/SupplyOrderShippingGroup.search';
 import SupplyOrderShippingGroupSearchForm from './supplyordershippinggroup/SupplyOrderShippingGroup.searchform';
 import SupplyOrderShippingGroupCreateForm from './supplyordershippinggroup/SupplyOrderShippingGroup.createform';
-import SupplyOrderShippingGroupAssociateForm from './supplyordershippinggroup/SupplyOrderShippingGroup.associateform';
 import SupplyOrderShippingGroupTable from './supplyordershippinggroup/SupplyOrderShippingGroup.table';
 import SupplyOrderShippingGroupPermission from './supplyordershippinggroup/SupplyOrderShippingGroup.permission';
 import SupplyOrderShippingGroupProfile from './supplyordershippinggroup/SupplyOrderShippingGroup.profile';
@@ -664,11 +664,11 @@ import SupplyOrderPaymentGroupBase from './supplyorderpaymentgroup/SupplyOrderPa
 import SupplyOrderPaymentGroupBizApp from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.app';
 import SupplyOrderPaymentGroupModel from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.model';
 import SupplyOrderPaymentGroupDashboard from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.dashboard';
+import SupplyOrderPaymentGroupWorkbench from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.workbench';
 import SupplyOrderPaymentGroupModalTable from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.modaltable';
 import SupplyOrderPaymentGroupSearch from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.search';
 import SupplyOrderPaymentGroupSearchForm from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.searchform';
 import SupplyOrderPaymentGroupCreateForm from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.createform';
-import SupplyOrderPaymentGroupAssociateForm from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.associateform';
 import SupplyOrderPaymentGroupTable from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.table';
 import SupplyOrderPaymentGroupPermission from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.permission';
 import SupplyOrderPaymentGroupProfile from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.profile';
@@ -679,11 +679,11 @@ import RetailStoreOrderBase from './retailstoreorder/RetailStoreOrder.base';
 import RetailStoreOrderBizApp from './retailstoreorder/RetailStoreOrder.app';
 import RetailStoreOrderModel from './retailstoreorder/RetailStoreOrder.model';
 import RetailStoreOrderDashboard from './retailstoreorder/RetailStoreOrder.dashboard';
+import RetailStoreOrderWorkbench from './retailstoreorder/RetailStoreOrder.workbench';
 import RetailStoreOrderModalTable from './retailstoreorder/RetailStoreOrder.modaltable';
 import RetailStoreOrderSearch from './retailstoreorder/RetailStoreOrder.search';
 import RetailStoreOrderSearchForm from './retailstoreorder/RetailStoreOrder.searchform';
 import RetailStoreOrderCreateForm from './retailstoreorder/RetailStoreOrder.createform';
-import RetailStoreOrderAssociateForm from './retailstoreorder/RetailStoreOrder.associateform';
 import RetailStoreOrderTable from './retailstoreorder/RetailStoreOrder.table';
 import RetailStoreOrderPermission from './retailstoreorder/RetailStoreOrder.permission';
 import RetailStoreOrderProfile from './retailstoreorder/RetailStoreOrder.profile';
@@ -694,11 +694,11 @@ import RetailStoreOrderLineItemBase from './retailstoreorderlineitem/RetailStore
 import RetailStoreOrderLineItemBizApp from './retailstoreorderlineitem/RetailStoreOrderLineItem.app';
 import RetailStoreOrderLineItemModel from './retailstoreorderlineitem/RetailStoreOrderLineItem.model';
 import RetailStoreOrderLineItemDashboard from './retailstoreorderlineitem/RetailStoreOrderLineItem.dashboard';
+import RetailStoreOrderLineItemWorkbench from './retailstoreorderlineitem/RetailStoreOrderLineItem.workbench';
 import RetailStoreOrderLineItemModalTable from './retailstoreorderlineitem/RetailStoreOrderLineItem.modaltable';
 import RetailStoreOrderLineItemSearch from './retailstoreorderlineitem/RetailStoreOrderLineItem.search';
 import RetailStoreOrderLineItemSearchForm from './retailstoreorderlineitem/RetailStoreOrderLineItem.searchform';
 import RetailStoreOrderLineItemCreateForm from './retailstoreorderlineitem/RetailStoreOrderLineItem.createform';
-import RetailStoreOrderLineItemAssociateForm from './retailstoreorderlineitem/RetailStoreOrderLineItem.associateform';
 import RetailStoreOrderLineItemTable from './retailstoreorderlineitem/RetailStoreOrderLineItem.table';
 import RetailStoreOrderLineItemPermission from './retailstoreorderlineitem/RetailStoreOrderLineItem.permission';
 import RetailStoreOrderLineItemProfile from './retailstoreorderlineitem/RetailStoreOrderLineItem.profile';
@@ -709,11 +709,11 @@ import RetailStoreOrderShippingGroupBase from './retailstoreordershippinggroup/R
 import RetailStoreOrderShippingGroupBizApp from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.app';
 import RetailStoreOrderShippingGroupModel from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.model';
 import RetailStoreOrderShippingGroupDashboard from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.dashboard';
+import RetailStoreOrderShippingGroupWorkbench from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.workbench';
 import RetailStoreOrderShippingGroupModalTable from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.modaltable';
 import RetailStoreOrderShippingGroupSearch from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.search';
 import RetailStoreOrderShippingGroupSearchForm from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.searchform';
 import RetailStoreOrderShippingGroupCreateForm from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.createform';
-import RetailStoreOrderShippingGroupAssociateForm from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.associateform';
 import RetailStoreOrderShippingGroupTable from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.table';
 import RetailStoreOrderShippingGroupPermission from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.permission';
 import RetailStoreOrderShippingGroupProfile from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.profile';
@@ -724,11 +724,11 @@ import RetailStoreOrderPaymentGroupBase from './retailstoreorderpaymentgroup/Ret
 import RetailStoreOrderPaymentGroupBizApp from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.app';
 import RetailStoreOrderPaymentGroupModel from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.model';
 import RetailStoreOrderPaymentGroupDashboard from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.dashboard';
+import RetailStoreOrderPaymentGroupWorkbench from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.workbench';
 import RetailStoreOrderPaymentGroupModalTable from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.modaltable';
 import RetailStoreOrderPaymentGroupSearch from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.search';
 import RetailStoreOrderPaymentGroupSearchForm from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.searchform';
 import RetailStoreOrderPaymentGroupCreateForm from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.createform';
-import RetailStoreOrderPaymentGroupAssociateForm from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.associateform';
 import RetailStoreOrderPaymentGroupTable from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.table';
 import RetailStoreOrderPaymentGroupPermission from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.permission';
 import RetailStoreOrderPaymentGroupProfile from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.profile';
@@ -739,11 +739,11 @@ import WarehouseBase from './warehouse/Warehouse.base';
 import WarehouseBizApp from './warehouse/Warehouse.app';
 import WarehouseModel from './warehouse/Warehouse.model';
 import WarehouseDashboard from './warehouse/Warehouse.dashboard';
+import WarehouseWorkbench from './warehouse/Warehouse.workbench';
 import WarehouseModalTable from './warehouse/Warehouse.modaltable';
 import WarehouseSearch from './warehouse/Warehouse.search';
 import WarehouseSearchForm from './warehouse/Warehouse.searchform';
 import WarehouseCreateForm from './warehouse/Warehouse.createform';
-import WarehouseAssociateForm from './warehouse/Warehouse.associateform';
 import WarehouseTable from './warehouse/Warehouse.table';
 import WarehousePermission from './warehouse/Warehouse.permission';
 import WarehouseProfile from './warehouse/Warehouse.profile';
@@ -754,11 +754,11 @@ import StorageSpaceBase from './storagespace/StorageSpace.base';
 import StorageSpaceBizApp from './storagespace/StorageSpace.app';
 import StorageSpaceModel from './storagespace/StorageSpace.model';
 import StorageSpaceDashboard from './storagespace/StorageSpace.dashboard';
+import StorageSpaceWorkbench from './storagespace/StorageSpace.workbench';
 import StorageSpaceModalTable from './storagespace/StorageSpace.modaltable';
 import StorageSpaceSearch from './storagespace/StorageSpace.search';
 import StorageSpaceSearchForm from './storagespace/StorageSpace.searchform';
 import StorageSpaceCreateForm from './storagespace/StorageSpace.createform';
-import StorageSpaceAssociateForm from './storagespace/StorageSpace.associateform';
 import StorageSpaceTable from './storagespace/StorageSpace.table';
 import StorageSpacePermission from './storagespace/StorageSpace.permission';
 import StorageSpaceProfile from './storagespace/StorageSpace.profile';
@@ -769,11 +769,11 @@ import SmartPalletBase from './smartpallet/SmartPallet.base';
 import SmartPalletBizApp from './smartpallet/SmartPallet.app';
 import SmartPalletModel from './smartpallet/SmartPallet.model';
 import SmartPalletDashboard from './smartpallet/SmartPallet.dashboard';
+import SmartPalletWorkbench from './smartpallet/SmartPallet.workbench';
 import SmartPalletModalTable from './smartpallet/SmartPallet.modaltable';
 import SmartPalletSearch from './smartpallet/SmartPallet.search';
 import SmartPalletSearchForm from './smartpallet/SmartPallet.searchform';
 import SmartPalletCreateForm from './smartpallet/SmartPallet.createform';
-import SmartPalletAssociateForm from './smartpallet/SmartPallet.associateform';
 import SmartPalletTable from './smartpallet/SmartPallet.table';
 import SmartPalletPermission from './smartpallet/SmartPallet.permission';
 import SmartPalletProfile from './smartpallet/SmartPallet.profile';
@@ -784,11 +784,11 @@ import GoodsShelfBase from './goodsshelf/GoodsShelf.base';
 import GoodsShelfBizApp from './goodsshelf/GoodsShelf.app';
 import GoodsShelfModel from './goodsshelf/GoodsShelf.model';
 import GoodsShelfDashboard from './goodsshelf/GoodsShelf.dashboard';
+import GoodsShelfWorkbench from './goodsshelf/GoodsShelf.workbench';
 import GoodsShelfModalTable from './goodsshelf/GoodsShelf.modaltable';
 import GoodsShelfSearch from './goodsshelf/GoodsShelf.search';
 import GoodsShelfSearchForm from './goodsshelf/GoodsShelf.searchform';
 import GoodsShelfCreateForm from './goodsshelf/GoodsShelf.createform';
-import GoodsShelfAssociateForm from './goodsshelf/GoodsShelf.associateform';
 import GoodsShelfTable from './goodsshelf/GoodsShelf.table';
 import GoodsShelfPermission from './goodsshelf/GoodsShelf.permission';
 import GoodsShelfProfile from './goodsshelf/GoodsShelf.profile';
@@ -799,11 +799,11 @@ import GoodsShelfStockCountBase from './goodsshelfstockcount/GoodsShelfStockCoun
 import GoodsShelfStockCountBizApp from './goodsshelfstockcount/GoodsShelfStockCount.app';
 import GoodsShelfStockCountModel from './goodsshelfstockcount/GoodsShelfStockCount.model';
 import GoodsShelfStockCountDashboard from './goodsshelfstockcount/GoodsShelfStockCount.dashboard';
+import GoodsShelfStockCountWorkbench from './goodsshelfstockcount/GoodsShelfStockCount.workbench';
 import GoodsShelfStockCountModalTable from './goodsshelfstockcount/GoodsShelfStockCount.modaltable';
 import GoodsShelfStockCountSearch from './goodsshelfstockcount/GoodsShelfStockCount.search';
 import GoodsShelfStockCountSearchForm from './goodsshelfstockcount/GoodsShelfStockCount.searchform';
 import GoodsShelfStockCountCreateForm from './goodsshelfstockcount/GoodsShelfStockCount.createform';
-import GoodsShelfStockCountAssociateForm from './goodsshelfstockcount/GoodsShelfStockCount.associateform';
 import GoodsShelfStockCountTable from './goodsshelfstockcount/GoodsShelfStockCount.table';
 import GoodsShelfStockCountPermission from './goodsshelfstockcount/GoodsShelfStockCount.permission';
 import GoodsShelfStockCountProfile from './goodsshelfstockcount/GoodsShelfStockCount.profile';
@@ -814,11 +814,11 @@ import StockCountIssueTrackBase from './stockcountissuetrack/StockCountIssueTrac
 import StockCountIssueTrackBizApp from './stockcountissuetrack/StockCountIssueTrack.app';
 import StockCountIssueTrackModel from './stockcountissuetrack/StockCountIssueTrack.model';
 import StockCountIssueTrackDashboard from './stockcountissuetrack/StockCountIssueTrack.dashboard';
+import StockCountIssueTrackWorkbench from './stockcountissuetrack/StockCountIssueTrack.workbench';
 import StockCountIssueTrackModalTable from './stockcountissuetrack/StockCountIssueTrack.modaltable';
 import StockCountIssueTrackSearch from './stockcountissuetrack/StockCountIssueTrack.search';
 import StockCountIssueTrackSearchForm from './stockcountissuetrack/StockCountIssueTrack.searchform';
 import StockCountIssueTrackCreateForm from './stockcountissuetrack/StockCountIssueTrack.createform';
-import StockCountIssueTrackAssociateForm from './stockcountissuetrack/StockCountIssueTrack.associateform';
 import StockCountIssueTrackTable from './stockcountissuetrack/StockCountIssueTrack.table';
 import StockCountIssueTrackPermission from './stockcountissuetrack/StockCountIssueTrack.permission';
 import StockCountIssueTrackProfile from './stockcountissuetrack/StockCountIssueTrack.profile';
@@ -829,11 +829,11 @@ import GoodsAllocationBase from './goodsallocation/GoodsAllocation.base';
 import GoodsAllocationBizApp from './goodsallocation/GoodsAllocation.app';
 import GoodsAllocationModel from './goodsallocation/GoodsAllocation.model';
 import GoodsAllocationDashboard from './goodsallocation/GoodsAllocation.dashboard';
+import GoodsAllocationWorkbench from './goodsallocation/GoodsAllocation.workbench';
 import GoodsAllocationModalTable from './goodsallocation/GoodsAllocation.modaltable';
 import GoodsAllocationSearch from './goodsallocation/GoodsAllocation.search';
 import GoodsAllocationSearchForm from './goodsallocation/GoodsAllocation.searchform';
 import GoodsAllocationCreateForm from './goodsallocation/GoodsAllocation.createform';
-import GoodsAllocationAssociateForm from './goodsallocation/GoodsAllocation.associateform';
 import GoodsAllocationTable from './goodsallocation/GoodsAllocation.table';
 import GoodsAllocationPermission from './goodsallocation/GoodsAllocation.permission';
 import GoodsAllocationProfile from './goodsallocation/GoodsAllocation.profile';
@@ -844,11 +844,11 @@ import GoodsBase from './goods/Goods.base';
 import GoodsBizApp from './goods/Goods.app';
 import GoodsModel from './goods/Goods.model';
 import GoodsDashboard from './goods/Goods.dashboard';
+import GoodsWorkbench from './goods/Goods.workbench';
 import GoodsModalTable from './goods/Goods.modaltable';
 import GoodsSearch from './goods/Goods.search';
 import GoodsSearchForm from './goods/Goods.searchform';
 import GoodsCreateForm from './goods/Goods.createform';
-import GoodsAssociateForm from './goods/Goods.associateform';
 import GoodsTable from './goods/Goods.table';
 import GoodsPermission from './goods/Goods.permission';
 import GoodsProfile from './goods/Goods.profile';
@@ -859,11 +859,11 @@ import GoodsMovementBase from './goodsmovement/GoodsMovement.base';
 import GoodsMovementBizApp from './goodsmovement/GoodsMovement.app';
 import GoodsMovementModel from './goodsmovement/GoodsMovement.model';
 import GoodsMovementDashboard from './goodsmovement/GoodsMovement.dashboard';
+import GoodsMovementWorkbench from './goodsmovement/GoodsMovement.workbench';
 import GoodsMovementModalTable from './goodsmovement/GoodsMovement.modaltable';
 import GoodsMovementSearch from './goodsmovement/GoodsMovement.search';
 import GoodsMovementSearchForm from './goodsmovement/GoodsMovement.searchform';
 import GoodsMovementCreateForm from './goodsmovement/GoodsMovement.createform';
-import GoodsMovementAssociateForm from './goodsmovement/GoodsMovement.associateform';
 import GoodsMovementTable from './goodsmovement/GoodsMovement.table';
 import GoodsMovementPermission from './goodsmovement/GoodsMovement.permission';
 import GoodsMovementProfile from './goodsmovement/GoodsMovement.profile';
@@ -874,11 +874,11 @@ import SupplierSpaceBase from './supplierspace/SupplierSpace.base';
 import SupplierSpaceBizApp from './supplierspace/SupplierSpace.app';
 import SupplierSpaceModel from './supplierspace/SupplierSpace.model';
 import SupplierSpaceDashboard from './supplierspace/SupplierSpace.dashboard';
+import SupplierSpaceWorkbench from './supplierspace/SupplierSpace.workbench';
 import SupplierSpaceModalTable from './supplierspace/SupplierSpace.modaltable';
 import SupplierSpaceSearch from './supplierspace/SupplierSpace.search';
 import SupplierSpaceSearchForm from './supplierspace/SupplierSpace.searchform';
 import SupplierSpaceCreateForm from './supplierspace/SupplierSpace.createform';
-import SupplierSpaceAssociateForm from './supplierspace/SupplierSpace.associateform';
 import SupplierSpaceTable from './supplierspace/SupplierSpace.table';
 import SupplierSpacePermission from './supplierspace/SupplierSpace.permission';
 import SupplierSpaceProfile from './supplierspace/SupplierSpace.profile';
@@ -889,11 +889,11 @@ import ReceivingSpaceBase from './receivingspace/ReceivingSpace.base';
 import ReceivingSpaceBizApp from './receivingspace/ReceivingSpace.app';
 import ReceivingSpaceModel from './receivingspace/ReceivingSpace.model';
 import ReceivingSpaceDashboard from './receivingspace/ReceivingSpace.dashboard';
+import ReceivingSpaceWorkbench from './receivingspace/ReceivingSpace.workbench';
 import ReceivingSpaceModalTable from './receivingspace/ReceivingSpace.modaltable';
 import ReceivingSpaceSearch from './receivingspace/ReceivingSpace.search';
 import ReceivingSpaceSearchForm from './receivingspace/ReceivingSpace.searchform';
 import ReceivingSpaceCreateForm from './receivingspace/ReceivingSpace.createform';
-import ReceivingSpaceAssociateForm from './receivingspace/ReceivingSpace.associateform';
 import ReceivingSpaceTable from './receivingspace/ReceivingSpace.table';
 import ReceivingSpacePermission from './receivingspace/ReceivingSpace.permission';
 import ReceivingSpaceProfile from './receivingspace/ReceivingSpace.profile';
@@ -904,11 +904,11 @@ import ShippingSpaceBase from './shippingspace/ShippingSpace.base';
 import ShippingSpaceBizApp from './shippingspace/ShippingSpace.app';
 import ShippingSpaceModel from './shippingspace/ShippingSpace.model';
 import ShippingSpaceDashboard from './shippingspace/ShippingSpace.dashboard';
+import ShippingSpaceWorkbench from './shippingspace/ShippingSpace.workbench';
 import ShippingSpaceModalTable from './shippingspace/ShippingSpace.modaltable';
 import ShippingSpaceSearch from './shippingspace/ShippingSpace.search';
 import ShippingSpaceSearchForm from './shippingspace/ShippingSpace.searchform';
 import ShippingSpaceCreateForm from './shippingspace/ShippingSpace.createform';
-import ShippingSpaceAssociateForm from './shippingspace/ShippingSpace.associateform';
 import ShippingSpaceTable from './shippingspace/ShippingSpace.table';
 import ShippingSpacePermission from './shippingspace/ShippingSpace.permission';
 import ShippingSpaceProfile from './shippingspace/ShippingSpace.profile';
@@ -919,11 +919,11 @@ import DamageSpaceBase from './damagespace/DamageSpace.base';
 import DamageSpaceBizApp from './damagespace/DamageSpace.app';
 import DamageSpaceModel from './damagespace/DamageSpace.model';
 import DamageSpaceDashboard from './damagespace/DamageSpace.dashboard';
+import DamageSpaceWorkbench from './damagespace/DamageSpace.workbench';
 import DamageSpaceModalTable from './damagespace/DamageSpace.modaltable';
 import DamageSpaceSearch from './damagespace/DamageSpace.search';
 import DamageSpaceSearchForm from './damagespace/DamageSpace.searchform';
 import DamageSpaceCreateForm from './damagespace/DamageSpace.createform';
-import DamageSpaceAssociateForm from './damagespace/DamageSpace.associateform';
 import DamageSpaceTable from './damagespace/DamageSpace.table';
 import DamageSpacePermission from './damagespace/DamageSpace.permission';
 import DamageSpaceProfile from './damagespace/DamageSpace.profile';
@@ -934,11 +934,11 @@ import WarehouseAssetBase from './warehouseasset/WarehouseAsset.base';
 import WarehouseAssetBizApp from './warehouseasset/WarehouseAsset.app';
 import WarehouseAssetModel from './warehouseasset/WarehouseAsset.model';
 import WarehouseAssetDashboard from './warehouseasset/WarehouseAsset.dashboard';
+import WarehouseAssetWorkbench from './warehouseasset/WarehouseAsset.workbench';
 import WarehouseAssetModalTable from './warehouseasset/WarehouseAsset.modaltable';
 import WarehouseAssetSearch from './warehouseasset/WarehouseAsset.search';
 import WarehouseAssetSearchForm from './warehouseasset/WarehouseAsset.searchform';
 import WarehouseAssetCreateForm from './warehouseasset/WarehouseAsset.createform';
-import WarehouseAssetAssociateForm from './warehouseasset/WarehouseAsset.associateform';
 import WarehouseAssetTable from './warehouseasset/WarehouseAsset.table';
 import WarehouseAssetPermission from './warehouseasset/WarehouseAsset.permission';
 import WarehouseAssetProfile from './warehouseasset/WarehouseAsset.profile';
@@ -949,11 +949,11 @@ import TransportFleetBase from './transportfleet/TransportFleet.base';
 import TransportFleetBizApp from './transportfleet/TransportFleet.app';
 import TransportFleetModel from './transportfleet/TransportFleet.model';
 import TransportFleetDashboard from './transportfleet/TransportFleet.dashboard';
+import TransportFleetWorkbench from './transportfleet/TransportFleet.workbench';
 import TransportFleetModalTable from './transportfleet/TransportFleet.modaltable';
 import TransportFleetSearch from './transportfleet/TransportFleet.search';
 import TransportFleetSearchForm from './transportfleet/TransportFleet.searchform';
 import TransportFleetCreateForm from './transportfleet/TransportFleet.createform';
-import TransportFleetAssociateForm from './transportfleet/TransportFleet.associateform';
 import TransportFleetTable from './transportfleet/TransportFleet.table';
 import TransportFleetPermission from './transportfleet/TransportFleet.permission';
 import TransportFleetProfile from './transportfleet/TransportFleet.profile';
@@ -964,11 +964,11 @@ import TransportTruckBase from './transporttruck/TransportTruck.base';
 import TransportTruckBizApp from './transporttruck/TransportTruck.app';
 import TransportTruckModel from './transporttruck/TransportTruck.model';
 import TransportTruckDashboard from './transporttruck/TransportTruck.dashboard';
+import TransportTruckWorkbench from './transporttruck/TransportTruck.workbench';
 import TransportTruckModalTable from './transporttruck/TransportTruck.modaltable';
 import TransportTruckSearch from './transporttruck/TransportTruck.search';
 import TransportTruckSearchForm from './transporttruck/TransportTruck.searchform';
 import TransportTruckCreateForm from './transporttruck/TransportTruck.createform';
-import TransportTruckAssociateForm from './transporttruck/TransportTruck.associateform';
 import TransportTruckTable from './transporttruck/TransportTruck.table';
 import TransportTruckPermission from './transporttruck/TransportTruck.permission';
 import TransportTruckProfile from './transporttruck/TransportTruck.profile';
@@ -979,11 +979,11 @@ import TruckDriverBase from './truckdriver/TruckDriver.base';
 import TruckDriverBizApp from './truckdriver/TruckDriver.app';
 import TruckDriverModel from './truckdriver/TruckDriver.model';
 import TruckDriverDashboard from './truckdriver/TruckDriver.dashboard';
+import TruckDriverWorkbench from './truckdriver/TruckDriver.workbench';
 import TruckDriverModalTable from './truckdriver/TruckDriver.modaltable';
 import TruckDriverSearch from './truckdriver/TruckDriver.search';
 import TruckDriverSearchForm from './truckdriver/TruckDriver.searchform';
 import TruckDriverCreateForm from './truckdriver/TruckDriver.createform';
-import TruckDriverAssociateForm from './truckdriver/TruckDriver.associateform';
 import TruckDriverTable from './truckdriver/TruckDriver.table';
 import TruckDriverPermission from './truckdriver/TruckDriver.permission';
 import TruckDriverProfile from './truckdriver/TruckDriver.profile';
@@ -994,11 +994,11 @@ import TransportTaskBase from './transporttask/TransportTask.base';
 import TransportTaskBizApp from './transporttask/TransportTask.app';
 import TransportTaskModel from './transporttask/TransportTask.model';
 import TransportTaskDashboard from './transporttask/TransportTask.dashboard';
+import TransportTaskWorkbench from './transporttask/TransportTask.workbench';
 import TransportTaskModalTable from './transporttask/TransportTask.modaltable';
 import TransportTaskSearch from './transporttask/TransportTask.search';
 import TransportTaskSearchForm from './transporttask/TransportTask.searchform';
 import TransportTaskCreateForm from './transporttask/TransportTask.createform';
-import TransportTaskAssociateForm from './transporttask/TransportTask.associateform';
 import TransportTaskTable from './transporttask/TransportTask.table';
 import TransportTaskPermission from './transporttask/TransportTask.permission';
 import TransportTaskProfile from './transporttask/TransportTask.profile';
@@ -1009,11 +1009,11 @@ import TransportTaskTrackBase from './transporttasktrack/TransportTaskTrack.base
 import TransportTaskTrackBizApp from './transporttasktrack/TransportTaskTrack.app';
 import TransportTaskTrackModel from './transporttasktrack/TransportTaskTrack.model';
 import TransportTaskTrackDashboard from './transporttasktrack/TransportTaskTrack.dashboard';
+import TransportTaskTrackWorkbench from './transporttasktrack/TransportTaskTrack.workbench';
 import TransportTaskTrackModalTable from './transporttasktrack/TransportTaskTrack.modaltable';
 import TransportTaskTrackSearch from './transporttasktrack/TransportTaskTrack.search';
 import TransportTaskTrackSearchForm from './transporttasktrack/TransportTaskTrack.searchform';
 import TransportTaskTrackCreateForm from './transporttasktrack/TransportTaskTrack.createform';
-import TransportTaskTrackAssociateForm from './transporttasktrack/TransportTaskTrack.associateform';
 import TransportTaskTrackTable from './transporttasktrack/TransportTaskTrack.table';
 import TransportTaskTrackPermission from './transporttasktrack/TransportTaskTrack.permission';
 import TransportTaskTrackProfile from './transporttasktrack/TransportTaskTrack.profile';
@@ -1024,11 +1024,11 @@ import AccountSetBase from './accountset/AccountSet.base';
 import AccountSetBizApp from './accountset/AccountSet.app';
 import AccountSetModel from './accountset/AccountSet.model';
 import AccountSetDashboard from './accountset/AccountSet.dashboard';
+import AccountSetWorkbench from './accountset/AccountSet.workbench';
 import AccountSetModalTable from './accountset/AccountSet.modaltable';
 import AccountSetSearch from './accountset/AccountSet.search';
 import AccountSetSearchForm from './accountset/AccountSet.searchform';
 import AccountSetCreateForm from './accountset/AccountSet.createform';
-import AccountSetAssociateForm from './accountset/AccountSet.associateform';
 import AccountSetTable from './accountset/AccountSet.table';
 import AccountSetPermission from './accountset/AccountSet.permission';
 import AccountSetProfile from './accountset/AccountSet.profile';
@@ -1039,11 +1039,11 @@ import AccountingSubjectBase from './accountingsubject/AccountingSubject.base';
 import AccountingSubjectBizApp from './accountingsubject/AccountingSubject.app';
 import AccountingSubjectModel from './accountingsubject/AccountingSubject.model';
 import AccountingSubjectDashboard from './accountingsubject/AccountingSubject.dashboard';
+import AccountingSubjectWorkbench from './accountingsubject/AccountingSubject.workbench';
 import AccountingSubjectModalTable from './accountingsubject/AccountingSubject.modaltable';
 import AccountingSubjectSearch from './accountingsubject/AccountingSubject.search';
 import AccountingSubjectSearchForm from './accountingsubject/AccountingSubject.searchform';
 import AccountingSubjectCreateForm from './accountingsubject/AccountingSubject.createform';
-import AccountingSubjectAssociateForm from './accountingsubject/AccountingSubject.associateform';
 import AccountingSubjectTable from './accountingsubject/AccountingSubject.table';
 import AccountingSubjectPermission from './accountingsubject/AccountingSubject.permission';
 import AccountingSubjectProfile from './accountingsubject/AccountingSubject.profile';
@@ -1054,11 +1054,11 @@ import AccountingPeriodBase from './accountingperiod/AccountingPeriod.base';
 import AccountingPeriodBizApp from './accountingperiod/AccountingPeriod.app';
 import AccountingPeriodModel from './accountingperiod/AccountingPeriod.model';
 import AccountingPeriodDashboard from './accountingperiod/AccountingPeriod.dashboard';
+import AccountingPeriodWorkbench from './accountingperiod/AccountingPeriod.workbench';
 import AccountingPeriodModalTable from './accountingperiod/AccountingPeriod.modaltable';
 import AccountingPeriodSearch from './accountingperiod/AccountingPeriod.search';
 import AccountingPeriodSearchForm from './accountingperiod/AccountingPeriod.searchform';
 import AccountingPeriodCreateForm from './accountingperiod/AccountingPeriod.createform';
-import AccountingPeriodAssociateForm from './accountingperiod/AccountingPeriod.associateform';
 import AccountingPeriodTable from './accountingperiod/AccountingPeriod.table';
 import AccountingPeriodPermission from './accountingperiod/AccountingPeriod.permission';
 import AccountingPeriodProfile from './accountingperiod/AccountingPeriod.profile';
@@ -1069,11 +1069,11 @@ import AccountingDocumentTypeBase from './accountingdocumenttype/AccountingDocum
 import AccountingDocumentTypeBizApp from './accountingdocumenttype/AccountingDocumentType.app';
 import AccountingDocumentTypeModel from './accountingdocumenttype/AccountingDocumentType.model';
 import AccountingDocumentTypeDashboard from './accountingdocumenttype/AccountingDocumentType.dashboard';
+import AccountingDocumentTypeWorkbench from './accountingdocumenttype/AccountingDocumentType.workbench';
 import AccountingDocumentTypeModalTable from './accountingdocumenttype/AccountingDocumentType.modaltable';
 import AccountingDocumentTypeSearch from './accountingdocumenttype/AccountingDocumentType.search';
 import AccountingDocumentTypeSearchForm from './accountingdocumenttype/AccountingDocumentType.searchform';
 import AccountingDocumentTypeCreateForm from './accountingdocumenttype/AccountingDocumentType.createform';
-import AccountingDocumentTypeAssociateForm from './accountingdocumenttype/AccountingDocumentType.associateform';
 import AccountingDocumentTypeTable from './accountingdocumenttype/AccountingDocumentType.table';
 import AccountingDocumentTypePermission from './accountingdocumenttype/AccountingDocumentType.permission';
 import AccountingDocumentTypeProfile from './accountingdocumenttype/AccountingDocumentType.profile';
@@ -1084,11 +1084,11 @@ import AccountingDocumentBase from './accountingdocument/AccountingDocument.base
 import AccountingDocumentBizApp from './accountingdocument/AccountingDocument.app';
 import AccountingDocumentModel from './accountingdocument/AccountingDocument.model';
 import AccountingDocumentDashboard from './accountingdocument/AccountingDocument.dashboard';
+import AccountingDocumentWorkbench from './accountingdocument/AccountingDocument.workbench';
 import AccountingDocumentModalTable from './accountingdocument/AccountingDocument.modaltable';
 import AccountingDocumentSearch from './accountingdocument/AccountingDocument.search';
 import AccountingDocumentSearchForm from './accountingdocument/AccountingDocument.searchform';
 import AccountingDocumentCreateForm from './accountingdocument/AccountingDocument.createform';
-import AccountingDocumentAssociateForm from './accountingdocument/AccountingDocument.associateform';
 import AccountingDocumentTable from './accountingdocument/AccountingDocument.table';
 import AccountingDocumentPermission from './accountingdocument/AccountingDocument.permission';
 import AccountingDocumentProfile from './accountingdocument/AccountingDocument.profile';
@@ -1099,11 +1099,11 @@ import OriginalVoucherBase from './originalvoucher/OriginalVoucher.base';
 import OriginalVoucherBizApp from './originalvoucher/OriginalVoucher.app';
 import OriginalVoucherModel from './originalvoucher/OriginalVoucher.model';
 import OriginalVoucherDashboard from './originalvoucher/OriginalVoucher.dashboard';
+import OriginalVoucherWorkbench from './originalvoucher/OriginalVoucher.workbench';
 import OriginalVoucherModalTable from './originalvoucher/OriginalVoucher.modaltable';
 import OriginalVoucherSearch from './originalvoucher/OriginalVoucher.search';
 import OriginalVoucherSearchForm from './originalvoucher/OriginalVoucher.searchform';
 import OriginalVoucherCreateForm from './originalvoucher/OriginalVoucher.createform';
-import OriginalVoucherAssociateForm from './originalvoucher/OriginalVoucher.associateform';
 import OriginalVoucherTable from './originalvoucher/OriginalVoucher.table';
 import OriginalVoucherPermission from './originalvoucher/OriginalVoucher.permission';
 import OriginalVoucherProfile from './originalvoucher/OriginalVoucher.profile';
@@ -1114,11 +1114,11 @@ import AccountingDocumentLineBase from './accountingdocumentline/AccountingDocum
 import AccountingDocumentLineBizApp from './accountingdocumentline/AccountingDocumentLine.app';
 import AccountingDocumentLineModel from './accountingdocumentline/AccountingDocumentLine.model';
 import AccountingDocumentLineDashboard from './accountingdocumentline/AccountingDocumentLine.dashboard';
+import AccountingDocumentLineWorkbench from './accountingdocumentline/AccountingDocumentLine.workbench';
 import AccountingDocumentLineModalTable from './accountingdocumentline/AccountingDocumentLine.modaltable';
 import AccountingDocumentLineSearch from './accountingdocumentline/AccountingDocumentLine.search';
 import AccountingDocumentLineSearchForm from './accountingdocumentline/AccountingDocumentLine.searchform';
 import AccountingDocumentLineCreateForm from './accountingdocumentline/AccountingDocumentLine.createform';
-import AccountingDocumentLineAssociateForm from './accountingdocumentline/AccountingDocumentLine.associateform';
 import AccountingDocumentLineTable from './accountingdocumentline/AccountingDocumentLine.table';
 import AccountingDocumentLinePermission from './accountingdocumentline/AccountingDocumentLine.permission';
 import AccountingDocumentLineProfile from './accountingdocumentline/AccountingDocumentLine.profile';
@@ -1129,11 +1129,11 @@ import LevelOneDepartmentBase from './levelonedepartment/LevelOneDepartment.base
 import LevelOneDepartmentBizApp from './levelonedepartment/LevelOneDepartment.app';
 import LevelOneDepartmentModel from './levelonedepartment/LevelOneDepartment.model';
 import LevelOneDepartmentDashboard from './levelonedepartment/LevelOneDepartment.dashboard';
+import LevelOneDepartmentWorkbench from './levelonedepartment/LevelOneDepartment.workbench';
 import LevelOneDepartmentModalTable from './levelonedepartment/LevelOneDepartment.modaltable';
 import LevelOneDepartmentSearch from './levelonedepartment/LevelOneDepartment.search';
 import LevelOneDepartmentSearchForm from './levelonedepartment/LevelOneDepartment.searchform';
 import LevelOneDepartmentCreateForm from './levelonedepartment/LevelOneDepartment.createform';
-import LevelOneDepartmentAssociateForm from './levelonedepartment/LevelOneDepartment.associateform';
 import LevelOneDepartmentTable from './levelonedepartment/LevelOneDepartment.table';
 import LevelOneDepartmentPermission from './levelonedepartment/LevelOneDepartment.permission';
 import LevelOneDepartmentProfile from './levelonedepartment/LevelOneDepartment.profile';
@@ -1144,11 +1144,11 @@ import LevelTwoDepartmentBase from './leveltwodepartment/LevelTwoDepartment.base
 import LevelTwoDepartmentBizApp from './leveltwodepartment/LevelTwoDepartment.app';
 import LevelTwoDepartmentModel from './leveltwodepartment/LevelTwoDepartment.model';
 import LevelTwoDepartmentDashboard from './leveltwodepartment/LevelTwoDepartment.dashboard';
+import LevelTwoDepartmentWorkbench from './leveltwodepartment/LevelTwoDepartment.workbench';
 import LevelTwoDepartmentModalTable from './leveltwodepartment/LevelTwoDepartment.modaltable';
 import LevelTwoDepartmentSearch from './leveltwodepartment/LevelTwoDepartment.search';
 import LevelTwoDepartmentSearchForm from './leveltwodepartment/LevelTwoDepartment.searchform';
 import LevelTwoDepartmentCreateForm from './leveltwodepartment/LevelTwoDepartment.createform';
-import LevelTwoDepartmentAssociateForm from './leveltwodepartment/LevelTwoDepartment.associateform';
 import LevelTwoDepartmentTable from './leveltwodepartment/LevelTwoDepartment.table';
 import LevelTwoDepartmentPermission from './leveltwodepartment/LevelTwoDepartment.permission';
 import LevelTwoDepartmentProfile from './leveltwodepartment/LevelTwoDepartment.profile';
@@ -1159,11 +1159,11 @@ import LevelThreeDepartmentBase from './levelthreedepartment/LevelThreeDepartmen
 import LevelThreeDepartmentBizApp from './levelthreedepartment/LevelThreeDepartment.app';
 import LevelThreeDepartmentModel from './levelthreedepartment/LevelThreeDepartment.model';
 import LevelThreeDepartmentDashboard from './levelthreedepartment/LevelThreeDepartment.dashboard';
+import LevelThreeDepartmentWorkbench from './levelthreedepartment/LevelThreeDepartment.workbench';
 import LevelThreeDepartmentModalTable from './levelthreedepartment/LevelThreeDepartment.modaltable';
 import LevelThreeDepartmentSearch from './levelthreedepartment/LevelThreeDepartment.search';
 import LevelThreeDepartmentSearchForm from './levelthreedepartment/LevelThreeDepartment.searchform';
 import LevelThreeDepartmentCreateForm from './levelthreedepartment/LevelThreeDepartment.createform';
-import LevelThreeDepartmentAssociateForm from './levelthreedepartment/LevelThreeDepartment.associateform';
 import LevelThreeDepartmentTable from './levelthreedepartment/LevelThreeDepartment.table';
 import LevelThreeDepartmentPermission from './levelthreedepartment/LevelThreeDepartment.permission';
 import LevelThreeDepartmentProfile from './levelthreedepartment/LevelThreeDepartment.profile';
@@ -1174,11 +1174,11 @@ import SkillTypeBase from './skilltype/SkillType.base';
 import SkillTypeBizApp from './skilltype/SkillType.app';
 import SkillTypeModel from './skilltype/SkillType.model';
 import SkillTypeDashboard from './skilltype/SkillType.dashboard';
+import SkillTypeWorkbench from './skilltype/SkillType.workbench';
 import SkillTypeModalTable from './skilltype/SkillType.modaltable';
 import SkillTypeSearch from './skilltype/SkillType.search';
 import SkillTypeSearchForm from './skilltype/SkillType.searchform';
 import SkillTypeCreateForm from './skilltype/SkillType.createform';
-import SkillTypeAssociateForm from './skilltype/SkillType.associateform';
 import SkillTypeTable from './skilltype/SkillType.table';
 import SkillTypePermission from './skilltype/SkillType.permission';
 import SkillTypeProfile from './skilltype/SkillType.profile';
@@ -1189,11 +1189,11 @@ import ResponsibilityTypeBase from './responsibilitytype/ResponsibilityType.base
 import ResponsibilityTypeBizApp from './responsibilitytype/ResponsibilityType.app';
 import ResponsibilityTypeModel from './responsibilitytype/ResponsibilityType.model';
 import ResponsibilityTypeDashboard from './responsibilitytype/ResponsibilityType.dashboard';
+import ResponsibilityTypeWorkbench from './responsibilitytype/ResponsibilityType.workbench';
 import ResponsibilityTypeModalTable from './responsibilitytype/ResponsibilityType.modaltable';
 import ResponsibilityTypeSearch from './responsibilitytype/ResponsibilityType.search';
 import ResponsibilityTypeSearchForm from './responsibilitytype/ResponsibilityType.searchform';
 import ResponsibilityTypeCreateForm from './responsibilitytype/ResponsibilityType.createform';
-import ResponsibilityTypeAssociateForm from './responsibilitytype/ResponsibilityType.associateform';
 import ResponsibilityTypeTable from './responsibilitytype/ResponsibilityType.table';
 import ResponsibilityTypePermission from './responsibilitytype/ResponsibilityType.permission';
 import ResponsibilityTypeProfile from './responsibilitytype/ResponsibilityType.profile';
@@ -1204,11 +1204,11 @@ import TerminationReasonBase from './terminationreason/TerminationReason.base';
 import TerminationReasonBizApp from './terminationreason/TerminationReason.app';
 import TerminationReasonModel from './terminationreason/TerminationReason.model';
 import TerminationReasonDashboard from './terminationreason/TerminationReason.dashboard';
+import TerminationReasonWorkbench from './terminationreason/TerminationReason.workbench';
 import TerminationReasonModalTable from './terminationreason/TerminationReason.modaltable';
 import TerminationReasonSearch from './terminationreason/TerminationReason.search';
 import TerminationReasonSearchForm from './terminationreason/TerminationReason.searchform';
 import TerminationReasonCreateForm from './terminationreason/TerminationReason.createform';
-import TerminationReasonAssociateForm from './terminationreason/TerminationReason.associateform';
 import TerminationReasonTable from './terminationreason/TerminationReason.table';
 import TerminationReasonPermission from './terminationreason/TerminationReason.permission';
 import TerminationReasonProfile from './terminationreason/TerminationReason.profile';
@@ -1219,11 +1219,11 @@ import TerminationTypeBase from './terminationtype/TerminationType.base';
 import TerminationTypeBizApp from './terminationtype/TerminationType.app';
 import TerminationTypeModel from './terminationtype/TerminationType.model';
 import TerminationTypeDashboard from './terminationtype/TerminationType.dashboard';
+import TerminationTypeWorkbench from './terminationtype/TerminationType.workbench';
 import TerminationTypeModalTable from './terminationtype/TerminationType.modaltable';
 import TerminationTypeSearch from './terminationtype/TerminationType.search';
 import TerminationTypeSearchForm from './terminationtype/TerminationType.searchform';
 import TerminationTypeCreateForm from './terminationtype/TerminationType.createform';
-import TerminationTypeAssociateForm from './terminationtype/TerminationType.associateform';
 import TerminationTypeTable from './terminationtype/TerminationType.table';
 import TerminationTypePermission from './terminationtype/TerminationType.permission';
 import TerminationTypeProfile from './terminationtype/TerminationType.profile';
@@ -1234,11 +1234,11 @@ import OccupationTypeBase from './occupationtype/OccupationType.base';
 import OccupationTypeBizApp from './occupationtype/OccupationType.app';
 import OccupationTypeModel from './occupationtype/OccupationType.model';
 import OccupationTypeDashboard from './occupationtype/OccupationType.dashboard';
+import OccupationTypeWorkbench from './occupationtype/OccupationType.workbench';
 import OccupationTypeModalTable from './occupationtype/OccupationType.modaltable';
 import OccupationTypeSearch from './occupationtype/OccupationType.search';
 import OccupationTypeSearchForm from './occupationtype/OccupationType.searchform';
 import OccupationTypeCreateForm from './occupationtype/OccupationType.createform';
-import OccupationTypeAssociateForm from './occupationtype/OccupationType.associateform';
 import OccupationTypeTable from './occupationtype/OccupationType.table';
 import OccupationTypePermission from './occupationtype/OccupationType.permission';
 import OccupationTypeProfile from './occupationtype/OccupationType.profile';
@@ -1249,11 +1249,11 @@ import LeaveTypeBase from './leavetype/LeaveType.base';
 import LeaveTypeBizApp from './leavetype/LeaveType.app';
 import LeaveTypeModel from './leavetype/LeaveType.model';
 import LeaveTypeDashboard from './leavetype/LeaveType.dashboard';
+import LeaveTypeWorkbench from './leavetype/LeaveType.workbench';
 import LeaveTypeModalTable from './leavetype/LeaveType.modaltable';
 import LeaveTypeSearch from './leavetype/LeaveType.search';
 import LeaveTypeSearchForm from './leavetype/LeaveType.searchform';
 import LeaveTypeCreateForm from './leavetype/LeaveType.createform';
-import LeaveTypeAssociateForm from './leavetype/LeaveType.associateform';
 import LeaveTypeTable from './leavetype/LeaveType.table';
 import LeaveTypePermission from './leavetype/LeaveType.permission';
 import LeaveTypeProfile from './leavetype/LeaveType.profile';
@@ -1264,11 +1264,11 @@ import SalaryGradeBase from './salarygrade/SalaryGrade.base';
 import SalaryGradeBizApp from './salarygrade/SalaryGrade.app';
 import SalaryGradeModel from './salarygrade/SalaryGrade.model';
 import SalaryGradeDashboard from './salarygrade/SalaryGrade.dashboard';
+import SalaryGradeWorkbench from './salarygrade/SalaryGrade.workbench';
 import SalaryGradeModalTable from './salarygrade/SalaryGrade.modaltable';
 import SalaryGradeSearch from './salarygrade/SalaryGrade.search';
 import SalaryGradeSearchForm from './salarygrade/SalaryGrade.searchform';
 import SalaryGradeCreateForm from './salarygrade/SalaryGrade.createform';
-import SalaryGradeAssociateForm from './salarygrade/SalaryGrade.associateform';
 import SalaryGradeTable from './salarygrade/SalaryGrade.table';
 import SalaryGradePermission from './salarygrade/SalaryGrade.permission';
 import SalaryGradeProfile from './salarygrade/SalaryGrade.profile';
@@ -1279,11 +1279,11 @@ import InterviewTypeBase from './interviewtype/InterviewType.base';
 import InterviewTypeBizApp from './interviewtype/InterviewType.app';
 import InterviewTypeModel from './interviewtype/InterviewType.model';
 import InterviewTypeDashboard from './interviewtype/InterviewType.dashboard';
+import InterviewTypeWorkbench from './interviewtype/InterviewType.workbench';
 import InterviewTypeModalTable from './interviewtype/InterviewType.modaltable';
 import InterviewTypeSearch from './interviewtype/InterviewType.search';
 import InterviewTypeSearchForm from './interviewtype/InterviewType.searchform';
 import InterviewTypeCreateForm from './interviewtype/InterviewType.createform';
-import InterviewTypeAssociateForm from './interviewtype/InterviewType.associateform';
 import InterviewTypeTable from './interviewtype/InterviewType.table';
 import InterviewTypePermission from './interviewtype/InterviewType.permission';
 import InterviewTypeProfile from './interviewtype/InterviewType.profile';
@@ -1294,11 +1294,11 @@ import TrainingCourseTypeBase from './trainingcoursetype/TrainingCourseType.base
 import TrainingCourseTypeBizApp from './trainingcoursetype/TrainingCourseType.app';
 import TrainingCourseTypeModel from './trainingcoursetype/TrainingCourseType.model';
 import TrainingCourseTypeDashboard from './trainingcoursetype/TrainingCourseType.dashboard';
+import TrainingCourseTypeWorkbench from './trainingcoursetype/TrainingCourseType.workbench';
 import TrainingCourseTypeModalTable from './trainingcoursetype/TrainingCourseType.modaltable';
 import TrainingCourseTypeSearch from './trainingcoursetype/TrainingCourseType.search';
 import TrainingCourseTypeSearchForm from './trainingcoursetype/TrainingCourseType.searchform';
 import TrainingCourseTypeCreateForm from './trainingcoursetype/TrainingCourseType.createform';
-import TrainingCourseTypeAssociateForm from './trainingcoursetype/TrainingCourseType.associateform';
 import TrainingCourseTypeTable from './trainingcoursetype/TrainingCourseType.table';
 import TrainingCourseTypePermission from './trainingcoursetype/TrainingCourseType.permission';
 import TrainingCourseTypeProfile from './trainingcoursetype/TrainingCourseType.profile';
@@ -1309,11 +1309,11 @@ import PublicHolidayBase from './publicholiday/PublicHoliday.base';
 import PublicHolidayBizApp from './publicholiday/PublicHoliday.app';
 import PublicHolidayModel from './publicholiday/PublicHoliday.model';
 import PublicHolidayDashboard from './publicholiday/PublicHoliday.dashboard';
+import PublicHolidayWorkbench from './publicholiday/PublicHoliday.workbench';
 import PublicHolidayModalTable from './publicholiday/PublicHoliday.modaltable';
 import PublicHolidaySearch from './publicholiday/PublicHoliday.search';
 import PublicHolidaySearchForm from './publicholiday/PublicHoliday.searchform';
 import PublicHolidayCreateForm from './publicholiday/PublicHoliday.createform';
-import PublicHolidayAssociateForm from './publicholiday/PublicHoliday.associateform';
 import PublicHolidayTable from './publicholiday/PublicHoliday.table';
 import PublicHolidayPermission from './publicholiday/PublicHoliday.permission';
 import PublicHolidayProfile from './publicholiday/PublicHoliday.profile';
@@ -1324,11 +1324,11 @@ import TerminationBase from './termination/Termination.base';
 import TerminationBizApp from './termination/Termination.app';
 import TerminationModel from './termination/Termination.model';
 import TerminationDashboard from './termination/Termination.dashboard';
+import TerminationWorkbench from './termination/Termination.workbench';
 import TerminationModalTable from './termination/Termination.modaltable';
 import TerminationSearch from './termination/Termination.search';
 import TerminationSearchForm from './termination/Termination.searchform';
 import TerminationCreateForm from './termination/Termination.createform';
-import TerminationAssociateForm from './termination/Termination.associateform';
 import TerminationTable from './termination/Termination.table';
 import TerminationPermission from './termination/Termination.permission';
 import TerminationProfile from './termination/Termination.profile';
@@ -1339,11 +1339,11 @@ import ViewBase from './view/View.base';
 import ViewBizApp from './view/View.app';
 import ViewModel from './view/View.model';
 import ViewDashboard from './view/View.dashboard';
+import ViewWorkbench from './view/View.workbench';
 import ViewModalTable from './view/View.modaltable';
 import ViewSearch from './view/View.search';
 import ViewSearchForm from './view/View.searchform';
 import ViewCreateForm from './view/View.createform';
-import ViewAssociateForm from './view/View.associateform';
 import ViewTable from './view/View.table';
 import ViewPermission from './view/View.permission';
 import ViewProfile from './view/View.profile';
@@ -1354,11 +1354,11 @@ import EmployeeBase from './employee/Employee.base';
 import EmployeeBizApp from './employee/Employee.app';
 import EmployeeModel from './employee/Employee.model';
 import EmployeeDashboard from './employee/Employee.dashboard';
+import EmployeeWorkbench from './employee/Employee.workbench';
 import EmployeeModalTable from './employee/Employee.modaltable';
 import EmployeeSearch from './employee/Employee.search';
 import EmployeeSearchForm from './employee/Employee.searchform';
 import EmployeeCreateForm from './employee/Employee.createform';
-import EmployeeAssociateForm from './employee/Employee.associateform';
 import EmployeeTable from './employee/Employee.table';
 import EmployeePermission from './employee/Employee.permission';
 import EmployeeProfile from './employee/Employee.profile';
@@ -1369,11 +1369,11 @@ import InstructorBase from './instructor/Instructor.base';
 import InstructorBizApp from './instructor/Instructor.app';
 import InstructorModel from './instructor/Instructor.model';
 import InstructorDashboard from './instructor/Instructor.dashboard';
+import InstructorWorkbench from './instructor/Instructor.workbench';
 import InstructorModalTable from './instructor/Instructor.modaltable';
 import InstructorSearch from './instructor/Instructor.search';
 import InstructorSearchForm from './instructor/Instructor.searchform';
 import InstructorCreateForm from './instructor/Instructor.createform';
-import InstructorAssociateForm from './instructor/Instructor.associateform';
 import InstructorTable from './instructor/Instructor.table';
 import InstructorPermission from './instructor/Instructor.permission';
 import InstructorProfile from './instructor/Instructor.profile';
@@ -1384,11 +1384,11 @@ import CompanyTrainingBase from './companytraining/CompanyTraining.base';
 import CompanyTrainingBizApp from './companytraining/CompanyTraining.app';
 import CompanyTrainingModel from './companytraining/CompanyTraining.model';
 import CompanyTrainingDashboard from './companytraining/CompanyTraining.dashboard';
+import CompanyTrainingWorkbench from './companytraining/CompanyTraining.workbench';
 import CompanyTrainingModalTable from './companytraining/CompanyTraining.modaltable';
 import CompanyTrainingSearch from './companytraining/CompanyTraining.search';
 import CompanyTrainingSearchForm from './companytraining/CompanyTraining.searchform';
 import CompanyTrainingCreateForm from './companytraining/CompanyTraining.createform';
-import CompanyTrainingAssociateForm from './companytraining/CompanyTraining.associateform';
 import CompanyTrainingTable from './companytraining/CompanyTraining.table';
 import CompanyTrainingPermission from './companytraining/CompanyTraining.permission';
 import CompanyTrainingProfile from './companytraining/CompanyTraining.profile';
@@ -1399,11 +1399,11 @@ import ScoringBase from './scoring/Scoring.base';
 import ScoringBizApp from './scoring/Scoring.app';
 import ScoringModel from './scoring/Scoring.model';
 import ScoringDashboard from './scoring/Scoring.dashboard';
+import ScoringWorkbench from './scoring/Scoring.workbench';
 import ScoringModalTable from './scoring/Scoring.modaltable';
 import ScoringSearch from './scoring/Scoring.search';
 import ScoringSearchForm from './scoring/Scoring.searchform';
 import ScoringCreateForm from './scoring/Scoring.createform';
-import ScoringAssociateForm from './scoring/Scoring.associateform';
 import ScoringTable from './scoring/Scoring.table';
 import ScoringPermission from './scoring/Scoring.permission';
 import ScoringProfile from './scoring/Scoring.profile';
@@ -1414,11 +1414,11 @@ import EmployeeCompanyTrainingBase from './employeecompanytraining/EmployeeCompa
 import EmployeeCompanyTrainingBizApp from './employeecompanytraining/EmployeeCompanyTraining.app';
 import EmployeeCompanyTrainingModel from './employeecompanytraining/EmployeeCompanyTraining.model';
 import EmployeeCompanyTrainingDashboard from './employeecompanytraining/EmployeeCompanyTraining.dashboard';
+import EmployeeCompanyTrainingWorkbench from './employeecompanytraining/EmployeeCompanyTraining.workbench';
 import EmployeeCompanyTrainingModalTable from './employeecompanytraining/EmployeeCompanyTraining.modaltable';
 import EmployeeCompanyTrainingSearch from './employeecompanytraining/EmployeeCompanyTraining.search';
 import EmployeeCompanyTrainingSearchForm from './employeecompanytraining/EmployeeCompanyTraining.searchform';
 import EmployeeCompanyTrainingCreateForm from './employeecompanytraining/EmployeeCompanyTraining.createform';
-import EmployeeCompanyTrainingAssociateForm from './employeecompanytraining/EmployeeCompanyTraining.associateform';
 import EmployeeCompanyTrainingTable from './employeecompanytraining/EmployeeCompanyTraining.table';
 import EmployeeCompanyTrainingPermission from './employeecompanytraining/EmployeeCompanyTraining.permission';
 import EmployeeCompanyTrainingProfile from './employeecompanytraining/EmployeeCompanyTraining.profile';
@@ -1429,11 +1429,11 @@ import EmployeeSkillBase from './employeeskill/EmployeeSkill.base';
 import EmployeeSkillBizApp from './employeeskill/EmployeeSkill.app';
 import EmployeeSkillModel from './employeeskill/EmployeeSkill.model';
 import EmployeeSkillDashboard from './employeeskill/EmployeeSkill.dashboard';
+import EmployeeSkillWorkbench from './employeeskill/EmployeeSkill.workbench';
 import EmployeeSkillModalTable from './employeeskill/EmployeeSkill.modaltable';
 import EmployeeSkillSearch from './employeeskill/EmployeeSkill.search';
 import EmployeeSkillSearchForm from './employeeskill/EmployeeSkill.searchform';
 import EmployeeSkillCreateForm from './employeeskill/EmployeeSkill.createform';
-import EmployeeSkillAssociateForm from './employeeskill/EmployeeSkill.associateform';
 import EmployeeSkillTable from './employeeskill/EmployeeSkill.table';
 import EmployeeSkillPermission from './employeeskill/EmployeeSkill.permission';
 import EmployeeSkillProfile from './employeeskill/EmployeeSkill.profile';
@@ -1444,11 +1444,11 @@ import EmployeePerformanceBase from './employeeperformance/EmployeePerformance.b
 import EmployeePerformanceBizApp from './employeeperformance/EmployeePerformance.app';
 import EmployeePerformanceModel from './employeeperformance/EmployeePerformance.model';
 import EmployeePerformanceDashboard from './employeeperformance/EmployeePerformance.dashboard';
+import EmployeePerformanceWorkbench from './employeeperformance/EmployeePerformance.workbench';
 import EmployeePerformanceModalTable from './employeeperformance/EmployeePerformance.modaltable';
 import EmployeePerformanceSearch from './employeeperformance/EmployeePerformance.search';
 import EmployeePerformanceSearchForm from './employeeperformance/EmployeePerformance.searchform';
 import EmployeePerformanceCreateForm from './employeeperformance/EmployeePerformance.createform';
-import EmployeePerformanceAssociateForm from './employeeperformance/EmployeePerformance.associateform';
 import EmployeePerformanceTable from './employeeperformance/EmployeePerformance.table';
 import EmployeePerformancePermission from './employeeperformance/EmployeePerformance.permission';
 import EmployeePerformanceProfile from './employeeperformance/EmployeePerformance.profile';
@@ -1459,11 +1459,11 @@ import EmployeeWorkExperienceBase from './employeeworkexperience/EmployeeWorkExp
 import EmployeeWorkExperienceBizApp from './employeeworkexperience/EmployeeWorkExperience.app';
 import EmployeeWorkExperienceModel from './employeeworkexperience/EmployeeWorkExperience.model';
 import EmployeeWorkExperienceDashboard from './employeeworkexperience/EmployeeWorkExperience.dashboard';
+import EmployeeWorkExperienceWorkbench from './employeeworkexperience/EmployeeWorkExperience.workbench';
 import EmployeeWorkExperienceModalTable from './employeeworkexperience/EmployeeWorkExperience.modaltable';
 import EmployeeWorkExperienceSearch from './employeeworkexperience/EmployeeWorkExperience.search';
 import EmployeeWorkExperienceSearchForm from './employeeworkexperience/EmployeeWorkExperience.searchform';
 import EmployeeWorkExperienceCreateForm from './employeeworkexperience/EmployeeWorkExperience.createform';
-import EmployeeWorkExperienceAssociateForm from './employeeworkexperience/EmployeeWorkExperience.associateform';
 import EmployeeWorkExperienceTable from './employeeworkexperience/EmployeeWorkExperience.table';
 import EmployeeWorkExperiencePermission from './employeeworkexperience/EmployeeWorkExperience.permission';
 import EmployeeWorkExperienceProfile from './employeeworkexperience/EmployeeWorkExperience.profile';
@@ -1474,11 +1474,11 @@ import EmployeeLeaveBase from './employeeleave/EmployeeLeave.base';
 import EmployeeLeaveBizApp from './employeeleave/EmployeeLeave.app';
 import EmployeeLeaveModel from './employeeleave/EmployeeLeave.model';
 import EmployeeLeaveDashboard from './employeeleave/EmployeeLeave.dashboard';
+import EmployeeLeaveWorkbench from './employeeleave/EmployeeLeave.workbench';
 import EmployeeLeaveModalTable from './employeeleave/EmployeeLeave.modaltable';
 import EmployeeLeaveSearch from './employeeleave/EmployeeLeave.search';
 import EmployeeLeaveSearchForm from './employeeleave/EmployeeLeave.searchform';
 import EmployeeLeaveCreateForm from './employeeleave/EmployeeLeave.createform';
-import EmployeeLeaveAssociateForm from './employeeleave/EmployeeLeave.associateform';
 import EmployeeLeaveTable from './employeeleave/EmployeeLeave.table';
 import EmployeeLeavePermission from './employeeleave/EmployeeLeave.permission';
 import EmployeeLeaveProfile from './employeeleave/EmployeeLeave.profile';
@@ -1489,11 +1489,11 @@ import EmployeeInterviewBase from './employeeinterview/EmployeeInterview.base';
 import EmployeeInterviewBizApp from './employeeinterview/EmployeeInterview.app';
 import EmployeeInterviewModel from './employeeinterview/EmployeeInterview.model';
 import EmployeeInterviewDashboard from './employeeinterview/EmployeeInterview.dashboard';
+import EmployeeInterviewWorkbench from './employeeinterview/EmployeeInterview.workbench';
 import EmployeeInterviewModalTable from './employeeinterview/EmployeeInterview.modaltable';
 import EmployeeInterviewSearch from './employeeinterview/EmployeeInterview.search';
 import EmployeeInterviewSearchForm from './employeeinterview/EmployeeInterview.searchform';
 import EmployeeInterviewCreateForm from './employeeinterview/EmployeeInterview.createform';
-import EmployeeInterviewAssociateForm from './employeeinterview/EmployeeInterview.associateform';
 import EmployeeInterviewTable from './employeeinterview/EmployeeInterview.table';
 import EmployeeInterviewPermission from './employeeinterview/EmployeeInterview.permission';
 import EmployeeInterviewProfile from './employeeinterview/EmployeeInterview.profile';
@@ -1504,11 +1504,11 @@ import EmployeeAttendanceBase from './employeeattendance/EmployeeAttendance.base
 import EmployeeAttendanceBizApp from './employeeattendance/EmployeeAttendance.app';
 import EmployeeAttendanceModel from './employeeattendance/EmployeeAttendance.model';
 import EmployeeAttendanceDashboard from './employeeattendance/EmployeeAttendance.dashboard';
+import EmployeeAttendanceWorkbench from './employeeattendance/EmployeeAttendance.workbench';
 import EmployeeAttendanceModalTable from './employeeattendance/EmployeeAttendance.modaltable';
 import EmployeeAttendanceSearch from './employeeattendance/EmployeeAttendance.search';
 import EmployeeAttendanceSearchForm from './employeeattendance/EmployeeAttendance.searchform';
 import EmployeeAttendanceCreateForm from './employeeattendance/EmployeeAttendance.createform';
-import EmployeeAttendanceAssociateForm from './employeeattendance/EmployeeAttendance.associateform';
 import EmployeeAttendanceTable from './employeeattendance/EmployeeAttendance.table';
 import EmployeeAttendancePermission from './employeeattendance/EmployeeAttendance.permission';
 import EmployeeAttendanceProfile from './employeeattendance/EmployeeAttendance.profile';
@@ -1519,11 +1519,11 @@ import EmployeeQualifierBase from './employeequalifier/EmployeeQualifier.base';
 import EmployeeQualifierBizApp from './employeequalifier/EmployeeQualifier.app';
 import EmployeeQualifierModel from './employeequalifier/EmployeeQualifier.model';
 import EmployeeQualifierDashboard from './employeequalifier/EmployeeQualifier.dashboard';
+import EmployeeQualifierWorkbench from './employeequalifier/EmployeeQualifier.workbench';
 import EmployeeQualifierModalTable from './employeequalifier/EmployeeQualifier.modaltable';
 import EmployeeQualifierSearch from './employeequalifier/EmployeeQualifier.search';
 import EmployeeQualifierSearchForm from './employeequalifier/EmployeeQualifier.searchform';
 import EmployeeQualifierCreateForm from './employeequalifier/EmployeeQualifier.createform';
-import EmployeeQualifierAssociateForm from './employeequalifier/EmployeeQualifier.associateform';
 import EmployeeQualifierTable from './employeequalifier/EmployeeQualifier.table';
 import EmployeeQualifierPermission from './employeequalifier/EmployeeQualifier.permission';
 import EmployeeQualifierProfile from './employeequalifier/EmployeeQualifier.profile';
@@ -1534,11 +1534,11 @@ import EmployeeEducationBase from './employeeeducation/EmployeeEducation.base';
 import EmployeeEducationBizApp from './employeeeducation/EmployeeEducation.app';
 import EmployeeEducationModel from './employeeeducation/EmployeeEducation.model';
 import EmployeeEducationDashboard from './employeeeducation/EmployeeEducation.dashboard';
+import EmployeeEducationWorkbench from './employeeeducation/EmployeeEducation.workbench';
 import EmployeeEducationModalTable from './employeeeducation/EmployeeEducation.modaltable';
 import EmployeeEducationSearch from './employeeeducation/EmployeeEducation.search';
 import EmployeeEducationSearchForm from './employeeeducation/EmployeeEducation.searchform';
 import EmployeeEducationCreateForm from './employeeeducation/EmployeeEducation.createform';
-import EmployeeEducationAssociateForm from './employeeeducation/EmployeeEducation.associateform';
 import EmployeeEducationTable from './employeeeducation/EmployeeEducation.table';
 import EmployeeEducationPermission from './employeeeducation/EmployeeEducation.permission';
 import EmployeeEducationProfile from './employeeeducation/EmployeeEducation.profile';
@@ -1549,11 +1549,11 @@ import EmployeeAwardBase from './employeeaward/EmployeeAward.base';
 import EmployeeAwardBizApp from './employeeaward/EmployeeAward.app';
 import EmployeeAwardModel from './employeeaward/EmployeeAward.model';
 import EmployeeAwardDashboard from './employeeaward/EmployeeAward.dashboard';
+import EmployeeAwardWorkbench from './employeeaward/EmployeeAward.workbench';
 import EmployeeAwardModalTable from './employeeaward/EmployeeAward.modaltable';
 import EmployeeAwardSearch from './employeeaward/EmployeeAward.search';
 import EmployeeAwardSearchForm from './employeeaward/EmployeeAward.searchform';
 import EmployeeAwardCreateForm from './employeeaward/EmployeeAward.createform';
-import EmployeeAwardAssociateForm from './employeeaward/EmployeeAward.associateform';
 import EmployeeAwardTable from './employeeaward/EmployeeAward.table';
 import EmployeeAwardPermission from './employeeaward/EmployeeAward.permission';
 import EmployeeAwardProfile from './employeeaward/EmployeeAward.profile';
@@ -1564,11 +1564,11 @@ import EmployeeSalarySheetBase from './employeesalarysheet/EmployeeSalarySheet.b
 import EmployeeSalarySheetBizApp from './employeesalarysheet/EmployeeSalarySheet.app';
 import EmployeeSalarySheetModel from './employeesalarysheet/EmployeeSalarySheet.model';
 import EmployeeSalarySheetDashboard from './employeesalarysheet/EmployeeSalarySheet.dashboard';
+import EmployeeSalarySheetWorkbench from './employeesalarysheet/EmployeeSalarySheet.workbench';
 import EmployeeSalarySheetModalTable from './employeesalarysheet/EmployeeSalarySheet.modaltable';
 import EmployeeSalarySheetSearch from './employeesalarysheet/EmployeeSalarySheet.search';
 import EmployeeSalarySheetSearchForm from './employeesalarysheet/EmployeeSalarySheet.searchform';
 import EmployeeSalarySheetCreateForm from './employeesalarysheet/EmployeeSalarySheet.createform';
-import EmployeeSalarySheetAssociateForm from './employeesalarysheet/EmployeeSalarySheet.associateform';
 import EmployeeSalarySheetTable from './employeesalarysheet/EmployeeSalarySheet.table';
 import EmployeeSalarySheetPermission from './employeesalarysheet/EmployeeSalarySheet.permission';
 import EmployeeSalarySheetProfile from './employeesalarysheet/EmployeeSalarySheet.profile';
@@ -1579,11 +1579,11 @@ import PayingOffBase from './payingoff/PayingOff.base';
 import PayingOffBizApp from './payingoff/PayingOff.app';
 import PayingOffModel from './payingoff/PayingOff.model';
 import PayingOffDashboard from './payingoff/PayingOff.dashboard';
+import PayingOffWorkbench from './payingoff/PayingOff.workbench';
 import PayingOffModalTable from './payingoff/PayingOff.modaltable';
 import PayingOffSearch from './payingoff/PayingOff.search';
 import PayingOffSearchForm from './payingoff/PayingOff.searchform';
 import PayingOffCreateForm from './payingoff/PayingOff.createform';
-import PayingOffAssociateForm from './payingoff/PayingOff.associateform';
 import PayingOffTable from './payingoff/PayingOff.table';
 import PayingOffPermission from './payingoff/PayingOff.permission';
 import PayingOffProfile from './payingoff/PayingOff.profile';
@@ -1594,11 +1594,11 @@ import MobileAppBase from './mobileapp/MobileApp.base';
 import MobileAppBizApp from './mobileapp/MobileApp.app';
 import MobileAppModel from './mobileapp/MobileApp.model';
 import MobileAppDashboard from './mobileapp/MobileApp.dashboard';
+import MobileAppWorkbench from './mobileapp/MobileApp.workbench';
 import MobileAppModalTable from './mobileapp/MobileApp.modaltable';
 import MobileAppSearch from './mobileapp/MobileApp.search';
 import MobileAppSearchForm from './mobileapp/MobileApp.searchform';
 import MobileAppCreateForm from './mobileapp/MobileApp.createform';
-import MobileAppAssociateForm from './mobileapp/MobileApp.associateform';
 import MobileAppTable from './mobileapp/MobileApp.table';
 import MobileAppPermission from './mobileapp/MobileApp.permission';
 import MobileAppProfile from './mobileapp/MobileApp.profile';
@@ -1609,11 +1609,11 @@ import PageBase from './page/Page.base';
 import PageBizApp from './page/Page.app';
 import PageModel from './page/Page.model';
 import PageDashboard from './page/Page.dashboard';
+import PageWorkbench from './page/Page.workbench';
 import PageModalTable from './page/Page.modaltable';
 import PageSearch from './page/Page.search';
 import PageSearchForm from './page/Page.searchform';
 import PageCreateForm from './page/Page.createform';
-import PageAssociateForm from './page/Page.associateform';
 import PageTable from './page/Page.table';
 import PagePermission from './page/Page.permission';
 import PageProfile from './page/Page.profile';
@@ -1624,11 +1624,11 @@ import PageTypeBase from './pagetype/PageType.base';
 import PageTypeBizApp from './pagetype/PageType.app';
 import PageTypeModel from './pagetype/PageType.model';
 import PageTypeDashboard from './pagetype/PageType.dashboard';
+import PageTypeWorkbench from './pagetype/PageType.workbench';
 import PageTypeModalTable from './pagetype/PageType.modaltable';
 import PageTypeSearch from './pagetype/PageType.search';
 import PageTypeSearchForm from './pagetype/PageType.searchform';
 import PageTypeCreateForm from './pagetype/PageType.createform';
-import PageTypeAssociateForm from './pagetype/PageType.associateform';
 import PageTypeTable from './pagetype/PageType.table';
 import PageTypePermission from './pagetype/PageType.permission';
 import PageTypeProfile from './pagetype/PageType.profile';
@@ -1639,11 +1639,11 @@ import SlideBase from './slide/Slide.base';
 import SlideBizApp from './slide/Slide.app';
 import SlideModel from './slide/Slide.model';
 import SlideDashboard from './slide/Slide.dashboard';
+import SlideWorkbench from './slide/Slide.workbench';
 import SlideModalTable from './slide/Slide.modaltable';
 import SlideSearch from './slide/Slide.search';
 import SlideSearchForm from './slide/Slide.searchform';
 import SlideCreateForm from './slide/Slide.createform';
-import SlideAssociateForm from './slide/Slide.associateform';
 import SlideTable from './slide/Slide.table';
 import SlidePermission from './slide/Slide.permission';
 import SlideProfile from './slide/Slide.profile';
@@ -1654,11 +1654,11 @@ import UiActionBase from './uiaction/UiAction.base';
 import UiActionBizApp from './uiaction/UiAction.app';
 import UiActionModel from './uiaction/UiAction.model';
 import UiActionDashboard from './uiaction/UiAction.dashboard';
+import UiActionWorkbench from './uiaction/UiAction.workbench';
 import UiActionModalTable from './uiaction/UiAction.modaltable';
 import UiActionSearch from './uiaction/UiAction.search';
 import UiActionSearchForm from './uiaction/UiAction.searchform';
 import UiActionCreateForm from './uiaction/UiAction.createform';
-import UiActionAssociateForm from './uiaction/UiAction.associateform';
 import UiActionTable from './uiaction/UiAction.table';
 import UiActionPermission from './uiaction/UiAction.permission';
 import UiActionProfile from './uiaction/UiAction.profile';
@@ -1669,11 +1669,11 @@ import SectionBase from './section/Section.base';
 import SectionBizApp from './section/Section.app';
 import SectionModel from './section/Section.model';
 import SectionDashboard from './section/Section.dashboard';
+import SectionWorkbench from './section/Section.workbench';
 import SectionModalTable from './section/Section.modaltable';
 import SectionSearch from './section/Section.search';
 import SectionSearchForm from './section/Section.searchform';
 import SectionCreateForm from './section/Section.createform';
-import SectionAssociateForm from './section/Section.associateform';
 import SectionTable from './section/Section.table';
 import SectionPermission from './section/Section.permission';
 import SectionProfile from './section/Section.profile';
@@ -1684,41 +1684,41 @@ import UserDomainBase from './userdomain/UserDomain.base';
 import UserDomainBizApp from './userdomain/UserDomain.app';
 import UserDomainModel from './userdomain/UserDomain.model';
 import UserDomainDashboard from './userdomain/UserDomain.dashboard';
+import UserDomainWorkbench from './userdomain/UserDomain.workbench';
 import UserDomainModalTable from './userdomain/UserDomain.modaltable';
 import UserDomainSearch from './userdomain/UserDomain.search';
 import UserDomainSearchForm from './userdomain/UserDomain.searchform';
 import UserDomainCreateForm from './userdomain/UserDomain.createform';
-import UserDomainAssociateForm from './userdomain/UserDomain.associateform';
 import UserDomainTable from './userdomain/UserDomain.table';
 import UserDomainPermission from './userdomain/UserDomain.permission';
 import UserDomainProfile from './userdomain/UserDomain.profile';
 import UserDomainCreateFormBody from './userdomain/UserDomain.createformbody';
 import UserDomainService from './userdomain/UserDomain.service';
 import UserDomainUpdateForm from './userdomain/UserDomain.updateform';
-import UserWhiteListBase from './userwhitelist/UserWhiteList.base';
-import UserWhiteListBizApp from './userwhitelist/UserWhiteList.app';
-import UserWhiteListModel from './userwhitelist/UserWhiteList.model';
-import UserWhiteListDashboard from './userwhitelist/UserWhiteList.dashboard';
-import UserWhiteListModalTable from './userwhitelist/UserWhiteList.modaltable';
-import UserWhiteListSearch from './userwhitelist/UserWhiteList.search';
-import UserWhiteListSearchForm from './userwhitelist/UserWhiteList.searchform';
-import UserWhiteListCreateForm from './userwhitelist/UserWhiteList.createform';
-import UserWhiteListAssociateForm from './userwhitelist/UserWhiteList.associateform';
-import UserWhiteListTable from './userwhitelist/UserWhiteList.table';
-import UserWhiteListPermission from './userwhitelist/UserWhiteList.permission';
-import UserWhiteListProfile from './userwhitelist/UserWhiteList.profile';
-import UserWhiteListCreateFormBody from './userwhitelist/UserWhiteList.createformbody';
-import UserWhiteListService from './userwhitelist/UserWhiteList.service';
-import UserWhiteListUpdateForm from './userwhitelist/UserWhiteList.updateform';
+import UserAllowListBase from './userallowlist/UserAllowList.base';
+import UserAllowListBizApp from './userallowlist/UserAllowList.app';
+import UserAllowListModel from './userallowlist/UserAllowList.model';
+import UserAllowListDashboard from './userallowlist/UserAllowList.dashboard';
+import UserAllowListWorkbench from './userallowlist/UserAllowList.workbench';
+import UserAllowListModalTable from './userallowlist/UserAllowList.modaltable';
+import UserAllowListSearch from './userallowlist/UserAllowList.search';
+import UserAllowListSearchForm from './userallowlist/UserAllowList.searchform';
+import UserAllowListCreateForm from './userallowlist/UserAllowList.createform';
+import UserAllowListTable from './userallowlist/UserAllowList.table';
+import UserAllowListPermission from './userallowlist/UserAllowList.permission';
+import UserAllowListProfile from './userallowlist/UserAllowList.profile';
+import UserAllowListCreateFormBody from './userallowlist/UserAllowList.createformbody';
+import UserAllowListService from './userallowlist/UserAllowList.service';
+import UserAllowListUpdateForm from './userallowlist/UserAllowList.updateform';
 import SecUserBase from './secuser/SecUser.base';
 import SecUserBizApp from './secuser/SecUser.app';
 import SecUserModel from './secuser/SecUser.model';
 import SecUserDashboard from './secuser/SecUser.dashboard';
+import SecUserWorkbench from './secuser/SecUser.workbench';
 import SecUserModalTable from './secuser/SecUser.modaltable';
 import SecUserSearch from './secuser/SecUser.search';
 import SecUserSearchForm from './secuser/SecUser.searchform';
 import SecUserCreateForm from './secuser/SecUser.createform';
-import SecUserAssociateForm from './secuser/SecUser.associateform';
 import SecUserTable from './secuser/SecUser.table';
 import SecUserPermission from './secuser/SecUser.permission';
 import SecUserProfile from './secuser/SecUser.profile';
@@ -1729,11 +1729,11 @@ import UserAppBase from './userapp/UserApp.base';
 import UserAppBizApp from './userapp/UserApp.app';
 import UserAppModel from './userapp/UserApp.model';
 import UserAppDashboard from './userapp/UserApp.dashboard';
+import UserAppWorkbench from './userapp/UserApp.workbench';
 import UserAppModalTable from './userapp/UserApp.modaltable';
 import UserAppSearch from './userapp/UserApp.search';
 import UserAppSearchForm from './userapp/UserApp.searchform';
 import UserAppCreateForm from './userapp/UserApp.createform';
-import UserAppAssociateForm from './userapp/UserApp.associateform';
 import UserAppTable from './userapp/UserApp.table';
 import UserAppPermission from './userapp/UserApp.permission';
 import UserAppProfile from './userapp/UserApp.profile';
@@ -1744,11 +1744,11 @@ import QuickLinkBase from './quicklink/QuickLink.base';
 import QuickLinkBizApp from './quicklink/QuickLink.app';
 import QuickLinkModel from './quicklink/QuickLink.model';
 import QuickLinkDashboard from './quicklink/QuickLink.dashboard';
+import QuickLinkWorkbench from './quicklink/QuickLink.workbench';
 import QuickLinkModalTable from './quicklink/QuickLink.modaltable';
 import QuickLinkSearch from './quicklink/QuickLink.search';
 import QuickLinkSearchForm from './quicklink/QuickLink.searchform';
 import QuickLinkCreateForm from './quicklink/QuickLink.createform';
-import QuickLinkAssociateForm from './quicklink/QuickLink.associateform';
 import QuickLinkTable from './quicklink/QuickLink.table';
 import QuickLinkPermission from './quicklink/QuickLink.permission';
 import QuickLinkProfile from './quicklink/QuickLink.profile';
@@ -1759,11 +1759,11 @@ import ListAccessBase from './listaccess/ListAccess.base';
 import ListAccessBizApp from './listaccess/ListAccess.app';
 import ListAccessModel from './listaccess/ListAccess.model';
 import ListAccessDashboard from './listaccess/ListAccess.dashboard';
+import ListAccessWorkbench from './listaccess/ListAccess.workbench';
 import ListAccessModalTable from './listaccess/ListAccess.modaltable';
 import ListAccessSearch from './listaccess/ListAccess.search';
 import ListAccessSearchForm from './listaccess/ListAccess.searchform';
 import ListAccessCreateForm from './listaccess/ListAccess.createform';
-import ListAccessAssociateForm from './listaccess/ListAccess.associateform';
 import ListAccessTable from './listaccess/ListAccess.table';
 import ListAccessPermission from './listaccess/ListAccess.permission';
 import ListAccessProfile from './listaccess/ListAccess.profile';
@@ -1774,11 +1774,11 @@ import LoginHistoryBase from './loginhistory/LoginHistory.base';
 import LoginHistoryBizApp from './loginhistory/LoginHistory.app';
 import LoginHistoryModel from './loginhistory/LoginHistory.model';
 import LoginHistoryDashboard from './loginhistory/LoginHistory.dashboard';
+import LoginHistoryWorkbench from './loginhistory/LoginHistory.workbench';
 import LoginHistoryModalTable from './loginhistory/LoginHistory.modaltable';
 import LoginHistorySearch from './loginhistory/LoginHistory.search';
 import LoginHistorySearchForm from './loginhistory/LoginHistory.searchform';
 import LoginHistoryCreateForm from './loginhistory/LoginHistory.createform';
-import LoginHistoryAssociateForm from './loginhistory/LoginHistory.associateform';
 import LoginHistoryTable from './loginhistory/LoginHistory.table';
 import LoginHistoryPermission from './loginhistory/LoginHistory.permission';
 import LoginHistoryProfile from './loginhistory/LoginHistory.profile';
@@ -1789,11 +1789,11 @@ import CandidateContainerBase from './candidatecontainer/CandidateContainer.base
 import CandidateContainerBizApp from './candidatecontainer/CandidateContainer.app';
 import CandidateContainerModel from './candidatecontainer/CandidateContainer.model';
 import CandidateContainerDashboard from './candidatecontainer/CandidateContainer.dashboard';
+import CandidateContainerWorkbench from './candidatecontainer/CandidateContainer.workbench';
 import CandidateContainerModalTable from './candidatecontainer/CandidateContainer.modaltable';
 import CandidateContainerSearch from './candidatecontainer/CandidateContainer.search';
 import CandidateContainerSearchForm from './candidatecontainer/CandidateContainer.searchform';
 import CandidateContainerCreateForm from './candidatecontainer/CandidateContainer.createform';
-import CandidateContainerAssociateForm from './candidatecontainer/CandidateContainer.associateform';
 import CandidateContainerTable from './candidatecontainer/CandidateContainer.table';
 import CandidateContainerPermission from './candidatecontainer/CandidateContainer.permission';
 import CandidateContainerProfile from './candidatecontainer/CandidateContainer.profile';
@@ -1804,71 +1804,71 @@ import CandidateElementBase from './candidateelement/CandidateElement.base';
 import CandidateElementBizApp from './candidateelement/CandidateElement.app';
 import CandidateElementModel from './candidateelement/CandidateElement.model';
 import CandidateElementDashboard from './candidateelement/CandidateElement.dashboard';
+import CandidateElementWorkbench from './candidateelement/CandidateElement.workbench';
 import CandidateElementModalTable from './candidateelement/CandidateElement.modaltable';
 import CandidateElementSearch from './candidateelement/CandidateElement.search';
 import CandidateElementSearchForm from './candidateelement/CandidateElement.searchform';
 import CandidateElementCreateForm from './candidateelement/CandidateElement.createform';
-import CandidateElementAssociateForm from './candidateelement/CandidateElement.associateform';
 import CandidateElementTable from './candidateelement/CandidateElement.table';
 import CandidateElementPermission from './candidateelement/CandidateElement.permission';
 import CandidateElementProfile from './candidateelement/CandidateElement.profile';
 import CandidateElementCreateFormBody from './candidateelement/CandidateElement.createformbody';
 import CandidateElementService from './candidateelement/CandidateElement.service';
 import CandidateElementUpdateForm from './candidateelement/CandidateElement.updateform';
-import WechatWorkappIdentifyBase from './wechatworkappidentify/WechatWorkappIdentify.base';
-import WechatWorkappIdentifyBizApp from './wechatworkappidentify/WechatWorkappIdentify.app';
-import WechatWorkappIdentifyModel from './wechatworkappidentify/WechatWorkappIdentify.model';
-import WechatWorkappIdentifyDashboard from './wechatworkappidentify/WechatWorkappIdentify.dashboard';
-import WechatWorkappIdentifyModalTable from './wechatworkappidentify/WechatWorkappIdentify.modaltable';
-import WechatWorkappIdentifySearch from './wechatworkappidentify/WechatWorkappIdentify.search';
-import WechatWorkappIdentifySearchForm from './wechatworkappidentify/WechatWorkappIdentify.searchform';
-import WechatWorkappIdentifyCreateForm from './wechatworkappidentify/WechatWorkappIdentify.createform';
-import WechatWorkappIdentifyAssociateForm from './wechatworkappidentify/WechatWorkappIdentify.associateform';
-import WechatWorkappIdentifyTable from './wechatworkappidentify/WechatWorkappIdentify.table';
-import WechatWorkappIdentifyPermission from './wechatworkappidentify/WechatWorkappIdentify.permission';
-import WechatWorkappIdentifyProfile from './wechatworkappidentify/WechatWorkappIdentify.profile';
-import WechatWorkappIdentifyCreateFormBody from './wechatworkappidentify/WechatWorkappIdentify.createformbody';
-import WechatWorkappIdentifyService from './wechatworkappidentify/WechatWorkappIdentify.service';
-import WechatWorkappIdentifyUpdateForm from './wechatworkappidentify/WechatWorkappIdentify.updateform';
-import WechatMiniappIdentifyBase from './wechatminiappidentify/WechatMiniappIdentify.base';
-import WechatMiniappIdentifyBizApp from './wechatminiappidentify/WechatMiniappIdentify.app';
-import WechatMiniappIdentifyModel from './wechatminiappidentify/WechatMiniappIdentify.model';
-import WechatMiniappIdentifyDashboard from './wechatminiappidentify/WechatMiniappIdentify.dashboard';
-import WechatMiniappIdentifyModalTable from './wechatminiappidentify/WechatMiniappIdentify.modaltable';
-import WechatMiniappIdentifySearch from './wechatminiappidentify/WechatMiniappIdentify.search';
-import WechatMiniappIdentifySearchForm from './wechatminiappidentify/WechatMiniappIdentify.searchform';
-import WechatMiniappIdentifyCreateForm from './wechatminiappidentify/WechatMiniappIdentify.createform';
-import WechatMiniappIdentifyAssociateForm from './wechatminiappidentify/WechatMiniappIdentify.associateform';
-import WechatMiniappIdentifyTable from './wechatminiappidentify/WechatMiniappIdentify.table';
-import WechatMiniappIdentifyPermission from './wechatminiappidentify/WechatMiniappIdentify.permission';
-import WechatMiniappIdentifyProfile from './wechatminiappidentify/WechatMiniappIdentify.profile';
-import WechatMiniappIdentifyCreateFormBody from './wechatminiappidentify/WechatMiniappIdentify.createformbody';
-import WechatMiniappIdentifyService from './wechatminiappidentify/WechatMiniappIdentify.service';
-import WechatMiniappIdentifyUpdateForm from './wechatminiappidentify/WechatMiniappIdentify.updateform';
-import KeypairIdentifyBase from './keypairidentify/KeypairIdentify.base';
-import KeypairIdentifyBizApp from './keypairidentify/KeypairIdentify.app';
-import KeypairIdentifyModel from './keypairidentify/KeypairIdentify.model';
-import KeypairIdentifyDashboard from './keypairidentify/KeypairIdentify.dashboard';
-import KeypairIdentifyModalTable from './keypairidentify/KeypairIdentify.modaltable';
-import KeypairIdentifySearch from './keypairidentify/KeypairIdentify.search';
-import KeypairIdentifySearchForm from './keypairidentify/KeypairIdentify.searchform';
-import KeypairIdentifyCreateForm from './keypairidentify/KeypairIdentify.createform';
-import KeypairIdentifyAssociateForm from './keypairidentify/KeypairIdentify.associateform';
-import KeypairIdentifyTable from './keypairidentify/KeypairIdentify.table';
-import KeypairIdentifyPermission from './keypairidentify/KeypairIdentify.permission';
-import KeypairIdentifyProfile from './keypairidentify/KeypairIdentify.profile';
-import KeypairIdentifyCreateFormBody from './keypairidentify/KeypairIdentify.createformbody';
-import KeypairIdentifyService from './keypairidentify/KeypairIdentify.service';
-import KeypairIdentifyUpdateForm from './keypairidentify/KeypairIdentify.updateform';
+import WechatWorkappIdentityBase from './wechatworkappidentity/WechatWorkappIdentity.base';
+import WechatWorkappIdentityBizApp from './wechatworkappidentity/WechatWorkappIdentity.app';
+import WechatWorkappIdentityModel from './wechatworkappidentity/WechatWorkappIdentity.model';
+import WechatWorkappIdentityDashboard from './wechatworkappidentity/WechatWorkappIdentity.dashboard';
+import WechatWorkappIdentityWorkbench from './wechatworkappidentity/WechatWorkappIdentity.workbench';
+import WechatWorkappIdentityModalTable from './wechatworkappidentity/WechatWorkappIdentity.modaltable';
+import WechatWorkappIdentitySearch from './wechatworkappidentity/WechatWorkappIdentity.search';
+import WechatWorkappIdentitySearchForm from './wechatworkappidentity/WechatWorkappIdentity.searchform';
+import WechatWorkappIdentityCreateForm from './wechatworkappidentity/WechatWorkappIdentity.createform';
+import WechatWorkappIdentityTable from './wechatworkappidentity/WechatWorkappIdentity.table';
+import WechatWorkappIdentityPermission from './wechatworkappidentity/WechatWorkappIdentity.permission';
+import WechatWorkappIdentityProfile from './wechatworkappidentity/WechatWorkappIdentity.profile';
+import WechatWorkappIdentityCreateFormBody from './wechatworkappidentity/WechatWorkappIdentity.createformbody';
+import WechatWorkappIdentityService from './wechatworkappidentity/WechatWorkappIdentity.service';
+import WechatWorkappIdentityUpdateForm from './wechatworkappidentity/WechatWorkappIdentity.updateform';
+import WechatMiniappIdentityBase from './wechatminiappidentity/WechatMiniappIdentity.base';
+import WechatMiniappIdentityBizApp from './wechatminiappidentity/WechatMiniappIdentity.app';
+import WechatMiniappIdentityModel from './wechatminiappidentity/WechatMiniappIdentity.model';
+import WechatMiniappIdentityDashboard from './wechatminiappidentity/WechatMiniappIdentity.dashboard';
+import WechatMiniappIdentityWorkbench from './wechatminiappidentity/WechatMiniappIdentity.workbench';
+import WechatMiniappIdentityModalTable from './wechatminiappidentity/WechatMiniappIdentity.modaltable';
+import WechatMiniappIdentitySearch from './wechatminiappidentity/WechatMiniappIdentity.search';
+import WechatMiniappIdentitySearchForm from './wechatminiappidentity/WechatMiniappIdentity.searchform';
+import WechatMiniappIdentityCreateForm from './wechatminiappidentity/WechatMiniappIdentity.createform';
+import WechatMiniappIdentityTable from './wechatminiappidentity/WechatMiniappIdentity.table';
+import WechatMiniappIdentityPermission from './wechatminiappidentity/WechatMiniappIdentity.permission';
+import WechatMiniappIdentityProfile from './wechatminiappidentity/WechatMiniappIdentity.profile';
+import WechatMiniappIdentityCreateFormBody from './wechatminiappidentity/WechatMiniappIdentity.createformbody';
+import WechatMiniappIdentityService from './wechatminiappidentity/WechatMiniappIdentity.service';
+import WechatMiniappIdentityUpdateForm from './wechatminiappidentity/WechatMiniappIdentity.updateform';
+import KeyPairIdentityBase from './keypairidentity/KeyPairIdentity.base';
+import KeyPairIdentityBizApp from './keypairidentity/KeyPairIdentity.app';
+import KeyPairIdentityModel from './keypairidentity/KeyPairIdentity.model';
+import KeyPairIdentityDashboard from './keypairidentity/KeyPairIdentity.dashboard';
+import KeyPairIdentityWorkbench from './keypairidentity/KeyPairIdentity.workbench';
+import KeyPairIdentityModalTable from './keypairidentity/KeyPairIdentity.modaltable';
+import KeyPairIdentitySearch from './keypairidentity/KeyPairIdentity.search';
+import KeyPairIdentitySearchForm from './keypairidentity/KeyPairIdentity.searchform';
+import KeyPairIdentityCreateForm from './keypairidentity/KeyPairIdentity.createform';
+import KeyPairIdentityTable from './keypairidentity/KeyPairIdentity.table';
+import KeyPairIdentityPermission from './keypairidentity/KeyPairIdentity.permission';
+import KeyPairIdentityProfile from './keypairidentity/KeyPairIdentity.profile';
+import KeyPairIdentityCreateFormBody from './keypairidentity/KeyPairIdentity.createformbody';
+import KeyPairIdentityService from './keypairidentity/KeyPairIdentity.service';
+import KeyPairIdentityUpdateForm from './keypairidentity/KeyPairIdentity.updateform';
 import PublicKeyTypeBase from './publickeytype/PublicKeyType.base';
 import PublicKeyTypeBizApp from './publickeytype/PublicKeyType.app';
 import PublicKeyTypeModel from './publickeytype/PublicKeyType.model';
 import PublicKeyTypeDashboard from './publickeytype/PublicKeyType.dashboard';
+import PublicKeyTypeWorkbench from './publickeytype/PublicKeyType.workbench';
 import PublicKeyTypeModalTable from './publickeytype/PublicKeyType.modaltable';
 import PublicKeyTypeSearch from './publickeytype/PublicKeyType.search';
 import PublicKeyTypeSearchForm from './publickeytype/PublicKeyType.searchform';
 import PublicKeyTypeCreateForm from './publickeytype/PublicKeyType.createform';
-import PublicKeyTypeAssociateForm from './publickeytype/PublicKeyType.associateform';
 import PublicKeyTypeTable from './publickeytype/PublicKeyType.table';
 import PublicKeyTypePermission from './publickeytype/PublicKeyType.permission';
 import PublicKeyTypeProfile from './publickeytype/PublicKeyType.profile';
@@ -1879,11 +1879,11 @@ import TreeNodeBase from './treenode/TreeNode.base';
 import TreeNodeBizApp from './treenode/TreeNode.app';
 import TreeNodeModel from './treenode/TreeNode.model';
 import TreeNodeDashboard from './treenode/TreeNode.dashboard';
+import TreeNodeWorkbench from './treenode/TreeNode.workbench';
 import TreeNodeModalTable from './treenode/TreeNode.modaltable';
 import TreeNodeSearch from './treenode/TreeNode.search';
 import TreeNodeSearchForm from './treenode/TreeNode.searchform';
 import TreeNodeCreateForm from './treenode/TreeNode.createform';
-import TreeNodeAssociateForm from './treenode/TreeNode.associateform';
 import TreeNodeTable from './treenode/TreeNode.table';
 import TreeNodePermission from './treenode/TreeNode.permission';
 import TreeNodeProfile from './treenode/TreeNode.profile';
@@ -2006,7 +2006,7 @@ const BizModels = [
 	UiActionModel,
 	SectionModel,
 	UserDomainModel,
-	UserWhiteListModel,
+	UserAllowListModel,
 	SecUserModel,
 	UserAppModel,
 	QuickLinkModel,
@@ -2014,9 +2014,9 @@ const BizModels = [
 	LoginHistoryModel,
 	CandidateContainerModel,
 	CandidateElementModel,
-	WechatWorkappIdentifyModel,
-	WechatMiniappIdentifyModel,
-	KeypairIdentifyModel,
+	WechatWorkappIdentityModel,
+	WechatMiniappIdentityModel,
+	KeyPairIdentityModel,
 	PublicKeyTypeModel,
 	TreeNodeModel,
 
@@ -2149,7 +2149,7 @@ menuLibrary.slide = SlideBase.menuData
 menuLibrary.uiAction = UiActionBase.menuData
 menuLibrary.section = SectionBase.menuData
 menuLibrary.userDomain = UserDomainBase.menuData
-menuLibrary.userWhiteList = UserWhiteListBase.menuData
+menuLibrary.userAllowList = UserAllowListBase.menuData
 menuLibrary.secUser = SecUserBase.menuData
 menuLibrary.userApp = UserAppBase.menuData
 menuLibrary.quickLink = QuickLinkBase.menuData
@@ -2157,9 +2157,9 @@ menuLibrary.listAccess = ListAccessBase.menuData
 menuLibrary.loginHistory = LoginHistoryBase.menuData
 menuLibrary.candidateContainer = CandidateContainerBase.menuData
 menuLibrary.candidateElement = CandidateElementBase.menuData
-menuLibrary.wechatWorkappIdentify = WechatWorkappIdentifyBase.menuData
-menuLibrary.wechatMiniappIdentify = WechatMiniappIdentifyBase.menuData
-menuLibrary.keypairIdentify = KeypairIdentifyBase.menuData
+menuLibrary.wechatWorkappIdentity = WechatWorkappIdentityBase.menuData
+menuLibrary.wechatMiniappIdentity = WechatMiniappIdentityBase.menuData
+menuLibrary.keyPairIdentity = KeyPairIdentityBase.menuData
 menuLibrary.publicKeyType = PublicKeyTypeBase.menuData
 menuLibrary.treeNode = TreeNodeBase.menuData
 
@@ -2295,7 +2295,7 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.uiaction.UiAction': {name:'uiAction'},
   'com.doublechaintech.retailscm.section.Section': {name:'section'},
   'com.doublechaintech.retailscm.userdomain.UserDomain': {name:'userDomain'},
-  'com.doublechaintech.retailscm.userwhitelist.UserWhiteList': {name:'userWhiteList'},
+  'com.doublechaintech.retailscm.userallowlist.UserAllowList': {name:'userAllowList'},
   'com.doublechaintech.retailscm.secuser.SecUser': {name:'secUser'},
   'com.doublechaintech.retailscm.userapp.UserApp': {name:'userApp'},
   'com.doublechaintech.retailscm.quicklink.QuickLink': {name:'quickLink'},
@@ -2303,9 +2303,9 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.loginhistory.LoginHistory': {name:'loginHistory'},
   'com.doublechaintech.retailscm.candidatecontainer.CandidateContainer': {name:'candidateContainer'},
   'com.doublechaintech.retailscm.candidateelement.CandidateElement': {name:'candidateElement'},
-  'com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify': {name:'wechatWorkappIdentify'},
-  'com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify': {name:'wechatMiniappIdentify'},
-  'com.doublechaintech.retailscm.keypairidentify.KeypairIdentify': {name:'keypairIdentify'},
+  'com.doublechaintech.retailscm.wechatworkappidentity.WechatWorkappIdentity': {name:'wechatWorkappIdentity'},
+  'com.doublechaintech.retailscm.wechatminiappidentity.WechatMiniappIdentity': {name:'wechatMiniappIdentity'},
+  'com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity': {name:'keyPairIdentity'},
   'com.doublechaintech.retailscm.publickeytype.PublicKeyType': {name:'publicKeyType'},
   'com.doublechaintech.retailscm.treenode.TreeNode': {name:'treeNode'},
 
@@ -2357,11 +2357,11 @@ const OOTBComponents={
     RetailStoreCountryCenterBizApp,
     RetailStoreCountryCenterModel,
     RetailStoreCountryCenterDashboard,
+    RetailStoreCountryCenterWorkbench,
     RetailStoreCountryCenterModalTable,
     RetailStoreCountryCenterSearch,
     RetailStoreCountryCenterSearchForm,
     RetailStoreCountryCenterCreateForm,
-    RetailStoreCountryCenterAssociateForm,
     RetailStoreCountryCenterTable,
     RetailStoreCountryCenterPermission,
     RetailStoreCountryCenterProfile,
@@ -2372,11 +2372,11 @@ const OOTBComponents={
     CatalogBizApp,
     CatalogModel,
     CatalogDashboard,
+    CatalogWorkbench,
     CatalogModalTable,
     CatalogSearch,
     CatalogSearchForm,
     CatalogCreateForm,
-    CatalogAssociateForm,
     CatalogTable,
     CatalogPermission,
     CatalogProfile,
@@ -2387,11 +2387,11 @@ const OOTBComponents={
     LevelOneCategoryBizApp,
     LevelOneCategoryModel,
     LevelOneCategoryDashboard,
+    LevelOneCategoryWorkbench,
     LevelOneCategoryModalTable,
     LevelOneCategorySearch,
     LevelOneCategorySearchForm,
     LevelOneCategoryCreateForm,
-    LevelOneCategoryAssociateForm,
     LevelOneCategoryTable,
     LevelOneCategoryPermission,
     LevelOneCategoryProfile,
@@ -2402,11 +2402,11 @@ const OOTBComponents={
     LevelTwoCategoryBizApp,
     LevelTwoCategoryModel,
     LevelTwoCategoryDashboard,
+    LevelTwoCategoryWorkbench,
     LevelTwoCategoryModalTable,
     LevelTwoCategorySearch,
     LevelTwoCategorySearchForm,
     LevelTwoCategoryCreateForm,
-    LevelTwoCategoryAssociateForm,
     LevelTwoCategoryTable,
     LevelTwoCategoryPermission,
     LevelTwoCategoryProfile,
@@ -2417,11 +2417,11 @@ const OOTBComponents={
     LevelThreeCategoryBizApp,
     LevelThreeCategoryModel,
     LevelThreeCategoryDashboard,
+    LevelThreeCategoryWorkbench,
     LevelThreeCategoryModalTable,
     LevelThreeCategorySearch,
     LevelThreeCategorySearchForm,
     LevelThreeCategoryCreateForm,
-    LevelThreeCategoryAssociateForm,
     LevelThreeCategoryTable,
     LevelThreeCategoryPermission,
     LevelThreeCategoryProfile,
@@ -2432,11 +2432,11 @@ const OOTBComponents={
     ProductBizApp,
     ProductModel,
     ProductDashboard,
+    ProductWorkbench,
     ProductModalTable,
     ProductSearch,
     ProductSearchForm,
     ProductCreateForm,
-    ProductAssociateForm,
     ProductTable,
     ProductPermission,
     ProductProfile,
@@ -2447,11 +2447,11 @@ const OOTBComponents={
     SkuBizApp,
     SkuModel,
     SkuDashboard,
+    SkuWorkbench,
     SkuModalTable,
     SkuSearch,
     SkuSearchForm,
     SkuCreateForm,
-    SkuAssociateForm,
     SkuTable,
     SkuPermission,
     SkuProfile,
@@ -2462,11 +2462,11 @@ const OOTBComponents={
     RetailStoreProvinceCenterBizApp,
     RetailStoreProvinceCenterModel,
     RetailStoreProvinceCenterDashboard,
+    RetailStoreProvinceCenterWorkbench,
     RetailStoreProvinceCenterModalTable,
     RetailStoreProvinceCenterSearch,
     RetailStoreProvinceCenterSearchForm,
     RetailStoreProvinceCenterCreateForm,
-    RetailStoreProvinceCenterAssociateForm,
     RetailStoreProvinceCenterTable,
     RetailStoreProvinceCenterPermission,
     RetailStoreProvinceCenterProfile,
@@ -2477,11 +2477,11 @@ const OOTBComponents={
     ProvinceCenterDepartmentBizApp,
     ProvinceCenterDepartmentModel,
     ProvinceCenterDepartmentDashboard,
+    ProvinceCenterDepartmentWorkbench,
     ProvinceCenterDepartmentModalTable,
     ProvinceCenterDepartmentSearch,
     ProvinceCenterDepartmentSearchForm,
     ProvinceCenterDepartmentCreateForm,
-    ProvinceCenterDepartmentAssociateForm,
     ProvinceCenterDepartmentTable,
     ProvinceCenterDepartmentPermission,
     ProvinceCenterDepartmentProfile,
@@ -2492,11 +2492,11 @@ const OOTBComponents={
     ProvinceCenterEmployeeBizApp,
     ProvinceCenterEmployeeModel,
     ProvinceCenterEmployeeDashboard,
+    ProvinceCenterEmployeeWorkbench,
     ProvinceCenterEmployeeModalTable,
     ProvinceCenterEmployeeSearch,
     ProvinceCenterEmployeeSearchForm,
     ProvinceCenterEmployeeCreateForm,
-    ProvinceCenterEmployeeAssociateForm,
     ProvinceCenterEmployeeTable,
     ProvinceCenterEmployeePermission,
     ProvinceCenterEmployeeProfile,
@@ -2507,11 +2507,11 @@ const OOTBComponents={
     RetailStoreCityServiceCenterBizApp,
     RetailStoreCityServiceCenterModel,
     RetailStoreCityServiceCenterDashboard,
+    RetailStoreCityServiceCenterWorkbench,
     RetailStoreCityServiceCenterModalTable,
     RetailStoreCityServiceCenterSearch,
     RetailStoreCityServiceCenterSearchForm,
     RetailStoreCityServiceCenterCreateForm,
-    RetailStoreCityServiceCenterAssociateForm,
     RetailStoreCityServiceCenterTable,
     RetailStoreCityServiceCenterPermission,
     RetailStoreCityServiceCenterProfile,
@@ -2522,11 +2522,11 @@ const OOTBComponents={
     CityPartnerBizApp,
     CityPartnerModel,
     CityPartnerDashboard,
+    CityPartnerWorkbench,
     CityPartnerModalTable,
     CityPartnerSearch,
     CityPartnerSearchForm,
     CityPartnerCreateForm,
-    CityPartnerAssociateForm,
     CityPartnerTable,
     CityPartnerPermission,
     CityPartnerProfile,
@@ -2537,11 +2537,11 @@ const OOTBComponents={
     PotentialCustomerBizApp,
     PotentialCustomerModel,
     PotentialCustomerDashboard,
+    PotentialCustomerWorkbench,
     PotentialCustomerModalTable,
     PotentialCustomerSearch,
     PotentialCustomerSearchForm,
     PotentialCustomerCreateForm,
-    PotentialCustomerAssociateForm,
     PotentialCustomerTable,
     PotentialCustomerPermission,
     PotentialCustomerProfile,
@@ -2552,11 +2552,11 @@ const OOTBComponents={
     PotentialCustomerContactPersonBizApp,
     PotentialCustomerContactPersonModel,
     PotentialCustomerContactPersonDashboard,
+    PotentialCustomerContactPersonWorkbench,
     PotentialCustomerContactPersonModalTable,
     PotentialCustomerContactPersonSearch,
     PotentialCustomerContactPersonSearchForm,
     PotentialCustomerContactPersonCreateForm,
-    PotentialCustomerContactPersonAssociateForm,
     PotentialCustomerContactPersonTable,
     PotentialCustomerContactPersonPermission,
     PotentialCustomerContactPersonProfile,
@@ -2567,11 +2567,11 @@ const OOTBComponents={
     PotentialCustomerContactBizApp,
     PotentialCustomerContactModel,
     PotentialCustomerContactDashboard,
+    PotentialCustomerContactWorkbench,
     PotentialCustomerContactModalTable,
     PotentialCustomerContactSearch,
     PotentialCustomerContactSearchForm,
     PotentialCustomerContactCreateForm,
-    PotentialCustomerContactAssociateForm,
     PotentialCustomerContactTable,
     PotentialCustomerContactPermission,
     PotentialCustomerContactProfile,
@@ -2582,11 +2582,11 @@ const OOTBComponents={
     CityEventBizApp,
     CityEventModel,
     CityEventDashboard,
+    CityEventWorkbench,
     CityEventModalTable,
     CityEventSearch,
     CityEventSearchForm,
     CityEventCreateForm,
-    CityEventAssociateForm,
     CityEventTable,
     CityEventPermission,
     CityEventProfile,
@@ -2597,11 +2597,11 @@ const OOTBComponents={
     EventAttendanceBizApp,
     EventAttendanceModel,
     EventAttendanceDashboard,
+    EventAttendanceWorkbench,
     EventAttendanceModalTable,
     EventAttendanceSearch,
     EventAttendanceSearchForm,
     EventAttendanceCreateForm,
-    EventAttendanceAssociateForm,
     EventAttendanceTable,
     EventAttendancePermission,
     EventAttendanceProfile,
@@ -2612,11 +2612,11 @@ const OOTBComponents={
     RetailStoreBizApp,
     RetailStoreModel,
     RetailStoreDashboard,
+    RetailStoreWorkbench,
     RetailStoreModalTable,
     RetailStoreSearch,
     RetailStoreSearchForm,
     RetailStoreCreateForm,
-    RetailStoreAssociateForm,
     RetailStoreTable,
     RetailStorePermission,
     RetailStoreProfile,
@@ -2627,11 +2627,11 @@ const OOTBComponents={
     RetailStoreCreationBizApp,
     RetailStoreCreationModel,
     RetailStoreCreationDashboard,
+    RetailStoreCreationWorkbench,
     RetailStoreCreationModalTable,
     RetailStoreCreationSearch,
     RetailStoreCreationSearchForm,
     RetailStoreCreationCreateForm,
-    RetailStoreCreationAssociateForm,
     RetailStoreCreationTable,
     RetailStoreCreationPermission,
     RetailStoreCreationProfile,
@@ -2642,11 +2642,11 @@ const OOTBComponents={
     RetailStoreInvestmentInvitationBizApp,
     RetailStoreInvestmentInvitationModel,
     RetailStoreInvestmentInvitationDashboard,
+    RetailStoreInvestmentInvitationWorkbench,
     RetailStoreInvestmentInvitationModalTable,
     RetailStoreInvestmentInvitationSearch,
     RetailStoreInvestmentInvitationSearchForm,
     RetailStoreInvestmentInvitationCreateForm,
-    RetailStoreInvestmentInvitationAssociateForm,
     RetailStoreInvestmentInvitationTable,
     RetailStoreInvestmentInvitationPermission,
     RetailStoreInvestmentInvitationProfile,
@@ -2657,11 +2657,11 @@ const OOTBComponents={
     RetailStoreFranchisingBizApp,
     RetailStoreFranchisingModel,
     RetailStoreFranchisingDashboard,
+    RetailStoreFranchisingWorkbench,
     RetailStoreFranchisingModalTable,
     RetailStoreFranchisingSearch,
     RetailStoreFranchisingSearchForm,
     RetailStoreFranchisingCreateForm,
-    RetailStoreFranchisingAssociateForm,
     RetailStoreFranchisingTable,
     RetailStoreFranchisingPermission,
     RetailStoreFranchisingProfile,
@@ -2672,11 +2672,11 @@ const OOTBComponents={
     RetailStoreDecorationBizApp,
     RetailStoreDecorationModel,
     RetailStoreDecorationDashboard,
+    RetailStoreDecorationWorkbench,
     RetailStoreDecorationModalTable,
     RetailStoreDecorationSearch,
     RetailStoreDecorationSearchForm,
     RetailStoreDecorationCreateForm,
-    RetailStoreDecorationAssociateForm,
     RetailStoreDecorationTable,
     RetailStoreDecorationPermission,
     RetailStoreDecorationProfile,
@@ -2687,11 +2687,11 @@ const OOTBComponents={
     RetailStoreOpeningBizApp,
     RetailStoreOpeningModel,
     RetailStoreOpeningDashboard,
+    RetailStoreOpeningWorkbench,
     RetailStoreOpeningModalTable,
     RetailStoreOpeningSearch,
     RetailStoreOpeningSearchForm,
     RetailStoreOpeningCreateForm,
-    RetailStoreOpeningAssociateForm,
     RetailStoreOpeningTable,
     RetailStoreOpeningPermission,
     RetailStoreOpeningProfile,
@@ -2702,11 +2702,11 @@ const OOTBComponents={
     RetailStoreClosingBizApp,
     RetailStoreClosingModel,
     RetailStoreClosingDashboard,
+    RetailStoreClosingWorkbench,
     RetailStoreClosingModalTable,
     RetailStoreClosingSearch,
     RetailStoreClosingSearchForm,
     RetailStoreClosingCreateForm,
-    RetailStoreClosingAssociateForm,
     RetailStoreClosingTable,
     RetailStoreClosingPermission,
     RetailStoreClosingProfile,
@@ -2717,11 +2717,11 @@ const OOTBComponents={
     RetailStoreMemberBizApp,
     RetailStoreMemberModel,
     RetailStoreMemberDashboard,
+    RetailStoreMemberWorkbench,
     RetailStoreMemberModalTable,
     RetailStoreMemberSearch,
     RetailStoreMemberSearchForm,
     RetailStoreMemberCreateForm,
-    RetailStoreMemberAssociateForm,
     RetailStoreMemberTable,
     RetailStoreMemberPermission,
     RetailStoreMemberProfile,
@@ -2732,11 +2732,11 @@ const OOTBComponents={
     ConsumerOrderBizApp,
     ConsumerOrderModel,
     ConsumerOrderDashboard,
+    ConsumerOrderWorkbench,
     ConsumerOrderModalTable,
     ConsumerOrderSearch,
     ConsumerOrderSearchForm,
     ConsumerOrderCreateForm,
-    ConsumerOrderAssociateForm,
     ConsumerOrderTable,
     ConsumerOrderPermission,
     ConsumerOrderProfile,
@@ -2747,11 +2747,11 @@ const OOTBComponents={
     ConsumerOrderLineItemBizApp,
     ConsumerOrderLineItemModel,
     ConsumerOrderLineItemDashboard,
+    ConsumerOrderLineItemWorkbench,
     ConsumerOrderLineItemModalTable,
     ConsumerOrderLineItemSearch,
     ConsumerOrderLineItemSearchForm,
     ConsumerOrderLineItemCreateForm,
-    ConsumerOrderLineItemAssociateForm,
     ConsumerOrderLineItemTable,
     ConsumerOrderLineItemPermission,
     ConsumerOrderLineItemProfile,
@@ -2762,11 +2762,11 @@ const OOTBComponents={
     ConsumerOrderShippingGroupBizApp,
     ConsumerOrderShippingGroupModel,
     ConsumerOrderShippingGroupDashboard,
+    ConsumerOrderShippingGroupWorkbench,
     ConsumerOrderShippingGroupModalTable,
     ConsumerOrderShippingGroupSearch,
     ConsumerOrderShippingGroupSearchForm,
     ConsumerOrderShippingGroupCreateForm,
-    ConsumerOrderShippingGroupAssociateForm,
     ConsumerOrderShippingGroupTable,
     ConsumerOrderShippingGroupPermission,
     ConsumerOrderShippingGroupProfile,
@@ -2777,11 +2777,11 @@ const OOTBComponents={
     ConsumerOrderPaymentGroupBizApp,
     ConsumerOrderPaymentGroupModel,
     ConsumerOrderPaymentGroupDashboard,
+    ConsumerOrderPaymentGroupWorkbench,
     ConsumerOrderPaymentGroupModalTable,
     ConsumerOrderPaymentGroupSearch,
     ConsumerOrderPaymentGroupSearchForm,
     ConsumerOrderPaymentGroupCreateForm,
-    ConsumerOrderPaymentGroupAssociateForm,
     ConsumerOrderPaymentGroupTable,
     ConsumerOrderPaymentGroupPermission,
     ConsumerOrderPaymentGroupProfile,
@@ -2792,11 +2792,11 @@ const OOTBComponents={
     ConsumerOrderPriceAdjustmentBizApp,
     ConsumerOrderPriceAdjustmentModel,
     ConsumerOrderPriceAdjustmentDashboard,
+    ConsumerOrderPriceAdjustmentWorkbench,
     ConsumerOrderPriceAdjustmentModalTable,
     ConsumerOrderPriceAdjustmentSearch,
     ConsumerOrderPriceAdjustmentSearchForm,
     ConsumerOrderPriceAdjustmentCreateForm,
-    ConsumerOrderPriceAdjustmentAssociateForm,
     ConsumerOrderPriceAdjustmentTable,
     ConsumerOrderPriceAdjustmentPermission,
     ConsumerOrderPriceAdjustmentProfile,
@@ -2807,11 +2807,11 @@ const OOTBComponents={
     RetailStoreMemberCouponBizApp,
     RetailStoreMemberCouponModel,
     RetailStoreMemberCouponDashboard,
+    RetailStoreMemberCouponWorkbench,
     RetailStoreMemberCouponModalTable,
     RetailStoreMemberCouponSearch,
     RetailStoreMemberCouponSearchForm,
     RetailStoreMemberCouponCreateForm,
-    RetailStoreMemberCouponAssociateForm,
     RetailStoreMemberCouponTable,
     RetailStoreMemberCouponPermission,
     RetailStoreMemberCouponProfile,
@@ -2822,11 +2822,11 @@ const OOTBComponents={
     MemberWishlistBizApp,
     MemberWishlistModel,
     MemberWishlistDashboard,
+    MemberWishlistWorkbench,
     MemberWishlistModalTable,
     MemberWishlistSearch,
     MemberWishlistSearchForm,
     MemberWishlistCreateForm,
-    MemberWishlistAssociateForm,
     MemberWishlistTable,
     MemberWishlistPermission,
     MemberWishlistProfile,
@@ -2837,11 +2837,11 @@ const OOTBComponents={
     MemberRewardPointBizApp,
     MemberRewardPointModel,
     MemberRewardPointDashboard,
+    MemberRewardPointWorkbench,
     MemberRewardPointModalTable,
     MemberRewardPointSearch,
     MemberRewardPointSearchForm,
     MemberRewardPointCreateForm,
-    MemberRewardPointAssociateForm,
     MemberRewardPointTable,
     MemberRewardPointPermission,
     MemberRewardPointProfile,
@@ -2852,11 +2852,11 @@ const OOTBComponents={
     MemberRewardPointRedemptionBizApp,
     MemberRewardPointRedemptionModel,
     MemberRewardPointRedemptionDashboard,
+    MemberRewardPointRedemptionWorkbench,
     MemberRewardPointRedemptionModalTable,
     MemberRewardPointRedemptionSearch,
     MemberRewardPointRedemptionSearchForm,
     MemberRewardPointRedemptionCreateForm,
-    MemberRewardPointRedemptionAssociateForm,
     MemberRewardPointRedemptionTable,
     MemberRewardPointRedemptionPermission,
     MemberRewardPointRedemptionProfile,
@@ -2867,11 +2867,11 @@ const OOTBComponents={
     MemberWishlistProductBizApp,
     MemberWishlistProductModel,
     MemberWishlistProductDashboard,
+    MemberWishlistProductWorkbench,
     MemberWishlistProductModalTable,
     MemberWishlistProductSearch,
     MemberWishlistProductSearchForm,
     MemberWishlistProductCreateForm,
-    MemberWishlistProductAssociateForm,
     MemberWishlistProductTable,
     MemberWishlistProductPermission,
     MemberWishlistProductProfile,
@@ -2882,11 +2882,11 @@ const OOTBComponents={
     RetailStoreMemberAddressBizApp,
     RetailStoreMemberAddressModel,
     RetailStoreMemberAddressDashboard,
+    RetailStoreMemberAddressWorkbench,
     RetailStoreMemberAddressModalTable,
     RetailStoreMemberAddressSearch,
     RetailStoreMemberAddressSearchForm,
     RetailStoreMemberAddressCreateForm,
-    RetailStoreMemberAddressAssociateForm,
     RetailStoreMemberAddressTable,
     RetailStoreMemberAddressPermission,
     RetailStoreMemberAddressProfile,
@@ -2897,11 +2897,11 @@ const OOTBComponents={
     RetailStoreMemberGiftCardBizApp,
     RetailStoreMemberGiftCardModel,
     RetailStoreMemberGiftCardDashboard,
+    RetailStoreMemberGiftCardWorkbench,
     RetailStoreMemberGiftCardModalTable,
     RetailStoreMemberGiftCardSearch,
     RetailStoreMemberGiftCardSearchForm,
     RetailStoreMemberGiftCardCreateForm,
-    RetailStoreMemberGiftCardAssociateForm,
     RetailStoreMemberGiftCardTable,
     RetailStoreMemberGiftCardPermission,
     RetailStoreMemberGiftCardProfile,
@@ -2912,11 +2912,11 @@ const OOTBComponents={
     RetailStoreMemberGiftCardConsumeRecordBizApp,
     RetailStoreMemberGiftCardConsumeRecordModel,
     RetailStoreMemberGiftCardConsumeRecordDashboard,
+    RetailStoreMemberGiftCardConsumeRecordWorkbench,
     RetailStoreMemberGiftCardConsumeRecordModalTable,
     RetailStoreMemberGiftCardConsumeRecordSearch,
     RetailStoreMemberGiftCardConsumeRecordSearchForm,
     RetailStoreMemberGiftCardConsumeRecordCreateForm,
-    RetailStoreMemberGiftCardConsumeRecordAssociateForm,
     RetailStoreMemberGiftCardConsumeRecordTable,
     RetailStoreMemberGiftCardConsumeRecordPermission,
     RetailStoreMemberGiftCardConsumeRecordProfile,
@@ -2927,11 +2927,11 @@ const OOTBComponents={
     GoodsSupplierBizApp,
     GoodsSupplierModel,
     GoodsSupplierDashboard,
+    GoodsSupplierWorkbench,
     GoodsSupplierModalTable,
     GoodsSupplierSearch,
     GoodsSupplierSearchForm,
     GoodsSupplierCreateForm,
-    GoodsSupplierAssociateForm,
     GoodsSupplierTable,
     GoodsSupplierPermission,
     GoodsSupplierProfile,
@@ -2942,11 +2942,11 @@ const OOTBComponents={
     SupplierProductBizApp,
     SupplierProductModel,
     SupplierProductDashboard,
+    SupplierProductWorkbench,
     SupplierProductModalTable,
     SupplierProductSearch,
     SupplierProductSearchForm,
     SupplierProductCreateForm,
-    SupplierProductAssociateForm,
     SupplierProductTable,
     SupplierProductPermission,
     SupplierProductProfile,
@@ -2957,11 +2957,11 @@ const OOTBComponents={
     ProductSupplyDurationBizApp,
     ProductSupplyDurationModel,
     ProductSupplyDurationDashboard,
+    ProductSupplyDurationWorkbench,
     ProductSupplyDurationModalTable,
     ProductSupplyDurationSearch,
     ProductSupplyDurationSearchForm,
     ProductSupplyDurationCreateForm,
-    ProductSupplyDurationAssociateForm,
     ProductSupplyDurationTable,
     ProductSupplyDurationPermission,
     ProductSupplyDurationProfile,
@@ -2972,11 +2972,11 @@ const OOTBComponents={
     SupplyOrderBizApp,
     SupplyOrderModel,
     SupplyOrderDashboard,
+    SupplyOrderWorkbench,
     SupplyOrderModalTable,
     SupplyOrderSearch,
     SupplyOrderSearchForm,
     SupplyOrderCreateForm,
-    SupplyOrderAssociateForm,
     SupplyOrderTable,
     SupplyOrderPermission,
     SupplyOrderProfile,
@@ -2987,11 +2987,11 @@ const OOTBComponents={
     SupplyOrderLineItemBizApp,
     SupplyOrderLineItemModel,
     SupplyOrderLineItemDashboard,
+    SupplyOrderLineItemWorkbench,
     SupplyOrderLineItemModalTable,
     SupplyOrderLineItemSearch,
     SupplyOrderLineItemSearchForm,
     SupplyOrderLineItemCreateForm,
-    SupplyOrderLineItemAssociateForm,
     SupplyOrderLineItemTable,
     SupplyOrderLineItemPermission,
     SupplyOrderLineItemProfile,
@@ -3002,11 +3002,11 @@ const OOTBComponents={
     SupplyOrderShippingGroupBizApp,
     SupplyOrderShippingGroupModel,
     SupplyOrderShippingGroupDashboard,
+    SupplyOrderShippingGroupWorkbench,
     SupplyOrderShippingGroupModalTable,
     SupplyOrderShippingGroupSearch,
     SupplyOrderShippingGroupSearchForm,
     SupplyOrderShippingGroupCreateForm,
-    SupplyOrderShippingGroupAssociateForm,
     SupplyOrderShippingGroupTable,
     SupplyOrderShippingGroupPermission,
     SupplyOrderShippingGroupProfile,
@@ -3017,11 +3017,11 @@ const OOTBComponents={
     SupplyOrderPaymentGroupBizApp,
     SupplyOrderPaymentGroupModel,
     SupplyOrderPaymentGroupDashboard,
+    SupplyOrderPaymentGroupWorkbench,
     SupplyOrderPaymentGroupModalTable,
     SupplyOrderPaymentGroupSearch,
     SupplyOrderPaymentGroupSearchForm,
     SupplyOrderPaymentGroupCreateForm,
-    SupplyOrderPaymentGroupAssociateForm,
     SupplyOrderPaymentGroupTable,
     SupplyOrderPaymentGroupPermission,
     SupplyOrderPaymentGroupProfile,
@@ -3032,11 +3032,11 @@ const OOTBComponents={
     RetailStoreOrderBizApp,
     RetailStoreOrderModel,
     RetailStoreOrderDashboard,
+    RetailStoreOrderWorkbench,
     RetailStoreOrderModalTable,
     RetailStoreOrderSearch,
     RetailStoreOrderSearchForm,
     RetailStoreOrderCreateForm,
-    RetailStoreOrderAssociateForm,
     RetailStoreOrderTable,
     RetailStoreOrderPermission,
     RetailStoreOrderProfile,
@@ -3047,11 +3047,11 @@ const OOTBComponents={
     RetailStoreOrderLineItemBizApp,
     RetailStoreOrderLineItemModel,
     RetailStoreOrderLineItemDashboard,
+    RetailStoreOrderLineItemWorkbench,
     RetailStoreOrderLineItemModalTable,
     RetailStoreOrderLineItemSearch,
     RetailStoreOrderLineItemSearchForm,
     RetailStoreOrderLineItemCreateForm,
-    RetailStoreOrderLineItemAssociateForm,
     RetailStoreOrderLineItemTable,
     RetailStoreOrderLineItemPermission,
     RetailStoreOrderLineItemProfile,
@@ -3062,11 +3062,11 @@ const OOTBComponents={
     RetailStoreOrderShippingGroupBizApp,
     RetailStoreOrderShippingGroupModel,
     RetailStoreOrderShippingGroupDashboard,
+    RetailStoreOrderShippingGroupWorkbench,
     RetailStoreOrderShippingGroupModalTable,
     RetailStoreOrderShippingGroupSearch,
     RetailStoreOrderShippingGroupSearchForm,
     RetailStoreOrderShippingGroupCreateForm,
-    RetailStoreOrderShippingGroupAssociateForm,
     RetailStoreOrderShippingGroupTable,
     RetailStoreOrderShippingGroupPermission,
     RetailStoreOrderShippingGroupProfile,
@@ -3077,11 +3077,11 @@ const OOTBComponents={
     RetailStoreOrderPaymentGroupBizApp,
     RetailStoreOrderPaymentGroupModel,
     RetailStoreOrderPaymentGroupDashboard,
+    RetailStoreOrderPaymentGroupWorkbench,
     RetailStoreOrderPaymentGroupModalTable,
     RetailStoreOrderPaymentGroupSearch,
     RetailStoreOrderPaymentGroupSearchForm,
     RetailStoreOrderPaymentGroupCreateForm,
-    RetailStoreOrderPaymentGroupAssociateForm,
     RetailStoreOrderPaymentGroupTable,
     RetailStoreOrderPaymentGroupPermission,
     RetailStoreOrderPaymentGroupProfile,
@@ -3092,11 +3092,11 @@ const OOTBComponents={
     WarehouseBizApp,
     WarehouseModel,
     WarehouseDashboard,
+    WarehouseWorkbench,
     WarehouseModalTable,
     WarehouseSearch,
     WarehouseSearchForm,
     WarehouseCreateForm,
-    WarehouseAssociateForm,
     WarehouseTable,
     WarehousePermission,
     WarehouseProfile,
@@ -3107,11 +3107,11 @@ const OOTBComponents={
     StorageSpaceBizApp,
     StorageSpaceModel,
     StorageSpaceDashboard,
+    StorageSpaceWorkbench,
     StorageSpaceModalTable,
     StorageSpaceSearch,
     StorageSpaceSearchForm,
     StorageSpaceCreateForm,
-    StorageSpaceAssociateForm,
     StorageSpaceTable,
     StorageSpacePermission,
     StorageSpaceProfile,
@@ -3122,11 +3122,11 @@ const OOTBComponents={
     SmartPalletBizApp,
     SmartPalletModel,
     SmartPalletDashboard,
+    SmartPalletWorkbench,
     SmartPalletModalTable,
     SmartPalletSearch,
     SmartPalletSearchForm,
     SmartPalletCreateForm,
-    SmartPalletAssociateForm,
     SmartPalletTable,
     SmartPalletPermission,
     SmartPalletProfile,
@@ -3137,11 +3137,11 @@ const OOTBComponents={
     GoodsShelfBizApp,
     GoodsShelfModel,
     GoodsShelfDashboard,
+    GoodsShelfWorkbench,
     GoodsShelfModalTable,
     GoodsShelfSearch,
     GoodsShelfSearchForm,
     GoodsShelfCreateForm,
-    GoodsShelfAssociateForm,
     GoodsShelfTable,
     GoodsShelfPermission,
     GoodsShelfProfile,
@@ -3152,11 +3152,11 @@ const OOTBComponents={
     GoodsShelfStockCountBizApp,
     GoodsShelfStockCountModel,
     GoodsShelfStockCountDashboard,
+    GoodsShelfStockCountWorkbench,
     GoodsShelfStockCountModalTable,
     GoodsShelfStockCountSearch,
     GoodsShelfStockCountSearchForm,
     GoodsShelfStockCountCreateForm,
-    GoodsShelfStockCountAssociateForm,
     GoodsShelfStockCountTable,
     GoodsShelfStockCountPermission,
     GoodsShelfStockCountProfile,
@@ -3167,11 +3167,11 @@ const OOTBComponents={
     StockCountIssueTrackBizApp,
     StockCountIssueTrackModel,
     StockCountIssueTrackDashboard,
+    StockCountIssueTrackWorkbench,
     StockCountIssueTrackModalTable,
     StockCountIssueTrackSearch,
     StockCountIssueTrackSearchForm,
     StockCountIssueTrackCreateForm,
-    StockCountIssueTrackAssociateForm,
     StockCountIssueTrackTable,
     StockCountIssueTrackPermission,
     StockCountIssueTrackProfile,
@@ -3182,11 +3182,11 @@ const OOTBComponents={
     GoodsAllocationBizApp,
     GoodsAllocationModel,
     GoodsAllocationDashboard,
+    GoodsAllocationWorkbench,
     GoodsAllocationModalTable,
     GoodsAllocationSearch,
     GoodsAllocationSearchForm,
     GoodsAllocationCreateForm,
-    GoodsAllocationAssociateForm,
     GoodsAllocationTable,
     GoodsAllocationPermission,
     GoodsAllocationProfile,
@@ -3197,11 +3197,11 @@ const OOTBComponents={
     GoodsBizApp,
     GoodsModel,
     GoodsDashboard,
+    GoodsWorkbench,
     GoodsModalTable,
     GoodsSearch,
     GoodsSearchForm,
     GoodsCreateForm,
-    GoodsAssociateForm,
     GoodsTable,
     GoodsPermission,
     GoodsProfile,
@@ -3212,11 +3212,11 @@ const OOTBComponents={
     GoodsMovementBizApp,
     GoodsMovementModel,
     GoodsMovementDashboard,
+    GoodsMovementWorkbench,
     GoodsMovementModalTable,
     GoodsMovementSearch,
     GoodsMovementSearchForm,
     GoodsMovementCreateForm,
-    GoodsMovementAssociateForm,
     GoodsMovementTable,
     GoodsMovementPermission,
     GoodsMovementProfile,
@@ -3227,11 +3227,11 @@ const OOTBComponents={
     SupplierSpaceBizApp,
     SupplierSpaceModel,
     SupplierSpaceDashboard,
+    SupplierSpaceWorkbench,
     SupplierSpaceModalTable,
     SupplierSpaceSearch,
     SupplierSpaceSearchForm,
     SupplierSpaceCreateForm,
-    SupplierSpaceAssociateForm,
     SupplierSpaceTable,
     SupplierSpacePermission,
     SupplierSpaceProfile,
@@ -3242,11 +3242,11 @@ const OOTBComponents={
     ReceivingSpaceBizApp,
     ReceivingSpaceModel,
     ReceivingSpaceDashboard,
+    ReceivingSpaceWorkbench,
     ReceivingSpaceModalTable,
     ReceivingSpaceSearch,
     ReceivingSpaceSearchForm,
     ReceivingSpaceCreateForm,
-    ReceivingSpaceAssociateForm,
     ReceivingSpaceTable,
     ReceivingSpacePermission,
     ReceivingSpaceProfile,
@@ -3257,11 +3257,11 @@ const OOTBComponents={
     ShippingSpaceBizApp,
     ShippingSpaceModel,
     ShippingSpaceDashboard,
+    ShippingSpaceWorkbench,
     ShippingSpaceModalTable,
     ShippingSpaceSearch,
     ShippingSpaceSearchForm,
     ShippingSpaceCreateForm,
-    ShippingSpaceAssociateForm,
     ShippingSpaceTable,
     ShippingSpacePermission,
     ShippingSpaceProfile,
@@ -3272,11 +3272,11 @@ const OOTBComponents={
     DamageSpaceBizApp,
     DamageSpaceModel,
     DamageSpaceDashboard,
+    DamageSpaceWorkbench,
     DamageSpaceModalTable,
     DamageSpaceSearch,
     DamageSpaceSearchForm,
     DamageSpaceCreateForm,
-    DamageSpaceAssociateForm,
     DamageSpaceTable,
     DamageSpacePermission,
     DamageSpaceProfile,
@@ -3287,11 +3287,11 @@ const OOTBComponents={
     WarehouseAssetBizApp,
     WarehouseAssetModel,
     WarehouseAssetDashboard,
+    WarehouseAssetWorkbench,
     WarehouseAssetModalTable,
     WarehouseAssetSearch,
     WarehouseAssetSearchForm,
     WarehouseAssetCreateForm,
-    WarehouseAssetAssociateForm,
     WarehouseAssetTable,
     WarehouseAssetPermission,
     WarehouseAssetProfile,
@@ -3302,11 +3302,11 @@ const OOTBComponents={
     TransportFleetBizApp,
     TransportFleetModel,
     TransportFleetDashboard,
+    TransportFleetWorkbench,
     TransportFleetModalTable,
     TransportFleetSearch,
     TransportFleetSearchForm,
     TransportFleetCreateForm,
-    TransportFleetAssociateForm,
     TransportFleetTable,
     TransportFleetPermission,
     TransportFleetProfile,
@@ -3317,11 +3317,11 @@ const OOTBComponents={
     TransportTruckBizApp,
     TransportTruckModel,
     TransportTruckDashboard,
+    TransportTruckWorkbench,
     TransportTruckModalTable,
     TransportTruckSearch,
     TransportTruckSearchForm,
     TransportTruckCreateForm,
-    TransportTruckAssociateForm,
     TransportTruckTable,
     TransportTruckPermission,
     TransportTruckProfile,
@@ -3332,11 +3332,11 @@ const OOTBComponents={
     TruckDriverBizApp,
     TruckDriverModel,
     TruckDriverDashboard,
+    TruckDriverWorkbench,
     TruckDriverModalTable,
     TruckDriverSearch,
     TruckDriverSearchForm,
     TruckDriverCreateForm,
-    TruckDriverAssociateForm,
     TruckDriverTable,
     TruckDriverPermission,
     TruckDriverProfile,
@@ -3347,11 +3347,11 @@ const OOTBComponents={
     TransportTaskBizApp,
     TransportTaskModel,
     TransportTaskDashboard,
+    TransportTaskWorkbench,
     TransportTaskModalTable,
     TransportTaskSearch,
     TransportTaskSearchForm,
     TransportTaskCreateForm,
-    TransportTaskAssociateForm,
     TransportTaskTable,
     TransportTaskPermission,
     TransportTaskProfile,
@@ -3362,11 +3362,11 @@ const OOTBComponents={
     TransportTaskTrackBizApp,
     TransportTaskTrackModel,
     TransportTaskTrackDashboard,
+    TransportTaskTrackWorkbench,
     TransportTaskTrackModalTable,
     TransportTaskTrackSearch,
     TransportTaskTrackSearchForm,
     TransportTaskTrackCreateForm,
-    TransportTaskTrackAssociateForm,
     TransportTaskTrackTable,
     TransportTaskTrackPermission,
     TransportTaskTrackProfile,
@@ -3377,11 +3377,11 @@ const OOTBComponents={
     AccountSetBizApp,
     AccountSetModel,
     AccountSetDashboard,
+    AccountSetWorkbench,
     AccountSetModalTable,
     AccountSetSearch,
     AccountSetSearchForm,
     AccountSetCreateForm,
-    AccountSetAssociateForm,
     AccountSetTable,
     AccountSetPermission,
     AccountSetProfile,
@@ -3392,11 +3392,11 @@ const OOTBComponents={
     AccountingSubjectBizApp,
     AccountingSubjectModel,
     AccountingSubjectDashboard,
+    AccountingSubjectWorkbench,
     AccountingSubjectModalTable,
     AccountingSubjectSearch,
     AccountingSubjectSearchForm,
     AccountingSubjectCreateForm,
-    AccountingSubjectAssociateForm,
     AccountingSubjectTable,
     AccountingSubjectPermission,
     AccountingSubjectProfile,
@@ -3407,11 +3407,11 @@ const OOTBComponents={
     AccountingPeriodBizApp,
     AccountingPeriodModel,
     AccountingPeriodDashboard,
+    AccountingPeriodWorkbench,
     AccountingPeriodModalTable,
     AccountingPeriodSearch,
     AccountingPeriodSearchForm,
     AccountingPeriodCreateForm,
-    AccountingPeriodAssociateForm,
     AccountingPeriodTable,
     AccountingPeriodPermission,
     AccountingPeriodProfile,
@@ -3422,11 +3422,11 @@ const OOTBComponents={
     AccountingDocumentTypeBizApp,
     AccountingDocumentTypeModel,
     AccountingDocumentTypeDashboard,
+    AccountingDocumentTypeWorkbench,
     AccountingDocumentTypeModalTable,
     AccountingDocumentTypeSearch,
     AccountingDocumentTypeSearchForm,
     AccountingDocumentTypeCreateForm,
-    AccountingDocumentTypeAssociateForm,
     AccountingDocumentTypeTable,
     AccountingDocumentTypePermission,
     AccountingDocumentTypeProfile,
@@ -3437,11 +3437,11 @@ const OOTBComponents={
     AccountingDocumentBizApp,
     AccountingDocumentModel,
     AccountingDocumentDashboard,
+    AccountingDocumentWorkbench,
     AccountingDocumentModalTable,
     AccountingDocumentSearch,
     AccountingDocumentSearchForm,
     AccountingDocumentCreateForm,
-    AccountingDocumentAssociateForm,
     AccountingDocumentTable,
     AccountingDocumentPermission,
     AccountingDocumentProfile,
@@ -3452,11 +3452,11 @@ const OOTBComponents={
     OriginalVoucherBizApp,
     OriginalVoucherModel,
     OriginalVoucherDashboard,
+    OriginalVoucherWorkbench,
     OriginalVoucherModalTable,
     OriginalVoucherSearch,
     OriginalVoucherSearchForm,
     OriginalVoucherCreateForm,
-    OriginalVoucherAssociateForm,
     OriginalVoucherTable,
     OriginalVoucherPermission,
     OriginalVoucherProfile,
@@ -3467,11 +3467,11 @@ const OOTBComponents={
     AccountingDocumentLineBizApp,
     AccountingDocumentLineModel,
     AccountingDocumentLineDashboard,
+    AccountingDocumentLineWorkbench,
     AccountingDocumentLineModalTable,
     AccountingDocumentLineSearch,
     AccountingDocumentLineSearchForm,
     AccountingDocumentLineCreateForm,
-    AccountingDocumentLineAssociateForm,
     AccountingDocumentLineTable,
     AccountingDocumentLinePermission,
     AccountingDocumentLineProfile,
@@ -3482,11 +3482,11 @@ const OOTBComponents={
     LevelOneDepartmentBizApp,
     LevelOneDepartmentModel,
     LevelOneDepartmentDashboard,
+    LevelOneDepartmentWorkbench,
     LevelOneDepartmentModalTable,
     LevelOneDepartmentSearch,
     LevelOneDepartmentSearchForm,
     LevelOneDepartmentCreateForm,
-    LevelOneDepartmentAssociateForm,
     LevelOneDepartmentTable,
     LevelOneDepartmentPermission,
     LevelOneDepartmentProfile,
@@ -3497,11 +3497,11 @@ const OOTBComponents={
     LevelTwoDepartmentBizApp,
     LevelTwoDepartmentModel,
     LevelTwoDepartmentDashboard,
+    LevelTwoDepartmentWorkbench,
     LevelTwoDepartmentModalTable,
     LevelTwoDepartmentSearch,
     LevelTwoDepartmentSearchForm,
     LevelTwoDepartmentCreateForm,
-    LevelTwoDepartmentAssociateForm,
     LevelTwoDepartmentTable,
     LevelTwoDepartmentPermission,
     LevelTwoDepartmentProfile,
@@ -3512,11 +3512,11 @@ const OOTBComponents={
     LevelThreeDepartmentBizApp,
     LevelThreeDepartmentModel,
     LevelThreeDepartmentDashboard,
+    LevelThreeDepartmentWorkbench,
     LevelThreeDepartmentModalTable,
     LevelThreeDepartmentSearch,
     LevelThreeDepartmentSearchForm,
     LevelThreeDepartmentCreateForm,
-    LevelThreeDepartmentAssociateForm,
     LevelThreeDepartmentTable,
     LevelThreeDepartmentPermission,
     LevelThreeDepartmentProfile,
@@ -3527,11 +3527,11 @@ const OOTBComponents={
     SkillTypeBizApp,
     SkillTypeModel,
     SkillTypeDashboard,
+    SkillTypeWorkbench,
     SkillTypeModalTable,
     SkillTypeSearch,
     SkillTypeSearchForm,
     SkillTypeCreateForm,
-    SkillTypeAssociateForm,
     SkillTypeTable,
     SkillTypePermission,
     SkillTypeProfile,
@@ -3542,11 +3542,11 @@ const OOTBComponents={
     ResponsibilityTypeBizApp,
     ResponsibilityTypeModel,
     ResponsibilityTypeDashboard,
+    ResponsibilityTypeWorkbench,
     ResponsibilityTypeModalTable,
     ResponsibilityTypeSearch,
     ResponsibilityTypeSearchForm,
     ResponsibilityTypeCreateForm,
-    ResponsibilityTypeAssociateForm,
     ResponsibilityTypeTable,
     ResponsibilityTypePermission,
     ResponsibilityTypeProfile,
@@ -3557,11 +3557,11 @@ const OOTBComponents={
     TerminationReasonBizApp,
     TerminationReasonModel,
     TerminationReasonDashboard,
+    TerminationReasonWorkbench,
     TerminationReasonModalTable,
     TerminationReasonSearch,
     TerminationReasonSearchForm,
     TerminationReasonCreateForm,
-    TerminationReasonAssociateForm,
     TerminationReasonTable,
     TerminationReasonPermission,
     TerminationReasonProfile,
@@ -3572,11 +3572,11 @@ const OOTBComponents={
     TerminationTypeBizApp,
     TerminationTypeModel,
     TerminationTypeDashboard,
+    TerminationTypeWorkbench,
     TerminationTypeModalTable,
     TerminationTypeSearch,
     TerminationTypeSearchForm,
     TerminationTypeCreateForm,
-    TerminationTypeAssociateForm,
     TerminationTypeTable,
     TerminationTypePermission,
     TerminationTypeProfile,
@@ -3587,11 +3587,11 @@ const OOTBComponents={
     OccupationTypeBizApp,
     OccupationTypeModel,
     OccupationTypeDashboard,
+    OccupationTypeWorkbench,
     OccupationTypeModalTable,
     OccupationTypeSearch,
     OccupationTypeSearchForm,
     OccupationTypeCreateForm,
-    OccupationTypeAssociateForm,
     OccupationTypeTable,
     OccupationTypePermission,
     OccupationTypeProfile,
@@ -3602,11 +3602,11 @@ const OOTBComponents={
     LeaveTypeBizApp,
     LeaveTypeModel,
     LeaveTypeDashboard,
+    LeaveTypeWorkbench,
     LeaveTypeModalTable,
     LeaveTypeSearch,
     LeaveTypeSearchForm,
     LeaveTypeCreateForm,
-    LeaveTypeAssociateForm,
     LeaveTypeTable,
     LeaveTypePermission,
     LeaveTypeProfile,
@@ -3617,11 +3617,11 @@ const OOTBComponents={
     SalaryGradeBizApp,
     SalaryGradeModel,
     SalaryGradeDashboard,
+    SalaryGradeWorkbench,
     SalaryGradeModalTable,
     SalaryGradeSearch,
     SalaryGradeSearchForm,
     SalaryGradeCreateForm,
-    SalaryGradeAssociateForm,
     SalaryGradeTable,
     SalaryGradePermission,
     SalaryGradeProfile,
@@ -3632,11 +3632,11 @@ const OOTBComponents={
     InterviewTypeBizApp,
     InterviewTypeModel,
     InterviewTypeDashboard,
+    InterviewTypeWorkbench,
     InterviewTypeModalTable,
     InterviewTypeSearch,
     InterviewTypeSearchForm,
     InterviewTypeCreateForm,
-    InterviewTypeAssociateForm,
     InterviewTypeTable,
     InterviewTypePermission,
     InterviewTypeProfile,
@@ -3647,11 +3647,11 @@ const OOTBComponents={
     TrainingCourseTypeBizApp,
     TrainingCourseTypeModel,
     TrainingCourseTypeDashboard,
+    TrainingCourseTypeWorkbench,
     TrainingCourseTypeModalTable,
     TrainingCourseTypeSearch,
     TrainingCourseTypeSearchForm,
     TrainingCourseTypeCreateForm,
-    TrainingCourseTypeAssociateForm,
     TrainingCourseTypeTable,
     TrainingCourseTypePermission,
     TrainingCourseTypeProfile,
@@ -3662,11 +3662,11 @@ const OOTBComponents={
     PublicHolidayBizApp,
     PublicHolidayModel,
     PublicHolidayDashboard,
+    PublicHolidayWorkbench,
     PublicHolidayModalTable,
     PublicHolidaySearch,
     PublicHolidaySearchForm,
     PublicHolidayCreateForm,
-    PublicHolidayAssociateForm,
     PublicHolidayTable,
     PublicHolidayPermission,
     PublicHolidayProfile,
@@ -3677,11 +3677,11 @@ const OOTBComponents={
     TerminationBizApp,
     TerminationModel,
     TerminationDashboard,
+    TerminationWorkbench,
     TerminationModalTable,
     TerminationSearch,
     TerminationSearchForm,
     TerminationCreateForm,
-    TerminationAssociateForm,
     TerminationTable,
     TerminationPermission,
     TerminationProfile,
@@ -3692,11 +3692,11 @@ const OOTBComponents={
     ViewBizApp,
     ViewModel,
     ViewDashboard,
+    ViewWorkbench,
     ViewModalTable,
     ViewSearch,
     ViewSearchForm,
     ViewCreateForm,
-    ViewAssociateForm,
     ViewTable,
     ViewPermission,
     ViewProfile,
@@ -3707,11 +3707,11 @@ const OOTBComponents={
     EmployeeBizApp,
     EmployeeModel,
     EmployeeDashboard,
+    EmployeeWorkbench,
     EmployeeModalTable,
     EmployeeSearch,
     EmployeeSearchForm,
     EmployeeCreateForm,
-    EmployeeAssociateForm,
     EmployeeTable,
     EmployeePermission,
     EmployeeProfile,
@@ -3722,11 +3722,11 @@ const OOTBComponents={
     InstructorBizApp,
     InstructorModel,
     InstructorDashboard,
+    InstructorWorkbench,
     InstructorModalTable,
     InstructorSearch,
     InstructorSearchForm,
     InstructorCreateForm,
-    InstructorAssociateForm,
     InstructorTable,
     InstructorPermission,
     InstructorProfile,
@@ -3737,11 +3737,11 @@ const OOTBComponents={
     CompanyTrainingBizApp,
     CompanyTrainingModel,
     CompanyTrainingDashboard,
+    CompanyTrainingWorkbench,
     CompanyTrainingModalTable,
     CompanyTrainingSearch,
     CompanyTrainingSearchForm,
     CompanyTrainingCreateForm,
-    CompanyTrainingAssociateForm,
     CompanyTrainingTable,
     CompanyTrainingPermission,
     CompanyTrainingProfile,
@@ -3752,11 +3752,11 @@ const OOTBComponents={
     ScoringBizApp,
     ScoringModel,
     ScoringDashboard,
+    ScoringWorkbench,
     ScoringModalTable,
     ScoringSearch,
     ScoringSearchForm,
     ScoringCreateForm,
-    ScoringAssociateForm,
     ScoringTable,
     ScoringPermission,
     ScoringProfile,
@@ -3767,11 +3767,11 @@ const OOTBComponents={
     EmployeeCompanyTrainingBizApp,
     EmployeeCompanyTrainingModel,
     EmployeeCompanyTrainingDashboard,
+    EmployeeCompanyTrainingWorkbench,
     EmployeeCompanyTrainingModalTable,
     EmployeeCompanyTrainingSearch,
     EmployeeCompanyTrainingSearchForm,
     EmployeeCompanyTrainingCreateForm,
-    EmployeeCompanyTrainingAssociateForm,
     EmployeeCompanyTrainingTable,
     EmployeeCompanyTrainingPermission,
     EmployeeCompanyTrainingProfile,
@@ -3782,11 +3782,11 @@ const OOTBComponents={
     EmployeeSkillBizApp,
     EmployeeSkillModel,
     EmployeeSkillDashboard,
+    EmployeeSkillWorkbench,
     EmployeeSkillModalTable,
     EmployeeSkillSearch,
     EmployeeSkillSearchForm,
     EmployeeSkillCreateForm,
-    EmployeeSkillAssociateForm,
     EmployeeSkillTable,
     EmployeeSkillPermission,
     EmployeeSkillProfile,
@@ -3797,11 +3797,11 @@ const OOTBComponents={
     EmployeePerformanceBizApp,
     EmployeePerformanceModel,
     EmployeePerformanceDashboard,
+    EmployeePerformanceWorkbench,
     EmployeePerformanceModalTable,
     EmployeePerformanceSearch,
     EmployeePerformanceSearchForm,
     EmployeePerformanceCreateForm,
-    EmployeePerformanceAssociateForm,
     EmployeePerformanceTable,
     EmployeePerformancePermission,
     EmployeePerformanceProfile,
@@ -3812,11 +3812,11 @@ const OOTBComponents={
     EmployeeWorkExperienceBizApp,
     EmployeeWorkExperienceModel,
     EmployeeWorkExperienceDashboard,
+    EmployeeWorkExperienceWorkbench,
     EmployeeWorkExperienceModalTable,
     EmployeeWorkExperienceSearch,
     EmployeeWorkExperienceSearchForm,
     EmployeeWorkExperienceCreateForm,
-    EmployeeWorkExperienceAssociateForm,
     EmployeeWorkExperienceTable,
     EmployeeWorkExperiencePermission,
     EmployeeWorkExperienceProfile,
@@ -3827,11 +3827,11 @@ const OOTBComponents={
     EmployeeLeaveBizApp,
     EmployeeLeaveModel,
     EmployeeLeaveDashboard,
+    EmployeeLeaveWorkbench,
     EmployeeLeaveModalTable,
     EmployeeLeaveSearch,
     EmployeeLeaveSearchForm,
     EmployeeLeaveCreateForm,
-    EmployeeLeaveAssociateForm,
     EmployeeLeaveTable,
     EmployeeLeavePermission,
     EmployeeLeaveProfile,
@@ -3842,11 +3842,11 @@ const OOTBComponents={
     EmployeeInterviewBizApp,
     EmployeeInterviewModel,
     EmployeeInterviewDashboard,
+    EmployeeInterviewWorkbench,
     EmployeeInterviewModalTable,
     EmployeeInterviewSearch,
     EmployeeInterviewSearchForm,
     EmployeeInterviewCreateForm,
-    EmployeeInterviewAssociateForm,
     EmployeeInterviewTable,
     EmployeeInterviewPermission,
     EmployeeInterviewProfile,
@@ -3857,11 +3857,11 @@ const OOTBComponents={
     EmployeeAttendanceBizApp,
     EmployeeAttendanceModel,
     EmployeeAttendanceDashboard,
+    EmployeeAttendanceWorkbench,
     EmployeeAttendanceModalTable,
     EmployeeAttendanceSearch,
     EmployeeAttendanceSearchForm,
     EmployeeAttendanceCreateForm,
-    EmployeeAttendanceAssociateForm,
     EmployeeAttendanceTable,
     EmployeeAttendancePermission,
     EmployeeAttendanceProfile,
@@ -3872,11 +3872,11 @@ const OOTBComponents={
     EmployeeQualifierBizApp,
     EmployeeQualifierModel,
     EmployeeQualifierDashboard,
+    EmployeeQualifierWorkbench,
     EmployeeQualifierModalTable,
     EmployeeQualifierSearch,
     EmployeeQualifierSearchForm,
     EmployeeQualifierCreateForm,
-    EmployeeQualifierAssociateForm,
     EmployeeQualifierTable,
     EmployeeQualifierPermission,
     EmployeeQualifierProfile,
@@ -3887,11 +3887,11 @@ const OOTBComponents={
     EmployeeEducationBizApp,
     EmployeeEducationModel,
     EmployeeEducationDashboard,
+    EmployeeEducationWorkbench,
     EmployeeEducationModalTable,
     EmployeeEducationSearch,
     EmployeeEducationSearchForm,
     EmployeeEducationCreateForm,
-    EmployeeEducationAssociateForm,
     EmployeeEducationTable,
     EmployeeEducationPermission,
     EmployeeEducationProfile,
@@ -3902,11 +3902,11 @@ const OOTBComponents={
     EmployeeAwardBizApp,
     EmployeeAwardModel,
     EmployeeAwardDashboard,
+    EmployeeAwardWorkbench,
     EmployeeAwardModalTable,
     EmployeeAwardSearch,
     EmployeeAwardSearchForm,
     EmployeeAwardCreateForm,
-    EmployeeAwardAssociateForm,
     EmployeeAwardTable,
     EmployeeAwardPermission,
     EmployeeAwardProfile,
@@ -3917,11 +3917,11 @@ const OOTBComponents={
     EmployeeSalarySheetBizApp,
     EmployeeSalarySheetModel,
     EmployeeSalarySheetDashboard,
+    EmployeeSalarySheetWorkbench,
     EmployeeSalarySheetModalTable,
     EmployeeSalarySheetSearch,
     EmployeeSalarySheetSearchForm,
     EmployeeSalarySheetCreateForm,
-    EmployeeSalarySheetAssociateForm,
     EmployeeSalarySheetTable,
     EmployeeSalarySheetPermission,
     EmployeeSalarySheetProfile,
@@ -3932,11 +3932,11 @@ const OOTBComponents={
     PayingOffBizApp,
     PayingOffModel,
     PayingOffDashboard,
+    PayingOffWorkbench,
     PayingOffModalTable,
     PayingOffSearch,
     PayingOffSearchForm,
     PayingOffCreateForm,
-    PayingOffAssociateForm,
     PayingOffTable,
     PayingOffPermission,
     PayingOffProfile,
@@ -3947,11 +3947,11 @@ const OOTBComponents={
     MobileAppBizApp,
     MobileAppModel,
     MobileAppDashboard,
+    MobileAppWorkbench,
     MobileAppModalTable,
     MobileAppSearch,
     MobileAppSearchForm,
     MobileAppCreateForm,
-    MobileAppAssociateForm,
     MobileAppTable,
     MobileAppPermission,
     MobileAppProfile,
@@ -3962,11 +3962,11 @@ const OOTBComponents={
     PageBizApp,
     PageModel,
     PageDashboard,
+    PageWorkbench,
     PageModalTable,
     PageSearch,
     PageSearchForm,
     PageCreateForm,
-    PageAssociateForm,
     PageTable,
     PagePermission,
     PageProfile,
@@ -3977,11 +3977,11 @@ const OOTBComponents={
     PageTypeBizApp,
     PageTypeModel,
     PageTypeDashboard,
+    PageTypeWorkbench,
     PageTypeModalTable,
     PageTypeSearch,
     PageTypeSearchForm,
     PageTypeCreateForm,
-    PageTypeAssociateForm,
     PageTypeTable,
     PageTypePermission,
     PageTypeProfile,
@@ -3992,11 +3992,11 @@ const OOTBComponents={
     SlideBizApp,
     SlideModel,
     SlideDashboard,
+    SlideWorkbench,
     SlideModalTable,
     SlideSearch,
     SlideSearchForm,
     SlideCreateForm,
-    SlideAssociateForm,
     SlideTable,
     SlidePermission,
     SlideProfile,
@@ -4007,11 +4007,11 @@ const OOTBComponents={
     UiActionBizApp,
     UiActionModel,
     UiActionDashboard,
+    UiActionWorkbench,
     UiActionModalTable,
     UiActionSearch,
     UiActionSearchForm,
     UiActionCreateForm,
-    UiActionAssociateForm,
     UiActionTable,
     UiActionPermission,
     UiActionProfile,
@@ -4022,11 +4022,11 @@ const OOTBComponents={
     SectionBizApp,
     SectionModel,
     SectionDashboard,
+    SectionWorkbench,
     SectionModalTable,
     SectionSearch,
     SectionSearchForm,
     SectionCreateForm,
-    SectionAssociateForm,
     SectionTable,
     SectionPermission,
     SectionProfile,
@@ -4037,41 +4037,41 @@ const OOTBComponents={
     UserDomainBizApp,
     UserDomainModel,
     UserDomainDashboard,
+    UserDomainWorkbench,
     UserDomainModalTable,
     UserDomainSearch,
     UserDomainSearchForm,
     UserDomainCreateForm,
-    UserDomainAssociateForm,
     UserDomainTable,
     UserDomainPermission,
     UserDomainProfile,
     UserDomainCreateFormBody,
     UserDomainService,
     UserDomainUpdateForm,
-    UserWhiteListBase,
-    UserWhiteListBizApp,
-    UserWhiteListModel,
-    UserWhiteListDashboard,
-    UserWhiteListModalTable,
-    UserWhiteListSearch,
-    UserWhiteListSearchForm,
-    UserWhiteListCreateForm,
-    UserWhiteListAssociateForm,
-    UserWhiteListTable,
-    UserWhiteListPermission,
-    UserWhiteListProfile,
-    UserWhiteListCreateFormBody,
-    UserWhiteListService,
-    UserWhiteListUpdateForm,
+    UserAllowListBase,
+    UserAllowListBizApp,
+    UserAllowListModel,
+    UserAllowListDashboard,
+    UserAllowListWorkbench,
+    UserAllowListModalTable,
+    UserAllowListSearch,
+    UserAllowListSearchForm,
+    UserAllowListCreateForm,
+    UserAllowListTable,
+    UserAllowListPermission,
+    UserAllowListProfile,
+    UserAllowListCreateFormBody,
+    UserAllowListService,
+    UserAllowListUpdateForm,
     SecUserBase,
     SecUserBizApp,
     SecUserModel,
     SecUserDashboard,
+    SecUserWorkbench,
     SecUserModalTable,
     SecUserSearch,
     SecUserSearchForm,
     SecUserCreateForm,
-    SecUserAssociateForm,
     SecUserTable,
     SecUserPermission,
     SecUserProfile,
@@ -4082,11 +4082,11 @@ const OOTBComponents={
     UserAppBizApp,
     UserAppModel,
     UserAppDashboard,
+    UserAppWorkbench,
     UserAppModalTable,
     UserAppSearch,
     UserAppSearchForm,
     UserAppCreateForm,
-    UserAppAssociateForm,
     UserAppTable,
     UserAppPermission,
     UserAppProfile,
@@ -4097,11 +4097,11 @@ const OOTBComponents={
     QuickLinkBizApp,
     QuickLinkModel,
     QuickLinkDashboard,
+    QuickLinkWorkbench,
     QuickLinkModalTable,
     QuickLinkSearch,
     QuickLinkSearchForm,
     QuickLinkCreateForm,
-    QuickLinkAssociateForm,
     QuickLinkTable,
     QuickLinkPermission,
     QuickLinkProfile,
@@ -4112,11 +4112,11 @@ const OOTBComponents={
     ListAccessBizApp,
     ListAccessModel,
     ListAccessDashboard,
+    ListAccessWorkbench,
     ListAccessModalTable,
     ListAccessSearch,
     ListAccessSearchForm,
     ListAccessCreateForm,
-    ListAccessAssociateForm,
     ListAccessTable,
     ListAccessPermission,
     ListAccessProfile,
@@ -4127,11 +4127,11 @@ const OOTBComponents={
     LoginHistoryBizApp,
     LoginHistoryModel,
     LoginHistoryDashboard,
+    LoginHistoryWorkbench,
     LoginHistoryModalTable,
     LoginHistorySearch,
     LoginHistorySearchForm,
     LoginHistoryCreateForm,
-    LoginHistoryAssociateForm,
     LoginHistoryTable,
     LoginHistoryPermission,
     LoginHistoryProfile,
@@ -4142,11 +4142,11 @@ const OOTBComponents={
     CandidateContainerBizApp,
     CandidateContainerModel,
     CandidateContainerDashboard,
+    CandidateContainerWorkbench,
     CandidateContainerModalTable,
     CandidateContainerSearch,
     CandidateContainerSearchForm,
     CandidateContainerCreateForm,
-    CandidateContainerAssociateForm,
     CandidateContainerTable,
     CandidateContainerPermission,
     CandidateContainerProfile,
@@ -4157,71 +4157,71 @@ const OOTBComponents={
     CandidateElementBizApp,
     CandidateElementModel,
     CandidateElementDashboard,
+    CandidateElementWorkbench,
     CandidateElementModalTable,
     CandidateElementSearch,
     CandidateElementSearchForm,
     CandidateElementCreateForm,
-    CandidateElementAssociateForm,
     CandidateElementTable,
     CandidateElementPermission,
     CandidateElementProfile,
     CandidateElementCreateFormBody,
     CandidateElementService,
     CandidateElementUpdateForm,
-    WechatWorkappIdentifyBase,
-    WechatWorkappIdentifyBizApp,
-    WechatWorkappIdentifyModel,
-    WechatWorkappIdentifyDashboard,
-    WechatWorkappIdentifyModalTable,
-    WechatWorkappIdentifySearch,
-    WechatWorkappIdentifySearchForm,
-    WechatWorkappIdentifyCreateForm,
-    WechatWorkappIdentifyAssociateForm,
-    WechatWorkappIdentifyTable,
-    WechatWorkappIdentifyPermission,
-    WechatWorkappIdentifyProfile,
-    WechatWorkappIdentifyCreateFormBody,
-    WechatWorkappIdentifyService,
-    WechatWorkappIdentifyUpdateForm,
-    WechatMiniappIdentifyBase,
-    WechatMiniappIdentifyBizApp,
-    WechatMiniappIdentifyModel,
-    WechatMiniappIdentifyDashboard,
-    WechatMiniappIdentifyModalTable,
-    WechatMiniappIdentifySearch,
-    WechatMiniappIdentifySearchForm,
-    WechatMiniappIdentifyCreateForm,
-    WechatMiniappIdentifyAssociateForm,
-    WechatMiniappIdentifyTable,
-    WechatMiniappIdentifyPermission,
-    WechatMiniappIdentifyProfile,
-    WechatMiniappIdentifyCreateFormBody,
-    WechatMiniappIdentifyService,
-    WechatMiniappIdentifyUpdateForm,
-    KeypairIdentifyBase,
-    KeypairIdentifyBizApp,
-    KeypairIdentifyModel,
-    KeypairIdentifyDashboard,
-    KeypairIdentifyModalTable,
-    KeypairIdentifySearch,
-    KeypairIdentifySearchForm,
-    KeypairIdentifyCreateForm,
-    KeypairIdentifyAssociateForm,
-    KeypairIdentifyTable,
-    KeypairIdentifyPermission,
-    KeypairIdentifyProfile,
-    KeypairIdentifyCreateFormBody,
-    KeypairIdentifyService,
-    KeypairIdentifyUpdateForm,
+    WechatWorkappIdentityBase,
+    WechatWorkappIdentityBizApp,
+    WechatWorkappIdentityModel,
+    WechatWorkappIdentityDashboard,
+    WechatWorkappIdentityWorkbench,
+    WechatWorkappIdentityModalTable,
+    WechatWorkappIdentitySearch,
+    WechatWorkappIdentitySearchForm,
+    WechatWorkappIdentityCreateForm,
+    WechatWorkappIdentityTable,
+    WechatWorkappIdentityPermission,
+    WechatWorkappIdentityProfile,
+    WechatWorkappIdentityCreateFormBody,
+    WechatWorkappIdentityService,
+    WechatWorkappIdentityUpdateForm,
+    WechatMiniappIdentityBase,
+    WechatMiniappIdentityBizApp,
+    WechatMiniappIdentityModel,
+    WechatMiniappIdentityDashboard,
+    WechatMiniappIdentityWorkbench,
+    WechatMiniappIdentityModalTable,
+    WechatMiniappIdentitySearch,
+    WechatMiniappIdentitySearchForm,
+    WechatMiniappIdentityCreateForm,
+    WechatMiniappIdentityTable,
+    WechatMiniappIdentityPermission,
+    WechatMiniappIdentityProfile,
+    WechatMiniappIdentityCreateFormBody,
+    WechatMiniappIdentityService,
+    WechatMiniappIdentityUpdateForm,
+    KeyPairIdentityBase,
+    KeyPairIdentityBizApp,
+    KeyPairIdentityModel,
+    KeyPairIdentityDashboard,
+    KeyPairIdentityWorkbench,
+    KeyPairIdentityModalTable,
+    KeyPairIdentitySearch,
+    KeyPairIdentitySearchForm,
+    KeyPairIdentityCreateForm,
+    KeyPairIdentityTable,
+    KeyPairIdentityPermission,
+    KeyPairIdentityProfile,
+    KeyPairIdentityCreateFormBody,
+    KeyPairIdentityService,
+    KeyPairIdentityUpdateForm,
     PublicKeyTypeBase,
     PublicKeyTypeBizApp,
     PublicKeyTypeModel,
     PublicKeyTypeDashboard,
+    PublicKeyTypeWorkbench,
     PublicKeyTypeModalTable,
     PublicKeyTypeSearch,
     PublicKeyTypeSearchForm,
     PublicKeyTypeCreateForm,
-    PublicKeyTypeAssociateForm,
     PublicKeyTypeTable,
     PublicKeyTypePermission,
     PublicKeyTypeProfile,
@@ -4232,11 +4232,11 @@ const OOTBComponents={
     TreeNodeBizApp,
     TreeNodeModel,
     TreeNodeDashboard,
+    TreeNodeWorkbench,
     TreeNodeModalTable,
     TreeNodeSearch,
     TreeNodeSearchForm,
     TreeNodeCreateForm,
-    TreeNodeAssociateForm,
     TreeNodeTable,
     TreeNodePermission,
     TreeNodeProfile,

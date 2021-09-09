@@ -29,32 +29,26 @@ export default {
   subscriptions: {},
   effects: {
     *jumpToLink({ payload }, { call, put, select }) {
-
-      const {name,link}=payload
-      console.log("jump to link", payload)
-      yield put({ type: 'gotoLink', payload: {name,link} })
-      yield put(routerRedux.push(link))
-      
+      const { name, link } = payload;
+      console.log('jump to link', payload);
+      yield put({ type: 'gotoLink', payload: { name, link } });
+      yield put(routerRedux.push(link));
     },
-
-
   },
   reducers: {
     updateState(state, action) {
       return { ...state, ...action.payload };
     },
-    removeLink(state, action){
-      
+    removeLink(state, action) {
       const targetApp = sessionObject('targetApp');
       const oldBreadcrumb = sessionObject(targetApp.id);
-      const {link} = action.payload;
-      console.log("trying to remove link ", link)
+      const { link } = action.payload;
+      console.log('trying to remove link ', link);
       const currentBreadcrumb = oldBreadcrumb.filter(item => item.link !== link);
       sessionObject(targetApp.id, currentBreadcrumb);
-      return { ...state }
+      return { ...state };
     },
     gotoLink(state, action) {
-      
       const targetApp = sessionObject('targetApp');
       const storedBreadcrumb = sessionObject(targetApp.id);
 
@@ -62,13 +56,14 @@ export default {
       if (!storedBreadcrumb) {
         return state;
       }
-      const {link} = action.payload;
-      const currentBreadcrumb = storedBreadcrumb.map(item=>(
-        { ...item, selected: (item.link === link)}
-      ))
-      console.log("gotoLink", action.payload,currentBreadcrumb)
-     
-      let {returnURL} = state;
+      const { link } = action.payload;
+      const currentBreadcrumb = storedBreadcrumb.map(item => ({
+        ...item,
+        selected: item.link === link,
+      }));
+      console.log('gotoLink', action.payload, currentBreadcrumb);
+
+      let { returnURL } = state;
       if (link && link.indexOf('/list/') > 0 && link.indexOf('/cache') < 0) {
         returnURL = link + '/cache';
       }
@@ -77,7 +72,7 @@ export default {
 
       const index = currentBreadcrumb.findIndex(item => item.link === link);
       console.log('index', index);
-      const selected = true
+      const selected = true;
       if (index < 0) {
         currentBreadcrumb.push({ name, link, selected });
         sessionObject(targetApp.id, currentBreadcrumb);
@@ -85,12 +80,12 @@ export default {
       }
 
       sessionObject(targetApp.id, currentBreadcrumb);
-      
+
       // const newBreadcrumb = currentBreadcrumb.slice(0, index + 1);
       // sessionObject(targetApp.id, newBreadcrumb);
       // const newBreadcrumb = currentBreadcrumb.slice(0, index + 1);
       // sessionObject(targetApp.id, newBreadcrumb);
-      return { ...state, returnURL , selectedIndex:index};
+      return { ...state, returnURL, selectedIndex: index };
     },
     selectApp(state, action) {
       console.log(action);

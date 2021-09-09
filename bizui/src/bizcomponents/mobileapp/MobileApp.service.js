@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}mobileAppManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}mobileAppManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -83,6 +88,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}mobileAppService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -102,11 +115,12 @@ const  processRequest = (data) => {
 
 const MobileAppService = { view,
   load,
+  analyze,
   addPage,
   addPageType,
   updatePage,
   updatePageType,
   removePageList,
-  removePageTypeList, listFunctions, saveRequest, processRequest, queryCandidates}
+  removePageTypeList, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default MobileAppService
 

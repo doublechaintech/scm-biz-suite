@@ -1,50 +1,63 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../utils/utils.less';
 
-@import "~antd/lib/style/themes/default.less";
-@import "../utils/utils.less";
+.pageHeader {
+  background: @component-background;
+  padding: 16px 32px 0 32px;
+}
 
+.itemDesc {
+  padding-top: 10px;
+  margin-bottom: 2px;
+  background-color: white;
+  display: block;
+  position: relative;
+}
 
-
-.crCard{
-
+.crCard {
   text-align: center;
+  .shortText{
+
+    
+
+  }
+
 
 }
-.crCard:hover{
-
+.crCard:hover {
   background-color: #194783;
-  color:#ffff00;
+  color: #ffff00;
   font-weight: bolder;
-  
+  .icon{
+    display: none;
+  }
+  .shortText{
+
+    display: none;
+
+  }
 }
 
-
-
-
-.functionGroupItem{
-
+.functionGroupItem {
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 15px;
-
 }
 
-.functionItem{
-
+.functionItem {
   margin-top: 5px;
   margin-bottom: 5px;
-  
-
 }
 
-.functionRow{
+.functionRow {
+  //border-left: thick solid #dd6600;
 
-  border-left: thick solid #dd6600;
- 
+
+  
   color: @text-color-secondary;
   &:hover {
     color: @text-color;
   }
-
 }
 
 .card {
@@ -63,14 +76,22 @@
   }
 }
 :global {
- .ant-card-body {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 24px;
-  padding-right: 24px;
-  zoom: 1;
- }
+  .ant-card-body {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    zoom: 1;
+  }
 
+  .ant-menu-submenu-title {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0 5px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
 }
 .rankingList {
   margin-top: 25px;
@@ -190,7 +211,7 @@
 
 td.alignRight,
 th.alignRight {
-  text-align: right!important;
+  text-align: right !important;
 }
 
 .trendText {
@@ -243,9 +264,3 @@ th.alignRight {
   width: 2px;
   height: 12px;
 }
-
-
-
-
-
-

@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}transportTaskManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}transportTaskManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -143,6 +148,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}transportTaskService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -162,6 +175,7 @@ const  processRequest = (data) => {
 
 const TransportTaskService = { view,
   load,
+  analyze,
   addGoods,
   addTransportTaskTrack,
   updateGoods,
@@ -175,6 +189,6 @@ const TransportTaskService = { view,
   transferToAnotherEnd,
   transferToAnotherDriver,
   transferToAnotherTruck,
-  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBelongsTo, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default TransportTaskService
 

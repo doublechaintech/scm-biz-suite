@@ -31,7 +31,7 @@ const internalSummaryOf = (slide,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{slide.id}</Description> 
+<Description term="ID">{slide.id}</Description> 
 <Description term="名称">{slide.name}</Description> 
 <Description term="顺序">{slide.displayOrder}</Description> 
 <Description term="图片链接"><ImagePreview imageTitle="图片链接" imageLocation={slide.imageUrl}/></Description> 
@@ -62,7 +62,7 @@ class SlidePermission extends Component {
     // eslint-disable-next-line max-len
     const  slide = this.props.slide
     const { id,displayName,  } = slide
-    const  returnURL = `/slide/${id}/dashboard`
+    const  returnURL = `/slide/${id}/workbench`
     const cardsData = {cardsName:"轮播内容",cardsFor: "slide",cardsSource: slide,displayName,returnURL,
   		subItems: [
     
@@ -75,10 +75,10 @@ class SlidePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

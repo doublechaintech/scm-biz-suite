@@ -15,25 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = RetailStoreBase
 const testValues = {};
-/*
-const testValues = {
-  name: '中和社区小超',
-  telephone: '028 87654321',
-  owner: '吕刚',
-  founded: '2019-10-29',
-  latitude: '41.17408617734593',
-  longitude: '130.19591946396915',
-  description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
-  retailStoreCountryCenterId: 'RSCC000001',
-  cityServiceCenterId: 'RSCSC000001',
-  creationId: 'RSC000001',
-  investmentInvitationId: 'RSII000001',
-  franchisingId: 'RSF000001',
-  decorationId: 'RSD000001',
-  openingId: 'RSO000001',
-  closingId: 'RSC000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -47,9 +31,20 @@ class RetailStoreCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = RetailStoreBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -60,7 +55,7 @@ class RetailStoreCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -68,7 +63,7 @@ class RetailStoreCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -76,10 +71,10 @@ class RetailStoreCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -88,16 +83,16 @@ class RetailStoreCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {RetailStoreService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -107,9 +102,9 @@ class RetailStoreCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -118,7 +113,7 @@ class RetailStoreCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -130,25 +125,25 @@ class RetailStoreCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={3} maxLength={24} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('telephone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.telephone} />
+                    <SmallTextInput minLength={4} maxLength={48} size="large"  placeholder={fieldLabels.telephone} />
                   )}
                 </Form.Item>
               </Col>
@@ -168,7 +163,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('owner', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.owner} />
+                    <SmallTextInput minLength={1} maxLength={8} size="large"  placeholder={fieldLabels.owner} />
                   )}
                 </Form.Item>
               </Col>
@@ -178,7 +173,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>
@@ -188,7 +183,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.latitude} />
+                    <SmallTextInput minLength={-90.0} maxLength={90.0} size="large"  placeholder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -198,7 +193,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.longitude} />
+                    <SmallTextInput minLength={-180.0} maxLength={180.0} size="large"  placeholder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -208,221 +203,221 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.description} />
+                    <SmallTextInput minLength={6} maxLength={84} size="large"  placeholder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.retailStoreCountryCenter} {...formItemLayout}>
                   {getFieldDecorator('retailStoreCountryCenterId', {
                   	initialValue: tryinit('retailStoreCountryCenter'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('retailStoreCountryCenter')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_country_center"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_country_center"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.cityServiceCenter} {...formItemLayout}>
                   {getFieldDecorator('cityServiceCenterId', {
                   	initialValue: tryinit('cityServiceCenter'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('cityServiceCenter')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_city_service_center"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_city_service_center"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.creation} {...formItemLayout}>
                   {getFieldDecorator('creationId', {
                   	initialValue: tryinit('creation'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('creation')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_creation"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_creation"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.investmentInvitation} {...formItemLayout}>
                   {getFieldDecorator('investmentInvitationId', {
                   	initialValue: tryinit('investmentInvitation'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('investmentInvitation')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_investment_invitation"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_investment_invitation"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.franchising} {...formItemLayout}>
                   {getFieldDecorator('franchisingId', {
                   	initialValue: tryinit('franchising'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('franchising')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_franchising"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_franchising"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.decoration} {...formItemLayout}>
                   {getFieldDecorator('decorationId', {
                   	initialValue: tryinit('decoration'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('decoration')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_decoration"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_decoration"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.opening} {...formItemLayout}>
                   {getFieldDecorator('openingId', {
                   	initialValue: tryinit('opening'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('opening')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_opening"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_opening"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.closing} {...formItemLayout}>
                   {getFieldDecorator('closingId', {
                   	initialValue: tryinit('closing'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('closing')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"retail_store"} 
-		                 targetType={"retail_store_closing"} 
-                 
+		                 listType={"retail_store"}
+		                 targetType={"retail_store_closing"}
+
                     requestFunction={RetailStoreService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -437,7 +432,7 @@ class RetailStoreCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

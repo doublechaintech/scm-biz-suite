@@ -31,7 +31,7 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
   cleanSelectedKeys = () => {
     this.handleRowSelectChange([], [])
   }
-  
+
   enhanceColumnsWithSorter=()=>{
     const {displayColumns} = ConsumerOrderShippingGroupBase
     const {owner, searchParameters} =  this.props
@@ -40,9 +40,9 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
       return displayColumns
     }
     console.log("searchParameters",searchParameters)
-    
+
     const remainColumns = displayColumns.filter((item,index)=> item.dataIndex!==referenceName&&index<10&&item.dataIndex!=='content')
-    
+
     if(!searchParameters){
       return remainColumns
     }
@@ -77,43 +77,52 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
     return enhancedColumns
 
   }
-  
+
+  renderAction=(record,action,text,actionIndex)=>{
+      if(!action){
+        return null
+      }
+      if(action.actionPath.startsWith("#")){
+      	const {owner} = this.props
+      	const {id} = owner;
+       	const linkToState={ownerId: id, action,selectedRows:[record]};
+        return <span key={action.actionId}>{actionIndex>0&&<span className={styles.splitLine} />}<Link to={{pathname:`${action.actionPath.substring(1)}`,state:linkToState}}>{action.actionName}</Link></span>
+      }
+      return <a key={action.actionId} onClick={()=>this.performAction(action,text, record)}>{actionIndex>0&&<span className={styles.splitLine} />}{action.actionName}</a>
+
+   }
+
   calcDisplayColumns=()=>{
 
     const { metaInfo} =  this.props
     const userContext = null
     const enhancedColumns = this.enhanceColumnsWithSorter()
-    
+
     const operationColumn={
       title: appLocaleName(userContext,"Operate"),
       render: (text, record) => (
         <span>
-          
-          { hasReadPermission(metaInfo)&&<Link to={`/consumerOrderShippingGroup/${record.id}/dashboard`}>{appLocaleName(userContext,"View")}</Link>}
-
-
-          {  hasUpdatePermission(metaInfo) &&<span className={styles.splitLine} /> } {hasUpdatePermission(metaInfo)&&<a key="__2" onClick={()=>this.gotoEdit(text, record)}>{appLocaleName(userContext,"Edit")}</a>}
 
           {
-            record.actionList&&record.actionList.map((item)=>(<a key={item.actionId} onClick={()=>this.executeAction(item,text, record)}><span className={styles.splitLine} />{item.actionName}</a>))
+            record.actionList&&record.actionList.map((item,actionIndex)=>(this.renderAction(record,item,text,actionIndex)))
 
           }
         </span>
       ),
     }
-   
+
     if( hasReadPermission(metaInfo) || hasUpdatePermission(metaInfo)){
         enhancedColumns.push(
       		operationColumn
     	)
     }
 
-    
+
     return enhancedColumns
 
   }
-  executeAction = (action, text, record) => {
-    console.log("executeAction",action)
+  performAction = (action, text, record) => {
+    console.log("performAction",action)
     const {dispatch,owner} = this.props
     const {actionPath}=action;
     const url = actionPath
@@ -124,7 +133,7 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
 
     }
     dispatch({
-      type:"actioncenter/executeAction",
+      type:"actioncenter/performAction",
       payload:{action,url,successAction}
 
     })
@@ -132,7 +141,7 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
 
 
   }
-  
+
   gotoEdit = (text, record) =>{
     this.handleRowSelectChange([record.id], [record])
     const{dispatch,owner,role} = this.props
@@ -155,7 +164,7 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
     })
 
   }
-	
+
   render() {
     const { selectedRowKeys } = this.state
     // const { data, count, current, owner } = this.props
@@ -166,7 +175,7 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
       pageSize: 10,
       total: count,
       current,
-      
+
     }
 
     const rowSelection = {
@@ -187,12 +196,12 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
               </span>
             ):(
               <span>
-                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")} 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")}
                 {appLocaleName(userContext,"Selected")} <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> {appLocaleName(userContext,"Items")} <a onClick={this.cleanSelectedKeys} style={{ marginLeft: 24 }}>{appLocaleName(userContext,"Clear")}</a>
               </span>
             )}
             type="info"
-            
+
           />
         </div>
         <Table
@@ -206,7 +215,7 @@ class ConsumerOrderShippingGroupTable extends PureComponent {
           columns={calcDisplayColumns()}
           pagination={paginationProps}
           onChange={this.handleTableChange}
-          
+
         />
       </div>
     )

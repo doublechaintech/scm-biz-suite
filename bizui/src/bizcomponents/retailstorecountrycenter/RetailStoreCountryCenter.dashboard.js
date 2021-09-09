@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
-import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+import BaseTool from '../../common/Base.tool'
+import { Tag, Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
-import {
-  ChartCard, yuan, MiniArea, MiniBar, MiniProgress, Field, Bar, Pie, TimelineChart,
-} from '../../components/Charts'
+import {TagCloud} from '../../components/Charts'
 import Trend from '../../components/Trend'
 import NumberInfo from '../../components/NumberInfo'
 import { getTimeDistance } from '../../utils/utils'
@@ -30,7 +29,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
 
+const {defaultFormatNumber} = BaseTool
 
+const formatNumber = defaultFormatNumber
 
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
@@ -43,7 +44,7 @@ const imageList =(retailStoreCountryCenter)=>{return [
 
 const internalImageListOf = (retailStoreCountryCenter) =>defaultImageListOf(retailStoreCountryCenter,imageList)
 
-const optionList =(retailStoreCountryCenter)=>{return [ 
+const optionList =(retailStoreCountryCenter)=>{return [
 	]}
 
 const buildTransferModal = defaultBuildTransferModal
@@ -53,7 +54,7 @@ const internalSettingListOf = (retailStoreCountryCenter) =>defaultSettingListOf(
 const internalLargeTextOf = (retailStoreCountryCenter) =>{
 
 	return null
-	
+
 
 }
 
@@ -68,7 +69,7 @@ const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
         <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
-       
+
         <Button>
         <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
       </Button>
@@ -101,22 +102,24 @@ const renderSettingMenu = (cardsData,targetComponent) =>{
 }
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
+
+
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
 
-const internalSummaryOf = (retailStoreCountryCenter,targetComponent) =>{
-	
-	
+const internalSummaryOf = (cardsData,targetComponent) =>{
+
+	 const quickFunctions = targetComponent.props.quickFunctions || internalQuickFunctions
+	const retailStoreCountryCenter = cardsData.cardsSource
 	const {RetailStoreCountryCenterService} = GlobalComponents
 	const userContext = null
 	return (
+	<div>
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.id}</Description> 
+<Description term="ID" style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.name}</Description> 
 <Description term="服务号码" style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.serviceNumber}</Description> 
 <Description term="成立">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
@@ -125,12 +128,35 @@ const internalSummaryOf = (retailStoreCountryCenter,targetComponent) =>{
 <Description term="由" style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.operatedBy}</Description> 
 <Description term="法定代表人" style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.legalRepresentative}</Description> 
 <Description term="描述" style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.description}</Description> 
-	
-        {buildTransferModal(retailStoreCountryCenter,targetComponent)}
+
+       
       </DescriptionList>
+      <div>{quickFunctions(cardsData)}</div>
+      </div>
 	)
 
 }
+
+
+const renderTagCloud=(cardsData)=>{
+
+
+  if(cardsData.subItems.length<10){
+    return null
+  }
+
+  const tagValue = cardsData.subItems.map(item=>({name:item.displayName, value: item.count}))
+
+  return <div >
+      <div style={{verticalAlign:"middle",textAlign:"center",backgroundColor:"rgba(0, 0, 0, 0.65)",color:"white",fontWeight:"bold",height:"40px"}}>
+       <span style={{display:"inline-block",marginTop:"10px"}}>{`${cardsData.displayName}画像`}</span>
+      </div>
+      <TagCloud data={tagValue} height={200} style={{backgroundColor:"white"}}/>
+    </div>
+
+
+}
+
 
 const internalQuickFunctions = defaultQuickFunctions
 
@@ -144,7 +170,7 @@ class RetailStoreCountryCenterDashboard extends Component {
     targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
-    transferTargetParameterName:"",  
+    transferTargetParameterName:"",
     defaultType: 'retailStoreCountryCenter'
 
 
@@ -152,7 +178,7 @@ class RetailStoreCountryCenterDashboard extends Component {
   componentDidMount() {
 
   }
-  
+
 
   render() {
     // eslint-disable-next-line max-len
@@ -161,7 +187,7 @@ class RetailStoreCountryCenterDashboard extends Component {
       return null
     }
     const returnURL = this.props.returnURL
-    
+
     const cardsData = {cardsName:window.trans('retail_store_country_center'),cardsFor: "retailStoreCountryCenter",
     	cardsSource: this.props.retailStoreCountryCenter,returnURL,displayName,
   		subItems: [
@@ -179,24 +205,24 @@ class RetailStoreCountryCenterDashboard extends Component {
 {name: 'employeeList', displayName: window.mtrans('employee','retail_store_country_center.employee_list',false) ,viewGroup:'人力资源', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
 {name: 'instructorList', displayName: window.mtrans('instructor','retail_store_country_center.instructor_list',false) ,viewGroup:'人力资源', type:'instructor',count:instructorCount,addFunction: true, role: 'instructor', metaInfo: instructorListMetaInfo, renderItem: GlobalComponents.InstructorBase.renderItemOfList},
 {name: 'companyTrainingList', displayName: window.mtrans('company_training','retail_store_country_center.company_training_list',false) ,viewGroup:'人力资源', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
-    
+
       	],
    		subSettingItems: [
-{name: 'skillTypeList', displayName:'技能类型',type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType', metaInfo: skillTypeListMetaInfo, renderItem: GlobalComponents.SkillTypeBase.renderItemOfList},
-{name: 'responsibilityTypeList', displayName:'责任类型',type:'responsibilityType',count:responsibilityTypeCount,addFunction: true, role: 'responsibilityType', metaInfo: responsibilityTypeListMetaInfo, renderItem: GlobalComponents.ResponsibilityTypeBase.renderItemOfList},
-{name: 'terminationReasonList', displayName:'雇佣终止的原因',type:'terminationReason',count:terminationReasonCount,addFunction: true, role: 'terminationReason', metaInfo: terminationReasonListMetaInfo, renderItem: GlobalComponents.TerminationReasonBase.renderItemOfList},
-{name: 'terminationTypeList', displayName:'雇佣终止类型',type:'terminationType',count:terminationTypeCount,addFunction: true, role: 'terminationType', metaInfo: terminationTypeListMetaInfo, renderItem: GlobalComponents.TerminationTypeBase.renderItemOfList},
-{name: 'occupationTypeList', displayName:'职位类型',type:'occupationType',count:occupationTypeCount,addFunction: true, role: 'occupationType', metaInfo: occupationTypeListMetaInfo, renderItem: GlobalComponents.OccupationTypeBase.renderItemOfList},
-{name: 'leaveTypeList', displayName:'请假类型',type:'leaveType',count:leaveTypeCount,addFunction: true, role: 'leaveType', metaInfo: leaveTypeListMetaInfo, renderItem: GlobalComponents.LeaveTypeBase.renderItemOfList},
-{name: 'salaryGradeList', displayName:'工资等级',type:'salaryGrade',count:salaryGradeCount,addFunction: true, role: 'salaryGrade', metaInfo: salaryGradeListMetaInfo, renderItem: GlobalComponents.SalaryGradeBase.renderItemOfList},
-{name: 'interviewTypeList', displayName:'面试类型',type:'interviewType',count:interviewTypeCount,addFunction: true, role: 'interviewType', metaInfo: interviewTypeListMetaInfo, renderItem: GlobalComponents.InterviewTypeBase.renderItemOfList},
-{name: 'trainingCourseTypeList', displayName:'培训课程类型',type:'trainingCourseType',count:trainingCourseTypeCount,addFunction: true, role: 'trainingCourseType', metaInfo: trainingCourseTypeListMetaInfo, renderItem: GlobalComponents.TrainingCourseTypeBase.renderItemOfList},
-{name: 'publicHolidayList', displayName:'公共假日',type:'publicHoliday',count:publicHolidayCount,addFunction: true, role: 'publicHoliday', metaInfo: publicHolidayListMetaInfo, renderItem: GlobalComponents.PublicHolidayBase.renderItemOfList},
-    
-      	],     	
-      	
+{name: 'skillTypeList', displayName: window.mtrans('skill_type','retail_store_country_center.skill_type_list',false),type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType', metaInfo: skillTypeListMetaInfo, renderItem: GlobalComponents.SkillTypeBase.renderItemOfList},
+{name: 'responsibilityTypeList', displayName: window.mtrans('responsibility_type','retail_store_country_center.responsibility_type_list',false),type:'responsibilityType',count:responsibilityTypeCount,addFunction: true, role: 'responsibilityType', metaInfo: responsibilityTypeListMetaInfo, renderItem: GlobalComponents.ResponsibilityTypeBase.renderItemOfList},
+{name: 'terminationReasonList', displayName: window.mtrans('termination_reason','retail_store_country_center.termination_reason_list',false),type:'terminationReason',count:terminationReasonCount,addFunction: true, role: 'terminationReason', metaInfo: terminationReasonListMetaInfo, renderItem: GlobalComponents.TerminationReasonBase.renderItemOfList},
+{name: 'terminationTypeList', displayName: window.mtrans('termination_type','retail_store_country_center.termination_type_list',false),type:'terminationType',count:terminationTypeCount,addFunction: true, role: 'terminationType', metaInfo: terminationTypeListMetaInfo, renderItem: GlobalComponents.TerminationTypeBase.renderItemOfList},
+{name: 'occupationTypeList', displayName: window.mtrans('occupation_type','retail_store_country_center.occupation_type_list',false),type:'occupationType',count:occupationTypeCount,addFunction: true, role: 'occupationType', metaInfo: occupationTypeListMetaInfo, renderItem: GlobalComponents.OccupationTypeBase.renderItemOfList},
+{name: 'leaveTypeList', displayName: window.mtrans('leave_type','retail_store_country_center.leave_type_list',false),type:'leaveType',count:leaveTypeCount,addFunction: true, role: 'leaveType', metaInfo: leaveTypeListMetaInfo, renderItem: GlobalComponents.LeaveTypeBase.renderItemOfList},
+{name: 'salaryGradeList', displayName: window.mtrans('salary_grade','retail_store_country_center.salary_grade_list',false),type:'salaryGrade',count:salaryGradeCount,addFunction: true, role: 'salaryGrade', metaInfo: salaryGradeListMetaInfo, renderItem: GlobalComponents.SalaryGradeBase.renderItemOfList},
+{name: 'interviewTypeList', displayName: window.mtrans('interview_type','retail_store_country_center.interview_type_list',false),type:'interviewType',count:interviewTypeCount,addFunction: true, role: 'interviewType', metaInfo: interviewTypeListMetaInfo, renderItem: GlobalComponents.InterviewTypeBase.renderItemOfList},
+{name: 'trainingCourseTypeList', displayName: window.mtrans('training_course_type','retail_store_country_center.training_course_type_list',false),type:'trainingCourseType',count:trainingCourseTypeCount,addFunction: true, role: 'trainingCourseType', metaInfo: trainingCourseTypeListMetaInfo, renderItem: GlobalComponents.TrainingCourseTypeBase.renderItemOfList},
+{name: 'publicHolidayList', displayName: window.mtrans('public_holiday','retail_store_country_center.public_holiday_list',false),type:'publicHoliday',count:publicHolidayCount,addFunction: true, role: 'publicHoliday', metaInfo: publicHolidayListMetaInfo, renderItem: GlobalComponents.PublicHolidayBase.renderItemOfList},
+
+      	],
+
   	};
-    
+
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
     const imageListOf = this.props.imageListOf || internalImageListOf
@@ -208,27 +234,28 @@ class RetailStoreCountryCenterDashboard extends Component {
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
-    
+    // {quickFunctions(cardsData)}
     return (
 
       <PageHeaderLayout
         title={renderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+
+
        
-        {renderExtraHeader(cardsData.cardsSource)}
-        
-        {quickFunctions(cardsData)} 
-        {imageListOf(cardsData.cardsSource)}  
-        {renderAnalytics(cardsData.cardsSource)}
-        {settingListOf(cardsData.cardsSource)}
-        {renderSubjectList(cardsData)}       
-        {largeTextOf(cardsData.cardsSource)}
-        {renderExtraFooter(cardsData.cardsSource)}
-  		
+     <Col span={24} style={{marginRight:"20px", backgroundColor: "white"}}>
+      {renderTagCloud(cardsData)}
+
+      {imageListOf(cardsData.cardsSource)}
+      {renderAnalytics(cardsData.cardsSource)}
+      {settingListOf(cardsData.cardsSource)}
+
+	   </Col>
+
+		 
       </PageHeaderLayout>
-    
+
     )
   }
 }
@@ -236,6 +263,6 @@ class RetailStoreCountryCenterDashboard extends Component {
 export default connect(state => ({
   retailStoreCountryCenter: state._retailStoreCountryCenter,
   returnURL: state.breadcrumb.returnURL,
-  
+
 }))(Form.create()(RetailStoreCountryCenterDashboard))
 

@@ -97,7 +97,7 @@ export default {
         yield put({ type: 'showhome', payload: { data } });
         return;
       }
-      const locationPath = calcLocationPath(data.class, data.id, 'dashboard');
+      const locationPath = calcLocationPath(data.class, data.id, 'workbench');
       const location = { pathname: `/${locationPath}`, state: data };
       yield put(routerRedux.push(location));
     },
@@ -130,7 +130,7 @@ export default {
       // console.log("gotoApp has been called", payload)
       const { calcLocationPath, calcMenuData } = GlobalComponents;
       const data = yield call(LauncherService.gotoApp, payload.app.id);
-      const locationPath = calcLocationPath(data.class, data.id, 'dashboard');
+      const locationPath = calcLocationPath(data.class, data.id, 'workbench');
       const location = { pathname: `/${locationPath}`, state: data };
       const targetApp = payload.app;
       console.log('location', location);

@@ -53,9 +53,9 @@ class PublicKeyTypeProfile extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  publicKeyType = this.props.publicKeyType;
-    const { id,displayName, keypairIdentifyCount } = publicKeyType
+    const { id,displayName, keyPairIdentityCount } = publicKeyType
     const  returnURL = `/publicKeyType/${id}/dashboard`
-    const cardsData = {cardsName:"公共密钥类型",cardsFor: "publicKeyType",cardsSource: publicKeyType,displayName,returnURL,
+    const cardsData = {cardsName:"公钥类型",cardsFor: "publicKeyType",cardsSource: publicKeyType,displayName,returnURL,
   		subItems: [
      
       	],

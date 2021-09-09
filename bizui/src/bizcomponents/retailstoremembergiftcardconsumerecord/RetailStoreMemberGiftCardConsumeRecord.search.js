@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreMemberGiftCardAssociateForm } = GlobalComponents
-  const { ConsumerOrderAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreMemberGiftCardAssociateForm 
-	visible={currentAssociateModal==='owner'} 
-	data={{retailStoreMemberGiftCardConsumeRecordList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'owner')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'owner')}/> <ConsumerOrderAssociateForm 
-	visible={currentAssociateModal==='bizOrder'} 
-	data={{retailStoreMemberGiftCardConsumeRecordList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'bizOrder')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'bizOrder')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class RetailStoreMemberGiftCardConsumeRecordSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class RetailStoreMemberGiftCardConsumeRecordSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {RetailStoreMemberGiftCardConsumeRecordTable} = GlobalComponents;
     const {RetailStoreMemberGiftCardConsumeRecordSearchForm} = GlobalComponents;
     const {RetailStoreMemberGiftCardConsumeRecordModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class RetailStoreMemberGiftCardConsumeRecordSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,RetailStoreMemberGiftCardConsumeRecordModalTable,"retailStoreMemberGiftCardConsumeRecordIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

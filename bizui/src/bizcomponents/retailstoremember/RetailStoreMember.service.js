@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreMemberManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreMemberManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -208,6 +213,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -227,6 +240,7 @@ const  processRequest = (data) => {
 
 const RetailStoreMemberService = { view,
   load,
+  analyze,
   addConsumerOrder,
   addRetailStoreMemberCoupon,
   addMemberWishlist,
@@ -249,6 +263,6 @@ const RetailStoreMemberService = { view,
   removeRetailStoreMemberAddressList,
   removeRetailStoreMemberGiftCardList,
   requestCandidateOwner,
-  transferToAnotherOwner, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherOwner, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreMemberService
 

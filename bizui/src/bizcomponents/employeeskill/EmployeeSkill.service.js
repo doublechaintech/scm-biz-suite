@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}employeeSkillManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}employeeSkillManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -69,6 +74,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeSkillService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -88,9 +101,10 @@ const  processRequest = (data) => {
 
 const EmployeeSkillService = { view,
   load,
+  analyze,
   requestCandidateEmployee,
   requestCandidateSkillType,
   transferToAnotherEmployee,
-  transferToAnotherSkillType, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherSkillType, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default EmployeeSkillService
 

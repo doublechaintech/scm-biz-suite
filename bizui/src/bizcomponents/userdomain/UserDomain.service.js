@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}userDomainManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}userDomainManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -30,22 +35,22 @@ const queryCandidates = ({scenarioCode,ownerType,ownerId,listType,groupBy,filter
 
 
 
-const addUserWhiteList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userDomainManager/addUserWhiteList/userDomainId/userIdentity/userSpecialFunctions/tokensExpr/`
+const addUserAllowList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userDomainManager/addUserAllowList/userDomainId/userIdentity/userSpecialFunctions/tokensExpr/`
   const userDomainId = targetObjectId
   const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
-const updateUserWhiteList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userDomainManager/updateUserWhiteListProperties/userDomainId/id/userIdentity/userSpecialFunctions/tokensExpr/`
+const updateUserAllowList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userDomainManager/updateUserAllowListProperties/userDomainId/id/userIdentity/userSpecialFunctions/tokensExpr/`
   const userDomainId = targetObjectId
   const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
-const removeUserWhiteListList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userDomainManager/removeUserWhiteListList/userDomainId/userWhiteListIds/tokensExpr/`
+const removeUserAllowListList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userDomainManager/removeUserAllowListList/userDomainId/userAllowListIds/tokensExpr/`
   const requestParameters = { ...parameters, userDomainId: targetObjectId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
@@ -75,14 +80,14 @@ const removeSecUserList = (targetObjectId, parameters) => {
 
 
 const addPublicKeyType = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userDomainManager/addPublicKeyType/userDomainId/name/code/tokensExpr/`
+  const url = `${PREFIX}userDomainManager/addPublicKeyType/userDomainId/keyAlg/signAlg/tokensExpr/`
   const userDomainId = targetObjectId
   const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updatePublicKeyType = (targetObjectId, parameters) => {
-  const url = `${PREFIX}userDomainManager/updatePublicKeyTypeProperties/userDomainId/id/name/code/tokensExpr/`
+  const url = `${PREFIX}userDomainManager/updatePublicKeyTypeProperties/userDomainId/id/keyAlg/signAlg/tokensExpr/`
   const userDomainId = targetObjectId
   const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -105,6 +110,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}userDomainService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -124,14 +137,15 @@ const  processRequest = (data) => {
 
 const UserDomainService = { view,
   load,
-  addUserWhiteList,
+  analyze,
+  addUserAllowList,
   addSecUser,
   addPublicKeyType,
-  updateUserWhiteList,
+  updateUserAllowList,
   updateSecUser,
   updatePublicKeyType,
-  removeUserWhiteListList,
+  removeUserAllowListList,
   removeSecUserList,
-  removePublicKeyTypeList, listFunctions, saveRequest, processRequest, queryCandidates}
+  removePublicKeyTypeList, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default UserDomainService
 

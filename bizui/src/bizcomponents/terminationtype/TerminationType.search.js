@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='company'} 
-	data={{terminationTypeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'company')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'company')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class TerminationTypeSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class TerminationTypeSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {TerminationTypeTable} = GlobalComponents;
     const {TerminationTypeSearchForm} = GlobalComponents;
     const {TerminationTypeModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class TerminationTypeSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,TerminationTypeModalTable,"terminationTypeIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

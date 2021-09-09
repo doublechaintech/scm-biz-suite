@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}cityPartnerManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}cityPartnerManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -98,6 +103,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}cityPartnerService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -117,6 +130,7 @@ const  processRequest = (data) => {
 
 const CityPartnerService = { view,
   load,
+  analyze,
   addPotentialCustomer,
   addPotentialCustomerContact,
   updatePotentialCustomer,
@@ -124,6 +138,6 @@ const CityPartnerService = { view,
   removePotentialCustomerList,
   removePotentialCustomerContactList,
   requestCandidateCityServiceCenter,
-  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCityServiceCenter, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default CityPartnerService
 

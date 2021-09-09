@@ -31,13 +31,13 @@ const internalSummaryOf = (smartPallet,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{smartPallet.id}</Description> 
+<Description term="ID">{smartPallet.id}</Description> 
 <Description term="位置">{smartPallet.location}</Description> 
 <Description term="联系电话">{smartPallet.contactNumber}</Description> 
 <Description term="总面积">{smartPallet.totalArea}</Description> 
 <Description term="纬度">{smartPallet.latitude}</Description> 
 <Description term="经度">{smartPallet.longitude}</Description> 
-<Description term="最后更新时间">{ moment(smartPallet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(smartPallet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -63,7 +63,7 @@ class SmartPalletPermission extends Component {
     // eslint-disable-next-line max-len
     const  smartPallet = this.props.smartPallet
     const { id,displayName, goodsCount } = smartPallet
-    const  returnURL = `/smartPallet/${id}/dashboard`
+    const  returnURL = `/smartPallet/${id}/workbench`
     const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",cardsSource: smartPallet,displayName,returnURL,
   		subItems: [
     
@@ -76,10 +76,10 @@ class SmartPalletPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

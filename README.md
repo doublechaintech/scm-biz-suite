@@ -9,7 +9,7 @@
 智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
 针对生鲜供应链, 请访问：
-* https://demo.doublechaintech.com/admin/freshchain 
+* https://demo.doublechaintech.com/admin/freshchain/index.html
 
 
 | 角色        | 用户名           | 密码         |
@@ -32,6 +32,7 @@
 
 - [集成供应链套件](#集成供应链套件)
   - [目录](#目录)
+  - [业务涵盖范围](#业务涵盖范围)
   - [核心特性](#核心特性)
     - [架构](#架构)
       - [前端架构](#前端架构)
@@ -63,6 +64,12 @@
   - [参与本项目](#参与本项目)
  
 
+## 业务涵盖范围
+
+* 参考下面的图
+
+![概念关系](/doc/retailscm-concept-tree.jpg)
+
 
 ## 核心特性
 * 本系统包括前端、后端、数据大屏，数据结构和基础数据都是通过自研软件开发开发
@@ -89,7 +96,7 @@
 
 ![ScreenShot](/doc/word-cloud.png)
 
-* 桑基图, 展现概念之间关系
+* 桑基图, 展现概念血缘
 
 ![ScreenShot](/doc/retailscm-sankey.jpg)
 

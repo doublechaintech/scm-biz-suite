@@ -31,10 +31,10 @@ const internalSummaryOf = (retailStoreMemberCoupon,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberCoupon.id}</Description> 
+<Description term="ID">{retailStoreMemberCoupon.id}</Description> 
 <Description term="名称">{retailStoreMemberCoupon.name}</Description> 
 <Description term="数">{retailStoreMemberCoupon.number}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class RetailStoreMemberCouponPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberCoupon = this.props.retailStoreMemberCoupon
     const { id,displayName,  } = retailStoreMemberCoupon
-    const  returnURL = `/retailStoreMemberCoupon/${id}/dashboard`
+    const  returnURL = `/retailStoreMemberCoupon/${id}/workbench`
     const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",cardsSource: retailStoreMemberCoupon,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class RetailStoreMemberCouponPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

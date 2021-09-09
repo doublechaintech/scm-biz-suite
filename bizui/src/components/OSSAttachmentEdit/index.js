@@ -1,51 +1,42 @@
 import { Upload, Icon, Modal } from 'antd';
 import axios from 'axios';
 import { getURLPrefix } from '../../axios/tools';
-import { notification } from 'antd'
-const appendStyle=(imageLocation, style)=>{
-
-  if(!imageLocation){
-    return imageLocation
+import { notification } from 'antd';
+const appendStyle = (imageLocation, style) => {
+  if (!imageLocation) {
+    return imageLocation;
   }
-  
 
-
-  if(!imageLocation.indexOf){
-    return imageLocation
+  if (!imageLocation.indexOf) {
+    return imageLocation;
   }
-  if(imageLocation.indexOf("?")<0){
-    return imageLocation+"?x-oss-process=style/"+style
+  if (imageLocation.indexOf('?') < 0) {
+    return imageLocation + '?x-oss-process=style/' + style;
   }
-  return imageLocation.replace("small",style)
-  
-}
+  return imageLocation.replace('small', style);
+};
 
-const appendToObjectStyle=(imageLocation, style)=>{
-  if(typeof imageLocation=="object"){
-    const url=appendStyle(imageLocation.url,style)
-    console.log("changed url" , url,"from", imageLocation)
-    const finalLocation = {...imageLocation, url}
-    console.log("finalLocation url" , finalLocation)
-    return  finalLocation
-  
+const appendToObjectStyle = (imageLocation, style) => {
+  if (typeof imageLocation == 'object') {
+    const url = appendStyle(imageLocation.url, style);
+    console.log('changed url', url, 'from', imageLocation);
+    const finalLocation = { ...imageLocation, url };
+    console.log('finalLocation url', finalLocation);
+    return finalLocation;
   }
-  return appendStyle(imageLocation, style)
-}
+  return appendStyle(imageLocation, style);
+};
 
-
-
-const resizeDispayImage=(imageLocation, style)=>{
+const resizeDispayImage = (imageLocation, style) => {
   if (Array.isArray(imageLocation)) {
-    
-    return imageLocation.map(imageLocation=>appendToObjectStyle(imageLocation,style))
-    
+    return imageLocation.map(imageLocation => appendToObjectStyle(imageLocation, style));
   }
-  return appendStyle(imageLocation,style)
-}
+  return appendStyle(imageLocation, style);
+};
 
-const resizeDispayImageInList=(imageLocation)=>resizeDispayImage(imageLocation,"small")
+const resizeDispayImageInList = imageLocation => resizeDispayImage(imageLocation, 'small');
 
-const resizeDispayImageForPreview=(imageLocation)=>resizeDispayImage(imageLocation,"xlarge")
+const resizeDispayImageForPreview = imageLocation => resizeDispayImage(imageLocation, 'xlarge');
 
 const client = self => {
   console.log('self', self);
@@ -102,12 +93,11 @@ export default class OSSPictureEdit extends React.Component {
     reader.onloadend = () => {
       uploadToOss(this, OSS_IMAGE_FILE_PATH, file).then(data => {
         console.log('data from server', data);
-        
+
         notification.success({
           message: `上传成功`,
           description: `上传成功`,
-        })
-        
+        });
 
         const fileList = [
           {
@@ -131,12 +121,10 @@ export default class OSSPictureEdit extends React.Component {
     const getSTSURL = () => {
       const url = new URL(window.location);
 
-      return (
-        getURLPrefix() + 'secUserManager/testoss/'
-      );
+      return getURLPrefix() + 'secUserManager/testoss/';
     };
 
-    axios.get(getSTSURL(),{headers:{"X-App-Version":35}}).then(res => {
+    axios.get(getSTSURL(), { headers: { 'X-App-Version': 35 } }).then(res => {
       const token = res.data;
       this.setState({ token });
     });
@@ -148,23 +136,23 @@ export default class OSSPictureEdit extends React.Component {
   handleCancel = () => this.setState({ previewVisible: false });
 
   handlePreview = file => {
-    console.log("file for preview is ", file)
-    if(!file){
-     
-      return
+    console.log('file for preview is ', file);
+    if (!file) {
+      return;
     }
-    
 
-    const previewFile = appendToObjectStyle(file,"xlarge")
+    const previewFile = appendToObjectStyle(file, 'xlarge');
     console.log('preview file', previewFile);
-    console.log('previewImage: previewFile.url || previewFile.thumbUrl', previewFile.url || previewFile.thumbUrl);
-    
+    console.log(
+      'previewImage: previewFile.url || previewFile.thumbUrl',
+      previewFile.url || previewFile.thumbUrl
+    );
 
     this.setState({
       previewImage: previewFile.url || previewFile.thumbUrl,
       previewVisible: true,
-    })
-  }
+    });
+  };
 
   handleChange = ({ fileList }) => this.setState({ fileList });
 
@@ -187,7 +175,6 @@ export default class OSSPictureEdit extends React.Component {
     return (
       <div className="clearfix">
         <Upload
-          
           listType="picture-card"
           fileList={resizeDispayImageInList(internalFileList)}
           onPreview={this.handlePreview}
@@ -195,7 +182,7 @@ export default class OSSPictureEdit extends React.Component {
           multiple={false}
           beforeUpload={this.beforeUpload}
         >
-          <Icon type="file-excel"/>
+          <Icon type="file-excel" />
           {internalFileList.length >= 1 ? null : uploadButton}
         </Upload>
         <Modal

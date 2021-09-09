@@ -16,17 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  location: '成都龙泉驿飞鹤路20号装货区',
-  contactNumber: '028 87654321',
-  totalArea: '1876平方米',
-  latitude: '42.7729418460682',
-  longitude: '130.58996611254844',
-  description: '每个收货区可以供一辆车装货',
-  warehouseId: 'W000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -40,9 +29,15 @@ class ShippingSpaceCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -53,7 +48,7 @@ class ShippingSpaceCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -67,8 +62,8 @@ class ShippingSpaceCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -77,13 +72,13 @@ class ShippingSpaceCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ShippingSpaceBase
     const {ShippingSpaceService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -108,10 +103,10 @@ class ShippingSpaceCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addShippingSpace`,
@@ -119,10 +114,10 @@ class ShippingSpaceCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'shippingSpace',listName:appLocaleName(userContext,"List") },
@@ -168,10 +163,10 @@ class ShippingSpaceCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -183,7 +178,7 @@ class ShippingSpaceCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -194,7 +189,7 @@ class ShippingSpaceCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -204,7 +199,7 @@ class ShippingSpaceCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('shipping_space')}</div>)
@@ -216,7 +211,7 @@ class ShippingSpaceCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('shipping_space')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<ShippingSpaceCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -232,7 +227,7 @@ class ShippingSpaceCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

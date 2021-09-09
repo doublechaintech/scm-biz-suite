@@ -126,7 +126,7 @@ function RouterConfig({ history }) {
 	const {UiActionBizApp} = GlobalComponents
 	const {SectionBizApp} = GlobalComponents
 	const {UserDomainBizApp} = GlobalComponents
-	const {UserWhiteListBizApp} = GlobalComponents
+	const {UserAllowListBizApp} = GlobalComponents
 	const {SecUserBizApp} = GlobalComponents
 	const {UserAppBizApp} = GlobalComponents
 	const {QuickLinkBizApp} = GlobalComponents
@@ -134,18 +134,20 @@ function RouterConfig({ history }) {
 	const {LoginHistoryBizApp} = GlobalComponents
 	const {CandidateContainerBizApp} = GlobalComponents
 	const {CandidateElementBizApp} = GlobalComponents
-	const {WechatWorkappIdentifyBizApp} = GlobalComponents
-	const {WechatMiniappIdentifyBizApp} = GlobalComponents
-	const {KeypairIdentifyBizApp} = GlobalComponents
+	const {WechatWorkappIdentityBizApp} = GlobalComponents
+	const {WechatMiniappIdentityBizApp} = GlobalComponents
+	const {KeyPairIdentityBizApp} = GlobalComponents
 	const {PublicKeyTypeBizApp} = GlobalComponents
 	const {TreeNodeBizApp} = GlobalComponents
 
 
+  const { ExtraRouter } =  GlobalComponents
 
   return (
     <ConfigProvider locale={zhCN}>
       <Router history={history}>
         <Switch>
+          {ExtraRouter()}
           <Route path="/home" component={Launcher} />
           <Route path="/forgetpass" component={ForgetPasswordForm} />
           <Route path="/retailStoreCountryCenter/" component={RetailStoreCountryCenterBizApp} />
@@ -261,7 +263,7 @@ function RouterConfig({ history }) {
           <Route path="/uiAction/" component={UiActionBizApp} />
           <Route path="/section/" component={SectionBizApp} />
           <Route path="/userDomain/" component={UserDomainBizApp} />
-          <Route path="/userWhiteList/" component={UserWhiteListBizApp} />
+          <Route path="/userAllowList/" component={UserAllowListBizApp} />
           <Route path="/secUser/" component={SecUserBizApp} />
           <Route path="/userApp/" component={UserAppBizApp} />
           <Route path="/quickLink/" component={QuickLinkBizApp} />
@@ -269,9 +271,9 @@ function RouterConfig({ history }) {
           <Route path="/loginHistory/" component={LoginHistoryBizApp} />
           <Route path="/candidateContainer/" component={CandidateContainerBizApp} />
           <Route path="/candidateElement/" component={CandidateElementBizApp} />
-          <Route path="/wechatWorkappIdentify/" component={WechatWorkappIdentifyBizApp} />
-          <Route path="/wechatMiniappIdentify/" component={WechatMiniappIdentifyBizApp} />
-          <Route path="/keypairIdentify/" component={KeypairIdentifyBizApp} />
+          <Route path="/wechatWorkappIdentity/" component={WechatWorkappIdentityBizApp} />
+          <Route path="/wechatMiniappIdentity/" component={WechatMiniappIdentityBizApp} />
+          <Route path="/keyPairIdentity/" component={KeyPairIdentityBizApp} />
           <Route path="/publicKeyType/" component={PublicKeyTypeBizApp} />
           <Route path="/treeNode/" component={TreeNodeBizApp} />
           <Route path="/" component={Launcher} />

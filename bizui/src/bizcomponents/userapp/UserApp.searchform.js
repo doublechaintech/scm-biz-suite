@@ -136,8 +136,10 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'secUser'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'appIcon'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'permission'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'objectType'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'objectId'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'appType'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'appId'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'ctxType'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'ctxId'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'location'))
 
      
@@ -306,16 +308,32 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label={fieldLabels.objectType}>
-              {getFieldDecorator('objectType')(
+            <FormItem label={fieldLabels.appType}>
+              {getFieldDecorator('appType')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label={fieldLabels.objectId}>
-              {getFieldDecorator('objectId')(
+            <FormItem label={fieldLabels.appId}>
+              {getFieldDecorator('appId')(
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label={fieldLabels.ctxType}>
+              {getFieldDecorator('ctxType')(
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label={fieldLabels.ctxId}>
+              {getFieldDecorator('ctxId')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>

@@ -1,5 +1,4 @@
-import FontAwesome from 'react-fontawesome';
-import { Row, Col, Card, Table, Popconfirm, Button } from 'antd';
+import { Row, Col, Icon, Card, Table, Popconfirm, Button } from 'antd';
 
 import React from 'react';
 
@@ -29,7 +28,7 @@ class HomeScreen extends React.Component {
   appList = () => {
     return (
       <div>
-        <FontAwesome name="user" />
+        <Icon type="user" />
       </div>
     );
   };
@@ -91,7 +90,7 @@ class HomeScreen extends React.Component {
             onClick={e => this.gotoApp(e, app)}
           >
             <div className="icon-item-box">
-              <FontAwesome name={app.appIcon} style={{ color: 'brown' }} className={'icon'} />
+              <Icon type={app.appIcon} style={{ color: 'brown' }} className={'icon'} />
               <p>{app.title}</p>
             </div>
           </Col>
@@ -104,21 +103,25 @@ class HomeScreen extends React.Component {
     const appList = this.props.launcher.data.userAppList;
     const calcLink = this.calcLink;
 
-    const { systemName } = this.props.launcher;
     const userContext = this.props.launcher.data;
 
     // console.log(styleList);
-
+    const sysConfig = window.sysConfig;
+    const { logo, homeBackgroundImage, systemName } = sysConfig();
     return (
       <div className={'wrapper'}>
         <Row key="1">
           <Col className="gutter-row" span={24}>
-            <span className="logo" />
+            <span className="logo" style={{ backgroundImage: `url(${logo})` }} />
             <TopMenu {...this.props} onHomePage />
           </Col>
         </Row>
         <Row key="2">
-          <Col className="gutter-row heading" span={24}>
+          <Col
+            className="gutter-row heading"
+            style={{ backgroundImage: `url(${homeBackgroundImage})` }}
+            span={24}
+          >
             <h1>{systemName}</h1>
             <div className="desc" />
             <a href="#more" className="btn">

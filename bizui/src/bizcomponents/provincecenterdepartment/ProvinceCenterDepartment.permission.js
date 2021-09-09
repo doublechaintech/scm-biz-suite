@@ -31,7 +31,7 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{provinceCenterDepartment.id}</Description> 
+<Description term="ID">{provinceCenterDepartment.id}</Description> 
 <Description term="名称">{provinceCenterDepartment.name}</Description> 
 <Description term="成立">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
 <Description term="经理">{provinceCenterDepartment.manager}</Description> 
@@ -60,7 +60,7 @@ class ProvinceCenterDepartmentPermission extends Component {
     // eslint-disable-next-line max-len
     const  provinceCenterDepartment = this.props.provinceCenterDepartment
     const { id,displayName, provinceCenterEmployeeCount } = provinceCenterDepartment
-    const  returnURL = `/provinceCenterDepartment/${id}/dashboard`
+    const  returnURL = `/provinceCenterDepartment/${id}/workbench`
     const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",cardsSource: provinceCenterDepartment,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class ProvinceCenterDepartmentPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

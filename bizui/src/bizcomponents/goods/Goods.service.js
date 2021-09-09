@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}goodsManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}goodsManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -196,6 +201,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -215,6 +228,7 @@ const  processRequest = (data) => {
 
 const GoodsService = { view,
   load,
+  analyze,
   addGoodsMovement,
   updateGoodsMovement,
   removeGoodsMovementList,
@@ -235,6 +249,6 @@ const GoodsService = { view,
   transferToAnotherTransportTask,
   transferToAnotherRetailStore,
   transferToAnotherBizOrder,
-  transferToAnotherRetailStoreOrder, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherRetailStoreOrder, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default GoodsService
 

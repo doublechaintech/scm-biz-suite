@@ -31,10 +31,10 @@ const internalSummaryOf = (retailStoreCityServiceCenter,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreCityServiceCenter.id}</Description> 
+<Description term="ID">{retailStoreCityServiceCenter.id}</Description> 
 <Description term="名称">{retailStoreCityServiceCenter.name}</Description> 
 <Description term="成立">{ moment(retailStoreCityServiceCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreCityServiceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(retailStoreCityServiceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class RetailStoreCityServiceCenterPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreCityServiceCenter = this.props.retailStoreCityServiceCenter
     const { id,displayName, cityPartnerCount, potentialCustomerCount, cityEventCount, retailStoreCount } = retailStoreCityServiceCenter
-    const  returnURL = `/retailStoreCityServiceCenter/${id}/dashboard`
+    const  returnURL = `/retailStoreCityServiceCenter/${id}/workbench`
     const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",cardsSource: retailStoreCityServiceCenter,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class RetailStoreCityServiceCenterPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

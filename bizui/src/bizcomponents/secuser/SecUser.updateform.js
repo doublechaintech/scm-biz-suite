@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover, Switch } from 'antd'
 import moment from 'moment'
 import { connect } from 'dva'
-import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import {ImageComponent} from '../../axios/tools'
 
@@ -11,6 +11,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 import styles from './SecUser.updateform.less'
 import SecUserBase from './SecUser.base'
 import appLocaleName from '../../common/Locale.tool'
+// import OSSPictureListEditInput from '../../components/OSSPictureListEditInput'
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -34,9 +38,7 @@ class SecUserUpdateForm extends Component {
     if (!selectedRow) {
       return
     }
-    this.setState({
-      convertedImagesValues: mapFromImageValues(selectedRow,imageKeys)
-    })
+
   }
 
   componentDidMount() {
@@ -104,13 +106,13 @@ class SecUserUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-		
+
         const { owner, role } = this.props
         const secUserId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, secUserId, ...imagesValues }
 
-        
+        const parameters = { ...values, secUserId, }
+
+
         const cappedRoleName = capFirstChar(role)
         dispatch({
           type: `${owner.type}/update${cappedRoleName}`,
@@ -125,7 +127,7 @@ class SecUserUpdateForm extends Component {
         })
       })
     }
-    
+
     const submitUpdateFormAndContinue = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -135,12 +137,12 @@ class SecUserUpdateForm extends Component {
 
         const { owner } = this.props
         const secUserId = values.id
-        const imagesValues = mapBackToImageValues(convertedImagesValues)
-        const parameters = { ...values, secUserId, ...imagesValues }
+
+        const parameters = { ...values, secUserId }
 
         // TODO
         const { currentUpdateIndex } = this.props
-        
+
         if (currentUpdateIndex >= selectedRows.length - 1) {
           return
         }
@@ -162,11 +164,11 @@ class SecUserUpdateForm extends Component {
         })
       })
     }
-    
+
     const skipToNext = () => {
       const { currentUpdateIndex } = this.props
       const { owner } = this.props
-        
+
       const newIndex = currentUpdateIndex + 1
       dispatch({
         type: `${owner.type}/gotoNextSecUserUpdateRow`,
@@ -180,7 +182,7 @@ class SecUserUpdateForm extends Component {
         },
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -188,7 +190,7 @@ class SecUserUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'secUser',
-          listName:appLocaleName(userContext,"List") 
+          listName:appLocaleName(userContext,"List")
         },
       })
     }
@@ -231,7 +233,7 @@ class SecUserUpdateForm extends Component {
         </span>
       )
     }
-    
+
     if (!selectedRows) {
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
@@ -245,12 +247,12 @@ class SecUserUpdateForm extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
-	
+
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}SEC的用户: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}安全用户: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-	
+
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -260,7 +262,7 @@ class SecUserUpdateForm extends Component {
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
-            
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
@@ -268,8 +270,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.id} disabled/>
+
                   )}
                 </Form.Item>
               </Col>
@@ -280,8 +282,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.login,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.login} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.login} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -292,8 +294,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.mobile} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.mobile} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -304,8 +306,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.email} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.email} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -316,8 +318,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.pwd,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.pwd} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.pwd} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -328,8 +330,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.weixinOpenid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.weixinOpenid} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.weixinOpenid} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -340,8 +342,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.weixinAppid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.weixinAppid} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.weixinAppid} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -352,8 +354,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.accessToken,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.accessToken} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.accessToken} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -364,8 +366,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.verificationCode} />
-                    
+                    <SmallTextInput size="large"  placeholder={fieldLabels.verificationCode} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -376,8 +378,8 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCodeExpire,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.verificationCodeExpire} />
-                    
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeholder={fieldLabels.verificationCodeExpire} />
+
                   )}
                 </Form.Item>
               </Col>
@@ -388,17 +390,17 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.lastLoginTime,
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.lastLoginTime} />
-                    
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeholder={fieldLabels.lastLoginTime} />
+
                   )}
                 </Form.Item>
               </Col>
 
-            
-       
-        
-        
-        
+
+
+
+
+
 
 
 			</Row>

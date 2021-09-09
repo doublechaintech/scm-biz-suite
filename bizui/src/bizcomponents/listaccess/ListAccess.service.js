@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}listAccessManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}listAccessManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}listAccessService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const ListAccessService = { view,
   load,
+  analyze,
   requestCandidateApp,
-  transferToAnotherApp, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherApp, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ListAccessService
 

@@ -65,45 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { StorageSpaceAssociateForm } = GlobalComponents
-  const { SupplierSpaceAssociateForm } = GlobalComponents
-  const { DamageSpaceAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <StorageSpaceAssociateForm 
-	visible={currentAssociateModal==='storageSpace'} 
-	data={{goodsShelfList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'storageSpace')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'storageSpace')}/> <SupplierSpaceAssociateForm 
-	visible={currentAssociateModal==='supplierSpace'} 
-	data={{goodsShelfList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'supplierSpace')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'supplierSpace')}/> <DamageSpaceAssociateForm 
-	visible={currentAssociateModal==='damageSpace'} 
-	data={{goodsShelfList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'damageSpace')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'damageSpace')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class GoodsShelfSearch extends PureComponent {
   state = {
@@ -138,7 +99,7 @@ class GoodsShelfSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {GoodsShelfTable} = GlobalComponents;
     const {GoodsShelfSearchForm} = GlobalComponents;
     const {GoodsShelfModalTable} = GlobalComponents;
@@ -190,7 +151,7 @@ class GoodsShelfSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,GoodsShelfModalTable,"goodsShelfIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

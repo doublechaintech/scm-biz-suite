@@ -15,19 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = TransportTruckBase
 const testValues = {};
-/*
-const testValues = {
-  name: '运货卡车',
-  plateNumber: '川AK5',
-  contactNumber: '028 87654321',
-  vehicleLicenseNumber: 'VL9198',
-  engineNumber: 'EN00102',
-  makeDate: '2017-09-27',
-  mileage: '100万公里',
-  bodyColor: '红色',
-  ownerId: 'TF000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -41,9 +31,20 @@ class TransportTruckCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = TransportTruckBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -54,7 +55,7 @@ class TransportTruckCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -62,7 +63,7 @@ class TransportTruckCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -70,10 +71,10 @@ class TransportTruckCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -82,16 +83,16 @@ class TransportTruckCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {TransportTruckService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -101,9 +102,9 @@ class TransportTruckCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -112,7 +113,7 @@ class TransportTruckCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -124,25 +125,25 @@ class TransportTruckCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_truck')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +153,7 @@ class TransportTruckCreateFormBody extends Component {
                   {getFieldDecorator('plateNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.plateNumber} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.plateNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +163,7 @@ class TransportTruckCreateFormBody extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
+                    <SmallTextInput minLength={4} maxLength={48} size="large"  placeholder={fieldLabels.contactNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +173,7 @@ class TransportTruckCreateFormBody extends Component {
                   {getFieldDecorator('vehicleLicenseNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.vehicleLicenseNumber} />
+                    <SmallTextInput minLength={2} maxLength={24} size="large"  placeholder={fieldLabels.vehicleLicenseNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -182,7 +183,7 @@ class TransportTruckCreateFormBody extends Component {
                   {getFieldDecorator('engineNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.engineNumber} />
+                    <SmallTextInput minLength={2} maxLength={28} size="large"  placeholder={fieldLabels.engineNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -192,7 +193,7 @@ class TransportTruckCreateFormBody extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.makeDate}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.makeDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -202,7 +203,7 @@ class TransportTruckCreateFormBody extends Component {
                   {getFieldDecorator('mileage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.mileage} />
+                    <SmallTextInput minLength={2} maxLength={24} size="large"  placeholder={fieldLabels.mileage} />
                   )}
                 </Form.Item>
               </Col>
@@ -212,39 +213,39 @@ class TransportTruckCreateFormBody extends Component {
                   {getFieldDecorator('bodyColor', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.bodyColor} />
+                    <SmallTextInput minLength={1} maxLength={8} size="large"  placeholder={fieldLabels.bodyColor} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.owner} {...formItemLayout}>
                   {getFieldDecorator('ownerId', {
                   	initialValue: tryinit('owner'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('owner')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"transport_truck"} 
-		                 targetType={"transport_fleet"} 
-                 
+		                 listType={"transport_truck"}
+		                 targetType={"transport_fleet"}
+
                     requestFunction={TransportTruckService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -259,7 +260,7 @@ class TransportTruckCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

@@ -15,17 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = PotentialCustomerContactBase
 const testValues = {};
-/*
-const testValues = {
-  name: '和连载客户的联系记录',
-  contactDate: '2020-04-18',
-  contactMethod: '电话',
-  description: '转化希望很大',
-  potentialCustomerId: 'PC000001',
-  cityPartnerId: 'CP000001',
-  contactToId: 'PCCP000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -39,9 +31,20 @@ class PotentialCustomerContactCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = PotentialCustomerContactBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -52,7 +55,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -60,7 +63,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -68,10 +71,10 @@ class PotentialCustomerContactCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -80,16 +83,16 @@ class PotentialCustomerContactCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {PotentialCustomerContactService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -99,9 +102,9 @@ class PotentialCustomerContactCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -110,7 +113,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -122,25 +125,25 @@ class PotentialCustomerContactCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('potential_customer_contact')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={3} maxLength={40} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +153,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
                   {getFieldDecorator('contactDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.contactDate}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.contactDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +163,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
                   {getFieldDecorator('contactMethod', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.contactMethod} />
+                    <SmallTextInput minLength={1} maxLength={16} size="large"  placeholder={fieldLabels.contactMethod} />
                   )}
                 </Form.Item>
               </Col>
@@ -170,91 +173,91 @@ class PotentialCustomerContactCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.description} />
+                    <SmallTextInput minLength={2} maxLength={24} size="large"  placeholder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.potentialCustomer} {...formItemLayout}>
                   {getFieldDecorator('potentialCustomerId', {
                   	initialValue: tryinit('potentialCustomer'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('potentialCustomer')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"potential_customer_contact"} 
-		                 targetType={"potential_customer"} 
-                 
+		                 listType={"potential_customer_contact"}
+		                 targetType={"potential_customer"}
+
                     requestFunction={PotentialCustomerContactService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.cityPartner} {...formItemLayout}>
                   {getFieldDecorator('cityPartnerId', {
                   	initialValue: tryinit('cityPartner'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('cityPartner')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"potential_customer_contact"} 
-		                 targetType={"city_partner"} 
-                 
+		                 listType={"potential_customer_contact"}
+		                 targetType={"city_partner"}
+
                     requestFunction={PotentialCustomerContactService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.contactTo} {...formItemLayout}>
                   {getFieldDecorator('contactToId', {
                   	initialValue: tryinit('contactTo'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('contactTo')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"potential_customer_contact"} 
-		                 targetType={"potential_customer_contact_person"} 
-                 
+		                 listType={"potential_customer_contact"}
+		                 targetType={"potential_customer_contact_person"}
+
                     requestFunction={PotentialCustomerContactService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -269,7 +272,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

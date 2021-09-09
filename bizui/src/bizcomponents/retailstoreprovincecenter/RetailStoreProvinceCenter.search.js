@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='country'} 
-	data={{retailStoreProvinceCenterList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'country')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'country')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class RetailStoreProvinceCenterSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class RetailStoreProvinceCenterSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {RetailStoreProvinceCenterTable} = GlobalComponents;
     const {RetailStoreProvinceCenterSearchForm} = GlobalComponents;
     const {RetailStoreProvinceCenterModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class RetailStoreProvinceCenterSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,RetailStoreProvinceCenterModalTable,"retailStoreProvinceCenterIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

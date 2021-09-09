@@ -31,7 +31,7 @@ const internalSummaryOf = (levelTwoCategory,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelTwoCategory.id}</Description> 
+<Description term="ID">{levelTwoCategory.id}</Description> 
 <Description term="名称">{levelTwoCategory.name}</Description> 
 	
       </DescriptionList>
@@ -58,7 +58,7 @@ class LevelTwoCategoryPermission extends Component {
     // eslint-disable-next-line max-len
     const  levelTwoCategory = this.props.levelTwoCategory
     const { id,displayName, levelThreeCategoryCount } = levelTwoCategory
-    const  returnURL = `/levelTwoCategory/${id}/dashboard`
+    const  returnURL = `/levelTwoCategory/${id}/workbench`
     const cardsData = {cardsName:"二级分类",cardsFor: "levelTwoCategory",cardsSource: levelTwoCategory,displayName,returnURL,
   		subItems: [
     
@@ -71,10 +71,10 @@ class LevelTwoCategoryPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}accountingDocumentManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}accountingDocumentManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -113,6 +118,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingDocumentService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -132,6 +145,7 @@ const  processRequest = (data) => {
 
 const AccountingDocumentService = { view,
   load,
+  analyze,
   addOriginalVoucher,
   addAccountingDocumentLine,
   updateOriginalVoucher,
@@ -141,6 +155,6 @@ const AccountingDocumentService = { view,
   requestCandidateAccountingPeriod,
   requestCandidateDocumentType,
   transferToAnotherAccountingPeriod,
-  transferToAnotherDocumentType, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherDocumentType, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default AccountingDocumentService
 

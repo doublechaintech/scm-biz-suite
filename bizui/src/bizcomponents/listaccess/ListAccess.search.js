@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { UserAppAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <UserAppAssociateForm 
-	visible={currentAssociateModal==='app'} 
-	data={{listAccessList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'app')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'app')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class ListAccessSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class ListAccessSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {ListAccessTable} = GlobalComponents;
     const {ListAccessSearchForm} = GlobalComponents;
     const {ListAccessModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class ListAccessSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,ListAccessModalTable,"listAccessIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

@@ -31,10 +31,10 @@ const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrder.id}</Description> 
+<Description term="ID">{retailStoreOrder.id}</Description> 
 <Description term="头衔">{retailStoreOrder.title}</Description> 
 <Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class RetailStoreOrderPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrder = this.props.retailStoreOrder
     const { id,displayName, retailStoreOrderLineItemCount, retailStoreOrderShippingGroupCount, retailStoreOrderPaymentGroupCount, goodsCount } = retailStoreOrder
-    const  returnURL = `/retailStoreOrder/${id}/dashboard`
+    const  returnURL = `/retailStoreOrder/${id}/workbench`
     const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",cardsSource: retailStoreOrder,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class RetailStoreOrderPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

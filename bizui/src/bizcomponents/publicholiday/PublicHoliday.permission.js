@@ -31,7 +31,7 @@ const internalSummaryOf = (publicHoliday,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{publicHoliday.id}</Description> 
+<Description term="ID">{publicHoliday.id}</Description> 
 <Description term="代码">{publicHoliday.code}</Description> 
 <Description term="名称">{publicHoliday.name}</Description> 
 <Description term="描述">{publicHoliday.description}</Description> 
@@ -60,7 +60,7 @@ class PublicHolidayPermission extends Component {
     // eslint-disable-next-line max-len
     const  publicHoliday = this.props.publicHoliday
     const { id,displayName,  } = publicHoliday
-    const  returnURL = `/publicHoliday/${id}/dashboard`
+    const  returnURL = `/publicHoliday/${id}/workbench`
     const cardsData = {cardsName:"公共假日",cardsFor: "publicHoliday",cardsSource: publicHoliday,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class PublicHolidayPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

@@ -16,16 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  location: '成都龙泉驿飞鹤路20号存货区',
-  contactNumber: '028 87654321',
-  totalArea: '1876平方米',
-  latitude: '42.28908760269011',
-  longitude: '130.37905643979073',
-  warehouseId: 'W000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -39,9 +29,15 @@ class StorageSpaceCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -52,7 +48,7 @@ class StorageSpaceCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -66,8 +62,8 @@ class StorageSpaceCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -76,13 +72,13 @@ class StorageSpaceCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = StorageSpaceBase
     const {StorageSpaceService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -107,10 +103,10 @@ class StorageSpaceCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addStorageSpace`,
@@ -118,10 +114,10 @@ class StorageSpaceCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'storageSpace',listName:appLocaleName(userContext,"List") },
@@ -167,10 +163,10 @@ class StorageSpaceCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -182,7 +178,7 @@ class StorageSpaceCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -193,7 +189,7 @@ class StorageSpaceCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -203,7 +199,7 @@ class StorageSpaceCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('storage_space')}</div>)
@@ -215,7 +211,7 @@ class StorageSpaceCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('storage_space')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<StorageSpaceCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -231,7 +227,7 @@ class StorageSpaceCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

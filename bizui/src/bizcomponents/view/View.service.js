@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}viewManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}viewManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -39,6 +44,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}viewService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -57,6 +70,7 @@ const  processRequest = (data) => {
 }
 
 const ViewService = { view,
-  load, listFunctions, saveRequest, processRequest, queryCandidates}
+  load,
+  analyze, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ViewService
 

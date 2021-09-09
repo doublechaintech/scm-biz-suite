@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}goodsShelfManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}goodsShelfManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -128,6 +133,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsShelfService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -147,6 +160,7 @@ const  processRequest = (data) => {
 
 const GoodsShelfService = { view,
   load,
+  analyze,
   addGoodsShelfStockCount,
   addGoodsAllocation,
   updateGoodsShelfStockCount,
@@ -158,6 +172,6 @@ const GoodsShelfService = { view,
   requestCandidateDamageSpace,
   transferToAnotherStorageSpace,
   transferToAnotherSupplierSpace,
-  transferToAnotherDamageSpace, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherDamageSpace, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default GoodsShelfService
 

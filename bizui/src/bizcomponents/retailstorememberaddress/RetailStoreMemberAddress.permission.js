@@ -31,7 +31,7 @@ const internalSummaryOf = (retailStoreMemberAddress,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberAddress.id}</Description> 
+<Description term="ID">{retailStoreMemberAddress.id}</Description> 
 <Description term="名称">{retailStoreMemberAddress.name}</Description> 
 <Description term="移动电话">{retailStoreMemberAddress.mobilePhone}</Description> 
 <Description term="地址">{retailStoreMemberAddress.address}</Description> 
@@ -60,7 +60,7 @@ class RetailStoreMemberAddressPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberAddress = this.props.retailStoreMemberAddress
     const { id,displayName,  } = retailStoreMemberAddress
-    const  returnURL = `/retailStoreMemberAddress/${id}/dashboard`
+    const  returnURL = `/retailStoreMemberAddress/${id}/workbench`
     const cardsData = {cardsName:"零售店会员地址",cardsFor: "retailStoreMemberAddress",cardsSource: retailStoreMemberAddress,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class RetailStoreMemberAddressPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

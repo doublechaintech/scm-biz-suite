@@ -16,13 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  employeeId: 'E000001',
-  trainingId: 'CT000001',
-  scoringId: 'S000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -36,9 +29,15 @@ class EmployeeCompanyTrainingCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -49,7 +48,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -63,8 +62,8 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -73,13 +72,13 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeCompanyTrainingBase
     const {EmployeeCompanyTrainingService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -104,10 +103,10 @@ class EmployeeCompanyTrainingCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addEmployeeCompanyTraining`,
@@ -115,10 +114,10 @@ class EmployeeCompanyTrainingCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'employeeCompanyTraining',listName:appLocaleName(userContext,"List") },
@@ -164,10 +163,10 @@ class EmployeeCompanyTrainingCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -179,7 +178,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -190,7 +189,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -200,7 +199,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_company_training')}</div>)
@@ -212,7 +211,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_company_training')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<EmployeeCompanyTrainingCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -228,7 +227,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

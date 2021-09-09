@@ -31,10 +31,10 @@ const internalSummaryOf = (supplyOrder,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrder.id}</Description> 
+<Description term="ID">{supplyOrder.id}</Description> 
 <Description term="头衔">{supplyOrder.title}</Description> 
 <Description term="总金额">{supplyOrder.totalAmount}</Description> 
-<Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class SupplyOrderPermission extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrder = this.props.supplyOrder
     const { id,displayName, supplyOrderLineItemCount, supplyOrderShippingGroupCount, supplyOrderPaymentGroupCount, goodsCount } = supplyOrder
-    const  returnURL = `/supplyOrder/${id}/dashboard`
+    const  returnURL = `/supplyOrder/${id}/workbench`
     const cardsData = {cardsName:"供应订单",cardsFor: "supplyOrder",cardsSource: supplyOrder,displayName,returnURL,
   		subItems: [
     
@@ -73,10 +73,10 @@ class SupplyOrderPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

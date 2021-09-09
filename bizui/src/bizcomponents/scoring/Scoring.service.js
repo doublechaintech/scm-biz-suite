@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}scoringManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}scoringManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -61,6 +66,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}scoringService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -80,8 +93,9 @@ const  processRequest = (data) => {
 
 const ScoringService = { view,
   load,
+  analyze,
   addEmployeeCompanyTraining,
   updateEmployeeCompanyTraining,
-  removeEmployeeCompanyTrainingList, listFunctions, saveRequest, processRequest, queryCandidates}
+  removeEmployeeCompanyTrainingList, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ScoringService
 

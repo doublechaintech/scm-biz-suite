@@ -31,7 +31,7 @@ const internalSummaryOf = (retailStoreOrderShippingGroup,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderShippingGroup.id}</Description> 
+<Description term="ID">{retailStoreOrderShippingGroup.id}</Description> 
 <Description term="名称">{retailStoreOrderShippingGroup.name}</Description> 
 <Description term="金额">{retailStoreOrderShippingGroup.amount}</Description> 
 	
@@ -59,7 +59,7 @@ class RetailStoreOrderShippingGroupPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderShippingGroup = this.props.retailStoreOrderShippingGroup
     const { id,displayName,  } = retailStoreOrderShippingGroup
-    const  returnURL = `/retailStoreOrderShippingGroup/${id}/dashboard`
+    const  returnURL = `/retailStoreOrderShippingGroup/${id}/workbench`
     const cardsData = {cardsName:"生超订单送货分组",cardsFor: "retailStoreOrderShippingGroup",cardsSource: retailStoreOrderShippingGroup,displayName,returnURL,
   		subItems: [
     
@@ -72,10 +72,10 @@ class RetailStoreOrderShippingGroupPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

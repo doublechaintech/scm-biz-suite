@@ -31,12 +31,12 @@ const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{potentialCustomerContact.id}</Description> 
+<Description term="ID">{potentialCustomerContact.id}</Description> 
 <Description term="名称">{potentialCustomerContact.name}</Description> 
 <Description term="接触日期">{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</Description> 
 <Description term="接触法">{potentialCustomerContact.contactMethod}</Description> 
 <Description term="描述">{potentialCustomerContact.description}</Description> 
-<Description term="最后更新时间">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -62,7 +62,7 @@ class PotentialCustomerContactPermission extends Component {
     // eslint-disable-next-line max-len
     const  potentialCustomerContact = this.props.potentialCustomerContact
     const { id,displayName,  } = potentialCustomerContact
-    const  returnURL = `/potentialCustomerContact/${id}/dashboard`
+    const  returnURL = `/potentialCustomerContact/${id}/workbench`
     const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",cardsSource: potentialCustomerContact,displayName,returnURL,
   		subItems: [
     
@@ -75,10 +75,10 @@ class PotentialCustomerContactPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

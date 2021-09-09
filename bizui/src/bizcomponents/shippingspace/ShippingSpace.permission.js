@@ -31,14 +31,14 @@ const internalSummaryOf = (shippingSpace,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{shippingSpace.id}</Description> 
+<Description term="ID">{shippingSpace.id}</Description> 
 <Description term="位置">{shippingSpace.location}</Description> 
 <Description term="联系电话">{shippingSpace.contactNumber}</Description> 
 <Description term="总面积">{shippingSpace.totalArea}</Description> 
 <Description term="纬度">{shippingSpace.latitude}</Description> 
 <Description term="经度">{shippingSpace.longitude}</Description> 
 <Description term="描述">{shippingSpace.description}</Description> 
-<Description term="最后更新时间">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="更新于">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -64,7 +64,7 @@ class ShippingSpacePermission extends Component {
     // eslint-disable-next-line max-len
     const  shippingSpace = this.props.shippingSpace
     const { id,displayName, goodsCount } = shippingSpace
-    const  returnURL = `/shippingSpace/${id}/dashboard`
+    const  returnURL = `/shippingSpace/${id}/workbench`
     const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",cardsSource: shippingSpace,displayName,returnURL,
   		subItems: [
     
@@ -77,10 +77,10 @@ class ShippingSpacePermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

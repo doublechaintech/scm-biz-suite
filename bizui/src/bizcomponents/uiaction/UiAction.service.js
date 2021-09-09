@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}uiActionManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}uiActionManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -54,6 +59,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}uiActionService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -73,7 +86,8 @@ const  processRequest = (data) => {
 
 const UiActionService = { view,
   load,
+  analyze,
   requestCandidatePage,
-  transferToAnotherPage, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherPage, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default UiActionService
 

@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}levelTwoDepartmentManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}levelTwoDepartmentManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelTwoDepartmentService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const LevelTwoDepartmentService = { view,
   load,
+  analyze,
   addLevelThreeDepartment,
   updateLevelThreeDepartment,
   removeLevelThreeDepartmentList,
   requestCandidateBelongsTo,
-  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherBelongsTo, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default LevelTwoDepartmentService
 

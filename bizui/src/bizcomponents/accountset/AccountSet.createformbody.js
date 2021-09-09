@@ -15,21 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = AccountSetBase
 const testValues = {};
-/*
-const testValues = {
-  name: '账套2017',
-  yearSet: '2017年',
-  effectiveDate: '2019-12-18',
-  accountingSystem: '企业会计制度',
-  domesticCurrencyCode: 'RMB',
-  domesticCurrencyName: '人民币',
-  openingBank: '招商银行',
-  accountNumber: '3326 5805 0548 85',
-  countryCenterId: 'RSCC000001',
-  retailStoreId: 'RS000001',
-  goodsSupplierId: 'GS000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
 ]
@@ -43,9 +31,20 @@ class AccountSetCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = AccountSetBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -56,7 +55,7 @@ class AccountSetCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -64,7 +63,7 @@ class AccountSetCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -72,10 +71,10 @@ class AccountSetCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -84,16 +83,16 @@ class AccountSetCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {AccountSetService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -103,9 +102,9 @@ class AccountSetCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -114,7 +113,7 @@ class AccountSetCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -126,25 +125,25 @@ class AccountSetCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('account_set')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.name} />
+                    <SmallTextInput minLength={3} maxLength={24} size="large"  placeholder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +153,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('yearSet', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.yearSet} />
+                    <SmallTextInput minLength={2} maxLength={20} size="large"  placeholder={fieldLabels.yearSet} />
                   )}
                 </Form.Item>
               </Col>
@@ -164,7 +163,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('effectiveDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.effectiveDate}/>
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeholder={fieldLabels.effectiveDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -174,7 +173,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('accountingSystem', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.accountingSystem} />
+                    <SmallTextInput minLength={3} maxLength={28} size="large"  placeholder={fieldLabels.accountingSystem} />
                   )}
                 </Form.Item>
               </Col>
@@ -184,7 +183,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('domesticCurrencyCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.domesticCurrencyCode} />
+                    <SmallTextInput minLength={1} maxLength={12} size="large"  placeholder={fieldLabels.domesticCurrencyCode} />
                   )}
                 </Form.Item>
               </Col>
@@ -194,7 +193,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('domesticCurrencyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.domesticCurrencyName} />
+                    <SmallTextInput minLength={1} maxLength={12} size="large"  placeholder={fieldLabels.domesticCurrencyName} />
                   )}
                 </Form.Item>
               </Col>
@@ -204,7 +203,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('openingBank', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.openingBank} />
+                    <SmallTextInput minLength={2} maxLength={16} size="large"  placeholder={fieldLabels.openingBank} />
                   )}
                 </Form.Item>
               </Col>
@@ -214,91 +213,91 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('accountNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.accountNumber} />
+                    <SmallTextInput minLength={5} maxLength={68} size="large"  placeholder={fieldLabels.accountNumber} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} style={{"display":"none"}}>
                 <Form.Item label={fieldLabels.countryCenter} {...formItemLayout}>
                   {getFieldDecorator('countryCenterId', {
                   	initialValue: tryinit('countryCenter'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('countryCenter')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"account_set"} 
-		                 targetType={"retail_store_country_center"} 
-                 
+		                 listType={"account_set"}
+		                 targetType={"retail_store_country_center"}
+
                     requestFunction={AccountSetService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.retailStore} {...formItemLayout}>
                   {getFieldDecorator('retailStoreId', {
                   	initialValue: tryinit('retailStore'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('retailStore')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"account_set"} 
-		                 targetType={"retail_store"} 
-                 
+		                 listType={"account_set"}
+		                 targetType={"retail_store"}
+
                     requestFunction={AccountSetService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
 
-              <Col lg={24} md={24} sm={24}>
+
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.goodsSupplier} {...formItemLayout}>
                   {getFieldDecorator('goodsSupplierId', {
                   	initialValue: tryinit('goodsSupplier'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('goodsSupplier')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"account_set"} 
-		                 targetType={"goods_supplier"} 
-                 
+		                 listType={"account_set"}
+		                 targetType={"goods_supplier"}
+
                     requestFunction={AccountSetService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -313,7 +312,7 @@ class AccountSetCreateFormBody extends Component {
 
 
 
-      
+
        </div>
     )
   }

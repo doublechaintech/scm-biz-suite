@@ -87,7 +87,13 @@ export const getURLPrefix = () => {
   if (url.hostname === '30.30.126.37') {
     return `http://${url.hostname}:8080/naf/`;
   }
+  if (url.hostname === 'lab.doublechaintech.com') {
+    //return `http://${url.hostname}:8080/naf/`
+    const userHome=url.pathname.split("/")[1]
+    return `${url.origin}/${userHome}/${SYSTEM_SHORT_NAME}/`;
+  }
   if (url.hostname === 'localhost') {
+    //return `http://lab.doublechaintech.com/philipgreat/model/`
     return `http://${url.hostname}:8080/${SYSTEM_SHORT_NAME}/`
   }
   if (url.hostname === '127.0.0.1') {
@@ -184,7 +190,17 @@ export const postForm = ({ url, requestParameters, msg = '接口异常'})=>{
   })
 }
 
+const checkIfHasChineseChars=(message)=>{
 
+  for (var i = 0; i < message.length; i++) {
+    if(message.charCodeAt(i)>255){
+      return true;
+    }
+    //console.log(">>" + message.charAt(i))
+  	
+   }
+   return false
+}
 
 export const put = ({ url,data, msg = '接口异常', headers }) =>
     axios
@@ -193,9 +209,26 @@ export const put = ({ url,data, msg = '接口异常', headers }) =>
         console.log('http headers', res.headers);
         const clazz = res.headers['x-class'];
         if (clazz) {
-          if (clazz.indexOf('CommonError') > 0 || clazz.indexOf('Exception') > 0) {
-            message.error('后台系统出错，请检查错误消息' + res.data);
+          
+          if(clazz.indexOf('CommonError') > 0){
+
+            console.log('后台系统出错，请检查错误消息' , res.data)
+            message.error('后台系统出错，请检查错误消息' + JSON.stringify(res.data));
+            return res.data
           }
+          
+          if ( clazz.indexOf('Exception') > 0) {
+            if(!checkIfHasChineseChars(res.data.message)){
+              message.error('后台系统出错，请检查错误消息请联系管理员');
+              return res.data
+            }
+            message.error('用户输入错误,请检查,消息: '+ res.data.message);
+            return res.data
+            
+          }
+
+
+
         }
         return res.data;
       })

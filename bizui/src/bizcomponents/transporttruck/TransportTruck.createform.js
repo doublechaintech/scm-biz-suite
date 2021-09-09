@@ -16,19 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  name: '运货卡车',
-  plateNumber: '川AK5',
-  contactNumber: '028 87654321',
-  vehicleLicenseNumber: 'VL9198',
-  engineNumber: 'EN00102',
-  makeDate: '2020-02-13',
-  mileage: '100万公里',
-  bodyColor: '红色',
-  ownerId: 'TF000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -42,9 +29,15 @@ class TransportTruckCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -55,7 +48,7 @@ class TransportTruckCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -69,8 +62,8 @@ class TransportTruckCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,13 +72,13 @@ class TransportTruckCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = TransportTruckBase
     const {TransportTruckService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -110,10 +103,10 @@ class TransportTruckCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addTransportTruck`,
@@ -121,10 +114,10 @@ class TransportTruckCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'transportTruck',listName:appLocaleName(userContext,"List") },
@@ -170,10 +163,10 @@ class TransportTruckCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -185,7 +178,7 @@ class TransportTruckCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -196,7 +189,7 @@ class TransportTruckCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -206,7 +199,7 @@ class TransportTruckCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_truck')}</div>)
@@ -218,7 +211,7 @@ class TransportTruckCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('transport_truck')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<TransportTruckCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -234,7 +227,7 @@ class TransportTruckCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { EmployeeAssociateForm } = GlobalComponents
-  const { InterviewTypeAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <EmployeeAssociateForm 
-	visible={currentAssociateModal==='employee'} 
-	data={{employeeInterviewList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'employee')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'employee')}/> <InterviewTypeAssociateForm 
-	visible={currentAssociateModal==='interviewType'} 
-	data={{employeeInterviewList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'interviewType')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'interviewType')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class EmployeeInterviewSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class EmployeeInterviewSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {EmployeeInterviewTable} = GlobalComponents;
     const {EmployeeInterviewSearchForm} = GlobalComponents;
     const {EmployeeInterviewModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class EmployeeInterviewSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,EmployeeInterviewModalTable,"employeeInterviewIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

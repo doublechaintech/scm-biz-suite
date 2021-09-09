@@ -1,5 +1,5 @@
-:global{
-.wrapper {
+:global {
+  .wrapper {
     text-align: center;
     margin: 0 auto;
     background: #f3f3f3;
@@ -9,7 +9,7 @@
       width: 30px;
       height: 30px;
       float: left;
-      background: url('../launcher/logo.png') no-repeat center center;
+      background: no-repeat center center;
       background-size: cover;
       margin: 13px 0 0 15px;
     }
@@ -47,7 +47,7 @@
   .heading {
     text-align: center;
     margin: 0 auto;
-    background: #293c55 url('../launcher/homebackground.jpg') no-repeat center center;
+    background: #293c55 no-repeat center center;
     background-size: cover;
     min-height: 420px;
     padding-top: 100px;
@@ -111,9 +111,9 @@
     box-sizing: border-box;
     background: transparent;
     margin: 0;
-    padding: 0!important;
+    padding: 0 !important;
     text-align: center;
-    float: none!important;
+    float: none !important;
 
     .icon-item-box {
       background: #fff;
@@ -140,7 +140,6 @@
         bottom: 30px;
         width: 100%;
       }
-
     }
 
     &:hover {
@@ -155,19 +154,18 @@
 
       .icon {
         background: #f3f3f3;
-        color: #293c55!important;
+        color: #293c55 !important;
         border: 1px solid #f3f3f3;
         transform: rotate(180deg) scale(0.75);
 
         &:after {
           -webkit-box-shadow: 0 0 0 2px #f3f3f3;
           box-shadow: 0 0 0 2px #f3f3f3;
-          
         }
       }
     }
   }
-  
+
   .icon {
     position: relative;
     display: inline-block;
@@ -181,9 +179,9 @@
     z-index: 2;
     color: #fff;
     display: inline-block;
-    color: rgba(41, 60, 85, 0.9)!important;
+    color: rgba(41, 60, 85, 0.9) !important;
     border: 1px solid rgba(41, 60, 85, 0.5);
-    
+
     transition: all 0.7s ease-in-out;
     -moz-transition: all 0.7s ease-in-out;
     -webkit-transition: all 0.7s ease-in-out;
@@ -191,7 +189,7 @@
 
     transform: rotate(0deg) scale(1);
   }
-  
+
   .icon:after {
     position: absolute;
     pointer-events: none;
@@ -203,7 +201,6 @@
     top: -8px;
     left: -8px;
 
-    
     transition: all 0.7s ease-in-out;
     -moz-transition: all 0.7s ease-in-out;
     -webkit-transition: all 0.7s ease-in-out;

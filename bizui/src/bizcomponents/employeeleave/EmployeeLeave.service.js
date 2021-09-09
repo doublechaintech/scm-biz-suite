@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}employeeLeaveManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}employeeLeaveManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -69,6 +74,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeLeaveService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -88,9 +101,10 @@ const  processRequest = (data) => {
 
 const EmployeeLeaveService = { view,
   load,
+  analyze,
   requestCandidateWho,
   requestCandidateType,
   transferToAnotherWho,
-  transferToAnotherType, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherType, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default EmployeeLeaveService
 

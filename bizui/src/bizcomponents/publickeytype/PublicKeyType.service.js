@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}publicKeyTypeManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}publicKeyTypeManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -45,22 +50,22 @@ const transferToAnotherDomain = (id, parameters) => {
 
 
 
-const addKeypairIdentify = (targetObjectId, parameters) => {
-  const url = `${PREFIX}publicKeyTypeManager/addKeypairIdentify/publicKeyTypeId/publicKey/secUserId/tokensExpr/`
+const addKeyPairIdentity = (targetObjectId, parameters) => {
+  const url = `${PREFIX}publicKeyTypeManager/addKeyPairIdentity/publicKeyTypeId/publicKey/secUserId/tokensExpr/`
   const publicKeyTypeId = targetObjectId
   const requestParameters = { ...parameters, publicKeyTypeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
-const updateKeypairIdentify = (targetObjectId, parameters) => {
-  const url = `${PREFIX}publicKeyTypeManager/updateKeypairIdentifyProperties/publicKeyTypeId/id/publicKey/tokensExpr/`
+const updateKeyPairIdentity = (targetObjectId, parameters) => {
+  const url = `${PREFIX}publicKeyTypeManager/updateKeyPairIdentityProperties/publicKeyTypeId/id/publicKey/tokensExpr/`
   const publicKeyTypeId = targetObjectId
   const requestParameters = { ...parameters, publicKeyTypeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
-const removeKeypairIdentifyList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}publicKeyTypeManager/removeKeypairIdentifyList/publicKeyTypeId/keypairIdentifyIds/tokensExpr/`
+const removeKeyPairIdentityList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}publicKeyTypeManager/removeKeyPairIdentityList/publicKeyTypeId/keyPairIdentityIds/tokensExpr/`
   const requestParameters = { ...parameters, publicKeyTypeId: targetObjectId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
@@ -75,6 +80,14 @@ const  listFunctions = () => {
   })
 }
 
+
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}publicKeyTypeService/init/`,
+    data,
+  })
+}
 
 const  saveRequest = (data) => {
 
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const PublicKeyTypeService = { view,
   load,
-  addKeypairIdentify,
-  updateKeypairIdentify,
-  removeKeypairIdentifyList,
+  analyze,
+  addKeyPairIdentity,
+  updateKeyPairIdentity,
+  removeKeyPairIdentityList,
   requestCandidateDomain,
-  transferToAnotherDomain, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherDomain, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default PublicKeyTypeService
 

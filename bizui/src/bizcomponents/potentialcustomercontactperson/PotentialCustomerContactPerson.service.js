@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}potentialCustomerContactPersonManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}potentialCustomerContactPersonManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}potentialCustomerContactPersonService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const PotentialCustomerContactPersonService = { view,
   load,
+  analyze,
   addPotentialCustomerContact,
   updatePotentialCustomerContact,
   removePotentialCustomerContactList,
   requestCandidatePotentialCustomer,
-  transferToAnotherPotentialCustomer, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherPotentialCustomer, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default PotentialCustomerContactPersonService
 

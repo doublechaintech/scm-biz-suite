@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}employeeManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}employeeManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -378,6 +383,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -397,6 +410,7 @@ const  processRequest = (data) => {
 
 const EmployeeService = { view,
   load,
+  analyze,
   addEmployeeCompanyTraining,
   addEmployeeSkill,
   addEmployeePerformance,
@@ -442,6 +456,6 @@ const EmployeeService = { view,
   transferToAnotherDepartment,
   transferToAnotherOccupation,
   transferToAnotherResponsibleFor,
-  transferToAnotherCurrentSalaryGrade, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherCurrentSalaryGrade, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default EmployeeService
 

@@ -15,15 +15,9 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const {fieldLabels} = OriginalVoucherBase
 const testValues = {};
-/*
-const testValues = {
-  title: '这是手写的发票',
-  madeBy: '李亚青',
-  receivedBy: '本公司',
-  voucherType: '原始凭证',
-  belongsToId: 'AD000001',
-}
-*/
+import PrivateImageEditInput from '../../components/PrivateImageEditInput'
+import RichEditInput from '../../components/RichEditInput'
+import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
   'voucherImage',
@@ -38,9 +32,20 @@ class OriginalVoucherCreateFormBody extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+
+
+
+    const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+
+    const formValue = OriginalVoucherBase.unpackObjectToFormValues(initValue)
+    this.props.form.setFieldsValue(formValue);
+
+
+
+
   }
 
   handlePreview = (file) => {
@@ -51,7 +56,7 @@ class OriginalVoucherCreateFormBody extends Component {
     })
   }
 
- 
+
 
 
   handleImageChange = (event, source) => {
@@ -59,7 +64,7 @@ class OriginalVoucherCreateFormBody extends Component {
     const {handleImageChange} = this.props
     if(!handleImageChange){
       console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
-      return 
+      return
     }
 
     const { convertedImagesValues } = this.state
@@ -67,10 +72,10 @@ class OriginalVoucherCreateFormBody extends Component {
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
     handleImageChange(event, source)
-	
- 
+
+
   }
-  
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -79,16 +84,16 @@ class OriginalVoucherCreateFormBody extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { owner } = this.props
     const {OriginalVoucherService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
     
-    
+
     const tryinit  = (fieldName) => {
-      
+
       if(!owner){
       	return null
       }
@@ -98,9 +103,9 @@ class OriginalVoucherCreateFormBody extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
-     
+
       if(!owner){
       	return true
       }
@@ -109,7 +114,7 @@ class OriginalVoucherCreateFormBody extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -121,25 +126,25 @@ class OriginalVoucherCreateFormBody extends Component {
       wrapperCol: { span: 12 },
 
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('original_voucher')}</div>)
     }
-	
+
 	return (
       <div>
         <Card title={!this.props.hideTitle&&appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
-           
+
 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.title} />
+                    <SmallTextInput minLength={2} maxLength={28} size="large"  placeholder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +154,7 @@ class OriginalVoucherCreateFormBody extends Component {
                   {getFieldDecorator('madeBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.madeBy} />
+                    <SmallTextInput minLength={1} maxLength={12} size="large"  placeholder={fieldLabels.madeBy} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +164,7 @@ class OriginalVoucherCreateFormBody extends Component {
                   {getFieldDecorator('receivedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.receivedBy} />
+                    <SmallTextInput minLength={1} maxLength={12} size="large"  placeholder={fieldLabels.receivedBy} />
                   )}
                 </Form.Item>
               </Col>
@@ -169,39 +174,39 @@ class OriginalVoucherCreateFormBody extends Component {
                   {getFieldDecorator('voucherType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.voucherType} />
+                    <SmallTextInput minLength={1} maxLength={16} size="large"  placeholder={fieldLabels.voucherType} />
                   )}
                 </Form.Item>
               </Col>
 
 
-       
+
  
-              <Col lg={24} md={24} sm={24}>
+              <Col lg={24} md={24} sm={24} >
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                  
-                  
-                  <CandidateList 
+
+
+                  <CandidateList
 		                 disabled={!availableForEdit('belongsTo')}
 		                 ownerType={owner.type}
 		                 ownerId={owner.id}
 		                 scenarioCode={"assign"}
-		                 listType={"original_voucher"} 
-		                 targetType={"accounting_document"} 
-                 
+		                 listType={"original_voucher"}
+		                 targetType={"accounting_document"}
+
                     requestFunction={OriginalVoucherService.queryCandidates}  />
-                  	
-                  
-                  
+
+
+
                   )}
                 </Form.Item>
               </Col>
 
-           
+
 
 
 
@@ -216,26 +221,28 @@ class OriginalVoucherCreateFormBody extends Component {
 
        <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
           <Form >
-            <Row gutter={16}>     
-           
+            <Row gutter={16}>
 
-              <Col lg={6} md={12} sm={24}>
-                <ImageComponent
-                  buttonTitle={fieldLabels.voucherImage}
-                  handlePreview={this.handlePreview}
-                  handleChange={event => this.handleImageChange(event, 'voucherImage')}
-                  fileList={convertedImagesValues.voucherImage}
-                />
-              </Col>
+
+          <Col lg={6} md={6} sm={6}></Col>
+          <Col lg={12} md={12} sm={12}>
+              <Form.Item>
+                  {getFieldDecorator('voucherImage', {
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.voucherImage}/>
+                )} </Form.Item>
+
+              </Col><Col lg={6} md={6} sm={6}></Col>
 
              </Row>
           </Form>
         </Card>
-         
 
 
 
-      
+
+
        </div>
     )
   }

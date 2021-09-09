@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}retailStoreManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}retailStoreManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -269,6 +274,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -288,6 +301,7 @@ const  processRequest = (data) => {
 
 const RetailStoreService = { view,
   load,
+  analyze,
   addConsumerOrder,
   addRetailStoreOrder,
   addGoods,
@@ -318,6 +332,6 @@ const RetailStoreService = { view,
   transferToAnotherFranchising,
   transferToAnotherDecoration,
   transferToAnotherOpening,
-  transferToAnotherClosing, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherClosing, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default RetailStoreService
 

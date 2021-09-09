@@ -31,7 +31,7 @@ const internalSummaryOf = (supplyOrderPaymentGroup,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderPaymentGroup.id}</Description> 
+<Description term="ID">{supplyOrderPaymentGroup.id}</Description> 
 <Description term="名称">{supplyOrderPaymentGroup.name}</Description> 
 <Description term="卡号码">{supplyOrderPaymentGroup.cardNumber}</Description> 
 	
@@ -59,7 +59,7 @@ class SupplyOrderPaymentGroupPermission extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrderPaymentGroup = this.props.supplyOrderPaymentGroup
     const { id,displayName,  } = supplyOrderPaymentGroup
-    const  returnURL = `/supplyOrderPaymentGroup/${id}/dashboard`
+    const  returnURL = `/supplyOrderPaymentGroup/${id}/workbench`
     const cardsData = {cardsName:"供应订单付款组",cardsFor: "supplyOrderPaymentGroup",cardsSource: supplyOrderPaymentGroup,displayName,returnURL,
   		subItems: [
     
@@ -72,10 +72,10 @@ class SupplyOrderPaymentGroupPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

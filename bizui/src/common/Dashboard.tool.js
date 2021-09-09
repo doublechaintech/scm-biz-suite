@@ -1,8 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/jsx-indent */
-import FontAwesome from 'react-fontawesome';
 import PermissionSettingService from '../permission/PermissionSetting.service';
-import {List,
+import {
+  List,
   Row,
   Col,
   Icon,
@@ -11,8 +11,14 @@ import {List,
   Switch,
   Select,
   Form,
+  Pagination,
   AutoComplete,
-  Modal,Divider,Collapse,Tabs,
+  Modal,
+  Divider,
+  Collapse,
+  Tabs,
+  Avatar,
+  Menu,
 } from 'antd';
 import styles from './Dashboard.tool.less';
 import ImagePreview from '../components/ImagePreview';
@@ -22,20 +28,15 @@ import { Link, Route, Redirect } from 'dva/router';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
 import appLocaleName from './Locale.tool';
+const { SubMenu } = Menu;
+import { ChartCard, MiniArea, MiniBar } from 'components/Charts';
 
-import {
-  ChartCard,
-  MiniArea,
-  MiniBar,
-
-} from 'components/Charts';
-
-import { PREFIX } from '../axios/tools'
+import { PREFIX } from '../axios/tools';
 
 import echarts from 'echarts';
 import Themes from './Dashboard.echartstheme';
 
-const {Panel} = Collapse;
+const { Panel } = Collapse;
 //get more style from https://echarts.baidu.com/theme-builder/
 echarts.registerTheme('bizTheme2', Themes.bizTheme);
 //please do not use defaultTheme, this is a big trap for developers
@@ -52,22 +53,19 @@ const topColResponsiveProps = {
   style: { marginBottom: 24, marginTop: 24 },
 };
 
-const calcLayoutForChartCard=(count)=>{
+const calcLayoutForChartCard = count => {
+  if (count === 1) {
+    return { ...topColResponsiveProps, xs: 24, sm: 24, md: 24, lg: 24, xl: 24 };
+  }
+  if (count === 2) {
+    return { ...topColResponsiveProps, xs: 12, sm: 12, md: 12, lg: 12, xl: 12 };
+  }
+  if (count === 3) {
+    return { ...topColResponsiveProps, xs: 8, sm: 8, md: 8, lg: 8, xl: 8 };
+  }
 
-  if(count===1){
-    return {...topColResponsiveProps, xs: 24,sm: 24,md: 24,lg: 24,xl:24 }
-  }
-  if(count===2){
-    return {...topColResponsiveProps, xs: 12,sm: 12,md: 12,lg: 12,xl:12 }
-  }
-  if(count===3){
-    return {...topColResponsiveProps, xs: 8,sm: 8,md: 8,lg: 8,xl:8 }
-  }
-  
-  return topColResponsiveProps
-  
-
-}
+  return topColResponsiveProps;
+};
 
 const wholeLineColProps = {
   xs: 24,
@@ -75,10 +73,8 @@ const wholeLineColProps = {
   md: 24,
   lg: 24,
   xl: 24,
-  style: {  marginBottom: 24},
+  style: { marginBottom: 24 },
 };
-
-
 
 const quckFunctionProps = {
   xs: 24,
@@ -86,7 +82,6 @@ const quckFunctionProps = {
   md: 12,
   lg: 6,
   xl: 6,
-  
 };
 
 const renderForNumbers = aggregatedData => {
@@ -128,14 +123,14 @@ const renderForNumbers = aggregatedData => {
     '#ffffff',
     '#000000',
   ];
-  let colorIndex = 0
+  let colorIndex = 0;
   return (
     <Row gutter={24}>
-      {data.dimensions.map((item) => {
+      {data.dimensions.map(item => {
         const visitData = [];
         let itemTotal = 0;
         const weekData = { lastWeek: 0, thisWeek: 0, lastWeekCount: 7, change: 0 };
-        const chartCardLayout = topColResponsiveProps
+        const chartCardLayout = topColResponsiveProps;
         data.dataArray
           .filter(dateItem => dateItem.date !== '未分配')
           .filter(dateItem => dateItem[item] > 0)
@@ -155,7 +150,7 @@ const renderForNumbers = aggregatedData => {
             // console.log("week of the year for ", dateItem.date, " week number",weeknumber)
             itemTotal += dateItem[item];
           });
-        
+
         if (itemTotal < 2) {
           return null;
         }
@@ -168,28 +163,31 @@ const renderForNumbers = aggregatedData => {
         if (visitData.length < 10) {
           ChartComp = MiniBar;
         }
-        colorIndex +=1
+        colorIndex += 1;
         console.log('index: ', colorIndex, colors[colorIndex % colors.length]);
 
         const chartColor = colors[colorIndex % colors.length];
 
-        const trend=(target)=>{
-
-          return target.lastWeek> target.thisWeek?"down":"up";
-
-        }
-        const change=(target)=>{
-          if(target.thisWeek===0){
-            return `${numeral(0).format('0.00')}%`
+        const trend = target => {
+          if (target.lastWeek === target.thisWeek) {
+            return '';
           }
-          if(target.lastWeek===0){
-            return "NA"
-          }
-          const percent=(target.thisWeek-target.lastWeek)/target.lastWeek*100
-          return `${numeral(Math.abs(percent)).format('0.00')}%`
-        }
-        
 
+          return target.lastWeek > target.thisWeek ? 'down' : 'up';
+        };
+        const change = target => {
+          if (target.thisWeek === 0 && target.lastWeek === 0) {
+            return `-`;
+          }
+          if (target.thisWeek === 0) {
+            return `100.00%`;
+          }
+          if (target.lastWeek === 0) {
+            return 'NA';
+          }
+          const percent = ((target.thisWeek - target.lastWeek) / target.lastWeek) * 100;
+          return `${numeral(Math.abs(percent)).format('0.00')}%`;
+        };
 
         return (
           <Col key={item} {...chartCardLayout}>
@@ -205,10 +203,12 @@ const renderForNumbers = aggregatedData => {
               footer={
                 <div>
                   <Trend flag={trend(weekData)} style={{ marginRight: 16 }}>
-                    上周: {numeral(weekData.lastWeek).format('0,0')}/本周: {numeral(
-                      weekData.thisWeek
-                    ).format('0,0')}
-                    <span className={styles.trendText}>环比{change(weekData)}</span>
+                    上周: {numeral(weekData.lastWeek).format('0,0')}
+                    /本周: {numeral(weekData.thisWeek).format('0,0')}
+                    <span className={styles.trendText}>
+                      环比
+                      {change(weekData)}
+                    </span>
                   </Trend>
                 </div>
               }
@@ -346,7 +346,7 @@ const aggregateDataset = mainObject => {
       const itemkey = calcKey(item);
       const existedValue = dataMap[itemkey];
       const itemValue = {};
-      const {displayName} = series
+      const { displayName } = series;
       itemValue[displayName] = item.count;
       dimensionSet.add(displayName);
       if (!existedValue) {
@@ -404,10 +404,10 @@ const defaultImageListOf = (mainObject, imageList) => {
     <Card title="图片列表" className={styles.card}>
       <Row type="flex" justify="start" align="bottom">
         {filteredList.map((item, index) => (
-          <Col span={6} key={index}>
+          <Col span={24} key={index}>
             <ImagePreview
               imageTitle={item.title}
-              imageStyle={{width:400}}
+              imageStyle={{ width: '100%' }}
               showTitleUnderImage={true}
               imageLocation={item.imageLocation}
             >
@@ -451,15 +451,13 @@ const defaultLargeTextOf = mainObject => {
 //TODO: repalce with service
 const defaultHandleTransferSearch = (targetComponent, filterKey, newRequest) => {
   const parameters = newRequest || targetComponent.state;
-  
+
   const {
     candidateServiceFunc,
     candidateObjectType,
     targetLocalName,
     transferServiceFunc,
   } = parameters;
-
-  
 
   const id = ''; //not used for now
   const pageNo = 1;
@@ -589,50 +587,49 @@ const defaultBuildTransferModal = (mainObject, targetComponent) => {
   );
 };
 
-
-const renderFunctions = (mainObject) => {
-  const actionList = mainObject.actionList.filter(item=>item.actionGroup==='changerequesttype')
+const renderFunctions = mainObject => {
+  if (!mainObject) {
+    return null;
+  }
+  if (!mainObject.actionList) {
+    return null;
+  }
+  const actionList = mainObject.actionList.filter(item => item.actionGroup === 'changerequesttype');
   // const actionList = platform.actionList
 
-
-  if(!actionList){
-    return null
+  if (!actionList) {
+    return null;
   }
-  if(actionList.length === 0){
-    return null
+  if (actionList.length === 0) {
+    return null;
   }
 
   return (
-
     <List
-    grid={{ gutter: 16, xs: 4, sm: 4, md: 4, lg: 6, xl: 6, xxl: 6 }}
-    dataSource={actionList}
-    renderItem={item => (
-      <List.Item>
-        <Card className={styles.crCard}><Link to={item.actionPath}>
-        
-        <Icon type={item.actionIcon} style={{ fontSize: 50, color: 'orange' }}/>
-        
-       </Link><br/><br/>{item.actionName}</Card>
-      </List.Item>
-    )}
-  />
-
-
-
-   
-  )
+      grid={{ gutter: 16, column: 6 }}
+      dataSource={actionList}
+      styles={{ backgroundColor: 'white' }}
+      renderItem={item => (
+        <List.Item>
+          <Card className={styles.crCard}>
+            <Link to={item.actionPath}>
+              <Icon type={item.actionIcon} style={{ fontSize: 20, color: 'orange' }} />
+            </Link>
+            <br />
+            <br />
+            {item.actionName}
+          </Card>
+        </List.Item>
+      )}
+    />
+  );
 };
 
 const defaultRenderExtraHeader = mainObject => {
-  
-  return (<div>{renderFunctions(mainObject)}  </div>)
-
-
+  return <div>{renderFunctions(mainObject)} </div>;
 };
 
-
-const defaultRenderAnalytics= mainObject => {
+const defaultRenderAnalytics = mainObject => {
   const data = aggregateDataset(mainObject);
   if (!data.dataArray) {
     return null;
@@ -641,139 +638,108 @@ const defaultRenderAnalytics= mainObject => {
     return null;
   }
   // {renderForTimeLine(data)}
-  return (
-    <div>
-      
-      {renderForNumbers(data)}
-      
-    </div>
-  );
+  return <div>{renderForNumbers(data)}</div>;
 };
 
-const legalListForDisplay=(targetObject, listItem)=>{
+const legalListForDisplay = (targetObject, listItem) => {
+  if (!targetObject) {
+    return false;
+  }
+  if (!listItem) {
+    return false;
+  }
+  if (!listItem.name) {
+    return false;
+  }
+  if (!targetObject[listItem.name]) {
+    return false;
+  }
 
-  if(!targetObject){
-    return false
-  }
-  if(!listItem){
-    return false
-  }
-  if(!listItem.name){
-    return false
-  }
-  if(!targetObject[listItem.name]){
-    return false
-  }
-
-  return true
-
-}
+  return true;
+};
 const defaultRenderSubjectList2 = cardsData => {
-  
   // listItem.renderItem(item)
-  const targetObject = cardsData.cardsSource
+  const targetObject = cardsData.cardsSource;
   return (
     <Row gutter={16}>
-      
       {cardsData.subItems
-        
-        .filter(listItem=>legalListForDisplay(targetObject,listItem))
-        .map(listItem => (
-         
-          <Col key={listItem.displayName} span={24} {...wholeLineColProps}>
-            
-             <Card title={listItem.displayName} style={{ marginBottom: 24 }} >
 
-            {
-             
-              targetObject[listItem.name].map(item=>(listItem.renderItem(item)))
-            }
-           
-             </Card>
+        .filter(listItem => legalListForDisplay(targetObject, listItem))
+        .map(listItem => (
+          <Col key={listItem.displayName} span={24} {...wholeLineColProps}>
+            <Card title={listItem.displayName} style={{ marginBottom: 24 }}>
+              {targetObject[listItem.name].map(item => listItem.renderItem(item))}
+            </Card>
           </Col>
-         
         ))}
     </Row>
-    
   );
 };
-
 
 const defaultRenderSubjectList = cardsData => {
-  
   // listItem.renderItem(item)
-  const targetObject = cardsData.cardsSource
+  const targetObject = cardsData.cardsSource;
   const { TabPane } = Tabs;
   function callback(key) {
     console.log(key);
   }
+
+  if (!cardsData.subItems.length) {
+    return null;
+  }
+
+  if (cardsData.subItems.length === 0) {
+    return null;
+  }
+
   return (
-    <Row gutter={16}>
-      <Tabs  onChange={callback}>
+    <Tabs onChange={callback}>
       {cardsData.subItems
-        
-        .filter(listItem=>legalListForDisplay(targetObject,listItem))
+
+        .filter(listItem => legalListForDisplay(targetObject, listItem))
         .map(listItem => (
-          <TabPane tab={listItem.displayName} key={listItem.displayName}>
-          <Col key={listItem.displayName} span={24} {...wholeLineColProps}>
-            
-             
-            {
-             
-              targetObject[listItem.name].map(item=>(listItem.renderItem(item,null,6,listItem.name)))
-            }
-           
-    
-          </Col>
+          <TabPane
+            tab={listItem.displayName}
+            key={listItem.displayName}
+            style={{ backgroundColor: 'lightgrey' }}
+          >
+            {targetObject[listItem.name].map(item =>
+              listItem.renderItem(item, targetObject, 6, listItem.name)
+            )}
           </TabPane>
         ))}
-        </Tabs>
-    </Row>
-    
+    </Tabs>
   );
 };
 
-
 const defaultRenderSubjectList4 = cardsData => {
-  
   // listItem.renderItem(item)
-  const targetObject = cardsData.cardsSource
+  const targetObject = cardsData.cardsSource;
   const { TabPane } = Tabs;
   function callback(key) {
     console.log(key);
   }
-  if(!cardsData || !cardsData.subItems){
-    return null
+  if (!cardsData || !cardsData.subItems) {
+    return null;
   }
-  const listWithDataLength = cardsData.subItems.filter(item=>item.count>0).length;
-  if(listWithDataLength>10){
-    return null
+  const listWithDataLength = cardsData.subItems.filter(item => item.count > 0).length;
+  if (listWithDataLength > 10) {
+    return null;
   }
 
   return (
     <Row gutter={16}>
-      
       {cardsData.subItems
-        
-        .filter(listItem=>legalListForDisplay(targetObject,listItem))
-        .map(listItem => (
-          
-          <Col key={listItem.displayName} {...wholeLineColProps}>
-            
-             <Card title={listItem.displayName} style={{ marginBottom: 24 }} >
 
-            {
-             
-              targetObject[listItem.name].map(item=>(listItem.renderItem(item)))
-            }
-           
-             </Card>
+        .filter(listItem => legalListForDisplay(targetObject, listItem))
+        .map(listItem => (
+          <Col key={listItem.displayName} {...wholeLineColProps}>
+            <Card title={listItem.displayName} style={{ marginBottom: 24 }}>
+              {targetObject[listItem.name].map(item => listItem.renderItem(item))}
+            </Card>
           </Col>
-          
         ))}
-       
     </Row>
-    
   );
 };
 
@@ -793,21 +759,22 @@ const defaultSubListsOf = cardsData => {
             <Card
               title={
                 <span>
-                <Link to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}>
-                {item.displayName}({numeral(item.count).format('0,0')})
-                
-                </Link>
-                {hasItemCreatePermission(item) && (
-                  <Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`}>
-                    <span className={styles.splitLine} />
-                    <FontAwesome name="plus" />
-                    {appLocaleName(userContext, 'Add')}
-                </Link>)}</span>}
-         
+                  <Link
+                    to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}
+                  >
+                    {item.displayName}({numeral(item.count).format('0,0')})
+                  </Link>
+                  {hasItemCreatePermission(item) && (
+                    <Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`}>
+                      <span className={styles.splitLine} />
+                      <Icon type="plus" />
+                      {appLocaleName(userContext, 'Add')}
+                    </Link>
+                  )}
+                </span>
+              }
             >
-              <p>
-               
-              </p>
+              <p />
             </Card>
           </Col>
         ))}
@@ -815,266 +782,412 @@ const defaultSubListsOf = cardsData => {
   );
 };
 
-
-const defaultQuickFunctions2 = cardsData => {
-  
+const defaultQuickFunctions3 = cardsData => {
   const { id, actionList } = cardsData.cardsSource;
   return (
     <Row gutter={16}>
-      {
-       actionList&&actionList.filter(item => item.actionGroup==="custom")
-        .map(item=>(
-
-          
-          <Col {...quckFunctionProps}  key={`${item.actionPath}`}>
-          <Card style={{fontSize:"20px"}}>
-          <a href={`${PREFIX}${item.managerBeanName}/${item.actionPath}`} target="_blank">
-          <Icon type={item.actionIcon} /> {item.actionName}
-          </a>
-          </Card>
+      {actionList &&
+        actionList.filter(item => item.actionGroup === 'custom').map(item => (
+          <Col {...quckFunctionProps} key={`${item.actionPath}`}>
+            <Card style={{ fontSize: '20px' }}>
+              <a href={`${PREFIX}${item.managerBeanName}/${item.actionPath}`} target="_blank">
+                <Icon type={item.actionIcon} /> {item.actionName}
+              </a>
+            </Card>
           </Col>
-        ))
+        ))}
+      {cardsData &&
+        cardsData.subItems &&
+        cardsData.subItems.filter(item => hasItemReadPermission(item)).map(item => (
+          <Col key={item.displayName} {...quckFunctionProps}>
+            <Card span={6} style={{ fontSize: '20px' }}>
+              <Row gutter={16}>
+                {hasItemCreatePermission(item) && (
+                  <Col span={3}>
+                    <Tooltip title={`增加一个${item.displayName}`} placement="bottom">
+                      <Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`}>
+                        <Icon type="plus" />
+                      </Link>
+                    </Tooltip>
+                  </Col>
+                )}
 
-
-      }
-      {cardsData&&cardsData.subItems&&cardsData.subItems
-        
-        .filter(item => hasItemReadPermission(item))
-        .map(item => (
-          <Col key={item.displayName} {...quckFunctionProps} ><Card span={6} style={{fontSize:"20px"}}>
-           <Row gutter={16}>
-           {hasItemCreatePermission(item) && (
-          <Col span={3}>
-          <Tooltip title={`增加一个${item.displayName}`} placement="bottom">  
-           <Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`} >
-           
-         <Icon type="plus" />
-         </Link></Tooltip>
-         </Col>)}
-         
-         <Col span={21}>
-
-         <Tooltip title={`进入${item.displayName}列表`} placement="bottom">  
-         <Link  to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}>
-         {item.displayName} 111</Link><span style={{fontSize:"10px"}}> 共{item.count}条</span>
-         </Tooltip>
-         
-         </Col>
-         
-         
-         
-         </Row>
-     
-    </Card></Col>
-         
+                <Col span={21}>
+                  <Tooltip title={`进入${item.displayName}列表`} placement="bottom">
+                    <Link
+                      to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}
+                    >
+                      {item.displayName} 111
+                    </Link>
+                    <span style={{ fontSize: '10px' }}> 共{item.count}条</span>
+                  </Tooltip>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
         ))}
     </Row>
-    
   );
 };
 
-const groupMenuOf=(cardsData)=>{
-  const groupedItems = []
-  cardsData.subItems.filter(item => hasItemReadPermission(item)).map(item =>{
-          const {viewGroup} = item
-          let result = groupedItems.find(viewGroupItem=>(viewGroupItem.viewGroup===viewGroup))
-  
-      if(!result){
-        // group not found
-        result = {viewGroup, subItems: []}
-        groupedItems.push(result)
-      }
-      const {subItems} = result
-      subItems.push(item)
+const groupMenuOf = cardsData => {
+  const groupedItems = [];
+  cardsData.subItems.filter(item => hasItemReadPermission(item)).map(item => {
+    const { viewGroup } = item;
+    let result = groupedItems.find(viewGroupItem => viewGroupItem.viewGroup === viewGroup);
 
-    })
-    return groupedItems
+    if (!result) {
+      // group not found
+      result = { viewGroup, subItems: [] };
+      groupedItems.push(result);
+    }
+    const { subItems } = result;
+    subItems.push(item);
+  });
+  return groupedItems;
+};
 
-}
-
-const keepShort=(value, length)=>{
-
-  if(value.length<=length){
-    return value
+const keepShort = (value, length) => {
+  if (value.length <= length) {
+    return value;
   }
-  return `${value.substring(0,length-1)}..`
-
-}
-const showNumber=(item)=>{
-
-  if(!item.count){
-    return ""
+  return `${value.substring(0, length - 1)}..`;
+};
+const showNumber = item => {
+  if (!item.count) {
+    return '';
   }
-  return `(${item.count})`
-
-
-}
-const functionItem=(cardsData,item)=>{
+  return `(${item.count})`;
+};
+const functionItem = (cardsData, item) => {
   const { id } = cardsData.cardsSource;
 
-  console.log("item.displayName",item.displayName);
+  console.log('item.displayName', item.displayName);
 
-  return (<Col key={item.displayName} span={4} className={styles.functionItem}>
-  
-  
-
-      <Tooltip title={`进入${item.displayName}列表${showNumber(item)}`} placement="bottom">  
-      <Link  to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}>
-      {keepShort(item.displayName,9)}</Link>
-      </Tooltip>
-      
-
-      
- 
-
-</Col>)
-
-
-}
-
-
-const viewGroupName=(name)=>{
-  if(!name){
-    return <div>
-      常用功能
-    </div>
-  }
-  if(name ==="" || name === "__no_group"){
-    return <div>
-    常用功能
-  </div>
-  }
-  return name;
-
-
-
-}
-
-const CustomFunction=(cardsData)=>{
-
-  const { actionList } = cardsData.cardsSource;
-  if(!actionList || actionList.length ===0 || actionList.filter(item => item.actionGroup==="custom").length === 0){
-    return null
-  }
-  return (<Row key="__custom" gutter={16} className={styles.functionRow} >
-    <Card span={6} style={{fontSize:"14px"}}>
-        <Col span={3} className={styles.functionItem}>
-        
-        特别功能
-       
-       
-        </Col>
-
-        <Col span={21} >
-
-    {
-      actionList.filter(item => item.actionGroup==="custom")
-      .map(item=>(
-
-        
-        <Col span={4} key={`${item.actionPath}`} style={{marginTop:"5px",marginBotton:"5px"}}>
-        
-        <a href={`${PREFIX}${item.managerBeanName}/${item.actionPath}`} target="_blank">
-        {item.actionName}
-        </a>
-       
-        </Col>
-      ))
-
-
-    }</Col>
-     </Card>
-     </Row> )
-
-
-}
-
-const defaultQuickFunctions = cardsData => {
-  
-  
   return (
-    <div style={{marginLeft: '8px',marginRight:'8px'}}>
-    {CustomFunction(cardsData)}
-    {
-      groupMenuOf(cardsData).map(groupItem=>(
-
-        <Row key={groupItem.viewGroup} gutter={16} className={styles.functionRow} >
-
-          <Card span={6} style={{fontSize:"14px"}}>
-
-           <Col span={3} style={{textColor:"grey",marginTop:"5px",marginBotton:"5px"}}>
-          
-          {viewGroupName(groupItem.viewGroup)}
-         
-         
-          </Col>
-          <Col span={21} >
-            {groupItem.subItems.map(item=>(
-              functionItem(cardsData,item)
-            ))}
-         </Col>
-
-        </Card>
-         </Row>)
-      )
-
-    }
-    </div>
-    
+    <Col key={item.displayName} span={4} className={styles.functionItem}>
+      <Tooltip title={`进入${item.displayName}列表${showNumber(item)}`} placement="bottom">
+        <Link
+          style={{ fontSize: '14px' }}
+          to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}
+        >
+          {keepShort(item.displayName,6)}
+        </Link>
+      </Tooltip>
+    </Col>
   );
 };
 
+const fixName = name => {
+  if (!name) {
+    return '常用功能';
+  }
+  if (name === '' || name === '__no_group') {
+    return '常用功能';
+  }
+  return name;
+};
 
+const viewGroupName = name => {
+  return <span style={{ fontSize: '20px', fontWeight: 'bolder' }}>{fixName(name)}</span>;
+};
+
+const viewGroupTitle = item => {
+  return (
+    <span style={{ fontWeight: 'bolder', textAlign: 'center' }}>{fixName(item.viewGroup)}</span>
+  );
+};
+
+const CustomFunction = cardsData => {
+  const { actionList } = cardsData.cardsSource;
+  if (
+    !actionList ||
+    actionList.length === 0 ||
+    actionList.filter(item => item.actionGroup === 'custom').length === 0
+  ) {
+    return null;
+  }
+  return (
+    <Row key="__custom" gutter={16} className={styles.functionRow}>
+      <Card span={6} style={{ fontSize: '14px' }}>
+        <Col span={3} className={styles.functionItem}>
+          特别功能
+        </Col>
+
+        <Col span={21}>
+          {actionList.filter(item => item.actionGroup === 'custom').map(item => (
+            <Col
+              span={4}
+              key={`${item.actionPath}`}
+              style={{ marginTop: '5px', marginBotton: '5px' }}
+            >
+              <a href={`${PREFIX}${item.managerBeanName}/${item.actionPath}`} target="_blank">
+                {item.actionName}
+              </a>
+            </Col>
+          ))}
+        </Col>
+      </Card>
+    </Row>
+  );
+};
+
+const defaultQuickFunctions4 = cardsData => {
+  return (
+    <div style={{ marginLeft: '-28px', marginRight: '-28px' }}>
+      {CustomFunction(cardsData)}
+      {groupMenuOf(cardsData).map(groupItem => (
+        <Row key={groupItem.viewGroup} gutter={16} className={styles.functionRow}>
+          <Card span={6} style={{ fontSize: '14px' }}>
+            <Col span={3} style={{ textColor: 'grey', marginTop: '5px', marginBotton: '5px' }}>
+              {viewGroupName(groupItem.viewGroup)}
+            </Col>
+            <Col span={21}>{groupItem.subItems.map(item => functionItem(cardsData, item))}</Col>
+          </Card>
+        </Row>
+      ))}
+    </div>
+  );
+};
+
+const groupBy = function(xs, key) {
+  return xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};
+
+const prepareGroupedActionList = mainObject => {
+  if (!mainObject) {
+    return null;
+  }
+  if (!mainObject.actionList) {
+    return null;
+  }
+  const actionList = mainObject.actionList.filter(item => item.actionGroup === 'changerequesttype');
+  // const actionList = platform.actionList
+
+  if (!actionList) {
+    return null;
+  }
+  if (actionList.length === 0) {
+    return null;
+  }
+
+  return groupBy(actionList, 'group');
+};
+
+
+const buildIcon=(item)=>{
+
+  if(item.actionIcon.indexOf(".svg")>0){
+
+    return <img src={`./icons/${item.actionIcon}`} width="40" height="40"/>
+
+  }
+  return (<Icon type={item.actionIcon} style={{ fontSize: 32, color: 'green' }} />)
+
+
+
+
+}
+
+const buildActionList = (actionList, groupName) => {
+  console.log('buildActionList actionList', actionList, groupName);
+
+  if (actionList == null) {
+    return null;
+  }
+  
+  return (
+    <List
+      grid={{ gutter: 16, column: 6 }}
+      dataSource={actionList}
+      styles={{ backgroundColor: 'white' }}
+      renderItem={item => (
+        <List.Item>
+          <Card className={styles.crCard} style={{border:"0px"}}>
+            <Link to={item.actionPath} title={item.actionName}>
+              <div className={styles.crCard.icon}>{buildIcon(item)}</div>
+            </Link>
+           
+            <span className={styles.crCard.shortText} >{keepShort(item.actionName,4)}</span>
+           
+          </Card>
+        </List.Item>
+      )}
+    />
+  );
+};
+
+const buildGroupedActionList = (groupedActionList, groupName) => {
+  console.log('buildGroupedActionList', groupedActionList, groupName);
+
+  if (groupedActionList == null) {
+    return null;
+  }
+
+  if (!groupedActionList[groupName]) {
+    return null;
+  }
+
+  return buildActionList(groupedActionList[groupName], groupName);
+};
+
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', 'green'];
+let counter = 0;
+const genColor = () => {
+  counter++;
+  return colorList[counter % colorList.length];
+};
+
+const viewGroupAvatar = text => {
+  return (
+    <Avatar size={90} style={{ color: 'white', backgroundColor: genColor(), fontSize: '40px' }}>
+      {text.substring(0, 1)}
+    </Avatar>
+  );
+};
+
+const mergeGroupItem = cardsData => {
+  const groupedActionList = prepareGroupedActionList(cardsData.cardsSource);
+  return groupMenuOf(cardsData).map(groupItem => {
+    if (groupedActionList && groupedActionList[groupItem.viewGroup]) {
+      groupItem.subActionList = groupedActionList[groupItem.viewGroup];
+    }
+
+    return groupItem;
+  });
+};
+//Object.entries
+const orphanGroupItemList = cardsData => {
+  const groupedActionList = prepareGroupedActionList(cardsData.cardsSource);
+  groupMenuOf(cardsData).map(groupItem => {
+    if (groupedActionList && groupedActionList[groupItem.viewGroup]) {
+      //groupItem.subActionList=groupedActionList[groupItem.viewGroup]
+      delete groupedActionList[groupItem.viewGroup];
+    }
+  });
+
+  return groupedActionList;
+};
+
+const defaultQuickFunctions = cardsData => {
+  const groupedActionList = prepareGroupedActionList(cardsData.cardsSource);
+  const orphanGroupItems = orphanGroupItemList(cardsData);
+
+  console.log('groupedActionList', groupedActionList);
+  console.log('orphanGroupItems', orphanGroupItems);
+
+  return (
+    <div>
+      {CustomFunction(cardsData)}
+
+      {orphanGroupItems &&
+        Object.entries(orphanGroupItems).map(([viewGroupName, actionList]) => (
+          <Row key={viewGroupName} gutter={16} className={styles.functionRow}>
+            <Card span={6} style={{ fontSize: '14px' }}>
+              <Col span={3} style={{ textColor: 'grey', marginTop: '5px', marginBotton: '5px' }}>
+                {viewGroupAvatar(viewGroupName)}
+              </Col>
+              <Col span={21}>{buildActionList(actionList, viewGroupName)}</Col>
+            </Card>
+          </Row>
+        ))}
+
+      {mergeGroupItem(cardsData).map(groupItem => (
+        <Row key={groupItem.viewGroup} gutter={16} className={styles.functionRow}>
+          <Card span={6} style={{ fontSize: '14px' }}>
+            <Col span={3} style={{ textColor: 'grey', marginTop: '5px', marginBotton: '5px' }}>
+              {viewGroupName(groupItem.viewGroup)}
+            </Col>
+            <Col span={21}>{groupItem.subItems.map(item => functionItem(cardsData, item))}</Col>
+          </Card>
+
+          {groupedActionList &&
+            groupedActionList[groupItem.viewGroup] && (
+              <Card span={6} style={{ fontSize: '14px' }}>
+                <Col
+                  span={3}
+                  style={{
+                    textColor: 'grey',
+                    marginTop: '5px',
+                    marginBotton: '5px',
+                    alignItems: 'center',
+                  }}
+                >
+                  {viewGroupAvatar(groupItem.viewGroup)}
+                </Col>
+
+                <Col span={21}>{buildActionList(groupItem.subActionList, groupItem.viewGroup)}</Col>
+              </Card>
+            )}
+        </Row>
+      ))}
+    </div>
+  );
+};
+
+const defaultQuickFunctions1 = cardsData => {
+  //style={{marginLeft: '-28px',marginRight:'-28px'}}
+
+  return (
+    <Menu
+      mode="horizontal"
+      style={{ marginLeft: '-28px', marginRight: '-28px', paddingLeft: '20px' }}
+    >
+      {groupMenuOf(cardsData).map(groupItem => (
+        <SubMenu
+          key={groupItem.viewGroup}
+          title={viewGroupTitle(groupItem)}
+          style={{ margin: '0px 10px 0px 10px' }}
+        >
+          {groupItem.subItems.map(item => (
+            <Menu.Item key={item}>{functionItem(cardsData, item)}</Menu.Item>
+          ))}
+        </SubMenu>
+      ))}
+    </Menu>
+  );
+};
 
 const defaultHideCloseTrans = targetComponent => {
   targetComponent.setState({ transferModalVisiable: false });
 };
 
-const renderTitle=(listItem,cardsData)=>{
-  const {id} = cardsData.cardsSource
-  return <div>{listItem.displayName}({listItem.count})
-   <Link to={`/${cardsData.cardsFor}/${id}/list/${listItem.name}/${listItem.displayName}列表`}>
-   <Icon type="double-right" />
-   </Link>
-   </div>
-
-}
-
-const renderListContent=(targetObject, listItem)=>{
-
-  const listContent = targetObject[listItem.name];
-  if(!listContent){
-    return (<div>稍等...</div>)
-  }
-  return listContent.map(item=>(listItem.renderItem(item)))
-
-}
-const defaultRenderSettingList = cardsData => {
-  
-  // listItem.renderItem(item)
-  const targetObject = cardsData.cardsSource
-  
+const renderTitle = (listItem, cardsData) => {
+  const { id } = cardsData.cardsSource;
   return (
-    <Collapse bordered={false} defaultActiveKey={['1']}>
-      
-      {cardsData.subItems
-        
-        
-        .map((listItem) => (
-    
-          <Panel header={renderTitle(listItem,cardsData)} key={listItem.name}>
-            {
-             renderListContent(targetObject,listItem,cardsData)
-            }
-           
-          </Panel>
-        ))}
-    </Collapse>
-    
+    <div>
+      {listItem.displayName}({listItem.count})
+      <Link to={`/${cardsData.cardsFor}/${id}/list/${listItem.name}/${listItem.displayName}列表`}>
+        <Icon type="double-right" />
+      </Link>
+    </div>
   );
 };
 
+const renderListContent = (targetObject, listItem) => {
+  const listContent = targetObject[listItem.name];
+  if (!listContent) {
+    return <div>稍等...</div>;
+  }
+  return listContent.map(item => listItem.renderItem(item));
+};
+const defaultRenderSettingList = cardsData => {
+  // listItem.renderItem(item)
+  const targetObject = cardsData.cardsSource;
 
+  return (
+    <Collapse bordered={false} defaultActiveKey={['1']}>
+      {cardsData.subItems.map(listItem => (
+        <Panel header={renderTitle(listItem, cardsData)} key={listItem.name}>
+          {renderListContent(targetObject, listItem, cardsData)}
+        </Panel>
+      ))}
+    </Collapse>
+  );
+};
 
 const DashboardTool = {
   aggregateDataset,
@@ -1091,11 +1204,10 @@ const DashboardTool = {
   defaultSubListsOf,
   defaultRenderExtraFooter,
   renderForTimeLine,
-  renderForNumbers,defaultQuickFunctions,defaultRenderSubjectList,defaultRenderSettingList,
+  renderForNumbers,
+  defaultQuickFunctions,
+  defaultRenderSubjectList,
+  defaultRenderSettingList,
 };
 
 export default DashboardTool;
-
-
-
-

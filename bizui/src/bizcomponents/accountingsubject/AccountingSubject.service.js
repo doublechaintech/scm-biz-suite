@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}accountingSubjectManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}accountingSubjectManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -76,6 +81,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingSubjectService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -95,10 +108,11 @@ const  processRequest = (data) => {
 
 const AccountingSubjectService = { view,
   load,
+  analyze,
   addAccountingDocumentLine,
   updateAccountingDocumentLine,
   removeAccountingDocumentLineList,
   requestCandidateAccountSet,
-  transferToAnotherAccountSet, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherAccountSet, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default AccountingSubjectService
 

@@ -65,40 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { ProvinceCenterDepartmentAssociateForm } = GlobalComponents
-  const { RetailStoreProvinceCenterAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <ProvinceCenterDepartmentAssociateForm 
-	visible={currentAssociateModal==='department'} 
-	data={{provinceCenterEmployeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'department')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'department')}/> <RetailStoreProvinceCenterAssociateForm 
-	visible={currentAssociateModal==='provinceCenter'} 
-	data={{provinceCenterEmployeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'provinceCenter')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'provinceCenter')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class ProvinceCenterEmployeeSearch extends PureComponent {
   state = {
@@ -133,7 +99,7 @@ class ProvinceCenterEmployeeSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {ProvinceCenterEmployeeTable} = GlobalComponents;
     const {ProvinceCenterEmployeeSearchForm} = GlobalComponents;
     const {ProvinceCenterEmployeeModalTable} = GlobalComponents;
@@ -185,7 +151,7 @@ class ProvinceCenterEmployeeSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,ProvinceCenterEmployeeModalTable,"provinceCenterEmployeeIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

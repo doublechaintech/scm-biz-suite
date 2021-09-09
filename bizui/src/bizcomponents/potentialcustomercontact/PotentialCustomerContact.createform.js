@@ -16,17 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  name: '和连载客户的联系记录',
-  contactDate: '2019-07-28',
-  contactMethod: '电话',
-  description: '转化希望很大',
-  potentialCustomerId: 'PC000001',
-  cityPartnerId: 'CP000001',
-  contactToId: 'PCCP000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -40,9 +29,15 @@ class PotentialCustomerContactCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -53,7 +48,7 @@ class PotentialCustomerContactCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -67,8 +62,8 @@ class PotentialCustomerContactCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -77,13 +72,13 @@ class PotentialCustomerContactCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = PotentialCustomerContactBase
     const {PotentialCustomerContactService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -108,10 +103,10 @@ class PotentialCustomerContactCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addPotentialCustomerContact`,
@@ -119,10 +114,10 @@ class PotentialCustomerContactCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'potentialCustomerContact',listName:appLocaleName(userContext,"List") },
@@ -168,10 +163,10 @@ class PotentialCustomerContactCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -183,7 +178,7 @@ class PotentialCustomerContactCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -194,7 +189,7 @@ class PotentialCustomerContactCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -204,7 +199,7 @@ class PotentialCustomerContactCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('potential_customer_contact')}</div>)
@@ -216,7 +211,7 @@ class PotentialCustomerContactCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('potential_customer_contact')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<PotentialCustomerContactCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -232,7 +227,7 @@ class PotentialCustomerContactCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

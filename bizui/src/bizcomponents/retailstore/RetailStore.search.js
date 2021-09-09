@@ -65,70 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
-  const { RetailStoreCityServiceCenterAssociateForm } = GlobalComponents
-  const { RetailStoreCreationAssociateForm } = GlobalComponents
-  const { RetailStoreInvestmentInvitationAssociateForm } = GlobalComponents
-  const { RetailStoreFranchisingAssociateForm } = GlobalComponents
-  const { RetailStoreDecorationAssociateForm } = GlobalComponents
-  const { RetailStoreOpeningAssociateForm } = GlobalComponents
-  const { RetailStoreClosingAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='retailStoreCountryCenter'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'retailStoreCountryCenter')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'retailStoreCountryCenter')}/> <RetailStoreCityServiceCenterAssociateForm 
-	visible={currentAssociateModal==='cityServiceCenter'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'cityServiceCenter')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'cityServiceCenter')}/> <RetailStoreCreationAssociateForm 
-	visible={currentAssociateModal==='creation'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'creation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'creation')}/> <RetailStoreInvestmentInvitationAssociateForm 
-	visible={currentAssociateModal==='investmentInvitation'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'investmentInvitation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'investmentInvitation')}/> <RetailStoreFranchisingAssociateForm 
-	visible={currentAssociateModal==='franchising'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'franchising')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'franchising')}/> <RetailStoreDecorationAssociateForm 
-	visible={currentAssociateModal==='decoration'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'decoration')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'decoration')}/> <RetailStoreOpeningAssociateForm 
-	visible={currentAssociateModal==='opening'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'opening')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'opening')}/> <RetailStoreClosingAssociateForm 
-	visible={currentAssociateModal==='closing'} 
-	data={{retailStoreList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'closing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'closing')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class RetailStoreSearch extends PureComponent {
   state = {
@@ -163,7 +99,7 @@ class RetailStoreSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {RetailStoreTable} = GlobalComponents;
     const {RetailStoreSearchForm} = GlobalComponents;
     const {RetailStoreModalTable} = GlobalComponents;
@@ -215,7 +151,7 @@ class RetailStoreSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,RetailStoreModalTable,"retailStoreIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

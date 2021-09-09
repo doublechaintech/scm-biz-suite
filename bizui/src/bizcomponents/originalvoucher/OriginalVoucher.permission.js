@@ -31,7 +31,7 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucher.id}</Description> 
+<Description term="ID">{originalVoucher.id}</Description> 
 <Description term="头衔">{originalVoucher.title}</Description> 
 <Description term="由">{originalVoucher.madeBy}</Description> 
 <Description term="受">{originalVoucher.receivedBy}</Description> 
@@ -62,7 +62,7 @@ class OriginalVoucherPermission extends Component {
     // eslint-disable-next-line max-len
     const  originalVoucher = this.props.originalVoucher
     const { id,displayName,  } = originalVoucher
-    const  returnURL = `/originalVoucher/${id}/dashboard`
+    const  returnURL = `/originalVoucher/${id}/workbench`
     const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",cardsSource: originalVoucher,displayName,returnURL,
   		subItems: [
     
@@ -75,10 +75,10 @@ class OriginalVoucherPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

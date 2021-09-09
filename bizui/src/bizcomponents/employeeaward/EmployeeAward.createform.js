@@ -16,14 +16,6 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 
 const testValues = {};
-/*
-const testValues = {
-  completeTime: '2017-07-25',
-  type: '明星员工',
-  remark: '考试成绩当年第一名',
-  employeeId: 'E000001',
-}
-*/
 
 const imageKeys = [
 ]
@@ -37,9 +29,15 @@ class EmployeeAwardCreateForm extends Component {
   }
 
   componentDidMount() {
-	
-    
-    
+	const {initValue} = this.props
+    if(!initValue || initValue === null){
+      return
+    }
+    this.setState({
+      convertedImagesValues: mapFromImageValues(initValue,imageKeys)
+    })
+
+
   }
 
   handlePreview = (file) => {
@@ -50,7 +48,7 @@ class EmployeeAwardCreateForm extends Component {
     })
   }
 
- 
+
 
 
 
@@ -64,8 +62,8 @@ class EmployeeAwardCreateForm extends Component {
     this.setState({ convertedImagesValues })
     console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-  
-  
+
+
 
   render() {
     const { form, dispatch, submitting, role } = this.props
@@ -74,13 +72,13 @@ class EmployeeAwardCreateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeAwardBase
     const {EmployeeAwardService} = GlobalComponents
-    
+
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
+
     const submitCreateForm = () => {
       validateFieldsAndScroll((error, values) => {
         if (error) {
@@ -105,10 +103,10 @@ class EmployeeAwardCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-        
+
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-        
+
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addEmployeeAward`,
@@ -116,10 +114,10 @@ class EmployeeAwardCreateForm extends Component {
         })
       })
     }
-    
+
     const goback = () => {
       const { owner } = this.props
-     
+
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'employeeAward',listName:appLocaleName(userContext,"List") },
@@ -165,10 +163,10 @@ class EmployeeAwardCreateForm extends Component {
         </span>
       )
     }
-    
+
 
     
-    
+
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -180,7 +178,7 @@ class EmployeeAwardCreateForm extends Component {
       }
       return owner.id
     }
-    
+
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       if(!owner){
@@ -191,7 +189,7 @@ class EmployeeAwardCreateForm extends Component {
         return true
       }
       return false
-    
+
     }
 	const formItemLayout = {
       labelCol: { span: 6 },
@@ -201,7 +199,7 @@ class EmployeeAwardCreateForm extends Component {
       labelCol: { span: 3 },
       wrapperCol: { span: 9 },
     }
-    
+
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_award')}</div>)
@@ -213,7 +211,7 @@ class EmployeeAwardCreateForm extends Component {
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_award')}`}
         wrapperClassName={styles.advancedForm}
       >
-   			
+
    		<EmployeeAwardCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
@@ -229,7 +227,7 @@ class EmployeeAwardCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
-      
+
       </PageHeaderLayout>
     )
   }

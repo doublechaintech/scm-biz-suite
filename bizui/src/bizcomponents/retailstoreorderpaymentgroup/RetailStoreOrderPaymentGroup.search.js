@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { RetailStoreOrderAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <RetailStoreOrderAssociateForm 
-	visible={currentAssociateModal==='bizOrder'} 
-	data={{retailStoreOrderPaymentGroupList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'bizOrder')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'bizOrder')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class RetailStoreOrderPaymentGroupSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class RetailStoreOrderPaymentGroupSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {RetailStoreOrderPaymentGroupTable} = GlobalComponents;
     const {RetailStoreOrderPaymentGroupSearchForm} = GlobalComponents;
     const {RetailStoreOrderPaymentGroupModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class RetailStoreOrderPaymentGroupSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,RetailStoreOrderPaymentGroupModalTable,"retailStoreOrderPaymentGroupIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

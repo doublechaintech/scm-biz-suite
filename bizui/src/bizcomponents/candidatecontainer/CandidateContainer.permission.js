@@ -31,7 +31,7 @@ const internalSummaryOf = (candidateContainer,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{candidateContainer.id}</Description> 
+<Description term="ID">{candidateContainer.id}</Description> 
 <Description term="名称">{candidateContainer.name}</Description> 
 	
       </DescriptionList>
@@ -58,8 +58,8 @@ class CandidateContainerPermission extends Component {
     // eslint-disable-next-line max-len
     const  candidateContainer = this.props.candidateContainer
     const { id,displayName, candidateElementCount } = candidateContainer
-    const  returnURL = `/candidateContainer/${id}/dashboard`
-    const cardsData = {cardsName:"候选人容器",cardsFor: "candidateContainer",cardsSource: candidateContainer,displayName,returnURL,
+    const  returnURL = `/candidateContainer/${id}/workbench`
+    const cardsData = {cardsName:"候选容器",cardsFor: "candidateContainer",cardsSource: candidateContainer,displayName,returnURL,
   		subItems: [
     
       	],
@@ -71,10 +71,10 @@ class CandidateContainerPermission extends Component {
 
       <PageHeaderLayout
         title={internalRenderTitle(cardsData,this)}
-        content={summaryOf(cardsData.cardsSource,this)}
+       
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
+      
       {renderPermissionSetting(cardsData.cardsSource)}
       
       </PageHeaderLayout>

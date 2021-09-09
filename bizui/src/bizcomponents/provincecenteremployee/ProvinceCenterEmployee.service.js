@@ -6,6 +6,11 @@ const view = (targetObjectId) => {
     url: `${PREFIX}provinceCenterEmployeeManager/view/${targetObjectId}/`,
   })
 }
+const analyze = (targetObjectId) => {
+  return get({
+    url: `${PREFIX}provinceCenterEmployeeManager/analyze/${targetObjectId}/`,
+  })
+}
 
 
 
@@ -69,6 +74,14 @@ const  listFunctions = () => {
 }
 
 
+const  initRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}provinceCenterEmployeeService/init/`,
+    data,
+  })
+}
+
 const  saveRequest = (data) => {
 
   return put({
@@ -88,9 +101,10 @@ const  processRequest = (data) => {
 
 const ProvinceCenterEmployeeService = { view,
   load,
+  analyze,
   requestCandidateDepartment,
   requestCandidateProvinceCenter,
   transferToAnotherDepartment,
-  transferToAnotherProvinceCenter, listFunctions, saveRequest, processRequest, queryCandidates}
+  transferToAnotherProvinceCenter, listFunctions, saveRequest,initRequest, processRequest, queryCandidates}
 export default ProvinceCenterEmployeeService
 

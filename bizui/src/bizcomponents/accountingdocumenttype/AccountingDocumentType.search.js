@@ -65,35 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-  const { AccountSetAssociateForm } = GlobalComponents
-
-
-  return (
-  <div>
-  
-   
-  
-    <AccountSetAssociateForm 
-	visible={currentAssociateModal==='accountingPeriod'} 
-	data={{accountingDocumentTypeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')}/> 
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class AccountingDocumentTypeSearch extends PureComponent {
   state = {
@@ -128,7 +99,7 @@ class AccountingDocumentTypeSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {AccountingDocumentTypeTable} = GlobalComponents;
     const {AccountingDocumentTypeSearchForm} = GlobalComponents;
     const {AccountingDocumentTypeModalTable} = GlobalComponents;
@@ -180,7 +151,7 @@ class AccountingDocumentTypeSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,AccountingDocumentTypeModalTable,"accountingDocumentTypeIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }

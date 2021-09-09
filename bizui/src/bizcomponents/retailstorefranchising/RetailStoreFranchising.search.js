@@ -65,30 +65,6 @@ const showListActionBar = (targetComponent)=>{
 }
 
 
-const showAssociateDialog = (targetComponent) => {
-  const {data, owner, visible,onCancel,onCreate} = targetComponent.props
-  const {currentAssociateModal} = targetComponent.state
-  
-  const {selectedRows} = targetComponent.state
-  
-
-
-  return (
-  <div>
-  
-   
-  
-    
- 
-
-
-    </div>
-    
-    
-    
-    )
-}
-
 
 class RetailStoreFranchisingSearch extends PureComponent {
   state = {
@@ -123,7 +99,7 @@ class RetailStoreFranchisingSearch extends PureComponent {
   render(){
     const { data, loading, count, currentPage, owner,partialList } = this.props;
     const {displayName} = owner.ref
-    const { showDeleteResult, selectedRows, deletionModalVisible, showAssociatePaymentForm } = this.state;
+    const { showDeleteResult, selectedRows, deletionModalVisible } = this.state;
     const {RetailStoreFranchisingTable} = GlobalComponents;
     const {RetailStoreFranchisingSearchForm} = GlobalComponents;
     const {RetailStoreFranchisingModalTable} = GlobalComponents;
@@ -175,7 +151,7 @@ class RetailStoreFranchisingSearch extends PureComponent {
           </div>
         </Card></TreeContainer>
         {showDeletionDialog(this,RetailStoreFranchisingModalTable,"retailStoreFranchisingIds")}
-        {showAssociateDialog(this)}
+        
       </PageHeaderLayout>
     )
   }
