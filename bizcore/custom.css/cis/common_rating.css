@@ -1,0 +1,34 @@
+.rating-stars {
+    padding: 0px;
+    marging: 0px;
+}
+.rating-stars img {
+    height: 24px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.rating-star {
+    flex: 1;
+    position: relative;
+}
+._sky_rating-panel {
+    background-color: rgba(0,0,0,0.0);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 24px;
+    width: 100%;
+}
+.rating-score {display: none;}
+.rating_score_0 .rs-0 { display: unset;}
+.rating_score_10 .rs-10 { display: unset;}
+.rating_score_20 .rs-20 { display: unset;}
+.rating_score_30 .rs-30 { display: unset;}
+.rating_score_40 .rs-40 { display: unset;}
+.rating_score_50 .rs-50 { display: unset;}
+.rating_score_60 .rs-60 { display: unset;}
+.rating_score_70 .rs-70 { display: unset;}
+.rating_score_80 .rs-80 { display: unset;}
+.rating_score_90 .rs-90 { display: unset;}
+.rating_score_100 .rs-100 { display: unset;}
