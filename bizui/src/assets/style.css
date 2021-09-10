@@ -1,0 +1,23 @@
+.ant-steps.layout-1 .ant-steps-item {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.ant-steps.layout-2 .ant-steps-item {
+    float: left;
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}
+.ant-steps.layout-3 .ant-steps-item {
+    float: left;
+    width: 31.333333%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}
+.ant-steps.layout-4 .ant-steps-item {
+    float: left;
+    width: 23%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}
+

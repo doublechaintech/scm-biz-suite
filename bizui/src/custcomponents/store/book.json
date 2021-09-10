@@ -1,0 +1,279 @@
+{
+    "class": "com.terapico.shuxiang.book.BookWarehouseForm",
+    "version": 0,
+    "formMessageCurrentPageNumber": 1,
+    "formFieldMessageCurrentPageNumber": 1,
+    "formFieldCount": 14,
+    "formFieldCurrentPageNumber": 1,
+    "formFieldList": [
+        {
+            "label": "店铺ID",
+            "localeKey": "store",
+            "parameterName": "storeId",
+            "type": "text",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "店铺ID",
+            "defaultValue": "S000001",
+            "fieldGroup": "图书上架",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "扫描输入ISBN",
+            "localeKey": "book_copy.book_copy_sharing_type",
+            "parameterName": "scannedIsbn",
+            "type": "text",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "扫描或直接输入ISBN",
+            "defaultValue": "",
+            "fieldGroup": "图书上架",
+            "required": false,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "图书提供者",
+            "localeKey": "book_copy.book_copy_vendor",
+            "parameterName": "bookCopyVendorId",
+            "type": "Customer",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写图书提供者",
+            "defaultValue": "C000001",
+            "fieldGroup": "图书上架",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "书副本共享类型",
+            "localeKey": "book_copy.book_copy_sharing_type",
+            "parameterName": "bookCopySharingType",
+            "type": "selection",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写书副本共享类型",
+            "defaultValue": "共享",
+            "fieldGroup": "图书上架",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "candidateValues": "共享,捐赠",
+            "version": 0
+        },
+        {
+            "label": "图书建议类目",
+            "localeKey": "book.book_recommend",
+            "parameterName": "bookRecommendId",
+            "type": "BookRecommend",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写图书建议类目",
+            "defaultValue": "BR000001",
+            "fieldGroup": "图书上架",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "ID",
+            "localeKey": "book.id",
+            "parameterName": "bookId",
+            "type": "hidden",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写ID",
+            "defaultValue": "B000009",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "书名",
+            "localeKey": "book.book_name",
+            "parameterName": "bookName",
+            "type": "text",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写书名",
+            "defaultValue": "统计学习方法",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "ISBN13",
+            "localeKey": "book.book_isbn13",
+            "parameterName": "bookIsbn13",
+            "type": "text",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写ISBN13",
+            "defaultValue": "9787302275954",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "ISBN10",
+            "localeKey": "book.book_isbn10",
+            "parameterName": "bookIsbn10",
+            "type": "text",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写ISBN10",
+            "defaultValue": "7302275955",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "作者",
+            "localeKey": "book.book_author",
+            "parameterName": "bookAuthor",
+            "type": "text",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写作者",
+            "defaultValue": "李航",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "定价",
+            "localeKey": "book.list_price",
+            "parameterName": "listPrice",
+            "type": "money",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写定价",
+            "defaultValue": "38.0",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "出版社",
+            "localeKey": "book.book_publisher",
+            "parameterName": "bookPublisher",
+            "type": "text",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写出版社",
+            "defaultValue": "清华大学出版社",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "出版日期",
+            "localeKey": "book.book_pubdate",
+            "parameterName": "bookPubdate",
+            "type": "date",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写出版日期",
+            "defaultValue": "2012-03-01",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        },
+        {
+            "label": "封面",
+            "localeKey": "book.book_cover",
+            "parameterName": "bookCover",
+            "type": "image",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "placeholder": "请填写封面",
+            "defaultValue": "https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s9108113.jpg",
+            "fieldGroup": "基本信息",
+            "required": true,
+            "disabled": false,
+            "customRendering": false,
+            "version": 0
+        }
+    ],
+    "formActionCount": 4,
+    "formActionCurrentPageNumber": 1,
+    "formActionList": [
+        {
+            "label": "打印标签",
+            "actionKey": "打印标签",
+            "level": "primary",
+            "url": "bookManager/printBookCopyQrLabel/BC000018/",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "version": 0
+        },
+        {
+            "label": "模拟扫描输入",
+            "actionKey": "模拟扫描输入",
+            "level": "warnning",
+            "url": "bookManager/actionBookWarehousingWithIsbn/storeId/scannedIsbn/bookCopyVendorId/bookCopySharingType/",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "version": 0
+        },
+        {
+            "label": "手工保存",
+            "actionKey": "保存",
+            "level": "warnning",
+            "url": "bookManager/warehousingManually/",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "version": 0
+        },
+        {
+            "label": "返回主页",
+            "actionKey": "返回主页",
+            "level": "primary",
+            "url": "bookManager/dashboard/",
+            "form": {
+                "class": "com.terapico.shuxiang.book.BookWarehouseForm"
+            },
+            "version": 0
+        }
+    ]
+}

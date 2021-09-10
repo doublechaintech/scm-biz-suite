@@ -1,0 +1,40 @@
+
+
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>OSS in Browser</title>
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <script type="text/javascript" src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.4.4.min.js"></script>
+     <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+    <div class="form-group">
+        <label>Select file</label>
+        <input type="file" id="file" />
+      </div>
+      <div class="form-group">
+        <label>Store as</label>
+        <input type="text" class="form-control" id="object-key-file" value="/images/testoss/1.png" />
+      </div>
+      <div class="form-group">
+        <input type="button" class="btn btn-primary" id="file-button" value="Upload" />
+      </div>
+      <div class="form-group">
+        <div class="progress">
+          <div id="progress-bar"
+               class="progress-bar"
+               role="progressbar"
+               aria-valuenow="0"
+               aria-valuemin="0"
+               aria-valuemax="100" style="min-width: 2em;">
+            0%
+          </div>
+        </div>
+      </div>
+</body>
+</html>

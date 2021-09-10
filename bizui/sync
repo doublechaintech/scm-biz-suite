@@ -1,0 +1,4 @@
+# !/bin/bash
+rsync -avz --exclude sync --exclude .git --exclude dist --exclude node_modules --exclude src/bizcomponents    --exclude src/assets  ./  ../../skynet-react-framework/ 
+
+
