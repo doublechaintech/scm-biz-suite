@@ -1,6 +1,8 @@
 
 // import coreViewGroupPresentData from 'view_group_presentation_core'
 var customViewGroupPresentData=[
+  { owner: 'retail_store_country_center', viewGroupName: '产品管理', newViewGroupName:'产品管理(改)' ,iconName: 'caret-right', presentOrder: 1 },
+
 ]
 
 const finalItemValues=[]
