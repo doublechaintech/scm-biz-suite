@@ -1,0 +1,84 @@
+@import 'src/styles/theme';
+
+.section-bar {
+  @extend %flex-column;
+  justify-content: center;
+
+  &-header {
+    @extend %flex-row;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+  }
+
+  &-prefix {
+    width: 8px;
+    border-radius: 1px;
+    min-height: 1.2em;
+    background-color: $primary-color;
+    margin-right: 20px;
+  }
+
+  &-title {
+    @extend %flex-1;
+    color: $text-color;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  &-brief {
+    color: $text-color-light;
+    font-size: 30px;
+  }
+
+  &-postfix {
+    padding-left: 20px;
+
+    .iconfont {
+      color: #999;
+      font-size: 38px;
+      font-weight: 500;
+    }
+
+    width: 44px;
+    height: 44px;
+    @extend %flex-center;
+  }
+
+  &-body {
+    // section-bar  里面的form-item
+    .form-item {
+      padding-left: 20px;
+    }
+  }
+}
+
+.section-bar--disabled {
+  .section-bar-header {
+    opacity: 0.7;
+  }
+
+  .section-bar-title {
+    color: $text-color-lighter;
+  }
+}
+
+.section-bar--foldable {
+  .section-bar-header {
+    border-bottom: $border-default;
+  }
+}
+
+.section-bar--bordered {
+  border: $border-default;
+
+  .section-bar-header {
+    padding: 0 20px;
+  }
+}
+
+.section-bar--highlight {
+  .section-bar-header {
+    background-color: #ddd;
+  }
+}

@@ -1,0 +1,14 @@
+**/*.md
+**/*.svg
+**/*.ejs
+**/*.html
+**/*.jpg
+**/*.png
+package.json
+.umi
+.umi-production
+.gitkeep
+.DS_Store
+*.woff
+*.ttf
+*.txt

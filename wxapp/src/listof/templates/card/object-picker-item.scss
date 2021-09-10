@@ -1,0 +1,24 @@
+@import 'src/styles/theme';
+
+.object-picker-item {
+  @extend %flex-row;
+  background-color: $white;
+  border-bottom: $border-default;
+  padding: 0 20px;
+
+  &-option {
+    @extend %flex-center;
+    color: $primary-color;
+
+    .iconfont {
+      font-size: 34px;
+      color: green;
+    }
+  }
+
+  .ele-card {
+    flex: 1;
+    box-shadow: unset !important;
+    border-radius: 0 !important;
+  }
+}

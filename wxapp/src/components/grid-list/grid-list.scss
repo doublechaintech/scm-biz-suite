@@ -1,0 +1,84 @@
+@import 'src/styles/theme';
+@import '~taro-ui/dist/style/variables/default.scss';
+@import '~taro-ui/dist/style/mixins/index.scss';
+
+.grid-list {
+  @extend %flex-column;
+  border-radius: 20px;
+  background-color: $white;
+  border: $border-default;
+
+  &-row {
+    @extend %flex-row;
+
+    &:last-child {
+      .grid-list-item::after {
+        border-bottom: none;
+      }
+    }
+  }
+
+  &-item {
+    @include hairline-surround();
+    @extend %flex-center;
+    flex: 1;
+    display: block;
+    position: relative;
+    color: $text-color-light;
+    font-size: 28px;
+    padding: 30px 20px;
+
+    &::after {
+      border-top: none;
+      border-left: none;
+    }
+
+    &_icon {
+      @extend %flex-center;
+      height: 90px;
+
+      .action-image {
+        width: 60px;
+        height: 60px;
+        //border-radius: 50%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &_title {
+      @extend %flex;
+      justify-content: center;
+      padding-top: 10px;
+      text-align: center;
+      line-height: 34px;
+    }
+  }
+
+  &-item--last {
+    &::after {
+      border-right: none;
+      //border-left: none;
+    }
+  }
+
+  &-item--active {
+    transition: opacity 0.3s;
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
+
+  &-item--disabled {
+    color: $disabled-color;
+
+    .iconfont {
+      color: $disabled-color;
+    }
+  }
+}

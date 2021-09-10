@@ -1,0 +1,10 @@
+@import 'src/styles/theme';
+
+.swiper-action-list {
+  &-swiper {
+    height: 180px;
+  }
+  .navigation-box {
+    box-shadow: unset;
+  }
+}

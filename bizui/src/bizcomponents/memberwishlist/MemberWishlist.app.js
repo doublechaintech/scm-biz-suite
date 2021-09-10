@@ -173,6 +173,8 @@ constructor(props) {
 	const {objectId}=targetApp;
   	const userContext = null
   	const viewGroupIconNameOf=window.viewGroupIconNameOf
+    const viewGroupDisplayNameOf=window.viewGroupDisplayNameOf
+
     return (
 	  <Menu
         theme="dark"
@@ -191,8 +193,8 @@ constructor(props) {
         {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('member_wishlist',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
-      {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
+    <SubMenu id={`submenu-vg${index}`}  key={`vg${index}`} title={<span><Icon type={viewGroupIconNameOf('member_wishlist',`${groupedMenuItem.viewGroup}`)} style={{marginRight:"20px"}} /><span>{viewGroupDisplayNameOf('member_wishlist',`${groupedMenuItem.viewGroup}`)}</span></span>} >
+      {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}
     </SubMenu>
 
         )}

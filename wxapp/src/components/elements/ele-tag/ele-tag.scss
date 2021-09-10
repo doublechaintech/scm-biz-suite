@@ -1,0 +1,38 @@
+@import 'src/styles/theme';
+
+.ele-tag {
+  @extend %flex;
+  width: fit-content;
+  padding: 5px 16px 8px;
+  border-radius: 10px;
+  border: $border-default;
+  margin: 8px;
+  color: $text-color-light;
+  background-color: $white;
+  text-align: center;
+
+  &--disabled {
+    background-color: $disabled-color !important;
+    color: $white;
+  }
+
+  &--selected {
+    background-color: $primary-color;
+    color: $white;
+  }
+
+  &--small {
+    padding: 3px 8px 4px;
+    font-size: 22px;
+  }
+
+  &--red {
+    border-color: $red-color;
+    color: $red-color;
+  }
+
+  &--primary {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+}

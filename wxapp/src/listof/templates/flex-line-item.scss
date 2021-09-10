@@ -1,0 +1,48 @@
+@import 'src/styles/theme';
+
+.flex-line-item {
+  position: relative;
+  width: 100%;
+
+  .inline-loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999999;
+    background-color: rgba(244, 246, 248, 0.3);
+  }
+
+  .flex-info-list,
+  .auto,
+  .ele-card,
+  .rich-text {
+    margin: 0 20px 20px;
+  }
+}
+
+.flex-line-item---no-border {
+  border: unset;
+  box-shadow: unset;
+}
+
+%flex-line-template {
+  font-size: 32px;
+  background-color: $white;
+  @extend %flex-column;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 10px 19px 1px $shadow-color;
+  color: $text-color;
+}
+
+.space-between-container {
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.rich-text {
+  height: fit-content;
+}

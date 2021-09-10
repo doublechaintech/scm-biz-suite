@@ -32,9 +32,18 @@ function viewGroupIconNameOf( owner, viewGroupName){
 
 	return result.iconName
 }
+function viewGroupDisplayNameOf( owner, viewGroupName){
+	const key = keyOf(owner,viewGroupName)
+	const result = finalItemValues[key]
 
+	if(!result){
+		return "folder"
+	}
 
+	return result.newViewGroupName;
+}
 
+window.viewGroupDisplayNameOf=viewGroupDisplayNameOf;
 window.viewGroupIconNameOf=viewGroupIconNameOf;
 window.viewGroupItemOf=viewGroupItemOf;
 

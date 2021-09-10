@@ -1,0 +1,61 @@
+@import 'src/styles/theme';
+
+.status-flag {
+  &-bg {
+    width: 0;
+    height: 0;
+    border-top: 110px solid #d2ab66;
+    border-left: 110px solid transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.8;
+  }
+
+  &-txt {
+    @extend %flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 9px;
+    right: -35px;
+    width: 143px;
+    height: 55px;
+    @include text-ellipsis;
+    color: #fff;
+    font-weight: 600;
+    font-size: 32px;
+  }
+
+  &--txt_large {
+    font-size: 32px;
+  }
+
+  &--txt_normal {
+    font-size: 30px;
+  }
+
+  &--txt_small {
+    font-size: 26px;
+  }
+
+  &--txt_tiny {
+    font-size: 22px;
+  }
+}
+
+.status-flag--small {
+  .status-flag-bg {
+    border-width: 90px !important;
+  }
+
+  .status-flag-txt {
+    font-size: 22px;
+    height: 40px;
+    width: 120px;
+    right: -31px;
+    top: 15px;
+  }
+}

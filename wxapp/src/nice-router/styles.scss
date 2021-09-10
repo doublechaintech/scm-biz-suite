@@ -1,0 +1,27 @@
+.network-exception-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #999;
+
+  &-image {
+    width: 400px;
+  }
+
+  &-tips {
+    padding-top: 40px;
+    padding-bottom: 200px;
+    width: 100%;
+
+    &-txt {
+      text-align: center;
+    }
+
+    &-btn {
+      padding: 40px;
+    }
+  }
+}

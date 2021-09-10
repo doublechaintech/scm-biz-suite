@@ -2,11 +2,12 @@ package com.terapico.meta;
 
 import cn.hutool.core.util.ClassUtil;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class EntityMeta extends BaseMeta<EntityMeta> {
-  private Map<String, PropertyMeta> properties = new HashMap<>();
+  private Map<String, PropertyMeta> properties = new LinkedHashMap<>();
 
   public EntityMeta(String pEntity) {
     with("name", pEntity);
@@ -17,7 +18,7 @@ public class EntityMeta extends BaseMeta<EntityMeta> {
     return properties.get(name);
   }
 
-  public Class getType(){
+  public Class getType() {
     return ClassUtil.loadClass((String) get("name"));
   }
 
@@ -27,5 +28,9 @@ public class EntityMeta extends BaseMeta<EntityMeta> {
 
   public void setProperties(Map<String, PropertyMeta> pProperties) {
     properties = pProperties;
+  }
+
+  public boolean isConstant() {
+    return getList("tokens", Collections.emptyList()).contains("CONSTANT");
   }
 }

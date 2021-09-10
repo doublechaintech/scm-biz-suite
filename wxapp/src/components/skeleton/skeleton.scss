@@ -1,0 +1,57 @@
+@import 'src/styles/theme';
+
+%skeleton-line {
+  background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%);
+  background-size: 400% 100%;
+  animation: ant-skeleton-loading 1.4s ease infinite;
+  height: 42px;
+  border-radius: 10px;
+}
+
+.skeleton-list {
+  width: 100%;
+
+  &-item {
+    border-radius: 6px;
+    @extend %flex-row;
+    margin: 20px;
+    background-color: darken(#fff, 1%);
+    align-items: center;
+    padding: 20px;
+
+    &-left {
+      @extend %flex;
+      @extend %skeleton-line;
+      height: 120px;
+      width: 140px;
+    }
+
+    &-right {
+      margin-left: 20px;
+      height: 120px;
+      @extend %flex-column;
+      width: 100%;
+      justify-content: space-around;
+
+      &-title {
+        @extend %skeleton-line;
+        width: 60%;
+      }
+
+      &-brief {
+        @extend %skeleton-line;
+        width: 90%;
+        height: 38px;
+      }
+    }
+  }
+}
+
+@keyframes ant-skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}

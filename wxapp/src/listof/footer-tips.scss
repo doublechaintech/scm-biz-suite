@@ -1,0 +1,38 @@
+@import 'src/styles/theme';
+
+.listof-footer-tips {
+  @extend %flex-center;
+  flex-direction: row;
+  padding: 30px 40px 100px;
+  color: $text-color-lighter;
+  z-index: 9999;
+
+  &-line {
+    @extend %flex-1;
+    height: 2px;
+    background-color: $text-color-lighter;
+  }
+
+  &-loading {
+    display: none;
+  }
+
+  &-txt {
+    @extend %flex-row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 30px;
+    font-size: 30px;
+  }
+}
+
+.listof-footer-tips--loading {
+  .listof-footer-tips-line {
+    background-color: transparent;
+  }
+
+  .listof-footer-tips-loading {
+    display: block;
+    padding: 0 20px;
+  }
+}

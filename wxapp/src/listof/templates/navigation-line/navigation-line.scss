@@ -1,0 +1,71 @@
+@import 'src/styles/theme';
+
+.navigation-line {
+  @extend %flex-row;
+  align-items: center;
+  margin-top: 20px;
+  background-color: $white;
+  border-radius: 10px;
+  padding: 10px 20px;
+  height: 110px;
+
+  &-header {
+    margin-right: 20px;
+
+    &-prefix {
+      width: 10px;
+      height: 60px;
+      background-color: $primary-color;
+      border-radius: 5px;
+    }
+
+    .action-icon {
+      height: 80px;
+      width: 80px;
+    }
+  }
+
+  &-image {
+    height: 60px;
+    width: 10px;
+    border-radius: 5px;
+  }
+
+  &-title {
+    font-weight: 500;
+  }
+
+  &-second-title {
+    font-size: 28px;
+    color: $text-color-light;
+  }
+
+  &-body {
+    @extend %flex-column;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &-footer {
+    @extend %flex-row;
+
+    .iconfont {
+      color: #999;
+      font-size: 38px;
+      font-weight: 500;
+    }
+
+    .action-icon {
+      margin-left: 20px;
+      width: 44px;
+      height: 44px;
+      @extend %flex-center;
+    }
+  }
+
+  &-brief {
+    color: $text-color-light;
+    font-size: 30px;
+  }
+}

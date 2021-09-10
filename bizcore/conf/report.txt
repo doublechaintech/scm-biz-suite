@@ -1,15 +1,13 @@
 
 
-@warning sku.barcode: word 'barcode' seems not found in library
 @warning object definition: member_wishlist: word 'wishlist' seems not found in library
 @warning retail_store_member_gift_card_consume_record.occure_time: word 'occure' seems not found in library
 @warning goods.rfid: word 'rfid' seems not found in library
 @warning goods.uom: word 'uom' seems not found in library
-@warning user_app.ctx_type: word 'ctx' seems not found in library
 
 
 
-=================1.0 Execute Report (Model Time 700101T0800) @Thu Sep 09 12:32:44 CST 2021, 126 objects and 864 fields===========================
+=================1.0 Execute Report (Model Time 700101T0800) @Fri Sep 10 19:14:27 CST 2021, 126 objects and 864 fields===========================
 from file "null"
 retail_store_country_center{
 	fields(10){

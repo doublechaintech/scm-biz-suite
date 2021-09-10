@@ -1,0 +1,48 @@
+@import '~taro-ui/dist/style/mixins/libs/hairline';
+@import '../../styles/theme';
+
+.detail-page {
+  @extend %page;
+  padding-bottom: 200px;
+
+  &-fab {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    padding: 15px 10px 15px 30px;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+    background-color: lighten(#ff8936, 10%);
+    color: $white;
+    z-index: 9999;
+    opacity: 0.8;
+  }
+
+  .prop-list.hasSection {
+    min-height: unset;
+  }
+
+  .action-list {
+    margin: 20px;
+    border-radius: 10px;
+    padding-top: 20px;
+
+    &-grid {
+      margin-top: 10px;
+      background-color: $white;
+    }
+  }
+
+  .section-list-section-bar {
+    padding: 0 20px;
+  }
+
+  .section-list-container {
+    padding-left: 20px;
+
+    .listof-container-item.horizontal {
+      margin-right: 10px;
+      width: unset !important;
+    }
+  }
+}

@@ -14,4 +14,5 @@ public class MetaProvider {
      entities.putIfAbsent(entity, new EntityMeta(entity));
      return entities.get(entity);
   }
+
 }

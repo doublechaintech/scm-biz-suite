@@ -1,0 +1,86 @@
+@import 'src/styles/theme';
+
+.auto {
+  font-size: 32px;
+  background-color: $white;
+  @extend %flex-column;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 19px 1px $shadow-color;
+  color: $text-color;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  position: relative;
+  overflow: hidden;
+
+  .auto-image-list {
+    @extend %flex-row;
+    justify-content: space-between;
+    width: 100%;
+    height: 200px;
+
+    &-item {
+      height: 200px;
+      width: 100%;
+      border: 0.5px solid $silver-grey-color;
+    }
+  }
+
+  &-action-bar {
+    padding: 5px 30px 0 30px;
+  }
+
+  &-info {
+    padding: 10px;
+    @extend %flex-column;
+    flex: 1;
+
+    &-title {
+      box-sizing: border-box;
+      font-size: 32px;
+      font-weight: 500;
+      margin: 10px;
+      @include text-ellipsis;
+      display: block;
+    }
+
+    &-brief {
+      box-sizing: border-box;
+      font-size: 25px;
+      color: $text-color-lighter;
+      margin-left: 20px;
+      margin-bottom: 10px;
+      height: 1.2em;
+      @include text-ellipsis;
+    }
+  }
+}
+
+.auto--only-title {
+  padding-bottom: 0;
+
+  .auto-info-title {
+    font-weight: 400;
+  }
+}
+
+.auto--image-on-bottom {
+  flex-direction: column-reverse;
+  padding-bottom: 0;
+}
+
+.item-disabled {
+  .auto-info-title {
+    color: $disabled-color;
+  }
+
+  .auto-info-brief {
+    color: $disabled-color;
+  }
+}
+
+.auto--small {
+  width: 330px;
+  margin: 0 !important;
+}

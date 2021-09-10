@@ -1,0 +1,167 @@
+@import 'src/styles/theme';
+
+.prop-list {
+  background-color: $white;
+  margin: 20px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  border-radius: 20px;
+  border: $border-default;
+
+  @extend %flex-column;
+
+  &-item {
+    padding: 20px 0;
+    margin: 0 20px;
+    @include hairline-bottom($under-line-color);
+
+    &-label {
+      min-width: 150px;
+      padding-bottom: 10px;
+      padding-right: 10px;
+    }
+
+    &-value {
+      padding: 0 5px;
+      width: 100%;
+    }
+
+    &:last-child {
+      &:after {
+        border-bottom-width: 0;
+      }
+    }
+  }
+
+  &-item.inline {
+    @extend %flex-row;
+  }
+}
+
+.detail-file {
+  .ele-action-list {
+    padding: 0;
+  }
+
+  .ele-button {
+    background-color: white;
+    color: $text-color-light;
+    margin-right: 10px;
+    padding: 0;
+  }
+}
+
+.detail-image {
+  .server-image {
+    border-radius: 10px;
+    max-height: 600px;
+  }
+}
+
+.detail-text {
+  color: $text-color-light;
+}
+
+.detail-text.center {
+  width: 100%;
+  text-align: center;
+  @extend %flex-center;
+}
+
+.detail-text.longtext {
+  color: $text-color-light;
+  padding: 10px;
+  font-size: 26px;
+}
+
+.detail-object {
+  color: $color-brand-light;
+
+  &-brief {
+    padding-left: 20px;
+  }
+}
+
+.detail-user {
+  @extend %flex-row;
+  align-items: center;
+  padding-left: 10px;
+
+  &-avatar {
+    @extend %flex-center;
+
+    .server-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 4px solid darken($primary-color, 10%);
+      box-shadow: 0 0 10px #fff;
+    }
+  }
+
+  &-content {
+    @extend %flex-column;
+    padding: 0 30px;
+    flex-direction: column;
+    margin-top: -5px;
+
+    &-title {
+      color: $color-brand-light;
+      font-weight: 400;
+      font-size: 34px;
+    }
+
+    &-brief {
+      @extend %flex-1;
+      color: $text-color-light;
+      font-size: 24px;
+    }
+  }
+}
+
+.detail-money {
+  color: $red-color;
+
+  &::before {
+    content: '￥';
+  }
+}
+
+.detail-mobile {
+  color: $orange-color;
+}
+
+.detail-image-list {
+  .server-image {
+    border-radius: 10px;
+  }
+}
+
+.detail-status {
+  @extend %flex-row;
+  align-items: center;
+
+  &-icon {
+    width: 0.5em;
+    height: 0.5em;
+    border: 0.3em solid $level-default;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  &-icon.normal {
+    border-color: $level-warn;
+  }
+
+  &-icon.primary {
+    border-color: $level-primary;
+  }
+
+  &-icon.warn {
+    border-color: $level-warn;
+  }
+
+  &-icon.danger {
+    border-color: $level-danger;
+  }
+}

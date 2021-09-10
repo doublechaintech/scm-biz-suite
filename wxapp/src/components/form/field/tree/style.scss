@@ -1,0 +1,56 @@
+@import 'src/styles/theme';
+.ele-tree {
+  margin-top: 0;
+}
+.tree {
+  padding-left: 30px;
+
+  &-item {
+    @extend %flex-row;
+    align-items: center;
+    color: $text-color-light;
+    @include hairline-bottom($under-line-color);
+    padding: 24px 16px;
+    position: relative;
+
+    &-action-icon {
+      color: $text-color-lighter;
+      position: absolute;
+      left: -5px;
+      bottom: 0;
+      top: 0;
+      @extend %flex-center;
+    }
+
+    &-title {
+      font-size: 32px;
+      padding: 0 24px;
+      align-self: flex-end;
+    }
+
+    &-brief {
+      font-size: 24px;
+      align-self: flex-end;
+    }
+
+    &-selected-icon {
+      color: $primary-color;
+    }
+  }
+
+  &-item.selected {
+    color: $primary-color;
+  }
+
+  &-item.disabled {
+    opacity: 0.3;
+  }
+
+  &-subtree {
+    display: block;
+  }
+
+  &-subtree.hidden {
+    display: none;
+  }
+}

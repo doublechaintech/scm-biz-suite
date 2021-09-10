@@ -1,0 +1,40 @@
+@import 'src/styles/theme';
+
+.code-scan-page {
+  @extend %page;
+  background-color: $primary-color;
+
+  &-header {
+    height: 65vh;
+    @extend %flex-center;
+    flex-direction: column;
+    width: 100%;
+    padding: 100px 60px 0;
+
+    .scan-icon {
+      @extend %flex-center;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background-color: $orange-color;
+
+      .iconfont {
+        font-size: 120px;
+        color: $white;
+      }
+    }
+
+    .scan-btn {
+      width: 100%;
+      margin-top: 60px;
+      .ele-button {
+        background-color: $color-brand-dark;
+      }
+    }
+  }
+
+  &-body {
+    @extend %flex-1;
+    justify-content: center;
+  }
+}

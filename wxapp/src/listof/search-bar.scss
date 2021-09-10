@@ -1,0 +1,10 @@
+@import 'src/styles/theme';
+
+.search-bar {
+  background-color: $white;
+  padding: 20px;
+
+  .at-search-bar::after {
+    border: none;
+  }
+}

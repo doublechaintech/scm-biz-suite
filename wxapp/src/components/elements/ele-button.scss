@@ -1,0 +1,70 @@
+@import 'src/styles/theme';
+
+.ele-button {
+  align-self: center;
+  background-color: $level-primary;
+  color: $white;
+  border-color: $level-primary;
+  padding-right: 8px;
+  padding-left: 8px;
+
+  &-body {
+    @extend %flex-center;
+    flex-direction: row;
+
+    .iconfont {
+      @extend %flex;
+    }
+  }
+
+  &--normal {
+    background-color: $level-normal;
+    color: $white;
+    border-color: $level-normal;
+  }
+
+  &--warn {
+    background-color: $level-warn;
+    color: $white;
+    border-color: $level-warn;
+  }
+
+  &--danger {
+    background-color: $level-danger;
+    color: $white;
+    border-color: $level-danger;
+  }
+
+  &--info {
+    background-color: $level-info;
+    color: $white;
+    border-color: $level-info;
+  }
+
+  &--secondary {
+    background-color: $white;
+    color: $primary-color;
+    border-color: $primary-color;
+  }
+
+  &--radius0 {
+    border-radius: 0;
+  }
+
+  &--disabled {
+    border-color: $disabled-color;
+    background-color: $disabled-color;
+    color: darken($disabled-color, 40%);
+  }
+
+  &--ghost {
+    border-color: transparent;
+    background-color: transparent;
+    color: $text-color;
+    border-radius: 0;
+
+    &::after {
+      border: none;
+    }
+  }
+}

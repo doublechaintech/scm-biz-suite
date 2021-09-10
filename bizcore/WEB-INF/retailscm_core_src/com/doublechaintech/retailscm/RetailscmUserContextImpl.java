@@ -14,6 +14,7 @@ import java.util.MissingResourceException;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.doublechaintech.retailscm.services.IamService;
 
 import com.doublechaintech.retailscm.secuser.SecUser;
 import com.doublechaintech.retailscm.secuser.SecUserCustomManagerImpl;
@@ -405,5 +406,27 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
       return (T) getDAOGroup().loadBasicData(stubEntity.getInternalType(), stubEntity.getId());
     }
 
+    public Object needLogin() {
+        IamService iamService = Beans.getBean("iamService");
+        Map<String, Object> loginInfo = iamService.getCachedLoginInfo(this);
+
+        SecUser secUser = iamService.tryToLoadSecUser(this, loginInfo);
+        UserApp userApp = iamService.tryToLoadUserApp(this, loginInfo);
+        this.setSecUser(secUser);
+        this.setUserApp(userApp);
+        if (userApp != null) {
+          userApp.setSecUser(secUser);
+        }
+        if (secUser == null) {
+          iamService.onCheckAccessWhenAnonymousFound(this, loginInfo);
+        }
+
+        if (userApp == null) {
+          LoginForm form = new LoginForm();
+          form.addErrorMessage("没有选择app", null);
+          return form;
+        }
+        return null;
+    }
 }
 

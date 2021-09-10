@@ -1,0 +1,91 @@
+// 注意这里只需要放变量，不要放带有网络请求的东西，不然，请求n次网络，例如字体文件。
+// https://github.com/NervJS/taro/issues/6034
+
+// Custom Theme 通过https://nervjs.github.io/taro-ui-theme-preview/ 处理
+$color-brand: #28aaff;
+$color-brand-light: #5ebfff;
+$color-brand-dark: #2088cc;
+// end Custom Theme
+
+@import './mixins.scss';
+@import 'node_modules/taro-ui/dist/style/mixins/libs/hairline';
+@import 'node_modules/taro-ui/dist/style/mixins/libs/tint';
+
+$primary-color: $color-brand;
+$primary-color-light: $color-brand-light;
+$primary-color-lighter: lighten($color-brand-light, 20%);
+$primary-color-dark: $color-brand-dark;
+$primary-color-darker: darken($color-brand-light, 20%);
+
+$price-color: #f2270c;
+$color-page-bg: #f0f2f5;
+$under-line-color: #c4d8e7;
+
+$color-border-grey: #ccc !default;
+$border-default: 1px solid $color-border-grey;
+$disabled-color: #ddd;
+
+$shadow-color: rgba(40, 170, 255, 0.1);
+//$shadow-color: $primary-color;
+
+$black: #000;
+$white: #fff;
+$orange-color: #fd8814;
+$red-color: #f23030;
+$golden-color: #ab956d;
+$silver-grey-color: #ccc;
+$light-grey-color: #ededed;
+$ice-blue-color: #53c7ca; //冰蓝
+$green-color: #07c160;
+
+$text-color: #333;
+$text-color-light: #56585c;
+$text-color-lighter: #999;
+
+$level-default: $text-color-light;
+$level-normal: $green-color;
+$level-primary: $primary-color;
+$level-warn: #ffc300;
+$level-danger: #fa5151;
+$level-info: $ice-blue-color;
+
+$placeholder: #ccc;
+
+%page {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  background-color: $color-page-bg;
+  min-height: 100vh;
+  color: $text-color;
+  width: 100%;
+}
+
+%flex {
+  display: flex;
+  box-sizing: border-box;
+}
+
+%flex-1 {
+  display: flex;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+%flex-row {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+}
+
+%flex-column {
+  @extend %flex;
+  flex-direction: column;
+}
+
+%flex-center {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}

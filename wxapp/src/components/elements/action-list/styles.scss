@@ -1,0 +1,156 @@
+@import 'src/styles/theme';
+
+.ele-action-list {
+  @extend %flex-row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+
+  &-item {
+    @extend %flex-center;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .ele-button {
+    @extend %flex-center;
+    flex-direction: row;
+    border: none;
+    font-size: 34px;
+    height: 100px;
+    width: 100%;
+    border-radius: 10px;
+    min-width: 120px;
+  }
+}
+
+.ele-action-list--small {
+  .ele-button {
+    height: 56px;
+    font-size: 26px;
+    padding: 0 16px;
+    border-radius: 28px;
+  }
+
+  .iconfont {
+    font-size: 40px;
+  }
+
+  .ele-action-list-item {
+    width: fit-content;
+  }
+}
+
+.ele-action-list--right {
+  justify-content: flex-end;
+
+  .ele-action-list-item {
+    margin-left: 10px;
+  }
+}
+
+.ele-action-list--left {
+  justify-content: flex-start;
+
+  .ele-action-list-item {
+    margin-right: 10px;
+  }
+}
+
+.ele-action-list--full {
+  @extend %flex-center;
+  flex-direction: column;
+
+  .ele-action-list-item {
+    padding: 20px 40px 10px 40px;
+  }
+
+  .ele-button {
+    border-radius: 10px;
+    color: $white;
+  }
+
+  .ele-button--secondary {
+    color: $primary-color;
+  }
+}
+
+.ele-action-list--footer {
+  @extend .ele-action-list--full;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: 40px;
+  width: 100%;
+  z-index: 9999;
+}
+
+.ele-action-list--radius0 {
+  .ele-button {
+    border-radius: 0;
+    padding: 0;
+  }
+}
+
+.ele-action-list--footer-bar {
+  z-index: 9999;
+  @extend %flex-row;
+  align-items: center;
+  background-color: $white;
+
+  @include hairline-top($under-line-color);
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+
+  .ele-action-list-item {
+    margin-left: 1px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .ele-button {
+    height: 100px;
+    border-radius: 0;
+    padding: 0;
+  }
+}
+
+.ele-action-list--colorful {
+  $colorful-start-color: $primary-color;
+  $colorful-end-color: $orange-color;
+
+  .ele-action-list-item--mix0 .ele-button {
+    background-color: $colorful-start-color;
+  }
+
+  .ele-action-list-item--mix025 .ele-button {
+    background-color: mix($colorful-end-color, $colorful-start-color, 25%);
+  }
+
+  .ele-action-list-item--mix033 .ele-button {
+    background-color: mix($colorful-end-color, $colorful-start-color, 33%);
+  }
+
+  .ele-action-list-item--mix05 .ele-button {
+    background-color: mix($colorful-end-color, $colorful-start-color, 50%);
+  }
+
+  .ele-action-list-item--mix066 .ele-button {
+    background-color: mix($colorful-end-color, $colorful-start-color, 66%);
+  }
+
+  .ele-action-list-item--mix075 .ele-button {
+    background-color: mix($colorful-end-color, $colorful-start-color, 75%);
+  }
+
+  .ele-action-list-item--mix1 .ele-button {
+    background-color: $colorful-end-color;
+  }
+}

@@ -1,0 +1,16 @@
+@import 'src/styles/theme';
+
+.form-item-tail {
+  @extend %flex;
+  justify-content: flex-end;
+  padding-right: 16px;
+  width: 60px;
+
+  .iconfont {
+    color: #999;
+  }
+
+  .iconfont-warning-circle {
+    color: $orange-color;
+  }
+}

@@ -3,15 +3,15 @@ package com.doublechaintech.retailscm.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.doublechaintech.retailscm.BaseEntity;
-import com.doublechaintech.retailscm.Beans;
-import com.doublechaintech.retailscm.RetailscmCheckerManager;
-import com.doublechaintech.retailscm.CustomRetailscmUserContextImpl;
+
+import com.doublechaintech.retailscm.*;
 import com.doublechaintech.retailscm.search.BaseRequest;
 import com.doublechaintech.retailscm.search.Searcher;
+import com.terapico.uccaf.BaseUserContext;
 import com.terapico.meta.BaseMeta;
 import com.terapico.meta.EntityMeta;
 import com.terapico.meta.MetaProvider;
@@ -26,7 +26,9 @@ public abstract class ViewRender extends RetailscmCheckerManager implements Bean
 
   public static final String FORM = "form";
   public static final String UI_ATTRIBUTE_PREFIX = "ui_";
+  public static final String UI_FIELD_ACTION_SUFFIX = "_action";
   public static final String UI_PASS_THROUGH_ATTRIBUTE_PREFIX = "ui-";
+  public static final String UI_CANDIDATE_ATTRIBUTE_PREFIX = "ui_candidate_";
 
   private String beanName;
 
@@ -115,36 +117,79 @@ public abstract class ViewRender extends RetailscmCheckerManager implements Bean
             .into_map();
     if (candidates != null) {
       candidates = CollectionUtil.sub(candidates, 0, getCandidateLimit(pFieldMeta));
-      String idProperty =
-          getStr(pFieldMeta, "candidate-idProp", pFieldMeta.isConstant() ? "key" : "id");
-      String titleProperty =
-          getStr(pFieldMeta, "candidate-titleProp", pFieldMeta.isConstant() ? "value" : null);
-      Object fieldIdValue = getProperty(fieldValue, idProperty);
       candidates.forEach(
           candidate -> {
-            Object title;
-            if (titleProperty != null) {
-              title = getProperty(candidate, titleProperty);
-            } else if (candidate instanceof BaseEntity) {
-              title = ((BaseEntity) candidate).getDisplayName();
-            } else {
-              title = getProperty(candidate, idProperty);
-            }
-
-            Object uiCandidate =
-                MapUtil.put("id", getProperty(candidate, idProperty))
-                    .put("title", title)
-                    .put(
-                        "selected",
-                        Objects.equals(
-                            getProperty(candidate, idProperty), fieldIdValue))
-                    .into_map();
-            addValue(uiField, "candidateValues", uiCandidate);
+            addValue(uiField, "candidateValues", buildCandidate(ctx, pFieldMeta, candidate, currentFieldValue));
           });
     }
-
+    buildFieldActions(ctx, uiField, pMeta, pFieldMeta);
     setUIPassThrough(pFieldMeta, uiField);
     return uiField;
+  }
+
+  private void buildFieldActions(
+      CustomRetailscmUserContextImpl ctx, Object field, EntityMeta meta, PropertyMeta fieldMeta) {
+    fieldMeta.forEach(
+        (k, value) -> {
+          String key = k;
+          if (!key.startsWith(UI_ATTRIBUTE_PREFIX)) {
+            return;
+          }
+          if (!key.endsWith(UI_FIELD_ACTION_SUFFIX)) {
+            return;
+          }
+          setValue(
+              field,
+              StrUtil.removeSuffix(
+                  StrUtil.removePrefix(key, UI_ATTRIBUTE_PREFIX), UI_FIELD_ACTION_SUFFIX),
+              makeActionUrl((String) value, meta, null));
+        });
+  }
+
+  private Object buildCandidate(
+        CustomRetailscmUserContextImpl ctx, PropertyMeta meta, Object candidate, Object currentValue) {
+      Map<String, Object> ret = new HashMap<>();
+      String idProp = getCandidateProperty(ctx, meta, "id");
+      Object idPropertyValue = getCandidateValue(ctx, candidate, idProp);
+      Object currentIdPropertyValue = getCandidateValue(ctx, currentValue, idProp);
+      setValue(ret, "id", idPropertyValue);
+      setValue(ret, "selected", ObjectUtil.equals(idProp, currentIdPropertyValue));
+      String titleProp = getCandidateProperty(ctx, meta, "title", "displayName");
+      setValue(ret, "title", getCandidateValue(ctx, candidate, titleProp));
+      return ret;
+  }
+
+  private String getCandidateProperty(
+      CustomRetailscmUserContextImpl ctx, PropertyMeta meta, String property) {
+    return getCandidateProperty(ctx, meta, property, property);
+  }
+
+  private String getCandidateProperty(
+      CustomRetailscmUserContextImpl ctx, PropertyMeta meta, String property, String defaultProperty) {
+    return meta.getStr(UI_CANDIDATE_ATTRIBUTE_PREFIX + property, defaultProperty);
+  }
+
+  private Object getCandidateValue(CustomRetailscmUserContextImpl ctx, Object value, String property) {
+    if (value == null) {
+      return null;
+    }
+    if (ClassUtil.isSimpleValueType(value.getClass())) {
+      return value;
+    }
+
+    if (value instanceof BaseEntity && "displayName".equals(property)) {
+      return ((BaseEntity) value).getDisplayName();
+    }
+
+    if (value instanceof KeyValuePair && "displayName".equals(property)) {
+      return ((KeyValuePair) value).getValue();
+    }
+
+    if (value instanceof KeyValuePair && "id".equals(property)) {
+      return ((KeyValuePair) value).getKey();
+    }
+
+    return getProperty(value, property);
   }
 
   private void setUIPassThrough(BaseMeta meta, Object uiElement) {
@@ -190,6 +235,9 @@ public abstract class ViewRender extends RetailscmCheckerManager implements Bean
   }
 
   public List loadTop(CustomRetailscmUserContextImpl pCtx, PropertyMeta meta) {
+    if(meta == null){
+      return null;
+    }
     Class parentType = meta.getParentType();
     Class<? extends BaseRequest> requestClass =
         ClassUtil.loadClass(parentType.getName() + "Request");
@@ -234,14 +282,8 @@ public abstract class ViewRender extends RetailscmCheckerManager implements Bean
   }
 
   public Object format(CustomRetailscmUserContextImpl ctx, PropertyMeta meta, Object value) {
-    if (value == null) {
-      return null;
-    }
-
-    if (meta.isObj()) {
-      return getProperty(value, "id");
-    }
-    return value;
+    String idProp = getCandidateProperty(ctx, meta, "id");
+    return getCandidateValue(ctx, value, idProp);
   }
 
   private Object ensureFormGroup(Object page, String groupName) {
@@ -264,13 +306,28 @@ public abstract class ViewRender extends RetailscmCheckerManager implements Bean
 
   private void addFormActions(
       CustomRetailscmUserContextImpl ctx, Object page, EntityMeta meta, Object data) {
-    List<String> actions = getList(meta, "action", ListUtil.of("提交:submit"));
+     List<String> actions = getList(meta, "action", ListUtil.empty());
+        Set<String> allActions = new HashSet<>(actions);
 
-    actions.forEach(
+        meta.forEach((k, v) -> {
+          if (k.endsWith("_action")){
+            allActions.addAll(meta.getList(k, ListUtil.empty()));
+          }
+        });
+
+        Collection<PropertyMeta> propertyMetas = meta.getProperties().values();
+        for (PropertyMeta propertyMeta : propertyMetas) {
+          propertyMeta.forEach((k, v) -> {
+            if (k.endsWith("_action")){
+              allActions.addAll(propertyMeta.getList(k, ListUtil.empty()));
+            }
+          });
+        }
+
+      allActions.forEach(
           action -> {
             addValue(page, "actionList", createAction(data, action));
-          }
-        );
+          });
   }
 
   public Map<String, Object> createAction(Object data, String action) {
@@ -371,6 +428,11 @@ public abstract class ViewRender extends RetailscmCheckerManager implements Bean
   public void setFormAction(Object view, Object ret, String action) {
     setValue(view, "actionList", null);
     addValue(view, "actionList", createAction(ret, action));
+  }
+
+  public Object checkAccess(BaseUserContext ctx, String methodName, Object[] parameters)
+          throws IllegalAccessException {
+    return ((CustomRetailscmUserContextImpl)ctx).needLogin();
   }
 }
 

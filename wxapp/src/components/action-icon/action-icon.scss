@@ -1,0 +1,13 @@
+@import 'src/styles/theme';
+
+.action-icon {
+  .iconfont {
+    font-size: 60px;
+    color: lighten($color-brand-light, 1%);
+  }
+}
+
+.action-image {
+  min-width: 44px;
+  min-height: 44px;
+}

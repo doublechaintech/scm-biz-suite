@@ -1,0 +1,44 @@
+@import 'src/styles/theme';
+
+$error-color: $orange-color;
+
+.form-item {
+  @extend %flex;
+  padding: 22px 0;
+  font-size: 32px;
+  min-height: 1.4rem;
+  align-items: center;
+  color: $text-color;
+
+  .at-input,
+  .at-switch {
+    padding: 0;
+    margin-left: 0;
+  }
+
+  &-field {
+    width: 100%;
+  }
+
+  &--horizontal {
+    @extend %flex-row;
+  }
+
+  &--vertical {
+    @extend %flex-column;
+    padding-bottom: 0;
+  }
+
+  &--error {
+    color: $error-color;
+
+    //.at-input input {
+    .at-input {
+      color: $error-color;
+    }
+  }
+
+  &--bordered {
+    @include hairline-bottom($under-line-color);
+  }
+}

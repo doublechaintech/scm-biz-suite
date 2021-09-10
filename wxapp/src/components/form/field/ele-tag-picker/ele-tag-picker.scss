@@ -1,0 +1,11 @@
+@import 'src/styles/theme';
+
+.ele-tag-pricker {
+  &-body {
+    margin-top: 20px;
+    padding: 20px;
+    border: $border-default;
+    border-radius: 10px;
+    min-height: 200px;
+  }
+}

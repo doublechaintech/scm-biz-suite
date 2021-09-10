@@ -1,0 +1,142 @@
+@import './theme';
+@import 'src/styles/iconfont';
+@import 'src/styles/bizfont';
+// 修改switch样式
+.wx-switch-input {
+  width: 82px !important;
+  height: 20px !important;
+  background-color: $primary-color !important;
+}
+
+// false样式
+.wx-switch-input::before {
+  width: 82px !important;
+  height: 20px !important;
+  background: $text-color-lighter !important;
+}
+
+// true样式
+.wx-switch-input::after {
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: -10px !important;
+  background-color: $primary-color !important;
+}
+
+.at-input {
+  margin-left: 0;
+}
+
+.content-inner__img {
+  width: 20px;
+}
+
+.at-steps__title {
+  font-size: 28px;
+  color: $text-color;
+}
+
+// text
+$text-sizes: 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42;
+@each $size in $text-sizes {
+  .f#{$size} {
+    font-size: #{$size}px;
+  }
+}
+
+$text-weight: 400, 500, 600, 700, 800;
+@each $weight in $text-weight {
+  .f#{$weight} {
+    font-weight: #{$weight};
+  }
+}
+
+.note {
+  font-size: 28px;
+  color: $text-color-light;
+}
+
+.note-tiny {
+  font-size: 24px;
+  color: $text-color-light;
+}
+
+.tag-tiny {
+  color: $primary-color;
+  border-color: $primary-color;
+  height: 35px;
+  line-height: 32px;
+  padding: 2px 5px;
+  margin-left: 10px;
+}
+
+.red-tag {
+  color: $red-color;
+  border-color: $red-color;
+  height: 35px;
+  line-height: 36px;
+}
+
+.red-tag-tiny {
+  @extend .red-tag;
+  line-height: 32px;
+  padding: 2px 5px;
+  margin-left: 10px;
+}
+
+.transparent-btn {
+  background-color: transparent !important;
+  border: none;
+  padding: 0;
+  display: block;
+  height: unset;
+  color: unset;
+  line-height: unset;
+  text-align: unset;
+}
+
+.transparent-btn.at-button--disabled {
+  opacity: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.flex-row {
+  @extend %flex-row;
+}
+
+.flex-column {
+  @extend %flex-column;
+}
+
+.flex-center {
+  @extend %flex-center;
+}
+
+.flex-1 {
+  @extend %flex-1;
+}
+
+.clickable {
+  transition: opacity 0.3s;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.large-float-layout {
+  z-index: 99999;
+
+  .layout-body,
+  .layout-body__content,
+  .at-float-layout__container {
+    max-height: 90vh !important;
+  }
+}
+
+.at-action-sheet--active {
+  z-index: 99999;
+}

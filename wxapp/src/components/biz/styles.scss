@@ -1,0 +1,9 @@
+@import 'src/styles/theme';
+
+.action-header {
+  position: relative;
+
+  &-carousel {
+    height: 350px !important;
+  }
+}

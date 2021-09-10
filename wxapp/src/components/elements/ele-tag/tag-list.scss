@@ -1,0 +1,13 @@
+@import 'src/styles/theme';
+
+.tag-list {
+  @extend %flex-row;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  justify-content: space-between;
+
+  &::after {
+    content: '';
+    flex: auto; /* 或者flex: 1 */
+  }
+}

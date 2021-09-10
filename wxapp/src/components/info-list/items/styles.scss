@@ -1,0 +1,156 @@
+@import 'src/styles/theme';
+
+.info-file {
+  .ele-action-list {
+    padding: 0;
+  }
+
+  .ele-button {
+    background-color: white;
+    color: $text-color-light;
+    margin-right: 10px;
+    padding: 0;
+  }
+}
+
+.info-image {
+  .server-image {
+    border-radius: 10px;
+    max-height: 600px;
+  }
+}
+
+.info-text {
+  color: $text-color-light;
+  @extend %flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: left;
+}
+
+.info-text--left {
+  justify-content: flex-start;
+}
+
+.info-text--center {
+  justify-content: flex-start;
+}
+
+.info-text--bold {
+  font-weight: 500;
+}
+
+.info-longtext {
+  @extend .info-text;
+  @extend %flex-column;
+  color: $text-color-light;
+  padding: 10px;
+
+  &-action {
+    margin-top: 20px;
+    color: $primary-color-light;
+  }
+}
+
+.info-longtext--fold {
+  .info-longtext-value {
+    @include lamp-clamp(3);
+  }
+}
+
+.info-object {
+  color: $color-brand-light;
+
+  &-brief {
+    padding-left: 20px;
+  }
+}
+
+.info-user {
+  @extend %flex-row;
+  align-items: center;
+  padding-left: 10px;
+
+  &-avatar {
+    @extend %flex-center;
+
+    .server-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 4px solid darken($primary-color, 10%);
+      box-shadow: 0 0 10px #fff;
+    }
+  }
+
+  &-content {
+    @extend %flex-column;
+    padding: 0 30px;
+    flex-direction: column;
+    margin-top: -5px;
+
+    &-title {
+      color: $color-brand-light;
+      font-weight: 400;
+      font-size: 34px;
+    }
+
+    &-brief {
+      @extend %flex-1;
+      color: $text-color-light;
+      font-size: 24px;
+    }
+  }
+}
+
+.info-money {
+  color: $red-color;
+
+  &::before {
+    content: '￥';
+  }
+}
+
+.info-mobile {
+  @extend .info-text;
+  color: $primary-color;
+}
+
+.info-image-list {
+  height: 480px;
+  width: 100%;
+
+  .server-image {
+    border-radius: 10px;
+  }
+}
+
+.info-status {
+  @extend %flex-row;
+  align-items: center;
+
+  &-icon {
+    width: 0.5em;
+    height: 0.5em;
+    border: 0.3em solid $level-default;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  &-icon--normal {
+    border-color: $level-warn;
+  }
+
+  &-icon--primary {
+    border-color: $level-primary;
+  }
+
+  &-icon--warn {
+    border-color: $level-warn;
+  }
+
+  &-icon--danger {
+    border-color: $level-danger;
+  }
+}

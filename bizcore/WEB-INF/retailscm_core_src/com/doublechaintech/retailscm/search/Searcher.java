@@ -39,11 +39,17 @@ public class Searcher {
       }
 
     public static <T extends BaseEntity> void enhance(List<T> list, BaseRequest<T> pRequest) {
+         if (list == null || list.isEmpty()) {
+            return;
+          }
         Map<String, BaseRequest> parentSelects = pRequest.getParentSelects();
         parentSelects.forEach((k, v) -> {
             List<BaseEntity> parentsIdOnly = list.stream().map(item -> (BaseEntity) item.propertyOf(k))
                     .filter(n -> n != null)
                     .collect(Collectors.toList());
+            if (parentsIdOnly.isEmpty()) {
+              return;
+            }
             v.doAddSearchCriteria(new SimplePropertyCriteria("id", QueryOperator.IN, parentsIdOnly));
             Map<String, BaseEntity> parentFull = (Map<String, BaseEntity>) search(pRequest.getUserContext(), v).stream()
                     .collect(Collectors.toMap(item -> ((BaseEntity) item).getId(), p -> p, (v1, v2) -> v1));

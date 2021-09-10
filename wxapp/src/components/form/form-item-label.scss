@@ -1,0 +1,49 @@
+@import 'src/styles/theme';
+
+$error-color: $orange-color;
+
+.form-item-label {
+  @extend %flex-row;
+  min-width: 200px;
+  max-width: 240px;
+  padding-right: 24px;
+  overflow: hidden;
+
+  &-title {
+    position: relative;
+    text-overflow: ellipsis;
+  }
+
+  &-required {
+    color: $error-color;
+    padding-right: 5px;
+  }
+
+  .iconfont-question-circle {
+    padding: 0 10px;
+    color: #999;
+  }
+
+  &-tips {
+    padding: 20px 20px 100px;
+    color: $text-color-light;
+
+    &-title {
+      min-height: 1em;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    &-brief {
+      text-align: left;
+      font-size: 22px;
+    }
+  }
+}
+
+.form-item-label--vertical {
+  width: 100%;
+  padding-bottom: 12px;
+  min-width: unset;
+  max-width: unset;
+}

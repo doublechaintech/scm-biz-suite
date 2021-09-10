@@ -1,0 +1,90 @@
+@import 'src/styles/theme';
+
+.login-page {
+  @extend %page;
+  background-color: $primary-color;
+  height: 100vh;
+  padding: 0 36px;
+  box-sizing: border-box;
+
+  &-header {
+    @extend %flex-row;
+    flex: 3;
+    align-items: flex-end;
+    padding-bottom: 100px;
+
+    &-txt {
+      @extend %flex-column;
+      flex: 1;
+      font-size: 80px;
+      color: $white;
+      font-weight: bold;
+      line-height: 100px;
+      @extend %flex-1;
+    }
+
+    &-logo {
+      margin-bottom: 20px;
+      width: 150px;
+      height: 82px;
+    }
+  }
+
+  &-body {
+    @extend %flex-column;
+    flex: 7;
+  }
+
+  .login-form {
+    &-brief {
+      padding-top: 20px;
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 36px;
+    }
+
+    &-title {
+      font-size: 25px;
+      font-weight: 400;
+    }
+
+    &-fields {
+      padding-top: 20px;
+
+      &-input {
+        margin-top: 20px;
+        margin-left: 0;
+        padding-left: 40px;
+        border-radius: 8px;
+      }
+
+      &-vcode {
+        margin-top: 28px;
+        margin-left: 0;
+      }
+
+      &-switch {
+        padding-top: 10px;
+        @extend %flex-row;
+        align-self: flex-end;
+
+        .ele-button {
+          color: $white;
+          font-size: 30px;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .login-button {
+    margin-top: 80px;
+    background-color: darken($primary-color, 20%);
+    border-radius: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 15px 10px 1px rgba(40, 170, 255, 0.1);
+    width: 100%;
+    border: none;
+    color: $white;
+  }
+}

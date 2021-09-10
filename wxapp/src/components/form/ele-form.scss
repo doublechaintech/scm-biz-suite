@@ -1,0 +1,35 @@
+@import 'src/styles/theme';
+
+$error-color: $orange-color;
+
+.ele-form {
+  padding-bottom: 40px;
+
+  &-group-actions {
+    border-top: 2px solid #f3f5f7;
+    padding-top: 20px;
+    width: 100%;
+    @extend %flex-row;
+    justify-content: flex-end;
+  }
+
+  &-fields {
+    padding: 0 20px;
+  }
+
+  .section-bar {
+    padding: 20px;
+    margin: 20px 0;
+    @include hairline-bottom($under-line-color);
+
+    .section-bar-prefix {
+      width: 4px;
+    }
+
+    .section-bar-title {
+      color: #6a6a77;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+  }
+}

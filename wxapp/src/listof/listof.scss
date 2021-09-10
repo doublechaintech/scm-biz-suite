@@ -1,0 +1,40 @@
+@import 'src/styles/theme';
+
+.listof-empty-message {
+  height: 40vh;
+  @extend %flex-center;
+  color: $text-color-light;
+}
+
+.listof-view {
+  background-color: transparent;
+}
+
+.listof-view-container {
+  @extend %flex-column;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.listof-view-container--multiple {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.listof-view--horizontal {
+  white-space: nowrap;
+
+  .listof-view-container {
+    flex-direction: row;
+    flex-wrap: unset;
+  }
+
+  .flex-line-item {
+    margin: 0 10px 10px;
+  }
+
+  .flex-line-item:first-child {
+    margin-left: 0;
+  }
+}

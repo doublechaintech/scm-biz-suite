@@ -1,0 +1,148 @@
+@import 'src/styles/theme';
+
+.ele-switch {
+  padding: 10px 0;
+
+  &-disabled {
+    .at-switch__title {
+      opacity: 0.3;
+    }
+  }
+}
+
+.action-field {
+  @extend %flex-row;
+  width: 100%;
+  align-items: center;
+
+  &-toggle-icon {
+    .iconfont {
+      color: $text-color-lighter;
+    }
+  }
+
+  &-content {
+    @extend %flex-1;
+
+    &--disabled {
+      opacity: 0.3;
+    }
+  }
+
+  .at-action-sheet__item {
+    padding-top: 0;
+  }
+
+  .at-radio::before {
+    border-top: none;
+    margin-top: 0;
+  }
+}
+
+.ele-vcode {
+  &-txt {
+    font-size: 28px !important;
+    width: 150px !important;
+  }
+
+  &-txt-disabled {
+    color: $disabled-color !important;
+  }
+}
+
+.at-input::after {
+  border: none !important;
+}
+
+.ele-money {
+  display: flex;
+  flex-direction: row;
+
+  &-icon {
+    color: $text-color-lighter;
+    margin-left: -1rem;
+  }
+}
+
+.ele-image-picker {
+  height: 80px;
+
+  .note {
+    margin-left: 20px;
+  }
+
+  &-icon {
+    margin-top: 10px;
+  }
+}
+
+.popup-view {
+  .at-radio,
+  .at-checkbox {
+    max-height: 80vh;
+    overflow: scroll;
+  }
+}
+
+.ele-qr-scan {
+  @extend %flex-row;
+
+  &-value {
+    @extend %flex-row;
+    flex: 1;
+    height: 40px;
+  }
+
+  .ele-button {
+    margin: 0 -40px 0 0 !important;
+    border: none !important;
+  }
+}
+
+.ele-picker {
+  &-body {
+    @extend %flex-row;
+
+    .tips {
+      @extend %flex-1;
+    }
+
+    .iconfont {
+      margin-right: -20px;
+      color: $text-color-lighter;
+    }
+  }
+}
+
+.ele-checkbox {
+  width: 100%;
+
+  .at-checkbox::after {
+    border-bottom: none;
+  }
+
+  .at-radio::after {
+    border-bottom: none;
+  }
+
+  .at-checkbox__option-wrap {
+    padding-right: 0;
+  }
+}
+
+.ele-radio {
+  &-body {
+    @extend %flex-row;
+    justify-content: space-between;
+  }
+
+  &--vertical {
+    .ele-radio-body {
+      @extend %flex-column;
+
+      .radio-list__label {
+        margin: 8px 0;
+      }
+    }
+  }
+}

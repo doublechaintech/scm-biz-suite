@@ -1,0 +1,26 @@
+@import 'src/styles/theme';
+
+.card-info-table {
+  color: $text-color-lighter;
+
+  &-label {
+    width: 5rem;
+    flex: unset;
+  }
+
+  &-label--width2 {
+    width: 3rem;
+  }
+
+  &-label--width3 {
+    width: 4rem;
+  }
+
+  &-label--width4 {
+    width: 5rem;
+  }
+
+  &-label--width5 {
+    width: 6rem;
+  }
+}

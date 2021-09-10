@@ -1,0 +1,93 @@
+@import 'src/styles/theme';
+
+.navigation-box {
+  @extend %flex-column;
+  padding: 19px 5px;
+  background-color: $white;
+  box-shadow: 0 15px 10px 1px $shadow-color;
+
+  &-title {
+    font-weight: 500;
+    size: 40px;
+    padding: 10px 30px 30px 30px;
+  }
+
+  &-actions {
+    @extend %flex-row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+  }
+
+  &-item {
+    width: 140px;
+    height: 120px;
+    @extend %flex-center;
+
+    .ele-badge {
+      @extend %flex-center;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .action-icon {
+      width: 50px;
+      height: 50px;
+      @extend %flex-center;
+    }
+
+    &-title {
+      color: $text-color-light;
+      font-weight: 400;
+      line-height: 36px;
+      margin-top: 10px;
+      font-size: 26px;
+    }
+
+    &:after {
+      content: ' ';
+      width: 3px;
+      height: 40px;
+      background: $silver-grey-color;
+      border-radius: 1px;
+      display: flex;
+      align-self: center;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &-item--disabled {
+    .navigation-box-item-title {
+      color: $disabled-color !important;
+    }
+
+    .iconfont {
+      color: $disabled-color;
+    }
+  }
+}
+
+.navigation-box--round-top {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.navigation-box--round-bottom {
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.navigation-box--center {
+  .navigation-box-actions {
+    justify-content: space-around;
+  }
+
+  .navigation-box-item {
+    flex: 1;
+  }
+}

@@ -1,0 +1,19 @@
+@import 'src/styles/theme';
+
+.object-picker {
+  &-popup-bottom {
+    height: 10vh;
+  }
+
+  .ele-action-list-item {
+    &:first-child {
+      border: none;
+      width: 40%;
+    }
+
+    &:last-child {
+      width: 60%;
+      border-left: none;
+    }
+  }
+}

@@ -17,7 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import com.doublechaintech.retailscm.search.BaseRequest;
+import com.doublechaintech.retailscm.search.*;
 import com.terapico.caf.form.ImageInfo;
 import com.terapico.caf.viewcomponent.ButtonViewComponent;
 import com.terapico.utils.*;
@@ -31,6 +31,8 @@ import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.doublechaintech.retailscm.pagetype.PageType;
+
+import static com.doublechaintech.retailscm.controller.ViewRender.UI_CANDIDATE_ATTRIBUTE_PREFIX;
 
 public class RetailscmBaseUtils {
 	protected static final Map<String, Object> emptyOptions = new HashMap<>();
@@ -361,8 +363,8 @@ public class RetailscmBaseUtils {
         }
     }
 
-    public static BaseEntity queryItem(UserContext ctx, BaseRequest request, Class... types)
-              throws Exception {
+     public static BaseEntity queryItem(UserContext ctx, BaseRequest request, Class... types)
+          throws Exception {
         List<BaseEntity> baseEntities = queryItems(ctx, request, types);
         if (baseEntities != null && !baseEntities.isEmpty()) {
           return baseEntities.get(0);
@@ -371,7 +373,7 @@ public class RetailscmBaseUtils {
       }
 
       public static List<BaseEntity> queryItems(UserContext ctx, BaseRequest request, Class... types)
-              throws Exception {
+          throws Exception {
         Set<Class> typeList = new LinkedHashSet<>();
         if (types == null || types.length == 0) {
           typeList.addAll(guessTypes(request.getInternalType()));
@@ -430,25 +432,26 @@ public class RetailscmBaseUtils {
           Object o = entity.propertyOf(propertyName);
           if (o instanceof BaseEntity) {
             view.put(
-                    propertyName,
-                    MapUtil.builder()
-                            .put("id", ((BaseEntity) o).getId())
-                            .put("displayName", ((BaseEntity) o).getDisplayName())
-                            .build());
+                propertyName,
+                MapUtil.builder()
+                    .put("id", ((BaseEntity) o).getId())
+                    .put("displayName", ((BaseEntity) o).getDisplayName())
+                    .build());
           }
           view.put(propertyName, o);
         }
         return view;
       }
 
-      public static <T extends BaseEntity> T buildItem(CustomRetailscmUserContextImpl pCtx, Class<T> type) {
-         Gson gson = new Gson();
-         String[] requestParameters = (String[]) pCtx.getRequestParameters().get("formData");
-         Map map = gson.fromJson(requestParameters[0], Map.class);
-         return buildItem((Map<String, Object>) map, type);
-      }
+      public static <T extends BaseEntity> T buildItem(CustomRetailscmUserContextImpl ctx, Class<T> type) {
+          Gson gson = new Gson();
+          String[] requestParameters = (String[]) ctx.getRequestParameters().get("formData");
+          Map map = gson.fromJson(requestParameters[0], Map.class);
+          return buildItem(ctx, (Map<String, Object>) map, type);
+        }
 
-      public static <T extends BaseEntity> T buildItem(Map<String, Object> data, Class<T> type) {
+      public static <T extends BaseEntity> T buildItem(
+          CustomRetailscmUserContextImpl ctx, Map<String, Object> data, Class<T> type) {
         try {
           T t = type.newInstance();
           String[] propertyNames = t.getPropertyNames();
@@ -457,7 +460,7 @@ public class RetailscmBaseUtils {
               continue;
             }
             Object propertyValue = data.get(propertyName);
-            updatePropertyValue(data, t, propertyName, propertyValue);
+            updatePropertyValue(ctx, data, t, propertyName, propertyValue);
           }
 
           PropertyMeta parentLinkProperty = getParentLinkProperty(type);
@@ -466,10 +469,8 @@ public class RetailscmBaseUtils {
             BaseEntity parent = (BaseEntity) t.propertyOf(parentProperty);
             if (parent == null) {
               Method updateMethod =
-                      ReflectUtil.getMethodByName(type, "update" + StrUtil.upperFirst(parentProperty));
-              updateMethod.invoke(
-                      t,
-                      buildItem(data, getParentClasses(type).get(0)));
+                  ReflectUtil.getMethodByName(type, "update" + StrUtil.upperFirst(parentProperty));
+              updateMethod.invoke(t, buildItem(ctx, data, getParentClasses(type).get(0)));
             }
           }
           return t;
@@ -480,14 +481,18 @@ public class RetailscmBaseUtils {
       }
 
       private static <T extends BaseEntity> void updatePropertyValue(
-              Map<String, Object> data, T t, String propertyName, Object propertyValue)
-              throws IllegalAccessException, InvocationTargetException {
+          CustomRetailscmUserContextImpl ctx,
+          Map<String, Object> data,
+          T t,
+          String propertyName,
+          Object propertyValue)
+          throws Exception {
         Method updateMethod =
-                ReflectUtil.getMethodByName(t.getClass(), "update" + StrUtil.upperFirst(propertyName));
+            ReflectUtil.getMethodByName(t.getClass(), "update" + StrUtil.upperFirst(propertyName));
         Class<?> parameterType = updateMethod.getParameterTypes()[0];
 
         if (BaseEntity.class.isAssignableFrom(parameterType)) {
-          propertyValue = convertToType(parameterType, propertyValue);
+          propertyValue = convertToType(ctx, t.getClass(), parameterType, propertyName, propertyValue);
           updateMethod.invoke(t, propertyValue);
         } else {
           updateMethod.invoke(t, getConversionService().convert(propertyValue, parameterType));
@@ -498,25 +503,46 @@ public class RetailscmBaseUtils {
         return new ConversionService();
       }
 
-      private static Object convertToType(Class<?> type, Object pPropertyValue) {
-        if (pPropertyValue == null) {
+      private static Object convertToType(
+          CustomRetailscmUserContextImpl ctx,
+          Class<? extends BaseEntity> ownerType,
+          Class<?> referType,
+          String propertyName,
+          Object propertyValue)
+          throws Exception {
+        if (propertyValue == null) {
           return null;
         }
-        String id;
-        if (pPropertyValue instanceof String) {
-          id = (String) pPropertyValue;
-        } else {
-          id = BeanUtil.getProperty(pPropertyValue, "id");
+        String value = String.valueOf(propertyValue);
+
+        String valueProp =
+            MetaProvider.entity(ownerType)
+                .property(propertyName)
+                .getStr(UI_CANDIDATE_ATTRIBUTE_PREFIX + "id", "id");
+
+        // 值 是id时，使用with id
+        Method withId = ReflectUtil.getMethod(referType, "withId", String.class);
+        if ("id".equals(valueProp)) {
+          return ReflectUtil.invokeStatic(withId, value);
+        } else if ("name".equals(valueProp)) {
+          // 常量时可以不查询数据库
+          if (MetaProvider.entity(referType).isConstant()) {
+            Method getCode = ReflectUtil.getMethod(referType, "getCode", String.class);
+            String code = ReflectUtil.invokeStatic(getCode, value);
+            return ReflectUtil.invokeStatic(withId, code);
+          }
         }
-        if (id == null) {
-          return null;
+        BaseEntity o = (BaseEntity) ReflectUtil.newInstance(referType);
+        ReflectUtil.invoke(o, "setPropertyOf", valueProp, value);
+        BaseEntity dbItem = reload(ctx, o);
+        if (dbItem == null) {
+          return o;
         }
-        Method withId = ReflectUtil.getMethod(type, "withId", String.class);
-        return ReflectUtil.invokeStatic(withId, id);
+        return dbItem;
       }
 
       private static void enhanceSubSearchForRequest(
-              Map<Class, BaseRequest> pTypeRequests, Class pSubType) {
+          Map<Class, BaseRequest> pTypeRequests, Class pSubType) {
         if (pTypeRequests.containsKey(pSubType)) {
           return;
         }
@@ -532,18 +558,23 @@ public class RetailscmBaseUtils {
         baseRequest.selectChild(linkPropertyName, subRequest);
       }
 
-      private static BaseRequest createSubRequest(Class pSubType) {
-        String aPackage = ClassUtil.getPackage(pSubType);
+      private static BaseRequest createSimpleRequest(Class type) {
+        String aPackage = ClassUtil.getPackage(type);
         Class<? extends BaseRequest> requestClass =
-                ClassUtil.loadClass(aPackage + "." + pSubType.getSimpleName() + "Request");
+            ClassUtil.loadClass(aPackage + "." + type.getSimpleName() + "Request");
         Method newInstance = ClassUtil.getDeclaredMethod(requestClass, "newInstance");
         BaseRequest request = ReflectUtil.invokeStatic(newInstance);
         Method selectAll = ClassUtil.getDeclaredMethod(requestClass, "selectAll");
         ReflectUtil.invoke(request, selectAll);
-        Method unselectParent =
-                ClassUtil.getDeclaredMethod(requestClass, "unselectParent", String.class);
-        ReflectUtil.invoke(request, unselectParent, getParentLinkProperty(pSubType).get("name"));
         return request;
+      }
+
+      private static BaseRequest createSubRequest(Class pSubType) {
+        BaseRequest simpleRequest = createSimpleRequest(pSubType);
+        Method unselectParent =
+            ClassUtil.getDeclaredMethod(simpleRequest.getClass(), "unselectParent", String.class);
+        ReflectUtil.invoke(simpleRequest, unselectParent, getParentLinkProperty(pSubType).get("name"));
+        return simpleRequest;
       }
 
       private static List<Class> guessTypes(String pInternalType) {
@@ -552,7 +583,7 @@ public class RetailscmBaseUtils {
       }
 
       private static List<BaseEntity> getRealItem(List<BaseEntity> topItems, Class... types)
-              throws Exception {
+          throws Exception {
         if (topItems == null) {
           return Collections.emptyList();
         }
@@ -578,8 +609,8 @@ public class RetailscmBaseUtils {
         return pAsset;
       }
 
-      private static <T extends BaseEntity> T getItem(BaseEntity pAsset, Class<T> pClass)
-              throws Exception {
+      public static <T extends BaseEntity> T getItem(BaseEntity pAsset, Class<T> pClass)
+          throws Exception {
         List<T> assets = collectReferencedObjectWithType(null, pAsset, pClass);
         if (!assets.isEmpty()) {
           return assets.get(0);
@@ -589,13 +620,13 @@ public class RetailscmBaseUtils {
 
       private static Class internalTypeToClass(String internalType) {
         internalType =
-                StrUtil.sub(internalType, internalType.lastIndexOf('.') + 1, internalType.length());
+            StrUtil.sub(internalType, internalType.lastIndexOf('.') + 1, internalType.length());
         String internalClass =
-                ClassUtil.getPackage(BaseEntity.class)
-                        + "."
-                        + internalType.toLowerCase()
-                        + "."
-                        + internalType;
+            ClassUtil.getPackage(BaseEntity.class)
+                + "."
+                + internalType.toLowerCase()
+                + "."
+                + internalType;
         return ClassUtil.loadClass(internalClass);
       }
 
@@ -614,7 +645,7 @@ public class RetailscmBaseUtils {
         return rets;
       }
 
-      private static List<Class> getParentClasses(Class clazz) {
+      public static List<Class> getParentClasses(Class clazz) {
         PropertyMeta parentLinkProperty = getParentLinkProperty(clazz);
         if (parentLinkProperty == null) {
           return Collections.emptyList();
@@ -636,6 +667,71 @@ public class RetailscmBaseUtils {
           }
         }
         return null;
+      }
+
+      public static <T extends BaseEntity> T ensure(RetailscmUserContext ctx, T item, Consumer<T> enhancer)
+          throws Exception {
+        if (item == null) {
+          return null;
+        }
+        T dbItem = reload(ctx, item);
+        if (dbItem == null) {
+          if(enhancer != null) {
+            enhancer.accept(item);
+          }
+          return saveItem(ctx, item);
+        }
+        return dbItem;
+      }
+
+      public static <T extends BaseEntity> T saveItem(RetailscmUserContext ctx, T pItem) {
+        if (pItem == null) {
+          return null;
+        }
+        Object bean = Beans.getBean(StrUtil.lowerFirst(pItem.getInternalType()) + "Manager");
+        ReflectUtil.invoke(bean, "internalSave" + pItem.getInternalType(), ctx, pItem);
+        return null;
+      }
+
+      // 只处理string或引用类型的相等
+      public static <T extends BaseEntity> T reload(RetailscmUserContext ctx, T pItem) throws Exception {
+          BaseRequest request = createReloadRequest(pItem);
+          return (T) Searcher.searchOne(ctx, request);
+      }
+
+      private static <T extends BaseEntity> BaseRequest createReloadRequest(T pItem) {
+        BaseRequest request = createSimpleRequest(pItem.getClass());
+        String[] propertyNames = pItem.getPropertyNames();
+        for (String propertyName : propertyNames) {
+          Object propertyValue = pItem.propertyOf(propertyName);
+          if (propertyValue == null) {
+            continue;
+          }
+          // 处理string
+          if (propertyValue instanceof String) {
+            ReflectUtil.invoke(
+                request, "where", propertyName, QueryOperator.EQUAL, new Object[] {propertyValue});
+          }
+
+          // 处理引用
+          if (propertyValue instanceof BaseEntity) {
+            ReflectUtil.invoke(
+                request,
+                "filterBy" + StrUtil.upperFirst(propertyName),
+                createReloadRequest((BaseEntity) propertyValue));
+          }
+        }
+        return request;
+      }
+
+     public static Map<String, Object> collectSubInfo(BaseEntity entity) {
+        if (entity == null) {
+          return Collections.emptyMap();
+        }
+        List<SmartList<?>> allRelatedLists = entity.getAllRelatedLists();
+        Map<String, Object> ret = new HashMap<>();
+        allRelatedLists.stream().flatMap(l -> l.stream()).forEach(e -> ret.putAll(itemView(e)));
+        return ret;
       }
 }
 

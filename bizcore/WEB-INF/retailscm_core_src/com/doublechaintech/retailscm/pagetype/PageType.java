@@ -55,6 +55,14 @@ public class PageType extends BaseEntity implements  java.io.Serializable{
             .orElse(null);
   }
 
+  public static String getCode(String name){
+    return CODE_NAME_LIST.stream()
+                    .filter(kv -> Objects.equals(name, kv.getValue()))
+                    .map(KeyValuePair::getKey)
+                    .findFirst()
+                    .orElse(null);
+  }
+
 
 	public static final String ID_PROPERTY                    = "id"                ;
 	public static final String NAME_PROPERTY                  = "name"              ;
