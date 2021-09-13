@@ -44,6 +44,7 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 	public static final String OWNER_PROPERTY                 = "owner"             ;
 	public static final String LATITUDE_PROPERTY              = "latitude"          ;
 	public static final String LONGITUDE_PROPERTY             = "longitude"         ;
+	public static final String CONTRACT_PROPERTY              = "contract"          ;
 	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
@@ -77,6 +78,8 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
         .withType("double", "BigDecimal"));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(LONGITUDE_PROPERTY, "longitude", "经度")
         .withType("double", "BigDecimal"));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CONTRACT_PROPERTY, "contract", "合同")
+        .withType("string_document", String.class));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
         .withType("date_time_update", DateTime.class));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
@@ -110,7 +113,7 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 
 
   public String[] getPropertyNames(){
-    return new String[]{ID_PROPERTY ,LOCATION_PROPERTY ,CONTACT_NUMBER_PROPERTY ,TOTAL_AREA_PROPERTY ,OWNER_PROPERTY ,LATITUDE_PROPERTY ,LONGITUDE_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+    return new String[]{ID_PROPERTY ,LOCATION_PROPERTY ,CONTACT_NUMBER_PROPERTY ,TOTAL_AREA_PROPERTY ,OWNER_PROPERTY ,LATITUDE_PROPERTY ,LONGITUDE_PROPERTY ,CONTRACT_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
   }
 
   public Map<String, String> getReferProperties(){
@@ -191,6 +194,7 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 	protected		RetailStoreCountryCenter	owner               ;
 	protected		BigDecimal          	latitude            ;
 	protected		BigDecimal          	longitude           ;
+	protected		String              	contract            ;
 	protected		DateTime            	lastUpdateTime      ;
 	protected		int                 	version             ;
 
@@ -263,6 +267,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		if(LONGITUDE_PROPERTY.equals(property)){
 			changeLongitudeProperty(newValueExpr);
+		}
+		if(CONTRACT_PROPERTY.equals(property)){
+			changeContractProperty(newValueExpr);
 		}
 		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
 			changeLastUpdateTimeProperty(newValueExpr);
@@ -352,6 +359,22 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 			
 			
 			
+	protected void changeContractProperty(String newValueExpr){
+	
+		String oldValue = getContract();
+		String newValue = parseString(newValueExpr);
+		if(equalsString(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateContract(newValue);
+		this.onChangeProperty(CONTRACT_PROPERTY, oldValue, newValue);
+		return;
+   
+	}
+			
+			
+			
 	protected void changeLastUpdateTimeProperty(String newValueExpr){
 	
 		DateTime oldValue = getLastUpdateTime();
@@ -390,6 +413,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		if(LONGITUDE_PROPERTY.equals(property)){
 			return getLongitude();
+		}
+		if(CONTRACT_PROPERTY.equals(property)){
+			return getContract();
 		}
 		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
 			return getLastUpdateTime();
@@ -639,6 +665,35 @@ return this;
 }
 	public void mergeLongitude(BigDecimal longitude){
 		setLongitude(longitude);
+	}
+
+	
+	public void setContract(String contract){String oldContract = this.contract;String newContract = trimString(encodeUrl(contract));;this.contract = newContract;}
+	public String contract(){
+doLoad();
+return getContract();
+}
+	public String getContract(){
+		return this.contract;
+	}
+	public Warehouse updateContract(String contract){String oldContract = this.contract;String newContract = trimString(encodeUrl(contract));;if(!shouldReplaceBy(newContract, oldContract)){return this;}this.contract = newContract;addPropertyChange(CONTRACT_PROPERTY, oldContract, newContract);this.changed = true;setChecked(false);return this;}
+	public Warehouse orderByContract(boolean asc){
+doAddOrderBy(CONTRACT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createContractCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CONTRACT_PROPERTY, operator, parameters);
+}
+	public Warehouse ignoreContractCriteria(){super.ignoreSearchProperty(CONTRACT_PROPERTY);
+return this;
+}
+	public Warehouse addContractCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createContractCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
+	public void mergeContract(String contract){
+		if(contract != null) { setContract(contract);}
 	}
 
 	
@@ -1574,6 +1629,7 @@ return this;
 		appendKeyValuePair(result, OWNER_PROPERTY, getOwner());
 		appendKeyValuePair(result, LATITUDE_PROPERTY, getLatitude());
 		appendKeyValuePair(result, LONGITUDE_PROPERTY, getLongitude());
+		appendKeyValuePair(result, CONTRACT_PROPERTY, getContract());
 		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 		appendKeyValuePair(result, STORAGE_SPACE_LIST, getStorageSpaceList());
@@ -1634,6 +1690,7 @@ return this;
 			dest.setOwner(getOwner());
 			dest.setLatitude(getLatitude());
 			dest.setLongitude(getLongitude());
+			dest.setContract(getContract());
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setStorageSpaceList(getStorageSpaceList());
@@ -1663,6 +1720,7 @@ return this;
 			dest.mergeOwner(getOwner());
 			dest.mergeLatitude(getLatitude());
 			dest.mergeLongitude(getLongitude());
+			dest.mergeContract(getContract());
 			dest.mergeLastUpdateTime(getLastUpdateTime());
 			dest.mergeVersion(getVersion());
 			dest.mergeStorageSpaceList(getStorageSpaceList());
@@ -1692,6 +1750,7 @@ return this;
 			dest.mergeTotalArea(getTotalArea());
 			dest.mergeLatitude(getLatitude());
 			dest.mergeLongitude(getLongitude());
+			dest.mergeContract(getContract());
 			dest.mergeLastUpdateTime(getLastUpdateTime());
 			dest.mergeVersion(getVersion());
 
@@ -1699,7 +1758,7 @@ return this;
 		return baseDest;
 	}
 	public Object[] toFlatArray(){
-		return new Object[]{getId(), getLocation(), getContactNumber(), getTotalArea(), getOwner(), getLatitude(), getLongitude(), getLastUpdateTime(), getVersion()};
+		return new Object[]{getId(), getLocation(), getContactNumber(), getTotalArea(), getOwner(), getLatitude(), getLongitude(), getContract(), getLastUpdateTime(), getVersion()};
 	}
 
 
@@ -1726,6 +1785,8 @@ return this;
         0, false, result.getLatitude(), params));
     result.setLongitude(mapper.tryToGet(Warehouse.class, LONGITUDE_PROPERTY, BigDecimal.class,
         1, false, result.getLongitude(), params));
+    result.setContract(mapper.tryToGet(Warehouse.class, CONTRACT_PROPERTY, String.class,
+        3, false, result.getContract(), params));
      result.setLastUpdateTime(userContext.now());
 
     if (postHandler != null) {
@@ -1759,6 +1820,7 @@ return this;
  		}
 		stringBuilder.append("\tlatitude='"+getLatitude()+"';");
 		stringBuilder.append("\tlongitude='"+getLongitude()+"';");
+		stringBuilder.append("\tcontract='"+getContract()+"';");
 		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");

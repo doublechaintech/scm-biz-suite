@@ -20,7 +20,7 @@ public interface RetailStoreOrderManager extends BaseManager{
 
   List<RetailStoreOrder> searchRetailStoreOrderList(RetailscmUserContext ctx, RetailStoreOrderRequest pRequest);
   RetailStoreOrder searchRetailStoreOrder(RetailscmUserContext ctx, RetailStoreOrderRequest pRequest);
-	public RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount) throws Exception;
+	public RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount,String contract) throws Exception;
 	public RetailStoreOrder updateRetailStoreOrder(RetailscmUserContext userContext,String retailStoreOrderId, int retailStoreOrderVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public RetailStoreOrder loadRetailStoreOrder(RetailscmUserContext userContext, String retailStoreOrderId, String [] tokensExpr) throws Exception;
 	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;

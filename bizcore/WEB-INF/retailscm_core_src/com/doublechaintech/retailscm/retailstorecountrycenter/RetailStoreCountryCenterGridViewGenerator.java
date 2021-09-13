@@ -35,16 +35,16 @@ public class RetailStoreCountryCenterGridViewGenerator extends BaseGridViewGener
 			return new String[]{"id","name","supply_product","belong_to","contact_number","description","last_update_time","version"};
 		}
 		if(RetailStoreCountryCenter.SUPPLY_ORDER_LIST.equals(listName)){
-			return new String[]{"id","buyer","seller","title","total_amount","last_update_time","version"};
+			return new String[]{"id","buyer","seller","title","contract","total_amount","last_update_time","version"};
 		}
 		if(RetailStoreCountryCenter.RETAIL_STORE_ORDER_LIST.equals(listName)){
-			return new String[]{"id","buyer","seller","title","total_amount","last_update_time","version"};
+			return new String[]{"id","buyer","seller","title","total_amount","contract","last_update_time","version"};
 		}
 		if(RetailStoreCountryCenter.WAREHOUSE_LIST.equals(listName)){
-			return new String[]{"id","location","contact_number","total_area","owner","latitude","longitude","last_update_time","version"};
+			return new String[]{"id","location","contact_number","total_area","owner","latitude","longitude","contract","last_update_time","version"};
 		}
 		if(RetailStoreCountryCenter.TRANSPORT_FLEET_LIST.equals(listName)){
-			return new String[]{"id","name","contact_number","owner","last_update_time","version"};
+			return new String[]{"id","name","contact_number","owner","contract","last_update_time","version"};
 		}
 		if(RetailStoreCountryCenter.ACCOUNT_SET_LIST.equals(listName)){
 			return new String[]{"id","name","year_set","effective_date","accounting_system","domestic_currency_code","domestic_currency_name","opening_bank","account_number","country_center","retail_store","goods_supplier","last_update_time","version"};

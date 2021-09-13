@@ -92,6 +92,7 @@ const fieldLabels = {
   buyer: window.trans('supply_order.buyer'),
   seller: window.trans('supply_order.seller'),
   title: window.trans('supply_order.title'),
+  contract: window.trans('supply_order.contract'),
   totalAmount: window.trans('supply_order.total_amount'),
   lastUpdateTime: window.trans('supply_order.last_update_time'),
 
@@ -102,6 +103,7 @@ const displayColumns = [
   { title: fieldLabels.buyer, dataIndex: 'buyer', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.seller, dataIndex: 'seller', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.title, debugtype: 'string', dataIndex: 'title', width: '14',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.contract, debugtype: 'string_document', dataIndex: 'contract', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.totalAmount, dataIndex: 'totalAmount', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
   { title: fieldLabels.lastUpdateTime, dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
 
@@ -274,17 +276,17 @@ const renderItemOfList=(supplyOrder, targetObject, columCount, listName)=>{
 }
 
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {buyerId, sellerId, title, totalAmount, lastUpdateTime} = formValuesToPack
+	const {buyerId, sellerId, title, contract, totalAmount, lastUpdateTime} = formValuesToPack
 	const buyer = {id: buyerId, version: 2^31}
 	const seller = {id: sellerId, version: 2^31}
-	const data = {buyer, seller, title, totalAmount, lastUpdateTime:moment(lastUpdateTime).valueOf()}
+	const data = {buyer, seller, title, contract, totalAmount, lastUpdateTime:moment(lastUpdateTime).valueOf()}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {buyer, seller, title, totalAmount, lastUpdateTime} = objectToUnpack
+	const {buyer, seller, title, contract, totalAmount, lastUpdateTime} = objectToUnpack
 	const buyerId = buyer ? buyer.id : null
 	const sellerId = seller ? seller.id : null
-	const data = {buyerId, sellerId, title, totalAmount, lastUpdateTime:moment(lastUpdateTime)}
+	const data = {buyerId, sellerId, title, contract, totalAmount, lastUpdateTime:moment(lastUpdateTime)}
 	return data
 }
 

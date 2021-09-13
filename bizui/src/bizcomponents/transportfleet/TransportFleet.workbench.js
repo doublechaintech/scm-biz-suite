@@ -40,7 +40,8 @@ const { Option } = Select
 
 
 const imageList =(transportFleet)=>{return [
-	 ]}
+	   {"title":'合同',"imageLocation":transportFleet.contract},
+]}
 
 const internalImageListOf = (transportFleet) =>defaultImageListOf(transportFleet,imageList)
 

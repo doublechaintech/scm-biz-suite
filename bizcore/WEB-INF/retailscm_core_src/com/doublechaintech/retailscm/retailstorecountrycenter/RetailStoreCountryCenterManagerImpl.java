@@ -2033,7 +2033,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 
 
-	protected void checkParamsForAddingSupplyOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String sellerId, String title, BigDecimal totalAmount,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingSupplyOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String sellerId, String title, String contract, BigDecimal totalAmount,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 
@@ -2041,6 +2041,8 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkSellerIdOfSupplyOrder(sellerId);
 
 		checkerOf(userContext).checkTitleOfSupplyOrder(title);
+
+		checkerOf(userContext).checkContractOfSupplyOrder(contract);
 
 		checkerOf(userContext).checkTotalAmountOfSupplyOrder(totalAmount);
 
@@ -2050,11 +2052,11 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 
 	}
-	public  RetailStoreCountryCenter addSupplyOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String sellerId, String title, BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter addSupplyOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String sellerId, String title, String contract, BigDecimal totalAmount, String [] tokensExpr) throws Exception
 	{
-		checkParamsForAddingSupplyOrder(userContext,retailStoreCountryCenterId,sellerId, title, totalAmount,tokensExpr);
+		checkParamsForAddingSupplyOrder(userContext,retailStoreCountryCenterId,sellerId, title, contract, totalAmount,tokensExpr);
 
-		SupplyOrder supplyOrder = createSupplyOrder(userContext,sellerId, title, totalAmount);
+		SupplyOrder supplyOrder = createSupplyOrder(userContext,sellerId, title, contract, totalAmount);
 
 		RetailStoreCountryCenter retailStoreCountryCenter = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, emptyOptions());
 		synchronized(retailStoreCountryCenter){
@@ -2067,12 +2069,13 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingSupplyOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String title,BigDecimal totalAmount,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingSupplyOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String title,String contract,BigDecimal totalAmount,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfSupplyOrder(id);
 
 		checkerOf(userContext).checkTitleOfSupplyOrder( title);
+		checkerOf(userContext).checkContractOfSupplyOrder( contract);
 		checkerOf(userContext).checkTotalAmountOfSupplyOrder( totalAmount);
 
 
@@ -2080,9 +2083,9 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 
 	}
-	public  RetailStoreCountryCenter updateSupplyOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter updateSupplyOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String title,String contract,BigDecimal totalAmount, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingSupplyOrderProperties(userContext,retailStoreCountryCenterId,id,title,totalAmount,tokensExpr);
+		checkParamsForUpdatingSupplyOrderProperties(userContext,retailStoreCountryCenterId,id,title,contract,totalAmount,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
@@ -2096,8 +2099,9 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		SupplyOrder item = retailStoreCountryCenterToUpdate.getSupplyOrderList().first();
-		beforeUpdateSupplyOrderProperties(userContext,item, retailStoreCountryCenterId,id,title,totalAmount,tokensExpr);
+		beforeUpdateSupplyOrderProperties(userContext,item, retailStoreCountryCenterId,id,title,contract,totalAmount,tokensExpr);
 		item.updateTitle( title );
+		item.updateContract( contract );
 		item.updateTotalAmount( totalAmount );
 
 
@@ -2108,12 +2112,12 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
-	protected  void beforeUpdateSupplyOrderProperties(RetailscmUserContext userContext, SupplyOrder item, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+	protected  void beforeUpdateSupplyOrderProperties(RetailscmUserContext userContext, SupplyOrder item, String retailStoreCountryCenterId, String id,String title,String contract,BigDecimal totalAmount, String [] tokensExpr)
 						throws Exception {
 			// by default, nothing to do
 	}
 
-	protected SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String sellerId, String title, BigDecimal totalAmount) throws Exception{
+	protected SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String sellerId, String title, String contract, BigDecimal totalAmount) throws Exception{
 
 		SupplyOrder supplyOrder = new SupplyOrder();
 		
@@ -2122,6 +2126,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		seller.setId(sellerId);		
 		supplyOrder.setSeller(seller);		
 		supplyOrder.setTitle(title);		
+		supplyOrder.setContract(contract);		
 		supplyOrder.setTotalAmount(totalAmount);		
 		supplyOrder.setLastUpdateTime(userContext.now());
 	
@@ -2244,6 +2249,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			checkerOf(userContext).checkTitleOfSupplyOrder(parseString(newValueExpr));
 		}
 		
+		if(SupplyOrder.CONTRACT_PROPERTY.equals(property)){
+			checkerOf(userContext).checkContractOfSupplyOrder(parseString(newValueExpr));
+		}
+		
 		if(SupplyOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
 			checkerOf(userContext).checkTotalAmountOfSupplyOrder(parseBigDecimal(newValueExpr));
 		}
@@ -2299,7 +2308,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 
 
-	protected void checkParamsForAddingRetailStoreOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String buyerId, String title, BigDecimal totalAmount,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingRetailStoreOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String buyerId, String title, BigDecimal totalAmount, String contract,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 
@@ -2310,17 +2319,19 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(totalAmount);
 
+		checkerOf(userContext).checkContractOfRetailStoreOrder(contract);
+
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 
 
 	}
-	public  RetailStoreCountryCenter addRetailStoreOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String buyerId, String title, BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter addRetailStoreOrder(RetailscmUserContext userContext, String retailStoreCountryCenterId, String buyerId, String title, BigDecimal totalAmount, String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForAddingRetailStoreOrder(userContext,retailStoreCountryCenterId,buyerId, title, totalAmount,tokensExpr);
+		checkParamsForAddingRetailStoreOrder(userContext,retailStoreCountryCenterId,buyerId, title, totalAmount, contract,tokensExpr);
 
-		RetailStoreOrder retailStoreOrder = createRetailStoreOrder(userContext,buyerId, title, totalAmount);
+		RetailStoreOrder retailStoreOrder = createRetailStoreOrder(userContext,buyerId, title, totalAmount, contract);
 
 		RetailStoreCountryCenter retailStoreCountryCenter = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, emptyOptions());
 		synchronized(retailStoreCountryCenter){
@@ -2333,22 +2344,23 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String title,BigDecimal totalAmount,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String title,BigDecimal totalAmount,String contract,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfRetailStoreOrder(id);
 
 		checkerOf(userContext).checkTitleOfRetailStoreOrder( title);
 		checkerOf(userContext).checkTotalAmountOfRetailStoreOrder( totalAmount);
+		checkerOf(userContext).checkContractOfRetailStoreOrder( contract);
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 
 	}
-	public  RetailStoreCountryCenter updateRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter updateRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount,String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingRetailStoreOrderProperties(userContext,retailStoreCountryCenterId,id,title,totalAmount,tokensExpr);
+		checkParamsForUpdatingRetailStoreOrderProperties(userContext,retailStoreCountryCenterId,id,title,totalAmount,contract,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
@@ -2362,9 +2374,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		RetailStoreOrder item = retailStoreCountryCenterToUpdate.getRetailStoreOrderList().first();
-		beforeUpdateRetailStoreOrderProperties(userContext,item, retailStoreCountryCenterId,id,title,totalAmount,tokensExpr);
+		beforeUpdateRetailStoreOrderProperties(userContext,item, retailStoreCountryCenterId,id,title,totalAmount,contract,tokensExpr);
 		item.updateTitle( title );
 		item.updateTotalAmount( totalAmount );
+		item.updateContract( contract );
 
 
 		//checkParamsForAddingRetailStoreOrder(userContext,retailStoreCountryCenterId,name, code, used,tokensExpr);
@@ -2374,12 +2387,12 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
-	protected  void beforeUpdateRetailStoreOrderProperties(RetailscmUserContext userContext, RetailStoreOrder item, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+	protected  void beforeUpdateRetailStoreOrderProperties(RetailscmUserContext userContext, RetailStoreOrder item, String retailStoreCountryCenterId, String id,String title,BigDecimal totalAmount,String contract, String [] tokensExpr)
 						throws Exception {
 			// by default, nothing to do
 	}
 
-	protected RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId, String title, BigDecimal totalAmount) throws Exception{
+	protected RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId, String title, BigDecimal totalAmount, String contract) throws Exception{
 
 		RetailStoreOrder retailStoreOrder = new RetailStoreOrder();
 		
@@ -2389,6 +2402,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		retailStoreOrder.setBuyer(buyer);		
 		retailStoreOrder.setTitle(title);		
 		retailStoreOrder.setTotalAmount(totalAmount);		
+		retailStoreOrder.setContract(contract);		
 		retailStoreOrder.setLastUpdateTime(userContext.now());
 	
 		
@@ -2514,6 +2528,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(parseBigDecimal(newValueExpr));
 		}
 		
+		if(RetailStoreOrder.CONTRACT_PROPERTY.equals(property)){
+			checkerOf(userContext).checkContractOfRetailStoreOrder(parseString(newValueExpr));
+		}
+		
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
@@ -2565,7 +2583,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 
 
-	protected void checkParamsForAddingWarehouse(RetailscmUserContext userContext, String retailStoreCountryCenterId, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingWarehouse(RetailscmUserContext userContext, String retailStoreCountryCenterId, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, String contract,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 
@@ -2580,17 +2598,19 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkerOf(userContext).checkLongitudeOfWarehouse(longitude);
 
+		checkerOf(userContext).checkContractOfWarehouse(contract);
+
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 
 
 	}
-	public  RetailStoreCountryCenter addWarehouse(RetailscmUserContext userContext, String retailStoreCountryCenterId, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter addWarehouse(RetailscmUserContext userContext, String retailStoreCountryCenterId, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForAddingWarehouse(userContext,retailStoreCountryCenterId,location, contactNumber, totalArea, latitude, longitude,tokensExpr);
+		checkParamsForAddingWarehouse(userContext,retailStoreCountryCenterId,location, contactNumber, totalArea, latitude, longitude, contract,tokensExpr);
 
-		Warehouse warehouse = createWarehouse(userContext,location, contactNumber, totalArea, latitude, longitude);
+		Warehouse warehouse = createWarehouse(userContext,location, contactNumber, totalArea, latitude, longitude, contract);
 
 		RetailStoreCountryCenter retailStoreCountryCenter = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, emptyOptions());
 		synchronized(retailStoreCountryCenter){
@@ -2603,7 +2623,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingWarehouseProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingWarehouseProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String contract,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfWarehouse(id);
@@ -2613,15 +2633,16 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		checkerOf(userContext).checkTotalAreaOfWarehouse( totalArea);
 		checkerOf(userContext).checkLatitudeOfWarehouse( latitude);
 		checkerOf(userContext).checkLongitudeOfWarehouse( longitude);
+		checkerOf(userContext).checkContractOfWarehouse( contract);
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 
 	}
-	public  RetailStoreCountryCenter updateWarehouseProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter updateWarehouseProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingWarehouseProperties(userContext,retailStoreCountryCenterId,id,location,contactNumber,totalArea,latitude,longitude,tokensExpr);
+		checkParamsForUpdatingWarehouseProperties(userContext,retailStoreCountryCenterId,id,location,contactNumber,totalArea,latitude,longitude,contract,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
@@ -2635,12 +2656,13 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		Warehouse item = retailStoreCountryCenterToUpdate.getWarehouseList().first();
-		beforeUpdateWarehouseProperties(userContext,item, retailStoreCountryCenterId,id,location,contactNumber,totalArea,latitude,longitude,tokensExpr);
+		beforeUpdateWarehouseProperties(userContext,item, retailStoreCountryCenterId,id,location,contactNumber,totalArea,latitude,longitude,contract,tokensExpr);
 		item.updateLocation( location );
 		item.updateContactNumber( contactNumber );
 		item.updateTotalArea( totalArea );
 		item.updateLatitude( latitude );
 		item.updateLongitude( longitude );
+		item.updateContract( contract );
 
 
 		//checkParamsForAddingWarehouse(userContext,retailStoreCountryCenterId,name, code, used,tokensExpr);
@@ -2650,12 +2672,12 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
-	protected  void beforeUpdateWarehouseProperties(RetailscmUserContext userContext, Warehouse item, String retailStoreCountryCenterId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude, String [] tokensExpr)
+	protected  void beforeUpdateWarehouseProperties(RetailscmUserContext userContext, Warehouse item, String retailStoreCountryCenterId, String id,String location,String contactNumber,String totalArea,BigDecimal latitude,BigDecimal longitude,String contract, String [] tokensExpr)
 						throws Exception {
 			// by default, nothing to do
 	}
 
-	protected Warehouse createWarehouse(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude) throws Exception{
+	protected Warehouse createWarehouse(RetailscmUserContext userContext, String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, String contract) throws Exception{
 
 		Warehouse warehouse = new Warehouse();
 		
@@ -2665,6 +2687,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		warehouse.setTotalArea(totalArea);		
 		warehouse.setLatitude(latitude);		
 		warehouse.setLongitude(longitude);		
+		warehouse.setContract(contract);		
 		warehouse.setLastUpdateTime(userContext.now());
 	
 		
@@ -2802,6 +2825,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			checkerOf(userContext).checkLongitudeOfWarehouse(parseBigDecimal(newValueExpr));
 		}
 		
+		if(Warehouse.CONTRACT_PROPERTY.equals(property)){
+			checkerOf(userContext).checkContractOfWarehouse(parseString(newValueExpr));
+		}
+		
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
@@ -2853,7 +2880,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 
 
-	protected void checkParamsForAddingTransportFleet(RetailscmUserContext userContext, String retailStoreCountryCenterId, String name, String contactNumber,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingTransportFleet(RetailscmUserContext userContext, String retailStoreCountryCenterId, String name, String contactNumber, String contract,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 
@@ -2862,17 +2889,19 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 
 		checkerOf(userContext).checkContactNumberOfTransportFleet(contactNumber);
 
+		checkerOf(userContext).checkContractOfTransportFleet(contract);
+
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 
 
 	}
-	public  RetailStoreCountryCenter addTransportFleet(RetailscmUserContext userContext, String retailStoreCountryCenterId, String name, String contactNumber, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter addTransportFleet(RetailscmUserContext userContext, String retailStoreCountryCenterId, String name, String contactNumber, String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForAddingTransportFleet(userContext,retailStoreCountryCenterId,name, contactNumber,tokensExpr);
+		checkParamsForAddingTransportFleet(userContext,retailStoreCountryCenterId,name, contactNumber, contract,tokensExpr);
 
-		TransportFleet transportFleet = createTransportFleet(userContext,name, contactNumber);
+		TransportFleet transportFleet = createTransportFleet(userContext,name, contactNumber, contract);
 
 		RetailStoreCountryCenter retailStoreCountryCenter = loadRetailStoreCountryCenter(userContext, retailStoreCountryCenterId, emptyOptions());
 		synchronized(retailStoreCountryCenter){
@@ -2885,22 +2914,23 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			return present(userContext,retailStoreCountryCenter, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingTransportFleetProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String name,String contactNumber,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingTransportFleetProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId,String id,String name,String contactNumber,String contract,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfRetailStoreCountryCenter(retailStoreCountryCenterId);
 		checkerOf(userContext).checkIdOfTransportFleet(id);
 
 		checkerOf(userContext).checkNameOfTransportFleet( name);
 		checkerOf(userContext).checkContactNumberOfTransportFleet( contactNumber);
+		checkerOf(userContext).checkContractOfTransportFleet( contract);
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreCountryCenterManagerException.class);
 
 
 	}
-	public  RetailStoreCountryCenter updateTransportFleetProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String name,String contactNumber, String [] tokensExpr) throws Exception
+	public  RetailStoreCountryCenter updateTransportFleetProperties(RetailscmUserContext userContext, String retailStoreCountryCenterId, String id,String name,String contactNumber,String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingTransportFleetProperties(userContext,retailStoreCountryCenterId,id,name,contactNumber,tokensExpr);
+		checkParamsForUpdatingTransportFleetProperties(userContext,retailStoreCountryCenterId,id,name,contactNumber,contract,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
@@ -2914,9 +2944,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 
 		TransportFleet item = retailStoreCountryCenterToUpdate.getTransportFleetList().first();
-		beforeUpdateTransportFleetProperties(userContext,item, retailStoreCountryCenterId,id,name,contactNumber,tokensExpr);
+		beforeUpdateTransportFleetProperties(userContext,item, retailStoreCountryCenterId,id,name,contactNumber,contract,tokensExpr);
 		item.updateName( name );
 		item.updateContactNumber( contactNumber );
+		item.updateContract( contract );
 
 
 		//checkParamsForAddingTransportFleet(userContext,retailStoreCountryCenterId,name, code, used,tokensExpr);
@@ -2926,18 +2957,19 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		}
 	}
 
-	protected  void beforeUpdateTransportFleetProperties(RetailscmUserContext userContext, TransportFleet item, String retailStoreCountryCenterId, String id,String name,String contactNumber, String [] tokensExpr)
+	protected  void beforeUpdateTransportFleetProperties(RetailscmUserContext userContext, TransportFleet item, String retailStoreCountryCenterId, String id,String name,String contactNumber,String contract, String [] tokensExpr)
 						throws Exception {
 			// by default, nothing to do
 	}
 
-	protected TransportFleet createTransportFleet(RetailscmUserContext userContext, String name, String contactNumber) throws Exception{
+	protected TransportFleet createTransportFleet(RetailscmUserContext userContext, String name, String contactNumber, String contract) throws Exception{
 
 		TransportFleet transportFleet = new TransportFleet();
 		
 		
 		transportFleet.setName(name);		
 		transportFleet.setContactNumber(contactNumber);		
+		transportFleet.setContract(contract);		
 		transportFleet.setLastUpdateTime(userContext.now());
 	
 		
@@ -3061,6 +3093,10 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		
 		if(TransportFleet.CONTACT_NUMBER_PROPERTY.equals(property)){
 			checkerOf(userContext).checkContactNumberOfTransportFleet(parseString(newValueExpr));
+		}
+		
+		if(TransportFleet.CONTRACT_PROPERTY.equals(property)){
+			checkerOf(userContext).checkContractOfTransportFleet(parseString(newValueExpr));
 		}
 		
 
@@ -7569,7 +7605,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		    "",
 		    "供应管理",
 		    "supplyOrderManager/listByBuyer/"+merchantObjId+"/",
-		    "auto"
+		    "document"
 		);
 		sections.add(supplyOrderListSection);
 
@@ -7583,7 +7619,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		    "",
 		    "销售管理",
 		    "retailStoreOrderManager/listBySeller/"+merchantObjId+"/",
-		    "auto"
+		    "document"
 		);
 		sections.add(retailStoreOrderListSection);
 
@@ -7597,7 +7633,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		    "",
 		    "仓配运一体化",
 		    "warehouseManager/listByOwner/"+merchantObjId+"/",
-		    "auto"
+		    "document"
 		);
 		sections.add(warehouseListSection);
 
@@ -7611,7 +7647,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		    "",
 		    "仓配运一体化",
 		    "transportFleetManager/listByOwner/"+merchantObjId+"/",
-		    "auto"
+		    "document"
 		);
 		sections.add(transportFleetListSection);
 

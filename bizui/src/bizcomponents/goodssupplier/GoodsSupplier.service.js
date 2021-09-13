@@ -73,14 +73,14 @@ const removeSupplierProductList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}goodsSupplierManager/addSupplyOrder/goodsSupplierId/buyerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}goodsSupplierManager/addSupplyOrder/goodsSupplierId/buyerId/title/contract/totalAmount/tokensExpr/`
   const goodsSupplierId = targetObjectId
   const requestParameters = { ...parameters, goodsSupplierId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}goodsSupplierManager/updateSupplyOrderProperties/goodsSupplierId/id/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}goodsSupplierManager/updateSupplyOrderProperties/goodsSupplierId/id/title/contract/totalAmount/tokensExpr/`
   const goodsSupplierId = targetObjectId
   const requestParameters = { ...parameters, goodsSupplierId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

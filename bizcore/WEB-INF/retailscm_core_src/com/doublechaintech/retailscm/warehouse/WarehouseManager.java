@@ -20,7 +20,7 @@ public interface WarehouseManager extends BaseManager{
 
   List<Warehouse> searchWarehouseList(RetailscmUserContext ctx, WarehouseRequest pRequest);
   Warehouse searchWarehouse(RetailscmUserContext ctx, WarehouseRequest pRequest);
-	public Warehouse createWarehouse(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,String ownerId,BigDecimal latitude,BigDecimal longitude) throws Exception;
+	public Warehouse createWarehouse(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,String ownerId,BigDecimal latitude,BigDecimal longitude,String contract) throws Exception;
 	public Warehouse updateWarehouse(RetailscmUserContext userContext,String warehouseId, int warehouseVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public Warehouse loadWarehouse(RetailscmUserContext userContext, String warehouseId, String [] tokensExpr) throws Exception;
 	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;

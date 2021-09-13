@@ -178,14 +178,14 @@ const removeConsumerOrderList = (targetObjectId, parameters) => {
 
 
 const addRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/addRetailStoreOrder/retailStoreId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/addRetailStoreOrder/retailStoreId/sellerId/title/totalAmount/contract/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/updateRetailStoreOrderProperties/retailStoreId/id/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/updateRetailStoreOrderProperties/retailStoreId/id/title/totalAmount/contract/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

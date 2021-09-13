@@ -74,7 +74,7 @@
 	
 </style>
 <section><h3>仓库(${result.id})</h3><table >
-<tr><td class='th'>位置</td><td >${result.location}</td><td class='th'>联系电话</td><td >${result.contactNumber}</td></tr><tr><td class='th'>总面积</td><td >${result.totalArea}</td><td class='th'>纬度</td><td >${result.latitude}</td></tr><tr><td class='th'>经度</td><td >${result.longitude}</td><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastUpdateTime}" /></td></tr></table>
+<tr><td class='th'>位置</td><td >${result.location}</td><td class='th'>联系电话</td><td >${result.contactNumber}</td></tr><tr><td class='th'>总面积</td><td >${result.totalArea}</td><td class='th'>纬度</td><td >${result.latitude}</td></tr><tr><td class='th'>经度</td><td >${result.longitude}</td><td class='th'>合同</td><td >${result.contract}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
 <section><c:if test="${not empty result.storageSpaceList}">
 	<c:forEach items="${result.storageSpaceList}" var="item">

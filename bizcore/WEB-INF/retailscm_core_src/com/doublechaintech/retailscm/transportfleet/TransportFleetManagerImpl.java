@@ -253,7 +253,7 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
     return list.get(0);
   }
 
-	public TransportFleet createTransportFleet(RetailscmUserContext userContext, String name,String contactNumber,String ownerId) throws Exception
+	public TransportFleet createTransportFleet(RetailscmUserContext userContext, String name,String contactNumber,String ownerId,String contract) throws Exception
 	{
 
 
@@ -262,6 +262,7 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
 
 		checkerOf(userContext).checkNameOfTransportFleet(name);
 		checkerOf(userContext).checkContactNumberOfTransportFleet(contactNumber);
+		checkerOf(userContext).checkContractOfTransportFleet(contract);
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportFleetManagerException.class);
@@ -277,6 +278,7 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
 		transportFleet.setOwner(owner);
 		
 		
+		transportFleet.setContract(contract);
 		transportFleet.setLastUpdateTime(userContext.now());
 
 		transportFleet = saveTransportFleet(userContext, transportFleet, emptyOptions());
@@ -316,6 +318,12 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
 		}
 
 		
+		if(TransportFleet.CONTRACT_PROPERTY.equals(property)){
+		
+			checkerOf(userContext).checkContractOfTransportFleet(parseString(newValueExpr));
+		
+
+		}
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(TransportFleetManagerException.class);
@@ -1515,7 +1523,7 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
 		page.setRequestName("listByOwner");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
-		page.setDisplayMode("auto");
+		page.setDisplayMode("document");
 		page.setLinkToUrl(TextUtil.encodeUrl(String.format("%s/listByOwner/%s/",  getBeanName(), ownerId)));
 
 		page.assemblerContent(userContext, "listByOwner");
@@ -1585,7 +1593,18 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
 		result.put("owner", merchantObj.getOwner());
 
 		propList.add(
-				MapUtil.put("id", "5-lastUpdateTime")
+				MapUtil.put("id", "5-contract")
+				    .put("fieldName", "contract")
+				    .put("label", "合同")
+				    .put("type", "document")
+				    .put("linkToUrl", "")
+				    .put("displayMode", "{}")
+				    .into_map()
+		);
+		result.put("contract", merchantObj.getContract());
+
+		propList.add(
+				MapUtil.put("id", "6-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
 				    .put("label", "更新于")
 				    .put("type", "datetime")

@@ -49,9 +49,9 @@ public interface GoodsSupplierManager extends BaseManager{
 
 	*/
 
-	//public  SupplyOrderManager getSupplyOrderManager(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, BigDecimal totalAmount ,String [] tokensExpr)  throws Exception;
+	//public  SupplyOrderManager getSupplyOrderManager(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, String contract, BigDecimal totalAmount ,String [] tokensExpr)  throws Exception;
 
-	public  GoodsSupplier addSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, BigDecimal totalAmount , String [] tokensExpr)  throws Exception;
+	public  GoodsSupplier addSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, String contract, BigDecimal totalAmount , String [] tokensExpr)  throws Exception;
 	public  GoodsSupplier removeSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String supplyOrderId, int supplyOrderVersion,String [] tokensExpr)  throws Exception;
 	public  GoodsSupplier updateSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String supplyOrderId, int supplyOrderVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 

@@ -1967,6 +1967,14 @@ public class RetailscmChecker extends BaseChecker{
 		return this;
 	}
 
+	public static final String  CONTRACT_OF_SUPPLY_ORDER ="supply_order.contract";
+	public RetailscmChecker checkContractOfSupplyOrder(String contract)
+	{		
+	 	checkDocument(contract,0, 1024,CONTRACT_OF_SUPPLY_ORDER );
+		
+		return this;
+	}
+
 	public static final String  TOTAL_AMOUNT_OF_SUPPLY_ORDER ="supply_order.total_amount";
 	public RetailscmChecker checkTotalAmountOfSupplyOrder(BigDecimal totalAmount)
 	{		
@@ -2163,6 +2171,14 @@ public class RetailscmChecker extends BaseChecker{
 	public RetailscmChecker checkTotalAmountOfRetailStoreOrder(BigDecimal totalAmount)
 	{		
 	 	checkMoneyAmount(totalAmount,0.00, 3000000000.88,TOTAL_AMOUNT_OF_RETAIL_STORE_ORDER );
+		
+		return this;
+	}
+
+	public static final String  CONTRACT_OF_RETAIL_STORE_ORDER ="retail_store_order.contract";
+	public RetailscmChecker checkContractOfRetailStoreOrder(String contract)
+	{		
+	 	checkDocument(contract,0, 1024,CONTRACT_OF_RETAIL_STORE_ORDER );
 		
 		return this;
 	}
@@ -2371,6 +2387,14 @@ public class RetailscmChecker extends BaseChecker{
 	public RetailscmChecker checkLongitudeOfWarehouse(BigDecimal longitude)
 	{		
 	 	checkBigDecimalRange(longitude,-180.0, 180.0,LONGITUDE_OF_WAREHOUSE );
+		
+		return this;
+	}
+
+	public static final String  CONTRACT_OF_WAREHOUSE ="warehouse.contract";
+	public RetailscmChecker checkContractOfWarehouse(String contract)
+	{		
+	 	checkDocument(contract,0, 1024,CONTRACT_OF_WAREHOUSE );
 		
 		return this;
 	}
@@ -3259,6 +3283,14 @@ public class RetailscmChecker extends BaseChecker{
 	public RetailscmChecker checkOwnerIdOfTransportFleet(String ownerId)
 	{		
 	 	checkIdOfTransportFleet(ownerId );
+		
+		return this;
+	}
+
+	public static final String  CONTRACT_OF_TRANSPORT_FLEET ="transport_fleet.contract";
+	public RetailscmChecker checkContractOfTransportFleet(String contract)
+	{		
+	 	checkDocument(contract,0, 1024,CONTRACT_OF_TRANSPORT_FLEET );
 		
 		return this;
 	}

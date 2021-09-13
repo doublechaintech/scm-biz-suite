@@ -320,7 +320,7 @@ public class GoodsSupplierTokens extends CommonTokens{
 
 
 	public GoodsSupplierTokens searchAllTextOfSupplyOrderList(String verb, String value){
-		String field = "id|title";
+		String field = "id|title|contract";
 		addSearchMoreOptions(SUPPLY_ORDER_LIST,supplyOrderListSearchCounter++, field, verb, value);
 		return this;
 	}

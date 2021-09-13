@@ -20,6 +20,7 @@ public class WarehouseMapper extends BaseRowMapper<Warehouse>{
  		setOwner(warehouse, rs, rowNumber);
  		setLatitude(warehouse, rs, rowNumber);
  		setLongitude(warehouse, rs, rowNumber);
+ 		setContract(warehouse, rs, rowNumber);
  		setLastUpdateTime(warehouse, rs, rowNumber);
  		setVersion(warehouse, rs, rowNumber);
 
@@ -153,6 +154,23 @@ public class WarehouseMapper extends BaseRowMapper<Warehouse>{
 		}
 		
 		warehouse.setLongitude(longitude);
+		}catch (SQLException e){
+
+    }
+	}
+		
+	protected void setContract(Warehouse warehouse, ResultSet rs, int rowNumber) throws SQLException{
+    try{
+		//there will be issue when the type is double/int/long
+		
+		String contract = rs.getString(WarehouseTable.COLUMN_CONTRACT);
+		
+		if(contract == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		warehouse.setContract(contract);
 		}catch (SQLException e){
 
     }

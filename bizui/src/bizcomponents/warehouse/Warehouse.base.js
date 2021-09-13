@@ -98,6 +98,7 @@ const fieldLabels = {
   owner: window.trans('warehouse.owner'),
   latitude: window.trans('warehouse.latitude'),
   longitude: window.trans('warehouse.longitude'),
+  contract: window.trans('warehouse.contract'),
   lastUpdateTime: window.trans('warehouse.last_update_time'),
 
 }
@@ -110,6 +111,7 @@ const displayColumns = [
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.latitude, dataIndex: 'latitude', className:'money', render: (text, record) => renderNumberCell(text, record, 6), sorter: true  },
   { title: fieldLabels.longitude, dataIndex: 'longitude', className:'money', render: (text, record) => renderNumberCell(text, record, 6), sorter: true  },
+  { title: fieldLabels.contract, debugtype: 'string_document', dataIndex: 'contract', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.lastUpdateTime, dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
 
 ]
@@ -282,15 +284,15 @@ const renderItemOfList=(warehouse, targetObject, columCount, listName)=>{
 }
 
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {location, contactNumber, totalArea, ownerId, latitude, longitude, lastUpdateTime} = formValuesToPack
+	const {location, contactNumber, totalArea, ownerId, latitude, longitude, contract, lastUpdateTime} = formValuesToPack
 	const owner = {id: ownerId, version: 2^31}
-	const data = {location, contactNumber, totalArea, owner, latitude, longitude, lastUpdateTime:moment(lastUpdateTime).valueOf()}
+	const data = {location, contactNumber, totalArea, owner, latitude, longitude, contract, lastUpdateTime:moment(lastUpdateTime).valueOf()}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {location, contactNumber, totalArea, owner, latitude, longitude, lastUpdateTime} = objectToUnpack
+	const {location, contactNumber, totalArea, owner, latitude, longitude, contract, lastUpdateTime} = objectToUnpack
 	const ownerId = owner ? owner.id : null
-	const data = {location, contactNumber, totalArea, ownerId, latitude, longitude, lastUpdateTime:moment(lastUpdateTime)}
+	const data = {location, contactNumber, totalArea, ownerId, latitude, longitude, contract, lastUpdateTime:moment(lastUpdateTime)}
 	return data
 }
 

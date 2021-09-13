@@ -25,11 +25,12 @@ public class RetailStoreOrderTable{
 	static final String COLUMN_SELLER = "seller";
 	static final String COLUMN_TITLE = "title";
 	static final String COLUMN_TOTAL_AMOUNT = "total_amount";
+	static final String COLUMN_CONTRACT = "contract";
 	static final String COLUMN_LAST_UPDATE_TIME = "last_update_time";
 	static final String COLUMN_VERSION = "version";
 
-	public static final String []ALL_CLOUMNS = {COLUMN_ID,COLUMN_BUYER,COLUMN_SELLER,COLUMN_TITLE,COLUMN_TOTAL_AMOUNT,COLUMN_LAST_UPDATE_TIME,COLUMN_VERSION};
-	public static final String []NORMAL_CLOUMNS = {COLUMN_BUYER,COLUMN_SELLER,COLUMN_TITLE,COLUMN_TOTAL_AMOUNT,COLUMN_LAST_UPDATE_TIME};
+	public static final String []ALL_CLOUMNS = {COLUMN_ID,COLUMN_BUYER,COLUMN_SELLER,COLUMN_TITLE,COLUMN_TOTAL_AMOUNT,COLUMN_CONTRACT,COLUMN_LAST_UPDATE_TIME,COLUMN_VERSION};
+	public static final String []NORMAL_CLOUMNS = {COLUMN_BUYER,COLUMN_SELLER,COLUMN_TITLE,COLUMN_TOTAL_AMOUNT,COLUMN_CONTRACT,COLUMN_LAST_UPDATE_TIME};
 
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "retail_store_order_data", new String[][]{
@@ -38,6 +39,7 @@ public class RetailStoreOrderTable{
                 new String[]{"seller","varchar(48)","","卖方","retail_store_country_center_data","id"},
                 new String[]{"title","varchar(56)","","头衔","",""},
                 new String[]{"total_amount","numeric(14,2)","","总金额","",""},
+                new String[]{"contract","varchar(1024)","","合同","",""},
                 new String[]{"last_update_time","datetime","","更新于","",""},
                 new String[]{"version","int","","版本","",""}
             }, "生超的订单", new String[]{

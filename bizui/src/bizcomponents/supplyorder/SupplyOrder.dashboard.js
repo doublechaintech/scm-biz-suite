@@ -40,7 +40,8 @@ const { Option } = Select
 
 
 const imageList =(supplyOrder)=>{return [
-	 ]}
+	   {"title":'合同',"imageLocation":supplyOrder.contract},
+]}
 
 const internalImageListOf = (supplyOrder) =>defaultImageListOf(supplyOrder,imageList)
 
@@ -122,7 +123,7 @@ const internalSummaryOf = (cardsData,targetComponent) =>{
 <Description term="ID" style={{wordBreak: 'break-all'}}>{supplyOrder.id}</Description> 
 <Description term="卖方">{supplyOrder.seller==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrder.seller.displayName}(${supplyOrder.seller.id})`}
 </Description>
-<Description term="头衔" style={{wordBreak: 'break-all'}}>{supplyOrder.title}</Description> 
+<Description term="标题" style={{wordBreak: 'break-all'}}>{supplyOrder.title}</Description> 
 <Description term="总金额" style={{wordBreak: 'break-all'}}>{supplyOrder.totalAmount}</Description> 
 <Description term="更新于">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 

@@ -18,6 +18,7 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		setBuyer(supplyOrder, rs, rowNumber);
  		setSeller(supplyOrder, rs, rowNumber);
  		setTitle(supplyOrder, rs, rowNumber);
+ 		setContract(supplyOrder, rs, rowNumber);
  		setTotalAmount(supplyOrder, rs, rowNumber);
  		setLastUpdateTime(supplyOrder, rs, rowNumber);
  		setVersion(supplyOrder, rs, rowNumber);
@@ -107,6 +108,23 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
 		}
 		
 		supplyOrder.setTitle(title);
+		}catch (SQLException e){
+
+    }
+	}
+		
+	protected void setContract(SupplyOrder supplyOrder, ResultSet rs, int rowNumber) throws SQLException{
+    try{
+		//there will be issue when the type is double/int/long
+		
+		String contract = rs.getString(SupplyOrderTable.COLUMN_CONTRACT);
+		
+		if(contract == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		supplyOrder.setContract(contract);
 		}catch (SQLException e){
 
     }

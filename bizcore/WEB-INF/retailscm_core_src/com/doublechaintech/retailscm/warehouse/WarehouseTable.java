@@ -27,11 +27,12 @@ public class WarehouseTable{
 	static final String COLUMN_OWNER = "owner";
 	static final String COLUMN_LATITUDE = "latitude";
 	static final String COLUMN_LONGITUDE = "longitude";
+	static final String COLUMN_CONTRACT = "contract";
 	static final String COLUMN_LAST_UPDATE_TIME = "last_update_time";
 	static final String COLUMN_VERSION = "version";
 
-	public static final String []ALL_CLOUMNS = {COLUMN_ID,COLUMN_LOCATION,COLUMN_CONTACT_NUMBER,COLUMN_TOTAL_AREA,COLUMN_OWNER,COLUMN_LATITUDE,COLUMN_LONGITUDE,COLUMN_LAST_UPDATE_TIME,COLUMN_VERSION};
-	public static final String []NORMAL_CLOUMNS = {COLUMN_LOCATION,COLUMN_CONTACT_NUMBER,COLUMN_TOTAL_AREA,COLUMN_OWNER,COLUMN_LATITUDE,COLUMN_LONGITUDE,COLUMN_LAST_UPDATE_TIME};
+	public static final String []ALL_CLOUMNS = {COLUMN_ID,COLUMN_LOCATION,COLUMN_CONTACT_NUMBER,COLUMN_TOTAL_AREA,COLUMN_OWNER,COLUMN_LATITUDE,COLUMN_LONGITUDE,COLUMN_CONTRACT,COLUMN_LAST_UPDATE_TIME,COLUMN_VERSION};
+	public static final String []NORMAL_CLOUMNS = {COLUMN_LOCATION,COLUMN_CONTACT_NUMBER,COLUMN_TOTAL_AREA,COLUMN_OWNER,COLUMN_LATITUDE,COLUMN_LONGITUDE,COLUMN_CONTRACT,COLUMN_LAST_UPDATE_TIME};
 
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "warehouse_data", new String[][]{
@@ -42,6 +43,7 @@ public class WarehouseTable{
                 new String[]{"owner","varchar(48)","","业主","retail_store_country_center_data","id"},
                 new String[]{"latitude","numeric(9,6)","","纬度","",""},
                 new String[]{"longitude","numeric(10,6)","","经度","",""},
+                new String[]{"contract","varchar(1024)","","合同","",""},
                 new String[]{"last_update_time","datetime","","更新于","",""},
                 new String[]{"version","int","","版本","",""}
             }, "仓库", new String[]{

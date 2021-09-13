@@ -23,7 +23,7 @@ public class RetailStoreGridViewGenerator extends BaseGridViewGenerator{
 			return new String[]{"id","title","consumer","store","last_update_time","version"};
 		}
 		if(RetailStore.RETAIL_STORE_ORDER_LIST.equals(listName)){
-			return new String[]{"id","buyer","seller","title","total_amount","last_update_time","version"};
+			return new String[]{"id","buyer","seller","title","total_amount","contract","last_update_time","version"};
 		}
 		if(RetailStore.GOODS_LIST.equals(listName)){
 			return new String[]{"id","name","rfid","uom","max_package","expire_time","sku","receiving_space","goods_allocation","smart_pallet","shipping_space","transport_task","retail_store","biz_order","retail_store_order","version"};

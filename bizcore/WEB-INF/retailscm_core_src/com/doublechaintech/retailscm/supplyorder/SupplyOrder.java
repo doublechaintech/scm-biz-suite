@@ -39,6 +39,7 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 	public static final String BUYER_PROPERTY                 = "buyer"             ;
 	public static final String SELLER_PROPERTY                = "seller"            ;
 	public static final String TITLE_PROPERTY                 = "title"             ;
+	public static final String CONTRACT_PROPERTY              = "contract"          ;
 	public static final String TOTAL_AMOUNT_PROPERTY          = "totalAmount"       ;
 	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
@@ -62,8 +63,10 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
         .withType("retail_store_country_center", RetailStoreCountryCenter.class));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(SELLER_PROPERTY, "goods_supplier", "卖方")
         .withType("goods_supplier", GoodsSupplier.class));
-    memberMetaInfoList.add(MemberMetaInfo.defineBy(TITLE_PROPERTY, "title", "头衔")
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(TITLE_PROPERTY, "title", "标题")
         .withType("string", String.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CONTRACT_PROPERTY, "contract", "合同")
+        .withType("string_document", String.class));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(TOTAL_AMOUNT_PROPERTY, "total_amount", "总金额")
         .withType("money", "BigDecimal"));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
@@ -90,7 +93,7 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 
 
   public String[] getPropertyNames(){
-    return new String[]{ID_PROPERTY ,BUYER_PROPERTY ,SELLER_PROPERTY ,TITLE_PROPERTY ,TOTAL_AMOUNT_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+    return new String[]{ID_PROPERTY ,BUYER_PROPERTY ,SELLER_PROPERTY ,TITLE_PROPERTY ,CONTRACT_PROPERTY ,TOTAL_AMOUNT_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
   }
 
   public Map<String, String> getReferProperties(){
@@ -157,6 +160,7 @@ parents.put(SELLER_PROPERTY, GoodsSupplier.class);
 	protected		RetailStoreCountryCenter	buyer               ;
 	protected		GoodsSupplier       	seller              ;
 	protected		String              	title               ;
+	protected		String              	contract            ;
 	protected		BigDecimal          	totalAmount         ;
 	protected		DateTime            	lastUpdateTime      ;
 	protected		int                 	version             ;
@@ -217,6 +221,9 @@ parents.put(SELLER_PROPERTY, GoodsSupplier.class);
 		if(TITLE_PROPERTY.equals(property)){
 			changeTitleProperty(newValueExpr);
 		}
+		if(CONTRACT_PROPERTY.equals(property)){
+			changeContractProperty(newValueExpr);
+		}
 		if(TOTAL_AMOUNT_PROPERTY.equals(property)){
 			changeTotalAmountProperty(newValueExpr);
 		}
@@ -238,6 +245,22 @@ parents.put(SELLER_PROPERTY, GoodsSupplier.class);
 		//they are surely different each other
 		updateTitle(newValue);
 		this.onChangeProperty(TITLE_PROPERTY, oldValue, newValue);
+		return;
+   
+	}
+			
+			
+			
+	protected void changeContractProperty(String newValueExpr){
+	
+		String oldValue = getContract();
+		String newValue = parseString(newValueExpr);
+		if(equalsString(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateContract(newValue);
+		this.onChangeProperty(CONTRACT_PROPERTY, oldValue, newValue);
 		return;
    
 	}
@@ -289,6 +312,9 @@ parents.put(SELLER_PROPERTY, GoodsSupplier.class);
 		}
 		if(TITLE_PROPERTY.equals(property)){
 			return getTitle();
+		}
+		if(CONTRACT_PROPERTY.equals(property)){
+			return getContract();
 		}
 		if(TOTAL_AMOUNT_PROPERTY.equals(property)){
 			return getTotalAmount();
@@ -448,6 +474,35 @@ return this;
 }
 	public void mergeTitle(String title){
 		if(title != null) { setTitle(title);}
+	}
+
+	
+	public void setContract(String contract){String oldContract = this.contract;String newContract = trimString(encodeUrl(contract));;this.contract = newContract;}
+	public String contract(){
+doLoad();
+return getContract();
+}
+	public String getContract(){
+		return this.contract;
+	}
+	public SupplyOrder updateContract(String contract){String oldContract = this.contract;String newContract = trimString(encodeUrl(contract));;if(!shouldReplaceBy(newContract, oldContract)){return this;}this.contract = newContract;addPropertyChange(CONTRACT_PROPERTY, oldContract, newContract);this.changed = true;setChecked(false);return this;}
+	public SupplyOrder orderByContract(boolean asc){
+doAddOrderBy(CONTRACT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createContractCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CONTRACT_PROPERTY, operator, parameters);
+}
+	public SupplyOrder ignoreContractCriteria(){super.ignoreSearchProperty(CONTRACT_PROPERTY);
+return this;
+}
+	public SupplyOrder addContractCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createContractCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
+	public void mergeContract(String contract){
+		if(contract != null) { setContract(contract);}
 	}
 
 	
@@ -1050,6 +1105,7 @@ return this;
 		appendKeyValuePair(result, BUYER_PROPERTY, getBuyer());
 		appendKeyValuePair(result, SELLER_PROPERTY, getSeller());
 		appendKeyValuePair(result, TITLE_PROPERTY, getTitle());
+		appendKeyValuePair(result, CONTRACT_PROPERTY, getContract());
 		appendKeyValuePair(result, TOTAL_AMOUNT_PROPERTY, getTotalAmount());
 		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
@@ -1093,6 +1149,7 @@ return this;
 			dest.setBuyer(getBuyer());
 			dest.setSeller(getSeller());
 			dest.setTitle(getTitle());
+			dest.setContract(getContract());
 			dest.setTotalAmount(getTotalAmount());
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
@@ -1117,6 +1174,7 @@ return this;
 			dest.mergeBuyer(getBuyer());
 			dest.mergeSeller(getSeller());
 			dest.mergeTitle(getTitle());
+			dest.mergeContract(getContract());
 			dest.mergeTotalAmount(getTotalAmount());
 			dest.mergeLastUpdateTime(getLastUpdateTime());
 			dest.mergeVersion(getVersion());
@@ -1140,6 +1198,7 @@ return this;
 
 			dest.mergeId(getId());
 			dest.mergeTitle(getTitle());
+			dest.mergeContract(getContract());
 			dest.mergeTotalAmount(getTotalAmount());
 			dest.mergeLastUpdateTime(getLastUpdateTime());
 			dest.mergeVersion(getVersion());
@@ -1148,7 +1207,7 @@ return this;
 		return baseDest;
 	}
 	public Object[] toFlatArray(){
-		return new Object[]{getId(), getBuyer(), getSeller(), getTitle(), getTotalAmount(), getLastUpdateTime(), getVersion()};
+		return new Object[]{getId(), getBuyer(), getSeller(), getTitle(), getContract(), getTotalAmount(), getLastUpdateTime(), getVersion()};
 	}
 
 
@@ -1168,7 +1227,9 @@ return this;
     result.setSeller(mapper.tryToGet(SupplyOrder.class, SELLER_PROPERTY, GoodsSupplier.class,
         0, true, result.getSeller(), params));
     result.setTitle(mapper.tryToGet(SupplyOrder.class, TITLE_PROPERTY, String.class,
-        0, true, result.getTitle(), params));
+        0, false, result.getTitle(), params));
+    result.setContract(mapper.tryToGet(SupplyOrder.class, CONTRACT_PROPERTY, String.class,
+        1, false, result.getContract(), params));
     result.setTotalAmount(mapper.tryToGet(SupplyOrder.class, TOTAL_AMOUNT_PROPERTY, BigDecimal.class,
         0, true, result.getTotalAmount(), params));
      result.setLastUpdateTime(userContext.now());
@@ -1203,6 +1264,7 @@ return this;
  			stringBuilder.append("\tseller='GoodsSupplier("+getSeller().getId()+")';");
  		}
 		stringBuilder.append("\ttitle='"+getTitle()+"';");
+		stringBuilder.append("\tcontract='"+getContract()+"';");
 		stringBuilder.append("\ttotalAmount='"+getTotalAmount()+"';");
 		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");

@@ -470,7 +470,7 @@ public class RetailStoreTokens extends CommonTokens{
 
 
 	public RetailStoreTokens searchAllTextOfRetailStoreOrderList(String verb, String value){
-		String field = "id|title";
+		String field = "id|title|contract";
 		addSearchMoreOptions(RETAIL_STORE_ORDER_LIST,retailStoreOrderListSearchCounter++, field, verb, value);
 		return this;
 	}

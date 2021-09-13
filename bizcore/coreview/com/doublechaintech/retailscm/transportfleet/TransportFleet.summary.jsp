@@ -74,7 +74,7 @@
 	
 </style>
 <section><h3>运输车队(${result.id})</h3><table >
-<tr><td class='th'>名称</td><td >${result.name}</td><td class='th'>联系电话</td><td >${result.contactNumber}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
+<tr><td class='th'>名称</td><td >${result.name}</td><td class='th'>联系电话</td><td >${result.contactNumber}</td></tr><tr><td class='th'>合同</td><td >${result.contract}</td><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastUpdateTime}" /></td></tr></table>
 </section>
 <section><c:if test="${not empty result.transportTruckList}">
 	<c:forEach items="${result.transportTruckList}" var="item">

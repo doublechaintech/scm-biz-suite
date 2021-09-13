@@ -7,7 +7,7 @@
 
 
 
-=================1.0 Execute Report (Model Time 700101T0800) @Fri Sep 10 19:14:27 CST 2021, 126 objects and 864 fields===========================
+=================1.0 Execute Report (Model Time 700101T0800) @Mon Sep 13 18:24:00 CST 2021, 126 objects and 868 fields===========================
 from file "null"
 retail_store_country_center{
 	fields(10){
@@ -705,11 +705,12 @@ product_supply_duration{
 } depth=3; isRoot = false
 
 supply_order{
-	fields(7){
+	fields(8){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		retail_store_country_center	buyer('$(object)'), verb: false, required: true, referenceBy: supplyOrderList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1331246916,relationMeta={name=supply_order.buyer, features=root,visible_all};
 		goods_supplier	seller('$(object)'), verb: false, required: true, referenceBy: supplyOrderList,type:goods_supplier, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 172470893,relationMeta={name=supply_order.seller, features=root,visible_all, vg4belong_to=供应管理};
-		string	title('双链给供货商下的订单'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: 410630729,relationMeta={name=supply_order.title, features=root,visible_all,string};
+		string	title('双链给供货商下的订单'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: 410630729,relationMeta={name=supply_order.title, features=root,visible_all,string, zh_CN=标题};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=supply_order.contract, features=root,visible_all,string,attachment, parent=string};
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money, richText: false, features: root,visible_all,money, class: PresentFieldDesc, hash code: 999795429,relationMeta={java_type=java.math.BigDecimal, name=supply_order.total_amount, features=root,visible_all,money};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=supply_order.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
@@ -770,12 +771,13 @@ supply_order_payment_group{
 } depth=3; isRoot = false
 
 retail_store_order{
-	fields(7){
+	fields(8){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		retail_store	buyer('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderList,type:retail_store, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: -95047503,relationMeta={name=retail_store_order.buyer, features=root,visible_all, vg4retail_store_country_center=加盟管理};
 		retail_store_country_center	seller('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1921564432,relationMeta={name=retail_store_order.seller, features=root,visible_all};
 		string	title('双链小超给双链供应链下的订单'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -2009062566,relationMeta={name=retail_store_order.title, features=root,visible_all,string};
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money, richText: false, features: root,visible_all,money, class: PresentFieldDesc, hash code: 999795429,relationMeta={java_type=java.math.BigDecimal, name=retail_store_order.total_amount, features=root,visible_all,money};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=retail_store_order.contract, features=root,visible_all,string,attachment, parent=string};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=retail_store_order.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
 	}
@@ -835,7 +837,7 @@ retail_store_order_payment_group{
 } depth=5; isRoot = false
 
 warehouse{
-	fields(9){
+	fields(10){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		string	location('成都龙泉驿飞鹤路20号'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -63440301,relationMeta={name=warehouse.location, features=root,visible_all,string};
 		string	contact_number('028 87654321'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -1908837230,relationMeta={name=warehouse.contact_number, features=root,visible_all,string};
@@ -843,6 +845,7 @@ warehouse{
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: warehouseList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1622190148,relationMeta={name=warehouse.owner, features=root,visible_all};
 		double	latitude('40.776877'), verb: false, required: true,type:double, richText: false, features: root,visible_all,double, class: PresentFieldDesc, hash code: -2069752216,relationMeta={java_type=java.math.BigDecimal, name=warehouse.latitude, features=root,visible_all,double};
 		double	longitude('130.273647'), verb: false, required: true,type:double, richText: false, features: root,visible_all,double, class: PresentFieldDesc, hash code: 2057690868,relationMeta={java_type=java.math.BigDecimal, name=warehouse.longitude, features=root,visible_all,double};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=warehouse.contract, features=root,visible_all,string,attachment, parent=string};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=warehouse.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
 	}
@@ -1102,11 +1105,12 @@ warehouse_asset{
 } depth=2; isRoot = false
 
 transport_fleet{
-	fields(6){
+	fields(7){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		string	name('双链先锋号车队'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: 774039808,relationMeta={name=transport_fleet.name, features=root,visible_all,string};
 		string	contact_number('028 87654321'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -1908837230,relationMeta={name=transport_fleet.contact_number, features=root,visible_all,string};
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: transportFleetList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1622190148,relationMeta={name=transport_fleet.owner, features=root,visible_all};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=transport_fleet.contract, features=root,visible_all,string,attachment, parent=string};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=transport_fleet.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
 	}
@@ -4220,11 +4224,12 @@ product_supply_duration{
 } depth=3; isRoot = false
 
 supply_order{
-	fields(7){
+	fields(8){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		retail_store_country_center	buyer('$(object)'), verb: false, required: true, referenceBy: supplyOrderList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1331246916,relationMeta={name=supply_order.buyer, features=root,visible_all};
 		goods_supplier	seller('$(object)'), verb: false, required: true, referenceBy: supplyOrderList,type:goods_supplier, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 172470893,relationMeta={name=supply_order.seller, features=root,visible_all, vg4belong_to=供应管理};
-		string	title('双链给供货商下的订单'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: 410630729,relationMeta={name=supply_order.title, features=root,visible_all,string};
+		string	title('双链给供货商下的订单'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: 410630729,relationMeta={name=supply_order.title, features=root,visible_all,string, zh_CN=标题};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=supply_order.contract, features=root,visible_all,string,attachment, parent=string};
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money, richText: false, features: root,visible_all,money, class: PresentFieldDesc, hash code: 999795429,relationMeta={java_type=java.math.BigDecimal, name=supply_order.total_amount, features=root,visible_all,money};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=supply_order.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
@@ -4285,12 +4290,13 @@ supply_order_payment_group{
 } depth=3; isRoot = false
 
 retail_store_order{
-	fields(7){
+	fields(8){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		retail_store	buyer('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderList,type:retail_store, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: -95047503,relationMeta={name=retail_store_order.buyer, features=root,visible_all, vg4retail_store_country_center=加盟管理};
 		retail_store_country_center	seller('$(object)'), verb: false, required: true, referenceBy: retailStoreOrderList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1921564432,relationMeta={name=retail_store_order.seller, features=root,visible_all};
 		string	title('双链小超给双链供应链下的订单'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -2009062566,relationMeta={name=retail_store_order.title, features=root,visible_all,string};
 		money	total_amount('$3000000000.88'), verb: false, required: true,type:money, richText: false, features: root,visible_all,money, class: PresentFieldDesc, hash code: 999795429,relationMeta={java_type=java.math.BigDecimal, name=retail_store_order.total_amount, features=root,visible_all,money};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=retail_store_order.contract, features=root,visible_all,string,attachment, parent=string};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=retail_store_order.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
 	}
@@ -4350,7 +4356,7 @@ retail_store_order_payment_group{
 } depth=5; isRoot = false
 
 warehouse{
-	fields(9){
+	fields(10){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		string	location('成都龙泉驿飞鹤路20号'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -63440301,relationMeta={name=warehouse.location, features=root,visible_all,string};
 		string	contact_number('028 87654321'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -1908837230,relationMeta={name=warehouse.contact_number, features=root,visible_all,string};
@@ -4358,6 +4364,7 @@ warehouse{
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: warehouseList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1622190148,relationMeta={name=warehouse.owner, features=root,visible_all};
 		double	latitude('40.776877'), verb: false, required: true,type:double, richText: false, features: root,visible_all,double, class: PresentFieldDesc, hash code: -2069752216,relationMeta={java_type=java.math.BigDecimal, name=warehouse.latitude, features=root,visible_all,double};
 		double	longitude('130.273647'), verb: false, required: true,type:double, richText: false, features: root,visible_all,double, class: PresentFieldDesc, hash code: 2057690868,relationMeta={java_type=java.math.BigDecimal, name=warehouse.longitude, features=root,visible_all,double};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=warehouse.contract, features=root,visible_all,string,attachment, parent=string};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=warehouse.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
 	}
@@ -4617,11 +4624,12 @@ warehouse_asset{
 } depth=2; isRoot = false
 
 transport_fleet{
-	fields(6){
+	fields(7){
 		string	id('AB'), verb: false, required: true,type:id, richText: false, features: root,visible_all,string,identifier,entity_base, class: PresentFieldDesc, hash code: 690609858,relationMeta={name=id, features=root,visible_all,string,identifier,entity_base, ui_ignore=true, type=string, parent=string, range_expression=2,64, value=AB};
 		string	name('双链先锋号车队'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: 774039808,relationMeta={name=transport_fleet.name, features=root,visible_all,string};
 		string	contact_number('028 87654321'), verb: false, required: true,type:string, richText: false, features: root,visible_all,string, class: PresentFieldDesc, hash code: -1908837230,relationMeta={name=transport_fleet.contact_number, features=root,visible_all,string};
 		retail_store_country_center	owner('$(object)'), verb: false, required: true, referenceBy: transportFleetList,type:retail_store_country_center, richText: false, features: root,visible_all, class: PresentFieldDesc, hash code: 1622190148,relationMeta={name=transport_fleet.owner, features=root,visible_all};
+		string_document	contract('contract.pdf'), verb: false, required: true,type:string_document, richText: false, features: root,visible_all,string,attachment, class: PresentFieldDesc, hash code: -1589320156,relationMeta={name=transport_fleet.contract, features=root,visible_all,string,attachment, parent=string};
 		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update, richText: false, features: root,visible_all,date_time, class: PresentFieldDesc, hash code: -1685325537,relationMeta={java_type=java.util.Date, name=transport_fleet.last_update_time, features=root,visible_all,date_time, parent=date_time, auto_value=userContext.now()};
 		int	version('2147483647'), verb: false, required: true,type:version, richText: false, features: root,visible_all,int,version,entity_base, class: PresentFieldDesc, hash code: -1181725190,relationMeta={name=version, features=root,visible_all,int,version,entity_base, ui_ignore=true, parent=int, type=int, value=2147483647};
 	}

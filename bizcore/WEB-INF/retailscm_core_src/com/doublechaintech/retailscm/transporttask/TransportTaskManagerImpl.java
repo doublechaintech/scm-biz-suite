@@ -1635,9 +1635,9 @@ public class TransportTaskManagerImpl extends CustomRetailscmCheckerManager impl
 				MapUtil.put("id", "8-belongsTo")
 				    .put("fieldName", "belongsTo")
 				    .put("label", "属于")
-				    .put("type", "auto")
+				    .put("type", "document")
 				    .put("linkToUrl", "transportFleetManager/wxappview/:id/")
-				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"name\",\"imageList\":\"\"}")
+				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"document\",\"title\":\"name\",\"imageList\":\"\"}")
 				    .into_map()
 		);
 		result.put("belongsTo", merchantObj.getBelongsTo());

@@ -660,9 +660,9 @@ public class WarehouseAssetManagerImpl extends CustomRetailscmCheckerManager imp
 				MapUtil.put("id", "4-owner")
 				    .put("fieldName", "owner")
 				    .put("label", "业主")
-				    .put("type", "auto")
+				    .put("type", "document")
 				    .put("linkToUrl", "warehouseManager/wxappview/:id/")
-				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"location\",\"imageList\":\"\"}")
+				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"document\",\"title\":\"location\",\"imageList\":\"\"}")
 				    .into_map()
 		);
 		result.put("owner", merchantObj.getOwner());

@@ -865,6 +865,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		commonObjectPropertyCheck(supplyOrderAsBaseEntity,"buyer",this::checkBuyerOfSupplyOrder);
 		commonObjectPropertyCheck(supplyOrderAsBaseEntity,"seller",this::checkSellerOfSupplyOrder);
 		commonObjectPropertyCheck(supplyOrderAsBaseEntity,"title",this::checkTitleOfSupplyOrder);
+		commonObjectPropertyCheck(supplyOrderAsBaseEntity,"contract",this::checkContractOfSupplyOrder);
 		commonObjectPropertyCheck(supplyOrderAsBaseEntity,"totalAmount",this::checkTotalAmountOfSupplyOrder);
 		commonObjectPropertyAssign(supplyOrderAsBaseEntity,"lastUpdateTime",this::assignLastUpdateTimeOfSupplyOrder);
 		commonObjectPropertyCheck(supplyOrderAsBaseEntity,"version",this::checkVersionOfSupplyOrder);
@@ -935,6 +936,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		commonObjectPropertyCheck(retailStoreOrderAsBaseEntity,"seller",this::checkSellerOfRetailStoreOrder);
 		commonObjectPropertyCheck(retailStoreOrderAsBaseEntity,"title",this::checkTitleOfRetailStoreOrder);
 		commonObjectPropertyCheck(retailStoreOrderAsBaseEntity,"totalAmount",this::checkTotalAmountOfRetailStoreOrder);
+		commonObjectPropertyCheck(retailStoreOrderAsBaseEntity,"contract",this::checkContractOfRetailStoreOrder);
 		commonObjectPropertyAssign(retailStoreOrderAsBaseEntity,"lastUpdateTime",this::assignLastUpdateTimeOfRetailStoreOrder);
 		commonObjectPropertyCheck(retailStoreOrderAsBaseEntity,"version",this::checkVersionOfRetailStoreOrder);
 		commonObjectPropertyCheck(retailStoreOrderAsBaseEntity,"retailStoreOrderLineItemList",this::checkRetailStoreOrderLineItemListOfRetailStoreOrder);
@@ -1006,6 +1008,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		commonObjectPropertyCheck(warehouseAsBaseEntity,"owner",this::checkOwnerOfWarehouse);
 		commonObjectPropertyCheck(warehouseAsBaseEntity,"latitude",this::checkLatitudeOfWarehouse);
 		commonObjectPropertyCheck(warehouseAsBaseEntity,"longitude",this::checkLongitudeOfWarehouse);
+		commonObjectPropertyCheck(warehouseAsBaseEntity,"contract",this::checkContractOfWarehouse);
 		commonObjectPropertyAssign(warehouseAsBaseEntity,"lastUpdateTime",this::assignLastUpdateTimeOfWarehouse);
 		commonObjectPropertyCheck(warehouseAsBaseEntity,"version",this::checkVersionOfWarehouse);
 		commonObjectPropertyCheck(warehouseAsBaseEntity,"storageSpaceList",this::checkStorageSpaceListOfWarehouse);
@@ -1284,6 +1287,7 @@ public class RetailscmObjectChecker extends RetailscmChecker{
 		commonObjectPropertyCheck(transportFleetAsBaseEntity,"name",this::checkNameOfTransportFleet);
 		commonObjectPropertyCheck(transportFleetAsBaseEntity,"contactNumber",this::checkContactNumberOfTransportFleet);
 		commonObjectPropertyCheck(transportFleetAsBaseEntity,"owner",this::checkOwnerOfTransportFleet);
+		commonObjectPropertyCheck(transportFleetAsBaseEntity,"contract",this::checkContractOfTransportFleet);
 		commonObjectPropertyAssign(transportFleetAsBaseEntity,"lastUpdateTime",this::assignLastUpdateTimeOfTransportFleet);
 		commonObjectPropertyCheck(transportFleetAsBaseEntity,"version",this::checkVersionOfTransportFleet);
 		commonObjectPropertyCheck(transportFleetAsBaseEntity,"transportTruckList",this::checkTransportTruckListOfTransportFleet);

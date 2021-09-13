@@ -17,6 +17,7 @@ public class TransportFleetMapper extends BaseRowMapper<TransportFleet>{
  		setName(transportFleet, rs, rowNumber);
  		setContactNumber(transportFleet, rs, rowNumber);
  		setOwner(transportFleet, rs, rowNumber);
+ 		setContract(transportFleet, rs, rowNumber);
  		setLastUpdateTime(transportFleet, rs, rowNumber);
  		setVersion(transportFleet, rs, rowNumber);
 
@@ -104,6 +105,23 @@ public class TransportFleetMapper extends BaseRowMapper<TransportFleet>{
  		transportFleet.setOwner(createEmptyOwner(retailStoreCountryCenterId));
  	}
  	
+	protected void setContract(TransportFleet transportFleet, ResultSet rs, int rowNumber) throws SQLException{
+    try{
+		//there will be issue when the type is double/int/long
+		
+		String contract = rs.getString(TransportFleetTable.COLUMN_CONTRACT);
+		
+		if(contract == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		transportFleet.setContract(contract);
+		}catch (SQLException e){
+
+    }
+	}
+		
 	protected void setLastUpdateTime(TransportFleet transportFleet, ResultSet rs, int rowNumber) throws SQLException{
     try{
 		//there will be issue when the type is double/int/long

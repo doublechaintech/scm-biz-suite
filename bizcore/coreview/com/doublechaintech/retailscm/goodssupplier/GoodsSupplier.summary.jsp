@@ -85,14 +85,11 @@
 <td>${item.id}</td><td>${item.productName}</td><td>${item.productDescription}</td><td>${item.productUnit}</td><td>${item.supplier.displayName}</td></tr></c:forEach></table>
 </section>
 </c:if><c:if test="${not empty result.supplyOrderList}">
-<section><h3>供应订单</h3>
-<table><tr>
-<tr>
-<th>ID</th><th>买方</th><th>卖方</th><th>头衔</th><th>总金额</th><th>更新于</th></tr>	<c:forEach items="${result.supplyOrderList}" var="item">
-	<tr>
-<td>${item.id}</td><td>${item.buyer.displayName}</td><td>${item.seller.displayName}</td><td>${item.title}</td><td>${item.totalAmount}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></c:forEach></table>
+	<c:forEach items="${result.supplyOrderList}" var="item">
+<section><h3>供应订单(${item.id})</h3><table >
+<tr><td class='th'>卖方</td><td >${item.seller.displayName}</td><td class='th'>标题</td><td >${item.title}</td></tr><tr><td class='th'>合同</td><td >${item.contract}</td><td class='th'>总金额</td><td >${item.totalAmount}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
-</c:if><c:if test="${not empty result.accountSetList}">
+</c:forEach></c:if><c:if test="${not empty result.accountSetList}">
 	<c:forEach items="${result.accountSetList}" var="item">
 <section><h3>账套(${item.id})</h3><table >
 <tr><td class='th'>名称</td><td >${item.name}</td><td class='th'>年组</td><td >${item.yearSet}</td></tr><tr><td class='th'>生效日期</td><td ><fmt:formatDate pattern="yyyy-MM-dd" value="${item.effectiveDate}" /></td><td class='th'>会计制度</td><td >${item.accountingSystem}</td></tr><tr><td class='th'>本币代码</td><td >${item.domesticCurrencyCode}</td><td class='th'>本币名称</td><td >${item.domesticCurrencyName}</td></tr><tr><td class='th'>开户银行</td><td >${item.openingBank}</td><td class='th'>帐户号码</td><td >${item.accountNumber}</td></tr><tr><td class='th'>双链小超</td><td >${item.retailStore.displayName}</td><td class='th'>产品供应商</td><td >${item.goodsSupplier.displayName}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>

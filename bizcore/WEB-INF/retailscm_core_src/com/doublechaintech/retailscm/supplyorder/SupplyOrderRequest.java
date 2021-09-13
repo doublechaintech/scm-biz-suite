@@ -37,10 +37,10 @@ public class SupplyOrderRequest extends BaseRequest<SupplyOrder> {
         return this;
     }
 
-    public SupplyOrderRequest selectAll() {return this.selectId().selectBuyer().selectSeller().selectTitle().selectTotalAmount().selectLastUpdateTime().selectVersion();
+    public SupplyOrderRequest selectAll() {return this.selectId().selectBuyer().selectSeller().selectTitle().selectContract().selectTotalAmount().selectLastUpdateTime().selectVersion();
     }
 
-    public SupplyOrderRequest selectSelf() {return this.selectId().selectTitle().selectTotalAmount().selectLastUpdateTime().selectVersion();
+    public SupplyOrderRequest selectSelf() {return this.selectId().selectTitle().selectContract().selectTotalAmount().selectLastUpdateTime().selectVersion();
     }
 
     public SupplyOrderRequest unselect(String... names) {
@@ -122,6 +122,39 @@ public class SupplyOrderRequest extends BaseRequest<SupplyOrder> {
 
       public SupplyOrderRequest orderByTitle(boolean asc){
           addOrderBy(TITLE_PROPERTY, asc);
+          return this;
+      }
+   
+      public SupplyOrderRequest filterByContract(String contract) {
+          
+          if (contract == null) {
+              return this;
+          }
+          
+          return filterByContract(QueryOperator.EQUAL, contract);
+      }
+    
+
+      public SupplyOrderRequest filterByContract(QueryOperator pQueryOperator, Object... parameters) {
+          SearchCriteria searchCriteria = getContractSearchCriteria(pQueryOperator, parameters);
+          return addSearchCriteria(searchCriteria);
+      }
+
+
+      public SupplyOrderRequest selectContract(){
+          return select(CONTRACT_PROPERTY);
+      }
+
+      public SupplyOrderRequest unselectContract(){
+          return unselect(CONTRACT_PROPERTY);
+      }
+
+      public SearchCriteria getContractSearchCriteria(QueryOperator pQueryOperator, Object[] parameters) {
+          return new SimplePropertyCriteria(CONTRACT_PROPERTY, pQueryOperator, parameters);
+      }
+
+      public SupplyOrderRequest orderByContract(boolean asc){
+          addOrderBy(CONTRACT_PROPERTY, asc);
           return this;
       }
    

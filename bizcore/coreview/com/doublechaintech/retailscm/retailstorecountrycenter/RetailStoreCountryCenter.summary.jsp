@@ -111,33 +111,27 @@
 <tr><td class='th'>名称</td><td >${item.name}</td><td class='th'>供应产品</td><td >${item.supplyProduct}</td></tr><tr><td class='th'>联系电话</td><td >${item.contactNumber}</td><td class='th'>描述</td><td >${item.description}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
 </c:forEach></c:if><c:if test="${not empty result.supplyOrderList}">
-<section><h3>供应订单</h3>
-<table><tr>
-<tr>
-<th>ID</th><th>买方</th><th>卖方</th><th>头衔</th><th>总金额</th><th>更新于</th></tr>	<c:forEach items="${result.supplyOrderList}" var="item">
-	<tr>
-<td>${item.id}</td><td>${item.buyer.displayName}</td><td>${item.seller.displayName}</td><td>${item.title}</td><td>${item.totalAmount}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></c:forEach></table>
+	<c:forEach items="${result.supplyOrderList}" var="item">
+<section><h3>供应订单(${item.id})</h3><table >
+<tr><td class='th'>卖方</td><td >${item.seller.displayName}</td><td class='th'>标题</td><td >${item.title}</td></tr><tr><td class='th'>合同</td><td >${item.contract}</td><td class='th'>总金额</td><td >${item.totalAmount}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
-</c:if><c:if test="${not empty result.retailStoreOrderList}">
-<section><h3>生超的订单</h3>
-<table><tr>
-<tr>
-<th>ID</th><th>买方</th><th>卖方</th><th>头衔</th><th>总金额</th><th>更新于</th></tr>	<c:forEach items="${result.retailStoreOrderList}" var="item">
-	<tr>
-<td>${item.id}</td><td>${item.buyer.displayName}</td><td>${item.seller.displayName}</td><td>${item.title}</td><td>${item.totalAmount}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></c:forEach></table>
+</c:forEach></c:if><c:if test="${not empty result.retailStoreOrderList}">
+	<c:forEach items="${result.retailStoreOrderList}" var="item">
+<section><h3>生超的订单(${item.id})</h3><table >
+<tr><td class='th'>买方</td><td >${item.buyer.displayName}</td><td class='th'>头衔</td><td >${item.title}</td></tr><tr><td class='th'>总金额</td><td >${item.totalAmount}</td><td class='th'>合同</td><td >${item.contract}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
-</c:if><c:if test="${not empty result.warehouseList}">
+</c:forEach></c:if><c:if test="${not empty result.warehouseList}">
 	<c:forEach items="${result.warehouseList}" var="item">
 <section><h3>仓库(${item.id})</h3><table >
-<tr><td class='th'>位置</td><td >${item.location}</td><td class='th'>联系电话</td><td >${item.contactNumber}</td></tr><tr><td class='th'>总面积</td><td >${item.totalArea}</td><td class='th'>纬度</td><td >${item.latitude}</td></tr><tr><td class='th'>经度</td><td >${item.longitude}</td><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></table>
+<tr><td class='th'>位置</td><td >${item.location}</td><td class='th'>联系电话</td><td >${item.contactNumber}</td></tr><tr><td class='th'>总面积</td><td >${item.totalArea}</td><td class='th'>纬度</td><td >${item.latitude}</td></tr><tr><td class='th'>经度</td><td >${item.longitude}</td><td class='th'>合同</td><td >${item.contract}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
 </c:forEach></c:if><c:if test="${not empty result.transportFleetList}">
 <section><h3>运输车队</h3>
 <table><tr>
 <tr>
-<th>ID</th><th>名称</th><th>联系电话</th><th>业主</th><th>更新于</th></tr>	<c:forEach items="${result.transportFleetList}" var="item">
+<th>ID</th><th>名称</th><th>联系电话</th><th>业主</th><th>合同</th><th>更新于</th></tr>	<c:forEach items="${result.transportFleetList}" var="item">
 	<tr>
-<td>${item.id}</td><td>${item.name}</td><td>${item.contactNumber}</td><td>${item.owner.displayName}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></c:forEach></table>
+<td>${item.id}</td><td>${item.name}</td><td>${item.contactNumber}</td><td>${item.owner.displayName}</td><td>${item.contract}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></c:forEach></table>
 </section>
 </c:if><c:if test="${not empty result.accountSetList}">
 	<c:forEach items="${result.accountSetList}" var="item">

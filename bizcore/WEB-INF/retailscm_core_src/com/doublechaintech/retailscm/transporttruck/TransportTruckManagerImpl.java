@@ -1097,9 +1097,9 @@ public class TransportTruckManagerImpl extends CustomRetailscmCheckerManager imp
 				MapUtil.put("id", "10-owner")
 				    .put("fieldName", "owner")
 				    .put("label", "业主")
-				    .put("type", "auto")
+				    .put("type", "document")
 				    .put("linkToUrl", "transportFleetManager/wxappview/:id/")
-				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"name\",\"imageList\":\"\"}")
+				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"document\",\"title\":\"name\",\"imageList\":\"\"}")
 				    .into_map()
 		);
 		result.put("owner", merchantObj.getOwner());

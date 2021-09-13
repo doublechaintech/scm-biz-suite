@@ -56,9 +56,9 @@ public interface RetailStoreManager extends BaseManager{
 
 	*/
 
-	//public  RetailStoreOrderManager getRetailStoreOrderManager(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount ,String [] tokensExpr)  throws Exception;
+	//public  RetailStoreOrderManager getRetailStoreOrderManager(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount, String contract ,String [] tokensExpr)  throws Exception;
 
-	public  RetailStore addRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount , String [] tokensExpr)  throws Exception;
+	public  RetailStore addRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount, String contract , String [] tokensExpr)  throws Exception;
 	public  RetailStore removeRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String retailStoreOrderId, int retailStoreOrderVersion,String [] tokensExpr)  throws Exception;
 	public  RetailStore updateRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String retailStoreOrderId, int retailStoreOrderVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
 

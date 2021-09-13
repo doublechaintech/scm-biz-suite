@@ -258,7 +258,7 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
     return list.get(0);
   }
 
-	public RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount) throws Exception
+	public RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount,String contract) throws Exception
 	{
 
 
@@ -267,6 +267,7 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 
 		checkerOf(userContext).checkTitleOfRetailStoreOrder(title);
 		checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(totalAmount);
+		checkerOf(userContext).checkContractOfRetailStoreOrder(contract);
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreOrderManagerException.class);
@@ -287,6 +288,7 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 		
 		retailStoreOrder.setTitle(title);
 		retailStoreOrder.setTotalAmount(totalAmount);
+		retailStoreOrder.setContract(contract);
 		retailStoreOrder.setLastUpdateTime(userContext.now());
 
 		retailStoreOrder = saveRetailStoreOrder(userContext, retailStoreOrder, emptyOptions());
@@ -325,6 +327,12 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 		if(RetailStoreOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(parseBigDecimal(newValueExpr));
+		
+
+		}
+		if(RetailStoreOrder.CONTRACT_PROPERTY.equals(property)){
+		
+			checkerOf(userContext).checkContractOfRetailStoreOrder(parseString(newValueExpr));
 		
 
 		}
@@ -1841,7 +1849,7 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 		page.setRequestName("listByBuyer");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
-		page.setDisplayMode("auto");
+		page.setDisplayMode("document");
 		page.setLinkToUrl(TextUtil.encodeUrl(String.format("%s/listByBuyer/%s/",  getBeanName(), buyerId)));
 
 		page.assemblerContent(userContext, "listByBuyer");
@@ -1864,7 +1872,7 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 		page.setRequestName("listBySeller");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
-		page.setDisplayMode("auto");
+		page.setDisplayMode("document");
 		page.setLinkToUrl(TextUtil.encodeUrl(String.format("%s/listBySeller/%s/",  getBeanName(), sellerId)));
 
 		page.assemblerContent(userContext, "listBySeller");
@@ -1945,7 +1953,18 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 		result.put("totalAmount", merchantObj.getTotalAmount());
 
 		propList.add(
-				MapUtil.put("id", "6-lastUpdateTime")
+				MapUtil.put("id", "6-contract")
+				    .put("fieldName", "contract")
+				    .put("label", "合同")
+				    .put("type", "document")
+				    .put("linkToUrl", "")
+				    .put("displayMode", "{}")
+				    .into_map()
+		);
+		result.put("contract", merchantObj.getContract());
+
+		propList.add(
+				MapUtil.put("id", "7-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
 				    .put("label", "更新于")
 				    .put("type", "datetime")

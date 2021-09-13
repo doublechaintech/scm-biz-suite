@@ -20,7 +20,7 @@ public interface SupplyOrderManager extends BaseManager{
 
   List<SupplyOrder> searchSupplyOrderList(RetailscmUserContext ctx, SupplyOrderRequest pRequest);
   SupplyOrder searchSupplyOrder(RetailscmUserContext ctx, SupplyOrderRequest pRequest);
-	public SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount) throws Exception;
+	public SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,String contract,BigDecimal totalAmount) throws Exception;
 	public SupplyOrder updateSupplyOrder(RetailscmUserContext userContext,String supplyOrderId, int supplyOrderVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public SupplyOrder loadSupplyOrder(RetailscmUserContext userContext, String supplyOrderId, String [] tokensExpr) throws Exception;
 	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;

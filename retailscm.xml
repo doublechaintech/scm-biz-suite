@@ -386,8 +386,8 @@ pic   varchar(254),   图片 -->
 	<supply_order
 		buyer="retail_store_country_center()" _vg4buyer="供应管理"
 		seller="goods_supplier()"
-		title="双链给供货商下的订单"
-
+		title="标题:双链给供货商下的订单"
+		contract="contract.pdf"
 
 		total_amount="$3000000000.88"
 
@@ -426,6 +426,7 @@ pic   varchar(254),   图片 -->
 		seller="retail_store_country_center()" _vg4seller="销售管理"
 		title="双链小超给双链供应链下的订单"
 		total_amount="$3000000000.88"
+		contract="contract.pdf"
 
 		last_update_time="updateTime()"
 
@@ -460,6 +461,7 @@ pic   varchar(254),   图片 -->
 		owner="retail_store_country_center()" _vg4owner="仓配运一体化"
 		latitude="40.776877"
 		longitude="130.273647"
+		contract="contract.pdf"
 		last_update_time="updateTime()"
 
 
@@ -624,7 +626,10 @@ pic   varchar(254),   图片 -->
 		name="双链先锋号车队"
 		contact_number="028 87654321"
 
-		owner="retail_store_country_center()" _vg4owner="仓配运一体化"
+		owner="retail_store_country_center()"
+		contract="contract.pdf"
+		 _vg4owner="仓配运一体化"
+		
 		last_update_time="updateTime()"
 
 	/>

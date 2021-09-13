@@ -648,9 +648,9 @@ public class SupplyOrderPaymentGroupManagerImpl extends CustomRetailscmCheckerMa
 				MapUtil.put("id", "3-bizOrder")
 				    .put("fieldName", "bizOrder")
 				    .put("label", "订单")
-				    .put("type", "auto")
+				    .put("type", "document")
 				    .put("linkToUrl", "supplyOrderManager/wxappview/:id/")
-				    .put("displayMode", "{\"brief\":\"total_amount\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"title\",\"imageList\":\"\"}")
+				    .put("displayMode", "{\"brief\":\"total_amount\",\"imageUrl\":\"\",\"name\":\"document\",\"title\":\"title\",\"imageList\":\"\"}")
 				    .into_map()
 		);
 		result.put("bizOrder", merchantObj.getBizOrder());

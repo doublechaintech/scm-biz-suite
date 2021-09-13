@@ -20,6 +20,7 @@ import RichEditInput from '../../components/RichEditInput'
 import SmallTextInput from '../../components/SmallTextInput'
 
 const imageKeys = [
+  'contract',
 ]
 
 
@@ -196,6 +197,27 @@ class TransportFleetCreateFormBody extends Component {
 
 
 
+
+
+       <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
+          <Form >
+            <Row gutter={16}>
+
+
+          <Col lg={6} md={6} sm={6}></Col>
+          <Col lg={12} md={12} sm={12}>
+              <Form.Item>
+                  {getFieldDecorator('contract', {
+                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+               <PrivateImageEditInput buttonTitle={fieldLabels.contract}/>
+                )} </Form.Item>
+
+              </Col><Col lg={6} md={6} sm={6}></Col>
+
+             </Row>
+          </Form>
+        </Card>
 
 
 

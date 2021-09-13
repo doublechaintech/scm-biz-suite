@@ -41,10 +41,10 @@ public class WarehouseRequest extends BaseRequest<Warehouse> {
         return this;
     }
 
-    public WarehouseRequest selectAll() {return this.selectId().selectLocation().selectContactNumber().selectTotalArea().selectOwner().selectLatitude().selectLongitude().selectLastUpdateTime().selectVersion();
+    public WarehouseRequest selectAll() {return this.selectId().selectLocation().selectContactNumber().selectTotalArea().selectOwner().selectLatitude().selectLongitude().selectContract().selectLastUpdateTime().selectVersion();
     }
 
-    public WarehouseRequest selectSelf() {return this.selectId().selectLocation().selectContactNumber().selectTotalArea().selectLatitude().selectLongitude().selectLastUpdateTime().selectVersion();
+    public WarehouseRequest selectSelf() {return this.selectId().selectLocation().selectContactNumber().selectTotalArea().selectLatitude().selectLongitude().selectContract().selectLastUpdateTime().selectVersion();
     }
 
     public WarehouseRequest unselect(String... names) {
@@ -258,6 +258,39 @@ public class WarehouseRequest extends BaseRequest<Warehouse> {
 
       public WarehouseRequest orderByLongitude(boolean asc){
           addOrderBy(LONGITUDE_PROPERTY, asc);
+          return this;
+      }
+   
+      public WarehouseRequest filterByContract(String contract) {
+          
+          if (contract == null) {
+              return this;
+          }
+          
+          return filterByContract(QueryOperator.EQUAL, contract);
+      }
+    
+
+      public WarehouseRequest filterByContract(QueryOperator pQueryOperator, Object... parameters) {
+          SearchCriteria searchCriteria = getContractSearchCriteria(pQueryOperator, parameters);
+          return addSearchCriteria(searchCriteria);
+      }
+
+
+      public WarehouseRequest selectContract(){
+          return select(CONTRACT_PROPERTY);
+      }
+
+      public WarehouseRequest unselectContract(){
+          return unselect(CONTRACT_PROPERTY);
+      }
+
+      public SearchCriteria getContractSearchCriteria(QueryOperator pQueryOperator, Object[] parameters) {
+          return new SimplePropertyCriteria(CONTRACT_PROPERTY, pQueryOperator, parameters);
+      }
+
+      public WarehouseRequest orderByContract(boolean asc){
+          addOrderBy(CONTRACT_PROPERTY, asc);
           return this;
       }
    

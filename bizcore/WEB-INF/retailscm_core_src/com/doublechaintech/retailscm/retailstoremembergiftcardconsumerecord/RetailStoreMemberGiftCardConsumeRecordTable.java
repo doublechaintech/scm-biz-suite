@@ -42,12 +42,12 @@ public class RetailStoreMemberGiftCardConsumeRecordTable{
                 new String[]{"version","int","","版本","",""}
             }, "零售门店会员卡消费记录", new String[]{
                 "create unique index idx4id_ver_of_retail_store_member_gift_card_consume_record on retail_store_member_gift_card_consume_record_data (id, version);",
-                "create  index idx9416619696375488 on retail_store_member_gift_card_consume_record_data (occure_time);",
+                "create  index idx9672805402702319 on retail_store_member_gift_card_consume_record_data (occure_time);",
                 "create  index idx4amount_of_retail_store_member_gift_card_consume_record on retail_store_member_gift_card_consume_record_data (amount);"
          }, new String[]{
                 "alter table retail_store_member_gift_card_consume_record_data add constraint pk4id_of_retail_store_member_gift_card_consume_record_data primary key (id);",
                 "alter table retail_store_member_gift_card_consume_record_data add constraint fk4owner_of_retail_store_member_gift_card_consume_record_data foreign key (owner) references retail_store_member_gift_card_data(id) ON DELETE CASCADE ON UPDATE CASCADE;",
-                "alter table retail_store_member_gift_card_consume_record_data add constraint fk4biz_order_of_000003 foreign key (biz_order) references consumer_order_data(id) ON DELETE CASCADE ON UPDATE CASCADE;",
+                "alter table retail_store_member_gift_card_consume_record_data add constraint fk4biz_order_of_000006 foreign key (biz_order) references consumer_order_data(id) ON DELETE CASCADE ON UPDATE CASCADE;",
                 ""
          });
   }

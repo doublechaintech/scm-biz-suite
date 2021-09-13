@@ -1063,9 +1063,9 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 				MapUtil.put("id", "6-warehouse")
 				    .put("fieldName", "warehouse")
 				    .put("label", "仓库")
-				    .put("type", "auto")
+				    .put("type", "document")
 				    .put("linkToUrl", "warehouseManager/wxappview/:id/")
-				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"auto\",\"title\":\"location\",\"imageList\":\"\"}")
+				    .put("displayMode", "{\"brief\":\"contact_number\",\"imageUrl\":\"\",\"name\":\"document\",\"title\":\"location\",\"imageList\":\"\"}")
 				    .into_map()
 		);
 		result.put("warehouse", merchantObj.getWarehouse());

@@ -967,7 +967,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		return prepareSupplyOrderCreateParameters(supplyOrder);
  	}
  	protected Object[] prepareSupplyOrderUpdateParameters(SupplyOrder supplyOrder){
- 		Object[] parameters = new Object[8];
+ 		Object[] parameters = new Object[9];
  
  		if(supplyOrder.getBuyer() != null){
  			parameters[0] = supplyOrder.getBuyer().getId();
@@ -979,18 +979,20 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
     
  		parameters[2] = supplyOrder.getTitle();
  		
- 		parameters[3] = supplyOrder.getTotalAmount();
+ 		parameters[3] = supplyOrder.getContract();
  		
- 		parameters[4] = supplyOrder.getLastUpdateTime();
+ 		parameters[4] = supplyOrder.getTotalAmount();
  		
- 		parameters[5] = supplyOrder.nextVersion();
- 		parameters[6] = supplyOrder.getId();
- 		parameters[7] = supplyOrder.getVersion();
+ 		parameters[5] = supplyOrder.getLastUpdateTime();
+ 		
+ 		parameters[6] = supplyOrder.nextVersion();
+ 		parameters[7] = supplyOrder.getId();
+ 		parameters[8] = supplyOrder.getVersion();
 
  		return parameters;
  	}
  	protected Object[] prepareSupplyOrderCreateParameters(SupplyOrder supplyOrder){
-		Object[] parameters = new Object[6];
+		Object[] parameters = new Object[7];
         if(supplyOrder.getId() == null){
           String newSupplyOrderId=getNextId();
           supplyOrder.setId(newSupplyOrderId);
@@ -1007,9 +1009,11 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implements 
  		
  		parameters[3] = supplyOrder.getTitle();
  		
- 		parameters[4] = supplyOrder.getTotalAmount();
+ 		parameters[4] = supplyOrder.getContract();
  		
- 		parameters[5] = supplyOrder.getLastUpdateTime();
+ 		parameters[5] = supplyOrder.getTotalAmount();
+ 		
+ 		parameters[6] = supplyOrder.getLastUpdateTime();
  		
 
  		return parameters;

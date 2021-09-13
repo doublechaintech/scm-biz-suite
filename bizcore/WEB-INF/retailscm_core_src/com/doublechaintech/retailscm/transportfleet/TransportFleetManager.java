@@ -20,7 +20,7 @@ public interface TransportFleetManager extends BaseManager{
 
   List<TransportFleet> searchTransportFleetList(RetailscmUserContext ctx, TransportFleetRequest pRequest);
   TransportFleet searchTransportFleet(RetailscmUserContext ctx, TransportFleetRequest pRequest);
-	public TransportFleet createTransportFleet(RetailscmUserContext userContext, String name,String contactNumber,String ownerId) throws Exception;
+	public TransportFleet createTransportFleet(RetailscmUserContext userContext, String name,String contactNumber,String ownerId,String contract) throws Exception;
 	public TransportFleet updateTransportFleet(RetailscmUserContext userContext,String transportFleetId, int transportFleetVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
 	public TransportFleet loadTransportFleet(RetailscmUserContext userContext, String transportFleetId, String [] tokensExpr) throws Exception;
 	public void sendAllItems(RetailscmUserContext ctx) throws Exception ;

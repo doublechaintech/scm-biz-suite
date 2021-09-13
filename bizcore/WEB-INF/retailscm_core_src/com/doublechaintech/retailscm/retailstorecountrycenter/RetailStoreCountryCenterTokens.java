@@ -745,7 +745,7 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 
 
 	public RetailStoreCountryCenterTokens searchAllTextOfSupplyOrderList(String verb, String value){
-		String field = "id|title";
+		String field = "id|title|contract";
 		addSearchMoreOptions(SUPPLY_ORDER_LIST,supplyOrderListSearchCounter++, field, verb, value);
 		return this;
 	}
@@ -830,7 +830,7 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 
 
 	public RetailStoreCountryCenterTokens searchAllTextOfRetailStoreOrderList(String verb, String value){
-		String field = "id|title";
+		String field = "id|title|contract";
 		addSearchMoreOptions(RETAIL_STORE_ORDER_LIST,retailStoreOrderListSearchCounter++, field, verb, value);
 		return this;
 	}
@@ -915,7 +915,7 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 
 
 	public RetailStoreCountryCenterTokens searchAllTextOfWarehouseList(String verb, String value){
-		String field = "id|location|contactNumber|totalArea";
+		String field = "id|location|contactNumber|totalArea|contract";
 		addSearchMoreOptions(WAREHOUSE_LIST,warehouseListSearchCounter++, field, verb, value);
 		return this;
 	}
@@ -1000,7 +1000,7 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 
 
 	public RetailStoreCountryCenterTokens searchAllTextOfTransportFleetList(String verb, String value){
-		String field = "id|name|contactNumber";
+		String field = "id|name|contactNumber|contract";
 		addSearchMoreOptions(TRANSPORT_FLEET_LIST,transportFleetListSearchCounter++, field, verb, value);
 		return this;
 	}

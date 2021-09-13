@@ -258,7 +258,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
     return list.get(0);
   }
 
-	public SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,BigDecimal totalAmount) throws Exception
+	public SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId,String sellerId,String title,String contract,BigDecimal totalAmount) throws Exception
 	{
 
 
@@ -266,6 +266,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 
 
 		checkerOf(userContext).checkTitleOfSupplyOrder(title);
+		checkerOf(userContext).checkContractOfSupplyOrder(contract);
 		checkerOf(userContext).checkTotalAmountOfSupplyOrder(totalAmount);
 
 
@@ -286,6 +287,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		
 		
 		supplyOrder.setTitle(title);
+		supplyOrder.setContract(contract);
 		supplyOrder.setTotalAmount(totalAmount);
 		supplyOrder.setLastUpdateTime(userContext.now());
 
@@ -319,6 +321,12 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		if(SupplyOrder.TITLE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkTitleOfSupplyOrder(parseString(newValueExpr));
+		
+
+		}
+		if(SupplyOrder.CONTRACT_PROPERTY.equals(property)){
+		
+			checkerOf(userContext).checkContractOfSupplyOrder(parseString(newValueExpr));
 		
 
 		}
@@ -1841,7 +1849,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		page.setRequestName("listByBuyer");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
-		page.setDisplayMode("auto");
+		page.setDisplayMode("document");
 		page.setLinkToUrl(TextUtil.encodeUrl(String.format("%s/listByBuyer/%s/",  getBeanName(), buyerId)));
 
 		page.assemblerContent(userContext, "listByBuyer");
@@ -1864,7 +1872,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		page.setRequestName("listBySeller");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
-		page.setDisplayMode("auto");
+		page.setDisplayMode("document");
 		page.setLinkToUrl(TextUtil.encodeUrl(String.format("%s/listBySeller/%s/",  getBeanName(), sellerId)));
 
 		page.assemblerContent(userContext, "listBySeller");
@@ -1925,7 +1933,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		propList.add(
 				MapUtil.put("id", "4-title")
 				    .put("fieldName", "title")
-				    .put("label", "头衔")
+				    .put("label", "标题")
 				    .put("type", "text")
 				    .put("linkToUrl", "")
 				    .put("displayMode", "{}")
@@ -1934,7 +1942,18 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		result.put("title", merchantObj.getTitle());
 
 		propList.add(
-				MapUtil.put("id", "5-totalAmount")
+				MapUtil.put("id", "5-contract")
+				    .put("fieldName", "contract")
+				    .put("label", "合同")
+				    .put("type", "document")
+				    .put("linkToUrl", "")
+				    .put("displayMode", "{}")
+				    .into_map()
+		);
+		result.put("contract", merchantObj.getContract());
+
+		propList.add(
+				MapUtil.put("id", "6-totalAmount")
 				    .put("fieldName", "totalAmount")
 				    .put("label", "总金额")
 				    .put("type", "money")
@@ -1945,7 +1964,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		result.put("totalAmount", merchantObj.getTotalAmount());
 
 		propList.add(
-				MapUtil.put("id", "6-lastUpdateTime")
+				MapUtil.put("id", "7-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
 				    .put("label", "更新于")
 				    .put("type", "datetime")

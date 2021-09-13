@@ -85,14 +85,11 @@
 <td>${item.id}</td><td>${item.title}</td><td>${item.consumer.displayName}</td><td>${item.store.displayName}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></c:forEach></table>
 </section>
 </c:if><c:if test="${not empty result.retailStoreOrderList}">
-<section><h3>生超的订单</h3>
-<table><tr>
-<tr>
-<th>ID</th><th>买方</th><th>卖方</th><th>头衔</th><th>总金额</th><th>更新于</th></tr>	<c:forEach items="${result.retailStoreOrderList}" var="item">
-	<tr>
-<td>${item.id}</td><td>${item.buyer.displayName}</td><td>${item.seller.displayName}</td><td>${item.title}</td><td>${item.totalAmount}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td></tr></c:forEach></table>
+	<c:forEach items="${result.retailStoreOrderList}" var="item">
+<section><h3>生超的订单(${item.id})</h3><table >
+<tr><td class='th'>买方</td><td >${item.buyer.displayName}</td><td class='th'>头衔</td><td >${item.title}</td></tr><tr><td class='th'>总金额</td><td >${item.totalAmount}</td><td class='th'>合同</td><td >${item.contract}</td></tr><tr><td class='th'>更新于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastUpdateTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
-</c:if><c:if test="${not empty result.goodsList}">
+</c:forEach></c:if><c:if test="${not empty result.goodsList}">
 	<c:forEach items="${result.goodsList}" var="item">
 <section><h3>货物(${item.id})</h3><table >
 <tr><td class='th'>名称</td><td >${item.name}</td><td class='th'>RFID</td><td >${item.rfid}</td></tr><tr><td class='th'>计量单位</td><td >${item.uom}</td><td class='th'>最大包装</td><td >${item.maxPackage}</td></tr><tr><td class='th'>到期时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expireTime}" /></td><td class='th'>SKU</td><td >${item.sku.displayName}</td></tr><tr><td class='th'>收货区</td><td >${item.receivingSpace.displayName}</td><td class='th'>货位</td><td >${item.goodsAllocation.displayName}</td></tr><tr><td class='th'>智能托盘</td><td >${item.smartPallet.displayName}</td><td class='th'>发货区</td><td >${item.shippingSpace.displayName}</td></tr><tr><td class='th'>运输任务</td><td >${item.transportTask.displayName}</td><td class='th'>双链小超</td><td >${item.retailStore.displayName}</td></tr><tr><td class='th'>订单</td><td >${item.bizOrder.displayName}</td><td class='th'>生超的订单</td><td >${item.retailStoreOrder.displayName}</td></tr></table>

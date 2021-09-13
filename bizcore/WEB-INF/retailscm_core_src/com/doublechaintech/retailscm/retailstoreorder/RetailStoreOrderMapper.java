@@ -19,6 +19,7 @@ public class RetailStoreOrderMapper extends BaseRowMapper<RetailStoreOrder>{
  		setSeller(retailStoreOrder, rs, rowNumber);
  		setTitle(retailStoreOrder, rs, rowNumber);
  		setTotalAmount(retailStoreOrder, rs, rowNumber);
+ 		setContract(retailStoreOrder, rs, rowNumber);
  		setLastUpdateTime(retailStoreOrder, rs, rowNumber);
  		setVersion(retailStoreOrder, rs, rowNumber);
 
@@ -124,6 +125,23 @@ public class RetailStoreOrderMapper extends BaseRowMapper<RetailStoreOrder>{
 		}
 		
 		retailStoreOrder.setTotalAmount(totalAmount);
+		}catch (SQLException e){
+
+    }
+	}
+		
+	protected void setContract(RetailStoreOrder retailStoreOrder, ResultSet rs, int rowNumber) throws SQLException{
+    try{
+		//there will be issue when the type is double/int/long
+		
+		String contract = rs.getString(RetailStoreOrderTable.COLUMN_CONTRACT);
+		
+		if(contract == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		retailStoreOrder.setContract(contract);
 		}catch (SQLException e){
 
     }

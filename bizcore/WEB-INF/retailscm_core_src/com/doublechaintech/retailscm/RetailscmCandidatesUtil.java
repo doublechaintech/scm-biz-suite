@@ -49,7 +49,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("transport_fleet").usedIn("transport_truck").withRole("owner");
 		_for("transport_fleet").usedIn("transport_task").withRole("belongs_to");
 		_for("transport_fleet").isTree("false");
-		_for("transport_fleet").hasFields(";id;name;contact_number;last_update_time;version;");
+		_for("transport_fleet").hasFields(";id;name;contact_number;contract;last_update_time;version;");
 		_for("transport_fleet").targetType("transport_fleet");
 		_for("transport_fleet").anchorColumn("owner");
 		_for("retail_store_decoration").usedIn("retail_store").withRole("decoration");
@@ -257,7 +257,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("warehouse").usedIn("smart_pallet").withRole("warehouse");
 		_for("warehouse").usedIn("receiving_space").withRole("warehouse");
 		_for("warehouse").isTree("false");
-		_for("warehouse").hasFields(";id;location;contact_number;total_area;latitude;longitude;last_update_time;version;");
+		_for("warehouse").hasFields(";id;location;contact_number;total_area;latitude;longitude;contract;last_update_time;version;");
 		_for("warehouse").targetType("warehouse");
 		_for("warehouse").anchorColumn("owner");
 		_for("retail_store_order").referTo("retail_store_country_center").withRole("seller");
@@ -267,7 +267,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("retail_store_order").usedIn("retail_store_order_shipping_group").withRole("biz_order");
 		_for("retail_store_order").usedIn("goods").withRole("retail_store_order");
 		_for("retail_store_order").isTree("false");
-		_for("retail_store_order").hasFields(";id;title;total_amount;last_update_time;version;");
+		_for("retail_store_order").hasFields(";id;title;total_amount;contract;last_update_time;version;");
 		_for("retail_store_order").targetType("retail_store_order");
 		_for("retail_store_order").anchorColumn("buyer");
 		_for("goods_supplier").referTo("retail_store_country_center").withRole("belong_to");
@@ -463,7 +463,7 @@ public class RetailscmCandidatesUtil extends BaseCandidatesUtil{
 		_for("supply_order").usedIn("supply_order_payment_group").withRole("biz_order");
 		_for("supply_order").usedIn("goods").withRole("biz_order");
 		_for("supply_order").isTree("false");
-		_for("supply_order").hasFields(";id;title;total_amount;last_update_time;version;");
+		_for("supply_order").hasFields(";id;title;contract;total_amount;last_update_time;version;");
 		_for("supply_order").targetType("supply_order");
 		_for("supply_order").anchorColumn("buyer");
 		_for("public_key_type").referTo("user_domain").withRole("domain");

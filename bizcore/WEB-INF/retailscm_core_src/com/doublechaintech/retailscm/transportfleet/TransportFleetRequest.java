@@ -32,10 +32,10 @@ public class TransportFleetRequest extends BaseRequest<TransportFleet> {
         return this;
     }
 
-    public TransportFleetRequest selectAll() {return this.selectId().selectName().selectContactNumber().selectOwner().selectLastUpdateTime().selectVersion();
+    public TransportFleetRequest selectAll() {return this.selectId().selectName().selectContactNumber().selectOwner().selectContract().selectLastUpdateTime().selectVersion();
     }
 
-    public TransportFleetRequest selectSelf() {return this.selectId().selectName().selectContactNumber().selectLastUpdateTime().selectVersion();
+    public TransportFleetRequest selectSelf() {return this.selectId().selectName().selectContactNumber().selectContract().selectLastUpdateTime().selectVersion();
     }
 
     public TransportFleetRequest unselect(String... names) {
@@ -150,6 +150,39 @@ public class TransportFleetRequest extends BaseRequest<TransportFleet> {
 
       public TransportFleetRequest orderByContactNumber(boolean asc){
           addOrderBy(CONTACT_NUMBER_PROPERTY, asc);
+          return this;
+      }
+   
+      public TransportFleetRequest filterByContract(String contract) {
+          
+          if (contract == null) {
+              return this;
+          }
+          
+          return filterByContract(QueryOperator.EQUAL, contract);
+      }
+    
+
+      public TransportFleetRequest filterByContract(QueryOperator pQueryOperator, Object... parameters) {
+          SearchCriteria searchCriteria = getContractSearchCriteria(pQueryOperator, parameters);
+          return addSearchCriteria(searchCriteria);
+      }
+
+
+      public TransportFleetRequest selectContract(){
+          return select(CONTRACT_PROPERTY);
+      }
+
+      public TransportFleetRequest unselectContract(){
+          return unselect(CONTRACT_PROPERTY);
+      }
+
+      public SearchCriteria getContractSearchCriteria(QueryOperator pQueryOperator, Object[] parameters) {
+          return new SimplePropertyCriteria(CONTRACT_PROPERTY, pQueryOperator, parameters);
+      }
+
+      public TransportFleetRequest orderByContract(boolean asc){
+          addOrderBy(CONTRACT_PROPERTY, asc);
           return this;
       }
    

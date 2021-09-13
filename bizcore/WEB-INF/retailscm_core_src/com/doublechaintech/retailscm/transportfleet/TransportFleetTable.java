@@ -24,11 +24,12 @@ public class TransportFleetTable{
 	static final String COLUMN_NAME = "name";
 	static final String COLUMN_CONTACT_NUMBER = "contact_number";
 	static final String COLUMN_OWNER = "owner";
+	static final String COLUMN_CONTRACT = "contract";
 	static final String COLUMN_LAST_UPDATE_TIME = "last_update_time";
 	static final String COLUMN_VERSION = "version";
 
-	public static final String []ALL_CLOUMNS = {COLUMN_ID,COLUMN_NAME,COLUMN_CONTACT_NUMBER,COLUMN_OWNER,COLUMN_LAST_UPDATE_TIME,COLUMN_VERSION};
-	public static final String []NORMAL_CLOUMNS = {COLUMN_NAME,COLUMN_CONTACT_NUMBER,COLUMN_OWNER,COLUMN_LAST_UPDATE_TIME};
+	public static final String []ALL_CLOUMNS = {COLUMN_ID,COLUMN_NAME,COLUMN_CONTACT_NUMBER,COLUMN_OWNER,COLUMN_CONTRACT,COLUMN_LAST_UPDATE_TIME,COLUMN_VERSION};
+	public static final String []NORMAL_CLOUMNS = {COLUMN_NAME,COLUMN_CONTACT_NUMBER,COLUMN_OWNER,COLUMN_CONTRACT,COLUMN_LAST_UPDATE_TIME};
 
 	  public static void ensureTable(RetailscmUserContext userContext, Map<String, Object> result) throws Exception {
         RetailscmBaseUtils.ensureTable(userContext, result, "transport_fleet_data", new String[][]{
@@ -36,6 +37,7 @@ public class TransportFleetTable{
                 new String[]{"name","varchar(28)","","名称","",""},
                 new String[]{"contact_number","varchar(48)","","联系电话","",""},
                 new String[]{"owner","varchar(48)","","业主","retail_store_country_center_data","id"},
+                new String[]{"contract","varchar(1024)","","合同","",""},
                 new String[]{"last_update_time","datetime","","更新于","",""},
                 new String[]{"version","int","","版本","",""}
             }, "运输车队", new String[]{

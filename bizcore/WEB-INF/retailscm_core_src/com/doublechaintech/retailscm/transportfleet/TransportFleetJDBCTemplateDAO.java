@@ -762,7 +762,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  		return prepareTransportFleetCreateParameters(transportFleet);
  	}
  	protected Object[] prepareTransportFleetUpdateParameters(TransportFleet transportFleet){
- 		Object[] parameters = new Object[7];
+ 		Object[] parameters = new Object[8];
  
  		parameters[0] = transportFleet.getName();
  		
@@ -772,16 +772,18 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  			parameters[2] = transportFleet.getOwner().getId();
  		}
     
- 		parameters[3] = transportFleet.getLastUpdateTime();
+ 		parameters[3] = transportFleet.getContract();
  		
- 		parameters[4] = transportFleet.nextVersion();
- 		parameters[5] = transportFleet.getId();
- 		parameters[6] = transportFleet.getVersion();
+ 		parameters[4] = transportFleet.getLastUpdateTime();
+ 		
+ 		parameters[5] = transportFleet.nextVersion();
+ 		parameters[6] = transportFleet.getId();
+ 		parameters[7] = transportFleet.getVersion();
 
  		return parameters;
  	}
  	protected Object[] prepareTransportFleetCreateParameters(TransportFleet transportFleet){
-		Object[] parameters = new Object[5];
+		Object[] parameters = new Object[6];
         if(transportFleet.getId() == null){
           String newTransportFleetId=getNextId();
           transportFleet.setId(newTransportFleetId);
@@ -796,7 +798,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmBaseDAOImpl implemen
  			parameters[3] = transportFleet.getOwner().getId();
  		}
  		
- 		parameters[4] = transportFleet.getLastUpdateTime();
+ 		parameters[4] = transportFleet.getContract();
+ 		
+ 		parameters[5] = transportFleet.getLastUpdateTime();
  		
 
  		return parameters;

@@ -1338,7 +1338,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 
 
-	protected void checkParamsForAddingRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount, String contract,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 
@@ -1349,17 +1349,19 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 
 		checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(totalAmount);
 
+		checkerOf(userContext).checkContractOfRetailStoreOrder(contract);
+
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreManagerException.class);
 
 
 
 	}
-	public  RetailStore addRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  RetailStore addRetailStoreOrder(RetailscmUserContext userContext, String retailStoreId, String sellerId, String title, BigDecimal totalAmount, String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForAddingRetailStoreOrder(userContext,retailStoreId,sellerId, title, totalAmount,tokensExpr);
+		checkParamsForAddingRetailStoreOrder(userContext,retailStoreId,sellerId, title, totalAmount, contract,tokensExpr);
 
-		RetailStoreOrder retailStoreOrder = createRetailStoreOrder(userContext,sellerId, title, totalAmount);
+		RetailStoreOrder retailStoreOrder = createRetailStoreOrder(userContext,sellerId, title, totalAmount, contract);
 
 		RetailStore retailStore = loadRetailStore(userContext, retailStoreId, emptyOptions());
 		synchronized(retailStore){
@@ -1372,22 +1374,23 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			return present(userContext,retailStore, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreId,String id,String title,BigDecimal totalAmount,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreId,String id,String title,BigDecimal totalAmount,String contract,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfRetailStore(retailStoreId);
 		checkerOf(userContext).checkIdOfRetailStoreOrder(id);
 
 		checkerOf(userContext).checkTitleOfRetailStoreOrder( title);
 		checkerOf(userContext).checkTotalAmountOfRetailStoreOrder( totalAmount);
+		checkerOf(userContext).checkContractOfRetailStoreOrder( contract);
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(RetailStoreManagerException.class);
 
 
 	}
-	public  RetailStore updateRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreId, String id,String title,BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  RetailStore updateRetailStoreOrderProperties(RetailscmUserContext userContext, String retailStoreId, String id,String title,BigDecimal totalAmount,String contract, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingRetailStoreOrderProperties(userContext,retailStoreId,id,title,totalAmount,tokensExpr);
+		checkParamsForUpdatingRetailStoreOrderProperties(userContext,retailStoreId,id,title,totalAmount,contract,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
@@ -1401,9 +1404,10 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 
 		RetailStoreOrder item = retailStoreToUpdate.getRetailStoreOrderList().first();
-		beforeUpdateRetailStoreOrderProperties(userContext,item, retailStoreId,id,title,totalAmount,tokensExpr);
+		beforeUpdateRetailStoreOrderProperties(userContext,item, retailStoreId,id,title,totalAmount,contract,tokensExpr);
 		item.updateTitle( title );
 		item.updateTotalAmount( totalAmount );
+		item.updateContract( contract );
 
 
 		//checkParamsForAddingRetailStoreOrder(userContext,retailStoreId,name, code, used,tokensExpr);
@@ -1413,12 +1417,12 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		}
 	}
 
-	protected  void beforeUpdateRetailStoreOrderProperties(RetailscmUserContext userContext, RetailStoreOrder item, String retailStoreId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+	protected  void beforeUpdateRetailStoreOrderProperties(RetailscmUserContext userContext, RetailStoreOrder item, String retailStoreId, String id,String title,BigDecimal totalAmount,String contract, String [] tokensExpr)
 						throws Exception {
 			// by default, nothing to do
 	}
 
-	protected RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String sellerId, String title, BigDecimal totalAmount) throws Exception{
+	protected RetailStoreOrder createRetailStoreOrder(RetailscmUserContext userContext, String sellerId, String title, BigDecimal totalAmount, String contract) throws Exception{
 
 		RetailStoreOrder retailStoreOrder = new RetailStoreOrder();
 		
@@ -1428,6 +1432,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		retailStoreOrder.setSeller(seller);		
 		retailStoreOrder.setTitle(title);		
 		retailStoreOrder.setTotalAmount(totalAmount);		
+		retailStoreOrder.setContract(contract);		
 		retailStoreOrder.setLastUpdateTime(userContext.now());
 	
 		
@@ -1551,6 +1556,10 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		
 		if(RetailStoreOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
 			checkerOf(userContext).checkTotalAmountOfRetailStoreOrder(parseBigDecimal(newValueExpr));
+		}
+		
+		if(RetailStoreOrder.CONTRACT_PROPERTY.equals(property)){
+			checkerOf(userContext).checkContractOfRetailStoreOrder(parseString(newValueExpr));
 		}
 		
 
@@ -3058,7 +3067,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		    "",
 		    "__no_group",
 		    "retailStoreOrderManager/listByBuyer/"+merchantObjId+"/",
-		    "auto"
+		    "document"
 		);
 		sections.add(retailStoreOrderListSection);
 

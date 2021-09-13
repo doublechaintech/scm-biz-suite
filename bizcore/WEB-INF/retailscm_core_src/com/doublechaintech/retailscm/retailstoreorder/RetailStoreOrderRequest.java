@@ -37,10 +37,10 @@ public class RetailStoreOrderRequest extends BaseRequest<RetailStoreOrder> {
         return this;
     }
 
-    public RetailStoreOrderRequest selectAll() {return this.selectId().selectBuyer().selectSeller().selectTitle().selectTotalAmount().selectLastUpdateTime().selectVersion();
+    public RetailStoreOrderRequest selectAll() {return this.selectId().selectBuyer().selectSeller().selectTitle().selectTotalAmount().selectContract().selectLastUpdateTime().selectVersion();
     }
 
-    public RetailStoreOrderRequest selectSelf() {return this.selectId().selectTitle().selectTotalAmount().selectLastUpdateTime().selectVersion();
+    public RetailStoreOrderRequest selectSelf() {return this.selectId().selectTitle().selectTotalAmount().selectContract().selectLastUpdateTime().selectVersion();
     }
 
     public RetailStoreOrderRequest unselect(String... names) {
@@ -155,6 +155,39 @@ public class RetailStoreOrderRequest extends BaseRequest<RetailStoreOrder> {
 
       public RetailStoreOrderRequest orderByTotalAmount(boolean asc){
           addOrderBy(TOTAL_AMOUNT_PROPERTY, asc);
+          return this;
+      }
+   
+      public RetailStoreOrderRequest filterByContract(String contract) {
+          
+          if (contract == null) {
+              return this;
+          }
+          
+          return filterByContract(QueryOperator.EQUAL, contract);
+      }
+    
+
+      public RetailStoreOrderRequest filterByContract(QueryOperator pQueryOperator, Object... parameters) {
+          SearchCriteria searchCriteria = getContractSearchCriteria(pQueryOperator, parameters);
+          return addSearchCriteria(searchCriteria);
+      }
+
+
+      public RetailStoreOrderRequest selectContract(){
+          return select(CONTRACT_PROPERTY);
+      }
+
+      public RetailStoreOrderRequest unselectContract(){
+          return unselect(CONTRACT_PROPERTY);
+      }
+
+      public SearchCriteria getContractSearchCriteria(QueryOperator pQueryOperator, Object[] parameters) {
+          return new SimplePropertyCriteria(CONTRACT_PROPERTY, pQueryOperator, parameters);
+      }
+
+      public RetailStoreOrderRequest orderByContract(boolean asc){
+          addOrderBy(CONTRACT_PROPERTY, asc);
           return this;
       }
    

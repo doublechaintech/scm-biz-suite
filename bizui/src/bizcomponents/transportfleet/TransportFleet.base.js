@@ -91,6 +91,7 @@ const fieldLabels = {
   name: window.trans('transport_fleet.name'),
   contactNumber: window.trans('transport_fleet.contact_number'),
   owner: window.trans('transport_fleet.owner'),
+  contract: window.trans('transport_fleet.contract'),
   lastUpdateTime: window.trans('transport_fleet.last_update_time'),
 
 }
@@ -100,6 +101,7 @@ const displayColumns = [
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '11',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.contactNumber, debugtype: 'string', dataIndex: 'contactNumber', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.contract, debugtype: 'string_document', dataIndex: 'contract', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.lastUpdateTime, dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
 
 ]
@@ -269,15 +271,15 @@ const renderItemOfList=(transportFleet, targetObject, columCount, listName)=>{
 }
 
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, contactNumber, ownerId, lastUpdateTime} = formValuesToPack
+	const {name, contactNumber, ownerId, contract, lastUpdateTime} = formValuesToPack
 	const owner = {id: ownerId, version: 2^31}
-	const data = {name, contactNumber, owner, lastUpdateTime:moment(lastUpdateTime).valueOf()}
+	const data = {name, contactNumber, owner, contract, lastUpdateTime:moment(lastUpdateTime).valueOf()}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {name, contactNumber, owner, lastUpdateTime} = objectToUnpack
+	const {name, contactNumber, owner, contract, lastUpdateTime} = objectToUnpack
 	const ownerId = owner ? owner.id : null
-	const data = {name, contactNumber, ownerId, lastUpdateTime:moment(lastUpdateTime)}
+	const data = {name, contactNumber, ownerId, contract, lastUpdateTime:moment(lastUpdateTime)}
 	return data
 }
 

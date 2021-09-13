@@ -136,6 +136,7 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'contactNumber'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'totalArea'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'owner'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'contract'))
 
      
       console.log("the final parameter", paramList)
@@ -301,6 +302,14 @@ componentDidMount() {
                  
                   )}
                 </Form.Item></Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label={fieldLabels.contract}>
+              {getFieldDecorator('contract')(
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+              )}
+            </FormItem>
+          </Col>
 
         </Row>
         <div style={{ overflow: 'hidden' }}>

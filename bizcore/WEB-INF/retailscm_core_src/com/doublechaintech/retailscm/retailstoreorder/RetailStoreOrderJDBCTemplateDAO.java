@@ -967,7 +967,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		return prepareRetailStoreOrderCreateParameters(retailStoreOrder);
  	}
  	protected Object[] prepareRetailStoreOrderUpdateParameters(RetailStoreOrder retailStoreOrder){
- 		Object[] parameters = new Object[8];
+ 		Object[] parameters = new Object[9];
  
  		if(retailStoreOrder.getBuyer() != null){
  			parameters[0] = retailStoreOrder.getBuyer().getId();
@@ -981,16 +981,18 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		
  		parameters[3] = retailStoreOrder.getTotalAmount();
  		
- 		parameters[4] = retailStoreOrder.getLastUpdateTime();
+ 		parameters[4] = retailStoreOrder.getContract();
  		
- 		parameters[5] = retailStoreOrder.nextVersion();
- 		parameters[6] = retailStoreOrder.getId();
- 		parameters[7] = retailStoreOrder.getVersion();
+ 		parameters[5] = retailStoreOrder.getLastUpdateTime();
+ 		
+ 		parameters[6] = retailStoreOrder.nextVersion();
+ 		parameters[7] = retailStoreOrder.getId();
+ 		parameters[8] = retailStoreOrder.getVersion();
 
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreOrderCreateParameters(RetailStoreOrder retailStoreOrder){
-		Object[] parameters = new Object[6];
+		Object[] parameters = new Object[7];
         if(retailStoreOrder.getId() == null){
           String newRetailStoreOrderId=getNextId();
           retailStoreOrder.setId(newRetailStoreOrderId);
@@ -1009,7 +1011,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmBaseDAOImpl implem
  		
  		parameters[4] = retailStoreOrder.getTotalAmount();
  		
- 		parameters[5] = retailStoreOrder.getLastUpdateTime();
+ 		parameters[5] = retailStoreOrder.getContract();
+ 		
+ 		parameters[6] = retailStoreOrder.getLastUpdateTime();
  		
 
  		return parameters;

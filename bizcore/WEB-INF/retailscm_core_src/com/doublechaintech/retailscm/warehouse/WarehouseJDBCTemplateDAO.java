@@ -1154,7 +1154,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		return prepareWarehouseCreateParameters(warehouse);
  	}
  	protected Object[] prepareWarehouseUpdateParameters(Warehouse warehouse){
- 		Object[] parameters = new Object[10];
+ 		Object[] parameters = new Object[11];
  
  		parameters[0] = warehouse.getLocation();
  		
@@ -1170,16 +1170,18 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		
  		parameters[5] = warehouse.getLongitude();
  		
- 		parameters[6] = warehouse.getLastUpdateTime();
+ 		parameters[6] = warehouse.getContract();
  		
- 		parameters[7] = warehouse.nextVersion();
- 		parameters[8] = warehouse.getId();
- 		parameters[9] = warehouse.getVersion();
+ 		parameters[7] = warehouse.getLastUpdateTime();
+ 		
+ 		parameters[8] = warehouse.nextVersion();
+ 		parameters[9] = warehouse.getId();
+ 		parameters[10] = warehouse.getVersion();
 
  		return parameters;
  	}
  	protected Object[] prepareWarehouseCreateParameters(Warehouse warehouse){
-		Object[] parameters = new Object[8];
+		Object[] parameters = new Object[9];
         if(warehouse.getId() == null){
           String newWarehouseId=getNextId();
           warehouse.setId(newWarehouseId);
@@ -1200,7 +1202,9 @@ public class WarehouseJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Wa
  		
  		parameters[6] = warehouse.getLongitude();
  		
- 		parameters[7] = warehouse.getLastUpdateTime();
+ 		parameters[7] = warehouse.getContract();
+ 		
+ 		parameters[8] = warehouse.getLastUpdateTime();
  		
 
  		return parameters;

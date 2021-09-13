@@ -146,14 +146,14 @@ const removeGoodsSupplierList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addSupplyOrder/retailStoreCountryCenterId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addSupplyOrder/retailStoreCountryCenterId/sellerId/title/contract/totalAmount/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateSupplyOrderProperties/retailStoreCountryCenterId/id/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/updateSupplyOrderProperties/retailStoreCountryCenterId/id/title/contract/totalAmount/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -168,14 +168,14 @@ const removeSupplyOrderList = (targetObjectId, parameters) => {
 
 
 const addRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStoreOrder/retailStoreCountryCenterId/buyerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStoreOrder/retailStoreCountryCenterId/buyerId/title/totalAmount/contract/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateRetailStoreOrderProperties/retailStoreCountryCenterId/id/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/updateRetailStoreOrderProperties/retailStoreCountryCenterId/id/title/totalAmount/contract/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -190,14 +190,14 @@ const removeRetailStoreOrderList = (targetObjectId, parameters) => {
 
 
 const addWarehouse = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addWarehouse/retailStoreCountryCenterId/location/contactNumber/totalArea/latitude/longitude/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addWarehouse/retailStoreCountryCenterId/location/contactNumber/totalArea/latitude/longitude/contract/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateWarehouse = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateWarehouseProperties/retailStoreCountryCenterId/id/location/contactNumber/totalArea/latitude/longitude/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/updateWarehouseProperties/retailStoreCountryCenterId/id/location/contactNumber/totalArea/latitude/longitude/contract/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -212,14 +212,14 @@ const removeWarehouseList = (targetObjectId, parameters) => {
 
 
 const addTransportFleet = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addTransportFleet/retailStoreCountryCenterId/name/contactNumber/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addTransportFleet/retailStoreCountryCenterId/name/contactNumber/contract/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateTransportFleet = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateTransportFleetProperties/retailStoreCountryCenterId/id/name/contactNumber/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/updateTransportFleetProperties/retailStoreCountryCenterId/id/name/contactNumber/contract/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

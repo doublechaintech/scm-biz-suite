@@ -32,7 +32,7 @@ const internalSummaryOf = (supplyOrder,targetComponent) =>{
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="ID">{supplyOrder.id}</Description> 
-<Description term="头衔">{supplyOrder.title}</Description> 
+<Description term="标题">{supplyOrder.title}</Description> 
 <Description term="总金额">{supplyOrder.totalAmount}</Description> 
 <Description term="更新于">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	

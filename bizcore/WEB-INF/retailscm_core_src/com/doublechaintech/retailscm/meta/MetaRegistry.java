@@ -4154,10 +4154,24 @@ public class MetaRegistry implements InitializingBean {
                     supplyOrder.property("title")
                       
                         .with("features", "root,visible_all,string")
+                      
+                        .with("zh_CN", "标题")
                       ;
                     
                     supplyOrder.property("title")
                         .with("tokens", "SEARCHABLE,STRING,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,USERSPACE,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW");
+
+                    
+                  
+                    supplyOrder.property("contract")
+                      
+                        .with("parent", "string")
+                      
+                        .with("features", "root,visible_all,string,attachment")
+                      ;
+                    
+                    supplyOrder.property("contract")
+                        .with("tokens", "SEARCHABLE,STRING,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,ATTACHMENT,USERSPACE,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW");
 
                     
                   
@@ -4565,6 +4579,18 @@ public class MetaRegistry implements InitializingBean {
                     
                     retailStoreOrder.property("totalAmount")
                         .with("tokens", "SEARCHABLE,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,USERSPACE,MONEY,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW");
+
+                    
+                  
+                    retailStoreOrder.property("contract")
+                      
+                        .with("parent", "string")
+                      
+                        .with("features", "root,visible_all,string,attachment")
+                      ;
+                    
+                    retailStoreOrder.property("contract")
+                        .with("tokens", "SEARCHABLE,STRING,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,ATTACHMENT,USERSPACE,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW");
 
                     
                   
@@ -4977,6 +5003,18 @@ public class MetaRegistry implements InitializingBean {
                     
                     warehouse.property("longitude")
                         .with("tokens", "SEARCHABLE,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,USERSPACE,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW,DOUBLE");
+
+                    
+                  
+                    warehouse.property("contract")
+                      
+                        .with("parent", "string")
+                      
+                        .with("features", "root,visible_all,string,attachment")
+                      ;
+                    
+                    warehouse.property("contract")
+                        .with("tokens", "SEARCHABLE,STRING,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,ATTACHMENT,USERSPACE,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW");
 
                     
                   
@@ -6743,6 +6781,18 @@ public class MetaRegistry implements InitializingBean {
                     
                     transportFleet.property("owner")
                         .with("tokens", "SEARCHABLE,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,USERSPACE,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW");
+
+                    
+                  
+                    transportFleet.property("contract")
+                      
+                        .with("parent", "string")
+                      
+                        .with("features", "root,visible_all,string,attachment")
+                      ;
+                    
+                    transportFleet.property("contract")
+                        .with("tokens", "SEARCHABLE,STRING,VISIBLE_CHILD,PERSISTENCE,SEARCH,DELETE,VISIBLE_PARENT,VIEWDETAIL,ATTACHMENT,USERSPACE,ACTION,ADD,SAMPLE_DATA,UPDATE,ADMINUI,EXCEL_VIEW");
 
                     
                   

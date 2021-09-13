@@ -37,6 +37,7 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String CONTACT_NUMBER_PROPERTY        = "contactNumber"     ;
 	public static final String OWNER_PROPERTY                 = "owner"             ;
+	public static final String CONTRACT_PROPERTY              = "contract"          ;
 	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
@@ -60,6 +61,8 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
         .withType("string", String.class));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(OWNER_PROPERTY, "retail_store_country_center", "业主")
         .withType("retail_store_country_center", RetailStoreCountryCenter.class));
+    memberMetaInfoList.add(MemberMetaInfo.defineBy(CONTRACT_PROPERTY, "contract", "合同")
+        .withType("string_document", String.class));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(LAST_UPDATE_TIME_PROPERTY, "last_update_time", "更新于")
         .withType("date_time_update", DateTime.class));
     memberMetaInfoList.add(MemberMetaInfo.defineBy(VERSION_PROPERTY, "version", "版本")
@@ -81,7 +84,7 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 
 
   public String[] getPropertyNames(){
-    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,CONTACT_NUMBER_PROPERTY ,OWNER_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
+    return new String[]{ID_PROPERTY ,NAME_PROPERTY ,CONTACT_NUMBER_PROPERTY ,OWNER_PROPERTY ,CONTRACT_PROPERTY ,LAST_UPDATE_TIME_PROPERTY ,VERSION_PROPERTY};
   }
 
   public Map<String, String> getReferProperties(){
@@ -143,6 +146,7 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 	protected		String              	name                ;
 	protected		String              	contactNumber       ;
 	protected		RetailStoreCountryCenter	owner               ;
+	protected		String              	contract            ;
 	protected		DateTime            	lastUpdateTime      ;
 	protected		int                 	version             ;
 
@@ -203,6 +207,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		if(CONTACT_NUMBER_PROPERTY.equals(property)){
 			changeContactNumberProperty(newValueExpr);
 		}
+		if(CONTRACT_PROPERTY.equals(property)){
+			changeContractProperty(newValueExpr);
+		}
 		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
 			changeLastUpdateTimeProperty(newValueExpr);
 		}
@@ -243,6 +250,22 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 			
 			
 			
+	protected void changeContractProperty(String newValueExpr){
+	
+		String oldValue = getContract();
+		String newValue = parseString(newValueExpr);
+		if(equalsString(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateContract(newValue);
+		this.onChangeProperty(CONTRACT_PROPERTY, oldValue, newValue);
+		return;
+   
+	}
+			
+			
+			
 	protected void changeLastUpdateTimeProperty(String newValueExpr){
 	
 		DateTime oldValue = getLastUpdateTime();
@@ -272,6 +295,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		}
 		if(OWNER_PROPERTY.equals(property)){
 			return getOwner();
+		}
+		if(CONTRACT_PROPERTY.equals(property)){
+			return getContract();
 		}
 		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
 			return getLastUpdateTime();
@@ -420,6 +446,35 @@ return this;
 		this.changed = true;
 		setChecked(false);
 	}
+	
+	public void setContract(String contract){String oldContract = this.contract;String newContract = trimString(encodeUrl(contract));;this.contract = newContract;}
+	public String contract(){
+doLoad();
+return getContract();
+}
+	public String getContract(){
+		return this.contract;
+	}
+	public TransportFleet updateContract(String contract){String oldContract = this.contract;String newContract = trimString(encodeUrl(contract));;if(!shouldReplaceBy(newContract, oldContract)){return this;}this.contract = newContract;addPropertyChange(CONTRACT_PROPERTY, oldContract, newContract);this.changed = true;setChecked(false);return this;}
+	public TransportFleet orderByContract(boolean asc){
+doAddOrderBy(CONTRACT_PROPERTY, asc);
+return this;
+}
+	public SearchCriteria createContractCriteria(QueryOperator operator, Object... parameters){
+return createCriteria(CONTRACT_PROPERTY, operator, parameters);
+}
+	public TransportFleet ignoreContractCriteria(){super.ignoreSearchProperty(CONTRACT_PROPERTY);
+return this;
+}
+	public TransportFleet addContractCriteria(QueryOperator operator, Object... parameters){
+SearchCriteria criteria = createContractCriteria(operator, parameters);
+doAddCriteria(criteria);
+return this;
+}
+	public void mergeContract(String contract){
+		if(contract != null) { setContract(contract);}
+	}
+
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){DateTime oldLastUpdateTime = this.lastUpdateTime;DateTime newLastUpdateTime = lastUpdateTime;this.lastUpdateTime = newLastUpdateTime;}
 	public DateTime lastUpdateTime(){
@@ -870,6 +925,7 @@ return this;
 		appendKeyValuePair(result, NAME_PROPERTY, getName());
 		appendKeyValuePair(result, CONTACT_NUMBER_PROPERTY, getContactNumber());
 		appendKeyValuePair(result, OWNER_PROPERTY, getOwner());
+		appendKeyValuePair(result, CONTRACT_PROPERTY, getContract());
 		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 		appendKeyValuePair(result, TRANSPORT_TRUCK_LIST, getTransportTruckList());
@@ -907,6 +963,7 @@ return this;
 			dest.setName(getName());
 			dest.setContactNumber(getContactNumber());
 			dest.setOwner(getOwner());
+			dest.setContract(getContract());
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setTransportTruckList(getTransportTruckList());
@@ -929,6 +986,7 @@ return this;
 			dest.mergeName(getName());
 			dest.mergeContactNumber(getContactNumber());
 			dest.mergeOwner(getOwner());
+			dest.mergeContract(getContract());
 			dest.mergeLastUpdateTime(getLastUpdateTime());
 			dest.mergeVersion(getVersion());
 			dest.mergeTransportTruckList(getTransportTruckList());
@@ -951,6 +1009,7 @@ return this;
 			dest.mergeId(getId());
 			dest.mergeName(getName());
 			dest.mergeContactNumber(getContactNumber());
+			dest.mergeContract(getContract());
 			dest.mergeLastUpdateTime(getLastUpdateTime());
 			dest.mergeVersion(getVersion());
 
@@ -958,7 +1017,7 @@ return this;
 		return baseDest;
 	}
 	public Object[] toFlatArray(){
-		return new Object[]{getId(), getName(), getContactNumber(), getOwner(), getLastUpdateTime(), getVersion()};
+		return new Object[]{getId(), getName(), getContactNumber(), getOwner(), getContract(), getLastUpdateTime(), getVersion()};
 	}
 
 
@@ -979,6 +1038,8 @@ return this;
         1, false, result.getContactNumber(), params));
     result.setOwner(mapper.tryToGet(TransportFleet.class, OWNER_PROPERTY, RetailStoreCountryCenter.class,
         0, true, result.getOwner(), params));
+    result.setContract(mapper.tryToGet(TransportFleet.class, CONTRACT_PROPERTY, String.class,
+        2, false, result.getContract(), params));
      result.setLastUpdateTime(userContext.now());
 
     if (postHandler != null) {
@@ -1009,6 +1070,7 @@ return this;
 		if(getOwner() != null ){
  			stringBuilder.append("\towner='RetailStoreCountryCenter("+getOwner().getId()+")';");
  		}
+		stringBuilder.append("\tcontract='"+getContract()+"';");
 		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");

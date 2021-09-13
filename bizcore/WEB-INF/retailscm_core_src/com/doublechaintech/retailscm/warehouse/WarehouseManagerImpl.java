@@ -269,7 +269,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
     return list.get(0);
   }
 
-	public Warehouse createWarehouse(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,String ownerId,BigDecimal latitude,BigDecimal longitude) throws Exception
+	public Warehouse createWarehouse(RetailscmUserContext userContext, String location,String contactNumber,String totalArea,String ownerId,BigDecimal latitude,BigDecimal longitude,String contract) throws Exception
 	{
 
 
@@ -281,6 +281,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		checkerOf(userContext).checkTotalAreaOfWarehouse(totalArea);
 		checkerOf(userContext).checkLatitudeOfWarehouse(latitude);
 		checkerOf(userContext).checkLongitudeOfWarehouse(longitude);
+		checkerOf(userContext).checkContractOfWarehouse(contract);
 
 
 		checkerOf(userContext).throwExceptionIfHasErrors(WarehouseManagerException.class);
@@ -299,6 +300,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		
 		warehouse.setLatitude(latitude);
 		warehouse.setLongitude(longitude);
+		warehouse.setContract(contract);
 		warehouse.setLastUpdateTime(userContext.now());
 
 		warehouse = saveWarehouse(userContext, warehouse, emptyOptions());
@@ -353,6 +355,12 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		if(Warehouse.LONGITUDE_PROPERTY.equals(property)){
 		
 			checkerOf(userContext).checkLongitudeOfWarehouse(parseBigDecimal(newValueExpr));
+		
+
+		}
+		if(Warehouse.CONTRACT_PROPERTY.equals(property)){
+		
+			checkerOf(userContext).checkContractOfWarehouse(parseString(newValueExpr));
 		
 
 		}
@@ -2681,7 +2689,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		page.setRequestName("listByOwner");
 		page.setRequestOffset(start);
 		page.setRequestLimit(count);
-		page.setDisplayMode("auto");
+		page.setDisplayMode("document");
 		page.setLinkToUrl(TextUtil.encodeUrl(String.format("%s/listByOwner/%s/",  getBeanName(), ownerId)));
 
 		page.assemblerContent(userContext, "listByOwner");
@@ -2784,7 +2792,18 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		result.put("longitude", merchantObj.getLongitude());
 
 		propList.add(
-				MapUtil.put("id", "8-lastUpdateTime")
+				MapUtil.put("id", "8-contract")
+				    .put("fieldName", "contract")
+				    .put("label", "合同")
+				    .put("type", "document")
+				    .put("linkToUrl", "")
+				    .put("displayMode", "{}")
+				    .into_map()
+		);
+		result.put("contract", merchantObj.getContract());
+
+		propList.add(
+				MapUtil.put("id", "9-lastUpdateTime")
 				    .put("fieldName", "lastUpdateTime")
 				    .put("label", "更新于")
 				    .put("type", "datetime")

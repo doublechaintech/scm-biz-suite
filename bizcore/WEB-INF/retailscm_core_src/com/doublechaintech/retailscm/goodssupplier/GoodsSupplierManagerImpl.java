@@ -826,7 +826,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 
-	protected void checkParamsForAddingSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, BigDecimal totalAmount,String [] tokensExpr) throws Exception{
+	protected void checkParamsForAddingSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, String contract, BigDecimal totalAmount,String [] tokensExpr) throws Exception{
 
 				checkerOf(userContext).checkIdOfGoodsSupplier(goodsSupplierId);
 
@@ -834,6 +834,8 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		checkerOf(userContext).checkBuyerIdOfSupplyOrder(buyerId);
 
 		checkerOf(userContext).checkTitleOfSupplyOrder(title);
+
+		checkerOf(userContext).checkContractOfSupplyOrder(contract);
 
 		checkerOf(userContext).checkTotalAmountOfSupplyOrder(totalAmount);
 
@@ -843,11 +845,11 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 	}
-	public  GoodsSupplier addSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  GoodsSupplier addSupplyOrder(RetailscmUserContext userContext, String goodsSupplierId, String buyerId, String title, String contract, BigDecimal totalAmount, String [] tokensExpr) throws Exception
 	{
-		checkParamsForAddingSupplyOrder(userContext,goodsSupplierId,buyerId, title, totalAmount,tokensExpr);
+		checkParamsForAddingSupplyOrder(userContext,goodsSupplierId,buyerId, title, contract, totalAmount,tokensExpr);
 
-		SupplyOrder supplyOrder = createSupplyOrder(userContext,buyerId, title, totalAmount);
+		SupplyOrder supplyOrder = createSupplyOrder(userContext,buyerId, title, contract, totalAmount);
 
 		GoodsSupplier goodsSupplier = loadGoodsSupplier(userContext, goodsSupplierId, emptyOptions());
 		synchronized(goodsSupplier){
@@ -860,12 +862,13 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 			return present(userContext,goodsSupplier, mergedAllTokens(tokensExpr));
 		}
 	}
-	protected void checkParamsForUpdatingSupplyOrderProperties(RetailscmUserContext userContext, String goodsSupplierId,String id,String title,BigDecimal totalAmount,String [] tokensExpr) throws Exception {
+	protected void checkParamsForUpdatingSupplyOrderProperties(RetailscmUserContext userContext, String goodsSupplierId,String id,String title,String contract,BigDecimal totalAmount,String [] tokensExpr) throws Exception {
 
 		checkerOf(userContext).checkIdOfGoodsSupplier(goodsSupplierId);
 		checkerOf(userContext).checkIdOfSupplyOrder(id);
 
 		checkerOf(userContext).checkTitleOfSupplyOrder( title);
+		checkerOf(userContext).checkContractOfSupplyOrder( contract);
 		checkerOf(userContext).checkTotalAmountOfSupplyOrder( totalAmount);
 
 
@@ -873,9 +876,9 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 
 	}
-	public  GoodsSupplier updateSupplyOrderProperties(RetailscmUserContext userContext, String goodsSupplierId, String id,String title,BigDecimal totalAmount, String [] tokensExpr) throws Exception
+	public  GoodsSupplier updateSupplyOrderProperties(RetailscmUserContext userContext, String goodsSupplierId, String id,String title,String contract,BigDecimal totalAmount, String [] tokensExpr) throws Exception
 	{
-		checkParamsForUpdatingSupplyOrderProperties(userContext,goodsSupplierId,id,title,totalAmount,tokensExpr);
+		checkParamsForUpdatingSupplyOrderProperties(userContext,goodsSupplierId,id,title,contract,totalAmount,tokensExpr);
 
 		Map<String, Object> options = tokens()
 				.allTokens()
@@ -889,8 +892,9 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 
 		SupplyOrder item = goodsSupplierToUpdate.getSupplyOrderList().first();
-		beforeUpdateSupplyOrderProperties(userContext,item, goodsSupplierId,id,title,totalAmount,tokensExpr);
+		beforeUpdateSupplyOrderProperties(userContext,item, goodsSupplierId,id,title,contract,totalAmount,tokensExpr);
 		item.updateTitle( title );
+		item.updateContract( contract );
 		item.updateTotalAmount( totalAmount );
 
 
@@ -901,12 +905,12 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		}
 	}
 
-	protected  void beforeUpdateSupplyOrderProperties(RetailscmUserContext userContext, SupplyOrder item, String goodsSupplierId, String id,String title,BigDecimal totalAmount, String [] tokensExpr)
+	protected  void beforeUpdateSupplyOrderProperties(RetailscmUserContext userContext, SupplyOrder item, String goodsSupplierId, String id,String title,String contract,BigDecimal totalAmount, String [] tokensExpr)
 						throws Exception {
 			// by default, nothing to do
 	}
 
-	protected SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId, String title, BigDecimal totalAmount) throws Exception{
+	protected SupplyOrder createSupplyOrder(RetailscmUserContext userContext, String buyerId, String title, String contract, BigDecimal totalAmount) throws Exception{
 
 		SupplyOrder supplyOrder = new SupplyOrder();
 		
@@ -915,6 +919,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		buyer.setId(buyerId);		
 		supplyOrder.setBuyer(buyer);		
 		supplyOrder.setTitle(title);		
+		supplyOrder.setContract(contract);		
 		supplyOrder.setTotalAmount(totalAmount);		
 		supplyOrder.setLastUpdateTime(userContext.now());
 	
@@ -1035,6 +1040,10 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 
 		if(SupplyOrder.TITLE_PROPERTY.equals(property)){
 			checkerOf(userContext).checkTitleOfSupplyOrder(parseString(newValueExpr));
+		}
+		
+		if(SupplyOrder.CONTRACT_PROPERTY.equals(property)){
+			checkerOf(userContext).checkContractOfSupplyOrder(parseString(newValueExpr));
 		}
 		
 		if(SupplyOrder.TOTAL_AMOUNT_PROPERTY.equals(property)){
@@ -1632,7 +1641,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		    "",
 		    "__no_group",
 		    "supplyOrderManager/listBySeller/"+merchantObjId+"/",
-		    "auto"
+		    "document"
 		);
 		sections.add(supplyOrderListSection);
 
