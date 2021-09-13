@@ -60,7 +60,7 @@ public class SecureSMTPService extends DefaultSMTPService {
         
 	}
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		System.out.println(MimeUtility.encodeText("附件", "UTF-8","B"));
+		System.out.println(MimeUtility.encodeText("合同", "UTF-8","B"));
 	}
 	protected static void attachByteArray(MimeMessage message, String body, byte data[], String mimeType) throws MessagingException{
 		BodyPart messageBodyPart = new MimeBodyPart();
@@ -77,7 +77,7 @@ public class SecureSMTPService extends DefaultSMTPService {
            
             
             messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName("附件.xls");
+            messageBodyPart.setFileName("合同.xls");
             multipart.addBodyPart(messageBodyPart);
         
         // Part two is attachment
