@@ -54,7 +54,7 @@
 |  ----  | ----  |
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/Mac/Windows 7+ |
 | JDK  | Open JDK 8|
-| gradle  | 5.3+ |
+| gradle  | 7.2+ |
 | yarn  | 1.10.3+ |
 | node  |  8+, LTS |
 
@@ -167,15 +167,15 @@ rm -rf node_modules && yarn install && yarn build
 ```
 curl -s "https://get.sdkman.io" | bash
 ```
-使用 Gradle 6.8，可以使用最新版 
+使用 Gradle 7.2，可以使用最新版 
 
 ```
-sdk install gradle 6.8
+sdk install gradle 7.2
 ```
 
 
 
-安装Java 8， 一定得Java 8， 我们这里选择Amazon的JDK8，其他版本的JDK8应该也没有问题
+安装Java 8， 一定得*Java 8*， 我们这里选择Amazon的JDK8，其他版本的JDK8应该也没有问题
 ```
 sdk install java 8.0.242-amzn 
 ```
