@@ -58,65 +58,39 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
-    compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '3.5.1'
-    compile group: 'com.aliyun', name: 'aliyun-java-sdk-dysmsapi', version: '1.0.0'
-    compile group: 'com.aliyun', name: 'aliyun-java-sdk-sts', version: '3.0.0'
-    compile group: 'com.aliyun.mns', name: 'aliyun-sdk-mns', version: '1.1.8'
-    compile group: 'com.aliyun.oss', name: 'aliyun-sdk-oss', version: '2.8.3'
-    compile group: 'com.github.binarywang', name: 'weixin-java-miniapp', version: '3.5.0'
-    compile group: 'com.github.binarywang', name: 'weixin-java-pay', version: '3.5.0'
-    compile group: 'com.github.binarywang', name: 'weixin-java-cp', version: '3.5.0'
-    compile group: 'javax.mail', name: 'mail', version: '1.4.7'
-    compile group: 'mysql', name: 'mysql-connector-java'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
-    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '1.1.0'
-    compile group: 'com.zaxxer', name: 'HikariCP', version: '3.3.1'
-    compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '5.6.3'
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("org.springframework.boot:spring-boot-starter-cache")
-    compile("org.springframework.boot:spring-boot-starter-jta-atomikos")
-    compile 'com.qiniu:qiniu-java-sdk:7.2.+'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.4'
-    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
-  	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.1'
-  	compile group: 'com.github.jarod', name: 'qqwry-java', version: '0.7.+'
-  	compile group: 'org.freemarker', name: 'freemarker', version: '2.3.30'
-  	compile 'cn.hutool:hutool-all:5.7.10'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
+    implementation group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '3.5.1'
+    implementation group: 'com.aliyun', name: 'aliyun-java-sdk-dysmsapi', version: '1.0.0'
+    implementation group: 'com.aliyun', name: 'aliyun-java-sdk-sts', version: '3.0.0'
+    implementation group: 'com.aliyun.mns', name: 'aliyun-sdk-mns', version: '1.1.8'
+    implementation group: 'com.aliyun.oss', name: 'aliyun-sdk-oss', version: '2.8.3'
+    implementation group: 'com.github.binarywang', name: 'weixin-java-miniapp', version: '3.5.0'
+    implementation group: 'com.github.binarywang', name: 'weixin-java-pay', version: '3.5.0'
+    implementation group: 'com.github.binarywang', name: 'weixin-java-cp', version: '3.5.0'
+    implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
+    implementation group: 'mysql', name: 'mysql-connector-java'
+    implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
+    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '1.1.0'
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '3.3.1'
+    implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '5.6.3'
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("org.springframework.boot:spring-boot-starter-jta-atomikos")
+    implementation 'com.qiniu:qiniu-java-sdk:7.2.+'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.4'
+    implementation group: 'redis.clients', name: 'jedis', version: '2.9.0'
+  	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.1'
+  	implementation group: 'com.github.jarod', name: 'qqwry-java', version: '0.7.+'
+  	implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.30'
+  	implementation 'cn.hutool:hutool-all:5.7.10'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 
 task copyJars(type: Copy) {
-  from configurations.runtime
+  from configurations.runtimeClasspath
   into 'WEB-INF/lib' // 目标位置
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
