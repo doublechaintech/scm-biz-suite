@@ -4,7 +4,7 @@
 
 本系统代码是用自研知识图谱和因果网络处理系统自动生成高可维护源代码。
 
-传统开发方式无法开发如此大规模的应用系统并且灵活变更，我们使用了自研的云端开发工具DaaS（Development as a Service）开发了这个平台，目前已有多家公司采用，请参见[DaaS Start Kit](https://github.com/doublechaintech/daas-start-kit)， 这个项目的模型文件 retailscm.xml 也在里面（运行该模型需要注册）。
+传统开发方式无法开发如此大规模的应用系统并且灵活变更，我们使用了自研的云端开发工具DaaS（Development as a Service）开发了这个平台，目前已有多家公司采用，请参见[DaaS Start Kit](https://github.com/doublechaintech/daas-start-kit)， 这个项目的模型文件 retailscm.xml 也在里面（运行该模型需要注册）。注意：运行本项目无需DaaS，直接参考部署手册。
 
 智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
