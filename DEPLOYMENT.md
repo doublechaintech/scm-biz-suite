@@ -203,9 +203,9 @@ Available Java Versions
 ```
 
 
-### 下载并且解压Resin, 请使用Resin-3.1.16版本，Resin-4.0.x需要一些微调
+### 下载并且解压Resin, 已经升级到最新Resin-4.0.65，比起Tomcat，Resin更多用于高负载应用。
 
-https://caucho.com/products/resin/download/3-1/gpl
+https://caucho.com/download/resin-4.0.65.zip
 
 ### 安装docker
 
@@ -291,12 +291,12 @@ gradle编译过程大约持续10秒到20秒这样得到编译后的classes，生
 
 Linux上面，通过执行如下命令，把项目工程连接到Resin下，
 ```
-ln -s  ~/retailscm-biz-suite/bizcore  ~/resin-3.1.16/webapps/retailscm
+ln -s  ~/retailscm-biz-suite/bizcore  ~/resin-4.0.65/webapps/retailscm
 ```
 
 或者在Windows下，可以执行
 ```
-mklink /D c:\resin-3.1.16\webapps\retailscm  c:\retailscm-biz-suite\bizcore
+mklink /D c:\resin-4.0.65\webapps\retailscm  c:\retailscm-biz-suite\bizcore
 ```
 这样就可以以retailscm名字来启动webapp，该命令共享开发环境和运行环境，如果设置保存时候就编译java到classes下面，
 这样可以起到热加载效果方便调试。
@@ -333,9 +333,21 @@ mklink /D c:\resin-3.1.16\webapps\retailscm  c:\retailscm-biz-suite\bizcore
 
 
 准备后了就可以启动后端
+
+前台启动（开发调试模式）
+
 ```
-cd  resin-3.1.16/ && bin/httpd.sh
+cd  resin-4.0.65/ && bin/resin.sh console
+
 ```
+
+后台启动
+
+```
+cd  resin-4.0.65/ && bin/resin.sh start
+```
+
+
 这样服务器就启动了
 
 ### 访问后台
@@ -357,8 +369,8 @@ http://localhost:8080/retailscm/secUserManager/home/
 ### 测试前端
 
 ```
-mkdir -p ~/resin-3.1.16/webapps/ROOT/admin
-cd  retailscm-biz-suite/bizui && cp -R dist/* ~/resin-3.1.16/webapps/ROOT/admin
+mkdir -p ~/resin-4.0.65/webapps/ROOT/admin
+cd  retailscm-biz-suite/bizui && cp -R dist/* ~/resin-4.0.65/webapps/ROOT/admin
 ```
 访问 http://localhost:8080/admin/index.html
 
