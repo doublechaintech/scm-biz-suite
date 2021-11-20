@@ -39,8 +39,8 @@
 |  ----  | ----  |
 | 硬件架构  | x86_64/AMD64/华为鲲鹏/龙芯 |
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/CentOS/Redhat Enterprise |
-| JDK  | Open JDK 8|
-| 应用服务器 | Resin3.1.16, 可另选SpringBoot |
+| JDK  | Open JDK 8,Open JDK17|
+| 应用服务器 | Resin3.1.16, Resin4.0.65, 可另选SpringBoot |
 | 缓存服务器 | Redis3.2+ |
 | 数据库  | MySQL 5.7+, Oracle 12.2+ , Postgres 9.5+, 南大通用GBASE 8|
 | WEB服务器  |  Nginx 1.10+ |
