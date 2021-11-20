@@ -100,6 +100,13 @@
 
 ![ScreenShot](/doc/retailscm-sankey.jpg)
 
+通过 https://demo.doublechaintech.com/admin/design/retail_design.html 可以看到交互式查看模型
+
+
+
+<img width="760" alt="retail-san-key" src="https://user-images.githubusercontent.com/11522066/142736583-8cc59b2b-e5a0-4452-8bfb-423202c0e22e.png">
+
+
 ## 如何使用
 * 在此基础上定制业务系统，可以在这个系统基础上通过前后台增加代码来定制业务系统
 * 建立数据中台，这样源代码几乎不需要改动，本系统提供了大量的接口，可以让业务系统通过API插入数据，可以视作一个独立的微服务
