@@ -55,8 +55,8 @@
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/Mac/Windows 7+ |
 | JDK  | Open JDK 8|
 | gradle  | 7.2+ |
-| yarn  | 1.10.3+ |
-| node  |  8+, LTS |
+| yarn  | 1.11.3+ |
+| node  |  10+, LTS |
 
 
 * 本系统不会提供maven构建方式，具体理由请参考: https://juejin.im/post/5ee6c3dc6fb9a047b75a26bc
