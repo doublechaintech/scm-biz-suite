@@ -104,7 +104,7 @@
 
 
 
-<img width="760" alt="retail-san-key" src="https://user-images.githubusercontent.com/11522066/142736583-8cc59b2b-e5a0-4452-8bfb-423202c0e22e.png">
+<img width="760" alt="retail-san-key" src="./doc/newsankey.png">
 
 
 ## 如何使用
