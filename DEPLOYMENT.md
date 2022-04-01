@@ -331,6 +331,11 @@ mklink /D c:\resin-4.0.65\webapps\retailscm  c:\retailscm-biz-suite\bizcore
 
 ```
 
+如果要调试，在相同的地方加入
+```
+<jvm-arg>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8787</jvm-arg>
+
+```
 
 准备后了就可以启动后端
 
