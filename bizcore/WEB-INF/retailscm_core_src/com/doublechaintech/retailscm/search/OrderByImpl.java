@@ -1,8 +1,9 @@
 package com.doublechaintech.retailscm.search;
+
 import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.DBUtil;
 
-public class OrderByImpl implements OrderBy{
+public class OrderByImpl implements OrderBy {
   BaseEntity example;
   String property;
   boolean asc;
@@ -17,19 +18,3 @@ public class OrderByImpl implements OrderBy{
     return DBUtil.getColumnRefer(example, property) + " " + (asc ? "asc" : "desc");
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

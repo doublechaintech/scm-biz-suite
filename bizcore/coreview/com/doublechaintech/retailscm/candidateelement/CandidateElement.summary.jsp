@@ -74,6 +74,6 @@
 	
 </style>
 <section><h3>候选人元素(${result.id})</h3><table >
-<tr><td class='th'>标题</td><td >${result.name}</td><td class='th'>类型</td><td >${result.type}</td></tr><tr><td class='th'>图像</td><td >${result.image}</td><td class='th'></td><td ></td></tr></table>
+<tr><td class='th'>名称</td><td >${result.name}</td><td class='th'>类型</td><td >${result.type}</td></tr><tr><td class='th'>图片</td><td >${result.image}</td><td class='th'></td><td ></td></tr></table>
 </section>
 <section></section>

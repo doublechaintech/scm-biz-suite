@@ -254,7 +254,7 @@ public class TextUtil {
 
     public static String formatNumber(Number number, String format) {
         if (number == null) {
-            number = new Integer(0);
+            number = 0;
         }
         return new DecimalFormat(format).format(number.doubleValue());
     }

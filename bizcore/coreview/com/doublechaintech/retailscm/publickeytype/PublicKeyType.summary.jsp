@@ -74,13 +74,13 @@
 	
 </style>
 <section><h3>公钥类型(${result.id})</h3><table >
-<tr><td class='th'>加密算法</td><td >${result.keyAlg}</td><td class='th'>签名算法</td><td >${result.signAlg}</td></tr></table>
+<tr><td class='th'>键 ALG</td><td >${result.keyAlg}</td><td class='th'>Alg迹象</td><td >${result.signAlg}</td></tr></table>
 </section>
 <section><c:if test="${not empty result.keyPairIdentityList}">
 <section><h3>秘钥对认证</h3>
 <table><tr>
 <tr>
-<th>ID</th><th>公钥</th><th>秘钥类型</th><th>系统用户</th><th>创建时间</th></tr>	<c:forEach items="${result.keyPairIdentityList}" var="item">
+<th>ID</th><th>公钥</th><th>密钥类型</th><th>安全用户</th><th>创建于</th></tr>	<c:forEach items="${result.keyPairIdentityList}" var="item">
 	<tr>
 <td>${item.id}</td><td>${item.publicKey}</td><td>${item.keyType.displayName}</td><td>${item.secUser.displayName}</td><td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.createTime}" /></td></tr></c:forEach></table>
 </section>

@@ -83,16 +83,16 @@ class VehicleServiceCompanyCreateForm extends Component {
     // const { getFieldDecorator,setFieldsValue } = this.props.form
     const { setFieldsValue } = this.props.form
     //setFieldsValue(testValues)
-
+      
     this.executeCandidateAddressCitySearch("")
-
-
+    
+    
     this.executeCandidatePlatformSearch("")
-
-
-
-
-
+    
+ 
+    
+    
+    
   }
   shouldComponentUpdate() {
     return true
@@ -105,16 +105,16 @@ class VehicleServiceCompanyCreateForm extends Component {
     })
   }
 
-
+  
   executeCandidateAddressCitySearch = (filterKey) =>{
 
     const {VehicleServiceCompanyService} = GlobalComponents;
-
+    
     const id = "";//not used for now
     const pageNo = 1;
     const future = VehicleServiceCompanyService.requestCandidateAddressCity("city", id, filterKey, pageNo);
     console.log(future);
-
+    
 
     future.then(candidateAddressCityList=>{
       this.setState({
@@ -123,7 +123,7 @@ class VehicleServiceCompanyCreateForm extends Component {
 
     })
 
-  }
+  }	 
   handleCandidateAddressCitySearch = (value) => {
     this.executeCandidateAddressCitySearch(value)
   }
@@ -131,12 +131,12 @@ class VehicleServiceCompanyCreateForm extends Component {
   executeCandidatePlatformSearch = (filterKey) =>{
 
     const {VehicleServiceCompanyService} = GlobalComponents;
-
+    
     const id = "";//not used for now
     const pageNo = 1;
     const future = VehicleServiceCompanyService.requestCandidatePlatform("carInspectionPlatform", id, filterKey, pageNo);
     console.log(future);
-
+    
 
     future.then(candidatePlatformList=>{
       this.setState({
@@ -145,11 +145,11 @@ class VehicleServiceCompanyCreateForm extends Component {
 
     })
 
-  }
+  }	 
   handleCandidatePlatformSearch = (value) => {
     this.executeCandidatePlatformSearch(value)
   }
-
+ 
 
 
 
@@ -193,10 +193,10 @@ class VehicleServiceCompanyCreateForm extends Component {
           console.log('code go here', error)
           return
         }
-
+        
         const { owner } = this.props
         const imagesValues = mapBackToImageValues(convertedImagesValues)
-
+        
         const parameters = { ...values, ...imagesValues }
         dispatch({
           type: `${owner.type}/addVehicleServiceCompany`,
@@ -204,7 +204,7 @@ class VehicleServiceCompanyCreateForm extends Component {
         })
       })
     }
-
+    
     const goback = () => {
       const { owner } = this.props
       dispatch({
@@ -252,28 +252,28 @@ class VehicleServiceCompanyCreateForm extends Component {
         </span>
       )
     }
+    
 
-
-
+    
     const {candidateAddressCityList} = this.state
     if(!candidateAddressCityList){
       return (<div>等等</div>)
     }
     if(!candidateAddressCityList.candidates){
       return (<div>等等</div>)
-    }
-
-
+    }   
+    
+    
     const {candidatePlatformList} = this.state
     if(!candidatePlatformList){
       return (<div>等等</div>)
     }
     if(!candidatePlatformList.candidates){
       return (<div>等等</div>)
-    }
-
-
-
+    }   
+    
+    
+    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       const { referenceName } = owner
@@ -282,7 +282,7 @@ class VehicleServiceCompanyCreateForm extends Component {
       }
       return owner.id
     }
-
+    
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
       const { referenceName } = owner
@@ -290,7 +290,7 @@ class VehicleServiceCompanyCreateForm extends Component {
         return true
       }
       return false
-
+    
     }
     const formItemLayout = {
       labelCol: { span: 10 },
@@ -406,11 +406,11 @@ class VehicleServiceCompanyCreateForm extends Component {
 
 
 
-
+        
         <Card title="设置" className={styles.card} bordered={false}>
           <Form  >
             <Row gutter={16}>
-
+            
 
               <Col lg={8} md={12} sm={24}>
                 <Form.Item label={fieldLabels.availableStoreService}  {...switchformItemLayout}>
@@ -449,10 +449,10 @@ class VehicleServiceCompanyCreateForm extends Component {
               </Col>
 
             </Row>
-          </Form>
-        </Card>
-
-
+          </Form>  
+        </Card>        
+        
+        
 
 
 
@@ -471,12 +471,12 @@ class VehicleServiceCompanyCreateForm extends Component {
                 </Form.Item>
               </Col>
       </Row>
-          </Form>
+          </Form>  
         </Card>
 
 
 
-        <Card title="合同" className={styles.card} bordered={false}>
+        <Card title="附件" className={styles.card} bordered={false}>
           <Form layout="vertical" hideRequiredMark>
             <Row gutter={16}>
 
@@ -550,20 +550,20 @@ class VehicleServiceCompanyCreateForm extends Component {
                   	initialValue: tryinit('addressCity'),
                     rules: [{ required: true, message: '请输入所在城市' }],
                   })(
-
+                                
                   <AutoComplete
                     dataSource={candidateAddressCityList.candidates}
-
-
+                    
+                    
                     onSearch={this.handleCandidateAddressCitySearch}
                     placeholder="请输入所在城市"
-
+                    
                     disabled={!availableForEdit('addressCity')}
                   >
                   {candidateAddressCityList.candidates.map(item=>{
                 return (<Option key={item.id}>{`${item.name}(${item.id})`}</Option>);
             })}
-
+                  
                   </AutoComplete>
                   )}
                 </Form.Item>
@@ -575,27 +575,27 @@ class VehicleServiceCompanyCreateForm extends Component {
                   	initialValue: tryinit('platform'),
                     rules: [{ required: true, message: '请输入平台' }],
                   })(
-
+                                
                   <AutoComplete
                     dataSource={candidatePlatformList.candidates}
-
-
+                    
+                    
                     onSearch={this.handleCandidatePlatformSearch}
                     placeholder="请输入平台"
-
+                    
                     disabled={!availableForEdit('platform')}
                   >
                   {candidatePlatformList.candidates.map(item=>{
                 return (<Option key={item.id}>{`${item.name}(${item.id})`}</Option>);
             })}
-
+                  
                   </AutoComplete>
                   )}
                 </Form.Item>
               </Col>
 
             </Row>
-          </Form>
+          </Form>  
         </Card>
 
         <FooterToolbar>

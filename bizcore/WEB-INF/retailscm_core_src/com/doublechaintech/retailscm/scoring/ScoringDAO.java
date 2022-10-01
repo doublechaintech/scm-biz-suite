@@ -1,5 +1,5 @@
-
 package com.doublechaintech.retailscm.scoring;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,66 +15,82 @@ import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrai
 
 import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrainingDAO;
 
+public interface ScoringDAO extends BaseDAO {
 
-public interface ScoringDAO extends BaseDAO{
+  public SmartList<Scoring> loadAll();
 
-	public SmartList<Scoring> loadAll();
-	public Stream<Scoring> loadAllAsStream();
-	public Scoring load(String id, Map<String,Object> options) throws Exception;
-	public void enhanceList(List<Scoring> scoringList);
-	public void collectAndEnhance(BaseEntity ownerEntity);
+  public Stream<Scoring> loadAllAsStream();
 
-	public void alias(List<BaseEntity> entityList);
+  public Scoring load(String id, Map<String, Object> options) throws Exception;
 
+  public void enhanceList(List<Scoring> scoringList);
 
-	
+  public void collectAndEnhance(BaseEntity ownerEntity);
 
-	public Scoring present(Scoring scoring,Map<String,Object> options) throws Exception;
-	public Scoring clone(String id, Map<String,Object> options) throws Exception;
+  public void alias(List<BaseEntity> entityList);
 
-	
+  public Scoring present(Scoring scoring, Map<String, Object> options) throws Exception;
 
-	public Scoring save(Scoring scoring,Map<String,Object> options);
-	public SmartList<Scoring> saveScoringList(SmartList<Scoring> scoringList,Map<String,Object> options);
-	public SmartList<Scoring> removeScoringList(SmartList<Scoring> scoringList,Map<String,Object> options);
-	public SmartList<Scoring> findScoringWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public int countScoringWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public Map<String, Integer> countScoringWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options);
-	public void delete(String scoringId, int version) throws Exception;
-	public Scoring disconnectFromAll(String scoringId, int version) throws Exception;
-	public int deleteAll() throws Exception;
-	public void resetNextId();
+  public Scoring clone(String id, Map<String, Object> options) throws Exception;
 
-	public EmployeeCompanyTrainingDAO getEmployeeCompanyTrainingDAO();
-		
-	
- 	public SmartList<Scoring> requestCandidateScoringForEmployeeCompanyTraining(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
-		
-	
-	public Scoring planToRemoveEmployeeCompanyTrainingList(Scoring scoring, String employeeCompanyTrainingIds[], Map<String,Object> options)throws Exception;
+  public Scoring save(Scoring scoring, Map<String, Object> options);
 
+  public SmartList<Scoring> saveScoringList(
+      SmartList<Scoring> scoringList, Map<String, Object> options);
 
-	//disconnect Scoring with employee in EmployeeCompanyTraining
-	public Scoring planToRemoveEmployeeCompanyTrainingListWithEmployee(Scoring scoring, String employeeId, Map<String,Object> options)throws Exception;
-	public int countEmployeeCompanyTrainingListWithEmployee(String scoringId, String employeeId, Map<String,Object> options)throws Exception;
-	
-	//disconnect Scoring with training in EmployeeCompanyTraining
-	public Scoring planToRemoveEmployeeCompanyTrainingListWithTraining(Scoring scoring, String trainingId, Map<String,Object> options)throws Exception;
-	public int countEmployeeCompanyTrainingListWithTraining(String scoringId, String trainingId, Map<String,Object> options)throws Exception;
-	
+  public SmartList<Scoring> removeScoringList(
+      SmartList<Scoring> scoringList, Map<String, Object> options);
 
-	public SmartList<Scoring> queryList(String sql, Object ... parameters);
-	public List<String> queryIdList(String sql, Object ... parameters);
-	public Stream<Scoring> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parameters);
-	public CandidateScoring executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
+  public SmartList<Scoring> findScoringWithKey(MultipleAccessKey key, Map<String, Object> options);
 
-	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的scoring的EmployeeCompanyTrainingList
-	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Scoring> us, Map<String,Object> options) throws Exception;
-	
+  public int countScoringWithKey(MultipleAccessKey key, Map<String, Object> options);
 
-	List<Scoring> search(ScoringRequest pRequest);
+  public Map<String, Integer> countScoringWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options);
+
+  public Scoring disconnectFromAll(String scoringId, int version) throws Exception;
+
+  public void resetNextId();
+
+  public EmployeeCompanyTrainingDAO getEmployeeCompanyTrainingDAO();
+
+  public SmartList<Scoring> requestCandidateScoringForEmployeeCompanyTraining(
+      RetailscmUserContext userContext,
+      String ownerClass,
+      String id,
+      String filterKey,
+      int pageNo,
+      int pageSize)
+      throws Exception;
+
+  public Scoring planToRemoveEmployeeCompanyTrainingList(
+      Scoring scoring, String employeeCompanyTrainingIds[], Map<String, Object> options)
+      throws Exception;
+
+  // disconnect Scoring with employee in EmployeeCompanyTraining
+  public Scoring planToRemoveEmployeeCompanyTrainingListWithEmployee(
+      Scoring scoring, String employeeId, Map<String, Object> options) throws Exception;
+
+  public int countEmployeeCompanyTrainingListWithEmployee(
+      String scoringId, String employeeId, Map<String, Object> options) throws Exception;
+
+  // disconnect Scoring with training in EmployeeCompanyTraining
+  public Scoring planToRemoveEmployeeCompanyTrainingListWithTraining(
+      Scoring scoring, String trainingId, Map<String, Object> options) throws Exception;
+
+  public int countEmployeeCompanyTrainingListWithTraining(
+      String scoringId, String trainingId, Map<String, Object> options) throws Exception;
+
+  public SmartList<Scoring> queryList(String sql, Object... parameters);
+
+  public List<String> queryIdList(String sql, Object... parameters);
+
+  public Stream<Scoring> queryStream(String sql, Object... parameters);
+
+  public int count(String sql, Object... parameters);
+
+  public CandidateScoring executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception;
+
+  List<Scoring> search(ScoringRequest pRequest);
 }
-
-

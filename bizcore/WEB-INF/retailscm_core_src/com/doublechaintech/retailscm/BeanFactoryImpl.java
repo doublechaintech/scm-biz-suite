@@ -1,5 +1,5 @@
-
 package com.doublechaintech.retailscm;
+
 import java.util.Map;
 
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
@@ -129,657 +129,517 @@ import com.doublechaintech.retailscm.keypairidentity.KeyPairIdentity;
 import com.doublechaintech.retailscm.publickeytype.PublicKeyType;
 import com.doublechaintech.retailscm.treenode.TreeNode;
 
-public class BeanFactoryImpl{
-
-
-	public RetailStoreCountryCenter createRetailStoreCountryCenter(Map<String,Object> options){
-		return new RetailStoreCountryCenter();
-	}
-
-
-	public Catalog createCatalog(Map<String,Object> options){
-		return new Catalog();
-	}
-
-
-	public LevelOneCategory createLevelOneCategory(Map<String,Object> options){
-		return new LevelOneCategory();
-	}
-
-
-	public LevelTwoCategory createLevelTwoCategory(Map<String,Object> options){
-		return new LevelTwoCategory();
-	}
-
-
-	public LevelThreeCategory createLevelThreeCategory(Map<String,Object> options){
-		return new LevelThreeCategory();
-	}
-
-
-	public Product createProduct(Map<String,Object> options){
-		return new Product();
-	}
-
-
-	public Sku createSku(Map<String,Object> options){
-		return new Sku();
-	}
-
-
-	public RetailStoreProvinceCenter createRetailStoreProvinceCenter(Map<String,Object> options){
-		return new RetailStoreProvinceCenter();
-	}
-
-
-	public ProvinceCenterDepartment createProvinceCenterDepartment(Map<String,Object> options){
-		return new ProvinceCenterDepartment();
-	}
-
-
-	public ProvinceCenterEmployee createProvinceCenterEmployee(Map<String,Object> options){
-		return new ProvinceCenterEmployee();
-	}
-
-
-	public RetailStoreCityServiceCenter createRetailStoreCityServiceCenter(Map<String,Object> options){
-		return new RetailStoreCityServiceCenter();
-	}
-
-
-	public CityPartner createCityPartner(Map<String,Object> options){
-		return new CityPartner();
-	}
-
-
-	public PotentialCustomer createPotentialCustomer(Map<String,Object> options){
-		return new PotentialCustomer();
-	}
-
-
-	public PotentialCustomerContactPerson createPotentialCustomerContactPerson(Map<String,Object> options){
-		return new PotentialCustomerContactPerson();
-	}
-
-
-	public PotentialCustomerContact createPotentialCustomerContact(Map<String,Object> options){
-		return new PotentialCustomerContact();
-	}
-
-
-	public CityEvent createCityEvent(Map<String,Object> options){
-		return new CityEvent();
-	}
-
-
-	public EventAttendance createEventAttendance(Map<String,Object> options){
-		return new EventAttendance();
-	}
-
-
-	public RetailStore createRetailStore(Map<String,Object> options){
-		return new RetailStore();
-	}
-
-
-	public RetailStoreCreation createRetailStoreCreation(Map<String,Object> options){
-		return new RetailStoreCreation();
-	}
-
-
-	public RetailStoreInvestmentInvitation createRetailStoreInvestmentInvitation(Map<String,Object> options){
-		return new RetailStoreInvestmentInvitation();
-	}
-
-
-	public RetailStoreFranchising createRetailStoreFranchising(Map<String,Object> options){
-		return new RetailStoreFranchising();
-	}
-
-
-	public RetailStoreDecoration createRetailStoreDecoration(Map<String,Object> options){
-		return new RetailStoreDecoration();
-	}
-
-
-	public RetailStoreOpening createRetailStoreOpening(Map<String,Object> options){
-		return new RetailStoreOpening();
-	}
-
-
-	public RetailStoreClosing createRetailStoreClosing(Map<String,Object> options){
-		return new RetailStoreClosing();
-	}
-
-
-	public RetailStoreMember createRetailStoreMember(Map<String,Object> options){
-		return new RetailStoreMember();
-	}
-
-
-	public ConsumerOrder createConsumerOrder(Map<String,Object> options){
-		return new ConsumerOrder();
-	}
-
-
-	public ConsumerOrderLineItem createConsumerOrderLineItem(Map<String,Object> options){
-		return new ConsumerOrderLineItem();
-	}
-
-
-	public ConsumerOrderShippingGroup createConsumerOrderShippingGroup(Map<String,Object> options){
-		return new ConsumerOrderShippingGroup();
-	}
-
-
-	public ConsumerOrderPaymentGroup createConsumerOrderPaymentGroup(Map<String,Object> options){
-		return new ConsumerOrderPaymentGroup();
-	}
-
-
-	public ConsumerOrderPriceAdjustment createConsumerOrderPriceAdjustment(Map<String,Object> options){
-		return new ConsumerOrderPriceAdjustment();
-	}
-
-
-	public RetailStoreMemberCoupon createRetailStoreMemberCoupon(Map<String,Object> options){
-		return new RetailStoreMemberCoupon();
-	}
-
-
-	public MemberWishlist createMemberWishlist(Map<String,Object> options){
-		return new MemberWishlist();
-	}
-
-
-	public MemberRewardPoint createMemberRewardPoint(Map<String,Object> options){
-		return new MemberRewardPoint();
-	}
-
-
-	public MemberRewardPointRedemption createMemberRewardPointRedemption(Map<String,Object> options){
-		return new MemberRewardPointRedemption();
-	}
-
-
-	public MemberWishlistProduct createMemberWishlistProduct(Map<String,Object> options){
-		return new MemberWishlistProduct();
-	}
-
-
-	public RetailStoreMemberAddress createRetailStoreMemberAddress(Map<String,Object> options){
-		return new RetailStoreMemberAddress();
-	}
-
-
-	public RetailStoreMemberGiftCard createRetailStoreMemberGiftCard(Map<String,Object> options){
-		return new RetailStoreMemberGiftCard();
-	}
-
-
-	public RetailStoreMemberGiftCardConsumeRecord createRetailStoreMemberGiftCardConsumeRecord(Map<String,Object> options){
-		return new RetailStoreMemberGiftCardConsumeRecord();
-	}
-
-
-	public GoodsSupplier createGoodsSupplier(Map<String,Object> options){
-		return new GoodsSupplier();
-	}
-
-
-	public SupplierProduct createSupplierProduct(Map<String,Object> options){
-		return new SupplierProduct();
-	}
-
-
-	public ProductSupplyDuration createProductSupplyDuration(Map<String,Object> options){
-		return new ProductSupplyDuration();
-	}
-
-
-	public SupplyOrder createSupplyOrder(Map<String,Object> options){
-		return new SupplyOrder();
-	}
-
-
-	public SupplyOrderLineItem createSupplyOrderLineItem(Map<String,Object> options){
-		return new SupplyOrderLineItem();
-	}
-
-
-	public SupplyOrderShippingGroup createSupplyOrderShippingGroup(Map<String,Object> options){
-		return new SupplyOrderShippingGroup();
-	}
-
-
-	public SupplyOrderPaymentGroup createSupplyOrderPaymentGroup(Map<String,Object> options){
-		return new SupplyOrderPaymentGroup();
-	}
-
-
-	public RetailStoreOrder createRetailStoreOrder(Map<String,Object> options){
-		return new RetailStoreOrder();
-	}
-
-
-	public RetailStoreOrderLineItem createRetailStoreOrderLineItem(Map<String,Object> options){
-		return new RetailStoreOrderLineItem();
-	}
-
-
-	public RetailStoreOrderShippingGroup createRetailStoreOrderShippingGroup(Map<String,Object> options){
-		return new RetailStoreOrderShippingGroup();
-	}
-
-
-	public RetailStoreOrderPaymentGroup createRetailStoreOrderPaymentGroup(Map<String,Object> options){
-		return new RetailStoreOrderPaymentGroup();
-	}
-
-
-	public Warehouse createWarehouse(Map<String,Object> options){
-		return new Warehouse();
-	}
-
-
-	public StorageSpace createStorageSpace(Map<String,Object> options){
-		return new StorageSpace();
-	}
-
-
-	public SmartPallet createSmartPallet(Map<String,Object> options){
-		return new SmartPallet();
-	}
-
-
-	public GoodsShelf createGoodsShelf(Map<String,Object> options){
-		return new GoodsShelf();
-	}
-
-
-	public GoodsShelfStockCount createGoodsShelfStockCount(Map<String,Object> options){
-		return new GoodsShelfStockCount();
-	}
-
-
-	public StockCountIssueTrack createStockCountIssueTrack(Map<String,Object> options){
-		return new StockCountIssueTrack();
-	}
-
-
-	public GoodsAllocation createGoodsAllocation(Map<String,Object> options){
-		return new GoodsAllocation();
-	}
-
-
-	public Goods createGoods(Map<String,Object> options){
-		return new Goods();
-	}
-
-
-	public GoodsMovement createGoodsMovement(Map<String,Object> options){
-		return new GoodsMovement();
-	}
-
-
-	public SupplierSpace createSupplierSpace(Map<String,Object> options){
-		return new SupplierSpace();
-	}
-
-
-	public ReceivingSpace createReceivingSpace(Map<String,Object> options){
-		return new ReceivingSpace();
-	}
-
-
-	public ShippingSpace createShippingSpace(Map<String,Object> options){
-		return new ShippingSpace();
-	}
-
-
-	public DamageSpace createDamageSpace(Map<String,Object> options){
-		return new DamageSpace();
-	}
-
-
-	public WarehouseAsset createWarehouseAsset(Map<String,Object> options){
-		return new WarehouseAsset();
-	}
-
-
-	public TransportFleet createTransportFleet(Map<String,Object> options){
-		return new TransportFleet();
-	}
-
-
-	public TransportTruck createTransportTruck(Map<String,Object> options){
-		return new TransportTruck();
-	}
-
-
-	public TruckDriver createTruckDriver(Map<String,Object> options){
-		return new TruckDriver();
-	}
-
-
-	public TransportTask createTransportTask(Map<String,Object> options){
-		return new TransportTask();
-	}
-
-
-	public TransportTaskTrack createTransportTaskTrack(Map<String,Object> options){
-		return new TransportTaskTrack();
-	}
-
-
-	public AccountSet createAccountSet(Map<String,Object> options){
-		return new AccountSet();
-	}
-
-
-	public AccountingSubject createAccountingSubject(Map<String,Object> options){
-		return new AccountingSubject();
-	}
-
-
-	public AccountingPeriod createAccountingPeriod(Map<String,Object> options){
-		return new AccountingPeriod();
-	}
-
-
-	public AccountingDocumentType createAccountingDocumentType(Map<String,Object> options){
-		return new AccountingDocumentType();
-	}
-
-
-	public AccountingDocument createAccountingDocument(Map<String,Object> options){
-		return new AccountingDocument();
-	}
-
-
-	public OriginalVoucher createOriginalVoucher(Map<String,Object> options){
-		return new OriginalVoucher();
-	}
-
-
-	public AccountingDocumentLine createAccountingDocumentLine(Map<String,Object> options){
-		return new AccountingDocumentLine();
-	}
-
-
-	public LevelOneDepartment createLevelOneDepartment(Map<String,Object> options){
-		return new LevelOneDepartment();
-	}
-
-
-	public LevelTwoDepartment createLevelTwoDepartment(Map<String,Object> options){
-		return new LevelTwoDepartment();
-	}
-
-
-	public LevelThreeDepartment createLevelThreeDepartment(Map<String,Object> options){
-		return new LevelThreeDepartment();
-	}
-
-
-	public SkillType createSkillType(Map<String,Object> options){
-		return new SkillType();
-	}
-
-
-	public ResponsibilityType createResponsibilityType(Map<String,Object> options){
-		return new ResponsibilityType();
-	}
-
-
-	public TerminationReason createTerminationReason(Map<String,Object> options){
-		return new TerminationReason();
-	}
-
-
-	public TerminationType createTerminationType(Map<String,Object> options){
-		return new TerminationType();
-	}
-
-
-	public OccupationType createOccupationType(Map<String,Object> options){
-		return new OccupationType();
-	}
-
-
-	public LeaveType createLeaveType(Map<String,Object> options){
-		return new LeaveType();
-	}
-
-
-	public SalaryGrade createSalaryGrade(Map<String,Object> options){
-		return new SalaryGrade();
-	}
-
-
-	public InterviewType createInterviewType(Map<String,Object> options){
-		return new InterviewType();
-	}
-
-
-	public TrainingCourseType createTrainingCourseType(Map<String,Object> options){
-		return new TrainingCourseType();
-	}
-
-
-	public PublicHoliday createPublicHoliday(Map<String,Object> options){
-		return new PublicHoliday();
-	}
-
-
-	public Termination createTermination(Map<String,Object> options){
-		return new Termination();
-	}
-
-
-	public View createView(Map<String,Object> options){
-		return new View();
-	}
-
-
-	public Employee createEmployee(Map<String,Object> options){
-		return new Employee();
-	}
-
-
-	public Instructor createInstructor(Map<String,Object> options){
-		return new Instructor();
-	}
-
-
-	public CompanyTraining createCompanyTraining(Map<String,Object> options){
-		return new CompanyTraining();
-	}
-
-
-	public Scoring createScoring(Map<String,Object> options){
-		return new Scoring();
-	}
-
-
-	public EmployeeCompanyTraining createEmployeeCompanyTraining(Map<String,Object> options){
-		return new EmployeeCompanyTraining();
-	}
-
-
-	public EmployeeSkill createEmployeeSkill(Map<String,Object> options){
-		return new EmployeeSkill();
-	}
-
-
-	public EmployeePerformance createEmployeePerformance(Map<String,Object> options){
-		return new EmployeePerformance();
-	}
-
-
-	public EmployeeWorkExperience createEmployeeWorkExperience(Map<String,Object> options){
-		return new EmployeeWorkExperience();
-	}
-
-
-	public EmployeeLeave createEmployeeLeave(Map<String,Object> options){
-		return new EmployeeLeave();
-	}
-
-
-	public EmployeeInterview createEmployeeInterview(Map<String,Object> options){
-		return new EmployeeInterview();
-	}
-
-
-	public EmployeeAttendance createEmployeeAttendance(Map<String,Object> options){
-		return new EmployeeAttendance();
-	}
-
-
-	public EmployeeQualifier createEmployeeQualifier(Map<String,Object> options){
-		return new EmployeeQualifier();
-	}
-
-
-	public EmployeeEducation createEmployeeEducation(Map<String,Object> options){
-		return new EmployeeEducation();
-	}
-
-
-	public EmployeeAward createEmployeeAward(Map<String,Object> options){
-		return new EmployeeAward();
-	}
-
-
-	public EmployeeSalarySheet createEmployeeSalarySheet(Map<String,Object> options){
-		return new EmployeeSalarySheet();
-	}
-
-
-	public PayingOff createPayingOff(Map<String,Object> options){
-		return new PayingOff();
-	}
-
-
-	public MobileApp createMobileApp(Map<String,Object> options){
-		return new MobileApp();
-	}
-
-
-	public Page createPage(Map<String,Object> options){
-		return new Page();
-	}
-
-
-	public PageType createPageType(Map<String,Object> options){
-		return new PageType();
-	}
-
-
-	public Slide createSlide(Map<String,Object> options){
-		return new Slide();
-	}
-
-
-	public UiAction createUiAction(Map<String,Object> options){
-		return new UiAction();
-	}
-
-
-	public Section createSection(Map<String,Object> options){
-		return new Section();
-	}
-
-
-	public UserDomain createUserDomain(Map<String,Object> options){
-		return new UserDomain();
-	}
-
-
-	public UserAllowList createUserAllowList(Map<String,Object> options){
-		return new UserAllowList();
-	}
-
-
-	public SecUser createSecUser(Map<String,Object> options){
-		return new SecUser();
-	}
-
-
-	public UserApp createUserApp(Map<String,Object> options){
-		return new UserApp();
-	}
-
-
-	public QuickLink createQuickLink(Map<String,Object> options){
-		return new QuickLink();
-	}
-
-
-	public ListAccess createListAccess(Map<String,Object> options){
-		return new ListAccess();
-	}
-
-
-	public LoginHistory createLoginHistory(Map<String,Object> options){
-		return new LoginHistory();
-	}
-
-
-	public CandidateContainer createCandidateContainer(Map<String,Object> options){
-		return new CandidateContainer();
-	}
-
-
-	public CandidateElement createCandidateElement(Map<String,Object> options){
-		return new CandidateElement();
-	}
-
-
-	public WechatWorkappIdentity createWechatWorkappIdentity(Map<String,Object> options){
-		return new WechatWorkappIdentity();
-	}
-
-
-	public WechatMiniappIdentity createWechatMiniappIdentity(Map<String,Object> options){
-		return new WechatMiniappIdentity();
-	}
-
-
-	public KeyPairIdentity createKeyPairIdentity(Map<String,Object> options){
-		return new KeyPairIdentity();
-	}
-
-
-	public PublicKeyType createPublicKeyType(Map<String,Object> options){
-		return new PublicKeyType();
-	}
-
-
-	public TreeNode createTreeNode(Map<String,Object> options){
-		return new TreeNode();
-	}
-
-
-
-
-
+public class BeanFactoryImpl {
+
+  public RetailStoreCountryCenter createRetailStoreCountryCenter(Map<String, Object> options) {
+    return new RetailStoreCountryCenter();
+  }
+
+  public Catalog createCatalog(Map<String, Object> options) {
+    return new Catalog();
+  }
+
+  public LevelOneCategory createLevelOneCategory(Map<String, Object> options) {
+    return new LevelOneCategory();
+  }
+
+  public LevelTwoCategory createLevelTwoCategory(Map<String, Object> options) {
+    return new LevelTwoCategory();
+  }
+
+  public LevelThreeCategory createLevelThreeCategory(Map<String, Object> options) {
+    return new LevelThreeCategory();
+  }
+
+  public Product createProduct(Map<String, Object> options) {
+    return new Product();
+  }
+
+  public Sku createSku(Map<String, Object> options) {
+    return new Sku();
+  }
+
+  public RetailStoreProvinceCenter createRetailStoreProvinceCenter(Map<String, Object> options) {
+    return new RetailStoreProvinceCenter();
+  }
+
+  public ProvinceCenterDepartment createProvinceCenterDepartment(Map<String, Object> options) {
+    return new ProvinceCenterDepartment();
+  }
+
+  public ProvinceCenterEmployee createProvinceCenterEmployee(Map<String, Object> options) {
+    return new ProvinceCenterEmployee();
+  }
+
+  public RetailStoreCityServiceCenter createRetailStoreCityServiceCenter(
+      Map<String, Object> options) {
+    return new RetailStoreCityServiceCenter();
+  }
+
+  public CityPartner createCityPartner(Map<String, Object> options) {
+    return new CityPartner();
+  }
+
+  public PotentialCustomer createPotentialCustomer(Map<String, Object> options) {
+    return new PotentialCustomer();
+  }
+
+  public PotentialCustomerContactPerson createPotentialCustomerContactPerson(
+      Map<String, Object> options) {
+    return new PotentialCustomerContactPerson();
+  }
+
+  public PotentialCustomerContact createPotentialCustomerContact(Map<String, Object> options) {
+    return new PotentialCustomerContact();
+  }
+
+  public CityEvent createCityEvent(Map<String, Object> options) {
+    return new CityEvent();
+  }
+
+  public EventAttendance createEventAttendance(Map<String, Object> options) {
+    return new EventAttendance();
+  }
+
+  public RetailStore createRetailStore(Map<String, Object> options) {
+    return new RetailStore();
+  }
+
+  public RetailStoreCreation createRetailStoreCreation(Map<String, Object> options) {
+    return new RetailStoreCreation();
+  }
+
+  public RetailStoreInvestmentInvitation createRetailStoreInvestmentInvitation(
+      Map<String, Object> options) {
+    return new RetailStoreInvestmentInvitation();
+  }
+
+  public RetailStoreFranchising createRetailStoreFranchising(Map<String, Object> options) {
+    return new RetailStoreFranchising();
+  }
+
+  public RetailStoreDecoration createRetailStoreDecoration(Map<String, Object> options) {
+    return new RetailStoreDecoration();
+  }
+
+  public RetailStoreOpening createRetailStoreOpening(Map<String, Object> options) {
+    return new RetailStoreOpening();
+  }
+
+  public RetailStoreClosing createRetailStoreClosing(Map<String, Object> options) {
+    return new RetailStoreClosing();
+  }
+
+  public RetailStoreMember createRetailStoreMember(Map<String, Object> options) {
+    return new RetailStoreMember();
+  }
+
+  public ConsumerOrder createConsumerOrder(Map<String, Object> options) {
+    return new ConsumerOrder();
+  }
+
+  public ConsumerOrderLineItem createConsumerOrderLineItem(Map<String, Object> options) {
+    return new ConsumerOrderLineItem();
+  }
+
+  public ConsumerOrderShippingGroup createConsumerOrderShippingGroup(Map<String, Object> options) {
+    return new ConsumerOrderShippingGroup();
+  }
+
+  public ConsumerOrderPaymentGroup createConsumerOrderPaymentGroup(Map<String, Object> options) {
+    return new ConsumerOrderPaymentGroup();
+  }
+
+  public ConsumerOrderPriceAdjustment createConsumerOrderPriceAdjustment(
+      Map<String, Object> options) {
+    return new ConsumerOrderPriceAdjustment();
+  }
+
+  public RetailStoreMemberCoupon createRetailStoreMemberCoupon(Map<String, Object> options) {
+    return new RetailStoreMemberCoupon();
+  }
+
+  public MemberWishlist createMemberWishlist(Map<String, Object> options) {
+    return new MemberWishlist();
+  }
+
+  public MemberRewardPoint createMemberRewardPoint(Map<String, Object> options) {
+    return new MemberRewardPoint();
+  }
+
+  public MemberRewardPointRedemption createMemberRewardPointRedemption(
+      Map<String, Object> options) {
+    return new MemberRewardPointRedemption();
+  }
+
+  public MemberWishlistProduct createMemberWishlistProduct(Map<String, Object> options) {
+    return new MemberWishlistProduct();
+  }
+
+  public RetailStoreMemberAddress createRetailStoreMemberAddress(Map<String, Object> options) {
+    return new RetailStoreMemberAddress();
+  }
+
+  public RetailStoreMemberGiftCard createRetailStoreMemberGiftCard(Map<String, Object> options) {
+    return new RetailStoreMemberGiftCard();
+  }
+
+  public RetailStoreMemberGiftCardConsumeRecord createRetailStoreMemberGiftCardConsumeRecord(
+      Map<String, Object> options) {
+    return new RetailStoreMemberGiftCardConsumeRecord();
+  }
+
+  public GoodsSupplier createGoodsSupplier(Map<String, Object> options) {
+    return new GoodsSupplier();
+  }
+
+  public SupplierProduct createSupplierProduct(Map<String, Object> options) {
+    return new SupplierProduct();
+  }
+
+  public ProductSupplyDuration createProductSupplyDuration(Map<String, Object> options) {
+    return new ProductSupplyDuration();
+  }
+
+  public SupplyOrder createSupplyOrder(Map<String, Object> options) {
+    return new SupplyOrder();
+  }
+
+  public SupplyOrderLineItem createSupplyOrderLineItem(Map<String, Object> options) {
+    return new SupplyOrderLineItem();
+  }
+
+  public SupplyOrderShippingGroup createSupplyOrderShippingGroup(Map<String, Object> options) {
+    return new SupplyOrderShippingGroup();
+  }
+
+  public SupplyOrderPaymentGroup createSupplyOrderPaymentGroup(Map<String, Object> options) {
+    return new SupplyOrderPaymentGroup();
+  }
+
+  public RetailStoreOrder createRetailStoreOrder(Map<String, Object> options) {
+    return new RetailStoreOrder();
+  }
+
+  public RetailStoreOrderLineItem createRetailStoreOrderLineItem(Map<String, Object> options) {
+    return new RetailStoreOrderLineItem();
+  }
+
+  public RetailStoreOrderShippingGroup createRetailStoreOrderShippingGroup(
+      Map<String, Object> options) {
+    return new RetailStoreOrderShippingGroup();
+  }
+
+  public RetailStoreOrderPaymentGroup createRetailStoreOrderPaymentGroup(
+      Map<String, Object> options) {
+    return new RetailStoreOrderPaymentGroup();
+  }
+
+  public Warehouse createWarehouse(Map<String, Object> options) {
+    return new Warehouse();
+  }
+
+  public StorageSpace createStorageSpace(Map<String, Object> options) {
+    return new StorageSpace();
+  }
+
+  public SmartPallet createSmartPallet(Map<String, Object> options) {
+    return new SmartPallet();
+  }
+
+  public GoodsShelf createGoodsShelf(Map<String, Object> options) {
+    return new GoodsShelf();
+  }
+
+  public GoodsShelfStockCount createGoodsShelfStockCount(Map<String, Object> options) {
+    return new GoodsShelfStockCount();
+  }
+
+  public StockCountIssueTrack createStockCountIssueTrack(Map<String, Object> options) {
+    return new StockCountIssueTrack();
+  }
+
+  public GoodsAllocation createGoodsAllocation(Map<String, Object> options) {
+    return new GoodsAllocation();
+  }
+
+  public Goods createGoods(Map<String, Object> options) {
+    return new Goods();
+  }
+
+  public GoodsMovement createGoodsMovement(Map<String, Object> options) {
+    return new GoodsMovement();
+  }
+
+  public SupplierSpace createSupplierSpace(Map<String, Object> options) {
+    return new SupplierSpace();
+  }
+
+  public ReceivingSpace createReceivingSpace(Map<String, Object> options) {
+    return new ReceivingSpace();
+  }
+
+  public ShippingSpace createShippingSpace(Map<String, Object> options) {
+    return new ShippingSpace();
+  }
+
+  public DamageSpace createDamageSpace(Map<String, Object> options) {
+    return new DamageSpace();
+  }
+
+  public WarehouseAsset createWarehouseAsset(Map<String, Object> options) {
+    return new WarehouseAsset();
+  }
+
+  public TransportFleet createTransportFleet(Map<String, Object> options) {
+    return new TransportFleet();
+  }
+
+  public TransportTruck createTransportTruck(Map<String, Object> options) {
+    return new TransportTruck();
+  }
+
+  public TruckDriver createTruckDriver(Map<String, Object> options) {
+    return new TruckDriver();
+  }
+
+  public TransportTask createTransportTask(Map<String, Object> options) {
+    return new TransportTask();
+  }
+
+  public TransportTaskTrack createTransportTaskTrack(Map<String, Object> options) {
+    return new TransportTaskTrack();
+  }
+
+  public AccountSet createAccountSet(Map<String, Object> options) {
+    return new AccountSet();
+  }
+
+  public AccountingSubject createAccountingSubject(Map<String, Object> options) {
+    return new AccountingSubject();
+  }
+
+  public AccountingPeriod createAccountingPeriod(Map<String, Object> options) {
+    return new AccountingPeriod();
+  }
+
+  public AccountingDocumentType createAccountingDocumentType(Map<String, Object> options) {
+    return new AccountingDocumentType();
+  }
+
+  public AccountingDocument createAccountingDocument(Map<String, Object> options) {
+    return new AccountingDocument();
+  }
+
+  public OriginalVoucher createOriginalVoucher(Map<String, Object> options) {
+    return new OriginalVoucher();
+  }
+
+  public AccountingDocumentLine createAccountingDocumentLine(Map<String, Object> options) {
+    return new AccountingDocumentLine();
+  }
+
+  public LevelOneDepartment createLevelOneDepartment(Map<String, Object> options) {
+    return new LevelOneDepartment();
+  }
+
+  public LevelTwoDepartment createLevelTwoDepartment(Map<String, Object> options) {
+    return new LevelTwoDepartment();
+  }
+
+  public LevelThreeDepartment createLevelThreeDepartment(Map<String, Object> options) {
+    return new LevelThreeDepartment();
+  }
+
+  public SkillType createSkillType(Map<String, Object> options) {
+    return new SkillType();
+  }
+
+  public ResponsibilityType createResponsibilityType(Map<String, Object> options) {
+    return new ResponsibilityType();
+  }
+
+  public TerminationReason createTerminationReason(Map<String, Object> options) {
+    return new TerminationReason();
+  }
+
+  public TerminationType createTerminationType(Map<String, Object> options) {
+    return new TerminationType();
+  }
+
+  public OccupationType createOccupationType(Map<String, Object> options) {
+    return new OccupationType();
+  }
+
+  public LeaveType createLeaveType(Map<String, Object> options) {
+    return new LeaveType();
+  }
+
+  public SalaryGrade createSalaryGrade(Map<String, Object> options) {
+    return new SalaryGrade();
+  }
+
+  public InterviewType createInterviewType(Map<String, Object> options) {
+    return new InterviewType();
+  }
+
+  public TrainingCourseType createTrainingCourseType(Map<String, Object> options) {
+    return new TrainingCourseType();
+  }
+
+  public PublicHoliday createPublicHoliday(Map<String, Object> options) {
+    return new PublicHoliday();
+  }
+
+  public Termination createTermination(Map<String, Object> options) {
+    return new Termination();
+  }
+
+  public View createView(Map<String, Object> options) {
+    return new View();
+  }
+
+  public Employee createEmployee(Map<String, Object> options) {
+    return new Employee();
+  }
+
+  public Instructor createInstructor(Map<String, Object> options) {
+    return new Instructor();
+  }
+
+  public CompanyTraining createCompanyTraining(Map<String, Object> options) {
+    return new CompanyTraining();
+  }
+
+  public Scoring createScoring(Map<String, Object> options) {
+    return new Scoring();
+  }
+
+  public EmployeeCompanyTraining createEmployeeCompanyTraining(Map<String, Object> options) {
+    return new EmployeeCompanyTraining();
+  }
+
+  public EmployeeSkill createEmployeeSkill(Map<String, Object> options) {
+    return new EmployeeSkill();
+  }
+
+  public EmployeePerformance createEmployeePerformance(Map<String, Object> options) {
+    return new EmployeePerformance();
+  }
+
+  public EmployeeWorkExperience createEmployeeWorkExperience(Map<String, Object> options) {
+    return new EmployeeWorkExperience();
+  }
+
+  public EmployeeLeave createEmployeeLeave(Map<String, Object> options) {
+    return new EmployeeLeave();
+  }
+
+  public EmployeeInterview createEmployeeInterview(Map<String, Object> options) {
+    return new EmployeeInterview();
+  }
+
+  public EmployeeAttendance createEmployeeAttendance(Map<String, Object> options) {
+    return new EmployeeAttendance();
+  }
+
+  public EmployeeQualifier createEmployeeQualifier(Map<String, Object> options) {
+    return new EmployeeQualifier();
+  }
+
+  public EmployeeEducation createEmployeeEducation(Map<String, Object> options) {
+    return new EmployeeEducation();
+  }
+
+  public EmployeeAward createEmployeeAward(Map<String, Object> options) {
+    return new EmployeeAward();
+  }
+
+  public EmployeeSalarySheet createEmployeeSalarySheet(Map<String, Object> options) {
+    return new EmployeeSalarySheet();
+  }
+
+  public PayingOff createPayingOff(Map<String, Object> options) {
+    return new PayingOff();
+  }
+
+  public MobileApp createMobileApp(Map<String, Object> options) {
+    return new MobileApp();
+  }
+
+  public Page createPage(Map<String, Object> options) {
+    return new Page();
+  }
+
+  public PageType createPageType(Map<String, Object> options) {
+    return new PageType();
+  }
+
+  public Slide createSlide(Map<String, Object> options) {
+    return new Slide();
+  }
+
+  public UiAction createUiAction(Map<String, Object> options) {
+    return new UiAction();
+  }
+
+  public Section createSection(Map<String, Object> options) {
+    return new Section();
+  }
+
+  public UserDomain createUserDomain(Map<String, Object> options) {
+    return new UserDomain();
+  }
+
+  public UserAllowList createUserAllowList(Map<String, Object> options) {
+    return new UserAllowList();
+  }
+
+  public SecUser createSecUser(Map<String, Object> options) {
+    return new SecUser();
+  }
+
+  public UserApp createUserApp(Map<String, Object> options) {
+    return new UserApp();
+  }
+
+  public QuickLink createQuickLink(Map<String, Object> options) {
+    return new QuickLink();
+  }
+
+  public ListAccess createListAccess(Map<String, Object> options) {
+    return new ListAccess();
+  }
+
+  public LoginHistory createLoginHistory(Map<String, Object> options) {
+    return new LoginHistory();
+  }
+
+  public CandidateContainer createCandidateContainer(Map<String, Object> options) {
+    return new CandidateContainer();
+  }
+
+  public CandidateElement createCandidateElement(Map<String, Object> options) {
+    return new CandidateElement();
+  }
+
+  public WechatWorkappIdentity createWechatWorkappIdentity(Map<String, Object> options) {
+    return new WechatWorkappIdentity();
+  }
+
+  public WechatMiniappIdentity createWechatMiniappIdentity(Map<String, Object> options) {
+    return new WechatMiniappIdentity();
+  }
+
+  public KeyPairIdentity createKeyPairIdentity(Map<String, Object> options) {
+    return new KeyPairIdentity();
+  }
+
+  public PublicKeyType createPublicKeyType(Map<String, Object> options) {
+    return new PublicKeyType();
+  }
+
+  public TreeNode createTreeNode(Map<String, Object> options) {
+    return new TreeNode();
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

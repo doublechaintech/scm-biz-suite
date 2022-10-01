@@ -74,7 +74,7 @@
 	
 </style>
 <section><h3>应用(${result.id})</h3><table >
-<tr><td class='th'>标题</td><td >${result.title}</td><td class='th'>系统用户</td><td >${result.secUser.displayName}</td></tr><tr><td class='th'>图标</td><td >${result.appIcon}</td><td class='th'>完全访问</td><td >${result.fullAccess}</td></tr><tr><td class='th'>权限</td><td >${result.permission}</td><td class='th'>对象类型</td><td >${result.appType}</td></tr><tr><td class='th'>对象ID</td><td >${result.appId}</td><td class='th'>上下文类型</td><td >${result.ctxType}</td></tr><tr><td class='th'>上下文类型</td><td >${result.ctxId}</td><td class='th'>位置</td><td >${result.location}</td></tr></table>
+<tr><td class='th'>头衔</td><td >${result.title}</td><td class='th'>安全用户</td><td >${result.secUser.displayName}</td></tr><tr><td class='th'>应用程序图标</td><td >${result.appIcon}</td><td class='th'>完全访问</td><td >${result.fullAccess}</td></tr><tr><td class='th'>许可</td><td >${result.permission}</td><td class='th'>应用程序类型</td><td >${result.appType}</td></tr><tr><td class='th'>应用程序Id</td><td >${result.appId}</td><td class='th'>Ctx类型</td><td >${result.ctxType}</td></tr><tr><td class='th'>Ctx Id</td><td >${result.ctxId}</td><td class='th'>位置</td><td >${result.location}</td></tr></table>
 </section>
 <section><c:if test="${not empty result.quickLinkList}">
 	<c:forEach items="${result.quickLinkList}" var="item">
@@ -84,6 +84,6 @@
 </c:forEach></c:if><c:if test="${not empty result.listAccessList}">
 	<c:forEach items="${result.listAccessList}" var="item">
 <section><h3>列表访问控制(${item.id})</h3><table >
-<tr><td class='th'>名称</td><td >${item.name}</td><td class='th'>内部名称</td><td >${item.internalName}</td></tr><tr><td class='th'>可读</td><td >${item.readPermission}</td><td class='th'>可创建</td><td >${item.createPermission}</td></tr><tr><td class='th'>可删除</td><td >${item.deletePermission}</td><td class='th'>可更新</td><td >${item.updatePermission}</td></tr><tr><td class='th'>可执行</td><td >${item.executionPermission}</td><td class='th'>应用</td><td >${item.app.displayName}</td></tr></table>
+<tr><td class='th'>名称</td><td >${item.name}</td><td class='th'>内部名称</td><td >${item.internalName}</td></tr><tr><td class='th'>读权限</td><td >${item.readPermission}</td><td class='th'>创建权限</td><td >${item.createPermission}</td></tr><tr><td class='th'>删除权限</td><td >${item.deletePermission}</td><td class='th'>更新权限</td><td >${item.updatePermission}</td></tr><tr><td class='th'>执行权限</td><td >${item.executionPermission}</td><td class='th'>应用程序</td><td >${item.app.displayName}</td></tr></table>
 </section>
 </c:forEach></c:if></section>

@@ -34,7 +34,7 @@ public class SimpleInvocationResult implements InvocationResult {
 	protected String getObjectExpr(Object target) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			return "class: '" + target.getClass().getName() + "'\r\n" + mapper.writeValueAsString(target);
+			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(target);
 		} catch (Throwable e) {
 			return e.getMessage();
 		}

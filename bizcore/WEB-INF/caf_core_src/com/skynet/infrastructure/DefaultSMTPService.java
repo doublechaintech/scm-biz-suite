@@ -47,19 +47,19 @@ public class DefaultSMTPService extends InfraBaseService implements SMTPService 
 		return TextUtil.getExtVariable(envVarName, defaultValue);
 	}
 	public String getSmtpUserName() {
-		return getCfgValue(smtpUserName, "SMTP_USERNAME", "report@bettbio.com");
+		return getCfgValue(smtpUserName, "SMTP_USERNAME", "hide-for-sec");
 	}
 	public void setSmtpUserName(String smtpUserName) {
 		this.smtpUserName = smtpUserName;
 	}
 	public String getSmtpHost() {
-		return getCfgValue(smtpHost, "SMTP_HOST", "smtp.bettbio.com");
+		return getCfgValue(smtpHost, "SMTP_HOST", "emailhost");
 	}
 	public void setSmtpHost(String smtpHost) {
 		this.smtpHost = smtpHost;
 	}
 	public String getSmtpPassword() {
-		return getCfgValue(smtpPassword, "SMTP_PASSWORD", "bk123456!");
+		return getCfgValue(smtpPassword, "SMTP_PASSWORD", "@@@@@");
 	}
 	public void setSmtpPassword(String smtpPassword) {
 		this.smtpPassword = smtpPassword;

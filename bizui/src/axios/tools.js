@@ -87,7 +87,7 @@ export const getURLPrefix = () => {
   if (url.hostname === '30.30.126.37') {
     return `http://${url.hostname}:8080/naf/`;
   }
-  if (url.hostname === 'lab.doublechaintech.com') {
+  if (url.hostname === 'lab.doublechaintech.com' || url.hostname === 'srm.itbaohe.net') {
     //return `http://${url.hostname}:8080/naf/`
     const userHome=url.pathname.split("/")[1]
     return `${url.origin}/${userHome}/${SYSTEM_SHORT_NAME}/`;

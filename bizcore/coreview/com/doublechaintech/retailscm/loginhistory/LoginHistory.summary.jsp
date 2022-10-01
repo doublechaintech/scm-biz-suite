@@ -74,6 +74,6 @@
 	
 </style>
 <section><h3>登录历史(${result.id})</h3><table >
-<tr><td class='th'>登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.loginTime}" /></td><td class='th'>来自IP</td><td >${result.fromIp}</td></tr><tr><td class='th'>描述</td><td >${result.description}</td><td class='th'>系统用户</td><td >${result.secUser.displayName}</td></tr></table>
+<tr><td class='th'>登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.loginTime}" /></td><td class='th'>从IP</td><td >${result.fromIp}</td></tr><tr><td class='th'>描述</td><td >${result.description}</td><td class='th'>安全用户</td><td >${result.secUser.displayName}</td></tr></table>
 </section>
 <section></section>

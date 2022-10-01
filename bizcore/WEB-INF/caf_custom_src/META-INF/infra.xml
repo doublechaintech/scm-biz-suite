@@ -37,7 +37,7 @@
     -->
 
     <bean id="smtpService" class="com.skynet.infrastructure.SecureSMTPService">
-		<property name="smtpHost" value="smtp.exmail.qq.com"/>
+		
     </bean>
 
     <bean id="graphService" class="com.skynet.infrastructure.graphservice.GraphServiceImpl">
@@ -72,10 +72,6 @@
         <property name="config" ref="aliyunMessageServiceConfiguration"/>
     </bean>
 
-    <bean id="elasticsearchClient" class="com.skynet.infrastructure.ElasticsearchClient5_6_3">
-        <property name="clusterHostList" value="127.0.0.1"/>
-        <property name="clusterHostPort" value="9200"/>
-    </bean>
     <bean id="dummyEventService" class="com.skynet.infrastructure.kafkaservice.DummyEventService">
     </bean>
 

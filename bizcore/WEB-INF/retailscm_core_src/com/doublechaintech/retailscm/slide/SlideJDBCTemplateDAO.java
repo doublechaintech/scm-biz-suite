@@ -1,4 +1,3 @@
-
 package com.doublechaintech.retailscm.slide;
 
 import com.doublechaintech.retailscm.Beans;
@@ -24,610 +23,579 @@ import com.doublechaintech.retailscm.StatsItem;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
-
 import com.doublechaintech.retailscm.page.Page;
 
 import com.doublechaintech.retailscm.page.PageDAO;
-
-
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
-public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideDAO{
+public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideDAO {
 
-	protected PageDAO pageDAO;
-	public void setPageDAO(PageDAO pageDAO){
+  protected PageDAO pageDAO;
 
- 		if(pageDAO == null){
- 			throw new IllegalStateException("Do not try to set pageDAO to null.");
- 		}
-	 	this.pageDAO = pageDAO;
- 	}
- 	public PageDAO getPageDAO(){
- 		if(this.pageDAO == null){
- 			throw new IllegalStateException("The pageDAO is not configured yet, please config it some where.");
- 		}
+  public void setPageDAO(PageDAO pageDAO) {
 
-	 	return this.pageDAO;
- 	}
-
-
-
-	/*
-	protected Slide load(AccessKey accessKey,Map<String,Object> options) throws Exception{
-		return loadInternalSlide(accessKey, options);
-	}
-	*/
-
-	public SmartList<Slide> loadAll() {
-	    return this.loadAll(getSlideMapper());
-	}
-
-  public Stream<Slide> loadAllAsStream() {
-      return this.loadAllAsStream(getSlideMapper());
+    if (pageDAO == null) {
+      throw new IllegalStateException("Do not try to set pageDAO to null.");
+    }
+    this.pageDAO = pageDAO;
   }
 
+  public PageDAO getPageDAO() {
+    if (this.pageDAO == null) {
+      throw new IllegalStateException(
+          "The pageDAO is not configured yet, please config it some where.");
+    }
 
-	protected String getIdFormat()
-	{
-		return getShortName(this.getName())+"%06d";
-	}
+    return this.pageDAO;
+  }
 
-	public Slide load(String id,Map<String,Object> options) throws Exception{
-		return loadInternalSlide(SlideTable.withId(id), options);
-	}
+  /*
+  protected Slide load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+  	return loadInternalSlide(accessKey, options);
+  }
+  */
 
-	
+  public SmartList<Slide> loadAll() {
+    return this.loadAll(getSlideMapper());
+  }
 
-	public Slide save(Slide slide,Map<String,Object> options){
+  public Stream<Slide> loadAllAsStream() {
+    return this.loadAllAsStream(getSlideMapper());
+  }
 
-		String methodName="save(Slide slide,Map<String,Object> options)";
+  protected String getIdFormat() {
+    return getShortName(this.getName()) + "%06d";
+  }
 
-		assertMethodArgumentNotNull(slide, methodName, "slide");
-		assertMethodArgumentNotNull(options, methodName, "options");
+  public Slide load(String id, Map<String, Object> options) throws Exception {
+    return loadInternalSlide(SlideTable.withId(id), options);
+  }
 
-		return saveInternalSlide(slide,options);
-	}
-	public Slide clone(String slideId, Map<String,Object> options) throws Exception{
+  public Slide save(Slide slide, Map<String, Object> options) {
 
-		return clone(SlideTable.withId(slideId),options);
-	}
+    String methodName = "save(Slide slide,Map<String,Object> options)";
 
-	protected Slide clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
+    assertMethodArgumentNotNull(slide, methodName, "slide");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-		String methodName="clone(String slideId,Map<String,Object> options)";
+    return saveInternalSlide(slide, options);
+  }
 
-		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
-		assertMethodArgumentNotNull(options, methodName, "options");
+  public Slide clone(String slideId, Map<String, Object> options) throws Exception {
 
-		Slide newSlide = loadInternalSlide(accessKey, options);
-		newSlide.setVersion(0);
-		
-		
+    return clone(SlideTable.withId(slideId), options);
+  }
 
+  protected Slide clone(AccessKey accessKey, Map<String, Object> options) throws Exception {
 
-		saveInternalSlide(newSlide,options);
+    String methodName = "clone(String slideId,Map<String,Object> options)";
 
-		return newSlide;
-	}
+    assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-	
+    Slide newSlide = loadInternalSlide(accessKey, options);
+    newSlide.setVersion(0);
 
+    saveInternalSlide(newSlide, options);
 
+    return newSlide;
+  }
 
-	protected void throwIfHasException(String slideId,int version,int count) throws Exception{
-		if (count == 1) {
-			throw new SlideVersionChangedException(
-					"The object version has been changed, please reload to delete");
-		}
-		if (count < 1) {
-			throw new SlideNotFoundException(
-					"The " + this.getTableName() + "(" + slideId + ") has already been deleted.");
-		}
-		if (count > 1) {
-			throw new IllegalStateException(
-					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
-		}
-	}
+  protected void throwIfHasException(String slideId, int version, int count) throws Exception {
+    if (count == 1) {
+      throw new SlideVersionChangedException(
+          "The object version has been changed, please reload to delete");
+    }
+    if (count < 1) {
+      throw new SlideNotFoundException(
+          "The " + this.getTableName() + "(" + slideId + ") has already been deleted.");
+    }
+    if (count > 1) {
+      throw new IllegalStateException(
+          "The table '"
+              + this.getTableName()
+              + "' PRIMARY KEY constraint has been damaged, please fix it.");
+    }
+  }
 
+  public Slide disconnectFromAll(String slideId, int version) throws Exception {
 
-	public void delete(String slideId, int version) throws Exception{
+    Slide slide = loadInternalSlide(SlideTable.withId(slideId), emptyOptions());
+    slide.clearFromAll();
+    this.saveSlide(slide);
+    return slide;
+  }
 
-		String methodName="delete(String slideId, int version)";
-		assertMethodArgumentNotNull(slideId, methodName, "slideId");
-		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
+  @Override
+  protected String[] getNormalColumnNames() {
 
+    return SlideTable.NORMAL_CLOUMNS;
+  }
 
-		String SQL=this.getDeleteSQL();
-		Object [] parameters=new Object[]{slideId,version};
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber == 1){
-			return ; //Delete successfully
-		}
-		if(affectedNumber == 0){
-			handleDeleteOneError(slideId,version);
-		}
+  @Override
+  protected String getName() {
 
+    return "slide";
+  }
 
-	}
+  @Override
+  protected String getBeanName() {
 
+    return "slide";
+  }
 
+  protected boolean checkOptions(Map<String, Object> options, String optionToCheck) {
 
+    return SlideTokens.checkOptions(options, optionToCheck);
+  }
 
+  protected boolean isExtractPageEnabled(Map<String, Object> options) {
 
+    return checkOptions(options, SlideTokens.PAGE);
+  }
 
-	public Slide disconnectFromAll(String slideId, int version) throws Exception{
+  protected boolean isSavePageEnabled(Map<String, Object> options) {
 
+    return checkOptions(options, SlideTokens.PAGE);
+  }
 
-		Slide slide = loadInternalSlide(SlideTable.withId(slideId), emptyOptions());
-		slide.clearFromAll();
-		this.saveSlide(slide);
-		return slide;
+  protected SlideMapper getSlideMapper() {
+    return new SlideMapper();
+  }
 
+  protected Slide extractSlide(AccessKey accessKey, Map<String, Object> loadOptions)
+      throws Exception {
+    try {
+      Slide slide = loadSingleObject(accessKey, getSlideMapper());
+      return slide;
+    } catch (EmptyResultDataAccessException e) {
+      throw new SlideNotFoundException("Slide(" + accessKey + ") is not found!");
+    }
+  }
 
-	}
+  protected Slide loadInternalSlide(AccessKey accessKey, Map<String, Object> loadOptions)
+      throws Exception {
 
-	@Override
-	protected String[] getNormalColumnNames() {
+    Slide slide = extractSlide(accessKey, loadOptions);
 
-		return SlideTable.NORMAL_CLOUMNS;
-	}
-	@Override
-	protected String getName() {
+    if (isExtractPageEnabled(loadOptions)) {
+      extractPage(slide, loadOptions);
+    }
 
-		return "slide";
-	}
-	@Override
-	protected String getBeanName() {
+    return slide;
+  }
 
-		return "slide";
-	}
+  protected Slide extractPage(Slide slide, Map<String, Object> options) throws Exception {
 
-	
+    if (slide.getPage() == null) {
+      return slide;
+    }
+    String pageId = slide.getPage().getId();
+    if (pageId == null) {
+      return slide;
+    }
+    Page page = getPageDAO().load(pageId, options);
+    if (page != null) {
+      slide.setPage(page);
+    }
 
+    return slide;
+  }
 
+  public SmartList<Slide> findSlideByPage(String pageId, Map<String, Object> options) {
 
-	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
+    SmartList<Slide> resultList =
+        queryWith(SlideTable.COLUMN_PAGE, pageId, options, getSlideMapper());
+    // analyzeSlideByPage(resultList, pageId, options);
+    return resultList;
+  }
 
- 		return SlideTokens.checkOptions(options, optionToCheck);
+  public SmartList<Slide> findSlideByPage(
+      String pageId, int start, int count, Map<String, Object> options) {
 
-	}
+    SmartList<Slide> resultList =
+        queryWithRange(SlideTable.COLUMN_PAGE, pageId, options, getSlideMapper(), start, count);
+    // analyzeSlideByPage(resultList, pageId, options);
+    return resultList;
+  }
 
+  public void analyzeSlideByPage(
+      SmartList<Slide> resultList, String pageId, Map<String, Object> options) {
+    if (resultList == null) {
+      return; // do nothing when the list is null.
+    }
+  }
 
+  @Override
+  public int countSlideByPage(String pageId, Map<String, Object> options) {
 
- 	protected boolean isExtractPageEnabled(Map<String,Object> options){
+    return countWith(SlideTable.COLUMN_PAGE, pageId, options);
+  }
 
-	 	return checkOptions(options, SlideTokens.PAGE);
- 	}
+  @Override
+  public Map<String, Integer> countSlideByPageIds(String[] ids, Map<String, Object> options) {
+    return countWithIds(SlideTable.COLUMN_PAGE, ids, options);
+  }
 
- 	protected boolean isSavePageEnabled(Map<String,Object> options){
+  protected Slide saveSlide(Slide slide) {
 
- 		return checkOptions(options, SlideTokens.PAGE);
- 	}
-
-
-
- 
-		
-
-	
-
-	protected SlideMapper getSlideMapper(){
-		return new SlideMapper();
-	}
-
-
-
-	protected Slide extractSlide(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		try{
-			Slide slide = loadSingleObject(accessKey, getSlideMapper());
-			return slide;
-		}catch(EmptyResultDataAccessException e){
-			throw new SlideNotFoundException("Slide("+accessKey+") is not found!");
-		}
-
-	}
-
-
-
-
-	protected Slide loadInternalSlide(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-
-		Slide slide = extractSlide(accessKey, loadOptions);
-
- 		if(isExtractPageEnabled(loadOptions)){
-	 		extractPage(slide, loadOptions);
- 		}
- 
-		
-		return slide;
-
-	}
-
-	
-
- 	protected Slide extractPage(Slide slide, Map<String,Object> options) throws Exception{
-  
-
-		if(slide.getPage() == null){
-			return slide;
-		}
-		String pageId = slide.getPage().getId();
-		if( pageId == null){
-			return slide;
-		}
-		Page page = getPageDAO().load(pageId,options);
-		if(page != null){
-			slide.setPage(page);
-		}
-
-
- 		return slide;
- 	}
-
- 
-		
-
- 
- 	public SmartList<Slide> findSlideByPage(String pageId,Map<String,Object> options){
-
-  		SmartList<Slide> resultList = queryWith(SlideTable.COLUMN_PAGE, pageId, options, getSlideMapper());
-		// analyzeSlideByPage(resultList, pageId, options);
-		return resultList;
- 	}
- 	
-
- 	public SmartList<Slide> findSlideByPage(String pageId, int start, int count,Map<String,Object> options){
-
- 		SmartList<Slide> resultList =  queryWithRange(SlideTable.COLUMN_PAGE, pageId, options, getSlideMapper(), start, count);
- 		//analyzeSlideByPage(resultList, pageId, options);
- 		return resultList;
-
- 	}
- 	public void analyzeSlideByPage(SmartList<Slide> resultList, String pageId, Map<String,Object> options){
-		if(resultList==null){
-			return;//do nothing when the list is null.
-		}
-
-
-
- 	}
- 	@Override
- 	public int countSlideByPage(String pageId,Map<String,Object> options){
-
- 		return countWith(SlideTable.COLUMN_PAGE, pageId, options);
- 	}
- 	@Override
-	public Map<String, Integer> countSlideByPageIds(String[] ids, Map<String, Object> options) {
-		return countWithIds(SlideTable.COLUMN_PAGE, ids, options);
-	}
-
- 
-
-
-
-
-	
-
-	protected Slide saveSlide(Slide  slide){
-    
-
-		
-		if(!slide.isChanged()){
-			return slide;
-		}
-		
+    if (!slide.isChanged()) {
+      return slide;
+    }
 
     Beans.dbUtil().cacheCleanUp(slide);
-		String SQL=this.getSaveSlideSQL(slide);
-		//FIXME: how about when an item has been updated more than MAX_INT?
-		Object [] parameters = getSaveSlideParameters(slide);
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber != 1){
-			throw new IllegalStateException("The save operation should return value = 1, while the value = "
-				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
-		}
+    String SQL = this.getSaveSlideSQL(slide);
+    // FIXME: how about when an item has been updated more than MAX_INT?
+    Object[] parameters = getSaveSlideParameters(slide);
+    int affectedNumber = singleUpdate(SQL, parameters);
+    if (affectedNumber != 1) {
+      throw new IllegalStateException(
+          "The save operation should return value = 1, while the value = "
+              + affectedNumber
+              + "If the value = 0, that mean the target record has been updated by someone else!");
+    }
 
-		slide.incVersion();
-		slide.afterSave();
-		return slide;
+    slide.incVersion();
+    slide.afterSave();
+    return slide;
+  }
 
-	}
-	public SmartList<Slide> saveSlideList(SmartList<Slide> slideList,Map<String,Object> options){
-		//assuming here are big amount objects to be updated.
-		//First step is split into two groups, one group for update and another group for create
-		Object [] lists=splitSlideList(slideList);
+  public SmartList<Slide> saveSlideList(SmartList<Slide> slideList, Map<String, Object> options) {
+    // assuming here are big amount objects to be updated.
+    // First step is split into two groups, one group for update and another group for create
+    Object[] lists = splitSlideList(slideList);
 
-		batchSlideCreate((List<Slide>)lists[CREATE_LIST_INDEX]);
+    batchSlideCreate((List<Slide>) lists[CREATE_LIST_INDEX]);
+    batchSlideUpdate((List<Slide>) lists[UPDATE_LIST_INDEX]);
+    batchSlideRemove((List<Slide>) lists[REMOVE_LIST_INDEX]);
+    batchSlideRecover((List<Slide>) lists[RECOVER_LIST_INDEX]);
 
-		batchSlideUpdate((List<Slide>)lists[UPDATE_LIST_INDEX]);
+    // update version after the list successfully saved to database;
+    for (Slide slide : slideList) {
+      if (slide.isChanged()) {
+        slide.incVersion();
+        slide.afterSave();
+      }
+      if (slide.isToRecover() || slide.isToRemove()) {
+        slide.setVersion(-slide.getVersion());
+      }
+    }
 
+    return slideList;
+  }
 
-		//update version after the list successfully saved to database;
-		for(Slide slide:slideList){
-			if(slide.isChanged()){
-				slide.incVersion();
-				slide.afterSave();
-			}
+  public SmartList<Slide> removeSlideList(SmartList<Slide> slideList, Map<String, Object> options) {
 
+    super.removeList(slideList, options);
 
-		}
+    return slideList;
+  }
 
+  protected List<Object[]> prepareSlideBatchCreateArgs(List<Slide> slideList) {
 
-		return slideList;
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (Slide slide : slideList) {
+      Object[] parameters = prepareSlideCreateParameters(slide);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	public SmartList<Slide> removeSlideList(SmartList<Slide> slideList,Map<String,Object> options){
+  protected List<Object[]> prepareSlideBatchUpdateArgs(List<Slide> slideList) {
 
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (Slide slide : slideList) {
+      if (!slide.isChanged()) {
+        continue;
+      }
+      Object[] parameters = prepareSlideUpdateParameters(slide);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-		super.removeList(slideList, options);
+  protected List<Object[]> prepareSlideBatchRecoverArgs(List<Slide> slideList) {
 
-		return slideList;
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (Slide slide : slideList) {
+      if (!slide.isToRecover()) {
+        continue;
+      }
+      Object[] parameters = prepareRecoverParameters(slide);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
+  protected List<Object[]> prepareSlideBatchRemoveArgs(List<Slide> slideList) {
 
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (Slide slide : slideList) {
+      if (!slide.isToRemove()) {
+        continue;
+      }
+      Object[] parameters = prepareSlideRemoveParameters(slide);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	protected List<Object[]> prepareSlideBatchCreateArgs(List<Slide> slideList){
+  protected void batchSlideCreate(List<Slide> slideList) {
+    String SQL = getCreateSQL();
+    List<Object[]> args = prepareSlideBatchCreateArgs(slideList);
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(Slide slide:slideList ){
-			Object [] parameters = prepareSlideCreateParameters(slide);
-			parametersList.add(parameters);
+    int affectedNumbers[] = batchUpdate(SQL, args);
+  }
 
-		}
-		return parametersList;
+  protected void batchSlideUpdate(List<Slide> slideList) {
+    String SQL = getUpdateSQL();
+    List<Object[]> args = prepareSlideBatchUpdateArgs(slideList);
 
-	}
-	protected List<Object[]> prepareSlideBatchUpdateArgs(List<Slide> slideList){
+    int affectedNumbers[] = batchUpdate(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(Slide slide:slideList ){
-			if(!slide.isChanged()){
-				continue;
-			}
-			Object [] parameters = prepareSlideUpdateParameters(slide);
-			parametersList.add(parameters);
+  protected void batchSlideRemove(List<Slide> slideList) {
+    String SQL = getRemoveSQL();
+    List<Object[]> args = prepareSlideBatchRemoveArgs(slideList);
+    int affectedNumbers[] = batchRemove(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		}
-		return parametersList;
+  protected void batchSlideRecover(List<Slide> slideList) {
+    String SQL = getRecoverSQL();
+    List<Object[]> args = prepareSlideBatchRecoverArgs(slideList);
+    int affectedNumbers[] = batchRecover(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-	}
-	protected void batchSlideCreate(List<Slide> slideList){
-		String SQL=getCreateSQL();
-		List<Object[]> args=prepareSlideBatchCreateArgs(slideList);
+  static final int CREATE_LIST_INDEX = 0;
+  static final int UPDATE_LIST_INDEX = 1;
+  static final int REMOVE_LIST_INDEX = 2;
+  static final int RECOVER_LIST_INDEX = 3;
 
-		int affectedNumbers[] = batchUpdate(SQL, args);
+  protected Object[] splitSlideList(List<Slide> slideList) {
 
-	}
+    List<Slide> slideCreateList = new ArrayList<Slide>();
+    List<Slide> slideUpdateList = new ArrayList<Slide>();
+    List<Slide> slideRemoveList = new ArrayList<Slide>();
+    List<Slide> slideRecoverList = new ArrayList<Slide>();
 
-
-	protected void batchSlideUpdate(List<Slide> slideList){
-		String SQL=getUpdateSQL();
-		List<Object[]> args=prepareSlideBatchUpdateArgs(slideList);
-
-		int affectedNumbers[] = batchUpdate(SQL, args);
-
-
-
-	}
-
-
-
-	static final int CREATE_LIST_INDEX=0;
-	static final int UPDATE_LIST_INDEX=1;
-
-	protected Object[] splitSlideList(List<Slide> slideList){
-
-		List<Slide> slideCreateList=new ArrayList<Slide>();
-		List<Slide> slideUpdateList=new ArrayList<Slide>();
-
-		for(Slide slide: slideList){
-			if(isUpdateRequest(slide)){
-				slideUpdateList.add( slide);
-				continue;
-			}
-			slideCreateList.add(slide);
-		}
-
-		return new Object[]{slideCreateList,slideUpdateList};
-	}
-
-	protected boolean isUpdateRequest(Slide slide){
- 		return slide.getVersion() > 0;
- 	}
- 	protected String getSaveSlideSQL(Slide slide){
- 		if(isUpdateRequest(slide)){
- 			return getUpdateSQL();
- 		}
- 		return getCreateSQL();
- 	}
-
- 	protected Object[] getSaveSlideParameters(Slide slide){
- 		if(isUpdateRequest(slide) ){
- 			return prepareSlideUpdateParameters(slide);
- 		}
- 		return prepareSlideCreateParameters(slide);
- 	}
- 	protected Object[] prepareSlideUpdateParameters(Slide slide){
- 		Object[] parameters = new Object[9];
- 
- 		parameters[0] = slide.getName();
- 		
- 		parameters[1] = slide.getDisplayOrder();
- 		
- 		parameters[2] = slide.getImageUrl();
- 		
- 		parameters[3] = slide.getVideoUrl();
- 		
- 		parameters[4] = slide.getLinkToUrl();
- 		
- 		if(slide.getPage() != null){
- 			parameters[5] = slide.getPage().getId();
- 		}
-    
- 		parameters[6] = slide.nextVersion();
- 		parameters[7] = slide.getId();
- 		parameters[8] = slide.getVersion();
-
- 		return parameters;
- 	}
- 	protected Object[] prepareSlideCreateParameters(Slide slide){
-		Object[] parameters = new Object[7];
-        if(slide.getId() == null){
-          String newSlideId=getNextId();
-          slide.setId(newSlideId);
+    for (Slide slide : slideList) {
+      if (slide.isToRemove()) {
+        slideRemoveList.add(slide);
+        continue;
+      }
+      if (slide.isToRecover()) {
+        slideRecoverList.add(slide);
+        continue;
+      }
+      if (isUpdateRequest(slide)) {
+        if (slide.isChanged()) {
+          slideUpdateList.add(slide);
         }
-		parameters[0] =  slide.getId();
- 
- 		parameters[1] = slide.getName();
- 		
- 		parameters[2] = slide.getDisplayOrder();
- 		
- 		parameters[3] = slide.getImageUrl();
- 		
- 		parameters[4] = slide.getVideoUrl();
- 		
- 		parameters[5] = slide.getLinkToUrl();
- 		
- 		if(slide.getPage() != null){
- 			parameters[6] = slide.getPage().getId();
- 		}
- 		
+        continue;
+      }
 
- 		return parameters;
- 	}
+      if (slide.isChanged()) {
+        slideCreateList.add(slide);
+      }
+    }
 
-	protected Slide saveInternalSlide(Slide slide, Map<String,Object> options){
+    return new Object[] {slideCreateList, slideUpdateList, slideRemoveList, slideRecoverList};
+  }
 
- 		if(isSavePageEnabled(options)){
-	 		savePage(slide, options);
- 		}
- 
-   saveSlide(slide);
-		
-		return slide;
+  protected boolean isUpdateRequest(Slide slide) {
+    return slide.getVersion() > 0;
+  }
 
-	}
+  protected String getSaveSlideSQL(Slide slide) {
+    if (slide.isToRemove()) {
+      return getRemoveSQL();
+    }
+    if (isUpdateRequest(slide)) {
+      return getUpdateSQL();
+    }
+    return getCreateSQL();
+  }
 
+  protected Object[] getSaveSlideParameters(Slide slide) {
+    if (slide.isToRemove()) {
+      return prepareSlideRemoveParameters(slide);
+    }
+    if (slide.isToRecover()) {
+      return prepareRecoverParameters(slide);
+    }
 
+    if (isUpdateRequest(slide)) {
+      return prepareSlideUpdateParameters(slide);
+    }
+    return prepareSlideCreateParameters(slide);
+  }
 
-	//======================================================================================
-	
+  protected Object[] prepareSlideRemoveParameters(Slide slide) {
+    return super.prepareRemoveParameters(slide);
+  }
 
- 	protected Slide savePage(Slide slide, Map<String,Object> options){
- 	
- 		//Call inject DAO to execute this method
- 		if(slide.getPage() == null){
- 			return slide;//do nothing when it is null
- 		}
+  protected Object[] prepareSlideUpdateParameters(Slide slide) {
+    Object[] parameters = new Object[9];
 
- 		getPageDAO().save(slide.getPage(),options);
- 		return slide;
+    parameters[0] = slide.getName();
 
- 	}
- 
+    parameters[1] = slide.getDisplayOrder();
 
-	
+    parameters[2] = slide.getImageUrl();
 
-		
+    parameters[3] = slide.getVideoUrl();
 
-	public Slide present(Slide slide,Map<String, Object> options){
+    parameters[4] = slide.getLinkToUrl();
 
+    if (slide.getPage() != null) {
+      parameters[5] = slide.getPage().getId();
+    }
 
-		return slide;
+    parameters[6] = slide.nextVersion();
+    parameters[7] = slide.getId();
+    parameters[8] = slide.getVersion();
 
-	}
-		
+    return parameters;
+  }
 
-	
+  protected Object[] prepareSlideCreateParameters(Slide slide) {
+    Object[] parameters = new Object[7];
+    if (slide.getId() == null) {
+      String newSlideId = getNextId();
+      slide.setId(newSlideId);
+    }
+    parameters[0] = slide.getId();
 
-	protected String getTableName(){
-		return SlideTable.TABLE_NAME;
-	}
+    parameters[1] = slide.getName();
 
+    parameters[2] = slide.getDisplayOrder();
 
+    parameters[3] = slide.getImageUrl();
 
-	public void enhanceList(List<Slide> slideList) {
-		this.enhanceListInternal(slideList, this.getSlideMapper());
-	}
+    parameters[4] = slide.getVideoUrl();
 
-	
+    parameters[5] = slide.getLinkToUrl();
 
-	@Override
-	public void collectAndEnhance(BaseEntity ownerEntity) {
-		List<Slide> slideList = ownerEntity.collectRefsWithType(Slide.INTERNAL_TYPE);
-		this.enhanceList(slideList);
+    if (slide.getPage() != null) {
+      parameters[6] = slide.getPage().getId();
+    }
 
-	}
+    return parameters;
+  }
 
-	@Override
-	public SmartList<Slide> findSlideWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+  protected Slide saveInternalSlide(Slide slide, Map<String, Object> options) {
 
-  		return queryWith(key, options, getSlideMapper());
+    if (isSavePageEnabled(options)) {
+      savePage(slide, options);
+    }
 
-	}
-	@Override
-	public int countSlideWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+    saveSlide(slide);
 
-  		return countWith(key, options);
+    return slide;
+  }
 
-	}
-	public Map<String, Integer> countSlideWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options) {
+  // ======================================================================================
 
-  		return countWithGroup(groupKey, filterKey, options);
+  protected Slide savePage(Slide slide, Map<String, Object> options) {
 
-	}
+    // Call inject DAO to execute this method
+    if (slide.getPage() == null) {
+      return slide; // do nothing when it is null
+    }
 
-	@Override
-	public SmartList<Slide> queryList(String sql, Object... parameters) {
-	    return this.queryForList(sql, parameters, this.getSlideMapper());
-	}
+    getPageDAO().save(slide.getPage(), options);
+    return slide;
+  }
+
+  public Slide present(Slide slide, Map<String, Object> options) {
+
+    return slide;
+  }
+
+  protected String getTableName() {
+    return SlideTable.TABLE_NAME;
+  }
+
+  public void enhanceList(List<Slide> slideList) {
+    this.enhanceListInternal(slideList, this.getSlideMapper());
+  }
+
+  @Override
+  public void collectAndEnhance(BaseEntity ownerEntity) {
+    List<Slide> slideList = ownerEntity.collectRefsWithType(Slide.INTERNAL_TYPE);
+    this.enhanceList(slideList);
+  }
+
+  @Override
+  public SmartList<Slide> findSlideWithKey(MultipleAccessKey key, Map<String, Object> options) {
+
+    return queryWith(key, options, getSlideMapper());
+  }
+
+  @Override
+  public int countSlideWithKey(MultipleAccessKey key, Map<String, Object> options) {
+
+    return countWith(key, options);
+  }
+
+  public Map<String, Integer> countSlideWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options) {
+
+    return countWithGroup(groupKey, filterKey, options);
+  }
+
+  @Override
+  public SmartList<Slide> queryList(String sql, Object... parameters) {
+    return this.queryForList(sql, parameters, this.getSlideMapper());
+  }
 
   @Override
   public List<String> queryIdList(String sql, Object... parameters) {
     return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
   }
+
   @Override
   public Stream<Slide> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getSlideMapper());
   }
 
-	@Override
-	public int count(String sql, Object... parameters) {
-	    return queryInt(sql, parameters);
-	}
-	@Override
-	public CandidateSlide executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+  @Override
+  public int count(String sql, Object... parameters) {
+    return queryInt(sql, parameters);
+  }
 
-		CandidateSlide result = new CandidateSlide();
-		int pageNo = Math.max(1, query.getPageNo());
-		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
-		result.setOwnerId(query.getOwnerId());
-		result.setFilterKey(query.getFilterKey());
-		result.setPageNo(pageNo);
-		result.setValueFieldName("id");
-		result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
-		result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
+  @Override
+  public CandidateSlide executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception {
 
-		SmartList candidateList = queryList(sql, parmeters);
-		this.alias(candidateList);
-		result.setCandidates(candidateList);
-		int offSet = (pageNo - 1 ) * query.getPageSize();
-		if (candidateList.size() > query.getPageSize()) {
-			result.setTotalPage(pageNo+1);
-		}else {
-			result.setTotalPage(pageNo);
-		}
-		return result;
-	}
+    CandidateSlide result = new CandidateSlide();
+    int pageNo = Math.max(1, query.getPageNo());
+    result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
+    result.setOwnerId(query.getOwnerId());
+    result.setFilterKey(query.getFilterKey());
+    result.setPageNo(pageNo);
+    result.setValueFieldName("id");
+    result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
+    result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
 
-	
+    SmartList candidateList = queryList(sql, parmeters);
+    this.alias(candidateList);
+    result.setCandidates(candidateList);
+    int offSet = (pageNo - 1) * query.getPageSize();
+    if (candidateList.size() > query.getPageSize()) {
+      result.setTotalPage(pageNo + 1);
+    } else {
+      result.setTotalPage(pageNo);
+    }
+    return result;
+  }
 
   @Override
   public List<Slide> search(SlideRequest pRequest) {
@@ -638,6 +606,9 @@ public class SlideJDBCTemplateDAO extends RetailscmBaseDAOImpl implements SlideD
   protected SlideMapper mapper() {
     return getSlideMapper();
   }
+
+  @Override
+  protected SlideMapper mapperForClazz(Class<?> clazz) {
+    return SlideMapper.mapperForClass(clazz);
+  }
 }
-
-

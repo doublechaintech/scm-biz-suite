@@ -11,4 +11,3 @@ public interface CacheOperator {
 
   boolean clear(String pEntityCache, Object pCacheKey);
 }
-

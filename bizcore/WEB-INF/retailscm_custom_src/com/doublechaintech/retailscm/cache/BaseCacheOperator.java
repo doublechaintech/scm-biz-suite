@@ -3,6 +3,7 @@ package com.doublechaintech.retailscm.cache;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
+
 public class BaseCacheOperator implements CacheOperator {
 
   private CacheManager cacheManager;
@@ -84,4 +85,3 @@ public class BaseCacheOperator implements CacheOperator {
     return true;
   }
 }
-

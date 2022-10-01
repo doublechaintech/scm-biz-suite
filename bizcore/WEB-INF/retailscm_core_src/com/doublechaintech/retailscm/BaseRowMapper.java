@@ -1,10 +1,10 @@
-
 package com.doublechaintech.retailscm;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Clob;
+import java.lang.reflect.Constructor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -14,79 +14,81 @@ import org.springframework.jdbc.core.RowMapper;
 
 public abstract class BaseRowMapper<T> implements RowMapper<T> {
 
-	public final T mapRow(ResultSet rs, int rowNumber) throws SQLException {
-      T t = internalMapRow(rs, rowNumber);
-      Beans.dbUtil().cache(t);
-      return t;
-	}
-	protected DateTime convertToDateTime(Date date){
-		DateTime dateTime = new DateTime();
-		dateTime.setTime(date.getTime());
-		return dateTime;
-	}
-	protected Images convertToImages(String dataInDb) {
-		return Images.fromString(dataInDb);
-	}
-	protected abstract T internalMapRow(ResultSet rs, int rowNumber) throws SQLException;
+  protected Class<?> clazz;
 
+  protected void setClazz(Class<?> clazz) {
+    this.clazz = clazz;
+  }
 
-	protected String readFullClob(ResultSet rs, String columnName, int rowNumber) throws IOException, SQLException {
+  protected T constructFromClass() {
+    try {
+      Constructor<?> ctor = clazz.getConstructor();
+      T entity = (T) ctor.newInstance(new Object[] {});
+      return entity;
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
+    }
+  }
 
-		Clob clobObject = (Clob) rs.getObject(columnName);
-		final StringBuilder sb = new StringBuilder();
+  public final T mapRow(ResultSet rs, int rowNumber) throws SQLException {
+    T t = internalMapRow(rs, rowNumber);
+    Beans.dbUtil().cache(t);
+    return t;
+  }
 
-		final Reader reader = clobObject.getCharacterStream();
-		final BufferedReader br = new BufferedReader(reader);
-		int b = br.read();
+  protected DateTime convertToDateTime(Date date) {
+    DateTime dateTime = new DateTime();
+    dateTime.setTime(date.getTime());
+    return dateTime;
+  }
 
-		while (eof() != b) {
-			sb.append((char) b);
-			b = br.read();
-		}
-		br.close();
-		return sb.toString();
+  protected Images convertToImages(String dataInDb) {
+    return Images.fromString(dataInDb);
+  }
 
-	}
-	protected String readPartialClob(ResultSet rs, String columnName, int rowNumber, int lengthLimit) throws IOException, SQLException {
+  protected abstract T internalMapRow(ResultSet rs, int rowNumber) throws SQLException;
 
-		Clob clobObject = (Clob) rs.getObject(columnName);
-		final StringBuilder sb = new StringBuilder();
+  protected String readFullClob(ResultSet rs, String columnName, int rowNumber)
+      throws IOException, SQLException {
 
-		final Reader reader = clobObject.getCharacterStream();
-		final BufferedReader br = new BufferedReader(reader);
-		int b = br.read();
-		int length = 0;
-		while (eof() != b) {
-			sb.append((char) b);
-			length++;
-			if(length >= lengthLimit){
-				break;
-			}
-			b = br.read();
-		}
-		br.close();
-		return sb.toString();
+    Clob clobObject = (Clob) rs.getObject(columnName);
+    final StringBuilder sb = new StringBuilder();
 
-	}
-	protected final int eof(){
-		return -1;
-	}
+    final Reader reader = clobObject.getCharacterStream();
+    final BufferedReader br = new BufferedReader(reader);
+    int b = br.read();
 
+    while (eof() != b) {
+      sb.append((char) b);
+      b = br.read();
+    }
+    br.close();
+    return sb.toString();
+  }
+
+  protected String readPartialClob(ResultSet rs, String columnName, int rowNumber, int lengthLimit)
+      throws IOException, SQLException {
+
+    Clob clobObject = (Clob) rs.getObject(columnName);
+    final StringBuilder sb = new StringBuilder();
+
+    final Reader reader = clobObject.getCharacterStream();
+    final BufferedReader br = new BufferedReader(reader);
+    int b = br.read();
+    int length = 0;
+    while (eof() != b) {
+      sb.append((char) b);
+      length++;
+      if (length >= lengthLimit) {
+        break;
+      }
+      b = br.read();
+    }
+    br.close();
+    return sb.toString();
+  }
+
+  protected final int eof() {
+    return -1;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -74,6 +74,6 @@
 	
 </style>
 <section><h3>用户权限列表(${result.id})</h3><table >
-<tr><td class='th'>用户标识</td><td >${result.userIdentity}</td><td class='th'>用户特权</td><td >${result.userSpecialFunctions}</td></tr></table>
+<tr><td class='th'>用户身份</td><td >${result.userIdentity}</td><td class='th'>用户特殊功能</td><td >${result.userSpecialFunctions}</td></tr></table>
 </section>
 <section></section>

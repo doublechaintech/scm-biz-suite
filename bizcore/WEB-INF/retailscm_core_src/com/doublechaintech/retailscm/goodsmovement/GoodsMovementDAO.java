@@ -1,5 +1,5 @@
-
 package com.doublechaintech.retailscm.goodsmovement;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,56 +15,69 @@ import com.doublechaintech.retailscm.goods.Goods;
 
 import com.doublechaintech.retailscm.goods.GoodsDAO;
 
+public interface GoodsMovementDAO extends BaseDAO {
 
-public interface GoodsMovementDAO extends BaseDAO{
+  public SmartList<GoodsMovement> loadAll();
 
-	public SmartList<GoodsMovement> loadAll();
-	public Stream<GoodsMovement> loadAllAsStream();
-	public GoodsMovement load(String id, Map<String,Object> options) throws Exception;
-	public void enhanceList(List<GoodsMovement> goodsMovementList);
-	public void collectAndEnhance(BaseEntity ownerEntity);
+  public Stream<GoodsMovement> loadAllAsStream();
 
-	public void alias(List<BaseEntity> entityList);
+  public GoodsMovement load(String id, Map<String, Object> options) throws Exception;
 
+  public void enhanceList(List<GoodsMovement> goodsMovementList);
 
-	
+  public void collectAndEnhance(BaseEntity ownerEntity);
 
-	public GoodsMovement present(GoodsMovement goodsMovement,Map<String,Object> options) throws Exception;
-	public GoodsMovement clone(String id, Map<String,Object> options) throws Exception;
+  public void alias(List<BaseEntity> entityList);
 
-	
+  public GoodsMovement present(GoodsMovement goodsMovement, Map<String, Object> options)
+      throws Exception;
 
-	public GoodsMovement save(GoodsMovement goodsMovement,Map<String,Object> options);
-	public SmartList<GoodsMovement> saveGoodsMovementList(SmartList<GoodsMovement> goodsMovementList,Map<String,Object> options);
-	public SmartList<GoodsMovement> removeGoodsMovementList(SmartList<GoodsMovement> goodsMovementList,Map<String,Object> options);
-	public SmartList<GoodsMovement> findGoodsMovementWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public int countGoodsMovementWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public Map<String, Integer> countGoodsMovementWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options);
-	public void delete(String goodsMovementId, int version) throws Exception;
-	public GoodsMovement disconnectFromAll(String goodsMovementId, int version) throws Exception;
-	public int deleteAll() throws Exception;
-	public void resetNextId();
+  public GoodsMovement clone(String id, Map<String, Object> options) throws Exception;
 
-	
-	
+  public GoodsMovement save(GoodsMovement goodsMovement, Map<String, Object> options);
 
-	public SmartList<GoodsMovement> queryList(String sql, Object ... parameters);
-	public List<String> queryIdList(String sql, Object ... parameters);
-	public Stream<GoodsMovement> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parameters);
-	public CandidateGoodsMovement executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
+  public SmartList<GoodsMovement> saveGoodsMovementList(
+      SmartList<GoodsMovement> goodsMovementList, Map<String, Object> options);
 
- 	public SmartList<GoodsMovement> findGoodsMovementByGoods(String goodsId, Map<String,Object> options);
- 	public int countGoodsMovementByGoods(String goodsId, Map<String,Object> options);
- 	public Map<String, Integer> countGoodsMovementByGoodsIds(String[] ids, Map<String,Object> options);
- 	public SmartList<GoodsMovement> findGoodsMovementByGoods(String goodsId, int start, int count, Map<String,Object> options);
- 	public void analyzeGoodsMovementByGoods(SmartList<GoodsMovement> resultList, String goodsId, Map<String,Object> options);
+  public SmartList<GoodsMovement> removeGoodsMovementList(
+      SmartList<GoodsMovement> goodsMovementList, Map<String, Object> options);
 
+  public SmartList<GoodsMovement> findGoodsMovementWithKey(
+      MultipleAccessKey key, Map<String, Object> options);
 
- 
+  public int countGoodsMovementWithKey(MultipleAccessKey key, Map<String, Object> options);
 
-	List<GoodsMovement> search(GoodsMovementRequest pRequest);
+  public Map<String, Integer> countGoodsMovementWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options);
+
+  public GoodsMovement disconnectFromAll(String goodsMovementId, int version) throws Exception;
+
+  public void resetNextId();
+
+  public SmartList<GoodsMovement> queryList(String sql, Object... parameters);
+
+  public List<String> queryIdList(String sql, Object... parameters);
+
+  public Stream<GoodsMovement> queryStream(String sql, Object... parameters);
+
+  public int count(String sql, Object... parameters);
+
+  public CandidateGoodsMovement executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception;
+
+  public SmartList<GoodsMovement> findGoodsMovementByGoods(
+      String goodsId, Map<String, Object> options);
+
+  public int countGoodsMovementByGoods(String goodsId, Map<String, Object> options);
+
+  public Map<String, Integer> countGoodsMovementByGoodsIds(
+      String[] ids, Map<String, Object> options);
+
+  public SmartList<GoodsMovement> findGoodsMovementByGoods(
+      String goodsId, int start, int count, Map<String, Object> options);
+
+  public void analyzeGoodsMovementByGoods(
+      SmartList<GoodsMovement> resultList, String goodsId, Map<String, Object> options);
+
+  List<GoodsMovement> search(GoodsMovementRequest pRequest);
 }
-
-

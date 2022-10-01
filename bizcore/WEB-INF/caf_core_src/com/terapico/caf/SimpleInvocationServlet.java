@@ -2,6 +2,7 @@ package com.terapico.caf;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -106,10 +107,27 @@ public class SimpleInvocationServlet extends HttpServlet {
 
 	protected void render(HttpServletRequest request, HttpServletResponse response, InvocationResult result)
 			throws ServletException, IOException {
-
+	    preRender(result);
 		ServletResultRenderer renderer = getResultRenderer();
 		renderer.render(this, request, response, result);
 	}
+
+  // 在渲染前给应用程序提供整体修改结果的机制
+  private void preRender(InvocationResult result) {
+    BeanFactory beanFactory = factory.getBeanFactory();
+    if (beanFactory instanceof SpringBeanFactory) {
+      Map<String, ResultUpdater> beansOfType =
+              ((SpringBeanFactory) beanFactory).springFactory().getBeansOfType(ResultUpdater.class);
+
+      if (beansOfType.isEmpty()) {
+        return;
+      }
+
+      for (ResultUpdater updater : beansOfType.values()) {
+        updater.preRender(result);
+      }
+    }
+  }
 
 	protected InvocationResult getResult(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -74,7 +74,7 @@
 	
 </style>
 <section><h3>节点(${result.id})</h3><table >
-<tr><td class='th'>节点ID</td><td >${result.nodeId}</td><td class='th'>节点类型</td><td >${result.nodeType}</td></tr><tr><td class='th'>左值</td><td >${result.leftValue}</td><td class='th'>右值</td><td >${result.rightValue}</td></tr></table>
+<tr><td class='th'>节点Id</td><td >${result.nodeId}</td><td class='th'>节点类型</td><td >${result.nodeType}</td></tr><tr><td class='th'>左值</td><td >${result.leftValue}</td><td class='th'>正确的价值</td><td >${result.rightValue}</td></tr></table>
 </section>
 <section></section>
 

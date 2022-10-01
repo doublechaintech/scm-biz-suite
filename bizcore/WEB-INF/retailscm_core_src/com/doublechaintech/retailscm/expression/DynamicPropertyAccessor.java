@@ -45,4 +45,3 @@ public class DynamicPropertyAccessor implements PropertyAccessor {
     return DynamicPropertyRegistry.findMethod(target, name);
   }
 }
-

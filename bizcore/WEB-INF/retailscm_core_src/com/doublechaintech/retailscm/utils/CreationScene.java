@@ -1,42 +1,21 @@
 package com.doublechaintech.retailscm.utils;
 
 public class CreationScene {
-    protected String name;
+  protected String name;
 
-    private CreationScene(){
-    }
+  private CreationScene() {}
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public static CreationScene of(String name){
-        CreationScene cs = new CreationScene();
-        cs.setName(name);
-        return cs;
-    }
+  public static CreationScene of(String name) {
+    CreationScene cs = new CreationScene();
+    cs.setName(name);
+    return cs;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

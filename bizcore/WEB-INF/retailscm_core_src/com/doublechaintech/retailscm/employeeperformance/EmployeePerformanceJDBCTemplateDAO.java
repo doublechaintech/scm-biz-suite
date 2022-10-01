@@ -1,4 +1,3 @@
-
 package com.doublechaintech.retailscm.employeeperformance;
 
 import com.doublechaintech.retailscm.Beans;
@@ -24,594 +23,612 @@ import com.doublechaintech.retailscm.StatsItem;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
-
 import com.doublechaintech.retailscm.employee.Employee;
 
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
-
-
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
-public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeePerformanceDAO{
+public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl
+    implements EmployeePerformanceDAO {
 
-	protected EmployeeDAO employeeDAO;
-	public void setEmployeeDAO(EmployeeDAO employeeDAO){
+  protected EmployeeDAO employeeDAO;
 
- 		if(employeeDAO == null){
- 			throw new IllegalStateException("Do not try to set employeeDAO to null.");
- 		}
-	 	this.employeeDAO = employeeDAO;
- 	}
- 	public EmployeeDAO getEmployeeDAO(){
- 		if(this.employeeDAO == null){
- 			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
- 		}
+  public void setEmployeeDAO(EmployeeDAO employeeDAO) {
 
-	 	return this.employeeDAO;
- 	}
-
-
-
-	/*
-	protected EmployeePerformance load(AccessKey accessKey,Map<String,Object> options) throws Exception{
-		return loadInternalEmployeePerformance(accessKey, options);
-	}
-	*/
-
-	public SmartList<EmployeePerformance> loadAll() {
-	    return this.loadAll(getEmployeePerformanceMapper());
-	}
-
-  public Stream<EmployeePerformance> loadAllAsStream() {
-      return this.loadAllAsStream(getEmployeePerformanceMapper());
+    if (employeeDAO == null) {
+      throw new IllegalStateException("Do not try to set employeeDAO to null.");
+    }
+    this.employeeDAO = employeeDAO;
   }
 
+  public EmployeeDAO getEmployeeDAO() {
+    if (this.employeeDAO == null) {
+      throw new IllegalStateException(
+          "The employeeDAO is not configured yet, please config it some where.");
+    }
+
+    return this.employeeDAO;
+  }
+
+  /*
+  protected EmployeePerformance load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+  	return loadInternalEmployeePerformance(accessKey, options);
+  }
+  */
+
+  public SmartList<EmployeePerformance> loadAll() {
+    return this.loadAll(getEmployeePerformanceMapper());
+  }
+
+  public Stream<EmployeePerformance> loadAllAsStream() {
+    return this.loadAllAsStream(getEmployeePerformanceMapper());
+  }
+
+  protected String getIdFormat() {
+    return getShortName(this.getName()) + "%06d";
+  }
 
-	protected String getIdFormat()
-	{
-		return getShortName(this.getName())+"%06d";
-	}
+  public EmployeePerformance load(String id, Map<String, Object> options) throws Exception {
+    return loadInternalEmployeePerformance(EmployeePerformanceTable.withId(id), options);
+  }
 
-	public EmployeePerformance load(String id,Map<String,Object> options) throws Exception{
-		return loadInternalEmployeePerformance(EmployeePerformanceTable.withId(id), options);
-	}
+  public EmployeePerformance save(
+      EmployeePerformance employeePerformance, Map<String, Object> options) {
 
-	
+    String methodName = "save(EmployeePerformance employeePerformance,Map<String,Object> options)";
 
-	public EmployeePerformance save(EmployeePerformance employeePerformance,Map<String,Object> options){
+    assertMethodArgumentNotNull(employeePerformance, methodName, "employeePerformance");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-		String methodName="save(EmployeePerformance employeePerformance,Map<String,Object> options)";
+    return saveInternalEmployeePerformance(employeePerformance, options);
+  }
+
+  public EmployeePerformance clone(String employeePerformanceId, Map<String, Object> options)
+      throws Exception {
+
+    return clone(EmployeePerformanceTable.withId(employeePerformanceId), options);
+  }
+
+  protected EmployeePerformance clone(AccessKey accessKey, Map<String, Object> options)
+      throws Exception {
+
+    String methodName = "clone(String employeePerformanceId,Map<String,Object> options)";
 
-		assertMethodArgumentNotNull(employeePerformance, methodName, "employeePerformance");
-		assertMethodArgumentNotNull(options, methodName, "options");
+    assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
+    assertMethodArgumentNotNull(options, methodName, "options");
+
+    EmployeePerformance newEmployeePerformance =
+        loadInternalEmployeePerformance(accessKey, options);
+    newEmployeePerformance.setVersion(0);
 
-		return saveInternalEmployeePerformance(employeePerformance,options);
-	}
-	public EmployeePerformance clone(String employeePerformanceId, Map<String,Object> options) throws Exception{
+    saveInternalEmployeePerformance(newEmployeePerformance, options);
+
+    return newEmployeePerformance;
+  }
 
-		return clone(EmployeePerformanceTable.withId(employeePerformanceId),options);
-	}
-
-	protected EmployeePerformance clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-
-		String methodName="clone(String employeePerformanceId,Map<String,Object> options)";
-
-		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
-		assertMethodArgumentNotNull(options, methodName, "options");
-
-		EmployeePerformance newEmployeePerformance = loadInternalEmployeePerformance(accessKey, options);
-		newEmployeePerformance.setVersion(0);
-		
-		
-
-
-		saveInternalEmployeePerformance(newEmployeePerformance,options);
-
-		return newEmployeePerformance;
-	}
-
-	
-
-
-
-	protected void throwIfHasException(String employeePerformanceId,int version,int count) throws Exception{
-		if (count == 1) {
-			throw new EmployeePerformanceVersionChangedException(
-					"The object version has been changed, please reload to delete");
-		}
-		if (count < 1) {
-			throw new EmployeePerformanceNotFoundException(
-					"The " + this.getTableName() + "(" + employeePerformanceId + ") has already been deleted.");
-		}
-		if (count > 1) {
-			throw new IllegalStateException(
-					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
-		}
-	}
-
-
-	public void delete(String employeePerformanceId, int version) throws Exception{
-
-		String methodName="delete(String employeePerformanceId, int version)";
-		assertMethodArgumentNotNull(employeePerformanceId, methodName, "employeePerformanceId");
-		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-
-
-		String SQL=this.getDeleteSQL();
-		Object [] parameters=new Object[]{employeePerformanceId,version};
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber == 1){
-			return ; //Delete successfully
-		}
-		if(affectedNumber == 0){
-			handleDeleteOneError(employeePerformanceId,version);
-		}
-
-
-	}
-
-
-
-
-
-
-	public EmployeePerformance disconnectFromAll(String employeePerformanceId, int version) throws Exception{
-
-
-		EmployeePerformance employeePerformance = loadInternalEmployeePerformance(EmployeePerformanceTable.withId(employeePerformanceId), emptyOptions());
-		employeePerformance.clearFromAll();
-		this.saveEmployeePerformance(employeePerformance);
-		return employeePerformance;
-
-
-	}
-
-	@Override
-	protected String[] getNormalColumnNames() {
-
-		return EmployeePerformanceTable.NORMAL_CLOUMNS;
-	}
-	@Override
-	protected String getName() {
-
-		return "employee_performance";
-	}
-	@Override
-	protected String getBeanName() {
-
-		return "employeePerformance";
-	}
-
-	
-
-
-
-	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-
- 		return EmployeePerformanceTokens.checkOptions(options, optionToCheck);
-
-	}
-
-
-
- 	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
-
-	 	return checkOptions(options, EmployeePerformanceTokens.EMPLOYEE);
- 	}
-
- 	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-
- 		return checkOptions(options, EmployeePerformanceTokens.EMPLOYEE);
- 	}
-
-
-
- 
-		
-
-	
-
-	protected EmployeePerformanceMapper getEmployeePerformanceMapper(){
-		return new EmployeePerformanceMapper();
-	}
-
-
-
-	protected EmployeePerformance extractEmployeePerformance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		try{
-			EmployeePerformance employeePerformance = loadSingleObject(accessKey, getEmployeePerformanceMapper());
-			return employeePerformance;
-		}catch(EmptyResultDataAccessException e){
-			throw new EmployeePerformanceNotFoundException("EmployeePerformance("+accessKey+") is not found!");
-		}
-
-	}
-
-
-
-
-	protected EmployeePerformance loadInternalEmployeePerformance(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-
-		EmployeePerformance employeePerformance = extractEmployeePerformance(accessKey, loadOptions);
-
- 		if(isExtractEmployeeEnabled(loadOptions)){
-	 		extractEmployee(employeePerformance, loadOptions);
- 		}
- 
-		
-		return employeePerformance;
-
-	}
-
-	
-
- 	protected EmployeePerformance extractEmployee(EmployeePerformance employeePerformance, Map<String,Object> options) throws Exception{
-  
-
-		if(employeePerformance.getEmployee() == null){
-			return employeePerformance;
-		}
-		String employeeId = employeePerformance.getEmployee().getId();
-		if( employeeId == null){
-			return employeePerformance;
-		}
-		Employee employee = getEmployeeDAO().load(employeeId,options);
-		if(employee != null){
-			employeePerformance.setEmployee(employee);
-		}
-
-
- 		return employeePerformance;
- 	}
-
- 
-		
-
- 
- 	public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(String employeeId,Map<String,Object> options){
-
-  		SmartList<EmployeePerformance> resultList = queryWith(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeePerformanceMapper());
-		// analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
-		return resultList;
- 	}
- 	
-
- 	public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(String employeeId, int start, int count,Map<String,Object> options){
-
- 		SmartList<EmployeePerformance> resultList =  queryWithRange(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeePerformanceMapper(), start, count);
- 		//analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
- 		return resultList;
-
- 	}
- 	public void analyzeEmployeePerformanceByEmployee(SmartList<EmployeePerformance> resultList, String employeeId, Map<String,Object> options){
-		if(resultList==null){
-			return;//do nothing when the list is null.
-		}
-
-
-
- 	}
- 	@Override
- 	public int countEmployeePerformanceByEmployee(String employeeId,Map<String,Object> options){
-
- 		return countWith(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options);
- 	}
- 	@Override
-	public Map<String, Integer> countEmployeePerformanceByEmployeeIds(String[] ids, Map<String, Object> options) {
-		return countWithIds(EmployeePerformanceTable.COLUMN_EMPLOYEE, ids, options);
-	}
-
- 
-
-
-
-
-	
-
-	protected EmployeePerformance saveEmployeePerformance(EmployeePerformance  employeePerformance){
-    
-
-		
-		if(!employeePerformance.isChanged()){
-			return employeePerformance;
-		}
-		
+  protected void throwIfHasException(String employeePerformanceId, int version, int count)
+      throws Exception {
+    if (count == 1) {
+      throw new EmployeePerformanceVersionChangedException(
+          "The object version has been changed, please reload to delete");
+    }
+    if (count < 1) {
+      throw new EmployeePerformanceNotFoundException(
+          "The "
+              + this.getTableName()
+              + "("
+              + employeePerformanceId
+              + ") has already been deleted.");
+    }
+    if (count > 1) {
+      throw new IllegalStateException(
+          "The table '"
+              + this.getTableName()
+              + "' PRIMARY KEY constraint has been damaged, please fix it.");
+    }
+  }
+
+  public EmployeePerformance disconnectFromAll(String employeePerformanceId, int version)
+      throws Exception {
+
+    EmployeePerformance employeePerformance =
+        loadInternalEmployeePerformance(
+            EmployeePerformanceTable.withId(employeePerformanceId), emptyOptions());
+    employeePerformance.clearFromAll();
+    this.saveEmployeePerformance(employeePerformance);
+    return employeePerformance;
+  }
+
+  @Override
+  protected String[] getNormalColumnNames() {
+
+    return EmployeePerformanceTable.NORMAL_CLOUMNS;
+  }
+
+  @Override
+  protected String getName() {
+
+    return "employee_performance";
+  }
+
+  @Override
+  protected String getBeanName() {
+
+    return "employeePerformance";
+  }
+
+  protected boolean checkOptions(Map<String, Object> options, String optionToCheck) {
+
+    return EmployeePerformanceTokens.checkOptions(options, optionToCheck);
+  }
+
+  protected boolean isExtractEmployeeEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, EmployeePerformanceTokens.EMPLOYEE);
+  }
+
+  protected boolean isSaveEmployeeEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, EmployeePerformanceTokens.EMPLOYEE);
+  }
+
+  protected EmployeePerformanceMapper getEmployeePerformanceMapper() {
+    return new EmployeePerformanceMapper();
+  }
+
+  protected EmployeePerformance extractEmployeePerformance(
+      AccessKey accessKey, Map<String, Object> loadOptions) throws Exception {
+    try {
+      EmployeePerformance employeePerformance =
+          loadSingleObject(accessKey, getEmployeePerformanceMapper());
+      return employeePerformance;
+    } catch (EmptyResultDataAccessException e) {
+      throw new EmployeePerformanceNotFoundException(
+          "EmployeePerformance(" + accessKey + ") is not found!");
+    }
+  }
+
+  protected EmployeePerformance loadInternalEmployeePerformance(
+      AccessKey accessKey, Map<String, Object> loadOptions) throws Exception {
+
+    EmployeePerformance employeePerformance = extractEmployeePerformance(accessKey, loadOptions);
+
+    if (isExtractEmployeeEnabled(loadOptions)) {
+      extractEmployee(employeePerformance, loadOptions);
+    }
+
+    return employeePerformance;
+  }
+
+  protected EmployeePerformance extractEmployee(
+      EmployeePerformance employeePerformance, Map<String, Object> options) throws Exception {
+
+    if (employeePerformance.getEmployee() == null) {
+      return employeePerformance;
+    }
+    String employeeId = employeePerformance.getEmployee().getId();
+    if (employeeId == null) {
+      return employeePerformance;
+    }
+    Employee employee = getEmployeeDAO().load(employeeId, options);
+    if (employee != null) {
+      employeePerformance.setEmployee(employee);
+    }
+
+    return employeePerformance;
+  }
+
+  public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(
+      String employeeId, Map<String, Object> options) {
+
+    SmartList<EmployeePerformance> resultList =
+        queryWith(
+            EmployeePerformanceTable.COLUMN_EMPLOYEE,
+            employeeId,
+            options,
+            getEmployeePerformanceMapper());
+    // analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
+    return resultList;
+  }
+
+  public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(
+      String employeeId, int start, int count, Map<String, Object> options) {
+
+    SmartList<EmployeePerformance> resultList =
+        queryWithRange(
+            EmployeePerformanceTable.COLUMN_EMPLOYEE,
+            employeeId,
+            options,
+            getEmployeePerformanceMapper(),
+            start,
+            count);
+    // analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
+    return resultList;
+  }
+
+  public void analyzeEmployeePerformanceByEmployee(
+      SmartList<EmployeePerformance> resultList, String employeeId, Map<String, Object> options) {
+    if (resultList == null) {
+      return; // do nothing when the list is null.
+    }
+  }
+
+  @Override
+  public int countEmployeePerformanceByEmployee(String employeeId, Map<String, Object> options) {
+
+    return countWith(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options);
+  }
+
+  @Override
+  public Map<String, Integer> countEmployeePerformanceByEmployeeIds(
+      String[] ids, Map<String, Object> options) {
+    return countWithIds(EmployeePerformanceTable.COLUMN_EMPLOYEE, ids, options);
+  }
+
+  protected EmployeePerformance saveEmployeePerformance(EmployeePerformance employeePerformance) {
+
+    if (!employeePerformance.isChanged()) {
+      return employeePerformance;
+    }
 
     Beans.dbUtil().cacheCleanUp(employeePerformance);
-		String SQL=this.getSaveEmployeePerformanceSQL(employeePerformance);
-		//FIXME: how about when an item has been updated more than MAX_INT?
-		Object [] parameters = getSaveEmployeePerformanceParameters(employeePerformance);
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber != 1){
-			throw new IllegalStateException("The save operation should return value = 1, while the value = "
-				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
-		}
+    String SQL = this.getSaveEmployeePerformanceSQL(employeePerformance);
+    // FIXME: how about when an item has been updated more than MAX_INT?
+    Object[] parameters = getSaveEmployeePerformanceParameters(employeePerformance);
+    int affectedNumber = singleUpdate(SQL, parameters);
+    if (affectedNumber != 1) {
+      throw new IllegalStateException(
+          "The save operation should return value = 1, while the value = "
+              + affectedNumber
+              + "If the value = 0, that mean the target record has been updated by someone else!");
+    }
 
-		employeePerformance.incVersion();
-		employeePerformance.afterSave();
-		return employeePerformance;
+    employeePerformance.incVersion();
+    employeePerformance.afterSave();
+    return employeePerformance;
+  }
 
-	}
-	public SmartList<EmployeePerformance> saveEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList,Map<String,Object> options){
-		//assuming here are big amount objects to be updated.
-		//First step is split into two groups, one group for update and another group for create
-		Object [] lists=splitEmployeePerformanceList(employeePerformanceList);
+  public SmartList<EmployeePerformance> saveEmployeePerformanceList(
+      SmartList<EmployeePerformance> employeePerformanceList, Map<String, Object> options) {
+    // assuming here are big amount objects to be updated.
+    // First step is split into two groups, one group for update and another group for create
+    Object[] lists = splitEmployeePerformanceList(employeePerformanceList);
 
-		batchEmployeePerformanceCreate((List<EmployeePerformance>)lists[CREATE_LIST_INDEX]);
+    batchEmployeePerformanceCreate((List<EmployeePerformance>) lists[CREATE_LIST_INDEX]);
+    batchEmployeePerformanceUpdate((List<EmployeePerformance>) lists[UPDATE_LIST_INDEX]);
+    batchEmployeePerformanceRemove((List<EmployeePerformance>) lists[REMOVE_LIST_INDEX]);
+    batchEmployeePerformanceRecover((List<EmployeePerformance>) lists[RECOVER_LIST_INDEX]);
 
-		batchEmployeePerformanceUpdate((List<EmployeePerformance>)lists[UPDATE_LIST_INDEX]);
+    // update version after the list successfully saved to database;
+    for (EmployeePerformance employeePerformance : employeePerformanceList) {
+      if (employeePerformance.isChanged()) {
+        employeePerformance.incVersion();
+        employeePerformance.afterSave();
+      }
+      if (employeePerformance.isToRecover() || employeePerformance.isToRemove()) {
+        employeePerformance.setVersion(-employeePerformance.getVersion());
+      }
+    }
 
+    return employeePerformanceList;
+  }
 
-		//update version after the list successfully saved to database;
-		for(EmployeePerformance employeePerformance:employeePerformanceList){
-			if(employeePerformance.isChanged()){
-				employeePerformance.incVersion();
-				employeePerformance.afterSave();
-			}
+  public SmartList<EmployeePerformance> removeEmployeePerformanceList(
+      SmartList<EmployeePerformance> employeePerformanceList, Map<String, Object> options) {
 
+    super.removeList(employeePerformanceList, options);
 
-		}
+    return employeePerformanceList;
+  }
 
+  protected List<Object[]> prepareEmployeePerformanceBatchCreateArgs(
+      List<EmployeePerformance> employeePerformanceList) {
 
-		return employeePerformanceList;
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeePerformance employeePerformance : employeePerformanceList) {
+      Object[] parameters = prepareEmployeePerformanceCreateParameters(employeePerformance);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	public SmartList<EmployeePerformance> removeEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList,Map<String,Object> options){
+  protected List<Object[]> prepareEmployeePerformanceBatchUpdateArgs(
+      List<EmployeePerformance> employeePerformanceList) {
 
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeePerformance employeePerformance : employeePerformanceList) {
+      if (!employeePerformance.isChanged()) {
+        continue;
+      }
+      Object[] parameters = prepareEmployeePerformanceUpdateParameters(employeePerformance);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-		super.removeList(employeePerformanceList, options);
+  protected List<Object[]> prepareEmployeePerformanceBatchRecoverArgs(
+      List<EmployeePerformance> employeePerformanceList) {
 
-		return employeePerformanceList;
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeePerformance employeePerformance : employeePerformanceList) {
+      if (!employeePerformance.isToRecover()) {
+        continue;
+      }
+      Object[] parameters = prepareRecoverParameters(employeePerformance);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
+  protected List<Object[]> prepareEmployeePerformanceBatchRemoveArgs(
+      List<EmployeePerformance> employeePerformanceList) {
 
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeePerformance employeePerformance : employeePerformanceList) {
+      if (!employeePerformance.isToRemove()) {
+        continue;
+      }
+      Object[] parameters = prepareEmployeePerformanceRemoveParameters(employeePerformance);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	protected List<Object[]> prepareEmployeePerformanceBatchCreateArgs(List<EmployeePerformance> employeePerformanceList){
+  protected void batchEmployeePerformanceCreate(List<EmployeePerformance> employeePerformanceList) {
+    String SQL = getCreateSQL();
+    List<Object[]> args = prepareEmployeePerformanceBatchCreateArgs(employeePerformanceList);
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(EmployeePerformance employeePerformance:employeePerformanceList ){
-			Object [] parameters = prepareEmployeePerformanceCreateParameters(employeePerformance);
-			parametersList.add(parameters);
+    int affectedNumbers[] = batchUpdate(SQL, args);
+  }
 
-		}
-		return parametersList;
+  protected void batchEmployeePerformanceUpdate(List<EmployeePerformance> employeePerformanceList) {
+    String SQL = getUpdateSQL();
+    List<Object[]> args = prepareEmployeePerformanceBatchUpdateArgs(employeePerformanceList);
 
-	}
-	protected List<Object[]> prepareEmployeePerformanceBatchUpdateArgs(List<EmployeePerformance> employeePerformanceList){
+    int affectedNumbers[] = batchUpdate(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(EmployeePerformance employeePerformance:employeePerformanceList ){
-			if(!employeePerformance.isChanged()){
-				continue;
-			}
-			Object [] parameters = prepareEmployeePerformanceUpdateParameters(employeePerformance);
-			parametersList.add(parameters);
+  protected void batchEmployeePerformanceRemove(List<EmployeePerformance> employeePerformanceList) {
+    String SQL = getRemoveSQL();
+    List<Object[]> args = prepareEmployeePerformanceBatchRemoveArgs(employeePerformanceList);
+    int affectedNumbers[] = batchRemove(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		}
-		return parametersList;
+  protected void batchEmployeePerformanceRecover(
+      List<EmployeePerformance> employeePerformanceList) {
+    String SQL = getRecoverSQL();
+    List<Object[]> args = prepareEmployeePerformanceBatchRecoverArgs(employeePerformanceList);
+    int affectedNumbers[] = batchRecover(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-	}
-	protected void batchEmployeePerformanceCreate(List<EmployeePerformance> employeePerformanceList){
-		String SQL=getCreateSQL();
-		List<Object[]> args=prepareEmployeePerformanceBatchCreateArgs(employeePerformanceList);
+  static final int CREATE_LIST_INDEX = 0;
+  static final int UPDATE_LIST_INDEX = 1;
+  static final int REMOVE_LIST_INDEX = 2;
+  static final int RECOVER_LIST_INDEX = 3;
 
-		int affectedNumbers[] = batchUpdate(SQL, args);
+  protected Object[] splitEmployeePerformanceList(
+      List<EmployeePerformance> employeePerformanceList) {
 
-	}
+    List<EmployeePerformance> employeePerformanceCreateList = new ArrayList<EmployeePerformance>();
+    List<EmployeePerformance> employeePerformanceUpdateList = new ArrayList<EmployeePerformance>();
+    List<EmployeePerformance> employeePerformanceRemoveList = new ArrayList<EmployeePerformance>();
+    List<EmployeePerformance> employeePerformanceRecoverList = new ArrayList<EmployeePerformance>();
 
-
-	protected void batchEmployeePerformanceUpdate(List<EmployeePerformance> employeePerformanceList){
-		String SQL=getUpdateSQL();
-		List<Object[]> args=prepareEmployeePerformanceBatchUpdateArgs(employeePerformanceList);
-
-		int affectedNumbers[] = batchUpdate(SQL, args);
-
-
-
-	}
-
-
-
-	static final int CREATE_LIST_INDEX=0;
-	static final int UPDATE_LIST_INDEX=1;
-
-	protected Object[] splitEmployeePerformanceList(List<EmployeePerformance> employeePerformanceList){
-
-		List<EmployeePerformance> employeePerformanceCreateList=new ArrayList<EmployeePerformance>();
-		List<EmployeePerformance> employeePerformanceUpdateList=new ArrayList<EmployeePerformance>();
-
-		for(EmployeePerformance employeePerformance: employeePerformanceList){
-			if(isUpdateRequest(employeePerformance)){
-				employeePerformanceUpdateList.add( employeePerformance);
-				continue;
-			}
-			employeePerformanceCreateList.add(employeePerformance);
-		}
-
-		return new Object[]{employeePerformanceCreateList,employeePerformanceUpdateList};
-	}
-
-	protected boolean isUpdateRequest(EmployeePerformance employeePerformance){
- 		return employeePerformance.getVersion() > 0;
- 	}
- 	protected String getSaveEmployeePerformanceSQL(EmployeePerformance employeePerformance){
- 		if(isUpdateRequest(employeePerformance)){
- 			return getUpdateSQL();
- 		}
- 		return getCreateSQL();
- 	}
-
- 	protected Object[] getSaveEmployeePerformanceParameters(EmployeePerformance employeePerformance){
- 		if(isUpdateRequest(employeePerformance) ){
- 			return prepareEmployeePerformanceUpdateParameters(employeePerformance);
- 		}
- 		return prepareEmployeePerformanceCreateParameters(employeePerformance);
- 	}
- 	protected Object[] prepareEmployeePerformanceUpdateParameters(EmployeePerformance employeePerformance){
- 		Object[] parameters = new Object[5];
- 
- 		if(employeePerformance.getEmployee() != null){
- 			parameters[0] = employeePerformance.getEmployee().getId();
- 		}
-    
- 		parameters[1] = employeePerformance.getPerformanceComment();
- 		
- 		parameters[2] = employeePerformance.nextVersion();
- 		parameters[3] = employeePerformance.getId();
- 		parameters[4] = employeePerformance.getVersion();
-
- 		return parameters;
- 	}
- 	protected Object[] prepareEmployeePerformanceCreateParameters(EmployeePerformance employeePerformance){
-		Object[] parameters = new Object[3];
-        if(employeePerformance.getId() == null){
-          String newEmployeePerformanceId=getNextId();
-          employeePerformance.setId(newEmployeePerformanceId);
+    for (EmployeePerformance employeePerformance : employeePerformanceList) {
+      if (employeePerformance.isToRemove()) {
+        employeePerformanceRemoveList.add(employeePerformance);
+        continue;
+      }
+      if (employeePerformance.isToRecover()) {
+        employeePerformanceRecoverList.add(employeePerformance);
+        continue;
+      }
+      if (isUpdateRequest(employeePerformance)) {
+        if (employeePerformance.isChanged()) {
+          employeePerformanceUpdateList.add(employeePerformance);
         }
-		parameters[0] =  employeePerformance.getId();
- 
- 		if(employeePerformance.getEmployee() != null){
- 			parameters[1] = employeePerformance.getEmployee().getId();
- 		}
- 		
- 		parameters[2] = employeePerformance.getPerformanceComment();
- 		
+        continue;
+      }
 
- 		return parameters;
- 	}
+      if (employeePerformance.isChanged()) {
+        employeePerformanceCreateList.add(employeePerformance);
+      }
+    }
 
-	protected EmployeePerformance saveInternalEmployeePerformance(EmployeePerformance employeePerformance, Map<String,Object> options){
+    return new Object[] {
+      employeePerformanceCreateList,
+      employeePerformanceUpdateList,
+      employeePerformanceRemoveList,
+      employeePerformanceRecoverList
+    };
+  }
 
- 		if(isSaveEmployeeEnabled(options)){
-	 		saveEmployee(employeePerformance, options);
- 		}
- 
-   saveEmployeePerformance(employeePerformance);
-		
-		return employeePerformance;
+  protected boolean isUpdateRequest(EmployeePerformance employeePerformance) {
+    return employeePerformance.getVersion() > 0;
+  }
 
-	}
+  protected String getSaveEmployeePerformanceSQL(EmployeePerformance employeePerformance) {
+    if (employeePerformance.isToRemove()) {
+      return getRemoveSQL();
+    }
+    if (isUpdateRequest(employeePerformance)) {
+      return getUpdateSQL();
+    }
+    return getCreateSQL();
+  }
 
+  protected Object[] getSaveEmployeePerformanceParameters(EmployeePerformance employeePerformance) {
+    if (employeePerformance.isToRemove()) {
+      return prepareEmployeePerformanceRemoveParameters(employeePerformance);
+    }
+    if (employeePerformance.isToRecover()) {
+      return prepareRecoverParameters(employeePerformance);
+    }
 
+    if (isUpdateRequest(employeePerformance)) {
+      return prepareEmployeePerformanceUpdateParameters(employeePerformance);
+    }
+    return prepareEmployeePerformanceCreateParameters(employeePerformance);
+  }
 
-	//======================================================================================
-	
+  protected Object[] prepareEmployeePerformanceRemoveParameters(
+      EmployeePerformance employeePerformance) {
+    return super.prepareRemoveParameters(employeePerformance);
+  }
 
- 	protected EmployeePerformance saveEmployee(EmployeePerformance employeePerformance, Map<String,Object> options){
- 	
- 		//Call inject DAO to execute this method
- 		if(employeePerformance.getEmployee() == null){
- 			return employeePerformance;//do nothing when it is null
- 		}
+  protected Object[] prepareEmployeePerformanceUpdateParameters(
+      EmployeePerformance employeePerformance) {
+    Object[] parameters = new Object[5];
 
- 		getEmployeeDAO().save(employeePerformance.getEmployee(),options);
- 		return employeePerformance;
+    if (employeePerformance.getEmployee() != null) {
+      parameters[0] = employeePerformance.getEmployee().getId();
+    }
 
- 	}
- 
+    parameters[1] = employeePerformance.getPerformanceComment();
 
-	
+    parameters[2] = employeePerformance.nextVersion();
+    parameters[3] = employeePerformance.getId();
+    parameters[4] = employeePerformance.getVersion();
 
-		
+    return parameters;
+  }
 
-	public EmployeePerformance present(EmployeePerformance employeePerformance,Map<String, Object> options){
+  protected Object[] prepareEmployeePerformanceCreateParameters(
+      EmployeePerformance employeePerformance) {
+    Object[] parameters = new Object[3];
+    if (employeePerformance.getId() == null) {
+      String newEmployeePerformanceId = getNextId();
+      employeePerformance.setId(newEmployeePerformanceId);
+    }
+    parameters[0] = employeePerformance.getId();
 
+    if (employeePerformance.getEmployee() != null) {
+      parameters[1] = employeePerformance.getEmployee().getId();
+    }
 
-		return employeePerformance;
+    parameters[2] = employeePerformance.getPerformanceComment();
 
-	}
-		
+    return parameters;
+  }
 
-	
+  protected EmployeePerformance saveInternalEmployeePerformance(
+      EmployeePerformance employeePerformance, Map<String, Object> options) {
 
-	protected String getTableName(){
-		return EmployeePerformanceTable.TABLE_NAME;
-	}
+    if (isSaveEmployeeEnabled(options)) {
+      saveEmployee(employeePerformance, options);
+    }
 
+    saveEmployeePerformance(employeePerformance);
 
+    return employeePerformance;
+  }
 
-	public void enhanceList(List<EmployeePerformance> employeePerformanceList) {
-		this.enhanceListInternal(employeePerformanceList, this.getEmployeePerformanceMapper());
-	}
+  // ======================================================================================
 
-	
+  protected EmployeePerformance saveEmployee(
+      EmployeePerformance employeePerformance, Map<String, Object> options) {
 
-	@Override
-	public void collectAndEnhance(BaseEntity ownerEntity) {
-		List<EmployeePerformance> employeePerformanceList = ownerEntity.collectRefsWithType(EmployeePerformance.INTERNAL_TYPE);
-		this.enhanceList(employeePerformanceList);
+    // Call inject DAO to execute this method
+    if (employeePerformance.getEmployee() == null) {
+      return employeePerformance; // do nothing when it is null
+    }
 
-	}
+    getEmployeeDAO().save(employeePerformance.getEmployee(), options);
+    return employeePerformance;
+  }
 
-	@Override
-	public SmartList<EmployeePerformance> findEmployeePerformanceWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+  public EmployeePerformance present(
+      EmployeePerformance employeePerformance, Map<String, Object> options) {
 
-  		return queryWith(key, options, getEmployeePerformanceMapper());
+    return employeePerformance;
+  }
 
-	}
-	@Override
-	public int countEmployeePerformanceWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+  protected String getTableName() {
+    return EmployeePerformanceTable.TABLE_NAME;
+  }
 
-  		return countWith(key, options);
+  public void enhanceList(List<EmployeePerformance> employeePerformanceList) {
+    this.enhanceListInternal(employeePerformanceList, this.getEmployeePerformanceMapper());
+  }
 
-	}
-	public Map<String, Integer> countEmployeePerformanceWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options) {
+  @Override
+  public void collectAndEnhance(BaseEntity ownerEntity) {
+    List<EmployeePerformance> employeePerformanceList =
+        ownerEntity.collectRefsWithType(EmployeePerformance.INTERNAL_TYPE);
+    this.enhanceList(employeePerformanceList);
+  }
 
-  		return countWithGroup(groupKey, filterKey, options);
+  @Override
+  public SmartList<EmployeePerformance> findEmployeePerformanceWithKey(
+      MultipleAccessKey key, Map<String, Object> options) {
 
-	}
+    return queryWith(key, options, getEmployeePerformanceMapper());
+  }
 
-	@Override
-	public SmartList<EmployeePerformance> queryList(String sql, Object... parameters) {
-	    return this.queryForList(sql, parameters, this.getEmployeePerformanceMapper());
-	}
+  @Override
+  public int countEmployeePerformanceWithKey(MultipleAccessKey key, Map<String, Object> options) {
+
+    return countWith(key, options);
+  }
+
+  public Map<String, Integer> countEmployeePerformanceWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options) {
+
+    return countWithGroup(groupKey, filterKey, options);
+  }
+
+  @Override
+  public SmartList<EmployeePerformance> queryList(String sql, Object... parameters) {
+    return this.queryForList(sql, parameters, this.getEmployeePerformanceMapper());
+  }
 
   @Override
   public List<String> queryIdList(String sql, Object... parameters) {
     return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
   }
+
   @Override
   public Stream<EmployeePerformance> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeePerformanceMapper());
   }
 
-	@Override
-	public int count(String sql, Object... parameters) {
-	    return queryInt(sql, parameters);
-	}
-	@Override
-	public CandidateEmployeePerformance executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+  @Override
+  public int count(String sql, Object... parameters) {
+    return queryInt(sql, parameters);
+  }
 
-		CandidateEmployeePerformance result = new CandidateEmployeePerformance();
-		int pageNo = Math.max(1, query.getPageNo());
-		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
-		result.setOwnerId(query.getOwnerId());
-		result.setFilterKey(query.getFilterKey());
-		result.setPageNo(pageNo);
-		result.setValueFieldName("id");
-		result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
-		result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
+  @Override
+  public CandidateEmployeePerformance executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception {
 
-		SmartList candidateList = queryList(sql, parmeters);
-		this.alias(candidateList);
-		result.setCandidates(candidateList);
-		int offSet = (pageNo - 1 ) * query.getPageSize();
-		if (candidateList.size() > query.getPageSize()) {
-			result.setTotalPage(pageNo+1);
-		}else {
-			result.setTotalPage(pageNo);
-		}
-		return result;
-	}
+    CandidateEmployeePerformance result = new CandidateEmployeePerformance();
+    int pageNo = Math.max(1, query.getPageNo());
+    result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
+    result.setOwnerId(query.getOwnerId());
+    result.setFilterKey(query.getFilterKey());
+    result.setPageNo(pageNo);
+    result.setValueFieldName("id");
+    result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
+    result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
 
-	
+    SmartList candidateList = queryList(sql, parmeters);
+    this.alias(candidateList);
+    result.setCandidates(candidateList);
+    int offSet = (pageNo - 1) * query.getPageSize();
+    if (candidateList.size() > query.getPageSize()) {
+      result.setTotalPage(pageNo + 1);
+    } else {
+      result.setTotalPage(pageNo);
+    }
+    return result;
+  }
 
   @Override
   public List<EmployeePerformance> search(EmployeePerformanceRequest pRequest) {
@@ -622,6 +639,9 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmBaseDAOImpl imp
   protected EmployeePerformanceMapper mapper() {
     return getEmployeePerformanceMapper();
   }
+
+  @Override
+  protected EmployeePerformanceMapper mapperForClazz(Class<?> clazz) {
+    return EmployeePerformanceMapper.mapperForClass(clazz);
+  }
 }
-
-

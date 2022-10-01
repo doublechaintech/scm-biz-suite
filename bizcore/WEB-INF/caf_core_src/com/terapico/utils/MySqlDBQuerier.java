@@ -79,6 +79,10 @@ public class MySqlDBQuerier implements DBQuerier {
         if (fieldType.toLowerCase().startsWith("tinyint") && type.toLowerCase().startsWith("tinyint")) {
             return true;
         }
+	
+	 if (fieldType.contains("bigint") && type.contains("bigint")) {
+            return true;
+        }
         return false;
     }
 

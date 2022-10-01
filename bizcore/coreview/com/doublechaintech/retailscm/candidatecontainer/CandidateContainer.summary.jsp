@@ -80,7 +80,7 @@
 <section><h3>候选人元素</h3>
 <table><tr>
 <tr>
-<th>ID</th><th>标题</th><th>类型</th><th>图像</th><th>容器</th></tr>	<c:forEach items="${result.candidateElementList}" var="item">
+<th>ID</th><th>名称</th><th>类型</th><th>图片</th><th>容器</th></tr>	<c:forEach items="${result.candidateElementList}" var="item">
 	<tr>
 <td>${item.id}</td><td>${item.name}</td><td>${item.type}</td><td>${item.image}</td><td>${item.container.displayName}</td></tr></c:forEach></table>
 </section>

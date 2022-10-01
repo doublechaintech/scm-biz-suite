@@ -26,5 +26,3 @@ public class NonCacheOperator implements CacheOperator {
     return false;
   }
 }
-
-

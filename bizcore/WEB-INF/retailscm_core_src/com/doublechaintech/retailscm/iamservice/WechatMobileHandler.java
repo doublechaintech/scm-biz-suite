@@ -39,7 +39,10 @@ public class WechatMobileHandler extends BaseIdentificationHandler {
     String cacheKey = getSessionKeyCacheKey(ctx);
     ctx.putToCache(
         cacheKey,
-        MapUtil.put("openId", openId).put("unionId", unionId).put("sessionKey", userSessionKey).into_map(),
+        MapUtil.put("openId", openId)
+            .put("unionId", unionId)
+            .put("sessionKey", userSessionKey)
+            .into_map(),
         360 * 24 * 60 * 60);
     return MapUtil.put("openid", openId).put("sessionKey", userSessionKey).into_map();
   }
@@ -47,43 +50,43 @@ public class WechatMobileHandler extends BaseIdentificationHandler {
   @Override
   public LoginResult authenticate(RetailscmUserContext userContext, LoginContext loginContext) {
     LoginResult result = new LoginResult();
-        result.setLoginContext(loginContext);
-        // 校验输入
-        String code = loginContext.getLoginData().getCode();
-        String encData = loginContext.getLoginData().getEncryptedData();
-        String iv = loginContext.getLoginData().getIv();
-        if (TextUtil.isBlank(encData) || TextUtil.isBlank(iv)) {
-          result.setMessage("不能获取您的手机号");
-          result.setAuthenticated(false);
-          result.setNewUser(false);
-          return result;
-        }
-        Map<String, Object> sessionInfoMap =
-            userContext.getCachedObject(getSessionKeyCacheKey(userContext), Map.class);
-        String openId;
-        String userSessionKey;
-        String unionId;
-        if (sessionInfoMap != null) {
-          openId = (String) sessionInfoMap.get("openId");
-          userSessionKey = (String) sessionInfoMap.get("sessionKey");
-           unionId = (String) sessionInfoMap.get("unionId");
-        } else {
-          WxMaJscode2SessionResult sessionInfo = null;
-          try {
-            sessionInfo = wxService.jsCode2SessionInfo(code);
-          } catch (WxErrorException e) {
-            e.printStackTrace();
-            return result.withError("获取session失败:" + e.getMessage());
-          }
-          openId = sessionInfo.getOpenid();
-          unionId = sessionInfo.getUnionid();
-          userSessionKey = sessionInfo.getSessionKey();
-        }
+    result.setLoginContext(loginContext);
+    // 校验输入
+    String code = loginContext.getLoginData().getCode();
+    String encData = loginContext.getLoginData().getEncryptedData();
+    String iv = loginContext.getLoginData().getIv();
+    if (TextUtil.isBlank(encData) || TextUtil.isBlank(iv)) {
+      result.setMessage("不能获取您的手机号");
+      result.setAuthenticated(false);
+      result.setNewUser(false);
+      return result;
+    }
+    Map<String, Object> sessionInfoMap =
+        userContext.getCachedObject(getSessionKeyCacheKey(userContext), Map.class);
+    String openId;
+    String userSessionKey;
+    String unionId;
+    if (sessionInfoMap != null) {
+      openId = (String) sessionInfoMap.get("openId");
+      userSessionKey = (String) sessionInfoMap.get("sessionKey");
+      unionId = (String) sessionInfoMap.get("unionId");
+    } else {
+      WxMaJscode2SessionResult sessionInfo = null;
+      try {
+        sessionInfo = wxService.jsCode2SessionInfo(code);
+      } catch (WxErrorException e) {
+        e.printStackTrace();
+        return result.withError("获取session失败:" + e.getMessage());
+      }
+      openId = sessionInfo.getOpenid();
+      unionId = sessionInfo.getUnionid();
+      userSessionKey = sessionInfo.getSessionKey();
+    }
 
-        WxMaPhoneNumberInfo phoneNoInfo = takeWxMaPhoneNumberInfo(encData, iv, userSessionKey);
-        if (phoneNoInfo == null || phoneNoInfo.getPurePhoneNumber() == null) {
-          return result.withError("获取电话号码失败");
-        }
+    WxMaPhoneNumberInfo phoneNoInfo = takeWxMaPhoneNumberInfo(encData, iv, userSessionKey);
+    if (phoneNoInfo == null || phoneNoInfo.getPurePhoneNumber() == null) {
+      return result.withError("获取电话号码失败");
+    }
 
     String cleanMobile = TextUtil.formatChinaMobile(phoneNoInfo.getPurePhoneNumber());
 
@@ -116,16 +119,16 @@ public class WechatMobileHandler extends BaseIdentificationHandler {
   }
 
   protected WxMaPhoneNumberInfo takeWxMaPhoneNumberInfo(
-        String encData, String iv, String userSessionKey) {
-      try {
-        WxMaPhoneNumberInfo phoneNoInfo =
-            wxService.getUserService().getPhoneNoInfo(userSessionKey, encData, iv);
-        return phoneNoInfo;
-      } catch (Exception e) {
-        e.printStackTrace();
-        throw new RuntimeException("解密用户信息失败:" + e.getMessage(), e);
-      }
+      String encData, String iv, String userSessionKey) {
+    try {
+      WxMaPhoneNumberInfo phoneNoInfo =
+          wxService.getUserService().getPhoneNoInfo(userSessionKey, encData, iv);
+      return phoneNoInfo;
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new RuntimeException("解密用户信息失败:" + e.getMessage(), e);
     }
+  }
 
   @Override
   public void bindWithSecUser(RetailscmUserContext userContext, LoginContext loginContext)
@@ -150,8 +153,9 @@ public class WechatMobileHandler extends BaseIdentificationHandler {
         .internalSaveSecUser(userContext, secUserInDB, EO);
   }
 
-  private void autoCreateWechatMiniAppIfNeeded(RetailscmUserContext userContext, SecUser secUser, LoginContext loginContext) {
-    if (secUser == null){
+  private void autoCreateWechatMiniAppIfNeeded(
+      RetailscmUserContext userContext, SecUser secUser, LoginContext loginContext) {
+    if (secUser == null) {
       return;
     }
     String openId = loginContext.getLoginData().getOpenId();
@@ -162,43 +166,31 @@ public class WechatMobileHandler extends BaseIdentificationHandler {
     MultipleAccessKey key = new MultipleAccessKey();
     key.put(WechatMiniappIdentity.APP_ID_PROPERTY, appId);
     key.put(WechatMiniappIdentity.OPEN_ID_PROPERTY, openId);
-    key.put(WechatMiniappIdentity.SEC_USER_PROPERTY,secUserId);
-    SmartList<WechatMiniappIdentity> list = userContext.getDAOGroup().getWechatMiniappIdentityDAO().findWechatMiniappIdentityWithKey(key, EO);
-    if (list != null && list.size() > 0){
+    key.put(WechatMiniappIdentity.SEC_USER_PROPERTY, secUserId);
+    SmartList<WechatMiniappIdentity> list =
+        userContext
+            .getDAOGroup()
+            .getWechatMiniappIdentityDAO()
+            .findWechatMiniappIdentityWithKey(key, EO);
+    if (list != null && list.size() > 0) {
       return;
     }
     DateTime lastLoginTime = userContext.now();
     try {
-       WechatMiniappIdentity data =
-                new WechatMiniappIdentity()
-                    .updateAppId(appId)
-                    .updateOpenId(openId)
-                    .updateUnionId(unionId)
-                    .updateSecUser(SecUser.refById(secUserId))
-                    .updateLastLoginTime(lastLoginTime);
-            userContext
-                .getManagerGroup()
-                .getWechatMiniappIdentityManager()
-                .internalSaveWechatMiniappIdentity(userContext, data, EO);
+      WechatMiniappIdentity data =
+          new WechatMiniappIdentity()
+              .updateAppId(appId)
+              .updateOpenId(openId)
+              .updateUnionId(unionId)
+              .updateSecUser(SecUser.refById(secUserId))
+              .updateLastLoginTime(lastLoginTime);
+      userContext
+          .getManagerGroup()
+          .getWechatMiniappIdentityManager()
+          .internalSaveWechatMiniappIdentity(userContext, data, EO);
     } catch (Exception e) {
       e.printStackTrace();
       throw new RuntimeException(e);
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,12 +6,20 @@
 	font-size:20px;
 }
 
+.textbox{
+
+	width: 100%;
+	height: 90vh;
+}
 </style>
 
 <div class="message">
-           Please configurate ${result} <%-- (a ${result.class.name}) --%> 
-           
-           <textarea rows="40" cols="80">${rootResult.resultExpr}</textarea>
+
+Please configure ${result} <br/>
+
+<textarea  class="textbox">
+${rootResult.resultExpr}
+</textarea>
 	
            
 </div>

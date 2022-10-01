@@ -1,5 +1,5 @@
-
 package com.doublechaintech.retailscm.employeesalarysheet;
+
 import com.doublechaintech.retailscm.Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,279 +10,303 @@ import com.doublechaintech.retailscm.employee.Employee;
 import com.doublechaintech.retailscm.payingoff.PayingOff;
 import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
 
-public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet>{
+public class EmployeeSalarySheetMapper extends BaseRowMapper<EmployeeSalarySheet> {
 
-	protected EmployeeSalarySheet internalMapRow(ResultSet rs, int rowNumber) throws SQLException{
-		EmployeeSalarySheet employeeSalarySheet = getEmployeeSalarySheet();
-		
- 		setId(employeeSalarySheet, rs, rowNumber);
- 		setEmployee(employeeSalarySheet, rs, rowNumber);
- 		setCurrentSalaryGrade(employeeSalarySheet, rs, rowNumber);
- 		setBaseSalary(employeeSalarySheet, rs, rowNumber);
- 		setBonus(employeeSalarySheet, rs, rowNumber);
- 		setReward(employeeSalarySheet, rs, rowNumber);
- 		setPersonalTax(employeeSalarySheet, rs, rowNumber);
- 		setSocialSecurity(employeeSalarySheet, rs, rowNumber);
- 		setHousingFound(employeeSalarySheet, rs, rowNumber);
- 		setJobInsurance(employeeSalarySheet, rs, rowNumber);
- 		setPayingOff(employeeSalarySheet, rs, rowNumber);
- 		setVersion(employeeSalarySheet, rs, rowNumber);
+  public static EmployeeSalarySheetMapper mapperForClass(Class<?> clazz) {
 
-    
-		return employeeSalarySheet;
-	}
+    EmployeeSalarySheetMapper mapperForOverride = new EmployeeSalarySheetMapper();
+    mapperForOverride.setClazz(clazz);
+    return mapperForOverride;
+  }
 
-	protected EmployeeSalarySheet getEmployeeSalarySheet(){
-	  EmployeeSalarySheet entity = new EmployeeSalarySheet();
-	  Beans.dbUtil().markEnhanced(entity);
-		return entity;
-	}
-		
-	protected void setId(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		String id = rs.getString(EmployeeSalarySheetTable.COLUMN_ID);
-		
-		if(id == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setId(id);
-		}catch (SQLException e){
+  protected EmployeeSalarySheet internalMapRow(ResultSet rs, int rowNumber) throws SQLException {
+    EmployeeSalarySheet employeeSalarySheet = getEmployeeSalarySheet();
+
+    setId(employeeSalarySheet, rs, rowNumber);
+    setEmployee(employeeSalarySheet, rs, rowNumber);
+    setCurrentSalaryGrade(employeeSalarySheet, rs, rowNumber);
+    setBaseSalary(employeeSalarySheet, rs, rowNumber);
+    setBonus(employeeSalarySheet, rs, rowNumber);
+    setReward(employeeSalarySheet, rs, rowNumber);
+    setPersonalTax(employeeSalarySheet, rs, rowNumber);
+    setSocialSecurity(employeeSalarySheet, rs, rowNumber);
+    setHousingFound(employeeSalarySheet, rs, rowNumber);
+    setJobInsurance(employeeSalarySheet, rs, rowNumber);
+    setPayingOff(employeeSalarySheet, rs, rowNumber);
+    setVersion(employeeSalarySheet, rs, rowNumber);
+
+    return employeeSalarySheet;
+  }
+
+  protected EmployeeSalarySheet getEmployeeSalarySheet() {
+    if (null == clazz) {
+
+      EmployeeSalarySheet entity = new EmployeeSalarySheet();
+
+      Beans.dbUtil().markEnhanced(entity);
+      return entity;
+    }
+    return super.constructFromClass();
+  }
+
+  protected void setId(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber)
+      throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      String id = rs.getString(EmployeeSalarySheetTable.COLUMN_ID);
+
+      if (id == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setId(id);
+    } catch (SQLException e) {
 
     }
-	}
-		
- 	protected void setEmployee(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
- 		String employeeId;
- 		try{
- 		  employeeId = rs.getString(EmployeeSalarySheetTable.COLUMN_EMPLOYEE);
- 		}catch(SQLException e){
- 		  return;
- 		}
- 		if( employeeId == null){
- 			return;
- 		}
- 		if( employeeId.isEmpty()){
- 			return;
- 		}
- 		Employee employee = employeeSalarySheet.getEmployee();
- 		if( employee != null ){
- 			//if the root object 'employeeSalarySheet' already have the property, just set the id for it;
- 			employee.setId(employeeId);
+  }
 
- 			return;
- 		}
- 		employeeSalarySheet.setEmployee(createEmptyEmployee(employeeId));
- 	}
- 	
- 	protected void setCurrentSalaryGrade(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
- 		String salaryGradeId;
- 		try{
- 		  salaryGradeId = rs.getString(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE);
- 		}catch(SQLException e){
- 		  return;
- 		}
- 		if( salaryGradeId == null){
- 			return;
- 		}
- 		if( salaryGradeId.isEmpty()){
- 			return;
- 		}
- 		SalaryGrade salaryGrade = employeeSalarySheet.getCurrentSalaryGrade();
- 		if( salaryGrade != null ){
- 			//if the root object 'employeeSalarySheet' already have the property, just set the id for it;
- 			salaryGrade.setId(salaryGradeId);
+  protected void setEmployee(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber)
+      throws SQLException {
+    String employeeId;
+    try {
+      employeeId = rs.getString(EmployeeSalarySheetTable.COLUMN_EMPLOYEE);
+    } catch (SQLException e) {
+      return;
+    }
+    if (employeeId == null) {
+      return;
+    }
+    if (employeeId.isEmpty()) {
+      return;
+    }
+    Employee employee = employeeSalarySheet.getEmployee();
+    if (employee != null) {
+      // if the root object 'employeeSalarySheet' already have the property, just set the id for it;
+      employee.setId(employeeId);
 
- 			return;
- 		}
- 		employeeSalarySheet.setCurrentSalaryGrade(createEmptyCurrentSalaryGrade(salaryGradeId));
- 	}
- 	
-	protected void setBaseSalary(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		BigDecimal baseSalary = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_BASE_SALARY);
-		
-		if(baseSalary == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setBaseSalary(baseSalary);
-		}catch (SQLException e){
+      return;
+    }
+    employeeSalarySheet.setEmployee(createEmptyEmployee(employeeId));
+  }
+
+  protected void setCurrentSalaryGrade(
+      EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException {
+    String salaryGradeId;
+    try {
+      salaryGradeId = rs.getString(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE);
+    } catch (SQLException e) {
+      return;
+    }
+    if (salaryGradeId == null) {
+      return;
+    }
+    if (salaryGradeId.isEmpty()) {
+      return;
+    }
+    SalaryGrade salaryGrade = employeeSalarySheet.getCurrentSalaryGrade();
+    if (salaryGrade != null) {
+      // if the root object 'employeeSalarySheet' already have the property, just set the id for it;
+      salaryGrade.setId(salaryGradeId);
+
+      return;
+    }
+    employeeSalarySheet.setCurrentSalaryGrade(createEmptyCurrentSalaryGrade(salaryGradeId));
+  }
+
+  protected void setBaseSalary(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber)
+      throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      BigDecimal baseSalary = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_BASE_SALARY);
+
+      if (baseSalary == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setBaseSalary(baseSalary);
+    } catch (SQLException e) {
 
     }
-	}
-		
-	protected void setBonus(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		BigDecimal bonus = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_BONUS);
-		
-		if(bonus == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setBonus(bonus);
-		}catch (SQLException e){
+  }
+
+  protected void setBonus(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber)
+      throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      BigDecimal bonus = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_BONUS);
+
+      if (bonus == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setBonus(bonus);
+    } catch (SQLException e) {
 
     }
-	}
-		
-	protected void setReward(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		BigDecimal reward = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_REWARD);
-		
-		if(reward == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setReward(reward);
-		}catch (SQLException e){
+  }
+
+  protected void setReward(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber)
+      throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      BigDecimal reward = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_REWARD);
+
+      if (reward == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setReward(reward);
+    } catch (SQLException e) {
 
     }
-	}
-		
-	protected void setPersonalTax(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		BigDecimal personalTax = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_PERSONAL_TAX);
-		
-		if(personalTax == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setPersonalTax(personalTax);
-		}catch (SQLException e){
+  }
+
+  protected void setPersonalTax(
+      EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      BigDecimal personalTax = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_PERSONAL_TAX);
+
+      if (personalTax == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setPersonalTax(personalTax);
+    } catch (SQLException e) {
 
     }
-	}
-		
-	protected void setSocialSecurity(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		BigDecimal socialSecurity = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_SOCIAL_SECURITY);
-		
-		if(socialSecurity == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setSocialSecurity(socialSecurity);
-		}catch (SQLException e){
+  }
+
+  protected void setSocialSecurity(
+      EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      BigDecimal socialSecurity = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_SOCIAL_SECURITY);
+
+      if (socialSecurity == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setSocialSecurity(socialSecurity);
+    } catch (SQLException e) {
 
     }
-	}
-		
-	protected void setHousingFound(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		BigDecimal housingFound = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_HOUSING_FOUND);
-		
-		if(housingFound == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setHousingFound(housingFound);
-		}catch (SQLException e){
+  }
+
+  protected void setHousingFound(
+      EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      BigDecimal housingFound = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_HOUSING_FOUND);
+
+      if (housingFound == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setHousingFound(housingFound);
+    } catch (SQLException e) {
 
     }
-	}
-		
-	protected void setJobInsurance(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		BigDecimal jobInsurance = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_JOB_INSURANCE);
-		
-		if(jobInsurance == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setJobInsurance(jobInsurance);
-		}catch (SQLException e){
+  }
+
+  protected void setJobInsurance(
+      EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      BigDecimal jobInsurance = rs.getBigDecimal(EmployeeSalarySheetTable.COLUMN_JOB_INSURANCE);
+
+      if (jobInsurance == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setJobInsurance(jobInsurance);
+    } catch (SQLException e) {
 
     }
-	}
-		
- 	protected void setPayingOff(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
- 		String payingOffId;
- 		try{
- 		  payingOffId = rs.getString(EmployeeSalarySheetTable.COLUMN_PAYING_OFF);
- 		}catch(SQLException e){
- 		  return;
- 		}
- 		if( payingOffId == null){
- 			return;
- 		}
- 		if( payingOffId.isEmpty()){
- 			return;
- 		}
- 		PayingOff payingOff = employeeSalarySheet.getPayingOff();
- 		if( payingOff != null ){
- 			//if the root object 'employeeSalarySheet' already have the property, just set the id for it;
- 			payingOff.setId(payingOffId);
+  }
 
- 			return;
- 		}
- 		employeeSalarySheet.setPayingOff(createEmptyPayingOff(payingOffId));
- 	}
- 	
-	protected void setVersion(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber) throws SQLException{
-    try{
-		//there will be issue when the type is double/int/long
-		
-		Integer version = rs.getInt(EmployeeSalarySheetTable.COLUMN_VERSION);
-		
-		if(version == null){
-			//do nothing when nothing found in database
-			return;
-		}
-		
-		employeeSalarySheet.setVersion(version);
-		}catch (SQLException e){
+  protected void setPayingOff(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber)
+      throws SQLException {
+    String payingOffId;
+    try {
+      payingOffId = rs.getString(EmployeeSalarySheetTable.COLUMN_PAYING_OFF);
+    } catch (SQLException e) {
+      return;
+    }
+    if (payingOffId == null) {
+      return;
+    }
+    if (payingOffId.isEmpty()) {
+      return;
+    }
+    PayingOff payingOff = employeeSalarySheet.getPayingOff();
+    if (payingOff != null) {
+      // if the root object 'employeeSalarySheet' already have the property, just set the id for it;
+      payingOff.setId(payingOffId);
+
+      return;
+    }
+    employeeSalarySheet.setPayingOff(createEmptyPayingOff(payingOffId));
+  }
+
+  protected void setVersion(EmployeeSalarySheet employeeSalarySheet, ResultSet rs, int rowNumber)
+      throws SQLException {
+    try {
+      // there will be issue when the type is double/int/long
+
+      Integer version = rs.getInt(EmployeeSalarySheetTable.COLUMN_VERSION);
+
+      if (version == null) {
+        // do nothing when nothing found in database
+        return;
+      }
+
+      employeeSalarySheet.setVersion(version);
+    } catch (SQLException e) {
 
     }
-	}
-		
+  }
 
+  protected Employee createEmptyEmployee(String employeeId) {
 
- 	protected Employee  createEmptyEmployee(String employeeId){
- 		Employee employee = new Employee();
- 		employee.setId(employeeId);
- 		employee.setVersion(Integer.MAX_VALUE);
- 		return employee;
- 	}
- 	
- 	protected SalaryGrade  createEmptyCurrentSalaryGrade(String salaryGradeId){
- 		SalaryGrade salaryGrade = new SalaryGrade();
- 		salaryGrade.setId(salaryGradeId);
- 		salaryGrade.setVersion(Integer.MAX_VALUE);
- 		return salaryGrade;
- 	}
- 	
- 	protected PayingOff  createEmptyPayingOff(String payingOffId){
- 		PayingOff payingOff = new PayingOff();
- 		payingOff.setId(payingOffId);
- 		payingOff.setVersion(Integer.MAX_VALUE);
- 		return payingOff;
- 	}
- 	
+    Employee employee = new Employee();
+
+    employee.setId(employeeId);
+    employee.setVersion(Integer.MAX_VALUE);
+    return employee;
+  }
+
+  protected SalaryGrade createEmptyCurrentSalaryGrade(String salaryGradeId) {
+
+    SalaryGrade salaryGrade = new SalaryGrade();
+
+    salaryGrade.setId(salaryGradeId);
+    salaryGrade.setVersion(Integer.MAX_VALUE);
+    return salaryGrade;
+  }
+
+  protected PayingOff createEmptyPayingOff(String payingOffId) {
+
+    PayingOff payingOff = new PayingOff();
+
+    payingOff.setId(payingOffId);
+    payingOff.setVersion(Integer.MAX_VALUE);
+    return payingOff;
+  }
 }
-
-

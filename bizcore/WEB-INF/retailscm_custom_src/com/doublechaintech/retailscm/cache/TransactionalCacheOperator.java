@@ -55,20 +55,3 @@ public class TransactionalCacheOperator extends BaseCacheOperator {
     return doInTransaction(() -> super.clear(name));
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

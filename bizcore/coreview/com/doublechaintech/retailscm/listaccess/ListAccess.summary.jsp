@@ -74,6 +74,6 @@
 	
 </style>
 <section><h3>列表访问控制(${result.id})</h3><table >
-<tr><td class='th'>名称</td><td >${result.name}</td><td class='th'>内部名称</td><td >${result.internalName}</td></tr><tr><td class='th'>可读</td><td >${result.readPermission}</td><td class='th'>可创建</td><td >${result.createPermission}</td></tr><tr><td class='th'>可删除</td><td >${result.deletePermission}</td><td class='th'>可更新</td><td >${result.updatePermission}</td></tr><tr><td class='th'>可执行</td><td >${result.executionPermission}</td><td class='th'>应用</td><td >${result.app.displayName}</td></tr></table>
+<tr><td class='th'>名称</td><td >${result.name}</td><td class='th'>内部名称</td><td >${result.internalName}</td></tr><tr><td class='th'>读权限</td><td >${result.readPermission}</td><td class='th'>创建权限</td><td >${result.createPermission}</td></tr><tr><td class='th'>删除权限</td><td >${result.deletePermission}</td><td class='th'>更新权限</td><td >${result.updatePermission}</td></tr><tr><td class='th'>执行权限</td><td >${result.executionPermission}</td><td class='th'>应用程序</td><td >${result.app.displayName}</td></tr></table>
 </section>
 <section></section>

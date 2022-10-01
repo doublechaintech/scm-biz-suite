@@ -1,179 +1,163 @@
 package com.doublechaintech.retailscm;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Pagination {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	protected int 		currentPage = 1;
-	protected int 		totalRows = 0;
-	protected int 		rowsPerPage = 20;
-	protected String 	firstPageTitle = "<<";
-	protected String 	lastPageTitle = ">>";
-	protected String 	previousPageTitle = "<";
-	protected String 	nextPageTitle = ">";
-	protected int 		maxPages = 10;
-	protected String	igoredPageTitle="..";
-	private Pagination(int totalRows) {
-		this.totalRows = totalRows;
-	}
+  /** */
+  private static final long serialVersionUID = 1L;
 
-	public Pagination() {
-		this.totalRows = 201;
-	}
+  protected int currentPage = 1;
+  protected int totalRows = 0;
+  protected int rowsPerPage = 20;
+  protected String firstPageTitle = "<<";
+  protected String lastPageTitle = ">>";
+  protected String previousPageTitle = "<";
+  protected String nextPageTitle = ">";
+  protected int maxPages = 10;
+  protected String igoredPageTitle = "..";
 
-	public Pagination(int totalCount, int rowsPerPage) {
-		this.totalRows = totalCount;
-		this.rowsPerPage = rowsPerPage;
-	}
+  private Pagination(int totalRows) {
+    this.totalRows = totalRows;
+  }
 
-	public int getTotalPages() {
+  public Pagination() {
+    this.totalRows = 201;
+  }
 
-		int page = totalRows / rowsPerPage;
+  public Pagination(int totalCount, int rowsPerPage) {
+    this.totalRows = totalCount;
+    this.rowsPerPage = rowsPerPage;
+  }
 
-		if (totalRows % rowsPerPage > 0) {
-			page += 1;
-		}
-		return page;
-	}
-	protected int getStartPage(int currentPage){
+  public int getTotalPages() {
 
-		if(currentPage < maxPages){
-			return 1;//align with left when not reaching the max pages
-		}
-		//currentPage > maxPages
+    int page = totalRows / rowsPerPage;
 
-		//has enough pages?
-		//move to the middle
+    if (totalRows % rowsPerPage > 0) {
+      page += 1;
+    }
+    return page;
+  }
 
-		if((currentPage + ((maxPages+1)/2)) <= this.getTotalPages()){
-			return currentPage - ((maxPages-1)/2);
-		}
-		//start from a fixed value, but moving the current page
-		//if((currentPage + ((maxPages+1)/2)) > this.getTotalPages()){
-		return this.getTotalPages() - maxPages + 1;
-		//}
-		//throw new IllegalStateException("code realy go here?");
+  protected int getStartPage(int currentPage) {
 
+    if (currentPage < maxPages) {
+      return 1; // align with left when not reaching the max pages
+    }
+    // currentPage > maxPages
 
-		//return currentPage - maxPages+1;
+    // has enough pages?
+    // move to the middle
 
+    if ((currentPage + ((maxPages + 1) / 2)) <= this.getTotalPages()) {
+      return currentPage - ((maxPages - 1) / 2);
+    }
+    // start from a fixed value, but moving the current page
+    // if((currentPage + ((maxPages+1)/2)) > this.getTotalPages()){
+    return this.getTotalPages() - maxPages + 1;
+    // }
+    // throw new IllegalStateException("code realy go here?");
 
-		//int start = currentPage < maxPages?1:(maxPages/2);
-	}
-	public List<BaseEntity> render(int currentPage) {
-		int totalPages = getTotalPages();
-		int fixedCurrentPage = currentPage;
-		if(currentPage>getTotalPages()){
-			fixedCurrentPage = getTotalPages();
-		}
-		if(currentPage<1){
-			fixedCurrentPage = 1;
-		}
-		List<BaseEntity> pages = new ArrayList<BaseEntity>();
-		if(totalPages>maxPages){
-			//need the first and last page;
-			Page firstPage = new Page();
-			firstPage.setTitle(firstPageTitle);
-			firstPage.setLink("1");
-			firstPage.setPageNumber(1);
-			pages.add(firstPage);
-		}
+    // return currentPage - maxPages+1;
 
-		if(fixedCurrentPage>=maxPages){
-			//there are left ignored pages, because the first page can not show here
-			Page ignoredPage = new Page();
-			ignoredPage.setTitle(igoredPageTitle);
-			ignoredPage.setLink("");
-			ignoredPage.setDisabled(true);
-			pages.add(ignoredPage);
-		}
+    // int start = currentPage < maxPages?1:(maxPages/2);
+  }
 
-		int start = getStartPage(currentPage);
+  public List<BaseEntity> render(int currentPage) {
+    int totalPages = getTotalPages();
+    int fixedCurrentPage = currentPage;
+    if (currentPage > getTotalPages()) {
+      fixedCurrentPage = getTotalPages();
+    }
+    if (currentPage < 1) {
+      fixedCurrentPage = 1;
+    }
+    List<BaseEntity> pages = new ArrayList<BaseEntity>();
+    if (totalPages > maxPages) {
+      // need the first and last page;
+      Page firstPage = new Page();
+      firstPage.setTitle(firstPageTitle);
+      firstPage.setLink("1");
+      firstPage.setPageNumber(1);
+      pages.add(firstPage);
+    }
 
-		for(int i=start;i<Math.min(maxPages, totalPages)+start;i++){
-			//if(totalPages)
-			Page page = new Page();
-			String title=""+i;
-			page.setTitle(title);
-			page.setLink(title);
-			page.setPageNumber(i);
-			pages.add(page);
-			if(fixedCurrentPage == i){
-				page.setSelected(true);
-			}
+    if (fixedCurrentPage >= maxPages) {
+      // there are left ignored pages, because the first page can not show here
+      Page ignoredPage = new Page();
+      ignoredPage.setTitle(igoredPageTitle);
+      ignoredPage.setLink("");
+      ignoredPage.setDisabled(true);
+      pages.add(ignoredPage);
+    }
 
-		}
+    int start = getStartPage(currentPage);
 
-		if(totalPages-getStartPage(fixedCurrentPage) >= maxPages){
-			//there are right ignored pages, because the first page can not show here
-			Page ignoredPage = new Page();
-			ignoredPage.setTitle(igoredPageTitle);
-			ignoredPage.setLink("");
-			ignoredPage.setDisabled(true);
-			pages.add(ignoredPage);
-		}
+    for (int i = start; i < Math.min(maxPages, totalPages) + start; i++) {
+      // if(totalPages)
+      Page page = new Page();
+      String title = "" + i;
+      page.setTitle(title);
+      page.setLink(title);
+      page.setPageNumber(i);
+      pages.add(page);
+      if (fixedCurrentPage == i) {
+        page.setSelected(true);
+      }
+    }
 
+    if (totalPages - getStartPage(fixedCurrentPage) >= maxPages) {
+      // there are right ignored pages, because the first page can not show here
+      Page ignoredPage = new Page();
+      ignoredPage.setTitle(igoredPageTitle);
+      ignoredPage.setLink("");
+      ignoredPage.setDisabled(true);
+      pages.add(ignoredPage);
+    }
 
-		if(totalPages>maxPages){
-			//need the first and last page;
-			Page lastPage = new Page();
-			lastPage.setTitle(lastPageTitle);
-			lastPage.setLink(""+totalPages);
-			lastPage.setPageNumber(totalPages);
-			pages.add(lastPage);
-		}
+    if (totalPages > maxPages) {
+      // need the first and last page;
+      Page lastPage = new Page();
+      lastPage.setTitle(lastPageTitle);
+      lastPage.setLink("" + totalPages);
+      lastPage.setPageNumber(totalPages);
+      pages.add(lastPage);
+    }
 
-		return pages;
+    return pages;
+  }
 
-	}
+  public static void report(List<BaseEntity> pages) {
+    // System.out.printf("%-8d%-8d");
+    for (BaseEntity be : pages) {
+      Page page = (Page) be;
+      // System.out.print(page+" ");
+      System.out.printf("%-8s", page);
+    }
+    System.out.println();
+  }
 
-	public static void report(List<BaseEntity> pages){
-		//System.out.printf("%-8d%-8d");
-		for(BaseEntity be:pages){
-			Page page = (Page)be;
-			//System.out.print(page+" ");
-			System.out.printf("%-8s",page);
+  public static void main(String args[]) {
 
-		}
-		System.out.println();
-	}
+    // Pagination p1 = new Pagination(1);
+    report(new Pagination(1).render(1));
+    report(new Pagination(21).render(1));
+    report(new Pagination(21).render(2));
 
-	public static void main(String args[]){
+    for (int i = 1; i <= 10; i++) {
+      report(new Pagination(200).render(i));
+    }
 
-		//Pagination p1 = new Pagination(1);
-		report( new Pagination(1).render(1));
-		report( new Pagination(21).render(1));
-		report( new Pagination(21).render(2));
+    System.out.println("--------------------------------------");
+    for (int i = 1; i < 12; i++) {
+      report(new Pagination(201).render(i));
+    }
+    System.out.println("--------------------------------------");
 
-		for(int i=1;i<=10;i++){
-			report( new Pagination(200).render(i));
-		}
-
-
-		System.out.println("--------------------------------------");
-		for(int i=1;i<12;i++){
-			report( new Pagination(201).render(i));
-		}
-		System.out.println("--------------------------------------");
-
-
-		for(int i=0;i<110;i++){
-			report( new Pagination(2001).render(i));
-		}
-
-
-
-	}
-
+    for (int i = 0; i < 110; i++) {
+      report(new Pagination(2001).render(i));
+    }
+  }
 }
-
-
-

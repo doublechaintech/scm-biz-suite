@@ -74,6 +74,6 @@
 	
 </style>
 <section><h3>微信小程序认证(${result.id})</h3><table >
-<tr><td class='th'>openId</td><td >${result.openId}</td><td class='th'>应用ID</td><td >${result.appId}</td></tr><tr><td class='th'>UnionID</td><td >${result.unionId}</td><td class='th'>系统用户</td><td >${result.secUser.displayName}</td></tr><tr><td class='th'>创建时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.createTime}" /></td><td class='th'>最后登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastLoginTime}" /></td></tr></table>
+<tr><td class='th'>开放Id</td><td >${result.openId}</td><td class='th'>应用程序Id</td><td >${result.appId}</td></tr><tr><td class='th'>联盟Id</td><td >${result.unionId}</td><td class='th'>安全用户</td><td >${result.secUser.displayName}</td></tr><tr><td class='th'>创建于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.createTime}" /></td><td class='th'>最后登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastLoginTime}" /></td></tr></table>
 </section>
 <section></section>

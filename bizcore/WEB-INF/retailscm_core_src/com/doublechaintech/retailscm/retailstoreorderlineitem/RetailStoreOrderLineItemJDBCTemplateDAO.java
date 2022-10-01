@@ -1,4 +1,3 @@
-
 package com.doublechaintech.retailscm.retailstoreorderlineitem;
 
 import com.doublechaintech.retailscm.Beans;
@@ -24,610 +23,656 @@ import com.doublechaintech.retailscm.StatsItem;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
-
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
 
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderDAO;
-
-
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
-public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl implements RetailStoreOrderLineItemDAO{
+public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImpl
+    implements RetailStoreOrderLineItemDAO {
 
-	protected RetailStoreOrderDAO retailStoreOrderDAO;
-	public void setRetailStoreOrderDAO(RetailStoreOrderDAO retailStoreOrderDAO){
+  protected RetailStoreOrderDAO retailStoreOrderDAO;
 
- 		if(retailStoreOrderDAO == null){
- 			throw new IllegalStateException("Do not try to set retailStoreOrderDAO to null.");
- 		}
-	 	this.retailStoreOrderDAO = retailStoreOrderDAO;
- 	}
- 	public RetailStoreOrderDAO getRetailStoreOrderDAO(){
- 		if(this.retailStoreOrderDAO == null){
- 			throw new IllegalStateException("The retailStoreOrderDAO is not configured yet, please config it some where.");
- 		}
+  public void setRetailStoreOrderDAO(RetailStoreOrderDAO retailStoreOrderDAO) {
 
-	 	return this.retailStoreOrderDAO;
- 	}
-
-
-
-	/*
-	protected RetailStoreOrderLineItem load(AccessKey accessKey,Map<String,Object> options) throws Exception{
-		return loadInternalRetailStoreOrderLineItem(accessKey, options);
-	}
-	*/
-
-	public SmartList<RetailStoreOrderLineItem> loadAll() {
-	    return this.loadAll(getRetailStoreOrderLineItemMapper());
-	}
-
-  public Stream<RetailStoreOrderLineItem> loadAllAsStream() {
-      return this.loadAllAsStream(getRetailStoreOrderLineItemMapper());
+    if (retailStoreOrderDAO == null) {
+      throw new IllegalStateException("Do not try to set retailStoreOrderDAO to null.");
+    }
+    this.retailStoreOrderDAO = retailStoreOrderDAO;
   }
 
+  public RetailStoreOrderDAO getRetailStoreOrderDAO() {
+    if (this.retailStoreOrderDAO == null) {
+      throw new IllegalStateException(
+          "The retailStoreOrderDAO is not configured yet, please config it some where.");
+    }
+
+    return this.retailStoreOrderDAO;
+  }
+
+  /*
+  protected RetailStoreOrderLineItem load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+  	return loadInternalRetailStoreOrderLineItem(accessKey, options);
+  }
+  */
+
+  public SmartList<RetailStoreOrderLineItem> loadAll() {
+    return this.loadAll(getRetailStoreOrderLineItemMapper());
+  }
+
+  public Stream<RetailStoreOrderLineItem> loadAllAsStream() {
+    return this.loadAllAsStream(getRetailStoreOrderLineItemMapper());
+  }
+
+  protected String getIdFormat() {
+    return getShortName(this.getName()) + "%06d";
+  }
+
+  public RetailStoreOrderLineItem load(String id, Map<String, Object> options) throws Exception {
+    return loadInternalRetailStoreOrderLineItem(RetailStoreOrderLineItemTable.withId(id), options);
+  }
 
-	protected String getIdFormat()
-	{
-		return getShortName(this.getName())+"%06d";
-	}
+  public RetailStoreOrderLineItem save(
+      RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String, Object> options) {
 
-	public RetailStoreOrderLineItem load(String id,Map<String,Object> options) throws Exception{
-		return loadInternalRetailStoreOrderLineItem(RetailStoreOrderLineItemTable.withId(id), options);
-	}
+    String methodName =
+        "save(RetailStoreOrderLineItem retailStoreOrderLineItem,Map<String,Object> options)";
 
-	
+    assertMethodArgumentNotNull(retailStoreOrderLineItem, methodName, "retailStoreOrderLineItem");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-	public RetailStoreOrderLineItem save(RetailStoreOrderLineItem retailStoreOrderLineItem,Map<String,Object> options){
-
-		String methodName="save(RetailStoreOrderLineItem retailStoreOrderLineItem,Map<String,Object> options)";
-
-		assertMethodArgumentNotNull(retailStoreOrderLineItem, methodName, "retailStoreOrderLineItem");
-		assertMethodArgumentNotNull(options, methodName, "options");
-
-		return saveInternalRetailStoreOrderLineItem(retailStoreOrderLineItem,options);
-	}
-	public RetailStoreOrderLineItem clone(String retailStoreOrderLineItemId, Map<String,Object> options) throws Exception{
-
-		return clone(RetailStoreOrderLineItemTable.withId(retailStoreOrderLineItemId),options);
-	}
-
-	protected RetailStoreOrderLineItem clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-
-		String methodName="clone(String retailStoreOrderLineItemId,Map<String,Object> options)";
-
-		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
-		assertMethodArgumentNotNull(options, methodName, "options");
-
-		RetailStoreOrderLineItem newRetailStoreOrderLineItem = loadInternalRetailStoreOrderLineItem(accessKey, options);
-		newRetailStoreOrderLineItem.setVersion(0);
-		
-		
-
-
-		saveInternalRetailStoreOrderLineItem(newRetailStoreOrderLineItem,options);
-
-		return newRetailStoreOrderLineItem;
-	}
-
-	
-
-
-
-	protected void throwIfHasException(String retailStoreOrderLineItemId,int version,int count) throws Exception{
-		if (count == 1) {
-			throw new RetailStoreOrderLineItemVersionChangedException(
-					"The object version has been changed, please reload to delete");
-		}
-		if (count < 1) {
-			throw new RetailStoreOrderLineItemNotFoundException(
-					"The " + this.getTableName() + "(" + retailStoreOrderLineItemId + ") has already been deleted.");
-		}
-		if (count > 1) {
-			throw new IllegalStateException(
-					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
-		}
-	}
-
-
-	public void delete(String retailStoreOrderLineItemId, int version) throws Exception{
-
-		String methodName="delete(String retailStoreOrderLineItemId, int version)";
-		assertMethodArgumentNotNull(retailStoreOrderLineItemId, methodName, "retailStoreOrderLineItemId");
-		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-
-
-		String SQL=this.getDeleteSQL();
-		Object [] parameters=new Object[]{retailStoreOrderLineItemId,version};
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber == 1){
-			return ; //Delete successfully
-		}
-		if(affectedNumber == 0){
-			handleDeleteOneError(retailStoreOrderLineItemId,version);
-		}
-
-
-	}
-
-
-
-
-
-
-	public RetailStoreOrderLineItem disconnectFromAll(String retailStoreOrderLineItemId, int version) throws Exception{
-
-
-		RetailStoreOrderLineItem retailStoreOrderLineItem = loadInternalRetailStoreOrderLineItem(RetailStoreOrderLineItemTable.withId(retailStoreOrderLineItemId), emptyOptions());
-		retailStoreOrderLineItem.clearFromAll();
-		this.saveRetailStoreOrderLineItem(retailStoreOrderLineItem);
-		return retailStoreOrderLineItem;
-
-
-	}
-
-	@Override
-	protected String[] getNormalColumnNames() {
-
-		return RetailStoreOrderLineItemTable.NORMAL_CLOUMNS;
-	}
-	@Override
-	protected String getName() {
-
-		return "retail_store_order_line_item";
-	}
-	@Override
-	protected String getBeanName() {
-
-		return "retailStoreOrderLineItem";
-	}
-
-	
-
-
-
-	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-
- 		return RetailStoreOrderLineItemTokens.checkOptions(options, optionToCheck);
-
-	}
-
-
-
- 	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
-
-	 	return checkOptions(options, RetailStoreOrderLineItemTokens.BIZORDER);
- 	}
-
- 	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-
- 		return checkOptions(options, RetailStoreOrderLineItemTokens.BIZORDER);
- 	}
-
-
-
- 
-		
-
-	
-
-	protected RetailStoreOrderLineItemMapper getRetailStoreOrderLineItemMapper(){
-		return new RetailStoreOrderLineItemMapper();
-	}
-
-
-
-	protected RetailStoreOrderLineItem extractRetailStoreOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		try{
-			RetailStoreOrderLineItem retailStoreOrderLineItem = loadSingleObject(accessKey, getRetailStoreOrderLineItemMapper());
-			return retailStoreOrderLineItem;
-		}catch(EmptyResultDataAccessException e){
-			throw new RetailStoreOrderLineItemNotFoundException("RetailStoreOrderLineItem("+accessKey+") is not found!");
-		}
-
-	}
-
-
-
-
-	protected RetailStoreOrderLineItem loadInternalRetailStoreOrderLineItem(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-
-		RetailStoreOrderLineItem retailStoreOrderLineItem = extractRetailStoreOrderLineItem(accessKey, loadOptions);
-
- 		if(isExtractBizOrderEnabled(loadOptions)){
-	 		extractBizOrder(retailStoreOrderLineItem, loadOptions);
- 		}
- 
-		
-		return retailStoreOrderLineItem;
-
-	}
-
-	
-
- 	protected RetailStoreOrderLineItem extractBizOrder(RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String,Object> options) throws Exception{
-  
-
-		if(retailStoreOrderLineItem.getBizOrder() == null){
-			return retailStoreOrderLineItem;
-		}
-		String bizOrderId = retailStoreOrderLineItem.getBizOrder().getId();
-		if( bizOrderId == null){
-			return retailStoreOrderLineItem;
-		}
-		RetailStoreOrder bizOrder = getRetailStoreOrderDAO().load(bizOrderId,options);
-		if(bizOrder != null){
-			retailStoreOrderLineItem.setBizOrder(bizOrder);
-		}
-
-
- 		return retailStoreOrderLineItem;
- 	}
-
- 
-		
-
- 
- 	public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId,Map<String,Object> options){
-
-  		SmartList<RetailStoreOrderLineItem> resultList = queryWith(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options, getRetailStoreOrderLineItemMapper());
-		// analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
-		return resultList;
- 	}
- 	
-
- 	public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId, int start, int count,Map<String,Object> options){
-
- 		SmartList<RetailStoreOrderLineItem> resultList =  queryWithRange(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options, getRetailStoreOrderLineItemMapper(), start, count);
- 		//analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
- 		return resultList;
-
- 	}
- 	public void analyzeRetailStoreOrderLineItemByBizOrder(SmartList<RetailStoreOrderLineItem> resultList, String retailStoreOrderId, Map<String,Object> options){
-		if(resultList==null){
-			return;//do nothing when the list is null.
-		}
-
-
-
- 	}
- 	@Override
- 	public int countRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId,Map<String,Object> options){
-
- 		return countWith(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options);
- 	}
- 	@Override
-	public Map<String, Integer> countRetailStoreOrderLineItemByBizOrderIds(String[] ids, Map<String, Object> options) {
-		return countWithIds(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, ids, options);
-	}
-
- 
-
-
-
-
-	
-
-	protected RetailStoreOrderLineItem saveRetailStoreOrderLineItem(RetailStoreOrderLineItem  retailStoreOrderLineItem){
-    
-
-		
-		if(!retailStoreOrderLineItem.isChanged()){
-			return retailStoreOrderLineItem;
-		}
-		
+    return saveInternalRetailStoreOrderLineItem(retailStoreOrderLineItem, options);
+  }
+
+  public RetailStoreOrderLineItem clone(
+      String retailStoreOrderLineItemId, Map<String, Object> options) throws Exception {
+
+    return clone(RetailStoreOrderLineItemTable.withId(retailStoreOrderLineItemId), options);
+  }
+
+  protected RetailStoreOrderLineItem clone(AccessKey accessKey, Map<String, Object> options)
+      throws Exception {
+
+    String methodName = "clone(String retailStoreOrderLineItemId,Map<String,Object> options)";
+
+    assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
+    assertMethodArgumentNotNull(options, methodName, "options");
+
+    RetailStoreOrderLineItem newRetailStoreOrderLineItem =
+        loadInternalRetailStoreOrderLineItem(accessKey, options);
+    newRetailStoreOrderLineItem.setVersion(0);
+
+    saveInternalRetailStoreOrderLineItem(newRetailStoreOrderLineItem, options);
+
+    return newRetailStoreOrderLineItem;
+  }
+
+  protected void throwIfHasException(String retailStoreOrderLineItemId, int version, int count)
+      throws Exception {
+    if (count == 1) {
+      throw new RetailStoreOrderLineItemVersionChangedException(
+          "The object version has been changed, please reload to delete");
+    }
+    if (count < 1) {
+      throw new RetailStoreOrderLineItemNotFoundException(
+          "The "
+              + this.getTableName()
+              + "("
+              + retailStoreOrderLineItemId
+              + ") has already been deleted.");
+    }
+    if (count > 1) {
+      throw new IllegalStateException(
+          "The table '"
+              + this.getTableName()
+              + "' PRIMARY KEY constraint has been damaged, please fix it.");
+    }
+  }
+
+  public RetailStoreOrderLineItem disconnectFromAll(String retailStoreOrderLineItemId, int version)
+      throws Exception {
+
+    RetailStoreOrderLineItem retailStoreOrderLineItem =
+        loadInternalRetailStoreOrderLineItem(
+            RetailStoreOrderLineItemTable.withId(retailStoreOrderLineItemId), emptyOptions());
+    retailStoreOrderLineItem.clearFromAll();
+    this.saveRetailStoreOrderLineItem(retailStoreOrderLineItem);
+    return retailStoreOrderLineItem;
+  }
+
+  @Override
+  protected String[] getNormalColumnNames() {
+
+    return RetailStoreOrderLineItemTable.NORMAL_CLOUMNS;
+  }
+
+  @Override
+  protected String getName() {
+
+    return "retail_store_order_line_item";
+  }
+
+  @Override
+  protected String getBeanName() {
+
+    return "retailStoreOrderLineItem";
+  }
+
+  protected boolean checkOptions(Map<String, Object> options, String optionToCheck) {
+
+    return RetailStoreOrderLineItemTokens.checkOptions(options, optionToCheck);
+  }
+
+  protected boolean isExtractBizOrderEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, RetailStoreOrderLineItemTokens.BIZORDER);
+  }
+
+  protected boolean isSaveBizOrderEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, RetailStoreOrderLineItemTokens.BIZORDER);
+  }
+
+  protected RetailStoreOrderLineItemMapper getRetailStoreOrderLineItemMapper() {
+    return new RetailStoreOrderLineItemMapper();
+  }
+
+  protected RetailStoreOrderLineItem extractRetailStoreOrderLineItem(
+      AccessKey accessKey, Map<String, Object> loadOptions) throws Exception {
+    try {
+      RetailStoreOrderLineItem retailStoreOrderLineItem =
+          loadSingleObject(accessKey, getRetailStoreOrderLineItemMapper());
+      return retailStoreOrderLineItem;
+    } catch (EmptyResultDataAccessException e) {
+      throw new RetailStoreOrderLineItemNotFoundException(
+          "RetailStoreOrderLineItem(" + accessKey + ") is not found!");
+    }
+  }
+
+  protected RetailStoreOrderLineItem loadInternalRetailStoreOrderLineItem(
+      AccessKey accessKey, Map<String, Object> loadOptions) throws Exception {
+
+    RetailStoreOrderLineItem retailStoreOrderLineItem =
+        extractRetailStoreOrderLineItem(accessKey, loadOptions);
+
+    if (isExtractBizOrderEnabled(loadOptions)) {
+      extractBizOrder(retailStoreOrderLineItem, loadOptions);
+    }
+
+    return retailStoreOrderLineItem;
+  }
+
+  protected RetailStoreOrderLineItem extractBizOrder(
+      RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String, Object> options)
+      throws Exception {
+
+    if (retailStoreOrderLineItem.getBizOrder() == null) {
+      return retailStoreOrderLineItem;
+    }
+    String bizOrderId = retailStoreOrderLineItem.getBizOrder().getId();
+    if (bizOrderId == null) {
+      return retailStoreOrderLineItem;
+    }
+    RetailStoreOrder bizOrder = getRetailStoreOrderDAO().load(bizOrderId, options);
+    if (bizOrder != null) {
+      retailStoreOrderLineItem.setBizOrder(bizOrder);
+    }
+
+    return retailStoreOrderLineItem;
+  }
+
+  public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(
+      String retailStoreOrderId, Map<String, Object> options) {
+
+    SmartList<RetailStoreOrderLineItem> resultList =
+        queryWith(
+            RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER,
+            retailStoreOrderId,
+            options,
+            getRetailStoreOrderLineItemMapper());
+    // analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
+    return resultList;
+  }
+
+  public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(
+      String retailStoreOrderId, int start, int count, Map<String, Object> options) {
+
+    SmartList<RetailStoreOrderLineItem> resultList =
+        queryWithRange(
+            RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER,
+            retailStoreOrderId,
+            options,
+            getRetailStoreOrderLineItemMapper(),
+            start,
+            count);
+    // analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
+    return resultList;
+  }
+
+  public void analyzeRetailStoreOrderLineItemByBizOrder(
+      SmartList<RetailStoreOrderLineItem> resultList,
+      String retailStoreOrderId,
+      Map<String, Object> options) {
+    if (resultList == null) {
+      return; // do nothing when the list is null.
+    }
+  }
+
+  @Override
+  public int countRetailStoreOrderLineItemByBizOrder(
+      String retailStoreOrderId, Map<String, Object> options) {
+
+    return countWith(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options);
+  }
+
+  @Override
+  public Map<String, Integer> countRetailStoreOrderLineItemByBizOrderIds(
+      String[] ids, Map<String, Object> options) {
+    return countWithIds(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, ids, options);
+  }
+
+  protected RetailStoreOrderLineItem saveRetailStoreOrderLineItem(
+      RetailStoreOrderLineItem retailStoreOrderLineItem) {
+
+    if (!retailStoreOrderLineItem.isChanged()) {
+      return retailStoreOrderLineItem;
+    }
 
     Beans.dbUtil().cacheCleanUp(retailStoreOrderLineItem);
-		String SQL=this.getSaveRetailStoreOrderLineItemSQL(retailStoreOrderLineItem);
-		//FIXME: how about when an item has been updated more than MAX_INT?
-		Object [] parameters = getSaveRetailStoreOrderLineItemParameters(retailStoreOrderLineItem);
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber != 1){
-			throw new IllegalStateException("The save operation should return value = 1, while the value = "
-				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
-		}
+    String SQL = this.getSaveRetailStoreOrderLineItemSQL(retailStoreOrderLineItem);
+    // FIXME: how about when an item has been updated more than MAX_INT?
+    Object[] parameters = getSaveRetailStoreOrderLineItemParameters(retailStoreOrderLineItem);
+    int affectedNumber = singleUpdate(SQL, parameters);
+    if (affectedNumber != 1) {
+      throw new IllegalStateException(
+          "The save operation should return value = 1, while the value = "
+              + affectedNumber
+              + "If the value = 0, that mean the target record has been updated by someone else!");
+    }
 
-		retailStoreOrderLineItem.incVersion();
-		retailStoreOrderLineItem.afterSave();
-		return retailStoreOrderLineItem;
+    retailStoreOrderLineItem.incVersion();
+    retailStoreOrderLineItem.afterSave();
+    return retailStoreOrderLineItem;
+  }
 
-	}
-	public SmartList<RetailStoreOrderLineItem> saveRetailStoreOrderLineItemList(SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList,Map<String,Object> options){
-		//assuming here are big amount objects to be updated.
-		//First step is split into two groups, one group for update and another group for create
-		Object [] lists=splitRetailStoreOrderLineItemList(retailStoreOrderLineItemList);
+  public SmartList<RetailStoreOrderLineItem> saveRetailStoreOrderLineItemList(
+      SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList,
+      Map<String, Object> options) {
+    // assuming here are big amount objects to be updated.
+    // First step is split into two groups, one group for update and another group for create
+    Object[] lists = splitRetailStoreOrderLineItemList(retailStoreOrderLineItemList);
 
-		batchRetailStoreOrderLineItemCreate((List<RetailStoreOrderLineItem>)lists[CREATE_LIST_INDEX]);
+    batchRetailStoreOrderLineItemCreate((List<RetailStoreOrderLineItem>) lists[CREATE_LIST_INDEX]);
+    batchRetailStoreOrderLineItemUpdate((List<RetailStoreOrderLineItem>) lists[UPDATE_LIST_INDEX]);
+    batchRetailStoreOrderLineItemRemove((List<RetailStoreOrderLineItem>) lists[REMOVE_LIST_INDEX]);
+    batchRetailStoreOrderLineItemRecover(
+        (List<RetailStoreOrderLineItem>) lists[RECOVER_LIST_INDEX]);
 
-		batchRetailStoreOrderLineItemUpdate((List<RetailStoreOrderLineItem>)lists[UPDATE_LIST_INDEX]);
+    // update version after the list successfully saved to database;
+    for (RetailStoreOrderLineItem retailStoreOrderLineItem : retailStoreOrderLineItemList) {
+      if (retailStoreOrderLineItem.isChanged()) {
+        retailStoreOrderLineItem.incVersion();
+        retailStoreOrderLineItem.afterSave();
+      }
+      if (retailStoreOrderLineItem.isToRecover() || retailStoreOrderLineItem.isToRemove()) {
+        retailStoreOrderLineItem.setVersion(-retailStoreOrderLineItem.getVersion());
+      }
+    }
 
+    return retailStoreOrderLineItemList;
+  }
 
-		//update version after the list successfully saved to database;
-		for(RetailStoreOrderLineItem retailStoreOrderLineItem:retailStoreOrderLineItemList){
-			if(retailStoreOrderLineItem.isChanged()){
-				retailStoreOrderLineItem.incVersion();
-				retailStoreOrderLineItem.afterSave();
-			}
+  public SmartList<RetailStoreOrderLineItem> removeRetailStoreOrderLineItemList(
+      SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList,
+      Map<String, Object> options) {
 
+    super.removeList(retailStoreOrderLineItemList, options);
 
-		}
+    return retailStoreOrderLineItemList;
+  }
 
+  protected List<Object[]> prepareRetailStoreOrderLineItemBatchCreateArgs(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
 
-		return retailStoreOrderLineItemList;
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (RetailStoreOrderLineItem retailStoreOrderLineItem : retailStoreOrderLineItemList) {
+      Object[] parameters =
+          prepareRetailStoreOrderLineItemCreateParameters(retailStoreOrderLineItem);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	public SmartList<RetailStoreOrderLineItem> removeRetailStoreOrderLineItemList(SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList,Map<String,Object> options){
+  protected List<Object[]> prepareRetailStoreOrderLineItemBatchUpdateArgs(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
 
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (RetailStoreOrderLineItem retailStoreOrderLineItem : retailStoreOrderLineItemList) {
+      if (!retailStoreOrderLineItem.isChanged()) {
+        continue;
+      }
+      Object[] parameters =
+          prepareRetailStoreOrderLineItemUpdateParameters(retailStoreOrderLineItem);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-		super.removeList(retailStoreOrderLineItemList, options);
+  protected List<Object[]> prepareRetailStoreOrderLineItemBatchRecoverArgs(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
 
-		return retailStoreOrderLineItemList;
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (RetailStoreOrderLineItem retailStoreOrderLineItem : retailStoreOrderLineItemList) {
+      if (!retailStoreOrderLineItem.isToRecover()) {
+        continue;
+      }
+      Object[] parameters = prepareRecoverParameters(retailStoreOrderLineItem);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
+  protected List<Object[]> prepareRetailStoreOrderLineItemBatchRemoveArgs(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
 
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (RetailStoreOrderLineItem retailStoreOrderLineItem : retailStoreOrderLineItemList) {
+      if (!retailStoreOrderLineItem.isToRemove()) {
+        continue;
+      }
+      Object[] parameters =
+          prepareRetailStoreOrderLineItemRemoveParameters(retailStoreOrderLineItem);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	protected List<Object[]> prepareRetailStoreOrderLineItemBatchCreateArgs(List<RetailStoreOrderLineItem> retailStoreOrderLineItemList){
+  protected void batchRetailStoreOrderLineItemCreate(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
+    String SQL = getCreateSQL();
+    List<Object[]> args =
+        prepareRetailStoreOrderLineItemBatchCreateArgs(retailStoreOrderLineItemList);
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(RetailStoreOrderLineItem retailStoreOrderLineItem:retailStoreOrderLineItemList ){
-			Object [] parameters = prepareRetailStoreOrderLineItemCreateParameters(retailStoreOrderLineItem);
-			parametersList.add(parameters);
+    int affectedNumbers[] = batchUpdate(SQL, args);
+  }
 
-		}
-		return parametersList;
+  protected void batchRetailStoreOrderLineItemUpdate(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
+    String SQL = getUpdateSQL();
+    List<Object[]> args =
+        prepareRetailStoreOrderLineItemBatchUpdateArgs(retailStoreOrderLineItemList);
 
-	}
-	protected List<Object[]> prepareRetailStoreOrderLineItemBatchUpdateArgs(List<RetailStoreOrderLineItem> retailStoreOrderLineItemList){
+    int affectedNumbers[] = batchUpdate(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(RetailStoreOrderLineItem retailStoreOrderLineItem:retailStoreOrderLineItemList ){
-			if(!retailStoreOrderLineItem.isChanged()){
-				continue;
-			}
-			Object [] parameters = prepareRetailStoreOrderLineItemUpdateParameters(retailStoreOrderLineItem);
-			parametersList.add(parameters);
+  protected void batchRetailStoreOrderLineItemRemove(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
+    String SQL = getRemoveSQL();
+    List<Object[]> args =
+        prepareRetailStoreOrderLineItemBatchRemoveArgs(retailStoreOrderLineItemList);
+    int affectedNumbers[] = batchRemove(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		}
-		return parametersList;
+  protected void batchRetailStoreOrderLineItemRecover(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
+    String SQL = getRecoverSQL();
+    List<Object[]> args =
+        prepareRetailStoreOrderLineItemBatchRecoverArgs(retailStoreOrderLineItemList);
+    int affectedNumbers[] = batchRecover(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-	}
-	protected void batchRetailStoreOrderLineItemCreate(List<RetailStoreOrderLineItem> retailStoreOrderLineItemList){
-		String SQL=getCreateSQL();
-		List<Object[]> args=prepareRetailStoreOrderLineItemBatchCreateArgs(retailStoreOrderLineItemList);
+  static final int CREATE_LIST_INDEX = 0;
+  static final int UPDATE_LIST_INDEX = 1;
+  static final int REMOVE_LIST_INDEX = 2;
+  static final int RECOVER_LIST_INDEX = 3;
 
-		int affectedNumbers[] = batchUpdate(SQL, args);
+  protected Object[] splitRetailStoreOrderLineItemList(
+      List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
 
-	}
+    List<RetailStoreOrderLineItem> retailStoreOrderLineItemCreateList =
+        new ArrayList<RetailStoreOrderLineItem>();
+    List<RetailStoreOrderLineItem> retailStoreOrderLineItemUpdateList =
+        new ArrayList<RetailStoreOrderLineItem>();
+    List<RetailStoreOrderLineItem> retailStoreOrderLineItemRemoveList =
+        new ArrayList<RetailStoreOrderLineItem>();
+    List<RetailStoreOrderLineItem> retailStoreOrderLineItemRecoverList =
+        new ArrayList<RetailStoreOrderLineItem>();
 
-
-	protected void batchRetailStoreOrderLineItemUpdate(List<RetailStoreOrderLineItem> retailStoreOrderLineItemList){
-		String SQL=getUpdateSQL();
-		List<Object[]> args=prepareRetailStoreOrderLineItemBatchUpdateArgs(retailStoreOrderLineItemList);
-
-		int affectedNumbers[] = batchUpdate(SQL, args);
-
-
-
-	}
-
-
-
-	static final int CREATE_LIST_INDEX=0;
-	static final int UPDATE_LIST_INDEX=1;
-
-	protected Object[] splitRetailStoreOrderLineItemList(List<RetailStoreOrderLineItem> retailStoreOrderLineItemList){
-
-		List<RetailStoreOrderLineItem> retailStoreOrderLineItemCreateList=new ArrayList<RetailStoreOrderLineItem>();
-		List<RetailStoreOrderLineItem> retailStoreOrderLineItemUpdateList=new ArrayList<RetailStoreOrderLineItem>();
-
-		for(RetailStoreOrderLineItem retailStoreOrderLineItem: retailStoreOrderLineItemList){
-			if(isUpdateRequest(retailStoreOrderLineItem)){
-				retailStoreOrderLineItemUpdateList.add( retailStoreOrderLineItem);
-				continue;
-			}
-			retailStoreOrderLineItemCreateList.add(retailStoreOrderLineItem);
-		}
-
-		return new Object[]{retailStoreOrderLineItemCreateList,retailStoreOrderLineItemUpdateList};
-	}
-
-	protected boolean isUpdateRequest(RetailStoreOrderLineItem retailStoreOrderLineItem){
- 		return retailStoreOrderLineItem.getVersion() > 0;
- 	}
- 	protected String getSaveRetailStoreOrderLineItemSQL(RetailStoreOrderLineItem retailStoreOrderLineItem){
- 		if(isUpdateRequest(retailStoreOrderLineItem)){
- 			return getUpdateSQL();
- 		}
- 		return getCreateSQL();
- 	}
-
- 	protected Object[] getSaveRetailStoreOrderLineItemParameters(RetailStoreOrderLineItem retailStoreOrderLineItem){
- 		if(isUpdateRequest(retailStoreOrderLineItem) ){
- 			return prepareRetailStoreOrderLineItemUpdateParameters(retailStoreOrderLineItem);
- 		}
- 		return prepareRetailStoreOrderLineItemCreateParameters(retailStoreOrderLineItem);
- 	}
- 	protected Object[] prepareRetailStoreOrderLineItemUpdateParameters(RetailStoreOrderLineItem retailStoreOrderLineItem){
- 		Object[] parameters = new Object[9];
- 
- 		if(retailStoreOrderLineItem.getBizOrder() != null){
- 			parameters[0] = retailStoreOrderLineItem.getBizOrder().getId();
- 		}
-    
- 		parameters[1] = retailStoreOrderLineItem.getSkuId();
- 		
- 		parameters[2] = retailStoreOrderLineItem.getSkuName();
- 		
- 		parameters[3] = retailStoreOrderLineItem.getAmount();
- 		
- 		parameters[4] = retailStoreOrderLineItem.getQuantity();
- 		
- 		parameters[5] = retailStoreOrderLineItem.getUnitOfMeasurement();
- 		
- 		parameters[6] = retailStoreOrderLineItem.nextVersion();
- 		parameters[7] = retailStoreOrderLineItem.getId();
- 		parameters[8] = retailStoreOrderLineItem.getVersion();
-
- 		return parameters;
- 	}
- 	protected Object[] prepareRetailStoreOrderLineItemCreateParameters(RetailStoreOrderLineItem retailStoreOrderLineItem){
-		Object[] parameters = new Object[7];
-        if(retailStoreOrderLineItem.getId() == null){
-          String newRetailStoreOrderLineItemId=getNextId();
-          retailStoreOrderLineItem.setId(newRetailStoreOrderLineItemId);
+    for (RetailStoreOrderLineItem retailStoreOrderLineItem : retailStoreOrderLineItemList) {
+      if (retailStoreOrderLineItem.isToRemove()) {
+        retailStoreOrderLineItemRemoveList.add(retailStoreOrderLineItem);
+        continue;
+      }
+      if (retailStoreOrderLineItem.isToRecover()) {
+        retailStoreOrderLineItemRecoverList.add(retailStoreOrderLineItem);
+        continue;
+      }
+      if (isUpdateRequest(retailStoreOrderLineItem)) {
+        if (retailStoreOrderLineItem.isChanged()) {
+          retailStoreOrderLineItemUpdateList.add(retailStoreOrderLineItem);
         }
-		parameters[0] =  retailStoreOrderLineItem.getId();
- 
- 		if(retailStoreOrderLineItem.getBizOrder() != null){
- 			parameters[1] = retailStoreOrderLineItem.getBizOrder().getId();
- 		}
- 		
- 		parameters[2] = retailStoreOrderLineItem.getSkuId();
- 		
- 		parameters[3] = retailStoreOrderLineItem.getSkuName();
- 		
- 		parameters[4] = retailStoreOrderLineItem.getAmount();
- 		
- 		parameters[5] = retailStoreOrderLineItem.getQuantity();
- 		
- 		parameters[6] = retailStoreOrderLineItem.getUnitOfMeasurement();
- 		
+        continue;
+      }
 
- 		return parameters;
- 	}
+      if (retailStoreOrderLineItem.isChanged()) {
+        retailStoreOrderLineItemCreateList.add(retailStoreOrderLineItem);
+      }
+    }
 
-	protected RetailStoreOrderLineItem saveInternalRetailStoreOrderLineItem(RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String,Object> options){
+    return new Object[] {
+      retailStoreOrderLineItemCreateList,
+      retailStoreOrderLineItemUpdateList,
+      retailStoreOrderLineItemRemoveList,
+      retailStoreOrderLineItemRecoverList
+    };
+  }
 
- 		if(isSaveBizOrderEnabled(options)){
-	 		saveBizOrder(retailStoreOrderLineItem, options);
- 		}
- 
-   saveRetailStoreOrderLineItem(retailStoreOrderLineItem);
-		
-		return retailStoreOrderLineItem;
+  protected boolean isUpdateRequest(RetailStoreOrderLineItem retailStoreOrderLineItem) {
+    return retailStoreOrderLineItem.getVersion() > 0;
+  }
 
-	}
+  protected String getSaveRetailStoreOrderLineItemSQL(
+      RetailStoreOrderLineItem retailStoreOrderLineItem) {
+    if (retailStoreOrderLineItem.isToRemove()) {
+      return getRemoveSQL();
+    }
+    if (isUpdateRequest(retailStoreOrderLineItem)) {
+      return getUpdateSQL();
+    }
+    return getCreateSQL();
+  }
 
+  protected Object[] getSaveRetailStoreOrderLineItemParameters(
+      RetailStoreOrderLineItem retailStoreOrderLineItem) {
+    if (retailStoreOrderLineItem.isToRemove()) {
+      return prepareRetailStoreOrderLineItemRemoveParameters(retailStoreOrderLineItem);
+    }
+    if (retailStoreOrderLineItem.isToRecover()) {
+      return prepareRecoverParameters(retailStoreOrderLineItem);
+    }
 
+    if (isUpdateRequest(retailStoreOrderLineItem)) {
+      return prepareRetailStoreOrderLineItemUpdateParameters(retailStoreOrderLineItem);
+    }
+    return prepareRetailStoreOrderLineItemCreateParameters(retailStoreOrderLineItem);
+  }
 
-	//======================================================================================
-	
+  protected Object[] prepareRetailStoreOrderLineItemRemoveParameters(
+      RetailStoreOrderLineItem retailStoreOrderLineItem) {
+    return super.prepareRemoveParameters(retailStoreOrderLineItem);
+  }
 
- 	protected RetailStoreOrderLineItem saveBizOrder(RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String,Object> options){
- 	
- 		//Call inject DAO to execute this method
- 		if(retailStoreOrderLineItem.getBizOrder() == null){
- 			return retailStoreOrderLineItem;//do nothing when it is null
- 		}
+  protected Object[] prepareRetailStoreOrderLineItemUpdateParameters(
+      RetailStoreOrderLineItem retailStoreOrderLineItem) {
+    Object[] parameters = new Object[9];
 
- 		getRetailStoreOrderDAO().save(retailStoreOrderLineItem.getBizOrder(),options);
- 		return retailStoreOrderLineItem;
+    if (retailStoreOrderLineItem.getBizOrder() != null) {
+      parameters[0] = retailStoreOrderLineItem.getBizOrder().getId();
+    }
 
- 	}
- 
+    parameters[1] = retailStoreOrderLineItem.getSkuId();
 
-	
+    parameters[2] = retailStoreOrderLineItem.getSkuName();
 
-		
+    parameters[3] = retailStoreOrderLineItem.getAmount();
 
-	public RetailStoreOrderLineItem present(RetailStoreOrderLineItem retailStoreOrderLineItem,Map<String, Object> options){
+    parameters[4] = retailStoreOrderLineItem.getQuantity();
 
+    parameters[5] = retailStoreOrderLineItem.getUnitOfMeasurement();
 
-		return retailStoreOrderLineItem;
+    parameters[6] = retailStoreOrderLineItem.nextVersion();
+    parameters[7] = retailStoreOrderLineItem.getId();
+    parameters[8] = retailStoreOrderLineItem.getVersion();
 
-	}
-		
+    return parameters;
+  }
 
-	
+  protected Object[] prepareRetailStoreOrderLineItemCreateParameters(
+      RetailStoreOrderLineItem retailStoreOrderLineItem) {
+    Object[] parameters = new Object[7];
+    if (retailStoreOrderLineItem.getId() == null) {
+      String newRetailStoreOrderLineItemId = getNextId();
+      retailStoreOrderLineItem.setId(newRetailStoreOrderLineItemId);
+    }
+    parameters[0] = retailStoreOrderLineItem.getId();
 
-	protected String getTableName(){
-		return RetailStoreOrderLineItemTable.TABLE_NAME;
-	}
+    if (retailStoreOrderLineItem.getBizOrder() != null) {
+      parameters[1] = retailStoreOrderLineItem.getBizOrder().getId();
+    }
 
+    parameters[2] = retailStoreOrderLineItem.getSkuId();
 
+    parameters[3] = retailStoreOrderLineItem.getSkuName();
 
-	public void enhanceList(List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
-		this.enhanceListInternal(retailStoreOrderLineItemList, this.getRetailStoreOrderLineItemMapper());
-	}
+    parameters[4] = retailStoreOrderLineItem.getAmount();
 
-	
+    parameters[5] = retailStoreOrderLineItem.getQuantity();
 
-	@Override
-	public void collectAndEnhance(BaseEntity ownerEntity) {
-		List<RetailStoreOrderLineItem> retailStoreOrderLineItemList = ownerEntity.collectRefsWithType(RetailStoreOrderLineItem.INTERNAL_TYPE);
-		this.enhanceList(retailStoreOrderLineItemList);
+    parameters[6] = retailStoreOrderLineItem.getUnitOfMeasurement();
 
-	}
+    return parameters;
+  }
 
-	@Override
-	public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+  protected RetailStoreOrderLineItem saveInternalRetailStoreOrderLineItem(
+      RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String, Object> options) {
 
-  		return queryWith(key, options, getRetailStoreOrderLineItemMapper());
+    if (isSaveBizOrderEnabled(options)) {
+      saveBizOrder(retailStoreOrderLineItem, options);
+    }
 
-	}
-	@Override
-	public int countRetailStoreOrderLineItemWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+    saveRetailStoreOrderLineItem(retailStoreOrderLineItem);
 
-  		return countWith(key, options);
+    return retailStoreOrderLineItem;
+  }
 
-	}
-	public Map<String, Integer> countRetailStoreOrderLineItemWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options) {
+  // ======================================================================================
 
-  		return countWithGroup(groupKey, filterKey, options);
+  protected RetailStoreOrderLineItem saveBizOrder(
+      RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String, Object> options) {
 
-	}
+    // Call inject DAO to execute this method
+    if (retailStoreOrderLineItem.getBizOrder() == null) {
+      return retailStoreOrderLineItem; // do nothing when it is null
+    }
 
-	@Override
-	public SmartList<RetailStoreOrderLineItem> queryList(String sql, Object... parameters) {
-	    return this.queryForList(sql, parameters, this.getRetailStoreOrderLineItemMapper());
-	}
+    getRetailStoreOrderDAO().save(retailStoreOrderLineItem.getBizOrder(), options);
+    return retailStoreOrderLineItem;
+  }
+
+  public RetailStoreOrderLineItem present(
+      RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String, Object> options) {
+
+    return retailStoreOrderLineItem;
+  }
+
+  protected String getTableName() {
+    return RetailStoreOrderLineItemTable.TABLE_NAME;
+  }
+
+  public void enhanceList(List<RetailStoreOrderLineItem> retailStoreOrderLineItemList) {
+    this.enhanceListInternal(
+        retailStoreOrderLineItemList, this.getRetailStoreOrderLineItemMapper());
+  }
+
+  @Override
+  public void collectAndEnhance(BaseEntity ownerEntity) {
+    List<RetailStoreOrderLineItem> retailStoreOrderLineItemList =
+        ownerEntity.collectRefsWithType(RetailStoreOrderLineItem.INTERNAL_TYPE);
+    this.enhanceList(retailStoreOrderLineItemList);
+  }
+
+  @Override
+  public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemWithKey(
+      MultipleAccessKey key, Map<String, Object> options) {
+
+    return queryWith(key, options, getRetailStoreOrderLineItemMapper());
+  }
+
+  @Override
+  public int countRetailStoreOrderLineItemWithKey(
+      MultipleAccessKey key, Map<String, Object> options) {
+
+    return countWith(key, options);
+  }
+
+  public Map<String, Integer> countRetailStoreOrderLineItemWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options) {
+
+    return countWithGroup(groupKey, filterKey, options);
+  }
+
+  @Override
+  public SmartList<RetailStoreOrderLineItem> queryList(String sql, Object... parameters) {
+    return this.queryForList(sql, parameters, this.getRetailStoreOrderLineItemMapper());
+  }
 
   @Override
   public List<String> queryIdList(String sql, Object... parameters) {
     return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
   }
+
   @Override
   public Stream<RetailStoreOrderLineItem> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getRetailStoreOrderLineItemMapper());
   }
 
-	@Override
-	public int count(String sql, Object... parameters) {
-	    return queryInt(sql, parameters);
-	}
-	@Override
-	public CandidateRetailStoreOrderLineItem executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+  @Override
+  public int count(String sql, Object... parameters) {
+    return queryInt(sql, parameters);
+  }
 
-		CandidateRetailStoreOrderLineItem result = new CandidateRetailStoreOrderLineItem();
-		int pageNo = Math.max(1, query.getPageNo());
-		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
-		result.setOwnerId(query.getOwnerId());
-		result.setFilterKey(query.getFilterKey());
-		result.setPageNo(pageNo);
-		result.setValueFieldName("id");
-		result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
-		result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
+  @Override
+  public CandidateRetailStoreOrderLineItem executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception {
 
-		SmartList candidateList = queryList(sql, parmeters);
-		this.alias(candidateList);
-		result.setCandidates(candidateList);
-		int offSet = (pageNo - 1 ) * query.getPageSize();
-		if (candidateList.size() > query.getPageSize()) {
-			result.setTotalPage(pageNo+1);
-		}else {
-			result.setTotalPage(pageNo);
-		}
-		return result;
-	}
+    CandidateRetailStoreOrderLineItem result = new CandidateRetailStoreOrderLineItem();
+    int pageNo = Math.max(1, query.getPageNo());
+    result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
+    result.setOwnerId(query.getOwnerId());
+    result.setFilterKey(query.getFilterKey());
+    result.setPageNo(pageNo);
+    result.setValueFieldName("id");
+    result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
+    result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
 
-	
+    SmartList candidateList = queryList(sql, parmeters);
+    this.alias(candidateList);
+    result.setCandidates(candidateList);
+    int offSet = (pageNo - 1) * query.getPageSize();
+    if (candidateList.size() > query.getPageSize()) {
+      result.setTotalPage(pageNo + 1);
+    } else {
+      result.setTotalPage(pageNo);
+    }
+    return result;
+  }
 
   @Override
   public List<RetailStoreOrderLineItem> search(RetailStoreOrderLineItemRequest pRequest) {
@@ -638,6 +683,9 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmBaseDAOImp
   protected RetailStoreOrderLineItemMapper mapper() {
     return getRetailStoreOrderLineItemMapper();
   }
+
+  @Override
+  protected RetailStoreOrderLineItemMapper mapperForClazz(Class<?> clazz) {
+    return RetailStoreOrderLineItemMapper.mapperForClass(clazz);
+  }
 }
-
-

@@ -74,6 +74,6 @@
 	
 </style>
 <section><h3>企业微信认证(${result.id})</h3><table >
-<tr><td class='th'>公司</td><td >${result.corpId}</td><td class='th'>用户</td><td >${result.userId}</td></tr><tr><td class='th'>系统用户</td><td >${result.secUser.displayName}</td><td class='th'>创建时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.createTime}" /></td></tr><tr><td class='th'>最后登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastLoginTime}" /></td><td class='th'></td><td ></td></tr></table>
+<tr><td class='th'>公司标识</td><td >${result.corpId}</td><td class='th'>用户Id</td><td >${result.userId}</td></tr><tr><td class='th'>安全用户</td><td >${result.secUser.displayName}</td><td class='th'>创建于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.createTime}" /></td></tr><tr><td class='th'>最后登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.lastLoginTime}" /></td><td class='th'></td><td ></td></tr></table>
 </section>
 <section></section>

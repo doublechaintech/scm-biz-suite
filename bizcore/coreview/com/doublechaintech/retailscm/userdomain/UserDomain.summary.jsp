@@ -80,20 +80,20 @@
 <section><h3>用户权限列表</h3>
 <table><tr>
 <tr>
-<th>ID</th><th>用户标识</th><th>用户特权</th><th>域</th></tr>	<c:forEach items="${result.userAllowListList}" var="item">
+<th>ID</th><th>用户身份</th><th>用户特殊功能</th><th>域</th></tr>	<c:forEach items="${result.userAllowListList}" var="item">
 	<tr>
 <td>${item.id}</td><td>${item.userIdentity}</td><td>${item.userSpecialFunctions}</td><td>${item.domain.displayName}</td></tr></c:forEach></table>
 </section>
 </c:if><c:if test="${not empty result.secUserList}">
 	<c:forEach items="${result.secUserList}" var="item">
 <section><h3>安全用户(${item.id})</h3><table >
-<tr><td class='th'>登录名</td><td >${item.login}</td><td class='th'>手机</td><td >${item.mobile}</td></tr><tr><td class='th'>邮箱</td><td >${item.email}</td><td class='th'>密码</td><td >${item.pwd}</td></tr><tr><td class='th'>微信openId</td><td >${item.weixinOpenid}</td><td class='th'>微信应用ID</td><td >${item.weixinAppid}</td></tr><tr><td class='th'>访问令牌</td><td >${item.accessToken}</td><td class='th'>验证码</td><td >${item.verificationCode}</td></tr><tr><td class='th'>验证码有效期</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.verificationCodeExpire}" /></td><td class='th'>最后登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastLoginTime}" /></td></tr></table>
+<tr><td class='th'>登录</td><td >${item.login}</td><td class='th'>手机</td><td >${item.mobile}</td></tr><tr><td class='th'>电子邮件</td><td >${item.email}</td><td class='th'>PWD</td><td >${item.pwd}</td></tr><tr><td class='th'>微信openid</td><td >${item.weixinOpenid}</td><td class='th'>微信Appid</td><td >${item.weixinAppid}</td></tr><tr><td class='th'>访问令牌</td><td >${item.accessToken}</td><td class='th'>验证码</td><td >${item.verificationCode}</td></tr><tr><td class='th'>验证码过期</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.verificationCodeExpire}" /></td><td class='th'>最后登录时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.lastLoginTime}" /></td></tr></table>
 </section>
 </c:forEach></c:if><c:if test="${not empty result.publicKeyTypeList}">
 <section><h3>公钥类型</h3>
 <table><tr>
 <tr>
-<th>ID</th><th>加密算法</th><th>签名算法</th><th>域</th></tr>	<c:forEach items="${result.publicKeyTypeList}" var="item">
+<th>ID</th><th>键 ALG</th><th>Alg迹象</th><th>域</th></tr>	<c:forEach items="${result.publicKeyTypeList}" var="item">
 	<tr>
 <td>${item.id}</td><td>${item.keyAlg}</td><td>${item.signAlg}</td><td>${item.domain.displayName}</td></tr></c:forEach></table>
 </section>

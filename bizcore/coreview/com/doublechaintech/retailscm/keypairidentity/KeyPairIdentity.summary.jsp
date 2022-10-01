@@ -74,6 +74,6 @@
 	
 </style>
 <section><h3>秘钥对认证(${result.id})</h3><table >
-<tr><td class='th'>公钥</td><td >${result.publicKey}</td><td class='th'>秘钥类型</td><td >${result.keyType.displayName}</td></tr><tr><td class='th'>系统用户</td><td >${result.secUser.displayName}</td><td class='th'>创建时间</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.createTime}" /></td></tr></table>
+<tr><td class='th'>公钥</td><td >${result.publicKey}</td><td class='th'>密钥类型</td><td >${result.keyType.displayName}</td></tr><tr><td class='th'>安全用户</td><td >${result.secUser.displayName}</td><td class='th'>创建于</td><td ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.createTime}" /></td></tr></table>
 </section>
 <section></section>

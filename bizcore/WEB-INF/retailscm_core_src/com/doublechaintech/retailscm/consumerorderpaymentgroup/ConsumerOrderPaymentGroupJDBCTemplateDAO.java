@@ -1,4 +1,3 @@
-
 package com.doublechaintech.retailscm.consumerorderpaymentgroup;
 
 import com.doublechaintech.retailscm.Beans;
@@ -24,598 +23,648 @@ import com.doublechaintech.retailscm.StatsItem;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
-
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
 
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
-
-
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
-public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl implements ConsumerOrderPaymentGroupDAO{
+public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOImpl
+    implements ConsumerOrderPaymentGroupDAO {
 
-	protected ConsumerOrderDAO consumerOrderDAO;
-	public void setConsumerOrderDAO(ConsumerOrderDAO consumerOrderDAO){
+  protected ConsumerOrderDAO consumerOrderDAO;
 
- 		if(consumerOrderDAO == null){
- 			throw new IllegalStateException("Do not try to set consumerOrderDAO to null.");
- 		}
-	 	this.consumerOrderDAO = consumerOrderDAO;
- 	}
- 	public ConsumerOrderDAO getConsumerOrderDAO(){
- 		if(this.consumerOrderDAO == null){
- 			throw new IllegalStateException("The consumerOrderDAO is not configured yet, please config it some where.");
- 		}
+  public void setConsumerOrderDAO(ConsumerOrderDAO consumerOrderDAO) {
 
-	 	return this.consumerOrderDAO;
- 	}
-
-
-
-	/*
-	protected ConsumerOrderPaymentGroup load(AccessKey accessKey,Map<String,Object> options) throws Exception{
-		return loadInternalConsumerOrderPaymentGroup(accessKey, options);
-	}
-	*/
-
-	public SmartList<ConsumerOrderPaymentGroup> loadAll() {
-	    return this.loadAll(getConsumerOrderPaymentGroupMapper());
-	}
-
-  public Stream<ConsumerOrderPaymentGroup> loadAllAsStream() {
-      return this.loadAllAsStream(getConsumerOrderPaymentGroupMapper());
+    if (consumerOrderDAO == null) {
+      throw new IllegalStateException("Do not try to set consumerOrderDAO to null.");
+    }
+    this.consumerOrderDAO = consumerOrderDAO;
   }
 
+  public ConsumerOrderDAO getConsumerOrderDAO() {
+    if (this.consumerOrderDAO == null) {
+      throw new IllegalStateException(
+          "The consumerOrderDAO is not configured yet, please config it some where.");
+    }
+
+    return this.consumerOrderDAO;
+  }
+
+  /*
+  protected ConsumerOrderPaymentGroup load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+  	return loadInternalConsumerOrderPaymentGroup(accessKey, options);
+  }
+  */
+
+  public SmartList<ConsumerOrderPaymentGroup> loadAll() {
+    return this.loadAll(getConsumerOrderPaymentGroupMapper());
+  }
+
+  public Stream<ConsumerOrderPaymentGroup> loadAllAsStream() {
+    return this.loadAllAsStream(getConsumerOrderPaymentGroupMapper());
+  }
+
+  protected String getIdFormat() {
+    return getShortName(this.getName()) + "%06d";
+  }
+
+  public ConsumerOrderPaymentGroup load(String id, Map<String, Object> options) throws Exception {
+    return loadInternalConsumerOrderPaymentGroup(
+        ConsumerOrderPaymentGroupTable.withId(id), options);
+  }
 
-	protected String getIdFormat()
-	{
-		return getShortName(this.getName())+"%06d";
-	}
+  public ConsumerOrderPaymentGroup save(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String, Object> options) {
 
-	public ConsumerOrderPaymentGroup load(String id,Map<String,Object> options) throws Exception{
-		return loadInternalConsumerOrderPaymentGroup(ConsumerOrderPaymentGroupTable.withId(id), options);
-	}
+    String methodName =
+        "save(ConsumerOrderPaymentGroup consumerOrderPaymentGroup,Map<String,Object> options)";
 
-	
+    assertMethodArgumentNotNull(consumerOrderPaymentGroup, methodName, "consumerOrderPaymentGroup");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-	public ConsumerOrderPaymentGroup save(ConsumerOrderPaymentGroup consumerOrderPaymentGroup,Map<String,Object> options){
-
-		String methodName="save(ConsumerOrderPaymentGroup consumerOrderPaymentGroup,Map<String,Object> options)";
-
-		assertMethodArgumentNotNull(consumerOrderPaymentGroup, methodName, "consumerOrderPaymentGroup");
-		assertMethodArgumentNotNull(options, methodName, "options");
-
-		return saveInternalConsumerOrderPaymentGroup(consumerOrderPaymentGroup,options);
-	}
-	public ConsumerOrderPaymentGroup clone(String consumerOrderPaymentGroupId, Map<String,Object> options) throws Exception{
-
-		return clone(ConsumerOrderPaymentGroupTable.withId(consumerOrderPaymentGroupId),options);
-	}
-
-	protected ConsumerOrderPaymentGroup clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
-
-		String methodName="clone(String consumerOrderPaymentGroupId,Map<String,Object> options)";
-
-		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
-		assertMethodArgumentNotNull(options, methodName, "options");
-
-		ConsumerOrderPaymentGroup newConsumerOrderPaymentGroup = loadInternalConsumerOrderPaymentGroup(accessKey, options);
-		newConsumerOrderPaymentGroup.setVersion(0);
-		
-		
-
-
-		saveInternalConsumerOrderPaymentGroup(newConsumerOrderPaymentGroup,options);
-
-		return newConsumerOrderPaymentGroup;
-	}
-
-	
-
-
-
-	protected void throwIfHasException(String consumerOrderPaymentGroupId,int version,int count) throws Exception{
-		if (count == 1) {
-			throw new ConsumerOrderPaymentGroupVersionChangedException(
-					"The object version has been changed, please reload to delete");
-		}
-		if (count < 1) {
-			throw new ConsumerOrderPaymentGroupNotFoundException(
-					"The " + this.getTableName() + "(" + consumerOrderPaymentGroupId + ") has already been deleted.");
-		}
-		if (count > 1) {
-			throw new IllegalStateException(
-					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
-		}
-	}
-
-
-	public void delete(String consumerOrderPaymentGroupId, int version) throws Exception{
-
-		String methodName="delete(String consumerOrderPaymentGroupId, int version)";
-		assertMethodArgumentNotNull(consumerOrderPaymentGroupId, methodName, "consumerOrderPaymentGroupId");
-		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-
-
-		String SQL=this.getDeleteSQL();
-		Object [] parameters=new Object[]{consumerOrderPaymentGroupId,version};
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber == 1){
-			return ; //Delete successfully
-		}
-		if(affectedNumber == 0){
-			handleDeleteOneError(consumerOrderPaymentGroupId,version);
-		}
-
-
-	}
-
-
-
-
-
-
-	public ConsumerOrderPaymentGroup disconnectFromAll(String consumerOrderPaymentGroupId, int version) throws Exception{
-
-
-		ConsumerOrderPaymentGroup consumerOrderPaymentGroup = loadInternalConsumerOrderPaymentGroup(ConsumerOrderPaymentGroupTable.withId(consumerOrderPaymentGroupId), emptyOptions());
-		consumerOrderPaymentGroup.clearFromAll();
-		this.saveConsumerOrderPaymentGroup(consumerOrderPaymentGroup);
-		return consumerOrderPaymentGroup;
-
-
-	}
-
-	@Override
-	protected String[] getNormalColumnNames() {
-
-		return ConsumerOrderPaymentGroupTable.NORMAL_CLOUMNS;
-	}
-	@Override
-	protected String getName() {
-
-		return "consumer_order_payment_group";
-	}
-	@Override
-	protected String getBeanName() {
-
-		return "consumerOrderPaymentGroup";
-	}
-
-	
-
-
-
-	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-
- 		return ConsumerOrderPaymentGroupTokens.checkOptions(options, optionToCheck);
-
-	}
-
-
-
- 	protected boolean isExtractBizOrderEnabled(Map<String,Object> options){
-
-	 	return checkOptions(options, ConsumerOrderPaymentGroupTokens.BIZORDER);
- 	}
-
- 	protected boolean isSaveBizOrderEnabled(Map<String,Object> options){
-
- 		return checkOptions(options, ConsumerOrderPaymentGroupTokens.BIZORDER);
- 	}
-
-
-
- 
-		
-
-	
-
-	protected ConsumerOrderPaymentGroupMapper getConsumerOrderPaymentGroupMapper(){
-		return new ConsumerOrderPaymentGroupMapper();
-	}
-
-
-
-	protected ConsumerOrderPaymentGroup extractConsumerOrderPaymentGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		try{
-			ConsumerOrderPaymentGroup consumerOrderPaymentGroup = loadSingleObject(accessKey, getConsumerOrderPaymentGroupMapper());
-			return consumerOrderPaymentGroup;
-		}catch(EmptyResultDataAccessException e){
-			throw new ConsumerOrderPaymentGroupNotFoundException("ConsumerOrderPaymentGroup("+accessKey+") is not found!");
-		}
-
-	}
-
-
-
-
-	protected ConsumerOrderPaymentGroup loadInternalConsumerOrderPaymentGroup(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-
-		ConsumerOrderPaymentGroup consumerOrderPaymentGroup = extractConsumerOrderPaymentGroup(accessKey, loadOptions);
-
- 		if(isExtractBizOrderEnabled(loadOptions)){
-	 		extractBizOrder(consumerOrderPaymentGroup, loadOptions);
- 		}
- 
-		
-		return consumerOrderPaymentGroup;
-
-	}
-
-	
-
- 	protected ConsumerOrderPaymentGroup extractBizOrder(ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String,Object> options) throws Exception{
-  
-
-		if(consumerOrderPaymentGroup.getBizOrder() == null){
-			return consumerOrderPaymentGroup;
-		}
-		String bizOrderId = consumerOrderPaymentGroup.getBizOrder().getId();
-		if( bizOrderId == null){
-			return consumerOrderPaymentGroup;
-		}
-		ConsumerOrder bizOrder = getConsumerOrderDAO().load(bizOrderId,options);
-		if(bizOrder != null){
-			consumerOrderPaymentGroup.setBizOrder(bizOrder);
-		}
-
-
- 		return consumerOrderPaymentGroup;
- 	}
-
- 
-		
-
- 
- 	public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(String consumerOrderId,Map<String,Object> options){
-
-  		SmartList<ConsumerOrderPaymentGroup> resultList = queryWith(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPaymentGroupMapper());
-		// analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
-		return resultList;
- 	}
- 	
-
- 	public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
-
- 		SmartList<ConsumerOrderPaymentGroup> resultList =  queryWithRange(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPaymentGroupMapper(), start, count);
- 		//analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
- 		return resultList;
-
- 	}
- 	public void analyzeConsumerOrderPaymentGroupByBizOrder(SmartList<ConsumerOrderPaymentGroup> resultList, String consumerOrderId, Map<String,Object> options){
-		if(resultList==null){
-			return;//do nothing when the list is null.
-		}
-
-
-
- 	}
- 	@Override
- 	public int countConsumerOrderPaymentGroupByBizOrder(String consumerOrderId,Map<String,Object> options){
-
- 		return countWith(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options);
- 	}
- 	@Override
-	public Map<String, Integer> countConsumerOrderPaymentGroupByBizOrderIds(String[] ids, Map<String, Object> options) {
-		return countWithIds(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, ids, options);
-	}
-
- 
-
-
-
-
-	
-
-	protected ConsumerOrderPaymentGroup saveConsumerOrderPaymentGroup(ConsumerOrderPaymentGroup  consumerOrderPaymentGroup){
-    
-
-		
-		if(!consumerOrderPaymentGroup.isChanged()){
-			return consumerOrderPaymentGroup;
-		}
-		
+    return saveInternalConsumerOrderPaymentGroup(consumerOrderPaymentGroup, options);
+  }
+
+  public ConsumerOrderPaymentGroup clone(
+      String consumerOrderPaymentGroupId, Map<String, Object> options) throws Exception {
+
+    return clone(ConsumerOrderPaymentGroupTable.withId(consumerOrderPaymentGroupId), options);
+  }
+
+  protected ConsumerOrderPaymentGroup clone(AccessKey accessKey, Map<String, Object> options)
+      throws Exception {
+
+    String methodName = "clone(String consumerOrderPaymentGroupId,Map<String,Object> options)";
+
+    assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
+    assertMethodArgumentNotNull(options, methodName, "options");
+
+    ConsumerOrderPaymentGroup newConsumerOrderPaymentGroup =
+        loadInternalConsumerOrderPaymentGroup(accessKey, options);
+    newConsumerOrderPaymentGroup.setVersion(0);
+
+    saveInternalConsumerOrderPaymentGroup(newConsumerOrderPaymentGroup, options);
+
+    return newConsumerOrderPaymentGroup;
+  }
+
+  protected void throwIfHasException(String consumerOrderPaymentGroupId, int version, int count)
+      throws Exception {
+    if (count == 1) {
+      throw new ConsumerOrderPaymentGroupVersionChangedException(
+          "The object version has been changed, please reload to delete");
+    }
+    if (count < 1) {
+      throw new ConsumerOrderPaymentGroupNotFoundException(
+          "The "
+              + this.getTableName()
+              + "("
+              + consumerOrderPaymentGroupId
+              + ") has already been deleted.");
+    }
+    if (count > 1) {
+      throw new IllegalStateException(
+          "The table '"
+              + this.getTableName()
+              + "' PRIMARY KEY constraint has been damaged, please fix it.");
+    }
+  }
+
+  public ConsumerOrderPaymentGroup disconnectFromAll(
+      String consumerOrderPaymentGroupId, int version) throws Exception {
+
+    ConsumerOrderPaymentGroup consumerOrderPaymentGroup =
+        loadInternalConsumerOrderPaymentGroup(
+            ConsumerOrderPaymentGroupTable.withId(consumerOrderPaymentGroupId), emptyOptions());
+    consumerOrderPaymentGroup.clearFromAll();
+    this.saveConsumerOrderPaymentGroup(consumerOrderPaymentGroup);
+    return consumerOrderPaymentGroup;
+  }
+
+  @Override
+  protected String[] getNormalColumnNames() {
+
+    return ConsumerOrderPaymentGroupTable.NORMAL_CLOUMNS;
+  }
+
+  @Override
+  protected String getName() {
+
+    return "consumer_order_payment_group";
+  }
+
+  @Override
+  protected String getBeanName() {
+
+    return "consumerOrderPaymentGroup";
+  }
+
+  protected boolean checkOptions(Map<String, Object> options, String optionToCheck) {
+
+    return ConsumerOrderPaymentGroupTokens.checkOptions(options, optionToCheck);
+  }
+
+  protected boolean isExtractBizOrderEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, ConsumerOrderPaymentGroupTokens.BIZORDER);
+  }
+
+  protected boolean isSaveBizOrderEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, ConsumerOrderPaymentGroupTokens.BIZORDER);
+  }
+
+  protected ConsumerOrderPaymentGroupMapper getConsumerOrderPaymentGroupMapper() {
+    return new ConsumerOrderPaymentGroupMapper();
+  }
+
+  protected ConsumerOrderPaymentGroup extractConsumerOrderPaymentGroup(
+      AccessKey accessKey, Map<String, Object> loadOptions) throws Exception {
+    try {
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup =
+          loadSingleObject(accessKey, getConsumerOrderPaymentGroupMapper());
+      return consumerOrderPaymentGroup;
+    } catch (EmptyResultDataAccessException e) {
+      throw new ConsumerOrderPaymentGroupNotFoundException(
+          "ConsumerOrderPaymentGroup(" + accessKey + ") is not found!");
+    }
+  }
+
+  protected ConsumerOrderPaymentGroup loadInternalConsumerOrderPaymentGroup(
+      AccessKey accessKey, Map<String, Object> loadOptions) throws Exception {
+
+    ConsumerOrderPaymentGroup consumerOrderPaymentGroup =
+        extractConsumerOrderPaymentGroup(accessKey, loadOptions);
+
+    if (isExtractBizOrderEnabled(loadOptions)) {
+      extractBizOrder(consumerOrderPaymentGroup, loadOptions);
+    }
+
+    return consumerOrderPaymentGroup;
+  }
+
+  protected ConsumerOrderPaymentGroup extractBizOrder(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String, Object> options)
+      throws Exception {
+
+    if (consumerOrderPaymentGroup.getBizOrder() == null) {
+      return consumerOrderPaymentGroup;
+    }
+    String bizOrderId = consumerOrderPaymentGroup.getBizOrder().getId();
+    if (bizOrderId == null) {
+      return consumerOrderPaymentGroup;
+    }
+    ConsumerOrder bizOrder = getConsumerOrderDAO().load(bizOrderId, options);
+    if (bizOrder != null) {
+      consumerOrderPaymentGroup.setBizOrder(bizOrder);
+    }
+
+    return consumerOrderPaymentGroup;
+  }
+
+  public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(
+      String consumerOrderId, Map<String, Object> options) {
+
+    SmartList<ConsumerOrderPaymentGroup> resultList =
+        queryWith(
+            ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER,
+            consumerOrderId,
+            options,
+            getConsumerOrderPaymentGroupMapper());
+    // analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
+    return resultList;
+  }
+
+  public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(
+      String consumerOrderId, int start, int count, Map<String, Object> options) {
+
+    SmartList<ConsumerOrderPaymentGroup> resultList =
+        queryWithRange(
+            ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER,
+            consumerOrderId,
+            options,
+            getConsumerOrderPaymentGroupMapper(),
+            start,
+            count);
+    // analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
+    return resultList;
+  }
+
+  public void analyzeConsumerOrderPaymentGroupByBizOrder(
+      SmartList<ConsumerOrderPaymentGroup> resultList,
+      String consumerOrderId,
+      Map<String, Object> options) {
+    if (resultList == null) {
+      return; // do nothing when the list is null.
+    }
+  }
+
+  @Override
+  public int countConsumerOrderPaymentGroupByBizOrder(
+      String consumerOrderId, Map<String, Object> options) {
+
+    return countWith(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options);
+  }
+
+  @Override
+  public Map<String, Integer> countConsumerOrderPaymentGroupByBizOrderIds(
+      String[] ids, Map<String, Object> options) {
+    return countWithIds(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, ids, options);
+  }
+
+  protected ConsumerOrderPaymentGroup saveConsumerOrderPaymentGroup(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup) {
+
+    if (!consumerOrderPaymentGroup.isChanged()) {
+      return consumerOrderPaymentGroup;
+    }
 
     Beans.dbUtil().cacheCleanUp(consumerOrderPaymentGroup);
-		String SQL=this.getSaveConsumerOrderPaymentGroupSQL(consumerOrderPaymentGroup);
-		//FIXME: how about when an item has been updated more than MAX_INT?
-		Object [] parameters = getSaveConsumerOrderPaymentGroupParameters(consumerOrderPaymentGroup);
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber != 1){
-			throw new IllegalStateException("The save operation should return value = 1, while the value = "
-				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
-		}
+    String SQL = this.getSaveConsumerOrderPaymentGroupSQL(consumerOrderPaymentGroup);
+    // FIXME: how about when an item has been updated more than MAX_INT?
+    Object[] parameters = getSaveConsumerOrderPaymentGroupParameters(consumerOrderPaymentGroup);
+    int affectedNumber = singleUpdate(SQL, parameters);
+    if (affectedNumber != 1) {
+      throw new IllegalStateException(
+          "The save operation should return value = 1, while the value = "
+              + affectedNumber
+              + "If the value = 0, that mean the target record has been updated by someone else!");
+    }
 
-		consumerOrderPaymentGroup.incVersion();
-		consumerOrderPaymentGroup.afterSave();
-		return consumerOrderPaymentGroup;
+    consumerOrderPaymentGroup.incVersion();
+    consumerOrderPaymentGroup.afterSave();
+    return consumerOrderPaymentGroup;
+  }
 
-	}
-	public SmartList<ConsumerOrderPaymentGroup> saveConsumerOrderPaymentGroupList(SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList,Map<String,Object> options){
-		//assuming here are big amount objects to be updated.
-		//First step is split into two groups, one group for update and another group for create
-		Object [] lists=splitConsumerOrderPaymentGroupList(consumerOrderPaymentGroupList);
+  public SmartList<ConsumerOrderPaymentGroup> saveConsumerOrderPaymentGroupList(
+      SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList,
+      Map<String, Object> options) {
+    // assuming here are big amount objects to be updated.
+    // First step is split into two groups, one group for update and another group for create
+    Object[] lists = splitConsumerOrderPaymentGroupList(consumerOrderPaymentGroupList);
 
-		batchConsumerOrderPaymentGroupCreate((List<ConsumerOrderPaymentGroup>)lists[CREATE_LIST_INDEX]);
+    batchConsumerOrderPaymentGroupCreate(
+        (List<ConsumerOrderPaymentGroup>) lists[CREATE_LIST_INDEX]);
+    batchConsumerOrderPaymentGroupUpdate(
+        (List<ConsumerOrderPaymentGroup>) lists[UPDATE_LIST_INDEX]);
+    batchConsumerOrderPaymentGroupRemove(
+        (List<ConsumerOrderPaymentGroup>) lists[REMOVE_LIST_INDEX]);
+    batchConsumerOrderPaymentGroupRecover(
+        (List<ConsumerOrderPaymentGroup>) lists[RECOVER_LIST_INDEX]);
 
-		batchConsumerOrderPaymentGroupUpdate((List<ConsumerOrderPaymentGroup>)lists[UPDATE_LIST_INDEX]);
+    // update version after the list successfully saved to database;
+    for (ConsumerOrderPaymentGroup consumerOrderPaymentGroup : consumerOrderPaymentGroupList) {
+      if (consumerOrderPaymentGroup.isChanged()) {
+        consumerOrderPaymentGroup.incVersion();
+        consumerOrderPaymentGroup.afterSave();
+      }
+      if (consumerOrderPaymentGroup.isToRecover() || consumerOrderPaymentGroup.isToRemove()) {
+        consumerOrderPaymentGroup.setVersion(-consumerOrderPaymentGroup.getVersion());
+      }
+    }
 
+    return consumerOrderPaymentGroupList;
+  }
 
-		//update version after the list successfully saved to database;
-		for(ConsumerOrderPaymentGroup consumerOrderPaymentGroup:consumerOrderPaymentGroupList){
-			if(consumerOrderPaymentGroup.isChanged()){
-				consumerOrderPaymentGroup.incVersion();
-				consumerOrderPaymentGroup.afterSave();
-			}
+  public SmartList<ConsumerOrderPaymentGroup> removeConsumerOrderPaymentGroupList(
+      SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList,
+      Map<String, Object> options) {
 
+    super.removeList(consumerOrderPaymentGroupList, options);
 
-		}
+    return consumerOrderPaymentGroupList;
+  }
 
+  protected List<Object[]> prepareConsumerOrderPaymentGroupBatchCreateArgs(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
 
-		return consumerOrderPaymentGroupList;
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (ConsumerOrderPaymentGroup consumerOrderPaymentGroup : consumerOrderPaymentGroupList) {
+      Object[] parameters =
+          prepareConsumerOrderPaymentGroupCreateParameters(consumerOrderPaymentGroup);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	public SmartList<ConsumerOrderPaymentGroup> removeConsumerOrderPaymentGroupList(SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList,Map<String,Object> options){
+  protected List<Object[]> prepareConsumerOrderPaymentGroupBatchUpdateArgs(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
 
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (ConsumerOrderPaymentGroup consumerOrderPaymentGroup : consumerOrderPaymentGroupList) {
+      if (!consumerOrderPaymentGroup.isChanged()) {
+        continue;
+      }
+      Object[] parameters =
+          prepareConsumerOrderPaymentGroupUpdateParameters(consumerOrderPaymentGroup);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-		super.removeList(consumerOrderPaymentGroupList, options);
+  protected List<Object[]> prepareConsumerOrderPaymentGroupBatchRecoverArgs(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
 
-		return consumerOrderPaymentGroupList;
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (ConsumerOrderPaymentGroup consumerOrderPaymentGroup : consumerOrderPaymentGroupList) {
+      if (!consumerOrderPaymentGroup.isToRecover()) {
+        continue;
+      }
+      Object[] parameters = prepareRecoverParameters(consumerOrderPaymentGroup);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
+  protected List<Object[]> prepareConsumerOrderPaymentGroupBatchRemoveArgs(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
 
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (ConsumerOrderPaymentGroup consumerOrderPaymentGroup : consumerOrderPaymentGroupList) {
+      if (!consumerOrderPaymentGroup.isToRemove()) {
+        continue;
+      }
+      Object[] parameters =
+          prepareConsumerOrderPaymentGroupRemoveParameters(consumerOrderPaymentGroup);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	protected List<Object[]> prepareConsumerOrderPaymentGroupBatchCreateArgs(List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList){
+  protected void batchConsumerOrderPaymentGroupCreate(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
+    String SQL = getCreateSQL();
+    List<Object[]> args =
+        prepareConsumerOrderPaymentGroupBatchCreateArgs(consumerOrderPaymentGroupList);
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(ConsumerOrderPaymentGroup consumerOrderPaymentGroup:consumerOrderPaymentGroupList ){
-			Object [] parameters = prepareConsumerOrderPaymentGroupCreateParameters(consumerOrderPaymentGroup);
-			parametersList.add(parameters);
+    int affectedNumbers[] = batchUpdate(SQL, args);
+  }
 
-		}
-		return parametersList;
+  protected void batchConsumerOrderPaymentGroupUpdate(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
+    String SQL = getUpdateSQL();
+    List<Object[]> args =
+        prepareConsumerOrderPaymentGroupBatchUpdateArgs(consumerOrderPaymentGroupList);
 
-	}
-	protected List<Object[]> prepareConsumerOrderPaymentGroupBatchUpdateArgs(List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList){
+    int affectedNumbers[] = batchUpdate(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(ConsumerOrderPaymentGroup consumerOrderPaymentGroup:consumerOrderPaymentGroupList ){
-			if(!consumerOrderPaymentGroup.isChanged()){
-				continue;
-			}
-			Object [] parameters = prepareConsumerOrderPaymentGroupUpdateParameters(consumerOrderPaymentGroup);
-			parametersList.add(parameters);
+  protected void batchConsumerOrderPaymentGroupRemove(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
+    String SQL = getRemoveSQL();
+    List<Object[]> args =
+        prepareConsumerOrderPaymentGroupBatchRemoveArgs(consumerOrderPaymentGroupList);
+    int affectedNumbers[] = batchRemove(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		}
-		return parametersList;
+  protected void batchConsumerOrderPaymentGroupRecover(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
+    String SQL = getRecoverSQL();
+    List<Object[]> args =
+        prepareConsumerOrderPaymentGroupBatchRecoverArgs(consumerOrderPaymentGroupList);
+    int affectedNumbers[] = batchRecover(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-	}
-	protected void batchConsumerOrderPaymentGroupCreate(List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList){
-		String SQL=getCreateSQL();
-		List<Object[]> args=prepareConsumerOrderPaymentGroupBatchCreateArgs(consumerOrderPaymentGroupList);
+  static final int CREATE_LIST_INDEX = 0;
+  static final int UPDATE_LIST_INDEX = 1;
+  static final int REMOVE_LIST_INDEX = 2;
+  static final int RECOVER_LIST_INDEX = 3;
 
-		int affectedNumbers[] = batchUpdate(SQL, args);
+  protected Object[] splitConsumerOrderPaymentGroupList(
+      List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
 
-	}
+    List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupCreateList =
+        new ArrayList<ConsumerOrderPaymentGroup>();
+    List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupUpdateList =
+        new ArrayList<ConsumerOrderPaymentGroup>();
+    List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupRemoveList =
+        new ArrayList<ConsumerOrderPaymentGroup>();
+    List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupRecoverList =
+        new ArrayList<ConsumerOrderPaymentGroup>();
 
-
-	protected void batchConsumerOrderPaymentGroupUpdate(List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList){
-		String SQL=getUpdateSQL();
-		List<Object[]> args=prepareConsumerOrderPaymentGroupBatchUpdateArgs(consumerOrderPaymentGroupList);
-
-		int affectedNumbers[] = batchUpdate(SQL, args);
-
-
-
-	}
-
-
-
-	static final int CREATE_LIST_INDEX=0;
-	static final int UPDATE_LIST_INDEX=1;
-
-	protected Object[] splitConsumerOrderPaymentGroupList(List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList){
-
-		List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupCreateList=new ArrayList<ConsumerOrderPaymentGroup>();
-		List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupUpdateList=new ArrayList<ConsumerOrderPaymentGroup>();
-
-		for(ConsumerOrderPaymentGroup consumerOrderPaymentGroup: consumerOrderPaymentGroupList){
-			if(isUpdateRequest(consumerOrderPaymentGroup)){
-				consumerOrderPaymentGroupUpdateList.add( consumerOrderPaymentGroup);
-				continue;
-			}
-			consumerOrderPaymentGroupCreateList.add(consumerOrderPaymentGroup);
-		}
-
-		return new Object[]{consumerOrderPaymentGroupCreateList,consumerOrderPaymentGroupUpdateList};
-	}
-
-	protected boolean isUpdateRequest(ConsumerOrderPaymentGroup consumerOrderPaymentGroup){
- 		return consumerOrderPaymentGroup.getVersion() > 0;
- 	}
- 	protected String getSaveConsumerOrderPaymentGroupSQL(ConsumerOrderPaymentGroup consumerOrderPaymentGroup){
- 		if(isUpdateRequest(consumerOrderPaymentGroup)){
- 			return getUpdateSQL();
- 		}
- 		return getCreateSQL();
- 	}
-
- 	protected Object[] getSaveConsumerOrderPaymentGroupParameters(ConsumerOrderPaymentGroup consumerOrderPaymentGroup){
- 		if(isUpdateRequest(consumerOrderPaymentGroup) ){
- 			return prepareConsumerOrderPaymentGroupUpdateParameters(consumerOrderPaymentGroup);
- 		}
- 		return prepareConsumerOrderPaymentGroupCreateParameters(consumerOrderPaymentGroup);
- 	}
- 	protected Object[] prepareConsumerOrderPaymentGroupUpdateParameters(ConsumerOrderPaymentGroup consumerOrderPaymentGroup){
- 		Object[] parameters = new Object[6];
- 
- 		parameters[0] = consumerOrderPaymentGroup.getName();
- 		
- 		if(consumerOrderPaymentGroup.getBizOrder() != null){
- 			parameters[1] = consumerOrderPaymentGroup.getBizOrder().getId();
- 		}
-    
- 		parameters[2] = consumerOrderPaymentGroup.getCardNumber();
- 		
- 		parameters[3] = consumerOrderPaymentGroup.nextVersion();
- 		parameters[4] = consumerOrderPaymentGroup.getId();
- 		parameters[5] = consumerOrderPaymentGroup.getVersion();
-
- 		return parameters;
- 	}
- 	protected Object[] prepareConsumerOrderPaymentGroupCreateParameters(ConsumerOrderPaymentGroup consumerOrderPaymentGroup){
-		Object[] parameters = new Object[4];
-        if(consumerOrderPaymentGroup.getId() == null){
-          String newConsumerOrderPaymentGroupId=getNextId();
-          consumerOrderPaymentGroup.setId(newConsumerOrderPaymentGroupId);
+    for (ConsumerOrderPaymentGroup consumerOrderPaymentGroup : consumerOrderPaymentGroupList) {
+      if (consumerOrderPaymentGroup.isToRemove()) {
+        consumerOrderPaymentGroupRemoveList.add(consumerOrderPaymentGroup);
+        continue;
+      }
+      if (consumerOrderPaymentGroup.isToRecover()) {
+        consumerOrderPaymentGroupRecoverList.add(consumerOrderPaymentGroup);
+        continue;
+      }
+      if (isUpdateRequest(consumerOrderPaymentGroup)) {
+        if (consumerOrderPaymentGroup.isChanged()) {
+          consumerOrderPaymentGroupUpdateList.add(consumerOrderPaymentGroup);
         }
-		parameters[0] =  consumerOrderPaymentGroup.getId();
- 
- 		parameters[1] = consumerOrderPaymentGroup.getName();
- 		
- 		if(consumerOrderPaymentGroup.getBizOrder() != null){
- 			parameters[2] = consumerOrderPaymentGroup.getBizOrder().getId();
- 		}
- 		
- 		parameters[3] = consumerOrderPaymentGroup.getCardNumber();
- 		
+        continue;
+      }
 
- 		return parameters;
- 	}
+      if (consumerOrderPaymentGroup.isChanged()) {
+        consumerOrderPaymentGroupCreateList.add(consumerOrderPaymentGroup);
+      }
+    }
 
-	protected ConsumerOrderPaymentGroup saveInternalConsumerOrderPaymentGroup(ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String,Object> options){
+    return new Object[] {
+      consumerOrderPaymentGroupCreateList,
+      consumerOrderPaymentGroupUpdateList,
+      consumerOrderPaymentGroupRemoveList,
+      consumerOrderPaymentGroupRecoverList
+    };
+  }
 
- 		if(isSaveBizOrderEnabled(options)){
-	 		saveBizOrder(consumerOrderPaymentGroup, options);
- 		}
- 
-   saveConsumerOrderPaymentGroup(consumerOrderPaymentGroup);
-		
-		return consumerOrderPaymentGroup;
+  protected boolean isUpdateRequest(ConsumerOrderPaymentGroup consumerOrderPaymentGroup) {
+    return consumerOrderPaymentGroup.getVersion() > 0;
+  }
 
-	}
+  protected String getSaveConsumerOrderPaymentGroupSQL(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup) {
+    if (consumerOrderPaymentGroup.isToRemove()) {
+      return getRemoveSQL();
+    }
+    if (isUpdateRequest(consumerOrderPaymentGroup)) {
+      return getUpdateSQL();
+    }
+    return getCreateSQL();
+  }
 
+  protected Object[] getSaveConsumerOrderPaymentGroupParameters(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup) {
+    if (consumerOrderPaymentGroup.isToRemove()) {
+      return prepareConsumerOrderPaymentGroupRemoveParameters(consumerOrderPaymentGroup);
+    }
+    if (consumerOrderPaymentGroup.isToRecover()) {
+      return prepareRecoverParameters(consumerOrderPaymentGroup);
+    }
 
+    if (isUpdateRequest(consumerOrderPaymentGroup)) {
+      return prepareConsumerOrderPaymentGroupUpdateParameters(consumerOrderPaymentGroup);
+    }
+    return prepareConsumerOrderPaymentGroupCreateParameters(consumerOrderPaymentGroup);
+  }
 
-	//======================================================================================
-	
+  protected Object[] prepareConsumerOrderPaymentGroupRemoveParameters(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup) {
+    return super.prepareRemoveParameters(consumerOrderPaymentGroup);
+  }
 
- 	protected ConsumerOrderPaymentGroup saveBizOrder(ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String,Object> options){
- 	
- 		//Call inject DAO to execute this method
- 		if(consumerOrderPaymentGroup.getBizOrder() == null){
- 			return consumerOrderPaymentGroup;//do nothing when it is null
- 		}
+  protected Object[] prepareConsumerOrderPaymentGroupUpdateParameters(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup) {
+    Object[] parameters = new Object[6];
 
- 		getConsumerOrderDAO().save(consumerOrderPaymentGroup.getBizOrder(),options);
- 		return consumerOrderPaymentGroup;
+    parameters[0] = consumerOrderPaymentGroup.getName();
 
- 	}
- 
+    if (consumerOrderPaymentGroup.getBizOrder() != null) {
+      parameters[1] = consumerOrderPaymentGroup.getBizOrder().getId();
+    }
 
-	
+    parameters[2] = consumerOrderPaymentGroup.getCardNumber();
 
-		
+    parameters[3] = consumerOrderPaymentGroup.nextVersion();
+    parameters[4] = consumerOrderPaymentGroup.getId();
+    parameters[5] = consumerOrderPaymentGroup.getVersion();
 
-	public ConsumerOrderPaymentGroup present(ConsumerOrderPaymentGroup consumerOrderPaymentGroup,Map<String, Object> options){
+    return parameters;
+  }
 
+  protected Object[] prepareConsumerOrderPaymentGroupCreateParameters(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup) {
+    Object[] parameters = new Object[4];
+    if (consumerOrderPaymentGroup.getId() == null) {
+      String newConsumerOrderPaymentGroupId = getNextId();
+      consumerOrderPaymentGroup.setId(newConsumerOrderPaymentGroupId);
+    }
+    parameters[0] = consumerOrderPaymentGroup.getId();
 
-		return consumerOrderPaymentGroup;
+    parameters[1] = consumerOrderPaymentGroup.getName();
 
-	}
-		
+    if (consumerOrderPaymentGroup.getBizOrder() != null) {
+      parameters[2] = consumerOrderPaymentGroup.getBizOrder().getId();
+    }
 
-	
+    parameters[3] = consumerOrderPaymentGroup.getCardNumber();
 
-	protected String getTableName(){
-		return ConsumerOrderPaymentGroupTable.TABLE_NAME;
-	}
+    return parameters;
+  }
 
+  protected ConsumerOrderPaymentGroup saveInternalConsumerOrderPaymentGroup(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String, Object> options) {
 
+    if (isSaveBizOrderEnabled(options)) {
+      saveBizOrder(consumerOrderPaymentGroup, options);
+    }
 
-	public void enhanceList(List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
-		this.enhanceListInternal(consumerOrderPaymentGroupList, this.getConsumerOrderPaymentGroupMapper());
-	}
+    saveConsumerOrderPaymentGroup(consumerOrderPaymentGroup);
 
-	
+    return consumerOrderPaymentGroup;
+  }
 
-	@Override
-	public void collectAndEnhance(BaseEntity ownerEntity) {
-		List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList = ownerEntity.collectRefsWithType(ConsumerOrderPaymentGroup.INTERNAL_TYPE);
-		this.enhanceList(consumerOrderPaymentGroupList);
+  // ======================================================================================
 
-	}
+  protected ConsumerOrderPaymentGroup saveBizOrder(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String, Object> options) {
 
-	@Override
-	public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+    // Call inject DAO to execute this method
+    if (consumerOrderPaymentGroup.getBizOrder() == null) {
+      return consumerOrderPaymentGroup; // do nothing when it is null
+    }
 
-  		return queryWith(key, options, getConsumerOrderPaymentGroupMapper());
+    getConsumerOrderDAO().save(consumerOrderPaymentGroup.getBizOrder(), options);
+    return consumerOrderPaymentGroup;
+  }
 
-	}
-	@Override
-	public int countConsumerOrderPaymentGroupWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+  public ConsumerOrderPaymentGroup present(
+      ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String, Object> options) {
 
-  		return countWith(key, options);
+    return consumerOrderPaymentGroup;
+  }
 
-	}
-	public Map<String, Integer> countConsumerOrderPaymentGroupWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options) {
+  protected String getTableName() {
+    return ConsumerOrderPaymentGroupTable.TABLE_NAME;
+  }
 
-  		return countWithGroup(groupKey, filterKey, options);
+  public void enhanceList(List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList) {
+    this.enhanceListInternal(
+        consumerOrderPaymentGroupList, this.getConsumerOrderPaymentGroupMapper());
+  }
 
-	}
+  @Override
+  public void collectAndEnhance(BaseEntity ownerEntity) {
+    List<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList =
+        ownerEntity.collectRefsWithType(ConsumerOrderPaymentGroup.INTERNAL_TYPE);
+    this.enhanceList(consumerOrderPaymentGroupList);
+  }
 
-	@Override
-	public SmartList<ConsumerOrderPaymentGroup> queryList(String sql, Object... parameters) {
-	    return this.queryForList(sql, parameters, this.getConsumerOrderPaymentGroupMapper());
-	}
+  @Override
+  public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupWithKey(
+      MultipleAccessKey key, Map<String, Object> options) {
+
+    return queryWith(key, options, getConsumerOrderPaymentGroupMapper());
+  }
+
+  @Override
+  public int countConsumerOrderPaymentGroupWithKey(
+      MultipleAccessKey key, Map<String, Object> options) {
+
+    return countWith(key, options);
+  }
+
+  public Map<String, Integer> countConsumerOrderPaymentGroupWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options) {
+
+    return countWithGroup(groupKey, filterKey, options);
+  }
+
+  @Override
+  public SmartList<ConsumerOrderPaymentGroup> queryList(String sql, Object... parameters) {
+    return this.queryForList(sql, parameters, this.getConsumerOrderPaymentGroupMapper());
+  }
 
   @Override
   public List<String> queryIdList(String sql, Object... parameters) {
     return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
   }
+
   @Override
   public Stream<ConsumerOrderPaymentGroup> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getConsumerOrderPaymentGroupMapper());
   }
 
-	@Override
-	public int count(String sql, Object... parameters) {
-	    return queryInt(sql, parameters);
-	}
-	@Override
-	public CandidateConsumerOrderPaymentGroup executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+  @Override
+  public int count(String sql, Object... parameters) {
+    return queryInt(sql, parameters);
+  }
 
-		CandidateConsumerOrderPaymentGroup result = new CandidateConsumerOrderPaymentGroup();
-		int pageNo = Math.max(1, query.getPageNo());
-		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
-		result.setOwnerId(query.getOwnerId());
-		result.setFilterKey(query.getFilterKey());
-		result.setPageNo(pageNo);
-		result.setValueFieldName("id");
-		result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
-		result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
+  @Override
+  public CandidateConsumerOrderPaymentGroup executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception {
 
-		SmartList candidateList = queryList(sql, parmeters);
-		this.alias(candidateList);
-		result.setCandidates(candidateList);
-		int offSet = (pageNo - 1 ) * query.getPageSize();
-		if (candidateList.size() > query.getPageSize()) {
-			result.setTotalPage(pageNo+1);
-		}else {
-			result.setTotalPage(pageNo);
-		}
-		return result;
-	}
+    CandidateConsumerOrderPaymentGroup result = new CandidateConsumerOrderPaymentGroup();
+    int pageNo = Math.max(1, query.getPageNo());
+    result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
+    result.setOwnerId(query.getOwnerId());
+    result.setFilterKey(query.getFilterKey());
+    result.setPageNo(pageNo);
+    result.setValueFieldName("id");
+    result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
+    result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
 
-	
+    SmartList candidateList = queryList(sql, parmeters);
+    this.alias(candidateList);
+    result.setCandidates(candidateList);
+    int offSet = (pageNo - 1) * query.getPageSize();
+    if (candidateList.size() > query.getPageSize()) {
+      result.setTotalPage(pageNo + 1);
+    } else {
+      result.setTotalPage(pageNo);
+    }
+    return result;
+  }
 
   @Override
   public List<ConsumerOrderPaymentGroup> search(ConsumerOrderPaymentGroupRequest pRequest) {
@@ -626,6 +675,9 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmBaseDAOIm
   protected ConsumerOrderPaymentGroupMapper mapper() {
     return getConsumerOrderPaymentGroupMapper();
   }
+
+  @Override
+  protected ConsumerOrderPaymentGroupMapper mapperForClazz(Class<?> clazz) {
+    return ConsumerOrderPaymentGroupMapper.mapperForClass(clazz);
+  }
 }
-
-

@@ -116,12 +116,17 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 	}
 
 	protected List<String> parse(HttpServletRequest request) throws InvocationException {
-		if (request.getMethod().equals("POST")) {
-			return this.parsePost(request);
-		}
-		if (request.getMethod().equals("PUT")) {
+		if(isPostingJSONRequest(request)){
 			return this.parsePut(request);
 		}
+		if (isPostRequest(request)) {
+			return this.parsePost(request);
+		}
+		if (isPutRequest(request)) {
+			return this.parsePut(request);
+		}
+
+
 		return this.parseGet(request);
 	}
 
@@ -152,14 +157,14 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 
 	protected int expectedCountOfParameters(HttpServletRequest request, List<String> urlElements, Method targetMethod) {
 
-		if (this.isPutRequest(request)) {
+		if(isPostingJSONRequest(request)){
 			return 1;
 		}
-
+		if (isPutRequest(request)) {
+			return 1;
+		}
 		int size = urlElements.size();
-
 		return (size - start - 2);
-
 	}
 
 	protected boolean hasRightNumberOfParameters(HttpServletRequest request, List<String> urlElements,
@@ -209,6 +214,9 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 		Object elements[] = urlElements.toArray();
 		Object[] parameters = Arrays.copyOfRange(elements, start + 2, urlElements.size());
 		if (isPutRequest(request)) {
+			return getPutParameters(parameterTypes, parameters, request);
+		}
+		if (isPostingJSONRequest(request)) {
 			return getPutParameters(parameterTypes, parameters, request);
 		}
 		checkParametersLength(parameterTypes, parameters);
@@ -333,6 +341,17 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 
 	protected boolean isPostRequest(HttpServletRequest request) {
 		return request.getMethod().equalsIgnoreCase("POST");
+	}
+	protected boolean isContentTypeOfJSON(HttpServletRequest request) {
+		String jsonMIMEType="application/json";
+		
+		return jsonMIMEType.equals(request.getContentType());
+	}
+	protected boolean isPostingJSONRequest(HttpServletRequest request) {
+
+		System.out.println("--->>>"+ request.getMethod()+ "   ContentType: " +request.getContentType());
+
+		return request.getMethod().equalsIgnoreCase("POST") && isContentTypeOfJSON(request);
 	}
 
 	protected Method getMethod(HttpServletRequest request, Object targetObject, List<String> urlElements)

@@ -403,7 +403,7 @@ class VehicleServiceCompanyEmployeeUpdateForm extends Component {
           </Form>
         </Card>
 
-        <Card title="合同" className={styles.card} bordered={false}>
+        <Card title="附件" className={styles.card} bordered={false}>
           <Form layout="vertical" hideRequiredMark>
             <Row gutter={16}>
               <Col lg={6} md={12} sm={24}>

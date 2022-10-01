@@ -9,7 +9,6 @@ public class DestRefUtils {
   public static Map<String, String> destRefs = new HashMap<>();
 
   static {
-
   }
 
   public static <T extends BaseEntity> T extract(BaseEntity source, Class<T> target) {
@@ -58,20 +57,3 @@ public class DestRefUtils {
     return mappings;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

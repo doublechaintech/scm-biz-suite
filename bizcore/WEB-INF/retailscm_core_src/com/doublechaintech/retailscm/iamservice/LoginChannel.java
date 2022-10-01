@@ -1,63 +1,44 @@
 package com.doublechaintech.retailscm.iamservice;
 
 public class LoginChannel {
-	protected String serviceBeanName;
-	protected String serviceMethodName;
-	protected String clientName;
-	
-	
-	
-	public String getServiceBeanName() {
-		return serviceBeanName;
-	}
+  protected String serviceBeanName;
+  protected String serviceMethodName;
+  protected String clientName;
 
-	public void setServiceBeanName(String serviceBeanName) {
-		this.serviceBeanName = serviceBeanName;
-	}
+  public String getServiceBeanName() {
+    return serviceBeanName;
+  }
 
-	public String getServiceMethodName() {
-		return serviceMethodName;
-	}
+  public void setServiceBeanName(String serviceBeanName) {
+    this.serviceBeanName = serviceBeanName;
+  }
 
-	public void setServiceMethodName(String serviceMethodName) {
-		this.serviceMethodName = serviceMethodName;
-	}
+  public String getServiceMethodName() {
+    return serviceMethodName;
+  }
 
-	public String getClientName() {
-		return clientName;
-	}
+  public void setServiceMethodName(String serviceMethodName) {
+    this.serviceMethodName = serviceMethodName;
+  }
 
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
+  public String getClientName() {
+    return clientName;
+  }
 
-	/** 获取当前登陆channel的key */
-	public String getKey() {
-		return String.format("%s/%s/%s", getClientName(), getServiceBeanName(), getServiceMethodName());
-	}
+  public void setClientName(String clientName) {
+    this.clientName = clientName;
+  }
 
-	public static LoginChannel of(String clientName, String beanName, String methodName) {
-		LoginChannel rst = new LoginChannel();
-		rst.setClientName(clientName);
-		rst.setServiceBeanName(beanName);
-		rst.setServiceMethodName(methodName);
-		return rst;
-	}
+  /** 获取当前登陆channel的key */
+  public String getKey() {
+    return String.format("%s/%s/%s", getClientName(), getServiceBeanName(), getServiceMethodName());
+  }
 
+  public static LoginChannel of(String clientName, String beanName, String methodName) {
+    LoginChannel rst = new LoginChannel();
+    rst.setClientName(clientName);
+    rst.setServiceBeanName(beanName);
+    rst.setServiceMethodName(methodName);
+    return rst;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

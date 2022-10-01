@@ -1,10 +1,5 @@
-
 package com.doublechaintech.retailscm.retailstoreclosing;
-		
+
 import com.doublechaintech.retailscm.BaseCandidateEntity;
 
-public class CandidateRetailStoreClosing extends BaseCandidateEntity<RetailStoreClosing>{
-
-}
-
-
+public class CandidateRetailStoreClosing extends BaseCandidateEntity<RetailStoreClosing> {}

@@ -1,4 +1,3 @@
-
 package com.doublechaintech.retailscm.treenode;
 
 import com.doublechaintech.retailscm.Beans;
@@ -24,570 +23,550 @@ import com.doublechaintech.retailscm.StatsItem;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
-
-
-
-
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
-public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements TreeNodeDAO{
+public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements TreeNodeDAO {
 
+  /*
+  protected TreeNode load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+  	return loadInternalTreeNode(accessKey, options);
+  }
+  */
 
-
-	/*
-	protected TreeNode load(AccessKey accessKey,Map<String,Object> options) throws Exception{
-		return loadInternalTreeNode(accessKey, options);
-	}
-	*/
-
-	public SmartList<TreeNode> loadAll() {
-	    return this.loadAll(getTreeNodeMapper());
-	}
-
-  public Stream<TreeNode> loadAllAsStream() {
-      return this.loadAllAsStream(getTreeNodeMapper());
+  public SmartList<TreeNode> loadAll() {
+    return this.loadAll(getTreeNodeMapper());
   }
 
+  public Stream<TreeNode> loadAllAsStream() {
+    return this.loadAllAsStream(getTreeNodeMapper());
+  }
 
-	protected String getIdFormat()
-	{
-		return getShortName(this.getName())+"%06d";
-	}
+  protected String getIdFormat() {
+    return getShortName(this.getName()) + "%06d";
+  }
 
-	public TreeNode load(String id,Map<String,Object> options) throws Exception{
-		return loadInternalTreeNode(TreeNodeTable.withId(id), options);
-	}
+  public TreeNode load(String id, Map<String, Object> options) throws Exception {
+    return loadInternalTreeNode(TreeNodeTable.withId(id), options);
+  }
 
-	
+  public TreeNode save(TreeNode treeNode, Map<String, Object> options) {
 
-	public TreeNode save(TreeNode treeNode,Map<String,Object> options){
+    String methodName = "save(TreeNode treeNode,Map<String,Object> options)";
 
-		String methodName="save(TreeNode treeNode,Map<String,Object> options)";
+    assertMethodArgumentNotNull(treeNode, methodName, "treeNode");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-		assertMethodArgumentNotNull(treeNode, methodName, "treeNode");
-		assertMethodArgumentNotNull(options, methodName, "options");
+    return saveInternalTreeNode(treeNode, options);
+  }
 
-		return saveInternalTreeNode(treeNode,options);
-	}
-	public TreeNode clone(String treeNodeId, Map<String,Object> options) throws Exception{
+  public TreeNode clone(String treeNodeId, Map<String, Object> options) throws Exception {
 
-		return clone(TreeNodeTable.withId(treeNodeId),options);
-	}
+    return clone(TreeNodeTable.withId(treeNodeId), options);
+  }
 
-	protected TreeNode clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
+  protected TreeNode clone(AccessKey accessKey, Map<String, Object> options) throws Exception {
 
-		String methodName="clone(String treeNodeId,Map<String,Object> options)";
+    String methodName = "clone(String treeNodeId,Map<String,Object> options)";
 
-		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
-		assertMethodArgumentNotNull(options, methodName, "options");
+    assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-		TreeNode newTreeNode = loadInternalTreeNode(accessKey, options);
-		newTreeNode.setVersion(0);
-		
-		
+    TreeNode newTreeNode = loadInternalTreeNode(accessKey, options);
+    newTreeNode.setVersion(0);
 
+    saveInternalTreeNode(newTreeNode, options);
 
-		saveInternalTreeNode(newTreeNode,options);
+    return newTreeNode;
+  }
 
-		return newTreeNode;
-	}
+  protected void throwIfHasException(String treeNodeId, int version, int count) throws Exception {
+    if (count == 1) {
+      throw new TreeNodeVersionChangedException(
+          "The object version has been changed, please reload to delete");
+    }
+    if (count < 1) {
+      throw new TreeNodeNotFoundException(
+          "The " + this.getTableName() + "(" + treeNodeId + ") has already been deleted.");
+    }
+    if (count > 1) {
+      throw new IllegalStateException(
+          "The table '"
+              + this.getTableName()
+              + "' PRIMARY KEY constraint has been damaged, please fix it.");
+    }
+  }
 
-	
+  public TreeNode disconnectFromAll(String treeNodeId, int version) throws Exception {
 
+    TreeNode treeNode = loadInternalTreeNode(TreeNodeTable.withId(treeNodeId), emptyOptions());
+    treeNode.clearFromAll();
+    this.saveTreeNode(treeNode);
+    return treeNode;
+  }
 
+  @Override
+  protected String[] getNormalColumnNames() {
 
-	protected void throwIfHasException(String treeNodeId,int version,int count) throws Exception{
-		if (count == 1) {
-			throw new TreeNodeVersionChangedException(
-					"The object version has been changed, please reload to delete");
-		}
-		if (count < 1) {
-			throw new TreeNodeNotFoundException(
-					"The " + this.getTableName() + "(" + treeNodeId + ") has already been deleted.");
-		}
-		if (count > 1) {
-			throw new IllegalStateException(
-					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
-		}
-	}
+    return TreeNodeTable.NORMAL_CLOUMNS;
+  }
 
+  @Override
+  protected String getName() {
 
-	public void delete(String treeNodeId, int version) throws Exception{
+    return "tree_node";
+  }
 
-		String methodName="delete(String treeNodeId, int version)";
-		assertMethodArgumentNotNull(treeNodeId, methodName, "treeNodeId");
-		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
+  @Override
+  protected String getBeanName() {
 
+    return "treeNode";
+  }
 
-		String SQL=this.getDeleteSQL();
-		Object [] parameters=new Object[]{treeNodeId,version};
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber == 1){
-			return ; //Delete successfully
-		}
-		if(affectedNumber == 0){
-			handleDeleteOneError(treeNodeId,version);
-		}
+  protected boolean checkOptions(Map<String, Object> options, String optionToCheck) {
 
+    return TreeNodeTokens.checkOptions(options, optionToCheck);
+  }
 
-	}
+  protected TreeNodeMapper getTreeNodeMapper() {
+    return new TreeNodeMapper();
+  }
 
+  protected TreeNode extractTreeNode(AccessKey accessKey, Map<String, Object> loadOptions)
+      throws Exception {
+    try {
+      TreeNode treeNode = loadSingleObject(accessKey, getTreeNodeMapper());
+      return treeNode;
+    } catch (EmptyResultDataAccessException e) {
+      throw new TreeNodeNotFoundException("TreeNode(" + accessKey + ") is not found!");
+    }
+  }
 
+  protected TreeNode loadInternalTreeNode(AccessKey accessKey, Map<String, Object> loadOptions)
+      throws Exception {
 
+    TreeNode treeNode = extractTreeNode(accessKey, loadOptions);
 
+    return treeNode;
+  }
 
+  protected TreeNode saveTreeNode(TreeNode treeNode) {
 
-	public TreeNode disconnectFromAll(String treeNodeId, int version) throws Exception{
-
-
-		TreeNode treeNode = loadInternalTreeNode(TreeNodeTable.withId(treeNodeId), emptyOptions());
-		treeNode.clearFromAll();
-		this.saveTreeNode(treeNode);
-		return treeNode;
-
-
-	}
-
-	@Override
-	protected String[] getNormalColumnNames() {
-
-		return TreeNodeTable.NORMAL_CLOUMNS;
-	}
-	@Override
-	protected String getName() {
-
-		return "tree_node";
-	}
-	@Override
-	protected String getBeanName() {
-
-		return "treeNode";
-	}
-
-	
-
-
-
-	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-
- 		return TreeNodeTokens.checkOptions(options, optionToCheck);
-
-	}
-
-
-		
-
-	
-
-	protected TreeNodeMapper getTreeNodeMapper(){
-		return new TreeNodeMapper();
-	}
-
-
-
-	protected TreeNode extractTreeNode(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		try{
-			TreeNode treeNode = loadSingleObject(accessKey, getTreeNodeMapper());
-			return treeNode;
-		}catch(EmptyResultDataAccessException e){
-			throw new TreeNodeNotFoundException("TreeNode("+accessKey+") is not found!");
-		}
-
-	}
-
-
-
-
-	protected TreeNode loadInternalTreeNode(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-
-		TreeNode treeNode = extractTreeNode(accessKey, loadOptions);
-
-		
-		return treeNode;
-
-	}
-
-	
-		
-
- 
-
-
-
-
-	
-
-	protected TreeNode saveTreeNode(TreeNode  treeNode){
-    
-
-		
-		if(!treeNode.isChanged()){
-			return treeNode;
-		}
-		
+    if (!treeNode.isChanged()) {
+      return treeNode;
+    }
 
     Beans.dbUtil().cacheCleanUp(treeNode);
-		String SQL=this.getSaveTreeNodeSQL(treeNode);
-		//FIXME: how about when an item has been updated more than MAX_INT?
-		Object [] parameters = getSaveTreeNodeParameters(treeNode);
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber != 1){
-			throw new IllegalStateException("The save operation should return value = 1, while the value = "
-				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
-		}
+    String SQL = this.getSaveTreeNodeSQL(treeNode);
+    // FIXME: how about when an item has been updated more than MAX_INT?
+    Object[] parameters = getSaveTreeNodeParameters(treeNode);
+    int affectedNumber = singleUpdate(SQL, parameters);
+    if (affectedNumber != 1) {
+      throw new IllegalStateException(
+          "The save operation should return value = 1, while the value = "
+              + affectedNumber
+              + "If the value = 0, that mean the target record has been updated by someone else!");
+    }
 
-		treeNode.incVersion();
-		treeNode.afterSave();
-		return treeNode;
+    treeNode.incVersion();
+    treeNode.afterSave();
+    return treeNode;
+  }
 
-	}
-	public SmartList<TreeNode> saveTreeNodeList(SmartList<TreeNode> treeNodeList,Map<String,Object> options){
-		//assuming here are big amount objects to be updated.
-		//First step is split into two groups, one group for update and another group for create
-		Object [] lists=splitTreeNodeList(treeNodeList);
+  public SmartList<TreeNode> saveTreeNodeList(
+      SmartList<TreeNode> treeNodeList, Map<String, Object> options) {
+    // assuming here are big amount objects to be updated.
+    // First step is split into two groups, one group for update and another group for create
+    Object[] lists = splitTreeNodeList(treeNodeList);
 
-		batchTreeNodeCreate((List<TreeNode>)lists[CREATE_LIST_INDEX]);
+    batchTreeNodeCreate((List<TreeNode>) lists[CREATE_LIST_INDEX]);
+    batchTreeNodeUpdate((List<TreeNode>) lists[UPDATE_LIST_INDEX]);
+    batchTreeNodeRemove((List<TreeNode>) lists[REMOVE_LIST_INDEX]);
+    batchTreeNodeRecover((List<TreeNode>) lists[RECOVER_LIST_INDEX]);
 
-		batchTreeNodeUpdate((List<TreeNode>)lists[UPDATE_LIST_INDEX]);
+    // update version after the list successfully saved to database;
+    for (TreeNode treeNode : treeNodeList) {
+      if (treeNode.isChanged()) {
+        treeNode.incVersion();
+        treeNode.afterSave();
+      }
+      if (treeNode.isToRecover() || treeNode.isToRemove()) {
+        treeNode.setVersion(-treeNode.getVersion());
+      }
+    }
 
+    return treeNodeList;
+  }
 
-		//update version after the list successfully saved to database;
-		for(TreeNode treeNode:treeNodeList){
-			if(treeNode.isChanged()){
-				treeNode.incVersion();
-				treeNode.afterSave();
-			}
+  public SmartList<TreeNode> removeTreeNodeList(
+      SmartList<TreeNode> treeNodeList, Map<String, Object> options) {
 
+    super.removeList(treeNodeList, options);
 
-		}
+    return treeNodeList;
+  }
 
+  protected List<Object[]> prepareTreeNodeBatchCreateArgs(List<TreeNode> treeNodeList) {
 
-		return treeNodeList;
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (TreeNode treeNode : treeNodeList) {
+      Object[] parameters = prepareTreeNodeCreateParameters(treeNode);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	public SmartList<TreeNode> removeTreeNodeList(SmartList<TreeNode> treeNodeList,Map<String,Object> options){
+  protected List<Object[]> prepareTreeNodeBatchUpdateArgs(List<TreeNode> treeNodeList) {
 
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (TreeNode treeNode : treeNodeList) {
+      if (!treeNode.isChanged()) {
+        continue;
+      }
+      Object[] parameters = prepareTreeNodeUpdateParameters(treeNode);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-		super.removeList(treeNodeList, options);
+  protected List<Object[]> prepareTreeNodeBatchRecoverArgs(List<TreeNode> treeNodeList) {
 
-		return treeNodeList;
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (TreeNode treeNode : treeNodeList) {
+      if (!treeNode.isToRecover()) {
+        continue;
+      }
+      Object[] parameters = prepareRecoverParameters(treeNode);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
+  protected List<Object[]> prepareTreeNodeBatchRemoveArgs(List<TreeNode> treeNodeList) {
 
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (TreeNode treeNode : treeNodeList) {
+      if (!treeNode.isToRemove()) {
+        continue;
+      }
+      Object[] parameters = prepareTreeNodeRemoveParameters(treeNode);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	protected List<Object[]> prepareTreeNodeBatchCreateArgs(List<TreeNode> treeNodeList){
+  protected void batchTreeNodeCreate(List<TreeNode> treeNodeList) {
+    String SQL = getCreateSQL();
+    List<Object[]> args = prepareTreeNodeBatchCreateArgs(treeNodeList);
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(TreeNode treeNode:treeNodeList ){
-			Object [] parameters = prepareTreeNodeCreateParameters(treeNode);
-			parametersList.add(parameters);
+    int affectedNumbers[] = batchUpdate(SQL, args);
+  }
 
-		}
-		return parametersList;
+  protected void batchTreeNodeUpdate(List<TreeNode> treeNodeList) {
+    String SQL = getUpdateSQL();
+    List<Object[]> args = prepareTreeNodeBatchUpdateArgs(treeNodeList);
 
-	}
-	protected List<Object[]> prepareTreeNodeBatchUpdateArgs(List<TreeNode> treeNodeList){
+    int affectedNumbers[] = batchUpdate(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(TreeNode treeNode:treeNodeList ){
-			if(!treeNode.isChanged()){
-				continue;
-			}
-			Object [] parameters = prepareTreeNodeUpdateParameters(treeNode);
-			parametersList.add(parameters);
+  protected void batchTreeNodeRemove(List<TreeNode> treeNodeList) {
+    String SQL = getRemoveSQL();
+    List<Object[]> args = prepareTreeNodeBatchRemoveArgs(treeNodeList);
+    int affectedNumbers[] = batchRemove(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		}
-		return parametersList;
+  protected void batchTreeNodeRecover(List<TreeNode> treeNodeList) {
+    String SQL = getRecoverSQL();
+    List<Object[]> args = prepareTreeNodeBatchRecoverArgs(treeNodeList);
+    int affectedNumbers[] = batchRecover(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-	}
-	protected void batchTreeNodeCreate(List<TreeNode> treeNodeList){
-		String SQL=getCreateSQL();
-		List<Object[]> args=prepareTreeNodeBatchCreateArgs(treeNodeList);
+  static final int CREATE_LIST_INDEX = 0;
+  static final int UPDATE_LIST_INDEX = 1;
+  static final int REMOVE_LIST_INDEX = 2;
+  static final int RECOVER_LIST_INDEX = 3;
 
-		int affectedNumbers[] = batchUpdate(SQL, args);
+  protected Object[] splitTreeNodeList(List<TreeNode> treeNodeList) {
 
-	}
+    List<TreeNode> treeNodeCreateList = new ArrayList<TreeNode>();
+    List<TreeNode> treeNodeUpdateList = new ArrayList<TreeNode>();
+    List<TreeNode> treeNodeRemoveList = new ArrayList<TreeNode>();
+    List<TreeNode> treeNodeRecoverList = new ArrayList<TreeNode>();
 
-
-	protected void batchTreeNodeUpdate(List<TreeNode> treeNodeList){
-		String SQL=getUpdateSQL();
-		List<Object[]> args=prepareTreeNodeBatchUpdateArgs(treeNodeList);
-
-		int affectedNumbers[] = batchUpdate(SQL, args);
-
-
-
-	}
-
-
-
-	static final int CREATE_LIST_INDEX=0;
-	static final int UPDATE_LIST_INDEX=1;
-
-	protected Object[] splitTreeNodeList(List<TreeNode> treeNodeList){
-
-		List<TreeNode> treeNodeCreateList=new ArrayList<TreeNode>();
-		List<TreeNode> treeNodeUpdateList=new ArrayList<TreeNode>();
-
-		for(TreeNode treeNode: treeNodeList){
-			if(isUpdateRequest(treeNode)){
-				treeNodeUpdateList.add( treeNode);
-				continue;
-			}
-			treeNodeCreateList.add(treeNode);
-		}
-
-		return new Object[]{treeNodeCreateList,treeNodeUpdateList};
-	}
-
-	protected boolean isUpdateRequest(TreeNode treeNode){
- 		return treeNode.getVersion() > 0;
- 	}
- 	protected String getSaveTreeNodeSQL(TreeNode treeNode){
- 		if(isUpdateRequest(treeNode)){
- 			return getUpdateSQL();
- 		}
- 		return getCreateSQL();
- 	}
-
- 	protected Object[] getSaveTreeNodeParameters(TreeNode treeNode){
- 		if(isUpdateRequest(treeNode) ){
- 			return prepareTreeNodeUpdateParameters(treeNode);
- 		}
- 		return prepareTreeNodeCreateParameters(treeNode);
- 	}
- 	protected Object[] prepareTreeNodeUpdateParameters(TreeNode treeNode){
- 		Object[] parameters = new Object[7];
- 
- 		parameters[0] = treeNode.getNodeId();
- 		
- 		parameters[1] = treeNode.getNodeType();
- 		
- 		parameters[2] = treeNode.getLeftValue();
- 		
- 		parameters[3] = treeNode.getRightValue();
- 		
- 		parameters[4] = treeNode.nextVersion();
- 		parameters[5] = treeNode.getId();
- 		parameters[6] = treeNode.getVersion();
-
- 		return parameters;
- 	}
- 	protected Object[] prepareTreeNodeCreateParameters(TreeNode treeNode){
-		Object[] parameters = new Object[5];
-        if(treeNode.getId() == null){
-          String newTreeNodeId=getNextId();
-          treeNode.setId(newTreeNodeId);
+    for (TreeNode treeNode : treeNodeList) {
+      if (treeNode.isToRemove()) {
+        treeNodeRemoveList.add(treeNode);
+        continue;
+      }
+      if (treeNode.isToRecover()) {
+        treeNodeRecoverList.add(treeNode);
+        continue;
+      }
+      if (isUpdateRequest(treeNode)) {
+        if (treeNode.isChanged()) {
+          treeNodeUpdateList.add(treeNode);
         }
-		parameters[0] =  treeNode.getId();
- 
- 		parameters[1] = treeNode.getNodeId();
- 		
- 		parameters[2] = treeNode.getNodeType();
- 		
- 		parameters[3] = treeNode.getLeftValue();
- 		
- 		parameters[4] = treeNode.getRightValue();
- 		
+        continue;
+      }
 
- 		return parameters;
- 	}
+      if (treeNode.isChanged()) {
+        treeNodeCreateList.add(treeNode);
+      }
+    }
 
-	protected TreeNode saveInternalTreeNode(TreeNode treeNode, Map<String,Object> options){
+    return new Object[] {
+      treeNodeCreateList, treeNodeUpdateList, treeNodeRemoveList, treeNodeRecoverList
+    };
+  }
 
-   saveTreeNode(treeNode);
-		
-		return treeNode;
+  protected boolean isUpdateRequest(TreeNode treeNode) {
+    return treeNode.getVersion() > 0;
+  }
 
-	}
+  protected String getSaveTreeNodeSQL(TreeNode treeNode) {
+    if (treeNode.isToRemove()) {
+      return getRemoveSQL();
+    }
+    if (isUpdateRequest(treeNode)) {
+      return getUpdateSQL();
+    }
+    return getCreateSQL();
+  }
 
+  protected Object[] getSaveTreeNodeParameters(TreeNode treeNode) {
+    if (treeNode.isToRemove()) {
+      return prepareTreeNodeRemoveParameters(treeNode);
+    }
+    if (treeNode.isToRecover()) {
+      return prepareRecoverParameters(treeNode);
+    }
 
+    if (isUpdateRequest(treeNode)) {
+      return prepareTreeNodeUpdateParameters(treeNode);
+    }
+    return prepareTreeNodeCreateParameters(treeNode);
+  }
 
-	//======================================================================================
-	
+  protected Object[] prepareTreeNodeRemoveParameters(TreeNode treeNode) {
+    return super.prepareRemoveParameters(treeNode);
+  }
 
-	
+  protected Object[] prepareTreeNodeUpdateParameters(TreeNode treeNode) {
+    Object[] parameters = new Object[7];
 
-		
+    parameters[0] = treeNode.getNodeId();
 
-	public TreeNode present(TreeNode treeNode,Map<String, Object> options){
+    parameters[1] = treeNode.getNodeType();
 
+    parameters[2] = treeNode.getLeftValue();
 
-		return treeNode;
+    parameters[3] = treeNode.getRightValue();
 
-	}
-		
+    parameters[4] = treeNode.nextVersion();
+    parameters[5] = treeNode.getId();
+    parameters[6] = treeNode.getVersion();
 
-	
+    return parameters;
+  }
 
-	protected String getTableName(){
-		return TreeNodeTable.TABLE_NAME;
-	}
+  protected Object[] prepareTreeNodeCreateParameters(TreeNode treeNode) {
+    Object[] parameters = new Object[5];
+    if (treeNode.getId() == null) {
+      String newTreeNodeId = getNextId();
+      treeNode.setId(newTreeNodeId);
+    }
+    parameters[0] = treeNode.getId();
 
+    parameters[1] = treeNode.getNodeId();
 
+    parameters[2] = treeNode.getNodeType();
 
-	public void enhanceList(List<TreeNode> treeNodeList) {
-		this.enhanceListInternal(treeNodeList, this.getTreeNodeMapper());
-	}
+    parameters[3] = treeNode.getLeftValue();
 
-	
+    parameters[4] = treeNode.getRightValue();
 
-	@Override
-	public void collectAndEnhance(BaseEntity ownerEntity) {
-		List<TreeNode> treeNodeList = ownerEntity.collectRefsWithType(TreeNode.INTERNAL_TYPE);
-		this.enhanceList(treeNodeList);
+    return parameters;
+  }
 
-	}
+  protected TreeNode saveInternalTreeNode(TreeNode treeNode, Map<String, Object> options) {
 
-	@Override
-	public SmartList<TreeNode> findTreeNodeWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+    saveTreeNode(treeNode);
 
-  		return queryWith(key, options, getTreeNodeMapper());
+    return treeNode;
+  }
 
-	}
-	@Override
-	public int countTreeNodeWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+  // ======================================================================================
 
-  		return countWith(key, options);
+  public TreeNode present(TreeNode treeNode, Map<String, Object> options) {
 
-	}
-	public Map<String, Integer> countTreeNodeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options) {
+    return treeNode;
+  }
 
-  		return countWithGroup(groupKey, filterKey, options);
+  protected String getTableName() {
+    return TreeNodeTable.TABLE_NAME;
+  }
 
-	}
+  public void enhanceList(List<TreeNode> treeNodeList) {
+    this.enhanceListInternal(treeNodeList, this.getTreeNodeMapper());
+  }
 
-	@Override
-	public SmartList<TreeNode> queryList(String sql, Object... parameters) {
-	    return this.queryForList(sql, parameters, this.getTreeNodeMapper());
-	}
+  @Override
+  public void collectAndEnhance(BaseEntity ownerEntity) {
+    List<TreeNode> treeNodeList = ownerEntity.collectRefsWithType(TreeNode.INTERNAL_TYPE);
+    this.enhanceList(treeNodeList);
+  }
+
+  @Override
+  public SmartList<TreeNode> findTreeNodeWithKey(
+      MultipleAccessKey key, Map<String, Object> options) {
+
+    return queryWith(key, options, getTreeNodeMapper());
+  }
+
+  @Override
+  public int countTreeNodeWithKey(MultipleAccessKey key, Map<String, Object> options) {
+
+    return countWith(key, options);
+  }
+
+  public Map<String, Integer> countTreeNodeWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options) {
+
+    return countWithGroup(groupKey, filterKey, options);
+  }
+
+  @Override
+  public SmartList<TreeNode> queryList(String sql, Object... parameters) {
+    return this.queryForList(sql, parameters, this.getTreeNodeMapper());
+  }
 
   @Override
   public List<String> queryIdList(String sql, Object... parameters) {
     return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
   }
+
   @Override
   public Stream<TreeNode> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getTreeNodeMapper());
   }
 
-	@Override
-	public int count(String sql, Object... parameters) {
-	    return queryInt(sql, parameters);
-	}
-	@Override
-	public CandidateTreeNode executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+  @Override
+  public int count(String sql, Object... parameters) {
+    return queryInt(sql, parameters);
+  }
 
-		CandidateTreeNode result = new CandidateTreeNode();
-		int pageNo = Math.max(1, query.getPageNo());
-		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
-		result.setOwnerId(query.getOwnerId());
-		result.setFilterKey(query.getFilterKey());
-		result.setPageNo(pageNo);
-		result.setValueFieldName("id");
-		result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
-		result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
+  @Override
+  public CandidateTreeNode executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception {
 
-		SmartList candidateList = queryList(sql, parmeters);
-		this.alias(candidateList);
-		result.setCandidates(candidateList);
-		int offSet = (pageNo - 1 ) * query.getPageSize();
-		if (candidateList.size() > query.getPageSize()) {
-			result.setTotalPage(pageNo+1);
-		}else {
-			result.setTotalPage(pageNo);
-		}
-		return result;
-	}
+    CandidateTreeNode result = new CandidateTreeNode();
+    int pageNo = Math.max(1, query.getPageNo());
+    result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
+    result.setOwnerId(query.getOwnerId());
+    result.setFilterKey(query.getFilterKey());
+    result.setPageNo(pageNo);
+    result.setValueFieldName("id");
+    result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
+    result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
 
-	
-    
-	public Map<String, Integer> countBySql(String sql, Object[] params) {
-		if (params == null || params.length == 0) {
-			return new HashMap<>();
-		}
-		List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
-		if (result == null || result.isEmpty()) {
-			return new HashMap<>();
-		}
-		Map<String, Integer> cntMap = new HashMap<>();
-		for (Map<String, Object> data : result) {
-			String key = String.valueOf(data.get("id"));
-			Number value = (Number) data.get("count");
-			cntMap.put(key, value.intValue());
-		}
-		this.logSQLAndParameters("countBySql", sql, params, cntMap.size() + " Counts");
-		return cntMap;
-	}
+    SmartList candidateList = queryList(sql, parmeters);
+    this.alias(candidateList);
+    result.setCandidates(candidateList);
+    int offSet = (pageNo - 1) * query.getPageSize();
+    if (candidateList.size() > query.getPageSize()) {
+      result.setTotalPage(pageNo + 1);
+    } else {
+      result.setTotalPage(pageNo);
+    }
+    return result;
+  }
 
-	public Integer singleCountBySql(String sql, Object[] params) {
-		Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
-		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
-		return cnt;
-	}
+  public Map<String, Integer> countBySql(String sql, Object[] params) {
+    if (params == null || params.length == 0) {
+      return new HashMap<>();
+    }
+    List<Map<String, Object>> result = this.getJdbcTemplate().queryForList(sql, params);
+    if (result == null || result.isEmpty()) {
+      return new HashMap<>();
+    }
+    Map<String, Integer> cntMap = new HashMap<>();
+    for (Map<String, Object> data : result) {
+      String key = String.valueOf(data.get("id"));
+      Number value = (Number) data.get("count");
+      cntMap.put(key, value.intValue());
+    }
+    this.logSQLAndParameters("countBySql", sql, params, cntMap.size() + " Counts");
+    return cntMap;
+  }
 
-	public BigDecimal summaryBySql(String sql, Object[] params) {
-		BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
-		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
-		return cnt == null ? BigDecimal.ZERO : cnt;
-	}
+  public Integer singleCountBySql(String sql, Object[] params) {
+    Integer cnt = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
+    logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
+    return cnt;
+  }
 
-	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
-		List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
-		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
-		return result;
-	}
+  public BigDecimal summaryBySql(String sql, Object[] params) {
+    BigDecimal cnt = this.getJdbcTemplate().queryForObject(sql, params, BigDecimal.class);
+    logSQLAndParameters("summaryBySql", sql, params, cnt + "");
+    return cnt == null ? BigDecimal.ZERO : cnt;
+  }
 
-	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
-		Map<String, Object> result = null;
-		try {
-			result = this.getJdbcTemplate().queryForMap(sql, params);
-		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
-			// 空结果，返回null
-		}
-		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
-		return result;
-	}
+  public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
+    List<T> result = this.getJdbcTemplate().queryForList(sql, params, claxx);
+    logSQLAndParameters("queryForList", sql, params, result.size() + " items");
+    return result;
+  }
 
-	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
-		T result = null;
-		try {
-			result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
-		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
-			// 空结果，返回null
-		}
-		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
-		return result;
-	}
+  public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
+    Map<String, Object> result = null;
+    try {
+      result = this.getJdbcTemplate().queryForMap(sql, params);
+    } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+      // 空结果，返回null
+    }
+    logSQLAndParameters(
+        "queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+    return result;
+  }
 
-	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
-		List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
-		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
-		return result;
-	}
+  public <T> T queryForObject(String sql, Object[] params, Class<T> claxx)
+      throws DataAccessException {
+    T result = null;
+    try {
+      result = this.getJdbcTemplate().queryForObject(sql, params, claxx);
+    } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+      // 空结果，返回null
+    }
+    logSQLAndParameters(
+        "queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+    return result;
+  }
 
-	public synchronized int updateBySql(String sql, Object[] params) {
-		int result = getJdbcTemplate().update(sql, params);
-		logSQLAndParameters("updateBySql", sql, params, result + " items");
-		return result;
-	}
+  public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
+    List<Map<String, Object>> result = getJdbcTemplate().queryForList(sql, params);
+    logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
+    return result;
+  }
 
-	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
-		getJdbcTemplate().query(sql, args, callback);
-	}
+  public synchronized int updateBySql(String sql, Object[] params) {
+    int result = getJdbcTemplate().update(sql, params);
+    logSQLAndParameters("updateBySql", sql, params, result + " items");
+    return result;
+  }
 
-	public void executeSql(String sql) {
-		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
-		getJdbcTemplate().execute(sql);
-	}
+  public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
+    getJdbcTemplate().query(sql, args, callback);
+  }
 
+  public void executeSql(String sql) {
+    logSQLAndParameters("executeSql", sql, new Object[] {}, "");
+    getJdbcTemplate().execute(sql);
+  }
 
   @Override
   public List<TreeNode> search(TreeNodeRequest pRequest) {
@@ -598,25 +577,9 @@ public class TreeNodeJDBCTemplateDAO extends RetailscmBaseDAOImpl implements Tre
   protected TreeNodeMapper mapper() {
     return getTreeNodeMapper();
   }
+
+  @Override
+  protected TreeNodeMapper mapperForClazz(Class<?> clazz) {
+    return TreeNodeMapper.mapperForClass(clazz);
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

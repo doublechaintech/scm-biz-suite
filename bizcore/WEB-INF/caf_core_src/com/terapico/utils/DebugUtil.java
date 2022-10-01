@@ -6,6 +6,7 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -23,6 +24,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 public class DebugUtil {
     private static ObjectMapper _mapper = null;
@@ -33,6 +35,10 @@ public class DebugUtil {
     		return null;
     	}
         ObjectMapper mapper = getObjectMapper();
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		// StdDateFormat is ISO8601 since jackson 2.9
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		mapper.setDateFormat(df);
         String jsonStr = null;
         if (pretty) {
             jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);

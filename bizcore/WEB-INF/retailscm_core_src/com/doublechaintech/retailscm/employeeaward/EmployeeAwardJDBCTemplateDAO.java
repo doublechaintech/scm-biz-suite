@@ -1,4 +1,3 @@
-
 package com.doublechaintech.retailscm.employeeaward;
 
 import com.doublechaintech.retailscm.Beans;
@@ -24,602 +23,597 @@ import com.doublechaintech.retailscm.StatsItem;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
-
 import com.doublechaintech.retailscm.employee.Employee;
 
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
-
-
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.stream.Stream;
 
-public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeAwardDAO{
+public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implements EmployeeAwardDAO {
 
-	protected EmployeeDAO employeeDAO;
-	public void setEmployeeDAO(EmployeeDAO employeeDAO){
+  protected EmployeeDAO employeeDAO;
 
- 		if(employeeDAO == null){
- 			throw new IllegalStateException("Do not try to set employeeDAO to null.");
- 		}
-	 	this.employeeDAO = employeeDAO;
- 	}
- 	public EmployeeDAO getEmployeeDAO(){
- 		if(this.employeeDAO == null){
- 			throw new IllegalStateException("The employeeDAO is not configured yet, please config it some where.");
- 		}
+  public void setEmployeeDAO(EmployeeDAO employeeDAO) {
 
-	 	return this.employeeDAO;
- 	}
-
-
-
-	/*
-	protected EmployeeAward load(AccessKey accessKey,Map<String,Object> options) throws Exception{
-		return loadInternalEmployeeAward(accessKey, options);
-	}
-	*/
-
-	public SmartList<EmployeeAward> loadAll() {
-	    return this.loadAll(getEmployeeAwardMapper());
-	}
-
-  public Stream<EmployeeAward> loadAllAsStream() {
-      return this.loadAllAsStream(getEmployeeAwardMapper());
+    if (employeeDAO == null) {
+      throw new IllegalStateException("Do not try to set employeeDAO to null.");
+    }
+    this.employeeDAO = employeeDAO;
   }
 
+  public EmployeeDAO getEmployeeDAO() {
+    if (this.employeeDAO == null) {
+      throw new IllegalStateException(
+          "The employeeDAO is not configured yet, please config it some where.");
+    }
 
-	protected String getIdFormat()
-	{
-		return getShortName(this.getName())+"%06d";
-	}
+    return this.employeeDAO;
+  }
 
-	public EmployeeAward load(String id,Map<String,Object> options) throws Exception{
-		return loadInternalEmployeeAward(EmployeeAwardTable.withId(id), options);
-	}
+  /*
+  protected EmployeeAward load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+  	return loadInternalEmployeeAward(accessKey, options);
+  }
+  */
 
-	
+  public SmartList<EmployeeAward> loadAll() {
+    return this.loadAll(getEmployeeAwardMapper());
+  }
 
-	public EmployeeAward save(EmployeeAward employeeAward,Map<String,Object> options){
+  public Stream<EmployeeAward> loadAllAsStream() {
+    return this.loadAllAsStream(getEmployeeAwardMapper());
+  }
 
-		String methodName="save(EmployeeAward employeeAward,Map<String,Object> options)";
+  protected String getIdFormat() {
+    return getShortName(this.getName()) + "%06d";
+  }
 
-		assertMethodArgumentNotNull(employeeAward, methodName, "employeeAward");
-		assertMethodArgumentNotNull(options, methodName, "options");
+  public EmployeeAward load(String id, Map<String, Object> options) throws Exception {
+    return loadInternalEmployeeAward(EmployeeAwardTable.withId(id), options);
+  }
 
-		return saveInternalEmployeeAward(employeeAward,options);
-	}
-	public EmployeeAward clone(String employeeAwardId, Map<String,Object> options) throws Exception{
+  public EmployeeAward save(EmployeeAward employeeAward, Map<String, Object> options) {
 
-		return clone(EmployeeAwardTable.withId(employeeAwardId),options);
-	}
+    String methodName = "save(EmployeeAward employeeAward,Map<String,Object> options)";
 
-	protected EmployeeAward clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
+    assertMethodArgumentNotNull(employeeAward, methodName, "employeeAward");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-		String methodName="clone(String employeeAwardId,Map<String,Object> options)";
+    return saveInternalEmployeeAward(employeeAward, options);
+  }
 
-		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
-		assertMethodArgumentNotNull(options, methodName, "options");
+  public EmployeeAward clone(String employeeAwardId, Map<String, Object> options) throws Exception {
 
-		EmployeeAward newEmployeeAward = loadInternalEmployeeAward(accessKey, options);
-		newEmployeeAward.setVersion(0);
-		
-		
+    return clone(EmployeeAwardTable.withId(employeeAwardId), options);
+  }
 
+  protected EmployeeAward clone(AccessKey accessKey, Map<String, Object> options) throws Exception {
 
-		saveInternalEmployeeAward(newEmployeeAward,options);
+    String methodName = "clone(String employeeAwardId,Map<String,Object> options)";
 
-		return newEmployeeAward;
-	}
+    assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
+    assertMethodArgumentNotNull(options, methodName, "options");
 
-	
+    EmployeeAward newEmployeeAward = loadInternalEmployeeAward(accessKey, options);
+    newEmployeeAward.setVersion(0);
 
+    saveInternalEmployeeAward(newEmployeeAward, options);
 
+    return newEmployeeAward;
+  }
 
-	protected void throwIfHasException(String employeeAwardId,int version,int count) throws Exception{
-		if (count == 1) {
-			throw new EmployeeAwardVersionChangedException(
-					"The object version has been changed, please reload to delete");
-		}
-		if (count < 1) {
-			throw new EmployeeAwardNotFoundException(
-					"The " + this.getTableName() + "(" + employeeAwardId + ") has already been deleted.");
-		}
-		if (count > 1) {
-			throw new IllegalStateException(
-					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
-		}
-	}
+  protected void throwIfHasException(String employeeAwardId, int version, int count)
+      throws Exception {
+    if (count == 1) {
+      throw new EmployeeAwardVersionChangedException(
+          "The object version has been changed, please reload to delete");
+    }
+    if (count < 1) {
+      throw new EmployeeAwardNotFoundException(
+          "The " + this.getTableName() + "(" + employeeAwardId + ") has already been deleted.");
+    }
+    if (count > 1) {
+      throw new IllegalStateException(
+          "The table '"
+              + this.getTableName()
+              + "' PRIMARY KEY constraint has been damaged, please fix it.");
+    }
+  }
 
+  public EmployeeAward disconnectFromAll(String employeeAwardId, int version) throws Exception {
 
-	public void delete(String employeeAwardId, int version) throws Exception{
-
-		String methodName="delete(String employeeAwardId, int version)";
-		assertMethodArgumentNotNull(employeeAwardId, methodName, "employeeAwardId");
-		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
-
-
-		String SQL=this.getDeleteSQL();
-		Object [] parameters=new Object[]{employeeAwardId,version};
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber == 1){
-			return ; //Delete successfully
-		}
-		if(affectedNumber == 0){
-			handleDeleteOneError(employeeAwardId,version);
-		}
-
-
-	}
-
-
-
-
-
-
-	public EmployeeAward disconnectFromAll(String employeeAwardId, int version) throws Exception{
-
-
-		EmployeeAward employeeAward = loadInternalEmployeeAward(EmployeeAwardTable.withId(employeeAwardId), emptyOptions());
-		employeeAward.clearFromAll();
-		this.saveEmployeeAward(employeeAward);
-		return employeeAward;
-
-
-	}
-
-	@Override
-	protected String[] getNormalColumnNames() {
-
-		return EmployeeAwardTable.NORMAL_CLOUMNS;
-	}
-	@Override
-	protected String getName() {
-
-		return "employee_award";
-	}
-	@Override
-	protected String getBeanName() {
-
-		return "employeeAward";
-	}
-
-	
-
-
-
-	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
-
- 		return EmployeeAwardTokens.checkOptions(options, optionToCheck);
-
-	}
-
-
-
- 	protected boolean isExtractEmployeeEnabled(Map<String,Object> options){
-
-	 	return checkOptions(options, EmployeeAwardTokens.EMPLOYEE);
- 	}
-
- 	protected boolean isSaveEmployeeEnabled(Map<String,Object> options){
-
- 		return checkOptions(options, EmployeeAwardTokens.EMPLOYEE);
- 	}
-
-
-
- 
-		
-
-	
-
-	protected EmployeeAwardMapper getEmployeeAwardMapper(){
-		return new EmployeeAwardMapper();
-	}
-
-
-
-	protected EmployeeAward extractEmployeeAward(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-		try{
-			EmployeeAward employeeAward = loadSingleObject(accessKey, getEmployeeAwardMapper());
-			return employeeAward;
-		}catch(EmptyResultDataAccessException e){
-			throw new EmployeeAwardNotFoundException("EmployeeAward("+accessKey+") is not found!");
-		}
-
-	}
-
-
-
-
-	protected EmployeeAward loadInternalEmployeeAward(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
-
-		EmployeeAward employeeAward = extractEmployeeAward(accessKey, loadOptions);
-
- 		if(isExtractEmployeeEnabled(loadOptions)){
-	 		extractEmployee(employeeAward, loadOptions);
- 		}
- 
-		
-		return employeeAward;
-
-	}
-
-	
-
- 	protected EmployeeAward extractEmployee(EmployeeAward employeeAward, Map<String,Object> options) throws Exception{
-  
-
-		if(employeeAward.getEmployee() == null){
-			return employeeAward;
-		}
-		String employeeId = employeeAward.getEmployee().getId();
-		if( employeeId == null){
-			return employeeAward;
-		}
-		Employee employee = getEmployeeDAO().load(employeeId,options);
-		if(employee != null){
-			employeeAward.setEmployee(employee);
-		}
-
-
- 		return employeeAward;
- 	}
-
- 
-		
-
- 
- 	public SmartList<EmployeeAward> findEmployeeAwardByEmployee(String employeeId,Map<String,Object> options){
-
-  		SmartList<EmployeeAward> resultList = queryWith(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAwardMapper());
-		// analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
-		return resultList;
- 	}
- 	
-
- 	public SmartList<EmployeeAward> findEmployeeAwardByEmployee(String employeeId, int start, int count,Map<String,Object> options){
-
- 		SmartList<EmployeeAward> resultList =  queryWithRange(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAwardMapper(), start, count);
- 		//analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
- 		return resultList;
-
- 	}
- 	public void analyzeEmployeeAwardByEmployee(SmartList<EmployeeAward> resultList, String employeeId, Map<String,Object> options){
-		if(resultList==null){
-			return;//do nothing when the list is null.
-		}
-
-
-
- 	}
- 	@Override
- 	public int countEmployeeAwardByEmployee(String employeeId,Map<String,Object> options){
-
- 		return countWith(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options);
- 	}
- 	@Override
-	public Map<String, Integer> countEmployeeAwardByEmployeeIds(String[] ids, Map<String, Object> options) {
-		return countWithIds(EmployeeAwardTable.COLUMN_EMPLOYEE, ids, options);
-	}
-
- 
-
-
-
-
-	
-
-	protected EmployeeAward saveEmployeeAward(EmployeeAward  employeeAward){
-    
-
-		
-		if(!employeeAward.isChanged()){
-			return employeeAward;
-		}
-		
+    EmployeeAward employeeAward =
+        loadInternalEmployeeAward(EmployeeAwardTable.withId(employeeAwardId), emptyOptions());
+    employeeAward.clearFromAll();
+    this.saveEmployeeAward(employeeAward);
+    return employeeAward;
+  }
+
+  @Override
+  protected String[] getNormalColumnNames() {
+
+    return EmployeeAwardTable.NORMAL_CLOUMNS;
+  }
+
+  @Override
+  protected String getName() {
+
+    return "employee_award";
+  }
+
+  @Override
+  protected String getBeanName() {
+
+    return "employeeAward";
+  }
+
+  protected boolean checkOptions(Map<String, Object> options, String optionToCheck) {
+
+    return EmployeeAwardTokens.checkOptions(options, optionToCheck);
+  }
+
+  protected boolean isExtractEmployeeEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, EmployeeAwardTokens.EMPLOYEE);
+  }
+
+  protected boolean isSaveEmployeeEnabled(Map<String, Object> options) {
+
+    return checkOptions(options, EmployeeAwardTokens.EMPLOYEE);
+  }
+
+  protected EmployeeAwardMapper getEmployeeAwardMapper() {
+    return new EmployeeAwardMapper();
+  }
+
+  protected EmployeeAward extractEmployeeAward(AccessKey accessKey, Map<String, Object> loadOptions)
+      throws Exception {
+    try {
+      EmployeeAward employeeAward = loadSingleObject(accessKey, getEmployeeAwardMapper());
+      return employeeAward;
+    } catch (EmptyResultDataAccessException e) {
+      throw new EmployeeAwardNotFoundException("EmployeeAward(" + accessKey + ") is not found!");
+    }
+  }
+
+  protected EmployeeAward loadInternalEmployeeAward(
+      AccessKey accessKey, Map<String, Object> loadOptions) throws Exception {
+
+    EmployeeAward employeeAward = extractEmployeeAward(accessKey, loadOptions);
+
+    if (isExtractEmployeeEnabled(loadOptions)) {
+      extractEmployee(employeeAward, loadOptions);
+    }
+
+    return employeeAward;
+  }
+
+  protected EmployeeAward extractEmployee(EmployeeAward employeeAward, Map<String, Object> options)
+      throws Exception {
+
+    if (employeeAward.getEmployee() == null) {
+      return employeeAward;
+    }
+    String employeeId = employeeAward.getEmployee().getId();
+    if (employeeId == null) {
+      return employeeAward;
+    }
+    Employee employee = getEmployeeDAO().load(employeeId, options);
+    if (employee != null) {
+      employeeAward.setEmployee(employee);
+    }
+
+    return employeeAward;
+  }
+
+  public SmartList<EmployeeAward> findEmployeeAwardByEmployee(
+      String employeeId, Map<String, Object> options) {
+
+    SmartList<EmployeeAward> resultList =
+        queryWith(
+            EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAwardMapper());
+    // analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
+    return resultList;
+  }
+
+  public SmartList<EmployeeAward> findEmployeeAwardByEmployee(
+      String employeeId, int start, int count, Map<String, Object> options) {
+
+    SmartList<EmployeeAward> resultList =
+        queryWithRange(
+            EmployeeAwardTable.COLUMN_EMPLOYEE,
+            employeeId,
+            options,
+            getEmployeeAwardMapper(),
+            start,
+            count);
+    // analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
+    return resultList;
+  }
+
+  public void analyzeEmployeeAwardByEmployee(
+      SmartList<EmployeeAward> resultList, String employeeId, Map<String, Object> options) {
+    if (resultList == null) {
+      return; // do nothing when the list is null.
+    }
+  }
+
+  @Override
+  public int countEmployeeAwardByEmployee(String employeeId, Map<String, Object> options) {
+
+    return countWith(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options);
+  }
+
+  @Override
+  public Map<String, Integer> countEmployeeAwardByEmployeeIds(
+      String[] ids, Map<String, Object> options) {
+    return countWithIds(EmployeeAwardTable.COLUMN_EMPLOYEE, ids, options);
+  }
+
+  protected EmployeeAward saveEmployeeAward(EmployeeAward employeeAward) {
+
+    if (!employeeAward.isChanged()) {
+      return employeeAward;
+    }
 
     Beans.dbUtil().cacheCleanUp(employeeAward);
-		String SQL=this.getSaveEmployeeAwardSQL(employeeAward);
-		//FIXME: how about when an item has been updated more than MAX_INT?
-		Object [] parameters = getSaveEmployeeAwardParameters(employeeAward);
-		int affectedNumber = singleUpdate(SQL,parameters);
-		if(affectedNumber != 1){
-			throw new IllegalStateException("The save operation should return value = 1, while the value = "
-				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
-		}
+    String SQL = this.getSaveEmployeeAwardSQL(employeeAward);
+    // FIXME: how about when an item has been updated more than MAX_INT?
+    Object[] parameters = getSaveEmployeeAwardParameters(employeeAward);
+    int affectedNumber = singleUpdate(SQL, parameters);
+    if (affectedNumber != 1) {
+      throw new IllegalStateException(
+          "The save operation should return value = 1, while the value = "
+              + affectedNumber
+              + "If the value = 0, that mean the target record has been updated by someone else!");
+    }
 
-		employeeAward.incVersion();
-		employeeAward.afterSave();
-		return employeeAward;
+    employeeAward.incVersion();
+    employeeAward.afterSave();
+    return employeeAward;
+  }
 
-	}
-	public SmartList<EmployeeAward> saveEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList,Map<String,Object> options){
-		//assuming here are big amount objects to be updated.
-		//First step is split into two groups, one group for update and another group for create
-		Object [] lists=splitEmployeeAwardList(employeeAwardList);
+  public SmartList<EmployeeAward> saveEmployeeAwardList(
+      SmartList<EmployeeAward> employeeAwardList, Map<String, Object> options) {
+    // assuming here are big amount objects to be updated.
+    // First step is split into two groups, one group for update and another group for create
+    Object[] lists = splitEmployeeAwardList(employeeAwardList);
 
-		batchEmployeeAwardCreate((List<EmployeeAward>)lists[CREATE_LIST_INDEX]);
+    batchEmployeeAwardCreate((List<EmployeeAward>) lists[CREATE_LIST_INDEX]);
+    batchEmployeeAwardUpdate((List<EmployeeAward>) lists[UPDATE_LIST_INDEX]);
+    batchEmployeeAwardRemove((List<EmployeeAward>) lists[REMOVE_LIST_INDEX]);
+    batchEmployeeAwardRecover((List<EmployeeAward>) lists[RECOVER_LIST_INDEX]);
 
-		batchEmployeeAwardUpdate((List<EmployeeAward>)lists[UPDATE_LIST_INDEX]);
+    // update version after the list successfully saved to database;
+    for (EmployeeAward employeeAward : employeeAwardList) {
+      if (employeeAward.isChanged()) {
+        employeeAward.incVersion();
+        employeeAward.afterSave();
+      }
+      if (employeeAward.isToRecover() || employeeAward.isToRemove()) {
+        employeeAward.setVersion(-employeeAward.getVersion());
+      }
+    }
 
+    return employeeAwardList;
+  }
 
-		//update version after the list successfully saved to database;
-		for(EmployeeAward employeeAward:employeeAwardList){
-			if(employeeAward.isChanged()){
-				employeeAward.incVersion();
-				employeeAward.afterSave();
-			}
+  public SmartList<EmployeeAward> removeEmployeeAwardList(
+      SmartList<EmployeeAward> employeeAwardList, Map<String, Object> options) {
 
+    super.removeList(employeeAwardList, options);
 
-		}
+    return employeeAwardList;
+  }
 
+  protected List<Object[]> prepareEmployeeAwardBatchCreateArgs(
+      List<EmployeeAward> employeeAwardList) {
 
-		return employeeAwardList;
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeeAward employeeAward : employeeAwardList) {
+      Object[] parameters = prepareEmployeeAwardCreateParameters(employeeAward);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	public SmartList<EmployeeAward> removeEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList,Map<String,Object> options){
+  protected List<Object[]> prepareEmployeeAwardBatchUpdateArgs(
+      List<EmployeeAward> employeeAwardList) {
 
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeeAward employeeAward : employeeAwardList) {
+      if (!employeeAward.isChanged()) {
+        continue;
+      }
+      Object[] parameters = prepareEmployeeAwardUpdateParameters(employeeAward);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-		super.removeList(employeeAwardList, options);
+  protected List<Object[]> prepareEmployeeAwardBatchRecoverArgs(
+      List<EmployeeAward> employeeAwardList) {
 
-		return employeeAwardList;
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeeAward employeeAward : employeeAwardList) {
+      if (!employeeAward.isToRecover()) {
+        continue;
+      }
+      Object[] parameters = prepareRecoverParameters(employeeAward);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
+  protected List<Object[]> prepareEmployeeAwardBatchRemoveArgs(
+      List<EmployeeAward> employeeAwardList) {
 
-	}
+    List<Object[]> parametersList = new ArrayList<Object[]>();
+    for (EmployeeAward employeeAward : employeeAwardList) {
+      if (!employeeAward.isToRemove()) {
+        continue;
+      }
+      Object[] parameters = prepareEmployeeAwardRemoveParameters(employeeAward);
+      parametersList.add(parameters);
+    }
+    return parametersList;
+  }
 
-	protected List<Object[]> prepareEmployeeAwardBatchCreateArgs(List<EmployeeAward> employeeAwardList){
+  protected void batchEmployeeAwardCreate(List<EmployeeAward> employeeAwardList) {
+    String SQL = getCreateSQL();
+    List<Object[]> args = prepareEmployeeAwardBatchCreateArgs(employeeAwardList);
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(EmployeeAward employeeAward:employeeAwardList ){
-			Object [] parameters = prepareEmployeeAwardCreateParameters(employeeAward);
-			parametersList.add(parameters);
+    int affectedNumbers[] = batchUpdate(SQL, args);
+  }
 
-		}
-		return parametersList;
+  protected void batchEmployeeAwardUpdate(List<EmployeeAward> employeeAwardList) {
+    String SQL = getUpdateSQL();
+    List<Object[]> args = prepareEmployeeAwardBatchUpdateArgs(employeeAwardList);
 
-	}
-	protected List<Object[]> prepareEmployeeAwardBatchUpdateArgs(List<EmployeeAward> employeeAwardList){
+    int affectedNumbers[] = batchUpdate(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		List<Object[]> parametersList=new ArrayList<Object[]>();
-		for(EmployeeAward employeeAward:employeeAwardList ){
-			if(!employeeAward.isChanged()){
-				continue;
-			}
-			Object [] parameters = prepareEmployeeAwardUpdateParameters(employeeAward);
-			parametersList.add(parameters);
+  protected void batchEmployeeAwardRemove(List<EmployeeAward> employeeAwardList) {
+    String SQL = getRemoveSQL();
+    List<Object[]> args = prepareEmployeeAwardBatchRemoveArgs(employeeAwardList);
+    int affectedNumbers[] = batchRemove(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-		}
-		return parametersList;
+  protected void batchEmployeeAwardRecover(List<EmployeeAward> employeeAwardList) {
+    String SQL = getRecoverSQL();
+    List<Object[]> args = prepareEmployeeAwardBatchRecoverArgs(employeeAwardList);
+    int affectedNumbers[] = batchRecover(SQL, args);
+    checkBatchReturn(affectedNumbers);
+  }
 
-	}
-	protected void batchEmployeeAwardCreate(List<EmployeeAward> employeeAwardList){
-		String SQL=getCreateSQL();
-		List<Object[]> args=prepareEmployeeAwardBatchCreateArgs(employeeAwardList);
+  static final int CREATE_LIST_INDEX = 0;
+  static final int UPDATE_LIST_INDEX = 1;
+  static final int REMOVE_LIST_INDEX = 2;
+  static final int RECOVER_LIST_INDEX = 3;
 
-		int affectedNumbers[] = batchUpdate(SQL, args);
+  protected Object[] splitEmployeeAwardList(List<EmployeeAward> employeeAwardList) {
 
-	}
+    List<EmployeeAward> employeeAwardCreateList = new ArrayList<EmployeeAward>();
+    List<EmployeeAward> employeeAwardUpdateList = new ArrayList<EmployeeAward>();
+    List<EmployeeAward> employeeAwardRemoveList = new ArrayList<EmployeeAward>();
+    List<EmployeeAward> employeeAwardRecoverList = new ArrayList<EmployeeAward>();
 
-
-	protected void batchEmployeeAwardUpdate(List<EmployeeAward> employeeAwardList){
-		String SQL=getUpdateSQL();
-		List<Object[]> args=prepareEmployeeAwardBatchUpdateArgs(employeeAwardList);
-
-		int affectedNumbers[] = batchUpdate(SQL, args);
-
-
-
-	}
-
-
-
-	static final int CREATE_LIST_INDEX=0;
-	static final int UPDATE_LIST_INDEX=1;
-
-	protected Object[] splitEmployeeAwardList(List<EmployeeAward> employeeAwardList){
-
-		List<EmployeeAward> employeeAwardCreateList=new ArrayList<EmployeeAward>();
-		List<EmployeeAward> employeeAwardUpdateList=new ArrayList<EmployeeAward>();
-
-		for(EmployeeAward employeeAward: employeeAwardList){
-			if(isUpdateRequest(employeeAward)){
-				employeeAwardUpdateList.add( employeeAward);
-				continue;
-			}
-			employeeAwardCreateList.add(employeeAward);
-		}
-
-		return new Object[]{employeeAwardCreateList,employeeAwardUpdateList};
-	}
-
-	protected boolean isUpdateRequest(EmployeeAward employeeAward){
- 		return employeeAward.getVersion() > 0;
- 	}
- 	protected String getSaveEmployeeAwardSQL(EmployeeAward employeeAward){
- 		if(isUpdateRequest(employeeAward)){
- 			return getUpdateSQL();
- 		}
- 		return getCreateSQL();
- 	}
-
- 	protected Object[] getSaveEmployeeAwardParameters(EmployeeAward employeeAward){
- 		if(isUpdateRequest(employeeAward) ){
- 			return prepareEmployeeAwardUpdateParameters(employeeAward);
- 		}
- 		return prepareEmployeeAwardCreateParameters(employeeAward);
- 	}
- 	protected Object[] prepareEmployeeAwardUpdateParameters(EmployeeAward employeeAward){
- 		Object[] parameters = new Object[7];
- 
- 		if(employeeAward.getEmployee() != null){
- 			parameters[0] = employeeAward.getEmployee().getId();
- 		}
-    
- 		parameters[1] = employeeAward.getCompleteTime();
- 		
- 		parameters[2] = employeeAward.getType();
- 		
- 		parameters[3] = employeeAward.getRemark();
- 		
- 		parameters[4] = employeeAward.nextVersion();
- 		parameters[5] = employeeAward.getId();
- 		parameters[6] = employeeAward.getVersion();
-
- 		return parameters;
- 	}
- 	protected Object[] prepareEmployeeAwardCreateParameters(EmployeeAward employeeAward){
-		Object[] parameters = new Object[5];
-        if(employeeAward.getId() == null){
-          String newEmployeeAwardId=getNextId();
-          employeeAward.setId(newEmployeeAwardId);
+    for (EmployeeAward employeeAward : employeeAwardList) {
+      if (employeeAward.isToRemove()) {
+        employeeAwardRemoveList.add(employeeAward);
+        continue;
+      }
+      if (employeeAward.isToRecover()) {
+        employeeAwardRecoverList.add(employeeAward);
+        continue;
+      }
+      if (isUpdateRequest(employeeAward)) {
+        if (employeeAward.isChanged()) {
+          employeeAwardUpdateList.add(employeeAward);
         }
-		parameters[0] =  employeeAward.getId();
- 
- 		if(employeeAward.getEmployee() != null){
- 			parameters[1] = employeeAward.getEmployee().getId();
- 		}
- 		
- 		parameters[2] = employeeAward.getCompleteTime();
- 		
- 		parameters[3] = employeeAward.getType();
- 		
- 		parameters[4] = employeeAward.getRemark();
- 		
+        continue;
+      }
 
- 		return parameters;
- 	}
+      if (employeeAward.isChanged()) {
+        employeeAwardCreateList.add(employeeAward);
+      }
+    }
 
-	protected EmployeeAward saveInternalEmployeeAward(EmployeeAward employeeAward, Map<String,Object> options){
+    return new Object[] {
+      employeeAwardCreateList,
+      employeeAwardUpdateList,
+      employeeAwardRemoveList,
+      employeeAwardRecoverList
+    };
+  }
 
- 		if(isSaveEmployeeEnabled(options)){
-	 		saveEmployee(employeeAward, options);
- 		}
- 
-   saveEmployeeAward(employeeAward);
-		
-		return employeeAward;
+  protected boolean isUpdateRequest(EmployeeAward employeeAward) {
+    return employeeAward.getVersion() > 0;
+  }
 
-	}
+  protected String getSaveEmployeeAwardSQL(EmployeeAward employeeAward) {
+    if (employeeAward.isToRemove()) {
+      return getRemoveSQL();
+    }
+    if (isUpdateRequest(employeeAward)) {
+      return getUpdateSQL();
+    }
+    return getCreateSQL();
+  }
 
+  protected Object[] getSaveEmployeeAwardParameters(EmployeeAward employeeAward) {
+    if (employeeAward.isToRemove()) {
+      return prepareEmployeeAwardRemoveParameters(employeeAward);
+    }
+    if (employeeAward.isToRecover()) {
+      return prepareRecoverParameters(employeeAward);
+    }
 
+    if (isUpdateRequest(employeeAward)) {
+      return prepareEmployeeAwardUpdateParameters(employeeAward);
+    }
+    return prepareEmployeeAwardCreateParameters(employeeAward);
+  }
 
-	//======================================================================================
-	
+  protected Object[] prepareEmployeeAwardRemoveParameters(EmployeeAward employeeAward) {
+    return super.prepareRemoveParameters(employeeAward);
+  }
 
- 	protected EmployeeAward saveEmployee(EmployeeAward employeeAward, Map<String,Object> options){
- 	
- 		//Call inject DAO to execute this method
- 		if(employeeAward.getEmployee() == null){
- 			return employeeAward;//do nothing when it is null
- 		}
+  protected Object[] prepareEmployeeAwardUpdateParameters(EmployeeAward employeeAward) {
+    Object[] parameters = new Object[7];
 
- 		getEmployeeDAO().save(employeeAward.getEmployee(),options);
- 		return employeeAward;
+    if (employeeAward.getEmployee() != null) {
+      parameters[0] = employeeAward.getEmployee().getId();
+    }
 
- 	}
- 
+    parameters[1] = employeeAward.getCompleteTime();
 
-	
+    parameters[2] = employeeAward.getType();
 
-		
+    parameters[3] = employeeAward.getRemark();
 
-	public EmployeeAward present(EmployeeAward employeeAward,Map<String, Object> options){
+    parameters[4] = employeeAward.nextVersion();
+    parameters[5] = employeeAward.getId();
+    parameters[6] = employeeAward.getVersion();
 
+    return parameters;
+  }
 
-		return employeeAward;
+  protected Object[] prepareEmployeeAwardCreateParameters(EmployeeAward employeeAward) {
+    Object[] parameters = new Object[5];
+    if (employeeAward.getId() == null) {
+      String newEmployeeAwardId = getNextId();
+      employeeAward.setId(newEmployeeAwardId);
+    }
+    parameters[0] = employeeAward.getId();
 
-	}
-		
+    if (employeeAward.getEmployee() != null) {
+      parameters[1] = employeeAward.getEmployee().getId();
+    }
 
-	
+    parameters[2] = employeeAward.getCompleteTime();
 
-	protected String getTableName(){
-		return EmployeeAwardTable.TABLE_NAME;
-	}
+    parameters[3] = employeeAward.getType();
 
+    parameters[4] = employeeAward.getRemark();
 
+    return parameters;
+  }
 
-	public void enhanceList(List<EmployeeAward> employeeAwardList) {
-		this.enhanceListInternal(employeeAwardList, this.getEmployeeAwardMapper());
-	}
+  protected EmployeeAward saveInternalEmployeeAward(
+      EmployeeAward employeeAward, Map<String, Object> options) {
 
-	
+    if (isSaveEmployeeEnabled(options)) {
+      saveEmployee(employeeAward, options);
+    }
 
-	@Override
-	public void collectAndEnhance(BaseEntity ownerEntity) {
-		List<EmployeeAward> employeeAwardList = ownerEntity.collectRefsWithType(EmployeeAward.INTERNAL_TYPE);
-		this.enhanceList(employeeAwardList);
+    saveEmployeeAward(employeeAward);
 
-	}
+    return employeeAward;
+  }
 
-	@Override
-	public SmartList<EmployeeAward> findEmployeeAwardWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+  // ======================================================================================
 
-  		return queryWith(key, options, getEmployeeAwardMapper());
+  protected EmployeeAward saveEmployee(EmployeeAward employeeAward, Map<String, Object> options) {
 
-	}
-	@Override
-	public int countEmployeeAwardWithKey(MultipleAccessKey key,
-			Map<String, Object> options) {
+    // Call inject DAO to execute this method
+    if (employeeAward.getEmployee() == null) {
+      return employeeAward; // do nothing when it is null
+    }
 
-  		return countWith(key, options);
+    getEmployeeDAO().save(employeeAward.getEmployee(), options);
+    return employeeAward;
+  }
 
-	}
-	public Map<String, Integer> countEmployeeAwardWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options) {
+  public EmployeeAward present(EmployeeAward employeeAward, Map<String, Object> options) {
 
-  		return countWithGroup(groupKey, filterKey, options);
+    return employeeAward;
+  }
 
-	}
+  protected String getTableName() {
+    return EmployeeAwardTable.TABLE_NAME;
+  }
 
-	@Override
-	public SmartList<EmployeeAward> queryList(String sql, Object... parameters) {
-	    return this.queryForList(sql, parameters, this.getEmployeeAwardMapper());
-	}
+  public void enhanceList(List<EmployeeAward> employeeAwardList) {
+    this.enhanceListInternal(employeeAwardList, this.getEmployeeAwardMapper());
+  }
+
+  @Override
+  public void collectAndEnhance(BaseEntity ownerEntity) {
+    List<EmployeeAward> employeeAwardList =
+        ownerEntity.collectRefsWithType(EmployeeAward.INTERNAL_TYPE);
+    this.enhanceList(employeeAwardList);
+  }
+
+  @Override
+  public SmartList<EmployeeAward> findEmployeeAwardWithKey(
+      MultipleAccessKey key, Map<String, Object> options) {
+
+    return queryWith(key, options, getEmployeeAwardMapper());
+  }
+
+  @Override
+  public int countEmployeeAwardWithKey(MultipleAccessKey key, Map<String, Object> options) {
+
+    return countWith(key, options);
+  }
+
+  public Map<String, Integer> countEmployeeAwardWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options) {
+
+    return countWithGroup(groupKey, filterKey, options);
+  }
+
+  @Override
+  public SmartList<EmployeeAward> queryList(String sql, Object... parameters) {
+    return this.queryForList(sql, parameters, this.getEmployeeAwardMapper());
+  }
 
   @Override
   public List<String> queryIdList(String sql, Object... parameters) {
     return this.getJdbcTemplate().queryForList(sql, parameters, String.class);
   }
+
   @Override
   public Stream<EmployeeAward> queryStream(String sql, Object... parameters) {
     return this.queryForStream(sql, parameters, this.getEmployeeAwardMapper());
   }
 
-	@Override
-	public int count(String sql, Object... parameters) {
-	    return queryInt(sql, parameters);
-	}
-	@Override
-	public CandidateEmployeeAward executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+  @Override
+  public int count(String sql, Object... parameters) {
+    return queryInt(sql, parameters);
+  }
 
-		CandidateEmployeeAward result = new CandidateEmployeeAward();
-		int pageNo = Math.max(1, query.getPageNo());
-		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
-		result.setOwnerId(query.getOwnerId());
-		result.setFilterKey(query.getFilterKey());
-		result.setPageNo(pageNo);
-		result.setValueFieldName("id");
-		result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
-		result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
+  @Override
+  public CandidateEmployeeAward executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception {
 
-		SmartList candidateList = queryList(sql, parmeters);
-		this.alias(candidateList);
-		result.setCandidates(candidateList);
-		int offSet = (pageNo - 1 ) * query.getPageSize();
-		if (candidateList.size() > query.getPageSize()) {
-			result.setTotalPage(pageNo+1);
-		}else {
-			result.setTotalPage(pageNo);
-		}
-		return result;
-	}
+    CandidateEmployeeAward result = new CandidateEmployeeAward();
+    int pageNo = Math.max(1, query.getPageNo());
+    result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
+    result.setOwnerId(query.getOwnerId());
+    result.setFilterKey(query.getFilterKey());
+    result.setPageNo(pageNo);
+    result.setValueFieldName("id");
+    result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
+    result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
 
-	
+    SmartList candidateList = queryList(sql, parmeters);
+    this.alias(candidateList);
+    result.setCandidates(candidateList);
+    int offSet = (pageNo - 1) * query.getPageSize();
+    if (candidateList.size() > query.getPageSize()) {
+      result.setTotalPage(pageNo + 1);
+    } else {
+      result.setTotalPage(pageNo);
+    }
+    return result;
+  }
 
   @Override
   public List<EmployeeAward> search(EmployeeAwardRequest pRequest) {
@@ -630,6 +624,9 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmBaseDAOImpl implement
   protected EmployeeAwardMapper mapper() {
     return getEmployeeAwardMapper();
   }
+
+  @Override
+  protected EmployeeAwardMapper mapperForClazz(Class<?> clazz) {
+    return EmployeeAwardMapper.mapperForClass(clazz);
+  }
 }
-
-

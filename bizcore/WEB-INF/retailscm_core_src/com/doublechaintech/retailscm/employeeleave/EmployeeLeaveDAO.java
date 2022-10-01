@@ -1,5 +1,5 @@
-
 package com.doublechaintech.retailscm.employeeleave;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,64 +17,82 @@ import com.doublechaintech.retailscm.leavetype.LeaveType;
 import com.doublechaintech.retailscm.leavetype.LeaveTypeDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
+public interface EmployeeLeaveDAO extends BaseDAO {
 
-public interface EmployeeLeaveDAO extends BaseDAO{
+  public SmartList<EmployeeLeave> loadAll();
 
-	public SmartList<EmployeeLeave> loadAll();
-	public Stream<EmployeeLeave> loadAllAsStream();
-	public EmployeeLeave load(String id, Map<String,Object> options) throws Exception;
-	public void enhanceList(List<EmployeeLeave> employeeLeaveList);
-	public void collectAndEnhance(BaseEntity ownerEntity);
+  public Stream<EmployeeLeave> loadAllAsStream();
 
-	public void alias(List<BaseEntity> entityList);
+  public EmployeeLeave load(String id, Map<String, Object> options) throws Exception;
 
+  public void enhanceList(List<EmployeeLeave> employeeLeaveList);
 
-	
+  public void collectAndEnhance(BaseEntity ownerEntity);
 
-	public EmployeeLeave present(EmployeeLeave employeeLeave,Map<String,Object> options) throws Exception;
-	public EmployeeLeave clone(String id, Map<String,Object> options) throws Exception;
+  public void alias(List<BaseEntity> entityList);
 
-	
+  public EmployeeLeave present(EmployeeLeave employeeLeave, Map<String, Object> options)
+      throws Exception;
 
-	public EmployeeLeave save(EmployeeLeave employeeLeave,Map<String,Object> options);
-	public SmartList<EmployeeLeave> saveEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList,Map<String,Object> options);
-	public SmartList<EmployeeLeave> removeEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList,Map<String,Object> options);
-	public SmartList<EmployeeLeave> findEmployeeLeaveWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public int countEmployeeLeaveWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public Map<String, Integer> countEmployeeLeaveWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options);
-	public void delete(String employeeLeaveId, int version) throws Exception;
-	public EmployeeLeave disconnectFromAll(String employeeLeaveId, int version) throws Exception;
-	public int deleteAll() throws Exception;
-	public void resetNextId();
+  public EmployeeLeave clone(String id, Map<String, Object> options) throws Exception;
 
-	
-	
+  public EmployeeLeave save(EmployeeLeave employeeLeave, Map<String, Object> options);
 
-	public SmartList<EmployeeLeave> queryList(String sql, Object ... parameters);
-	public List<String> queryIdList(String sql, Object ... parameters);
-	public Stream<EmployeeLeave> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parameters);
-	public CandidateEmployeeLeave executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
+  public SmartList<EmployeeLeave> saveEmployeeLeaveList(
+      SmartList<EmployeeLeave> employeeLeaveList, Map<String, Object> options);
 
- 	public SmartList<EmployeeLeave> findEmployeeLeaveByWho(String employeeId, Map<String,Object> options);
- 	public int countEmployeeLeaveByWho(String employeeId, Map<String,Object> options);
- 	public Map<String, Integer> countEmployeeLeaveByWhoIds(String[] ids, Map<String,Object> options);
- 	public SmartList<EmployeeLeave> findEmployeeLeaveByWho(String employeeId, int start, int count, Map<String,Object> options);
- 	public void analyzeEmployeeLeaveByWho(SmartList<EmployeeLeave> resultList, String employeeId, Map<String,Object> options);
+  public SmartList<EmployeeLeave> removeEmployeeLeaveList(
+      SmartList<EmployeeLeave> employeeLeaveList, Map<String, Object> options);
 
+  public SmartList<EmployeeLeave> findEmployeeLeaveWithKey(
+      MultipleAccessKey key, Map<String, Object> options);
 
- 
- 	public SmartList<EmployeeLeave> findEmployeeLeaveByType(String leaveTypeId, Map<String,Object> options);
- 	public int countEmployeeLeaveByType(String leaveTypeId, Map<String,Object> options);
- 	public Map<String, Integer> countEmployeeLeaveByTypeIds(String[] ids, Map<String,Object> options);
- 	public SmartList<EmployeeLeave> findEmployeeLeaveByType(String leaveTypeId, int start, int count, Map<String,Object> options);
- 	public void analyzeEmployeeLeaveByType(SmartList<EmployeeLeave> resultList, String leaveTypeId, Map<String,Object> options);
+  public int countEmployeeLeaveWithKey(MultipleAccessKey key, Map<String, Object> options);
 
+  public Map<String, Integer> countEmployeeLeaveWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options);
 
- 
+  public EmployeeLeave disconnectFromAll(String employeeLeaveId, int version) throws Exception;
 
-	List<EmployeeLeave> search(EmployeeLeaveRequest pRequest);
+  public void resetNextId();
+
+  public SmartList<EmployeeLeave> queryList(String sql, Object... parameters);
+
+  public List<String> queryIdList(String sql, Object... parameters);
+
+  public Stream<EmployeeLeave> queryStream(String sql, Object... parameters);
+
+  public int count(String sql, Object... parameters);
+
+  public CandidateEmployeeLeave executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception;
+
+  public SmartList<EmployeeLeave> findEmployeeLeaveByWho(
+      String employeeId, Map<String, Object> options);
+
+  public int countEmployeeLeaveByWho(String employeeId, Map<String, Object> options);
+
+  public Map<String, Integer> countEmployeeLeaveByWhoIds(String[] ids, Map<String, Object> options);
+
+  public SmartList<EmployeeLeave> findEmployeeLeaveByWho(
+      String employeeId, int start, int count, Map<String, Object> options);
+
+  public void analyzeEmployeeLeaveByWho(
+      SmartList<EmployeeLeave> resultList, String employeeId, Map<String, Object> options);
+
+  public SmartList<EmployeeLeave> findEmployeeLeaveByType(
+      String leaveTypeId, Map<String, Object> options);
+
+  public int countEmployeeLeaveByType(String leaveTypeId, Map<String, Object> options);
+
+  public Map<String, Integer> countEmployeeLeaveByTypeIds(
+      String[] ids, Map<String, Object> options);
+
+  public SmartList<EmployeeLeave> findEmployeeLeaveByType(
+      String leaveTypeId, int start, int count, Map<String, Object> options);
+
+  public void analyzeEmployeeLeaveByType(
+      SmartList<EmployeeLeave> resultList, String leaveTypeId, Map<String, Object> options);
+
+  List<EmployeeLeave> search(EmployeeLeaveRequest pRequest);
 }
-
-

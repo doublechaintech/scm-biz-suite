@@ -1464,8 +1464,8 @@ create table user_domain_data (
 drop table  if exists user_allow_list_data;
 create table user_allow_list_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	user_identity                 	varchar(40)                              comment '用户标识',
-	user_special_functions        	varchar(200)                             comment '用户特权',
+	user_identity                 	varchar(40)                              comment '用户身份',
+	user_special_functions        	varchar(200)                             comment '用户特殊功能',
 	domain                        	varchar(48)                              comment '域',
 	version                       	int                                      comment '版本'
 
@@ -1475,15 +1475,15 @@ create table user_allow_list_data (
 drop table  if exists sec_user_data;
 create table sec_user_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	login                         	varchar(256)                             comment '登录名',
+	login                         	varchar(256)                             comment '登录',
 	mobile                        	varchar(11)                              comment '手机',
-	email                         	varchar(256)                             comment '邮箱',
-	pwd                           	varchar(64)                              comment '密码',
-	weixin_openid                 	varchar(128)                             comment '微信openId',
-	weixin_appid                  	varchar(128)                             comment '微信应用ID',
+	email                         	varchar(256)                             comment '电子邮件',
+	pwd                           	varchar(64)                              comment 'PWD',
+	weixin_openid                 	varchar(128)                             comment '微信openid',
+	weixin_appid                  	varchar(128)                             comment '微信Appid',
 	access_token                  	varchar(128)                             comment '访问令牌',
 	verification_code             	int                                      comment '验证码',
-	verification_code_expire      	datetime                                 comment '验证码有效期',
+	verification_code_expire      	datetime                                 comment '验证码过期',
 	last_login_time               	datetime                                 comment '最后登录时间',
 	domain                        	varchar(48)                              comment '域',
 	version                       	int                                      comment '版本'
@@ -1494,15 +1494,15 @@ create table sec_user_data (
 drop table  if exists user_app_data;
 create table user_app_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	title                         	varchar(300)                             comment '标题',
-	sec_user                      	varchar(48)                              comment '系统用户',
-	app_icon                      	varchar(20)                              comment '图标',
+	title                         	varchar(300)                             comment '头衔',
+	sec_user                      	varchar(48)                              comment '安全用户',
+	app_icon                      	varchar(20)                              comment '应用程序图标',
 	full_access                   	bool                                     comment '完全访问',
-	permission                    	varchar(20)                              comment '权限',
-	app_type                      	varchar(100)                             comment '对象类型',
-	app_id                        	varchar(100)                             comment '对象ID',
-	ctx_type                      	varchar(100)                             comment '上下文类型',
-	ctx_id                        	varchar(100)                             comment '上下文类型',
+	permission                    	varchar(20)                              comment '许可',
+	app_type                      	varchar(100)                             comment '应用程序类型',
+	app_id                        	varchar(100)                             comment '应用程序Id',
+	ctx_type                      	varchar(100)                             comment 'Ctx类型',
+	ctx_id                        	varchar(100)                             comment 'Ctx Id',
 	location                      	varchar(200)                             comment '位置',
 	version                       	int                                      comment '版本'
 
@@ -1528,12 +1528,12 @@ create table list_access_data (
 	id                            	varchar(48)          not null            comment 'ID',
 	name                          	varchar(200)                             comment '名称',
 	internal_name                 	varchar(200)                             comment '内部名称',
-	read_permission               	bool                                     comment '可读',
-	create_permission             	bool                                     comment '可创建',
-	delete_permission             	bool                                     comment '可删除',
-	update_permission             	bool                                     comment '可更新',
-	execution_permission          	bool                                     comment '可执行',
-	app                           	varchar(48)                              comment '应用',
+	read_permission               	bool                                     comment '读权限',
+	create_permission             	bool                                     comment '创建权限',
+	delete_permission             	bool                                     comment '删除权限',
+	update_permission             	bool                                     comment '更新权限',
+	execution_permission          	bool                                     comment '执行权限',
+	app                           	varchar(48)                              comment '应用程序',
 	version                       	int                                      comment '版本'
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = "列表访问控制";
@@ -1543,9 +1543,9 @@ drop table  if exists login_history_data;
 create table login_history_data (
 	id                            	varchar(48)          not null            comment 'ID',
 	login_time                    	datetime                                 comment '登录时间',
-	from_ip                       	varchar(44)                              comment '来自IP',
+	from_ip                       	varchar(44)                              comment '从IP',
 	description                   	varchar(16)                              comment '描述',
-	sec_user                      	varchar(48)                              comment '系统用户',
+	sec_user                      	varchar(48)                              comment '安全用户',
 	version                       	int                                      comment '版本'
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = "登录历史";
@@ -1563,9 +1563,9 @@ create table candidate_container_data (
 drop table  if exists candidate_element_data;
 create table candidate_element_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	name                          	varchar(200)                             comment '标题',
+	name                          	varchar(200)                             comment '名称',
 	type                          	varchar(200)                             comment '类型',
-	image                         	varchar(512) CHARACTER SET ascii COLLATE ascii_general_ci                     comment '图像',
+	image                         	varchar(512) CHARACTER SET ascii COLLATE ascii_general_ci                     comment '图片',
 	container                     	varchar(48)                              comment '容器',
 	version                       	int                                      comment '版本'
 
@@ -1575,10 +1575,10 @@ create table candidate_element_data (
 drop table  if exists wechat_workapp_identity_data;
 create table wechat_workapp_identity_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	corp_id                       	varchar(100)                             comment '公司',
-	user_id                       	varchar(100)                             comment '用户',
-	sec_user                      	varchar(48)                              comment '系统用户',
-	create_time                   	datetime                                 comment '创建时间',
+	corp_id                       	varchar(100)                             comment '公司标识',
+	user_id                       	varchar(100)                             comment '用户Id',
+	sec_user                      	varchar(48)                              comment '安全用户',
+	create_time                   	datetime                                 comment '创建于',
 	last_login_time               	datetime                                 comment '最后登录时间',
 	version                       	int                                      comment '版本'
 
@@ -1588,11 +1588,11 @@ create table wechat_workapp_identity_data (
 drop table  if exists wechat_miniapp_identity_data;
 create table wechat_miniapp_identity_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	open_id                       	varchar(128)                             comment 'openId',
-	app_id                        	varchar(128)                             comment '应用ID',
-	union_id                      	varchar(128)                             comment 'UnionID',
-	sec_user                      	varchar(48)                              comment '系统用户',
-	create_time                   	datetime                                 comment '创建时间',
+	open_id                       	varchar(128)                             comment '开放Id',
+	app_id                        	varchar(128)                             comment '应用程序Id',
+	union_id                      	varchar(128)                             comment '联盟Id',
+	sec_user                      	varchar(48)                              comment '安全用户',
+	create_time                   	datetime                                 comment '创建于',
 	last_login_time               	datetime                                 comment '最后登录时间',
 	version                       	int                                      comment '版本'
 
@@ -1603,9 +1603,9 @@ drop table  if exists key_pair_identity_data;
 create table key_pair_identity_data (
 	id                            	varchar(48)          not null            comment 'ID',
 	public_key                    	longtext                                 comment '公钥',
-	key_type                      	varchar(48)                              comment '秘钥类型',
-	sec_user                      	varchar(48)                              comment '系统用户',
-	create_time                   	datetime                                 comment '创建时间',
+	key_type                      	varchar(48)                              comment '密钥类型',
+	sec_user                      	varchar(48)                              comment '安全用户',
+	create_time                   	datetime                                 comment '创建于',
 	version                       	int                                      comment '版本'
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = "秘钥对认证";
@@ -1614,8 +1614,8 @@ create table key_pair_identity_data (
 drop table  if exists public_key_type_data;
 create table public_key_type_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	key_alg                       	varchar(10)                              comment '加密算法',
-	sign_alg                      	varchar(50)                              comment '签名算法',
+	key_alg                       	varchar(10)                              comment '键 ALG',
+	sign_alg                      	varchar(50)                              comment 'Alg迹象',
 	domain                        	varchar(48)                              comment '域',
 	version                       	int                                      comment '版本'
 
@@ -1625,10 +1625,10 @@ create table public_key_type_data (
 drop table  if exists tree_node_data;
 create table tree_node_data (
 	id                            	varchar(48)          not null            comment 'ID',
-	node_id                       	varchar(40)                              comment '节点ID',
+	node_id                       	varchar(40)                              comment '节点Id',
 	node_type                     	varchar(32)                              comment '节点类型',
 	left_value                    	int                                      comment '左值',
-	right_value                   	int                                      comment '右值',
+	right_value                   	int                                      comment '正确的价值',
 	version                       	int                                      comment '版本'
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = "节点";
@@ -1637,20 +1637,20 @@ create table tree_node_data (
 
 
 
-insert into retail_store_country_center_data values
-	('RSCC000001','双链小超中国国运营中心','4000-800-0001','2020-03-28','https://www.doublechaintech.com/','四川省成都市天府新区双链大厦0001','双链集团0001','张喜来','中国中心正式成立，恭喜恭喜0001','1');
+insert into retail_store_country_center_data (id,name,service_number,founded,web_site,address,operated_by,legal_representative,description,version) values
+	('RSCC000001','双链小超中国国运营中心','4000-800-0001','2019-10-09','https://www.doublechaintech.com/','四川省成都市天府新区双链大厦0001','双链集团0001','张喜来','中国中心正式成立，恭喜恭喜0001','1');
 
-insert into catalog_data values
-	('C000001','水果蔬菜','RSCC000001','8','9.26','1'),
-	('C000002','肉禽蛋奶','RSCC000001','10','8.55','1');
+insert into catalog_data (id,name,owner,sub_count,amount,version) values
+	('C000001','水果蔬菜','RSCC000001','10','9.52','1'),
+	('C000002','肉禽蛋奶','RSCC000001','8','7.99','1');
 
-insert into level_one_category_data values
+insert into level_one_category_data (id,catalog,name,version) values
 	('LOC000001','C000001','水果蔬菜','1'),
 	('LOC000002','C000001','肉禽蛋奶','1'),
 	('LOC000003','C000002','冷热速食','1'),
 	('LOC000004','C000002','休闲食品','1');
 
-insert into level_two_category_data values
+insert into level_two_category_data (id,parent_category,name,version) values
 	('LTC000001','LOC000001','水果蔬菜','1'),
 	('LTC000002','LOC000001','肉禽蛋奶','1'),
 	('LTC000003','LOC000002','冷热速食','1'),
@@ -1660,7 +1660,7 @@ insert into level_two_category_data values
 	('LTC000007','LOC000004','清洁日化','1'),
 	('LTC000008','LOC000004','家居用品','1');
 
-insert into level_three_category_data values
+insert into level_three_category_data (id,parent_category,name,version) values
 	('LTC000001','LTC000001','水果蔬菜','1'),
 	('LTC000002','LTC000001','肉禽蛋奶','1'),
 	('LTC000003','LTC000002','冷热速食','1'),
@@ -1678,161 +1678,161 @@ insert into level_three_category_data values
 	('LTC000015','LTC000008','酒水饮料','1'),
 	('LTC000016','LTC000008','粮油调味','1');
 
-insert into product_data values
-	('P000001','啤酒','LTC000001','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0001','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0001','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0001/400/200/grey/','2021-08-26 03:05:11','1'),
-	('P000002','可乐','LTC000001','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0002','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0002','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0002/400/200/grey/','2021-08-25 22:30:18','1'),
-	('P000003','久久鸭','LTC000002','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0003','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0003','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0003/400/200/grey/','2021-08-28 10:37:35','1'),
-	('P000004','啤酒','LTC000002','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0004','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0004','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0004/400/200/grey/','2021-09-01 12:06:16','1'),
-	('P000005','可乐','LTC000003','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0005','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0005','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0005/400/200/grey/','2021-08-25 20:26:40','1'),
-	('P000006','久久鸭','LTC000003','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0006','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0006','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0006/400/200/grey/','2021-09-02 16:46:01','1'),
-	('P000007','啤酒','LTC000004','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0007','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0007','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0007/400/200/grey/','2021-08-26 00:43:32','1'),
-	('P000008','可乐','LTC000004','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0008','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0008','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0008/400/200/grey/','2021-08-30 15:18:41','1'),
-	('P000009','久久鸭','LTC000005','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0009','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0009','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0009/400/200/grey/','2021-08-30 22:19:09','1'),
-	('P000010','啤酒','LTC000005','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0010','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0010','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0010/400/200/grey/','2021-08-28 01:12:55','1'),
-	('P000011','可乐','LTC000006','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0011','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0011','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0011/400/200/grey/','2021-09-03 05:11:19','1'),
-	('P000012','久久鸭','LTC000006','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0012','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0012','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0012/400/200/grey/','2021-09-09 05:31:28','1'),
-	('P000013','啤酒','LTC000007','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0013','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0013','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0013/400/200/grey/','2021-09-01 01:46:38','1'),
-	('P000014','可乐','LTC000007','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0014','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0014','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0014/400/200/grey/','2021-09-02 20:24:29','1'),
-	('P000015','久久鸭','LTC000008','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0015','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0015','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0015/400/200/grey/','2021-09-09 02:49:41','1'),
-	('P000016','啤酒','LTC000008','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0016','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0016','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0016/400/200/grey/','2021-08-25 10:23:31','1'),
-	('P000017','可乐','LTC000009','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0017','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0017','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0017/400/200/grey/','2021-09-11 02:22:07','1'),
-	('P000018','久久鸭','LTC000009','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0018','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0018','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0018/400/200/grey/','2021-09-06 19:29:46','1'),
-	('P000019','啤酒','LTC000010','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0019','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0019','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0019/400/200/grey/','2021-08-26 20:49:00','1'),
-	('P000020','可乐','LTC000010','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0020','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0020','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0020/400/200/grey/','2021-09-07 17:02:12','1'),
-	('P000021','久久鸭','LTC000011','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0021','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0021','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0021/400/200/grey/','2021-08-31 20:51:30','1'),
-	('P000022','啤酒','LTC000011','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0022','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0022','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0022/400/200/grey/','2021-08-29 16:14:24','1'),
-	('P000023','可乐','LTC000012','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0023','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0023','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0023/400/200/grey/','2021-08-29 22:54:07','1'),
-	('P000024','久久鸭','LTC000012','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0024','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0024','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0024/400/200/grey/','2021-09-08 05:14:17','1'),
-	('P000025','啤酒','LTC000013','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0025','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0025','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0025/400/200/grey/','2021-09-09 00:59:49','1'),
-	('P000026','可乐','LTC000013','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0026','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0026','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0026/400/200/grey/','2021-09-08 07:29:34','1'),
-	('P000027','久久鸭','LTC000014','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0027','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0027','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0027/400/200/grey/','2021-08-28 15:28:55','1'),
-	('P000028','啤酒','LTC000014','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0028','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0028','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0028/400/200/grey/','2021-09-01 03:08:14','1'),
-	('P000029','可乐','LTC000015','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0029','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0029','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0029/400/200/grey/','2021-09-07 05:28:21','1'),
-	('P000030','久久鸭','LTC000015','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0030','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0030','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0030/400/200/grey/','2021-09-04 21:05:28','1'),
-	('P000031','啤酒','LTC000016','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0031','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0031','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0031/400/200/grey/','2021-09-03 02:18:12','1'),
-	('P000032','可乐','LTC000016','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0032','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0032','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0032/400/200/grey/','2021-09-11 10:42:15','1');
+insert into product_data (id,name,parent_category,origin,remark,brand,picture,last_update_time,version) values
+	('P000001','啤酒','LTC000001','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0001','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0001','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0001/400/200/grey/','2022-09-24 16:17:52','1'),
+	('P000002','可乐','LTC000001','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0002','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0002','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0002/400/200/grey/','2022-09-29 19:48:22','1'),
+	('P000003','久久鸭','LTC000002','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0003','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0003','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0003/400/200/grey/','2022-09-13 02:55:24','1'),
+	('P000004','啤酒','LTC000002','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0004','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0004','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0004/400/200/grey/','2022-09-14 08:37:19','1'),
+	('P000005','可乐','LTC000003','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0005','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0005','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0005/400/200/grey/','2022-09-27 11:25:19','1'),
+	('P000006','久久鸭','LTC000003','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0006','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0006','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0006/400/200/grey/','2022-09-28 10:57:56','1'),
+	('P000007','啤酒','LTC000004','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0007','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0007','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0007/400/200/grey/','2022-09-29 08:16:08','1'),
+	('P000008','可乐','LTC000004','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0008','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0008','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0008/400/200/grey/','2022-09-19 21:30:02','1'),
+	('P000009','久久鸭','LTC000005','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0009','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0009','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0009/400/200/grey/','2022-09-24 17:48:24','1'),
+	('P000010','啤酒','LTC000005','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0010','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0010','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0010/400/200/grey/','2022-09-12 21:21:24','1'),
+	('P000011','可乐','LTC000006','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0011','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0011','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0011/400/200/grey/','2022-09-27 12:57:04','1'),
+	('P000012','久久鸭','LTC000006','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0012','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0012','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0012/400/200/grey/','2022-09-27 11:31:42','1'),
+	('P000013','啤酒','LTC000007','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0013','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0013','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0013/400/200/grey/','2022-09-12 00:46:56','1'),
+	('P000014','可乐','LTC000007','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0014','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0014','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0014/400/200/grey/','2022-09-29 13:53:14','1'),
+	('P000015','久久鸭','LTC000008','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0015','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0015','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0015/400/200/grey/','2022-09-17 20:34:52','1'),
+	('P000016','啤酒','LTC000008','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0016','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0016','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0016/400/200/grey/','2022-09-22 11:14:20','1'),
+	('P000017','可乐','LTC000009','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0017','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0017','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0017/400/200/grey/','2022-09-09 21:28:01','1'),
+	('P000018','久久鸭','LTC000009','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0018','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0018','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0018/400/200/grey/','2022-09-15 12:14:57','1'),
+	('P000019','啤酒','LTC000010','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0019','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0019','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0019/400/200/grey/','2022-09-22 07:10:42','1'),
+	('P000020','可乐','LTC000010','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0020','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0020','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0020/400/200/grey/','2022-09-28 05:14:14','1'),
+	('P000021','久久鸭','LTC000011','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0021','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0021','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0021/400/200/grey/','2022-09-10 22:12:28','1'),
+	('P000022','啤酒','LTC000011','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0022','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0022','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0022/400/200/grey/','2022-09-15 20:47:45','1'),
+	('P000023','可乐','LTC000012','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0023','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0023','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0023/400/200/grey/','2022-09-26 20:36:29','1'),
+	('P000024','久久鸭','LTC000012','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0024','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0024','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0024/400/200/grey/','2022-09-30 02:58:37','1'),
+	('P000025','啤酒','LTC000013','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0025','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0025','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0025/400/200/grey/','2022-09-28 12:17:22','1'),
+	('P000026','可乐','LTC000013','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0026','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0026','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0026/400/200/grey/','2022-09-10 15:25:00','1'),
+	('P000027','久久鸭','LTC000014','江苏','可口可乐，销售百年的糖水，获得了全世界额青睐0027','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0027','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0027/400/200/grey/','2022-09-28 08:54:30','1'),
+	('P000028','啤酒','LTC000014','安徽','可口可乐，销售百年的糖水，获得了全世界额青睐0028','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0028','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0028/400/200/grey/','2022-09-18 14:30:11','1'),
+	('P000029','可乐','LTC000015','日本','可口可乐，销售百年的糖水，获得了全世界额青睐0029','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0029','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0029/400/200/grey/','2022-09-10 01:38:42','1'),
+	('P000030','久久鸭','LTC000015','法国','可口可乐，销售百年的糖水，获得了全世界额青睐0030','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0030','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0030/400/200/grey/','2022-09-27 10:36:22','1'),
+	('P000031','啤酒','LTC000016','四川','可口可乐，销售百年的糖水，获得了全世界额青睐0031','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0031','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0031/400/200/grey/','2022-09-25 15:21:12','1'),
+	('P000032','可乐','LTC000016','广东','可口可乐，销售百年的糖水，获得了全世界额青睐0032','品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品0032','https://demo.doublechaintech.com/demodata/imageManager/genImage/this is a looooooooooog0032/400/200/grey/','2022-09-22 08:07:34','1');
 
-insert into sku_data values
-	('S000001','可乐-大罐的0001','大','P000001','TM000000000010001','包装类型0001','包装数量等信息,包装数量等信息,包装数量等信息0001','991.97','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0001/400/200/grey/','1'),
-	('S000002','可乐-大罐的0002','中','P000001','TM000000000010002','包装类型0002','包装数量等信息,包装数量等信息,包装数量等信息0002','1230.11','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0002/400/200/grey/','1'),
-	('S000003','可乐-大罐的0003','小','P000002','TM000000000010003','包装类型0003','包装数量等信息,包装数量等信息,包装数量等信息0003','1288.03','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0003/400/200/grey/','1'),
-	('S000004','可乐-大罐的0004','大','P000002','TM000000000010004','包装类型0004','包装数量等信息,包装数量等信息,包装数量等信息0004','1309.51','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0004/400/200/grey/','1'),
-	('S000005','可乐-大罐的0005','中','P000003','TM000000000010005','包装类型0005','包装数量等信息,包装数量等信息,包装数量等信息0005','1220.39','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0005/400/200/grey/','1'),
-	('S000006','可乐-大罐的0006','小','P000003','TM000000000010006','包装类型0006','包装数量等信息,包装数量等信息,包装数量等信息0006','1185.24','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0006/400/200/grey/','1'),
-	('S000007','可乐-大罐的0007','大','P000004','TM000000000010007','包装类型0007','包装数量等信息,包装数量等信息,包装数量等信息0007','1286.19','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0007/400/200/grey/','1'),
-	('S000008','可乐-大罐的0008','中','P000004','TM000000000010008','包装类型0008','包装数量等信息,包装数量等信息,包装数量等信息0008','990.43','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0008/400/200/grey/','1'),
-	('S000009','可乐-大罐的0009','小','P000005','TM000000000010009','包装类型0009','包装数量等信息,包装数量等信息,包装数量等信息0009','1012.44','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0009/400/200/grey/','1'),
-	('S000010','可乐-大罐的0010','大','P000005','TM000000000010010','包装类型0010','包装数量等信息,包装数量等信息,包装数量等信息0010','966.44','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0010/400/200/grey/','1'),
-	('S000011','可乐-大罐的0011','中','P000006','TM000000000010011','包装类型0011','包装数量等信息,包装数量等信息,包装数量等信息0011','1067.98','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0011/400/200/grey/','1'),
-	('S000012','可乐-大罐的0012','小','P000006','TM000000000010012','包装类型0012','包装数量等信息,包装数量等信息,包装数量等信息0012','928.25','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0012/400/200/grey/','1'),
-	('S000013','可乐-大罐的0013','大','P000007','TM000000000010013','包装类型0013','包装数量等信息,包装数量等信息,包装数量等信息0013','1189.95','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0013/400/200/grey/','1'),
-	('S000014','可乐-大罐的0014','中','P000007','TM000000000010014','包装类型0014','包装数量等信息,包装数量等信息,包装数量等信息0014','976.17','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0014/400/200/grey/','1'),
-	('S000015','可乐-大罐的0015','小','P000008','TM000000000010015','包装类型0015','包装数量等信息,包装数量等信息,包装数量等信息0015','1221.53','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0015/400/200/grey/','1'),
-	('S000016','可乐-大罐的0016','大','P000008','TM000000000010016','包装类型0016','包装数量等信息,包装数量等信息,包装数量等信息0016','1098.76','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0016/400/200/grey/','1'),
-	('S000017','可乐-大罐的0017','中','P000009','TM000000000010017','包装类型0017','包装数量等信息,包装数量等信息,包装数量等信息0017','1057.80','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0017/400/200/grey/','1'),
-	('S000018','可乐-大罐的0018','小','P000009','TM000000000010018','包装类型0018','包装数量等信息,包装数量等信息,包装数量等信息0018','1270.31','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0018/400/200/grey/','1'),
-	('S000019','可乐-大罐的0019','大','P000010','TM000000000010019','包装类型0019','包装数量等信息,包装数量等信息,包装数量等信息0019','946.42','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0019/400/200/grey/','1'),
-	('S000020','可乐-大罐的0020','中','P000010','TM000000000010020','包装类型0020','包装数量等信息,包装数量等信息,包装数量等信息0020','1294.90','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0020/400/200/grey/','1'),
-	('S000021','可乐-大罐的0021','小','P000011','TM000000000010021','包装类型0021','包装数量等信息,包装数量等信息,包装数量等信息0021','1283.70','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0021/400/200/grey/','1'),
-	('S000022','可乐-大罐的0022','大','P000011','TM000000000010022','包装类型0022','包装数量等信息,包装数量等信息,包装数量等信息0022','1061.43','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0022/400/200/grey/','1'),
-	('S000023','可乐-大罐的0023','中','P000012','TM000000000010023','包装类型0023','包装数量等信息,包装数量等信息,包装数量等信息0023','1179.22','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0023/400/200/grey/','1'),
-	('S000024','可乐-大罐的0024','小','P000012','TM000000000010024','包装类型0024','包装数量等信息,包装数量等信息,包装数量等信息0024','967.85','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0024/400/200/grey/','1'),
-	('S000025','可乐-大罐的0025','大','P000013','TM000000000010025','包装类型0025','包装数量等信息,包装数量等信息,包装数量等信息0025','949.48','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0025/400/200/grey/','1'),
-	('S000026','可乐-大罐的0026','中','P000013','TM000000000010026','包装类型0026','包装数量等信息,包装数量等信息,包装数量等信息0026','1317.77','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0026/400/200/grey/','1'),
-	('S000027','可乐-大罐的0027','小','P000014','TM000000000010027','包装类型0027','包装数量等信息,包装数量等信息,包装数量等信息0027','1236.80','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0027/400/200/grey/','1'),
-	('S000028','可乐-大罐的0028','大','P000014','TM000000000010028','包装类型0028','包装数量等信息,包装数量等信息,包装数量等信息0028','1078.13','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0028/400/200/grey/','1'),
-	('S000029','可乐-大罐的0029','中','P000015','TM000000000010029','包装类型0029','包装数量等信息,包装数量等信息,包装数量等信息0029','1106.64','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0029/400/200/grey/','1'),
-	('S000030','可乐-大罐的0030','小','P000015','TM000000000010030','包装类型0030','包装数量等信息,包装数量等信息,包装数量等信息0030','934.48','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0030/400/200/grey/','1'),
-	('S000031','可乐-大罐的0031','大','P000016','TM000000000010031','包装类型0031','包装数量等信息,包装数量等信息,包装数量等信息0031','1214.49','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0031/400/200/grey/','1'),
-	('S000032','可乐-大罐的0032','中','P000016','TM000000000010032','包装类型0032','包装数量等信息,包装数量等信息,包装数量等信息0032','1003.38','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0032/400/200/grey/','1'),
-	('S000033','可乐-大罐的0033','小','P000017','TM000000000010033','包装类型0033','包装数量等信息,包装数量等信息,包装数量等信息0033','1082.65','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0033/400/200/grey/','1'),
-	('S000034','可乐-大罐的0034','大','P000017','TM000000000010034','包装类型0034','包装数量等信息,包装数量等信息,包装数量等信息0034','1233.86','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0034/400/200/grey/','1'),
-	('S000035','可乐-大罐的0035','中','P000018','TM000000000010035','包装类型0035','包装数量等信息,包装数量等信息,包装数量等信息0035','1023.12','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0035/400/200/grey/','1'),
-	('S000036','可乐-大罐的0036','小','P000018','TM000000000010036','包装类型0036','包装数量等信息,包装数量等信息,包装数量等信息0036','1000.32','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0036/400/200/grey/','1'),
-	('S000037','可乐-大罐的0037','大','P000019','TM000000000010037','包装类型0037','包装数量等信息,包装数量等信息,包装数量等信息0037','1132.21','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0037/400/200/grey/','1'),
-	('S000038','可乐-大罐的0038','中','P000019','TM000000000010038','包装类型0038','包装数量等信息,包装数量等信息,包装数量等信息0038','1197.09','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0038/400/200/grey/','1'),
-	('S000039','可乐-大罐的0039','小','P000020','TM000000000010039','包装类型0039','包装数量等信息,包装数量等信息,包装数量等信息0039','965.94','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0039/400/200/grey/','1'),
-	('S000040','可乐-大罐的0040','大','P000020','TM000000000010040','包装类型0040','包装数量等信息,包装数量等信息,包装数量等信息0040','1185.73','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0040/400/200/grey/','1'),
-	('S000041','可乐-大罐的0041','中','P000021','TM000000000010041','包装类型0041','包装数量等信息,包装数量等信息,包装数量等信息0041','1000.96','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0041/400/200/grey/','1'),
-	('S000042','可乐-大罐的0042','小','P000021','TM000000000010042','包装类型0042','包装数量等信息,包装数量等信息,包装数量等信息0042','1102.04','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0042/400/200/grey/','1'),
-	('S000043','可乐-大罐的0043','大','P000022','TM000000000010043','包装类型0043','包装数量等信息,包装数量等信息,包装数量等信息0043','975.92','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0043/400/200/grey/','1'),
-	('S000044','可乐-大罐的0044','中','P000022','TM000000000010044','包装类型0044','包装数量等信息,包装数量等信息,包装数量等信息0044','960.73','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0044/400/200/grey/','1'),
-	('S000045','可乐-大罐的0045','小','P000023','TM000000000010045','包装类型0045','包装数量等信息,包装数量等信息,包装数量等信息0045','1069.38','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0045/400/200/grey/','1'),
-	('S000046','可乐-大罐的0046','大','P000023','TM000000000010046','包装类型0046','包装数量等信息,包装数量等信息,包装数量等信息0046','954.32','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0046/400/200/grey/','1'),
-	('S000047','可乐-大罐的0047','中','P000024','TM000000000010047','包装类型0047','包装数量等信息,包装数量等信息,包装数量等信息0047','991.35','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0047/400/200/grey/','1'),
-	('S000048','可乐-大罐的0048','小','P000024','TM000000000010048','包装类型0048','包装数量等信息,包装数量等信息,包装数量等信息0048','1011.49','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0048/400/200/grey/','1'),
-	('S000049','可乐-大罐的0049','大','P000025','TM000000000010049','包装类型0049','包装数量等信息,包装数量等信息,包装数量等信息0049','1099.10','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0049/400/200/grey/','1'),
-	('S000050','可乐-大罐的0050','中','P000025','TM000000000010050','包装类型0050','包装数量等信息,包装数量等信息,包装数量等信息0050','954.84','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0050/400/200/grey/','1'),
-	('S000051','可乐-大罐的0051','小','P000026','TM000000000010051','包装类型0051','包装数量等信息,包装数量等信息,包装数量等信息0051','1211.57','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0051/400/200/grey/','1'),
-	('S000052','可乐-大罐的0052','大','P000026','TM000000000010052','包装类型0052','包装数量等信息,包装数量等信息,包装数量等信息0052','1019.29','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0052/400/200/grey/','1'),
-	('S000053','可乐-大罐的0053','中','P000027','TM000000000010053','包装类型0053','包装数量等信息,包装数量等信息,包装数量等信息0053','1235.79','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0053/400/200/grey/','1'),
-	('S000054','可乐-大罐的0054','小','P000027','TM000000000010054','包装类型0054','包装数量等信息,包装数量等信息,包装数量等信息0054','1273.64','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0054/400/200/grey/','1'),
-	('S000055','可乐-大罐的0055','大','P000028','TM000000000010055','包装类型0055','包装数量等信息,包装数量等信息,包装数量等信息0055','1245.61','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0055/400/200/grey/','1'),
-	('S000056','可乐-大罐的0056','中','P000028','TM000000000010056','包装类型0056','包装数量等信息,包装数量等信息,包装数量等信息0056','971.87','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0056/400/200/grey/','1'),
-	('S000057','可乐-大罐的0057','小','P000029','TM000000000010057','包装类型0057','包装数量等信息,包装数量等信息,包装数量等信息0057','1130.59','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0057/400/200/grey/','1'),
-	('S000058','可乐-大罐的0058','大','P000029','TM000000000010058','包装类型0058','包装数量等信息,包装数量等信息,包装数量等信息0058','1266.77','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0058/400/200/grey/','1'),
-	('S000059','可乐-大罐的0059','中','P000030','TM000000000010059','包装类型0059','包装数量等信息,包装数量等信息,包装数量等信息0059','1047.62','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0059/400/200/grey/','1'),
-	('S000060','可乐-大罐的0060','小','P000030','TM000000000010060','包装类型0060','包装数量等信息,包装数量等信息,包装数量等信息0060','1270.99','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0060/400/200/grey/','1'),
-	('S000061','可乐-大罐的0061','大','P000031','TM000000000010061','包装类型0061','包装数量等信息,包装数量等信息,包装数量等信息0061','1160.31','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0061/400/200/grey/','1'),
-	('S000062','可乐-大罐的0062','中','P000031','TM000000000010062','包装类型0062','包装数量等信息,包装数量等信息,包装数量等信息0062','1276.65','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0062/400/200/grey/','1'),
-	('S000063','可乐-大罐的0063','小','P000032','TM000000000010063','包装类型0063','包装数量等信息,包装数量等信息,包装数量等信息0063','1320.66','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0063/400/200/grey/','1'),
-	('S000064','可乐-大罐的0064','大','P000032','TM000000000010064','包装类型0064','包装数量等信息,包装数量等信息,包装数量等信息0064','1143.57','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0064/400/200/grey/','1');
+insert into sku_data (id,name,size,product,barcode,package_type,net_content,price,picture,version) values
+	('S000001','可乐-大罐的0001','大','P000001','TM000000000010001','包装类型0001','包装数量等信息,包装数量等信息,包装数量等信息0001','1193.69','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0001/400/200/grey/','1'),
+	('S000002','可乐-大罐的0002','中','P000001','TM000000000010002','包装类型0002','包装数量等信息,包装数量等信息,包装数量等信息0002','1070.45','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0002/400/200/grey/','1'),
+	('S000003','可乐-大罐的0003','小','P000002','TM000000000010003','包装类型0003','包装数量等信息,包装数量等信息,包装数量等信息0003','1141.92','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0003/400/200/grey/','1'),
+	('S000004','可乐-大罐的0004','大','P000002','TM000000000010004','包装类型0004','包装数量等信息,包装数量等信息,包装数量等信息0004','1148.49','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0004/400/200/grey/','1'),
+	('S000005','可乐-大罐的0005','中','P000003','TM000000000010005','包装类型0005','包装数量等信息,包装数量等信息,包装数量等信息0005','1253.96','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0005/400/200/grey/','1'),
+	('S000006','可乐-大罐的0006','小','P000003','TM000000000010006','包装类型0006','包装数量等信息,包装数量等信息,包装数量等信息0006','1303.67','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0006/400/200/grey/','1'),
+	('S000007','可乐-大罐的0007','大','P000004','TM000000000010007','包装类型0007','包装数量等信息,包装数量等信息,包装数量等信息0007','1176.36','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0007/400/200/grey/','1'),
+	('S000008','可乐-大罐的0008','中','P000004','TM000000000010008','包装类型0008','包装数量等信息,包装数量等信息,包装数量等信息0008','981.49','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0008/400/200/grey/','1'),
+	('S000009','可乐-大罐的0009','小','P000005','TM000000000010009','包装类型0009','包装数量等信息,包装数量等信息,包装数量等信息0009','1104.48','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0009/400/200/grey/','1'),
+	('S000010','可乐-大罐的0010','大','P000005','TM000000000010010','包装类型0010','包装数量等信息,包装数量等信息,包装数量等信息0010','1087.15','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0010/400/200/grey/','1'),
+	('S000011','可乐-大罐的0011','中','P000006','TM000000000010011','包装类型0011','包装数量等信息,包装数量等信息,包装数量等信息0011','1222.17','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0011/400/200/grey/','1'),
+	('S000012','可乐-大罐的0012','小','P000006','TM000000000010012','包装类型0012','包装数量等信息,包装数量等信息,包装数量等信息0012','1202.23','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0012/400/200/grey/','1'),
+	('S000013','可乐-大罐的0013','大','P000007','TM000000000010013','包装类型0013','包装数量等信息,包装数量等信息,包装数量等信息0013','1091.54','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0013/400/200/grey/','1'),
+	('S000014','可乐-大罐的0014','中','P000007','TM000000000010014','包装类型0014','包装数量等信息,包装数量等信息,包装数量等信息0014','1097.27','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0014/400/200/grey/','1'),
+	('S000015','可乐-大罐的0015','小','P000008','TM000000000010015','包装类型0015','包装数量等信息,包装数量等信息,包装数量等信息0015','948.33','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0015/400/200/grey/','1'),
+	('S000016','可乐-大罐的0016','大','P000008','TM000000000010016','包装类型0016','包装数量等信息,包装数量等信息,包装数量等信息0016','1047.94','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0016/400/200/grey/','1'),
+	('S000017','可乐-大罐的0017','中','P000009','TM000000000010017','包装类型0017','包装数量等信息,包装数量等信息,包装数量等信息0017','1277.41','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0017/400/200/grey/','1'),
+	('S000018','可乐-大罐的0018','小','P000009','TM000000000010018','包装类型0018','包装数量等信息,包装数量等信息,包装数量等信息0018','1265.45','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0018/400/200/grey/','1'),
+	('S000019','可乐-大罐的0019','大','P000010','TM000000000010019','包装类型0019','包装数量等信息,包装数量等信息,包装数量等信息0019','1318.48','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0019/400/200/grey/','1'),
+	('S000020','可乐-大罐的0020','中','P000010','TM000000000010020','包装类型0020','包装数量等信息,包装数量等信息,包装数量等信息0020','1272.84','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0020/400/200/grey/','1'),
+	('S000021','可乐-大罐的0021','小','P000011','TM000000000010021','包装类型0021','包装数量等信息,包装数量等信息,包装数量等信息0021','1127.28','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0021/400/200/grey/','1'),
+	('S000022','可乐-大罐的0022','大','P000011','TM000000000010022','包装类型0022','包装数量等信息,包装数量等信息,包装数量等信息0022','1202.07','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0022/400/200/grey/','1'),
+	('S000023','可乐-大罐的0023','中','P000012','TM000000000010023','包装类型0023','包装数量等信息,包装数量等信息,包装数量等信息0023','1308.59','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0023/400/200/grey/','1'),
+	('S000024','可乐-大罐的0024','小','P000012','TM000000000010024','包装类型0024','包装数量等信息,包装数量等信息,包装数量等信息0024','1253.05','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0024/400/200/grey/','1'),
+	('S000025','可乐-大罐的0025','大','P000013','TM000000000010025','包装类型0025','包装数量等信息,包装数量等信息,包装数量等信息0025','1256.12','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0025/400/200/grey/','1'),
+	('S000026','可乐-大罐的0026','中','P000013','TM000000000010026','包装类型0026','包装数量等信息,包装数量等信息,包装数量等信息0026','1242.98','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0026/400/200/grey/','1'),
+	('S000027','可乐-大罐的0027','小','P000014','TM000000000010027','包装类型0027','包装数量等信息,包装数量等信息,包装数量等信息0027','928.31','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0027/400/200/grey/','1'),
+	('S000028','可乐-大罐的0028','大','P000014','TM000000000010028','包装类型0028','包装数量等信息,包装数量等信息,包装数量等信息0028','953.16','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0028/400/200/grey/','1'),
+	('S000029','可乐-大罐的0029','中','P000015','TM000000000010029','包装类型0029','包装数量等信息,包装数量等信息,包装数量等信息0029','1086.04','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0029/400/200/grey/','1'),
+	('S000030','可乐-大罐的0030','小','P000015','TM000000000010030','包装类型0030','包装数量等信息,包装数量等信息,包装数量等信息0030','1119.02','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0030/400/200/grey/','1'),
+	('S000031','可乐-大罐的0031','大','P000016','TM000000000010031','包装类型0031','包装数量等信息,包装数量等信息,包装数量等信息0031','1186.20','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0031/400/200/grey/','1'),
+	('S000032','可乐-大罐的0032','中','P000016','TM000000000010032','包装类型0032','包装数量等信息,包装数量等信息,包装数量等信息0032','1052.56','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0032/400/200/grey/','1'),
+	('S000033','可乐-大罐的0033','小','P000017','TM000000000010033','包装类型0033','包装数量等信息,包装数量等信息,包装数量等信息0033','1179.34','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0033/400/200/grey/','1'),
+	('S000034','可乐-大罐的0034','大','P000017','TM000000000010034','包装类型0034','包装数量等信息,包装数量等信息,包装数量等信息0034','1300.05','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0034/400/200/grey/','1'),
+	('S000035','可乐-大罐的0035','中','P000018','TM000000000010035','包装类型0035','包装数量等信息,包装数量等信息,包装数量等信息0035','1138.55','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0035/400/200/grey/','1'),
+	('S000036','可乐-大罐的0036','小','P000018','TM000000000010036','包装类型0036','包装数量等信息,包装数量等信息,包装数量等信息0036','1285.02','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0036/400/200/grey/','1'),
+	('S000037','可乐-大罐的0037','大','P000019','TM000000000010037','包装类型0037','包装数量等信息,包装数量等信息,包装数量等信息0037','1162.87','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0037/400/200/grey/','1'),
+	('S000038','可乐-大罐的0038','中','P000019','TM000000000010038','包装类型0038','包装数量等信息,包装数量等信息,包装数量等信息0038','1147.16','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0038/400/200/grey/','1'),
+	('S000039','可乐-大罐的0039','小','P000020','TM000000000010039','包装类型0039','包装数量等信息,包装数量等信息,包装数量等信息0039','1251.73','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0039/400/200/grey/','1'),
+	('S000040','可乐-大罐的0040','大','P000020','TM000000000010040','包装类型0040','包装数量等信息,包装数量等信息,包装数量等信息0040','1305.65','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0040/400/200/grey/','1'),
+	('S000041','可乐-大罐的0041','中','P000021','TM000000000010041','包装类型0041','包装数量等信息,包装数量等信息,包装数量等信息0041','1034.40','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0041/400/200/grey/','1'),
+	('S000042','可乐-大罐的0042','小','P000021','TM000000000010042','包装类型0042','包装数量等信息,包装数量等信息,包装数量等信息0042','995.73','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0042/400/200/grey/','1'),
+	('S000043','可乐-大罐的0043','大','P000022','TM000000000010043','包装类型0043','包装数量等信息,包装数量等信息,包装数量等信息0043','1214.22','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0043/400/200/grey/','1'),
+	('S000044','可乐-大罐的0044','中','P000022','TM000000000010044','包装类型0044','包装数量等信息,包装数量等信息,包装数量等信息0044','1036.25','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0044/400/200/grey/','1'),
+	('S000045','可乐-大罐的0045','小','P000023','TM000000000010045','包装类型0045','包装数量等信息,包装数量等信息,包装数量等信息0045','928.03','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0045/400/200/grey/','1'),
+	('S000046','可乐-大罐的0046','大','P000023','TM000000000010046','包装类型0046','包装数量等信息,包装数量等信息,包装数量等信息0046','974.74','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0046/400/200/grey/','1'),
+	('S000047','可乐-大罐的0047','中','P000024','TM000000000010047','包装类型0047','包装数量等信息,包装数量等信息,包装数量等信息0047','1309.50','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0047/400/200/grey/','1'),
+	('S000048','可乐-大罐的0048','小','P000024','TM000000000010048','包装类型0048','包装数量等信息,包装数量等信息,包装数量等信息0048','1080.63','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0048/400/200/grey/','1'),
+	('S000049','可乐-大罐的0049','大','P000025','TM000000000010049','包装类型0049','包装数量等信息,包装数量等信息,包装数量等信息0049','944.05','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0049/400/200/grey/','1'),
+	('S000050','可乐-大罐的0050','中','P000025','TM000000000010050','包装类型0050','包装数量等信息,包装数量等信息,包装数量等信息0050','942.36','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0050/400/200/grey/','1'),
+	('S000051','可乐-大罐的0051','小','P000026','TM000000000010051','包装类型0051','包装数量等信息,包装数量等信息,包装数量等信息0051','1297.45','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0051/400/200/grey/','1'),
+	('S000052','可乐-大罐的0052','大','P000026','TM000000000010052','包装类型0052','包装数量等信息,包装数量等信息,包装数量等信息0052','978.95','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0052/400/200/grey/','1'),
+	('S000053','可乐-大罐的0053','中','P000027','TM000000000010053','包装类型0053','包装数量等信息,包装数量等信息,包装数量等信息0053','1026.26','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0053/400/200/grey/','1'),
+	('S000054','可乐-大罐的0054','小','P000027','TM000000000010054','包装类型0054','包装数量等信息,包装数量等信息,包装数量等信息0054','1302.50','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0054/400/200/grey/','1'),
+	('S000055','可乐-大罐的0055','大','P000028','TM000000000010055','包装类型0055','包装数量等信息,包装数量等信息,包装数量等信息0055','983.25','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0055/400/200/grey/','1'),
+	('S000056','可乐-大罐的0056','中','P000028','TM000000000010056','包装类型0056','包装数量等信息,包装数量等信息,包装数量等信息0056','1251.36','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0056/400/200/grey/','1'),
+	('S000057','可乐-大罐的0057','小','P000029','TM000000000010057','包装类型0057','包装数量等信息,包装数量等信息,包装数量等信息0057','1021.15','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0057/400/200/grey/','1'),
+	('S000058','可乐-大罐的0058','大','P000029','TM000000000010058','包装类型0058','包装数量等信息,包装数量等信息,包装数量等信息0058','1129.08','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0058/400/200/grey/','1'),
+	('S000059','可乐-大罐的0059','中','P000030','TM000000000010059','包装类型0059','包装数量等信息,包装数量等信息,包装数量等信息0059','992.40','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0059/400/200/grey/','1'),
+	('S000060','可乐-大罐的0060','小','P000030','TM000000000010060','包装类型0060','包装数量等信息,包装数量等信息,包装数量等信息0060','1019.36','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0060/400/200/grey/','1'),
+	('S000061','可乐-大罐的0061','大','P000031','TM000000000010061','包装类型0061','包装数量等信息,包装数量等信息,包装数量等信息0061','994.27','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0061/400/200/grey/','1'),
+	('S000062','可乐-大罐的0062','中','P000031','TM000000000010062','包装类型0062','包装数量等信息,包装数量等信息,包装数量等信息0062','1066.17','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0062/400/200/grey/','1'),
+	('S000063','可乐-大罐的0063','小','P000032','TM000000000010063','包装类型0063','包装数量等信息,包装数量等信息,包装数量等信息0063','963.93','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0063/400/200/grey/','1'),
+	('S000064','可乐-大罐的0064','大','P000032','TM000000000010064','包装类型0064','包装数量等信息,包装数量等信息,包装数量等信息0064','1273.39','https://demo.doublechaintech.com/demodata/imageManager/genImage/coco0064/400/200/grey/','1');
 
-insert into retail_store_province_center_data values
-	('RSPC000001','双链小超四川省运营中心','2021-01-28','RSCC000001','2021-09-10 07:41:53','1'),
-	('RSPC000002','双链小超北京运营中心','2020-09-21','RSCC000001','2021-09-04 05:35:11','1');
+insert into retail_store_province_center_data (id,name,founded,country,last_update_time,version) values
+	('RSPC000001','双链小超四川省运营中心','2020-08-05','RSCC000001','2022-09-26 10:50:01','1'),
+	('RSPC000002','双链小超北京运营中心','2022-05-04','RSCC000001','2022-09-20 00:26:53','1');
 
-insert into province_center_department_data values
-	('PCD000001','供应链部','2020-10-01','RSPC000001','刘强','1'),
-	('PCD000002','采购部','2020-03-20','RSPC000001','王德宏','1'),
-	('PCD000003','管理部','2021-01-18','RSPC000002','刘强','1'),
-	('PCD000004','财务部','2020-05-15','RSPC000002','王德宏','1');
+insert into province_center_department_data (id,name,founded,province_center,manager,version) values
+	('PCD000001','供应链部','2021-05-12','RSPC000001','刘强','1'),
+	('PCD000002','采购部','2022-04-14','RSPC000001','王德宏','1'),
+	('PCD000003','管理部','2020-09-18','RSPC000002','刘强','1'),
+	('PCD000004','财务部','2020-06-03','RSPC000002','王德宏','1');
 
-insert into province_center_employee_data values
-	('PCE000001','刘强','13999998888','wangdehong@yatang.cn','2021-06-25','PCD000001','RSPC000001','1'),
-	('PCE000002','王德宏','13900000002','liuqiang@yatang.cn','2019-10-12','PCD000001','RSPC000001','1'),
-	('PCE000003','刘强','13900000003','wangdehong@yatang.cn','2021-05-25','PCD000002','RSPC000001','1'),
-	('PCE000004','王德宏','13900000004','liuqiang@yatang.cn','2021-04-29','PCD000002','RSPC000001','1'),
-	('PCE000005','刘强','13900000005','wangdehong@yatang.cn','2021-06-27','PCD000003','RSPC000002','1'),
-	('PCE000006','王德宏','13900000006','liuqiang@yatang.cn','2020-11-16','PCD000003','RSPC000002','1'),
-	('PCE000007','刘强','13900000007','wangdehong@yatang.cn','2019-02-03','PCD000004','RSPC000002','1'),
-	('PCE000008','王德宏','13900000008','liuqiang@yatang.cn','2018-11-12','PCD000004','RSPC000002','1');
+insert into province_center_employee_data (id,name,mobile,email,founded,department,province_center,version) values
+	('PCE000001','刘强','13999998888','wangdehong@yatang.cn','2021-10-27','PCD000001','RSPC000001','1'),
+	('PCE000002','王德宏','13900000002','liuqiang@yatang.cn','2022-06-21','PCD000001','RSPC000001','1'),
+	('PCE000003','刘强','13900000003','wangdehong@yatang.cn','2020-07-30','PCD000002','RSPC000001','1'),
+	('PCE000004','王德宏','13900000004','liuqiang@yatang.cn','2021-08-13','PCD000002','RSPC000001','1'),
+	('PCE000005','刘强','13900000005','wangdehong@yatang.cn','2022-03-06','PCD000003','RSPC000002','1'),
+	('PCE000006','王德宏','13900000006','liuqiang@yatang.cn','2021-09-20','PCD000003','RSPC000002','1'),
+	('PCE000007','刘强','13900000007','wangdehong@yatang.cn','2022-02-09','PCD000004','RSPC000002','1'),
+	('PCE000008','王德宏','13900000008','liuqiang@yatang.cn','2022-09-30','PCD000004','RSPC000002','1');
 
-insert into retail_store_city_service_center_data values
-	('RSCSC000001','双链小超成都办事处','2020-04-04','RSPC000001','2021-08-31 22:33:12','1'),
-	('RSCSC000002','双链小超绵阳办事处','2019-11-11','RSPC000001','2021-09-01 15:49:43','1'),
-	('RSCSC000003','双链小超巴中办事处','2020-11-02','RSPC000002','2021-08-24 07:29:24','1'),
-	('RSCSC000004','双链小超成都办事处','2020-03-26','RSPC000002','2021-08-30 02:26:55','1');
+insert into retail_store_city_service_center_data (id,name,founded,belongs_to,last_update_time,version) values
+	('RSCSC000001','双链小超成都办事处','2021-03-09','RSPC000001','2022-09-11 16:23:09','1'),
+	('RSCSC000002','双链小超绵阳办事处','2021-11-15','RSPC000001','2022-09-10 18:46:53','1'),
+	('RSCSC000003','双链小超巴中办事处','2021-01-31','RSPC000002','2022-09-09 22:57:21','1'),
+	('RSCSC000004','双链小超成都办事处','2022-06-19','RSPC000002','2022-09-22 09:44:22','1');
 
-insert into city_partner_data values
-	('CP000001','曾倩','13677778888','RSCSC000001','负责开拓市场，具有极强的开拓能力0001','2021-09-04 12:34:03','1'),
-	('CP000002','黄风格','13900000002','RSCSC000001','负责开拓市场，具有极强的开拓能力0002','2021-09-11 12:09:32','1'),
-	('CP000003','郭超','13900000003','RSCSC000002','负责开拓市场，具有极强的开拓能力0003','2021-08-31 06:36:26','1'),
-	('CP000004','曾倩','13900000004','RSCSC000002','负责开拓市场，具有极强的开拓能力0004','2021-09-12 07:27:10','1'),
-	('CP000005','黄风格','13900000005','RSCSC000003','负责开拓市场，具有极强的开拓能力0005','2021-08-27 18:36:24','1'),
-	('CP000006','郭超','13900000006','RSCSC000003','负责开拓市场，具有极强的开拓能力0006','2021-08-24 04:40:16','1'),
-	('CP000007','曾倩','13900000007','RSCSC000004','负责开拓市场，具有极强的开拓能力0007','2021-09-03 05:47:17','1'),
-	('CP000008','黄风格','13900000008','RSCSC000004','负责开拓市场，具有极强的开拓能力0008','2021-08-31 08:14:23','1');
+insert into city_partner_data (id,name,mobile,city_service_center,description,last_update_time,version) values
+	('CP000001','曾倩','13677778888','RSCSC000001','负责开拓市场，具有极强的开拓能力0001','2022-09-11 11:14:43','1'),
+	('CP000002','黄风格','13900000002','RSCSC000001','负责开拓市场，具有极强的开拓能力0002','2022-09-23 19:09:01','1'),
+	('CP000003','郭超','13900000003','RSCSC000002','负责开拓市场，具有极强的开拓能力0003','2022-09-28 10:28:54','1'),
+	('CP000004','曾倩','13900000004','RSCSC000002','负责开拓市场，具有极强的开拓能力0004','2022-09-26 07:30:08','1'),
+	('CP000005','黄风格','13900000005','RSCSC000003','负责开拓市场，具有极强的开拓能力0005','2022-09-28 19:50:44','1'),
+	('CP000006','郭超','13900000006','RSCSC000003','负责开拓市场，具有极强的开拓能力0006','2022-09-17 06:58:44','1'),
+	('CP000007','曾倩','13900000007','RSCSC000004','负责开拓市场，具有极强的开拓能力0007','2022-09-13 12:12:35','1'),
+	('CP000008','黄风格','13900000008','RSCSC000004','负责开拓市场，具有极强的开拓能力0008','2022-09-19 01:21:17','1');
 
-insert into potential_customer_data values
-	('PC000001','曾倩','13677778888','RSCSC000001','CP000001','负责开拓市场，具有极强的开拓能力0001','2021-08-25 21:08:50','1'),
-	('PC000002','黄风格','13900000002','RSCSC000001','CP000001','负责开拓市场，具有极强的开拓能力0002','2021-08-26 01:54:36','1'),
-	('PC000003','郭超','13900000003','RSCSC000001','CP000002','负责开拓市场，具有极强的开拓能力0003','2021-09-12 08:02:12','1'),
-	('PC000004','曾倩','13900000004','RSCSC000001','CP000002','负责开拓市场，具有极强的开拓能力0004','2021-08-24 16:53:35','1'),
-	('PC000005','黄风格','13900000005','RSCSC000002','CP000003','负责开拓市场，具有极强的开拓能力0005','2021-09-07 03:40:10','1'),
-	('PC000006','郭超','13900000006','RSCSC000002','CP000003','负责开拓市场，具有极强的开拓能力0006','2021-08-30 11:07:44','1'),
-	('PC000007','曾倩','13900000007','RSCSC000002','CP000004','负责开拓市场，具有极强的开拓能力0007','2021-08-29 02:21:38','1'),
-	('PC000008','黄风格','13900000008','RSCSC000002','CP000004','负责开拓市场，具有极强的开拓能力0008','2021-09-06 13:45:34','1'),
-	('PC000009','郭超','13900000009','RSCSC000003','CP000005','负责开拓市场，具有极强的开拓能力0009','2021-09-07 20:21:35','1'),
-	('PC000010','曾倩','13900000010','RSCSC000003','CP000005','负责开拓市场，具有极强的开拓能力0010','2021-09-02 06:31:02','1'),
-	('PC000011','黄风格','13900000011','RSCSC000003','CP000006','负责开拓市场，具有极强的开拓能力0011','2021-08-30 04:54:56','1'),
-	('PC000012','郭超','13900000012','RSCSC000003','CP000006','负责开拓市场，具有极强的开拓能力0012','2021-09-08 03:07:44','1'),
-	('PC000013','曾倩','13900000013','RSCSC000004','CP000007','负责开拓市场，具有极强的开拓能力0013','2021-08-31 01:38:37','1'),
-	('PC000014','黄风格','13900000014','RSCSC000004','CP000007','负责开拓市场，具有极强的开拓能力0014','2021-08-30 02:42:05','1'),
-	('PC000015','郭超','13900000015','RSCSC000004','CP000008','负责开拓市场，具有极强的开拓能力0015','2021-09-10 19:32:17','1'),
-	('PC000016','曾倩','13900000016','RSCSC000004','CP000008','负责开拓市场，具有极强的开拓能力0016','2021-08-29 12:38:05','1');
+insert into potential_customer_data (id,name,mobile,city_service_center,city_partner,description,last_update_time,version) values
+	('PC000001','曾倩','13677778888','RSCSC000001','CP000001','负责开拓市场，具有极强的开拓能力0001','2022-09-28 00:40:16','1'),
+	('PC000002','黄风格','13900000002','RSCSC000001','CP000001','负责开拓市场，具有极强的开拓能力0002','2022-09-17 06:23:11','1'),
+	('PC000003','郭超','13900000003','RSCSC000001','CP000002','负责开拓市场，具有极强的开拓能力0003','2022-09-30 11:51:05','1'),
+	('PC000004','曾倩','13900000004','RSCSC000001','CP000002','负责开拓市场，具有极强的开拓能力0004','2022-09-14 23:36:08','1'),
+	('PC000005','黄风格','13900000005','RSCSC000002','CP000003','负责开拓市场，具有极强的开拓能力0005','2022-09-22 06:32:04','1'),
+	('PC000006','郭超','13900000006','RSCSC000002','CP000003','负责开拓市场，具有极强的开拓能力0006','2022-09-22 02:54:48','1'),
+	('PC000007','曾倩','13900000007','RSCSC000002','CP000004','负责开拓市场，具有极强的开拓能力0007','2022-09-25 15:35:17','1'),
+	('PC000008','黄风格','13900000008','RSCSC000002','CP000004','负责开拓市场，具有极强的开拓能力0008','2022-09-16 20:34:41','1'),
+	('PC000009','郭超','13900000009','RSCSC000003','CP000005','负责开拓市场，具有极强的开拓能力0009','2022-09-17 12:41:31','1'),
+	('PC000010','曾倩','13900000010','RSCSC000003','CP000005','负责开拓市场，具有极强的开拓能力0010','2022-09-18 11:05:23','1'),
+	('PC000011','黄风格','13900000011','RSCSC000003','CP000006','负责开拓市场，具有极强的开拓能力0011','2022-09-15 16:36:00','1'),
+	('PC000012','郭超','13900000012','RSCSC000003','CP000006','负责开拓市场，具有极强的开拓能力0012','2022-09-12 23:07:28','1'),
+	('PC000013','曾倩','13900000013','RSCSC000004','CP000007','负责开拓市场，具有极强的开拓能力0013','2022-09-16 21:32:49','1'),
+	('PC000014','黄风格','13900000014','RSCSC000004','CP000007','负责开拓市场，具有极强的开拓能力0014','2022-09-26 11:04:38','1'),
+	('PC000015','郭超','13900000015','RSCSC000004','CP000008','负责开拓市场，具有极强的开拓能力0015','2022-09-11 21:53:26','1'),
+	('PC000016','曾倩','13900000016','RSCSC000004','CP000008','负责开拓市场，具有极强的开拓能力0016','2022-09-23 03:22:52','1');
 
-insert into potential_customer_contact_person_data values
+insert into potential_customer_contact_person_data (id,name,mobile,potential_customer,description,version) values
 	('PCCP000001','赵先生0001','13677778888','PC000001','这人在决策中战友较大的权重，密切观察中.....0001','1'),
 	('PCCP000002','赵先生0002','13900000002','PC000001','这人在决策中战友较大的权重，密切观察中.....0002','1'),
 	('PCCP000003','赵先生0003','13900000003','PC000002','这人在决策中战友较大的权重，密切观察中.....0003','1'),
@@ -1866,83 +1866,83 @@ insert into potential_customer_contact_person_data values
 	('PCCP000031','赵先生0031','13900000031','PC000016','这人在决策中战友较大的权重，密切观察中.....0031','1'),
 	('PCCP000032','赵先生0032','13900000032','PC000016','这人在决策中战友较大的权重，密切观察中.....0032','1');
 
-insert into potential_customer_contact_data values
-	('PCC000001','和连载客户的联系记录0001','2019-11-25','电话','PC000001','CP000001','PCCP000001','转化希望很大0001','2021-09-10 19:35:44','1'),
-	('PCC000002','和连载客户的联系记录0002','2021-09-07','短信','PC000001','CP000001','PCCP000001','转化希望很大0002','2021-08-28 21:12:15','1'),
-	('PCC000003','和连载客户的联系记录0003','2019-08-02','登门拜访','PC000001','CP000001','PCCP000002','转化希望很大0003','2021-08-27 21:34:00','1'),
-	('PCC000004','和连载客户的联系记录0004','2020-12-15','活动聊天','PC000001','CP000001','PCCP000002','转化希望很大0004','2021-09-04 16:54:10','1'),
-	('PCC000005','和连载客户的联系记录0005','2019-03-15','电话','PC000002','CP000001','PCCP000003','转化希望很大0005','2021-08-24 07:22:23','1'),
-	('PCC000006','和连载客户的联系记录0006','2019-12-18','短信','PC000002','CP000001','PCCP000003','转化希望很大0006','2021-09-12 12:39:58','1'),
-	('PCC000007','和连载客户的联系记录0007','2020-02-15','登门拜访','PC000002','CP000001','PCCP000004','转化希望很大0007','2021-08-30 01:44:06','1'),
-	('PCC000008','和连载客户的联系记录0008','2021-03-15','活动聊天','PC000002','CP000001','PCCP000004','转化希望很大0008','2021-09-12 10:17:10','1'),
-	('PCC000009','和连载客户的联系记录0009','2019-01-25','电话','PC000003','CP000002','PCCP000005','转化希望很大0009','2021-09-03 12:20:39','1'),
-	('PCC000010','和连载客户的联系记录0010','2019-08-31','短信','PC000003','CP000002','PCCP000005','转化希望很大0010','2021-08-23 01:06:57','1'),
-	('PCC000011','和连载客户的联系记录0011','2019-07-14','登门拜访','PC000003','CP000002','PCCP000006','转化希望很大0011','2021-09-03 13:58:01','1'),
-	('PCC000012','和连载客户的联系记录0012','2020-01-20','活动聊天','PC000003','CP000002','PCCP000006','转化希望很大0012','2021-09-06 10:34:46','1'),
-	('PCC000013','和连载客户的联系记录0013','2020-06-04','电话','PC000004','CP000002','PCCP000007','转化希望很大0013','2021-09-12 01:41:07','1'),
-	('PCC000014','和连载客户的联系记录0014','2018-11-28','短信','PC000004','CP000002','PCCP000007','转化希望很大0014','2021-09-04 04:43:25','1'),
-	('PCC000015','和连载客户的联系记录0015','2018-09-22','登门拜访','PC000004','CP000002','PCCP000008','转化希望很大0015','2021-09-04 00:38:18','1'),
-	('PCC000016','和连载客户的联系记录0016','2019-11-08','活动聊天','PC000004','CP000002','PCCP000008','转化希望很大0016','2021-08-26 20:42:51','1'),
-	('PCC000017','和连载客户的联系记录0017','2021-06-29','电话','PC000005','CP000003','PCCP000009','转化希望很大0017','2021-08-25 06:38:40','1'),
-	('PCC000018','和连载客户的联系记录0018','2018-09-19','短信','PC000005','CP000003','PCCP000009','转化希望很大0018','2021-08-31 06:35:07','1'),
-	('PCC000019','和连载客户的联系记录0019','2018-11-11','登门拜访','PC000005','CP000003','PCCP000010','转化希望很大0019','2021-08-29 04:51:46','1'),
-	('PCC000020','和连载客户的联系记录0020','2021-06-10','活动聊天','PC000005','CP000003','PCCP000010','转化希望很大0020','2021-09-05 07:28:10','1'),
-	('PCC000021','和连载客户的联系记录0021','2019-05-22','电话','PC000006','CP000003','PCCP000011','转化希望很大0021','2021-09-11 18:31:31','1'),
-	('PCC000022','和连载客户的联系记录0022','2019-09-10','短信','PC000006','CP000003','PCCP000011','转化希望很大0022','2021-08-29 13:34:44','1'),
-	('PCC000023','和连载客户的联系记录0023','2019-01-15','登门拜访','PC000006','CP000003','PCCP000012','转化希望很大0023','2021-08-28 13:35:14','1'),
-	('PCC000024','和连载客户的联系记录0024','2019-07-27','活动聊天','PC000006','CP000003','PCCP000012','转化希望很大0024','2021-09-11 10:11:33','1'),
-	('PCC000025','和连载客户的联系记录0025','2020-03-24','电话','PC000007','CP000004','PCCP000013','转化希望很大0025','2021-09-13 08:40:36','1'),
-	('PCC000026','和连载客户的联系记录0026','2020-05-24','短信','PC000007','CP000004','PCCP000013','转化希望很大0026','2021-09-11 12:59:19','1'),
-	('PCC000027','和连载客户的联系记录0027','2019-08-15','登门拜访','PC000007','CP000004','PCCP000014','转化希望很大0027','2021-08-26 14:34:55','1'),
-	('PCC000028','和连载客户的联系记录0028','2019-05-30','活动聊天','PC000007','CP000004','PCCP000014','转化希望很大0028','2021-09-08 15:41:37','1'),
-	('PCC000029','和连载客户的联系记录0029','2020-01-07','电话','PC000008','CP000004','PCCP000015','转化希望很大0029','2021-09-05 14:30:29','1'),
-	('PCC000030','和连载客户的联系记录0030','2021-02-26','短信','PC000008','CP000004','PCCP000015','转化希望很大0030','2021-09-01 21:57:48','1'),
-	('PCC000031','和连载客户的联系记录0031','2019-06-02','登门拜访','PC000008','CP000004','PCCP000016','转化希望很大0031','2021-09-11 21:50:00','1'),
-	('PCC000032','和连载客户的联系记录0032','2019-10-18','活动聊天','PC000008','CP000004','PCCP000016','转化希望很大0032','2021-08-30 10:05:00','1'),
-	('PCC000033','和连载客户的联系记录0033','2021-04-26','电话','PC000009','CP000005','PCCP000017','转化希望很大0033','2021-08-31 21:44:29','1'),
-	('PCC000034','和连载客户的联系记录0034','2019-10-16','短信','PC000009','CP000005','PCCP000017','转化希望很大0034','2021-09-04 21:04:29','1'),
-	('PCC000035','和连载客户的联系记录0035','2019-07-28','登门拜访','PC000009','CP000005','PCCP000018','转化希望很大0035','2021-09-05 15:15:35','1'),
-	('PCC000036','和连载客户的联系记录0036','2020-06-15','活动聊天','PC000009','CP000005','PCCP000018','转化希望很大0036','2021-08-24 22:31:00','1'),
-	('PCC000037','和连载客户的联系记录0037','2019-07-09','电话','PC000010','CP000005','PCCP000019','转化希望很大0037','2021-09-10 10:55:08','1'),
-	('PCC000038','和连载客户的联系记录0038','2019-05-28','短信','PC000010','CP000005','PCCP000019','转化希望很大0038','2021-09-11 18:38:16','1'),
-	('PCC000039','和连载客户的联系记录0039','2020-10-24','登门拜访','PC000010','CP000005','PCCP000020','转化希望很大0039','2021-09-05 04:03:52','1'),
-	('PCC000040','和连载客户的联系记录0040','2021-05-27','活动聊天','PC000010','CP000005','PCCP000020','转化希望很大0040','2021-08-31 23:12:33','1'),
-	('PCC000041','和连载客户的联系记录0041','2019-03-10','电话','PC000011','CP000006','PCCP000021','转化希望很大0041','2021-09-04 09:58:48','1'),
-	('PCC000042','和连载客户的联系记录0042','2021-04-15','短信','PC000011','CP000006','PCCP000021','转化希望很大0042','2021-09-04 09:27:50','1'),
-	('PCC000043','和连载客户的联系记录0043','2019-07-06','登门拜访','PC000011','CP000006','PCCP000022','转化希望很大0043','2021-08-26 19:14:34','1'),
-	('PCC000044','和连载客户的联系记录0044','2019-04-04','活动聊天','PC000011','CP000006','PCCP000022','转化希望很大0044','2021-08-27 05:29:31','1'),
-	('PCC000045','和连载客户的联系记录0045','2018-11-02','电话','PC000012','CP000006','PCCP000023','转化希望很大0045','2021-09-08 03:43:32','1'),
-	('PCC000046','和连载客户的联系记录0046','2021-08-09','短信','PC000012','CP000006','PCCP000023','转化希望很大0046','2021-09-08 20:42:32','1'),
-	('PCC000047','和连载客户的联系记录0047','2020-08-16','登门拜访','PC000012','CP000006','PCCP000024','转化希望很大0047','2021-09-10 17:45:17','1'),
-	('PCC000048','和连载客户的联系记录0048','2021-02-15','活动聊天','PC000012','CP000006','PCCP000024','转化希望很大0048','2021-08-23 02:40:07','1'),
-	('PCC000049','和连载客户的联系记录0049','2020-01-27','电话','PC000013','CP000007','PCCP000025','转化希望很大0049','2021-09-05 01:34:58','1'),
-	('PCC000050','和连载客户的联系记录0050','2019-04-27','短信','PC000013','CP000007','PCCP000025','转化希望很大0050','2021-08-30 21:40:58','1'),
-	('PCC000051','和连载客户的联系记录0051','2020-07-06','登门拜访','PC000013','CP000007','PCCP000026','转化希望很大0051','2021-08-31 04:17:09','1'),
-	('PCC000052','和连载客户的联系记录0052','2019-06-05','活动聊天','PC000013','CP000007','PCCP000026','转化希望很大0052','2021-09-09 05:50:41','1'),
-	('PCC000053','和连载客户的联系记录0053','2018-12-11','电话','PC000014','CP000007','PCCP000027','转化希望很大0053','2021-08-31 22:05:08','1'),
-	('PCC000054','和连载客户的联系记录0054','2019-08-04','短信','PC000014','CP000007','PCCP000027','转化希望很大0054','2021-08-26 06:41:12','1'),
-	('PCC000055','和连载客户的联系记录0055','2021-03-19','登门拜访','PC000014','CP000007','PCCP000028','转化希望很大0055','2021-08-31 08:42:14','1'),
-	('PCC000056','和连载客户的联系记录0056','2021-08-06','活动聊天','PC000014','CP000007','PCCP000028','转化希望很大0056','2021-08-27 21:53:21','1'),
-	('PCC000057','和连载客户的联系记录0057','2019-01-06','电话','PC000015','CP000008','PCCP000029','转化希望很大0057','2021-08-27 23:05:27','1'),
-	('PCC000058','和连载客户的联系记录0058','2020-08-12','短信','PC000015','CP000008','PCCP000029','转化希望很大0058','2021-09-06 21:44:34','1'),
-	('PCC000059','和连载客户的联系记录0059','2021-08-11','登门拜访','PC000015','CP000008','PCCP000030','转化希望很大0059','2021-09-13 03:08:07','1'),
-	('PCC000060','和连载客户的联系记录0060','2019-09-23','活动聊天','PC000015','CP000008','PCCP000030','转化希望很大0060','2021-08-26 15:41:54','1'),
-	('PCC000061','和连载客户的联系记录0061','2019-06-01','电话','PC000016','CP000008','PCCP000031','转化希望很大0061','2021-08-27 17:20:25','1'),
-	('PCC000062','和连载客户的联系记录0062','2020-08-13','短信','PC000016','CP000008','PCCP000031','转化希望很大0062','2021-09-02 08:40:56','1'),
-	('PCC000063','和连载客户的联系记录0063','2021-08-20','登门拜访','PC000016','CP000008','PCCP000032','转化希望很大0063','2021-08-28 09:58:06','1'),
-	('PCC000064','和连载客户的联系记录0064','2019-07-10','活动聊天','PC000016','CP000008','PCCP000032','转化希望很大0064','2021-09-08 15:31:30','1');
+insert into potential_customer_contact_data (id,name,contact_date,contact_method,potential_customer,city_partner,contact_to,description,last_update_time,version) values
+	('PCC000001','和连载客户的联系记录0001','2022-06-26','电话','PC000001','CP000001','PCCP000001','转化希望很大0001','2022-09-14 18:51:55','1'),
+	('PCC000002','和连载客户的联系记录0002','2021-01-08','短信','PC000001','CP000001','PCCP000001','转化希望很大0002','2022-09-10 13:30:58','1'),
+	('PCC000003','和连载客户的联系记录0003','2019-12-18','登门拜访','PC000001','CP000001','PCCP000002','转化希望很大0003','2022-09-10 11:44:32','1'),
+	('PCC000004','和连载客户的联系记录0004','2022-03-17','活动聊天','PC000001','CP000001','PCCP000002','转化希望很大0004','2022-09-21 05:03:26','1'),
+	('PCC000005','和连载客户的联系记录0005','2020-10-15','电话','PC000002','CP000001','PCCP000003','转化希望很大0005','2022-09-26 10:47:34','1'),
+	('PCC000006','和连载客户的联系记录0006','2022-05-14','短信','PC000002','CP000001','PCCP000003','转化希望很大0006','2022-09-18 20:44:08','1'),
+	('PCC000007','和连载客户的联系记录0007','2022-08-07','登门拜访','PC000002','CP000001','PCCP000004','转化希望很大0007','2022-09-13 09:38:54','1'),
+	('PCC000008','和连载客户的联系记录0008','2021-04-30','活动聊天','PC000002','CP000001','PCCP000004','转化希望很大0008','2022-09-10 07:01:36','1'),
+	('PCC000009','和连载客户的联系记录0009','2021-10-01','电话','PC000003','CP000002','PCCP000005','转化希望很大0009','2022-09-10 02:23:37','1'),
+	('PCC000010','和连载客户的联系记录0010','2019-10-28','短信','PC000003','CP000002','PCCP000005','转化希望很大0010','2022-09-20 05:16:34','1'),
+	('PCC000011','和连载客户的联系记录0011','2022-05-18','登门拜访','PC000003','CP000002','PCCP000006','转化希望很大0011','2022-09-13 15:27:17','1'),
+	('PCC000012','和连载客户的联系记录0012','2022-07-31','活动聊天','PC000003','CP000002','PCCP000006','转化希望很大0012','2022-09-23 12:01:21','1'),
+	('PCC000013','和连载客户的联系记录0013','2020-07-28','电话','PC000004','CP000002','PCCP000007','转化希望很大0013','2022-09-12 12:25:35','1'),
+	('PCC000014','和连载客户的联系记录0014','2022-04-11','短信','PC000004','CP000002','PCCP000007','转化希望很大0014','2022-09-14 04:28:54','1'),
+	('PCC000015','和连载客户的联系记录0015','2021-09-22','登门拜访','PC000004','CP000002','PCCP000008','转化希望很大0015','2022-09-29 11:33:46','1'),
+	('PCC000016','和连载客户的联系记录0016','2022-05-07','活动聊天','PC000004','CP000002','PCCP000008','转化希望很大0016','2022-09-09 14:43:51','1'),
+	('PCC000017','和连载客户的联系记录0017','2021-02-08','电话','PC000005','CP000003','PCCP000009','转化希望很大0017','2022-09-12 14:38:34','1'),
+	('PCC000018','和连载客户的联系记录0018','2021-10-04','短信','PC000005','CP000003','PCCP000009','转化希望很大0018','2022-09-25 12:20:00','1'),
+	('PCC000019','和连载客户的联系记录0019','2021-02-12','登门拜访','PC000005','CP000003','PCCP000010','转化希望很大0019','2022-09-12 06:44:06','1'),
+	('PCC000020','和连载客户的联系记录0020','2022-08-15','活动聊天','PC000005','CP000003','PCCP000010','转化希望很大0020','2022-09-17 10:22:10','1'),
+	('PCC000021','和连载客户的联系记录0021','2021-11-27','电话','PC000006','CP000003','PCCP000011','转化希望很大0021','2022-09-12 06:37:34','1'),
+	('PCC000022','和连载客户的联系记录0022','2022-08-09','短信','PC000006','CP000003','PCCP000011','转化希望很大0022','2022-09-12 00:05:17','1'),
+	('PCC000023','和连载客户的联系记录0023','2020-08-07','登门拜访','PC000006','CP000003','PCCP000012','转化希望很大0023','2022-09-30 02:32:17','1'),
+	('PCC000024','和连载客户的联系记录0024','2020-03-29','活动聊天','PC000006','CP000003','PCCP000012','转化希望很大0024','2022-09-10 01:28:38','1'),
+	('PCC000025','和连载客户的联系记录0025','2019-10-16','电话','PC000007','CP000004','PCCP000013','转化希望很大0025','2022-09-22 10:02:51','1'),
+	('PCC000026','和连载客户的联系记录0026','2022-05-16','短信','PC000007','CP000004','PCCP000013','转化希望很大0026','2022-09-09 17:20:22','1'),
+	('PCC000027','和连载客户的联系记录0027','2021-10-05','登门拜访','PC000007','CP000004','PCCP000014','转化希望很大0027','2022-09-18 08:26:25','1'),
+	('PCC000028','和连载客户的联系记录0028','2022-05-26','活动聊天','PC000007','CP000004','PCCP000014','转化希望很大0028','2022-09-21 15:23:49','1'),
+	('PCC000029','和连载客户的联系记录0029','2022-06-08','电话','PC000008','CP000004','PCCP000015','转化希望很大0029','2022-09-11 22:27:39','1'),
+	('PCC000030','和连载客户的联系记录0030','2020-04-01','短信','PC000008','CP000004','PCCP000015','转化希望很大0030','2022-09-26 07:41:26','1'),
+	('PCC000031','和连载客户的联系记录0031','2022-01-21','登门拜访','PC000008','CP000004','PCCP000016','转化希望很大0031','2022-09-22 01:47:25','1'),
+	('PCC000032','和连载客户的联系记录0032','2020-08-09','活动聊天','PC000008','CP000004','PCCP000016','转化希望很大0032','2022-09-16 17:07:32','1'),
+	('PCC000033','和连载客户的联系记录0033','2020-05-16','电话','PC000009','CP000005','PCCP000017','转化希望很大0033','2022-09-24 09:46:14','1'),
+	('PCC000034','和连载客户的联系记录0034','2021-06-26','短信','PC000009','CP000005','PCCP000017','转化希望很大0034','2022-09-30 21:24:13','1'),
+	('PCC000035','和连载客户的联系记录0035','2021-03-22','登门拜访','PC000009','CP000005','PCCP000018','转化希望很大0035','2022-09-20 13:54:14','1'),
+	('PCC000036','和连载客户的联系记录0036','2020-11-20','活动聊天','PC000009','CP000005','PCCP000018','转化希望很大0036','2022-09-22 09:36:55','1'),
+	('PCC000037','和连载客户的联系记录0037','2022-06-02','电话','PC000010','CP000005','PCCP000019','转化希望很大0037','2022-09-15 15:53:53','1'),
+	('PCC000038','和连载客户的联系记录0038','2022-02-03','短信','PC000010','CP000005','PCCP000019','转化希望很大0038','2022-09-21 23:37:05','1'),
+	('PCC000039','和连载客户的联系记录0039','2021-03-07','登门拜访','PC000010','CP000005','PCCP000020','转化希望很大0039','2022-09-28 23:41:26','1'),
+	('PCC000040','和连载客户的联系记录0040','2021-12-29','活动聊天','PC000010','CP000005','PCCP000020','转化希望很大0040','2022-09-14 00:59:46','1'),
+	('PCC000041','和连载客户的联系记录0041','2022-05-22','电话','PC000011','CP000006','PCCP000021','转化希望很大0041','2022-09-22 02:22:19','1'),
+	('PCC000042','和连载客户的联系记录0042','2021-11-06','短信','PC000011','CP000006','PCCP000021','转化希望很大0042','2022-09-29 10:30:08','1'),
+	('PCC000043','和连载客户的联系记录0043','2022-09-15','登门拜访','PC000011','CP000006','PCCP000022','转化希望很大0043','2022-09-16 06:50:34','1'),
+	('PCC000044','和连载客户的联系记录0044','2019-11-20','活动聊天','PC000011','CP000006','PCCP000022','转化希望很大0044','2022-09-25 21:36:23','1'),
+	('PCC000045','和连载客户的联系记录0045','2020-08-28','电话','PC000012','CP000006','PCCP000023','转化希望很大0045','2022-09-26 18:46:35','1'),
+	('PCC000046','和连载客户的联系记录0046','2021-04-28','短信','PC000012','CP000006','PCCP000023','转化希望很大0046','2022-09-20 17:07:42','1'),
+	('PCC000047','和连载客户的联系记录0047','2022-09-25','登门拜访','PC000012','CP000006','PCCP000024','转化希望很大0047','2022-09-17 00:49:22','1'),
+	('PCC000048','和连载客户的联系记录0048','2021-09-07','活动聊天','PC000012','CP000006','PCCP000024','转化希望很大0048','2022-09-22 08:18:15','1'),
+	('PCC000049','和连载客户的联系记录0049','2020-11-29','电话','PC000013','CP000007','PCCP000025','转化希望很大0049','2022-09-12 17:58:48','1'),
+	('PCC000050','和连载客户的联系记录0050','2022-06-27','短信','PC000013','CP000007','PCCP000025','转化希望很大0050','2022-09-16 08:14:27','1'),
+	('PCC000051','和连载客户的联系记录0051','2020-01-16','登门拜访','PC000013','CP000007','PCCP000026','转化希望很大0051','2022-09-30 23:40:01','1'),
+	('PCC000052','和连载客户的联系记录0052','2020-01-03','活动聊天','PC000013','CP000007','PCCP000026','转化希望很大0052','2022-09-12 01:44:13','1'),
+	('PCC000053','和连载客户的联系记录0053','2022-02-15','电话','PC000014','CP000007','PCCP000027','转化希望很大0053','2022-09-19 11:52:36','1'),
+	('PCC000054','和连载客户的联系记录0054','2020-02-22','短信','PC000014','CP000007','PCCP000027','转化希望很大0054','2022-09-23 19:17:55','1'),
+	('PCC000055','和连载客户的联系记录0055','2022-09-30','登门拜访','PC000014','CP000007','PCCP000028','转化希望很大0055','2022-09-11 03:14:42','1'),
+	('PCC000056','和连载客户的联系记录0056','2020-03-25','活动聊天','PC000014','CP000007','PCCP000028','转化希望很大0056','2022-09-17 09:39:11','1'),
+	('PCC000057','和连载客户的联系记录0057','2020-08-22','电话','PC000015','CP000008','PCCP000029','转化希望很大0057','2022-09-24 02:45:59','1'),
+	('PCC000058','和连载客户的联系记录0058','2020-03-03','短信','PC000015','CP000008','PCCP000029','转化希望很大0058','2022-09-17 19:22:17','1'),
+	('PCC000059','和连载客户的联系记录0059','2021-11-06','登门拜访','PC000015','CP000008','PCCP000030','转化希望很大0059','2022-09-27 04:59:35','1'),
+	('PCC000060','和连载客户的联系记录0060','2022-03-10','活动聊天','PC000015','CP000008','PCCP000030','转化希望很大0060','2022-09-19 21:31:32','1'),
+	('PCC000061','和连载客户的联系记录0061','2019-11-12','电话','PC000016','CP000008','PCCP000031','转化希望很大0061','2022-09-21 12:54:00','1'),
+	('PCC000062','和连载客户的联系记录0062','2022-05-26','短信','PC000016','CP000008','PCCP000031','转化希望很大0062','2022-09-25 06:03:57','1'),
+	('PCC000063','和连载客户的联系记录0063','2021-09-06','登门拜访','PC000016','CP000008','PCCP000032','转化希望很大0063','2022-09-18 03:57:18','1'),
+	('PCC000064','和连载客户的联系记录0064','2020-04-27','活动聊天','PC000016','CP000008','PCCP000032','转化希望很大0064','2022-09-30 20:46:30','1');
 
-insert into city_event_data values
-	('CE000001','小超见面会','13677778888','RSCSC000001','给大家讲解小超的发展蓝图0001','2021-08-24 10:54:17','1'),
-	('CE000002','双链小超说明会','13900000002','RSCSC000001','给大家讲解小超的发展蓝图0002','2021-09-01 19:35:12','1'),
-	('CE000003','小超见面会','13900000003','RSCSC000002','给大家讲解小超的发展蓝图0003','2021-08-28 06:27:13','1'),
-	('CE000004','双链小超说明会','13900000004','RSCSC000002','给大家讲解小超的发展蓝图0004','2021-08-23 04:15:28','1'),
-	('CE000005','小超见面会','13900000005','RSCSC000003','给大家讲解小超的发展蓝图0005','2021-08-28 02:08:44','1'),
-	('CE000006','双链小超说明会','13900000006','RSCSC000003','给大家讲解小超的发展蓝图0006','2021-09-07 08:18:26','1'),
-	('CE000007','小超见面会','13900000007','RSCSC000004','给大家讲解小超的发展蓝图0007','2021-09-09 04:39:36','1'),
-	('CE000008','双链小超说明会','13900000008','RSCSC000004','给大家讲解小超的发展蓝图0008','2021-08-26 16:20:24','1');
+insert into city_event_data (id,name,mobile,city_service_center,description,last_update_time,version) values
+	('CE000001','小超见面会','13677778888','RSCSC000001','给大家讲解小超的发展蓝图0001','2022-09-25 14:22:46','1'),
+	('CE000002','双链小超说明会','13900000002','RSCSC000001','给大家讲解小超的发展蓝图0002','2022-09-26 18:07:28','1'),
+	('CE000003','小超见面会','13900000003','RSCSC000002','给大家讲解小超的发展蓝图0003','2022-09-15 11:45:19','1'),
+	('CE000004','双链小超说明会','13900000004','RSCSC000002','给大家讲解小超的发展蓝图0004','2022-09-28 04:27:36','1'),
+	('CE000005','小超见面会','13900000005','RSCSC000003','给大家讲解小超的发展蓝图0005','2022-09-19 06:46:37','1'),
+	('CE000006','双链小超说明会','13900000006','RSCSC000003','给大家讲解小超的发展蓝图0006','2022-09-20 01:33:35','1'),
+	('CE000007','小超见面会','13900000007','RSCSC000004','给大家讲解小超的发展蓝图0007','2022-09-20 11:30:21','1'),
+	('CE000008','双链小超说明会','13900000008','RSCSC000004','给大家讲解小超的发展蓝图0008','2022-09-24 17:51:42','1');
 
-insert into event_attendance_data values
+insert into event_attendance_data (id,name,potential_customer,city_event,description,version) values
 	('EA000001','小超见面会参加信息0001','PC000001','CE000001','体会不错，考虑加盟0001','1'),
 	('EA000002','小超见面会参加信息0002','PC000001','CE000001','体会不错，考虑加盟0002','1'),
 	('EA000003','小超见面会参加信息0003','PC000002','CE000001','体会不错，考虑加盟0003','1'),
@@ -1976,125 +1976,125 @@ insert into event_attendance_data values
 	('EA000031','小超见面会参加信息0031','PC000016','CE000008','体会不错，考虑加盟0031','1'),
 	('EA000032','小超见面会参加信息0032','PC000016','CE000008','体会不错，考虑加盟0032','1');
 
-insert into retail_store_data values
-	('RS000001','中和社区小超','028 876543210001','吕刚0001','RSCC000001','RSCSC000001','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2020-10-30','41.062765570774076','130.5445759157547','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0001','2021-09-13 09:44:44','1'),
-	('RS000002','华阳社区小超','028 876543210002','吕刚0002','RSCC000001','RSCSC000001','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2021-01-07','42.72305186760872','132.0293838239604','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0002','2021-08-23 21:11:28','1'),
-	('RS000003','大源社区小超','028 876543210003','吕刚0003','RSCC000001','RSCSC000002','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2021-03-04','41.9981208295805','130.93133205239616','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0003','2021-09-04 09:54:10','1'),
-	('RS000004','中和社区小超','028 876543210004','吕刚0004','RSCC000001','RSCSC000002','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2020-03-03','40.82504640844702','130.55127102912985','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0004','2021-08-25 12:43:33','1'),
-	('RS000005','华阳社区小超','028 876543210005','吕刚0005','RSCC000001','RSCSC000003','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2020-06-28','41.647980407237156','129.31232546020067','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0005','2021-09-09 07:32:43','1'),
-	('RS000006','大源社区小超','028 876543210006','吕刚0006','RSCC000001','RSCSC000003','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2020-02-24','40.0146794915619','130.3170351835328','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0006','2021-09-05 06:26:28','1'),
-	('RS000007','中和社区小超','028 876543210007','吕刚0007','RSCC000001','RSCSC000004','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2019-04-21','40.72748245511392','130.51383987667148','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0007','2021-08-26 06:36:49','1'),
-	('RS000008','华阳社区小超','028 876543210008','吕刚0008','RSCC000001','RSCSC000004','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2020-09-18','40.81286691226605','130.37839416891433','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0008','2021-08-28 15:01:46','1');
+insert into retail_store_data (id,name,telephone,owner,retail_store_country_center,city_service_center,creation,investment_invitation,franchising,decoration,opening,closing,founded,latitude,longitude,description,last_update_time,version) values
+	('RS000001','中和社区小超','028 876543210001','吕刚0001','RSCC000001','RSCSC000001','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2021-07-27','40.14068232766562','131.1817966437681','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0001','2022-09-16 18:13:28','1'),
+	('RS000002','华阳社区小超','028 876543210002','吕刚0002','RSCC000001','RSCSC000001','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2022-09-08','42.725219895845704','130.93251197386428','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0002','2022-09-26 06:55:46','1'),
+	('RS000003','大源社区小超','028 876543210003','吕刚0003','RSCC000001','RSCSC000002','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2022-06-11','40.87358127914927','131.1239508353682','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0003','2022-09-25 23:42:33','1'),
+	('RS000004','中和社区小超','028 876543210004','吕刚0004','RSCC000001','RSCSC000002','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2022-06-10','40.71603763499337','129.5333968710936','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0004','2022-09-12 21:40:46','1'),
+	('RS000005','华阳社区小超','028 876543210005','吕刚0005','RSCC000001','RSCSC000003','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2020-06-14','41.027384214232555','131.67478020369563','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0005','2022-09-17 10:46:24','1'),
+	('RS000006','大源社区小超','028 876543210006','吕刚0006','RSCC000001','RSCSC000003','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2022-07-05','40.52987805982545','130.1905088468005','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0006','2022-09-21 14:21:00','1'),
+	('RS000007','中和社区小超','028 876543210007','吕刚0007','RSCC000001','RSCSC000004','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2020-06-03','41.52926304128345','130.92006846577382','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0007','2022-09-20 01:32:03','1'),
+	('RS000008','华阳社区小超','028 876543210008','吕刚0008','RSCC000001','RSCSC000004','RSC000001','RSII000001','RSF000001','RSD000001','RSO000001','RSC000001','2021-01-18','42.45208819170441','129.91647824173967','啤酒饮料矿泉水，香肠瓜子方便面, 请让一让0008','2022-09-23 08:16:58','1');
 
-insert into retail_store_creation_data values
+insert into retail_store_creation_data (id,comment,version) values
 	('RSC000001','已经建好了0001','1');
 
-insert into retail_store_investment_invitation_data values
+insert into retail_store_investment_invitation_data (id,comment,version) values
 	('RSII000001','欢迎前来咨询0001','1');
 
-insert into retail_store_franchising_data values
+insert into retail_store_franchising_data (id,comment,version) values
 	('RSF000001','谢谢加盟0001','1');
 
-insert into retail_store_decoration_data values
+insert into retail_store_decoration_data (id,comment,version) values
 	('RSD000001','装修0001','1');
 
-insert into retail_store_opening_data values
+insert into retail_store_opening_data (id,comment,version) values
 	('RSO000001','装修0001','1');
 
-insert into retail_store_closing_data values
+insert into retail_store_closing_data (id,comment,version) values
 	('RSC000001','关闭0001','1');
 
-insert into retail_store_member_data values
+insert into retail_store_member_data (id,name,mobile_phone,owner,version) values
 	('RSM000001','李亚青0001','18099887766','RSCC000001','1'),
 	('RSM000002','李亚青0002','13900000002','RSCC000001','1');
 
-insert into consumer_order_data values
-	('CO000001','消费订单0001','RSM000001','RS000001','2021-09-07 23:48:44','1'),
-	('CO000002','消费订单0002','RSM000001','RS000001','2021-09-01 22:54:20','1'),
-	('CO000003','消费订单0003','RSM000001','RS000002','2021-08-27 16:52:33','1'),
-	('CO000004','消费订单0004','RSM000001','RS000002','2021-08-25 19:59:18','1'),
-	('CO000005','消费订单0005','RSM000001','RS000003','2021-08-30 09:36:39','1'),
-	('CO000006','消费订单0006','RSM000001','RS000003','2021-09-02 09:58:05','1'),
-	('CO000007','消费订单0007','RSM000001','RS000004','2021-09-01 11:46:08','1'),
-	('CO000008','消费订单0008','RSM000001','RS000004','2021-08-27 23:47:02','1'),
-	('CO000009','消费订单0009','RSM000002','RS000005','2021-09-10 04:29:57','1'),
-	('CO000010','消费订单0010','RSM000002','RS000005','2021-09-13 10:29:57','1'),
-	('CO000011','消费订单0011','RSM000002','RS000006','2021-09-08 18:55:50','1'),
-	('CO000012','消费订单0012','RSM000002','RS000006','2021-08-29 19:19:37','1'),
-	('CO000013','消费订单0013','RSM000002','RS000007','2021-08-31 19:09:09','1'),
-	('CO000014','消费订单0014','RSM000002','RS000007','2021-09-06 16:17:34','1'),
-	('CO000015','消费订单0015','RSM000002','RS000008','2021-08-28 07:03:49','1'),
-	('CO000016','消费订单0016','RSM000002','RS000008','2021-08-27 02:01:43','1');
+insert into consumer_order_data (id,title,consumer,store,last_update_time,version) values
+	('CO000001','消费订单0001','RSM000001','RS000001','2022-09-09 19:00:17','1'),
+	('CO000002','消费订单0002','RSM000001','RS000001','2022-09-28 02:17:58','1'),
+	('CO000003','消费订单0003','RSM000001','RS000002','2022-09-27 06:30:58','1'),
+	('CO000004','消费订单0004','RSM000001','RS000002','2022-09-29 18:25:07','1'),
+	('CO000005','消费订单0005','RSM000001','RS000003','2022-09-14 14:05:45','1'),
+	('CO000006','消费订单0006','RSM000001','RS000003','2022-09-18 18:19:03','1'),
+	('CO000007','消费订单0007','RSM000001','RS000004','2022-09-23 17:32:49','1'),
+	('CO000008','消费订单0008','RSM000001','RS000004','2022-09-30 23:33:00','1'),
+	('CO000009','消费订单0009','RSM000002','RS000005','2022-09-25 10:24:20','1'),
+	('CO000010','消费订单0010','RSM000002','RS000005','2022-09-29 05:06:26','1'),
+	('CO000011','消费订单0011','RSM000002','RS000006','2022-09-29 11:11:30','1'),
+	('CO000012','消费订单0012','RSM000002','RS000006','2022-09-27 10:41:23','1'),
+	('CO000013','消费订单0013','RSM000002','RS000007','2022-09-19 13:41:15','1'),
+	('CO000014','消费订单0014','RSM000002','RS000007','2022-09-24 15:51:49','1'),
+	('CO000015','消费订单0015','RSM000002','RS000008','2022-09-12 11:48:15','1'),
+	('CO000016','消费订单0016','RSM000002','RS000008','2022-09-14 08:55:32','1');
 
-insert into consumer_order_line_item_data values
-	('COLI000001','CO000001','SKU0001','大瓶可乐0001','5.40','942.26','7262.69','2021-08-25 09:58:48','1'),
-	('COLI000002','CO000001','SKU0002','大瓶可乐0002','5.29','869.95','8828.00','2021-08-28 18:08:31','1'),
-	('COLI000003','CO000002','SKU0003','大瓶可乐0003','4.91','701.63','7793.89','2021-09-01 05:27:36','1'),
-	('COLI000004','CO000002','SKU0004','大瓶可乐0004','5.16','884.29','8872.67','2021-09-08 13:56:02','1'),
-	('COLI000005','CO000003','SKU0005','大瓶可乐0005','4.62','847.60','9450.14','2021-09-06 18:31:26','1'),
-	('COLI000006','CO000003','SKU0006','大瓶可乐0006','5.76','913.40','7575.27','2021-09-08 07:56:59','1'),
-	('COLI000007','CO000004','SKU0007','大瓶可乐0007','5.08','859.49','8570.37','2021-08-24 22:08:00','1'),
-	('COLI000008','CO000004','SKU0008','大瓶可乐0008','5.49','915.80','8868.10','2021-09-13 11:03:27','1'),
-	('COLI000009','CO000005','SKU0009','大瓶可乐0009','5.38','949.52','8135.41','2021-08-25 17:45:55','1'),
-	('COLI000010','CO000005','SKU0010','大瓶可乐0010','4.75','778.53','8480.42','2021-09-07 19:29:36','1'),
-	('COLI000011','CO000006','SKU0011','大瓶可乐0011','4.69','737.12','8554.17','2021-09-01 11:55:51','1'),
-	('COLI000012','CO000006','SKU0012','大瓶可乐0012','5.44','906.86','7657.75','2021-09-01 01:07:21','1'),
-	('COLI000013','CO000007','SKU0013','大瓶可乐0013','5.76','716.66','9543.66','2021-09-09 01:10:21','1'),
-	('COLI000014','CO000007','SKU0014','大瓶可乐0014','4.55','710.82','8461.37','2021-08-29 22:53:21','1'),
-	('COLI000015','CO000008','SKU0015','大瓶可乐0015','5.88','981.63','8137.94','2021-09-08 07:36:14','1'),
-	('COLI000016','CO000008','SKU0016','大瓶可乐0016','5.44','963.96','9808.02','2021-09-03 18:48:48','1'),
-	('COLI000017','CO000009','SKU0017','大瓶可乐0017','4.78','893.11','7111.20','2021-08-28 00:03:31','1'),
-	('COLI000018','CO000009','SKU0018','大瓶可乐0018','5.64','934.74','7660.19','2021-08-24 00:30:22','1'),
-	('COLI000019','CO000010','SKU0019','大瓶可乐0019','5.19','905.38','8350.14','2021-09-13 10:30:46','1'),
-	('COLI000020','CO000010','SKU0020','大瓶可乐0020','5.22','915.92','8026.83','2021-09-05 16:21:58','1'),
-	('COLI000021','CO000011','SKU0021','大瓶可乐0021','4.27','786.66','9960.81','2021-09-07 20:26:47','1'),
-	('COLI000022','CO000011','SKU0022','大瓶可乐0022','4.44','902.30','9685.05','2021-09-10 19:25:28','1'),
-	('COLI000023','CO000012','SKU0023','大瓶可乐0023','4.25','997.80','7144.93','2021-09-05 21:36:43','1'),
-	('COLI000024','CO000012','SKU0024','大瓶可乐0024','5.33','792.30','8782.52','2021-09-04 19:12:02','1'),
-	('COLI000025','CO000013','SKU0025','大瓶可乐0025','5.81','716.78','8131.10','2021-08-26 11:52:19','1'),
-	('COLI000026','CO000013','SKU0026','大瓶可乐0026','4.57','813.72','7731.13','2021-09-01 06:44:22','1'),
-	('COLI000027','CO000014','SKU0027','大瓶可乐0027','4.30','922.04','9695.81','2021-09-02 17:22:26','1'),
-	('COLI000028','CO000014','SKU0028','大瓶可乐0028','5.70','799.01','7051.73','2021-08-29 19:47:29','1'),
-	('COLI000029','CO000015','SKU0029','大瓶可乐0029','5.31','772.38','8059.61','2021-08-26 22:55:43','1'),
-	('COLI000030','CO000015','SKU0030','大瓶可乐0030','5.12','760.55','9080.38','2021-08-26 08:54:10','1'),
-	('COLI000031','CO000016','SKU0031','大瓶可乐0031','5.19','946.39','9193.35','2021-09-07 06:15:13','1'),
-	('COLI000032','CO000016','SKU0032','大瓶可乐0032','5.66','941.23','7696.09','2021-08-23 06:58:54','1');
+insert into consumer_order_line_item_data (id,biz_order,sku_id,sku_name,price,quantity,amount,last_update_time,version) values
+	('COLI000001','CO000001','SKU0001','大瓶可乐0001','4.19','988.50','8310.50','2022-09-20 02:25:43','1'),
+	('COLI000002','CO000001','SKU0002','大瓶可乐0002','5.84','763.26','7177.04','2022-09-12 08:04:30','1'),
+	('COLI000003','CO000002','SKU0003','大瓶可乐0003','4.20','908.84','8138.85','2022-09-15 16:21:08','1'),
+	('COLI000004','CO000002','SKU0004','大瓶可乐0004','5.27','965.71','7132.79','2022-09-26 00:02:34','1'),
+	('COLI000005','CO000003','SKU0005','大瓶可乐0005','4.73','874.30','9049.35','2022-09-22 16:02:26','1'),
+	('COLI000006','CO000003','SKU0006','大瓶可乐0006','4.99','802.25','9120.78','2022-09-28 07:54:54','1'),
+	('COLI000007','CO000004','SKU0007','大瓶可乐0007','5.41','880.92','7014.15','2022-09-17 17:21:17','1'),
+	('COLI000008','CO000004','SKU0008','大瓶可乐0008','4.33','859.62','7854.42','2022-09-13 22:32:13','1'),
+	('COLI000009','CO000005','SKU0009','大瓶可乐0009','5.94','726.14','8251.03','2022-09-27 05:37:24','1'),
+	('COLI000010','CO000005','SKU0010','大瓶可乐0010','4.52','848.53','9156.66','2022-09-18 19:33:46','1'),
+	('COLI000011','CO000006','SKU0011','大瓶可乐0011','5.04','764.22','9047.69','2022-09-14 04:58:27','1'),
+	('COLI000012','CO000006','SKU0012','大瓶可乐0012','5.87','880.03','7483.54','2022-09-23 01:54:55','1'),
+	('COLI000013','CO000007','SKU0013','大瓶可乐0013','5.82','949.41','8575.44','2022-09-11 23:59:28','1'),
+	('COLI000014','CO000007','SKU0014','大瓶可乐0014','5.59','761.68','9275.21','2022-09-27 18:19:57','1'),
+	('COLI000015','CO000008','SKU0015','大瓶可乐0015','4.25','912.18','9680.83','2022-09-10 04:28:21','1'),
+	('COLI000016','CO000008','SKU0016','大瓶可乐0016','5.03','921.75','8747.70','2022-09-10 16:52:58','1'),
+	('COLI000017','CO000009','SKU0017','大瓶可乐0017','5.13','739.67','9893.42','2022-09-23 02:40:15','1'),
+	('COLI000018','CO000009','SKU0018','大瓶可乐0018','4.26','994.65','7988.69','2022-09-19 15:43:29','1'),
+	('COLI000019','CO000010','SKU0019','大瓶可乐0019','5.79','855.64','8137.87','2022-09-10 15:47:25','1'),
+	('COLI000020','CO000010','SKU0020','大瓶可乐0020','4.52','725.72','7470.58','2022-10-01 02:23:11','1'),
+	('COLI000021','CO000011','SKU0021','大瓶可乐0021','5.32','820.93','9888.77','2022-09-27 01:07:19','1'),
+	('COLI000022','CO000011','SKU0022','大瓶可乐0022','4.52','878.69','9344.15','2022-09-18 23:27:00','1'),
+	('COLI000023','CO000012','SKU0023','大瓶可乐0023','5.35','999.97','9756.48','2022-09-15 08:11:38','1'),
+	('COLI000024','CO000012','SKU0024','大瓶可乐0024','4.83','853.93','9126.08','2022-09-26 01:54:44','1'),
+	('COLI000025','CO000013','SKU0025','大瓶可乐0025','5.75','764.05','7742.15','2022-09-28 14:54:43','1'),
+	('COLI000026','CO000013','SKU0026','大瓶可乐0026','5.35','750.75','7643.60','2022-09-14 09:18:09','1'),
+	('COLI000027','CO000014','SKU0027','大瓶可乐0027','5.10','927.19','9650.28','2022-09-21 18:04:34','1'),
+	('COLI000028','CO000014','SKU0028','大瓶可乐0028','5.75','831.91','8349.54','2022-09-20 17:26:14','1'),
+	('COLI000029','CO000015','SKU0029','大瓶可乐0029','4.66','935.13','9397.16','2022-09-27 13:38:28','1'),
+	('COLI000030','CO000015','SKU0030','大瓶可乐0030','5.56','873.57','9371.14','2022-09-10 18:53:13','1'),
+	('COLI000031','CO000016','SKU0031','大瓶可乐0031','5.42','753.25','7203.31','2022-09-25 15:06:33','1'),
+	('COLI000032','CO000016','SKU0032','大瓶可乐0032','5.47','908.85','7905.81','2022-09-12 15:02:02','1');
 
-insert into consumer_order_shipping_group_data values
-	('COSG000001','送货到刘强家0001','CO000001','425.38','1'),
-	('COSG000002','送货到刘强家0002','CO000001','497.61','1'),
-	('COSG000003','送货到刘强家0003','CO000002','469.19','1'),
-	('COSG000004','送货到刘强家0004','CO000002','437.00','1'),
-	('COSG000005','送货到刘强家0005','CO000003','425.12','1'),
-	('COSG000006','送货到刘强家0006','CO000003','564.51','1'),
-	('COSG000007','送货到刘强家0007','CO000004','568.81','1'),
-	('COSG000008','送货到刘强家0008','CO000004','514.96','1'),
-	('COSG000009','送货到刘强家0009','CO000005','435.86','1'),
-	('COSG000010','送货到刘强家0010','CO000005','576.24','1'),
-	('COSG000011','送货到刘强家0011','CO000006','518.79','1'),
-	('COSG000012','送货到刘强家0012','CO000006','464.49','1'),
-	('COSG000013','送货到刘强家0013','CO000007','468.04','1'),
-	('COSG000014','送货到刘强家0014','CO000007','446.14','1'),
-	('COSG000015','送货到刘强家0015','CO000008','478.07','1'),
-	('COSG000016','送货到刘强家0016','CO000008','593.99','1'),
-	('COSG000017','送货到刘强家0017','CO000009','596.73','1'),
-	('COSG000018','送货到刘强家0018','CO000009','466.74','1'),
-	('COSG000019','送货到刘强家0019','CO000010','576.76','1'),
-	('COSG000020','送货到刘强家0020','CO000010','468.06','1'),
-	('COSG000021','送货到刘强家0021','CO000011','478.42','1'),
-	('COSG000022','送货到刘强家0022','CO000011','598.11','1'),
-	('COSG000023','送货到刘强家0023','CO000012','534.06','1'),
-	('COSG000024','送货到刘强家0024','CO000012','458.11','1'),
-	('COSG000025','送货到刘强家0025','CO000013','550.35','1'),
-	('COSG000026','送货到刘强家0026','CO000013','495.54','1'),
-	('COSG000027','送货到刘强家0027','CO000014','431.32','1'),
-	('COSG000028','送货到刘强家0028','CO000014','456.27','1'),
-	('COSG000029','送货到刘强家0029','CO000015','454.55','1'),
-	('COSG000030','送货到刘强家0030','CO000015','430.50','1'),
-	('COSG000031','送货到刘强家0031','CO000016','518.67','1'),
-	('COSG000032','送货到刘强家0032','CO000016','485.77','1');
+insert into consumer_order_shipping_group_data (id,name,biz_order,amount,version) values
+	('COSG000001','送货到刘强家0001','CO000001','472.77','1'),
+	('COSG000002','送货到刘强家0002','CO000001','494.46','1'),
+	('COSG000003','送货到刘强家0003','CO000002','534.49','1'),
+	('COSG000004','送货到刘强家0004','CO000002','499.37','1'),
+	('COSG000005','送货到刘强家0005','CO000003','598.16','1'),
+	('COSG000006','送货到刘强家0006','CO000003','538.95','1'),
+	('COSG000007','送货到刘强家0007','CO000004','589.62','1'),
+	('COSG000008','送货到刘强家0008','CO000004','503.42','1'),
+	('COSG000009','送货到刘强家0009','CO000005','444.58','1'),
+	('COSG000010','送货到刘强家0010','CO000005','534.19','1'),
+	('COSG000011','送货到刘强家0011','CO000006','473.79','1'),
+	('COSG000012','送货到刘强家0012','CO000006','434.40','1'),
+	('COSG000013','送货到刘强家0013','CO000007','549.81','1'),
+	('COSG000014','送货到刘强家0014','CO000007','591.11','1'),
+	('COSG000015','送货到刘强家0015','CO000008','576.86','1'),
+	('COSG000016','送货到刘强家0016','CO000008','468.99','1'),
+	('COSG000017','送货到刘强家0017','CO000009','442.74','1'),
+	('COSG000018','送货到刘强家0018','CO000009','482.01','1'),
+	('COSG000019','送货到刘强家0019','CO000010','442.28','1'),
+	('COSG000020','送货到刘强家0020','CO000010','480.02','1'),
+	('COSG000021','送货到刘强家0021','CO000011','424.07','1'),
+	('COSG000022','送货到刘强家0022','CO000011','551.71','1'),
+	('COSG000023','送货到刘强家0023','CO000012','598.16','1'),
+	('COSG000024','送货到刘强家0024','CO000012','597.78','1'),
+	('COSG000025','送货到刘强家0025','CO000013','435.70','1'),
+	('COSG000026','送货到刘强家0026','CO000013','578.53','1'),
+	('COSG000027','送货到刘强家0027','CO000014','478.01','1'),
+	('COSG000028','送货到刘强家0028','CO000014','451.26','1'),
+	('COSG000029','送货到刘强家0029','CO000015','420.16','1'),
+	('COSG000030','送货到刘强家0030','CO000015','454.73','1'),
+	('COSG000031','送货到刘强家0031','CO000016','523.93','1'),
+	('COSG000032','送货到刘强家0032','CO000016','422.05','1');
 
-insert into consumer_order_payment_group_data values
+insert into consumer_order_payment_group_data (id,name,biz_order,card_number,version) values
 	('COPG000001','信用卡','CO000001','4111 1111 1111 - 0001','1'),
 	('COPG000002','支付宝','CO000001','4111 1111 1111 - 0002','1'),
 	('COPG000003','微信支付','CO000002','4111 1111 1111 - 0003','1'),
@@ -2128,65 +2128,65 @@ insert into consumer_order_payment_group_data values
 	('COPG000031','信用卡','CO000016','4111 1111 1111 - 0031','1'),
 	('COPG000032','支付宝','CO000016','4111 1111 1111 - 0032','1');
 
-insert into consumer_order_price_adjustment_data values
-	('COPA000001','端午促销0001','CO000001','529.99','供货商','1'),
-	('COPA000002','端午促销0002','CO000001','485.74','小超老板','1'),
-	('COPA000003','端午促销0003','CO000002','480.64','广告赞助','1'),
-	('COPA000004','端午促销0004','CO000002','452.03','供货商','1'),
-	('COPA000005','端午促销0005','CO000003','484.75','小超老板','1'),
-	('COPA000006','端午促销0006','CO000003','434.82','广告赞助','1'),
-	('COPA000007','端午促销0007','CO000004','430.39','供货商','1'),
-	('COPA000008','端午促销0008','CO000004','461.27','小超老板','1'),
-	('COPA000009','端午促销0009','CO000005','594.72','广告赞助','1'),
-	('COPA000010','端午促销0010','CO000005','427.53','供货商','1'),
-	('COPA000011','端午促销0011','CO000006','563.18','小超老板','1'),
-	('COPA000012','端午促销0012','CO000006','448.22','广告赞助','1'),
-	('COPA000013','端午促销0013','CO000007','517.74','供货商','1'),
-	('COPA000014','端午促销0014','CO000007','555.64','小超老板','1'),
-	('COPA000015','端午促销0015','CO000008','437.55','广告赞助','1'),
-	('COPA000016','端午促销0016','CO000008','540.68','供货商','1'),
-	('COPA000017','端午促销0017','CO000009','460.49','小超老板','1'),
-	('COPA000018','端午促销0018','CO000009','428.42','广告赞助','1'),
-	('COPA000019','端午促销0019','CO000010','567.43','供货商','1'),
-	('COPA000020','端午促销0020','CO000010','487.44','小超老板','1'),
-	('COPA000021','端午促销0021','CO000011','471.47','广告赞助','1'),
-	('COPA000022','端午促销0022','CO000011','483.93','供货商','1'),
-	('COPA000023','端午促销0023','CO000012','480.09','小超老板','1'),
-	('COPA000024','端午促销0024','CO000012','545.77','广告赞助','1'),
-	('COPA000025','端午促销0025','CO000013','435.70','供货商','1'),
-	('COPA000026','端午促销0026','CO000013','581.07','小超老板','1'),
-	('COPA000027','端午促销0027','CO000014','483.15','广告赞助','1'),
-	('COPA000028','端午促销0028','CO000014','547.36','供货商','1'),
-	('COPA000029','端午促销0029','CO000015','536.34','小超老板','1'),
-	('COPA000030','端午促销0030','CO000015','597.52','广告赞助','1'),
-	('COPA000031','端午促销0031','CO000016','489.53','供货商','1'),
-	('COPA000032','端午促销0032','CO000016','574.93','小超老板','1');
+insert into consumer_order_price_adjustment_data (id,name,biz_order,amount,provider,version) values
+	('COPA000001','端午促销0001','CO000001','497.99','供货商','1'),
+	('COPA000002','端午促销0002','CO000001','519.81','小超老板','1'),
+	('COPA000003','端午促销0003','CO000002','476.11','广告赞助','1'),
+	('COPA000004','端午促销0004','CO000002','540.16','供货商','1'),
+	('COPA000005','端午促销0005','CO000003','501.38','小超老板','1'),
+	('COPA000006','端午促销0006','CO000003','584.01','广告赞助','1'),
+	('COPA000007','端午促销0007','CO000004','537.70','供货商','1'),
+	('COPA000008','端午促销0008','CO000004','556.77','小超老板','1'),
+	('COPA000009','端午促销0009','CO000005','597.58','广告赞助','1'),
+	('COPA000010','端午促销0010','CO000005','442.11','供货商','1'),
+	('COPA000011','端午促销0011','CO000006','503.82','小超老板','1'),
+	('COPA000012','端午促销0012','CO000006','524.06','广告赞助','1'),
+	('COPA000013','端午促销0013','CO000007','534.60','供货商','1'),
+	('COPA000014','端午促销0014','CO000007','559.92','小超老板','1'),
+	('COPA000015','端午促销0015','CO000008','497.51','广告赞助','1'),
+	('COPA000016','端午促销0016','CO000008','556.72','供货商','1'),
+	('COPA000017','端午促销0017','CO000009','465.86','小超老板','1'),
+	('COPA000018','端午促销0018','CO000009','597.84','广告赞助','1'),
+	('COPA000019','端午促销0019','CO000010','563.74','供货商','1'),
+	('COPA000020','端午促销0020','CO000010','443.73','小超老板','1'),
+	('COPA000021','端午促销0021','CO000011','478.25','广告赞助','1'),
+	('COPA000022','端午促销0022','CO000011','556.49','供货商','1'),
+	('COPA000023','端午促销0023','CO000012','595.70','小超老板','1'),
+	('COPA000024','端午促销0024','CO000012','462.17','广告赞助','1'),
+	('COPA000025','端午促销0025','CO000013','460.61','供货商','1'),
+	('COPA000026','端午促销0026','CO000013','470.27','小超老板','1'),
+	('COPA000027','端午促销0027','CO000014','524.34','广告赞助','1'),
+	('COPA000028','端午促销0028','CO000014','517.52','供货商','1'),
+	('COPA000029','端午促销0029','CO000015','426.71','小超老板','1'),
+	('COPA000030','端午促销0030','CO000015','514.28','广告赞助','1'),
+	('COPA000031','端午促销0031','CO000016','593.92','供货商','1'),
+	('COPA000032','端午促销0032','CO000016','536.85','小超老板','1');
 
-insert into retail_store_member_coupon_data values
-	('RSMC000001','优惠券0001','RSM000001','CP000010001','2021-09-03 10:53:47','1'),
-	('RSMC000002','优惠券0002','RSM000001','CP000010002','2021-09-11 03:41:50','1'),
-	('RSMC000003','优惠券0003','RSM000002','CP000010003','2021-08-26 09:01:14','1'),
-	('RSMC000004','优惠券0004','RSM000002','CP000010004','2021-08-24 07:15:20','1');
+insert into retail_store_member_coupon_data (id,name,owner,number,last_update_time,version) values
+	('RSMC000001','优惠券0001','RSM000001','CP000010001','2022-09-20 17:47:02','1'),
+	('RSMC000002','优惠券0002','RSM000001','CP000010002','2022-09-15 15:51:30','1'),
+	('RSMC000003','优惠券0003','RSM000002','CP000010003','2022-09-17 17:29:19','1'),
+	('RSMC000004','优惠券0004','RSM000002','CP000010004','2022-09-17 16:16:58','1');
 
-insert into member_wishlist_data values
+insert into member_wishlist_data (id,name,owner,version) values
 	('MW000001','每周购买清单','RSM000001','1'),
 	('MW000002','每月购买清单','RSM000001','1'),
 	('MW000003','每周购买清单','RSM000002','1'),
 	('MW000004','每月购买清单','RSM000002','1');
 
-insert into member_reward_point_data values
-	('MRP000001','购买积分','20','RSM000001','1'),
-	('MRP000002','每月购买清单','15','RSM000001','1'),
-	('MRP000003','购买积分','18','RSM000002','1'),
-	('MRP000004','每月购买清单','16','RSM000002','1');
+insert into member_reward_point_data (id,name,point,owner,version) values
+	('MRP000001','购买积分','16','RSM000001','1'),
+	('MRP000002','每月购买清单','19','RSM000001','1'),
+	('MRP000003','购买积分','15','RSM000002','1'),
+	('MRP000004','每月购买清单','17','RSM000002','1');
 
-insert into member_reward_point_redemption_data values
-	('MRPR000001','积分换锅','17','RSM000001','1'),
-	('MRPR000002','积分换刀','16','RSM000001','1'),
-	('MRPR000003','积分换锅','17','RSM000002','1'),
+insert into member_reward_point_redemption_data (id,name,point,owner,version) values
+	('MRPR000001','积分换锅','16','RSM000001','1'),
+	('MRPR000002','积分换刀','20','RSM000001','1'),
+	('MRPR000003','积分换锅','19','RSM000002','1'),
 	('MRPR000004','积分换刀','18','RSM000002','1');
 
-insert into member_wishlist_product_data values
+insert into member_wishlist_product_data (id,name,owner,version) values
 	('MWP000001','农夫山泉','MW000001','1'),
 	('MWP000002','利箭口香糖','MW000001','1'),
 	('MWP000003','农夫山泉','MW000002','1'),
@@ -2196,99 +2196,99 @@ insert into member_wishlist_product_data values
 	('MWP000007','农夫山泉','MW000004','1'),
 	('MWP000008','利箭口香糖','MW000004','1');
 
-insert into retail_store_member_address_data values
+insert into retail_store_member_address_data (id,name,owner,mobile_phone,address,version) values
 	('RSMA000001','家里','RSM000001','18099887766','四川省成都市科学城北路33号0001','1'),
 	('RSMA000002','办公室','RSM000001','13900000002','四川省成都市科学城北路33号0002','1'),
 	('RSMA000003','出差临时地址','RSM000002','13900000003','四川省成都市科学城北路33号0003','1'),
 	('RSMA000004','家里','RSM000002','13900000004','四川省成都市科学城北路33号0004','1');
 
-insert into retail_store_member_gift_card_data values
-	('RSMGC000001','礼品卡0001','RSM000001','CP000010001','151.58','1'),
-	('RSMGC000002','礼品卡0002','RSM000001','CP000010002','176.81','1'),
-	('RSMGC000003','礼品卡0003','RSM000002','CP000010003','175.32','1'),
-	('RSMGC000004','礼品卡0004','RSM000002','CP000010004','190.21','1');
+insert into retail_store_member_gift_card_data (id,name,owner,number,remain,version) values
+	('RSMGC000001','礼品卡0001','RSM000001','CP000010001','184.26','1'),
+	('RSMGC000002','礼品卡0002','RSM000001','CP000010002','174.04','1'),
+	('RSMGC000003','礼品卡0003','RSM000002','CP000010003','202.96','1'),
+	('RSMGC000004','礼品卡0004','RSM000002','CP000010004','201.08','1');
 
-insert into retail_store_member_gift_card_consume_record_data values
-	('RSMGCCR000001','2021-01-10','RSMGC000001','CO000001','GF000010001','17.64','1'),
-	('RSMGCCR000002','2021-04-23','RSMGC000001','CO000001','GF000010002','15.83','1'),
-	('RSMGCCR000003','2020-12-20','RSMGC000001','CO000002','GF000010003','17.62','1'),
-	('RSMGCCR000004','2020-06-08','RSMGC000001','CO000002','GF000010004','16.90','1'),
-	('RSMGCCR000005','2020-11-09','RSMGC000001','CO000003','GF000010005','17.60','1'),
-	('RSMGCCR000006','2020-01-08','RSMGC000001','CO000003','GF000010006','15.41','1'),
-	('RSMGCCR000007','2021-06-13','RSMGC000001','CO000004','GF000010007','19.85','1'),
-	('RSMGCCR000008','2020-01-03','RSMGC000001','CO000004','GF000010008','18.63','1'),
-	('RSMGCCR000009','2019-07-28','RSMGC000002','CO000005','GF000010009','19.75','1'),
-	('RSMGCCR000010','2020-07-14','RSMGC000002','CO000005','GF000010010','19.64','1'),
-	('RSMGCCR000011','2019-09-01','RSMGC000002','CO000006','GF000010011','18.58','1'),
-	('RSMGCCR000012','2020-10-08','RSMGC000002','CO000006','GF000010012','18.20','1'),
-	('RSMGCCR000013','2019-11-03','RSMGC000002','CO000007','GF000010013','20.18','1'),
-	('RSMGCCR000014','2019-10-27','RSMGC000002','CO000007','GF000010014','15.32','1'),
-	('RSMGCCR000015','2021-05-16','RSMGC000002','CO000008','GF000010015','18.18','1'),
-	('RSMGCCR000016','2019-08-07','RSMGC000002','CO000008','GF000010016','15.97','1'),
-	('RSMGCCR000017','2020-08-25','RSMGC000003','CO000009','GF000010017','15.39','1'),
-	('RSMGCCR000018','2020-05-14','RSMGC000003','CO000009','GF000010018','19.48','1'),
-	('RSMGCCR000019','2020-12-30','RSMGC000003','CO000010','GF000010019','20.88','1'),
-	('RSMGCCR000020','2020-05-29','RSMGC000003','CO000010','GF000010020','15.58','1'),
-	('RSMGCCR000021','2020-05-30','RSMGC000003','CO000011','GF000010021','15.86','1'),
-	('RSMGCCR000022','2021-07-13','RSMGC000003','CO000011','GF000010022','16.56','1'),
-	('RSMGCCR000023','2021-03-03','RSMGC000003','CO000012','GF000010023','20.63','1'),
-	('RSMGCCR000024','2020-04-24','RSMGC000003','CO000012','GF000010024','15.89','1'),
-	('RSMGCCR000025','2019-03-03','RSMGC000004','CO000013','GF000010025','16.62','1'),
-	('RSMGCCR000026','2020-08-22','RSMGC000004','CO000013','GF000010026','19.91','1'),
-	('RSMGCCR000027','2020-05-13','RSMGC000004','CO000014','GF000010027','19.75','1'),
-	('RSMGCCR000028','2020-10-10','RSMGC000004','CO000014','GF000010028','18.78','1'),
-	('RSMGCCR000029','2018-11-27','RSMGC000004','CO000015','GF000010029','19.62','1'),
-	('RSMGCCR000030','2019-04-11','RSMGC000004','CO000015','GF000010030','16.61','1'),
-	('RSMGCCR000031','2020-07-29','RSMGC000004','CO000016','GF000010031','20.45','1'),
-	('RSMGCCR000032','2019-02-08','RSMGC000004','CO000016','GF000010032','15.69','1');
+insert into retail_store_member_gift_card_consume_record_data (id,occure_time,owner,biz_order,number,amount,version) values
+	('RSMGCCR000001','2021-05-28','RSMGC000001','CO000001','GF000010001','18.13','1'),
+	('RSMGCCR000002','2020-09-06','RSMGC000001','CO000001','GF000010002','20.82','1'),
+	('RSMGCCR000003','2022-05-15','RSMGC000001','CO000002','GF000010003','20.07','1'),
+	('RSMGCCR000004','2020-09-05','RSMGC000001','CO000002','GF000010004','17.92','1'),
+	('RSMGCCR000005','2021-08-06','RSMGC000001','CO000003','GF000010005','17.26','1'),
+	('RSMGCCR000006','2021-10-12','RSMGC000001','CO000003','GF000010006','20.07','1'),
+	('RSMGCCR000007','2020-08-23','RSMGC000001','CO000004','GF000010007','15.50','1'),
+	('RSMGCCR000008','2021-03-26','RSMGC000001','CO000004','GF000010008','20.03','1'),
+	('RSMGCCR000009','2022-08-18','RSMGC000002','CO000005','GF000010009','17.98','1'),
+	('RSMGCCR000010','2022-02-23','RSMGC000002','CO000005','GF000010010','17.80','1'),
+	('RSMGCCR000011','2022-02-17','RSMGC000002','CO000006','GF000010011','17.50','1'),
+	('RSMGCCR000012','2020-10-02','RSMGC000002','CO000006','GF000010012','15.78','1'),
+	('RSMGCCR000013','2021-11-06','RSMGC000002','CO000007','GF000010013','18.93','1'),
+	('RSMGCCR000014','2020-11-21','RSMGC000002','CO000007','GF000010014','18.81','1'),
+	('RSMGCCR000015','2020-03-08','RSMGC000002','CO000008','GF000010015','19.02','1'),
+	('RSMGCCR000016','2020-08-02','RSMGC000002','CO000008','GF000010016','20.90','1'),
+	('RSMGCCR000017','2019-10-11','RSMGC000003','CO000009','GF000010017','20.51','1'),
+	('RSMGCCR000018','2020-10-20','RSMGC000003','CO000009','GF000010018','20.75','1'),
+	('RSMGCCR000019','2019-12-05','RSMGC000003','CO000010','GF000010019','19.86','1'),
+	('RSMGCCR000020','2022-05-24','RSMGC000003','CO000010','GF000010020','15.84','1'),
+	('RSMGCCR000021','2019-12-30','RSMGC000003','CO000011','GF000010021','16.24','1'),
+	('RSMGCCR000022','2022-08-13','RSMGC000003','CO000011','GF000010022','19.08','1'),
+	('RSMGCCR000023','2021-10-25','RSMGC000003','CO000012','GF000010023','17.34','1'),
+	('RSMGCCR000024','2019-10-27','RSMGC000003','CO000012','GF000010024','20.87','1'),
+	('RSMGCCR000025','2020-08-24','RSMGC000004','CO000013','GF000010025','15.57','1'),
+	('RSMGCCR000026','2020-05-01','RSMGC000004','CO000013','GF000010026','17.39','1'),
+	('RSMGCCR000027','2022-03-02','RSMGC000004','CO000014','GF000010027','15.02','1'),
+	('RSMGCCR000028','2021-02-03','RSMGC000004','CO000014','GF000010028','19.43','1'),
+	('RSMGCCR000029','2019-11-16','RSMGC000004','CO000015','GF000010029','20.42','1'),
+	('RSMGCCR000030','2020-02-08','RSMGC000004','CO000015','GF000010030','17.97','1'),
+	('RSMGCCR000031','2020-04-07','RSMGC000004','CO000016','GF000010031','14.99','1'),
+	('RSMGCCR000032','2020-07-12','RSMGC000004','CO000016','GF000010032','19.10','1');
 
-insert into goods_supplier_data values
-	('GS000001','宝洁','洗护用品','RSCC000001','18677889999','啤酒饮料矿泉水，香肠瓜子方便面都提供0001','2021-08-23 07:19:36','1'),
-	('GS000002','中粮','食品','RSCC000001','13900000002','啤酒饮料矿泉水，香肠瓜子方便面都提供0002','2021-08-31 21:45:54','1');
+insert into goods_supplier_data (id,name,supply_product,belong_to,contact_number,description,last_update_time,version) values
+	('GS000001','宝洁','洗护用品','RSCC000001','18677889999','啤酒饮料矿泉水，香肠瓜子方便面都提供0001','2022-09-27 20:28:05','1'),
+	('GS000002','中粮','食品','RSCC000001','13900000002','啤酒饮料矿泉水，香肠瓜子方便面都提供0002','2022-10-01 06:55:15','1');
 
-insert into supplier_product_data values
+insert into supplier_product_data (id,product_name,product_description,product_unit,supplier,version) values
 	('SP000001','黑人牙膏0001','最好的黑人牙膏，只卖3块喽0001','件','GS000001','1'),
 	('SP000002','黑人牙膏0002','最好的黑人牙膏，只卖3块喽0002','公斤','GS000001','1'),
 	('SP000003','黑人牙膏0003','最好的黑人牙膏，只卖3块喽0003','米','GS000002','1'),
 	('SP000004','黑人牙膏0004','最好的黑人牙膏，只卖3块喽0004','件','GS000002','1');
 
-insert into product_supply_duration_data values
-	('PSD000001','100','现货','9708.23','SP000001','1'),
-	('PSD000002','200','两天','9090.69','SP000001','1'),
-	('PSD000003','500','三天','8003.47','SP000002','1'),
-	('PSD000004','100','一周','8424.94','SP000002','1'),
-	('PSD000005','200','现货','8323.61','SP000003','1'),
-	('PSD000006','500','两天','7126.27','SP000003','1'),
-	('PSD000007','100','三天','8027.50','SP000004','1'),
-	('PSD000008','200','一周','8440.20','SP000004','1');
+insert into product_supply_duration_data (id,quantity,duration,price,product,version) values
+	('PSD000001','100','现货','7762.86','SP000001','1'),
+	('PSD000002','200','两天','8231.78','SP000001','1'),
+	('PSD000003','500','三天','7137.42','SP000002','1'),
+	('PSD000004','100','一周','9815.26','SP000002','1'),
+	('PSD000005','200','现货','9242.78','SP000003','1'),
+	('PSD000006','500','两天','7324.27','SP000003','1'),
+	('PSD000007','100','三天','7599.06','SP000004','1'),
+	('PSD000008','200','一周','8692.03','SP000004','1');
 
-insert into supply_order_data values
-	('SO000001','RSCC000001','GS000001','双链给供货商下的订单0001','contract.pdf','2174985216.00','2021-09-05 09:02:17','1'),
-	('SO000002','RSCC000001','GS000001','双链给供货商下的订单0002','contract.pdf','2915202048.00','2021-09-03 02:06:24','1'),
-	('SO000003','RSCC000001','GS000002','双链给供货商下的订单0003','contract.pdf','2408209152.00','2021-08-29 00:55:02','1'),
-	('SO000004','RSCC000001','GS000002','双链给供货商下的订单0004','contract.pdf','2706761472.00','2021-08-23 06:09:59','1');
+insert into supply_order_data (id,buyer,seller,title,contract,total_amount,last_update_time,version) values
+	('SO000001','RSCC000001','GS000001','双链给供货商下的订单0001','contract.pdf','2469908736.00','2022-09-26 20:37:50','1'),
+	('SO000002','RSCC000001','GS000001','双链给供货商下的订单0002','contract.pdf','2799426560.00','2022-09-18 11:31:07','1'),
+	('SO000003','RSCC000001','GS000002','双链给供货商下的订单0003','contract.pdf','2818206976.00','2022-09-17 14:21:52','1'),
+	('SO000004','RSCC000001','GS000002','双链给供货商下的订单0004','contract.pdf','2530647296.00','2022-09-29 20:59:23','1');
 
-insert into supply_order_line_item_data values
-	('SOLI000001','SO000001','SKU0001','大瓶可乐0001','4.24','9083','件','1'),
-	('SOLI000002','SO000001','SKU0002','大瓶可乐0002','5.95','8525','公斤','1'),
-	('SOLI000003','SO000002','SKU0003','大瓶可乐0003','4.52','8690','米','1'),
-	('SOLI000004','SO000002','SKU0004','大瓶可乐0004','5.21','7733','件','1'),
-	('SOLI000005','SO000003','SKU0005','大瓶可乐0005','5.54','8072','公斤','1'),
-	('SOLI000006','SO000003','SKU0006','大瓶可乐0006','5.12','8754','米','1'),
-	('SOLI000007','SO000004','SKU0007','大瓶可乐0007','5.67','7929','件','1'),
-	('SOLI000008','SO000004','SKU0008','大瓶可乐0008','5.52','8801','公斤','1');
+insert into supply_order_line_item_data (id,biz_order,sku_id,sku_name,amount,quantity,unit_of_measurement,version) values
+	('SOLI000001','SO000001','SKU0001','大瓶可乐0001','5.87','9885','件','1'),
+	('SOLI000002','SO000001','SKU0002','大瓶可乐0002','4.42','9394','公斤','1'),
+	('SOLI000003','SO000002','SKU0003','大瓶可乐0003','5.08','9466','米','1'),
+	('SOLI000004','SO000002','SKU0004','大瓶可乐0004','4.37','9325','件','1'),
+	('SOLI000005','SO000003','SKU0005','大瓶可乐0005','5.58','9121','公斤','1'),
+	('SOLI000006','SO000003','SKU0006','大瓶可乐0006','5.11','9657','米','1'),
+	('SOLI000007','SO000004','SKU0007','大瓶可乐0007','4.63','9679','件','1'),
+	('SOLI000008','SO000004','SKU0008','大瓶可乐0008','5.03','7872','公斤','1');
 
-insert into supply_order_shipping_group_data values
-	('SOSG000001','送货到双链成都2号仓0001','SO000001','5.45','1'),
-	('SOSG000002','送货到双链成都2号仓0002','SO000001','4.76','1'),
-	('SOSG000003','送货到双链成都2号仓0003','SO000002','4.67','1'),
-	('SOSG000004','送货到双链成都2号仓0004','SO000002','5.20','1'),
-	('SOSG000005','送货到双链成都2号仓0005','SO000003','5.04','1'),
-	('SOSG000006','送货到双链成都2号仓0006','SO000003','5.71','1'),
-	('SOSG000007','送货到双链成都2号仓0007','SO000004','5.01','1'),
-	('SOSG000008','送货到双链成都2号仓0008','SO000004','4.83','1');
+insert into supply_order_shipping_group_data (id,name,biz_order,amount,version) values
+	('SOSG000001','送货到双链成都2号仓0001','SO000001','4.70','1'),
+	('SOSG000002','送货到双链成都2号仓0002','SO000001','4.37','1'),
+	('SOSG000003','送货到双链成都2号仓0003','SO000002','5.91','1'),
+	('SOSG000004','送货到双链成都2号仓0004','SO000002','5.23','1'),
+	('SOSG000005','送货到双链成都2号仓0005','SO000003','5.56','1'),
+	('SOSG000006','送货到双链成都2号仓0006','SO000003','4.89','1'),
+	('SOSG000007','送货到双链成都2号仓0007','SO000004','4.73','1'),
+	('SOSG000008','送货到双链成都2号仓0008','SO000004','5.08','1');
 
-insert into supply_order_payment_group_data values
+insert into supply_order_payment_group_data (id,name,biz_order,card_number,version) values
 	('SOPG000001','付款办法0001','SO000001','4111 1111 1111 - 0001','1'),
 	('SOPG000002','付款办法0002','SO000001','4111 1111 1111 - 0002','1'),
 	('SOPG000003','付款办法0003','SO000002','4111 1111 1111 - 0003','1'),
@@ -2298,93 +2298,93 @@ insert into supply_order_payment_group_data values
 	('SOPG000007','付款办法0007','SO000004','4111 1111 1111 - 0007','1'),
 	('SOPG000008','付款办法0008','SO000004','4111 1111 1111 - 0008','1');
 
-insert into retail_store_order_data values
-	('RSO000001','RS000001','RSCC000001','双链小超给双链供应链下的订单0001','2108278528.00','contract.pdf','2021-09-10 05:31:19','1'),
-	('RSO000002','RS000001','RSCC000001','双链小超给双链供应链下的订单0002','2861742336.00','contract.pdf','2021-08-30 05:44:45','1'),
-	('RSO000003','RS000002','RSCC000001','双链小超给双链供应链下的订单0003','2494065920.00','contract.pdf','2021-09-13 08:30:04','1'),
-	('RSO000004','RS000002','RSCC000001','双链小超给双链供应链下的订单0004','2926294272.00','contract.pdf','2021-09-11 23:42:18','1'),
-	('RSO000005','RS000003','RSCC000001','双链小超给双链供应链下的订单0005','2640451328.00','contract.pdf','2021-09-10 13:59:35','1'),
-	('RSO000006','RS000003','RSCC000001','双链小超给双链供应链下的订单0006','2151272192.00','contract.pdf','2021-09-12 19:35:15','1'),
-	('RSO000007','RS000004','RSCC000001','双链小超给双链供应链下的订单0007','2739932928.00','contract.pdf','2021-08-27 07:21:00','1'),
-	('RSO000008','RS000004','RSCC000001','双链小超给双链供应链下的订单0008','2898843648.00','contract.pdf','2021-09-02 14:30:33','1'),
-	('RSO000009','RS000005','RSCC000001','双链小超给双链供应链下的订单0009','2637252352.00','contract.pdf','2021-09-02 10:09:03','1'),
-	('RSO000010','RS000005','RSCC000001','双链小超给双链供应链下的订单0010','2113335680.00','contract.pdf','2021-08-29 22:41:30','1'),
-	('RSO000011','RS000006','RSCC000001','双链小超给双链供应链下的订单0011','2178992384.00','contract.pdf','2021-08-25 01:56:19','1'),
-	('RSO000012','RS000006','RSCC000001','双链小超给双链供应链下的订单0012','2592748288.00','contract.pdf','2021-08-28 11:39:45','1'),
-	('RSO000013','RS000007','RSCC000001','双链小超给双链供应链下的订单0013','2447749120.00','contract.pdf','2021-08-30 06:54:42','1'),
-	('RSO000014','RS000007','RSCC000001','双链小超给双链供应链下的订单0014','2754195968.00','contract.pdf','2021-08-27 01:00:33','1'),
-	('RSO000015','RS000008','RSCC000001','双链小超给双链供应链下的订单0015','2666847232.00','contract.pdf','2021-08-28 14:02:05','1'),
-	('RSO000016','RS000008','RSCC000001','双链小超给双链供应链下的订单0016','2571192576.00','contract.pdf','2021-09-05 00:46:48','1');
+insert into retail_store_order_data (id,buyer,seller,title,total_amount,contract,last_update_time,version) values
+	('RSO000001','RS000001','RSCC000001','双链小超给双链供应链下的订单0001','2272084224.00','contract.pdf','2022-09-25 17:19:18','1'),
+	('RSO000002','RS000001','RSCC000001','双链小超给双链供应链下的订单0002','2566145024.00','contract.pdf','2022-09-27 22:51:08','1'),
+	('RSO000003','RS000002','RSCC000001','双链小超给双链供应链下的订单0003','2694336768.00','contract.pdf','2022-09-25 20:35:19','1'),
+	('RSO000004','RS000002','RSCC000001','双链小超给双链供应链下的订单0004','2908497152.00','contract.pdf','2022-09-16 19:29:32','1'),
+	('RSO000005','RS000003','RSCC000001','双链小超给双链供应链下的订单0005','2308244736.00','contract.pdf','2022-09-28 16:04:19','1'),
+	('RSO000006','RS000003','RSCC000001','双链小超给双链供应链下的订单0006','2671191808.00','contract.pdf','2022-09-15 00:13:49','1'),
+	('RSO000007','RS000004','RSCC000001','双链小超给双链供应链下的订单0007','2704839936.00','contract.pdf','2022-09-19 15:45:30','1'),
+	('RSO000008','RS000004','RSCC000001','双链小超给双链供应链下的订单0008','2410212352.00','contract.pdf','2022-09-20 20:52:54','1'),
+	('RSO000009','RS000005','RSCC000001','双链小超给双链供应链下的订单0009','2809934080.00','contract.pdf','2022-09-21 09:52:26','1'),
+	('RSO000010','RS000005','RSCC000001','双链小超给双链供应链下的订单0010','2657303040.00','contract.pdf','2022-09-28 06:48:54','1'),
+	('RSO000011','RS000006','RSCC000001','双链小超给双链供应链下的订单0011','2878109952.00','contract.pdf','2022-09-17 15:29:01','1'),
+	('RSO000012','RS000006','RSCC000001','双链小超给双链供应链下的订单0012','2722199296.00','contract.pdf','2022-09-24 19:23:43','1'),
+	('RSO000013','RS000007','RSCC000001','双链小超给双链供应链下的订单0013','2959142400.00','contract.pdf','2022-09-25 04:34:59','1'),
+	('RSO000014','RS000007','RSCC000001','双链小超给双链供应链下的订单0014','2682398208.00','contract.pdf','2022-09-19 05:42:24','1'),
+	('RSO000015','RS000008','RSCC000001','双链小超给双链供应链下的订单0015','2102980224.00','contract.pdf','2022-09-13 11:57:51','1'),
+	('RSO000016','RS000008','RSCC000001','双链小超给双链供应链下的订单0016','2479286016.00','contract.pdf','2022-09-12 02:57:46','1');
 
-insert into retail_store_order_line_item_data values
-	('RSOLI000001','RSO000001','SKU0001','大瓶可乐0001','3.15','7757','件','1'),
-	('RSOLI000002','RSO000001','SKU0002','大瓶可乐0002','3.02','9559','公斤','1'),
-	('RSOLI000003','RSO000002','SKU0003','大瓶可乐0003','3.71','7913','米','1'),
-	('RSOLI000004','RSO000002','SKU0004','大瓶可乐0004','3.48','9794','件','1'),
-	('RSOLI000005','RSO000003','SKU0005','大瓶可乐0005','3.67','8311','公斤','1'),
-	('RSOLI000006','RSO000003','SKU0006','大瓶可乐0006','2.88','8212','米','1'),
-	('RSOLI000007','RSO000004','SKU0007','大瓶可乐0007','3.14','7926','件','1'),
-	('RSOLI000008','RSO000004','SKU0008','大瓶可乐0008','3.26','7600','公斤','1'),
-	('RSOLI000009','RSO000005','SKU0009','大瓶可乐0009','2.88','9235','米','1'),
-	('RSOLI000010','RSO000005','SKU0010','大瓶可乐0010','3.36','9408','件','1'),
-	('RSOLI000011','RSO000006','SKU0011','大瓶可乐0011','3.80','9209','公斤','1'),
-	('RSOLI000012','RSO000006','SKU0012','大瓶可乐0012','3.13','7187','米','1'),
-	('RSOLI000013','RSO000007','SKU0013','大瓶可乐0013','3.87','7670','件','1'),
-	('RSOLI000014','RSO000007','SKU0014','大瓶可乐0014','3.39','8198','公斤','1'),
-	('RSOLI000015','RSO000008','SKU0015','大瓶可乐0015','3.97','8877','米','1'),
-	('RSOLI000016','RSO000008','SKU0016','大瓶可乐0016','2.85','8631','件','1'),
-	('RSOLI000017','RSO000009','SKU0017','大瓶可乐0017','3.15','7069','公斤','1'),
-	('RSOLI000018','RSO000009','SKU0018','大瓶可乐0018','3.49','8347','米','1'),
-	('RSOLI000019','RSO000010','SKU0019','大瓶可乐0019','3.72','9106','件','1'),
-	('RSOLI000020','RSO000010','SKU0020','大瓶可乐0020','2.93','9616','公斤','1'),
-	('RSOLI000021','RSO000011','SKU0021','大瓶可乐0021','2.93','8253','米','1'),
-	('RSOLI000022','RSO000011','SKU0022','大瓶可乐0022','3.59','7893','件','1'),
-	('RSOLI000023','RSO000012','SKU0023','大瓶可乐0023','3.20','7646','公斤','1'),
-	('RSOLI000024','RSO000012','SKU0024','大瓶可乐0024','3.56','8264','米','1'),
-	('RSOLI000025','RSO000013','SKU0025','大瓶可乐0025','3.66','9950','件','1'),
-	('RSOLI000026','RSO000013','SKU0026','大瓶可乐0026','3.89','7848','公斤','1'),
-	('RSOLI000027','RSO000014','SKU0027','大瓶可乐0027','2.87','7249','米','1'),
-	('RSOLI000028','RSO000014','SKU0028','大瓶可乐0028','3.28','8081','件','1'),
-	('RSOLI000029','RSO000015','SKU0029','大瓶可乐0029','3.31','8266','公斤','1'),
-	('RSOLI000030','RSO000015','SKU0030','大瓶可乐0030','3.20','8536','米','1'),
-	('RSOLI000031','RSO000016','SKU0031','大瓶可乐0031','3.11','7599','件','1'),
-	('RSOLI000032','RSO000016','SKU0032','大瓶可乐0032','3.40','8627','公斤','1');
+insert into retail_store_order_line_item_data (id,biz_order,sku_id,sku_name,amount,quantity,unit_of_measurement,version) values
+	('RSOLI000001','RSO000001','SKU0001','大瓶可乐0001','3.88','8242','件','1'),
+	('RSOLI000002','RSO000001','SKU0002','大瓶可乐0002','2.91','7835','公斤','1'),
+	('RSOLI000003','RSO000002','SKU0003','大瓶可乐0003','3.87','8771','米','1'),
+	('RSOLI000004','RSO000002','SKU0004','大瓶可乐0004','3.83','8214','件','1'),
+	('RSOLI000005','RSO000003','SKU0005','大瓶可乐0005','3.35','7991','公斤','1'),
+	('RSOLI000006','RSO000003','SKU0006','大瓶可乐0006','2.81','7052','米','1'),
+	('RSOLI000007','RSO000004','SKU0007','大瓶可乐0007','3.38','9698','件','1'),
+	('RSOLI000008','RSO000004','SKU0008','大瓶可乐0008','3.12','8549','公斤','1'),
+	('RSOLI000009','RSO000005','SKU0009','大瓶可乐0009','2.92','8717','米','1'),
+	('RSOLI000010','RSO000005','SKU0010','大瓶可乐0010','3.90','8352','件','1'),
+	('RSOLI000011','RSO000006','SKU0011','大瓶可乐0011','3.63','8099','公斤','1'),
+	('RSOLI000012','RSO000006','SKU0012','大瓶可乐0012','3.44','9170','米','1'),
+	('RSOLI000013','RSO000007','SKU0013','大瓶可乐0013','3.86','8322','件','1'),
+	('RSOLI000014','RSO000007','SKU0014','大瓶可乐0014','3.39','7838','公斤','1'),
+	('RSOLI000015','RSO000008','SKU0015','大瓶可乐0015','3.57','7403','米','1'),
+	('RSOLI000016','RSO000008','SKU0016','大瓶可乐0016','2.90','8039','件','1'),
+	('RSOLI000017','RSO000009','SKU0017','大瓶可乐0017','3.18','8835','公斤','1'),
+	('RSOLI000018','RSO000009','SKU0018','大瓶可乐0018','3.60','9388','米','1'),
+	('RSOLI000019','RSO000010','SKU0019','大瓶可乐0019','3.66','9496','件','1'),
+	('RSOLI000020','RSO000010','SKU0020','大瓶可乐0020','3.23','9721','公斤','1'),
+	('RSOLI000021','RSO000011','SKU0021','大瓶可乐0021','3.49','7015','米','1'),
+	('RSOLI000022','RSO000011','SKU0022','大瓶可乐0022','3.02','9266','件','1'),
+	('RSOLI000023','RSO000012','SKU0023','大瓶可乐0023','3.16','9597','公斤','1'),
+	('RSOLI000024','RSO000012','SKU0024','大瓶可乐0024','3.51','8823','米','1'),
+	('RSOLI000025','RSO000013','SKU0025','大瓶可乐0025','2.83','9978','件','1'),
+	('RSOLI000026','RSO000013','SKU0026','大瓶可乐0026','3.66','7196','公斤','1'),
+	('RSOLI000027','RSO000014','SKU0027','大瓶可乐0027','3.34','7015','米','1'),
+	('RSOLI000028','RSO000014','SKU0028','大瓶可乐0028','3.12','7923','件','1'),
+	('RSOLI000029','RSO000015','SKU0029','大瓶可乐0029','3.89','9370','公斤','1'),
+	('RSOLI000030','RSO000015','SKU0030','大瓶可乐0030','2.89','8752','米','1'),
+	('RSOLI000031','RSO000016','SKU0031','大瓶可乐0031','3.66','9930','件','1'),
+	('RSOLI000032','RSO000016','SKU0032','大瓶可乐0032','2.95','7437','公斤','1');
 
-insert into retail_store_order_shipping_group_data values
-	('RSOSG000001','送货到双链中和社区店0001','RSO000001','5.37','1'),
-	('RSOSG000002','送货到双链中和社区店0002','RSO000001','4.66','1'),
-	('RSOSG000003','送货到双链中和社区店0003','RSO000002','5.24','1'),
-	('RSOSG000004','送货到双链中和社区店0004','RSO000002','4.99','1'),
-	('RSOSG000005','送货到双链中和社区店0005','RSO000003','5.26','1'),
-	('RSOSG000006','送货到双链中和社区店0006','RSO000003','5.12','1'),
-	('RSOSG000007','送货到双链中和社区店0007','RSO000004','4.68','1'),
-	('RSOSG000008','送货到双链中和社区店0008','RSO000004','5.87','1'),
-	('RSOSG000009','送货到双链中和社区店0009','RSO000005','5.16','1'),
-	('RSOSG000010','送货到双链中和社区店0010','RSO000005','4.89','1'),
-	('RSOSG000011','送货到双链中和社区店0011','RSO000006','5.68','1'),
-	('RSOSG000012','送货到双链中和社区店0012','RSO000006','5.85','1'),
-	('RSOSG000013','送货到双链中和社区店0013','RSO000007','4.61','1'),
-	('RSOSG000014','送货到双链中和社区店0014','RSO000007','4.63','1'),
-	('RSOSG000015','送货到双链中和社区店0015','RSO000008','5.57','1'),
-	('RSOSG000016','送货到双链中和社区店0016','RSO000008','5.34','1'),
-	('RSOSG000017','送货到双链中和社区店0017','RSO000009','5.37','1'),
-	('RSOSG000018','送货到双链中和社区店0018','RSO000009','4.57','1'),
-	('RSOSG000019','送货到双链中和社区店0019','RSO000010','5.19','1'),
-	('RSOSG000020','送货到双链中和社区店0020','RSO000010','4.40','1'),
-	('RSOSG000021','送货到双链中和社区店0021','RSO000011','4.34','1'),
-	('RSOSG000022','送货到双链中和社区店0022','RSO000011','4.71','1'),
-	('RSOSG000023','送货到双链中和社区店0023','RSO000012','4.43','1'),
-	('RSOSG000024','送货到双链中和社区店0024','RSO000012','4.66','1'),
-	('RSOSG000025','送货到双链中和社区店0025','RSO000013','5.77','1'),
-	('RSOSG000026','送货到双链中和社区店0026','RSO000013','5.69','1'),
-	('RSOSG000027','送货到双链中和社区店0027','RSO000014','5.05','1'),
-	('RSOSG000028','送货到双链中和社区店0028','RSO000014','5.07','1'),
-	('RSOSG000029','送货到双链中和社区店0029','RSO000015','4.55','1'),
-	('RSOSG000030','送货到双链中和社区店0030','RSO000015','5.58','1'),
+insert into retail_store_order_shipping_group_data (id,name,biz_order,amount,version) values
+	('RSOSG000001','送货到双链中和社区店0001','RSO000001','5.12','1'),
+	('RSOSG000002','送货到双链中和社区店0002','RSO000001','5.30','1'),
+	('RSOSG000003','送货到双链中和社区店0003','RSO000002','4.42','1'),
+	('RSOSG000004','送货到双链中和社区店0004','RSO000002','4.27','1'),
+	('RSOSG000005','送货到双链中和社区店0005','RSO000003','5.93','1'),
+	('RSOSG000006','送货到双链中和社区店0006','RSO000003','5.15','1'),
+	('RSOSG000007','送货到双链中和社区店0007','RSO000004','5.47','1'),
+	('RSOSG000008','送货到双链中和社区店0008','RSO000004','5.47','1'),
+	('RSOSG000009','送货到双链中和社区店0009','RSO000005','4.42','1'),
+	('RSOSG000010','送货到双链中和社区店0010','RSO000005','5.94','1'),
+	('RSOSG000011','送货到双链中和社区店0011','RSO000006','4.57','1'),
+	('RSOSG000012','送货到双链中和社区店0012','RSO000006','5.80','1'),
+	('RSOSG000013','送货到双链中和社区店0013','RSO000007','5.26','1'),
+	('RSOSG000014','送货到双链中和社区店0014','RSO000007','4.54','1'),
+	('RSOSG000015','送货到双链中和社区店0015','RSO000008','5.83','1'),
+	('RSOSG000016','送货到双链中和社区店0016','RSO000008','4.96','1'),
+	('RSOSG000017','送货到双链中和社区店0017','RSO000009','5.90','1'),
+	('RSOSG000018','送货到双链中和社区店0018','RSO000009','4.38','1'),
+	('RSOSG000019','送货到双链中和社区店0019','RSO000010','5.46','1'),
+	('RSOSG000020','送货到双链中和社区店0020','RSO000010','5.16','1'),
+	('RSOSG000021','送货到双链中和社区店0021','RSO000011','4.32','1'),
+	('RSOSG000022','送货到双链中和社区店0022','RSO000011','5.39','1'),
+	('RSOSG000023','送货到双链中和社区店0023','RSO000012','5.77','1'),
+	('RSOSG000024','送货到双链中和社区店0024','RSO000012','5.12','1'),
+	('RSOSG000025','送货到双链中和社区店0025','RSO000013','5.04','1'),
+	('RSOSG000026','送货到双链中和社区店0026','RSO000013','5.17','1'),
+	('RSOSG000027','送货到双链中和社区店0027','RSO000014','5.17','1'),
+	('RSOSG000028','送货到双链中和社区店0028','RSO000014','4.85','1'),
+	('RSOSG000029','送货到双链中和社区店0029','RSO000015','4.65','1'),
+	('RSOSG000030','送货到双链中和社区店0030','RSO000015','5.30','1'),
 	('RSOSG000031','送货到双链中和社区店0031','RSO000016','4.67','1'),
-	('RSOSG000032','送货到双链中和社区店0032','RSO000016','4.59','1');
+	('RSOSG000032','送货到双链中和社区店0032','RSO000016','5.52','1');
 
-insert into retail_store_order_payment_group_data values
+insert into retail_store_order_payment_group_data (id,name,biz_order,card_number,version) values
 	('RSOPG000001','付款办法0001','RSO000001','4111 1111 1111 - 0001','1'),
 	('RSOPG000002','付款办法0002','RSO000001','4111 1111 1111 - 0002','1'),
 	('RSOPG000003','付款办法0003','RSO000002','4111 1111 1111 - 0003','1'),
@@ -2418,423 +2418,423 @@ insert into retail_store_order_payment_group_data values
 	('RSOPG000031','付款办法0031','RSO000016','4111 1111 1111 - 0031','1'),
 	('RSOPG000032','付款办法0032','RSO000016','4111 1111 1111 - 0032','1');
 
-insert into warehouse_data values
-	('W000001','成都龙泉驿飞鹤路20号0001','028 876543210001','187672平方米0001','RSCC000001','41.034321558960684','130.56375965968004','contract.pdf','2021-08-23 17:24:14','1'),
-	('W000002','成都龙泉驿飞鹤路20号0002','028 876543210002','187672平方米0002','RSCC000001','40.49614951793892','131.950734576726','contract.pdf','2021-09-08 13:13:58','1');
+insert into warehouse_data (id,location,contact_number,total_area,owner,latitude,longitude,contract,last_update_time,version) values
+	('W000001','成都龙泉驿飞鹤路20号0001','028 876543210001','187672平方米0001','RSCC000001','40.26954711896591','131.6402400846523','contract.pdf','2022-09-11 17:21:15','1'),
+	('W000002','成都龙泉驿飞鹤路20号0002','028 876543210002','187672平方米0002','RSCC000001','41.55440448892241','129.9027503559055','contract.pdf','2022-09-25 16:01:11','1');
 
-insert into storage_space_data values
-	('SS000001','成都龙泉驿飞鹤路20号存货区0001','028 876543210001','1876平方米0001','W000001','40.72724688356787','131.42300522198562','2021-08-26 12:46:58','1'),
-	('SS000002','成都龙泉驿飞鹤路20号存货区0002','028 876543210002','1876平方米0002','W000001','40.70438666008076','129.66337806280248','2021-09-03 06:09:03','1'),
-	('SS000003','成都龙泉驿飞鹤路20号存货区0003','028 876543210003','1876平方米0003','W000002','42.620413018123905','129.48896204096667','2021-08-28 12:27:05','1'),
-	('SS000004','成都龙泉驿飞鹤路20号存货区0004','028 876543210004','1876平方米0004','W000002','41.90302758961864','131.74584944079254','2021-09-09 00:25:40','1');
+insert into storage_space_data (id,location,contact_number,total_area,warehouse,latitude,longitude,last_update_time,version) values
+	('SS000001','成都龙泉驿飞鹤路20号存货区0001','028 876543210001','1876平方米0001','W000001','40.55006167487918','129.8590847619687','2022-09-16 04:58:01','1'),
+	('SS000002','成都龙泉驿飞鹤路20号存货区0002','028 876543210002','1876平方米0002','W000001','41.03387386005675','130.46695766444878','2022-09-17 16:45:53','1'),
+	('SS000003','成都龙泉驿飞鹤路20号存货区0003','028 876543210003','1876平方米0003','W000002','42.4722261393098','132.17374123889908','2022-09-27 09:21:42','1'),
+	('SS000004','成都龙泉驿飞鹤路20号存货区0004','028 876543210004','1876平方米0004','W000002','42.59847536413298','131.91616554742038','2022-09-13 07:26:55','1');
 
-insert into smart_pallet_data values
-	('SP000001','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0001','028 876543210001','1876平方米0001','41.30254334555591','130.24299325229856','W000001','2021-09-11 19:37:25','1'),
-	('SP000002','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0002','028 876543210002','1876平方米0002','42.25171548231098','131.08672507571447','W000001','2021-09-13 17:22:06','1'),
-	('SP000003','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0003','028 876543210003','1876平方米0003','42.21579369627898','131.75034667050537','W000002','2021-09-13 08:03:28','1'),
-	('SP000004','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0004','028 876543210004','1876平方米0004','40.59671798102495','130.36872723203754','W000002','2021-08-26 12:57:38','1');
+insert into smart_pallet_data (id,location,contact_number,total_area,latitude,longitude,warehouse,last_update_time,version) values
+	('SP000001','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0001','028 876543210001','1876平方米0001','40.4496499625875','131.79834818690276','W000001','2022-09-24 21:39:24','1'),
+	('SP000002','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0002','028 876543210002','1876平方米0002','42.07222124950533','132.23970573880055','W000001','2022-09-11 09:09:01','1'),
+	('SP000003','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0003','028 876543210003','1876平方米0003','40.32213107962325','129.55146145774265','W000002','2022-09-13 06:13:23','1'),
+	('SP000004','成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等0004','028 876543210004','1876平方米0004','39.97772939962384','131.7727771998135','W000002','2022-09-21 21:32:40','1');
 
-insert into goods_shelf_data values
-	('GS000001','成都龙泉驿飞鹤路20号存货区货架0001','SS000001','SS000001','DS000001','2021-09-08 22:30:20','1'),
-	('GS000002','成都龙泉驿飞鹤路20号存货区货架0002','SS000001','SS000001','DS000001','2021-09-03 05:50:30','1'),
-	('GS000003','成都龙泉驿飞鹤路20号存货区货架0003','SS000002','SS000002','DS000002','2021-08-25 20:13:46','1'),
-	('GS000004','成都龙泉驿飞鹤路20号存货区货架0004','SS000002','SS000002','DS000002','2021-09-01 03:59:42','1'),
-	('GS000005','成都龙泉驿飞鹤路20号存货区货架0005','SS000003','SS000003','DS000003','2021-08-27 09:08:39','1'),
-	('GS000006','成都龙泉驿飞鹤路20号存货区货架0006','SS000003','SS000003','DS000003','2021-09-05 21:14:19','1'),
-	('GS000007','成都龙泉驿飞鹤路20号存货区货架0007','SS000004','SS000004','DS000004','2021-08-25 12:37:22','1'),
-	('GS000008','成都龙泉驿飞鹤路20号存货区货架0008','SS000004','SS000004','DS000004','2021-09-07 01:39:25','1');
+insert into goods_shelf_data (id,location,storage_space,supplier_space,damage_space,last_update_time,version) values
+	('GS000001','成都龙泉驿飞鹤路20号存货区货架0001','SS000001','SS000001','DS000001','2022-09-17 22:48:59','1'),
+	('GS000002','成都龙泉驿飞鹤路20号存货区货架0002','SS000001','SS000001','DS000001','2022-09-28 12:56:10','1'),
+	('GS000003','成都龙泉驿飞鹤路20号存货区货架0003','SS000002','SS000002','DS000002','2022-09-17 16:32:32','1'),
+	('GS000004','成都龙泉驿飞鹤路20号存货区货架0004','SS000002','SS000002','DS000002','2022-09-28 07:42:44','1'),
+	('GS000005','成都龙泉驿飞鹤路20号存货区货架0005','SS000003','SS000003','DS000003','2022-09-14 12:36:33','1'),
+	('GS000006','成都龙泉驿飞鹤路20号存货区货架0006','SS000003','SS000003','DS000003','2022-09-17 23:54:14','1'),
+	('GS000007','成都龙泉驿飞鹤路20号存货区货架0007','SS000004','SS000004','DS000004','2022-09-28 17:01:49','1'),
+	('GS000008','成都龙泉驿飞鹤路20号存货区货架0008','SS000004','SS000004','DS000004','2022-09-30 11:31:30','1');
 
-insert into goods_shelf_stock_count_data values
-	('GSSC000001','每日盘点','2020-09-07','使用先进的rfid技术，没有任何错误0001','GS000001','1'),
-	('GSSC000002','每周盘点','2020-07-20','使用先进的rfid技术，没有任何错误0002','GS000001','1'),
-	('GSSC000003','每月盘点','2019-12-02','使用先进的rfid技术，没有任何错误0003','GS000002','1'),
-	('GSSC000004','年终盘点','2021-06-03','使用先进的rfid技术，没有任何错误0004','GS000002','1'),
-	('GSSC000005','每日盘点','2020-12-31','使用先进的rfid技术，没有任何错误0005','GS000003','1'),
-	('GSSC000006','每周盘点','2020-04-05','使用先进的rfid技术，没有任何错误0006','GS000003','1'),
-	('GSSC000007','每月盘点','2021-02-24','使用先进的rfid技术，没有任何错误0007','GS000004','1'),
-	('GSSC000008','年终盘点','2020-01-13','使用先进的rfid技术，没有任何错误0008','GS000004','1'),
-	('GSSC000009','每日盘点','2020-01-25','使用先进的rfid技术，没有任何错误0009','GS000005','1'),
-	('GSSC000010','每周盘点','2021-03-13','使用先进的rfid技术，没有任何错误0010','GS000005','1'),
-	('GSSC000011','每月盘点','2021-01-19','使用先进的rfid技术，没有任何错误0011','GS000006','1'),
-	('GSSC000012','年终盘点','2021-03-12','使用先进的rfid技术，没有任何错误0012','GS000006','1'),
-	('GSSC000013','每日盘点','2021-03-02','使用先进的rfid技术，没有任何错误0013','GS000007','1'),
-	('GSSC000014','每周盘点','2021-01-25','使用先进的rfid技术，没有任何错误0014','GS000007','1'),
-	('GSSC000015','每月盘点','2020-08-04','使用先进的rfid技术，没有任何错误0015','GS000008','1'),
-	('GSSC000016','年终盘点','2021-03-06','使用先进的rfid技术，没有任何错误0016','GS000008','1');
+insert into goods_shelf_stock_count_data (id,title,count_time,summary,shelf,version) values
+	('GSSC000001','每日盘点','2020-08-13','使用先进的rfid技术，没有任何错误0001','GS000001','1'),
+	('GSSC000002','每周盘点','2020-02-14','使用先进的rfid技术，没有任何错误0002','GS000001','1'),
+	('GSSC000003','每月盘点','2022-08-19','使用先进的rfid技术，没有任何错误0003','GS000002','1'),
+	('GSSC000004','年终盘点','2020-12-20','使用先进的rfid技术，没有任何错误0004','GS000002','1'),
+	('GSSC000005','每日盘点','2021-03-08','使用先进的rfid技术，没有任何错误0005','GS000003','1'),
+	('GSSC000006','每周盘点','2020-09-30','使用先进的rfid技术，没有任何错误0006','GS000003','1'),
+	('GSSC000007','每月盘点','2020-08-29','使用先进的rfid技术，没有任何错误0007','GS000004','1'),
+	('GSSC000008','年终盘点','2021-11-04','使用先进的rfid技术，没有任何错误0008','GS000004','1'),
+	('GSSC000009','每日盘点','2022-02-09','使用先进的rfid技术，没有任何错误0009','GS000005','1'),
+	('GSSC000010','每周盘点','2022-02-23','使用先进的rfid技术，没有任何错误0010','GS000005','1'),
+	('GSSC000011','每月盘点','2021-11-29','使用先进的rfid技术，没有任何错误0011','GS000006','1'),
+	('GSSC000012','年终盘点','2021-07-17','使用先进的rfid技术，没有任何错误0012','GS000006','1'),
+	('GSSC000013','每日盘点','2020-10-18','使用先进的rfid技术，没有任何错误0013','GS000007','1'),
+	('GSSC000014','每周盘点','2022-06-02','使用先进的rfid技术，没有任何错误0014','GS000007','1'),
+	('GSSC000015','每月盘点','2019-10-25','使用先进的rfid技术，没有任何错误0015','GS000008','1'),
+	('GSSC000016','年终盘点','2020-10-22','使用先进的rfid技术，没有任何错误0016','GS000008','1');
 
-insert into stock_count_issue_track_data values
-	('SCIT000001','盘点差错0001','2019-07-20','发现错误已经修正完成0001','GSSC000001','1'),
-	('SCIT000002','盘点差错0002','2021-08-26','发现错误已经修正完成0002','GSSC000001','1'),
-	('SCIT000003','盘点差错0003','2020-05-29','发现错误已经修正完成0003','GSSC000002','1'),
-	('SCIT000004','盘点差错0004','2021-08-20','发现错误已经修正完成0004','GSSC000002','1'),
-	('SCIT000005','盘点差错0005','2021-06-29','发现错误已经修正完成0005','GSSC000003','1'),
-	('SCIT000006','盘点差错0006','2020-09-09','发现错误已经修正完成0006','GSSC000003','1'),
-	('SCIT000007','盘点差错0007','2020-02-26','发现错误已经修正完成0007','GSSC000004','1'),
-	('SCIT000008','盘点差错0008','2020-07-11','发现错误已经修正完成0008','GSSC000004','1'),
-	('SCIT000009','盘点差错0009','2020-09-16','发现错误已经修正完成0009','GSSC000005','1'),
-	('SCIT000010','盘点差错0010','2021-08-16','发现错误已经修正完成0010','GSSC000005','1'),
-	('SCIT000011','盘点差错0011','2019-12-14','发现错误已经修正完成0011','GSSC000006','1'),
-	('SCIT000012','盘点差错0012','2019-04-17','发现错误已经修正完成0012','GSSC000006','1'),
-	('SCIT000013','盘点差错0013','2021-02-17','发现错误已经修正完成0013','GSSC000007','1'),
-	('SCIT000014','盘点差错0014','2021-07-08','发现错误已经修正完成0014','GSSC000007','1'),
-	('SCIT000015','盘点差错0015','2019-09-25','发现错误已经修正完成0015','GSSC000008','1'),
-	('SCIT000016','盘点差错0016','2019-11-09','发现错误已经修正完成0016','GSSC000008','1'),
-	('SCIT000017','盘点差错0017','2019-10-08','发现错误已经修正完成0017','GSSC000009','1'),
-	('SCIT000018','盘点差错0018','2018-11-12','发现错误已经修正完成0018','GSSC000009','1'),
-	('SCIT000019','盘点差错0019','2019-12-29','发现错误已经修正完成0019','GSSC000010','1'),
-	('SCIT000020','盘点差错0020','2019-02-09','发现错误已经修正完成0020','GSSC000010','1'),
-	('SCIT000021','盘点差错0021','2019-01-11','发现错误已经修正完成0021','GSSC000011','1'),
-	('SCIT000022','盘点差错0022','2019-06-27','发现错误已经修正完成0022','GSSC000011','1'),
-	('SCIT000023','盘点差错0023','2020-02-13','发现错误已经修正完成0023','GSSC000012','1'),
-	('SCIT000024','盘点差错0024','2019-02-04','发现错误已经修正完成0024','GSSC000012','1'),
-	('SCIT000025','盘点差错0025','2018-12-22','发现错误已经修正完成0025','GSSC000013','1'),
-	('SCIT000026','盘点差错0026','2020-02-19','发现错误已经修正完成0026','GSSC000013','1'),
-	('SCIT000027','盘点差错0027','2020-07-15','发现错误已经修正完成0027','GSSC000014','1'),
-	('SCIT000028','盘点差错0028','2019-01-21','发现错误已经修正完成0028','GSSC000014','1'),
-	('SCIT000029','盘点差错0029','2020-02-10','发现错误已经修正完成0029','GSSC000015','1'),
-	('SCIT000030','盘点差错0030','2021-08-25','发现错误已经修正完成0030','GSSC000015','1'),
-	('SCIT000031','盘点差错0031','2021-01-02','发现错误已经修正完成0031','GSSC000016','1'),
-	('SCIT000032','盘点差错0032','2021-01-21','发现错误已经修正完成0032','GSSC000016','1');
+insert into stock_count_issue_track_data (id,title,count_time,summary,stock_count,version) values
+	('SCIT000001','盘点差错0001','2020-02-02','发现错误已经修正完成0001','GSSC000001','1'),
+	('SCIT000002','盘点差错0002','2021-10-03','发现错误已经修正完成0002','GSSC000001','1'),
+	('SCIT000003','盘点差错0003','2022-05-04','发现错误已经修正完成0003','GSSC000002','1'),
+	('SCIT000004','盘点差错0004','2020-03-09','发现错误已经修正完成0004','GSSC000002','1'),
+	('SCIT000005','盘点差错0005','2020-08-01','发现错误已经修正完成0005','GSSC000003','1'),
+	('SCIT000006','盘点差错0006','2022-04-24','发现错误已经修正完成0006','GSSC000003','1'),
+	('SCIT000007','盘点差错0007','2022-05-25','发现错误已经修正完成0007','GSSC000004','1'),
+	('SCIT000008','盘点差错0008','2022-04-26','发现错误已经修正完成0008','GSSC000004','1'),
+	('SCIT000009','盘点差错0009','2020-02-18','发现错误已经修正完成0009','GSSC000005','1'),
+	('SCIT000010','盘点差错0010','2019-11-22','发现错误已经修正完成0010','GSSC000005','1'),
+	('SCIT000011','盘点差错0011','2020-12-30','发现错误已经修正完成0011','GSSC000006','1'),
+	('SCIT000012','盘点差错0012','2020-04-30','发现错误已经修正完成0012','GSSC000006','1'),
+	('SCIT000013','盘点差错0013','2022-03-03','发现错误已经修正完成0013','GSSC000007','1'),
+	('SCIT000014','盘点差错0014','2020-05-17','发现错误已经修正完成0014','GSSC000007','1'),
+	('SCIT000015','盘点差错0015','2020-07-18','发现错误已经修正完成0015','GSSC000008','1'),
+	('SCIT000016','盘点差错0016','2021-04-16','发现错误已经修正完成0016','GSSC000008','1'),
+	('SCIT000017','盘点差错0017','2020-02-13','发现错误已经修正完成0017','GSSC000009','1'),
+	('SCIT000018','盘点差错0018','2021-09-03','发现错误已经修正完成0018','GSSC000009','1'),
+	('SCIT000019','盘点差错0019','2020-01-01','发现错误已经修正完成0019','GSSC000010','1'),
+	('SCIT000020','盘点差错0020','2020-04-27','发现错误已经修正完成0020','GSSC000010','1'),
+	('SCIT000021','盘点差错0021','2021-02-09','发现错误已经修正完成0021','GSSC000011','1'),
+	('SCIT000022','盘点差错0022','2022-01-21','发现错误已经修正完成0022','GSSC000011','1'),
+	('SCIT000023','盘点差错0023','2020-01-13','发现错误已经修正完成0023','GSSC000012','1'),
+	('SCIT000024','盘点差错0024','2020-06-20','发现错误已经修正完成0024','GSSC000012','1'),
+	('SCIT000025','盘点差错0025','2020-12-14','发现错误已经修正完成0025','GSSC000013','1'),
+	('SCIT000026','盘点差错0026','2022-05-15','发现错误已经修正完成0026','GSSC000013','1'),
+	('SCIT000027','盘点差错0027','2020-01-24','发现错误已经修正完成0027','GSSC000014','1'),
+	('SCIT000028','盘点差错0028','2022-10-01','发现错误已经修正完成0028','GSSC000014','1'),
+	('SCIT000029','盘点差错0029','2022-07-15','发现错误已经修正完成0029','GSSC000015','1'),
+	('SCIT000030','盘点差错0030','2021-06-25','发现错误已经修正完成0030','GSSC000015','1'),
+	('SCIT000031','盘点差错0031','2022-08-10','发现错误已经修正完成0031','GSSC000016','1'),
+	('SCIT000032','盘点差错0032','2019-12-19','发现错误已经修正完成0032','GSSC000016','1');
 
-insert into goods_allocation_data values
-	('GA000001','成都龙泉驿飞鹤路20号存货区货架20号货位0001','40.880166981157174','131.62116136021672','GS000001','1'),
-	('GA000002','成都龙泉驿飞鹤路20号存货区货架20号货位0002','41.03618941516968','131.35942255229517','GS000001','1'),
-	('GA000003','成都龙泉驿飞鹤路20号存货区货架20号货位0003','41.163877311330666','130.6494577823396','GS000002','1'),
-	('GA000004','成都龙泉驿飞鹤路20号存货区货架20号货位0004','41.36126443790633','132.1584342657196','GS000002','1'),
-	('GA000005','成都龙泉驿飞鹤路20号存货区货架20号货位0005','40.5013776903131','129.64769604988328','GS000003','1'),
-	('GA000006','成都龙泉驿飞鹤路20号存货区货架20号货位0006','40.98244267087698','131.1720064480826','GS000003','1'),
-	('GA000007','成都龙泉驿飞鹤路20号存货区货架20号货位0007','40.24907408930175','131.85782064975254','GS000004','1'),
-	('GA000008','成都龙泉驿飞鹤路20号存货区货架20号货位0008','40.58694839149013','129.91879447352656','GS000004','1'),
-	('GA000009','成都龙泉驿飞鹤路20号存货区货架20号货位0009','41.8067346386835','130.45109853461557','GS000005','1'),
-	('GA000010','成都龙泉驿飞鹤路20号存货区货架20号货位0010','40.26600271797894','130.34410298342178','GS000005','1'),
-	('GA000011','成都龙泉驿飞鹤路20号存货区货架20号货位0011','41.01070955558972','131.77233584290605','GS000006','1'),
-	('GA000012','成都龙泉驿飞鹤路20号存货区货架20号货位0012','41.165332989359584','130.74037958090216','GS000006','1'),
-	('GA000013','成都龙泉驿飞鹤路20号存货区货架20号货位0013','40.06180365955711','129.4310256119274','GS000007','1'),
-	('GA000014','成都龙泉驿飞鹤路20号存货区货架20号货位0014','40.205475209602305','129.66538047121668','GS000007','1'),
-	('GA000015','成都龙泉驿飞鹤路20号存货区货架20号货位0015','40.249243501680766','130.98792995358812','GS000008','1'),
-	('GA000016','成都龙泉驿飞鹤路20号存货区货架20号货位0016','40.6367310122912','131.21539951199296','GS000008','1');
+insert into goods_allocation_data (id,location,latitude,longitude,goods_shelf,version) values
+	('GA000001','成都龙泉驿飞鹤路20号存货区货架20号货位0001','40.74813043294259','130.0378501375349','GS000001','1'),
+	('GA000002','成都龙泉驿飞鹤路20号存货区货架20号货位0002','42.255263197721256','130.4319661525833','GS000001','1'),
+	('GA000003','成都龙泉驿飞鹤路20号存货区货架20号货位0003','41.25470783891537','131.49553277866727','GS000002','1'),
+	('GA000004','成都龙泉驿飞鹤路20号存货区货架20号货位0004','40.2085828126998','129.96364831124683','GS000002','1'),
+	('GA000005','成都龙泉驿飞鹤路20号存货区货架20号货位0005','42.042855638202184','131.35897599213135','GS000003','1'),
+	('GA000006','成都龙泉驿飞鹤路20号存货区货架20号货位0006','39.904232450907735','130.13424005437494','GS000003','1'),
+	('GA000007','成都龙泉驿飞鹤路20号存货区货架20号货位0007','41.39906056631444','131.41292586029576','GS000004','1'),
+	('GA000008','成都龙泉驿飞鹤路20号存货区货架20号货位0008','42.32635210743465','130.0924245744432','GS000004','1'),
+	('GA000009','成都龙泉驿飞鹤路20号存货区货架20号货位0009','40.10713991002667','131.70485620400996','GS000005','1'),
+	('GA000010','成都龙泉驿飞鹤路20号存货区货架20号货位0010','40.70842875260666','130.904754909374','GS000005','1'),
+	('GA000011','成都龙泉驿飞鹤路20号存货区货架20号货位0011','41.935240640593165','129.96013470821464','GS000006','1'),
+	('GA000012','成都龙泉驿飞鹤路20号存货区货架20号货位0012','42.01379658848952','129.65148180124862','GS000006','1'),
+	('GA000013','成都龙泉驿飞鹤路20号存货区货架20号货位0013','41.07971229592452','131.06611599546878','GS000007','1'),
+	('GA000014','成都龙泉驿飞鹤路20号存货区货架20号货位0014','42.1060893931285','132.24418615571548','GS000007','1'),
+	('GA000015','成都龙泉驿飞鹤路20号存货区货架20号货位0015','40.21828926472621','130.36524317648195','GS000008','1'),
+	('GA000016','成都龙泉驿飞鹤路20号存货区货架20号货位0016','41.927607156423086','129.33566921608158','GS000008','1');
 
-insert into goods_data values
-	('G000001','可口可乐0001','RF991920001','件','10','2021-07-01','S000001','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
-	('G000002','可口可乐0002','RF991920002','箱','8','2020-02-19','S000001','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
-	('G000003','可口可乐0003','RF991920003','件','10','2019-03-27','S000002','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
-	('G000004','可口可乐0004','RF991920004','箱','8','2019-05-26','S000002','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
-	('G000005','可口可乐0005','RF991920005','件','10','2019-11-26','S000003','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
-	('G000006','可口可乐0006','RF991920006','箱','10','2020-07-25','S000004','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
-	('G000007','可口可乐0007','RF991920007','件','8','2019-09-21','S000004','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
-	('G000008','可口可乐0008','RF991920008','箱','8','2021-03-24','S000005','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
-	('G000009','可口可乐0009','RF991920009','件','8','2020-08-17','S000006','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
-	('G000010','可口可乐0010','RF991920010','箱','10','2021-08-03','S000006','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
-	('G000011','可口可乐0011','RF991920011','件','10','2020-10-22','S000007','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
-	('G000012','可口可乐0012','RF991920012','箱','10','2021-01-11','S000008','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
-	('G000013','可口可乐0013','RF991920013','件','8','2018-09-24','S000008','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
-	('G000014','可口可乐0014','RF991920014','箱','10','2021-04-19','S000009','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
-	('G000015','可口可乐0015','RF991920015','件','9','2020-02-22','S000009','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
-	('G000016','可口可乐0016','RF991920016','箱','8','2021-03-20','S000010','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
-	('G000017','可口可乐0017','RF991920017','件','10','2020-07-20','S000011','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
-	('G000018','可口可乐0018','RF991920018','箱','8','2019-07-03','S000011','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
-	('G000019','可口可乐0019','RF991920019','件','10','2019-03-18','S000012','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
-	('G000020','可口可乐0020','RF991920020','箱','10','2020-01-13','S000013','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
-	('G000021','可口可乐0021','RF991920021','件','9','2020-09-27','S000013','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
-	('G000022','可口可乐0022','RF991920022','箱','8','2021-05-04','S000014','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
-	('G000023','可口可乐0023','RF991920023','件','8','2019-12-23','S000015','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
-	('G000024','可口可乐0024','RF991920024','箱','10','2019-12-28','S000015','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
-	('G000025','可口可乐0025','RF991920025','件','10','2019-07-07','S000016','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
-	('G000026','可口可乐0026','RF991920026','箱','9','2018-09-30','S000017','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
-	('G000027','可口可乐0027','RF991920027','件','9','2020-01-11','S000017','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
-	('G000028','可口可乐0028','RF991920028','箱','9','2019-04-24','S000018','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
-	('G000029','可口可乐0029','RF991920029','件','9','2020-02-10','S000018','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
-	('G000030','可口可乐0030','RF991920030','箱','9','2019-07-26','S000019','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
-	('G000031','可口可乐0031','RF991920031','件','8','2019-12-24','S000020','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
-	('G000032','可口可乐0032','RF991920032','箱','10','2019-02-05','S000020','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
-	('G000033','可口可乐0033','RF991920033','件','8','2019-01-07','S000021','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
-	('G000034','可口可乐0034','RF991920034','箱','9','2020-11-14','S000022','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
-	('G000035','可口可乐0035','RF991920035','件','9','2021-08-12','S000022','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
-	('G000036','可口可乐0036','RF991920036','箱','8','2019-08-26','S000023','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
-	('G000037','可口可乐0037','RF991920037','件','10','2020-05-08','S000024','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
-	('G000038','可口可乐0038','RF991920038','箱','10','2018-11-04','S000024','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
-	('G000039','可口可乐0039','RF991920039','件','8','2020-01-13','S000025','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
-	('G000040','可口可乐0040','RF991920040','箱','9','2019-02-12','S000025','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
-	('G000041','可口可乐0041','RF991920041','件','10','2019-07-11','S000026','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
-	('G000042','可口可乐0042','RF991920042','箱','10','2019-02-25','S000027','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
-	('G000043','可口可乐0043','RF991920043','件','9','2020-10-19','S000027','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
-	('G000044','可口可乐0044','RF991920044','箱','10','2019-05-24','S000028','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
-	('G000045','可口可乐0045','RF991920045','件','8','2019-01-13','S000029','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
-	('G000046','可口可乐0046','RF991920046','箱','8','2018-10-24','S000029','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
-	('G000047','可口可乐0047','RF991920047','件','8','2020-10-22','S000030','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
-	('G000048','可口可乐0048','RF991920048','箱','8','2020-12-27','S000031','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
-	('G000049','可口可乐0049','RF991920049','件','8','2020-01-19','S000031','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
-	('G000050','可口可乐0050','RF991920050','箱','10','2020-12-05','S000032','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
-	('G000051','可口可乐0051','RF991920051','件','10','2021-05-26','S000033','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
-	('G000052','可口可乐0052','RF991920052','箱','10','2019-04-15','S000033','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
-	('G000053','可口可乐0053','RF991920053','件','10','2021-02-17','S000034','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
-	('G000054','可口可乐0054','RF991920054','箱','9','2018-09-21','S000034','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
-	('G000055','可口可乐0055','RF991920055','件','8','2019-12-16','S000035','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
-	('G000056','可口可乐0056','RF991920056','箱','8','2021-04-24','S000036','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
-	('G000057','可口可乐0057','RF991920057','件','8','2020-03-08','S000036','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
-	('G000058','可口可乐0058','RF991920058','箱','10','2020-11-05','S000037','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
-	('G000059','可口可乐0059','RF991920059','件','8','2019-12-24','S000038','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
-	('G000060','可口可乐0060','RF991920060','箱','9','2019-02-01','S000038','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
-	('G000061','可口可乐0061','RF991920061','件','8','2019-07-28','S000039','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
-	('G000062','可口可乐0062','RF991920062','箱','10','2019-11-13','S000040','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
-	('G000063','可口可乐0063','RF991920063','件','10','2019-05-12','S000040','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
-	('G000064','可口可乐0064','RF991920064','箱','10','2021-02-01','S000041','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
-	('G000065','可口可乐0065','RF991920065','件','9','2019-12-23','S000041','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
-	('G000066','可口可乐0066','RF991920066','箱','8','2019-05-18','S000042','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
-	('G000067','可口可乐0067','RF991920067','件','9','2021-06-01','S000043','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
-	('G000068','可口可乐0068','RF991920068','箱','9','2019-05-15','S000043','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
-	('G000069','可口可乐0069','RF991920069','件','9','2019-05-17','S000044','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
-	('G000070','可口可乐0070','RF991920070','箱','10','2020-02-17','S000045','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
-	('G000071','可口可乐0071','RF991920071','件','10','2020-11-10','S000045','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
-	('G000072','可口可乐0072','RF991920072','箱','8','2019-06-17','S000046','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
-	('G000073','可口可乐0073','RF991920073','件','9','2019-04-05','S000047','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
-	('G000074','可口可乐0074','RF991920074','箱','8','2019-03-20','S000047','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
-	('G000075','可口可乐0075','RF991920075','件','8','2019-09-26','S000048','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
-	('G000076','可口可乐0076','RF991920076','箱','9','2021-01-08','S000049','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
-	('G000077','可口可乐0077','RF991920077','件','8','2019-12-27','S000049','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
-	('G000078','可口可乐0078','RF991920078','箱','10','2020-02-01','S000050','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
-	('G000079','可口可乐0079','RF991920079','件','10','2021-01-23','S000050','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
-	('G000080','可口可乐0080','RF991920080','箱','9','2020-11-22','S000051','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
-	('G000081','可口可乐0081','RF991920081','件','9','2020-11-08','S000052','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
-	('G000082','可口可乐0082','RF991920082','箱','9','2019-01-02','S000052','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
-	('G000083','可口可乐0083','RF991920083','件','10','2020-09-14','S000053','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
-	('G000084','可口可乐0084','RF991920084','箱','8','2021-01-03','S000054','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
-	('G000085','可口可乐0085','RF991920085','件','10','2020-04-10','S000054','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
-	('G000086','可口可乐0086','RF991920086','箱','10','2021-03-20','S000055','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
-	('G000087','可口可乐0087','RF991920087','件','9','2021-08-22','S000056','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
-	('G000088','可口可乐0088','RF991920088','箱','10','2021-05-03','S000056','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
-	('G000089','可口可乐0089','RF991920089','件','9','2021-03-13','S000057','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
-	('G000090','可口可乐0090','RF991920090','箱','9','2020-11-25','S000057','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
-	('G000091','可口可乐0091','RF991920091','件','10','2020-09-25','S000058','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
-	('G000092','可口可乐0092','RF991920092','箱','8','2020-10-19','S000059','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
-	('G000093','可口可乐0093','RF991920093','件','9','2020-08-14','S000059','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
-	('G000094','可口可乐0094','RF991920094','箱','8','2020-09-19','S000060','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
-	('G000095','可口可乐0095','RF991920095','件','8','2020-08-30','S000061','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
-	('G000096','可口可乐0096','RF991920096','箱','9','2019-11-02','S000061','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
-	('G000097','可口可乐0097','RF991920097','件','10','2019-10-31','S000062','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
-	('G000098','可口可乐0098','RF991920098','箱','8','2020-06-28','S000063','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
-	('G000099','可口可乐0099','RF991920099','件','10','2021-07-15','S000063','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
-	('G000100','可口可乐0100','RF991920100','箱','9','2019-01-15','S000064','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1');
+insert into goods_data (id,name,rfid,uom,max_package,expire_time,sku,receiving_space,goods_allocation,smart_pallet,shipping_space,transport_task,retail_store,biz_order,retail_store_order,version) values
+	('G000001','可口可乐0001','RF991920001','件','10','2019-12-12','S000001','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
+	('G000002','可口可乐0002','RF991920002','箱','10','2019-12-09','S000001','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
+	('G000003','可口可乐0003','RF991920003','件','9','2021-02-04','S000002','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
+	('G000004','可口可乐0004','RF991920004','箱','9','2021-08-21','S000002','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
+	('G000005','可口可乐0005','RF991920005','件','8','2021-10-05','S000003','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
+	('G000006','可口可乐0006','RF991920006','箱','9','2020-10-10','S000004','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
+	('G000007','可口可乐0007','RF991920007','件','9','2022-02-28','S000004','RS000001','GA000001','SP000001','SS000001','TT000001','RS000001','SO000001','RSO000001','1'),
+	('G000008','可口可乐0008','RF991920008','箱','8','2022-07-16','S000005','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
+	('G000009','可口可乐0009','RF991920009','件','10','2021-09-24','S000006','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
+	('G000010','可口可乐0010','RF991920010','箱','10','2021-10-24','S000006','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
+	('G000011','可口可乐0011','RF991920011','件','10','2021-04-24','S000007','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
+	('G000012','可口可乐0012','RF991920012','箱','9','2021-07-06','S000008','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
+	('G000013','可口可乐0013','RF991920013','件','9','2021-09-26','S000008','RS000001','GA000002','SP000001','SS000001','TT000002','RS000001','SO000001','RSO000002','1'),
+	('G000014','可口可乐0014','RF991920014','箱','8','2022-05-19','S000009','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
+	('G000015','可口可乐0015','RF991920015','件','9','2022-01-16','S000009','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
+	('G000016','可口可乐0016','RF991920016','箱','10','2022-05-25','S000010','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
+	('G000017','可口可乐0017','RF991920017','件','10','2020-02-12','S000011','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
+	('G000018','可口可乐0018','RF991920018','箱','10','2022-06-09','S000011','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
+	('G000019','可口可乐0019','RF991920019','件','8','2020-09-09','S000012','RS000001','GA000003','SP000001','SS000001','TT000003','RS000002','SO000001','RSO000003','1'),
+	('G000020','可口可乐0020','RF991920020','箱','8','2021-03-16','S000013','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
+	('G000021','可口可乐0021','RF991920021','件','9','2021-01-30','S000013','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
+	('G000022','可口可乐0022','RF991920022','箱','10','2020-09-15','S000014','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
+	('G000023','可口可乐0023','RF991920023','件','8','2020-09-11','S000015','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
+	('G000024','可口可乐0024','RF991920024','箱','10','2021-07-05','S000015','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
+	('G000025','可口可乐0025','RF991920025','件','9','2022-07-05','S000016','RS000001','GA000004','SP000001','SS000001','TT000004','RS000002','SO000001','RSO000004','1'),
+	('G000026','可口可乐0026','RF991920026','箱','9','2020-12-19','S000017','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
+	('G000027','可口可乐0027','RF991920027','件','8','2021-03-08','S000017','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
+	('G000028','可口可乐0028','RF991920028','箱','10','2020-05-06','S000018','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
+	('G000029','可口可乐0029','RF991920029','件','9','2022-02-23','S000018','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
+	('G000030','可口可乐0030','RF991920030','箱','9','2022-04-18','S000019','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
+	('G000031','可口可乐0031','RF991920031','件','9','2020-04-08','S000020','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
+	('G000032','可口可乐0032','RF991920032','箱','9','2021-08-30','S000020','RS000002','GA000005','SP000002','SS000002','TT000005','RS000003','SO000002','RSO000005','1'),
+	('G000033','可口可乐0033','RF991920033','件','9','2020-01-21','S000021','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
+	('G000034','可口可乐0034','RF991920034','箱','8','2020-09-20','S000022','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
+	('G000035','可口可乐0035','RF991920035','件','10','2020-04-03','S000022','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
+	('G000036','可口可乐0036','RF991920036','箱','9','2021-03-23','S000023','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
+	('G000037','可口可乐0037','RF991920037','件','8','2019-10-22','S000024','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
+	('G000038','可口可乐0038','RF991920038','箱','10','2020-06-27','S000024','RS000002','GA000006','SP000002','SS000002','TT000006','RS000003','SO000002','RSO000006','1'),
+	('G000039','可口可乐0039','RF991920039','件','8','2022-08-24','S000025','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
+	('G000040','可口可乐0040','RF991920040','箱','9','2021-07-09','S000025','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
+	('G000041','可口可乐0041','RF991920041','件','8','2022-09-19','S000026','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
+	('G000042','可口可乐0042','RF991920042','箱','10','2020-12-25','S000027','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
+	('G000043','可口可乐0043','RF991920043','件','9','2022-08-24','S000027','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
+	('G000044','可口可乐0044','RF991920044','箱','8','2022-02-01','S000028','RS000002','GA000007','SP000002','SS000002','TT000007','RS000004','SO000002','RSO000007','1'),
+	('G000045','可口可乐0045','RF991920045','件','10','2022-03-20','S000029','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
+	('G000046','可口可乐0046','RF991920046','箱','10','2020-12-24','S000029','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
+	('G000047','可口可乐0047','RF991920047','件','8','2022-07-17','S000030','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
+	('G000048','可口可乐0048','RF991920048','箱','9','2021-04-28','S000031','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
+	('G000049','可口可乐0049','RF991920049','件','10','2021-01-24','S000031','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
+	('G000050','可口可乐0050','RF991920050','箱','8','2022-09-20','S000032','RS000002','GA000008','SP000002','SS000002','TT000008','RS000004','SO000002','RSO000008','1'),
+	('G000051','可口可乐0051','RF991920051','件','9','2021-03-07','S000033','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
+	('G000052','可口可乐0052','RF991920052','箱','8','2021-08-24','S000033','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
+	('G000053','可口可乐0053','RF991920053','件','8','2020-01-11','S000034','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
+	('G000054','可口可乐0054','RF991920054','箱','8','2022-01-22','S000034','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
+	('G000055','可口可乐0055','RF991920055','件','10','2021-05-29','S000035','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
+	('G000056','可口可乐0056','RF991920056','箱','9','2021-08-14','S000036','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
+	('G000057','可口可乐0057','RF991920057','件','10','2020-04-08','S000036','RS000003','GA000009','SP000003','SS000003','TT000009','RS000005','SO000003','RSO000009','1'),
+	('G000058','可口可乐0058','RF991920058','箱','9','2022-08-27','S000037','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
+	('G000059','可口可乐0059','RF991920059','件','9','2020-03-05','S000038','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
+	('G000060','可口可乐0060','RF991920060','箱','10','2021-05-20','S000038','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
+	('G000061','可口可乐0061','RF991920061','件','9','2022-07-06','S000039','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
+	('G000062','可口可乐0062','RF991920062','箱','10','2019-12-02','S000040','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
+	('G000063','可口可乐0063','RF991920063','件','8','2021-09-13','S000040','RS000003','GA000010','SP000003','SS000003','TT000010','RS000005','SO000003','RSO000010','1'),
+	('G000064','可口可乐0064','RF991920064','箱','8','2020-07-03','S000041','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
+	('G000065','可口可乐0065','RF991920065','件','9','2021-10-09','S000041','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
+	('G000066','可口可乐0066','RF991920066','箱','9','2021-03-28','S000042','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
+	('G000067','可口可乐0067','RF991920067','件','9','2021-11-25','S000043','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
+	('G000068','可口可乐0068','RF991920068','箱','8','2021-02-08','S000043','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
+	('G000069','可口可乐0069','RF991920069','件','10','2021-03-07','S000044','RS000003','GA000011','SP000003','SS000003','TT000011','RS000006','SO000003','RSO000011','1'),
+	('G000070','可口可乐0070','RF991920070','箱','10','2022-08-26','S000045','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
+	('G000071','可口可乐0071','RF991920071','件','9','2020-12-10','S000045','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
+	('G000072','可口可乐0072','RF991920072','箱','10','2019-11-12','S000046','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
+	('G000073','可口可乐0073','RF991920073','件','8','2020-03-17','S000047','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
+	('G000074','可口可乐0074','RF991920074','箱','10','2022-01-08','S000047','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
+	('G000075','可口可乐0075','RF991920075','件','10','2022-08-22','S000048','RS000003','GA000012','SP000003','SS000003','TT000012','RS000006','SO000003','RSO000012','1'),
+	('G000076','可口可乐0076','RF991920076','箱','8','2021-04-04','S000049','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
+	('G000077','可口可乐0077','RF991920077','件','8','2020-05-01','S000049','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
+	('G000078','可口可乐0078','RF991920078','箱','10','2020-05-14','S000050','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
+	('G000079','可口可乐0079','RF991920079','件','8','2022-02-10','S000050','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
+	('G000080','可口可乐0080','RF991920080','箱','10','2021-02-19','S000051','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
+	('G000081','可口可乐0081','RF991920081','件','9','2019-12-12','S000052','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
+	('G000082','可口可乐0082','RF991920082','箱','10','2020-11-24','S000052','RS000004','GA000013','SP000004','SS000004','TT000013','RS000007','SO000004','RSO000013','1'),
+	('G000083','可口可乐0083','RF991920083','件','10','2019-10-20','S000053','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
+	('G000084','可口可乐0084','RF991920084','箱','10','2021-07-02','S000054','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
+	('G000085','可口可乐0085','RF991920085','件','9','2022-01-11','S000054','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
+	('G000086','可口可乐0086','RF991920086','箱','10','2020-12-09','S000055','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
+	('G000087','可口可乐0087','RF991920087','件','9','2019-11-17','S000056','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
+	('G000088','可口可乐0088','RF991920088','箱','9','2021-01-30','S000056','RS000004','GA000014','SP000004','SS000004','TT000014','RS000007','SO000004','RSO000014','1'),
+	('G000089','可口可乐0089','RF991920089','件','10','2021-11-27','S000057','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
+	('G000090','可口可乐0090','RF991920090','箱','9','2022-09-26','S000057','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
+	('G000091','可口可乐0091','RF991920091','件','10','2022-08-07','S000058','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
+	('G000092','可口可乐0092','RF991920092','箱','9','2020-01-23','S000059','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
+	('G000093','可口可乐0093','RF991920093','件','10','2021-01-30','S000059','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
+	('G000094','可口可乐0094','RF991920094','箱','9','2020-11-24','S000060','RS000004','GA000015','SP000004','SS000004','TT000015','RS000008','SO000004','RSO000015','1'),
+	('G000095','可口可乐0095','RF991920095','件','9','2021-02-14','S000061','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
+	('G000096','可口可乐0096','RF991920096','箱','9','2021-01-27','S000061','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
+	('G000097','可口可乐0097','RF991920097','件','8','2021-01-13','S000062','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
+	('G000098','可口可乐0098','RF991920098','箱','10','2020-11-26','S000063','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
+	('G000099','可口可乐0099','RF991920099','件','8','2019-11-09','S000063','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1'),
+	('G000100','可口可乐0100','RF991920100','箱','9','2021-04-26','S000064','RS000004','GA000016','SP000004','SS000004','TT000016','RS000008','SO000004','RSO000016','1');
 
-insert into goods_movement_data values
-	('GM000001','2021-09-09 22:56:43','仓库货位','仓库货位','192.168.20.10001','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050001','FTYUIOLJYT12312312312312asdfasd0001','41.79805768236155','130.52800786934182','G000001','1'),
-	('GM000002','2021-08-27 18:18:53','卡车','卡车','192.168.20.10002','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050002','FTYUIOLJYT12312312312312asdfasd0002','42.117712164249454','130.04312065069513','G000002','1'),
-	('GM000003','2021-09-09 18:56:56','小超','小超','192.168.20.10003','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050003','FTYUIOLJYT12312312312312asdfasd0003','42.17688770927457','131.5965159862446','G000003','1'),
-	('GM000004','2021-08-27 13:37:31','仓库货位','仓库货位','192.168.20.10004','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050004','FTYUIOLJYT12312312312312asdfasd0004','41.86145252883912','130.08415057378718','G000004','1'),
-	('GM000005','2021-08-30 00:05:30','卡车','卡车','192.168.20.10005','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050005','FTYUIOLJYT12312312312312asdfasd0005','40.13876227534117','129.4065507399874','G000005','1'),
-	('GM000006','2021-08-31 17:34:22','小超','小超','192.168.20.10006','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050006','FTYUIOLJYT12312312312312asdfasd0006','41.5577414418889','131.09562363001427','G000006','1'),
-	('GM000007','2021-08-23 19:35:30','仓库货位','仓库货位','192.168.20.10007','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050007','FTYUIOLJYT12312312312312asdfasd0007','41.118891309733044','129.40407876514368','G000007','1'),
-	('GM000008','2021-08-29 04:25:33','卡车','卡车','192.168.20.10008','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050008','FTYUIOLJYT12312312312312asdfasd0008','40.24262692542775','132.1611833730948','G000008','1'),
-	('GM000009','2021-09-07 07:48:42','小超','小超','192.168.20.10009','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050009','FTYUIOLJYT12312312312312asdfasd0009','41.264932665509214','129.91065314901817','G000009','1'),
-	('GM000010','2021-09-08 10:10:30','仓库货位','仓库货位','192.168.20.10010','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050010','FTYUIOLJYT12312312312312asdfasd0010','40.52048552344046','129.79732322969966','G000010','1'),
-	('GM000011','2021-09-04 05:19:05','卡车','卡车','192.168.20.10011','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050011','FTYUIOLJYT12312312312312asdfasd0011','40.84603304657447','129.40308547565493','G000011','1'),
-	('GM000012','2021-08-30 19:39:42','小超','小超','192.168.20.10012','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050012','FTYUIOLJYT12312312312312asdfasd0012','41.03049521258609','131.80501126831328','G000012','1'),
-	('GM000013','2021-09-09 01:56:20','仓库货位','仓库货位','192.168.20.10013','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050013','FTYUIOLJYT12312312312312asdfasd0013','41.104981394035796','130.5938028087868','G000013','1'),
-	('GM000014','2021-08-28 13:50:29','卡车','卡车','192.168.20.10014','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050014','FTYUIOLJYT12312312312312asdfasd0014','42.67884505530183','131.46582968295536','G000014','1'),
-	('GM000015','2021-09-03 14:39:32','小超','小超','192.168.20.10015','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050015','FTYUIOLJYT12312312312312asdfasd0015','41.115043115854114','131.3919388518733','G000015','1'),
-	('GM000016','2021-08-24 05:48:08','仓库货位','仓库货位','192.168.20.10016','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050016','FTYUIOLJYT12312312312312asdfasd0016','41.22181517607678','131.96417934647533','G000016','1'),
-	('GM000017','2021-08-23 04:04:14','卡车','卡车','192.168.20.10017','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050017','FTYUIOLJYT12312312312312asdfasd0017','41.932745321847584','131.48102689788107','G000017','1'),
-	('GM000018','2021-08-26 19:40:48','小超','小超','192.168.20.10018','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050018','FTYUIOLJYT12312312312312asdfasd0018','41.4503849838511','130.5373093668309','G000018','1'),
-	('GM000019','2021-08-30 08:32:24','仓库货位','仓库货位','192.168.20.10019','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050019','FTYUIOLJYT12312312312312asdfasd0019','41.265157362273726','130.43116554805135','G000019','1'),
-	('GM000020','2021-08-26 11:39:54','卡车','卡车','192.168.20.10020','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050020','FTYUIOLJYT12312312312312asdfasd0020','40.63455379825247','129.91684477775007','G000020','1'),
-	('GM000021','2021-09-11 00:29:19','小超','小超','192.168.20.10021','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050021','FTYUIOLJYT12312312312312asdfasd0021','40.72845066125399','129.4785502808129','G000021','1'),
-	('GM000022','2021-09-05 07:28:52','仓库货位','仓库货位','192.168.20.10022','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050022','FTYUIOLJYT12312312312312asdfasd0022','40.90130368729906','131.58126311470426','G000022','1'),
-	('GM000023','2021-09-03 11:56:34','卡车','卡车','192.168.20.10023','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050023','FTYUIOLJYT12312312312312asdfasd0023','41.50025887701572','131.18826987685927','G000023','1'),
-	('GM000024','2021-09-12 03:32:52','小超','小超','192.168.20.10024','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050024','FTYUIOLJYT12312312312312asdfasd0024','40.28842620626248','131.3436795406041','G000024','1'),
-	('GM000025','2021-08-25 18:24:53','仓库货位','仓库货位','192.168.20.10025','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050025','FTYUIOLJYT12312312312312asdfasd0025','42.65123407310329','130.08033510545158','G000025','1'),
-	('GM000026','2021-08-25 11:02:36','卡车','卡车','192.168.20.10026','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050026','FTYUIOLJYT12312312312312asdfasd0026','42.10974396699246','129.4617425382094','G000026','1'),
-	('GM000027','2021-08-26 19:40:25','小超','小超','192.168.20.10027','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050027','FTYUIOLJYT12312312312312asdfasd0027','41.273984698269665','130.68525807118905','G000027','1'),
-	('GM000028','2021-09-01 13:00:19','仓库货位','仓库货位','192.168.20.10028','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050028','FTYUIOLJYT12312312312312asdfasd0028','39.83616089359574','130.58793622916056','G000028','1'),
-	('GM000029','2021-08-22 21:31:41','卡车','卡车','192.168.20.10029','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050029','FTYUIOLJYT12312312312312asdfasd0029','40.75618538641156','131.72346165823936','G000029','1'),
-	('GM000030','2021-08-31 07:42:28','小超','小超','192.168.20.10030','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050030','FTYUIOLJYT12312312312312asdfasd0030','41.62019014836929','131.24378912945448','G000030','1'),
-	('GM000031','2021-09-12 03:56:06','仓库货位','仓库货位','192.168.20.10031','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050031','FTYUIOLJYT12312312312312asdfasd0031','40.41808777084392','130.81983593804637','G000031','1'),
-	('GM000032','2021-09-12 21:10:03','卡车','卡车','192.168.20.10032','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050032','FTYUIOLJYT12312312312312asdfasd0032','40.12596711351092','130.5681618669558','G000032','1'),
-	('GM000033','2021-08-24 17:38:42','小超','小超','192.168.20.10033','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050033','FTYUIOLJYT12312312312312asdfasd0033','41.45508668278405','130.09645750256087','G000033','1'),
-	('GM000034','2021-09-09 03:12:15','仓库货位','仓库货位','192.168.20.10034','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050034','FTYUIOLJYT12312312312312asdfasd0034','41.05721993414892','130.77884298452489','G000034','1'),
-	('GM000035','2021-08-26 03:44:00','卡车','卡车','192.168.20.10035','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050035','FTYUIOLJYT12312312312312asdfasd0035','42.598678223742716','129.68655471933474','G000035','1'),
-	('GM000036','2021-09-02 06:18:00','小超','小超','192.168.20.10036','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050036','FTYUIOLJYT12312312312312asdfasd0036','42.36532715575605','132.22213061153886','G000036','1'),
-	('GM000037','2021-09-11 05:22:40','仓库货位','仓库货位','192.168.20.10037','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050037','FTYUIOLJYT12312312312312asdfasd0037','41.49248639373379','129.81308145562332','G000037','1'),
-	('GM000038','2021-09-11 14:12:26','卡车','卡车','192.168.20.10038','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050038','FTYUIOLJYT12312312312312asdfasd0038','41.05965122141795','132.14407798489322','G000038','1'),
-	('GM000039','2021-09-07 20:16:28','小超','小超','192.168.20.10039','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050039','FTYUIOLJYT12312312312312asdfasd0039','41.03555590987747','130.03570526637813','G000039','1'),
-	('GM000040','2021-08-30 18:06:01','仓库货位','仓库货位','192.168.20.10040','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050040','FTYUIOLJYT12312312312312asdfasd0040','40.902135370779575','130.1799009023931','G000040','1'),
-	('GM000041','2021-09-10 05:06:03','卡车','卡车','192.168.20.10041','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050041','FTYUIOLJYT12312312312312asdfasd0041','42.38745450932473','132.12871676111976','G000041','1'),
-	('GM000042','2021-09-11 01:28:29','小超','小超','192.168.20.10042','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050042','FTYUIOLJYT12312312312312asdfasd0042','42.44514945616143','131.25808186014953','G000042','1'),
-	('GM000043','2021-09-01 17:59:33','仓库货位','仓库货位','192.168.20.10043','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050043','FTYUIOLJYT12312312312312asdfasd0043','41.1766816275722','131.17553216498936','G000043','1'),
-	('GM000044','2021-08-26 01:46:22','卡车','卡车','192.168.20.10044','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050044','FTYUIOLJYT12312312312312asdfasd0044','41.341354124434474','130.58949071905275','G000044','1'),
-	('GM000045','2021-08-29 01:01:35','小超','小超','192.168.20.10045','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050045','FTYUIOLJYT12312312312312asdfasd0045','41.376329581286264','131.79742630278366','G000045','1'),
-	('GM000046','2021-09-08 21:41:33','仓库货位','仓库货位','192.168.20.10046','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050046','FTYUIOLJYT12312312312312asdfasd0046','40.92063301152483','132.04901049824792','G000046','1'),
-	('GM000047','2021-09-03 12:06:58','卡车','卡车','192.168.20.10047','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050047','FTYUIOLJYT12312312312312asdfasd0047','41.18291871621118','131.24736405540943','G000047','1'),
-	('GM000048','2021-09-11 18:04:32','小超','小超','192.168.20.10048','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050048','FTYUIOLJYT12312312312312asdfasd0048','40.57375533445468','130.65049808571052','G000048','1'),
-	('GM000049','2021-08-29 06:27:00','仓库货位','仓库货位','192.168.20.10049','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050049','FTYUIOLJYT12312312312312asdfasd0049','39.88297557304322','129.74487178828932','G000049','1'),
-	('GM000050','2021-09-06 10:09:45','卡车','卡车','192.168.20.10050','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050050','FTYUIOLJYT12312312312312asdfasd0050','40.71533852994168','131.51130607883152','G000050','1'),
-	('GM000051','2021-09-09 16:19:42','小超','小超','192.168.20.10051','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050051','FTYUIOLJYT12312312312312asdfasd0051','40.647515689121775','132.08352996379574','G000051','1'),
-	('GM000052','2021-08-23 09:49:34','仓库货位','仓库货位','192.168.20.10052','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050052','FTYUIOLJYT12312312312312asdfasd0052','40.30796458951648','131.44908203668325','G000052','1'),
-	('GM000053','2021-08-28 02:03:01','卡车','卡车','192.168.20.10053','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050053','FTYUIOLJYT12312312312312asdfasd0053','41.44053062106183','131.96569583160345','G000053','1'),
-	('GM000054','2021-08-31 22:28:41','小超','小超','192.168.20.10054','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050054','FTYUIOLJYT12312312312312asdfasd0054','41.231181543242684','129.85328049513453','G000054','1'),
-	('GM000055','2021-08-23 05:41:08','仓库货位','仓库货位','192.168.20.10055','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050055','FTYUIOLJYT12312312312312asdfasd0055','40.950383551454536','131.79445332857233','G000055','1'),
-	('GM000056','2021-08-30 19:38:58','卡车','卡车','192.168.20.10056','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050056','FTYUIOLJYT12312312312312asdfasd0056','41.867923127191254','131.1320539419025','G000056','1'),
-	('GM000057','2021-09-11 21:08:10','小超','小超','192.168.20.10057','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050057','FTYUIOLJYT12312312312312asdfasd0057','40.79233844599214','130.9436163627823','G000057','1'),
-	('GM000058','2021-09-11 05:41:57','仓库货位','仓库货位','192.168.20.10058','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050058','FTYUIOLJYT12312312312312asdfasd0058','42.17906935312546','130.71032588181922','G000058','1'),
-	('GM000059','2021-09-12 17:21:05','卡车','卡车','192.168.20.10059','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050059','FTYUIOLJYT12312312312312asdfasd0059','42.029059625286365','131.82409155614','G000059','1'),
-	('GM000060','2021-08-26 14:24:27','小超','小超','192.168.20.10060','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050060','FTYUIOLJYT12312312312312asdfasd0060','40.34503226613635','129.30841503228248','G000060','1'),
-	('GM000061','2021-08-31 05:54:41','仓库货位','仓库货位','192.168.20.10061','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050061','FTYUIOLJYT12312312312312asdfasd0061','41.609715697210625','129.93837924244642','G000061','1'),
-	('GM000062','2021-08-25 20:41:18','卡车','卡车','192.168.20.10062','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050062','FTYUIOLJYT12312312312312asdfasd0062','42.7001006717995','131.07722507035473','G000062','1'),
-	('GM000063','2021-09-10 21:40:25','小超','小超','192.168.20.10063','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050063','FTYUIOLJYT12312312312312asdfasd0063','41.13633377010761','131.4619091837845','G000063','1'),
-	('GM000064','2021-08-27 01:11:15','仓库货位','仓库货位','192.168.20.10064','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050064','FTYUIOLJYT12312312312312asdfasd0064','42.67764136125511','129.82351320609715','G000064','1'),
-	('GM000065','2021-08-26 11:58:42','卡车','卡车','192.168.20.10065','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050065','FTYUIOLJYT12312312312312asdfasd0065','40.88041791208484','129.68586446160842','G000065','1'),
-	('GM000066','2021-08-23 01:11:21','小超','小超','192.168.20.10066','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050066','FTYUIOLJYT12312312312312asdfasd0066','42.65710424300772','132.19799600315068','G000066','1'),
-	('GM000067','2021-08-24 15:04:14','仓库货位','仓库货位','192.168.20.10067','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050067','FTYUIOLJYT12312312312312asdfasd0067','41.34885053325762','131.70484917776014','G000067','1'),
-	('GM000068','2021-09-07 02:19:49','卡车','卡车','192.168.20.10068','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050068','FTYUIOLJYT12312312312312asdfasd0068','40.870191801395194','131.71407613491087','G000068','1'),
-	('GM000069','2021-08-25 06:26:06','小超','小超','192.168.20.10069','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050069','FTYUIOLJYT12312312312312asdfasd0069','40.54412972711774','131.41603975345456','G000069','1'),
-	('GM000070','2021-08-31 01:31:48','仓库货位','仓库货位','192.168.20.10070','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050070','FTYUIOLJYT12312312312312asdfasd0070','42.62474795523093','132.14291447973866','G000070','1'),
-	('GM000071','2021-09-07 02:54:29','卡车','卡车','192.168.20.10071','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050071','FTYUIOLJYT12312312312312asdfasd0071','42.191585554445695','129.9242880626689','G000071','1'),
-	('GM000072','2021-08-28 19:58:20','小超','小超','192.168.20.10072','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050072','FTYUIOLJYT12312312312312asdfasd0072','41.36022459805695','132.22171507137693','G000072','1'),
-	('GM000073','2021-08-27 02:25:22','仓库货位','仓库货位','192.168.20.10073','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050073','FTYUIOLJYT12312312312312asdfasd0073','41.380013311346396','130.60810336853058','G000073','1'),
-	('GM000074','2021-09-12 13:30:23','卡车','卡车','192.168.20.10074','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050074','FTYUIOLJYT12312312312312asdfasd0074','40.105468693478485','131.19982163094448','G000074','1'),
-	('GM000075','2021-09-07 13:26:27','小超','小超','192.168.20.10075','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050075','FTYUIOLJYT12312312312312asdfasd0075','40.74993059395511','131.0107351368802','G000075','1'),
-	('GM000076','2021-08-30 11:55:53','仓库货位','仓库货位','192.168.20.10076','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050076','FTYUIOLJYT12312312312312asdfasd0076','42.493610371638205','132.21807962926314','G000076','1'),
-	('GM000077','2021-09-06 22:15:32','卡车','卡车','192.168.20.10077','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050077','FTYUIOLJYT12312312312312asdfasd0077','42.48631298476726','130.57305682258828','G000077','1'),
-	('GM000078','2021-09-01 07:14:34','小超','小超','192.168.20.10078','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050078','FTYUIOLJYT12312312312312asdfasd0078','42.153749771494724','131.51053210749706','G000078','1'),
-	('GM000079','2021-09-10 11:21:41','仓库货位','仓库货位','192.168.20.10079','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050079','FTYUIOLJYT12312312312312asdfasd0079','42.054208542552374','131.54305901575054','G000079','1'),
-	('GM000080','2021-09-02 18:06:06','卡车','卡车','192.168.20.10080','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050080','FTYUIOLJYT12312312312312asdfasd0080','41.176757344813836','129.27667882893135','G000080','1'),
-	('GM000081','2021-09-01 09:32:33','小超','小超','192.168.20.10081','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050081','FTYUIOLJYT12312312312312asdfasd0081','41.933221655606815','129.7810960243042','G000081','1'),
-	('GM000082','2021-08-30 14:39:28','仓库货位','仓库货位','192.168.20.10082','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050082','FTYUIOLJYT12312312312312asdfasd0082','41.90279441256426','131.59312068762728','G000082','1'),
-	('GM000083','2021-08-29 06:20:10','卡车','卡车','192.168.20.10083','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050083','FTYUIOLJYT12312312312312asdfasd0083','40.34077390271693','130.0592992890572','G000083','1'),
-	('GM000084','2021-09-06 05:25:54','小超','小超','192.168.20.10084','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050084','FTYUIOLJYT12312312312312asdfasd0084','41.03920209566936','130.91447051669752','G000084','1'),
-	('GM000085','2021-09-05 04:15:20','仓库货位','仓库货位','192.168.20.10085','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050085','FTYUIOLJYT12312312312312asdfasd0085','42.31767830870481','131.83460868095216','G000085','1'),
-	('GM000086','2021-09-07 07:33:18','卡车','卡车','192.168.20.10086','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050086','FTYUIOLJYT12312312312312asdfasd0086','41.45541773575343','129.50707648464132','G000086','1'),
-	('GM000087','2021-08-28 09:19:44','小超','小超','192.168.20.10087','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050087','FTYUIOLJYT12312312312312asdfasd0087','41.019441942868795','130.6926423533736','G000087','1'),
-	('GM000088','2021-08-31 12:51:09','仓库货位','仓库货位','192.168.20.10088','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050088','FTYUIOLJYT12312312312312asdfasd0088','41.86088559578698','131.2206569235964','G000088','1'),
-	('GM000089','2021-08-25 01:04:43','卡车','卡车','192.168.20.10089','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050089','FTYUIOLJYT12312312312312asdfasd0089','40.002475870693594','132.12721355350476','G000089','1'),
-	('GM000090','2021-08-23 18:08:04','小超','小超','192.168.20.10090','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050090','FTYUIOLJYT12312312312312asdfasd0090','42.22500377550072','131.44077324795396','G000090','1'),
-	('GM000091','2021-08-29 09:29:56','仓库货位','仓库货位','192.168.20.10091','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050091','FTYUIOLJYT12312312312312asdfasd0091','41.808824492095006','130.27891568135004','G000091','1'),
-	('GM000092','2021-08-31 11:58:13','卡车','卡车','192.168.20.10092','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050092','FTYUIOLJYT12312312312312asdfasd0092','41.595566813381986','131.19071001388468','G000092','1'),
-	('GM000093','2021-09-07 21:07:17','小超','小超','192.168.20.10093','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050093','FTYUIOLJYT12312312312312asdfasd0093','41.78201845058095','131.52517558135796','G000093','1'),
-	('GM000094','2021-09-01 15:03:49','仓库货位','仓库货位','192.168.20.10094','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050094','FTYUIOLJYT12312312312312asdfasd0094','42.09264620431037','130.42941654054337','G000094','1'),
-	('GM000095','2021-09-05 07:50:02','卡车','卡车','192.168.20.10095','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050095','FTYUIOLJYT12312312312312asdfasd0095','41.53923685632614','129.54097833008538','G000095','1'),
-	('GM000096','2021-08-27 11:47:00','小超','小超','192.168.20.10096','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050096','FTYUIOLJYT12312312312312asdfasd0096','40.05522266849929','130.5904861179091','G000096','1'),
-	('GM000097','2021-09-06 21:01:37','仓库货位','仓库货位','192.168.20.10097','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050097','FTYUIOLJYT12312312312312asdfasd0097','40.583280051275366','130.85967971858778','G000097','1'),
-	('GM000098','2021-08-26 06:22:37','卡车','卡车','192.168.20.10098','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050098','FTYUIOLJYT12312312312312asdfasd0098','41.683116379478896','131.7465898189219','G000098','1'),
-	('GM000099','2021-09-13 03:12:38','小超','小超','192.168.20.10099','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050099','FTYUIOLJYT12312312312312asdfasd0099','41.5671760498926','131.11065741468667','G000099','1'),
-	('GM000100','2021-09-01 03:41:27','仓库货位','仓库货位','192.168.20.10100','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050100','FTYUIOLJYT12312312312312asdfasd0100','41.20993380698284','132.0883755053783','G000100','1');
+insert into goods_movement_data (id,move_time,facility,facility_id,from_ip,user_agent,session_id,latitude,longitude,goods,version) values
+	('GM000001','2022-09-30 13:39:37','仓库货位','仓库货位','192.168.20.10001','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050001','FTYUIOLJYT12312312312312asdfasd0001','40.43821421342487','131.52026218771624','G000001','1'),
+	('GM000002','2022-09-18 07:55:59','卡车','卡车','192.168.20.10002','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050002','FTYUIOLJYT12312312312312asdfasd0002','41.026067527650596','129.86384837605277','G000002','1'),
+	('GM000003','2022-09-18 21:42:48','小超','小超','192.168.20.10003','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050003','FTYUIOLJYT12312312312312asdfasd0003','41.41110390907783','130.2897624422544','G000003','1'),
+	('GM000004','2022-09-25 19:58:10','仓库货位','仓库货位','192.168.20.10004','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050004','FTYUIOLJYT12312312312312asdfasd0004','42.14195858012745','131.68709981877316','G000004','1'),
+	('GM000005','2022-09-13 02:08:12','卡车','卡车','192.168.20.10005','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050005','FTYUIOLJYT12312312312312asdfasd0005','40.33299030502647','130.95592304979868','G000005','1'),
+	('GM000006','2022-09-12 14:38:40','小超','小超','192.168.20.10006','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050006','FTYUIOLJYT12312312312312asdfasd0006','42.03213591323255','129.93223619424916','G000006','1'),
+	('GM000007','2022-09-26 05:23:35','仓库货位','仓库货位','192.168.20.10007','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050007','FTYUIOLJYT12312312312312asdfasd0007','41.712770890705514','130.41992212788446','G000007','1'),
+	('GM000008','2022-09-20 18:25:18','卡车','卡车','192.168.20.10008','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050008','FTYUIOLJYT12312312312312asdfasd0008','40.85363992436664','129.5210674955405','G000008','1'),
+	('GM000009','2022-09-24 06:13:56','小超','小超','192.168.20.10009','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050009','FTYUIOLJYT12312312312312asdfasd0009','40.532738029986454','131.98809966136457','G000009','1'),
+	('GM000010','2022-09-29 11:55:27','仓库货位','仓库货位','192.168.20.10010','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050010','FTYUIOLJYT12312312312312asdfasd0010','41.247787030349656','129.5665906060602','G000010','1'),
+	('GM000011','2022-09-19 18:24:18','卡车','卡车','192.168.20.10011','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050011','FTYUIOLJYT12312312312312asdfasd0011','41.71962507772804','130.98093739026677','G000011','1'),
+	('GM000012','2022-10-01 06:21:32','小超','小超','192.168.20.10012','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050012','FTYUIOLJYT12312312312312asdfasd0012','40.95962081175841','131.3097577698194','G000012','1'),
+	('GM000013','2022-09-27 18:12:41','仓库货位','仓库货位','192.168.20.10013','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050013','FTYUIOLJYT12312312312312asdfasd0013','42.58244479365323','131.87595981762937','G000013','1'),
+	('GM000014','2022-09-14 10:21:30','卡车','卡车','192.168.20.10014','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050014','FTYUIOLJYT12312312312312asdfasd0014','40.01522245830959','130.53360597820742','G000014','1'),
+	('GM000015','2022-09-22 22:44:19','小超','小超','192.168.20.10015','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050015','FTYUIOLJYT12312312312312asdfasd0015','42.25494787390169','129.2929168990309','G000015','1'),
+	('GM000016','2022-09-22 05:30:15','仓库货位','仓库货位','192.168.20.10016','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050016','FTYUIOLJYT12312312312312asdfasd0016','41.18672301129578','131.9822668798545','G000016','1'),
+	('GM000017','2022-09-17 17:27:13','卡车','卡车','192.168.20.10017','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050017','FTYUIOLJYT12312312312312asdfasd0017','40.07140796617141','129.3263649148607','G000017','1'),
+	('GM000018','2022-09-15 08:48:18','小超','小超','192.168.20.10018','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050018','FTYUIOLJYT12312312312312asdfasd0018','40.980881381055','131.86475595622304','G000018','1'),
+	('GM000019','2022-09-30 10:15:37','仓库货位','仓库货位','192.168.20.10019','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050019','FTYUIOLJYT12312312312312asdfasd0019','40.06696461611169','130.35629458498798','G000019','1'),
+	('GM000020','2022-09-10 09:28:45','卡车','卡车','192.168.20.10020','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050020','FTYUIOLJYT12312312312312asdfasd0020','40.91661517672999','131.69941605105646','G000020','1'),
+	('GM000021','2022-09-27 02:27:04','小超','小超','192.168.20.10021','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050021','FTYUIOLJYT12312312312312asdfasd0021','41.51678918543534','131.35281054556404','G000021','1'),
+	('GM000022','2022-09-20 10:48:31','仓库货位','仓库货位','192.168.20.10022','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050022','FTYUIOLJYT12312312312312asdfasd0022','41.787821339059704','130.73707915308125','G000022','1'),
+	('GM000023','2022-09-18 22:09:33','卡车','卡车','192.168.20.10023','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050023','FTYUIOLJYT12312312312312asdfasd0023','39.96637469988805','129.55773010077175','G000023','1'),
+	('GM000024','2022-09-12 14:01:33','小超','小超','192.168.20.10024','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050024','FTYUIOLJYT12312312312312asdfasd0024','42.45875717373595','131.9376556415328','G000024','1'),
+	('GM000025','2022-09-23 21:38:49','仓库货位','仓库货位','192.168.20.10025','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050025','FTYUIOLJYT12312312312312asdfasd0025','41.92840711559055','129.636644185317','G000025','1'),
+	('GM000026','2022-09-11 13:05:30','卡车','卡车','192.168.20.10026','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050026','FTYUIOLJYT12312312312312asdfasd0026','40.91934614310475','130.4298264299649','G000026','1'),
+	('GM000027','2022-09-17 16:07:54','小超','小超','192.168.20.10027','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050027','FTYUIOLJYT12312312312312asdfasd0027','41.46569294971766','131.70239744047038','G000027','1'),
+	('GM000028','2022-09-14 14:09:53','仓库货位','仓库货位','192.168.20.10028','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050028','FTYUIOLJYT12312312312312asdfasd0028','39.88683903332873','131.2862980034308','G000028','1'),
+	('GM000029','2022-09-12 01:23:18','卡车','卡车','192.168.20.10029','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050029','FTYUIOLJYT12312312312312asdfasd0029','39.89586503772889','130.90865543505683','G000029','1'),
+	('GM000030','2022-09-19 21:43:29','小超','小超','192.168.20.10030','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050030','FTYUIOLJYT12312312312312asdfasd0030','40.6187172741481','132.04279198672776','G000030','1'),
+	('GM000031','2022-09-24 18:28:19','仓库货位','仓库货位','192.168.20.10031','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050031','FTYUIOLJYT12312312312312asdfasd0031','40.75905599731449','129.38441170223814','G000031','1'),
+	('GM000032','2022-09-21 08:30:59','卡车','卡车','192.168.20.10032','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050032','FTYUIOLJYT12312312312312asdfasd0032','41.38063980710581','130.18833344973083','G000032','1'),
+	('GM000033','2022-09-20 04:33:54','小超','小超','192.168.20.10033','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050033','FTYUIOLJYT12312312312312asdfasd0033','39.91703659800562','131.55175438934023','G000033','1'),
+	('GM000034','2022-09-22 16:35:55','仓库货位','仓库货位','192.168.20.10034','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050034','FTYUIOLJYT12312312312312asdfasd0034','42.664276023934306','129.88382864217374','G000034','1'),
+	('GM000035','2022-09-21 03:50:36','卡车','卡车','192.168.20.10035','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050035','FTYUIOLJYT12312312312312asdfasd0035','39.89970063617872','132.1553843676767','G000035','1'),
+	('GM000036','2022-09-12 08:28:29','小超','小超','192.168.20.10036','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050036','FTYUIOLJYT12312312312312asdfasd0036','40.88534767491054','129.71738990106581','G000036','1'),
+	('GM000037','2022-09-27 00:50:21','仓库货位','仓库货位','192.168.20.10037','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050037','FTYUIOLJYT12312312312312asdfasd0037','42.5961151935476','131.5893183637665','G000037','1'),
+	('GM000038','2022-09-27 21:19:23','卡车','卡车','192.168.20.10038','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050038','FTYUIOLJYT12312312312312asdfasd0038','42.41504530880974','129.68597930995816','G000038','1'),
+	('GM000039','2022-09-13 06:48:28','小超','小超','192.168.20.10039','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050039','FTYUIOLJYT12312312312312asdfasd0039','41.582128571379016','130.18059155939136','G000039','1'),
+	('GM000040','2022-09-10 00:51:54','仓库货位','仓库货位','192.168.20.10040','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050040','FTYUIOLJYT12312312312312asdfasd0040','42.05175258481107','129.8769499755459','G000040','1'),
+	('GM000041','2022-09-09 15:13:32','卡车','卡车','192.168.20.10041','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050041','FTYUIOLJYT12312312312312asdfasd0041','41.27985973523423','131.4689059552191','G000041','1'),
+	('GM000042','2022-09-17 23:39:09','小超','小超','192.168.20.10042','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050042','FTYUIOLJYT12312312312312asdfasd0042','40.95887407903653','131.0988341651318','G000042','1'),
+	('GM000043','2022-09-23 06:09:20','仓库货位','仓库货位','192.168.20.10043','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050043','FTYUIOLJYT12312312312312asdfasd0043','42.01702460472185','132.082981041556','G000043','1'),
+	('GM000044','2022-09-28 11:31:20','卡车','卡车','192.168.20.10044','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050044','FTYUIOLJYT12312312312312asdfasd0044','40.853335760030866','131.8327453326003','G000044','1'),
+	('GM000045','2022-09-12 19:40:35','小超','小超','192.168.20.10045','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050045','FTYUIOLJYT12312312312312asdfasd0045','42.672352215221935','131.5774041471699','G000045','1'),
+	('GM000046','2022-09-12 10:11:34','仓库货位','仓库货位','192.168.20.10046','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050046','FTYUIOLJYT12312312312312asdfasd0046','42.39342693161842','131.2141546192382','G000046','1'),
+	('GM000047','2022-09-22 23:43:37','卡车','卡车','192.168.20.10047','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050047','FTYUIOLJYT12312312312312asdfasd0047','40.99930010577543','131.46723533209854','G000047','1'),
+	('GM000048','2022-09-24 14:19:36','小超','小超','192.168.20.10048','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050048','FTYUIOLJYT12312312312312asdfasd0048','39.99015178683512','131.94530166979007','G000048','1'),
+	('GM000049','2022-09-17 05:30:23','仓库货位','仓库货位','192.168.20.10049','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050049','FTYUIOLJYT12312312312312asdfasd0049','41.971508958338475','132.23129096536002','G000049','1'),
+	('GM000050','2022-09-21 21:15:46','卡车','卡车','192.168.20.10050','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050050','FTYUIOLJYT12312312312312asdfasd0050','42.24981608047873','130.2324833341442','G000050','1'),
+	('GM000051','2022-09-19 14:55:46','小超','小超','192.168.20.10051','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050051','FTYUIOLJYT12312312312312asdfasd0051','40.41318972452355','131.18935221090686','G000051','1'),
+	('GM000052','2022-09-30 09:35:01','仓库货位','仓库货位','192.168.20.10052','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050052','FTYUIOLJYT12312312312312asdfasd0052','41.18451323396715','129.45691341445217','G000052','1'),
+	('GM000053','2022-09-19 10:09:35','卡车','卡车','192.168.20.10053','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050053','FTYUIOLJYT12312312312312asdfasd0053','40.10476896017818','130.9745641543114','G000053','1'),
+	('GM000054','2022-10-01 06:11:33','小超','小超','192.168.20.10054','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050054','FTYUIOLJYT12312312312312asdfasd0054','41.82941375010291','129.75539085665963','G000054','1'),
+	('GM000055','2022-09-11 21:45:26','仓库货位','仓库货位','192.168.20.10055','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050055','FTYUIOLJYT12312312312312asdfasd0055','41.09313209727733','129.79169365424497','G000055','1'),
+	('GM000056','2022-09-29 14:05:06','卡车','卡车','192.168.20.10056','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050056','FTYUIOLJYT12312312312312asdfasd0056','41.74985606861486','131.2058809607008','G000056','1'),
+	('GM000057','2022-09-29 04:20:29','小超','小超','192.168.20.10057','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050057','FTYUIOLJYT12312312312312asdfasd0057','42.706813186504235','131.38700284482655','G000057','1'),
+	('GM000058','2022-09-26 16:24:33','仓库货位','仓库货位','192.168.20.10058','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050058','FTYUIOLJYT12312312312312asdfasd0058','42.7663754336719','130.59718738666328','G000058','1'),
+	('GM000059','2022-09-15 00:22:57','卡车','卡车','192.168.20.10059','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050059','FTYUIOLJYT12312312312312asdfasd0059','41.16522157880083','129.65919914439144','G000059','1'),
+	('GM000060','2022-09-23 05:05:34','小超','小超','192.168.20.10060','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050060','FTYUIOLJYT12312312312312asdfasd0060','40.371781563982125','130.79064836127907','G000060','1'),
+	('GM000061','2022-09-22 21:21:11','仓库货位','仓库货位','192.168.20.10061','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050061','FTYUIOLJYT12312312312312asdfasd0061','40.578846072050816','132.2567966308903','G000061','1'),
+	('GM000062','2022-09-22 21:25:01','卡车','卡车','192.168.20.10062','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050062','FTYUIOLJYT12312312312312asdfasd0062','41.45164623790878','130.45035895938867','G000062','1'),
+	('GM000063','2022-09-20 22:44:09','小超','小超','192.168.20.10063','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050063','FTYUIOLJYT12312312312312asdfasd0063','40.731321854844985','131.3694492029705','G000063','1'),
+	('GM000064','2022-09-19 12:16:55','仓库货位','仓库货位','192.168.20.10064','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050064','FTYUIOLJYT12312312312312asdfasd0064','41.87913720756517','132.18753475424856','G000064','1'),
+	('GM000065','2022-09-19 18:20:46','卡车','卡车','192.168.20.10065','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050065','FTYUIOLJYT12312312312312asdfasd0065','41.49690137283407','131.90419393242112','G000065','1'),
+	('GM000066','2022-09-28 05:36:08','小超','小超','192.168.20.10066','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050066','FTYUIOLJYT12312312312312asdfasd0066','41.058716585361964','131.21066694912363','G000066','1'),
+	('GM000067','2022-09-24 15:18:49','仓库货位','仓库货位','192.168.20.10067','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050067','FTYUIOLJYT12312312312312asdfasd0067','41.02648682438276','129.40750845961094','G000067','1'),
+	('GM000068','2022-09-10 03:20:04','卡车','卡车','192.168.20.10068','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050068','FTYUIOLJYT12312312312312asdfasd0068','41.90311594303795','130.93805575961227','G000068','1'),
+	('GM000069','2022-09-19 01:34:08','小超','小超','192.168.20.10069','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050069','FTYUIOLJYT12312312312312asdfasd0069','42.39581523953463','131.65668800465758','G000069','1'),
+	('GM000070','2022-09-15 21:41:35','仓库货位','仓库货位','192.168.20.10070','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050070','FTYUIOLJYT12312312312312asdfasd0070','41.79713248457864','131.27077935972463','G000070','1'),
+	('GM000071','2022-09-29 04:20:23','卡车','卡车','192.168.20.10071','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050071','FTYUIOLJYT12312312312312asdfasd0071','41.98014019445709','131.89596940883413','G000071','1'),
+	('GM000072','2022-09-23 02:49:28','小超','小超','192.168.20.10072','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050072','FTYUIOLJYT12312312312312asdfasd0072','41.72372116393095','129.66538783447572','G000072','1'),
+	('GM000073','2022-09-18 19:42:43','仓库货位','仓库货位','192.168.20.10073','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050073','FTYUIOLJYT12312312312312asdfasd0073','41.145937387010434','131.9713770137022','G000073','1'),
+	('GM000074','2022-09-09 22:04:54','卡车','卡车','192.168.20.10074','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050074','FTYUIOLJYT12312312312312asdfasd0074','40.686761390117155','131.62548149941628','G000074','1'),
+	('GM000075','2022-09-13 12:23:08','小超','小超','192.168.20.10075','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050075','FTYUIOLJYT12312312312312asdfasd0075','42.44251748297975','131.2513598814694','G000075','1'),
+	('GM000076','2022-09-28 01:02:24','仓库货位','仓库货位','192.168.20.10076','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050076','FTYUIOLJYT12312312312312asdfasd0076','42.28556109480079','130.85433197470073','G000076','1'),
+	('GM000077','2022-09-21 14:22:06','卡车','卡车','192.168.20.10077','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050077','FTYUIOLJYT12312312312312asdfasd0077','41.361331230402286','130.47650119104748','G000077','1'),
+	('GM000078','2022-09-14 22:04:05','小超','小超','192.168.20.10078','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050078','FTYUIOLJYT12312312312312asdfasd0078','42.59405399126294','131.1969441761759','G000078','1'),
+	('GM000079','2022-09-27 12:47:26','仓库货位','仓库货位','192.168.20.10079','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050079','FTYUIOLJYT12312312312312asdfasd0079','41.20018160615578','131.72007019060266','G000079','1'),
+	('GM000080','2022-09-15 21:28:33','卡车','卡车','192.168.20.10080','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050080','FTYUIOLJYT12312312312312asdfasd0080','42.3288045686472','131.5351876218419','G000080','1'),
+	('GM000081','2022-09-25 02:23:55','小超','小超','192.168.20.10081','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050081','FTYUIOLJYT12312312312312asdfasd0081','41.93114476872338','132.26177717472697','G000081','1'),
+	('GM000082','2022-09-11 23:48:26','仓库货位','仓库货位','192.168.20.10082','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050082','FTYUIOLJYT12312312312312asdfasd0082','41.50103581948748','130.38520717101602','G000082','1'),
+	('GM000083','2022-09-18 12:20:54','卡车','卡车','192.168.20.10083','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050083','FTYUIOLJYT12312312312312asdfasd0083','42.2979755662474','130.57019744739108','G000083','1'),
+	('GM000084','2022-09-13 06:54:08','小超','小超','192.168.20.10084','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050084','FTYUIOLJYT12312312312312asdfasd0084','39.826245552334925','129.74925362351547','G000084','1'),
+	('GM000085','2022-09-13 00:27:27','仓库货位','仓库货位','192.168.20.10085','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050085','FTYUIOLJYT12312312312312asdfasd0085','42.250012022480384','130.08601755399528','G000085','1'),
+	('GM000086','2022-09-09 17:32:42','卡车','卡车','192.168.20.10086','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050086','FTYUIOLJYT12312312312312asdfasd0086','39.98850476218673','131.47696453907815','G000086','1'),
+	('GM000087','2022-09-10 17:19:03','小超','小超','192.168.20.10087','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050087','FTYUIOLJYT12312312312312asdfasd0087','40.10958211634705','129.3201968247897','G000087','1'),
+	('GM000088','2022-09-24 09:20:31','仓库货位','仓库货位','192.168.20.10088','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050088','FTYUIOLJYT12312312312312asdfasd0088','40.4437935054994','131.44222666932146','G000088','1'),
+	('GM000089','2022-09-14 03:03:52','卡车','卡车','192.168.20.10089','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050089','FTYUIOLJYT12312312312312asdfasd0089','41.4387755606945','130.79064012296843','G000089','1'),
+	('GM000090','2022-09-12 18:24:12','小超','小超','192.168.20.10090','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050090','FTYUIOLJYT12312312312312asdfasd0090','42.706902486939','131.20491884544305','G000090','1'),
+	('GM000091','2022-09-24 02:53:11','仓库货位','仓库货位','192.168.20.10091','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050091','FTYUIOLJYT12312312312312asdfasd0091','42.05491368795788','129.77097199619013','G000091','1'),
+	('GM000092','2022-09-25 03:24:43','卡车','卡车','192.168.20.10092','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050092','FTYUIOLJYT12312312312312asdfasd0092','42.54932117160808','130.7315722251976','G000092','1'),
+	('GM000093','2022-09-12 17:12:32','小超','小超','192.168.20.10093','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050093','FTYUIOLJYT12312312312312asdfasd0093','42.19350082132061','132.1090384281082','G000093','1'),
+	('GM000094','2022-09-11 23:43:30','仓库货位','仓库货位','192.168.20.10094','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050094','FTYUIOLJYT12312312312312asdfasd0094','42.18156941643185','129.44040103703168','G000094','1'),
+	('GM000095','2022-09-30 17:21:41','卡车','卡车','192.168.20.10095','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050095','FTYUIOLJYT12312312312312asdfasd0095','40.84986182301054','129.77502905472508','G000095','1'),
+	('GM000096','2022-09-10 14:03:49','小超','小超','192.168.20.10096','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050096','FTYUIOLJYT12312312312312asdfasd0096','42.38367075079653','131.32499910835938','G000096','1'),
+	('GM000097','2022-09-10 01:45:53','仓库货位','仓库货位','192.168.20.10097','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050097','FTYUIOLJYT12312312312312asdfasd0097','40.278680123514114','130.24440349065878','G000097','1'),
+	('GM000098','2022-09-10 16:36:57','卡车','卡车','192.168.20.10098','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050098','FTYUIOLJYT12312312312312asdfasd0098','42.65358643979417','129.72363208858255','G000098','1'),
+	('GM000099','2022-09-22 17:34:35','小超','小超','192.168.20.10099','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050099','FTYUIOLJYT12312312312312asdfasd0099','40.6924886688728','129.62456024046955','G000099','1'),
+	('GM000100','2022-09-23 13:13:49','仓库货位','仓库货位','192.168.20.10100','Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B4050100','FTYUIOLJYT12312312312312asdfasd0100','42.377734965029546','131.22947111836325','G000100','1');
 
-insert into supplier_space_data values
-	('SS000001','成都龙泉驿飞鹤路20号供货商独立管理区0001','028 876543210001','1876平方米0001','W000001','39.90995703103232','132.07974648419517','2021-09-01 17:53:41','1'),
-	('SS000002','成都龙泉驿飞鹤路20号供货商独立管理区0002','028 876543210002','1876平方米0002','W000001','40.90557726545506','130.15184388151022','2021-09-06 07:43:30','1'),
-	('SS000003','成都龙泉驿飞鹤路20号供货商独立管理区0003','028 876543210003','1876平方米0003','W000002','41.73514043993935','130.09272643237372','2021-08-27 21:08:03','1'),
-	('SS000004','成都龙泉驿飞鹤路20号供货商独立管理区0004','028 876543210004','1876平方米0004','W000002','39.9608271598223','129.6004216164307','2021-08-26 01:44:54','1');
+insert into supplier_space_data (id,location,contact_number,total_area,warehouse,latitude,longitude,last_update_time,version) values
+	('SS000001','成都龙泉驿飞鹤路20号供货商独立管理区0001','028 876543210001','1876平方米0001','W000001','40.53336801859757','131.58647801230978','2022-09-15 04:27:15','1'),
+	('SS000002','成都龙泉驿飞鹤路20号供货商独立管理区0002','028 876543210002','1876平方米0002','W000001','42.501833522909756','130.28991721806042','2022-09-30 01:14:43','1'),
+	('SS000003','成都龙泉驿飞鹤路20号供货商独立管理区0003','028 876543210003','1876平方米0003','W000002','41.562825750395426','130.3363187350208','2022-09-19 16:36:59','1'),
+	('SS000004','成都龙泉驿飞鹤路20号供货商独立管理区0004','028 876543210004','1876平方米0004','W000002','42.31119333640289','131.7476678684625','2022-09-27 19:46:37','1');
 
-insert into receiving_space_data values
-	('RS000001','成都龙泉驿飞鹤路20号仓库卸货区0001','028 876543210001','每个收货区可以供一辆车卸货0001','1876平方米0001','W000001','42.733751162808126','131.29744259750365','2021-09-04 21:15:33','1'),
-	('RS000002','成都龙泉驿飞鹤路20号仓库卸货区0002','028 876543210002','每个收货区可以供一辆车卸货0002','1876平方米0002','W000001','40.22012952282401','130.64673027492972','2021-09-01 20:04:55','1'),
-	('RS000003','成都龙泉驿飞鹤路20号仓库卸货区0003','028 876543210003','每个收货区可以供一辆车卸货0003','1876平方米0003','W000002','42.06350715270356','129.45069518786192','2021-08-30 05:56:14','1'),
-	('RS000004','成都龙泉驿飞鹤路20号仓库卸货区0004','028 876543210004','每个收货区可以供一辆车卸货0004','1876平方米0004','W000002','40.25306946869337','130.0851627518956','2021-08-31 05:15:12','1');
+insert into receiving_space_data (id,location,contact_number,description,total_area,warehouse,latitude,longitude,last_update_time,version) values
+	('RS000001','成都龙泉驿飞鹤路20号仓库卸货区0001','028 876543210001','每个收货区可以供一辆车卸货0001','1876平方米0001','W000001','41.39814750188462','130.64690471157385','2022-09-10 12:00:29','1'),
+	('RS000002','成都龙泉驿飞鹤路20号仓库卸货区0002','028 876543210002','每个收货区可以供一辆车卸货0002','1876平方米0002','W000001','41.601283546793965','131.53616868545228','2022-09-10 14:45:48','1'),
+	('RS000003','成都龙泉驿飞鹤路20号仓库卸货区0003','028 876543210003','每个收货区可以供一辆车卸货0003','1876平方米0003','W000002','40.77134801096085','131.10505398879627','2022-09-24 05:14:57','1'),
+	('RS000004','成都龙泉驿飞鹤路20号仓库卸货区0004','028 876543210004','每个收货区可以供一辆车卸货0004','1876平方米0004','W000002','41.78085293834919','129.9555074456923','2022-09-18 06:00:04','1');
 
-insert into shipping_space_data values
-	('SS000001','成都龙泉驿飞鹤路20号装货区0001','028 876543210001','1876平方米0001','W000001','40.01565030646114','130.30928006036848','每个收货区可以供一辆车装货0001','2021-09-01 19:26:47','1'),
-	('SS000002','成都龙泉驿飞鹤路20号装货区0002','028 876543210002','1876平方米0002','W000001','42.14859076426985','129.94605893610938','每个收货区可以供一辆车装货0002','2021-08-28 09:54:58','1'),
-	('SS000003','成都龙泉驿飞鹤路20号装货区0003','028 876543210003','1876平方米0003','W000002','40.323328092711485','129.54153500465293','每个收货区可以供一辆车装货0003','2021-09-11 17:31:48','1'),
-	('SS000004','成都龙泉驿飞鹤路20号装货区0004','028 876543210004','1876平方米0004','W000002','40.07108295012057','130.93457436509794','每个收货区可以供一辆车装货0004','2021-09-09 08:54:10','1');
+insert into shipping_space_data (id,location,contact_number,total_area,warehouse,latitude,longitude,description,last_update_time,version) values
+	('SS000001','成都龙泉驿飞鹤路20号装货区0001','028 876543210001','1876平方米0001','W000001','40.66106755309813','130.37765824511516','每个收货区可以供一辆车装货0001','2022-09-17 14:09:05','1'),
+	('SS000002','成都龙泉驿飞鹤路20号装货区0002','028 876543210002','1876平方米0002','W000001','41.78762443959098','130.51569768208373','每个收货区可以供一辆车装货0002','2022-09-17 23:46:39','1'),
+	('SS000003','成都龙泉驿飞鹤路20号装货区0003','028 876543210003','1876平方米0003','W000002','40.720437720515754','130.44750868041132','每个收货区可以供一辆车装货0003','2022-09-12 02:24:49','1'),
+	('SS000004','成都龙泉驿飞鹤路20号装货区0004','028 876543210004','1876平方米0004','W000002','42.543137555756175','130.2685275861507','每个收货区可以供一辆车装货0004','2022-09-28 22:06:38','1');
 
-insert into damage_space_data values
-	('DS000001','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0001','028 876543210001','1876平方米0001','40.53523603501584','130.21821887373514','W000001','2021-09-13 11:48:11','1'),
-	('DS000002','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0002','028 876543210002','1876平方米0002','41.89439421791167','130.94833710662576','W000001','2021-09-11 08:22:47','1'),
-	('DS000003','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0003','028 876543210003','1876平方米0003','40.037962858686605','132.25049918888232','W000002','2021-09-10 02:26:14','1'),
-	('DS000004','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0004','028 876543210004','1876平方米0004','40.373147021446435','130.41246182632082','W000002','2021-08-24 16:03:59','1');
+insert into damage_space_data (id,location,contact_number,total_area,latitude,longitude,warehouse,last_update_time,version) values
+	('DS000001','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0001','028 876543210001','1876平方米0001','40.8540453564102','130.97835239355877','W000001','2022-09-22 17:49:20','1'),
+	('DS000002','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0002','028 876543210002','1876平方米0002','42.216896227038816','129.47133568543242','W000001','2022-09-22 17:05:11','1'),
+	('DS000003','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0003','028 876543210003','1876平方米0003','39.846276164679985','131.8881670408701','W000002','2022-09-19 02:59:09','1'),
+	('DS000004','成都龙泉驿飞鹤路20号仓库损坏货物堆放区0004','028 876543210004','1876平方米0004','40.30270361863672','130.75880646743883','W000002','2022-09-15 07:14:08','1');
 
-insert into warehouse_asset_data values
-	('WA000001','叉车','备用件存放区设备库房0001','W000001','2021-08-29 15:48:26','1'),
-	('WA000002','托盘','备用件存放区设备库房0002','W000001','2021-09-07 11:49:49','1'),
-	('WA000003','传送带备件','备用件存放区设备库房0003','W000002','2021-09-06 07:52:26','1'),
-	('WA000004','叉车','备用件存放区设备库房0004','W000002','2021-09-12 14:51:32','1');
+insert into warehouse_asset_data (id,name,position,owner,last_update_time,version) values
+	('WA000001','叉车','备用件存放区设备库房0001','W000001','2022-09-24 04:31:17','1'),
+	('WA000002','托盘','备用件存放区设备库房0002','W000001','2022-09-13 07:20:41','1'),
+	('WA000003','传送带备件','备用件存放区设备库房0003','W000002','2022-09-20 14:54:38','1'),
+	('WA000004','叉车','备用件存放区设备库房0004','W000002','2022-09-17 15:58:15','1');
 
-insert into transport_fleet_data values
-	('TF000001','双链先锋号车队0001','028 876543210001','RSCC000001','contract.pdf','2021-08-23 00:29:26','1'),
-	('TF000002','双链先锋号车队0002','028 876543210002','RSCC000001','contract.pdf','2021-09-03 03:13:48','1');
+insert into transport_fleet_data (id,name,contact_number,owner,contract,last_update_time,version) values
+	('TF000001','双链先锋号车队0001','028 876543210001','RSCC000001','contract.pdf','2022-09-21 07:50:23','1'),
+	('TF000002','双链先锋号车队0002','028 876543210002','RSCC000001','contract.pdf','2022-09-09 20:40:27','1');
 
-insert into transport_truck_data values
-	('TT000001','运货卡车0001','川AK50001','028 876543210001','VL91980001','EN001020001','2019-05-01','100万公里0001','红色','TF000001','1'),
-	('TT000002','运货卡车0002','川AK50002','028 876543210002','VL91980002','EN001020002','2019-12-30','100万公里0002','蓝色','TF000001','1'),
-	('TT000003','运货卡车0003','川AK50003','028 876543210003','VL91980003','EN001020003','2019-06-27','100万公里0003','白色','TF000002','1'),
-	('TT000004','运货卡车0004','川AK50004','028 876543210004','VL91980004','EN001020004','2021-02-19','100万公里0004','灰色','TF000002','1');
+insert into transport_truck_data (id,name,plate_number,contact_number,vehicle_license_number,engine_number,make_date,mileage,body_color,owner,version) values
+	('TT000001','运货卡车0001','川AK50001','028 876543210001','VL91980001','EN001020001','2021-03-14','100万公里0001','红色','TF000001','1'),
+	('TT000002','运货卡车0002','川AK50002','028 876543210002','VL91980002','EN001020002','2022-04-08','100万公里0002','蓝色','TF000001','1'),
+	('TT000003','运货卡车0003','川AK50003','028 876543210003','VL91980003','EN001020003','2019-11-25','100万公里0003','白色','TF000002','1'),
+	('TT000004','运货卡车0004','川AK50004','028 876543210004','VL91980004','EN001020004','2022-04-09','100万公里0004','灰色','TF000002','1');
 
-insert into truck_driver_data values
+insert into truck_driver_data (id,name,driver_license_number,contact_number,belongs_to,version) values
 	('TD000001','运货卡车司机0001','5109 9887 7330001','18777778888','TF000001','1'),
 	('TD000002','运货卡车司机0002','5109 9887 7330002','13900000002','TF000001','1'),
 	('TD000003','运货卡车司机0003','5109 9887 7330003','13900000003','TF000002','1'),
 	('TD000004','运货卡车司机0004','5109 9887 7330004','13900000004','TF000002','1');
 
-insert into transport_task_data values
-	('TT000001','货运记录0001','双链二号仓0001','2020-06-21','RS000001','TD000001','TT000001','TF000001','40.030298909450046','130.66178298937916','1'),
-	('TT000002','货运记录0002','双链二号仓0002','2020-05-22','RS000001','TD000001','TT000001','TF000001','40.03920503106474','129.67299725589749','1'),
-	('TT000003','货运记录0003','双链二号仓0003','2021-04-10','RS000002','TD000001','TT000001','TF000001','42.339496887603076','129.57681516086083','1'),
-	('TT000004','货运记录0004','双链二号仓0004','2019-12-27','RS000002','TD000001','TT000001','TF000001','40.96334174591966','131.99684391992625','1'),
-	('TT000005','货运记录0005','双链二号仓0005','2021-08-01','RS000003','TD000002','TT000002','TF000001','41.82928001424994','129.50837660160104','1'),
-	('TT000006','货运记录0006','双链二号仓0006','2020-02-01','RS000003','TD000002','TT000002','TF000001','41.913695073968256','131.85844788863164','1'),
-	('TT000007','货运记录0007','双链二号仓0007','2019-03-05','RS000004','TD000002','TT000002','TF000001','42.17327968269852','130.44471763843256','1'),
-	('TT000008','货运记录0008','双链二号仓0008','2019-07-28','RS000004','TD000002','TT000002','TF000001','42.2930572103067','131.9212563960413','1'),
-	('TT000009','货运记录0009','双链二号仓0009','2019-03-11','RS000005','TD000003','TT000003','TF000002','39.81121420910358','131.85198463911877','1'),
-	('TT000010','货运记录0010','双链二号仓0010','2021-05-13','RS000005','TD000003','TT000003','TF000002','41.38257859671745','131.9309098824144','1'),
-	('TT000011','货运记录0011','双链二号仓0011','2019-11-30','RS000006','TD000003','TT000003','TF000002','42.573842515724685','130.76712927518935','1'),
-	('TT000012','货运记录0012','双链二号仓0012','2019-03-08','RS000006','TD000003','TT000003','TF000002','40.86505978497239','132.1452946554725','1'),
-	('TT000013','货运记录0013','双链二号仓0013','2018-11-21','RS000007','TD000004','TT000004','TF000002','41.59743787640785','131.8691658205833','1'),
-	('TT000014','货运记录0014','双链二号仓0014','2020-03-18','RS000007','TD000004','TT000004','TF000002','40.33804868473034','131.75267316777646','1'),
-	('TT000015','货运记录0015','双链二号仓0015','2019-09-01','RS000008','TD000004','TT000004','TF000002','41.63198041044405','130.71575597537904','1'),
-	('TT000016','货运记录0016','双链二号仓0016','2021-07-30','RS000008','TD000004','TT000004','TF000002','42.75191024013079','129.99687579836322','1');
+insert into transport_task_data (id,name,start,begin_time,end,driver,truck,belongs_to,latitude,longitude,version) values
+	('TT000001','货运记录0001','双链二号仓0001','2020-09-21','RS000001','TD000001','TT000001','TF000001','40.658866680604596','130.73955205445077','1'),
+	('TT000002','货运记录0002','双链二号仓0002','2021-08-04','RS000001','TD000001','TT000001','TF000001','41.105958056491716','129.96173672855687','1'),
+	('TT000003','货运记录0003','双链二号仓0003','2020-01-25','RS000002','TD000001','TT000001','TF000001','41.30808982648966','130.62929117721526','1'),
+	('TT000004','货运记录0004','双链二号仓0004','2020-02-07','RS000002','TD000001','TT000001','TF000001','42.37427046856631','130.66742844894557','1'),
+	('TT000005','货运记录0005','双链二号仓0005','2021-10-20','RS000003','TD000002','TT000002','TF000001','41.96814583487463','131.1175850376304','1'),
+	('TT000006','货运记录0006','双链二号仓0006','2020-05-24','RS000003','TD000002','TT000002','TF000001','41.716364685965345','131.5757703455436','1'),
+	('TT000007','货运记录0007','双链二号仓0007','2020-09-21','RS000004','TD000002','TT000002','TF000001','40.67362531332511','130.90295150126528','1'),
+	('TT000008','货运记录0008','双链二号仓0008','2020-08-14','RS000004','TD000002','TT000002','TF000001','39.82226299632469','130.47789889977898','1'),
+	('TT000009','货运记录0009','双链二号仓0009','2019-11-15','RS000005','TD000003','TT000003','TF000002','40.39973788406055','130.356927579491','1'),
+	('TT000010','货运记录0010','双链二号仓0010','2020-03-30','RS000005','TD000003','TT000003','TF000002','41.32096898625686','129.33911819984837','1'),
+	('TT000011','货运记录0011','双链二号仓0011','2022-08-17','RS000006','TD000003','TT000003','TF000002','40.06017815228906','129.63861691746715','1'),
+	('TT000012','货运记录0012','双链二号仓0012','2020-08-14','RS000006','TD000003','TT000003','TF000002','41.97069547614255','130.63758135007654','1'),
+	('TT000013','货运记录0013','双链二号仓0013','2020-04-12','RS000007','TD000004','TT000004','TF000002','42.32742422043251','132.12549051180252','1'),
+	('TT000014','货运记录0014','双链二号仓0014','2020-02-13','RS000007','TD000004','TT000004','TF000002','41.20115930887469','131.24160800005333','1'),
+	('TT000015','货运记录0015','双链二号仓0015','2022-08-05','RS000008','TD000004','TT000004','TF000002','40.41236869904549','130.49435500403166','1'),
+	('TT000016','货运记录0016','双链二号仓0016','2020-04-11','RS000008','TD000004','TT000004','TF000002','41.66147074676269','131.9789633149025','1');
 
-insert into transport_task_track_data values
-	('TTT000001','2019-10-18','32.68109767370385','103.7650065884492','TT000001','1'),
-	('TTT000002','2019-03-24','31.85805973146685','103.81479451060392','TT000001','1'),
-	('TTT000003','2021-08-28','30.572545459971312','104.84699244277276','TT000002','1'),
-	('TTT000004','2020-07-12','31.531751706261723','103.47523311088447','TT000002','1'),
-	('TTT000005','2019-12-08','32.630103566486625','106.00387214091252','TT000003','1'),
-	('TTT000006','2020-10-05','31.83439782027403','103.90787283276507','TT000003','1'),
-	('TTT000007','2020-06-19','32.812452097022586','105.04750861891772','TT000004','1'),
-	('TTT000008','2018-12-23','30.496442921053617','103.7879586779032','TT000004','1'),
-	('TTT000009','2020-02-28','30.487209435170193','104.5761490189295','TT000005','1'),
-	('TTT000010','2019-11-12','30.376501219264696','103.85354278581782','TT000005','1'),
-	('TTT000011','2020-01-04','32.572209961008994','103.32059156297426','TT000006','1'),
-	('TTT000012','2021-09-12','31.17189404431317','105.59666843879666','TT000006','1'),
-	('TTT000013','2019-05-21','32.028658717372394','105.64996905562042','TT000007','1'),
-	('TTT000014','2019-04-13','32.155151149921','105.30265863913081','TT000007','1'),
-	('TTT000015','2019-05-28','30.18630763282367','105.32033831865596','TT000008','1'),
-	('TTT000016','2021-02-18','30.927519348137174','106.07052229549667','TT000008','1'),
-	('TTT000017','2020-12-04','30.4989873320651','105.5276525033338','TT000009','1'),
-	('TTT000018','2020-07-13','30.251624843283786','104.93470247629745','TT000009','1'),
-	('TTT000019','2020-01-01','31.54205176527482','104.56466741861313','TT000010','1'),
-	('TTT000020','2019-03-04','32.556316313229566','104.00352044257755','TT000010','1'),
-	('TTT000021','2020-09-19','31.183070665143422','105.58884731692265','TT000011','1'),
-	('TTT000022','2020-04-21','30.016707848741408','103.66299927769687','TT000011','1'),
-	('TTT000023','2019-09-24','30.648085241950124','105.9734817919211','TT000012','1'),
-	('TTT000024','2021-04-17','30.8490113307507','104.84966999913199','TT000012','1'),
-	('TTT000025','2021-06-20','31.135701888463114','106.05320956578608','TT000013','1'),
-	('TTT000026','2020-12-03','30.348475270387052','105.85900474908789','TT000013','1'),
-	('TTT000027','2021-04-06','31.621132368713422','105.98230828881387','TT000014','1'),
-	('TTT000028','2020-05-15','30.79334887060494','103.76692539595352','TT000014','1'),
-	('TTT000029','2021-03-09','30.66602069887267','105.42190748721102','TT000015','1'),
-	('TTT000030','2018-12-02','32.77009775009084','105.64318200250764','TT000015','1'),
-	('TTT000031','2021-08-20','30.484678662284168','104.46130270764345','TT000016','1'),
-	('TTT000032','2018-09-25','31.20507431381604','104.12317857693279','TT000016','1');
+insert into transport_task_track_data (id,track_time,latitude,longitude,movement,version) values
+	('TTT000001','2022-07-04','32.08191901056829','104.79174443199992','TT000001','1'),
+	('TTT000002','2020-09-13','31.89057257477804','105.34939673796244','TT000001','1'),
+	('TTT000003','2021-04-21','31.378914221613517','105.86435443576013','TT000002','1'),
+	('TTT000004','2019-11-04','30.300493735186055','104.32712366553969','TT000002','1'),
+	('TTT000005','2020-08-07','30.240748144529082','104.06226355300956','TT000003','1'),
+	('TTT000006','2022-05-22','31.01231314515946','104.60402603789126','TT000003','1'),
+	('TTT000007','2020-03-28','31.683212580918674','103.59573594838399','TT000004','1'),
+	('TTT000008','2020-11-19','29.94147724720694','105.45387996235029','TT000004','1'),
+	('TTT000009','2020-05-23','30.95257751450053','104.11901770722207','TT000005','1'),
+	('TTT000010','2020-12-21','30.335352193259283','103.42808864731275','TT000005','1'),
+	('TTT000011','2021-01-29','30.810617720175323','104.37956493686826','TT000006','1'),
+	('TTT000012','2022-02-22','32.269485769112634','104.52362058515722','TT000006','1'),
+	('TTT000013','2019-12-21','31.499542770700696','103.33989908789606','TT000007','1'),
+	('TTT000014','2020-10-14','30.66942965883471','105.25199661914029','TT000007','1'),
+	('TTT000015','2020-12-29','32.221329382636185','104.21351758368513','TT000008','1'),
+	('TTT000016','2021-06-28','30.06594218502055','104.94755841983796','TT000008','1'),
+	('TTT000017','2022-09-10','32.331506611605946','104.04968783566775','TT000009','1'),
+	('TTT000018','2021-11-26','31.099720596436967','103.85412496604832','TT000009','1'),
+	('TTT000019','2022-06-26','31.218819073111646','104.21299434443495','TT000010','1'),
+	('TTT000020','2020-05-25','32.38438451741083','103.73155121776796','TT000010','1'),
+	('TTT000021','2020-07-05','30.748880500513906','104.4288677767364','TT000011','1'),
+	('TTT000022','2019-10-28','31.60679795777406','104.25087216331585','TT000011','1'),
+	('TTT000023','2022-08-04','30.93705122493031','104.74330664875016','TT000012','1'),
+	('TTT000024','2020-11-30','31.476159363075965','105.13752559694012','TT000012','1'),
+	('TTT000025','2020-11-04','31.694069809045416','105.90154044798824','TT000013','1'),
+	('TTT000026','2021-12-05','30.752410458547597','103.98107910887039','TT000013','1'),
+	('TTT000027','2020-01-23','30.083803021154942','105.5550248935675','TT000014','1'),
+	('TTT000028','2022-01-24','30.90584661808425','103.97706831000544','TT000014','1'),
+	('TTT000029','2020-03-13','30.837850968664085','104.51809285218111','TT000015','1'),
+	('TTT000030','2022-01-06','31.939405099386452','103.4877183800059','TT000015','1'),
+	('TTT000031','2022-09-21','30.1942644246333','104.81460848181844','TT000016','1'),
+	('TTT000032','2021-02-25','31.389648015546175','104.60484146086954','TT000016','1');
 
-insert into account_set_data values
-	('AS000001','账套2017','2017年','2020-02-07','企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850001','RSCC000001','RS000001','GS000001','2021-09-07 01:19:18','1'),
-	('AS000002','账套2018','2018年','2021-07-26','小企业会计制度','USD','美元','工商银行','3326 5805 0548 850002','RSCC000001','RS000001','GS000001','2021-08-30 19:30:50','1'),
-	('AS000003','账套2019','2019年','2019-09-29','合伙制会计制度','RMB','人民币','招商银行','3326 5805 0548 850003','RSCC000001','RS000002','GS000001','2021-09-02 12:03:07','1'),
-	('AS000004','账套2017','2017年','2018-09-15','企业会计制度','USD','美元','工商银行','3326 5805 0548 850004','RSCC000001','RS000002','GS000001','2021-09-09 10:39:54','1'),
-	('AS000005','账套2018','2018年','2021-03-26','小企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850005','RSCC000001','RS000003','GS000001','2021-09-01 03:43:54','1'),
-	('AS000006','账套2019','2019年','2019-05-10','合伙制会计制度','USD','美元','工商银行','3326 5805 0548 850006','RSCC000001','RS000003','GS000001','2021-08-29 12:41:39','1'),
-	('AS000007','账套2017','2017年','2019-08-10','企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850007','RSCC000001','RS000004','GS000001','2021-09-05 00:57:20','1'),
-	('AS000008','账套2018','2018年','2021-07-27','小企业会计制度','USD','美元','工商银行','3326 5805 0548 850008','RSCC000001','RS000004','GS000001','2021-08-27 04:01:02','1'),
-	('AS000009','账套2019','2019年','2019-07-19','合伙制会计制度','RMB','人民币','招商银行','3326 5805 0548 850009','RSCC000001','RS000005','GS000002','2021-08-27 18:35:23','1'),
-	('AS000010','账套2017','2017年','2021-03-27','企业会计制度','USD','美元','工商银行','3326 5805 0548 850010','RSCC000001','RS000005','GS000002','2021-09-02 12:02:22','1'),
-	('AS000011','账套2018','2018年','2021-01-23','小企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850011','RSCC000001','RS000006','GS000002','2021-08-25 08:37:09','1'),
-	('AS000012','账套2019','2019年','2020-04-01','合伙制会计制度','USD','美元','工商银行','3326 5805 0548 850012','RSCC000001','RS000006','GS000002','2021-09-02 02:20:02','1'),
-	('AS000013','账套2017','2017年','2020-10-21','企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850013','RSCC000001','RS000007','GS000002','2021-08-26 05:43:08','1'),
-	('AS000014','账套2018','2018年','2021-05-29','小企业会计制度','USD','美元','工商银行','3326 5805 0548 850014','RSCC000001','RS000007','GS000002','2021-09-04 12:17:16','1'),
-	('AS000015','账套2019','2019年','2020-03-15','合伙制会计制度','RMB','人民币','招商银行','3326 5805 0548 850015','RSCC000001','RS000008','GS000002','2021-09-10 12:06:41','1'),
-	('AS000016','账套2017','2017年','2019-06-10','企业会计制度','USD','美元','工商银行','3326 5805 0548 850016','RSCC000001','RS000008','GS000002','2021-08-28 02:55:24','1');
+insert into account_set_data (id,name,year_set,effective_date,accounting_system,domestic_currency_code,domestic_currency_name,opening_bank,account_number,country_center,retail_store,goods_supplier,last_update_time,version) values
+	('AS000001','账套2017','2017年','2020-10-15','企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850001','RSCC000001','RS000001','GS000001','2022-09-28 16:21:57','1'),
+	('AS000002','账套2018','2018年','2021-04-20','小企业会计制度','USD','美元','工商银行','3326 5805 0548 850002','RSCC000001','RS000001','GS000001','2022-09-25 14:03:21','1'),
+	('AS000003','账套2019','2019年','2020-11-01','合伙制会计制度','RMB','人民币','招商银行','3326 5805 0548 850003','RSCC000001','RS000002','GS000001','2022-09-12 12:51:44','1'),
+	('AS000004','账套2017','2017年','2021-10-17','企业会计制度','USD','美元','工商银行','3326 5805 0548 850004','RSCC000001','RS000002','GS000001','2022-09-27 21:34:21','1'),
+	('AS000005','账套2018','2018年','2019-11-22','小企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850005','RSCC000001','RS000003','GS000001','2022-09-15 14:58:49','1'),
+	('AS000006','账套2019','2019年','2020-09-26','合伙制会计制度','USD','美元','工商银行','3326 5805 0548 850006','RSCC000001','RS000003','GS000001','2022-09-10 20:37:32','1'),
+	('AS000007','账套2017','2017年','2019-12-24','企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850007','RSCC000001','RS000004','GS000001','2022-09-26 03:24:58','1'),
+	('AS000008','账套2018','2018年','2022-09-20','小企业会计制度','USD','美元','工商银行','3326 5805 0548 850008','RSCC000001','RS000004','GS000001','2022-09-16 05:28:18','1'),
+	('AS000009','账套2019','2019年','2021-03-23','合伙制会计制度','RMB','人民币','招商银行','3326 5805 0548 850009','RSCC000001','RS000005','GS000002','2022-09-18 17:16:14','1'),
+	('AS000010','账套2017','2017年','2020-12-07','企业会计制度','USD','美元','工商银行','3326 5805 0548 850010','RSCC000001','RS000005','GS000002','2022-09-19 15:01:26','1'),
+	('AS000011','账套2018','2018年','2019-12-21','小企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850011','RSCC000001','RS000006','GS000002','2022-09-14 09:07:09','1'),
+	('AS000012','账套2019','2019年','2022-03-19','合伙制会计制度','USD','美元','工商银行','3326 5805 0548 850012','RSCC000001','RS000006','GS000002','2022-09-11 20:14:55','1'),
+	('AS000013','账套2017','2017年','2020-11-17','企业会计制度','RMB','人民币','招商银行','3326 5805 0548 850013','RSCC000001','RS000007','GS000002','2022-09-23 23:23:30','1'),
+	('AS000014','账套2018','2018年','2020-01-26','小企业会计制度','USD','美元','工商银行','3326 5805 0548 850014','RSCC000001','RS000007','GS000002','2022-09-30 11:00:35','1'),
+	('AS000015','账套2019','2019年','2019-11-29','合伙制会计制度','RMB','人民币','招商银行','3326 5805 0548 850015','RSCC000001','RS000008','GS000002','2022-09-28 06:34:40','1'),
+	('AS000016','账套2017','2017年','2021-12-06','企业会计制度','USD','美元','工商银行','3326 5805 0548 850016','RSCC000001','RS000008','GS000002','2022-09-09 15:57:53','1');
 
-insert into accounting_subject_data values
+insert into accounting_subject_data (id,accounting_subject_code,accounting_subject_name,accounting_subject_class_code,accounting_subject_class_name,account_set,version) values
 	('AS000001','AS99990001','银行存款0001','1','资产类','AS000001','1'),
 	('AS000002','AS99990002','银行存款0002','2','负债类','AS000001','1'),
 	('AS000003','AS99990003','银行存款0003','3','共同类','AS000002','1'),
@@ -2868,41 +2868,41 @@ insert into accounting_subject_data values
 	('AS000031','AS99990031','银行存款0031','1','资产类','AS000016','1'),
 	('AS000032','AS99990032','银行存款0032','2','负债类','AS000016','1');
 
-insert into accounting_period_data values
-	('AP000001','2017年1月','2020-06-18','2018-09-24','AS000001','1'),
-	('AP000002','2017年2月','2019-02-06','2019-05-30','AS000001','1'),
-	('AP000003','2017年3月','2021-03-27','2020-03-09','AS000002','1'),
-	('AP000004','2017年4月','2019-11-06','2020-05-19','AS000002','1'),
-	('AP000005','2017年5月','2019-01-22','2019-05-01','AS000003','1'),
-	('AP000006','2017年6月','2020-07-23','2021-03-09','AS000003','1'),
-	('AP000007','2017年7月','2019-10-31','2020-09-23','AS000004','1'),
-	('AP000008','2017年8月','2020-10-08','2018-10-14','AS000004','1'),
-	('AP000009','2017年9月','2019-06-09','2019-01-07','AS000005','1'),
-	('AP000010','2017年10月','2021-04-07','2021-02-25','AS000005','1'),
-	('AP000011','2017年11月','2020-01-31','2019-11-28','AS000006','1'),
-	('AP000012','2017年12月','2021-05-31','2020-09-04','AS000006','1'),
-	('AP000013','2017年1月','2020-04-24','2019-09-28','AS000007','1'),
-	('AP000014','2017年2月','2021-04-26','2020-11-28','AS000007','1'),
-	('AP000015','2017年3月','2020-07-06','2018-12-24','AS000008','1'),
-	('AP000016','2017年4月','2018-11-08','2018-10-29','AS000008','1'),
-	('AP000017','2017年5月','2021-07-13','2019-05-03','AS000009','1'),
-	('AP000018','2017年6月','2019-11-16','2021-09-02','AS000009','1'),
-	('AP000019','2017年7月','2019-05-18','2020-11-25','AS000010','1'),
-	('AP000020','2017年8月','2019-04-09','2020-08-14','AS000010','1'),
-	('AP000021','2017年9月','2021-02-22','2018-10-17','AS000011','1'),
-	('AP000022','2017年10月','2019-02-01','2021-06-22','AS000011','1'),
-	('AP000023','2017年11月','2021-03-14','2021-06-23','AS000012','1'),
-	('AP000024','2017年12月','2019-12-08','2019-08-09','AS000012','1'),
-	('AP000025','2017年1月','2021-02-09','2019-01-16','AS000013','1'),
-	('AP000026','2017年2月','2020-11-02','2021-04-20','AS000013','1'),
-	('AP000027','2017年3月','2021-04-18','2021-03-25','AS000014','1'),
-	('AP000028','2017年4月','2018-12-26','2019-09-02','AS000014','1'),
-	('AP000029','2017年5月','2020-03-17','2021-02-16','AS000015','1'),
-	('AP000030','2017年6月','2021-05-12','2019-01-08','AS000015','1'),
-	('AP000031','2017年7月','2020-09-07','2019-11-02','AS000016','1'),
-	('AP000032','2017年8月','2020-12-30','2020-08-27','AS000016','1');
+insert into accounting_period_data (id,name,start_date,end_date,account_set,version) values
+	('AP000001','2017年1月','2020-09-13','2021-11-19','AS000001','1'),
+	('AP000002','2017年2月','2019-10-13','2021-12-31','AS000001','1'),
+	('AP000003','2017年3月','2021-09-09','2020-04-08','AS000002','1'),
+	('AP000004','2017年4月','2021-08-26','2019-11-03','AS000002','1'),
+	('AP000005','2017年5月','2020-02-18','2021-09-05','AS000003','1'),
+	('AP000006','2017年6月','2020-08-27','2019-12-13','AS000003','1'),
+	('AP000007','2017年7月','2020-03-14','2022-01-18','AS000004','1'),
+	('AP000008','2017年8月','2021-09-28','2022-08-04','AS000004','1'),
+	('AP000009','2017年9月','2021-05-26','2020-10-27','AS000005','1'),
+	('AP000010','2017年10月','2020-08-26','2020-11-14','AS000005','1'),
+	('AP000011','2017年11月','2021-08-02','2019-11-29','AS000006','1'),
+	('AP000012','2017年12月','2022-05-15','2022-03-24','AS000006','1'),
+	('AP000013','2017年1月','2022-04-12','2020-09-02','AS000007','1'),
+	('AP000014','2017年2月','2020-10-03','2020-10-14','AS000007','1'),
+	('AP000015','2017年3月','2022-03-04','2021-12-23','AS000008','1'),
+	('AP000016','2017年4月','2021-02-11','2019-11-30','AS000008','1'),
+	('AP000017','2017年5月','2022-03-21','2021-04-10','AS000009','1'),
+	('AP000018','2017年6月','2021-12-13','2020-03-17','AS000009','1'),
+	('AP000019','2017年7月','2022-03-30','2020-05-05','AS000010','1'),
+	('AP000020','2017年8月','2020-07-02','2021-07-29','AS000010','1'),
+	('AP000021','2017年9月','2020-07-16','2020-02-01','AS000011','1'),
+	('AP000022','2017年10月','2022-04-24','2022-07-26','AS000011','1'),
+	('AP000023','2017年11月','2020-10-03','2020-01-31','AS000012','1'),
+	('AP000024','2017年12月','2021-07-26','2021-04-16','AS000012','1'),
+	('AP000025','2017年1月','2022-01-26','2020-01-10','AS000013','1'),
+	('AP000026','2017年2月','2020-11-01','2021-06-20','AS000013','1'),
+	('AP000027','2017年3月','2021-08-29','2020-03-11','AS000014','1'),
+	('AP000028','2017年4月','2022-07-01','2021-12-01','AS000014','1'),
+	('AP000029','2017年5月','2021-05-03','2022-03-17','AS000015','1'),
+	('AP000030','2017年6月','2020-04-10','2019-10-27','AS000015','1'),
+	('AP000031','2017年7月','2020-06-13','2021-02-12','AS000016','1'),
+	('AP000032','2017年8月','2020-12-22','2022-06-04','AS000016','1');
 
-insert into accounting_document_type_data values
+insert into accounting_document_type_data (id,name,description,accounting_period,version) values
 	('ADT000001','记账凭证','又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。0001','AS000001','1'),
 	('ADT000002','收款凭证','又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。0002','AS000001','1'),
 	('ADT000003','付款凭证','又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。0003','AS000002','1'),
@@ -2936,73 +2936,73 @@ insert into accounting_document_type_data values
 	('ADT000031','记账凭证','又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。0031','AS000016','1'),
 	('ADT000032','收款凭证','又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。0032','AS000016','1');
 
-insert into accounting_document_data values
-	('AD000001','记账凭证0001','2021-07-17','AP000001','ADT000001','1'),
-	('AD000002','记账凭证0002','2020-07-10','AP000001','ADT000001','1'),
-	('AD000003','记账凭证0003','2021-05-23','AP000002','ADT000002','1'),
-	('AD000004','记账凭证0004','2018-10-01','AP000002','ADT000002','1'),
-	('AD000005','记账凭证0005','2019-08-31','AP000003','ADT000003','1'),
-	('AD000006','记账凭证0006','2021-08-21','AP000003','ADT000003','1'),
-	('AD000007','记账凭证0007','2018-12-12','AP000004','ADT000004','1'),
-	('AD000008','记账凭证0008','2018-10-23','AP000004','ADT000004','1'),
-	('AD000009','记账凭证0009','2019-09-04','AP000005','ADT000005','1'),
-	('AD000010','记账凭证0010','2019-12-15','AP000005','ADT000005','1'),
-	('AD000011','记账凭证0011','2019-07-12','AP000006','ADT000006','1'),
-	('AD000012','记账凭证0012','2021-01-04','AP000006','ADT000006','1'),
-	('AD000013','记账凭证0013','2019-12-28','AP000007','ADT000007','1'),
-	('AD000014','记账凭证0014','2021-08-07','AP000007','ADT000007','1'),
-	('AD000015','记账凭证0015','2020-12-17','AP000008','ADT000008','1'),
-	('AD000016','记账凭证0016','2019-06-01','AP000008','ADT000008','1'),
-	('AD000017','记账凭证0017','2020-04-06','AP000009','ADT000009','1'),
-	('AD000018','记账凭证0018','2019-12-15','AP000009','ADT000009','1'),
-	('AD000019','记账凭证0019','2019-12-16','AP000010','ADT000010','1'),
-	('AD000020','记账凭证0020','2019-10-20','AP000010','ADT000010','1'),
-	('AD000021','记账凭证0021','2021-05-15','AP000011','ADT000011','1'),
-	('AD000022','记账凭证0022','2019-09-15','AP000011','ADT000011','1'),
-	('AD000023','记账凭证0023','2020-02-01','AP000012','ADT000012','1'),
-	('AD000024','记账凭证0024','2020-07-12','AP000012','ADT000012','1'),
-	('AD000025','记账凭证0025','2019-10-17','AP000013','ADT000013','1'),
-	('AD000026','记账凭证0026','2019-02-02','AP000013','ADT000013','1'),
-	('AD000027','记账凭证0027','2020-08-30','AP000014','ADT000014','1'),
-	('AD000028','记账凭证0028','2021-06-16','AP000014','ADT000014','1'),
-	('AD000029','记账凭证0029','2019-10-04','AP000015','ADT000015','1'),
-	('AD000030','记账凭证0030','2019-08-25','AP000015','ADT000015','1'),
-	('AD000031','记账凭证0031','2018-10-30','AP000016','ADT000016','1'),
-	('AD000032','记账凭证0032','2020-08-17','AP000016','ADT000016','1'),
-	('AD000033','记账凭证0033','2020-09-17','AP000017','ADT000017','1'),
-	('AD000034','记账凭证0034','2020-06-30','AP000017','ADT000017','1'),
-	('AD000035','记账凭证0035','2020-10-24','AP000018','ADT000018','1'),
-	('AD000036','记账凭证0036','2019-12-05','AP000018','ADT000018','1'),
-	('AD000037','记账凭证0037','2021-08-11','AP000019','ADT000019','1'),
-	('AD000038','记账凭证0038','2019-05-11','AP000019','ADT000019','1'),
-	('AD000039','记账凭证0039','2020-04-21','AP000020','ADT000020','1'),
-	('AD000040','记账凭证0040','2019-08-03','AP000020','ADT000020','1'),
-	('AD000041','记账凭证0041','2020-02-06','AP000021','ADT000021','1'),
-	('AD000042','记账凭证0042','2021-03-21','AP000021','ADT000021','1'),
-	('AD000043','记账凭证0043','2020-12-06','AP000022','ADT000022','1'),
-	('AD000044','记账凭证0044','2019-10-21','AP000022','ADT000022','1'),
-	('AD000045','记账凭证0045','2020-02-27','AP000023','ADT000023','1'),
-	('AD000046','记账凭证0046','2019-09-02','AP000023','ADT000023','1'),
-	('AD000047','记账凭证0047','2021-03-29','AP000024','ADT000024','1'),
-	('AD000048','记账凭证0048','2019-04-29','AP000024','ADT000024','1'),
-	('AD000049','记账凭证0049','2021-08-29','AP000025','ADT000025','1'),
-	('AD000050','记账凭证0050','2021-06-26','AP000025','ADT000025','1'),
-	('AD000051','记账凭证0051','2020-01-27','AP000026','ADT000026','1'),
-	('AD000052','记账凭证0052','2019-04-18','AP000026','ADT000026','1'),
-	('AD000053','记账凭证0053','2021-04-23','AP000027','ADT000027','1'),
-	('AD000054','记账凭证0054','2021-03-14','AP000027','ADT000027','1'),
-	('AD000055','记账凭证0055','2019-01-28','AP000028','ADT000028','1'),
-	('AD000056','记账凭证0056','2019-01-14','AP000028','ADT000028','1'),
-	('AD000057','记账凭证0057','2019-09-15','AP000029','ADT000029','1'),
-	('AD000058','记账凭证0058','2019-11-15','AP000029','ADT000029','1'),
-	('AD000059','记账凭证0059','2021-01-14','AP000030','ADT000030','1'),
-	('AD000060','记账凭证0060','2018-12-05','AP000030','ADT000030','1'),
-	('AD000061','记账凭证0061','2018-09-30','AP000031','ADT000031','1'),
-	('AD000062','记账凭证0062','2019-03-29','AP000031','ADT000031','1'),
-	('AD000063','记账凭证0063','2019-01-04','AP000032','ADT000032','1'),
-	('AD000064','记账凭证0064','2018-10-19','AP000032','ADT000032','1');
+insert into accounting_document_data (id,name,accounting_document_date,accounting_period,document_type,version) values
+	('AD000001','记账凭证0001','2021-03-23','AP000001','ADT000001','1'),
+	('AD000002','记账凭证0002','2021-06-06','AP000001','ADT000001','1'),
+	('AD000003','记账凭证0003','2022-02-07','AP000002','ADT000002','1'),
+	('AD000004','记账凭证0004','2022-08-26','AP000002','ADT000002','1'),
+	('AD000005','记账凭证0005','2021-01-31','AP000003','ADT000003','1'),
+	('AD000006','记账凭证0006','2020-06-07','AP000003','ADT000003','1'),
+	('AD000007','记账凭证0007','2022-09-09','AP000004','ADT000004','1'),
+	('AD000008','记账凭证0008','2022-01-25','AP000004','ADT000004','1'),
+	('AD000009','记账凭证0009','2022-09-24','AP000005','ADT000005','1'),
+	('AD000010','记账凭证0010','2020-04-21','AP000005','ADT000005','1'),
+	('AD000011','记账凭证0011','2022-06-03','AP000006','ADT000006','1'),
+	('AD000012','记账凭证0012','2021-02-15','AP000006','ADT000006','1'),
+	('AD000013','记账凭证0013','2020-06-01','AP000007','ADT000007','1'),
+	('AD000014','记账凭证0014','2021-11-03','AP000007','ADT000007','1'),
+	('AD000015','记账凭证0015','2020-04-03','AP000008','ADT000008','1'),
+	('AD000016','记账凭证0016','2020-04-30','AP000008','ADT000008','1'),
+	('AD000017','记账凭证0017','2022-03-12','AP000009','ADT000009','1'),
+	('AD000018','记账凭证0018','2021-08-23','AP000009','ADT000009','1'),
+	('AD000019','记账凭证0019','2021-04-28','AP000010','ADT000010','1'),
+	('AD000020','记账凭证0020','2022-01-23','AP000010','ADT000010','1'),
+	('AD000021','记账凭证0021','2020-10-07','AP000011','ADT000011','1'),
+	('AD000022','记账凭证0022','2020-06-30','AP000011','ADT000011','1'),
+	('AD000023','记账凭证0023','2021-06-06','AP000012','ADT000012','1'),
+	('AD000024','记账凭证0024','2022-04-15','AP000012','ADT000012','1'),
+	('AD000025','记账凭证0025','2020-02-21','AP000013','ADT000013','1'),
+	('AD000026','记账凭证0026','2022-05-29','AP000013','ADT000013','1'),
+	('AD000027','记账凭证0027','2020-03-01','AP000014','ADT000014','1'),
+	('AD000028','记账凭证0028','2022-01-12','AP000014','ADT000014','1'),
+	('AD000029','记账凭证0029','2021-04-06','AP000015','ADT000015','1'),
+	('AD000030','记账凭证0030','2021-05-20','AP000015','ADT000015','1'),
+	('AD000031','记账凭证0031','2020-05-17','AP000016','ADT000016','1'),
+	('AD000032','记账凭证0032','2020-11-08','AP000016','ADT000016','1'),
+	('AD000033','记账凭证0033','2022-08-26','AP000017','ADT000017','1'),
+	('AD000034','记账凭证0034','2021-05-21','AP000017','ADT000017','1'),
+	('AD000035','记账凭证0035','2020-08-31','AP000018','ADT000018','1'),
+	('AD000036','记账凭证0036','2020-10-04','AP000018','ADT000018','1'),
+	('AD000037','记账凭证0037','2020-02-17','AP000019','ADT000019','1'),
+	('AD000038','记账凭证0038','2022-03-30','AP000019','ADT000019','1'),
+	('AD000039','记账凭证0039','2022-05-19','AP000020','ADT000020','1'),
+	('AD000040','记账凭证0040','2021-01-07','AP000020','ADT000020','1'),
+	('AD000041','记账凭证0041','2019-11-05','AP000021','ADT000021','1'),
+	('AD000042','记账凭证0042','2020-05-25','AP000021','ADT000021','1'),
+	('AD000043','记账凭证0043','2019-10-24','AP000022','ADT000022','1'),
+	('AD000044','记账凭证0044','2022-06-07','AP000022','ADT000022','1'),
+	('AD000045','记账凭证0045','2021-12-24','AP000023','ADT000023','1'),
+	('AD000046','记账凭证0046','2022-03-27','AP000023','ADT000023','1'),
+	('AD000047','记账凭证0047','2020-04-04','AP000024','ADT000024','1'),
+	('AD000048','记账凭证0048','2022-01-12','AP000024','ADT000024','1'),
+	('AD000049','记账凭证0049','2019-11-29','AP000025','ADT000025','1'),
+	('AD000050','记账凭证0050','2020-09-10','AP000025','ADT000025','1'),
+	('AD000051','记账凭证0051','2021-12-30','AP000026','ADT000026','1'),
+	('AD000052','记账凭证0052','2022-03-14','AP000026','ADT000026','1'),
+	('AD000053','记账凭证0053','2020-11-11','AP000027','ADT000027','1'),
+	('AD000054','记账凭证0054','2022-05-13','AP000027','ADT000027','1'),
+	('AD000055','记账凭证0055','2022-05-18','AP000028','ADT000028','1'),
+	('AD000056','记账凭证0056','2021-03-16','AP000028','ADT000028','1'),
+	('AD000057','记账凭证0057','2019-10-17','AP000029','ADT000029','1'),
+	('AD000058','记账凭证0058','2019-11-01','AP000029','ADT000029','1'),
+	('AD000059','记账凭证0059','2021-11-04','AP000030','ADT000030','1'),
+	('AD000060','记账凭证0060','2020-11-11','AP000030','ADT000030','1'),
+	('AD000061','记账凭证0061','2020-07-23','AP000031','ADT000031','1'),
+	('AD000062','记账凭证0062','2020-05-17','AP000031','ADT000031','1'),
+	('AD000063','记账凭证0063','2020-01-02','AP000032','ADT000032','1'),
+	('AD000064','记账凭证0064','2022-09-22','AP000032','ADT000032','1');
 
-insert into original_voucher_data values
+insert into original_voucher_data (id,title,made_by,received_by,voucher_type,voucher_image,belongs_to,version) values
 	('OV000001','这是手写的发票0001','李亚青0001','本公司0001','原始凭证','https://demo.doublechaintech.com/demodata/imageManager/genImage/goodthing0001/400/200/grey/','AD000001','1'),
 	('OV000002','这是手写的发票0002','李亚青0002','本公司0002','发票','https://demo.doublechaintech.com/demodata/imageManager/genImage/goodthing0002/400/200/grey/','AD000001','1'),
 	('OV000003','这是手写的发票0003','李亚青0003','本公司0003','出库单','https://demo.doublechaintech.com/demodata/imageManager/genImage/goodthing0003/400/200/grey/','AD000002','1'),
@@ -3104,209 +3104,209 @@ insert into original_voucher_data values
 	('OV000099','这是手写的发票0099','李亚青0099','本公司0099','原始凭证','https://demo.doublechaintech.com/demodata/imageManager/genImage/goodthing0099/400/200/grey/','AD000063','1'),
 	('OV000100','这是手写的发票0100','李亚青0100','本公司0100','发票','https://demo.doublechaintech.com/demodata/imageManager/genImage/goodthing0100/400/200/grey/','AD000064','1');
 
-insert into accounting_document_line_data values
-	('ADL000001','收到存款0001','AS99990001','借','725521.31','AD000001','AS000001','1'),
-	('ADL000002','收到存款0002','AS99990002','贷','755742.62','AD000001','AS000001','1'),
-	('ADL000003','收到存款0003','AS99990003','借','913537.25','AD000002','AS000001','1'),
-	('ADL000004','收到存款0004','AS99990004','贷','793466.19','AD000002','AS000001','1'),
-	('ADL000005','收到存款0005','AS99990005','借','926717.88','AD000003','AS000002','1'),
-	('ADL000006','收到存款0006','AS99990006','贷','939600.00','AD000004','AS000002','1'),
-	('ADL000007','收到存款0007','AS99990007','借','988174.81','AD000004','AS000002','1'),
-	('ADL000008','收到存款0008','AS99990008','贷','955660.00','AD000005','AS000003','1'),
-	('ADL000009','收到存款0009','AS99990009','借','738737.75','AD000006','AS000003','1'),
-	('ADL000010','收到存款0010','AS99990010','贷','802151.06','AD000006','AS000003','1'),
-	('ADL000011','收到存款0011','AS99990011','借','938065.75','AD000007','AS000004','1'),
-	('ADL000012','收到存款0012','AS99990012','贷','975007.44','AD000008','AS000004','1'),
-	('ADL000013','收到存款0013','AS99990013','借','872733.88','AD000008','AS000004','1'),
-	('ADL000014','收到存款0014','AS99990014','贷','763755.69','AD000009','AS000005','1'),
-	('ADL000015','收到存款0015','AS99990015','借','758982.12','AD000009','AS000005','1'),
-	('ADL000016','收到存款0016','AS99990016','贷','948239.19','AD000010','AS000005','1'),
-	('ADL000017','收到存款0017','AS99990017','借','845474.62','AD000011','AS000006','1'),
-	('ADL000018','收到存款0018','AS99990018','贷','980004.50','AD000011','AS000006','1'),
-	('ADL000019','收到存款0019','AS99990019','借','717544.25','AD000012','AS000006','1'),
-	('ADL000020','收到存款0020','AS99990020','贷','781712.38','AD000013','AS000007','1'),
-	('ADL000021','收到存款0021','AS99990021','借','867751.88','AD000013','AS000007','1'),
-	('ADL000022','收到存款0022','AS99990022','贷','839768.38','AD000014','AS000007','1'),
-	('ADL000023','收到存款0023','AS99990023','借','774895.31','AD000015','AS000008','1'),
-	('ADL000024','收到存款0024','AS99990024','贷','962706.94','AD000015','AS000008','1'),
-	('ADL000025','收到存款0025','AS99990025','借','971707.19','AD000016','AS000008','1'),
-	('ADL000026','收到存款0026','AS99990026','贷','775368.62','AD000017','AS000009','1'),
-	('ADL000027','收到存款0027','AS99990027','借','929522.94','AD000017','AS000009','1'),
-	('ADL000028','收到存款0028','AS99990028','贷','907720.81','AD000018','AS000009','1'),
-	('ADL000029','收到存款0029','AS99990029','借','755544.88','AD000018','AS000009','1'),
-	('ADL000030','收到存款0030','AS99990030','贷','730710.12','AD000019','AS000010','1'),
-	('ADL000031','收到存款0031','AS99990031','借','744030.75','AD000020','AS000010','1'),
-	('ADL000032','收到存款0032','AS99990032','贷','893771.88','AD000020','AS000010','1'),
-	('ADL000033','收到存款0033','AS99990033','借','878568.38','AD000021','AS000011','1'),
-	('ADL000034','收到存款0034','AS99990034','贷','886965.50','AD000022','AS000011','1'),
-	('ADL000035','收到存款0035','AS99990035','借','951114.31','AD000022','AS000011','1'),
-	('ADL000036','收到存款0036','AS99990036','贷','810562.31','AD000023','AS000012','1'),
-	('ADL000037','收到存款0037','AS99990037','借','770685.88','AD000024','AS000012','1'),
-	('ADL000038','收到存款0038','AS99990038','贷','977828.50','AD000024','AS000012','1'),
-	('ADL000039','收到存款0039','AS99990039','借','893933.50','AD000025','AS000013','1'),
-	('ADL000040','收到存款0040','AS99990040','贷','934495.31','AD000025','AS000013','1'),
-	('ADL000041','收到存款0041','AS99990041','借','854511.25','AD000026','AS000013','1'),
-	('ADL000042','收到存款0042','AS99990042','贷','939557.69','AD000027','AS000014','1'),
-	('ADL000043','收到存款0043','AS99990043','借','924743.44','AD000027','AS000014','1'),
-	('ADL000044','收到存款0044','AS99990044','贷','922249.00','AD000028','AS000014','1'),
-	('ADL000045','收到存款0045','AS99990045','借','875927.06','AD000029','AS000015','1'),
-	('ADL000046','收到存款0046','AS99990046','贷','731804.19','AD000029','AS000015','1'),
-	('ADL000047','收到存款0047','AS99990047','借','899070.75','AD000030','AS000015','1'),
-	('ADL000048','收到存款0048','AS99990048','贷','937678.88','AD000031','AS000016','1'),
-	('ADL000049','收到存款0049','AS99990049','借','718812.31','AD000031','AS000016','1'),
-	('ADL000050','收到存款0050','AS99990050','贷','815045.38','AD000032','AS000016','1'),
-	('ADL000051','收到存款0051','AS99990051','借','733555.38','AD000033','AS000017','1'),
-	('ADL000052','收到存款0052','AS99990052','贷','916757.56','AD000033','AS000017','1'),
-	('ADL000053','收到存款0053','AS99990053','借','851476.19','AD000034','AS000017','1'),
-	('ADL000054','收到存款0054','AS99990054','贷','955442.50','AD000034','AS000017','1'),
-	('ADL000055','收到存款0055','AS99990055','借','857004.94','AD000035','AS000018','1'),
-	('ADL000056','收到存款0056','AS99990056','贷','708381.62','AD000036','AS000018','1'),
-	('ADL000057','收到存款0057','AS99990057','借','737845.00','AD000036','AS000018','1'),
-	('ADL000058','收到存款0058','AS99990058','贷','958942.56','AD000037','AS000019','1'),
-	('ADL000059','收到存款0059','AS99990059','借','730502.81','AD000038','AS000019','1'),
-	('ADL000060','收到存款0060','AS99990060','贷','871634.44','AD000038','AS000019','1'),
-	('ADL000061','收到存款0061','AS99990061','借','694541.56','AD000039','AS000020','1'),
-	('ADL000062','收到存款0062','AS99990062','贷','951543.75','AD000040','AS000020','1'),
-	('ADL000063','收到存款0063','AS99990063','借','959870.56','AD000040','AS000020','1'),
-	('ADL000064','收到存款0064','AS99990064','贷','758116.81','AD000041','AS000021','1'),
-	('ADL000065','收到存款0065','AS99990065','借','859649.25','AD000041','AS000021','1'),
-	('ADL000066','收到存款0066','AS99990066','贷','803314.56','AD000042','AS000021','1'),
-	('ADL000067','收到存款0067','AS99990067','借','979014.00','AD000043','AS000022','1'),
-	('ADL000068','收到存款0068','AS99990068','贷','811214.19','AD000043','AS000022','1'),
-	('ADL000069','收到存款0069','AS99990069','借','813329.19','AD000044','AS000022','1'),
-	('ADL000070','收到存款0070','AS99990070','贷','821539.06','AD000045','AS000023','1'),
-	('ADL000071','收到存款0071','AS99990071','借','884670.44','AD000045','AS000023','1'),
-	('ADL000072','收到存款0072','AS99990072','贷','899925.12','AD000046','AS000023','1'),
-	('ADL000073','收到存款0073','AS99990073','借','829641.69','AD000047','AS000024','1'),
-	('ADL000074','收到存款0074','AS99990074','贷','901317.94','AD000047','AS000024','1'),
-	('ADL000075','收到存款0075','AS99990075','借','733511.44','AD000048','AS000024','1'),
-	('ADL000076','收到存款0076','AS99990076','贷','869738.75','AD000049','AS000025','1'),
-	('ADL000077','收到存款0077','AS99990077','借','832016.75','AD000049','AS000025','1'),
-	('ADL000078','收到存款0078','AS99990078','贷','724389.94','AD000050','AS000025','1'),
-	('ADL000079','收到存款0079','AS99990079','借','741937.38','AD000050','AS000025','1'),
-	('ADL000080','收到存款0080','AS99990080','贷','814320.50','AD000051','AS000026','1'),
-	('ADL000081','收到存款0081','AS99990081','借','708745.38','AD000052','AS000026','1'),
-	('ADL000082','收到存款0082','AS99990082','贷','941072.25','AD000052','AS000026','1'),
-	('ADL000083','收到存款0083','AS99990083','借','704080.44','AD000053','AS000027','1'),
-	('ADL000084','收到存款0084','AS99990084','贷','974360.06','AD000054','AS000027','1'),
-	('ADL000085','收到存款0085','AS99990085','借','793596.62','AD000054','AS000027','1'),
-	('ADL000086','收到存款0086','AS99990086','贷','787555.56','AD000055','AS000028','1'),
-	('ADL000087','收到存款0087','AS99990087','借','897047.25','AD000056','AS000028','1'),
-	('ADL000088','收到存款0088','AS99990088','贷','707152.19','AD000056','AS000028','1'),
-	('ADL000089','收到存款0089','AS99990089','借','944292.31','AD000057','AS000029','1'),
-	('ADL000090','收到存款0090','AS99990090','贷','866066.12','AD000057','AS000029','1'),
-	('ADL000091','收到存款0091','AS99990091','借','783036.12','AD000058','AS000029','1'),
-	('ADL000092','收到存款0092','AS99990092','贷','950991.25','AD000059','AS000030','1'),
-	('ADL000093','收到存款0093','AS99990093','借','758096.00','AD000059','AS000030','1'),
-	('ADL000094','收到存款0094','AS99990094','贷','699831.75','AD000060','AS000030','1'),
-	('ADL000095','收到存款0095','AS99990095','借','871668.44','AD000061','AS000031','1'),
-	('ADL000096','收到存款0096','AS99990096','贷','699717.06','AD000061','AS000031','1'),
-	('ADL000097','收到存款0097','AS99990097','借','773130.94','AD000062','AS000031','1'),
-	('ADL000098','收到存款0098','AS99990098','贷','979056.75','AD000063','AS000032','1'),
-	('ADL000099','收到存款0099','AS99990099','借','970611.00','AD000063','AS000032','1'),
-	('ADL000100','收到存款0100','AS99990100','贷','694833.62','AD000064','AS000032','1');
+insert into accounting_document_line_data (id,name,code,direct,amount,belongs_to,accounting_subject,version) values
+	('ADL000001','收到存款0001','AS99990001','借','724207.19','AD000001','AS000001','1'),
+	('ADL000002','收到存款0002','AS99990002','贷','844901.44','AD000001','AS000001','1'),
+	('ADL000003','收到存款0003','AS99990003','借','698498.38','AD000002','AS000001','1'),
+	('ADL000004','收到存款0004','AS99990004','贷','805513.19','AD000002','AS000001','1'),
+	('ADL000005','收到存款0005','AS99990005','借','724454.75','AD000003','AS000002','1'),
+	('ADL000006','收到存款0006','AS99990006','贷','804856.81','AD000004','AS000002','1'),
+	('ADL000007','收到存款0007','AS99990007','借','726142.31','AD000004','AS000002','1'),
+	('ADL000008','收到存款0008','AS99990008','贷','898581.81','AD000005','AS000003','1'),
+	('ADL000009','收到存款0009','AS99990009','借','747738.88','AD000006','AS000003','1'),
+	('ADL000010','收到存款0010','AS99990010','贷','861455.88','AD000006','AS000003','1'),
+	('ADL000011','收到存款0011','AS99990011','借','803145.12','AD000007','AS000004','1'),
+	('ADL000012','收到存款0012','AS99990012','贷','937166.25','AD000008','AS000004','1'),
+	('ADL000013','收到存款0013','AS99990013','借','988116.06','AD000008','AS000004','1'),
+	('ADL000014','收到存款0014','AS99990014','贷','761795.62','AD000009','AS000005','1'),
+	('ADL000015','收到存款0015','AS99990015','借','768836.19','AD000009','AS000005','1'),
+	('ADL000016','收到存款0016','AS99990016','贷','755576.81','AD000010','AS000005','1'),
+	('ADL000017','收到存款0017','AS99990017','借','779290.38','AD000011','AS000006','1'),
+	('ADL000018','收到存款0018','AS99990018','贷','721824.50','AD000011','AS000006','1'),
+	('ADL000019','收到存款0019','AS99990019','借','801231.62','AD000012','AS000006','1'),
+	('ADL000020','收到存款0020','AS99990020','贷','716532.38','AD000013','AS000007','1'),
+	('ADL000021','收到存款0021','AS99990021','借','917612.81','AD000013','AS000007','1'),
+	('ADL000022','收到存款0022','AS99990022','贷','718449.00','AD000014','AS000007','1'),
+	('ADL000023','收到存款0023','AS99990023','借','747432.62','AD000015','AS000008','1'),
+	('ADL000024','收到存款0024','AS99990024','贷','859893.06','AD000015','AS000008','1'),
+	('ADL000025','收到存款0025','AS99990025','借','726000.31','AD000016','AS000008','1'),
+	('ADL000026','收到存款0026','AS99990026','贷','768471.69','AD000017','AS000009','1'),
+	('ADL000027','收到存款0027','AS99990027','借','848766.44','AD000017','AS000009','1'),
+	('ADL000028','收到存款0028','AS99990028','贷','692435.38','AD000018','AS000009','1'),
+	('ADL000029','收到存款0029','AS99990029','借','809251.19','AD000018','AS000009','1'),
+	('ADL000030','收到存款0030','AS99990030','贷','700587.69','AD000019','AS000010','1'),
+	('ADL000031','收到存款0031','AS99990031','借','739114.88','AD000020','AS000010','1'),
+	('ADL000032','收到存款0032','AS99990032','贷','914789.12','AD000020','AS000010','1'),
+	('ADL000033','收到存款0033','AS99990033','借','944366.94','AD000021','AS000011','1'),
+	('ADL000034','收到存款0034','AS99990034','贷','703667.06','AD000022','AS000011','1'),
+	('ADL000035','收到存款0035','AS99990035','借','755711.94','AD000022','AS000011','1'),
+	('ADL000036','收到存款0036','AS99990036','贷','768172.81','AD000023','AS000012','1'),
+	('ADL000037','收到存款0037','AS99990037','借','796293.62','AD000024','AS000012','1'),
+	('ADL000038','收到存款0038','AS99990038','贷','693316.75','AD000024','AS000012','1'),
+	('ADL000039','收到存款0039','AS99990039','借','877762.56','AD000025','AS000013','1'),
+	('ADL000040','收到存款0040','AS99990040','贷','874063.31','AD000025','AS000013','1'),
+	('ADL000041','收到存款0041','AS99990041','借','900138.94','AD000026','AS000013','1'),
+	('ADL000042','收到存款0042','AS99990042','贷','929229.69','AD000027','AS000014','1'),
+	('ADL000043','收到存款0043','AS99990043','借','937479.50','AD000027','AS000014','1'),
+	('ADL000044','收到存款0044','AS99990044','贷','899783.00','AD000028','AS000014','1'),
+	('ADL000045','收到存款0045','AS99990045','借','884660.62','AD000029','AS000015','1'),
+	('ADL000046','收到存款0046','AS99990046','贷','830514.94','AD000029','AS000015','1'),
+	('ADL000047','收到存款0047','AS99990047','借','863257.12','AD000030','AS000015','1'),
+	('ADL000048','收到存款0048','AS99990048','贷','967434.56','AD000031','AS000016','1'),
+	('ADL000049','收到存款0049','AS99990049','借','931915.44','AD000031','AS000016','1'),
+	('ADL000050','收到存款0050','AS99990050','贷','720657.56','AD000032','AS000016','1'),
+	('ADL000051','收到存款0051','AS99990051','借','903680.50','AD000033','AS000017','1'),
+	('ADL000052','收到存款0052','AS99990052','贷','951313.75','AD000033','AS000017','1'),
+	('ADL000053','收到存款0053','AS99990053','借','707089.75','AD000034','AS000017','1'),
+	('ADL000054','收到存款0054','AS99990054','贷','833715.75','AD000034','AS000017','1'),
+	('ADL000055','收到存款0055','AS99990055','借','735240.00','AD000035','AS000018','1'),
+	('ADL000056','收到存款0056','AS99990056','贷','840616.00','AD000036','AS000018','1'),
+	('ADL000057','收到存款0057','AS99990057','借','774512.81','AD000036','AS000018','1'),
+	('ADL000058','收到存款0058','AS99990058','贷','717856.12','AD000037','AS000019','1'),
+	('ADL000059','收到存款0059','AS99990059','借','791180.88','AD000038','AS000019','1'),
+	('ADL000060','收到存款0060','AS99990060','贷','790883.38','AD000038','AS000019','1'),
+	('ADL000061','收到存款0061','AS99990061','借','923392.38','AD000039','AS000020','1'),
+	('ADL000062','收到存款0062','AS99990062','贷','804260.25','AD000040','AS000020','1'),
+	('ADL000063','收到存款0063','AS99990063','借','962818.31','AD000040','AS000020','1'),
+	('ADL000064','收到存款0064','AS99990064','贷','933948.75','AD000041','AS000021','1'),
+	('ADL000065','收到存款0065','AS99990065','借','886983.62','AD000041','AS000021','1'),
+	('ADL000066','收到存款0066','AS99990066','贷','819880.44','AD000042','AS000021','1'),
+	('ADL000067','收到存款0067','AS99990067','借','988477.94','AD000043','AS000022','1'),
+	('ADL000068','收到存款0068','AS99990068','贷','746923.81','AD000043','AS000022','1'),
+	('ADL000069','收到存款0069','AS99990069','借','701803.81','AD000044','AS000022','1'),
+	('ADL000070','收到存款0070','AS99990070','贷','947289.00','AD000045','AS000023','1'),
+	('ADL000071','收到存款0071','AS99990071','借','717744.56','AD000045','AS000023','1'),
+	('ADL000072','收到存款0072','AS99990072','贷','840603.50','AD000046','AS000023','1'),
+	('ADL000073','收到存款0073','AS99990073','借','983191.69','AD000047','AS000024','1'),
+	('ADL000074','收到存款0074','AS99990074','贷','817534.81','AD000047','AS000024','1'),
+	('ADL000075','收到存款0075','AS99990075','借','759001.81','AD000048','AS000024','1'),
+	('ADL000076','收到存款0076','AS99990076','贷','986121.81','AD000049','AS000025','1'),
+	('ADL000077','收到存款0077','AS99990077','借','775896.62','AD000049','AS000025','1'),
+	('ADL000078','收到存款0078','AS99990078','贷','699341.69','AD000050','AS000025','1'),
+	('ADL000079','收到存款0079','AS99990079','借','839608.25','AD000050','AS000025','1'),
+	('ADL000080','收到存款0080','AS99990080','贷','883969.38','AD000051','AS000026','1'),
+	('ADL000081','收到存款0081','AS99990081','借','771244.50','AD000052','AS000026','1'),
+	('ADL000082','收到存款0082','AS99990082','贷','934382.56','AD000052','AS000026','1'),
+	('ADL000083','收到存款0083','AS99990083','借','851096.00','AD000053','AS000027','1'),
+	('ADL000084','收到存款0084','AS99990084','贷','971031.75','AD000054','AS000027','1'),
+	('ADL000085','收到存款0085','AS99990085','借','725654.06','AD000054','AS000027','1'),
+	('ADL000086','收到存款0086','AS99990086','贷','921269.19','AD000055','AS000028','1'),
+	('ADL000087','收到存款0087','AS99990087','借','716569.38','AD000056','AS000028','1'),
+	('ADL000088','收到存款0088','AS99990088','贷','913392.44','AD000056','AS000028','1'),
+	('ADL000089','收到存款0089','AS99990089','借','712177.94','AD000057','AS000029','1'),
+	('ADL000090','收到存款0090','AS99990090','贷','856226.44','AD000057','AS000029','1'),
+	('ADL000091','收到存款0091','AS99990091','借','764805.56','AD000058','AS000029','1'),
+	('ADL000092','收到存款0092','AS99990092','贷','971367.06','AD000059','AS000030','1'),
+	('ADL000093','收到存款0093','AS99990093','借','719019.31','AD000059','AS000030','1'),
+	('ADL000094','收到存款0094','AS99990094','贷','874443.19','AD000060','AS000030','1'),
+	('ADL000095','收到存款0095','AS99990095','借','783093.19','AD000061','AS000031','1'),
+	('ADL000096','收到存款0096','AS99990096','贷','925822.31','AD000061','AS000031','1'),
+	('ADL000097','收到存款0097','AS99990097','借','830842.75','AD000062','AS000031','1'),
+	('ADL000098','收到存款0098','AS99990098','贷','799488.69','AD000063','AS000032','1'),
+	('ADL000099','收到存款0099','AS99990099','借','856149.69','AD000063','AS000032','1'),
+	('ADL000100','收到存款0100','AS99990100','贷','703808.06','AD000064','AS000032','1');
 
-insert into level_one_department_data values
-	('LOD000001','RSCC000001','供应链部','主要执行集团信息系统建设，维护，规划0001','刘强','2019-02-02','1'),
-	('LOD000002','RSCC000001','采购部','主要执行集团信息系统建设，维护，规划0002','王德宏','2019-07-07','1');
+insert into level_one_department_data (id,belongs_to,name,description,manager,founded,version) values
+	('LOD000001','RSCC000001','供应链部','主要执行集团信息系统建设，维护，规划0001','刘强','2020-01-10','1'),
+	('LOD000002','RSCC000001','采购部','主要执行集团信息系统建设，维护，规划0002','王德宏','2020-07-12','1');
 
-insert into level_two_department_data values
-	('LTD000001','LOD000001','信息系统部大数据部门0001','主要执行集团信息系统建设，维护，规划0001','2021-05-24','1'),
-	('LTD000002','LOD000001','信息系统部大数据部门0002','主要执行集团信息系统建设，维护，规划0002','2020-10-20','1'),
-	('LTD000003','LOD000002','信息系统部大数据部门0003','主要执行集团信息系统建设，维护，规划0003','2020-10-11','1'),
-	('LTD000004','LOD000002','信息系统部大数据部门0004','主要执行集团信息系统建设，维护，规划0004','2018-09-24','1');
+insert into level_two_department_data (id,belongs_to,name,description,founded,version) values
+	('LTD000001','LOD000001','信息系统部大数据部门0001','主要执行集团信息系统建设，维护，规划0001','2020-09-07','1'),
+	('LTD000002','LOD000001','信息系统部大数据部门0002','主要执行集团信息系统建设，维护，规划0002','2020-05-25','1'),
+	('LTD000003','LOD000002','信息系统部大数据部门0003','主要执行集团信息系统建设，维护，规划0003','2020-11-11','1'),
+	('LTD000004','LOD000002','信息系统部大数据部门0004','主要执行集团信息系统建设，维护，规划0004','2019-11-30','1');
 
-insert into level_three_department_data values
-	('LTD000001','LTD000001','信息系统部大数据清洗组','主要执行集团信息系统建设，维护，规划0001','2021-08-17','1'),
-	('LTD000002','LTD000001','信息系统部大数据运算组','主要执行集团信息系统建设，维护，规划0002','2019-12-22','1'),
-	('LTD000003','LTD000002','信息系统部大数据解决方案组','主要执行集团信息系统建设，维护，规划0003','2018-10-12','1'),
-	('LTD000004','LTD000002','信息系统部大数据清洗组','主要执行集团信息系统建设，维护，规划0004','2021-03-02','1'),
-	('LTD000005','LTD000003','信息系统部大数据运算组','主要执行集团信息系统建设，维护，规划0005','2020-07-29','1'),
-	('LTD000006','LTD000003','信息系统部大数据解决方案组','主要执行集团信息系统建设，维护，规划0006','2021-07-21','1'),
-	('LTD000007','LTD000004','信息系统部大数据清洗组','主要执行集团信息系统建设，维护，规划0007','2020-02-06','1'),
-	('LTD000008','LTD000004','信息系统部大数据运算组','主要执行集团信息系统建设，维护，规划0008','2020-04-07','1');
+insert into level_three_department_data (id,belongs_to,name,description,founded,version) values
+	('LTD000001','LTD000001','信息系统部大数据清洗组','主要执行集团信息系统建设，维护，规划0001','2019-10-08','1'),
+	('LTD000002','LTD000001','信息系统部大数据运算组','主要执行集团信息系统建设，维护，规划0002','2021-10-29','1'),
+	('LTD000003','LTD000002','信息系统部大数据解决方案组','主要执行集团信息系统建设，维护，规划0003','2020-04-26','1'),
+	('LTD000004','LTD000002','信息系统部大数据清洗组','主要执行集团信息系统建设，维护，规划0004','2019-12-06','1'),
+	('LTD000005','LTD000003','信息系统部大数据运算组','主要执行集团信息系统建设，维护，规划0005','2021-08-07','1'),
+	('LTD000006','LTD000003','信息系统部大数据解决方案组','主要执行集团信息系统建设，维护，规划0006','2020-06-25','1'),
+	('LTD000007','LTD000004','信息系统部大数据清洗组','主要执行集团信息系统建设，维护，规划0007','2020-06-04','1'),
+	('LTD000008','LTD000004','信息系统部大数据运算组','主要执行集团信息系统建设，维护，规划0008','2022-01-31','1');
 
-insert into skill_type_data values
+insert into skill_type_data (id,code,company,description,version) values
 	('ST000001','S00000001','RSCC000001','JAVA编程','1'),
 	('ST000002','S00000002','RSCC000001','大数据','1');
 
-insert into responsibility_type_data values
+insert into responsibility_type_data (id,code,company,base_description,detail_description,version) values
 	('RT000001','S00000001','RSCC000001','合规管理','负责集团及其他分公司信息系统有效运作，并使集团在技术上领先0001','1'),
 	('RT000002','S00000002','RSCC000001','财务管理','负责集团及其他分公司信息系统有效运作，并使集团在技术上领先0002','1');
 
-insert into termination_reason_data values
+insert into termination_reason_data (id,code,company,description,version) values
 	('TR000001','ETR00000001','RSCC000001','业务发展，公司转型','1'),
 	('TR000002','ETR00000002','RSCC000001','战略调整','1');
 
-insert into termination_type_data values
+insert into termination_type_data (id,code,company,base_description,detail_description,version) values
 	('TT000001','ETT00000001','RSCC000001','合同解除','这个终止原因的描述是这样的.................................................0001','1'),
 	('TT000002','ETT00000002','RSCC000001','辞职','这个终止原因的描述是这样的.................................................0002','1');
 
-insert into occupation_type_data values
+insert into occupation_type_data (id,code,company,description,detail_description,version) values
 	('OT000001','OT00000001','RSCC000001','需求分析员','故事还得从遥远的古代开始.................................................0001','1'),
 	('OT000002','OT00000002','RSCC000001','软件工程师','故事还得从遥远的古代开始.................................................0002','1');
 
-insert into leave_type_data values
+insert into leave_type_data (id,code,company,description,detail_description,version) values
 	('LT000001','LT00000001','RSCC000001','带薪年假','故事还得从遥远的古代开始.................................................0001','1'),
 	('LT000002','LT00000002','RSCC000001','病假','故事还得从遥远的古代开始.................................................0002','1');
 
-insert into salary_grade_data values
+insert into salary_grade_data (id,code,company,name,detail_description,version) values
 	('SG000001','SG00000001','RSCC000001','一级薪资','故事还得从遥远的古代开始.................................................0001','1'),
 	('SG000002','SG00000002','RSCC000001','二级薪资','故事还得从遥远的古代开始.................................................0002','1');
 
-insert into interview_type_data values
+insert into interview_type_data (id,code,company,description,detail_description,version) values
 	('IT000001','INTRVW000001','RSCC000001','特别情况面试','故事还得从遥远的古代开始.................................................0001','1'),
 	('IT000002','INTRVW000002','RSCC000001','离职面试','故事还得从遥远的古代开始.................................................0002','1');
 
-insert into training_course_type_data values
+insert into training_course_type_data (id,code,company,name,description,version) values
 	('TCT000001','TC000001','RSCC000001','入职培训','培训是提升个人和企业竞争力的法宝0001','1'),
 	('TCT000002','TC000002','RSCC000001','售前培训','培训是提升个人和企业竞争力的法宝0002','1');
 
-insert into public_holiday_data values
+insert into public_holiday_data (id,code,company,name,description,version) values
 	('PH000001','PH000001','RSCC000001','元旦节','节日快乐，万事如意！0001','1'),
 	('PH000002','PH000002','RSCC000001','春节','节日快乐，万事如意！0002','1');
 
-insert into termination_data values
+insert into termination_data (id,reason,type,comment,version) values
 	('T000001','TR000001','TT000001','员工离职0001','1'),
 	('T000002','TR000001','TT000001','员工离职0002','1'),
 	('T000003','TR000002','TT000002','员工离职0003','1'),
 	('T000004','TR000002','TT000002','员工离职0004','1');
 
-insert into view_data values
-	('V000001','面试官0001','小伙子不错，值得培养0001','2019-10-04','1');
+insert into view_data (id,who,assessment,interview_time,version) values
+	('V000001','面试官0001','小伙子不错，值得培养0001','2022-07-19','1');
 
-insert into employee_data values
-	('E000001','RSCC000001','程序员0001','LTD000001','张','文强','share@163.com','北京','学院路234号0001','18677778888','OT000001','RT000001','SG000001','6226 7788 9908 0001','2021-08-28 07:54:44','1'),
-	('E000002','RSCC000001','程序员0002','LTD000001','王','大伟','2@qq.com','天津','学院路234号0002','13900000002','OT000001','RT000001','SG000001','6226 7788 9908 0002','2021-09-10 20:35:23','1'),
-	('E000003','RSCC000001','程序员0003','LTD000002','李','字章','3@qq.com','成都','学院路234号0003','13900000003','OT000001','RT000001','SG000001','6226 7788 9908 0003','2021-08-30 18:16:46','1'),
-	('E000004','RSCC000001','程序员0004','LTD000002','贺','文强','4@qq.com','上海','学院路234号0004','13900000004','OT000001','RT000001','SG000001','6226 7788 9908 0004','2021-09-06 23:31:03','1'),
-	('E000005','RSCC000001','程序员0005','LTD000003','张','大伟','5@qq.com','深圳','学院路234号0005','13900000005','OT000001','RT000001','SG000001','6226 7788 9908 0005','2021-08-27 10:25:32','1'),
-	('E000006','RSCC000001','程序员0006','LTD000003','王','字章','6@qq.com','广州','学院路234号0006','13900000006','OT000001','RT000001','SG000001','6226 7788 9908 0006','2021-08-29 10:41:49','1'),
-	('E000007','RSCC000001','程序员0007','LTD000004','李','文强','7@qq.com','西安','学院路234号0007','13900000007','OT000001','RT000001','SG000001','6226 7788 9908 0007','2021-09-08 03:39:06','1'),
-	('E000008','RSCC000001','程序员0008','LTD000004','贺','大伟','8@qq.com','北京','学院路234号0008','13900000008','OT000001','RT000001','SG000001','6226 7788 9908 0008','2021-09-07 08:59:18','1'),
-	('E000009','RSCC000001','程序员0009','LTD000005','张','字章','9@qq.com','天津','学院路234号0009','13900000009','OT000002','RT000002','SG000002','6226 7788 9908 0009','2021-09-10 11:30:21','1'),
-	('E000010','RSCC000001','程序员0010','LTD000005','王','文强','10@qq.com','成都','学院路234号0010','13900000010','OT000002','RT000002','SG000002','6226 7788 9908 0010','2021-08-22 22:32:40','1'),
-	('E000011','RSCC000001','程序员0011','LTD000006','李','大伟','11@qq.com','上海','学院路234号0011','13900000011','OT000002','RT000002','SG000002','6226 7788 9908 0011','2021-09-01 14:33:07','1'),
-	('E000012','RSCC000001','程序员0012','LTD000006','贺','字章','12@qq.com','深圳','学院路234号0012','13900000012','OT000002','RT000002','SG000002','6226 7788 9908 0012','2021-09-05 14:35:14','1'),
-	('E000013','RSCC000001','程序员0013','LTD000007','张','文强','13@qq.com','广州','学院路234号0013','13900000013','OT000002','RT000002','SG000002','6226 7788 9908 0013','2021-09-04 10:32:53','1'),
-	('E000014','RSCC000001','程序员0014','LTD000007','王','大伟','14@qq.com','西安','学院路234号0014','13900000014','OT000002','RT000002','SG000002','6226 7788 9908 0014','2021-08-28 21:08:56','1'),
-	('E000015','RSCC000001','程序员0015','LTD000008','李','字章','15@qq.com','北京','学院路234号0015','13900000015','OT000002','RT000002','SG000002','6226 7788 9908 0015','2021-08-25 17:26:58','1'),
-	('E000016','RSCC000001','程序员0016','LTD000008','贺','文强','16@qq.com','天津','学院路234号0016','13900000016','OT000002','RT000002','SG000002','6226 7788 9908 0016','2021-08-26 19:00:21','1');
+insert into employee_data (id,company,title,department,family_name,given_name,email,city,address,cell_phone,occupation,responsible_for,current_salary_grade,salary_account,last_update_time,version) values
+	('E000001','RSCC000001','程序员0001','LTD000001','张','文强','share@163.com','北京','学院路234号0001','18677778888','OT000001','RT000001','SG000001','6226 7788 9908 0001','2022-09-28 19:58:22','1'),
+	('E000002','RSCC000001','程序员0002','LTD000001','王','大伟','2@qq.com','天津','学院路234号0002','13900000002','OT000001','RT000001','SG000001','6226 7788 9908 0002','2022-09-30 17:52:57','1'),
+	('E000003','RSCC000001','程序员0003','LTD000002','李','字章','3@qq.com','成都','学院路234号0003','13900000003','OT000001','RT000001','SG000001','6226 7788 9908 0003','2022-09-15 20:23:58','1'),
+	('E000004','RSCC000001','程序员0004','LTD000002','贺','文强','4@qq.com','上海','学院路234号0004','13900000004','OT000001','RT000001','SG000001','6226 7788 9908 0004','2022-09-20 20:39:39','1'),
+	('E000005','RSCC000001','程序员0005','LTD000003','张','大伟','5@qq.com','深圳','学院路234号0005','13900000005','OT000001','RT000001','SG000001','6226 7788 9908 0005','2022-09-10 16:09:56','1'),
+	('E000006','RSCC000001','程序员0006','LTD000003','王','字章','6@qq.com','广州','学院路234号0006','13900000006','OT000001','RT000001','SG000001','6226 7788 9908 0006','2022-09-26 18:03:08','1'),
+	('E000007','RSCC000001','程序员0007','LTD000004','李','文强','7@qq.com','西安','学院路234号0007','13900000007','OT000001','RT000001','SG000001','6226 7788 9908 0007','2022-09-13 11:33:09','1'),
+	('E000008','RSCC000001','程序员0008','LTD000004','贺','大伟','8@qq.com','北京','学院路234号0008','13900000008','OT000001','RT000001','SG000001','6226 7788 9908 0008','2022-09-18 20:38:44','1'),
+	('E000009','RSCC000001','程序员0009','LTD000005','张','字章','9@qq.com','天津','学院路234号0009','13900000009','OT000002','RT000002','SG000002','6226 7788 9908 0009','2022-09-21 20:03:13','1'),
+	('E000010','RSCC000001','程序员0010','LTD000005','王','文强','10@qq.com','成都','学院路234号0010','13900000010','OT000002','RT000002','SG000002','6226 7788 9908 0010','2022-09-15 03:04:55','1'),
+	('E000011','RSCC000001','程序员0011','LTD000006','李','大伟','11@qq.com','上海','学院路234号0011','13900000011','OT000002','RT000002','SG000002','6226 7788 9908 0011','2022-09-17 09:14:03','1'),
+	('E000012','RSCC000001','程序员0012','LTD000006','贺','字章','12@qq.com','深圳','学院路234号0012','13900000012','OT000002','RT000002','SG000002','6226 7788 9908 0012','2022-09-20 20:33:36','1'),
+	('E000013','RSCC000001','程序员0013','LTD000007','张','文强','13@qq.com','广州','学院路234号0013','13900000013','OT000002','RT000002','SG000002','6226 7788 9908 0013','2022-09-13 17:31:38','1'),
+	('E000014','RSCC000001','程序员0014','LTD000007','王','大伟','14@qq.com','西安','学院路234号0014','13900000014','OT000002','RT000002','SG000002','6226 7788 9908 0014','2022-09-14 08:28:21','1'),
+	('E000015','RSCC000001','程序员0015','LTD000008','李','字章','15@qq.com','北京','学院路234号0015','13900000015','OT000002','RT000002','SG000002','6226 7788 9908 0015','2022-09-13 15:02:40','1'),
+	('E000016','RSCC000001','程序员0016','LTD000008','贺','文强','16@qq.com','天津','学院路234号0016','13900000016','OT000002','RT000002','SG000002','6226 7788 9908 0016','2022-10-01 06:30:23','1');
 
-insert into instructor_data values
-	('I000001','高级讲师0001','张','文强','18699990000','instructor@gmail.com','RSCC000001','这是一个长长长长长长长长的介绍0001','2021-09-09 01:03:09','1'),
-	('I000002','高级讲师0002','王','大伟','13900000002','2@qq.com','RSCC000001','这是一个长长长长长长长长的介绍0002','2021-08-27 04:27:34','1');
+insert into instructor_data (id,title,family_name,given_name,cell_phone,email,company,introduction,last_update_time,version) values
+	('I000001','高级讲师0001','张','文强','18699990000','instructor@gmail.com','RSCC000001','这是一个长长长长长长长长的介绍0001','2022-09-19 01:21:30','1'),
+	('I000002','高级讲师0002','王','大伟','13900000002','2@qq.com','RSCC000001','这是一个长长长长长长长长的介绍0002','2022-09-14 00:40:55','1');
 
-insert into company_training_data values
-	('CT000001','入职培训0001','RSCC000001','I000001','TCT000001','2021-08-29','3','2021-09-06 10:11:31','1'),
-	('CT000002','入职培训0002','RSCC000001','I000001','TCT000001','2019-05-16','3','2021-08-25 13:46:07','1'),
-	('CT000003','入职培训0003','RSCC000001','I000002','TCT000002','2021-08-25','3','2021-09-07 13:08:54','1'),
-	('CT000004','入职培训0004','RSCC000001','I000002','TCT000002','2019-06-25','3','2021-08-27 16:42:31','1');
+insert into company_training_data (id,title,company,instructor,training_course_type,time_start,duration_hours,last_update_time,version) values
+	('CT000001','入职培训0001','RSCC000001','I000001','TCT000001','2019-12-25','3','2022-10-01 01:12:43','1'),
+	('CT000002','入职培训0002','RSCC000001','I000001','TCT000001','2020-03-31','3','2022-09-30 13:25:11','1'),
+	('CT000003','入职培训0003','RSCC000001','I000002','TCT000002','2021-06-03','3','2022-09-18 22:22:02','1'),
+	('CT000004','入职培训0004','RSCC000001','I000002','TCT000002','2021-07-06','3','2022-09-16 20:30:29','1');
 
-insert into scoring_data values
-	('S000001','王志文0001','89','这个题做的真不错啊0001','1');
+insert into scoring_data (id,scored_by,score,comment,version) values
+	('S000001','王志文0001','71','这个题做的真不错啊0001','1');
 
-insert into employee_company_training_data values
+insert into employee_company_training_data (id,employee,training,scoring,version) values
 	('ECT000001','E000001','CT000001','S000001','1'),
 	('ECT000002','E000001','CT000001','S000001','1'),
 	('ECT000003','E000002','CT000001','S000001','1'),
@@ -3340,7 +3340,7 @@ insert into employee_company_training_data values
 	('ECT000031','E000016','CT000004','S000001','1'),
 	('ECT000032','E000016','CT000004','S000001','1');
 
-insert into employee_skill_data values
+insert into employee_skill_data (id,employee,skill_type,description,version) values
 	('ES000001','E000001','ST000001','高手高手高高手0001','1'),
 	('ES000002','E000001','ST000001','高手高手高高手0002','1'),
 	('ES000003','E000002','ST000001','高手高手高高手0003','1'),
@@ -3374,7 +3374,7 @@ insert into employee_skill_data values
 	('ES000031','E000016','ST000002','高手高手高高手0031','1'),
 	('ES000032','E000016','ST000002','高手高手高高手0032','1');
 
-insert into employee_performance_data values
+insert into employee_performance_data (id,employee,performance_comment,version) values
 	('EP000001','E000001','绩效大大的不错0001','1'),
 	('EP000002','E000001','绩效大大的不错0002','1'),
 	('EP000003','E000002','绩效大大的不错0003','1'),
@@ -3408,75 +3408,75 @@ insert into employee_performance_data values
 	('EP000031','E000016','绩效大大的不错0031','1'),
 	('EP000032','E000016','绩效大大的不错0032','1');
 
-insert into employee_work_experience_data values
-	('EWE000001','E000001','2020-12-28','2019-04-30','丝芙兰化妆品公司0001','在此期间取得非常好的绩效，赢得了客户的信赖0001','1'),
-	('EWE000002','E000001','2018-10-22','2020-07-09','丝芙兰化妆品公司0002','在此期间取得非常好的绩效，赢得了客户的信赖0002','1'),
-	('EWE000003','E000002','2018-12-24','2021-05-17','丝芙兰化妆品公司0003','在此期间取得非常好的绩效，赢得了客户的信赖0003','1'),
-	('EWE000004','E000002','2020-02-23','2021-06-26','丝芙兰化妆品公司0004','在此期间取得非常好的绩效，赢得了客户的信赖0004','1'),
-	('EWE000005','E000003','2020-04-06','2020-12-21','丝芙兰化妆品公司0005','在此期间取得非常好的绩效，赢得了客户的信赖0005','1'),
-	('EWE000006','E000003','2019-10-30','2020-04-10','丝芙兰化妆品公司0006','在此期间取得非常好的绩效，赢得了客户的信赖0006','1'),
-	('EWE000007','E000004','2019-05-21','2019-10-17','丝芙兰化妆品公司0007','在此期间取得非常好的绩效，赢得了客户的信赖0007','1'),
-	('EWE000008','E000004','2021-01-12','2018-09-19','丝芙兰化妆品公司0008','在此期间取得非常好的绩效，赢得了客户的信赖0008','1'),
-	('EWE000009','E000005','2021-08-16','2020-06-24','丝芙兰化妆品公司0009','在此期间取得非常好的绩效，赢得了客户的信赖0009','1'),
-	('EWE000010','E000005','2020-07-08','2020-08-02','丝芙兰化妆品公司0010','在此期间取得非常好的绩效，赢得了客户的信赖0010','1'),
-	('EWE000011','E000006','2020-06-14','2019-10-25','丝芙兰化妆品公司0011','在此期间取得非常好的绩效，赢得了客户的信赖0011','1'),
-	('EWE000012','E000006','2020-12-18','2020-10-12','丝芙兰化妆品公司0012','在此期间取得非常好的绩效，赢得了客户的信赖0012','1'),
-	('EWE000013','E000007','2020-08-02','2019-10-28','丝芙兰化妆品公司0013','在此期间取得非常好的绩效，赢得了客户的信赖0013','1'),
-	('EWE000014','E000007','2020-10-17','2019-07-31','丝芙兰化妆品公司0014','在此期间取得非常好的绩效，赢得了客户的信赖0014','1'),
-	('EWE000015','E000008','2019-10-11','2021-07-17','丝芙兰化妆品公司0015','在此期间取得非常好的绩效，赢得了客户的信赖0015','1'),
-	('EWE000016','E000008','2020-12-12','2019-09-10','丝芙兰化妆品公司0016','在此期间取得非常好的绩效，赢得了客户的信赖0016','1'),
-	('EWE000017','E000009','2021-05-22','2018-12-20','丝芙兰化妆品公司0017','在此期间取得非常好的绩效，赢得了客户的信赖0017','1'),
-	('EWE000018','E000009','2019-06-18','2020-05-09','丝芙兰化妆品公司0018','在此期间取得非常好的绩效，赢得了客户的信赖0018','1'),
-	('EWE000019','E000010','2019-04-05','2020-10-23','丝芙兰化妆品公司0019','在此期间取得非常好的绩效，赢得了客户的信赖0019','1'),
-	('EWE000020','E000010','2021-08-09','2019-10-16','丝芙兰化妆品公司0020','在此期间取得非常好的绩效，赢得了客户的信赖0020','1'),
-	('EWE000021','E000011','2021-09-05','2019-06-10','丝芙兰化妆品公司0021','在此期间取得非常好的绩效，赢得了客户的信赖0021','1'),
-	('EWE000022','E000011','2021-03-19','2019-10-20','丝芙兰化妆品公司0022','在此期间取得非常好的绩效，赢得了客户的信赖0022','1'),
-	('EWE000023','E000012','2020-03-09','2020-05-03','丝芙兰化妆品公司0023','在此期间取得非常好的绩效，赢得了客户的信赖0023','1'),
-	('EWE000024','E000012','2019-02-27','2021-05-10','丝芙兰化妆品公司0024','在此期间取得非常好的绩效，赢得了客户的信赖0024','1'),
-	('EWE000025','E000013','2020-09-03','2021-03-15','丝芙兰化妆品公司0025','在此期间取得非常好的绩效，赢得了客户的信赖0025','1'),
-	('EWE000026','E000013','2021-02-22','2019-05-04','丝芙兰化妆品公司0026','在此期间取得非常好的绩效，赢得了客户的信赖0026','1'),
-	('EWE000027','E000014','2020-08-07','2021-08-26','丝芙兰化妆品公司0027','在此期间取得非常好的绩效，赢得了客户的信赖0027','1'),
-	('EWE000028','E000014','2018-12-14','2021-08-11','丝芙兰化妆品公司0028','在此期间取得非常好的绩效，赢得了客户的信赖0028','1'),
-	('EWE000029','E000015','2021-04-30','2020-03-17','丝芙兰化妆品公司0029','在此期间取得非常好的绩效，赢得了客户的信赖0029','1'),
-	('EWE000030','E000015','2020-09-20','2020-12-20','丝芙兰化妆品公司0030','在此期间取得非常好的绩效，赢得了客户的信赖0030','1'),
-	('EWE000031','E000016','2020-05-05','2019-01-20','丝芙兰化妆品公司0031','在此期间取得非常好的绩效，赢得了客户的信赖0031','1'),
-	('EWE000032','E000016','2020-05-03','2019-04-21','丝芙兰化妆品公司0032','在此期间取得非常好的绩效，赢得了客户的信赖0032','1');
+insert into employee_work_experience_data (id,employee,start,end,company,description,version) values
+	('EWE000001','E000001','2020-01-18','2021-05-03','丝芙兰化妆品公司0001','在此期间取得非常好的绩效，赢得了客户的信赖0001','1'),
+	('EWE000002','E000001','2019-11-08','2020-09-25','丝芙兰化妆品公司0002','在此期间取得非常好的绩效，赢得了客户的信赖0002','1'),
+	('EWE000003','E000002','2020-04-11','2020-08-11','丝芙兰化妆品公司0003','在此期间取得非常好的绩效，赢得了客户的信赖0003','1'),
+	('EWE000004','E000002','2020-01-09','2019-11-05','丝芙兰化妆品公司0004','在此期间取得非常好的绩效，赢得了客户的信赖0004','1'),
+	('EWE000005','E000003','2022-01-21','2021-06-06','丝芙兰化妆品公司0005','在此期间取得非常好的绩效，赢得了客户的信赖0005','1'),
+	('EWE000006','E000003','2021-07-10','2020-04-30','丝芙兰化妆品公司0006','在此期间取得非常好的绩效，赢得了客户的信赖0006','1'),
+	('EWE000007','E000004','2020-11-18','2022-01-03','丝芙兰化妆品公司0007','在此期间取得非常好的绩效，赢得了客户的信赖0007','1'),
+	('EWE000008','E000004','2021-07-09','2020-03-06','丝芙兰化妆品公司0008','在此期间取得非常好的绩效，赢得了客户的信赖0008','1'),
+	('EWE000009','E000005','2020-09-04','2022-09-06','丝芙兰化妆品公司0009','在此期间取得非常好的绩效，赢得了客户的信赖0009','1'),
+	('EWE000010','E000005','2022-08-19','2021-06-26','丝芙兰化妆品公司0010','在此期间取得非常好的绩效，赢得了客户的信赖0010','1'),
+	('EWE000011','E000006','2019-11-03','2021-04-18','丝芙兰化妆品公司0011','在此期间取得非常好的绩效，赢得了客户的信赖0011','1'),
+	('EWE000012','E000006','2021-01-14','2022-07-04','丝芙兰化妆品公司0012','在此期间取得非常好的绩效，赢得了客户的信赖0012','1'),
+	('EWE000013','E000007','2021-06-29','2019-11-19','丝芙兰化妆品公司0013','在此期间取得非常好的绩效，赢得了客户的信赖0013','1'),
+	('EWE000014','E000007','2022-02-17','2020-06-02','丝芙兰化妆品公司0014','在此期间取得非常好的绩效，赢得了客户的信赖0014','1'),
+	('EWE000015','E000008','2021-05-01','2020-02-13','丝芙兰化妆品公司0015','在此期间取得非常好的绩效，赢得了客户的信赖0015','1'),
+	('EWE000016','E000008','2022-05-22','2021-12-13','丝芙兰化妆品公司0016','在此期间取得非常好的绩效，赢得了客户的信赖0016','1'),
+	('EWE000017','E000009','2022-06-06','2020-04-24','丝芙兰化妆品公司0017','在此期间取得非常好的绩效，赢得了客户的信赖0017','1'),
+	('EWE000018','E000009','2021-03-07','2020-04-28','丝芙兰化妆品公司0018','在此期间取得非常好的绩效，赢得了客户的信赖0018','1'),
+	('EWE000019','E000010','2019-12-15','2022-06-07','丝芙兰化妆品公司0019','在此期间取得非常好的绩效，赢得了客户的信赖0019','1'),
+	('EWE000020','E000010','2020-01-22','2020-11-29','丝芙兰化妆品公司0020','在此期间取得非常好的绩效，赢得了客户的信赖0020','1'),
+	('EWE000021','E000011','2021-11-14','2022-08-26','丝芙兰化妆品公司0021','在此期间取得非常好的绩效，赢得了客户的信赖0021','1'),
+	('EWE000022','E000011','2020-04-25','2019-10-18','丝芙兰化妆品公司0022','在此期间取得非常好的绩效，赢得了客户的信赖0022','1'),
+	('EWE000023','E000012','2020-07-15','2022-04-26','丝芙兰化妆品公司0023','在此期间取得非常好的绩效，赢得了客户的信赖0023','1'),
+	('EWE000024','E000012','2022-09-12','2022-02-16','丝芙兰化妆品公司0024','在此期间取得非常好的绩效，赢得了客户的信赖0024','1'),
+	('EWE000025','E000013','2022-04-30','2020-12-16','丝芙兰化妆品公司0025','在此期间取得非常好的绩效，赢得了客户的信赖0025','1'),
+	('EWE000026','E000013','2020-06-04','2019-10-03','丝芙兰化妆品公司0026','在此期间取得非常好的绩效，赢得了客户的信赖0026','1'),
+	('EWE000027','E000014','2022-07-24','2020-12-29','丝芙兰化妆品公司0027','在此期间取得非常好的绩效，赢得了客户的信赖0027','1'),
+	('EWE000028','E000014','2021-02-07','2019-10-05','丝芙兰化妆品公司0028','在此期间取得非常好的绩效，赢得了客户的信赖0028','1'),
+	('EWE000029','E000015','2020-05-10','2021-03-24','丝芙兰化妆品公司0029','在此期间取得非常好的绩效，赢得了客户的信赖0029','1'),
+	('EWE000030','E000015','2021-07-15','2020-01-31','丝芙兰化妆品公司0030','在此期间取得非常好的绩效，赢得了客户的信赖0030','1'),
+	('EWE000031','E000016','2020-04-14','2021-12-26','丝芙兰化妆品公司0031','在此期间取得非常好的绩效，赢得了客户的信赖0031','1'),
+	('EWE000032','E000016','2021-01-01','2020-01-23','丝芙兰化妆品公司0032','在此期间取得非常好的绩效，赢得了客户的信赖0032','1');
 
-insert into employee_leave_data values
-	('EL000001','E000001','LT000001','8','请年假，出去耍！！！！0001','1'),
-	('EL000002','E000001','LT000001','7','请年假，出去耍！！！！0002','1'),
+insert into employee_leave_data (id,who,type,leave_duration_hour,remark,version) values
+	('EL000001','E000001','LT000001','6','请年假，出去耍！！！！0001','1'),
+	('EL000002','E000001','LT000001','8','请年假，出去耍！！！！0002','1'),
 	('EL000003','E000002','LT000001','8','请年假，出去耍！！！！0003','1'),
-	('EL000004','E000002','LT000001','7','请年假，出去耍！！！！0004','1'),
-	('EL000005','E000003','LT000001','8','请年假，出去耍！！！！0005','1'),
-	('EL000006','E000003','LT000001','7','请年假，出去耍！！！！0006','1'),
+	('EL000004','E000002','LT000001','8','请年假，出去耍！！！！0004','1'),
+	('EL000005','E000003','LT000001','6','请年假，出去耍！！！！0005','1'),
+	('EL000006','E000003','LT000001','8','请年假，出去耍！！！！0006','1'),
 	('EL000007','E000004','LT000001','7','请年假，出去耍！！！！0007','1'),
-	('EL000008','E000004','LT000001','8','请年假，出去耍！！！！0008','1'),
-	('EL000009','E000005','LT000001','8','请年假，出去耍！！！！0009','1'),
-	('EL000010','E000005','LT000001','7','请年假，出去耍！！！！0010','1'),
-	('EL000011','E000006','LT000001','8','请年假，出去耍！！！！0011','1'),
+	('EL000008','E000004','LT000001','7','请年假，出去耍！！！！0008','1'),
+	('EL000009','E000005','LT000001','7','请年假，出去耍！！！！0009','1'),
+	('EL000010','E000005','LT000001','8','请年假，出去耍！！！！0010','1'),
+	('EL000011','E000006','LT000001','7','请年假，出去耍！！！！0011','1'),
 	('EL000012','E000006','LT000001','7','请年假，出去耍！！！！0012','1'),
-	('EL000013','E000007','LT000001','8','请年假，出去耍！！！！0013','1'),
-	('EL000014','E000007','LT000001','8','请年假，出去耍！！！！0014','1'),
-	('EL000015','E000008','LT000001','8','请年假，出去耍！！！！0015','1'),
-	('EL000016','E000008','LT000001','8','请年假，出去耍！！！！0016','1'),
+	('EL000013','E000007','LT000001','7','请年假，出去耍！！！！0013','1'),
+	('EL000014','E000007','LT000001','7','请年假，出去耍！！！！0014','1'),
+	('EL000015','E000008','LT000001','7','请年假，出去耍！！！！0015','1'),
+	('EL000016','E000008','LT000001','7','请年假，出去耍！！！！0016','1'),
 	('EL000017','E000009','LT000002','8','请年假，出去耍！！！！0017','1'),
-	('EL000018','E000009','LT000002','8','请年假，出去耍！！！！0018','1'),
-	('EL000019','E000010','LT000002','6','请年假，出去耍！！！！0019','1'),
+	('EL000018','E000009','LT000002','7','请年假，出去耍！！！！0018','1'),
+	('EL000019','E000010','LT000002','8','请年假，出去耍！！！！0019','1'),
 	('EL000020','E000010','LT000002','8','请年假，出去耍！！！！0020','1'),
 	('EL000021','E000011','LT000002','7','请年假，出去耍！！！！0021','1'),
 	('EL000022','E000011','LT000002','8','请年假，出去耍！！！！0022','1'),
 	('EL000023','E000012','LT000002','8','请年假，出去耍！！！！0023','1'),
-	('EL000024','E000012','LT000002','7','请年假，出去耍！！！！0024','1'),
-	('EL000025','E000013','LT000002','6','请年假，出去耍！！！！0025','1'),
+	('EL000024','E000012','LT000002','6','请年假，出去耍！！！！0024','1'),
+	('EL000025','E000013','LT000002','8','请年假，出去耍！！！！0025','1'),
 	('EL000026','E000013','LT000002','8','请年假，出去耍！！！！0026','1'),
-	('EL000027','E000014','LT000002','6','请年假，出去耍！！！！0027','1'),
-	('EL000028','E000014','LT000002','6','请年假，出去耍！！！！0028','1'),
+	('EL000027','E000014','LT000002','7','请年假，出去耍！！！！0027','1'),
+	('EL000028','E000014','LT000002','7','请年假，出去耍！！！！0028','1'),
 	('EL000029','E000015','LT000002','7','请年假，出去耍！！！！0029','1'),
-	('EL000030','E000015','LT000002','8','请年假，出去耍！！！！0030','1'),
-	('EL000031','E000016','LT000002','7','请年假，出去耍！！！！0031','1'),
-	('EL000032','E000016','LT000002','7','请年假，出去耍！！！！0032','1');
+	('EL000030','E000015','LT000002','6','请年假，出去耍！！！！0030','1'),
+	('EL000031','E000016','LT000002','8','请年假，出去耍！！！！0031','1'),
+	('EL000032','E000016','LT000002','8','请年假，出去耍！！！！0032','1');
 
-insert into employee_interview_data values
+insert into employee_interview_data (id,employee,interview_type,remark,version) values
 	('EI000001','E000001','IT000001','结果不错，面试通过！0001','1'),
 	('EI000002','E000001','IT000001','结果不错，面试通过！0002','1'),
 	('EI000003','E000002','IT000001','结果不错，面试通过！0003','1'),
@@ -3510,252 +3510,252 @@ insert into employee_interview_data values
 	('EI000031','E000016','IT000002','结果不错，面试通过！0031','1'),
 	('EI000032','E000016','IT000002','结果不错，面试通过！0032','1');
 
-insert into employee_attendance_data values
-	('EA000001','E000001','2021-06-16','2019-12-23','8','今天状态不错啊0001','1'),
-	('EA000002','E000001','2020-07-23','2021-04-15','7','今天状态不错啊0002','1'),
-	('EA000003','E000002','2020-04-29','2021-06-05','7','今天状态不错啊0003','1'),
-	('EA000004','E000002','2020-06-05','2018-12-06','7','今天状态不错啊0004','1'),
-	('EA000005','E000003','2019-09-30','2019-12-13','8','今天状态不错啊0005','1'),
-	('EA000006','E000003','2020-11-01','2019-10-19','8','今天状态不错啊0006','1'),
-	('EA000007','E000004','2020-10-17','2020-08-17','8','今天状态不错啊0007','1'),
-	('EA000008','E000004','2021-06-01','2018-12-05','8','今天状态不错啊0008','1'),
-	('EA000009','E000005','2018-12-06','2019-11-25','7','今天状态不错啊0009','1'),
-	('EA000010','E000005','2019-10-20','2019-06-26','6','今天状态不错啊0010','1'),
-	('EA000011','E000006','2020-02-18','2021-04-14','6','今天状态不错啊0011','1'),
-	('EA000012','E000006','2021-02-17','2021-07-18','7','今天状态不错啊0012','1'),
-	('EA000013','E000007','2019-10-06','2021-08-07','8','今天状态不错啊0013','1'),
-	('EA000014','E000007','2019-08-21','2019-03-31','8','今天状态不错啊0014','1'),
-	('EA000015','E000008','2021-06-11','2021-05-05','7','今天状态不错啊0015','1'),
-	('EA000016','E000008','2020-08-20','2019-10-16','6','今天状态不错啊0016','1'),
-	('EA000017','E000009','2019-11-11','2019-11-15','8','今天状态不错啊0017','1'),
-	('EA000018','E000009','2020-11-02','2021-03-24','6','今天状态不错啊0018','1'),
-	('EA000019','E000010','2019-12-01','2020-04-06','8','今天状态不错啊0019','1'),
-	('EA000020','E000010','2020-05-15','2020-07-04','8','今天状态不错啊0020','1'),
-	('EA000021','E000011','2019-06-12','2019-12-27','8','今天状态不错啊0021','1'),
-	('EA000022','E000011','2020-11-12','2019-04-22','6','今天状态不错啊0022','1'),
-	('EA000023','E000012','2021-05-18','2019-01-17','8','今天状态不错啊0023','1'),
-	('EA000024','E000012','2020-09-04','2020-04-29','6','今天状态不错啊0024','1'),
-	('EA000025','E000013','2021-07-28','2019-03-19','7','今天状态不错啊0025','1'),
-	('EA000026','E000013','2021-06-27','2020-06-13','7','今天状态不错啊0026','1'),
-	('EA000027','E000014','2021-01-13','2019-09-05','8','今天状态不错啊0027','1'),
-	('EA000028','E000014','2019-08-10','2021-08-16','6','今天状态不错啊0028','1'),
-	('EA000029','E000015','2019-04-20','2019-01-02','8','今天状态不错啊0029','1'),
-	('EA000030','E000015','2021-08-11','2020-08-06','6','今天状态不错啊0030','1'),
-	('EA000031','E000016','2021-03-19','2019-11-09','6','今天状态不错啊0031','1'),
-	('EA000032','E000016','2018-10-13','2019-08-09','6','今天状态不错啊0032','1');
+insert into employee_attendance_data (id,employee,enter_time,leave_time,duration_hours,remark,version) values
+	('EA000001','E000001','2021-10-01','2020-03-17','7','今天状态不错啊0001','1'),
+	('EA000002','E000001','2022-05-08','2020-07-27','7','今天状态不错啊0002','1'),
+	('EA000003','E000002','2022-04-29','2021-12-01','7','今天状态不错啊0003','1'),
+	('EA000004','E000002','2020-09-30','2019-10-05','6','今天状态不错啊0004','1'),
+	('EA000005','E000003','2019-11-06','2021-01-04','7','今天状态不错啊0005','1'),
+	('EA000006','E000003','2021-11-02','2020-08-21','6','今天状态不错啊0006','1'),
+	('EA000007','E000004','2020-07-09','2021-05-23','7','今天状态不错啊0007','1'),
+	('EA000008','E000004','2022-01-16','2020-07-10','7','今天状态不错啊0008','1'),
+	('EA000009','E000005','2022-07-25','2022-04-24','7','今天状态不错啊0009','1'),
+	('EA000010','E000005','2021-09-23','2021-05-18','7','今天状态不错啊0010','1'),
+	('EA000011','E000006','2022-05-23','2020-10-26','7','今天状态不错啊0011','1'),
+	('EA000012','E000006','2022-05-27','2022-08-15','7','今天状态不错啊0012','1'),
+	('EA000013','E000007','2021-09-27','2020-05-25','8','今天状态不错啊0013','1'),
+	('EA000014','E000007','2022-08-26','2020-03-12','8','今天状态不错啊0014','1'),
+	('EA000015','E000008','2022-04-23','2021-04-10','8','今天状态不错啊0015','1'),
+	('EA000016','E000008','2020-03-04','2020-12-11','8','今天状态不错啊0016','1'),
+	('EA000017','E000009','2021-08-16','2020-01-02','8','今天状态不错啊0017','1'),
+	('EA000018','E000009','2022-04-27','2020-08-13','8','今天状态不错啊0018','1'),
+	('EA000019','E000010','2022-04-25','2021-12-26','8','今天状态不错啊0019','1'),
+	('EA000020','E000010','2021-01-03','2020-05-10','8','今天状态不错啊0020','1'),
+	('EA000021','E000011','2021-03-23','2020-10-09','7','今天状态不错啊0021','1'),
+	('EA000022','E000011','2020-04-11','2019-12-15','8','今天状态不错啊0022','1'),
+	('EA000023','E000012','2021-07-01','2020-10-27','7','今天状态不错啊0023','1'),
+	('EA000024','E000012','2021-01-19','2019-12-28','7','今天状态不错啊0024','1'),
+	('EA000025','E000013','2022-04-20','2022-07-24','8','今天状态不错啊0025','1'),
+	('EA000026','E000013','2022-03-15','2020-12-08','7','今天状态不错啊0026','1'),
+	('EA000027','E000014','2021-07-09','2022-04-18','7','今天状态不错啊0027','1'),
+	('EA000028','E000014','2022-09-23','2021-10-17','8','今天状态不错啊0028','1'),
+	('EA000029','E000015','2020-12-16','2021-07-24','7','今天状态不错啊0029','1'),
+	('EA000030','E000015','2021-03-18','2019-12-11','8','今天状态不错啊0030','1'),
+	('EA000031','E000016','2020-01-12','2020-03-29','8','今天状态不错啊0031','1'),
+	('EA000032','E000016','2021-09-26','2020-03-21','7','今天状态不错啊0032','1');
 
-insert into employee_qualifier_data values
-	('EQ000001','E000001','2020-11-28','认证药剂师','高级','考试成绩当年第一名0001','1'),
-	('EQ000002','E000001','2018-09-27','认证架构师','中级','考试成绩当年第一名0002','1'),
-	('EQ000003','E000002','2020-10-22','认证会计师','初级','考试成绩当年第一名0003','1'),
-	('EQ000004','E000002','2020-11-08','认证经济师','高级','考试成绩当年第一名0004','1'),
-	('EQ000005','E000003','2021-07-09','OCP','中级','考试成绩当年第一名0005','1'),
-	('EQ000006','E000003','2019-02-05','CCNA','初级','考试成绩当年第一名0006','1'),
-	('EQ000007','E000004','2020-03-04','CCNP','高级','考试成绩当年第一名0007','1'),
-	('EQ000008','E000004','2020-07-27','认证药剂师','中级','考试成绩当年第一名0008','1'),
-	('EQ000009','E000005','2021-08-17','认证架构师','初级','考试成绩当年第一名0009','1'),
-	('EQ000010','E000005','2020-05-19','认证会计师','高级','考试成绩当年第一名0010','1'),
-	('EQ000011','E000006','2020-03-27','认证经济师','中级','考试成绩当年第一名0011','1'),
-	('EQ000012','E000006','2021-01-26','OCP','初级','考试成绩当年第一名0012','1'),
-	('EQ000013','E000007','2019-08-17','CCNA','高级','考试成绩当年第一名0013','1'),
-	('EQ000014','E000007','2021-01-26','CCNP','中级','考试成绩当年第一名0014','1'),
-	('EQ000015','E000008','2020-01-14','认证药剂师','初级','考试成绩当年第一名0015','1'),
-	('EQ000016','E000008','2018-11-11','认证架构师','高级','考试成绩当年第一名0016','1'),
-	('EQ000017','E000009','2019-09-07','认证会计师','中级','考试成绩当年第一名0017','1'),
-	('EQ000018','E000009','2021-09-02','认证经济师','初级','考试成绩当年第一名0018','1'),
-	('EQ000019','E000010','2020-03-20','OCP','高级','考试成绩当年第一名0019','1'),
-	('EQ000020','E000010','2021-08-01','CCNA','中级','考试成绩当年第一名0020','1'),
-	('EQ000021','E000011','2018-11-16','CCNP','初级','考试成绩当年第一名0021','1'),
-	('EQ000022','E000011','2021-05-05','认证药剂师','高级','考试成绩当年第一名0022','1'),
-	('EQ000023','E000012','2019-01-13','认证架构师','中级','考试成绩当年第一名0023','1'),
-	('EQ000024','E000012','2021-05-29','认证会计师','初级','考试成绩当年第一名0024','1'),
-	('EQ000025','E000013','2021-03-18','认证经济师','高级','考试成绩当年第一名0025','1'),
-	('EQ000026','E000013','2020-01-31','OCP','中级','考试成绩当年第一名0026','1'),
-	('EQ000027','E000014','2021-08-04','CCNA','初级','考试成绩当年第一名0027','1'),
-	('EQ000028','E000014','2019-08-24','CCNP','高级','考试成绩当年第一名0028','1'),
-	('EQ000029','E000015','2019-04-23','认证药剂师','中级','考试成绩当年第一名0029','1'),
-	('EQ000030','E000015','2019-12-02','认证架构师','初级','考试成绩当年第一名0030','1'),
-	('EQ000031','E000016','2020-11-02','认证会计师','高级','考试成绩当年第一名0031','1'),
-	('EQ000032','E000016','2019-06-05','认证经济师','中级','考试成绩当年第一名0032','1');
+insert into employee_qualifier_data (id,employee,qualified_time,type,level,remark,version) values
+	('EQ000001','E000001','2022-04-23','认证药剂师','高级','考试成绩当年第一名0001','1'),
+	('EQ000002','E000001','2020-12-06','认证架构师','中级','考试成绩当年第一名0002','1'),
+	('EQ000003','E000002','2022-08-13','认证会计师','初级','考试成绩当年第一名0003','1'),
+	('EQ000004','E000002','2020-06-12','认证经济师','高级','考试成绩当年第一名0004','1'),
+	('EQ000005','E000003','2022-06-12','OCP','中级','考试成绩当年第一名0005','1'),
+	('EQ000006','E000003','2020-05-30','CCNA','初级','考试成绩当年第一名0006','1'),
+	('EQ000007','E000004','2021-07-19','CCNP','高级','考试成绩当年第一名0007','1'),
+	('EQ000008','E000004','2021-12-16','认证药剂师','中级','考试成绩当年第一名0008','1'),
+	('EQ000009','E000005','2020-05-12','认证架构师','初级','考试成绩当年第一名0009','1'),
+	('EQ000010','E000005','2020-02-11','认证会计师','高级','考试成绩当年第一名0010','1'),
+	('EQ000011','E000006','2021-02-08','认证经济师','中级','考试成绩当年第一名0011','1'),
+	('EQ000012','E000006','2019-12-28','OCP','初级','考试成绩当年第一名0012','1'),
+	('EQ000013','E000007','2020-10-25','CCNA','高级','考试成绩当年第一名0013','1'),
+	('EQ000014','E000007','2021-01-10','CCNP','中级','考试成绩当年第一名0014','1'),
+	('EQ000015','E000008','2021-02-24','认证药剂师','初级','考试成绩当年第一名0015','1'),
+	('EQ000016','E000008','2022-09-17','认证架构师','高级','考试成绩当年第一名0016','1'),
+	('EQ000017','E000009','2020-02-29','认证会计师','中级','考试成绩当年第一名0017','1'),
+	('EQ000018','E000009','2021-11-26','认证经济师','初级','考试成绩当年第一名0018','1'),
+	('EQ000019','E000010','2021-09-22','OCP','高级','考试成绩当年第一名0019','1'),
+	('EQ000020','E000010','2021-12-01','CCNA','中级','考试成绩当年第一名0020','1'),
+	('EQ000021','E000011','2021-11-12','CCNP','初级','考试成绩当年第一名0021','1'),
+	('EQ000022','E000011','2021-07-22','认证药剂师','高级','考试成绩当年第一名0022','1'),
+	('EQ000023','E000012','2022-02-13','认证架构师','中级','考试成绩当年第一名0023','1'),
+	('EQ000024','E000012','2022-03-23','认证会计师','初级','考试成绩当年第一名0024','1'),
+	('EQ000025','E000013','2022-01-07','认证经济师','高级','考试成绩当年第一名0025','1'),
+	('EQ000026','E000013','2020-02-23','OCP','中级','考试成绩当年第一名0026','1'),
+	('EQ000027','E000014','2020-12-31','CCNA','初级','考试成绩当年第一名0027','1'),
+	('EQ000028','E000014','2022-09-14','CCNP','高级','考试成绩当年第一名0028','1'),
+	('EQ000029','E000015','2019-12-10','认证药剂师','中级','考试成绩当年第一名0029','1'),
+	('EQ000030','E000015','2020-04-07','认证架构师','初级','考试成绩当年第一名0030','1'),
+	('EQ000031','E000016','2021-05-27','认证会计师','高级','考试成绩当年第一名0031','1'),
+	('EQ000032','E000016','2021-11-06','认证经济师','中级','考试成绩当年第一名0032','1');
 
-insert into employee_education_data values
-	('EE000001','E000001','2021-01-26','小学','考试成绩当年第一名0001','1'),
-	('EE000002','E000001','2019-01-27','初中','考试成绩当年第一名0002','1'),
-	('EE000003','E000002','2021-07-06','高中','考试成绩当年第一名0003','1'),
-	('EE000004','E000002','2021-04-07','大学','考试成绩当年第一名0004','1'),
-	('EE000005','E000003','2021-07-01','硕士','考试成绩当年第一名0005','1'),
-	('EE000006','E000003','2019-06-19','博士','考试成绩当年第一名0006','1'),
-	('EE000007','E000004','2020-11-10','职业教育','考试成绩当年第一名0007','1'),
-	('EE000008','E000004','2018-11-17','小学','考试成绩当年第一名0008','1'),
-	('EE000009','E000005','2021-09-11','初中','考试成绩当年第一名0009','1'),
-	('EE000010','E000005','2021-04-10','高中','考试成绩当年第一名0010','1'),
-	('EE000011','E000006','2020-02-12','大学','考试成绩当年第一名0011','1'),
-	('EE000012','E000006','2021-08-27','硕士','考试成绩当年第一名0012','1'),
-	('EE000013','E000007','2019-06-11','博士','考试成绩当年第一名0013','1'),
-	('EE000014','E000007','2020-10-14','职业教育','考试成绩当年第一名0014','1'),
-	('EE000015','E000008','2018-09-18','小学','考试成绩当年第一名0015','1'),
-	('EE000016','E000008','2021-09-04','初中','考试成绩当年第一名0016','1'),
-	('EE000017','E000009','2019-02-11','高中','考试成绩当年第一名0017','1'),
-	('EE000018','E000009','2020-11-15','大学','考试成绩当年第一名0018','1'),
-	('EE000019','E000010','2018-11-05','硕士','考试成绩当年第一名0019','1'),
-	('EE000020','E000010','2021-01-08','博士','考试成绩当年第一名0020','1'),
-	('EE000021','E000011','2020-04-26','职业教育','考试成绩当年第一名0021','1'),
-	('EE000022','E000011','2019-12-22','小学','考试成绩当年第一名0022','1'),
-	('EE000023','E000012','2020-05-27','初中','考试成绩当年第一名0023','1'),
-	('EE000024','E000012','2019-09-07','高中','考试成绩当年第一名0024','1'),
-	('EE000025','E000013','2019-08-15','大学','考试成绩当年第一名0025','1'),
-	('EE000026','E000013','2020-07-27','硕士','考试成绩当年第一名0026','1'),
-	('EE000027','E000014','2019-06-05','博士','考试成绩当年第一名0027','1'),
-	('EE000028','E000014','2021-01-28','职业教育','考试成绩当年第一名0028','1'),
-	('EE000029','E000015','2021-08-27','小学','考试成绩当年第一名0029','1'),
-	('EE000030','E000015','2019-06-13','初中','考试成绩当年第一名0030','1'),
-	('EE000031','E000016','2020-01-05','高中','考试成绩当年第一名0031','1'),
-	('EE000032','E000016','2020-09-22','大学','考试成绩当年第一名0032','1');
+insert into employee_education_data (id,employee,complete_time,type,remark,version) values
+	('EE000001','E000001','2020-07-14','小学','考试成绩当年第一名0001','1'),
+	('EE000002','E000001','2020-06-23','初中','考试成绩当年第一名0002','1'),
+	('EE000003','E000002','2020-09-11','高中','考试成绩当年第一名0003','1'),
+	('EE000004','E000002','2022-05-23','大学','考试成绩当年第一名0004','1'),
+	('EE000005','E000003','2022-02-01','硕士','考试成绩当年第一名0005','1'),
+	('EE000006','E000003','2021-03-08','博士','考试成绩当年第一名0006','1'),
+	('EE000007','E000004','2020-03-09','职业教育','考试成绩当年第一名0007','1'),
+	('EE000008','E000004','2021-01-07','小学','考试成绩当年第一名0008','1'),
+	('EE000009','E000005','2020-11-14','初中','考试成绩当年第一名0009','1'),
+	('EE000010','E000005','2020-03-30','高中','考试成绩当年第一名0010','1'),
+	('EE000011','E000006','2020-08-10','大学','考试成绩当年第一名0011','1'),
+	('EE000012','E000006','2022-05-01','硕士','考试成绩当年第一名0012','1'),
+	('EE000013','E000007','2022-03-03','博士','考试成绩当年第一名0013','1'),
+	('EE000014','E000007','2022-08-08','职业教育','考试成绩当年第一名0014','1'),
+	('EE000015','E000008','2021-05-22','小学','考试成绩当年第一名0015','1'),
+	('EE000016','E000008','2021-08-13','初中','考试成绩当年第一名0016','1'),
+	('EE000017','E000009','2022-04-07','高中','考试成绩当年第一名0017','1'),
+	('EE000018','E000009','2020-06-09','大学','考试成绩当年第一名0018','1'),
+	('EE000019','E000010','2021-06-04','硕士','考试成绩当年第一名0019','1'),
+	('EE000020','E000010','2019-12-01','博士','考试成绩当年第一名0020','1'),
+	('EE000021','E000011','2022-03-29','职业教育','考试成绩当年第一名0021','1'),
+	('EE000022','E000011','2020-11-19','小学','考试成绩当年第一名0022','1'),
+	('EE000023','E000012','2019-11-24','初中','考试成绩当年第一名0023','1'),
+	('EE000024','E000012','2020-11-21','高中','考试成绩当年第一名0024','1'),
+	('EE000025','E000013','2022-08-20','大学','考试成绩当年第一名0025','1'),
+	('EE000026','E000013','2021-04-25','硕士','考试成绩当年第一名0026','1'),
+	('EE000027','E000014','2022-09-07','博士','考试成绩当年第一名0027','1'),
+	('EE000028','E000014','2022-07-18','职业教育','考试成绩当年第一名0028','1'),
+	('EE000029','E000015','2020-07-10','小学','考试成绩当年第一名0029','1'),
+	('EE000030','E000015','2020-06-01','初中','考试成绩当年第一名0030','1'),
+	('EE000031','E000016','2021-12-12','高中','考试成绩当年第一名0031','1'),
+	('EE000032','E000016','2021-07-02','大学','考试成绩当年第一名0032','1');
 
-insert into employee_award_data values
-	('EA000001','E000001','2019-06-03','明星员工','考试成绩当年第一名0001','1'),
-	('EA000002','E000001','2021-03-29','销售之星','考试成绩当年第一名0002','1'),
-	('EA000003','E000002','2021-03-10','技术之星','考试成绩当年第一名0003','1'),
-	('EA000004','E000002','2020-04-14','管理之星','考试成绩当年第一名0004','1'),
-	('EA000005','E000003','2020-12-04','终身成就奖','考试成绩当年第一名0005','1'),
-	('EA000006','E000003','2020-12-10','明星员工','考试成绩当年第一名0006','1'),
-	('EA000007','E000004','2020-07-09','销售之星','考试成绩当年第一名0007','1'),
-	('EA000008','E000004','2021-07-16','技术之星','考试成绩当年第一名0008','1'),
-	('EA000009','E000005','2021-03-15','管理之星','考试成绩当年第一名0009','1'),
-	('EA000010','E000005','2020-03-03','终身成就奖','考试成绩当年第一名0010','1'),
-	('EA000011','E000006','2021-03-14','明星员工','考试成绩当年第一名0011','1'),
-	('EA000012','E000006','2020-09-04','销售之星','考试成绩当年第一名0012','1'),
-	('EA000013','E000007','2019-08-06','技术之星','考试成绩当年第一名0013','1'),
-	('EA000014','E000007','2020-02-26','管理之星','考试成绩当年第一名0014','1'),
-	('EA000015','E000008','2019-01-26','终身成就奖','考试成绩当年第一名0015','1'),
-	('EA000016','E000008','2020-05-06','明星员工','考试成绩当年第一名0016','1'),
-	('EA000017','E000009','2021-07-05','销售之星','考试成绩当年第一名0017','1'),
-	('EA000018','E000009','2021-06-17','技术之星','考试成绩当年第一名0018','1'),
-	('EA000019','E000010','2019-06-12','管理之星','考试成绩当年第一名0019','1'),
-	('EA000020','E000010','2020-10-16','终身成就奖','考试成绩当年第一名0020','1'),
-	('EA000021','E000011','2020-02-24','明星员工','考试成绩当年第一名0021','1'),
-	('EA000022','E000011','2020-07-05','销售之星','考试成绩当年第一名0022','1'),
-	('EA000023','E000012','2020-10-09','技术之星','考试成绩当年第一名0023','1'),
-	('EA000024','E000012','2021-06-14','管理之星','考试成绩当年第一名0024','1'),
-	('EA000025','E000013','2020-05-09','终身成就奖','考试成绩当年第一名0025','1'),
-	('EA000026','E000013','2021-01-05','明星员工','考试成绩当年第一名0026','1'),
-	('EA000027','E000014','2019-12-21','销售之星','考试成绩当年第一名0027','1'),
-	('EA000028','E000014','2021-01-08','技术之星','考试成绩当年第一名0028','1'),
-	('EA000029','E000015','2021-08-21','管理之星','考试成绩当年第一名0029','1'),
-	('EA000030','E000015','2021-05-20','终身成就奖','考试成绩当年第一名0030','1'),
-	('EA000031','E000016','2019-11-29','明星员工','考试成绩当年第一名0031','1'),
-	('EA000032','E000016','2021-02-22','销售之星','考试成绩当年第一名0032','1');
+insert into employee_award_data (id,employee,complete_time,type,remark,version) values
+	('EA000001','E000001','2020-11-12','明星员工','考试成绩当年第一名0001','1'),
+	('EA000002','E000001','2019-11-13','销售之星','考试成绩当年第一名0002','1'),
+	('EA000003','E000002','2022-08-13','技术之星','考试成绩当年第一名0003','1'),
+	('EA000004','E000002','2019-11-15','管理之星','考试成绩当年第一名0004','1'),
+	('EA000005','E000003','2020-10-26','终身成就奖','考试成绩当年第一名0005','1'),
+	('EA000006','E000003','2020-05-24','明星员工','考试成绩当年第一名0006','1'),
+	('EA000007','E000004','2019-10-14','销售之星','考试成绩当年第一名0007','1'),
+	('EA000008','E000004','2022-01-27','技术之星','考试成绩当年第一名0008','1'),
+	('EA000009','E000005','2021-01-17','管理之星','考试成绩当年第一名0009','1'),
+	('EA000010','E000005','2022-04-11','终身成就奖','考试成绩当年第一名0010','1'),
+	('EA000011','E000006','2021-04-29','明星员工','考试成绩当年第一名0011','1'),
+	('EA000012','E000006','2021-12-07','销售之星','考试成绩当年第一名0012','1'),
+	('EA000013','E000007','2020-02-19','技术之星','考试成绩当年第一名0013','1'),
+	('EA000014','E000007','2021-11-27','管理之星','考试成绩当年第一名0014','1'),
+	('EA000015','E000008','2022-06-19','终身成就奖','考试成绩当年第一名0015','1'),
+	('EA000016','E000008','2021-05-16','明星员工','考试成绩当年第一名0016','1'),
+	('EA000017','E000009','2019-10-28','销售之星','考试成绩当年第一名0017','1'),
+	('EA000018','E000009','2022-02-23','技术之星','考试成绩当年第一名0018','1'),
+	('EA000019','E000010','2020-08-22','管理之星','考试成绩当年第一名0019','1'),
+	('EA000020','E000010','2019-10-21','终身成就奖','考试成绩当年第一名0020','1'),
+	('EA000021','E000011','2021-11-29','明星员工','考试成绩当年第一名0021','1'),
+	('EA000022','E000011','2021-05-25','销售之星','考试成绩当年第一名0022','1'),
+	('EA000023','E000012','2022-06-26','技术之星','考试成绩当年第一名0023','1'),
+	('EA000024','E000012','2021-11-21','管理之星','考试成绩当年第一名0024','1'),
+	('EA000025','E000013','2021-07-29','终身成就奖','考试成绩当年第一名0025','1'),
+	('EA000026','E000013','2021-12-23','明星员工','考试成绩当年第一名0026','1'),
+	('EA000027','E000014','2020-08-08','销售之星','考试成绩当年第一名0027','1'),
+	('EA000028','E000014','2019-10-31','技术之星','考试成绩当年第一名0028','1'),
+	('EA000029','E000015','2021-02-05','管理之星','考试成绩当年第一名0029','1'),
+	('EA000030','E000015','2020-07-06','终身成就奖','考试成绩当年第一名0030','1'),
+	('EA000031','E000016','2021-07-21','明星员工','考试成绩当年第一名0031','1'),
+	('EA000032','E000016','2022-07-28','销售之星','考试成绩当年第一名0032','1');
 
-insert into employee_salary_sheet_data values
-	('ESS000001','E000001','SG000001','2188.24','950.57','892.30','653.26','982.22','981.29','7.63','PO000001','1'),
-	('ESS000002','E000001','SG000001','2102.73','993.43','964.62','699.50','840.96','874.95','6.33','PO000001','1'),
-	('ESS000003','E000001','SG000001','2968.39','945.70','761.87','713.82','1098.66','1115.23','8.62','PO000002','1'),
-	('ESS000004','E000001','SG000001','2938.64','851.93','869.45','644.86','821.93','944.75','7.90','PO000002','1'),
-	('ESS000005','E000002','SG000001','2447.69','927.85','745.64','699.03','1047.24','1142.51','7.32','PO000003','1'),
-	('ESS000006','E000002','SG000001','2658.70','868.57','974.93','782.87','788.32','941.16','8.15','PO000003','1'),
-	('ESS000007','E000002','SG000001','2169.81','811.22','738.31','755.64','988.22','1123.39','7.22','PO000004','1'),
-	('ESS000008','E000002','SG000001','2546.57','872.25','800.31','584.40','900.96','1177.20','7.78','PO000004','1'),
-	('ESS000009','E000003','SG000001','2393.20','795.01','920.84','574.67','1012.93','887.21','6.91','PO000005','1'),
-	('ESS000010','E000003','SG000001','2354.97','750.04','888.38','742.02','889.02','915.23','8.51','PO000005','1'),
-	('ESS000011','E000003','SG000001','2800.23','745.71','962.37','735.77','1080.76','1057.65','6.85','PO000006','1'),
-	('ESS000012','E000003','SG000001','2871.70','988.59','931.53','630.76','951.96','1214.23','6.30','PO000006','1'),
-	('ESS000013','E000004','SG000001','2341.98','784.45','935.22','775.83','845.77','1024.88','8.26','PO000007','1'),
-	('ESS000014','E000004','SG000001','2693.80','784.64','797.03','687.05','970.96','1113.57','7.47','PO000007','1'),
-	('ESS000015','E000004','SG000001','2617.73','808.19','883.90','746.83','1088.95','988.26','7.72','PO000008','1'),
-	('ESS000016','E000004','SG000001','2848.19','868.19','861.03','690.30','1087.25','916.16','6.59','PO000008','1'),
-	('ESS000017','E000005','SG000001','2722.31','819.57','950.14','747.62','964.50','1039.37','7.56','PO000009','1'),
-	('ESS000018','E000005','SG000001','2543.20','716.08','753.42','557.15','868.45','896.26','8.66','PO000009','1'),
-	('ESS000019','E000005','SG000001','2424.33','901.97','741.24','627.06','786.69','1009.93','6.44','PO000010','1'),
-	('ESS000020','E000005','SG000001','2706.00','738.74','720.42','792.82','943.16','1189.43','8.76','PO000010','1'),
-	('ESS000021','E000006','SG000001','2875.11','905.46','795.66','558.76','791.91','1221.01','6.80','PO000011','1'),
-	('ESS000022','E000006','SG000001','2858.04','955.11','786.73','640.17','1063.25','1033.63','8.60','PO000011','1'),
-	('ESS000023','E000006','SG000001','2167.30','983.48','762.66','698.11','938.34','867.85','7.85','PO000012','1'),
-	('ESS000024','E000006','SG000001','2264.58','881.48','927.65','665.95','1077.81','865.86','8.70','PO000012','1'),
-	('ESS000025','E000007','SG000001','2967.50','861.18','979.65','746.52','1035.45','1104.72','7.39','PO000013','1'),
-	('ESS000026','E000007','SG000001','2734.75','904.45','773.02','723.15','828.84','1013.90','8.51','PO000013','1'),
-	('ESS000027','E000007','SG000001','2649.16','924.94','810.04','700.15','858.86','1031.95','6.91','PO000014','1'),
-	('ESS000028','E000007','SG000001','2318.47','980.29','764.54','755.11','830.37','922.83','6.56','PO000014','1'),
-	('ESS000029','E000008','SG000001','2851.99','891.57','952.00','694.49','822.60','1149.86','7.98','PO000015','1'),
-	('ESS000030','E000008','SG000001','2785.70','760.22','976.22','664.15','943.54','1203.43','7.02','PO000015','1'),
-	('ESS000031','E000008','SG000001','2237.65','768.71','749.46','748.20','806.97','1153.40','8.61','PO000016','1'),
-	('ESS000032','E000008','SG000001','2463.80','720.18','814.00','594.77','910.83','1219.93','8.84','PO000016','1'),
-	('ESS000033','E000009','SG000002','2992.91','718.75','834.90','711.64','995.84','931.72','6.72','PO000017','1'),
-	('ESS000034','E000009','SG000002','2163.06','929.00','804.78','573.61','839.83','1178.13','8.05','PO000017','1'),
-	('ESS000035','E000009','SG000002','2937.73','831.94','908.70','707.87','857.14','1222.34','8.73','PO000018','1'),
-	('ESS000036','E000009','SG000002','2331.12','908.19','918.01','689.76','991.76','986.52','6.59','PO000018','1'),
-	('ESS000037','E000010','SG000002','2409.84','939.13','864.76','638.86','873.61','1114.88','8.14','PO000019','1'),
-	('ESS000038','E000010','SG000002','2523.35','966.17','980.86','769.23','785.03','1130.12','8.72','PO000019','1'),
-	('ESS000039','E000010','SG000002','2748.16','713.55','803.21','618.86','932.11','1018.68','6.71','PO000020','1'),
-	('ESS000040','E000010','SG000002','2869.83','965.97','718.00','569.04','1016.42','970.34','7.95','PO000020','1'),
-	('ESS000041','E000011','SG000002','2857.47','736.67','825.36','658.23','1016.55','909.89','8.38','PO000021','1'),
-	('ESS000042','E000011','SG000002','2398.87','854.08','790.05','708.55','777.97','1012.54','6.99','PO000021','1'),
-	('ESS000043','E000011','SG000002','2578.59','920.68','981.92','654.72','786.45','930.41','6.74','PO000022','1'),
-	('ESS000044','E000011','SG000002','2476.03','718.04','909.92','759.15','839.08','878.49','6.98','PO000022','1'),
-	('ESS000045','E000012','SG000002','2369.77','973.54','981.15','685.70','973.21','1048.81','8.01','PO000023','1'),
-	('ESS000046','E000012','SG000002','2135.29','897.10','776.38','770.20','920.72','1181.32','6.94','PO000023','1'),
-	('ESS000047','E000012','SG000002','2643.69','767.64','958.48','773.30','978.64','1085.87','8.46','PO000024','1'),
-	('ESS000048','E000012','SG000002','2868.27','868.84','988.84','623.83','962.46','1150.18','7.35','PO000024','1'),
-	('ESS000049','E000013','SG000002','2848.44','987.29','946.18','634.28','1034.20','1174.08','6.76','PO000025','1'),
-	('ESS000050','E000013','SG000002','2360.60','817.67','761.59','592.52','934.20','936.17','7.48','PO000025','1'),
-	('ESS000051','E000013','SG000002','2285.46','710.58','757.82','785.25','1071.26','959.52','7.68','PO000026','1'),
-	('ESS000052','E000013','SG000002','2492.01','929.44','974.15','602.51','898.15','1095.63','8.84','PO000026','1'),
-	('ESS000053','E000014','SG000002','2664.38','958.09','948.19','680.16','823.61','1002.04','8.18','PO000027','1'),
-	('ESS000054','E000014','SG000002','2874.46','890.68','808.05','744.50','917.87','940.25','6.97','PO000027','1'),
-	('ESS000055','E000014','SG000002','2797.98','860.03','916.08','572.49','910.39','917.36','6.97','PO000028','1'),
-	('ESS000056','E000014','SG000002','2178.66','919.55','791.82','702.79','1083.46','957.53','8.08','PO000028','1'),
-	('ESS000057','E000015','SG000002','2374.66','961.54','767.01','579.28','782.74','1117.14','7.95','PO000029','1'),
-	('ESS000058','E000015','SG000002','2985.31','953.09','903.44','610.35','941.51','918.11','8.01','PO000029','1'),
-	('ESS000059','E000015','SG000002','2642.90','967.20','828.61','717.36','859.66','938.18','7.89','PO000030','1'),
-	('ESS000060','E000015','SG000002','2391.96','830.36','849.98','670.19','1055.75','1129.89','8.00','PO000030','1'),
-	('ESS000061','E000016','SG000002','2727.73','799.89','944.51','780.71','795.04','939.57','6.34','PO000031','1'),
-	('ESS000062','E000016','SG000002','2876.88','873.39','828.37','650.44','1096.67','1061.69','7.16','PO000031','1'),
-	('ESS000063','E000016','SG000002','2649.91','903.52','744.87','622.00','967.81','891.47','8.81','PO000032','1'),
-	('ESS000064','E000016','SG000002','2870.65','992.64','973.81','645.33','882.24','1168.51','8.19','PO000032','1');
+insert into employee_salary_sheet_data (id,employee,current_salary_grade,base_salary,bonus,reward,personal_tax,social_security,housing_found,job_insurance,paying_off,version) values
+	('ESS000001','E000001','SG000001','2288.24','951.29','741.19','645.32','851.12','1201.31','8.00','PO000001','1'),
+	('ESS000002','E000001','SG000001','2656.21','760.15','764.93','702.23','1042.93','989.75','6.31','PO000001','1'),
+	('ESS000003','E000001','SG000001','2397.83','822.75','821.77','649.58','1049.01','990.12','7.79','PO000002','1'),
+	('ESS000004','E000001','SG000001','2377.03','856.68','743.70','666.80','1016.36','905.00','8.14','PO000002','1'),
+	('ESS000005','E000002','SG000001','2251.92','850.92','793.19','667.19','843.97','930.65','7.25','PO000003','1'),
+	('ESS000006','E000002','SG000001','2260.59','722.84','996.44','735.71','1049.10','882.01','8.18','PO000003','1'),
+	('ESS000007','E000002','SG000001','2908.19','760.51','986.06','639.02','855.05','1077.54','7.52','PO000004','1'),
+	('ESS000008','E000002','SG000001','2487.97','764.64','887.78','780.61','1022.49','932.92','8.69','PO000004','1'),
+	('ESS000009','E000003','SG000001','2744.37','804.44','740.78','557.68','909.87','886.91','8.82','PO000005','1'),
+	('ESS000010','E000003','SG000001','2257.56','816.08','730.99','673.83','934.79','930.24','7.65','PO000005','1'),
+	('ESS000011','E000003','SG000001','2708.20','932.41','925.59','737.18','877.51','950.40','8.34','PO000006','1'),
+	('ESS000012','E000003','SG000001','2520.46','760.41','905.96','724.79','939.03','1046.26','7.18','PO000006','1'),
+	('ESS000013','E000004','SG000001','2810.15','823.37','885.77','579.55','1029.37','918.77','6.61','PO000007','1'),
+	('ESS000014','E000004','SG000001','2725.08','793.67','879.01','738.52','1060.76','1134.63','7.75','PO000007','1'),
+	('ESS000015','E000004','SG000001','2144.79','762.34','790.27','689.46','1012.43','1187.26','7.96','PO000008','1'),
+	('ESS000016','E000004','SG000001','2431.12','766.26','890.22','782.90','932.96','1035.07','7.15','PO000008','1'),
+	('ESS000017','E000005','SG000001','2321.19','891.93','790.11','671.88','972.78','1028.72','8.70','PO000009','1'),
+	('ESS000018','E000005','SG000001','2636.31','770.52','882.75','575.45','1089.70','1190.21','8.27','PO000009','1'),
+	('ESS000019','E000005','SG000001','2190.02','745.70','961.86','598.85','1053.74','866.06','6.22','PO000010','1'),
+	('ESS000020','E000005','SG000001','2895.88','765.80','987.04','695.30','802.41','858.27','8.41','PO000010','1'),
+	('ESS000021','E000006','SG000001','2270.75','956.03','986.59','766.16','1082.59','856.44','6.70','PO000011','1'),
+	('ESS000022','E000006','SG000001','2335.93','761.42','750.04','790.73','859.42','1207.44','8.02','PO000011','1'),
+	('ESS000023','E000006','SG000001','2112.76','796.17','708.61','617.51','1033.12','1157.02','7.82','PO000012','1'),
+	('ESS000024','E000006','SG000001','2348.00','728.74','825.44','787.62','903.37','933.90','6.86','PO000012','1'),
+	('ESS000025','E000007','SG000001','2172.17','761.52','925.54','788.29','921.77','1022.51','6.79','PO000013','1'),
+	('ESS000026','E000007','SG000001','2512.08','734.29','735.03','755.09','771.93','1072.53','8.45','PO000013','1'),
+	('ESS000027','E000007','SG000001','2109.19','745.89','811.18','578.97','961.56','938.31','7.85','PO000014','1'),
+	('ESS000028','E000007','SG000001','2741.47','778.41','743.37','743.74','775.17','904.70','6.77','PO000014','1'),
+	('ESS000029','E000008','SG000001','2815.14','733.48','750.51','733.52','908.95','1074.02','7.47','PO000015','1'),
+	('ESS000030','E000008','SG000001','2557.49','769.94','884.82','717.06','817.93','1216.52','8.18','PO000015','1'),
+	('ESS000031','E000008','SG000001','2774.96','893.49','929.67','747.21','776.46','1004.95','7.15','PO000016','1'),
+	('ESS000032','E000008','SG000001','2227.55','753.37','874.66','770.37','949.47','983.73','8.15','PO000016','1'),
+	('ESS000033','E000009','SG000002','2668.65','746.43','747.54','788.84','933.50','1155.84','6.87','PO000017','1'),
+	('ESS000034','E000009','SG000002','2998.48','847.22','860.73','595.73','888.99','1040.79','8.22','PO000017','1'),
+	('ESS000035','E000009','SG000002','2378.73','920.87','991.55','673.12','985.72','1205.31','6.64','PO000018','1'),
+	('ESS000036','E000009','SG000002','2995.92','720.88','716.77','773.37','833.48','1175.65','8.67','PO000018','1'),
+	('ESS000037','E000010','SG000002','2411.47','855.02','702.04','596.30','1024.49','1059.12','7.64','PO000019','1'),
+	('ESS000038','E000010','SG000002','2282.90','984.14','892.98','643.78','980.75','971.79','6.55','PO000019','1'),
+	('ESS000039','E000010','SG000002','2676.35','735.76','871.71','746.00','815.12','952.17','8.04','PO000020','1'),
+	('ESS000040','E000010','SG000002','2369.11','941.54','866.36','757.69','864.38','924.12','7.46','PO000020','1'),
+	('ESS000041','E000011','SG000002','2713.47','731.34','719.19','634.12','845.88','869.38','8.00','PO000021','1'),
+	('ESS000042','E000011','SG000002','2560.71','761.13','835.99','769.62','802.91','1199.02','6.92','PO000021','1'),
+	('ESS000043','E000011','SG000002','2187.18','941.43','813.49','672.49','770.64','1154.84','7.76','PO000022','1'),
+	('ESS000044','E000011','SG000002','2459.53','859.26','785.40','713.15','927.36','1204.90','8.06','PO000022','1'),
+	('ESS000045','E000012','SG000002','2588.68','893.36','720.22','690.66','775.25','958.13','8.67','PO000023','1'),
+	('ESS000046','E000012','SG000002','2258.65','733.00','760.83','650.35','885.20','1182.11','7.54','PO000023','1'),
+	('ESS000047','E000012','SG000002','2140.82','789.41','700.69','770.81','815.41','935.05','8.03','PO000024','1'),
+	('ESS000048','E000012','SG000002','2791.62','701.53','847.37','740.45','1036.86','934.04','8.71','PO000024','1'),
+	('ESS000049','E000013','SG000002','2890.79','904.35','718.57','726.85','858.59','1217.35','7.66','PO000025','1'),
+	('ESS000050','E000013','SG000002','2849.88','700.34','848.47','683.23','939.91','1206.81','7.85','PO000025','1'),
+	('ESS000051','E000013','SG000002','2790.41','935.86','736.79','676.62','933.04','930.89','6.34','PO000026','1'),
+	('ESS000052','E000013','SG000002','2168.09','918.06','706.65','686.85','1027.73','883.35','7.63','PO000026','1'),
+	('ESS000053','E000014','SG000002','2624.39','880.54','705.04','721.99','1093.77','1051.92','8.39','PO000027','1'),
+	('ESS000054','E000014','SG000002','2443.34','960.54','935.00','737.22','1097.05','897.02','7.55','PO000027','1'),
+	('ESS000055','E000014','SG000002','2881.49','793.45','717.14','775.39','933.85','886.80','7.99','PO000028','1'),
+	('ESS000056','E000014','SG000002','2110.20','965.24','740.05','710.40','788.91','1107.16','7.31','PO000028','1'),
+	('ESS000057','E000015','SG000002','2301.94','858.18','731.02','724.84','876.63','888.74','7.30','PO000029','1'),
+	('ESS000058','E000015','SG000002','2973.11','791.36','706.70','754.52','1029.54','932.03','7.40','PO000029','1'),
+	('ESS000059','E000015','SG000002','2260.66','855.38','895.11','637.59','896.18','994.35','8.02','PO000030','1'),
+	('ESS000060','E000015','SG000002','2232.43','957.08','721.89','699.98','931.82','881.08','6.73','PO000030','1'),
+	('ESS000061','E000016','SG000002','2285.29','746.84','773.17','781.69','809.14','995.70','6.22','PO000031','1'),
+	('ESS000062','E000016','SG000002','2148.14','938.41','848.49','731.79','871.47','1081.25','7.94','PO000031','1'),
+	('ESS000063','E000016','SG000002','2705.94','757.89','741.48','655.71','836.61','1170.51','8.71','PO000032','1'),
+	('ESS000064','E000016','SG000002','2521.15','849.50','718.25','664.83','1000.36','1149.91','7.06','PO000032','1');
 
-insert into paying_off_data values
-	('PO000001','出纳0001','E000001','2019-07-23','3664.91','1'),
-	('PO000002','出纳0002','E000001','2019-12-08','3821.79','1'),
-	('PO000003','出纳0003','E000002','2020-08-10','4053.99','1'),
-	('PO000004','出纳0004','E000002','2019-12-01','3926.88','1'),
-	('PO000005','出纳0005','E000003','2019-02-12','4553.97','1'),
-	('PO000006','出纳0006','E000003','2019-01-19','4947.43','1'),
-	('PO000007','出纳0007','E000004','2019-08-22','4191.88','1'),
-	('PO000008','出纳0008','E000004','2019-05-27','4959.72','1'),
-	('PO000009','出纳0009','E000005','2021-02-15','4747.12','1'),
-	('PO000010','出纳0010','E000005','2019-01-31','5072.19','1'),
-	('PO000011','出纳0011','E000006','2020-01-14','4031.95','1'),
-	('PO000012','出纳0012','E000006','2020-03-20','4016.40','1'),
-	('PO000013','出纳0013','E000007','2019-07-12','4124.62','1'),
-	('PO000014','出纳0014','E000007','2020-11-01','5031.66','1'),
-	('PO000015','出纳0015','E000008','2019-01-03','4696.12','1'),
-	('PO000016','出纳0016','E000008','2020-08-05','5094.67','1'),
-	('PO000017','出纳0017','E000009','2020-07-30','4223.18','1'),
-	('PO000018','出纳0018','E000009','2021-08-28','4550.56','1'),
-	('PO000019','出纳0019','E000010','2020-07-09','5144.69','1'),
-	('PO000020','出纳0020','E000010','2020-06-05','5051.07','1'),
-	('PO000021','出纳0021','E000011','2021-08-26','3792.82','1'),
-	('PO000022','出纳0022','E000011','2020-09-09','4578.92','1'),
-	('PO000023','出纳0023','E000012','2021-05-21','4898.86','1'),
-	('PO000024','出纳0024','E000012','2019-07-23','4488.47','1'),
-	('PO000025','出纳0025','E000013','2021-07-07','4832.81','1'),
-	('PO000026','出纳0026','E000013','2020-11-30','3950.51','1'),
-	('PO000027','出纳0027','E000014','2021-02-11','4199.88','1'),
-	('PO000028','出纳0028','E000014','2021-04-22','5163.91','1'),
-	('PO000029','出纳0029','E000015','2020-08-19','4883.11','1'),
-	('PO000030','出纳0030','E000015','2018-12-08','4829.44','1'),
-	('PO000031','出纳0031','E000016','2019-01-04','4610.99','1'),
-	('PO000032','出纳0032','E000016','2019-03-10','4268.44','1');
+insert into paying_off_data (id,who,paid_for,paid_time,amount,version) values
+	('PO000001','出纳0001','E000001','2022-09-15','4333.35','1'),
+	('PO000002','出纳0002','E000001','2019-11-02','5096.64','1'),
+	('PO000003','出纳0003','E000002','2020-08-13','4734.59','1'),
+	('PO000004','出纳0004','E000002','2020-11-11','4762.13','1'),
+	('PO000005','出纳0005','E000003','2019-12-19','3732.71','1'),
+	('PO000006','出纳0006','E000003','2019-10-17','4204.17','1'),
+	('PO000007','出纳0007','E000004','2021-02-25','5046.48','1'),
+	('PO000008','出纳0008','E000004','2021-11-15','4444.18','1'),
+	('PO000009','出纳0009','E000005','2020-12-12','4158.19','1'),
+	('PO000010','出纳0010','E000005','2021-03-04','4448.65','1'),
+	('PO000011','出纳0011','E000006','2022-01-30','3783.01','1'),
+	('PO000012','出纳0012','E000006','2020-09-02','4271.96','1'),
+	('PO000013','出纳0013','E000007','2022-01-16','4472.19','1'),
+	('PO000014','出纳0014','E000007','2020-07-01','4747.66','1'),
+	('PO000015','出纳0015','E000008','2020-12-22','3990.34','1'),
+	('PO000016','出纳0016','E000008','2020-03-11','3704.14','1'),
+	('PO000017','出纳0017','E000009','2021-12-08','3794.91','1'),
+	('PO000018','出纳0018','E000009','2022-02-23','4668.88','1'),
+	('PO000019','出纳0019','E000010','2021-07-19','4783.35','1'),
+	('PO000020','出纳0020','E000010','2021-08-07','3752.39','1'),
+	('PO000021','出纳0021','E000011','2021-06-23','4101.19','1'),
+	('PO000022','出纳0022','E000011','2020-11-02','4465.10','1'),
+	('PO000023','出纳0023','E000012','2020-03-25','4998.26','1'),
+	('PO000024','出纳0024','E000012','2019-10-08','4214.82','1'),
+	('PO000025','出纳0025','E000013','2022-05-04','3675.82','1'),
+	('PO000026','出纳0026','E000013','2020-07-07','4487.74','1'),
+	('PO000027','出纳0027','E000014','2022-02-24','4141.00','1'),
+	('PO000028','出纳0028','E000014','2022-04-20','3933.47','1'),
+	('PO000029','出纳0029','E000015','2021-05-13','5173.77','1'),
+	('PO000030','出纳0030','E000015','2020-08-15','4903.25','1'),
+	('PO000031','出纳0031','E000016','2020-09-07','3808.35','1'),
+	('PO000032','出纳0032','E000016','2020-07-02','4804.38','1');
 
-insert into mobile_app_data values
+insert into mobile_app_data (id,name,version) values
 	('MA000001','移动端配置0001','1');
 
-insert into page_data values
+insert into page_data (id,page_title,link_to_url,page_type,display_order,mobile_app,version) values
 	('P000001','首页0001','首页0001','home','1','MA000001','1'),
 	('P000002','首页0002','首页0002','me','2','MA000001','1'),
 	('P000003','首页0003','首页0003','listof-page','3','MA000001','1'),
 	('P000004','首页0004','首页0004','service-center','1','MA000001','1');
 
-insert into page_type_data values
+insert into page_type_data (id,name,code,mobile_app,footer_tab,version) values
 	('home','首页','home','MA000001','1','1'),
 	('me','我的','me','MA000001','1','1'),
 	('generic-page','Generic Page','generic-page','MA000001','1','1'),
@@ -3763,7 +3763,7 @@ insert into page_type_data values
 	('service-center','功能大厅','service-center','MA000001','1','1'),
 	('simple','普通','simple','MA000001','1','1');
 
-insert into slide_data values
+insert into slide_data (id,name,display_order,image_url,video_url,link_to_url,page,version) values
 	('S000001','首页Focus的内容0001','1','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_1.jpg','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_1.jpg','','P000001','1'),
 	('S000002','首页Focus的内容0002','2','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_2.jpg','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_2.jpg','/section/article/','P000001','1'),
 	('S000003','首页Focus的内容0003','3','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_3.jpg','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_3.jpg','','P000002','1'),
@@ -3773,7 +3773,7 @@ insert into slide_data values
 	('S000007','首页Focus的内容0007','1','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_1.jpg','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_1.jpg','','P000004','1'),
 	('S000008','首页Focus的内容0008','2','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_2.jpg','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_2.jpg','/section/article/','P000004','1');
 
-insert into ui_action_data values
+insert into ui_action_data (id,code,icon,title,display_order,brief,image_url,link_to_url,extra_data,page,version) values
 	('UA000001','submit','icon_edit','提交','1','Submit','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_1.jpg','wxappService/section/article/0001','长文本例子\n','P000001','1'),
 	('UA000002','share','icon_share','分享','2','Share','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_2.jpg','wxappService/section/article/0002','长文本例子\n','P000001','1'),
 	('UA000003','view','icon_eye','查看','3','View','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_3.jpg','wxappService/section/article/0003','长文本例子\n','P000002','1'),
@@ -3783,7 +3783,7 @@ insert into ui_action_data values
 	('UA000007','view','icon_eye','查看','1','View','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_1.jpg','wxappService/section/article/0007','长文本例子\n','P000004','1'),
 	('UA000008','more','icon_more','更多','2','View More','https://nice-router.oss-cn-chengdu.aliyuncs.com/slide_2.jpg','wxappService/section/article/0008','长文本例子\n','P000004','1');
 
-insert into section_data values
+insert into section_data (id,title,brief,icon,display_order,view_group,link_to_url,page,version) values
 	('S000001','文章','Article','https://demo.doublechaintech.com/demodata/imageManager/genImage/icon0001/400/200/grey/','1','icon_edit','wxappService/section/article/0001','P000001','1'),
 	('S000002','作品','Artwork','https://demo.doublechaintech.com/demodata/imageManager/genImage/icon0002/400/200/grey/','2','icon_share','wxappService/section/article/0002','P000001','1'),
 	('S000003','文章','Article','https://demo.doublechaintech.com/demodata/imageManager/genImage/icon0003/400/200/grey/','3','icon_eye','wxappService/section/article/0003','P000002','1'),
@@ -3797,8 +3797,8 @@ insert into section_data values
 
 
 
-insert into tree_node_data values
-	('TN000001','node0000010001','nodetype0001','1','9','1');
+insert into tree_node_data (id,node_id,node_type,left_value,right_value,version) values
+	('TN000001','node0000010001','nodetype0001','1','10','1');
 
 
 
@@ -3845,82 +3845,108 @@ select mobile as `可用于登录的账号`, 'admin123' as `密码` from sec_use
 
 create unique index idx4id_ver_of_retail_store_country_center on retail_store_country_center_data (id, version);
 create  index idx4founded_of_retail_store_country_center on retail_store_country_center_data (founded);
+create  index idx4version_of_retail_store_country_center on retail_store_country_center_data (version);
 
 create unique index idx4id_ver_of_catalog on catalog_data (id, version);
 create  index idx4sub_count_of_catalog on catalog_data (sub_count);
 create  index idx4amount_of_catalog on catalog_data (amount);
+create  index idx4version_of_catalog on catalog_data (version);
 
 create unique index idx4id_ver_of_level_one_category on level_one_category_data (id, version);
+create  index idx4version_of_level_one_category on level_one_category_data (version);
 
 create unique index idx4id_ver_of_level_two_category on level_two_category_data (id, version);
+create  index idx4version_of_level_two_category on level_two_category_data (version);
 
 create unique index idx4id_ver_of_level_three_category on level_three_category_data (id, version);
+create  index idx4version_of_level_three_category on level_three_category_data (version);
 
 create unique index idx4id_ver_of_product on product_data (id, version);
 create  index idx4last_update_time_of_product on product_data (last_update_time);
+create  index idx4version_of_product on product_data (version);
 
 create unique index idx4id_ver_of_sku on sku_data (id, version);
 create  index idx4price_of_sku on sku_data (price);
+create  index idx4version_of_sku on sku_data (version);
 
 create unique index idx4id_ver_of_retail_store_province_center on retail_store_province_center_data (id, version);
 create  index idx4founded_of_retail_store_province_center on retail_store_province_center_data (founded);
 create  index idx4last_update_time_of_retail_store_province_center on retail_store_province_center_data (last_update_time);
+create  index idx4version_of_retail_store_province_center on retail_store_province_center_data (version);
 
 create unique index idx4id_ver_of_province_center_department on province_center_department_data (id, version);
 create  index idx4founded_of_province_center_department on province_center_department_data (founded);
+create  index idx4version_of_province_center_department on province_center_department_data (version);
 
 create unique index idx4id_ver_of_province_center_employee on province_center_employee_data (id, version);
 create  index idx4mobile_of_province_center_employee on province_center_employee_data (mobile);
 create  index idx4founded_of_province_center_employee on province_center_employee_data (founded);
+create  index idx4version_of_province_center_employee on province_center_employee_data (version);
 
 create unique index idx4id_ver_of_retail_store_city_service_center on retail_store_city_service_center_data (id, version);
 create  index idx4founded_of_retail_store_city_service_center on retail_store_city_service_center_data (founded);
 create  index idx4last_update_time_of_retail_store_city_service_center on retail_store_city_service_center_data (last_update_time);
+create  index idx4version_of_retail_store_city_service_center on retail_store_city_service_center_data (version);
 
 create unique index idx4id_ver_of_city_partner on city_partner_data (id, version);
 create  index idx4mobile_of_city_partner on city_partner_data (mobile);
 create  index idx4last_update_time_of_city_partner on city_partner_data (last_update_time);
+create  index idx4version_of_city_partner on city_partner_data (version);
 
 create unique index idx4id_ver_of_potential_customer on potential_customer_data (id, version);
 create  index idx4mobile_of_potential_customer on potential_customer_data (mobile);
 create  index idx4last_update_time_of_potential_customer on potential_customer_data (last_update_time);
+create  index idx4version_of_potential_customer on potential_customer_data (version);
 
 create unique index idx4id_ver_of_potential_customer_contact_person on potential_customer_contact_person_data (id, version);
 create  index idx4mobile_of_potential_customer_contact_person on potential_customer_contact_person_data (mobile);
+create  index idx4version_of_potential_customer_contact_person on potential_customer_contact_person_data (version);
 
 create unique index idx4id_ver_of_potential_customer_contact on potential_customer_contact_data (id, version);
 create  index idx4contact_date_of_potential_customer_contact on potential_customer_contact_data (contact_date);
 create  index idx4last_update_time_of_potential_customer_contact on potential_customer_contact_data (last_update_time);
+create  index idx4version_of_potential_customer_contact on potential_customer_contact_data (version);
 
 create unique index idx4id_ver_of_city_event on city_event_data (id, version);
 create  index idx4mobile_of_city_event on city_event_data (mobile);
 create  index idx4last_update_time_of_city_event on city_event_data (last_update_time);
+create  index idx4version_of_city_event on city_event_data (version);
 
 create unique index idx4id_ver_of_event_attendance on event_attendance_data (id, version);
+create  index idx4version_of_event_attendance on event_attendance_data (version);
 
 create unique index idx4id_ver_of_retail_store on retail_store_data (id, version);
 create  index idx4founded_of_retail_store on retail_store_data (founded);
 create  index idx4latitude_of_retail_store on retail_store_data (latitude);
 create  index idx4longitude_of_retail_store on retail_store_data (longitude);
 create  index idx4last_update_time_of_retail_store on retail_store_data (last_update_time);
+create  index idx4version_of_retail_store on retail_store_data (version);
 
 create unique index idx4id_ver_of_retail_store_creation on retail_store_creation_data (id, version);
+create  index idx4version_of_retail_store_creation on retail_store_creation_data (version);
 
 create unique index idx4id_ver_of_retail_store_investment_invitation on retail_store_investment_invitation_data (id, version);
+create  index idx4version_of_retail_store_investment_invitation on retail_store_investment_invitation_data (version);
 
 create unique index idx4id_ver_of_retail_store_franchising on retail_store_franchising_data (id, version);
+create  index idx4version_of_retail_store_franchising on retail_store_franchising_data (version);
 
 create unique index idx4id_ver_of_retail_store_decoration on retail_store_decoration_data (id, version);
+create  index idx4version_of_retail_store_decoration on retail_store_decoration_data (version);
 
 create unique index idx4id_ver_of_retail_store_opening on retail_store_opening_data (id, version);
+create  index idx4version_of_retail_store_opening on retail_store_opening_data (version);
 
 create unique index idx4id_ver_of_retail_store_closing on retail_store_closing_data (id, version);
+create  index idx4version_of_retail_store_closing on retail_store_closing_data (version);
 
 create unique index idx4id_ver_of_retail_store_member on retail_store_member_data (id, version);
 create  index idx4mobile_phone_of_retail_store_member on retail_store_member_data (mobile_phone);
+create  index idx4version_of_retail_store_member on retail_store_member_data (version);
 
 create unique index idx4id_ver_of_consumer_order on consumer_order_data (id, version);
 create  index idx4last_update_time_of_consumer_order on consumer_order_data (last_update_time);
+create  index idx4version_of_consumer_order on consumer_order_data (version);
 
 create unique index idx4id_ver_of_consumer_order_line_item on consumer_order_line_item_data (id, version);
 create  index idx4sku_id_of_consumer_order_line_item on consumer_order_line_item_data (sku_id);
@@ -3928,107 +3954,138 @@ create  index idx4price_of_consumer_order_line_item on consumer_order_line_item_
 create  index idx4quantity_of_consumer_order_line_item on consumer_order_line_item_data (quantity);
 create  index idx4amount_of_consumer_order_line_item on consumer_order_line_item_data (amount);
 create  index idx4last_update_time_of_consumer_order_line_item on consumer_order_line_item_data (last_update_time);
+create  index idx4version_of_consumer_order_line_item on consumer_order_line_item_data (version);
 
 create unique index idx4id_ver_of_consumer_order_shipping_group on consumer_order_shipping_group_data (id, version);
 create  index idx4amount_of_consumer_order_shipping_group on consumer_order_shipping_group_data (amount);
+create  index idx4version_of_consumer_order_shipping_group on consumer_order_shipping_group_data (version);
 
 create unique index idx4id_ver_of_consumer_order_payment_group on consumer_order_payment_group_data (id, version);
+create  index idx4version_of_consumer_order_payment_group on consumer_order_payment_group_data (version);
 
 create unique index idx4id_ver_of_consumer_order_price_adjustment on consumer_order_price_adjustment_data (id, version);
 create  index idx4amount_of_consumer_order_price_adjustment on consumer_order_price_adjustment_data (amount);
+create  index idx4version_of_consumer_order_price_adjustment on consumer_order_price_adjustment_data (version);
 
 create unique index idx4id_ver_of_retail_store_member_coupon on retail_store_member_coupon_data (id, version);
 create  index idx4last_update_time_of_retail_store_member_coupon on retail_store_member_coupon_data (last_update_time);
+create  index idx4version_of_retail_store_member_coupon on retail_store_member_coupon_data (version);
 
 create unique index idx4id_ver_of_member_wishlist on member_wishlist_data (id, version);
+create  index idx4version_of_member_wishlist on member_wishlist_data (version);
 
 create unique index idx4id_ver_of_member_reward_point on member_reward_point_data (id, version);
 create  index idx4point_of_member_reward_point on member_reward_point_data (point);
+create  index idx4version_of_member_reward_point on member_reward_point_data (version);
 
 create unique index idx4id_ver_of_member_reward_point_redemption on member_reward_point_redemption_data (id, version);
 create  index idx4point_of_member_reward_point_redemption on member_reward_point_redemption_data (point);
+create  index idx4version_of_member_reward_point_redemption on member_reward_point_redemption_data (version);
 
 create unique index idx4id_ver_of_member_wishlist_product on member_wishlist_product_data (id, version);
+create  index idx4version_of_member_wishlist_product on member_wishlist_product_data (version);
 
 create unique index idx4id_ver_of_retail_store_member_address on retail_store_member_address_data (id, version);
 create  index idx4mobile_phone_of_retail_store_member_address on retail_store_member_address_data (mobile_phone);
+create  index idx4version_of_retail_store_member_address on retail_store_member_address_data (version);
 
 create unique index idx4id_ver_of_retail_store_member_gift_card on retail_store_member_gift_card_data (id, version);
 create  index idx4remain_of_retail_store_member_gift_card on retail_store_member_gift_card_data (remain);
+create  index idx4version_of_retail_store_member_gift_card on retail_store_member_gift_card_data (version);
 
 create unique index idx4id_ver_of_retail_store_member_gift_card_consume_record on retail_store_member_gift_card_consume_record_data (id, version);
-create  index idx9672831939628696 on retail_store_member_gift_card_consume_record_data (occure_time);
+create  index idx2824047791952093 on retail_store_member_gift_card_consume_record_data (occure_time);
 create  index idx4amount_of_retail_store_member_gift_card_consume_record on retail_store_member_gift_card_consume_record_data (amount);
+create  index idx4version_of_retail_store_member_gift_card_consume_record on retail_store_member_gift_card_consume_record_data (version);
 
 create unique index idx4id_ver_of_goods_supplier on goods_supplier_data (id, version);
 create  index idx4contact_number_of_goods_supplier on goods_supplier_data (contact_number);
 create  index idx4last_update_time_of_goods_supplier on goods_supplier_data (last_update_time);
+create  index idx4version_of_goods_supplier on goods_supplier_data (version);
 
 create unique index idx4id_ver_of_supplier_product on supplier_product_data (id, version);
+create  index idx4version_of_supplier_product on supplier_product_data (version);
 
 create unique index idx4id_ver_of_product_supply_duration on product_supply_duration_data (id, version);
 create  index idx4quantity_of_product_supply_duration on product_supply_duration_data (quantity);
 create  index idx4price_of_product_supply_duration on product_supply_duration_data (price);
+create  index idx4version_of_product_supply_duration on product_supply_duration_data (version);
 
 create unique index idx4id_ver_of_supply_order on supply_order_data (id, version);
 create  index idx4total_amount_of_supply_order on supply_order_data (total_amount);
 create  index idx4last_update_time_of_supply_order on supply_order_data (last_update_time);
+create  index idx4version_of_supply_order on supply_order_data (version);
 
 create unique index idx4id_ver_of_supply_order_line_item on supply_order_line_item_data (id, version);
 create  index idx4sku_id_of_supply_order_line_item on supply_order_line_item_data (sku_id);
 create  index idx4amount_of_supply_order_line_item on supply_order_line_item_data (amount);
 create  index idx4quantity_of_supply_order_line_item on supply_order_line_item_data (quantity);
+create  index idx4version_of_supply_order_line_item on supply_order_line_item_data (version);
 
 create unique index idx4id_ver_of_supply_order_shipping_group on supply_order_shipping_group_data (id, version);
 create  index idx4amount_of_supply_order_shipping_group on supply_order_shipping_group_data (amount);
+create  index idx4version_of_supply_order_shipping_group on supply_order_shipping_group_data (version);
 
 create unique index idx4id_ver_of_supply_order_payment_group on supply_order_payment_group_data (id, version);
+create  index idx4version_of_supply_order_payment_group on supply_order_payment_group_data (version);
 
 create unique index idx4id_ver_of_retail_store_order on retail_store_order_data (id, version);
 create  index idx4total_amount_of_retail_store_order on retail_store_order_data (total_amount);
 create  index idx4last_update_time_of_retail_store_order on retail_store_order_data (last_update_time);
+create  index idx4version_of_retail_store_order on retail_store_order_data (version);
 
 create unique index idx4id_ver_of_retail_store_order_line_item on retail_store_order_line_item_data (id, version);
 create  index idx4sku_id_of_retail_store_order_line_item on retail_store_order_line_item_data (sku_id);
 create  index idx4amount_of_retail_store_order_line_item on retail_store_order_line_item_data (amount);
 create  index idx4quantity_of_retail_store_order_line_item on retail_store_order_line_item_data (quantity);
+create  index idx4version_of_retail_store_order_line_item on retail_store_order_line_item_data (version);
 
 create unique index idx4id_ver_of_retail_store_order_shipping_group on retail_store_order_shipping_group_data (id, version);
 create  index idx4amount_of_retail_store_order_shipping_group on retail_store_order_shipping_group_data (amount);
+create  index idx4version_of_retail_store_order_shipping_group on retail_store_order_shipping_group_data (version);
 
 create unique index idx4id_ver_of_retail_store_order_payment_group on retail_store_order_payment_group_data (id, version);
+create  index idx4version_of_retail_store_order_payment_group on retail_store_order_payment_group_data (version);
 
 create unique index idx4id_ver_of_warehouse on warehouse_data (id, version);
 create  index idx4latitude_of_warehouse on warehouse_data (latitude);
 create  index idx4longitude_of_warehouse on warehouse_data (longitude);
 create  index idx4last_update_time_of_warehouse on warehouse_data (last_update_time);
+create  index idx4version_of_warehouse on warehouse_data (version);
 
 create unique index idx4id_ver_of_storage_space on storage_space_data (id, version);
 create  index idx4latitude_of_storage_space on storage_space_data (latitude);
 create  index idx4longitude_of_storage_space on storage_space_data (longitude);
 create  index idx4last_update_time_of_storage_space on storage_space_data (last_update_time);
+create  index idx4version_of_storage_space on storage_space_data (version);
 
 create unique index idx4id_ver_of_smart_pallet on smart_pallet_data (id, version);
 create  index idx4latitude_of_smart_pallet on smart_pallet_data (latitude);
 create  index idx4longitude_of_smart_pallet on smart_pallet_data (longitude);
 create  index idx4last_update_time_of_smart_pallet on smart_pallet_data (last_update_time);
+create  index idx4version_of_smart_pallet on smart_pallet_data (version);
 
 create unique index idx4id_ver_of_goods_shelf on goods_shelf_data (id, version);
 create  index idx4last_update_time_of_goods_shelf on goods_shelf_data (last_update_time);
+create  index idx4version_of_goods_shelf on goods_shelf_data (version);
 
 create unique index idx4id_ver_of_goods_shelf_stock_count on goods_shelf_stock_count_data (id, version);
 create  index idx4count_time_of_goods_shelf_stock_count on goods_shelf_stock_count_data (count_time);
+create  index idx4version_of_goods_shelf_stock_count on goods_shelf_stock_count_data (version);
 
 create unique index idx4id_ver_of_stock_count_issue_track on stock_count_issue_track_data (id, version);
 create  index idx4count_time_of_stock_count_issue_track on stock_count_issue_track_data (count_time);
+create  index idx4version_of_stock_count_issue_track on stock_count_issue_track_data (version);
 
 create unique index idx4id_ver_of_goods_allocation on goods_allocation_data (id, version);
 create  index idx4latitude_of_goods_allocation on goods_allocation_data (latitude);
 create  index idx4longitude_of_goods_allocation on goods_allocation_data (longitude);
+create  index idx4version_of_goods_allocation on goods_allocation_data (version);
 
 create unique index idx4id_ver_of_goods on goods_data (id, version);
 create  index idx4max_package_of_goods on goods_data (max_package);
 create  index idx4expire_time_of_goods on goods_data (expire_time);
+create  index idx4version_of_goods on goods_data (version);
 
 create unique index idx4id_ver_of_goods_movement on goods_movement_data (id, version);
 create  index idx4move_time_of_goods_movement on goods_movement_data (move_time);
@@ -4036,148 +4093,195 @@ create  index idx4facility_id_of_goods_movement on goods_movement_data (facility
 create  index idx4session_id_of_goods_movement on goods_movement_data (session_id);
 create  index idx4latitude_of_goods_movement on goods_movement_data (latitude);
 create  index idx4longitude_of_goods_movement on goods_movement_data (longitude);
+create  index idx4version_of_goods_movement on goods_movement_data (version);
 
 create unique index idx4id_ver_of_supplier_space on supplier_space_data (id, version);
 create  index idx4latitude_of_supplier_space on supplier_space_data (latitude);
 create  index idx4longitude_of_supplier_space on supplier_space_data (longitude);
 create  index idx4last_update_time_of_supplier_space on supplier_space_data (last_update_time);
+create  index idx4version_of_supplier_space on supplier_space_data (version);
 
 create unique index idx4id_ver_of_receiving_space on receiving_space_data (id, version);
 create  index idx4latitude_of_receiving_space on receiving_space_data (latitude);
 create  index idx4longitude_of_receiving_space on receiving_space_data (longitude);
 create  index idx4last_update_time_of_receiving_space on receiving_space_data (last_update_time);
+create  index idx4version_of_receiving_space on receiving_space_data (version);
 
 create unique index idx4id_ver_of_shipping_space on shipping_space_data (id, version);
 create  index idx4latitude_of_shipping_space on shipping_space_data (latitude);
 create  index idx4longitude_of_shipping_space on shipping_space_data (longitude);
 create  index idx4last_update_time_of_shipping_space on shipping_space_data (last_update_time);
+create  index idx4version_of_shipping_space on shipping_space_data (version);
 
 create unique index idx4id_ver_of_damage_space on damage_space_data (id, version);
 create  index idx4latitude_of_damage_space on damage_space_data (latitude);
 create  index idx4longitude_of_damage_space on damage_space_data (longitude);
 create  index idx4last_update_time_of_damage_space on damage_space_data (last_update_time);
+create  index idx4version_of_damage_space on damage_space_data (version);
 
 create unique index idx4id_ver_of_warehouse_asset on warehouse_asset_data (id, version);
 create  index idx4last_update_time_of_warehouse_asset on warehouse_asset_data (last_update_time);
+create  index idx4version_of_warehouse_asset on warehouse_asset_data (version);
 
 create unique index idx4id_ver_of_transport_fleet on transport_fleet_data (id, version);
 create  index idx4last_update_time_of_transport_fleet on transport_fleet_data (last_update_time);
+create  index idx4version_of_transport_fleet on transport_fleet_data (version);
 
 create unique index idx4id_ver_of_transport_truck on transport_truck_data (id, version);
 create  index idx4make_date_of_transport_truck on transport_truck_data (make_date);
+create  index idx4version_of_transport_truck on transport_truck_data (version);
 
 create unique index idx4id_ver_of_truck_driver on truck_driver_data (id, version);
 create  index idx4contact_number_of_truck_driver on truck_driver_data (contact_number);
+create  index idx4version_of_truck_driver on truck_driver_data (version);
 
 create unique index idx4id_ver_of_transport_task on transport_task_data (id, version);
 create  index idx4begin_time_of_transport_task on transport_task_data (begin_time);
 create  index idx4latitude_of_transport_task on transport_task_data (latitude);
 create  index idx4longitude_of_transport_task on transport_task_data (longitude);
+create  index idx4version_of_transport_task on transport_task_data (version);
 
 create unique index idx4id_ver_of_transport_task_track on transport_task_track_data (id, version);
 create  index idx4track_time_of_transport_task_track on transport_task_track_data (track_time);
 create  index idx4latitude_of_transport_task_track on transport_task_track_data (latitude);
 create  index idx4longitude_of_transport_task_track on transport_task_track_data (longitude);
+create  index idx4version_of_transport_task_track on transport_task_track_data (version);
 
 create unique index idx4id_ver_of_account_set on account_set_data (id, version);
 create  index idx4effective_date_of_account_set on account_set_data (effective_date);
 create  index idx4last_update_time_of_account_set on account_set_data (last_update_time);
+create  index idx4version_of_account_set on account_set_data (version);
 
 create unique index idx4id_ver_of_accounting_subject on accounting_subject_data (id, version);
 create  index idx4accounting_subject_class_code_of_accounting_subject on accounting_subject_data (accounting_subject_class_code);
+create  index idx4version_of_accounting_subject on accounting_subject_data (version);
 
 create unique index idx4id_ver_of_accounting_period on accounting_period_data (id, version);
 create  index idx4start_date_of_accounting_period on accounting_period_data (start_date);
 create  index idx4end_date_of_accounting_period on accounting_period_data (end_date);
+create  index idx4version_of_accounting_period on accounting_period_data (version);
 
 create unique index idx4id_ver_of_accounting_document_type on accounting_document_type_data (id, version);
+create  index idx4version_of_accounting_document_type on accounting_document_type_data (version);
 
 create unique index idx4id_ver_of_accounting_document on accounting_document_data (id, version);
 create  index idx4accounting_document_date_of_accounting_document on accounting_document_data (accounting_document_date);
+create  index idx4version_of_accounting_document on accounting_document_data (version);
 
 create unique index idx4id_ver_of_original_voucher on original_voucher_data (id, version);
+create  index idx4version_of_original_voucher on original_voucher_data (version);
 
 create unique index idx4id_ver_of_accounting_document_line on accounting_document_line_data (id, version);
 create  index idx4amount_of_accounting_document_line on accounting_document_line_data (amount);
+create  index idx4version_of_accounting_document_line on accounting_document_line_data (version);
 
 create unique index idx4id_ver_of_level_one_department on level_one_department_data (id, version);
 create  index idx4founded_of_level_one_department on level_one_department_data (founded);
+create  index idx4version_of_level_one_department on level_one_department_data (version);
 
 create unique index idx4id_ver_of_level_two_department on level_two_department_data (id, version);
 create  index idx4founded_of_level_two_department on level_two_department_data (founded);
+create  index idx4version_of_level_two_department on level_two_department_data (version);
 
 create unique index idx4id_ver_of_level_three_department on level_three_department_data (id, version);
 create  index idx4founded_of_level_three_department on level_three_department_data (founded);
+create  index idx4version_of_level_three_department on level_three_department_data (version);
 
 create unique index idx4id_ver_of_skill_type on skill_type_data (id, version);
+create  index idx4version_of_skill_type on skill_type_data (version);
 
 create unique index idx4id_ver_of_responsibility_type on responsibility_type_data (id, version);
+create  index idx4version_of_responsibility_type on responsibility_type_data (version);
 
 create unique index idx4id_ver_of_termination_reason on termination_reason_data (id, version);
+create  index idx4version_of_termination_reason on termination_reason_data (version);
 
 create unique index idx4id_ver_of_termination_type on termination_type_data (id, version);
+create  index idx4version_of_termination_type on termination_type_data (version);
 
 create unique index idx4id_ver_of_occupation_type on occupation_type_data (id, version);
+create  index idx4version_of_occupation_type on occupation_type_data (version);
 
 create unique index idx4id_ver_of_leave_type on leave_type_data (id, version);
+create  index idx4version_of_leave_type on leave_type_data (version);
 
 create unique index idx4id_ver_of_salary_grade on salary_grade_data (id, version);
+create  index idx4version_of_salary_grade on salary_grade_data (version);
 
 create unique index idx4id_ver_of_interview_type on interview_type_data (id, version);
+create  index idx4version_of_interview_type on interview_type_data (version);
 
 create unique index idx4id_ver_of_training_course_type on training_course_type_data (id, version);
+create  index idx4version_of_training_course_type on training_course_type_data (version);
 
 create unique index idx4id_ver_of_public_holiday on public_holiday_data (id, version);
+create  index idx4version_of_public_holiday on public_holiday_data (version);
 
 create unique index idx4id_ver_of_termination on termination_data (id, version);
+create  index idx4version_of_termination on termination_data (version);
 
 create unique index idx4id_ver_of_view on view_data (id, version);
 create  index idx4interview_time_of_view on view_data (interview_time);
+create  index idx4version_of_view on view_data (version);
 
 create unique index idx4id_ver_of_employee on employee_data (id, version);
 create  index idx4cell_phone_of_employee on employee_data (cell_phone);
 create  index idx4last_update_time_of_employee on employee_data (last_update_time);
+create  index idx4version_of_employee on employee_data (version);
 
 create unique index idx4id_ver_of_instructor on instructor_data (id, version);
 create  index idx4cell_phone_of_instructor on instructor_data (cell_phone);
 create  index idx4last_update_time_of_instructor on instructor_data (last_update_time);
+create  index idx4version_of_instructor on instructor_data (version);
 
 create unique index idx4id_ver_of_company_training on company_training_data (id, version);
 create  index idx4time_start_of_company_training on company_training_data (time_start);
 create  index idx4duration_hours_of_company_training on company_training_data (duration_hours);
 create  index idx4last_update_time_of_company_training on company_training_data (last_update_time);
+create  index idx4version_of_company_training on company_training_data (version);
 
 create unique index idx4id_ver_of_scoring on scoring_data (id, version);
 create  index idx4score_of_scoring on scoring_data (score);
+create  index idx4version_of_scoring on scoring_data (version);
 
 create unique index idx4id_ver_of_employee_company_training on employee_company_training_data (id, version);
+create  index idx4version_of_employee_company_training on employee_company_training_data (version);
 
 create unique index idx4id_ver_of_employee_skill on employee_skill_data (id, version);
+create  index idx4version_of_employee_skill on employee_skill_data (version);
 
 create unique index idx4id_ver_of_employee_performance on employee_performance_data (id, version);
+create  index idx4version_of_employee_performance on employee_performance_data (version);
 
 create unique index idx4id_ver_of_employee_work_experience on employee_work_experience_data (id, version);
 create  index idx4start_of_employee_work_experience on employee_work_experience_data (start);
 create  index idx4end_of_employee_work_experience on employee_work_experience_data (end);
+create  index idx4version_of_employee_work_experience on employee_work_experience_data (version);
 
 create unique index idx4id_ver_of_employee_leave on employee_leave_data (id, version);
 create  index idx4leave_duration_hour_of_employee_leave on employee_leave_data (leave_duration_hour);
+create  index idx4version_of_employee_leave on employee_leave_data (version);
 
 create unique index idx4id_ver_of_employee_interview on employee_interview_data (id, version);
+create  index idx4version_of_employee_interview on employee_interview_data (version);
 
 create unique index idx4id_ver_of_employee_attendance on employee_attendance_data (id, version);
 create  index idx4enter_time_of_employee_attendance on employee_attendance_data (enter_time);
 create  index idx4leave_time_of_employee_attendance on employee_attendance_data (leave_time);
 create  index idx4duration_hours_of_employee_attendance on employee_attendance_data (duration_hours);
+create  index idx4version_of_employee_attendance on employee_attendance_data (version);
 
 create unique index idx4id_ver_of_employee_qualifier on employee_qualifier_data (id, version);
 create  index idx4qualified_time_of_employee_qualifier on employee_qualifier_data (qualified_time);
+create  index idx4version_of_employee_qualifier on employee_qualifier_data (version);
 
 create unique index idx4id_ver_of_employee_education on employee_education_data (id, version);
 create  index idx4complete_time_of_employee_education on employee_education_data (complete_time);
+create  index idx4version_of_employee_education on employee_education_data (version);
 
 create unique index idx4id_ver_of_employee_award on employee_award_data (id, version);
 create  index idx4complete_time_of_employee_award on employee_award_data (complete_time);
+create  index idx4version_of_employee_award on employee_award_data (version);
 
 create unique index idx4id_ver_of_employee_salary_sheet on employee_salary_sheet_data (id, version);
 create  index idx4base_salary_of_employee_salary_sheet on employee_salary_sheet_data (base_salary);
@@ -4187,32 +4291,42 @@ create  index idx4personal_tax_of_employee_salary_sheet on employee_salary_sheet
 create  index idx4social_security_of_employee_salary_sheet on employee_salary_sheet_data (social_security);
 create  index idx4housing_found_of_employee_salary_sheet on employee_salary_sheet_data (housing_found);
 create  index idx4job_insurance_of_employee_salary_sheet on employee_salary_sheet_data (job_insurance);
+create  index idx4version_of_employee_salary_sheet on employee_salary_sheet_data (version);
 
 create unique index idx4id_ver_of_paying_off on paying_off_data (id, version);
 create  index idx4paid_time_of_paying_off on paying_off_data (paid_time);
 create  index idx4amount_of_paying_off on paying_off_data (amount);
+create  index idx4version_of_paying_off on paying_off_data (version);
 
 create unique index idx4id_ver_of_mobile_app on mobile_app_data (id, version);
+create  index idx4version_of_mobile_app on mobile_app_data (version);
 
 create unique index idx4id_ver_of_page on page_data (id, version);
 create  index idx4display_order_of_page on page_data (display_order);
+create  index idx4version_of_page on page_data (version);
 
 create unique index idx4id_ver_of_page_type on page_type_data (id, version);
 create unique index idx4code_of_page_type on page_type_data (code);
+create  index idx4version_of_page_type on page_type_data (version);
 
 create unique index idx4id_ver_of_slide on slide_data (id, version);
 create  index idx4display_order_of_slide on slide_data (display_order);
+create  index idx4version_of_slide on slide_data (version);
 
 create unique index idx4id_ver_of_ui_action on ui_action_data (id, version);
 create  index idx4display_order_of_ui_action on ui_action_data (display_order);
+create  index idx4version_of_ui_action on ui_action_data (version);
 
 create unique index idx4id_ver_of_section on section_data (id, version);
 create  index idx4display_order_of_section on section_data (display_order);
+create  index idx4version_of_section on section_data (version);
 
 create unique index idx4id_ver_of_user_domain on user_domain_data (id, version);
+create  index idx4version_of_user_domain on user_domain_data (version);
 
 create unique index idx4id_ver_of_user_allow_list on user_allow_list_data (id, version);
 create  index idx4user_identity_of_user_allow_list on user_allow_list_data (user_identity);
+create  index idx4version_of_user_allow_list on user_allow_list_data (version);
 
 create unique index idx4id_ver_of_sec_user on sec_user_data (id, version);
 create unique index idx4login_of_sec_user on sec_user_data (login);
@@ -4221,28 +4335,36 @@ create unique index idx4mobile_of_sec_user on sec_user_data (mobile);
 create  index idx4verification_code_of_sec_user on sec_user_data (verification_code);
 create  index idx4verification_code_expire_of_sec_user on sec_user_data (verification_code_expire);
 create  index idx4last_login_time_of_sec_user on sec_user_data (last_login_time);
+create  index idx4version_of_sec_user on sec_user_data (version);
 
 create unique index idx4id_ver_of_user_app on user_app_data (id, version);
 create  index idx4app_id_of_user_app on user_app_data (app_id);
 create  index idx4ctx_id_of_user_app on user_app_data (ctx_id);
+create  index idx4version_of_user_app on user_app_data (version);
 
 create unique index idx4id_ver_of_quick_link on quick_link_data (id, version);
 create  index idx4create_time_of_quick_link on quick_link_data (create_time);
+create  index idx4version_of_quick_link on quick_link_data (version);
 
 create unique index idx4id_ver_of_list_access on list_access_data (id, version);
+create  index idx4version_of_list_access on list_access_data (version);
 
 create unique index idx4id_ver_of_login_history on login_history_data (id, version);
 create  index idx4login_time_of_login_history on login_history_data (login_time);
+create  index idx4version_of_login_history on login_history_data (version);
 
 create unique index idx4id_ver_of_candidate_container on candidate_container_data (id, version);
+create  index idx4version_of_candidate_container on candidate_container_data (version);
 
 create unique index idx4id_ver_of_candidate_element on candidate_element_data (id, version);
+create  index idx4version_of_candidate_element on candidate_element_data (version);
 
 create unique index idx4id_ver_of_wechat_workapp_identity on wechat_workapp_identity_data (id, version);
 create  index idx4corp_id_of_wechat_workapp_identity on wechat_workapp_identity_data (corp_id);
 create  index idx4user_id_of_wechat_workapp_identity on wechat_workapp_identity_data (user_id);
 create  index idx4create_time_of_wechat_workapp_identity on wechat_workapp_identity_data (create_time);
 create  index idx4last_login_time_of_wechat_workapp_identity on wechat_workapp_identity_data (last_login_time);
+create  index idx4version_of_wechat_workapp_identity on wechat_workapp_identity_data (version);
 
 create unique index idx4id_ver_of_wechat_miniapp_identity on wechat_miniapp_identity_data (id, version);
 create  index idx4open_id_of_wechat_miniapp_identity on wechat_miniapp_identity_data (open_id);
@@ -4250,16 +4372,20 @@ create  index idx4app_id_of_wechat_miniapp_identity on wechat_miniapp_identity_d
 create  index idx4union_id_of_wechat_miniapp_identity on wechat_miniapp_identity_data (union_id);
 create  index idx4create_time_of_wechat_miniapp_identity on wechat_miniapp_identity_data (create_time);
 create  index idx4last_login_time_of_wechat_miniapp_identity on wechat_miniapp_identity_data (last_login_time);
+create  index idx4version_of_wechat_miniapp_identity on wechat_miniapp_identity_data (version);
 
 create unique index idx4id_ver_of_key_pair_identity on key_pair_identity_data (id, version);
 create  index idx4create_time_of_key_pair_identity on key_pair_identity_data (create_time);
+create  index idx4version_of_key_pair_identity on key_pair_identity_data (version);
 
 create unique index idx4id_ver_of_public_key_type on public_key_type_data (id, version);
+create  index idx4version_of_public_key_type on public_key_type_data (version);
 
 create unique index idx4id_ver_of_tree_node on tree_node_data (id, version);
 create  index idx4node_id_of_tree_node on tree_node_data (node_id);
 create  index idx4left_value_of_tree_node on tree_node_data (left_value);
 create  index idx4right_value_of_tree_node on tree_node_data (right_value);
+create  index idx4version_of_tree_node on tree_node_data (version);
 alter table retail_store_country_center_data add constraint pk4id_of_retail_store_country_center_data primary key (id);
 
 alter table catalog_data add constraint pk4id_of_catalog_data primary key (id);
@@ -4424,7 +4550,7 @@ alter table retail_store_member_gift_card_consume_record_data add constraint pk4
 alter table retail_store_member_gift_card_consume_record_data add constraint 
 	fk4owner_of_retail_store_member_gift_card_consume_record_data foreign key (owner) references retail_store_member_gift_card_data(id) ON DELETE CASCADE ON UPDATE CASCADE;
 alter table retail_store_member_gift_card_consume_record_data add constraint 
-	fk4biz_order_of_000007 foreign key (biz_order) references consumer_order_data(id) ON DELETE CASCADE ON UPDATE CASCADE;
+	fk4biz_order_of_000001 foreign key (biz_order) references consumer_order_data(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table goods_supplier_data add constraint pk4id_of_goods_supplier_data primary key (id);
 alter table goods_supplier_data add constraint 
@@ -4860,7 +4986,7 @@ insert into info_lines values( 'S::::::SSSSSS:::::S u:::::::::::::::u c:::::::::
 insert into info_lines values( 'S:::::::::::::::SS   uu::::::::uu:::u  cc:::::::::::::::c  cc:::::::::::::::c  ee:::::::::::::e   s:::::::::::ss   s:::::::::::ss  !!:!!');
 insert into info_lines values( ' SSSSSSSSSSSSSSS       uuuuuuuu  uuuu    cccccccccccccccc    cccccccccccccccc    eeeeeeeeeeeeee    sssssssssss      sssssssssss     !!! ');
 
-select * from info_lines;
+SELECT * FROM info_lines;
 /* start with data patch */
 /* The sql file is not found from: /home/philip/resin-3.1.12/webapps/sky/data-patch/retailscm.sql */
 -- no change request defined .
@@ -4887,6 +5013,14 @@ http://patorjk.com/software/taag/#p=testall&h=0&v=0&f=Graceful&t=Success!
 +----------+---------------------------------+---------------------+--------+
 
 */
+
+
+
+
+
+
+
+
 
 
 

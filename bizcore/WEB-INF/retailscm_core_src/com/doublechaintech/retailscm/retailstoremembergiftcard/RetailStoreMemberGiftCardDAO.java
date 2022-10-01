@@ -1,5 +1,5 @@
-
 package com.doublechaintech.retailscm.retailstoremembergiftcard;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,70 +17,108 @@ import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.Reta
 import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecordDAO;
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 
+public interface RetailStoreMemberGiftCardDAO extends BaseDAO {
 
-public interface RetailStoreMemberGiftCardDAO extends BaseDAO{
+  public SmartList<RetailStoreMemberGiftCard> loadAll();
 
-	public SmartList<RetailStoreMemberGiftCard> loadAll();
-	public Stream<RetailStoreMemberGiftCard> loadAllAsStream();
-	public RetailStoreMemberGiftCard load(String id, Map<String,Object> options) throws Exception;
-	public void enhanceList(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList);
-	public void collectAndEnhance(BaseEntity ownerEntity);
+  public Stream<RetailStoreMemberGiftCard> loadAllAsStream();
 
-	public void alias(List<BaseEntity> entityList);
+  public RetailStoreMemberGiftCard load(String id, Map<String, Object> options) throws Exception;
 
+  public void enhanceList(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList);
 
-	
+  public void collectAndEnhance(BaseEntity ownerEntity);
 
-	public RetailStoreMemberGiftCard present(RetailStoreMemberGiftCard retailStoreMemberGiftCard,Map<String,Object> options) throws Exception;
-	public RetailStoreMemberGiftCard clone(String id, Map<String,Object> options) throws Exception;
+  public void alias(List<BaseEntity> entityList);
 
-	
+  public RetailStoreMemberGiftCard present(
+      RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String, Object> options)
+      throws Exception;
 
-	public RetailStoreMemberGiftCard save(RetailStoreMemberGiftCard retailStoreMemberGiftCard,Map<String,Object> options);
-	public SmartList<RetailStoreMemberGiftCard> saveRetailStoreMemberGiftCardList(SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList,Map<String,Object> options);
-	public SmartList<RetailStoreMemberGiftCard> removeRetailStoreMemberGiftCardList(SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList,Map<String,Object> options);
-	public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public int countRetailStoreMemberGiftCardWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public Map<String, Integer> countRetailStoreMemberGiftCardWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options);
-	public void delete(String retailStoreMemberGiftCardId, int version) throws Exception;
-	public RetailStoreMemberGiftCard disconnectFromAll(String retailStoreMemberGiftCardId, int version) throws Exception;
-	public int deleteAll() throws Exception;
-	public void resetNextId();
+  public RetailStoreMemberGiftCard clone(String id, Map<String, Object> options) throws Exception;
 
-	public RetailStoreMemberGiftCardConsumeRecordDAO getRetailStoreMemberGiftCardConsumeRecordDAO();
-		
-	
- 	public SmartList<RetailStoreMemberGiftCard> requestCandidateRetailStoreMemberGiftCardForRetailStoreMemberGiftCardConsumeRecord(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
-		
-	
-	public RetailStoreMemberGiftCard planToRemoveRetailStoreMemberGiftCardConsumeRecordList(RetailStoreMemberGiftCard retailStoreMemberGiftCard, String retailStoreMemberGiftCardConsumeRecordIds[], Map<String,Object> options)throws Exception;
+  public RetailStoreMemberGiftCard save(
+      RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String, Object> options);
 
+  public SmartList<RetailStoreMemberGiftCard> saveRetailStoreMemberGiftCardList(
+      SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList,
+      Map<String, Object> options);
 
-	//disconnect RetailStoreMemberGiftCard with biz_order in RetailStoreMemberGiftCardConsumeRecord
-	public RetailStoreMemberGiftCard planToRemoveRetailStoreMemberGiftCardConsumeRecordListWithBizOrder(RetailStoreMemberGiftCard retailStoreMemberGiftCard, String bizOrderId, Map<String,Object> options)throws Exception;
-	public int countRetailStoreMemberGiftCardConsumeRecordListWithBizOrder(String retailStoreMemberGiftCardId, String bizOrderId, Map<String,Object> options)throws Exception;
-	
+  public SmartList<RetailStoreMemberGiftCard> removeRetailStoreMemberGiftCardList(
+      SmartList<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList,
+      Map<String, Object> options);
 
-	public SmartList<RetailStoreMemberGiftCard> queryList(String sql, Object ... parameters);
-	public List<String> queryIdList(String sql, Object ... parameters);
-	public Stream<RetailStoreMemberGiftCard> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parameters);
-	public CandidateRetailStoreMemberGiftCard executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
+  public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardWithKey(
+      MultipleAccessKey key, Map<String, Object> options);
 
- 	public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardByOwner(String retailStoreMemberId, Map<String,Object> options);
- 	public int countRetailStoreMemberGiftCardByOwner(String retailStoreMemberId, Map<String,Object> options);
- 	public Map<String, Integer> countRetailStoreMemberGiftCardByOwnerIds(String[] ids, Map<String,Object> options);
- 	public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardByOwner(String retailStoreMemberId, int start, int count, Map<String,Object> options);
- 	public void analyzeRetailStoreMemberGiftCardByOwner(SmartList<RetailStoreMemberGiftCard> resultList, String retailStoreMemberId, Map<String,Object> options);
+  public int countRetailStoreMemberGiftCardWithKey(
+      MultipleAccessKey key, Map<String, Object> options);
 
+  public Map<String, Integer> countRetailStoreMemberGiftCardWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options);
 
- 
-	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberGiftCardConsumeRecord的owner的RetailStoreMemberGiftCardConsumeRecordList
-	public SmartList<RetailStoreMemberGiftCardConsumeRecord> loadOurRetailStoreMemberGiftCardConsumeRecordList(RetailscmUserContext userContext, List<RetailStoreMemberGiftCard> us, Map<String,Object> options) throws Exception;
-	
+  public RetailStoreMemberGiftCard disconnectFromAll(
+      String retailStoreMemberGiftCardId, int version) throws Exception;
 
-	List<RetailStoreMemberGiftCard> search(RetailStoreMemberGiftCardRequest pRequest);
+  public void resetNextId();
+
+  public RetailStoreMemberGiftCardConsumeRecordDAO getRetailStoreMemberGiftCardConsumeRecordDAO();
+
+  public SmartList<RetailStoreMemberGiftCard>
+      requestCandidateRetailStoreMemberGiftCardForRetailStoreMemberGiftCardConsumeRecord(
+          RetailscmUserContext userContext,
+          String ownerClass,
+          String id,
+          String filterKey,
+          int pageNo,
+          int pageSize)
+          throws Exception;
+
+  public RetailStoreMemberGiftCard planToRemoveRetailStoreMemberGiftCardConsumeRecordList(
+      RetailStoreMemberGiftCard retailStoreMemberGiftCard,
+      String retailStoreMemberGiftCardConsumeRecordIds[],
+      Map<String, Object> options)
+      throws Exception;
+
+  // disconnect RetailStoreMemberGiftCard with biz_order in RetailStoreMemberGiftCardConsumeRecord
+  public RetailStoreMemberGiftCard
+      planToRemoveRetailStoreMemberGiftCardConsumeRecordListWithBizOrder(
+          RetailStoreMemberGiftCard retailStoreMemberGiftCard,
+          String bizOrderId,
+          Map<String, Object> options)
+          throws Exception;
+
+  public int countRetailStoreMemberGiftCardConsumeRecordListWithBizOrder(
+      String retailStoreMemberGiftCardId, String bizOrderId, Map<String, Object> options)
+      throws Exception;
+
+  public SmartList<RetailStoreMemberGiftCard> queryList(String sql, Object... parameters);
+
+  public List<String> queryIdList(String sql, Object... parameters);
+
+  public Stream<RetailStoreMemberGiftCard> queryStream(String sql, Object... parameters);
+
+  public int count(String sql, Object... parameters);
+
+  public CandidateRetailStoreMemberGiftCard executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception;
+
+  public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardByOwner(
+      String retailStoreMemberId, Map<String, Object> options);
+
+  public int countRetailStoreMemberGiftCardByOwner(
+      String retailStoreMemberId, Map<String, Object> options);
+
+  public Map<String, Integer> countRetailStoreMemberGiftCardByOwnerIds(
+      String[] ids, Map<String, Object> options);
+
+  public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardByOwner(
+      String retailStoreMemberId, int start, int count, Map<String, Object> options);
+
+  public void analyzeRetailStoreMemberGiftCardByOwner(
+      SmartList<RetailStoreMemberGiftCard> resultList,
+      String retailStoreMemberId,
+      Map<String, Object> options);
+
+  List<RetailStoreMemberGiftCard> search(RetailStoreMemberGiftCardRequest pRequest);
 }
-
-

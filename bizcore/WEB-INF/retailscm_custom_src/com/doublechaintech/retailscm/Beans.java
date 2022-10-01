@@ -12,23 +12,24 @@ public class Beans implements ApplicationContextAware {
     context = applicationContext;
   }
 
-  public static DBUtil dbUtil(){
-    if (context != null){
+  public static DBUtil dbUtil() {
+    if (context != null) {
       return context.getBean(DBUtil.class);
     }
     return null;
   }
 
-  public static org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+  public static org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
+      namedParameterJdbcTemplate() {
     return getBean("namedParameterJdbcTemplate");
   }
 
   public static <T> T getBean(String name) {
-      if (context != null) {
-        return (T) context.getBean(name);
-      }
-      return null;
+    if (context != null) {
+      return (T) context.getBean(name);
     }
+    return null;
+  }
 
   public static <T> T getBean(Class<T> type) {
     if (context != null) {
@@ -36,7 +37,4 @@ public class Beans implements ApplicationContextAware {
     }
     return null;
   }
-
 }
-
-

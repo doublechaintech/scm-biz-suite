@@ -47,85 +47,83 @@ public class BasicSearchCriteria implements Serializable, SearchCriteria {
   }
 
   @Override
-   public String prepareParameterAndSql(Map<String, Object> parameters) {
+  public String prepareParameterAndSql(Map<String, Object> parameters) {
 
-      String parameterName = DBUtil.alias(holder) + TextUtil.capFirstChar(property);
-      parameterName = refineParameterName(parameters, parameterName);
-      StringBuilder sb = new StringBuilder("(");
-      sb.append(DBUtil.getColumnRefer(holder, property)).append(operator.getOperator());
-      if (operator.hasParameter()) {
-        if (!operator.containsOperator()) {
-          sb.append(operator.getPrefix());
-        }
-        sb.append(":").append(parameterName);
-        if (!operator.containsOperator()) {
-          sb.append(operator.getSuffix());
-        }
-        Object value = cleanValue(getValue());
-        if (value == null) {
-          return "";
-        }
-        parameters.put(parameterName, value);
+    String parameterName = DBUtil.alias(holder) + TextUtil.capFirstChar(property);
+    parameterName = refineParameterName(parameters, parameterName);
+    StringBuilder sb = new StringBuilder("(");
+    sb.append(DBUtil.getColumnRefer(holder, property)).append(operator.getOperator());
+    if (operator.hasParameter()) {
+      if (!operator.containsOperator()) {
+        sb.append(operator.getPrefix());
       }
-      sb.append(")");
-      return sb.toString();
-    }
-
-    private Object cleanValue(Object value) {
+      sb.append(":").append(parameterName);
+      if (!operator.containsOperator()) {
+        sb.append(operator.getSuffix());
+      }
+      Object value = cleanValue(getValue());
       if (value == null) {
-        return null;
+        return "";
       }
-      List<Object> listValues = new ArrayList<>();
-      if (value.getClass().isArray()) {
-        int len = Array.getLength(value);
-        for (int i = 0; i < len; i++) {
-          Object ele = Array.get(value, i);
-          addValue(listValues, ele);
-        }
-      } else if (value instanceof Collection) {
-        for (Object ele : (Collection) value) {
-          addValue(listValues, ele);
-        }
-      } else {
-        addValue(listValues, value);
+      parameters.put(parameterName, value);
+    }
+    sb.append(")");
+    return sb.toString();
+  }
+
+  private Object cleanValue(Object value) {
+    if (value == null) {
+      return null;
+    }
+    List<Object> listValues = new ArrayList<>();
+    if (value.getClass().isArray()) {
+      int len = Array.getLength(value);
+      for (int i = 0; i < len; i++) {
+        Object ele = Array.get(value, i);
+        addValue(listValues, ele);
       }
-
-      if (listValues.isEmpty()) {
-        return null;
+    } else if (value instanceof Collection) {
+      for (Object ele : (Collection) value) {
+        addValue(listValues, ele);
       }
-      if (getOperator().hasArrayParameter()) {
-        return listValues;
-      } else {
-        if (getOperator().containsOperator()) {
-          return getOperator().getPrefix() + listValues.get(0) + getOperator().getSuffix();
-        }
-        return listValues.get(0);
+    } else {
+      addValue(listValues, value);
+    }
+
+    if (listValues.isEmpty()) {
+      return null;
+    }
+    if (getOperator().hasArrayParameter()) {
+      return listValues;
+    } else {
+      if (getOperator().containsOperator()) {
+        return getOperator().getPrefix() + listValues.get(0) + getOperator().getSuffix();
       }
+      return listValues.get(0);
     }
+  }
 
-    protected void addValue(List<Object> listValues, Object ele) {
-      if (ele instanceof BaseEntity) {
-        listValues.add(((BaseEntity) ele).getId());
-      } else {
-        listValues.add(ele);
-      }
+  protected void addValue(List<Object> listValues, Object ele) {
+    if (ele instanceof BaseEntity) {
+      listValues.add(((BaseEntity) ele).getId());
+    } else {
+      listValues.add(ele);
     }
+  }
 
-    public BaseEntity getHolder() {
-      return holder;
-    }
+  public BaseEntity getHolder() {
+    return holder;
+  }
 
-    public void setHolder(BaseEntity holder) {
-      this.holder = holder;
-    }
+  public void setHolder(BaseEntity holder) {
+    this.holder = holder;
+  }
 
-    public String getProperty() {
-      return property;
-    }
+  public String getProperty() {
+    return property;
+  }
 
-    public void setProperty(String property) {
-      this.property = property;
-    }
+  public void setProperty(String property) {
+    this.property = property;
+  }
 }
-
-

@@ -21,19 +21,25 @@
   	  </property>
   	</bean>
 
+  <bean class="com.doublechaintech.retailscm.AsyncSaver"/>
+  <bean class="com.doublechaintech.retailscm.search.SearchConfiguration"/>
   <bean class="com.doublechaintech.retailscm.Beans"/>
   <bean class="com.doublechaintech.retailscm.meta.MetaRegistry"/>
+  <bean id="templateRender" class="com.doublechaintech.retailscm.templates.UITemplateRender"/>
   <bean id="DBUtil" class="com.doublechaintech.retailscm.DBUtil">
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
 	</bean>
 
-	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+	<bean id="namedParameterJdbcTemplate" class="com.doublechaintech.retailscm.CustomNamedParameterJdbcTemplate">
 		<constructor-arg type="org.springframework.jdbc.core.JdbcOperations" ref="jdbcTemplate0" />
 	</bean>
 
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+
+  <bean  id="ctxFactory" class="com.doublechaintech.retailscm.UserContextFactory">
+  </bean>
 
 	<!-- dbcp 2.6 https://commons.apache.org/proper/commons-dbcp/configuration.html
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -64,14 +70,14 @@
     <property name="dataSource" ref="dataSource"/>
     <property name="fetchSize" value="1000"/>
     <property name="maxRows" value="1000"/>
-    <property name="queryTimeout" value="10"/>
+    <property name="queryTimeout" value="20"/>
   </bean>
 
   <bean id="jdbcTemplate0" class="org.springframework.jdbc.core.JdbcTemplate">
     <property name="dataSource" ref="dataSource"/>
     <property name="fetchSize" value="1000"/>
-    <property name="maxRows" value="10000"/>
-    <property name="queryTimeout" value="10"/>
+    <property name="maxRows" value="200000"/>
+    <property name="queryTimeout" value="20"/>
   </bean>
 
 
@@ -1827,6 +1833,7 @@
 
 
 -->
+
 
 
 

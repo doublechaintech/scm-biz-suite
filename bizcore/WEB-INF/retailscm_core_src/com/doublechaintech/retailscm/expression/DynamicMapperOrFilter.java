@@ -119,4 +119,3 @@ public class DynamicMapperOrFilter implements MethodResolver {
     return values;
   }
 }
-

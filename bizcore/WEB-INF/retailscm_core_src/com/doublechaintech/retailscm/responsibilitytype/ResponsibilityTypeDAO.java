@@ -1,5 +1,5 @@
-
 package com.doublechaintech.retailscm.responsibilitytype;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,82 +17,126 @@ import com.doublechaintech.retailscm.employee.Employee;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
+public interface ResponsibilityTypeDAO extends BaseDAO {
 
-public interface ResponsibilityTypeDAO extends BaseDAO{
+  public SmartList<ResponsibilityType> loadAll();
 
-	public SmartList<ResponsibilityType> loadAll();
-	public Stream<ResponsibilityType> loadAllAsStream();
-	public ResponsibilityType load(String id, Map<String,Object> options) throws Exception;
-	public void enhanceList(List<ResponsibilityType> responsibilityTypeList);
-	public void collectAndEnhance(BaseEntity ownerEntity);
+  public Stream<ResponsibilityType> loadAllAsStream();
 
-	public void alias(List<BaseEntity> entityList);
+  public ResponsibilityType load(String id, Map<String, Object> options) throws Exception;
 
+  public void enhanceList(List<ResponsibilityType> responsibilityTypeList);
 
-	
+  public void collectAndEnhance(BaseEntity ownerEntity);
 
-	public ResponsibilityType present(ResponsibilityType responsibilityType,Map<String,Object> options) throws Exception;
-	public ResponsibilityType clone(String id, Map<String,Object> options) throws Exception;
+  public void alias(List<BaseEntity> entityList);
 
-	
+  public ResponsibilityType present(
+      ResponsibilityType responsibilityType, Map<String, Object> options) throws Exception;
 
-	public ResponsibilityType save(ResponsibilityType responsibilityType,Map<String,Object> options);
-	public SmartList<ResponsibilityType> saveResponsibilityTypeList(SmartList<ResponsibilityType> responsibilityTypeList,Map<String,Object> options);
-	public SmartList<ResponsibilityType> removeResponsibilityTypeList(SmartList<ResponsibilityType> responsibilityTypeList,Map<String,Object> options);
-	public SmartList<ResponsibilityType> findResponsibilityTypeWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public int countResponsibilityTypeWithKey(MultipleAccessKey key,Map<String, Object> options);
-	public Map<String, Integer> countResponsibilityTypeWithGroupKey(String groupKey, MultipleAccessKey filterKey,
-			Map<String, Object> options);
-	public void delete(String responsibilityTypeId, int version) throws Exception;
-	public ResponsibilityType disconnectFromAll(String responsibilityTypeId, int version) throws Exception;
-	public int deleteAll() throws Exception;
-	public void resetNextId();
+  public ResponsibilityType clone(String id, Map<String, Object> options) throws Exception;
 
-	public EmployeeDAO getEmployeeDAO();
-		
-	
- 	public SmartList<ResponsibilityType> requestCandidateResponsibilityTypeForEmployee(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
-		
-	
-	public ResponsibilityType planToRemoveEmployeeList(ResponsibilityType responsibilityType, String employeeIds[], Map<String,Object> options)throws Exception;
+  public ResponsibilityType save(
+      ResponsibilityType responsibilityType, Map<String, Object> options);
 
+  public SmartList<ResponsibilityType> saveResponsibilityTypeList(
+      SmartList<ResponsibilityType> responsibilityTypeList, Map<String, Object> options);
 
-	//disconnect ResponsibilityType with company in Employee
-	public ResponsibilityType planToRemoveEmployeeListWithCompany(ResponsibilityType responsibilityType, String companyId, Map<String,Object> options)throws Exception;
-	public int countEmployeeListWithCompany(String responsibilityTypeId, String companyId, Map<String,Object> options)throws Exception;
-	
-	//disconnect ResponsibilityType with department in Employee
-	public ResponsibilityType planToRemoveEmployeeListWithDepartment(ResponsibilityType responsibilityType, String departmentId, Map<String,Object> options)throws Exception;
-	public int countEmployeeListWithDepartment(String responsibilityTypeId, String departmentId, Map<String,Object> options)throws Exception;
-	
-	//disconnect ResponsibilityType with occupation in Employee
-	public ResponsibilityType planToRemoveEmployeeListWithOccupation(ResponsibilityType responsibilityType, String occupationId, Map<String,Object> options)throws Exception;
-	public int countEmployeeListWithOccupation(String responsibilityTypeId, String occupationId, Map<String,Object> options)throws Exception;
-	
-	//disconnect ResponsibilityType with current_salary_grade in Employee
-	public ResponsibilityType planToRemoveEmployeeListWithCurrentSalaryGrade(ResponsibilityType responsibilityType, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
-	public int countEmployeeListWithCurrentSalaryGrade(String responsibilityTypeId, String currentSalaryGradeId, Map<String,Object> options)throws Exception;
-	
+  public SmartList<ResponsibilityType> removeResponsibilityTypeList(
+      SmartList<ResponsibilityType> responsibilityTypeList, Map<String, Object> options);
 
-	public SmartList<ResponsibilityType> queryList(String sql, Object ... parameters);
-	public List<String> queryIdList(String sql, Object ... parameters);
-	public Stream<ResponsibilityType> queryStream(String sql, Object... parameters) ;
-	public int count(String sql, Object ... parameters);
-	public CandidateResponsibilityType executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception ;
+  public SmartList<ResponsibilityType> findResponsibilityTypeWithKey(
+      MultipleAccessKey key, Map<String, Object> options);
 
- 	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
- 	public int countResponsibilityTypeByCompany(String retailStoreCountryCenterId, Map<String,Object> options);
- 	public Map<String, Integer> countResponsibilityTypeByCompanyIds(String[] ids, Map<String,Object> options);
- 	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId, int start, int count, Map<String,Object> options);
- 	public void analyzeResponsibilityTypeByCompany(SmartList<ResponsibilityType> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
+  public int countResponsibilityTypeWithKey(MultipleAccessKey key, Map<String, Object> options);
 
+  public Map<String, Integer> countResponsibilityTypeWithGroupKey(
+      String groupKey, MultipleAccessKey filterKey, Map<String, Object> options);
 
- 
-	// 需要一个加载引用我的对象的enhance方法:Employee的responsibleFor的EmployeeList
-	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<ResponsibilityType> us, Map<String,Object> options) throws Exception;
-	
+  public ResponsibilityType disconnectFromAll(String responsibilityTypeId, int version)
+      throws Exception;
 
-	List<ResponsibilityType> search(ResponsibilityTypeRequest pRequest);
+  public void resetNextId();
+
+  public EmployeeDAO getEmployeeDAO();
+
+  public SmartList<ResponsibilityType> requestCandidateResponsibilityTypeForEmployee(
+      RetailscmUserContext userContext,
+      String ownerClass,
+      String id,
+      String filterKey,
+      int pageNo,
+      int pageSize)
+      throws Exception;
+
+  public ResponsibilityType planToRemoveEmployeeList(
+      ResponsibilityType responsibilityType, String employeeIds[], Map<String, Object> options)
+      throws Exception;
+
+  // disconnect ResponsibilityType with company in Employee
+  public ResponsibilityType planToRemoveEmployeeListWithCompany(
+      ResponsibilityType responsibilityType, String companyId, Map<String, Object> options)
+      throws Exception;
+
+  public int countEmployeeListWithCompany(
+      String responsibilityTypeId, String companyId, Map<String, Object> options) throws Exception;
+
+  // disconnect ResponsibilityType with department in Employee
+  public ResponsibilityType planToRemoveEmployeeListWithDepartment(
+      ResponsibilityType responsibilityType, String departmentId, Map<String, Object> options)
+      throws Exception;
+
+  public int countEmployeeListWithDepartment(
+      String responsibilityTypeId, String departmentId, Map<String, Object> options)
+      throws Exception;
+
+  // disconnect ResponsibilityType with occupation in Employee
+  public ResponsibilityType planToRemoveEmployeeListWithOccupation(
+      ResponsibilityType responsibilityType, String occupationId, Map<String, Object> options)
+      throws Exception;
+
+  public int countEmployeeListWithOccupation(
+      String responsibilityTypeId, String occupationId, Map<String, Object> options)
+      throws Exception;
+
+  // disconnect ResponsibilityType with current_salary_grade in Employee
+  public ResponsibilityType planToRemoveEmployeeListWithCurrentSalaryGrade(
+      ResponsibilityType responsibilityType,
+      String currentSalaryGradeId,
+      Map<String, Object> options)
+      throws Exception;
+
+  public int countEmployeeListWithCurrentSalaryGrade(
+      String responsibilityTypeId, String currentSalaryGradeId, Map<String, Object> options)
+      throws Exception;
+
+  public SmartList<ResponsibilityType> queryList(String sql, Object... parameters);
+
+  public List<String> queryIdList(String sql, Object... parameters);
+
+  public Stream<ResponsibilityType> queryStream(String sql, Object... parameters);
+
+  public int count(String sql, Object... parameters);
+
+  public CandidateResponsibilityType executeCandidatesQuery(
+      CandidateQuery query, String sql, Object... parmeters) throws Exception;
+
+  public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(
+      String retailStoreCountryCenterId, Map<String, Object> options);
+
+  public int countResponsibilityTypeByCompany(
+      String retailStoreCountryCenterId, Map<String, Object> options);
+
+  public Map<String, Integer> countResponsibilityTypeByCompanyIds(
+      String[] ids, Map<String, Object> options);
+
+  public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(
+      String retailStoreCountryCenterId, int start, int count, Map<String, Object> options);
+
+  public void analyzeResponsibilityTypeByCompany(
+      SmartList<ResponsibilityType> resultList,
+      String retailStoreCountryCenterId,
+      Map<String, Object> options);
+
+  List<ResponsibilityType> search(ResponsibilityTypeRequest pRequest);
 }
-
-

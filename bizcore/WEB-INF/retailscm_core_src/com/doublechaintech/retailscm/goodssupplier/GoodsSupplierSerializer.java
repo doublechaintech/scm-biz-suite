@@ -1,19 +1,20 @@
 package com.doublechaintech.retailscm.goodssupplier;
+
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.doublechaintech.retailscm.RetailscmObjectPlainCustomSerializer;
-public class GoodsSupplierSerializer extends RetailscmObjectPlainCustomSerializer<GoodsSupplier>{
 
-	@Override
-	public void serialize(GoodsSupplier goodsSupplier, JsonGenerator jgen,
-			SerializerProvider provider) throws IOException,
-			JsonProcessingException {
-			
-		this.writeBaseEntityField(jgen, null, goodsSupplier, provider);
-		
-	}
+public class GoodsSupplierSerializer extends RetailscmObjectPlainCustomSerializer<GoodsSupplier> {
+
+  @Override
+  public void serialize(
+      GoodsSupplier goodsSupplier, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
+    Map<String, Object> ctx = new HashMap<>();
+    this.writeBaseEntityField(jgen, null, goodsSupplier, provider, ctx);
+  }
 }
-
-
