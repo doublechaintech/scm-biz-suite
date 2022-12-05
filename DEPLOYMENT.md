@@ -40,7 +40,7 @@
 | 硬件架构  | x86_64/AMD64/华为鲲鹏/龙芯 |
 | 操作系统  | Ubuntu 16.04LTS/18.04LTS/20.04LTS/CentOS/Redhat Enterprise |
 | JDK  | Open JDK 8,Open JDK17|
-| 应用服务器 | Resin3.1.16, Resin4.0.65, 可另选SpringBoot |
+| 应用服务器 | Resin3.1.16,  可另选SpringBoot |
 | 缓存服务器 | Redis3.2+ |
 | 数据库  | MySQL 5.7+, Oracle 12.2+ , Postgres 9.5+, 南大通用GBASE 8|
 | WEB服务器  |  Nginx 1.10+ |
@@ -203,9 +203,9 @@ Available Java Versions
 ```
 
 
-### 下载并且解压Resin, 已经升级到最新Resin-4.0.65，比起Tomcat，Resin更多用于高负载应用。
+### 下载并且解压Resin, 使用resin-3.1.16.zip，比起Tomcat，Resin更多用于高负载应用，Salesforce早期项目均用Resin部署。
 
-https://caucho.com/download/resin-4.0.65.zip
+https://caucho.com/download/resin-3.1.16.zip
 
 ### 安装docker
 
