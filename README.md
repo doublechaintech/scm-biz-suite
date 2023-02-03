@@ -1,5 +1,29 @@
 # 请使用SCMR1来建立环境，项目将有重大更新！！
 
+# 新特性TeaQL，用于支持大型复杂关联应用
+
+```java
+
+    Task task =Q.task(orderId) // 根据订单找到一个任务
+                .selectAll() // 取所有字段, 但是不包含子列表
+                .selectDropOffTaskItemList( // 选择所有的卸车任务
+                    Q.dropOffTaskItem() // 定制卸车任务
+                        .selectProduct() // 选择产品
+                        .selectCustomOrder( // 卸车任务上面还关联了一个订单
+                            Q.customOrder() // 定制订单选择
+                                .selectAll() // 选择订单所有字段
+                                .selectCustomOrderItemList() // 选择订单下面的订单项
+                                .selectDeliveryOrderAssetList( // 选择订单子列表下面的相关资产列表
+                                    Q.deliveryOrderAsset() // 定制订单资产列表
+                                        .selectAsset( // 选择资产对象
+                                            Q.asset() // 定制资产选择
+                                                .selectAssetStatus() // 状态要加上，便于显示资产状态
+                                                .where( // 把不合法的资产过滤出去
+                                                    Asset.ASSET_STATUS_PROPERTY,
+                                                    QueryOperator.NOT_EQUAL,
+                                                    AssetStatus.INVALID))))).execute(ctx);
+```
+
 # 集成供应链套件（全部源码）
 
 高度可定制零售供应链中台基础系统，中台管理界面可通过javascript高阶函数定制，Java后台主要通过**增加方法**或者**重写**已有的大量方法来灵活定制。
