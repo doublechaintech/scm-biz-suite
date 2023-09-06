@@ -18,7 +18,6 @@ const { TextArea } = Input
 const testValues = {};
 
 const imageKeys = [
-  'contract',
 ]
 
 

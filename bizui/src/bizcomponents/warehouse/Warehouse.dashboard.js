@@ -40,8 +40,7 @@ const { Option } = Select
 
 
 const imageList =(warehouse)=>{return [
-	   {"title":'合同',"imageLocation":warehouse.contract},
-]}
+	 ]}
 
 const internalImageListOf = (warehouse) =>defaultImageListOf(warehouse,imageList)
 

@@ -99,6 +99,12 @@ export const getURLPrefix = () => {
   if (url.hostname === '96.45.188.166n') {
     return `http://s.p4j.cn:8233/retailscm/`;
   }
+
+    if (url.hostname === '96.45.188.166') {
+    return `http://s.p4j.cn:8233/retailscm/retailscm/`
+  }  
+
+
   //return `http://xm.jl51.com.cn/cis/`
 
   return `${url.origin}/retailscm/`;

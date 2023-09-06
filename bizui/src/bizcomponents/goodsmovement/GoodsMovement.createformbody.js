@@ -183,7 +183,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('sessionId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <SmallTextInput minLength={8} maxLength={124} size="large"  placeholder={fieldLabels.sessionId} />
+                    <SmallTextInput minLength={5} maxLength={72} size="large"  placeholder={fieldLabels.sessionId} />
                   )}
                 </Form.Item>
               </Col>

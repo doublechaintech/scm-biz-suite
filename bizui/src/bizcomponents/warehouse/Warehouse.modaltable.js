@@ -38,7 +38,7 @@ class WarehouseModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1245 }}
+          scroll={{ x: 1065 }}
         />
       </div>
     )

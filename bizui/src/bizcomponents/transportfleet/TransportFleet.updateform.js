@@ -23,7 +23,6 @@ const { TextArea } = Input
 const imageURLPrefix = '//localhost:2090'
 
 const imageKeys = [
-  'contract',
 ]
 
 
@@ -316,24 +315,6 @@ class TransportFleetUpdateForm extends Component {
 
 
 
-
-        <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={6} md={12} sm={24}>
-              <Form.Item>
-                  {getFieldDecorator('contract', {
-                  	initialValue: selectedRow.contract,
-                    rules: [{  required: false, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-               <PrivateImageEditInput buttonTitle={fieldLabels.contract}/>
-                )} </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
 
         <FooterToolbar>
           {getErrorInfo()}
