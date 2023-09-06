@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { message } from 'antd';
 import { SYSTEM_SHORT_NAME } from './config';
@@ -8,7 +7,7 @@ import PictureEdit from '../components/PictureEdit';
 import ImageUpload from '../components/ImageUpload';
 import OssPictureEdit from '../components/OSSPictureEdit';
 
-export const ImageComponent = OssPictureEdit
+export const ImageComponent = OssPictureEdit;
 //for BBT only
 //export const ImageComponent = ImageUpload;
 
@@ -76,8 +75,6 @@ export const get = ({ url, msg = '接口异常', headers }) =>
       message.warn(msg);
     });
 
-
-
 export const getURLPrefix = () => {
   const url = new URL(window.location);
   if (url.hostname === 'clariones.doublechaintech.com') {
@@ -89,76 +86,78 @@ export const getURLPrefix = () => {
   }
   if (url.hostname === 'lab.doublechaintech.com' || url.hostname === 'srm.itbaohe.net') {
     //return `http://${url.hostname}:8080/naf/`
-    const userHome=url.pathname.split("/")[1]
+    const userHome = url.pathname.split('/')[1];
     return `${url.origin}/${userHome}/${SYSTEM_SHORT_NAME}/`;
   }
   if (url.hostname === 'localhost') {
     //return `http://lab.doublechaintech.com/philipgreat/model/`
-    return `http://${url.hostname}:8080/${SYSTEM_SHORT_NAME}/`
+    return `http://${url.hostname}:8080/${SYSTEM_SHORT_NAME}/`;
   }
   if (url.hostname === '127.0.0.1') {
-    return `https://app.art0x.com/moyi/`
+    return `https://app.art0x.com/moyi/`;
+  }
+  if (url.hostname === '96.45.188.166n') {
+    return `http://s.p4j.cn:8233/retailscm/`;
   }
   //return `http://xm.jl51.com.cn/cis/`
 
-  return `${url.origin}/${SYSTEM_SHORT_NAME}/`;
+  return `${url.origin}/retailscm/`;
   //return `${url.origin}/${SYSTEM_SHORT_NAME}/`
 };
 
-export const joinParameters = (parameters) => {
-    const obj = parameters // {value1: 'prop1', value2: 'prop2', value3: 'prop3'}
-    const arr = []
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            arr.push(`${key}=${encodeURIComponent(obj[key])}`)
-        }
+export const joinParameters = parameters => {
+  const obj = parameters; // {value1: 'prop1', value2: 'prop2', value3: 'prop3'}
+  const arr = [];
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      arr.push(`${key}=${encodeURIComponent(obj[key])}`);
     }
-    const result = arr.join(';')
-    return result
-}
-const formatPostData = (value) => {
-    console.log("value", value)
-  
-    if (typeof value == 'undefined'){
-      return null
-    }
-    if(value==null){
-      return null
-    }
+  }
+  const result = arr.join(';');
+  return result;
+};
+const formatPostData = value => {
+  console.log('value', value);
 
-    if(value._isAMomentObject){
-        return moment(value).format('YYYY-MM-DDTHH:mm:ss');
+  if (typeof value == 'undefined') {
+    return null;
+  }
+  if (value == null) {
+    return null;
+  }
+
+  if (value._isAMomentObject) {
+    return moment(value).format('YYYY-MM-DDTHH:mm:ss');
+  }
+
+  return value;
+};
+export const joinPostParameters = parameters => {
+  const obj = parameters; // {value1: 'prop1', value2: 'prop2', value3: 'prop3'}
+  console.log('joinPostParameters', parameters);
+  const arr = [];
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+
+      const postValue = formatPostData(value);
+      if (value == null) {
+        continue;
+      }
+      if (!Array.isArray(value)) {
+        arr.push(key + '=' + encodeURIComponent(postValue));
+        continue;
+      }
+      for (const subKey in value) {
+        const subvalue = value[subKey];
+        arr.push(key + '=' + encodeURIComponent(subvalue));
+      }
     }
-    
-  
-    return value
-}
-export const joinPostParameters = (parameters) => {
-    const obj = parameters // {value1: 'prop1', value2: 'prop2', value3: 'prop3'}
-    console.log("joinPostParameters",parameters)
-    const arr = []
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            const value = obj[key]
-            
-            const postValue = formatPostData(value)
-            if(value==null){
-              continue
-            }
-            if (!Array.isArray(value)) {
-                arr.push(key + '=' + encodeURIComponent(postValue))
-                continue
-            }
-            for (const subKey in value) {
-                const subvalue = value[subKey]
-                arr.push(key + '=' + encodeURIComponent(subvalue))
-            }
-        }
-    }
-  
+  }
+
   const result = arr.join('&');
   return result;
-}
+};
 
 export const PREFIX = getURLPrefix();
 /**
@@ -178,67 +177,53 @@ export const PREFIX = getURLPrefix();
     headers,
   })*/
 
-
-export const postForm = ({ url, requestParameters, msg = '接口异常'})=>{
-
-  
-  const headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+export const postForm = ({ url, requestParameters, msg = '接口异常' }) => {
+  const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
   return post({
     url,
     data: joinPostParameters(requestParameters),
     headers,
-  })
-}
+  });
+};
 
-const checkIfHasChineseChars=(message)=>{
-
+const checkIfHasChineseChars = message => {
   for (var i = 0; i < message.length; i++) {
-    if(message.charCodeAt(i)>255){
+    if (message.charCodeAt(i) > 255) {
       return true;
     }
     //console.log(">>" + message.charAt(i))
-  	
-   }
-   return false
-}
+  }
+  return false;
+};
 
-export const put = ({ url,data, msg = '接口异常', headers }) =>
-    axios
-      .put(url, data, headers)
-      .then(function(res) {
-        console.log('http headers', res.headers);
-        const clazz = res.headers['x-class'];
-        if (clazz) {
-          
-          if(clazz.indexOf('CommonError') > 0){
-
-            console.log('后台系统出错，请检查错误消息' , res.data)
-            message.error('后台系统出错，请检查错误消息' + JSON.stringify(res.data));
-            return res.data
-          }
-          
-          if ( clazz.indexOf('Exception') > 0) {
-            if(!checkIfHasChineseChars(res.data.message)){
-              message.error('后台系统出错，请检查错误消息请联系管理员');
-              return res.data
-            }
-            message.error('用户输入错误,请检查,消息: '+ res.data.message);
-            return res.data
-            
-          }
-
-
-
+export const put = ({ url, data, msg = '接口异常', headers }) =>
+  axios
+    .put(url, data, headers)
+    .then(function(res) {
+      console.log('http headers', res.headers);
+      const clazz = res.headers['x-class'];
+      if (clazz) {
+        if (clazz.indexOf('CommonError') > 0) {
+          console.log('后台系统出错，请检查错误消息', res.data);
+          message.error('后台系统出错，请检查错误消息' + JSON.stringify(res.data));
+          return res.data;
         }
-        return res.data;
-      })
-      .catch(err => {
-        console.log(err);
-        message.warn(msg);
-      });
 
-
-
+        if (clazz.indexOf('Exception') > 0) {
+          if (!checkIfHasChineseChars(res.data.message)) {
+            message.error('后台系统出错，请检查错误消息请联系管理员');
+            return res.data;
+          }
+          message.error('用户输入错误,请检查,消息: ' + res.data.message);
+          return res.data;
+        }
+      }
+      return res.data;
+    })
+    .catch(err => {
+      console.log(err);
+      message.warn(msg);
+    });
 
 export const post = ({ url, data, msg = '接口异常', headers }) =>
   axios
@@ -316,7 +301,7 @@ export const mapBackToImageValuesSkynetMediaServer = convertedImagesValues => {
   return targetImages;
 };
 //export const mapBackToImageValues = mapBackToImageValuesSkynetMediaServer;
-export  const mapBackToImageValues = mapBackToImageValuesFlatResponse;
+export const mapBackToImageValues = mapBackToImageValuesFlatResponse;
 //BBT
 
 export const mapFromImageValues = (selectedRow, imageKeys) => {
@@ -334,9 +319,7 @@ export const mapFromImageValues = (selectedRow, imageKeys) => {
   return targetImages;
 };
 
-
-
-export function playSound(sound){
-  var audio = new Audio(sound+'.mp3');
+export function playSound(sound) {
+  var audio = new Audio(sound + '.mp3');
   audio.play();
 }
