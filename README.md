@@ -23,7 +23,7 @@
                                                     QueryOperator.NOT_EQUAL,
                                                     AssetStatus.INVALID))))).execute(ctx);
 ```
-TeaQL是双链团队新发明的基于各种编程语言的应用语言，为高科维护的大型应用开发提供帮助。
+TeaQL是双链团队新发明的基于各种编程语言的应用语言，为高复杂度长期维护的大型应用开发提供帮助。
 
 # 集成供应链套件（全部源码）
 
