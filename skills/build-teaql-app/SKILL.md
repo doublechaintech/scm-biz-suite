@@ -48,6 +48,36 @@ organizational structure into a different business domain.
 Create and save a complete KSML model before running any TeaQL command. Do
 not evaluate an absent, empty, or placeholder model target.
 
+### Edit KSML as XML
+
+Text replacement is fragile for KSML: repeated attribute names, whitespace,
+quoting, and self-closing tags can cause missed matches or changes to the
+wrong objects. Chaining replacements compounds these failures and consumes
+the repair/context budget, especially for smaller models.
+
+- Prefer XML-aware tools or libraries for creating and maintaining models,
+  such as Python `xml.etree.ElementTree`, `lxml` when available, or XMLStarlet.
+  Create elements and set attributes through the XML API; do not assemble
+  large models through repeated string substitutions or regex edits.
+- For an existing model, parse the affected file and select the intended
+  object or `<_value>` by its structural path and identifying attributes.
+  Assert the expected match count before modifying it; if it differs, inspect
+  the actual structure instead of broadening the replacement. Rename only
+  intended fields and explicit relationship references, not every occurrence
+  of a word.
+- Preserve unrelated nodes, comments, includes, and attribute values. Choose
+  a parser/serializer that retains the constructs the file uses, and inspect
+  the diff for unintended changes or whole-file formatting churn.
+- Serialize to a temporary file, reparse it successfully, then replace the
+  target file. For split models, check each changed module. XML parsing checks
+  well-formedness only; Generation Service evaluation is still required for
+  KSML semantics and the zero-error generation gate.
+- A small, unambiguous localized text patch is acceptable when XML tooling is
+  unavailable or would cause excessive formatting churn. Inspect the exact
+  target and reparse afterward. If a replacement misses or changes the wrong
+  content, switch to structural editing instead of retrying a chain of text
+  replacements.
+
 If the model is large (e.g., more than 15 objects), you MAY split it into
 multiple module files using `<_include file="module.xml" />`, but this is
 optional. The system supports dynamic output limits so a single-file model
@@ -181,6 +211,7 @@ Repair from the Markdown evaluation report:
 
 1. Fix all Errors, largest repeated pattern first.
 2. Preserve Solids and already-correct model sections.
+   Apply the XML-aware editing guidance above to model repairs.
 3. Re-evaluate after each repair round.
 4. Resolve Warnings using the business requirement.
 5. Treat Suggestions as optional.

@@ -47,6 +47,10 @@ modeling, generation, or application work, read and follow
     field declared by that constant object, even when a field is nullable.
     Do not repeat `_...` metadata, version, `createTime()`/`updateTime()` fields,
     or the domain-root relationship injected by runtime Fix/Context.
+15. Prefer XML-aware tools or libraries to create and repair KSML. Select
+    nodes structurally and check match counts; avoid repeated string/regex
+    replacements. Reparse saved XML and inspect the diff before semantic
+    evaluation. Follow the Skill's "Edit KSML as XML" guidance.
 
 The complete pre-simplification repository is recoverable from Git Tag
 `archive/pre-simplification-20260730`.
