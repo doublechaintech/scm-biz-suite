@@ -1,0 +1,8 @@
+name: agent-context-kit
+version: 0.5.0
+manifest_version: 2
+api_version: 1
+description: Deterministic TeaQL workspace context lifecycle and protected-read guard
+license: Apache-2.0
+homepage: https://github.com/teaql/agent-context-kit
+tags: [context, coding-agent, teaql, guardrails]

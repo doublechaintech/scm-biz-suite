@@ -176,8 +176,9 @@ read the framework's implementation.
 | **Progressive model-aware Assist** | Load the relevant entity/action guidance first, then the specific field's operations when needed—not every method for every field. Missing guidance is reported, not replaced by speculative API calls or a library-wide source search. |
 | **Explicit context lifetimes** | Keep stable principles, load task-specific guidance when needed, and stop carrying temporary material after its useful lifetime. Retain results and evidence references for later review. |
 
-Our companion project, **[agent-context-kit](https://github.com/teaql/agent-context-kit)**,
-implements explicit context-lifecycle controls with a Pi adapter: ephemeral
+The independently publishable **[agent-context-kit](packages/agent-context-kit/)**
+now lives in this repository and implements explicit context-lifecycle controls
+with a Pi adapter: ephemeral
 content is visible for one model response, while named instruction blocks stay
 active until a trusted workflow discards them. It changes the context sent to
 the model without deleting the original transcript. These controls require a
@@ -216,8 +217,8 @@ Once that phase is complete, a trusted workflow explicitly discards it:
 The block is then absent from the next model request. Blocks come from trusted
 context sources; ordinary tool output cannot revoke instructions. This lets
 the harness retain the rules needed now without carrying every earlier phase's
-instructions forever. See the [lifecycle protocol](https://github.com/teaql/agent-context-kit/blob/main/docs/protocol-v1.md)
-and [Pi adapter](https://github.com/teaql/agent-context-kit/blob/main/docs/pi-adapter.md)
+instructions forever. See the [lifecycle protocol](packages/agent-context-kit/docs/protocol-v1.md)
+and [Pi adapter](packages/agent-context-kit/docs/pi-adapter.md)
 for enforcement and integration details.
 
 ### Tested with local models on NVIDIA DGX Spark
@@ -234,6 +235,22 @@ the full harness or context-lifecycle adapter.
 The practical aim is **less irrelevant context, less stale guidance, and a
 smaller body of business code to review**. Measure context/token usage and
 completion quality together; smaller prompts alone do not establish success.
+
+## Repository layout and optional runtime
+
+The normal `build-teaql-app` Skill remains at `skills/build-teaql-app/`.
+Its installation and prompt-first workflow do not require the Node workspace.
+
+`packages/agent-context-kit/` contains the independent context runtime, host
+adapters, marker-maintenance skill and CLI. It retains the package name
+`@teaql/agent-context-kit`, its public entry points, and its Apache-2.0 license;
+the repository root remains MIT. Node.js 22.19+ and Pi 1.4+ are the runtime
+development requirements, not requirements imposed on every TeaQL Skill user.
+
+See [context runtime development and installation](docs/context-runtime.md)
+for workspace checks, package builds, local host installation and the current
+integration boundary. Moving the package here does not automatically add TeaQL
+evaluate/generate/Assist or business-source editing tools to its dedicated harness.
 
 ## How it works
 

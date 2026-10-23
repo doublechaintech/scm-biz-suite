@@ -1,0 +1,111 @@
+{
+  "name": "@teaql/agent-context-kit",
+  "version": "0.5.0",
+  "description": "Deterministic Markdown context-lifecycle protocol for coding agents",
+  "type": "module",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./read-guard": "./src/read-guard.ts",
+    "./context-access": "./src/context-access.ts",
+    "./context-files": "./src/context-files.ts",
+    "./controlled-tasks": "./src/controlled-tasks.ts",
+    "./context-markers": "./src/context-markers.ts",
+    "./pi-context": "./src/adapters/pi-context.ts",
+    "./pi": "./src/adapters/pi.ts",
+    "./opencode": "./src/adapters/opencode.ts",
+    "./server": "./src/adapters/kilo.ts",
+    "./kilo": "./src/adapters/kilo.ts",
+    "./cline": "./src/adapters/cline.ts",
+    "./command-hook": "./src/adapters/command-hook.ts",
+    "./mimocode": "./src/adapters/mimocode.ts",
+    "./gemini-cli": "./src/adapters/gemini-cli.ts",
+    "./deepseek-harness": "./src/adapters/deepseek-harness.ts"
+  },
+  "bin": {
+    "agent-context-markers": "./skills/context-exclusion/scripts/markers.mjs"
+  },
+  "pi": {
+    "extensions": [
+      "./src/adapters/pi.ts"
+    ]
+  },
+  "cline": {
+    "plugins": [
+      {
+        "paths": [
+          "./src/adapters/cline.ts"
+        ],
+        "capabilities": [
+          "messageBuilders",
+          "hooks"
+        ]
+      }
+    ]
+  },
+  "files": [
+    "dist/marker-cli",
+    "src",
+    "docs",
+    "examples",
+    "integrations",
+    "assets",
+    ".agents",
+    ".codex-plugin",
+    ".claude-plugin",
+    ".cursor-plugin",
+    "skills",
+    "hooks",
+    "kimi.plugin.json",
+    "qwen-extension.json",
+    "plugin.yaml",
+    "__init__.py",
+    "gemini-extension.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:marker-cli": "node --experimental-strip-types scripts/build-marker-cli.ts",
+    "prepack": "npm run build:marker-cli",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "node --test --experimental-strip-types test/*.test.ts",
+    "test:integration": "node --test --experimental-strip-types test/integration/*.test.ts",
+    "trace:pi": "node --experimental-strip-types scripts/pi-runtime-trace.ts",
+    "example:context-markers": "node --experimental-strip-types examples/pi-context/marker-lifecycle.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test",
+    "test:python": "python3 -B -m unittest discover -s test -p '*_test.py'"
+  },
+  "keywords": [
+    "coding-agent",
+    "context",
+    "opencode",
+    "kilo-code",
+    "cline",
+    "qwen-code",
+    "kimi-code",
+    "github-copilot-cli",
+    "kiro-cli",
+    "crush",
+    "mimocode",
+    "gemini-cli",
+    "deepseek-harness",
+    "hermes-agent",
+    "pi",
+    "lifecycle"
+  ],
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@earendil-works/pi-ai": "1.4.0",
+    "@earendil-works/pi-coding-agent": "1.4.0",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teaql/teaql-agent-kit.git",
+    "directory": "packages/agent-context-kit"
+  }
+}

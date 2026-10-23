@@ -1,0 +1,23 @@
+{
+  "name": "@teaql/teaql-agent-kit-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TeaQL skills and independently publishable context-runtime packages",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "workspaces": [
+    "packages/agent-context-kit"
+  ],
+  "scripts": {
+    "check:context": "npm run check --workspace @teaql/agent-context-kit",
+    "test:context": "npm test --workspace @teaql/agent-context-kit",
+    "test:contracts": "node --test --experimental-strip-types tests/context-runtime/*.test.mjs",
+    "test:python": "python3 -B -m unittest discover -s tests -p 'test_*.py' && npm run test:python --workspace @teaql/agent-context-kit",
+    "test": "npm run test:context && npm run test:contracts && npm run test:python",
+    "check": "npm run check:context && npm run test:contracts && npm run test:python",
+    "example:context-markers": "npm run example:context-markers --workspace @teaql/agent-context-kit",
+    "pack:context": "npm pack --workspace @teaql/agent-context-kit"
+  }
+}

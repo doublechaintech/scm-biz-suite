@@ -31,3 +31,7 @@ __pycache__/
 .venv/
 venv/
 .teaql/
+
+# Node workspace dependencies and package archives
+/node_modules/
+*.tgz

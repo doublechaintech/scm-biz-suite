@@ -1,0 +1,29 @@
+{
+  "name": "agent-context-kit",
+  "version": "0.5.0",
+  "description": "TeaQL context lifecycle and protected-read policy for Kimi Code",
+  "skills": "./skills/",
+  "hooks": [
+    {
+      "event": "UserPromptSubmit",
+      "command": "node --experimental-strip-types ./src/adapters/command-hook.ts kimi",
+      "timeout": 10
+    },
+    {
+      "event": "SubagentStart",
+      "command": "node --experimental-strip-types ./src/adapters/command-hook.ts kimi",
+      "timeout": 10
+    },
+    {
+      "event": "PreToolUse",
+      "command": "node --experimental-strip-types ./src/adapters/command-hook.ts kimi",
+      "timeout": 10
+    }
+  ],
+  "interface": {
+    "displayName": "Agent Context Kit",
+    "shortDescription": "TeaQL context lifecycle and protected-read policy",
+    "developerName": "TeaQL",
+    "websiteURL": "https://github.com/teaql/agent-context-kit"
+  }
+}

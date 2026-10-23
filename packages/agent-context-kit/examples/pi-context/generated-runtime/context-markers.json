@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "markers": [
+    { "directory": "generated", "guidanceFile": "docs/generated-guidance.md" }
+  ],
+  "generator": { "executable": "node", "args": ["scripts/generate.mjs"] }
+}

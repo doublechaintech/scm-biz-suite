@@ -4,6 +4,24 @@ This repository publishes the `build-teaql-app` Agent Skill. For TeaQL
 modeling, generation, or application work, read and follow
 `skills/build-teaql-app/SKILL.md`.
 
+## Repository infrastructure
+
+The generic context runtime lives in `packages/agent-context-kit/` as the
+independently publishable `@teaql/agent-context-kit` package. Its source, host
+plugins, tests and Apache-2.0 license stay inside that package. The root MIT
+license and TeaQL Skill entry point remain separate.
+
+For context-runtime or repository infrastructure changes, use `npm ci` and
+`npm run check` from the root; see `docs/context-runtime.md`. The workspace root
+is private and must not be published. Publish or install the explicit child
+package, not the repository root. Package-local paths in host manifests remain
+relative to `packages/agent-context-kit/`.
+
+TeaQL client/evaluation/generation requirements below apply when performing
+TeaQL modeling or application operations. Parser, packaging and local runtime
+tests do not require invoking the Generation Service. Do not claim that the
+dedicated context-policy harness already executes the complete TeaQL workflow.
+
 ## Hard Requirements
 
 1. Work model-first: save complete KSML, evaluate it with the Generation

@@ -1,0 +1,47 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "agent-context-kit-context",
+      "trigger": "UserPromptSubmit",
+      "action": {
+        "type": "command",
+        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+      },
+      "timeout": 10,
+      "enabled": true
+    },
+    {
+      "name": "agent-context-kit-subagent-context",
+      "trigger": "SubagentStart",
+      "action": {
+        "type": "command",
+        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+      },
+      "timeout": 10,
+      "enabled": true
+    },
+    {
+      "name": "agent-context-kit-read-guard",
+      "trigger": "PreToolUse",
+      "matcher": "read",
+      "action": {
+        "type": "command",
+        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+      },
+      "timeout": 10,
+      "enabled": true
+    },
+    {
+      "name": "agent-context-kit-shell-guard",
+      "trigger": "PreToolUse",
+      "matcher": "shell",
+      "action": {
+        "type": "command",
+        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+      },
+      "timeout": 10,
+      "enabled": true
+    }
+  ]
+}

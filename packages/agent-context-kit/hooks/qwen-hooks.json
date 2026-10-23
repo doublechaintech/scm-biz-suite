@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "sequential": true,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node --experimental-strip-types \"${CLAUDE_PLUGIN_ROOT}/src/adapters/command-hook.ts\" qwen",
+            "name": "agent-context-kit-context",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "sequential": true,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node --experimental-strip-types \"${CLAUDE_PLUGIN_ROOT}/src/adapters/command-hook.ts\" qwen",
+            "name": "agent-context-kit-subagent-context",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "sequential": true,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node --experimental-strip-types \"${CLAUDE_PLUGIN_ROOT}/src/adapters/command-hook.ts\" qwen",
+            "name": "agent-context-kit-read-guard",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

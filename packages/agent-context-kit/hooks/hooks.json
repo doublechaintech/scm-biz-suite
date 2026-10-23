@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "BeforeModel": [
+      {
+        "sequential": true,
+        "hooks": [
+          {
+            "name": "agent-context-kit-before-model",
+            "type": "command",
+            "command": "node --experimental-strip-types \"${extensionPath}${/}src${/}adapters${/}gemini-cli-hook.ts\"",
+            "timeout": 10000,
+            "description": "Apply Agent Context Lifecycle Protocol V1 to the outgoing text request"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" color="#171717">
+  <rect width="64" height="64" rx="12" fill="#ffffff"/>
+  <style>path{fill:#171717}</style>
+  <svg fill="currentColor" fill-rule="evenodd" height="40" x="12" y="12" viewBox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg"><title>OpenCode</title><path d="M16 6H8v12h8V6zm4 16H4V2h16v20z"/></svg>
+</svg>

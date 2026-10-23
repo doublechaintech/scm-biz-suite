@@ -1,0 +1,6 @@
+{
+  "name": "agent-context-kit",
+  "version": "0.5.0",
+  "skills": "skills",
+  "hooks": "./hooks/qwen-hooks.json"
+}

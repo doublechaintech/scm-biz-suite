@@ -1,0 +1,11 @@
+{
+  "readGuard": {
+    "workspaceRoot": ".",
+    "paths": [
+      "generated/library",
+      "build/generated-library"
+    ],
+    "message": "These directories contain generated libraries. TeaQL workspace context already provides the complete business model, so use that context instead of reading these files.",
+    "bashMode": "literal"
+  }
+}

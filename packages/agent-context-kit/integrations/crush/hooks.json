@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^(view|grep|glob|ls|bash)$",
+        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts crush",
+        "timeout": 10
+      }
+    ]
+  }
+}

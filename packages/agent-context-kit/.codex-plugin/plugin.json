@@ -1,0 +1,23 @@
+{
+  "name": "agent-context-kit",
+  "version": "0.5.0",
+  "description": "Protocol guidance and documented adapters for deterministic agent context lifecycles",
+  "author": {
+    "name": "teaql",
+    "url": "https://github.com/teaql"
+  },
+  "homepage": "https://github.com/teaql/agent-context-kit",
+  "repository": "https://github.com/teaql/agent-context-kit",
+  "license": "Apache-2.0",
+  "keywords": ["context", "lifecycle", "coding-agent"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agent Context Kit",
+    "shortDescription": "Author and integrate deterministic context lifecycles.",
+    "longDescription": "Protocol guidance plus verified Pi, Gemini CLI, and DeepSeek Harness integration boundaries.",
+    "developerName": "teaql",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "Help me apply the Agent Context Lifecycle Protocol to this project."
+  }
+}

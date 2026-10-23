@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "exec": "node",
+        "args": [
+          "--experimental-strip-types",
+          "node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts",
+          "copilot"
+        ],
+        "timeoutSec": 10
+      }
+    ]
+  }
+}
