@@ -65,3 +65,14 @@ test('Rust Make diagnostics expose metadata and permitted snippets, suppress exc
  const metadata=parseRustMakeOutput('error[E0432]: hidden message\n --> src/main.rs:9:2\ntest result: FAILED. 2 passed; 1 failed; 3 ignored; 0 measured; 0 filtered out;','/project/app');
  assert.equal(metadata[0].path,'/project/app/src/main.rs');assert.equal(metadata[0].code,'E0432');assert.deepEqual(metadata.at(-1),{version:1,type:'testSummary',passed:2,failed:1,skipped:3});
 });
+
+test('Rust PurposedQuery errors retain a safe stage-order diagnosis without exposing raw compiler text',async()=>{
+ const {parseRustMakeOutput,rustDiagnosticSummaries}=await import('../../integrations/pi-teaql/rust-make.mjs');
+ const output='error[E0599]: no method named `with_name_containing` found for struct `PurposedQuery<T>` in the current scope\n --> src/student.rs:81:23\nPRIVATE_COMPILER_DETAIL\nerror[E0599]: no method named `other` found for struct `OtherType<PurposedQuery<T>>` in the current scope\n --> src/student.rs:82:23\nerror[E0308]: PRIVATE_MESSAGE PurposedQuery<T>\n --> src/student.rs:83:23';
+ const records=parseRustMakeOutput(output,'/project/app');
+ assert.deepEqual(records.map(r=>r.code),['E0599_PURPOSED_QUERY','E0599','E0308']);
+ assert.match(rustDiagnosticSummaries[records[0].code],/before purpose/);
+ assert.match(rustDiagnosticSummaries[records[0].code],/Preserve the original Q entry point/);
+ assert.doesNotMatch(JSON.stringify(records),/PRIVATE_COMPILER_DETAIL|PRIVATE_MESSAGE|OtherType/);
+ assert.equal(records[0].path,'/project/app/src/student.rs');
+});

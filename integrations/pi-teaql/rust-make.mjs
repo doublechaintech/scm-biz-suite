@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 export const rustDiagnosticSummaries = {
  E0308:'A Rust type does not match the required type.',
+ E0599_PURPOSED_QUERY:'Rust E0599: this query is already a PurposedQuery executable stage. Apply all filters, projection, ordering and paging before purpose(...), then execute with the existing comment and purpose. Preserve the original Q entry point and projection. Regeneration does not repair query stage ordering.',
  E0599:'A method is unavailable. Consult current entity and field Assist before a localized repair.',
  E0425:'A referenced value or function is not in scope.',
  E0412:'A referenced Rust type is not in scope.',
@@ -27,7 +28,12 @@ export function parseRustMakeOutput(text, appDirectory) {
  const flush=()=>{if(pending){diagnostics.push(pending);pending=undefined;}};
  for(const line of text.split(/\r?\n/)) {
   const error=/^(error|warning)(?:\[(E\d{4})\])?:/.exec(line);
-  if(error){flush();pending={version:1,type:'diagnostic',severity:error[1]==='error'?'error':'warning',code:error[2]??(error[1]==='error'?'RUST_ERROR':'RUST_WARNING')};}
+  if(error){
+   flush();
+   // Classify a fixed public runtime stage; never forward arbitrary compiler text.
+   const purposedQuery=error[2]==='E0599' && /^error\[E0599\]: no method named `[A-Za-z_][A-Za-z0-9_]*` found for struct `(?:[A-Za-z_][A-Za-z0-9_]*::)*PurposedQuery(?:<[^`\r\n]*>)?`/.test(line);
+   pending={version:1,type:'diagnostic',severity:error[1]==='error'?'error':'warning',code:purposedQuery?'E0599_PURPOSED_QUERY':error[2]??(error[1]==='error'?'RUST_ERROR':'RUST_WARNING')};
+  }
   const location=/^\s*-->\s+(.+?):(\d+):(\d+)\s*$/.exec(line);
   if(location&&pending){pending.path=resolve(appDirectory,location[1]);pending.line=Number(location[2]);pending.column=Number(location[3]);flush();}
   const summary=/^test result: (?:ok|FAILED)\. (\d+) passed; (\d+) failed; (\d+) ignored;/.exec(line.trim());

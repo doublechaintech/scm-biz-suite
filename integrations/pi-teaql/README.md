@@ -101,3 +101,10 @@ JSON evidence under
 `~/.pi/agent/integrations/pi-teaql/evidence/completion-final-20261024T165816Z/`.
 This demonstrates completion recovery; it does not establish that the separate
 `t003` application compiles or that its business tests pass.
+
+The subsequent [actual t003 business repair](../../docs/t003-business-repair-verification.md)
+required a precise `PurposedQuery<T>` stage-order diagnostic. After that adapter
+fix, ordinary Pi made the localized source repair, built successfully and ran
+the existing test command without a continuation prompt. The suite executed
+zero test cases; the evidence records that limitation and the preceding failed
+attempt separately.
