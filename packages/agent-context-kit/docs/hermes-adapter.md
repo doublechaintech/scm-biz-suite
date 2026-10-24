@@ -7,18 +7,21 @@ same plugin runs in CLI, TUI, Desktop, and gateway sessions.
 
 ## Install
 
-Install the repository as a custom Hermes plugin and enable it:
+After [preparing the migrated checkout](installation.md), copy the child package
+into Hermes's native user-plugin directory and enable it:
 
 ```bash
-hermes plugins install teaql/agent-context-kit --enable
+mkdir -p ~/.hermes/plugins/agent-context-kit
+cp -R /absolute/path/to/teaql-agent-kit/packages/agent-context-kit/. ~/.hermes/plugins/agent-context-kit/
+hermes plugins enable agent-context-kit
 ```
 
-For a reproducible deployment, pin a full commit SHA:
+For reproducibility, use a separate checkout pinned to a full commit SHA before
+copying the child directory:
 
 ```bash
-hermes plugins install teaql/agent-context-kit \
-  --ref <full-40-character-commit-sha> \
-  --enable
+git -C /absolute/path/to/teaql-agent-kit checkout <full-40-character-commit-sha>
+# Copy the child package into the user-plugin directory as above, then restart Hermes.
 ```
 
 Confirm the plugin is active, then start a new session in the target project:

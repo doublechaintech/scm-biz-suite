@@ -1,0 +1,14 @@
+{
+  "name": "teaql",
+  "description": "TeaQL plugins for coding-agent workflows",
+  "owner": {
+    "name": "TeaQL"
+  },
+  "plugins": [
+    {
+      "name": "agent-context-kit",
+      "source": "./packages/agent-context-kit",
+      "description": "Protocol guidance for deterministic agent context lifecycles"
+    }
+  ]
+}

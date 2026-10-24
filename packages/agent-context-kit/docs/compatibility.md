@@ -29,6 +29,13 @@ are deliberately separate claims.
 
 ## Runtime limits and skipped hosts
 
+OpenCode also has an opt-in [V2 context-policy plugin](opencode-context-policy.md)
+with marker-aware controlled reads/search/list, independent host-approved writes,
+prompt admission controls and fixed diagnostic tasks. This is separate from the
+ordinary adapter above; V1 strict mode is unsupported. Verification includes SDK
+2.1.4 type compatibility and its real Promise/Effect bridge, not an installed
+OpenCode application server/model run. The guide details its trust and loading limits.
+
 - OpenCode V2 documents a per-session `context` hook that mutates messages and
   system instructions only for the outgoing model request. Its tool hook can
   reject a protected read before execution. V1 compatibility uses the older

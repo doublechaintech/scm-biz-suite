@@ -3,7 +3,7 @@
     "PreToolUse": [
       {
         "matcher": "^(view|grep|glob|ls|bash)$",
-        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts crush",
+        "command": "node node_modules/@teaql/agent-context-kit/dist/command-hook/adapters/command-hook.js crush",
         "timeout": 10
       }
     ]

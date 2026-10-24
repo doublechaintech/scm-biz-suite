@@ -1,5 +1,10 @@
 # Marker-based context access policy
 
+The shared [file policy](file-policy.md) adds independent approved mutation checks.
+Controlled host integrations include the dedicated Pi harness and opt-in
+[OpenCode V2 policy plugin](opencode-context-policy.md). Their loading boundaries
+differ; see each guide. Ordinary lifecycle plugins remain separate.
+
 `checkContextAccess(projectRoot, targetPath)` is an independent synchronous policy
 module. Phase 2 connects it to controlled file tools and automatic context loading
 through the dedicated [Pi 1.4 harness](pi-context-policy.md). The normal Pi lifecycle

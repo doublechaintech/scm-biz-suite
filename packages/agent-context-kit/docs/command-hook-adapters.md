@@ -5,19 +5,24 @@ hooks rather than a stable full-history transform. Their adapters share the
 same deterministic `.agent-context-kit.json` read policy, but their lifecycle
 capabilities differ.
 
-Node.js 22.19 or later is required because the shipped hook runner executes
-the TypeScript source directly.
+Node.js 22.19 or later is required. Kimi/Qwen checkout hooks execute TypeScript
+source. The npm hook templates for Copilot/Kiro/Crush execute the precompiled
+`dist/command-hook/adapters/command-hook.js`, since Node does not strip TypeScript
+inside `node_modules`. Re-copy those templates when updating an older install.
+
+First [prepare the migrated checkout and tarball](installation.md). The checkout
+is a workspace; each host loads the child directory or child tarball.
 
 ## Kimi Code
 
 Install the repository from inside Kimi Code, then reload:
 
 ```text
-/plugins install https://github.com/teaql/agent-context-kit
+/plugins install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 /plugins reload
 ```
 
-The root `kimi.plugin.json` contributes `UserPromptSubmit`, `SubagentStart`,
+The child package's `kimi.plugin.json` contributes `UserPromptSubmit`, `SubagentStart`,
 and `PreToolUse` hooks. Active blocks are added to the current request and are
 also supplied when a subagent starts. Protected reads are denied with the
 configured TeaQL guidance. Arbitrary earlier history cannot be replaced, so
@@ -31,16 +36,16 @@ and [hooks](https://github.com/MoonshotAI/kimi-cli/blob/main/docs/en/customizati
 Install the native extension globally:
 
 ```bash
-qwen extensions install teaql/agent-context-kit
+qwen extensions install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
 Or scope it to the current project:
 
 ```bash
-qwen extensions install teaql/agent-context-kit --scope project
+qwen extensions install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit --scope project
 ```
 
-Restart Qwen Code or run `/reload-plugins`. The root
+Restart Qwen Code or run `/reload-plugins`. The child package's
 `qwen-extension.json` loads `hooks/qwen-hooks.json`, which handles
 `UserPromptSubmit`, `SubagentStart`, and `PreToolUse`. It provides active block
 context and protected-read feedback, but does not claim arbitrary history
@@ -54,7 +59,7 @@ and [hooks](https://qwenlm.github.io/qwen-code-docs/en/users/features/hooks/).
 Install the package in the project and copy the project hook definition:
 
 ```bash
-npm install --save-dev github:teaql/agent-context-kit
+npm install --save-dev /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 mkdir -p .github/hooks
 cp node_modules/@teaql/agent-context-kit/integrations/copilot/agent-context-kit.json .github/hooks/
 ```
@@ -72,7 +77,7 @@ Reference: [GitHub Copilot hooks](https://docs.github.com/en/copilot/reference/h
 Install the package and copy the standalone V3 hook file:
 
 ```bash
-npm install --save-dev github:teaql/agent-context-kit
+npm install --save-dev /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 mkdir -p .kiro/hooks
 cp node_modules/@teaql/agent-context-kit/integrations/kiro/agent-context-kit.json .kiro/hooks/
 ```
@@ -91,7 +96,7 @@ Install the package, then merge the bundled `hooks` object into the project's
 `crush.json`:
 
 ```bash
-npm install --save-dev github:teaql/agent-context-kit
+npm install --save-dev /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 ```
 
 The source snippet is

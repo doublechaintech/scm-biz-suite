@@ -4,5 +4,5 @@ manifest_version: 2
 api_version: 1
 description: Deterministic TeaQL workspace context lifecycle and protected-read guard
 license: Apache-2.0
-homepage: https://github.com/teaql/agent-context-kit
+homepage: https://github.com/teaql/teaql-agent-kit/tree/main/packages/agent-context-kit
 tags: [context, coding-agent, teaql, guardrails]

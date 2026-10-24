@@ -6,16 +6,17 @@ persistent blocks, trusted discard, and protected reads.
 
 ## Install
 
-Install the repository as a global Cline plugin:
+After [preparing the migrated checkout](installation.md), install the child
+directory as a global Cline plugin:
 
 ```bash
-cline plugin install --git github.com/teaql/agent-context-kit
+cline plugin install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
 For the current project only:
 
 ```bash
-cline plugin install --git github.com/teaql/agent-context-kit --cwd .
+cline plugin install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit --cwd .
 ```
 
 Confirm it appears in `cline config`, then start a new Cline session. Put

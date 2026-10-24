@@ -5,14 +5,17 @@ exports `./server` for Kilo discovery and keeps a separate plugin identity.
 
 ## Install
 
-Install directly from the Git repository:
+After [preparing the migrated checkout](installation.md), add the local server
+entry in the target project's `kilo.json`:
 
-```bash
-kilo plugin install git:github.com/teaql/agent-context-kit
+```json
+{
+  "plugin": ["file:///absolute/path/to/teaql-agent-kit/packages/agent-context-kit/src/adapters/kilo.ts"]
+}
 ```
 
-Alternatively, add the Git spec to the project plugin configuration described
-by Kilo Code. Restart Kilo after installation.
+Restart Kilo after installation. The file URL points at the child package, not
+the private workspace root.
 
 Put trusted lifecycle declarations and discards in
 `.agent-context-kit.md`. Put the read policy in `.agent-context-kit.json`.

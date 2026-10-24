@@ -9,6 +9,14 @@
     <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/cursor.svg" width="56" height="56" alt="Cursor"><br>Cursor</a></td>
     <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/github-copilot.svg" width="56" height="56" alt="GitHub Copilot"><br>GitHub Copilot</a></td>
     <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/gemini-cli.svg" width="56" height="56" alt="Gemini CLI"><br>Gemini CLI</a></td>
+    <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/pi.svg" width="56" height="56" alt="Pi"><br>Pi</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/qoder.svg" width="56" height="56" alt="Qoder"><br>Qoder</a></td>
+    <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/deepseek-harness.svg" width="56" height="56" alt="DeepSeek Harness"><br>DeepSeek Harness</a></td>
+    <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/zcode.png" width="56" height="56" alt="ZCode"><br>ZCode</a></td>
+    <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/trae.svg" width="56" height="56" alt="TRAE"><br>TRAE</a></td>
+    <td align="center"><a href="#start-with-a-prompt"><img src="assets/coding-agents/opencode.svg" width="56" height="56" alt="OpenCode"><br>OpenCode</a></td>
   </tr>
 </table>
 
@@ -19,6 +27,11 @@ Use the coding agent you already work with. TeaQL Agent Kit gives it a
 model-first workflow to model your business, evaluate and repair the model,
 generate an application, and verify the result. You do not need to learn the
 runtime, generator, or toolchain architecture before trying it.
+
+The kit combines a **TeaQL application Skill** with an independent **Agent Context
+Kit**. See [governance engineering](#governance-engineering) for the control layers
+and [agent feature activation](#agent-feature-activation) for what each adapter
+actually enforces and how it is enabled.
 
 ## Start with a prompt
 
@@ -178,7 +191,7 @@ read the framework's implementation.
 
 The independently publishable **[agent-context-kit](packages/agent-context-kit/)**
 now lives in this repository and implements explicit context-lifecycle controls
-with a Pi adapter: ephemeral
+through host adapters: ephemeral
 content is visible for one model response, while named instruction blocks stay
 active until a trusted workflow discards them. It changes the context sent to
 the model without deleting the original transcript. These controls require a
@@ -236,6 +249,161 @@ The practical aim is **less irrelevant context, less stale guidance, and a
 smaller body of business code to review**. Measure context/token usage and
 completion quality together; smaller prompts alone do not establish success.
 
+## Governance engineering
+
+The engineering goal is to give the agent a small, usable interface and enforce
+its boundaries in tools and runtimes. Instructions describe the workflow;
+deterministic checks decide what may execute and what may enter model context.
+
+| Control layer | Mechanism | Evidence and boundary |
+| --- | --- | --- |
+| **Domain contract** | Save complete KSML, evaluate and repair, generate only at zero errors | Generation Service reports validate model semantics. Skill phase comments alone do not enforce transitions. |
+| **Business operations** | Progressive Assist, typed Q/E APIs, query purpose/comment, write audit reason | Compile, test and runtime evidence from the resulting application; exact APIs come from current Assist. |
+| **Agent file access** | `.agent-no-read.md`, checked reads/search/list, independent write roots and read-only paths | Pi and OpenCode controlled entry points reject access before returning source; generated directories are pruned before search traversal. |
+| **Context lifetime** | Consume-once messages, named blocks and trusted discard | Supporting adapters build request-local views; original transcripts remain intact. Ordinary tool output cannot discard trusted instructions. |
+| **Failure and recovery** | Bounded diagnostics, explicit policy denial, repeated-scope feedback and durable marker maintenance | Pi returns `isError: true`, `blocked: true`, `retryable: false`; repeated denials remain blocked and direct the agent to permitted alternatives. |
+
+### Keep generated implementation out of context
+
+Place an English `.agent-no-read.md` inside a generated directory:
+
+```text
+project/
+  models/                          # readable KSML
+  rust-app-console/
+    AGENTS.md                      # readable application guide
+    src/                           # readable/editable business code
+    lib/
+      .agent-no-read.md             # excludes this directory and descendants
+  context-markers.json              # durable maintenance plan, outside outputs
+```
+
+```markdown
+# Generated Code
+
+This directory contains generated implementation files.
+Use TeaQL Assist to discover APIs and edit application source outside this directory.
+Do not retry excluded files with different paths, line ranges or tools.
+Update the KSML model and regenerate through the authorized workflow.
+```
+
+The file's **existence** activates exclusion in a marker-aware adapter. Its body is
+bounded, untrusted project guidance, not authority to bypass policy. Rebuilding an
+output directory can delete its marker; the [maintenance CLI](packages/agent-context-kit/docs/context-marker-maintenance.md)
+restores and checks markers from an explicit host-approved manifest.
+
+Read exclusion and write permission are independent. The shared
+[file policy](packages/agent-context-kit/docs/file-policy.md) defaults to no writes
+and supports explicit `writeRoots` and `readOnlyPaths`. A `.agent-no-write.md`
+write-marker protocol is not implemented. The native Pi bootstrap permits checked
+application writes/edits and rejects writes into excluded directories; its current
+tools require existing parent directories. The OpenCode strict plugin uses explicit
+host-approved write roots. Neither is an operating-system sandbox.
+
+### Make policy denials actionable
+
+A successful policy check can still deny access. Pi's protected entry points
+expose that denial as a tool error with machine-readable feedback:
+
+```json
+{
+  "status": "excluded",
+  "blocked": true,
+  "retryable": false,
+  "code": "CONTEXT_ACCESS_DENIED"
+}
+```
+
+Repeated attempts share a canonical directory counter across files, aliases and
+tools. Pi shortens repeated feedback and supplies a bounded host-policy reminder
+before later requests. It does not stop unrelated permitted work or cache an old
+denial as permanent authority: every access checks the current policy. A broad
+search with skipped subtrees still returns permitted results normally. These
+signals reduce ambiguity; they do not guarantee that every model stops retrying.
+
+## Agent feature activation
+
+**Repository snapshot: 2026-10-24.** These are capabilities implemented in this
+package, not a claim that every host has been installed or tested live. A plugin
+installation activates only its selected entry point. **ReadGuard** means configured
+path/tool blocking; **marker policy** additionally controls directory traversal and
+checked automatic context. The two are not interchangeable.
+
+| Agent / entry point | Context lifetime controls | Read boundary | Controlled writes | Activation and evidence |
+| --- | --- | --- | --- | --- |
+| **Pi native CLI bootstrap** | Inline lifecycle handler; explicit trusted phase-source integration remains separate | Marker policy, fresh checked project context, non-retryable denial feedback | Checked native `write` / `edit` | Host wires the bootstrap behind ordinary `pi`; native CLI tests and Linux deployment smoke checks passed |
+| **Pi dedicated SDK harness** | No lifecycle adapter composed by default | Marker policy, fresh checked project context, non-retryable denial feedback | Disabled | `createContextPolicyPiSession`; real Pi 1.4.0 with local deterministic provider tests |
+| **Pi ordinary lifecycle plugin** | Named blocks, trusted discard, consume-once messages | Optional configured ReadGuard | No write-policy integration | `pi install <child-package-path>`; installing alone does not activate marker enforcement |
+| **OpenCode V2 strict plugin** | Optional trusted `lifecycleFile`; request-local text-message lifetimes | Marker policy, checked project context and controlled tool catalog | Explicit write roots; create/overwrite/edit/delete/move | Opt-in `createOpenCodeContextPolicyPlugin`; pinned SDK 2.1.4 type and real Promise/Effect bridge tests; no application-server deployment claimed |
+| **OpenCode ordinary V2 / V1 adapter** | Named blocks, trusted discard, consume-once adapter | Optional configured ReadGuard | No write-policy integration | Local plugin entry; V1 package-object entry requires 1.18.29+; separate from strict V2 |
+| **Cline SDK / CLI / Kanban** | Named blocks, trusted discard, consume-once adapter | Optional configured ReadGuard | No write-policy integration | Cline plugin registration; adapter tests, no IDE-extension claim |
+| **Kilo Code** | Named blocks, trusted discard, consume-once adapter | Optional configured ReadGuard | No write-policy integration | Server plugin; experimental host transforms, adapter tests |
+| **MiMo Code** | Named blocks, trusted discard, consume-once adapter | Optional configured ReadGuard | No write-policy integration | Project plugin; experimental source-verified hooks, adapter tests |
+| **DeepSeek Harness** | Named blocks, trusted discard, durable ephemeral projections | No read guard wired in this adapter | No write-policy integration | Harness overlay; lifecycle adapter tests |
+| **Gemini CLI** | Named blocks, trusted discard, text-only consume-once | No read guard wired in this extension | No write-policy integration | `BeforeModel` extension; non-text tool payloads outside its stable view |
+| **Hermes Agent** | Active blocks and trusted session discard; no consume-once rewriting | Configured ReadGuard | No write-policy integration | Native Python plugin; Python adapter tests |
+| **Kimi Code / Qwen Code / Kiro CLI** | Current-request and delegated context; no consume-once rewriting | Configured ReadGuard | No write-policy integration | Host command hooks; contract tests; no full marker-aware harness |
+| **GitHub Copilot CLI** | No lifecycle rewriting | Configured ReadGuard | No write-policy integration | `PreToolUse` hooks; command-hook tests |
+| **Crush** | No lifecycle rewriting | Top-level configured ReadGuard | No write-policy integration | Command hook; subagent tool calls are outside its interception |
+| **Codex / Claude Code / Cursor** | Protocol guidance Skill only in this package | No runtime enforcement claimed | No write-policy integration | Installable guidance; packaging does not imply enforcement |
+| **Other coding agents shown above** | TeaQL Skill instructions where supported | No Context Kit enforcement claimed | No write-policy integration | The ability to read a Skill is separate from a runtime adapter |
+
+### Activate the protected Pi entry point
+
+The [native CLI bootstrap](packages/agent-context-kit/docs/pi-cli-policy.md) runs
+Pi 1.4.0's native UI with controlled file tools. When the host has wired it into
+the normal launcher, start a fresh session with `cd <project>; pi`; a separate
+`pi-context` command is not required. Existing running sessions keep their old code
+until restarted. Merely installing the ordinary lifecycle extension is insufficient.
+
+Protected Pi/OpenCode modes disable arbitrary Shell, unguarded MCP/delegation and
+automatic external resource loading. Build/generation/Assist need trusted external
+commands or dedicated controlled tools. The complete TeaQL workflow has not yet
+been composed into these strict entry points.
+
+### Activate OpenCode V2 strict mode
+
+Create a host-owned `.opencode/plugins/agent-context-policy.ts` in an isolated
+OpenCode V2 profile, replacing the checkout and project paths:
+
+```ts
+import { createOpenCodeContextPolicyPlugin } from "/absolute/teaql-agent-kit/packages/agent-context-kit/src/adapters/opencode-context.ts";
+
+export default createOpenCodeContextPolicyPlugin({
+  projectRoot: "/absolute/project",
+  writeRoots: ["models", "app/src", "app/tests"],
+  readOnlyPaths: ["generated"],
+  contextPaths: ["docs/api.md"],
+  // Optional, explicitly trusted lifecycle declarations:
+  lifecycleFile: ".agent-context-kit.md",
+});
+```
+
+Use a fresh session and create markers in the generated directories. Do not load
+the ordinary lifecycle plugin alongside this strict plugin. Strict mode requires
+V2 and rejects V1. See the [OpenCode policy guide](packages/agent-context-kit/docs/opencode-context-policy.md)
+for attachment handling, trusted-host assumptions and automatic-context limits.
+OpenCode's strict plugin has SDK-level verification; an installed OpenCode server
+and real-model end-to-end run remain to be verified.
+
+See the full [compatibility guide](packages/agent-context-kit/docs/compatibility.md)
+and [host installation guide](packages/agent-context-kit/docs/installation.md).
+
+### Reproduce the engineering checks
+
+```sh
+npm ci
+npm run check
+npm pack --workspace @teaql/agent-context-kit
+```
+
+The root check covers TypeScript, Node unit/integration tests, Skill grammar and
+installation contracts, and Python workspace/Hermes tests. The current verified
+run passed **133 tests**: 103 package unit tests, 19 integration tests, 4 root
+contracts and 7 Python tests. Pi's provider checks use a deterministic local
+provider; the OpenCode SDK bridge uses a host-registry fixture. These are not paid
+model quality benchmarks, full TeaQL workflow proofs or measured token savings.
+
 ## Repository layout and optional runtime
 
 The normal `build-teaql-app` Skill remains at `skills/build-teaql-app/`.
@@ -244,12 +412,14 @@ Its installation and prompt-first workflow do not require the Node workspace.
 `packages/agent-context-kit/` contains the independent context runtime, host
 adapters, marker-maintenance skill and CLI. It retains the package name
 `@teaql/agent-context-kit`, its public entry points, and its Apache-2.0 license;
-the repository root remains MIT. Node.js 22.19+ and Pi 1.4+ are the runtime
-development requirements, not requirements imposed on every TeaQL Skill user.
+the repository root remains MIT. Node.js 22.19+, the pinned Pi 1.4.0 SDK and
+OpenCode 2.1.4 plugin SDK support runtime development and verification; these are
+not requirements imposed on every TeaQL Skill user.
 
 See [context runtime development and installation](docs/context-runtime.md)
-for workspace checks, package builds, local host installation and the current
-integration boundary. Moving the package here does not automatically add TeaQL
+for workspace checks, package builds and the current integration boundary. See
+[host installation after migration](packages/agent-context-kit/docs/installation.md)
+for local package paths, tarball installs and the Codex/Claude marketplaces. Moving the package here does not automatically add TeaQL
 evaluate/generate/Assist or business-source editing tools to its dedicated harness.
 
 ## How it works
@@ -683,4 +853,7 @@ Service.
 
 ## License
 
-TeaQL Agent Kit is available under the [MIT License](LICENSE).
+The TeaQL Skill and repository-root material use the [MIT License](LICENSE).
+The independently publishable `packages/agent-context-kit/` package retains its
+[Apache-2.0 License](packages/agent-context-kit/LICENSE); bundled assets retain
+their accompanying licenses.

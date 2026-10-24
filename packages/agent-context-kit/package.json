@@ -11,9 +11,13 @@
     "./read-guard": "./src/read-guard.ts",
     "./context-access": "./src/context-access.ts",
     "./context-files": "./src/context-files.ts",
+    "./file-policy": "./src/file-policy.ts",
+    "./workspace-files": "./src/workspace-files.ts",
+    "./opencode-context": "./src/adapters/opencode-context.ts",
     "./controlled-tasks": "./src/controlled-tasks.ts",
     "./context-markers": "./src/context-markers.ts",
     "./pi-context": "./src/adapters/pi-context.ts",
+    "./pi-cli": "./src/adapters/pi-cli.ts",
     "./pi": "./src/adapters/pi.ts",
     "./opencode": "./src/adapters/opencode.ts",
     "./server": "./src/adapters/kilo.ts",
@@ -47,6 +51,8 @@
   },
   "files": [
     "dist/marker-cli",
+    "dist/command-hook",
+    "scripts/pi-context-cli.mjs",
     "src",
     "docs",
     "examples",
@@ -68,7 +74,7 @@
   ],
   "scripts": {
     "build:marker-cli": "node --experimental-strip-types scripts/build-marker-cli.ts",
-    "prepack": "npm run build:marker-cli",
+    "prepack": "npm run build:marker-cli && npm run build:command-hook",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "node --test --experimental-strip-types test/*.test.ts",
     "test:integration": "node --test --experimental-strip-types test/integration/*.test.ts",
@@ -76,7 +82,8 @@
     "example:context-markers": "node --experimental-strip-types examples/pi-context/marker-lifecycle.ts",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm test",
-    "test:python": "python3 -B -m unittest discover -s test -p '*_test.py'"
+    "test:python": "python3 -B -m unittest discover -s test -p '*_test.py'",
+    "build:command-hook": "node --experimental-strip-types scripts/build-command-hook.ts"
   },
   "keywords": [
     "coding-agent",
@@ -100,6 +107,7 @@
   "devDependencies": {
     "@earendil-works/pi-ai": "1.4.0",
     "@earendil-works/pi-coding-agent": "1.4.0",
+    "@opencode/plugin": "2.1.4",
     "@types/node": "^24.0.0",
     "typescript": "^5.9.0"
   },

@@ -56,6 +56,16 @@ agent below has a tile.
 
 ## Supported agents
 
+For marker-aware file access, see the dedicated [Pi harness](docs/pi-context-policy.md)
+and opt-in [OpenCode V2 policy plugin](docs/opencode-context-policy.md). OpenCode adds
+approved writes through the shared [file policy](docs/file-policy.md). These strict
+entry points are separate from ordinary lifecycle/ReadGuard installation.
+The [native Pi CLI bootstrap](docs/pi-cli-policy.md) can make ordinary `pi` enforce
+markers while retaining checked application write/edit. Pi also supplies explicit
+non-retryable denial feedback. See the repository's
+[feature activation matrix](../../README.md#agent-feature-activation) for per-entry
+capabilities and evidence; Gemini and DeepSeek currently wire lifecycle only.
+
 Support is split by what each host can enforce at the model-request boundary:
 
 | Support tier | Agents | What is supported |
@@ -111,6 +121,27 @@ The installable package does not imply identical runtime capabilities. Check
 the support tiers above before relying on consume-once behavior on a host with
 documented limits.
 
+### Prepare the migrated package
+
+The runtime lives in `packages/agent-context-kit/` in the new repository.
+The repository root is a private workspace, so installing its Git URL as an npm
+package or a runtime extension is incorrect. Start with:
+
+```bash
+git clone https://github.com/teaql/teaql-agent-kit.git teaql-agent-kit
+cd teaql-agent-kit
+npm ci
+npm pack --workspace @teaql/agent-context-kit
+```
+
+This produces `teaql-agent-context-kit-0.5.0.tgz` at the workspace root. Use the
+absolute checkout/tarball paths shown below from your target application. If you
+already have the checkout, update it instead of cloning again. The npm package
+name remains `@teaql/agent-context-kit`; no new registry release is implied.
+See [installation and updates](docs/installation.md) for source pinning, local
+versus copied installs and verification limits. Existing installations from the
+archived repository must be removed using their original source before switching.
+
 ### Pi
 
 For the dedicated `.agent-no-read.md` harness, see the
@@ -120,10 +151,10 @@ The [marker-maintenance guide](docs/context-marker-maintenance.md) covers skill
 scripts, restoring markers after generation and the runnable end-to-end example.
 
 Pi 1.4 or later and Node.js 22.19 or later are required. Install the package
-for your user account directly from GitHub:
+for your user account from the checked-out child directory:
 
 ```bash
-pi install git:github.com/teaql/agent-context-kit
+pi install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
 The package manifest automatically loads `src/adapters/pi.ts`; no manual
@@ -138,24 +169,20 @@ pi
 To install it only for the current project, run this from the project root:
 
 ```bash
-pi install git:github.com/teaql/agent-context-kit -l
+pi install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit -l
 ```
 
 This writes the package source to `.pi/settings.json`. Pi will ask you to trust
-the project before it loads project-local extensions. Teammates who share that
-settings file get the missing package on startup after granting project trust.
+the project before it loads project-local extensions. A local source is machine-specific: teammates must check out the new repository
+and configure their own child-directory path after granting project trust.
 
 To try the extension for one Pi run without changing settings:
 
 ```bash
-pi -e git:github.com/teaql/agent-context-kit
+pi -e /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
-For local development, point Pi at a checkout instead:
-
-```bash
-pi install /absolute/path/to/agent-context-kit
-```
+The local registration loads the checkout directly. Keep it at a stable path.
 
 After installation, put a strict block declaration in a trusted Pi context
 file such as `AGENTS.md`:
@@ -172,10 +199,10 @@ Discard it explicitly from Pi when the phase is complete:
 /context-discard phase_modeling
 ```
 
-Remove the user-level GitHub installation with:
+Remove this local installation using the same source path:
 
 ```bash
-pi remove git:github.com/teaql/agent-context-kit
+pi remove /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
 Pi packages execute with the current user's permissions. Review an extension's
@@ -204,10 +231,10 @@ OpenShell allowlist example.
 
 ### Gemini CLI
 
-Install directly from GitHub, then restart Gemini CLI:
+Link the checked-out child directory, then restart Gemini CLI:
 
 ```bash
-gemini extensions install https://github.com/teaql/agent-context-kit
+gemini extensions link /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
 Confirm it is enabled with `/extensions list`. The bundled `BeforeModel` hook
@@ -216,16 +243,12 @@ payloads to this hook. See the [Gemini CLI adapter guide](docs/gemini-cli-adapte
 
 ### DeepSeek Harness
 
-Clone the repository and register its function plugin in a Harness overlay:
-
-```bash
-git clone https://github.com/teaql/agent-context-kit.git
-```
+Use the checkout prepared above and register its function plugin in a Harness overlay:
 
 ```yaml
 - insert:
     - id: agent-context-kit
-      name: '/absolute/path/to/agent-context-kit/src/adapters/deepseek-harness.ts'
+      name: '/absolute/path/to/teaql-agent-kit/packages/agent-context-kit/src/adapters/deepseek-harness.ts'
 ```
 
 Start Harness with that overlay using the command appropriate to your Harness
@@ -235,32 +258,25 @@ at the session working directory. See the
 
 ### OpenCode
 
-OpenCode V2 can install the package plugin directly from GitHub:
+Create a local entry at `.opencode/plugins/agent-context-kit.ts` in the target
+project (replace the absolute checkout path):
 
-```bash
-opencode plugin add github:teaql/agent-context-kit
+```typescript
+export { default } from "/absolute/path/to/teaql-agent-kit/packages/agent-context-kit/src/adapters/opencode.ts";
 ```
 
-For project-scoped installation, add `"github:teaql/agent-context-kit"` to the
-`plugins` array in `opencode.jsonc`. Put trusted declarations and discards in
-`.agent-context-kit.md`; the plugin removes consumed ephemeral history only in
-the outgoing request. A workspace `.agent-context-kit.json` also enables the
-protected-read redirect. OpenCode V2 is preferred; the package includes the
-officially documented V1 compatibility entry point for OpenCode 1.18.29 or
-later. See the [OpenCode adapter guide](docs/opencode-adapter.md).
+Restart OpenCode. Keep trusted declarations and discards in
+`.agent-context-kit.md`; see the [OpenCode adapter guide](docs/opencode-adapter.md)
+for lifecycle behavior and version limits.
 
 ### Kilo Code
 
-Clone the repository, then add its server entry to the project's `kilo.json`:
-
-```bash
-git clone https://github.com/teaql/agent-context-kit.git .agent-context-kit-plugin
-```
+Use the checkout prepared above, then add its server entry to the project's `kilo.json`:
 
 ```json
 {
   "plugin": [
-    "file:///absolute/path/to/.agent-context-kit-plugin/src/adapters/kilo.ts"
+    "file:///absolute/path/to/teaql-agent-kit/packages/agent-context-kit/src/adapters/kilo.ts"
   ]
 }
 ```
@@ -272,10 +288,10 @@ an experimental host API. See the [Kilo Code adapter guide](docs/kilo-adapter.md
 
 ### Cline
 
-Install the Git repository as a Cline plugin:
+Install the checked-out child directory as a Cline plugin:
 
 ```bash
-cline plugin install --git github.com/teaql/agent-context-kit
+cline plugin install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
 Add `--cwd .` for a project-scoped installation and verify it with
@@ -291,7 +307,7 @@ project configuration directory, then copy the one-line file-plugin entry:
 
 ```bash
 mkdir -p .mimocode/plugins
-npm install --prefix .mimocode github:teaql/agent-context-kit
+npm install --prefix .mimocode /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 cp .mimocode/node_modules/@teaql/agent-context-kit/integrations/mimocode/agent-context-kit.ts \
   .mimocode/plugins/agent-context-kit.ts
 ```
@@ -306,10 +322,12 @@ public plugin documentation catches up. See the
 ### Hermes Agent
 
 Hermes has a documented native plugin system with request and tool hooks.
-Install this repository directly and enable it:
+Copy the child directory into Hermes's user plugins and enable it:
 
 ```bash
-hermes plugins install teaql/agent-context-kit --enable
+mkdir -p ~/.hermes/plugins/agent-context-kit
+cp -R /absolute/path/to/teaql-agent-kit/packages/agent-context-kit/. ~/.hermes/plugins/agent-context-kit/
+hermes plugins enable agent-context-kit
 ```
 
 Start a new Hermes session in the target workspace. Put trusted lifecycle
@@ -332,7 +350,7 @@ rewriting is therefore not claimed. See the
 Install the repository from Kimi Code and reload plugins:
 
 ```text
-/plugins install https://github.com/teaql/agent-context-kit
+/plugins install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 /plugins reload
 ```
 
@@ -347,8 +365,8 @@ Install globally or for the current project, then restart or run
 `/reload-plugins`:
 
 ```bash
-qwen extensions install teaql/agent-context-kit
-qwen extensions install teaql/agent-context-kit --scope project
+qwen extensions install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
+qwen extensions install /absolute/path/to/teaql-agent-kit/packages/agent-context-kit --scope project
 ```
 
 The native extension supplies prompt, subagent, and pre-tool hooks. It does not
@@ -360,7 +378,7 @@ claim arbitrary history replacement. See the
 Install the package and copy the repository hook definition:
 
 ```bash
-npm install --save-dev github:teaql/agent-context-kit
+npm install --save-dev /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 mkdir -p .github/hooks
 cp node_modules/@teaql/agent-context-kit/integrations/copilot/agent-context-kit.json .github/hooks/
 ```
@@ -373,7 +391,7 @@ This integration is intentionally read-guard only. See the
 Install the package and copy the standalone V3 hook definition:
 
 ```bash
-npm install --save-dev github:teaql/agent-context-kit
+npm install --save-dev /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 mkdir -p .kiro/hooks
 cp node_modules/@teaql/agent-context-kit/integrations/kiro/agent-context-kit.json .kiro/hooks/
 ```
@@ -388,7 +406,7 @@ Install the package, then merge the `hooks` object from the bundled snippet
 into the project's `crush.json`:
 
 ```bash
-npm install --save-dev github:teaql/agent-context-kit
+npm install --save-dev /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 ```
 
 The snippet is located at
@@ -402,7 +420,7 @@ is read-guard only. See the
 Add this repository as a marketplace, then open the plugin browser:
 
 ```bash
-codex plugin marketplace add teaql/agent-context-kit
+codex plugin marketplace add teaql/teaql-agent-kit
 codex
 ```
 
@@ -416,12 +434,12 @@ history replacement.
 Add the repository marketplace and install the plugin:
 
 ```bash
-claude plugin marketplace add teaql/agent-context-kit
+claude plugin marketplace add teaql/teaql-agent-kit
 claude plugin install agent-context-kit@teaql
 ```
 
 Start a new Claude Code session. For local development without installing a
-marketplace, use `claude --plugin-dir /absolute/path/to/agent-context-kit`.
+marketplace, use `claude --plugin-dir /absolute/path/to/teaql-agent-kit/packages/agent-context-kit`.
 This plugin supplies the protocol skill only; it does not claim full V1 runtime
 enforcement.
 
@@ -431,8 +449,8 @@ Cursor's documented local-plugin directory is the most direct installation
 path until this repository is published in a Cursor marketplace:
 
 ```bash
-mkdir -p ~/.cursor/plugins/local
-git clone https://github.com/teaql/agent-context-kit.git ~/.cursor/plugins/local/agent-context-kit
+mkdir -p ~/.cursor/plugins/local/agent-context-kit
+cp -R /absolute/path/to/teaql-agent-kit/packages/agent-context-kit/. ~/.cursor/plugins/local/agent-context-kit/
 ```
 
 Restart Cursor or run **Developer: Reload Window**, then open **Customize** and
@@ -465,10 +483,11 @@ truthful adapter.
 
 Node.js 22.19 or later is required.
 
+From the workspace root:
+
 ```bash
-npm install
-npm test
-npm run typecheck
+npm ci
+npm run check
 ```
 
 ### Real Pi runtime trace
@@ -477,7 +496,7 @@ Run a complete Pi session and record the exact context presented at the model
 provider boundary:
 
 ```bash
-npm run trace:pi
+npm run trace:pi --workspace @teaql/agent-context-kit
 ```
 
 The command uses Pi's real `AgentSession`, extension runner, request transform,
@@ -526,7 +545,7 @@ integration API.
 - [Kimi, Qwen, Copilot CLI, Kiro CLI, and Crush adapters](docs/command-hook-adapters.md)
 - [Capability and skip matrix](docs/compatibility.md)
 
-The repository root also carries Codex, Claude Code, and Cursor plugin
+The child package also carries Codex, Claude Code, and Cursor plugin
 manifests. Their shared `context-lifecycle` skill helps author and review the
 protocol, but does not claim runtime lifecycle enforcement: none of those
 hosts currently documents an arbitrary pre-model history replacement seam.

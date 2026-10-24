@@ -1,25 +1,24 @@
 # OpenCode adapter
 
+For marker-aware reads and host-approved writes, use the separate opt-in
+[OpenCode V2 policy plugin](opencode-context-policy.md). This page describes
+ordinary lifecycle/ReadGuard installation, not strict filesystem policy.
+
 The package root is an OpenCode plugin with separate implementations for the
 current V2 API and the documented V1 compatibility entry point.
 
 ## Install
 
-Install globally from GitHub:
+After [checking out the new repository](installation.md), create
+`.opencode/plugins/agent-context-kit.ts` in the target project:
 
-```bash
-opencode plugin add github:teaql/agent-context-kit
-opencode plugin list
+```typescript
+export { default } from "/absolute/path/to/teaql-agent-kit/packages/agent-context-kit/src/adapters/opencode.ts";
 ```
 
-Or configure the Git package for one project:
-
-```jsonc
-{
-  "$schema": "https://opencode.ai/config.json",
-  "plugins": ["github:teaql/agent-context-kit"]
-}
-```
+Replace the absolute path with your checkout. OpenCode discovers this local file
+on startup; restart it after changes. Do not install the private workspace root
+as an npm plugin. See [OpenCode local plugins](https://opencode.ai/docs/plugins/).
 
 OpenCode V2 is the primary target. V1 package-object compatibility requires
 OpenCode 1.18.29 or later.

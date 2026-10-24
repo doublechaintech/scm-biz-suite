@@ -4,10 +4,10 @@ Gemini CLI runs `hooks/hooks.json` at `BeforeModel`. The adapter rewrites the
 stable text-message view, persists lifecycle state next to the CLI transcript,
 and returns a request override without changing the transcript.
 
-Install or link this repository as an extension, then restart Gemini CLI:
+Link the checked-out child directory as an extension, then restart Gemini CLI:
 
 ```bash
-gemini extensions link /absolute/path/to/agent-context-kit
+gemini extensions link /absolute/path/to/teaql-agent-kit/packages/agent-context-kit
 ```
 
 Gemini CLI system messages are trusted block-definition and discard sources.

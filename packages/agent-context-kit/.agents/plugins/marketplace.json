@@ -7,9 +7,8 @@
     {
       "name": "agent-context-kit",
       "source": {
-        "source": "url",
-        "url": "https://github.com/teaql/agent-context-kit.git",
-        "ref": "main"
+        "source": "local",
+        "path": "./"
       },
       "policy": {
         "installation": "AVAILABLE",

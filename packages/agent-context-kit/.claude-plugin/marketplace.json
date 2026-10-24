@@ -7,10 +7,7 @@
   "plugins": [
     {
       "name": "agent-context-kit",
-      "source": {
-        "source": "github",
-        "repo": "teaql/agent-context-kit"
-      },
+      "source": "./",
       "description": "Protocol guidance for deterministic agent context lifecycles"
     }
   ]

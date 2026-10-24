@@ -1,5 +1,9 @@
 # Dedicated Pi context exclusion harness
 
+The separate [native CLI bootstrap](pi-cli-policy.md) protects ordinary `pi` and
+adds controlled writes/edits. The SDK factory below remains read-only. Installing
+only the lifecycle plugin does not enable either protected entry point.
+
 This SDK entry point targets Pi **1.4+**, tested against exactly **1.4.0**. It adds
 `.agent-no-read.md` enforcement to read/grep/find/ls, automatic project context,
 and optional controlled build/test diagnostics.
@@ -40,6 +44,10 @@ Create `.agent-no-read.md` in a generated directory using the
 [marker format](context-access.md). A denial returns a normal text tool result
 containing structured `status: "excluded"`, marker provenance and limited Markdown
 guidance. The result is recoverable and should not be retried as a transient failure.
+The session adapter also sets Pi's `isError` flag and adds explicit `blocked: true`,
+`retryable: false` feedback. Repeated requests share a canonical directory counter
+and a bounded host-policy reminder; they never cache permission or stop unrelated
+permitted work. See [feedback behavior](pi-cli-policy.md#tests).
 
 ## File tools
 

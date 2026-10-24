@@ -14,7 +14,7 @@ path required by Harness. For a source checkout:
 ```yaml
 - insert:
     - id: agent-context-kit
-      name: '/absolute/path/to/agent-context-kit/src/adapters/deepseek-harness.ts'
+      name: '/absolute/path/to/teaql-agent-kit/packages/agent-context-kit/src/adapters/deepseek-harness.ts'
 ```
 
 Put trusted declarations in `.agent-context-kit.md` at the session working

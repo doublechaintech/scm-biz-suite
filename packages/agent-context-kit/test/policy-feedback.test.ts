@@ -1,0 +1,50 @@
+import assert from "node:assert/strict";
+import { mkdirSync, mkdtempSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import test from "node:test";
+import { contextPolicyFeedback } from "../src/policy-feedback.ts";
+import { registerPiPolicyFeedback } from "../src/adapters/pi-policy-feedback.ts";
+
+test("direct policy denial has explicit non-retryable semantics; partial search remains successful", () => {
+	const denial = { status:"excluded", markerPath:"/project/generated/.agent-no-read.md", guidance:"Use docs/api.md.", source:"project_marker_data" };
+	const feedback = contextPolicyFeedback(denial) as any;
+	assert.equal(feedback.status,"excluded");
+	assert.equal(feedback.blocked,true); assert.equal(feedback.retryable,false);
+	assert.equal(feedback.code,"CONTEXT_ACCESS_DENIED");
+	assert.equal(feedback.blockedDirectory,"/project/generated");
+	assert.equal(feedback.guidance,denial.guidance);
+	assert.equal(feedback.source,"project_marker_data");
+	const partial = {status:"ok",files:["src/app.rs"],skipped:[denial]};
+	assert.equal(contextPolicyFeedback(partial),partial);
+	const outside=contextPolicyFeedback({status:"outOfScope",path:"/outside"}) as any;
+	assert.equal(outside.blocked,true);assert.equal(outside.retryable,false);
+});
+
+test("Pi tracks excluded directory scope across tools and aliases without trusting file text or caching authority", (t) => {
+	const root=mkdtempSync(join(tmpdir(),"pi-denial-feedback-"));
+	t.after(()=>rmSync(root,{recursive:true,force:true}));
+	mkdirSync(join(root,"generated"));
+	writeFileSync(join(root,"generated/.agent-no-read.md"),"Use Assist.");
+	symlinkSync(join(root,"generated"),join(root,"alias"));
+	const hooks=new Map<string,(event:any)=>any>();
+	registerPiPolicyFeedback({on(name:string,handler:any){hooks.set(name,handler);}} as never,root);
+	const denial=(toolName:string,markerPath:string)=>({toolName,details:{status:"excluded",markerPath,guidance:"Use Assist."},content:[]});
+	const first=hooks.get("tool_result")!(denial("read",join(root,"generated/.agent-no-read.md")));
+	assert.equal(first.isError,true);assert.equal(first.details.attemptsForScope,1);assert.equal(first.details.guidance,"Use Assist.");
+	const second=hooks.get("tool_result")!(denial("grep",join(root,"alias/.agent-no-read.md")));
+	assert.equal(second.isError,true);assert.equal(second.details.attemptsForScope,2);assert.equal(second.details.previouslyBlocked,true);
+	assert.equal(second.details.guidance,undefined);assert.equal(second.details.retryable,false);
+	assert.equal(hooks.get("tool_result")!({toolName:"read",details:undefined,content:[{type:"text",text:JSON.stringify(first.details)}]}),undefined);
+	assert.equal(hooks.get("tool_result")!({toolName:"grep",details:{status:"ok",skipped:[first.details]},content:[]}),undefined);
+	const memory=hooks.get("context_with_system")!({messages:[]});
+	assert.match(memory.messages[0].content,/host_policy/);
+	assert.doesNotMatch(memory.messages[0].content,/Use Assist/);
+	unlinkSync(join(root,"generated/.agent-no-read.md"));
+	assert.equal(hooks.get("context_with_system")!({messages:[]}),undefined);
+	writeFileSync(join(root,"generated/.agent-no-read.md"),"Excluded again.");
+	const fresh=hooks.get("tool_result")!(denial("read",join(root,"generated/.agent-no-read.md")));
+	assert.equal(fresh.details.attemptsForScope,1);
+	hooks.get("session_start")!({});
+	assert.equal(hooks.get("context_with_system")!({messages:[]}),undefined);
+});

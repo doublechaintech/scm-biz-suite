@@ -6,8 +6,7 @@
         "type": "command",
         "exec": "node",
         "args": [
-          "--experimental-strip-types",
-          "node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts",
+          "node_modules/@teaql/agent-context-kit/dist/command-hook/adapters/command-hook.js",
           "copilot"
         ],
         "timeoutSec": 10

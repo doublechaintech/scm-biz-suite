@@ -6,11 +6,13 @@ lifecycle protocol. The message and system transforms are still named
 
 ## Install
 
+First [prepare the migrated checkout and tarball](installation.md).
+
 MiMo Code 0.1.15 or later is required. From the target project:
 
 ```bash
 mkdir -p .mimocode/plugins
-npm install --prefix .mimocode github:teaql/agent-context-kit
+npm install --prefix .mimocode /absolute/path/to/teaql-agent-kit/teaql-agent-context-kit-0.5.0.tgz
 cp .mimocode/node_modules/@teaql/agent-context-kit/integrations/mimocode/agent-context-kit.ts \
   .mimocode/plugins/agent-context-kit.ts
 ```

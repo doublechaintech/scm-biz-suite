@@ -6,8 +6,8 @@
     "name": "teaql",
     "url": "https://github.com/teaql"
   },
-  "homepage": "https://github.com/teaql/agent-context-kit",
-  "repository": "https://github.com/teaql/agent-context-kit",
+  "homepage": "https://github.com/teaql/teaql-agent-kit/tree/main/packages/agent-context-kit",
+  "repository": "https://github.com/teaql/teaql-agent-kit",
   "license": "Apache-2.0",
   "keywords": ["context", "lifecycle", "coding-agent"],
   "skills": "./skills/",

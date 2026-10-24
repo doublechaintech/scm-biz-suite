@@ -6,7 +6,7 @@
       "trigger": "UserPromptSubmit",
       "action": {
         "type": "command",
-        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+        "command": "node node_modules/@teaql/agent-context-kit/dist/command-hook/adapters/command-hook.js kiro"
       },
       "timeout": 10,
       "enabled": true
@@ -16,7 +16,7 @@
       "trigger": "SubagentStart",
       "action": {
         "type": "command",
-        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+        "command": "node node_modules/@teaql/agent-context-kit/dist/command-hook/adapters/command-hook.js kiro"
       },
       "timeout": 10,
       "enabled": true
@@ -27,7 +27,7 @@
       "matcher": "read",
       "action": {
         "type": "command",
-        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+        "command": "node node_modules/@teaql/agent-context-kit/dist/command-hook/adapters/command-hook.js kiro"
       },
       "timeout": 10,
       "enabled": true
@@ -38,7 +38,7 @@
       "matcher": "shell",
       "action": {
         "type": "command",
-        "command": "node --experimental-strip-types node_modules/@teaql/agent-context-kit/src/adapters/command-hook.ts kiro"
+        "command": "node node_modules/@teaql/agent-context-kit/dist/command-hook/adapters/command-hook.js kiro"
       },
       "timeout": 10,
       "enabled": true
