@@ -357,9 +357,12 @@ the normal launcher, start a fresh session with `cd <project>; pi`; a separate
 until restarted. Merely installing the ordinary lifecycle extension is insufficient.
 
 Protected Pi/OpenCode modes disable arbitrary Shell, unguarded MCP/delegation and
-automatic external resource loading. Build/generation/Assist need trusted external
-commands or dedicated controlled tools. The complete TeaQL workflow has not yet
-been composed into these strict entry points.
+automatic external resource loading. Pi can load explicitly approved capability
+modules from its protected agent directory. The optional
+[TeaQL Rust integration](integrations/pi-teaql/README.md) supplies evaluation,
+progressive Assist, zero-error-gated library regeneration and fixed build/test
+targets. This is project-specific host configuration, not an unrestricted terminal
+or a complete seven-language workflow integration.
 
 ### Activate OpenCode V2 strict mode
 
@@ -399,7 +402,7 @@ npm pack --workspace @teaql/agent-context-kit
 
 The root check covers TypeScript, Node unit/integration tests, Skill grammar and
 installation contracts, and Python workspace/Hermes tests. The current verified
-run passed **133 tests**: 103 package unit tests, 19 integration tests, 4 root
+run passed **137 tests**: 105 package unit tests, 19 integration tests, 6 root
 contracts and 7 Python tests. Pi's provider checks use a deterministic local
 provider; the OpenCode SDK bridge uses a host-registry fixture. These are not paid
 model quality benchmarks, full TeaQL workflow proofs or measured token savings.

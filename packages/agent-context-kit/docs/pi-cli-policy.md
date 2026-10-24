@@ -27,8 +27,8 @@ is disabled and lifecycle handling is loaded inline, avoiding duplicate adapters
   must exist. Edits require unique exact non-overlapping matches applied together.
   No source previews/diffs are returned. Symlink mutations remain prohibited.
 - Arbitrary Shell, user `!` commands, MCP, codemode, delegation and external tools
-  are disabled. Build/generation/Assist currently run from a trusted external terminal;
-  full TeaQL tool integration is separate work.
+  are disabled. Fixed host capabilities can be explicitly registered as described
+  below; arbitrary command execution is never enabled by a project or marker.
 - Native context-file, Skill/template/theme and extension discovery are disabled
   before loading. Root guidance is reloaded through the checked bounded loader as
   project data before each provider request. Explicit CLI `@files`, resource paths
@@ -43,6 +43,20 @@ messages remain outside the v1 guarantee. Do not re-enable arbitrary extensions
 or Shell and continue claiming the same boundary.
 
 ## Tests
+
+### Optional host capabilities
+
+`<agentDir>/context-kit-host-tools.json` may explicitly list absolute module paths
+in `modules`, with `version: 1`. Modules must reside under the protected agent
+directory and export `createTools({projectRoot, agentDir})`. Their tool definitions
+are added to the controlled catalog. They cannot replace file tools or register
+`bash`/`shell`/`powershell`. This is trusted host code, never project discovery.
+Missing configuration adds no capabilities; malformed configuration blocks startup.
+
+The optional [TeaQL Rust module](../../../integrations/pi-teaql/README.md) provides
+evaluation, progressive Assist, gated library generation and fixed build/test
+targets. It lives outside the generic independently publishable package. Only
+projects explicitly approved in its host configuration receive these tools.
 
 Direct `excluded`/`outOfScope` file-tool results preserve their status and include
 `blocked: true`, `retryable: false`, `code: "CONTEXT_ACCESS_DENIED"` and host-authored

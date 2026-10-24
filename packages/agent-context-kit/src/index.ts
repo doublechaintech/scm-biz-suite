@@ -1,4 +1,4 @@
-export { ContextMarkerError, generateWithContextMarkers, maintainContextMarkers } from "./context-markers.ts";
+export { ContextMarkerError, generateWithContextMarkers, maintainContextMarkers, withContextMarkers } from "./context-markers.ts";
 export type { ContextMarkerEntry, ContextMarkerGenerationReport, ContextMarkerReport } from "./context-markers.ts";
 export { runControlledTask, snapshotTaskCommand } from "./controlled-tasks.ts";
 export type { ControlledDiagnostic, ControlledTaskCommand, ControlledTaskCommands, ControlledTaskName, ControlledTaskResult } from "./controlled-tasks.ts";

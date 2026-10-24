@@ -198,6 +198,16 @@ export function maintainContextMarkers(projectRoot: string, manifestPath: string
 	return applyPlan(loadPlan(projectRoot, manifestPath), mode);
 }
 
+/** Host-only callback with snapshotted marker restoration, including rejected operations. */
+export async function withContextMarkers<T>(projectRoot: string, manifestPath: string, operation: () => Promise<T>): Promise<{ result: T; markers: ContextMarkerEntry[] }> {
+	const plan = loadPlan(projectRoot, manifestPath);
+	let markers = applyPlan(plan, "apply").markers;
+	let result: T;
+	try { result = await operation(); }
+	finally { markers = applyPlan(plan, "apply").markers; }
+	return { result, markers };
+}
+
 /** Snapshot guidance before running a fixed generator, then restore in finally even on failure/cancellation. */
 export async function generateWithContextMarkers(projectRoot: string, manifestPath: string, signal?: AbortSignal): Promise<ContextMarkerGenerationReport> {
 	const plan = loadPlan(projectRoot, manifestPath);

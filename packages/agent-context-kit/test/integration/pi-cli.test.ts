@@ -28,14 +28,15 @@ import {main} from ${JSON.stringify(main)};
 import {fauxProvider,fauxAssistantMessage,fauxToolCall} from ${JSON.stringify(ai)};
 import {createPiContextCliExtension,preparePiContextCliArgs} from ${JSON.stringify(entry)};
 const faux=fauxProvider({provider:'native-cli-policy-test',models:[{id:'fixture',name:'Fixture'}],tokensPerSecond:1000000,tokenSize:{min:1000,max:1000}});
-const calls=[['read',{path:'generated/private.rs'}],['read',{path:'generated/other.rs'}],['grep',{path:'.',pattern:'needle'}],['write',{path:'src/main.rs',content:'value = 1;'}],['edit',{path:'src/main.rs',edits:[{oldText:'1',newText:'2'}]}],['write',{path:'generated/new.rs',content:'blocked'}],['bash',{command:'cat generated/private.rs'}]];
+const calls=[['read',{path:'generated/private.rs'}],['read',{path:'generated/other.rs'}],['grep',{path:'.',pattern:'needle'}],['write',{path:'src/main.rs',content:'value = 1;'}],['edit',{path:'src/main.rs',edits:[{oldText:'1',newText:'2'}]}],['write',{path:'generated/new.rs',content:'blocked'}],['host_capability',{}],['bash',{command:'cat generated/private.rs'}]];
 let requests=0;
 let blockedResults=0;
 const check=context=>{requests++;const text=JSON.stringify(context);assert.doesNotMatch(text,/NATIVE_CLI_PRIVATE_SENTINEL|NATIVE_CLI_SYSTEM_SENTINEL|NATIVE_CLI_APPEND_SENTINEL/);assert.match(text,/PERMITTED_CLI_PROJECT_GUIDE/);const last=context.messages.findLast(message=>message.role==='toolResult');if(last?.toolName==='read'){const data=JSON.parse(last.content[0].text);assert.equal(last.isError,true);assert.equal(data.blocked,true);assert.equal(data.retryable,false);blockedResults++;assert.equal(data.attemptsForScope,blockedResults);if(blockedResults===2){assert.equal(data.previouslyBlocked,true);assert.equal(data.guidance,undefined);assert.match(text,/host_policy/);}}if(last?.toolName==='grep')assert.equal(last.isError,false);};
 faux.setResponses([...calls.map(([name,args],index)=>context=>{check(context);return fauxAssistantMessage(fauxToolCall(name,args,{id:'native-'+index}),{stopReason:'toolUse'});}),context=>{check(context);return fauxAssistantMessage('Native CLI protection verified.',{stopReason:'stop'});}]);
 const args=preparePiContextCliArgs(['--offline','--provider','native-cli-policy-test','--model','fixture','--no-session','--print','Inspect project'],{fileArgs:[]});
-await main(args,{extensionFactories:[pi=>pi.registerProvider(faux.provider),createPiContextCliExtension()]});
-assert.equal(requests,8);
+const capability={name:'host_capability',label:'Host capability',parameters:{type:'object',properties:{},additionalProperties:false},description:'Fixed host capability.',execute:async()=>({content:[{type:'text',text:'HOST_CAPABILITY_WORKED'}]})};
+await main(args,{extensionFactories:[pi=>pi.registerProvider(faux.provider),createPiContextCliExtension([capability])]});
+assert.equal(requests,9);
 assert.equal(blockedResults,2);
 `);
 	const run=spawnSync(process.execPath,["--experimental-strip-types",runner],{

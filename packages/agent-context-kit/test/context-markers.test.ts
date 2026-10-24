@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { ContextMarkerError, generateWithContextMarkers, maintainContextMarkers } from "../src/context-markers.ts";
+import { ContextMarkerError, generateWithContextMarkers, maintainContextMarkers, withContextMarkers } from "../src/context-markers.ts";
 import { checkContextAccess } from "../src/context-access.ts";
 import { buildMarkerCli } from "../scripts/build-marker-cli.ts";
 
@@ -36,6 +36,17 @@ function runCli(root: string, args: string[], script = fileURLToPath(new URL("..
 	catch (error) { const failed = error as { stdout: Buffer; status: number }; output = failed.stdout; status = failed.status; }
 	return { status, result: JSON.parse(output.toString()) as any };
 }
+
+test("host callback restores snapshotted markers after rejection and guidance changes", async (t) => {
+	const {root,marker}=fixture(t);
+	await assert.rejects(()=>withContextMarkers(root,"context-markers.json",async()=>{
+		rmSync(join(root,"generated"),{recursive:true,force:true});
+		writeFileSync(join(root,"docs/guidance.md"),"Changed during operation");
+		throw new Error("Host operation failed");
+	}),/Host operation failed/);
+	assert.match(readFileSync(marker,"utf8"),/Read docs\/api.md/);
+	assert.doesNotMatch(readFileSync(marker,"utf8"),/Changed during operation/);
+});
 
 test("apply creates canonical Markdown, is idempotent and updates only the marker", (t) => {
 	const { root, marker } = fixture(t);
